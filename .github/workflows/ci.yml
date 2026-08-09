@@ -20,4 +20,4 @@ jobs:
       - run: npm run audit:narrate
       - run: npm run build
         env:
-          VITE_BASE: /App/
+          VITE_BASE: /jianghu-life2/
