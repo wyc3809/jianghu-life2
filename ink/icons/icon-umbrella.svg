@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="icon umbrella">
+  <path fill="#1a1a1a" fill-opacity="0.78" d="M12 30c8-16 32-16 40 0H12z"/>
+  <path stroke="#1a1a1a" stroke-width="2.2" stroke-linecap="round" d="M32 30v22"/>
+  <path stroke="#1a1a1a" stroke-width="1.8" stroke-linecap="round" d="M32 52c4 4 10 3 12-1"/>
+  <path stroke="#a33a32" stroke-opacity="0.4" stroke-width="1.5" d="M20 18c6-4 12-4 20 0"/>
+</svg>

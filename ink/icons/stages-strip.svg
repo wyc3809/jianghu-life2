@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 48" fill="none" role="img" aria-label="stages strip">
+  <path stroke="#1a1a1a" stroke-opacity="0.2" stroke-width="1.5" stroke-linecap="round" d="M40 24h560"/>
+  <circle cx="80" cy="24" r="3.5" fill="#1a1a1a" fill-opacity="0.35"/>
+  <circle cx="180" cy="24" r="3.5" fill="#1a1a1a" fill-opacity="0.35"/>
+  <circle cx="280" cy="24" r="3.5" fill="#1a1a1a" fill-opacity="0.35"/>
+  <circle cx="380" cy="24" r="3.5" fill="#1a1a1a" fill-opacity="0.35"/>
+  <circle cx="480" cy="24" r="3.5" fill="#1a1a1a" fill-opacity="0.35"/>
+  <circle cx="560" cy="24" r="5" fill="none" stroke="#a33a32" stroke-opacity="0.55" stroke-width="1.5"/>
+</svg>

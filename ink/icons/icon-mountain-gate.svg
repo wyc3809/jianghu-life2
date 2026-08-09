@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="icon mountain gate">
+  <path fill="#1a1a1a" fill-opacity="0.55" d="M10 28h44l-6-12H16z"/>
+  <path stroke="#1a1a1a" stroke-width="2.2" d="M16 48V28h32v20M32 48V34"/>
+  <path stroke="#1a1a1a" stroke-opacity="0.25" stroke-width="1.5" d="M8 50h48"/>
+</svg>

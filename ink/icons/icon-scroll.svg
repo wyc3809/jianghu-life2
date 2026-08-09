@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="icon scroll">
+  <path stroke="#1a1a1a" stroke-width="2" d="M22 12h20v40H22z"/>
+  <path fill="#e6d9c4" stroke="#1a1a1a" stroke-width="1.8" d="M18 10h6v44h-6z"/>
+  <path fill="#e6d9c4" stroke="#1a1a1a" stroke-width="1.8" d="M40 10h6v44h-6z"/>
+  <path stroke="#1a1a1a" stroke-opacity="0.35" stroke-width="1.4" d="M28 24h8M28 32h8M28 40h6"/>
+</svg>
