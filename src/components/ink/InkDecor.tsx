@@ -72,11 +72,35 @@ export function InkResultSeal({ text = '定' }: { text?: string }) {
   );
 }
 
-/** 事件橫幅（水墨 900×260）— 內嵌 SVG */
-export function InkEventBanner({ markup, alt = '' }: { markup: string; alt?: string }) {
+/** 事件橫幅 — SVG 內嵌，或 AI WebP 圖 */
+export function InkEventBanner({
+  markup,
+  src,
+  alt = '',
+}: {
+  markup?: string;
+  src?: string | null;
+  alt?: string;
+}) {
+  if (!markup && !src) return null;
   return (
     <div className="ink-event-banner" role={alt ? 'img' : undefined} aria-label={alt || undefined}>
-      <InkInlineSvg className="ink-event-banner-svg" markup={markup} />
+      {src ? (
+        <img className="ink-event-banner-img" src={src} alt="" decoding="async" />
+      ) : (
+        <InkInlineSvg className="ink-event-banner-svg" markup={markup!} />
+      )}
     </div>
   );
+}
+
+/** AI 水墨底圖層（可疊在 SVG 遠山之下） */
+export function InkAiWashLayer({
+  src,
+  className = 'ink-ai-wash',
+}: {
+  src: string;
+  className?: string;
+}) {
+  return <img className={className} src={src} alt="" aria-hidden decoding="async" />;
 }

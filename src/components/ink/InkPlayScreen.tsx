@@ -44,7 +44,8 @@ import { foeStyleLabel } from '@core/life/foeAi';
 import { track } from '../../telemetry/events';
 import { seasonToInk, placeToInk } from './sceneVariants';
 import { InkScrollBackdrop, InkSealStamp, InkResultSeal, InkEventBanner } from './InkDecor';
-import { pickEventBanner, eventBannerSvg } from '../../ui/inkAssets';
+import { eventBannerSvg } from '../../ui/inkAssets';
+import { pickAiEventBanner, aiEventBannerUrl } from '../../ui/inkAiCatalog';
 import { InkHuashanPanel } from './InkHuashanPanel';
 import { InkPersonPanel, type PersonView } from './InkPersonPanel';
 import { LifeDebugPanel } from '../LifeDebugPanel';
@@ -174,14 +175,26 @@ export function InkPlayScreen({ state }: Props) {
   const tab = state.tab ?? 'home';
   const isPack = (pendingEvent?.tags ?? []).includes('pack');
   const displayTitle = isPack ? '江湖偶遇' : pendingEvent?.title;
-  const eventBanner =
+  const eventBannerSrc =
     pendingEvent != null
-      ? eventBannerSvg(
-          pickEventBanner({
+      ? aiEventBannerUrl(
+          pickAiEventBanner({
             title: pendingEvent.title,
             body: pendingEvent.body,
             tags: pendingEvent.tags,
           }),
+        )
+      : null;
+  /** AI 橫幅優先；若無匹配則回退舊 SVG 橋／雨店 */
+  const eventBannerMarkup =
+    eventBannerSrc == null && pendingEvent != null
+      ? eventBannerSvg(
+          (() => {
+            const blob = `${pendingEvent.title}${pendingEvent.body ?? ''}${(pendingEvent.tags ?? []).join('')}`;
+            if (/雨|夜|店|客棧|酒/.test(blob)) return 'rain-inn' as const;
+            if (/橋|河|逢|遇|路/.test(blob)) return 'bridge' as const;
+            return 'none' as const;
+          })(),
         )
       : null;
   const equipment = c.equipment ?? { weapon: null, armor: null, accessory: null };
@@ -424,7 +437,9 @@ export function InkPlayScreen({ state }: Props) {
       {eventFocus && pendingEvent && (
         <section className="ink-panel ink-event ink-event--focus" aria-label="待決之事">
           <div className="ink-event-scroll">
-            {eventBanner && <InkEventBanner markup={eventBanner} />}
+            {(eventBannerSrc || eventBannerMarkup) && (
+              <InkEventBanner src={eventBannerSrc} markup={eventBannerMarkup ?? undefined} />
+            )}
             <p className="ink-event-year">
               {state.year}年{month}月 · {c.age}歲
               {state.pending?.kind === 'special' ? ' · 奇遇' : ''}
