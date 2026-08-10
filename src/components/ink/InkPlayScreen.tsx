@@ -22,6 +22,7 @@ import {
   isInkAudioMuted,
   toggleInkAudioMuted,
 } from '../../audio/inkAudio';
+import { InkSettingsPanel, type TextScale } from './InkSettingsPanel';
 import { titleLabels } from '@core/life/titles';
 import { classifyBeat, summarizeExchange } from '@core/life/combatPresentation';
 import { describeSectProgress } from '@core/life/sectStanding';
@@ -114,7 +115,8 @@ export function InkPlayScreen({ state }: Props) {
   const [hintsOpen, setHintsOpen] = useState(false);
   const [expandedMoveId, setExpandedMoveId] = useState<string | null>(null);
   const [audioMuted, setAudioMuted] = useState(() => isInkAudioMuted());
-  const [textScale, setTextScale] = useState(() => {
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [textScale, setTextScale] = useState<TextScale>(() => {
     try {
       const v = Number(localStorage.getItem('ink_text_scale') ?? '1');
       return v === 1.15 || v === 1.3 ? v : 1;
@@ -362,30 +364,14 @@ export function InkPlayScreen({ state }: Props) {
         <div className="ink-status-actions">
           <button
             type="button"
-            className="ink-icon-btn"
-            onClick={() => {
-              const next = textScale === 1 ? 1.15 : textScale === 1.15 ? 1.3 : 1;
-              setTextScale(next);
-              track('a11y_text_scale', { scale: next });
-            }}
-            title="字級"
-            aria-label={`字級 ${textScale === 1 ? '標準' : textScale === 1.15 ? '較大' : '最大'}`}
+            className="ink-icon-btn ink-icon-btn--wide"
+            onClick={() => setSettingsOpen(true)}
+            title="設定"
+            aria-label="開啟設定"
+            aria-haspopup="dialog"
+            aria-expanded={settingsOpen}
           >
-            字
-          </button>
-          <button
-            type="button"
-            className="ink-icon-btn"
-            onClick={() => {
-              const next = toggleInkAudioMuted();
-              setAudioMuted(next);
-              track('audio_mute_toggle', { muted: next });
-            }}
-            title={audioMuted ? '開聲' : '靜音'}
-            aria-pressed={audioMuted}
-            aria-label={audioMuted ? '開聲' : '靜音'}
-          >
-            {audioMuted ? '默' : '聲'}
+            設定
           </button>
           {import.meta.env.DEV && (
             <button
@@ -401,6 +387,22 @@ export function InkPlayScreen({ state }: Props) {
           )}
         </div>
       </header>
+
+      <InkSettingsPanel
+        open={settingsOpen}
+        onClose={() => setSettingsOpen(false)}
+        textScale={textScale}
+        onTextScale={(scale) => {
+          setTextScale(scale);
+          track('a11y_text_scale', { scale });
+        }}
+        audioMuted={audioMuted}
+        onToggleAudio={() => {
+          const next = toggleInkAudioMuted();
+          setAudioMuted(next);
+          track('audio_mute_toggle', { muted: next });
+        }}
+      />
 
       {!eventFocus && !combat && saveLabel && <p className="ink-save">已落筆 {saveLabel}</p>}
       {!eventFocus && arcLine && state.phase === 'playing' && !combat && (
