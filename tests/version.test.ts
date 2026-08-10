@@ -3,7 +3,7 @@ import { APP_VERSION, APP_VERSION_LABEL } from '../src/version';
 
 describe('app version', () => {
   it('exposes Early Access baseline EA0.1', () => {
-    expect(APP_VERSION).toBe('EA0.1');
-    expect(APP_VERSION_LABEL).toContain('EA0.1');
+    expect(APP_VERSION).toBe('EA0.1.1');
+    expect(APP_VERSION_LABEL).toContain('EA0.1.1');
   });
 });
