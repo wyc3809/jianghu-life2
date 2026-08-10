@@ -871,7 +871,7 @@ export function InkPlayScreen({ state }: Props) {
             </button>
             {combatLogOpen && (
               <ul className="ink-combat-log">
-                {combat.log.slice(-10).map((line, i) => (
+                {combat.log.slice(-20).map((line, i) => (
                   <li key={`${i}-${line.slice(0, 12)}`}>{line}</li>
                 ))}
               </ul>
