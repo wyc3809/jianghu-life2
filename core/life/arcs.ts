@@ -2,6 +2,7 @@ import type { GameEvent, LifeGameState } from '@interfaces/lifeEngine';
 import { getRng } from '@core/random';
 import { rememberNpc, ensureStarterNpcs } from './npcCatalog';
 import { pushChronicle } from './chronicle';
+import { preferredArcIds } from './lifeVariance';
 
 /** 短弧：5–6 拍人生片段，可絕交／結緣分岔 */
 export interface LifeArcState {
@@ -284,9 +285,13 @@ export function maybeStartLifeArc(state: LifeGameState): string[] {
   if (state.lifeArc) return [];
   ensureStarterNpcs(state);
   const rng = getRng();
-  if (!rng.chance(0.14)) return [];
-  const candidates = ARC_DEFS.filter((d) => d.canStart(state) && state.npcs[d.npcId]?.alive);
+  // 短弧升主線：提高啟動率，讓一世更容易記住一個人際
+  if (!rng.chance(0.34)) return [];
+  const prefer = preferredArcIds(state);
+  let candidates = ARC_DEFS.filter((d) => d.canStart(state) && state.npcs[d.npcId]?.alive);
   if (!candidates.length) return [];
+  const preferred = candidates.filter((d) => prefer.includes(d.id));
+  if (preferred.length && rng.chance(0.7)) candidates = preferred;
   const def = rng.pick(candidates);
   state.lifeArc = {
     id: def.id,
@@ -294,9 +299,9 @@ export function maybeStartLifeArc(state: LifeGameState): string[] {
     beat: 0,
     maxBeats: def.maxBeats,
     npcId: def.npcId,
-    monthsLeft: rng.nextInt(1, 3),
+    monthsLeft: rng.nextInt(0, 2),
   };
-  const line = `一段因緣悄悄起了頭——「${def.title}」。`;
+  const line = `一段因緣悄悄起了頭——「${def.title}」。此後數月，它會成為你人生的主線之一。`;
   pushChronicle(state, [line]);
   return [line];
 }
