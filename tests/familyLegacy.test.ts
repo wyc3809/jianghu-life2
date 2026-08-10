@@ -61,9 +61,11 @@ describe('childbirth and inheritance', () => {
 
   it('death with children carries estate into next life', () => {
     const prev = withLover(8);
+    const surname = prev.character.name.trim()[0]!;
+    const heir = `${surname}小江湖`;
     prev.character.childrenCount = 1;
-    prev.character.family.childrenNames = ['小江湖'];
-    prev.character.flags.heir_name = '小江湖';
+    prev.character.family.childrenNames = [heir];
+    prev.character.flags.heir_name = heir;
     prev.character.flags.family_legacy = true;
     prev.character.money = 100;
     prev.character.stats.wealthPeak = 200;
@@ -75,7 +77,7 @@ describe('childbirth and inheritance', () => {
 
     const legacy = extractLegacy(prev);
     expect(legacy.hadChildren).toBe(true);
-    expect(legacy.heirName).toBe('小江湖');
+    expect(legacy.heirName).toBe(heir);
     expect(legacy.familyLegacy).toBe(true);
     expect(legacy.inheritedMoney).toBe(previewInheritanceMoney(prev));
     expect(legacy.inheritedMoney).toBeGreaterThan(0);

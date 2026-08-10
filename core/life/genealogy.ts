@@ -1,5 +1,9 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getHeirName, listChildNames } from './family';
+import { withChineseSurname } from '@core/ids';
+import { alignClanSurnames, clanSurnameOf } from './clanNames';
+
+export { alignClanSurnames, clanSurnameOf } from './clanNames';
 
 const CHRONICLE_FLAG = 'genealogy_chronicle_json';
 
@@ -70,6 +74,7 @@ export function snapshotLifeForGenealogy(state: LifeGameState): string {
 
 /** 組裝當前可展示的族譜 */
 export function buildGenealogy(state: LifeGameState): GenealogyView {
+  alignClanSurnames(state);
   const c = state.character;
   const gen = Math.max(1, Number(c.flags.legacy_generation ?? 1));
   const entries: GenealogyEntry[] = [];
@@ -77,6 +82,7 @@ export function buildGenealogy(state: LifeGameState): GenealogyView {
   const mother = c.family?.motherName;
   const ancestor =
     typeof c.flags.legacy_ancestor === 'string' ? c.flags.legacy_ancestor : undefined;
+  const surname = clanSurnameOf(state);
 
   if (ancestor && gen > 1) {
     entries.push({
@@ -162,18 +168,13 @@ export function buildGenealogy(state: LifeGameState): GenealogyView {
       entries.push({
         generation: '族譜殘頁',
         title: '前世子女',
-        name,
+        name: withChineseSurname(surname, name),
         note: '墨跡',
       });
     }
   }
 
-  const clan =
-    typeof c.flags.legacy_ancestor === 'string' && c.flags.legacy_ancestor
-      ? `${String(c.flags.legacy_ancestor).slice(0, 1)}氏旁支`
-      : c.family?.fatherName
-        ? `${c.family.fatherName.slice(0, 1)}氏`
-        : `${c.name.slice(0, 1)}氏`;
+  const clan = `${surname}氏${ancestor ? '旁支' : ''}`;
 
   return {
     entries,
@@ -211,6 +212,7 @@ export function formatGenealogyText(state: LifeGameState): string[] {
  * 死亡／轉世前：把本世記入族譜殘頁，並回傳完整殘頁供 LegacyCarry。
  */
 export function sealGenealogyForLegacy(state: LifeGameState): string[] {
+  alignClanSurnames(state);
   const prev = readChronicle(state.character);
   const snap = snapshotLifeForGenealogy(state);
   const next = [...prev.filter((l) => l !== snap), snap].slice(-24);

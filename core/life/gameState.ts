@@ -1,7 +1,14 @@
 import type { LifeCharacter, LifeGameState, WuxiaAttribute } from '@interfaces/lifeEngine';
 import { wuxiaAttributeKeys } from '@interfaces/lifeEngine';
 import { initRng, getRng, getRngState } from '@core/random';
-import { randomChineseName, resetIdCounter } from '@core/ids';
+import {
+  chineseSurnameOf,
+  randomChineseName,
+  randomChineseSurname,
+  resetIdCounter,
+  withChineseSurname,
+} from '@core/ids';
+import { alignClanSurnames } from './clanNames';
 import { SECT_CONTENT } from '@data/content/packs';
 import { rollLifetimeChildrenMax } from './family';
 import { defaultNature } from './nature';
@@ -45,10 +52,18 @@ export function createNewLife(options: CreateLifeOptions | number = {}): LifeGam
   const rng = getRng();
 
   const gender: 'male' | 'female' = opts.gender ?? (rng.chance(0.5) ? 'male' : 'female');
-  const name = opts.name?.trim() || randomChineseName();
+  // 族譜血脈同姓：本人／父母共用一姓（有遺產則承先祖姓）
+  const clanSurname = opts.legacy?.ancestorName
+    ? chineseSurnameOf(opts.legacy.ancestorName)
+    : opts.name?.trim()
+      ? chineseSurnameOf(opts.name.trim())
+      : randomChineseSurname();
+  const name = opts.name?.trim()
+    ? withChineseSurname(clanSurname, opts.name.trim())
+    : randomChineseName(clanSurname);
   const birthplace = opts.birthplace || opts.legacy?.birthplace || '千燈鎮';
-  const fatherName = randomChineseName();
-  const motherName = randomChineseName();
+  const fatherName = randomChineseName(clanSurname);
+  const motherName = randomChineseName(clanSurname);
   const attrs = createAttributes(rng);
   const maxHealth = 180 + Math.floor(attrs.genGu * 2.2);
   const maxQi = 140 + Math.floor(attrs.wuXing * 2);
@@ -175,6 +190,8 @@ export function createNewLife(options: CreateLifeOptions | number = {}): LifeGam
     recomputeCapBonuses(state.character);
   }
 
+  alignClanSurnames(state);
+
   ensureStarterNpcs(state);
   state.lifeLog.push(
     '鎮裡有幾張熟面孔：陸硯生執教、沈暮晴坐堂、岳長風把武館——因緣或自他們而起。',
@@ -275,6 +292,7 @@ export function migrateLifeState(raw: LifeGameState): LifeGameState {
   for (const k of ['xia', 'xie', 'kuang', 'e'] as const) {
     if (typeof c.nature[k] !== 'number') c.nature[k] = defaultNature()[k];
   }
+  alignClanSurnames(raw);
   if (c.flags.baseMaxHp === undefined) c.flags.baseMaxHp = c.maxHealth;
   if (c.flags.baseMaxQi === undefined) c.flags.baseMaxQi = c.maxQi;
   if (c.sectId && !c.flags.joined_sect) c.flags.joined_sect = true;
