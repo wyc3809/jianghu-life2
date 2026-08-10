@@ -43,7 +43,7 @@ import { getAftermathStatus, styleForCombat } from '@core/life/combatPresentatio
 import { foeStyleLabel } from '@core/life/foeAi';
 import { track } from '../../telemetry/events';
 import { seasonToInk, placeToInk } from './sceneVariants';
-import { InkScrollBackdrop, InkSealStamp, InkResultSeal, InkEventBanner } from './InkDecor';
+import { InkScrollBackdrop, InkSealStamp, InkResultSeal, InkEventBanner, InkStaticSeal } from './InkDecor';
 import { pickEventBanner, eventBannerSvg } from '../../ui/inkAssets';
 import { InkHuashanPanel } from './InkHuashanPanel';
 import { InkPersonPanel, type PersonView } from './InkPersonPanel';
@@ -174,16 +174,15 @@ export function InkPlayScreen({ state }: Props) {
   const tab = state.tab ?? 'home';
   const isPack = (pendingEvent?.tags ?? []).includes('pack');
   const displayTitle = isPack ? '江湖偶遇' : pendingEvent?.title;
-  const eventBanner =
+  const bannerKind =
     pendingEvent != null
-      ? eventBannerSvg(
-          pickEventBanner({
-            title: pendingEvent.title,
-            body: pendingEvent.body,
-            tags: pendingEvent.tags,
-          }),
-        )
-      : null;
+      ? pickEventBanner({
+          title: pendingEvent.title,
+          body: pendingEvent.body,
+          tags: pendingEvent.tags,
+        })
+      : 'none';
+  const eventBanner = pendingEvent != null ? eventBannerSvg(bannerKind) : null;
   const equipment = c.equipment ?? { weapon: null, armor: null, accessory: null };
   const showResult = Boolean(lastResult) && state.phase === 'playing' && !state.pendingCombat;
   const combat = state.pendingCombat ?? null;
@@ -328,6 +327,7 @@ export function InkPlayScreen({ state }: Props) {
         season={inkSeason}
         place={inkPlace}
         omen={Boolean(state.pending?.kind === 'special')}
+        night={bannerKind === 'rain-inn'}
       />
       {sealText && <InkSealStamp text={sealText} onDone={clearSeal} />}
 
@@ -1087,9 +1087,7 @@ export function InkPlayScreen({ state }: Props) {
         <section className="ink-panel ink-epitaph">
           <h3>掩卷</h3>
           <pre className="ink-epitaph-text">{state.summaryText}</pre>
-          <div className="ink-seal-static ink-seal-static--end" aria-hidden>
-            終
-          </div>
+          <InkStaticSeal text="終" className="ink-seal-static--end" />
           <button type="button" className="ink-btn ink-btn--primary" onClick={() => reincarnate()}>
             轉世再入江湖
           </button>
