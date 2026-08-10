@@ -44,7 +44,7 @@ import { foeStyleLabel } from '@core/life/foeAi';
 import { track } from '../../telemetry/events';
 import { seasonToInk, placeToInk } from './sceneVariants';
 import { InkScrollBackdrop, InkSealStamp, InkResultSeal, InkEventBanner, InkStaticSeal, InkAiWashLayer } from './InkDecor';
-import { eventBannerSvg } from '../../ui/inkAssets';
+import { eventBannerSvg, INK_SVG } from '../../ui/inkAssets';
 import { pickAiEventBanner, aiEventBannerUrl, inkAiUrl } from '../../ui/inkAiCatalog';
 import { InkHuashanPanel } from './InkHuashanPanel';
 import { InkPersonPanel, type PersonView } from './InkPersonPanel';
@@ -539,35 +539,70 @@ export function InkPlayScreen({ state }: Props) {
       {showStatStrip && (
         <section className="ink-vitals" aria-label={showVitalsBars ? '氣血內力' : '江湖概況'}>
           {showVitalsBars && (
-            <>
-              <div className="ink-vitals-label">
-                <span>氣血</span>
-                <span>
-                  {Math.round(c.health)}/{c.maxHealth}
-                </span>
+            <div className="ink-vitals-meters">
+              <div className="ink-meter">
+                <div className="ink-vitals-label">
+                  <span>氣血</span>
+                  <span>
+                    {Math.round(c.health)}/{c.maxHealth}
+                  </span>
+                </div>
+                <div
+                  className="ink-bar ink-bar--life"
+                  role="meter"
+                  aria-valuemin={0}
+                  aria-valuemax={c.maxHealth}
+                  aria-valuenow={Math.round(c.health)}
+                  aria-label="氣血"
+                >
+                  <div className="ink-bar-fill ink-bar-fill--live" style={{ width: `${hpPct}%` }} />
+                </div>
               </div>
-              <div className="ink-bar">
-                <div className="ink-bar-fill ink-bar-fill--live" style={{ width: `${hpPct}%` }} />
+              <div className="ink-meter">
+                <div className="ink-vitals-label">
+                  <span>內力</span>
+                  <span>
+                    {Math.round(c.qi ?? 0)}/{c.maxQi ?? 0}
+                  </span>
+                </div>
+                <div
+                  className="ink-bar ink-bar--qi"
+                  role="meter"
+                  aria-valuemin={0}
+                  aria-valuemax={c.maxQi ?? 0}
+                  aria-valuenow={Math.round(c.qi ?? 0)}
+                  aria-label="內力"
+                >
+                  <div className="ink-bar-fill ink-bar-fill--qi ink-bar-fill--live" style={{ width: `${qiPct}%` }} />
+                </div>
               </div>
-              <div className="ink-vitals-label">
-                <span>內力</span>
-                <span>
-                  {Math.round(c.qi ?? 0)}/{c.maxQi ?? 0}
-                </span>
-              </div>
-              <div className="ink-bar ink-bar--qi">
-                <div className="ink-bar-fill ink-bar-fill--qi ink-bar-fill--live" style={{ width: `${qiPct}%` }} />
-              </div>
-            </>
+            </div>
           )}
-          <div className="ink-stat-row">
-            <span>銀兩 {c.money}</span>
-            <span>名望 {c.reputation}</span>
-            <span>
-              武學 {c.martial}·{overallMartialLabel(c)}
-            </span>
-            <span>疲勞 {c.fatigue ?? 0}</span>
-          </div>
+          <span
+            className="ink-vitals-rule"
+            aria-hidden
+            dangerouslySetInnerHTML={{ __html: INK_SVG.fadeLine }}
+          />
+          <ul className="ink-stat-row">
+            <li className="ink-stat-pill">
+              <img className="ink-stat-motif" src={inkAiUrl('motif-jade')} alt="" decoding="async" />
+              <span>銀兩 {c.money}</span>
+            </li>
+            <li className="ink-stat-pill">
+              <img className="ink-stat-motif" src={inkAiUrl('motif-scroll')} alt="" decoding="async" />
+              <span>名望 {c.reputation}</span>
+            </li>
+            <li className="ink-stat-pill">
+              <img className="ink-stat-motif" src={inkAiUrl('motif-sword')} alt="" decoding="async" />
+              <span>
+                武學 {c.martial}·{overallMartialLabel(c)}
+              </span>
+            </li>
+            <li className="ink-stat-pill">
+              <img className="ink-stat-motif" src={inkAiUrl('motif-lantern')} alt="" decoding="async" />
+              <span>疲勞 {c.fatigue ?? 0}</span>
+            </li>
+          </ul>
           {(c.conditions?.length ?? 0) > 0 && (
             <div className="ink-chips">
               {c.conditions.map((cond) => (
