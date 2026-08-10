@@ -1,6 +1,6 @@
 # 素材索引
 
-本倉庫落地路徑以 `public/ink/` 與 `design/art/` 為準。風格鐵律見 [`STYLE-BIBLE.md`](./STYLE-BIBLE.md)。
+本倉庫落地路徑以 `public/ink/`（執行時）、`assets/ink-pack/`（可攜 SVG／文檔包）與 `design/art/` 為準。風格鐵律見 [`STYLE-BIBLE.md`](./STYLE-BIBLE.md)。
 
 ## 文件
 
@@ -9,11 +9,12 @@
 | `STYLE-BIBLE.md` | 視覺＋文字鐵律 |
 | `AI-PROMPT-PACK.md` | AI 出圖提示詞（水墨專用） |
 | `art-bible.md` | 實作摘要（指向 STYLE-BIBLE） |
+| `ink-pack-pointer.md` | 指向可攜素材包 |
 | `tokens-colors.json` | 色票 |
 | `tokens-typography.json` | 字級 |
 | `../ux/css-motions.md` | 動效片段 |
 
-## AI 水墨包 `public/ink/ai/`（WebP）
+## AI 水墨包 `public/ink/ai/`（WebP · 玩法優先）
 
 程式目錄：`src/ui/inkAiCatalog.ts`（`inkAiUrl` / `pickAiEventBanner` / `INK_AI_ASSETS`）
 
@@ -22,7 +23,7 @@
 | 檔名 | 說明 |
 |------|------|
 | `backdrop-title-scroll.webp` | 開卷遠山（已接首屏洗底） |
-| `backdrop-night-mountains.webp` | 夜山松煙 |
+| `backdrop-night-mountains.webp` | 夜山松煙（夜雨／奇遇／傳承） |
 
 ### 事件橫幅 `banners/`
 
@@ -45,16 +46,25 @@
 
 說明見 `public/ink/ai/README.md`。
 
+## 可攜 SVG 包 `assets/ink-pack/`
+
+完整 STYLE／writing／prompts／svg（含印章與夜山）。執行時已同步至 `public/ink/`；見 [`ink-pack-pointer.md`](./ink-pack-pointer.md)。
+
 ## SVG · 裝飾 `public/ink/decor/`
 
 | 檔名 | 說明 |
 |------|------|
 | `mountains-wide.svg` | 日間遠山底 |
+| `mountains-night.svg` | 夜雨遠山（SVG 備援） |
 | `ink-blots.svg` | 墨漬 |
 | `bamboo-corner.svg` | 竹角飾 |
 | `boat-mist.svg` | 孤舟煙波 |
-| `event-banner-rain-inn.svg` | 夜雨投店橫幅 |
-| `event-banner-bridge.svg` | 橋上有人橫幅 |
+| `event-banner-rain-inn.svg` | 夜雨投店橫幅（AI 無匹配時備援） |
+| `event-banner-bridge.svg` | 橋上有人橫幅（備援） |
+
+## SVG · 印章 `public/ink/seals/`
+
+`seal-sheng.svg`（生）· `seal-zhong.svg`（終）· `seal-yuan.svg`（緣）· `seal-jianghu.svg`（江湖）
 
 ## SVG · 圖示 `public/ink/icons/`
 
@@ -64,10 +74,15 @@
 
 `scroll-frame.svg` · `title-slip.svg` · `ink-fade-line.svg` · `brush-stroke.svg`
 
+## 遊戲專用
+
+`public/ink/gear-*.svg`、`encounter-hermit.svg`、`event-bridge.svg`、`ui-header.svg`
+
 ## 程式接線
 
-- 路徑助手：`src/ui/inkAssets.ts`（`inkUrl` / SVG `pickEventBanner`）
-- AI 目錄：`src/ui/inkAiCatalog.ts`（玩法橫幅優先用 AI WebP）
-- 遠山底：`InkScrollBackdrop`（`InkDecor.tsx`）；首屏另疊 `InkAiWashLayer`
-- 開卷題簽：`InkStartScreen.tsx`
-- 事件橫幅：`InkPlayScreen` + `InkEventBanner`（`src` 或 SVG `markup`）
+- AI 目錄：`src/ui/inkAiCatalog.ts`（玩法橫幅／首屏／命運印優先用 WebP）
+- SVG 助手：`src/ui/inkAssets.ts`（`INK_SVG` / `pickEventBanner` / `sealSvgForText`）
+- 遠山底：`InkScrollBackdrop` + 可選 `InkAiWashLayer`
+- 開卷／掩卷朱砂印：`InkStaticSeal`
+- 命運落印動畫：`InkSealStamp`
+- 事件橫幅：`InkPlayScreen` + `InkEventBanner`（`src` WebP 或 SVG `markup`）

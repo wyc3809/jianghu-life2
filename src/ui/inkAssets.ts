@@ -1,5 +1,6 @@
 /** Inline SVG markup (avoids Safari <img> + cached/corrupt external SVG failures) */
 import mountainsSvg from '../../public/ink/decor/mountains-wide.svg?raw';
+import mountainsNightSvg from '../../public/ink/decor/mountains-night.svg?raw';
 import boatSvg from '../../public/ink/decor/boat-mist.svg?raw';
 import bambooSvg from '../../public/ink/decor/bamboo-corner.svg?raw';
 import blotsSvg from '../../public/ink/decor/ink-blots.svg?raw';
@@ -9,6 +10,10 @@ import fadeLineSvg from '../../public/ink/frames/ink-fade-line.svg?raw';
 import brushStrokeSvg from '../../public/ink/frames/brush-stroke.svg?raw';
 import titleSlipSvg from '../../public/ink/frames/title-slip.svg?raw';
 import stagesStripSvg from '../../public/ink/icons/stages-strip.svg?raw';
+import sealShengSvg from '../../public/ink/seals/seal-sheng.svg?raw';
+import sealZhongSvg from '../../public/ink/seals/seal-zhong.svg?raw';
+import sealYuanSvg from '../../public/ink/seals/seal-yuan.svg?raw';
+import sealJianghuSvg from '../../public/ink/seals/seal-jianghu.svg?raw';
 
 /** Strip XML/doctype noise; keep inner svg element */
 export function cleanSvgMarkup(raw: string): string {
@@ -42,6 +47,7 @@ function prepare(raw: string, prefix: string): string {
 
 export const INK_SVG = {
   mountains: prepare(mountainsSvg, 'mtn'),
+  mountainsNight: prepare(mountainsNightSvg, 'mtnn'),
   boat: prepare(boatSvg, 'boat'),
   bamboo: prepare(bambooSvg, 'bam'),
   blots: prepare(blotsSvg, 'blot'),
@@ -51,6 +57,10 @@ export const INK_SVG = {
   fadeLine: prepare(fadeLineSvg, 'fade'),
   brushStroke: prepare(brushStrokeSvg, 'brush'),
   stagesStrip: prepare(stagesStripSvg, 'stg'),
+  sealSheng: prepare(sealShengSvg, 'ssh'),
+  sealZhong: prepare(sealZhongSvg, 'szh'),
+  sealYuan: prepare(sealYuanSvg, 'syu'),
+  sealJianghu: prepare(sealJianghuSvg, 'sjh'),
 } as const;
 
 export type EventBannerKind = 'bridge' | 'rain-inn' | 'none';
@@ -74,15 +84,26 @@ export function eventBannerSvg(kind: EventBannerKind): string | null {
   return null;
 }
 
+/** Map 命運印文字 → SVG seal markup；無對應則回 null（沿用字印） */
+export function sealSvgForText(text: string | null | undefined): string | null {
+  if (!text) return null;
+  if (text === '生') return INK_SVG.sealSheng;
+  if (text === '終') return INK_SVG.sealZhong;
+  if (text === '緣') return INK_SVG.sealYuan;
+  if (text === '江湖') return INK_SVG.sealJianghu;
+  return null;
+}
+
 /** @deprecated Prefer INK_SVG inlining; kept for any leftover URL needs */
 export function inkUrl(path: string): string {
   const base = import.meta.env.BASE_URL || '/';
   const cleaned = path.replace(/^\/+/, '');
-  return `${base}ink/${cleaned}?v=3`;
+  return `${base}ink/${cleaned}?v=4`;
 }
 
 export const INK_DECOR = {
   mountains: () => inkUrl('decor/mountains-wide.svg'),
+  mountainsNight: () => inkUrl('decor/mountains-night.svg'),
   boat: () => inkUrl('decor/boat-mist.svg'),
   bamboo: () => inkUrl('decor/bamboo-corner.svg'),
   blots: () => inkUrl('decor/ink-blots.svg'),
@@ -93,6 +114,10 @@ export const INK_DECOR = {
   brushStroke: () => inkUrl('frames/brush-stroke.svg'),
   scrollFrame: () => inkUrl('frames/scroll-frame.svg'),
   stagesStrip: () => inkUrl('icons/stages-strip.svg'),
+  sealSheng: () => inkUrl('seals/seal-sheng.svg'),
+  sealZhong: () => inkUrl('seals/seal-zhong.svg'),
+  sealYuan: () => inkUrl('seals/seal-yuan.svg'),
+  sealJianghu: () => inkUrl('seals/seal-jianghu.svg'),
 } as const;
 
 export function eventBannerUrl(kind: EventBannerKind): string | null {

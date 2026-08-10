@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { InkAiWashLayer, InkScrollBackdrop } from './InkDecor';
+import { InkAiWashLayer, InkScrollBackdrop, InkStaticSeal } from './InkDecor';
 import { INK_SVG } from '../../ui/inkAssets';
 import { inkAiUrl } from '../../ui/inkAiCatalog';
 
@@ -25,9 +25,7 @@ export function InkStartScreen({ onStart, onContinue, resumeHint, onSeedDebug, o
       <InkAiWashLayer className="ink-ai-wash ink-ai-wash--hero" src={inkAiUrl('backdrop-title-scroll')} />
       <InkScrollBackdrop variant="hero" />
       <header className="ink-hero">
-        <span className="ink-seal-static" aria-hidden>
-          生
-        </span>
+        <InkStaticSeal text="生" />
         <p className="ink-eyebrow">水墨江湖 · 一生一卷</p>
         <h1 className="ink-brand">江湖一生</h1>
         <InkInlineSvg className="ink-brush-divider" markup={INK_SVG.brushStroke} />
