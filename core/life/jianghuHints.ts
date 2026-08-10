@@ -4,12 +4,23 @@ import { getSkillDef } from '@data/skills/catalog';
 import { sumEvasionBonus } from '@data/skills/catalog';
 import { getGearDef, WEAPON_KIND_LABEL } from '@data/equipment/catalog';
 import { ensureNature, dominantNature } from './nature';
+import { natureVisibleHint, themeHintLine } from './lifeVariance';
 
 /** 鎮居／修煉頁「近日傳聞」與學習提示（不顯示四維數值） */
 export function jianghuHints(state: LifeGameState): string[] {
   const hints: string[] = [];
   const c = state.character;
   const f = c.flags;
+
+  hints.push(themeHintLine(state));
+  const natureHint = natureVisibleHint(state);
+  if (natureHint) hints.push(natureHint);
+  if (state.lifeArc) {
+    hints.push(`主線因緣「${state.lifeArc.title}」未了（第 ${state.lifeArc.beat + 1}/${state.lifeArc.maxBeats} 拍）。`);
+  }
+  if (typeof f.echo_pending === 'string' && f.echo_pending) {
+    hints.push(String(f.echo_pending));
+  }
 
   if (f.rumor_boss_scarlet) hints.push('茶棚裡有人低聲提「赤練娘」三字，袖裡似藏針。');
   if (f.rumor_boss_iron) hints.push('官道傳聞鐵甲車攔路，過客多繞野徑。');
@@ -62,14 +73,14 @@ export function jianghuHints(state: LifeGameState): string[] {
     hints.push(`心性以「${natureLabels[dom]}」獨顯，門牆與奇遇或開或闔。`);
   }
 
-  // 去重、最多 4 條
+  // 去重、最多 6 條（含題眼／心性／主線）
   const seen = new Set<string>();
   const out: string[] = [];
   for (const h of hints) {
     if (!h || seen.has(h)) continue;
     seen.add(h);
     out.push(h);
-    if (out.length >= 4) break;
+    if (out.length >= 6) break;
   }
   return out;
 }

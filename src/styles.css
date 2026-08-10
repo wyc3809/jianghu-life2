@@ -1028,6 +1028,106 @@ body::before {
   background: rgba(26, 26, 26, 0.08);
 }
 
+.ink-icon-btn--wide {
+  width: auto;
+  min-width: 36px;
+  padding: 0 10px;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+}
+
+.ink-settings-card {
+  width: min(380px, 100%);
+}
+
+.ink-settings-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.ink-settings-head h3 {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--ink);
+}
+
+.ink-settings-block {
+  margin: 0 0 16px;
+}
+
+.ink-settings-label {
+  margin: 0 0 8px;
+  font-size: var(--fs-caption);
+  letter-spacing: 0.16em;
+  color: var(--ink-soft);
+  font-weight: var(--fw-ui);
+}
+
+.ink-settings-seg {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.ink-settings-seg-btn,
+.ink-settings-toggle {
+  border: 1px solid var(--ink-faint);
+  background: rgba(255, 252, 245, 0.65);
+  color: var(--ink-mid);
+  font-family: inherit;
+  font-size: 0.86rem;
+  letter-spacing: 0.1em;
+  padding: 10px 8px;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background 0.1s ease,
+    color 0.1s ease,
+    border-color 0.1s ease;
+}
+
+.ink-settings-seg-btn.is-on,
+.ink-settings-toggle.is-on {
+  border-color: var(--ink);
+  color: var(--ink);
+  background: rgba(26, 26, 26, 0.06);
+  font-weight: var(--fw-ui);
+}
+
+.ink-settings-toggle {
+  width: 100%;
+  text-align: left;
+  padding: 12px 14px;
+}
+
+.ink-settings-foot {
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid var(--ink-faint);
+}
+
+.ink-settings-version {
+  margin: 0;
+  font-size: 0.92rem;
+  letter-spacing: 0.14em;
+  color: var(--ink);
+  font-weight: var(--fw-ui);
+}
+
+.ink-settings-note {
+  margin: 4px 0 0;
+  font-size: var(--fs-caption);
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+}
+
 .ink-save {
   margin: 0;
   text-align: right;
