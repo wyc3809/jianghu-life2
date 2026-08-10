@@ -6,57 +6,24 @@ import { deathCauseOf } from './death';
 import { titleLabels } from './titles';
 import { previewInheritanceMoney } from './family';
 import { formatGenealogyText } from './genealogy';
+import { getLifeTheme, pickVarianceEpitaph, themeLabelOf } from './lifeVariance';
+import { dominantNature } from './nature';
+import { natureLabels } from '@interfaces/lifeEngine';
 
 function pickEpitaph(state: LifeGameState): string {
+  // 優先：題眼 × 心性 句式（每世墓誌更有辨識）
+  const variance = pickVarianceEpitaph(state);
   const c = state.character;
   const titles = titleLabels(state);
   const cause = deathCauseOf(state) ?? '';
-  const friends = Object.values(state.npcs ?? {}).filter((n) => (n.affinity ?? 0) >= 40).length;
-  const foes = Object.values(state.npcs ?? {}).filter((n) => (n.affinity ?? 0) <= -20).length;
 
-  if (/力竭|敗於|戰/.test(cause) && c.stats.combatsWon >= 5) {
-    return '　　刃上有血，碑上有名。';
+  if (/力竭|敗於|戰/.test(cause) && c.stats.combatsWon >= 5 && getLifeTheme(state).id === 'revenge') {
+    return variance;
   }
-  if (/無疾|年邁|體衰/.test(cause)) {
-    return '　　燈盡席散，卷猶未冷。';
+  if (titles.includes('論劍客') && getLifeTheme(state).id === 'fame') {
+    return '　　華山風急，名字卻停在石上——正合求名之願。';
   }
-  if (titles.includes('論劍客')) {
-    return '　　華山風急，名字卻停在石上。';
-  }
-  if (titles.includes('刀疤客') || c.stats.combatsWon >= 12) {
-    return '　　疤比字多，路比命長。';
-  }
-  if (c.sectId && state.sects[c.sectId] && Number(c.flags.sect_standing ?? 0) >= 2) {
-    return `　　門牆記你一筆——${state.sects[c.sectId]!.name}舊人。`;
-  }
-  if (c.reputation >= 80) {
-    return '　　江湖佳話，墨香不絕。';
-  }
-  if (c.martial >= 80) {
-    return '　　一代宗師，劍氣如虹。';
-  }
-  if (c.stats.wealthPeak >= 500) {
-    return '　　銀匣已空，帳本還在。';
-  }
-  if ((c.stats.lovers ?? 0) >= 1 && (c.family?.childrenNames?.length ?? 0) > 0) {
-    return '　　情字難書，兒孫續墨。';
-  }
-  if ((c.stats.lovers ?? 0) >= 1) {
-    return '　　情字難書，亦是傳奇。';
-  }
-  if (friends >= 3) {
-    return '　　茶棚故人多，碑前不必哭。';
-  }
-  if (foes >= 2) {
-    return '　　仇家未盡，青石已涼。';
-  }
-  if (Number(c.flags.legacy_generation ?? 1) > 2) {
-    return '　　第幾世已不記得，名字卻還認得紙。';
-  }
-  if (c.age < 30) {
-    return '　　路未走完，卷先合上。';
-  }
-  return '　　平凡一生，亦成一軸。';
+  return variance;
 }
 
 export function buildLifeSummary(state: LifeGameState): string {
@@ -82,6 +49,10 @@ export function buildLifeSummary(state: LifeGameState): string {
   if (titles.length) {
     lines.push(`　　綽號：${titles.join('、')}`);
   }
+
+  const theme = themeLabelOf(state);
+  const dom = dominantNature(c);
+  lines.push(`　　題眼：${theme}　·　心性偏「${natureLabels[dom]}」`);
 
   lines.push(
     '',

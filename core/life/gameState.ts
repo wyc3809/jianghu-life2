@@ -16,6 +16,7 @@ import { makeStoryState, makeWorldState } from './monthly';
 import { recomputeCapBonuses } from './equipment';
 import { applyLegacyToCharacter, type LegacyCarry } from './legacy';
 import { ensureStarterNpcs } from './npcCatalog';
+import { ensureLifeTheme, scheduleLegacyScripts, themeHintLine } from './lifeVariance';
 
 export const SECT_DEFS = SECT_CONTENT.map((s) => ({
   id: s.id,
@@ -38,6 +39,8 @@ export interface CreateLifeOptions {
   name?: string;
   gender?: 'male' | 'female';
   birthplace?: string;
+  /** 人生題眼；不填則天定 */
+  lifeTheme?: import('./lifeVariance').LifeThemeId | 'fate';
   /** 前世傳承；轉世時帶入 */
   legacy?: LegacyCarry;
   /** 首局教練（預設開） */
@@ -190,6 +193,13 @@ export function createNewLife(options: CreateLifeOptions | number = {}): LifeGam
     recomputeCapBonuses(state.character);
   }
 
+  const themeId = ensureLifeTheme(state, opts.lifeTheme);
+  scheduleLegacyScripts(state);
+  state.lifeLog.push(themeHintLine(state));
+  if (themeId && opts.lifeTheme && opts.lifeTheme !== 'fate') {
+    state.lifeLog.push('你親筆定下題眼，往後翻頁多繞此念。');
+  }
+
   alignClanSurnames(state);
 
   ensureStarterNpcs(state);
@@ -321,5 +331,7 @@ export function migrateLifeState(raw: LifeGameState): LifeGameState {
   }
   recomputeCapBonuses(raw.character);
   ensureStarterNpcs(raw);
+  ensureLifeTheme(raw);
+  scheduleLegacyScripts(raw);
   return raw;
 }

@@ -26,6 +26,8 @@ export interface LegacyCarry {
   hadChildren?: boolean;
   /** 跨世族譜殘頁 */
   genealogyChronicle?: string[];
+  /** 前世人生題眼 */
+  lifeTheme?: string;
 }
 
 export function extractLegacy(state: LifeGameState): LegacyCarry {
@@ -75,6 +77,8 @@ export function extractLegacy(state: LifeGameState): LegacyCarry {
     inheritedMoney: inheritedMoney || undefined,
     hadChildren,
     genealogyChronicle,
+    lifeTheme:
+      typeof c.flags.life_theme === 'string' ? String(c.flags.life_theme) : undefined,
   };
 }
 
@@ -179,6 +183,11 @@ export function applyLegacyToCharacter(state: LifeGameState, legacy: LegacyCarry
   if (legacy.titleHints?.length) {
     c.flags.legacy_title_echo = legacy.titleHints[0];
     lines.push('鎮上老人念叨着前世某個綽號，笑你聽不懂。');
+  }
+
+  if (legacy.lifeTheme) {
+    c.flags.legacy_theme_echo = legacy.lifeTheme;
+    lines.push('族譜夾頁還壓着前世題眼，墨痕未乾。');
   }
 
   if (

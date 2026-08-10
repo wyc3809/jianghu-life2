@@ -59,6 +59,13 @@ import {
 } from './rumorTravel';
 import { applyBondSideEffects, pickBondEvent } from './bonds';
 import { rollRandomFragment } from './manualFragments';
+import {
+  applyPathAndEcho,
+  buildLegacyScriptEvent,
+  decorateEventBody,
+  takeEchoLine,
+  varianceWeight,
+} from './lifeVariance';
 
 function buildStoryFeedback(logs: string[], fallback = '事已了結。'): string {
   const cleaned = logs
@@ -190,20 +197,28 @@ export function lookupEvent(id: string): GameEvent | undefined {
 export function resolvePendingEvent(state: LifeGameState): GameEvent | null {
   if (!state.pending) return null;
   const id = state.pending.eventId;
-  if (id === 'play_travel_offer') return buildTravelOfferEvent(state);
-  if (id === 'play_master_fork' || id === 'play_lover_fork') {
+  let raw: GameEvent | null = null;
+  if (id === 'play_travel_offer') raw = buildTravelOfferEvent(state);
+  else if (id === 'play_master_fork' || id === 'play_lover_fork') {
     const cached = state.character.flags._pending_bond_json;
     if (typeof cached === 'string' && cached) {
       try {
-        return JSON.parse(cached) as GameEvent;
+        raw = JSON.parse(cached) as GameEvent;
       } catch {
         /* fall through */
       }
     }
+  } else if (id.startsWith('legacy_script_')) {
+    raw = buildLegacyScriptEvent(state);
+    if (raw && raw.id !== id) raw = null;
   }
-  const fromCat = lookupEvent(id) ?? getEventById(fullCatalog(), id);
-  if (fromCat) return fromCat;
-  return lookupArcEvent(state, id);
+  if (!raw) {
+    raw = lookupEvent(id) ?? getEventById(fullCatalog(), id) ?? lookupArcEvent(state, id);
+  }
+  if (!raw) return null;
+  const body = decorateEventBody(state, raw.body);
+  if (body === (raw.body ?? '').trim()) return raw;
+  return { ...raw, body };
 }
 
 /** 清除無法解析的 pending，避免「有按鈕卻翻唔到頁」 */
@@ -252,7 +267,10 @@ function weightedPick(state: LifeGameState, events: GameEvent[]): GameEvent | nu
     e,
     w: Math.max(
       0.05,
-      (e.weight ?? 10) * stageWeightBias(age, e.tags) * relationshipBias(state, e),
+      (e.weight ?? 10) *
+        stageWeightBias(age, e.tags) *
+        relationshipBias(state, e) *
+        varianceWeight(state, e),
     ),
   }));
   const total = weighted.reduce((s, x) => s + x.w, 0);
@@ -350,6 +368,10 @@ export function applyChoice(
     if (natureLines.length) {
       deltas.push(...natureLines);
     }
+    const { pathLines } = applyPathAndEcho(state, choice.text, event);
+    if (pathLines.length) {
+      deltas.push(...pathLines);
+    }
     const prelude = `就「${tags.includes('pack') ? '江湖偶遇' : event.title}」一事，你選擇「${choice.text}」。刀光將起，對方已擋在眼前——這一局，要用真功夫說話。`;
     logs.unshift(prelude);
     const feedback = buildStoryFeedback(logs, prelude);
@@ -432,6 +454,12 @@ export function applyChoice(
   const natureLines = applyChoiceNature(state, choice.text);
   if (natureLines.length) {
     deltas.push(...natureLines);
+  }
+
+  const { pathLines } = applyPathAndEcho(state, choice.text, event);
+  // 關路提示走芯片／年譜，唔併入結果主文（避免蓋過編修器敘事）
+  if (pathLines.length) {
+    deltas.push(...pathLines);
   }
 
   // 可玩性副作用：擇路／殘譜／絆線
@@ -567,6 +595,11 @@ export function startMonth(state: LifeGameState): LifeGameState {
 
   simulateMonthBody(state);
 
+  const echo = takeEchoLine(state);
+  if (echo) {
+    pushChronicle(state, [echo]);
+  }
+
   if (!state.character.alive) {
     if (!state.character.flags.death_cause) {
       recordDeath(state, '氣血耗盡，墨盡人散。');
@@ -588,6 +621,15 @@ export function startMonth(state: LifeGameState): LifeGameState {
 
   let event: GameEvent | null = null;
   let kind: 'ordinary' | 'special' | 'story' = 'ordinary';
+
+  // 傳承專屬劇本：來世前幾個月優先
+  if (!event) {
+    const legacyEv = buildLegacyScriptEvent(state);
+    if (legacyEv) {
+      event = legacyEv;
+      kind = 'story';
+    }
+  }
 
   // 傳聞擇路：打聽後優先掛動態指路
   if (!event && isTravelOfferReady(state)) {
