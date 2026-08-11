@@ -1,7 +1,7 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getRng } from '@core/random';
 import { FAMILY_RULES } from '@data/content/packs';
-import { randomChineseName } from '@core/ids';
+import { chineseSurnameOf, randomChineseName } from '@core/ids';
 import { pushChronicle } from './chronicle';
 import { syncRngFromState, snapshotRng } from './gameState';
 
@@ -55,7 +55,7 @@ function spawnChild(state: LifeGameState, source: 'monthly' | 'seek'): string[] 
   const rng = getRng();
   c.childrenCount += 1;
   c.monthsSinceLastBirth = 0;
-  const childName = randomChineseName();
+  const childName = randomChineseName(chineseSurnameOf(c.name));
   const childId = `child_${c.childrenCount}_${state.year}_${state.month}`;
   const gender = rng.chance(0.5) ? 'male' : 'female';
   state.npcs[childId] = {

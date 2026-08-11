@@ -2,6 +2,7 @@ import type { LifeGameState, WuxiaAttribute } from '@interfaces/lifeEngine';
 import { wuxiaAttributeKeys } from '@interfaces/lifeEngine';
 import { getHeirName, listChildNames, previewInheritanceMoney } from './family';
 import { sealGenealogyForLegacy, writeGenealogyChronicle } from './genealogy';
+import { alignClanSurnames } from './clanNames';
 
 /** 前世可帶入來世的墨跡（非付費、非碾壓） */
 export interface LegacyCarry {
@@ -115,9 +116,16 @@ export function applyLegacyToCharacter(state: LifeGameState, legacy: LegacyCarry
     c.attributes[key] = Math.min(100, c.attributes[key] + 5);
     if (legacy.heirName) {
       c.flags.legacy_heir_of = legacy.heirName;
-      // 族譜：你這一世被看作繼承人血脈
+      // 族譜：你這一世被看作繼承人血脈；父母與本人同承先祖姓
       if (c.gender === 'male') c.family.fatherName = legacy.ancestorName;
       else c.family.motherName = legacy.ancestorName;
+      alignClanSurnames(state);
+      if (state.npcs.parent_father && c.family.fatherName) {
+        state.npcs.parent_father.name = c.family.fatherName;
+      }
+      if (state.npcs.parent_mother && c.family.motherName) {
+        state.npcs.parent_mother.name = c.family.motherName;
+      }
       lines.push(
         `血脈未斷：前世立「${legacy.heirName}」為嗣，你承其餘蔭，開局銀兩＋${coin}，福緣略厚。`,
       );
