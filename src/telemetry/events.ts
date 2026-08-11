@@ -11,7 +11,8 @@ export type TelemetryEvent =
   | 'life_reincarnate'
   | 'coach_dismiss'
   | 'audio_mute_toggle'
-  | 'a11y_text_scale';
+  | 'a11y_text_scale'
+  | 'a11y_reduce_motion';
 
 const buffer: Array<{ name: TelemetryEvent; props?: Record<string, string | number | boolean>; t: number }> =
   [];

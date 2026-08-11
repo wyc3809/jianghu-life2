@@ -22,3 +22,17 @@
 ```
 
 原則：慢、薄、少；一次畫面最多兩種動效同時出現。
+
+## A+B 紙氣昇華（見 `paper-atmosphere.md`）
+
+```css
+@keyframes inkPaperBreathe { /* 翻月 380ms 墨暈 */ }
+@keyframes inkWriteIn { /* 事件正文寫入 */ }
+.scroll-shell.ink-month-turn::after { animation: inkPaperBreathe 0.38s … }
+.ink-event-body.ink-write-in { animation: inkWriteIn 0.32s … }
+.ink-choice-list--await → --reveal /* 選項延遲 */
+.ink-result--staged /* 故事 → 消長 → 印 */
+```
+
+`prefers-reduced-motion` 與 `html[data-ink-motion=reduce]` 雙閘。
+

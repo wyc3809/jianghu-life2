@@ -17,6 +17,8 @@ type Props = {
   onTextScale: (scale: TextScale) => void;
   audioMuted: boolean;
   onToggleAudio: () => void;
+  reduceMotion: boolean;
+  onToggleReduceMotion: () => void;
 };
 
 export function InkSettingsPanel({
@@ -26,6 +28,8 @@ export function InkSettingsPanel({
   onTextScale,
   audioMuted,
   onToggleAudio,
+  reduceMotion,
+  onToggleReduceMotion,
 }: Props) {
   const closeRef = useRef<HTMLButtonElement | null>(null);
 
@@ -95,6 +99,18 @@ export function InkSettingsPanel({
             onClick={onToggleAudio}
           >
             {audioMuted ? '靜音中 · 點此開聲' : '已開聲 · 點此靜音'}
+          </button>
+        </section>
+
+        <section className="ink-settings-block" aria-label="動態">
+          <p className="ink-settings-label">動態</p>
+          <button
+            type="button"
+            className={`ink-settings-toggle${reduceMotion ? ' is-on' : ''}`}
+            aria-pressed={reduceMotion}
+            onClick={onToggleReduceMotion}
+          >
+            {reduceMotion ? '已減少動態 · 點此恢復' : '紙卷動效開 · 點此減少'}
           </button>
         </section>
 
