@@ -29,7 +29,7 @@ export function InkScrollBackdrop({
   /** 夜雨／奇遇時改用夜山 SVG；可與 AI wash 疊用 */
   night?: boolean;
 }) {
-  const useNight = night || omen || season === 'winter';
+  const useNight = night || omen;
   const scene = [
     season ? `ink-backdrop--${season}` : '',
     place ? `ink-backdrop--${place}` : '',

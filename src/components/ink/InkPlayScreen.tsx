@@ -43,7 +43,7 @@ import { lifeArcStatusLine } from '@core/life/arcs';
 import { getAftermathStatus, styleForCombat } from '@core/life/combatPresentation';
 import { foeStyleLabel } from '@core/life/foeAi';
 import { track } from '../../telemetry/events';
-import { seasonToInk, placeToInk } from './sceneVariants';
+import { seasonToInk, placeToInk, isInkNight, shouldReduceInkMotion } from './sceneVariants';
 import { InkScrollBackdrop, InkSealStamp, InkResultSeal, InkEventBanner, InkStaticSeal, InkAiWashLayer } from './InkDecor';
 import { eventBannerSvg, INK_SVG } from '../../ui/inkAssets';
 import { pickAiEventBanner, aiEventBannerUrl, inkAiUrl } from '../../ui/inkAiCatalog';
@@ -116,6 +116,16 @@ export function InkPlayScreen({ state }: Props) {
   const [expandedMoveId, setExpandedMoveId] = useState<string | null>(null);
   const [audioMuted, setAudioMuted] = useState(() => isInkAudioMuted());
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(() => {
+    try {
+      return localStorage.getItem('ink_reduce_motion') === '1';
+    } catch {
+      return false;
+    }
+  });
+  const [monthTurning, setMonthTurning] = useState(false);
+  const [choicesReady, setChoicesReady] = useState(false);
+  const prevYearMonth = useRef<string | null>(null);
   const [textScale, setTextScale] = useState<TextScale>(() => {
     try {
       const v = Number(localStorage.getItem('ink_text_scale') ?? '1');
@@ -146,6 +156,29 @@ export function InkPlayScreen({ state }: Props) {
       /* ignore */
     }
   }, [textScale]);
+
+  useEffect(() => {
+    document.documentElement.dataset.inkMotion = reduceMotion ? 'reduce' : 'full';
+    try {
+      localStorage.setItem('ink_reduce_motion', reduceMotion ? '1' : '0');
+    } catch {
+      /* ignore */
+    }
+  }, [reduceMotion]);
+
+  useEffect(() => {
+    const ym = `${state.year}-${state.month ?? 1}`;
+    if (prevYearMonth.current === null) {
+      prevYearMonth.current = ym;
+      return;
+    }
+    if (prevYearMonth.current === ym) return;
+    prevYearMonth.current = ym;
+    if (shouldReduceInkMotion()) return;
+    setMonthTurning(true);
+    const t = window.setTimeout(() => setMonthTurning(false), 400);
+    return () => window.clearTimeout(t);
+  }, [state.year, state.month]);
 
   useEffect(() => {
     if ((state.tab ?? 'home') !== 'practice') setPracticeView('main');
@@ -193,10 +226,13 @@ export function InkPlayScreen({ state }: Props) {
           bannerKind === 'rain-inn' ? 'rain-inn' : bannerKind === 'bridge-mist' ? 'bridge' : 'none',
         )
       : null;
-  const useNightWash =
-    bannerKind === 'rain-inn' ||
-    bannerKind === 'legacy-stele' ||
-    Boolean(state.pending?.kind === 'special');
+  const useNightWash = isInkNight({
+    title: pendingEvent?.title,
+    body: pendingEvent?.body,
+    tags: pendingEvent?.tags,
+    pendingKind: state.pending?.kind,
+    omen: Boolean(state.pending?.kind === 'special' || c.flags.rumor_boost),
+  });
   const equipment = c.equipment ?? { weapon: null, armor: null, accessory: null };
   const showResult = Boolean(lastResult) && state.phase === 'playing' && !state.pendingCombat;
   const combat = state.pendingCombat ?? null;
@@ -291,6 +327,20 @@ export function InkPlayScreen({ state }: Props) {
   }, [eventFocus, tab, setTab]);
 
   useEffect(() => {
+    if (!eventFocus || !pendingEvent) {
+      setChoicesReady(false);
+      return;
+    }
+    if (shouldReduceInkMotion()) {
+      setChoicesReady(true);
+      return;
+    }
+    setChoicesReady(false);
+    const t = window.setTimeout(() => setChoicesReady(true), 420);
+    return () => window.clearTimeout(t);
+  }, [eventFocus, pendingEvent?.id]);
+
+  useEffect(() => {
     // 交手時強制離開分卷內容，避免人物／修煉面板疊在戰鬥上
     if (combat && (tab === 'person' || tab === 'practice' || tab === 'jianghu')) {
       setTab('home');
@@ -318,12 +368,29 @@ export function InkPlayScreen({ state }: Props) {
   const inkSeason = seasonToInk(month);
   const inkPlace = placeToInk(c.location);
   const combatStyle = combat ? styleForCombat(combat) : null;
+  const eventBodyParas = pendingEvent?.body
+    ? pendingEvent.body.split(/\n\n+/).map((p) => p.trim()).filter(Boolean)
+    : [];
 
   const nicknames = titleLabels(state);
+  const sceneBits = [
+    'scroll-shell',
+    'scroll-shell--play',
+    'ink-enter',
+    `ink-scene--${inkSeason}`,
+    `ink-scene--${inkPlace}`,
+    useNightWash ? 'ink-scene--night' : '',
+    state.pending?.kind === 'special' || c.flags.rumor_boost ? 'ink-scene--omen' : '',
+    combat ? 'scroll-shell--combat' : '',
+    eventFocus ? 'scroll-shell--event' : '',
+    monthTurning ? 'ink-month-turn' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <div
-      className={`scroll-shell scroll-shell--play ink-enter ink-scene--${inkSeason} ink-scene--${inkPlace}${combat ? ' scroll-shell--combat' : ''}${eventFocus ? ' scroll-shell--event' : ''}`}
+      className={sceneBits}
       data-text-scale={textScale === 1 ? undefined : String(textScale)}
       style={
         textScale !== 1
@@ -402,6 +469,14 @@ export function InkPlayScreen({ state }: Props) {
           setAudioMuted(next);
           track('audio_mute_toggle', { muted: next });
         }}
+        reduceMotion={reduceMotion}
+        onToggleReduceMotion={() => {
+          setReduceMotion((v) => {
+            const next = !v;
+            track('a11y_reduce_motion', { reduce: next });
+            return next;
+          });
+        }}
       />
 
       {!eventFocus && !combat && saveLabel && <p className="ink-save">已落筆 {saveLabel}</p>}
@@ -452,16 +527,28 @@ export function InkPlayScreen({ state }: Props) {
               {state.pending?.kind === 'special' ? ' · 奇遇' : ''}
               {arcLine ? ` · ${arcLine.replace(/^因緣/, '')}` : ''}
             </p>
-            <h3>{displayTitle}</h3>
-            {pendingEvent.body && <p className="ink-event-body">{pendingEvent.body}</p>}
+            <h3 className="ink-write-in">{displayTitle}</h3>
+            {eventBodyParas.map((para, i) => (
+              <p
+                key={`${pendingEvent.id}-p${i}`}
+                className="ink-event-body ink-write-in"
+                style={{ ['--i' as string]: i }}
+              >
+                {para}
+              </p>
+            ))}
           </div>
-          <div className="ink-choice-list ink-choice-list--dock">
+          <div
+            className={`ink-choice-list ink-choice-list--dock${choicesReady ? ' ink-choice-list--reveal' : ' ink-choice-list--await'}`}
+            aria-hidden={!choicesReady}
+          >
             {eligibleChoices.map((ch, i) => (
               <button
                 key={ch.id}
                 type="button"
                 className="ink-choice"
                 style={{ ['--i' as string]: i }}
+                disabled={!choicesReady}
                 onClick={() => {
                   choose(ch.id);
                 }}
@@ -471,7 +558,12 @@ export function InkPlayScreen({ state }: Props) {
               </button>
             ))}
             {eligibleChoices.length === 0 && (
-              <button type="button" className="ink-choice" onClick={() => dismissEvent()}>
+              <button
+                type="button"
+                className="ink-choice"
+                disabled={!choicesReady}
+                onClick={() => dismissEvent()}
+              >
                 <span className="ink-choice-mark">避</span>
                 暫避鋒芒（此刻無可行之選）
               </button>
@@ -1069,7 +1161,7 @@ export function InkPlayScreen({ state }: Props) {
         lastResult &&
         createPortal(
           <div className="ink-modal" role="dialog" aria-modal="true" aria-label="結果">
-            <div className="ink-modal-card ink-result">
+            <div className="ink-modal-card ink-result ink-result--staged">
               <InkResultSeal text={resultKind === 'practice' ? '修' : lastResult.title === '整裝' ? '裝' : '定'} />
               <p className="ink-event-year">
                 {resultKind === 'practice'
