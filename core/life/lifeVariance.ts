@@ -6,6 +6,7 @@ import type { GameEvent, LifeGameState } from '@interfaces/lifeEngine';
 import { natureLabels, type NatureAttr } from '@interfaces/lifeEngine';
 import { dominantNature, ensureNature } from './nature';
 import { getRng } from '@core/random';
+import { displayGearName } from './equipment';
 
 export const LIFE_THEME_IDS = [
   'revenge',
@@ -511,7 +512,8 @@ export function buildLegacyScriptEvent(state: LifeGameState): GameEvent | null {
   }
 
   if (f.legacy_script_gear && !f.done_legacy_script_gear) {
-    const gear = String(f.born_with_gear_dream ?? '舊兵刃');
+    const raw = String(f.born_with_gear_dream ?? '舊兵刃');
+    const gear = displayGearName(raw);
     return {
       id: 'legacy_script_gear',
       title: '夢器有影',
