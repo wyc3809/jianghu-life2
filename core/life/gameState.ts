@@ -8,7 +8,7 @@ import {
   resetIdCounter,
   withChineseSurname,
 } from '@core/ids';
-import { alignClanSurnames } from './clanNames';
+import { alignClanSurnames, randomChineseMotherName } from './clanNames';
 import { SECT_CONTENT } from '@data/content/packs';
 import { rollLifetimeChildrenMax } from './family';
 import { defaultNature, applyNatureDelta } from './nature';
@@ -74,7 +74,7 @@ export function createNewLife(options: CreateLifeOptions | number = {}): LifeGam
     : randomChineseName(clanSurname);
   const birthplace = opts.birthplace || opts.legacy?.birthplace || '千燈鎮';
   const fatherName = randomChineseName(clanSurname);
-  const motherName = randomChineseName(clanSurname);
+  const motherName = randomChineseMotherName(clanSurname);
   const attrs = createAttributes(rng);
   const maxHealth = 180 + Math.floor(attrs.genGu * 2.2);
   const maxQi = 140 + Math.floor(attrs.wuXing * 2);

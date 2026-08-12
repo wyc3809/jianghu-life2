@@ -129,11 +129,13 @@ describe('genealogy 族譜', () => {
     expect(book.chronicle.length).toBeGreaterThan(0);
     expect(book.entries.some((e) => e.generation === '先祖')).toBe(true);
     const surname = chineseSurnameOf(String(legacy.ancestorName));
-    const blood = book.entries.filter((e) =>
-      ['父', '母', '本人', '前世'].includes(e.title),
-    );
-    for (const row of blood) {
-      expect(chineseSurnameOf(row.name)).toBe(surname);
+    const father = book.entries.find((e) => e.title === '父');
+    const self = book.entries.find((e) => e.self);
+    const ancestor = book.entries.find((e) => e.title === '前世');
+    const mother = book.entries.find((e) => e.title === '母');
+    for (const row of [father, self, ancestor].filter(Boolean)) {
+      expect(chineseSurnameOf(row!.name)).toBe(surname);
     }
+    if (mother) expect(chineseSurnameOf(mother.name)).not.toBe(surname);
   });
 });

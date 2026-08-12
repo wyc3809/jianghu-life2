@@ -72,6 +72,89 @@ const GIVEN_NAMES = [
   '雲龍',
 ] as const;
 
+/** 偏女性化名字（母親／眷屬用） */
+export const FEMININE_GIVEN_NAMES = [
+  '阿絮',
+  '如雪',
+  '聽雨',
+  '青禾',
+  '墨白',
+  '綿綿',
+  '念慈',
+  '素心',
+  '晚棠',
+  '雲袖',
+  '柔枝',
+  '清寧',
+  '映月',
+  '佩蘭',
+  '小滿',
+  '靜姝',
+] as const;
+
+export function randomChineseFeminineGivenName(): string {
+  return getRng().pick([...FEMININE_GIVEN_NAMES]);
+}
+
+/** 母系外姓：避開本支姓 */
+export function randomMaidenSurname(exclude: string): string {
+  const rng = getRng();
+  const ex = exclude.trim()[0] ?? '';
+  const pool = CHINESE_SURNAMES.filter((s) => s !== ex);
+  return rng.pick(pool.length ? [...pool] : [...CHINESE_SURNAMES]);
+}
+
+/** 開局母親：外姓 + 女性化名 */
+export function randomChineseMotherName(clanSurname: string): string {
+  const maiden = randomMaidenSurname(clanSurname);
+  return maiden + randomChineseFeminineGivenName();
+}
+
+/**
+ * 讀檔校正：母親保外姓；若仍冠本支姓且非血脈母系，改外姓女性名。
+ * seedKey 令同一存檔每次校正結果一致。
+ */
+export function normalizeMotherName(
+  clanSurname: string,
+  currentName: string,
+  seedKey: string,
+  keepClanSurname = false,
+): string {
+  const clan = clanSurname.trim()[0] ?? '李';
+  const trimmed = currentName.trim();
+  if (!trimmed) return randomChineseMotherName(clan);
+
+  const head = trimmed[0] ?? '';
+  const given = (CHINESE_SURNAMES as readonly string[]).includes(head) && trimmed.length >= 2
+    ? trimmed.slice(1)
+    : trimmed;
+  const femininePool = [...FEMININE_GIVEN_NAMES];
+  let givenName = given;
+  if (!femininePool.includes(givenName as (typeof FEMININE_GIVEN_NAMES)[number])) {
+    const h =
+      (seedKey.charCodeAt(0) + given.charCodeAt(0) + clan.charCodeAt(0) + 997) %
+      femininePool.length;
+    givenName = femininePool[h]!;
+  }
+
+  if (keepClanSurname && head === clan) {
+    return clan + givenName;
+  }
+
+  if (head === clan && !keepClanSurname) {
+    const surnames = CHINESE_SURNAMES.filter((s) => s !== clan);
+    const si = (seedKey.charCodeAt(1) + givenName.charCodeAt(0) + 13) % surnames.length;
+    return surnames[si]! + givenName;
+  }
+
+  if (!(CHINESE_SURNAMES as readonly string[]).includes(head)) {
+    const si = (seedKey.charCodeAt(2) + 7) % CHINESE_SURNAMES.length;
+    return CHINESE_SURNAMES[si]! + givenName;
+  }
+
+  return head + givenName;
+}
+
 export function chineseSurnameOf(fullName: string): string {
   const n = fullName.trim();
   return n[0] ?? '李';

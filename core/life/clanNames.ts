@@ -1,5 +1,10 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
-import { chineseSurnameOf, withChineseSurname } from '@core/ids';
+import {
+  chineseSurnameOf,
+  normalizeMotherName,
+  randomChineseMotherName,
+  withChineseSurname,
+} from '@core/ids';
 
 /** 決定本支族姓：先祖 > 本人 > 父 */
 export function clanSurnameOf(state: LifeGameState): string {
@@ -12,9 +17,32 @@ export function clanSurnameOf(state: LifeGameState): string {
   return '李';
 }
 
+function isMotherBloodlineParent(state: LifeGameState): boolean {
+  const c = state.character;
+  if (c.gender !== 'female') return false;
+  if (!c.family?.motherName || !c.flags.legacy_ancestor) return false;
+  return c.family.motherName === String(c.flags.legacy_ancestor);
+}
+
+function ensureMotherName(state: LifeGameState, clanSurname: string): void {
+  const c = state.character;
+  if (!c.family?.motherName) return;
+  const bloodline = isMotherBloodlineParent(state);
+  const seedKey = `${state.seed}:${c.family.motherName}`;
+  c.family.motherName = normalizeMotherName(
+    clanSurname,
+    c.family.motherName,
+    seedKey,
+    bloodline,
+  );
+  if (state.npcs.parent_mother) {
+    state.npcs.parent_mother.name = c.family.motherName;
+    state.npcs.parent_mother.gender = 'female';
+  }
+}
+
 /**
- * 族譜血脈同姓：本人、父母、子女、對應 NPC 均冠本支姓。
- * 眷屬（外姓）不改。
+ * 族譜：本人／父／子女同支姓；母親外姓女性名；眷屬不改。
  */
 export function alignClanSurnames(state: LifeGameState): string {
   const c = state.character;
@@ -27,17 +55,11 @@ export function alignClanSurnames(state: LifeGameState): string {
   if (c.family.fatherName) {
     c.family.fatherName = withChineseSurname(surname, c.family.fatherName);
   }
-  if (c.family.motherName) {
-    c.family.motherName = withChineseSurname(surname, c.family.motherName);
-  }
+  ensureMotherName(state, surname);
 
   if (state.npcs.parent_father) {
     state.npcs.parent_father.name = c.family.fatherName || state.npcs.parent_father.name;
     state.npcs.parent_father.name = withChineseSurname(surname, state.npcs.parent_father.name);
-  }
-  if (state.npcs.parent_mother) {
-    state.npcs.parent_mother.name = c.family.motherName || state.npcs.parent_mother.name;
-    state.npcs.parent_mother.name = withChineseSurname(surname, state.npcs.parent_mother.name);
   }
 
   const kids = c.family.childrenNames.map((n) => withChineseSurname(surname, n));
@@ -56,3 +78,5 @@ export function alignClanSurnames(state: LifeGameState): string {
 
   return surname;
 }
+
+export { randomChineseMotherName };
