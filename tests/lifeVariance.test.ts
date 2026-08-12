@@ -3,6 +3,7 @@ import { createNewLife } from '../core/life/gameState';
 import { extractLegacy } from '../core/life/legacy';
 import { buildLifeSummary } from '../core/life/summary';
 import { applyChoice, startMonth, resolvePendingEvent } from '../core/life/eventEngine';
+import { jianghuHints } from '../core/life/jianghuHints';
 import {
   LIFE_THEMES,
   ensureLifeTheme,
@@ -23,6 +24,13 @@ describe('life variance 1-7', () => {
     expect(state.character.flags.life_theme).toBe('revenge');
     expect(getLifeTheme(state).label).toBe('報仇');
     expect(state.lifeLog.some((l) => l.includes('題眼·報仇'))).toBe(true);
+  });
+
+  it('does not pin theme vow on the home hint strip', () => {
+    const state = createNewLife({ seed: 42, lifeTheme: 'fame', skipCoach: true });
+    const hints = jianghuHints(state);
+    expect(hints.some((h) => h.includes('題眼'))).toBe(false);
+    expect(state.character.flags.life_theme).toBe('fame');
   });
 
   it('theme bias lifts combat for revenge and mutes romance', () => {
