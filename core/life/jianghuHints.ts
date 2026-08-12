@@ -4,7 +4,7 @@ import { getSkillDef } from '@data/skills/catalog';
 import { sumEvasionBonus } from '@data/skills/catalog';
 import { getGearDef, WEAPON_KIND_LABEL } from '@data/equipment/catalog';
 import { ensureNature, dominantNature } from './nature';
-import { natureVisibleHint, themeHintLine } from './lifeVariance';
+import { natureVisibleHint } from './lifeVariance';
 
 /** 鎮居／修煉頁「近日傳聞」與學習提示（不顯示四維數值） */
 export function jianghuHints(state: LifeGameState): string[] {
@@ -12,7 +12,7 @@ export function jianghuHints(state: LifeGameState): string[] {
   const c = state.character;
   const f = c.flags;
 
-  hints.push(themeHintLine(state));
+  // 題眼只在開局／掩卷呈現，不佔鎮居首屏
   const natureHint = natureVisibleHint(state);
   if (natureHint) hints.push(natureHint);
   if (state.lifeArc) {
@@ -73,7 +73,7 @@ export function jianghuHints(state: LifeGameState): string[] {
     hints.push(`心性以「${natureLabels[dom]}」獨顯，門牆與奇遇或開或闔。`);
   }
 
-  // 去重、最多 6 條（含題眼／心性／主線）
+  // 去重、最多 6 條（含心性／主線／餘波）
   const seen = new Set<string>();
   const out: string[] = [];
   for (const h of hints) {
