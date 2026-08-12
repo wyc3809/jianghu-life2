@@ -19,6 +19,17 @@ export function grantGear(state: LifeGameState, gearId: string): string | null {
   return def.name;
 }
 
+/** 文案用：id → 中文名；已是中文則原樣回傳 */
+export function displayGearName(idOrName: string): string {
+  const raw = idOrName.trim();
+  if (!raw) return '舊兵刃';
+  const def = getGearDef(raw);
+  if (def) return def.name;
+  // 舊存檔可能已是中文名
+  if (!/^[a-z][a-z0-9_-]*$/i.test(raw)) return raw;
+  return '舊兵刃';
+}
+
 export function equipGear(state: LifeGameState, gearId: string): string {
   const def = getGearDef(gearId);
   if (!def) return '無此裝備。';
