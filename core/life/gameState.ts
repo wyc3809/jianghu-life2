@@ -11,12 +11,14 @@ import {
 import { alignClanSurnames } from './clanNames';
 import { SECT_CONTENT } from '@data/content/packs';
 import { rollLifetimeChildrenMax } from './family';
-import { defaultNature } from './nature';
+import { defaultNature, applyNatureDelta } from './nature';
 import { makeStoryState, makeWorldState } from './monthly';
 import { recomputeCapBonuses } from './equipment';
 import { applyLegacyToCharacter, type LegacyCarry } from './legacy';
 import { ensureStarterNpcs } from './npcCatalog';
 import { ensureLifeTheme, scheduleLegacyScripts, themeHintLine } from './lifeVariance';
+import { wuxiaAttributeLabels } from '@interfaces/lifeEngine';
+import type { NatureAttr } from '@interfaces/lifeEngine';
 
 export const SECT_DEFS = SECT_CONTENT.map((s) => ({
   id: s.id,
@@ -41,6 +43,12 @@ export interface CreateLifeOptions {
   birthplace?: string;
   /** 人生題眼；不填則天定 */
   lifeTheme?: import('./lifeVariance').LifeThemeId | 'fate';
+  /** 少時往事結算：屬性／心性加成與年譜 */
+  originBonuses?: {
+    attributes?: Partial<Record<WuxiaAttribute, number>>;
+    nature?: Partial<Record<NatureAttr, number>>;
+    chronicle?: string[];
+  };
   /** 前世傳承；轉世時帶入 */
   legacy?: LegacyCarry;
   /** 首局教練（預設開） */
@@ -125,6 +133,34 @@ export function createNewLife(options: CreateLifeOptions | number = {}): LifeGam
     },
   };
   character.stats.wealthPeak = character.money;
+
+  const originLines: string[] = [];
+  if (opts.originBonuses) {
+    const attrDelta = opts.originBonuses.attributes ?? {};
+    for (const k of wuxiaAttributeKeys) {
+      const d = attrDelta[k];
+      if (!d) continue;
+      attrs[k] = Math.max(1, Math.min(100, attrs[k] + d));
+      originLines.push(`${wuxiaAttributeLabels[k]}${d > 0 ? '＋' : ''}${d}`);
+    }
+    character.attributes = attrs;
+    if (opts.originBonuses.nature) {
+      originLines.push(...applyNatureDelta(character, opts.originBonuses.nature));
+    }
+    // 少時加成後重算氣血／內力上限
+    const newMaxHp = 180 + Math.floor(attrs.genGu * 2.2);
+    const newMaxQi = 140 + Math.floor(attrs.wuXing * 2);
+    const newMaxSta = 120 + Math.floor(attrs.genGu * 1.2);
+    character.maxHealth = newMaxHp;
+    character.health = newMaxHp;
+    character.maxQi = newMaxQi;
+    character.qi = newMaxQi;
+    character.maxStamina = newMaxSta;
+    character.stamina = newMaxSta;
+    character.flags.baseMaxHp = newMaxHp;
+    character.flags.baseMaxQi = newMaxQi;
+  }
+
   recomputeCapBonuses(character);
 
   const npcs: LifeGameState['npcs'] = {
@@ -156,10 +192,12 @@ export function createNewLife(options: CreateLifeOptions | number = {}): LifeGam
   const year = 18;
   const month = 1;
   const lifeLog = [
+    ...(opts.originBonuses?.chronicle ?? []),
     `【${year}年${month}月·${birthplace}】${name}辭別父母，踏上江湖。`,
     `根骨 ${attrs.genGu} · 悟性 ${attrs.wuXing} · 福緣 ${attrs.fuYuan} · 魅力 ${attrs.meiLi} · 膽識 ${attrs.danShi}`,
     `心性 俠${character.nature.xia} · 邪${character.nature.xie} · 狂${character.nature.kuang} · 惡${character.nature.e}`,
-    `氣血上限 ${maxHealth} · 內力上限 ${maxQi}`,
+    `氣血上限 ${character.maxHealth} · 內力上限 ${character.maxQi}`,
+    ...(originLines.length ? [`少時成形：${originLines.join(' · ')}`] : []),
   ];
 
   const state: LifeGameState = {

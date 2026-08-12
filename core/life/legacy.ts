@@ -3,6 +3,7 @@ import { wuxiaAttributeKeys } from '@interfaces/lifeEngine';
 import { getHeirName, listChildNames, previewInheritanceMoney } from './family';
 import { sealGenealogyForLegacy, writeGenealogyChronicle } from './genealogy';
 import { alignClanSurnames } from './clanNames';
+import { displayGearName } from './equipment';
 
 /** 前世可帶入來世的墨跡（非付費、非碾壓） */
 export interface LegacyCarry {
@@ -70,7 +71,7 @@ export function extractLegacy(state: LifeGameState): LegacyCarry {
     birthplace: c.birthplace,
     friendNpcId,
     rivalHint: rival,
-    gearHint: equipped || undefined,
+    gearHint: equipped ? displayGearName(equipped) : undefined,
     titleHints: titleIds.slice(0, 3),
     heirName: heirName || undefined,
     childrenNames: childrenNames.length ? childrenNames : undefined,
@@ -176,7 +177,7 @@ export function applyLegacyToCharacter(state: LifeGameState, legacy: LegacyCarry
   }
 
   if (legacy.gearHint) {
-    c.flags.born_with_gear_dream = legacy.gearHint;
+    c.flags.born_with_gear_dream = displayGearName(String(legacy.gearHint));
     lines.push('你夢見一把舊兵刃靠牆，醒來掌心還有涼意。');
   }
 
