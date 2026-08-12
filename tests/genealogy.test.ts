@@ -4,7 +4,6 @@ import {
   buildGenealogy,
   formatGenealogyText,
   sealGenealogyForLegacy,
-  clanSurnameOf,
 } from '../core/life/genealogy';
 import { extractLegacy, applyLegacyToCharacter } from '../core/life/legacy';
 import { recordDeath } from '../core/life/death';
@@ -42,25 +41,29 @@ describe('genealogy 族譜', () => {
     expect(text).toMatch(/青禾/);
   });
 
-  it('keeps the same surname across parents self and children', () => {
+  it('mother keeps maiden surname and feminine given name', () => {
     const state = createNewLife({ seed: 88, name: '蔣潤天', skipCoach: true });
-    expect(chineseSurnameOf(state.character.name)).toBe('蔣');
-    expect(chineseSurnameOf(state.character.family.fatherName!)).toBe('蔣');
-    expect(chineseSurnameOf(state.character.family.motherName!)).toBe('蔣');
-    expect(clanSurnameOf(state)).toBe('蔣');
+    const clan = chineseSurnameOf(state.character.name);
+    expect(chineseSurnameOf(state.character.family.fatherName!)).toBe(clan);
+    expect(chineseSurnameOf(state.character.family.motherName!)).not.toBe(clan);
 
-    // force mismatch then open 族譜 → 應對齊
+    // force wrong clan surname + masculine given → 族譜應校正
     state.character.family.fatherName = '王聽雨';
-    state.character.family.motherName = '李如雪';
+    state.character.family.motherName = `${clan}忘機`;
     state.character.family.childrenNames = ['青禾', '張墨白'];
     state.character.childrenCount = 2;
     state.character.flags.heir_name = '青禾';
     const book = buildGenealogy(state);
+    const mother = book.entries.find((e) => e.title === '母');
+    expect(mother).toBeTruthy();
+    expect(chineseSurnameOf(mother!.name)).not.toBe(clan);
+    expect(mother!.name).not.toContain('忘機');
+
     const blood = book.entries.filter((e) =>
-      ['父', '母', '本人', '子', '女', '子女'].includes(e.title),
+      ['父', '本人', '子', '女', '子女'].includes(e.title),
     );
     for (const row of blood) {
-      expect(chineseSurnameOf(row.name)).toBe('蔣');
+      expect(chineseSurnameOf(row.name)).toBe(clan);
     }
     // 眷屬保持外姓
     state.character.loverId = 'lover_x';
@@ -126,11 +129,13 @@ describe('genealogy 族譜', () => {
     expect(book.chronicle.length).toBeGreaterThan(0);
     expect(book.entries.some((e) => e.generation === '先祖')).toBe(true);
     const surname = chineseSurnameOf(String(legacy.ancestorName));
-    const blood = book.entries.filter((e) =>
-      ['父', '母', '本人', '前世'].includes(e.title),
-    );
-    for (const row of blood) {
-      expect(chineseSurnameOf(row.name)).toBe(surname);
+    const father = book.entries.find((e) => e.title === '父');
+    const self = book.entries.find((e) => e.self);
+    const ancestor = book.entries.find((e) => e.title === '前世');
+    const mother = book.entries.find((e) => e.title === '母');
+    for (const row of [father, self, ancestor].filter(Boolean)) {
+      expect(chineseSurnameOf(row!.name)).toBe(surname);
     }
+    if (mother) expect(chineseSurnameOf(mother.name)).not.toBe(surname);
   });
 });
