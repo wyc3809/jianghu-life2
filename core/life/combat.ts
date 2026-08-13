@@ -3,11 +3,16 @@ import {
   GUARD_STANCE,
   CHARGE_STANCE,
   FLEE_MOVE,
+  REST_QI_MOVE,
+  REST_STAMINA_MOVE,
+  REST_HEAL_MOVE,
   getSkillDef,
   listExternalMovesForSkills,
   sumInternalPassives,
   sumEvasionBonus,
   type CombatMoveDef,
+  isRecoverySupportMove,
+  effectiveMoveCooldown,
 } from '@data/skills/catalog';
 import { rankPowerMult } from './martialRanks';
 import { grantGear, ensureGear, gearTotals, sumGearCombatBonuses } from './equipment';
@@ -26,6 +31,7 @@ import {
   tickStatus,
   tickRegen,
   resolveStrike,
+  applyRecoveryEffects,
 } from './combatCore';
 import { recordDeath } from './death';
 import { chooseFoeMove, inferFoeAiStyle } from './foeAi';
@@ -76,6 +82,8 @@ export function buildPlayerFighter(state: LifeGameState): CombatFighter {
     gearPierce: gearCombat.pierce,
     gearLifesteal: gearCombat.lifesteal,
     gearBleedChance: gearCombat.bleedChance,
+    stamina: c.stamina ?? c.maxStamina ?? 100,
+    maxStamina: c.maxStamina ?? 120,
   };
 }
 
@@ -156,6 +164,7 @@ export function startCombat(
     foe,
     log: [],
     usedExternalSkillIds: [],
+    moveCooldowns: {},
     rewardOnWin: opts.rewardOnWin,
     rewardOnLose: opts.rewardOnLose,
     eventId: opts.eventId,
@@ -175,11 +184,49 @@ export function getPlayerMoves(state: LifeGameState): CombatMoveDef[] {
   return listExternalMovesForSkills(state.character.skills);
 }
 
+export function getMoveCooldownRemaining(combat: PendingCombat, moveId: string): number {
+  return combat.moveCooldowns?.[moveId] ?? 0;
+}
+
+function setMoveCooldown(combat: PendingCombat, move: CombatMoveDef): void {
+  const cd = effectiveMoveCooldown(move);
+  if (cd <= 0) return;
+  if (!combat.moveCooldowns) combat.moveCooldowns = {};
+  combat.moveCooldowns[move.id] = cd;
+  if (!combat.cooldownSkipTick) combat.cooldownSkipTick = [];
+  if (!combat.cooldownSkipTick.includes(move.id)) combat.cooldownSkipTick.push(move.id);
+}
+
+function tickMoveCooldowns(combat: PendingCombat): void {
+  if (!combat.moveCooldowns) return;
+  const skip = new Set(combat.cooldownSkipTick ?? []);
+  combat.cooldownSkipTick = [];
+  for (const id of Object.keys(combat.moveCooldowns)) {
+    if (skip.has(id)) continue;
+    const left = Math.max(0, (combat.moveCooldowns[id] ?? 0) - 1);
+    if (left <= 0) delete combat.moveCooldowns[id];
+    else combat.moveCooldowns[id] = left;
+  }
+}
+
+function syncPlayerVitalsToCharacter(state: LifeGameState, combat: PendingCombat): void {
+  const c = state.character;
+  const hpRatio = combat.player.hp / Math.max(1, combat.player.maxHp);
+  c.health = clamp(Math.round(c.maxHealth * Math.min(1, hpRatio)), 0, c.maxHealth);
+  c.qi = clamp(Math.round(combat.player.qi), 0, c.maxQi);
+  if (combat.player.stamina !== undefined) {
+    c.stamina = clamp(Math.round(combat.player.stamina), 0, c.maxStamina);
+  }
+}
+
 function findMove(state: LifeGameState, moveId: string): CombatMoveDef | null {
   if (moveId === BASIC_STRIKE.id) return BASIC_STRIKE;
   if (moveId === GUARD_STANCE.id) return GUARD_STANCE;
   if (moveId === CHARGE_STANCE.id) return CHARGE_STANCE;
   if (moveId === FLEE_MOVE.id) return FLEE_MOVE;
+  if (moveId === REST_QI_MOVE.id) return REST_QI_MOVE;
+  if (moveId === REST_STAMINA_MOVE.id) return REST_STAMINA_MOVE;
+  if (moveId === REST_HEAL_MOVE.id) return REST_HEAL_MOVE;
   for (const id of state.character.skills) {
     const def = getSkillDef(id);
     if (def?.move?.id === moveId) return def.move;
@@ -314,6 +361,9 @@ function finishCombatWin(state: LifeGameState, dispositionLabel?: CombatFoeDispo
   c.health = clamp(Math.round(c.maxHealth * Math.min(1, hpRatio)), 0, c.maxHealth);
   // 戰後不回滿內力：沿用交手結束時剩餘內力
   c.qi = clamp(Math.round(combat.player.qi), 0, c.maxQi);
+  if (combat.player.stamina !== undefined) {
+    c.stamina = clamp(Math.round(combat.player.stamina), 0, c.maxStamina);
+  }
   c.fatigue = clamp(c.fatigue + 8, 0, 100);
   c.stats.combats += 1;
   c.stats.combatsWon += 1;
@@ -413,6 +463,9 @@ function finishCombat(state: LifeGameState, won: boolean): string[] {
   c.health = clamp(Math.round(c.maxHealth * Math.min(1, hpRatio)), 0, c.maxHealth);
   // 戰敗同樣不回滿內力
   c.qi = clamp(Math.round(combat.player.qi), 0, c.maxQi);
+  if (combat.player.stamina !== undefined) {
+    c.stamina = clamp(Math.round(combat.player.stamina), 0, c.maxStamina);
+  }
   c.fatigue = clamp(c.fatigue + 14, 0, 100);
   c.stats.combats += 1;
 
@@ -482,17 +535,16 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
   } else {
     tickRegen(combat.player);
     const move = playerMovePreview;
-
-    if (move.id === FLEE_MOVE.id) {
+    const cdLeft = getMoveCooldownRemaining(combat, move.id);
+    if (cdLeft > 0) {
+      const cdLine = `「${move.name}」尚在調息，還需 ${cdLeft} 回合。`;
+      lines.push(cdLine);
+      combat.log.push(cdLine);
+    } else if (move.id === FLEE_MOVE.id) {
       const chance = clamp(0.32 + combat.player.evasion + state.character.attributes.danShi / 400, 0.15, 0.82);
       if (rng.chance(chance)) {
-        const hpRatio = combat.player.hp / Math.max(1, combat.player.maxHp);
-        state.character.health = clamp(
-          Math.round(state.character.maxHealth * Math.min(1, hpRatio)),
-          1,
-          state.character.maxHealth,
-        );
-        state.character.qi = clamp(combat.player.qi, 0, state.character.maxQi);
+        syncPlayerVitalsToCharacter(state, combat);
+        state.character.health = Math.max(1, state.character.health);
         state.character.reputation = Math.max(0, state.character.reputation - 2);
         state.character.fatigue = clamp(state.character.fatigue + 6, 0, 100);
         const fleeLines = [`你足尖一點，借身法抽身離場（逃離成功）。`, '名望－2'];
@@ -509,10 +561,23 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
       // fall through to enemy turn without attacking
     } else if (move.id === GUARD_STANCE.id) {
       combat.player.defenseMod += 6;
-      const recover = 12;
-      combat.player.qi = clamp(combat.player.qi + recover, 0, combat.player.maxQi);
-      lines.push(`你收招守中（架），架勢更穩，緩回內力 ${recover}。`);
-      combat.log.push(lines[lines.length - 1]!);
+      const guardLine = '你收招守中（架），架勢更穩。';
+      lines.push(guardLine);
+      const recoverLines = applyRecoveryEffects(combat.player, move, 1, true);
+      lines.push(...recoverLines);
+      combat.log.push(guardLine, ...recoverLines);
+      setMoveCooldown(combat, move);
+    } else if (isRecoverySupportMove(move)) {
+      if (combat.player.qi < move.qiCost) {
+        lines.push('內息不足，無法調息。');
+        combat.log.push(lines[lines.length - 1]!);
+      } else {
+        combat.player.qi -= move.qiCost;
+        const recoverLines = applyRecoveryEffects(combat.player, move, 1, true);
+        lines.push(...recoverLines);
+        combat.log.push(...recoverLines);
+        setMoveCooldown(combat, move);
+      }
     } else if (move.id === CHARGE_STANCE.id) {
       if (combat.player.qi < move.qiCost) {
         lines.push('內息不足，無法蓄勢，只好改為普通攻擊。');
@@ -571,6 +636,7 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
       );
       lines.push(...strikeLines);
       combat.log.push(...strikeLines);
+      setMoveCooldown(combat, move);
     }
   }
 
@@ -639,6 +705,7 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
   }
 
   combat.turn += 1;
+  tickMoveCooldowns(combat);
   combat.phase = 'player';
   snapshotRng(state);
   return lines;
