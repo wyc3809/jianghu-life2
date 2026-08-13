@@ -623,7 +623,7 @@ describe('life event engine', () => {
   });
 
   it('turn-based combat uses external moves and internal passives', async () => {
-    const { startCombat, playerCombatTurn, getPlayerMoves } = await import('../core/life/combat');
+    const { startCombat, playerCombatTurn, getPlayerMoves, getMoveCooldownRemaining } = await import('../core/life/combat');
     initRng(5);
     const state = createNewLife(5);
     startCombat(state, {
@@ -638,9 +638,15 @@ describe('life event engine', () => {
     expect(moves.some((m) => m.id === 'basic_strike')).toBe(true);
     expect(moves.some((m) => m.name === '長河崩拳')).toBe(true);
     expect(moves.every((m) => m.id !== '基礎吐納')).toBe(true);
+    const { effectiveMoveCooldown, BASIC_STRIKE } = await import('../data/skills/catalog');
+    const river = moves.find((m) => m.id === 'mv_river_fist')!;
+    expect(effectiveMoveCooldown(BASIC_STRIKE)).toBe(0);
+    expect(effectiveMoveCooldown(river)).toBe(1);
     expect(state.pendingCombat!.player.attack).toBeGreaterThan(0);
-    playerCombatTurn(state, 'basic_strike');
-    expect(!state.pendingCombat || state.pendingCombat.phase === 'player').toBe(true);
+    playerCombatTurn(state, 'mv_river_fist');
+    expect(getMoveCooldownRemaining(state.pendingCombat!, 'mv_river_fist')).toBe(1);
+    playerCombatTurn(state, 'mv_river_fist');
+    expect(state.pendingCombat!.log.some((l) => l.includes('尚在調息'))).toBe(true);
   });
 
   it('combat recovery moves and move cooldowns', async () => {

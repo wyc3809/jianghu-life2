@@ -22,7 +22,8 @@
         "qiCost": 41,
         "power": 1.5,
         "description": "拳勢如河，一往無前。",
-        "pierce": 0.08
+        "pierce": 0.08,
+        "cooldown": 1
       }
     },
     {

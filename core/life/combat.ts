@@ -12,6 +12,7 @@ import {
   sumEvasionBonus,
   type CombatMoveDef,
   isRecoverySupportMove,
+  effectiveMoveCooldown,
 } from '@data/skills/catalog';
 import { rankPowerMult } from './martialRanks';
 import { grantGear, ensureGear, gearTotals, sumGearCombatBonuses } from './equipment';
@@ -188,7 +189,7 @@ export function getMoveCooldownRemaining(combat: PendingCombat, moveId: string):
 }
 
 function setMoveCooldown(combat: PendingCombat, move: CombatMoveDef): void {
-  const cd = move.cooldown ?? 0;
+  const cd = effectiveMoveCooldown(move);
   if (cd <= 0) return;
   if (!combat.moveCooldowns) combat.moveCooldowns = {};
   combat.moveCooldowns[move.id] = cd;

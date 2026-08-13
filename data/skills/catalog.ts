@@ -192,6 +192,22 @@ export function isCombatActionMove(moveId: string): boolean {
   return SYSTEM_MOVES.some((m) => m.id === moveId);
 }
 
+/**
+ * 實際冷卻回合：目錄 `cooldown` 可覆寫。
+ * 外功攻擊招預設 1 回合；普通攻擊與未標 CD 的系統招（守／蓄／遁）除外。
+ * 重招（威能 ≥1.75 或連擊 ≥3）預設 2 回合。
+ */
+export function effectiveMoveCooldown(m: CombatMoveDef): number {
+  if (m.cooldown !== undefined && m.cooldown > 0) return m.cooldown;
+  if (m.id === BASIC_STRIKE.id) return 0;
+  if (isCombatActionMove(m.id)) return 0;
+  if ((m.power ?? 0) > 0) {
+    if ((m.power ?? 0) >= 1.75 || (m.multiHit ?? 1) >= 3) return 2;
+    return 1;
+  }
+  return 0;
+}
+
 export const SKILL_DEFS: Record<string, SkillDef> = buildCatalog();
 
 export const SKILL_NAMES: Record<string, string> = Object.fromEntries(
@@ -269,7 +285,8 @@ export function formatCombatMoveEffectBits(m: CombatMoveDef): string[] {
   if (m.healSelf) fx.push(`回血${m.healSelf}`);
   if (m.qiSelf) fx.push(`回內${m.qiSelf}`);
   if (m.staminaSelf) fx.push(`回體${m.staminaSelf}`);
-  if (m.cooldown) fx.push(`CD${m.cooldown}回合`);
+  const cd = effectiveMoveCooldown(m);
+  if (cd > 0) fx.push(`CD${cd}回合`);
   if (m.applyBlind) fx.push('迷目');
   if (m.defenseBreak) fx.push(`破防−${m.defenseBreak}`);
   if (m.hitBonus) fx.push(`命中+${Math.round(m.hitBonus * 100)}%`);
