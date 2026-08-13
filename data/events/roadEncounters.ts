@@ -16,7 +16,7 @@ const RAW: GameEvent[] = [
       {
         id: 'fight',
         text: '拔刀硬闖',
-        outcomes: [{ effects: [{ type: 'narrate', text: '刀來刀往，這一局要用真功夫說話。' }] }],
+        outcomes: [{ effects: [{ type: 'narrate', text: '刀來刀往，巷口的狗叫了兩聲。你袖口破了，血很少。' }] }],
       },
       {
         id: 'pay',

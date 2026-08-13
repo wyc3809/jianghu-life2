@@ -437,7 +437,7 @@ const RUMORS: GameEvent[] = [
       {
         id: 'leave',
         text: '不去打擾',
-        outcomes: [{ effects: [{ type: 'narrate', text: '隱士之緣，強求不得。你轉身離去。' }] }],
+        outcomes: [{ effects: [{ type: 'narrate', text: '隱士把柴門關上。你站在階外片刻，轉身下山，靴底還沾着苔。' }] }],
       },
     ],
   },

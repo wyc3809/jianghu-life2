@@ -197,7 +197,7 @@ const RAW: GameEvent[] = [
           {
             effects: [
               { type: 'money', amount: 25 },
-              { type: 'narrate', text: '你拿到市集問價，書商嗅了嗅，只當舊物，給了一筆小錢。帛書易主的一瞬，你說不清是鬆了口氣，還是丟了機緣。銀兩入袋，心事卻還在。' },
+              { type: 'narrate', text: '你拿到市集問價，書商嗅了嗅，只當舊物，給了一筆小錢。帛書易主時你指尖還沾着紙屑，銀兩入袋，心事卻還在。' },
             ],
           },
         ],
@@ -348,7 +348,7 @@ const RAW: GameEvent[] = [
         outcomes: [
           {
             effects: [
-              { type: 'narrate', text: '你應下比試，茶棚外人群讓出空地。譏諷你的人搓拳上場，圍觀者起哄。刀光未出，風先緊了——這一局，要用真功夫說話。' },
+              { type: 'narrate', text: '你應下比試，茶棚外人群讓出空地。譏諷你的人搓拳上場，圍觀者起哄。砂土濺上你靴尖。' },
               { type: 'martial', amount: 2 },
             ],
           },

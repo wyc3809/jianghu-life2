@@ -976,7 +976,7 @@ body::before {
   justify-content: space-between;
   align-items: flex-start;
   gap: 8px;
-  padding-bottom: 8px;
+  padding-bottom: 6px;
   border-bottom: 1px solid var(--ink-faint);
 }
 
@@ -1843,16 +1843,16 @@ body::before {
 
 .ink-result-story-label,
 .ink-result-delta-label {
-  margin: 0 0 6px;
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
+  margin: 0 0 4px;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
   color: var(--ink-wash);
 }
 
 .ink-result-deltas {
-  margin-top: 12px;
-  padding-top: 10px;
-  border-top: 1px dashed rgba(26, 26, 26, 0.14);
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(26, 26, 26, 0.12);
 }
 
 .ink-huashan-panel {
@@ -2031,11 +2031,12 @@ body::before {
 }
 
 .ink-note {
-  margin: 10px 0 0;
-  font-size: var(--fs-caption);
-  color: var(--ink-soft);
+  margin: 6px 0 0;
+  font-size: 0.78rem;
+  color: var(--ink-wash);
   font-weight: var(--fw-body);
-  line-height: 1.55;
+  line-height: 1.45;
+  letter-spacing: 0.04em;
 }
 
 .ink-event {
@@ -2043,12 +2044,12 @@ body::before {
 }
 
 .ink-event-year {
-  margin: 0 0 4px;
+  margin: 0 0 2px;
   text-align: center;
-  font-size: var(--fs-caption);
-  color: var(--ink-soft);
+  font-size: 0.72rem;
+  color: var(--ink-wash);
   font-weight: var(--fw-ui);
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
 }
 
 .ink-event h3 {
@@ -3369,15 +3370,15 @@ button.is-pressed,
 .ink-result-story {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 12px;
+  gap: 8px;
+  margin-bottom: 10px;
 }
 
 .ink-result-story .ink-event-body {
   margin: 0;
   text-align: left;
-  line-height: 1.75;
-  letter-spacing: 0.04em;
+  line-height: 1.65;
+  letter-spacing: 0.03em;
   animation: writeIn 0.4s ease both;
 }
 

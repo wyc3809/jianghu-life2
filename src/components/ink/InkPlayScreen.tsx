@@ -815,7 +815,7 @@ export function InkPlayScreen({ state }: Props) {
               </div>
               {!sect ? (
                 <>
-                  <p className="ink-note">各派門風不同，拜入與否，全看當下機緣。</p>
+                  <p className="ink-note">各派門風不同，拜入與否，看你當下根基與來意。</p>
                   <div className="ink-practice-grid">
                     {SECT_DEFS.map((s) => (
                       <button

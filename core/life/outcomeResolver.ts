@@ -225,7 +225,7 @@ function applyPackOutcome(
     case 'roll_event': {
       const id = stringifyPackValue(value) || 'followup';
       c.flags[`followup_${id}`] = true;
-      return { log: '後續機緣已種下。', delta: '後續機緣' };
+      return { log: '後話已記下。', delta: '後續' };
     }
     default:
       if (typeof outcome.note === 'string' && outcome.note) return { log: outcome.note };
