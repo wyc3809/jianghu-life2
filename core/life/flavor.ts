@@ -7,7 +7,8 @@ import {
   rankName,
   rollAdvanceNeed,
 } from './martialRanks';
-import { formatSkillLine, skillLabel } from '@data/skills/catalog';
+import { formatSkillLine, getSkillDef, skillKindLabel, skillLabel } from '@data/skills/catalog';
+import { learnSkillDeltaChip, LEARN_SKILL_MARKER } from './playerText';
 
 /** 定性描述：氣血／內力／財帛／名望／疲勞／五維／天下 */
 export function vitalHealthLabel(c: LifeCharacter): string {
@@ -199,11 +200,88 @@ export function tryAdvanceRandomSkill(
   return tryAdvanceSkill(state, rng.pick(pool), source);
 }
 
-export function learnMartialArt(state: LifeGameState, skillId: string, displayName?: string): string {
+export type LearnSkillResult = {
+  story: string;
+  delta: string | null;
+  isNew: boolean;
+};
+
+function resolveLearnDisplayName(skillId: string, displayName?: string): string {
+  const canonical = skillLabel(skillId);
+  if (!displayName || /外門武學$/.test(displayName.trim())) return canonical;
+  if (/[\u4e00-\u9fff]/.test(displayName)) return displayName.trim();
+  return canonical;
+}
+
+function learnSkillProse(
+  rng: ReturnType<typeof getRng>,
+  skillId: string,
+  displayName: string,
+  isNew: boolean,
+): string {
+  const def = getSkillDef(skillId);
+  const kind = def ? skillKindLabel(def.kind) : '武學';
+  const rank = rankName(0);
+  const flavor = def?.flavor?.trim();
+  const moveName = def?.move?.name;
+
+  if (!isNew) {
+    return `${LEARN_SKILL_MARKER}你已通「${displayName}」，此番又溫習一輪，${rank}之基更穩，${kind}更熟。`;
+  }
+
+  const openers: Record<string, string[]> = {
+    external: [
+      '勁路忽然贯通，',
+      '一招一式入懷，',
+      '腕底記住新招，',
+    ],
+    internal: [
+      '丹田微震，',
+      '內息歸元，',
+      '經脈間多了一條路，',
+    ],
+    qinggong: [
+      '足尖輕了半寸，',
+      '身法初成，',
+      '風聲在耳畔換了調子，',
+    ],
+  };
+  const closers: Record<string, string[]> = {
+    external: [
+      '從此交手，多了一路變化。',
+      '你空演半遍，知這套功夫已真正屬於自己。',
+      '江湖路又寬三分——這是值得銘記的一日。',
+    ],
+    internal: [
+      '氣息綿長，後勁更足。',
+      '心口像多了一盞長明燈，內功又深一層。',
+      '這份內功，會陪你走很長的路。',
+    ],
+    qinggong: [
+      '天地似寬了一線，身法已不同。',
+      '你借風試步，知身法已入身。',
+      '從此趕路、脫身，都多了一分把握。',
+    ],
+  };
+  const kindKey = def?.kind ?? 'external';
+  const opener = rng.pick(openers[kindKey] ?? openers.external);
+  const closer = rng.pick(closers[kindKey] ?? closers.external);
+  const moveBit = moveName && def?.kind === 'external' ? ` 可出招式「${moveName}」。` : '';
+  const flavorBit = flavor ? `${flavor} ` : '';
+  return `${LEARN_SKILL_MARKER}${opener}你正式悟得「${displayName}」（${kind}·${rank}）。${flavorBit}${closer}${moveBit}`;
+}
+
+/** 習得或溫習武學：回傳慶賀敘事與消長芯片 */
+export function applyLearnMartialArt(
+  state: LifeGameState,
+  skillId: string,
+  displayName?: string,
+): LearnSkillResult {
   const c = state.character;
   const rng = getRng();
   c.skillRanks = ensureSkillRanks(c.skillRanks);
-  if (!c.skills.includes(skillId)) c.skills.push(skillId);
+  const isNew = !c.skills.includes(skillId);
+  if (isNew) c.skills.push(skillId);
   grantSkillRank(c.skillRanks, skillId, 0);
   if (!c.skillProgress) c.skillProgress = {};
   if (!c.skillAdvanceNeed) c.skillAdvanceNeed = {};
@@ -211,8 +289,16 @@ export function learnMartialArt(state: LifeGameState, skillId: string, displayNa
   if (c.skillAdvanceNeed[skillId] === undefined) {
     c.skillAdvanceNeed[skillId] = rollAdvanceNeed(0, rng);
   }
-  const label = displayName ?? skillLabel(skillId);
-  return `習得「${label}」，階位「${rankName(0)}」。`;
+  const label = resolveLearnDisplayName(skillId, displayName);
+  return {
+    story: learnSkillProse(rng, skillId, label, isNew),
+    delta: isNew ? learnSkillDeltaChip(skillId, label) : null,
+    isNew,
+  };
+}
+
+export function learnMartialArt(state: LifeGameState, skillId: string, displayName?: string): string {
+  return applyLearnMartialArt(state, skillId, displayName).story;
 }
 
 export const ATTR_FEEL: Record<WuxiaAttribute, string> = {

@@ -25,6 +25,7 @@ import {
 import { InkSettingsPanel, type TextScale } from './InkSettingsPanel';
 import { titleLabels } from '@core/life/titles';
 import { classifyBeat, summarizeExchange } from '@core/life/combatPresentation';
+import { isLearnSkillDeltaLine, isLearnSkillStoryLine, LEARN_SKILL_MARKER } from '@core/life/playerText';
 import { describeSectProgress } from '@core/life/sectStanding';
 import { ensureNature, dominantNature, natureGateHint, natureSummary } from '@core/life/nature';
 import { getPlayerMoves } from '@core/life/combat';
@@ -141,7 +142,7 @@ export function InkPlayScreen({ state }: Props) {
   useEffect(() => {
     if (!sealText) return;
     if (sealText === '月') playInkPageFlip();
-    else if (sealText === '勝') playInkWin();
+    else if (sealText === '勝' || sealText === '武') playInkWin();
     else if (sealText === '敗' || sealText === '終') playInkLose();
     else if (sealText === '戰') playInkBlade();
     else playInkSeal();
@@ -1161,35 +1162,57 @@ export function InkPlayScreen({ state }: Props) {
         lastResult &&
         createPortal(
           <div className="ink-modal" role="dialog" aria-modal="true" aria-label="結果">
-            <div className="ink-modal-card ink-result ink-result--staged">
-              <InkResultSeal text={resultKind === 'practice' ? '修' : lastResult.title === '整裝' ? '裝' : '定'} />
+            <div
+              className={`ink-modal-card ink-result ink-result--staged${lastResult.deltas.some(isLearnSkillDeltaLine) ? ' ink-result--learn-skill' : ''}`}
+            >
+              <InkResultSeal
+                text={
+                  resultKind === 'practice'
+                    ? '修'
+                    : lastResult.title === '整裝'
+                      ? '裝'
+                      : lastResult.deltas.some(isLearnSkillDeltaLine)
+                        ? '武'
+                        : '定'
+                }
+              />
               <p className="ink-event-year">
                 {resultKind === 'practice'
                   ? '修煉已定'
                   : lastResult.title === '整裝'
                     ? '披掛已定'
-                    : '本月際遇'}
+                    : lastResult.deltas.some(isLearnSkillDeltaLine)
+                      ? '武學入懷'
+                      : '本月際遇'}
               </p>
               <h3>{lastResult.title}</h3>
               <p className="ink-result-choice">你選擇：{lastResult.choiceText}</p>
               <div className="ink-result-story">
                 <p className="ink-result-story-label">經過</p>
                 {lastResult.feedback.split(/\n\n+/).map((para, i) => (
-                  <p key={`${i}-${para.slice(0, 12)}`} className="ink-event-body">
-                    {para}
+                  <p
+                    key={`${i}-${para.slice(0, 12)}`}
+                    className={`ink-event-body${isLearnSkillStoryLine(para) ? ' ink-event-body--learn-skill' : ''}`}
+                  >
+                    {para.replace(LEARN_SKILL_MARKER, '')}
                   </p>
                 ))}
               </div>
               {lastResult.deltas.length > 0 && (
                 <div className="ink-result-deltas">
-                  <p className="ink-result-delta-label">此番消長</p>
+                  <p className="ink-result-delta-label">
+                    {lastResult.deltas.some(isLearnSkillDeltaLine) ? '新學武學' : '此番消長'}
+                  </p>
                   <ul className="ink-delta-board" aria-label="此番消長">
                     {lastResult.deltas.map((d, i) => {
-                      const tone = /[+\uFF0B]/.test(d)
-                        ? 'up'
-                        : /[-－\u2212]/.test(d)
-                          ? 'down'
-                          : 'flat';
+                      const learn = isLearnSkillDeltaLine(d);
+                      const tone = learn
+                        ? 'learn'
+                        : /[+\uFF0B]/.test(d)
+                          ? 'up'
+                          : /[-－\u2212]/.test(d)
+                            ? 'down'
+                            : 'flat';
                       return (
                         <li
                           key={`${i}-${d}`}

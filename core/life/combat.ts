@@ -11,7 +11,7 @@ import {
 } from '@data/skills/catalog';
 import { rankPowerMult } from './martialRanks';
 import { grantGear, ensureGear, gearTotals, sumGearCombatBonuses } from './equipment';
-import { learnMartialArt, tryAdvanceSkill } from './flavor';
+import { applyLearnMartialArt, tryAdvanceSkill } from './flavor';
 import { applyNatureDelta } from './nature';
 import { recordDispositionAftermath } from './aftermath';
 import type { NatureAttr } from '@interfaces/lifeEngine';
@@ -366,7 +366,9 @@ function finishCombatWin(state: LifeGameState, dispositionLabel?: CombatFoeDispo
     }
   }
   if (r.skillId && !c.skills.includes(r.skillId)) {
-    lines.push(learnMartialArt(state, r.skillId, r.skillName));
+    const learned = applyLearnMartialArt(state, r.skillId, r.skillName);
+    lines.push(learned.story);
+    if (learned.delta) lines.push(learned.delta);
   }
   if (r.gearId) {
     const gearName = grantGear(state, r.gearId);

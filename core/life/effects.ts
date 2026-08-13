@@ -5,8 +5,8 @@ import { randomChineseName } from '@core/ids';
 import { artForStanding } from '@data/content/packs';
 import { grantGear, raiseBaseMaxHp, raiseBaseMaxQi, ensureGear } from './equipment';
 import { addCondition } from './monthly';
-import { learnMartialArt } from './flavor';
-import { displaySkillName, isStatDeltaLine } from './playerText';
+import { applyLearnMartialArt } from './flavor';
+import { isStatDeltaLine } from './playerText';
 import { applyNatureDelta, ensureNature } from './nature';
 import { applyPracticeOutcome, type WanderPracticeActionId } from './actions';
 import { recordDeath } from './death';
@@ -122,9 +122,9 @@ export function applyEffects(state: LifeGameState, effects: GameEffect[]): Effec
         state.worldFlags[eff.key] = eff.value;
         break;
       case 'learnSkill': {
-        const line = learnMartialArt(state, eff.skillId, eff.name);
-        logs.push(line);
-        deltas.push(`武功＋${displaySkillName(eff.skillId, eff.name)}`);
+        const learned = applyLearnMartialArt(state, eff.skillId, eff.name);
+        logs.push(learned.story);
+        if (learned.delta) deltas.push(learned.delta);
         break;
       }
       case 'grantGear': {
@@ -159,9 +159,9 @@ export function applyEffects(state: LifeGameState, effects: GameEffect[]): Effec
           deltas.push(`門派＝${state.sects[sectId].name}`);
           const artId = artForStanding(sectId, 0);
           if (artId && !c.skills.includes(artId)) {
-            const line = learnMartialArt(state, artId);
-            logs.push(line);
-            deltas.push(`武功＋${displaySkillName(artId)}`);
+            const learned = applyLearnMartialArt(state, artId);
+            logs.push(learned.story);
+            if (learned.delta) deltas.push(learned.delta);
           }
         }
         break;

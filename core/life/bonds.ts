@@ -2,7 +2,7 @@ import type { GameEvent, LifeGameState } from '@interfaces/lifeEngine';
 import { getRng } from '@core/random';
 import { syncRngFromState, snapshotRng } from './gameState';
 import { applyNatureDelta } from './nature';
-import { learnMartialArt } from './flavor';
+import { applyLearnMartialArt } from './flavor';
 import { raiseBaseMaxQi } from './equipment';
 
 /** 拜師後寫入師門絆 */
@@ -249,7 +249,9 @@ export function applyBondSideEffects(state: LifeGameState, logs: string[]): stri
     c.flags.master_dual_rewarded = true;
     raiseBaseMaxQi(c, 15);
     if (!c.skills.includes('art_tiger_breath')) {
-      out.push(learnMartialArt(state, 'art_tiger_breath', '虎嘯內勁'));
+      const learned = applyLearnMartialArt(state, 'art_tiger_breath', '虎嘯內勁');
+      out.push(learned.story);
+      if (learned.delta) out.push(learned.delta);
     }
     applyNatureDelta(c, { xia: 1 });
   }

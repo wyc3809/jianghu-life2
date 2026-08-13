@@ -2,7 +2,7 @@ import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getRng } from '@core/random';
 import { syncRngFromState, snapshotRng } from './gameState';
 import { pushChronicle } from './chronicle';
-import { learnMartialArt } from './flavor';
+import { applyLearnMartialArt } from './flavor';
 import { grantGear } from './equipment';
 import { applyNatureDelta } from './nature';
 import { recordGrudgeFromDisposition, tickGrudgeBook } from './grudgeBook';
@@ -65,7 +65,9 @@ export function tickAftermath(state: LifeGameState): string[] {
         c.money += gift;
         lines.push(`昔日放走的${foe}託人送來銀兩${gift}兩，並附一封短箋致謝。`);
         if (rng.chance(0.28) && !c.skills.includes('qg_reed_drift')) {
-          lines.push(learnMartialArt(state, 'qg_reed_drift', '蘆花身法'));
+          const learned = applyLearnMartialArt(state, 'qg_reed_drift', '蘆花身法');
+          lines.push(learned.story);
+          if (learned.delta) lines.push(learned.delta);
         }
         applyNatureDelta(c, { xia: 1 });
       } else {

@@ -1,7 +1,7 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getRng } from '@core/random';
 import { syncRngFromState, snapshotRng } from './gameState';
-import { learnMartialArt } from './flavor';
+import { applyLearnMartialArt } from './flavor';
 
 export type FragmentPart = '上' | '中' | '下';
 
@@ -78,7 +78,8 @@ export function tryAssembleManual(state: LifeGameState, manualId: string): strin
   state.character.flags[`manual_done_${manualId}`] = true;
   const lines = [`三卷合璧——「${manual.title}」隱義盡現！`];
   if (!state.character.skills.includes(manual.skillId)) {
-    lines.push(learnMartialArt(state, manual.skillId, manual.skillName));
+    const learned = applyLearnMartialArt(state, manual.skillId, manual.skillName);
+    lines.push(learned.story);
   } else {
     state.character.martial += 3;
     lines.push(`你本通「${manual.skillName}」，合譜後武學＋3。`);
