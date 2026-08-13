@@ -4,9 +4,6 @@ import {
   GUARD_STANCE,
   CHARGE_STANCE,
   FLEE_MOVE,
-  REST_QI_MOVE,
-  REST_STAMINA_MOVE,
-  REST_HEAL_MOVE,
   type CombatMoveDef,
   isRecoverySupportMove,
 } from '@data/skills/catalog';
