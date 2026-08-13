@@ -3436,6 +3436,32 @@ button.is-pressed,
   color: var(--ink-mid);
 }
 
+.ink-delta-row--learn {
+  color: var(--cinnabar);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  background: linear-gradient(180deg, rgba(168, 52, 39, 0.08), rgba(168, 52, 39, 0.02));
+}
+
+.ink-event-body--learn-skill {
+  color: var(--ink);
+  font-size: 1.02em;
+  line-height: 1.75;
+  padding: 0.35rem 0.15rem 0.15rem;
+  border-left: 3px solid rgba(168, 52, 39, 0.55);
+  padding-left: 0.75rem;
+  background: linear-gradient(90deg, rgba(168, 52, 39, 0.06), transparent 72%);
+}
+
+.ink-result--learn-skill .ink-result-deltas {
+  border-color: rgba(168, 52, 39, 0.22);
+}
+
+.ink-result--learn-skill .ink-result-delta-label {
+  color: var(--cinnabar);
+  letter-spacing: 0.34em;
+}
+
 @keyframes inkDeltaReveal {
   from {
     opacity: 0;

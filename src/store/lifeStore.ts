@@ -21,7 +21,7 @@ import { performPracticeAction, PRACTICE_ACTIONS, type PracticeActionId } from '
 import { equipGear } from '@core/life/equipment';
 import { buildLifeSummary } from '@core/life/summary';
 import { playerCombatTurn, getPlayerMoves, resolveCombatDisposition, type CombatFoeDisposition } from '@core/life/combat';
-import { displayChoiceText, sanitizePlayerLine, sanitizePlayerLines, partitionStoryAndDeltas } from '@core/life/playerText';
+import { displayChoiceText, sanitizePlayerLine, sanitizePlayerLines, partitionStoryAndDeltas, hasLearnSkillContent } from '@core/life/playerText';
 import { BASIC_STRIKE } from '@data/skills/catalog';
 import {
   startHuashanBracket,
@@ -208,6 +208,7 @@ export const useLifeStore = create<LifeStore>((set, get) => ({
     if (!next.character.flags.coach_chose) next.character.flags.coach_chose = true;
     const result = applyChoice(next, event, choiceId);
     const startedCombat = Boolean(result.state.pendingCombat);
+    const allLines = [...result.logs, ...result.deltas];
     track('choice_made', { eventId: event.id, choiceId });
     if (result.died || result.state.phase === 'summary') {
       track('life_death', { cause: String(result.state.character.flags.death_cause ?? '') });
@@ -216,7 +217,14 @@ export const useLifeStore = create<LifeStore>((set, get) => ({
     void save(result.state);
     set({
       state: result.state,
-      sealText: result.died || result.state.phase === 'summary' ? '終' : startedCombat ? '戰' : '定',
+      sealText:
+        result.died || result.state.phase === 'summary'
+          ? '終'
+          : startedCombat
+            ? '戰'
+            : hasLearnSkillContent(allLines)
+              ? '武'
+              : '定',
       flashLines: [],
       lastResult: startedCombat
         ? null
@@ -305,7 +313,8 @@ export const useLifeStore = create<LifeStore>((set, get) => ({
     const parted = partitionStoryAndDeltas(logs);
     set({
       state: next,
-      sealText: next.phase === 'summary' ? '終' : startedCombat ? '戰' : '煉',
+      sealText:
+        next.phase === 'summary' ? '終' : startedCombat ? '戰' : hasLearnSkillContent(logs) ? '武' : '煉',
       flashLines: [],
       lastResult: startedCombat
         ? null
@@ -332,10 +341,24 @@ export const useLifeStore = create<LifeStore>((set, get) => ({
     const moveName =
       getPlayerMoves(state).find((m) => m.id === moveId)?.name ??
       (moveId === BASIC_STRIKE.id ? BASIC_STRIKE.name : displayChoiceText(moveId));
+    const endedParted = ended && !resolving ? partitionStoryAndDeltas(logs) : null;
     set({
       state: next,
       // 交手中段不蓋印，避免每回合動畫拖慢手感
-      sealText: next.phase === 'summary' ? '終' : resolving ? '勝' : fled ? '遁' : ended ? (logs.some((l) => /敗於|力竭/.test(l)) ? '敗' : '勝') : null,
+      sealText:
+        next.phase === 'summary'
+          ? '終'
+          : resolving
+            ? '勝'
+            : fled
+              ? '遁'
+              : ended
+                ? logs.some((l) => /敗於|力竭/.test(l))
+                  ? '敗'
+                  : hasLearnSkillContent(logs)
+                    ? '武'
+                    : '勝'
+                : null,
       flashLines: ended || resolving ? [] : logs.slice(0, 5),
       lastResult:
         ended && !resolving
@@ -343,9 +366,12 @@ export const useLifeStore = create<LifeStore>((set, get) => ({
               title: state.pendingCombat!.title,
               choiceText: moveName,
               feedback: sanitizePlayerLine(
-                logs.find((l) => /戰勝|敗於|力竭|逃離/.test(l)) ?? logs[logs.length - 1] ?? '交手結束。',
+                endedParted?.story ||
+                  logs.find((l) => /戰勝|敗於|力竭|逃離/.test(l)) ||
+                  logs[logs.length - 1] ||
+                  '交手結束。',
               ),
-              deltas: sanitizePlayerLines(logs.filter((l) => /＋|－|\+|武學|銀兩|名望|進境|心性|^[俠邪狂惡][+\-]+$/.test(l))),
+              deltas: sanitizePlayerLines(endedParted?.deltas ?? []),
             }
           : get().lastResult,
     });
@@ -368,21 +394,16 @@ export const useLifeStore = create<LifeStore>((set, get) => ({
       release: '放走',
       stun: '擊暈',
     };
+    const resolveParted = partitionStoryAndDeltas(logs);
     set({
       state: next,
-      sealText: next.phase === 'summary' ? '終' : '定',
+      sealText: next.phase === 'summary' ? '終' : hasLearnSkillContent(logs) ? '武' : '定',
       flashLines: [],
       lastResult: {
         title: state.pendingCombat.title,
         choiceText: labels[disposition],
-        feedback: sanitizePlayerLine(
-          logs
-            .filter((l) => !/^銀兩|^名望＋|^名望－|^武學|^戰利品|^習得|^進境|^[俠邪狂惡][+\-]+$/.test(l))
-            .join('\n\n'),
-        ),
-        deltas: sanitizePlayerLines(
-          logs.filter((l) => /^銀兩|^名望|^武學|^心性|^戰利品|^習得|^進境|^[俠邪狂惡][+\-]+$/.test(l)),
-        ),
+        feedback: sanitizePlayerLine(resolveParted.story || logs.join('\n\n')),
+        deltas: sanitizePlayerLines(resolveParted.deltas),
       },
     });
   },

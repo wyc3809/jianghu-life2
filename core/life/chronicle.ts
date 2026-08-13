@@ -1,7 +1,7 @@
 import type { GameEffect, LifeGameState, NatureAttr, WuxiaAttribute, WorldAttr } from '@interfaces/lifeEngine';
 import { natureLabels, wuxiaAttributeLabels, worldAttrLabels } from '@interfaces/lifeEngine';
 import { getLifeStageLabel } from './stages';
-import { displaySkillName, sanitizePlayerLine } from './playerText';
+import { displaySkillName, sanitizePlayerLine, LEARN_SKILL_MARKER } from './playerText';
 
 export function formatEffectLine(eff: GameEffect, state: LifeGameState): string | null {
   switch (eff.type) {
@@ -40,7 +40,7 @@ export function formatEffectLine(eff: GameEffect, state: LifeGameState): string 
     case 'martial':
       return `武學${eff.amount >= 0 ? '＋' : '－'}${Math.abs(eff.amount)}`;
     case 'learnSkill':
-      return `習得「${displaySkillName(eff.skillId, eff.name)}」`;
+      return `${LEARN_SKILL_MARKER}悟得「${displaySkillName(eff.skillId, eff.name)}」`;
     case 'joinSect': {
       const name =
         (eff.sectId && state.sects[eff.sectId]?.name) ||

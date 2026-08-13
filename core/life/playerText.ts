@@ -1,6 +1,23 @@
 import { skillLabel, getSkillDef } from '@data/skills/catalog';
 
-/** 玩家可見文案：過濾占位英文、技術 id */
+/** 習得新武學敘事行首標記（結果匣主文高亮用） */
+export const LEARN_SKILL_MARKER = '【武學入懷】';
+
+export function learnSkillDeltaChip(skillId: string, displayName?: string): string {
+  return `新武學·${displaySkillName(skillId, displayName)}`;
+}
+
+export function isLearnSkillStoryLine(line: string): boolean {
+  return String(line ?? '').includes(LEARN_SKILL_MARKER);
+}
+
+export function isLearnSkillDeltaLine(line: string): boolean {
+  return /^(新武學·|武功＋)/.test(String(line ?? '').trim());
+}
+
+export function hasLearnSkillContent(lines: string[]): boolean {
+  return lines.some((l) => isLearnSkillStoryLine(l) || isLearnSkillDeltaLine(l));
+}
 const CHOICE_FALLBACK: Record<string, string> = {
   accept: '應允',
   study: '鑽研',
@@ -202,7 +219,7 @@ export function sanitizePlayerLines(lines: string[]): string[] {
 
 /** 行首即為消長芯片（不含敘事前綴） */
 export function isStatDeltaLine(line: string): boolean {
-  return /^(銀兩|氣血上限|氣血|名望|武學|內息|內力上限|內力|裝備|心性|天下|疲勞|閱事|膽識|悟性|魅力|根骨|福緣|人情|記下|獲得|後續|傷勢|餘波|屬性|[俠邪狂惡][+\-＋－]+)/.test(
+  return /^(銀兩|氣血上限|氣血|名望|武學|內息|內力上限|內力|裝備|新武學·|武功＋|心性|天下|疲勞|閱事|膽識|悟性|魅力|根骨|福緣|人情|記下|獲得|後續|傷勢|餘波|屬性|[俠邪狂惡][+\-＋－]+)/.test(
     line.trim(),
   );
 }

@@ -7,7 +7,7 @@ import { grantGear, raiseBaseMaxHp, raiseBaseMaxQi, equipGear, ensureGear } from
 import { snapshotRng, syncRngFromState, SECT_DEFS } from './gameState';
 import { pushChronicle } from './chronicle';
 import {
-  learnMartialArt,
+  applyLearnMartialArt,
   tryAdvanceRandomSkill,
   tryAdvanceSkill,
 } from './flavor';
@@ -204,7 +204,9 @@ export function applyPracticeOutcome(
       logs.push(`你對執法長老執弟子禮，師徒之名已定。`);
       const artId = artForStanding(target, 0);
       if (artId) {
-        logs.push(learnMartialArt(state, artId, `${state.sects[target].name}外門武學`));
+        const learned = applyLearnMartialArt(state, artId);
+        logs.push(learned.story);
+        if (learned.delta) logs.push(learned.delta);
       }
       break;
     }
@@ -408,7 +410,9 @@ export function applyPracticeOutcome(
         ensureMasterBond(state, rng.pick(masterNames));
         logs.push(`你拜入「${c.flags.master_name}」門下，執弟子禮。`);
         if (!c.skills.includes(art.id)) {
-          logs.push(learnMartialArt(state, art.id, art.name));
+          const learned = applyLearnMartialArt(state, art.id, art.name);
+          logs.push(learned.story);
+          if (learned.delta) logs.push(learned.delta);
           raiseBaseMaxQi(c, rng.nextInt(10, 25));
         } else {
           const adv = tryAdvanceSkill(state, art.id, 'practice');

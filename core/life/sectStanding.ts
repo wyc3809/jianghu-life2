@@ -2,7 +2,7 @@ import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getRng } from '@core/random';
 import { artForStanding, getSectContent, sectStandingName } from '@data/content/packs';
 import { skillLabel } from '@data/skills/catalog';
-import { learnMartialArt } from './flavor';
+import { applyLearnMartialArt } from './flavor';
 
 const MAX_STANDING = 3;
 
@@ -28,7 +28,8 @@ export function tryGainSectStanding(state: LifeGameState, chance = 0.35): string
   const lines: string[] = [`${sectName}擢你為「${name}」。`];
   const artId = artForStanding(c.sectId, c.sectStanding);
   if (artId && !c.skills.includes(artId)) {
-    lines.push(learnMartialArt(state, artId));
+    const learned = applyLearnMartialArt(state, artId);
+    lines.push(learned.story);
   }
   return lines.join(' ');
 }
@@ -38,7 +39,7 @@ export function teachSectArtForStanding(state: LifeGameState, standing: number):
   if (!c.sectId) return null;
   const artId = artForStanding(c.sectId, standing);
   if (!artId || c.skills.includes(artId)) return null;
-  return learnMartialArt(state, artId);
+  return applyLearnMartialArt(state, artId).story;
 }
 
 export function describeSectProgress(state: LifeGameState): string[] {

@@ -303,6 +303,25 @@ describe('life event engine', () => {
     expect(state.pendingCombat!.player.evasion).toBeGreaterThan(0.05);
   });
 
+  it('learning a new martial art uses celebratory announcement text', async () => {
+    const { applyLearnMartialArt } = await import('../core/life/flavor');
+    const { LEARN_SKILL_MARKER, learnSkillDeltaChip } = await import('../core/life/playerText');
+    initRng(88);
+    const state = createNewLife(88);
+    const learned = applyLearnMartialArt(state, 'art_moon_sword', '弄月劍法');
+    expect(learned.isNew).toBe(true);
+    expect(learned.story).toContain(LEARN_SKILL_MARKER);
+    expect(learned.story).toContain('弄月劍法');
+    expect(learned.story).toContain('外功');
+    expect(learned.delta).toBe(learnSkillDeltaChip('art_moon_sword', '弄月劍法'));
+    expect(state.character.skills).toContain('art_moon_sword');
+
+    const again = applyLearnMartialArt(state, 'art_moon_sword', '弄月劍法');
+    expect(again.isNew).toBe(false);
+    expect(again.delta).toBeNull();
+    expect(again.story).toContain('溫習');
+  });
+
   it('boss win grants configured skill and gear', async () => {
     const { startCombat, playerCombatTurn } = await import('../core/life/combat');
     const { getBossFightConfig } = await import('../data/events/bossEncounters');
