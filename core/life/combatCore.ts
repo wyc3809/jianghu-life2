@@ -4,7 +4,11 @@ import {
   GUARD_STANCE,
   CHARGE_STANCE,
   FLEE_MOVE,
+  REST_QI_MOVE,
+  REST_STAMINA_MOVE,
+  REST_HEAL_MOVE,
   type CombatMoveDef,
+  isRecoverySupportMove,
 } from '@data/skills/catalog';
 import type { CombatFighterState } from '@interfaces/lifeEngine';
 
@@ -97,6 +101,34 @@ export function resolveOneHit(
   return lines;
 }
 
+export function applyRecoveryEffects(
+  fighter: CombatFighter,
+  move: CombatMoveDef,
+  powerMult = 1,
+  /** 純調息招：不要求命中 */
+  force = false,
+): string[] {
+  const lines: string[] = [];
+  const scale = 0.9 + powerMult * 0.1;
+
+  if (move.qiSelf) {
+    const gain = Math.round(move.qiSelf * scale);
+    fighter.qi = clamp(fighter.qi + gain, 0, fighter.maxQi);
+    lines.push(`${fighter.name}運功調息，內力回復 ${gain}。`);
+  }
+  if (move.healSelf && (force || (move.power ?? 0) <= 0)) {
+    const heal = Math.round(move.healSelf * scale);
+    fighter.hp = clamp(fighter.hp + heal, 0, fighter.maxHp);
+    lines.push(`${fighter.name}順勢止血，氣血回復 ${heal}。`);
+  }
+  if (move.staminaSelf && fighter.stamina !== undefined && fighter.maxStamina !== undefined) {
+    const gain = Math.round(move.staminaSelf * scale);
+    fighter.stamina = clamp(fighter.stamina + gain, 0, fighter.maxStamina);
+    lines.push(`${fighter.name}養神片刻，體力回復 ${gain}。`);
+  }
+  return lines;
+}
+
 export function applyOnHitEffects(
   attacker: CombatFighter,
   defender: CombatFighter,
@@ -108,10 +140,25 @@ export function applyOnHitEffects(
   const lines: string[] = [];
   if (!anyHit) return lines;
 
-  if (move.healSelf) {
+  if (move.healSelf && (move.power ?? 0) > 0) {
     const heal = Math.round(move.healSelf * (0.9 + powerMult * 0.1));
     attacker.hp = clamp(attacker.hp + heal, 0, attacker.maxHp);
     lines.push(`${attacker.name}順勢調息，氣血回復 ${heal}。`);
+  }
+  if (move.qiSelf && (move.power ?? 0) > 0) {
+    const gain = Math.round(move.qiSelf * (0.9 + powerMult * 0.1));
+    attacker.qi = clamp(attacker.qi + gain, 0, attacker.maxQi);
+    lines.push(`${attacker.name}借勢回息，內力回復 ${gain}。`);
+  }
+  if (
+    move.staminaSelf &&
+    (move.power ?? 0) > 0 &&
+    attacker.stamina !== undefined &&
+    attacker.maxStamina !== undefined
+  ) {
+    const gain = Math.round(move.staminaSelf * (0.9 + powerMult * 0.1));
+    attacker.stamina = clamp(attacker.stamina + gain, 0, attacker.maxStamina);
+    lines.push(`${attacker.name}身法一緩，體力回復 ${gain}。`);
   }
   if (move.applyBlind) {
     defender.blind = Math.max(defender.blind, move.applyBlind);
@@ -159,6 +206,15 @@ export function resolveStrike(
 ): string[] {
   const lines: string[] = [];
   if (move.id === GUARD_STANCE.id || move.id === CHARGE_STANCE.id || move.id === FLEE_MOVE.id) {
+    return lines;
+  }
+  if (isRecoverySupportMove(move)) {
+    if (attacker.qi < move.qiCost) {
+      lines.push(`${attacker.name}內息不足，無法使出「${move.name}」。`);
+      return lines;
+    }
+    attacker.qi -= move.qiCost;
+    lines.push(...applyRecoveryEffects(attacker, move, powerMult, true));
     return lines;
   }
   if (attacker.qi < move.qiCost) {

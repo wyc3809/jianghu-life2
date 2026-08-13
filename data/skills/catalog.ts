@@ -15,7 +15,14 @@ export interface CombatMoveDef {
   /** 包剪揼屬性：虛／實／架；缺省由 resolveMoveStance 推斷 */
   stance?: 'xu' | 'shi' | 'jia';
   hitBonus?: number;
+  /** 命中後或純調息招：回復自身氣血 */
   healSelf?: number;
+  /** 回復自身內力（純調息或命中後） */
+  qiSelf?: number;
+  /** 回復自身體力（純調息或命中後） */
+  staminaSelf?: number;
+  /** 再次使用前的回合冷卻（0 或缺省＝無） */
+  cooldown?: number;
   applyBlind?: number;
   /** 無視防禦比例 0–1 */
   pierce?: number;
@@ -117,7 +124,41 @@ export const GUARD_STANCE: CombatMoveDef = {
   qiCost: 0,
   power: 0,
   stance: 'jia',
+  qiSelf: 12,
   description: '收招守中（架），暫增防禦；戰鬥中可藉此緩回些許內力。',
+};
+
+export const REST_QI_MOVE: CombatMoveDef = {
+  id: 'sys_rest_qi',
+  name: '運功',
+  qiCost: 0,
+  power: 0,
+  stance: 'xu',
+  qiSelf: 18,
+  cooldown: 1,
+  description: '盤膝運功（虛），緩緩回復內力。',
+};
+
+export const REST_STAMINA_MOVE: CombatMoveDef = {
+  id: 'sys_rest_stamina',
+  name: '養神',
+  qiCost: 0,
+  power: 0,
+  stance: 'xu',
+  staminaSelf: 22,
+  cooldown: 2,
+  description: '收攝心神（虛），回復體力以便久戰。',
+};
+
+export const REST_HEAL_MOVE: CombatMoveDef = {
+  id: 'sys_rest_heal',
+  name: '止血',
+  qiCost: 8,
+  power: 0,
+  stance: 'jia',
+  healSelf: 16,
+  cooldown: 3,
+  description: '以內力壓住傷口（架），穩住氣血。',
 };
 
 export const CHARGE_STANCE: CombatMoveDef = {
@@ -138,7 +179,14 @@ export const FLEE_MOVE: CombatMoveDef = {
   description: '伺機脫戰（虛）；成敗看身法與氣運。',
 };
 
-export const SYSTEM_MOVES: CombatMoveDef[] = [GUARD_STANCE, CHARGE_STANCE, FLEE_MOVE];
+export const SYSTEM_MOVES: CombatMoveDef[] = [
+  GUARD_STANCE,
+  CHARGE_STANCE,
+  FLEE_MOVE,
+  REST_QI_MOVE,
+  REST_STAMINA_MOVE,
+  REST_HEAL_MOVE,
+];
 
 export function isCombatActionMove(moveId: string): boolean {
   return SYSTEM_MOVES.some((m) => m.id === moveId);
@@ -219,6 +267,9 @@ export function formatCombatMoveEffectBits(m: CombatMoveDef): string[] {
   if (m.stunChance) fx.push('定身');
   if (m.lifesteal) fx.push(`吸血${Math.round(m.lifesteal * 100)}%`);
   if (m.healSelf) fx.push(`回血${m.healSelf}`);
+  if (m.qiSelf) fx.push(`回內${m.qiSelf}`);
+  if (m.staminaSelf) fx.push(`回體${m.staminaSelf}`);
+  if (m.cooldown) fx.push(`CD${m.cooldown}回合`);
   if (m.applyBlind) fx.push('迷目');
   if (m.defenseBreak) fx.push(`破防−${m.defenseBreak}`);
   if (m.hitBonus) fx.push(`命中+${Math.round(m.hitBonus * 100)}%`);
@@ -235,6 +286,13 @@ export function combatMoveRole(m: CombatMoveDef): CombatMoveRole {
   if (m.id === GUARD_STANCE.id) return '守';
   if (m.id === CHARGE_STANCE.id) return '蓄';
   if (m.id === FLEE_MOVE.id) return '遁';
+  if (
+    (m.staminaSelf ?? 0) > 0 ||
+    (m.qiSelf ?? 0) > 0 ||
+    ((m.healSelf ?? 0) > 0 && (m.power ?? 0) <= 0)
+  ) {
+    return '巧';
+  }
   if ((m.stunChance ?? 0) > 0 || (m.applyBlind ?? 0) > 0) return '控';
   if ((m.bleedChance ?? 0) > 0 && (m.power ?? 0) < 1.45) return '控';
   if ((m.pierce ?? 0) > 0 || (m.defenseBreak ?? 0) > 0) return '破';
@@ -255,13 +313,27 @@ export function formatCombatMoveSummary(m: CombatMoveDef, effPower?: number): st
 }
 
 /** 戰鬥清單用短標：內力 · 威能 · 主特效（屬性只顯示喺印章） */
-export function formatCombatMoveCompact(m: CombatMoveDef, effPower?: number): string {
+export function formatCombatMoveCompact(
+  m: CombatMoveDef,
+  effPower?: number,
+  cooldownLeft?: number,
+): string {
   const bits: string[] = [];
+  if (cooldownLeft && cooldownLeft > 0) bits.push(`冷卻${cooldownLeft}回合`);
   bits.push(m.qiCost > 0 ? `內${m.qiCost}` : '無耗');
   if (m.power > 0) bits.push(`威×${(effPower ?? m.power).toFixed(1)}`);
   const fx = formatCombatMoveEffectBits(m);
   if (fx[0]) bits.push(fx[0]);
   return bits.join(' · ');
+}
+
+/** 純調息／養神類（不對敵出招） */
+export function isRecoverySupportMove(m: CombatMoveDef): boolean {
+  if (m.id === GUARD_STANCE.id || m.id === CHARGE_STANCE.id || m.id === FLEE_MOVE.id) return false;
+  return (
+    (m.power ?? 0) <= 0 &&
+    ((m.healSelf ?? 0) > 0 || (m.qiSelf ?? 0) > 0 || (m.staminaSelf ?? 0) > 0)
+  );
 }
 
 export function formatSkillDetail(id: string, rank: number): string {

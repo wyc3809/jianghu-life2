@@ -643,6 +643,57 @@ describe('life event engine', () => {
     expect(!state.pendingCombat || state.pendingCombat.phase === 'player').toBe(true);
   });
 
+  it('combat recovery moves and move cooldowns', async () => {
+    const {
+      startCombat,
+      playerCombatTurn,
+      getPlayerMoves,
+      getMoveCooldownRemaining,
+    } = await import('../core/life/combat');
+    const { REST_HEAL_MOVE, REST_QI_MOVE, REST_STAMINA_MOVE } = await import('../data/skills/catalog');
+    initRng(88);
+    const state = createNewLife(88);
+    startCombat(state, {
+      source: 'spar',
+      title: '試招',
+      foeName: '木人',
+      foePower: 'weak',
+      rewardOnWin: { martial: 1 },
+    });
+    const moves = getPlayerMoves(state);
+    expect(moves.some((m) => m.id === REST_QI_MOVE.id)).toBe(true);
+    expect(moves.some((m) => m.id === REST_STAMINA_MOVE.id)).toBe(true);
+    expect(moves.some((m) => m.id === REST_HEAL_MOVE.id)).toBe(true);
+
+    const combat = state.pendingCombat!;
+    const qiBefore = combat.player.qi;
+    playerCombatTurn(state, REST_QI_MOVE.id);
+    expect(state.pendingCombat!.player.qi).toBeGreaterThan(qiBefore);
+    expect(getMoveCooldownRemaining(state.pendingCombat!, REST_QI_MOVE.id)).toBe(1);
+
+    playerCombatTurn(state, REST_QI_MOVE.id);
+    expect(state.pendingCombat!.log.some((l) => l.includes('尚在調息'))).toBe(true);
+
+    playerCombatTurn(state, 'basic_strike');
+    expect(getMoveCooldownRemaining(state.pendingCombat!, REST_QI_MOVE.id)).toBe(0);
+
+    const staBefore = combat.player.stamina ?? state.character.stamina ?? 0;
+    if (staBefore > 0) {
+      state.pendingCombat!.player.stamina = Math.max(0, staBefore - 25);
+    }
+    playerCombatTurn(state, REST_STAMINA_MOVE.id);
+    expect(state.pendingCombat!.player.stamina ?? 0).toBeGreaterThan(
+      Math.max(0, staBefore - 25),
+    );
+    expect(getMoveCooldownRemaining(state.pendingCombat!, REST_STAMINA_MOVE.id)).toBe(2);
+
+    const healMove = moves.find((m) => m.healSelf && (m.cooldown ?? 0) > 0 && m.power > 0);
+    if (healMove) {
+      playerCombatTurn(state, healMove.id);
+      expect(getMoveCooldownRemaining(state.pendingCombat!, healMove.id)).toBe(healMove.cooldown);
+    }
+  });
+
   it('advances month and may assign pending event', () => {
     initRng(99);
     let state = createNewLife(99);
@@ -706,6 +757,8 @@ describe('life event engine', () => {
             (m.stunChance ?? 0) > 0 ||
             (m.lifesteal ?? 0) > 0 ||
             (m.healSelf ?? 0) > 0 ||
+            (m.qiSelf ?? 0) > 0 ||
+            (m.staminaSelf ?? 0) > 0 ||
             (m.applyBlind ?? 0) > 0 ||
             (m.defenseBreak ?? 0) > 0 ||
             (m.hitBonus ?? 0) > 0 ||

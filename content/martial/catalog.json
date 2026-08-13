@@ -51,7 +51,9 @@
         "qiCost": 29,
         "power": 1.15,
         "hitBonus": 0.12,
-        "description": "步法欺近，一踏即中。"
+        "staminaSelf": 10,
+        "cooldown": 2,
+        "description": "步法欺近，一踏即中，借勢回神。"
       }
     },
     {
@@ -180,6 +182,7 @@
         "hitBonus": 0.1,
         "healSelf": 8,
         "lifesteal": 0.15,
+        "cooldown": 2,
         "description": "借力卸力，順勢回氣。"
       }
     },
@@ -660,6 +663,7 @@
         "power": 1.12,
         "hitBonus": 0.08,
         "healSelf": 10,
+        "cooldown": 2,
         "description": "柔勁入體，順勢調息。"
       }
     },
@@ -695,6 +699,7 @@
         "power": 1.3,
         "healSelf": 6,
         "lifesteal": 0.28,
+        "cooldown": 3,
         "description": "綿掌入骨，化傷為養。"
       }
     },
@@ -804,6 +809,7 @@
         "healSelf": 12,
         "defenseBreak": 4,
         "applyBlind": 0.1,
+        "cooldown": 2,
         "description": "卸力推手，敵勢自潰。"
       }
     },

@@ -370,6 +370,9 @@ export interface CombatFighterState {
   gearPierce?: number;
   gearLifesteal?: number;
   gearBleedChance?: number;
+  /** 玩家體力（僅 isPlayer 時同步至角色） */
+  stamina?: number;
+  maxStamina?: number;
 }
 
 export interface PendingCombat {
@@ -382,6 +385,10 @@ export interface PendingCombat {
   foe: CombatFighterState;
   log: string[];
   usedExternalSkillIds: string[];
+  /** 招式剩餘冷卻回合（moveId → 回合數） */
+  moveCooldowns?: Record<string, number>;
+  /** 本輪剛設冷卻、下一輪結束時才遞減 */
+  cooldownSkipTick?: string[];
   rewardOnWin?: {
     money?: number;
     reputation?: number;
