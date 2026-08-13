@@ -12,7 +12,21 @@ import { MOVE_STANCE_LABEL, resolveMoveStance } from '@core/life/moveStance';
 import { overallMartialLabel } from '@core/life/flavor';
 import { jianghuHints, practiceLearningHints } from '@core/life/jianghuHints';
 import { meetsRequirements } from '@core/life/requirements';
-import { GUARD_STANCE, CHARGE_STANCE } from '@data/skills/catalog';
+import { getPlayerMoves, getMoveCooldownRemaining } from '@core/life/combat';
+import {
+  COMBAT_TECHNIQUE_ROLES,
+  combatMoveRole,
+  formatCombatMoveCompact,
+  getSkillDef,
+  isCombatActionMove,
+  REST_HEAL_MOVE,
+  REST_QI_MOVE,
+  REST_STAMINA_MOVE,
+  GUARD_STANCE,
+  CHARGE_STANCE,
+  FLEE_MOVE,
+  type CombatMoveRole,
+} from '@data/skills/catalog';
 import {
   playInkSeal,
   playInkWin,
@@ -28,15 +42,6 @@ import { classifyBeat, summarizeExchange } from '@core/life/combatPresentation';
 import { isLearnSkillDeltaLine, isLearnSkillStoryLine, LEARN_SKILL_MARKER } from '@core/life/playerText';
 import { describeSectProgress } from '@core/life/sectStanding';
 import { ensureNature, dominantNature, natureGateHint, natureSummary } from '@core/life/nature';
-import { getPlayerMoves } from '@core/life/combat';
-import {
-  COMBAT_TECHNIQUE_ROLES,
-  combatMoveRole,
-  formatCombatMoveCompact,
-  getSkillDef,
-  isCombatActionMove,
-  type CombatMoveRole,
-} from '@data/skills/catalog';
 import { rankPowerMult } from '@core/life/martialRanks';
 import { displayChoiceText } from '@core/life/playerText';
 import { coachCopy, nextCoachStep } from '@core/life/tutorial';
@@ -260,11 +265,12 @@ export function InkPlayScreen({ state }: Props) {
     const skillOf = (moveId: string) => c.skills.find((id) => getSkillDef(id)?.move?.id === moveId);
     const score = (mv: (typeof techniqueMoves)[number]) => {
       const short = combat ? combat.player.qi < mv.qiCost : true;
+      const onCd = combat ? getMoveCooldownRemaining(combat, mv.id) > 0 : false;
       const sid = skillOf(mv.id);
       const def = sid ? getSkillDef(sid) : undefined;
       const match = Boolean(def?.weaponKind && equippedWeapon?.weaponKind === def.weaponKind);
       let s = 0;
-      if (!short) s += 100;
+      if (!short && !onCd) s += 100;
       if (match) s += 40;
       if (mv.id === 'basic_strike') s += 10;
       s += (mv.power ?? 0) * 5;
@@ -1046,6 +1052,8 @@ export function InkPlayScreen({ state }: Props) {
                 <div className="ink-choice-list ink-combat-moves">
                   {visibleTechniques.map((mv, i) => {
                     const short = combat.player.qi < mv.qiCost;
+                    const cdLeft = getMoveCooldownRemaining(combat, mv.id);
+                    const onCd = cdLeft > 0;
                     const ownerSkill = c.skills.find((id) => getSkillDef(id)?.move?.id === mv.id);
                     const rank = ownerSkill ? (c.skillRanks?.[ownerSkill] ?? 0) : 0;
                     const effPower = mv.power * (ownerSkill ? rankPowerMult(rank) : 1);
@@ -1061,7 +1069,7 @@ export function InkPlayScreen({ state }: Props) {
                         <button
                           type="button"
                           className={`ink-choice ink-choice--compact ink-choice--stance-${stance}${matched ? ' ink-choice--match' : ''}`}
-                          disabled={combat.phase !== 'player' || short}
+                          disabled={combat.phase !== 'player' || short || onCd}
                           style={{ ['--i' as string]: i }}
                           onClick={() => {
                             combatMove(mv.id);
@@ -1075,8 +1083,11 @@ export function InkPlayScreen({ state }: Props) {
                               {mv.name}
                               {matched ? ' · 兵刃契' : ''}
                               {short ? ' · 內息不足' : ''}
+                              {onCd ? ` · 冷卻${cdLeft}回合` : ''}
                             </strong>
-                            <em className="ink-combat-move-meta">{formatCombatMoveCompact(mv, effPower)}</em>
+                            <em className="ink-combat-move-meta">
+                              {formatCombatMoveCompact(mv, effPower, cdLeft)}
+                            </em>
                           </span>
                         </button>
                         <button
@@ -1115,21 +1126,49 @@ export function InkPlayScreen({ state }: Props) {
                       setCombatActionsOpen((v) => !v);
                     }}
                   >
-                    {combatActionsOpen ? '收起行動' : '行動（守／蓄／遁）'}
+                    {combatActionsOpen ? '收起行動' : '行動（守／蓄／調／遁）'}
                   </button>
                   {combatActionsOpen && (
                     <div className="ink-combat-action-bar">
                       {actionMoves.map((mv) => {
                         const short = combat.player.qi < mv.qiCost;
+                        const cdLeft = getMoveCooldownRemaining(combat, mv.id);
+                        const onCd = cdLeft > 0;
                         const mark =
-                          mv.id === GUARD_STANCE.id ? '守' : mv.id === CHARGE_STANCE.id ? '蓄' : '遁';
+                          mv.id === GUARD_STANCE.id
+                            ? '守'
+                            : mv.id === CHARGE_STANCE.id
+                              ? '蓄'
+                              : mv.id === FLEE_MOVE.id
+                                ? '遁'
+                                : mv.id === REST_QI_MOVE.id
+                                  ? '息'
+                                  : mv.id === REST_STAMINA_MOVE.id
+                                    ? '神'
+                                    : mv.id === REST_HEAL_MOVE.id
+                                      ? '血'
+                                      : '調';
                         const stance = resolveMoveStance(mv);
+                        const actionHint =
+                          mv.id === GUARD_STANCE.id
+                            ? '架 · 回息守中'
+                            : mv.id === CHARGE_STANCE.id
+                              ? `虛 · 耗${mv.qiCost} · 下一擊加威`
+                              : mv.id === FLEE_MOVE.id
+                                ? '虛 · 伺機離場'
+                                : mv.id === REST_QI_MOVE.id
+                                  ? `虛 · 回內${mv.qiSelf ?? 0}${mv.cooldown ? ` · CD${mv.cooldown}` : ''}`
+                                  : mv.id === REST_STAMINA_MOVE.id
+                                    ? `虛 · 回體${mv.staminaSelf ?? 0}${mv.cooldown ? ` · CD${mv.cooldown}` : ''}`
+                                    : mv.id === REST_HEAL_MOVE.id
+                                      ? `架 · 回血${mv.healSelf ?? 0}${mv.cooldown ? ` · CD${mv.cooldown}` : ''}`
+                                      : mv.description;
                         return (
                           <button
                             key={mv.id}
                             type="button"
                             className={`ink-combat-action ink-choice--stance-${stance}`}
-                            disabled={combat.phase !== 'player' || short}
+                            disabled={combat.phase !== 'player' || short || onCd}
                             title={`${mv.description} · ${MOVE_STANCE_LABEL[stance]}`}
                             onClick={() => {
                               combatMove(mv.id);
@@ -1137,13 +1176,10 @@ export function InkPlayScreen({ state }: Props) {
                           >
                             <strong>
                               {MOVE_STANCE_LABEL[stance]}·{mark} {mv.name}
+                              {onCd ? ` · 冷卻${cdLeft}` : ''}
                             </strong>
                             <span>
-                              {mv.id === GUARD_STANCE.id
-                                ? '架 · 回息守中'
-                                : mv.id === CHARGE_STANCE.id
-                                  ? `虛 · 耗${mv.qiCost} · 下一擊加威`
-                                  : '虛 · 伺機離場'}
+                              {actionHint}
                               {short ? ' · 不足' : ''}
                             </span>
                           </button>
