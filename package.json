@@ -13,20 +13,23 @@
     "test:watch": "vitest",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "audit:narrate": "node scripts/auditNarrate.mjs --fail",
+    "docs:events": "vite-node scripts/dumpEvents.mts && vite-node scripts/buildEventsPage.mts"
   },
   "dependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "zod": "^3.24.2",
-    "zustand": "^5.0.3"
+    "zod": "^4.4.3",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.4",
+    "@types/node": "^26.1.2",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.4",
     "typescript": "~5.7.2",
-    "vite": "^6.2.0",
-    "vitest": "^3.0.8"
+    "vite": "^6.0.0",
+    "vitest": "^3.0.0"
   }
 }
