@@ -185,7 +185,7 @@ const RAW: GameEvent[] = [
         outcomes: [
           {
             effects: [
-              { type: 'narrate', text: '你看天色將暮，轉身下山。機緣這回事，強求不得。' },
+              { type: 'narrate', text: '你看天色將暮，轉身下山。松針粘在袖口，一路拍不乾淨。' },
             ],
           },
         ],

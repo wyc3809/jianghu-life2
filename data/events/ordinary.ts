@@ -463,7 +463,7 @@ const RAW: GameEvent[] = [
 
 function badStory(_choiceId: string, choiceText?: string): string {
   const act = choiceText ?? '此舉';
-  return `你本欲「${act}」，卻在關鍵處失了分寸：人或走避，事或橫生，銀錢與氣血都捱了一記。事與願違之後，你只能把教訓嚥進肚裡，慢慢再走。`;
+  return `你本欲「${act}」，卻失手了：人走避，事橫生，口袋與袖口都捱了一記。你蹲在牆根喘了口氣，把教訓嚥回去。`;
 }
 
 export const ORDINARY_EVENTS: GameEvent[] = RAW.map((ev) =>

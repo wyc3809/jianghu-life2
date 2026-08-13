@@ -981,6 +981,9 @@ describe('life event engine', () => {
     const { startMonth } = await import('../core/life/eventEngine');
     const { scrubAiSlop, QUIET_MONTH } = await import('../core/life/sceneCopy');
     expect(scrubAiSlop('局面鬆動，終究沒空手')).toBe('');
+    expect(scrubAiSlop('這一局，要用真功夫說話')).toBe('');
+    expect(scrubAiSlop('機緣這回事，強求不得')).toBe('');
+    expect(scrubAiSlop('袖口還潮着。機緣這回事，強求不得')).toBe('袖口還潮着。');
     expect(QUIET_MONTH.length).toBeGreaterThan(8);
     initRng(77);
     let quietHits = 0;

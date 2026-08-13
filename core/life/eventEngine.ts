@@ -372,7 +372,7 @@ export function applyChoice(
     if (pathLines.length) {
       deltas.push(...pathLines);
     }
-    const prelude = `就「${tags.includes('pack') ? '江湖偶遇' : event.title}」一事，你選擇「${choice.text}」。刀光將起，對方已擋在眼前——這一局，要用真功夫說話。`;
+    const prelude = `你選擇「${choice.text}」。對方已擋在眼前，刀柄熱了一層汗。`;
     logs.unshift(prelude);
     const feedback = buildStoryFeedback(logs, prelude);
     pushChronicle(state, [`「${tags.includes('pack') ? '江湖偶遇' : event.title}」——${choice.text}`, feedback, ...deltas]);
