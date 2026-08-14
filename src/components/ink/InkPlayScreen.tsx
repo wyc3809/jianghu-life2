@@ -409,8 +409,9 @@ export function InkPlayScreen({ state }: Props) {
       setChoicesReady(true);
       return;
     }
-    // 正文寫入後，等玩家點「閱畢」才揭選項（減少動態時一次全出）
     setChoicesReady(false);
+    const t = window.setTimeout(() => setChoicesReady(true), 420);
+    return () => window.clearTimeout(t);
   }, [eventFocus, pendingEvent?.id]);
 
   useEffect(() => {
@@ -612,29 +613,16 @@ export function InkPlayScreen({ state }: Props) {
             ))}
           </div>
           <div
-            className={`ink-choice-list ink-choice-list--dock${
-              choicesReady ? ' ink-choice-list--reveal' : ' ink-choice-list--gate'
-            }`}
-            aria-hidden={false}
+            className={`ink-choice-list ink-choice-list--dock${choicesReady ? ' ink-choice-list--reveal' : ' ink-choice-list--await'}`}
+            aria-hidden={!choicesReady}
           >
-            {!choicesReady && (
-              <button
-                type="button"
-                className="ink-btn ink-btn--primary ink-btn--ack"
-                onClick={() => {
-                  setChoicesReady(true);
-                }}
-              >
-                閱畢 · 見選項
-              </button>
-            )}
-            {choicesReady &&
-              eligibleChoices.map((ch, i) => (
+            {eligibleChoices.map((ch, i) => (
               <button
                 key={ch.id}
                 type="button"
                 className="ink-choice"
                 style={{ ['--i' as string]: i }}
+                disabled={!choicesReady}
                 onClick={() => {
                   choose(ch.id);
                 }}
@@ -643,10 +631,11 @@ export function InkPlayScreen({ state }: Props) {
                 {displayChoiceText(ch.text, ch.id)}
               </button>
             ))}
-            {choicesReady && eligibleChoices.length === 0 && (
+            {eligibleChoices.length === 0 && (
               <button
                 type="button"
                 className="ink-choice"
+                disabled={!choicesReady}
                 onClick={() => dismissEvent()}
               >
                 <span className="ink-choice-mark">避</span>
