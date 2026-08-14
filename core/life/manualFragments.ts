@@ -80,6 +80,7 @@ export function tryAssembleManual(state: LifeGameState, manualId: string): strin
   if (!state.character.skills.includes(manual.skillId)) {
     const learned = applyLearnMartialArt(state, manual.skillId, manual.skillName);
     lines.push(learned.story);
+    lines.push(...learned.achievements);
   } else {
     state.character.martial += 3;
     lines.push(`你本通「${manual.skillName}」，合譜後武學＋3。`);

@@ -7,6 +7,7 @@ import { tickLifeArc } from './arcs';
 import { tickMonthlyEconomy } from './economy';
 import { tickSectMonth } from './sectLife';
 import { syncTitles } from './titles';
+import { syncAchievements } from './achievements';
 import { pushChronicle } from './chronicle';
 import { tickBonds } from './bonds';
 
@@ -146,6 +147,7 @@ export function simulateMonthBody(state: LifeGameState): void {
     ...tickMonthlyEconomy(state),
     ...tickSectMonth(state),
     ...syncTitles(state),
+    ...syncAchievements(state),
   ];
   if (monthBits.length) pushChronicle(state, monthBits);
 

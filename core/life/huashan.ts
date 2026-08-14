@@ -12,6 +12,7 @@ import { snapshotRng, syncRngFromState } from './gameState';
 import { defaultAttributes, simulateContestDuel } from './duelSim';
 import { topGrudgeNames } from './grudgeBook';
 import { getMasterName } from './bonds';
+import { syncAchievements } from './achievements';
 
 export const HUASHAN_MIN_AGE = 16;
 export const HUASHAN_MIN_MARTIAL = 12;
@@ -307,6 +308,7 @@ export function applyHuashanRewards(state: LifeGameState, placement: number): st
   } else if (placement <= 4) {
     lines.push('晉身四強，江湖傳聞又起。');
   }
+  lines.push(...syncAchievements(state));
   return lines;
 }
 
@@ -374,6 +376,7 @@ export function startHuashanBracket(state: LifeGameState): string[] {
     status: 'active',
   };
   state.huashan = bracket;
+  state.character.flags.huashan_ever = true;
   snapshotRng(state);
 
   const named = personalNames.slice(0, 3);
@@ -382,8 +385,9 @@ export function startHuashanBracket(state: LifeGameState): string[] {
     named.length
       ? `席間隱約可見舊識影跡：${named.join('、')}。`
       : '其餘七席為江湖幽靈名手，論劍不問生死，只較一招一式。',
+    ...syncAchievements(state),
   ];
-  pushChronicle(state, [lines[0]!]);
+  pushChronicle(state, [lines[0]!, ...lines.slice(2).filter((l) => l.startsWith('【成就】'))]);
   autoResolveGhosts(state, bracket);
   if (bracket.pendingMatchId) {
     const m = bracket.matches.find((x) => x.id === bracket.pendingMatchId)!;

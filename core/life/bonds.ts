@@ -252,6 +252,7 @@ export function applyBondSideEffects(state: LifeGameState, logs: string[]): stri
       const learned = applyLearnMartialArt(state, 'art_tiger_breath', '虎嘯內勁');
       out.push(learned.story);
       if (learned.delta) out.push(learned.delta);
+      out.push(...learned.achievements);
     }
     applyNatureDelta(c, { xia: 1 });
   }

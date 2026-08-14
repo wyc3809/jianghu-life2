@@ -30,6 +30,7 @@ export function tryGainSectStanding(state: LifeGameState, chance = 0.35): string
   if (artId && !c.skills.includes(artId)) {
     const learned = applyLearnMartialArt(state, artId);
     lines.push(learned.story);
+    lines.push(...learned.achievements);
   }
   return lines.join(' ');
 }
@@ -39,7 +40,8 @@ export function teachSectArtForStanding(state: LifeGameState, standing: number):
   if (!c.sectId) return null;
   const artId = artForStanding(c.sectId, standing);
   if (!artId || c.skills.includes(artId)) return null;
-  return applyLearnMartialArt(state, artId).story;
+  const learned = applyLearnMartialArt(state, artId);
+  return [learned.story, ...learned.achievements].filter(Boolean).join(' ') || null;
 }
 
 export function describeSectProgress(state: LifeGameState): string[] {

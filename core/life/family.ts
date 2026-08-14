@@ -4,6 +4,7 @@ import { FAMILY_RULES } from '@data/content/packs';
 import { chineseSurnameOf, randomChineseName } from '@core/ids';
 import { pushChronicle } from './chronicle';
 import { syncRngFromState, snapshotRng } from './gameState';
+import { syncAchievements } from './achievements';
 
 export function rollLifetimeChildrenMax(rng: { nextInt: (a: number, b: number) => number }): number {
   return rng.nextInt(FAMILY_RULES.lifetimeChildrenMin, FAMILY_RULES.lifetimeChildrenMax);
@@ -75,10 +76,12 @@ function spawnChild(state: LifeGameState, source: 'monthly' | 'seek'): string[] 
 
   const loverName = c.loverId && state.npcs[c.loverId] ? state.npcs[c.loverId].name : '眷屬';
   const title = source === 'seek' ? '【求子得償】' : '【添丁】';
-  return [
+  const lines = [
     `${title}你與${loverName}得一${gender === 'male' ? '子' : '女'}，取名${childName}。`,
     `（子女 ${c.childrenCount} · 繼承人「${c.flags.heir_name}」）`,
+    ...syncAchievements(state),
   ];
+  return lines;
 }
 
 /** 有眷屬時低機率得子；一生最多 childrenMax（1–5） */
