@@ -8,7 +8,14 @@ import { getLifeStageLabel } from '@core/life/stages';
 import { seasonLabel } from '@core/life/monthly';
 import { PRACTICE_ACTIONS, SECT_INNER_ACTIONS, SECT_DEFS } from '@core/life/actions';
 import { getGearDef, WEAPON_KIND_LABEL } from '@data/equipment/catalog';
-import { MOVE_STANCE_LABEL, resolveMoveStance } from '@core/life/moveStance';
+import { MOVE_STANCE_LABEL, resolveMoveStance, type MoveStance } from '@core/life/moveStance';
+import {
+  buildCombatInkFx,
+  combatFxNeedsShock,
+  snapCombatVitals,
+  type CombatVitalsSnap,
+} from '@core/life/combatInkFx';
+import { InkBarWithGhost, InkCombatFxLayer, useInkCombatFxQueue } from './InkCombatFx';
 import { overallMartialLabel } from '@core/life/flavor';
 import { jianghuHints, practiceLearningHints } from '@core/life/jianghuHints';
 import { meetsRequirements } from '@core/life/requirements';
@@ -143,6 +150,9 @@ export function InkPlayScreen({ state }: Props) {
   const combatBeatRef = useRef<HTMLDivElement | null>(null);
   const resultAckRef = useRef<HTMLButtonElement | null>(null);
   const lastCombatTurn = useRef<number | null>(null);
+  const combatVitalsRef = useRef<CombatVitalsSnap | null>(null);
+  const pendingMoveMeta = useRef<{ name: string; stance: MoveStance } | null>(null);
+  const { fx: combatFx, stanceBrush, shock: combatShock, pushFx, clearFx } = useInkCombatFxQueue();
 
   useEffect(() => {
     if (!sealText) return;
@@ -253,6 +263,57 @@ export function InkPlayScreen({ state }: Props) {
     }
     lastCombatTurn.current = combat.turn;
   }, [combat, combat?.turn]);
+
+  useEffect(() => {
+    if (!combat) {
+      clearFx();
+      combatVitalsRef.current = null;
+      pendingMoveMeta.current = null;
+      return;
+    }
+    const prev = combatVitalsRef.current;
+    const meta = pendingMoveMeta.current;
+    const nextSnap = snapCombatVitals(combat);
+    const changed =
+      !prev ||
+      prev.playerHp !== nextSnap.playerHp ||
+      prev.foeHp !== nextSnap.foeHp ||
+      prev.playerQi !== nextSnap.playerQi ||
+      prev.logLen !== nextSnap.logLen ||
+      prev.turn !== nextSnap.turn;
+    if (changed && (meta || prev)) {
+      const items = buildCombatInkFx({
+        prev,
+        next: combat,
+        moveName: meta?.name,
+        stance: meta?.stance,
+      });
+      if (items.length || meta?.stance) {
+        pushFx(items, {
+          shock: combatFxNeedsShock(items),
+          stance: meta?.stance,
+        });
+      }
+    }
+    pendingMoveMeta.current = null;
+    combatVitalsRef.current = nextSnap;
+  }, [
+    combat,
+    combat?.id,
+    combat?.turn,
+    combat?.player.hp,
+    combat?.foe.hp,
+    combat?.player.qi,
+    combat?.log.length,
+    clearFx,
+    pushFx,
+  ]);
+
+  const enqueueCombatMove = (moveId: string, name: string, stance: MoveStance) => {
+    if (combat) combatVitalsRef.current = snapCombatVitals(combat);
+    pendingMoveMeta.current = { name, stance };
+    combatMove(moveId);
+  };
 
   const practiceLeft = state.practiceActionsLeft ?? 3;
   const busy = Boolean(state.pending) || Boolean(combat) || showResult || !c.alive;
@@ -883,7 +944,13 @@ export function InkPlayScreen({ state }: Props) {
       )}
 
       {combat && state.phase === 'playing' && (
-        <section className="ink-panel ink-combat ink-combat--focus" aria-live="polite">
+        <section
+          className={`ink-panel ink-combat ink-combat--focus${combatShock ? ' ink-combat--shock' : ''}${
+            stanceBrush ? ` ink-combat--brush-${stanceBrush}` : ''
+          }`}
+          aria-live="polite"
+        >
+          <InkCombatFxLayer items={combatFx} stanceBrush={stanceBrush} />
           <div className="ink-combat-head">
             <p className="ink-event-year ink-event-year--combat">
               第 {combat.turn} 回合 · {combat.title}
@@ -902,14 +969,11 @@ export function InkPlayScreen({ state }: Props) {
                     氣血 {Math.round(combat.foe.hp)}/{combat.foe.maxHp}
                   </span>
                 </div>
-                <div className="ink-bar">
-                  <div
-                    className="ink-bar-fill ink-bar-fill--foe ink-bar-fill--live"
-                    style={{
-                      width: `${Math.max(0, Math.min(100, (combat.foe.hp / combat.foe.maxHp) * 100))}%`,
-                    }}
-                  />
-                </div>
+                <InkBarWithGhost
+                  pct={(combat.foe.hp / combat.foe.maxHp) * 100}
+                  fillClass="ink-bar-fill--foe"
+                  active
+                />
               </div>
               <div>
                 <div className="ink-vitals-label">
@@ -919,20 +983,16 @@ export function InkPlayScreen({ state }: Props) {
                     {Math.round(combat.player.qi)}/{combat.player.maxQi}
                   </span>
                 </div>
-                <div className="ink-bar">
-                  <div
-                    className="ink-bar-fill ink-bar-fill--live"
-                    style={{
-                      width: `${Math.max(0, Math.min(100, (combat.player.hp / combat.player.maxHp) * 100))}%`,
-                    }}
-                  />
-                </div>
-                <div className="ink-bar ink-bar--qi">
-                  <div
-                    className="ink-bar-fill ink-bar-fill--qi ink-bar-fill--live"
-                    style={{
-                      width: `${Math.max(0, Math.min(100, (combat.player.qi / Math.max(1, combat.player.maxQi)) * 100))}%`,
-                    }}
+                <InkBarWithGhost
+                  pct={(combat.player.hp / combat.player.maxHp) * 100}
+                  fillClass=""
+                  active
+                />
+                <div className="ink-bar--qi">
+                  <InkBarWithGhost
+                    pct={(combat.player.qi / Math.max(1, combat.player.maxQi)) * 100}
+                    fillClass="ink-bar-fill--qi"
+                    active
                   />
                 </div>
               </div>
@@ -1075,7 +1135,7 @@ export function InkPlayScreen({ state }: Props) {
                           disabled={combat.phase !== 'player' || short || onCd}
                           style={{ ['--i' as string]: i }}
                           onClick={() => {
-                            combatMove(mv.id);
+                            enqueueCombatMove(mv.id, mv.name, stance);
                           }}
                         >
                           <span className="ink-choice-mark" title={`屬性${MOVE_STANCE_LABEL[stance]} · ${role}`}>
@@ -1174,7 +1234,7 @@ export function InkPlayScreen({ state }: Props) {
                             disabled={combat.phase !== 'player' || short || onCd}
                             title={`${mv.description} · ${MOVE_STANCE_LABEL[stance]}`}
                             onClick={() => {
-                              combatMove(mv.id);
+                              enqueueCombatMove(mv.id, mv.name, stance);
                             }}
                           >
                             <strong>

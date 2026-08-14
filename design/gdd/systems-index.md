@@ -9,6 +9,7 @@
 | Town NPCs | `core/life/npcCatalog.ts` + `content/npcs/` | wired |
 | Foe AI styles | `core/life/foeAi.ts` | active |
 | Combat presentation | `core/life/combatPresentation.ts` | opening / aftermath UI |
+| Combat ink FX | `core/life/combatInkFx.ts` · `design/gdd/combat-ink-fx.md` | 旁註／血條墨滲／站位筆勢 |
 | Ink scene variants | `src/components/ink/sceneVariants.ts` | season + place |
 | Legacy / death / coach | `legacy.ts` / `death.ts` / `tutorial.ts` | stable |
 | Story chapters | — | **cancelled** |

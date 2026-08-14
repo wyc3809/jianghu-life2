@@ -36,3 +36,14 @@
 
 `prefers-reduced-motion` 與 `html[data-ink-motion=reduce]` 雙閘。
 
+## 交手水墨特效（`combat-ink-fx.md`）
+
+```css
+@keyframes inkFxRise { /* 傷勢旁註上浮淡出 420ms */ }
+@keyframes inkBarGhostFade { /* 血條墨滲殘影 */ }
+@keyframes inkBrushSlash|Mist|Guard { /* 實／虛／架筆勢 */ }
+@keyframes inkCombatShock { /* 重創紙震 100ms */ }
+.ink-combat-fx-layer · .ink-bar-fill--ghost · .ink-combat--shock
+```
+
+
