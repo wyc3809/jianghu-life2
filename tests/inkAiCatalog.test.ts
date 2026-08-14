@@ -28,12 +28,14 @@ describe('inkAiCatalog', () => {
     expect(pickAiEventBanner({ title: '梅下結緣' })).toBe('bond-plum');
     expect(pickAiEventBanner({ title: '市集買賣', tags: ['economy'] })).toBe('market');
     expect(pickAiEventBanner({ title: '殘碑遺言' })).toBe('legacy-stele');
-    expect(pickAiEventBanner({ title: '無事發生' })).toBe('none');
+    expect(pickAiEventBanner({ title: '無事發生' })).toBe('mountain-road');
+    expect(pickAiEventBanner({ title: '故人來訪', tags: ['arc'] })).toBe('mountain-road');
   });
 
   it('resolves banner urls or null', () => {
     expect(aiEventBannerUrl('none')).toBeNull();
     expect(aiEventBannerUrl('bridge-mist')).toContain('banner-bridge-mist.webp');
+    expect(aiEventBannerUrl('mountain-road')).toContain('banner-mountain-road.webp');
   });
 
   it('finds assets by tag and id', () => {

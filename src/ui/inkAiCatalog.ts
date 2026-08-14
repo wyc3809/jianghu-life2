@@ -44,6 +44,22 @@ export const INK_AI_ASSETS: readonly InkAiAsset[] = [
     tags: ['night', 'omen', 'legacy'],
   },
   {
+    id: 'backdrop-town-scroll',
+    kind: 'backdrop',
+    path: 'ai/backdrops/backdrop-town-scroll.webp',
+    titleZh: '千燈鎮卷',
+    useWhen: '鎮居主景，遠山、石橋與鎮屋',
+    tags: ['home', 'town', 'bridge', 'mountains'],
+  },
+  {
+    id: 'backdrop-result-mist',
+    kind: 'backdrop',
+    path: 'ai/backdrops/backdrop-result-mist.webp',
+    titleZh: '結算霧嶺',
+    useWhen: '結果匣淡墨底，不搶正文',
+    tags: ['result', 'mist', 'ridge'],
+  },
+  {
     id: 'banner-bridge-mist',
     kind: 'banner',
     path: 'ai/banners/banner-bridge-mist.webp',
@@ -122,6 +138,14 @@ export const INK_AI_ASSETS: readonly InkAiAsset[] = [
     titleZh: '市井布幌',
     useWhen: '買賣、經濟、市集',
     tags: ['economy', 'market', 'career'],
+  },
+  {
+    id: 'banner-mountain-road',
+    kind: 'banner',
+    path: 'ai/banners/banner-mountain-road.webp',
+    titleZh: '竹雨山亭',
+    useWhen: '一般路遇、故人、未另有專景的事件',
+    tags: ['road', 'encounter', 'arc', 'rain'],
   },
   {
     id: 'motif-sword',
@@ -217,6 +241,7 @@ export function findInkAiByTag(tag: string): InkAiAsset[] {
 /** 事件橫幅 ID（對應 banners） */
 export type AiEventBannerId =
   | 'bridge-mist'
+  | 'mountain-road'
   | 'rain-inn'
   | 'sect-gate'
   | 'bamboo-practice'
@@ -230,6 +255,7 @@ export type AiEventBannerId =
 
 const BANNER_ID_MAP: Record<Exclude<AiEventBannerId, 'none'>, InkAiAssetId> = {
   'bridge-mist': 'banner-bridge-mist',
+  'mountain-road': 'banner-mountain-road',
   'rain-inn': 'banner-rain-inn',
   'sect-gate': 'banner-sect-gate',
   'bamboo-practice': 'banner-bamboo-practice',
@@ -275,10 +301,19 @@ export function pickAiEventBanner(opts: {
   if (/船|渡|江|湖|遠行|漂|旅/.test(blob) || tags.includes('travel') || tags.includes('region')) {
     return 'lonely-boat';
   }
-  if (/橋|河|逢|遇|路/.test(blob) || tags.includes('road') || tags.includes('pack') || tags.includes('special')) {
+  if (/橋|河|渡|水岸/.test(blob)) {
     return 'bridge-mist';
   }
-  return 'none';
+  if (
+    /亭|山道|官道|林|故人|訪|逢|遇|路/.test(blob) ||
+    tags.includes('road') ||
+    tags.includes('pack') ||
+    tags.includes('special') ||
+    tags.includes('arc')
+  ) {
+    return 'mountain-road';
+  }
+  return 'mountain-road';
 }
 
 export function aiEventBannerUrl(kind: AiEventBannerId): string | null {
