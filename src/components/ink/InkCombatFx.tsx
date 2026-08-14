@@ -3,9 +3,9 @@ import type { InkCombatFx } from '@core/life/combatInkFx';
 import type { MoveStance } from '@core/life/moveStance';
 import { shouldReduceInkMotion } from './sceneVariants';
 
-const FX_LIFE_MS = 420;
-const STANCE_LIFE_MS = 400;
-const SHOCK_MS = 100;
+const FX_LIFE_MS = 1600;
+const STANCE_LIFE_MS = 700;
+const SHOCK_MS = 120;
 
 export function useInkCombatFxQueue() {
   const [fx, setFx] = useState<InkCombatFx[]>([]);
@@ -24,7 +24,7 @@ export function useInkCombatFxQueue() {
     const reduce = shouldReduceInkMotion();
     if (items.length) {
       setFx((prev) => [...prev, ...items].slice(-6));
-      const life = reduce ? 900 : FX_LIFE_MS;
+      const life = reduce ? 1200 : FX_LIFE_MS;
       const ids = new Set(items.map((i) => i.id));
       const t = window.setTimeout(() => {
         setFx((prev) => prev.filter((f) => !ids.has(f.id)));
