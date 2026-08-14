@@ -138,6 +138,8 @@ export function InkPlayScreen({ state }: Props) {
   });
   const [monthTurning, setMonthTurning] = useState(false);
   const [choicesReady, setChoicesReady] = useState(false);
+  /** 結果匣：先經過，點擊後再揭消長 */
+  const [resultDeltasReady, setResultDeltasReady] = useState(false);
   const prevYearMonth = useRef<string | null>(null);
   const [textScale, setTextScale] = useState<TextScale>(() => {
     try {
@@ -376,7 +378,11 @@ export function InkPlayScreen({ state }: Props) {
   const resultKind = lastResult?.title === '修煉' ? 'practice' : 'month';
 
   useEffect(() => {
-    if (!showResult) return;
+    if (!showResult) {
+      setResultDeltasReady(false);
+      return;
+    }
+    setResultDeltasReady(false);
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     const onKey = (e: KeyboardEvent) => {
@@ -388,7 +394,7 @@ export function InkPlayScreen({ state }: Props) {
       document.body.style.overflow = prev;
       window.removeEventListener('keydown', onKey);
     };
-  }, [showResult, clearResult]);
+  }, [showResult, lastResult?.title, lastResult?.feedback, clearResult]);
 
   useEffect(() => {
     if (eventFocus && tab !== 'home') setTab('home');
@@ -403,9 +409,8 @@ export function InkPlayScreen({ state }: Props) {
       setChoicesReady(true);
       return;
     }
+    // 正文寫入後，等玩家點「閱畢」才揭選項（減少動態時一次全出）
     setChoicesReady(false);
-    const t = window.setTimeout(() => setChoicesReady(true), 420);
-    return () => window.clearTimeout(t);
   }, [eventFocus, pendingEvent?.id]);
 
   useEffect(() => {
@@ -607,16 +612,29 @@ export function InkPlayScreen({ state }: Props) {
             ))}
           </div>
           <div
-            className={`ink-choice-list ink-choice-list--dock${choicesReady ? ' ink-choice-list--reveal' : ' ink-choice-list--await'}`}
-            aria-hidden={!choicesReady}
+            className={`ink-choice-list ink-choice-list--dock${
+              choicesReady ? ' ink-choice-list--reveal' : ' ink-choice-list--gate'
+            }`}
+            aria-hidden={false}
           >
-            {eligibleChoices.map((ch, i) => (
+            {!choicesReady && (
+              <button
+                type="button"
+                className="ink-btn ink-btn--primary ink-btn--ack"
+                onClick={() => {
+                  setChoicesReady(true);
+                }}
+              >
+                閱畢 · 見選項
+              </button>
+            )}
+            {choicesReady &&
+              eligibleChoices.map((ch, i) => (
               <button
                 key={ch.id}
                 type="button"
                 className="ink-choice"
                 style={{ ['--i' as string]: i }}
-                disabled={!choicesReady}
                 onClick={() => {
                   choose(ch.id);
                 }}
@@ -625,11 +643,10 @@ export function InkPlayScreen({ state }: Props) {
                 {displayChoiceText(ch.text, ch.id)}
               </button>
             ))}
-            {eligibleChoices.length === 0 && (
+            {choicesReady && eligibleChoices.length === 0 && (
               <button
                 type="button"
                 className="ink-choice"
-                disabled={!choicesReady}
                 onClick={() => dismissEvent()}
               >
                 <span className="ink-choice-mark">避</span>
@@ -1262,19 +1279,27 @@ export function InkPlayScreen({ state }: Props) {
         createPortal(
           <div className="ink-modal" role="dialog" aria-modal="true" aria-label="結果">
             <div
-              className={`ink-modal-card ink-result ink-result--staged${lastResult.deltas.some(isLearnSkillDeltaLine) ? ' ink-result--learn-skill' : ''}`}
+              className={`ink-modal-card ink-result ink-result--staged${
+                lastResult.deltas.some(isLearnSkillDeltaLine) ? ' ink-result--learn-skill' : ''
+              }${
+                lastResult.deltas.length > 0 && !resultDeltasReady ? ' ink-result--await-deltas' : ''
+              }${
+                lastResult.deltas.length > 0 && resultDeltasReady ? ' ink-result--deltas-open' : ''
+              }`}
             >
-              <InkResultSeal
-                text={
-                  resultKind === 'practice'
-                    ? '修'
-                    : lastResult.title === '整裝'
-                      ? '裝'
-                      : lastResult.deltas.some(isLearnSkillDeltaLine)
-                        ? '武'
-                        : '定'
-                }
-              />
+              {(resultDeltasReady || lastResult.deltas.length === 0) && (
+                <InkResultSeal
+                  text={
+                    resultKind === 'practice'
+                      ? '修'
+                      : lastResult.title === '整裝'
+                        ? '裝'
+                        : lastResult.deltas.some(isLearnSkillDeltaLine)
+                          ? '武'
+                          : '定'
+                  }
+                />
+              )}
               <p className="ink-event-year">
                 {resultKind === 'practice'
                   ? '修煉已定'
@@ -1297,7 +1322,7 @@ export function InkPlayScreen({ state }: Props) {
                   </p>
                 ))}
               </div>
-              {lastResult.deltas.length > 0 && (
+              {lastResult.deltas.length > 0 && resultDeltasReady && (
                 <div className="ink-result-deltas">
                   <p className="ink-result-delta-label">
                     {lastResult.deltas.some(isLearnSkillDeltaLine) ? '新學武學' : '此番消長'}
@@ -1305,13 +1330,16 @@ export function InkPlayScreen({ state }: Props) {
                   <ul className="ink-delta-board" aria-label="此番消長">
                     {lastResult.deltas.map((d, i) => {
                       const learn = isLearnSkillDeltaLine(d);
+                      const longNote = !learn && d.length > 18 && !/[+\uFF0B\-－\u2212]/.test(d);
                       const tone = learn
                         ? 'learn'
                         : /[+\uFF0B]/.test(d)
                           ? 'up'
                           : /[-－\u2212]/.test(d)
                             ? 'down'
-                            : 'flat';
+                            : longNote
+                              ? 'note'
+                              : 'flat';
                       return (
                         <li
                           key={`${i}-${d}`}
@@ -1330,10 +1358,16 @@ export function InkPlayScreen({ state }: Props) {
                 className="ink-btn ink-btn--primary ink-btn--ack"
                 ref={resultAckRef}
                 onClick={() => {
+                  if (lastResult.deltas.length > 0 && !resultDeltasReady) {
+                    setResultDeltasReady(true);
+                    return;
+                  }
                   clearResult();
                 }}
               >
-                已知曉 · 掩卷
+                {lastResult.deltas.length > 0 && !resultDeltasReady
+                  ? '接著 · 見消長'
+                  : '已知曉 · 掩卷'}
               </button>
             </div>
           </div>,
