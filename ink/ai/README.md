@@ -6,7 +6,7 @@
 
 | 資料夾 | 用途 | 建議尺寸 |
 |--------|------|----------|
-| `backdrops/` | 直版手機底圖（開卷／夜山） | ~720×1080 |
+| `backdrops/` | 手卷底圖（開卷／鎮居／夜山／結果霧嶺） | 1200–1440px |
 | `banners/` | 事件橫幅（上方留白給字） | ~960×640 |
 | `motifs/` | 單物象方印圖示 | 320×320 |
 | `seals/` | 朱砂命運印 | 256×256 |
@@ -27,6 +27,7 @@ INK_AI_ASSETS.forEach((a) => console.log(a.id, a.titleZh));
 
 // 直接 URL
 <img src={inkAiUrl('motif-sword')} alt="" />
+<img src={inkAiUrl('backdrop-town-scroll')} alt="" />
 
 // 依事件自動選橫幅（玩法畫面已接線）
 const kind = pickAiEventBanner({ title, body, tags });
