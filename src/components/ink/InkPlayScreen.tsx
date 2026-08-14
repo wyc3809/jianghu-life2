@@ -492,10 +492,13 @@ export function InkPlayScreen({ state }: Props) {
       {sealText && <InkSealStamp text={sealText} onDone={clearSeal} />}
 
       <header className="ink-status">
-        <div>
+        <div className="ink-identity">
+          <p className="ink-status-kicker">
+            第{state.year}年 · {seasonLabel(month)}
+          </p>
           <h2 className="ink-name">{c.name}</h2>
           <p className="ink-meta">
-            {c.age} 歲 · {stage} · {state.year}年{month}月（{seasonLabel(month)}）
+            {c.age}歲 · {stage}
             {c.location ? ` · ${c.location}` : ''}
             {sect ? ` · ${sect.name}` : ''}
             {nicknames.length ? ` · ${nicknames.slice(0, 2).join('·')}` : ''}
@@ -552,7 +555,11 @@ export function InkPlayScreen({ state }: Props) {
         }}
       />
 
-      {!eventFocus && !combat && saveLabel && <p className="ink-save">已落筆 {saveLabel}</p>}
+      {!eventFocus && !combat && saveLabel && (
+        <p className="ink-save" title={`上次落筆：${saveLabel}`}>
+          墨跡已存
+        </p>
+      )}
       {!eventFocus && arcLine && state.phase === 'playing' && !combat && (
         <p className="ink-arc-chip" aria-label="因緣">{arcLine}</p>
       )}
@@ -647,6 +654,23 @@ export function InkPlayScreen({ state }: Props) {
       {/* 鎮居首屏：翻頁優先於儀表與年譜（無待決事件時） */}
       {onHomeTab && !combat && !eventFocus && (
         <div key={`${state.year}-${month}`} className="ink-home-focus ink-scroll-flip">
+          <figure className="ink-home-tableau">
+            <img
+              className="ink-home-tableau-img"
+              src={inkAiUrl('backdrop-town-scroll')}
+              alt=""
+              aria-hidden
+              decoding="async"
+            />
+            <span className="ink-home-tableau-mist" aria-hidden />
+            <figcaption className="ink-home-tableau-caption">
+              <span>
+                {seasonLabel(month)} · {state.year}年{month}月
+              </span>
+              <strong>{c.location || '千燈鎮'}</strong>
+            </figcaption>
+          </figure>
+
           {showCoach && coach && (
             <section className="ink-coach" aria-live="polite">
               <h3>{coach.title}</h3>
@@ -1274,6 +1298,13 @@ export function InkPlayScreen({ state }: Props) {
                 lastResult.deltas.length > 0 && resultDeltasReady ? ' ink-result--deltas-open' : ''
               }`}
             >
+              <img
+                className="ink-result-wash"
+                src={inkAiUrl('backdrop-result-mist')}
+                alt=""
+                aria-hidden
+                decoding="async"
+              />
               {(resultDeltasReady || lastResult.deltas.length === 0) && (
                 <InkResultSeal
                   text={

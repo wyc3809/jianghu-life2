@@ -48,7 +48,9 @@ export function InkScrollBackdrop({
         className="ink-mountains-img"
         markup={useNight ? INK_SVG.mountainsNight : INK_SVG.mountains}
       />
-      {variant === 'hero' && <InkInlineSvg className="ink-boat-img" markup={INK_SVG.boat} />}
+      {(variant === 'hero' || place === 'river') && (
+        <InkInlineSvg className="ink-boat-img" markup={INK_SVG.boat} />
+      )}
       <InkInlineSvg className="ink-blots-img" markup={INK_SVG.blots} />
       <InkInlineSvg className="ink-bamboo-img" markup={INK_SVG.bamboo} />
       {/* 平時只留一層靜霧；掃筆僅在翻頁時由 .ink-scroll-flip 觸發 */}

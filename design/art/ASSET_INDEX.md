@@ -24,6 +24,8 @@
 |------|------|
 | `backdrop-title-scroll.webp` | 開卷遠山（已接首屏洗底） |
 | `backdrop-night-mountains.webp` | 夜山松煙（夜雨／奇遇／傳承） |
+| `backdrop-town-scroll.webp` | 鎮居主景（遠山、石橋、千燈鎮） |
+| `backdrop-result-mist.webp` | 結果匣霧嶺淡墨底 |
 
 ### 事件橫幅 `banners/`
 
@@ -39,6 +41,7 @@
 | `banner-legacy-stele.webp` | 傳承／老年／死亡 |
 | `banner-bond-plum.webp` | 結緣／戀愛 |
 | `banner-market.webp` | 買賣／經濟 |
+| `banner-mountain-road.webp` | 一般路遇／故人／通用事件 |
 
 ### 母題 `motifs/` · 印章 `seals/`
 
