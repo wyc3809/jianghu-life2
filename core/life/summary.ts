@@ -4,6 +4,7 @@ import { skillDisplay } from './flavor';
 import { getLifeStageLabel } from './stages';
 import { deathCauseOf } from './death';
 import { titleLabels } from './titles';
+import { achievementLabels } from './achievements';
 import { previewInheritanceMoney } from './family';
 import { formatGenealogyText } from './genealogy';
 import { getLifeTheme, pickVarianceEpitaph, themeLabelOf } from './lifeVariance';
@@ -48,6 +49,10 @@ export function buildLifeSummary(state: LifeGameState): string {
   }
   if (titles.length) {
     lines.push(`　　綽號：${titles.join('、')}`);
+  }
+  const ach = achievementLabels(state);
+  if (ach.length) {
+    lines.push(`　　成就：${ach.join('、')}`);
   }
 
   const theme = themeLabelOf(state);

@@ -3576,6 +3576,50 @@ button.is-pressed,
   transform: translateY(-1px);
 }
 
+.ink-ach-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ink-ach-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 10px;
+  border: 1px solid var(--ink-faint);
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.ink-ach-row strong {
+  font-size: 0.92rem;
+  letter-spacing: 0.12em;
+}
+
+.ink-ach-row span {
+  font-size: 0.72rem;
+  color: var(--ink-wash);
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+}
+
+.ink-ach-row--on {
+  border-left: 3px solid var(--cinnabar);
+  background: linear-gradient(90deg, var(--cinnabar-soft), rgba(255, 255, 255, 0.28));
+}
+
+.ink-ach-row--off {
+  opacity: 0.72;
+}
+
+.ink-ach-row--off strong {
+  color: var(--ink-wash);
+  letter-spacing: 0.28em;
+}
+
 .ink-person-back {
   margin: 0 0 10px;
   letter-spacing: 0.12em;

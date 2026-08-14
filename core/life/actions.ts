@@ -207,6 +207,7 @@ export function applyPracticeOutcome(
         const learned = applyLearnMartialArt(state, artId);
         logs.push(learned.story);
         if (learned.delta) logs.push(learned.delta);
+        logs.push(...learned.achievements);
       }
       break;
     }
@@ -413,6 +414,7 @@ export function applyPracticeOutcome(
           const learned = applyLearnMartialArt(state, art.id, art.name);
           logs.push(learned.story);
           if (learned.delta) logs.push(learned.delta);
+          logs.push(...learned.achievements);
           raiseBaseMaxQi(c, rng.nextInt(10, 25));
         } else {
           const adv = tryAdvanceSkill(state, art.id, 'practice');

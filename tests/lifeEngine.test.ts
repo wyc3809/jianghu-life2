@@ -315,11 +315,33 @@ describe('life event engine', () => {
     expect(learned.story).toContain('外功');
     expect(learned.delta).toBe(learnSkillDeltaChip('art_moon_sword', '弄月劍法'));
     expect(state.character.skills).toContain('art_moon_sword');
+    expect(Array.isArray(learned.achievements)).toBe(true);
 
     const again = applyLearnMartialArt(state, 'art_moon_sword', '弄月劍法');
     expect(again.isNew).toBe(false);
     expect(again.delta).toBeNull();
     expect(again.story).toContain('溫習');
+    expect(again.achievements).toEqual([]);
+  });
+
+  it('syncAchievements unlocks and persists without duplicates', async () => {
+    const { syncAchievements, achievementProgress, listAchievementStatus } = await import(
+      '../core/life/achievements'
+    );
+    initRng(11);
+    const state = createNewLife(11);
+    state.character.stats.combatsWon = 1;
+    const first = syncAchievements(state);
+    expect(first.some((l) => l.includes('初勝'))).toBe(true);
+    expect(String(state.character.flags.achievements)).toContain('ach_first_blood');
+    const again = syncAchievements(state);
+    expect(again).toEqual([]);
+    const progress = achievementProgress(state);
+    expect(progress.unlocked).toBeGreaterThanOrEqual(1);
+    expect(progress.total).toBe(listAchievementStatus(state).length);
+    expect(listAchievementStatus(state).some((a) => a.id === 'ach_first_blood' && a.unlocked)).toBe(
+      true,
+    );
   });
 
   it('boss win grants configured skill and gear', async () => {

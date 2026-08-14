@@ -17,6 +17,7 @@ import { recomputeCapBonuses } from './equipment';
 import { applyLegacyToCharacter, type LegacyCarry } from './legacy';
 import { ensureStarterNpcs } from './npcCatalog';
 import { ensureLifeTheme, scheduleLegacyScripts, themeHintLine } from './lifeVariance';
+import { syncAchievements } from './achievements';
 import { wuxiaAttributeLabels } from '@interfaces/lifeEngine';
 import type { NatureAttr } from '@interfaces/lifeEngine';
 
@@ -245,6 +246,9 @@ export function createNewLife(options: CreateLifeOptions | number = {}): LifeGam
     '鎮裡有幾張熟面孔：陸硯生執教、沈暮晴坐堂、岳長風把武館——因緣或自他們而起。',
   );
 
+  // Baseline unlocks (e.g. starter arts) — silent so first action tips stay clean.
+  syncAchievements(state);
+
   return state;
 }
 
@@ -371,5 +375,6 @@ export function migrateLifeState(raw: LifeGameState): LifeGameState {
   ensureStarterNpcs(raw);
   ensureLifeTheme(raw);
   scheduleLegacyScripts(raw);
+  syncAchievements(raw);
   return raw;
 }

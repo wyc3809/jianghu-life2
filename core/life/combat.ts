@@ -17,6 +17,7 @@ import {
 import { rankPowerMult } from './martialRanks';
 import { grantGear, ensureGear, gearTotals, sumGearCombatBonuses } from './equipment';
 import { applyLearnMartialArt, tryAdvanceSkill } from './flavor';
+import { syncAchievements } from './achievements';
 import { applyNatureDelta } from './nature';
 import { recordDispositionAftermath } from './aftermath';
 import type { NatureAttr } from '@interfaces/lifeEngine';
@@ -419,6 +420,7 @@ function finishCombatWin(state: LifeGameState, dispositionLabel?: CombatFoeDispo
     const learned = applyLearnMartialArt(state, r.skillId, r.skillName);
     lines.push(learned.story);
     if (learned.delta) lines.push(learned.delta);
+    lines.push(...learned.achievements);
   }
   if (r.gearId) {
     const gearName = grantGear(state, r.gearId);
@@ -432,6 +434,8 @@ function finishCombatWin(state: LifeGameState, dispositionLabel?: CombatFoeDispo
     const adv = tryAdvanceSkill(state, sid, 'combat');
     if (adv) lines.push(adv);
   }
+
+  lines.push(...syncAchievements(state));
 
   const chronicleExtra =
     dispositionLabel === 'kill'

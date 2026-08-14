@@ -68,6 +68,7 @@ export function tickAftermath(state: LifeGameState): string[] {
           const learned = applyLearnMartialArt(state, 'qg_reed_drift', '蘆花身法');
           lines.push(learned.story);
           if (learned.delta) lines.push(learned.delta);
+          lines.push(...learned.achievements);
         }
         applyNatureDelta(c, { xia: 1 });
       } else {

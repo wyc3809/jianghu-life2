@@ -9,6 +9,7 @@ import {
 } from './martialRanks';
 import { formatSkillLine, getSkillDef, skillKindLabel, skillLabel } from '@data/skills/catalog';
 import { learnSkillDeltaChip, LEARN_SKILL_MARKER } from './playerText';
+import { syncAchievements } from './achievements';
 
 /** 定性描述：氣血／內力／財帛／名望／疲勞／五維／天下 */
 export function vitalHealthLabel(c: LifeCharacter): string {
@@ -204,6 +205,7 @@ export type LearnSkillResult = {
   story: string;
   delta: string | null;
   isNew: boolean;
+  achievements: string[];
 };
 
 function resolveLearnDisplayName(skillId: string, displayName?: string): string {
@@ -294,6 +296,7 @@ export function applyLearnMartialArt(
     story: learnSkillProse(rng, skillId, label, isNew),
     delta: isNew ? learnSkillDeltaChip(skillId, label) : null,
     isNew,
+    achievements: syncAchievements(state),
   };
 }
 

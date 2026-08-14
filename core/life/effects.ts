@@ -6,6 +6,7 @@ import { artForStanding } from '@data/content/packs';
 import { grantGear, raiseBaseMaxHp, raiseBaseMaxQi, ensureGear } from './equipment';
 import { addCondition } from './monthly';
 import { applyLearnMartialArt } from './flavor';
+import { syncAchievements } from './achievements';
 import { isStatDeltaLine } from './playerText';
 import { applyNatureDelta, ensureNature } from './nature';
 import { applyPracticeOutcome, type WanderPracticeActionId } from './actions';
@@ -125,6 +126,11 @@ export function applyEffects(state: LifeGameState, effects: GameEffect[]): Effec
         const learned = applyLearnMartialArt(state, eff.skillId, eff.name);
         logs.push(learned.story);
         if (learned.delta) deltas.push(learned.delta);
+        for (const line of learned.achievements) {
+          logs.push(line);
+          const m = /「([^」]+)」/.exec(line);
+          if (m) deltas.push(`成就·${m[1]}`);
+        }
         break;
       }
       case 'grantGear': {
@@ -162,6 +168,11 @@ export function applyEffects(state: LifeGameState, effects: GameEffect[]): Effec
             const learned = applyLearnMartialArt(state, artId);
             logs.push(learned.story);
             if (learned.delta) deltas.push(learned.delta);
+            for (const line of learned.achievements) {
+              logs.push(line);
+              const m = /「([^」]+)」/.exec(line);
+              if (m) deltas.push(`成就·${m[1]}`);
+            }
           }
         }
         break;
@@ -235,6 +246,11 @@ export function applyEffects(state: LifeGameState, effects: GameEffect[]): Effec
       c.alive = false;
     }
     if (!logs.some((l) => /撒手|身亡|離世|倒下|氣血/.test(l))) logs.push('氣血歸零，你倒下了。');
+  }
+  for (const line of syncAchievements(state)) {
+    logs.push(line);
+    const m = /「([^」]+)」/.exec(line);
+    if (m) deltas.push(`成就·${m[1]}`);
   }
   return { logs, died, deltas };
 }

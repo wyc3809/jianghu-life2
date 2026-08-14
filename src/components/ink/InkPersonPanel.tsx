@@ -31,6 +31,8 @@ import { formatFragmentProgress } from '@core/life/manualFragments';
 import { getMasterName } from '@core/life/bonds';
 import { getHeirName, listChildNames, previewInheritanceMoney } from '@core/life/family';
 import { buildGenealogy } from '@core/life/genealogy';
+import { achievementProgress, listAchievementStatus } from '@core/life/achievements';
+import { titleLabels } from '@core/life/titles';
 
 export type PersonView =
   | 'main'
@@ -40,7 +42,8 @@ export type PersonView =
   | 'genealogy'
   | 'people'
   | 'grudges'
-  | 'roots';
+  | 'roots'
+  | 'achievements';
 
 type Props = {
   state: LifeGameState;
@@ -66,6 +69,8 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
   const genealogy = buildGenealogy(state);
   const grudges = listGrudges(state);
   const known = listKnownNpcLines(state);
+  const achProgress = achievementProgress(state);
+  const nicknames = titleLabels(state);
 
   if (view === 'main') {
     const rows: { id: PersonView; label: string; hint: string }[] = [
@@ -100,6 +105,11 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
         id: 'grudges',
         label: '恩怨簿',
         hint: grudges.length ? `${grudges.length} 樁未了` : '尚無舊怨',
+      },
+      {
+        id: 'achievements',
+        label: '成就',
+        hint: `${achProgress.unlocked}/${achProgress.total}${nicknames.length ? ` · 綽號${nicknames.length}` : ''}`,
       },
       {
         id: 'roots',
@@ -472,6 +482,27 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
               ))}
             </ul>
           )}
+        </>
+      )}
+
+      {view === 'achievements' && (
+        <>
+          <h3>成就</h3>
+          <p className="ink-note">
+            已錄 {achProgress.unlocked}/{achProgress.total}
+            {nicknames.length ? ` · 綽號：${nicknames.join('、')}` : ''}
+          </p>
+          <ul className="ink-ach-list" aria-label="成就清單">
+            {listAchievementStatus(state).map((a) => (
+              <li
+                key={a.id}
+                className={`ink-ach-row${a.unlocked ? ' ink-ach-row--on' : ' ink-ach-row--off'}`}
+              >
+                <strong>{a.unlocked ? a.label : '？？'}</strong>
+                <span>{a.unlocked ? '已記入卷首' : a.hint}</span>
+              </li>
+            ))}
+          </ul>
         </>
       )}
 
