@@ -555,7 +555,11 @@ export function InkPlayScreen({ state }: Props) {
         }}
       />
 
-      {!eventFocus && !combat && saveLabel && <p className="ink-save">已落筆 {saveLabel}</p>}
+      {!eventFocus && !combat && saveLabel && (
+        <p className="ink-save" title={`上次落筆：${saveLabel}`}>
+          墨跡已存
+        </p>
+      )}
       {!eventFocus && arcLine && state.phase === 'playing' && !combat && (
         <p className="ink-arc-chip" aria-label="因緣">{arcLine}</p>
       )}
