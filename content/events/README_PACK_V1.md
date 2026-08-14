@@ -21,4 +21,4 @@
 4. **OutcomeResolver** 依 `op` / `path` / `value` / `chance` 執行
 5. **寫入 completion flags**：`completed_event_XXX`（下次過濾排除）
 
-玩家 UI 對 pack 事件顯示「江湖偶遇」，不暴露資料庫標題。
+玩家 UI 對 pack 事件顯示資料庫標題（如「雨夜藏證人」），不再一律寫成「江湖偶遇」。

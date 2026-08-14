@@ -1366,4 +1366,49 @@ describe('life event engine', () => {
     expect(classifyBeat('你一式「直刺」——重創。山賊氣血 −28。')).toBe('crit');
     expect(summarizeExchange(['你一式「直刺」——命中。山賊氣血 −12。'])).toBe('一式得手');
   });
+
+  it('catalog events carry authored bodies without nature collage', async () => {
+    const { resolvePendingEvent } = await import('../core/life/eventEngine');
+    const { EVENT_CATALOG } = await import('../data/events/catalog');
+    const { EVENT_BODIES } = await import('../data/events/eventBodies');
+    const missing = EVENT_CATALOG.map((e) => e.id).filter((id) => !EVENT_BODIES[id]);
+    expect(missing).toEqual([]);
+    const state = createNewLife(51);
+    state.character.nature = { xia: 40, xie: 5, kuang: 5, e: 5 };
+    state.pending = { eventId: 'childhood_play', year: state.year, month: state.month ?? 1 };
+    const ev = resolvePendingEvent(state)!;
+    expect(ev.body).toMatch(/巷口|樹枝/);
+    expect(ev.body).not.toMatch(/路人看你|多半分信任/);
+  });
+
+  it('arc later beats recall the previous visit', async () => {
+    const { buildArcVisitEvent } = await import('../core/life/arcs');
+    initRng(52);
+    const state = createNewLife(52);
+    state.lifeArc = {
+      id: 'arc_yue_spar',
+      title: '長風試拳',
+      beat: 3,
+      maxBeats: 6,
+      npcId: 'npc_yue_changfeng',
+      monthsLeft: 0,
+    };
+    const ev = buildArcVisitEvent(state)!;
+    expect(ev.body).toMatch(/還記得上回/);
+    expect(ev.body).toMatch(/讓你半招/);
+    expect(ev.body).toMatch(/馬步|根基不穩/);
+    expect(ev.body).not.toMatch(/路人看你/);
+    expect(ev.choices[0]?.text).toBe('推門進去');
+  });
+
+  it('relationship memory names the year instead of 因緣際會', async () => {
+    const { applyEffects } = await import('../core/life/effects');
+    initRng(53);
+    const state = createNewLife(53);
+    const npcId = Object.keys(state.npcs)[0]!;
+    applyEffects(state, [{ type: 'relationship', npcId, delta: 6 }]);
+    const last = state.npcs[npcId]!.memories.at(-1) ?? '';
+    expect(last).toMatch(/多看了一眼/);
+    expect(last).not.toMatch(/因緣際會/);
+  });
 });

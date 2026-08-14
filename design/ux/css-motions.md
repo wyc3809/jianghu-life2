@@ -32,7 +32,6 @@
 .ink-event-body.ink-write-in { animation: inkWriteIn 0.32s … }
 .ink-choice-list--await → --reveal /* 選項延遲 */
 .ink-result--staged /* 故事 →（點擊）消長 → 印 */
-.ink-choice-list--gate /* 閱畢閘 */
 ```
 
 `prefers-reduced-motion` 與 `html[data-ink-motion=reduce]` 雙閘。

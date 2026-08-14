@@ -115,12 +115,12 @@ describe('life variance 1-7', () => {
     expect(summary).toContain(epitaph.trim());
   });
 
-  it('nature tone prefixes event body when heart leans hard', () => {
+  it('does not glue nature tone onto authored event bodies', () => {
     const state = createNewLife({ seed: 33, lifeTheme: 'master', skipCoach: true });
     state.character.nature = { xia: 8, xie: 8, kuang: 40, e: 5 };
     const body = decorateEventBody(state, '石橋中央立着人。');
-    expect(body).toMatch(/動手/);
-    expect(body).toContain('石橋中央立着人。');
+    expect(body).toBe('石橋中央立着人。');
+    expect(body).not.toMatch(/動手|路人看你/);
   });
 
   it('ensureLifeTheme is stable once set', () => {

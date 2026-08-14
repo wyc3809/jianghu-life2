@@ -175,16 +175,19 @@ export function buildArcVisitEvent(state: LifeGameState, beatOverride?: number):
   const beatDef = def.beats[beat];
   if (!beatDef) return null;
   const npcName = state.npcs[arc.npcId]?.name ?? '故人';
+  const prev = beat > 0 ? def.beats[beat - 1] : undefined;
+  const recall = prev ? `${npcName}還記得上回：${prev.memory}。` : '';
+  const body = recall ? `${recall}\n\n${beatDef.chronicle}` : beatDef.chronicle;
   const choices: GameEvent['choices'] = [
     {
       id: 'go',
-      text: '前去相見',
+      text: '推門進去',
       outcomes: [
         {
           effects: [
             {
               type: 'narrate',
-              text: `你推門而入，與${npcName}相對。${beatDef.chronicle}`,
+              text: `你推門而入。${beatDef.chronicle}`,
             },
           ],
         },
@@ -192,7 +195,7 @@ export function buildArcVisitEvent(state: LifeGameState, beatOverride?: number):
     },
     {
       id: 'later',
-      text: '改日再說',
+      text: '巷口停一停，改日再說',
       outcomes: [
         {
           effects: [
@@ -210,7 +213,7 @@ export function buildArcVisitEvent(state: LifeGameState, beatOverride?: number):
   if (def.severAtBeat !== undefined && beat === def.severAtBeat) {
     choices.push({
       id: 'sever',
-      text: '疏遠斷了這段緣',
+      text: '拱手一別，這緣就此淡了',
       outcomes: [
         {
           effects: [
@@ -224,13 +227,13 @@ export function buildArcVisitEvent(state: LifeGameState, beatOverride?: number):
     });
     choices.push({
       id: 'bond',
-      text: '以心相交，深結此緣',
+      text: '把心裏那點猶豫說開',
       outcomes: [
         {
           effects: [
             {
               type: 'narrate',
-              text: `你把心裏那點猶豫說開。${npcName}沉默片刻，點了點頭——從此這段緣，沉了一寸。`,
+              text: `你把心裏那點猶豫說開。${npcName}沉默片刻，點了點頭。`,
             },
           ],
         },
@@ -241,7 +244,7 @@ export function buildArcVisitEvent(state: LifeGameState, beatOverride?: number):
   return {
     id: `arc_visit_${arc.id}_${beat}`,
     title: `故人·${def.title}`,
-    body: beatDef.chronicle,
+    body,
     weight: 40,
     tags: ['arc', 'story'],
     choices,
@@ -301,7 +304,8 @@ export function maybeStartLifeArc(state: LifeGameState): string[] {
     npcId: def.npcId,
     monthsLeft: rng.nextInt(0, 2),
   };
-  const line = `一段因緣悄悄起了頭——「${def.title}」。此後數月，它會成為你人生的主線之一。`;
+  const npc = state.npcs[def.npcId]?.name ?? '故人';
+  const line = `${npc}起了一段緣——「${def.title}」。`;
   pushChronicle(state, [line]);
   return [line];
 }
@@ -326,7 +330,7 @@ function markArcDone(state: LifeGameState, def: ArcDef): void {
   if (def.id === 'arc_yue_spar') state.character.flags.arc_done_yue = true;
 }
 
-/** 「前去相見」／結緣：寫入本拍、推進下一拍或落幕 */
+/** 「推門進去」／結緣：寫入本拍、推進下一拍或落幕 */
 export function resolveArcVisitGo(state: LifeGameState, mode: 'go' | 'bond' = 'go'): string[] {
   ensureStarterNpcs(state);
   const arc = state.lifeArc;
@@ -414,5 +418,5 @@ export function lifeArcStatusLine(state: LifeGameState): string | null {
   if (!arc) return null;
   const npc = state.npcs[arc.npcId]?.name ?? '故人';
   const ready = arc.monthsLeft <= 0 ? '· 可往一見' : `· ${arc.monthsLeft}月後可再訪`;
-  return `因緣「${arc.title}」· 與${npc}（${Math.min(arc.beat + 1, arc.maxBeats)}/${arc.maxBeats}）${ready}`;
+  return `因緣「${arc.title}」· 與${npc}${ready}`;
 }

@@ -2155,18 +2155,6 @@ body::before {
   transform: translateY(8px);
 }
 
-/* 正文閱畢閘：顯示「見選項」鈕，尚未揭甲乙丙 */
-.ink-choice-list--gate {
-  opacity: 1;
-  pointer-events: auto;
-  transform: none;
-}
-
-.ink-choice-list--gate .ink-btn--ack {
-  width: 100%;
-  margin-top: 4px;
-}
-
 .ink-choice-list--reveal {
   opacity: 1;
   pointer-events: auto;

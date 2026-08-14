@@ -16,7 +16,13 @@ export function jianghuHints(state: LifeGameState): string[] {
   const natureHint = natureVisibleHint(state);
   if (natureHint) hints.push(natureHint);
   if (state.lifeArc) {
-    hints.push(`主線因緣「${state.lifeArc.title}」未了（第 ${state.lifeArc.beat + 1}/${state.lifeArc.maxBeats} 拍）。`);
+    const npc = state.npcs[state.lifeArc.npcId]?.name;
+    const ready = state.lifeArc.monthsLeft <= 0;
+    hints.push(
+      ready
+        ? `${npc ?? '故人'}那邊，「${state.lifeArc.title}」還能再走一遭。`
+        : `「${state.lifeArc.title}」未了，約在${state.lifeArc.monthsLeft}個月後。`,
+    );
   }
   if (typeof f.echo_pending === 'string' && f.echo_pending) {
     hints.push(String(f.echo_pending));
