@@ -1262,6 +1262,47 @@ body::before {
 /* 交手／數值更新：只平滑變寬，不重播入場 */
 .ink-bar-fill--live {
   animation: none;
+  position: relative;
+  z-index: 1;
+}
+
+.ink-bar-fill--ghost {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  opacity: 0.35;
+  background: rgba(26, 26, 26, 0.28);
+  animation: inkBarGhostFade 0.55s ease forwards;
+  transition: none;
+  pointer-events: none;
+}
+
+.ink-bar-fill--foe.ink-bar-fill--ghost,
+.ink-bar-fill--ghost.ink-bar-fill--foe {
+  background: rgba(163, 58, 50, 0.28);
+}
+
+.ink-bar-fill--qi.ink-bar-fill--ghost {
+  background: rgba(42, 53, 48, 0.28);
+}
+
+@keyframes inkBarGhostFade {
+  0% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.ink-bar--qi {
+  margin-top: 4px;
+}
+
+.ink-bar--qi .ink-bar {
+  height: 7px;
+  opacity: 1;
 }
 
 .ink-stat-row {
@@ -2666,8 +2707,12 @@ body::before {
 
 .ink-bar--qi {
   margin-top: 3px;
-  height: 6px;
+  height: auto;
   opacity: 1;
+}
+
+.ink-bar--qi > .ink-bar {
+  height: 6px;
 }
 
 .ink-bar-fill--qi {
@@ -4288,3 +4333,285 @@ button.is-pressed,
 .ink-backdrop--night .ink-mountains-img {
   opacity: 0.88;
 }
+
+/* —— 交手水墨特效（旁註／筆勢／紙震）—— */
+.ink-combat {
+  position: relative;
+}
+
+.ink-combat-fx-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+  overflow: hidden;
+}
+
+.ink-combat-fx {
+  position: absolute;
+  font-family: var(--font-title);
+  font-size: 0.92rem;
+  letter-spacing: 0.18em;
+  white-space: nowrap;
+  animation: inkFxRise 0.42s ease-out both;
+}
+
+.ink-combat-fx--foe {
+  top: 4.2rem;
+  right: 12px;
+  color: var(--ink);
+}
+
+.ink-combat-fx--player {
+  top: 7.2rem;
+  left: 12px;
+  color: var(--ink-mid);
+}
+
+.ink-combat-fx--center {
+  top: 38%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--ink);
+  font-size: 1.05rem;
+  letter-spacing: 0.28em;
+}
+
+.ink-combat-fx--hp {
+  color: var(--ink);
+}
+
+.ink-combat-fx--crit,
+.ink-combat-fx--danger {
+  color: var(--cinnabar);
+  font-weight: var(--fw-strong);
+}
+
+.ink-combat-fx--qi {
+  color: var(--pine-smoke);
+  font-size: 0.82rem;
+}
+
+.ink-combat-fx--heal {
+  color: var(--jade);
+}
+
+.ink-combat-fx--miss,
+.ink-combat-fx--guard {
+  color: var(--ink-wash);
+  font-size: 0.88rem;
+}
+
+.ink-combat-fx--move {
+  top: 28%;
+  animation: inkWriteIn 0.36s ease-out both;
+}
+
+@keyframes inkFxRise {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+    filter: blur(1px);
+  }
+  35% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-14px);
+    filter: blur(0);
+  }
+}
+
+.ink-combat-fx--center.ink-combat-fx--move {
+  animation: inkWriteIn 0.36s ease-out both, inkFxCenterFade 0.42s ease-out both;
+}
+
+@keyframes inkFxCenterFade {
+  0%,
+  55% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* 站位筆勢：實斜劃、虛沉霧、架橫擋 */
+.ink-combat-brush {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.ink-combat-brush--shi {
+  top: 30%;
+  left: 18%;
+  width: 58%;
+  height: 2px;
+  background: linear-gradient(105deg, transparent, rgba(26, 26, 26, 0.45), transparent);
+  transform: rotate(-18deg);
+  animation: inkBrushSlash 0.4s ease-out both;
+}
+
+.ink-combat-brush--xu {
+  inset: 12% 8% 28% 8%;
+  background: radial-gradient(ellipse at 50% 40%, rgba(42, 53, 48, 0.14), transparent 70%);
+  animation: inkBrushMist 0.4s ease-out both;
+}
+
+.ink-combat-brush--jia {
+  top: 42%;
+  left: 12%;
+  width: 76%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(26, 26, 26, 0.5), transparent);
+  animation: inkBrushGuard 0.4s ease-out both;
+}
+
+@keyframes inkBrushSlash {
+  0% {
+    opacity: 0;
+    transform: rotate(-18deg) scaleX(0.2);
+  }
+  40% {
+    opacity: 0.85;
+    transform: rotate(-18deg) scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(-18deg) scaleX(1.05);
+  }
+}
+
+@keyframes inkBrushMist {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes inkBrushGuard {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.15);
+  }
+  45% {
+    opacity: 0.9;
+    transform: scaleX(1);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.ink-combat--shock {
+  animation: inkCombatShock 0.1s ease-out;
+}
+
+@keyframes inkCombatShock {
+  0% {
+    transform: translate(0, 0);
+  }
+  40% {
+    transform: translate(-1px, 1px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.ink-combat-beat-line--hit {
+  position: relative;
+}
+
+.ink-combat-beat-line--hit::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 0.35em;
+  width: 0;
+  height: 1px;
+  background: rgba(26, 26, 26, 0.35);
+  animation: inkFlyBai 0.35s ease-out both;
+}
+
+@keyframes inkFlyBai {
+  from {
+    width: 0;
+    opacity: 0.6;
+  }
+  to {
+    width: 12px;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-combat-fx,
+  .ink-combat-fx--center.ink-combat-fx--move,
+  .ink-combat-brush--shi,
+  .ink-combat-brush--xu,
+  .ink-combat-brush--jia,
+  .ink-combat--shock,
+  .ink-bar-fill--ghost,
+  .ink-combat-beat-line--hit::before {
+    animation: none !important;
+    filter: none !important;
+    transform: none !important;
+  }
+  .ink-combat-fx {
+    opacity: 1;
+    top: auto;
+    position: relative;
+    display: inline-block;
+    margin: 0 6px 4px 0;
+  }
+  .ink-combat-fx-layer {
+    position: relative;
+    inset: auto;
+    margin: 4px 0 6px;
+  }
+  .ink-combat-brush {
+    display: none;
+  }
+}
+
+html[data-ink-motion='reduce'] .ink-combat-fx,
+html[data-ink-motion='reduce'] .ink-combat-brush--shi,
+html[data-ink-motion='reduce'] .ink-combat-brush--xu,
+html[data-ink-motion='reduce'] .ink-combat-brush--jia,
+html[data-ink-motion='reduce'] .ink-combat--shock,
+html[data-ink-motion='reduce'] .ink-bar-fill--ghost,
+html[data-ink-motion='reduce'] .ink-combat-beat-line--hit::before {
+  animation: none !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+html[data-ink-motion='reduce'] .ink-combat-brush {
+  display: none;
+}
+
+html[data-ink-motion='reduce'] .ink-combat-fx {
+  opacity: 1;
+  position: relative;
+  display: inline-block;
+  margin: 0 6px 4px 0;
+  top: auto;
+  left: auto;
+  right: auto;
+}
+
+html[data-ink-motion='reduce'] .ink-combat-fx-layer {
+  position: relative;
+  inset: auto;
+  margin: 4px 0 6px;
+}
+
