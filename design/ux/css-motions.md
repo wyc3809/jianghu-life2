@@ -39,7 +39,7 @@
 ## 交手水墨特效（`combat-ink-fx.md`）
 
 ```css
-@keyframes inkFxRise { /* 傷勢旁註上浮淡出 420ms */ }
+@keyframes inkFxRise { /* 傷勢旁註：約 1.45s，先停住再慢淡 */ }
 @keyframes inkBarGhostFade { /* 血條墨滲殘影 */ }
 @keyframes inkBrushSlash|Mist|Guard { /* 實／虛／架筆勢 */ }
 @keyframes inkCombatShock { /* 重創紙震 100ms */ }

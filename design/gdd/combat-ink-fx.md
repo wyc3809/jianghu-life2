@@ -38,10 +38,11 @@
 
 | Knob | Default | Range |
 |------|---------|-------|
-| FX lifetime | 420ms | 300–600 |
+| FX lifetime | 1600ms | 1200–2000 |
+| FX animation | 1450ms（先停住再淡） | 1000–1800 |
 | Max on-screen | 4 | 2–6 |
-| Shock duration | 100ms | 80–140 |
-| Stance brush | 400ms | 280–500 |
+| Shock duration | 120ms | 80–140 |
+| Stance brush | 700ms | 400–900 |
 
 ## Acceptance Criteria
 

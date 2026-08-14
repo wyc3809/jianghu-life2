@@ -4397,7 +4397,7 @@ button.is-pressed,
   font-size: 0.92rem;
   letter-spacing: 0.18em;
   white-space: nowrap;
-  animation: inkFxRise 0.42s ease-out both;
+  animation: inkFxRise 1.45s ease-out both;
 }
 
 .ink-combat-fx--foe {
@@ -4448,33 +4448,38 @@ button.is-pressed,
 
 .ink-combat-fx--move {
   top: 28%;
-  animation: inkWriteIn 0.36s ease-out both;
+  animation: inkWriteIn 0.4s ease-out both, inkFxCenterFade 1.45s ease-out both;
 }
 
 @keyframes inkFxRise {
   0% {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(6px);
     filter: blur(1px);
   }
-  35% {
+  12% {
     opacity: 1;
+    filter: blur(0);
+  }
+  62% {
+    opacity: 1;
+    transform: translateY(-10px);
     filter: blur(0);
   }
   100% {
     opacity: 0;
-    transform: translateY(-14px);
-    filter: blur(0);
+    transform: translateY(-20px);
+    filter: blur(0.4px);
   }
 }
 
 .ink-combat-fx--center.ink-combat-fx--move {
-  animation: inkWriteIn 0.36s ease-out both, inkFxCenterFade 0.42s ease-out both;
+  animation: inkWriteIn 0.4s ease-out both, inkFxCenterFade 1.45s ease-out both;
 }
 
 @keyframes inkFxCenterFade {
   0%,
-  55% {
+  58% {
     opacity: 1;
   }
   100% {
@@ -4496,13 +4501,13 @@ button.is-pressed,
   height: 2px;
   background: linear-gradient(105deg, transparent, rgba(26, 26, 26, 0.45), transparent);
   transform: rotate(-18deg);
-  animation: inkBrushSlash 0.4s ease-out both;
+  animation: inkBrushSlash 0.65s ease-out both;
 }
 
 .ink-combat-brush--xu {
   inset: 12% 8% 28% 8%;
   background: radial-gradient(ellipse at 50% 40%, rgba(42, 53, 48, 0.14), transparent 70%);
-  animation: inkBrushMist 0.4s ease-out both;
+  animation: inkBrushMist 0.65s ease-out both;
 }
 
 .ink-combat-brush--jia {
@@ -4511,7 +4516,7 @@ button.is-pressed,
   width: 76%;
   height: 2px;
   background: linear-gradient(90deg, transparent, rgba(26, 26, 26, 0.5), transparent);
-  animation: inkBrushGuard 0.4s ease-out both;
+  animation: inkBrushGuard 0.65s ease-out both;
 }
 
 @keyframes inkBrushSlash {
