@@ -602,6 +602,22 @@ describe('life event engine', () => {
     expect(parted.story).toContain('抄件');
     expect(parted.story).not.toMatch(/內息|內力上限|\+16|\+5|271|氣血/);
     expect(parted.deltas).toEqual(expect.arrayContaining(['內息＋16', '內力上限＋5', '氣血-4']));
+
+    const { dedupeResultFeedback } = await import('../core/life/playerText');
+    expect(
+      dedupeResultFeedback(
+        '「追問源頭」之後，你順着閒話問下去。',
+        '門前傳聞',
+        '追問源頭',
+      ),
+    ).toBe('你順着閒話問下去。');
+    expect(
+      dedupeResultFeedback(
+        '就「門前傳聞」一事，你選擇「追問源頭」。茶涼了，話還沒完。',
+        '門前傳聞',
+        '追問源頭',
+      ),
+    ).toBe('茶涼了，話還沒完。');
   });
 
   it('status crumbs like toxin and drops go to deltas not story', async () => {

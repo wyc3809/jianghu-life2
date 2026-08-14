@@ -46,11 +46,16 @@ import {
 import { InkSettingsPanel, type TextScale } from './InkSettingsPanel';
 import { titleLabels } from '@core/life/titles';
 import { classifyBeat, summarizeExchange } from '@core/life/combatPresentation';
-import { isLearnSkillDeltaLine, isLearnSkillStoryLine, LEARN_SKILL_MARKER } from '@core/life/playerText';
+import {
+  dedupeResultFeedback,
+  displayChoiceText,
+  isLearnSkillDeltaLine,
+  isLearnSkillStoryLine,
+  LEARN_SKILL_MARKER,
+} from '@core/life/playerText';
 import { describeSectProgress } from '@core/life/sectStanding';
 import { ensureNature, dominantNature, natureGateHint, natureSummary } from '@core/life/nature';
 import { rankPowerMult } from '@core/life/martialRanks';
-import { displayChoiceText } from '@core/life/playerText';
 import { coachCopy, nextCoachStep } from '@core/life/tutorial';
 import { lifeArcStatusLine } from '@core/life/arcs';
 import { getAftermathStatus, styleForCombat } from '@core/life/combatPresentation';
@@ -375,6 +380,9 @@ export function InkPlayScreen({ state }: Props) {
   const showStatStrip = !combat && !eventFocus;
   const homeHints = onHomeTab && !eventFocus ? jianghuHints(state) : [];
   const resultKind = lastResult?.title === '修煉' ? 'practice' : 'month';
+  const resultFeedback = lastResult
+    ? dedupeResultFeedback(lastResult.feedback, lastResult.title, lastResult.choiceText)
+    : '';
 
   useEffect(() => {
     if (!showResult) {
@@ -1319,7 +1327,9 @@ export function InkPlayScreen({ state }: Props) {
                 />
               )}
               <p className="ink-event-year">
-                {resultKind === 'practice'
+                {resultDeltasReady
+                  ? '落筆已定'
+                  : resultKind === 'practice'
                   ? '修煉已定'
                   : lastResult.title === '整裝'
                     ? '披掛已定'
@@ -1328,20 +1338,24 @@ export function InkPlayScreen({ state }: Props) {
                       : '本月際遇'}
               </p>
               <h3>{lastResult.title}</h3>
-              <p className="ink-result-choice">你選擇：{lastResult.choiceText}</p>
-              <div className="ink-result-story">
-                <p className="ink-result-story-label">經過</p>
-                {lastResult.feedback.split(/\n\n+/).map((para, i) => (
-                  <p
-                    key={`${i}-${para.slice(0, 12)}`}
-                    className={`ink-event-body${isLearnSkillStoryLine(para) ? ' ink-event-body--learn-skill' : ''}`}
-                  >
-                    {para.replace(LEARN_SKILL_MARKER, '')}
-                  </p>
-                ))}
-              </div>
+              {!resultDeltasReady && (
+                <>
+                  <p className="ink-result-choice">你選擇：{lastResult.choiceText}</p>
+                  <div className="ink-result-story">
+                    <p className="ink-result-story-label">經過</p>
+                    {resultFeedback.split(/\n\n+/).map((para, i) => (
+                      <p
+                        key={`${i}-${para.slice(0, 12)}`}
+                        className={`ink-event-body${isLearnSkillStoryLine(para) ? ' ink-event-body--learn-skill' : ''}`}
+                      >
+                        {para.replace(LEARN_SKILL_MARKER, '')}
+                      </p>
+                    ))}
+                  </div>
+                </>
+              )}
               {lastResult.deltas.length > 0 && resultDeltasReady && (
-                <div className="ink-result-deltas">
+                <div className="ink-result-deltas" aria-live="polite">
                   <p className="ink-result-delta-label">
                     {lastResult.deltas.some(isLearnSkillDeltaLine) ? '新學武學' : '此番消長'}
                   </p>

@@ -217,6 +217,33 @@ export function sanitizePlayerLines(lines: string[]): string[] {
   return mergeDeltaLines(lines.map(sanitizePlayerLine).filter((l) => l && l !== '……'));
 }
 
+function escapeRegex(text: string): string {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/**
+ * 結果匣已另列事件題與「你選擇」，正文不再重覆同一句開場。
+ * 只清行首模板；正文中段提及選項仍保留。
+ */
+export function dedupeResultFeedback(
+  feedback: string,
+  title: string,
+  choiceText: string,
+): string {
+  let out = String(feedback ?? '').trim();
+  const titleRe = escapeRegex(String(title ?? '').trim());
+  const choiceRe = escapeRegex(String(choiceText ?? '').trim());
+  if (!out || !choiceRe) return out;
+
+  const leads = [
+    new RegExp(`^就「${titleRe}」一事[，,]?\\s*你選擇「${choiceRe}」[。．，,：:]?\\s*`),
+    new RegExp(`^你選擇[：:]?\\s*「?${choiceRe}」?[。．，,：:]?\\s*`),
+    new RegExp(`^「${choiceRe}」(?:之後|過後|一事)?[，,。．：:]?\\s*`),
+  ];
+  for (const lead of leads) out = out.replace(lead, '');
+  return out.trim() || String(feedback ?? '').trim();
+}
+
 /** 行首即為消長芯片（不含敘事前綴） */
 export function isStatDeltaLine(line: string): boolean {
   return /^(銀兩|氣血上限|氣血|名望|威望|武學|內息|內力上限|內力|裝備|新武學·|武功＋|成就·|心性|天下|疲勞|閱事|膽識|悟性|魅力|根骨|福緣|人情|記下|獲得|後續|傷勢|餘波|屬性|掉落|毒性|氣血受損|修為|[俠邪狂惡][+\-＋－]+)/.test(
