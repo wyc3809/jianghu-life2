@@ -25,5 +25,5 @@
 - `.scroll-shell.ink-scene--night`
 - `.scroll-shell.ink-month-turn::after`
 - `.ink-event-body.ink-write-in`
-- `.ink-choice-list--gate` / `--reveal`（閱畢後揭選項）
+- `.ink-choice-list--await` / `--reveal`（正文寫入後自動揭選項）
 - `.ink-result--staged` / `--await-deltas` / `--deltas-open`（故事→點擊→消長→印）

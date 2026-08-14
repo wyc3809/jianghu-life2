@@ -189,7 +189,10 @@ export function applyEffects(state: LifeGameState, effects: GameEffect[]): Effec
         const npc = state.npcs[eff.npcId];
         if (npc) {
           npc.affinity = clamp(npc.affinity + eff.delta, -100, 100);
-          npc.memories.push(`第${state.year}年：因緣際會`);
+          const year = state.year;
+          const month = state.month ?? 1;
+          const tilt = eff.delta >= 0 ? '對你多看了一眼' : '對你冷了半分';
+          npc.memories.push(`${year}年${month}月：${tilt}`);
         }
         break;
       }

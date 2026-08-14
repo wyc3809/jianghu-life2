@@ -273,11 +273,11 @@ export function applyPathAndEcho(
   if (/買|賣|當|銀|盤纏|護路費|商/.test(t)) {
     open('path_open_market', '算盤聲會跟着你。');
   }
-  if (/絕交|疏遠|斷了這段緣/.test(t)) {
+  if (/絕交|疏遠|斷了這段緣|拱手一別|就此淡了/.test(t)) {
     close('path_closed_bond', '你亲手折斷一截緣。');
     open('path_open_blade', '');
   }
-  if (/深結此緣|以心相交/.test(t)) {
+  if (/深結此緣|以心相交|猶豫說開/.test(t)) {
     open('path_open_bond', '這段緣沉了一寸，往後會再來敲門。');
   }
 
@@ -294,7 +294,7 @@ export function applyPathAndEcho(
 
 function craftEcho(state: LifeGameState, choiceText: string, event: GameEvent): string | null {
   const theme = getLifeTheme(state);
-  const title = (event.tags ?? []).includes('pack') ? '江湖偶遇' : event.title;
+  const title = event.title;
   if (/助|救|護送|調停|交還/.test(choiceText)) {
     return `茶棚有人念叨：上次「${title}」裏出手的人，像是你。`;
   }
@@ -334,24 +334,19 @@ export function takeEchoLine(state: LifeGameState): string | null {
   return echo;
 }
 
-/** 心性改寫事件正文前綴（可見江湖）——確定性，避免重繪疊字 */
-export function natureTonePrefix(state: LifeGameState): string | null {
-  const n = ensureNature(state.character);
-  const dom = dominantNature(state.character);
-  if (n[dom] < 22) return null;
-  if (dom === 'xia') return '路人看你，眼神裏多半分信任。';
-  if (dom === 'xie') return '有人對你笑，笑意卻不到眼底。';
-  if (dom === 'kuang') return '風剛一緊，你便覺得該動手了。';
-  if (dom === 'e') return '弱者避道，強者盯着你的刃。';
+/**
+ * 心性不進事件正文。岳長風就只准講拳；路人眼神留給人物頁／傳聞。
+ * 仍保留函式，避免舊測試與呼叫點斷裂。
+ */
+export function natureTonePrefix(_state: LifeGameState): string | null {
   return null;
 }
 
-export function decorateEventBody(state: LifeGameState, body: string | undefined): string {
-  const base = (body ?? '').trim();
-  const tone = natureTonePrefix(state);
-  if (!tone) return base;
-  if (base.startsWith(tone)) return base;
-  return `${tone}\n\n${base}`;
+export function decorateEventBody(
+  _state: LifeGameState,
+  body: string | undefined,
+): string {
+  return (body ?? '').trim();
 }
 
 /** 墓誌：題眼 × 心性 句式 */

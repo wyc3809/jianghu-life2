@@ -229,7 +229,7 @@ export const useLifeStore = create<LifeStore>((set, get) => ({
       lastResult: startedCombat
         ? null
         : {
-            title: (event.tags ?? []).includes('pack') ? '江湖偶遇' : event.title,
+            title: event.title,
             choiceText: displayChoiceText(choice?.text, choiceId),
   // 結果匣主文同編修器一致；sanitize 只清技術字串，唔改寫敘事
             feedback: sanitizePlayerLine(result.feedback) || result.feedback,

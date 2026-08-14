@@ -36,6 +36,7 @@ import { isFleeChoice, startCombat, tryStartAftermathCombat } from './combat';
 import { applyChoiceNature } from './nature';
 import { ROAD_ENCOUNTER_EVENTS } from '@data/events/roadEncounters';
 import { applyNarrateOverrideToEffects } from '@data/events/narrateOverrides';
+import { lookupEventBody } from '@data/events/eventBodies';
 import {
   lookupArcEvent,
   isArcVisitReady,
@@ -216,7 +217,8 @@ export function resolvePendingEvent(state: LifeGameState): GameEvent | null {
     raw = lookupEvent(id) ?? getEventById(fullCatalog(), id) ?? lookupArcEvent(state, id);
   }
   if (!raw) return null;
-  const body = decorateEventBody(state, raw.body);
+  const authored = lookupEventBody(raw.id) ?? raw.body;
+  const body = decorateEventBody(state, authored);
   if (body === (raw.body ?? '').trim()) return raw;
   return { ...raw, body };
 }
@@ -353,7 +355,7 @@ export function applyChoice(
             : event.title.slice(0, 6) || '來敵');
     const logs = startCombat(state, {
       source: 'event',
-      title: tags.includes('boss') ? `首領·${event.title}` : tags.includes('pack') ? '江湖偶遇·交手' : event.title,
+      title: tags.includes('boss') ? `首領·${event.title}` : event.title,
       foeName,
       foePower: bossCfg?.foePower ?? (state.character.martial > 60 ? 'strong' : 'normal'),
       rewardOnWin:
@@ -375,7 +377,7 @@ export function applyChoice(
     const prelude = `你選擇「${choice.text}」。對方已擋在眼前，刀柄熱了一層汗。`;
     logs.unshift(prelude);
     const feedback = buildStoryFeedback(logs, prelude);
-    pushChronicle(state, [`「${tags.includes('pack') ? '江湖偶遇' : event.title}」——${choice.text}`, feedback, ...deltas]);
+    pushChronicle(state, [`「${event.title}」——${choice.text}`, feedback, ...deltas]);
     snapshotRng(state);
     return { state, logs, deltas, feedback, died: false };
   }
@@ -487,11 +489,11 @@ export function applyChoice(
   // 故人短弧：相見／結緣落拍；絕交斷緣；改日只延遲
   if (tags.includes('arc') || event.id.startsWith('arc_visit_')) {
     let arcLines: string[] = [];
-    if (choiceId === 'sever' || /疏遠|斷了|絕交/.test(choice.text)) {
+    if (choiceId === 'sever' || /疏遠|斷了|絕交|拱手一別|就此淡了/.test(choice.text)) {
       arcLines = resolveArcVisitSever(state);
-    } else if (choiceId === 'later' || /改日|他日|稍後|離開|不往/.test(choice.text)) {
+    } else if (choiceId === 'later' || /改日|他日|稍後|離開|不往|巷口停/.test(choice.text)) {
       arcLines = resolveArcVisitLater(state);
-    } else if (choiceId === 'bond' || /深結|以心相交/.test(choice.text)) {
+    } else if (choiceId === 'bond' || /深結|以心相交|猶豫說開/.test(choice.text)) {
       arcLines = resolveArcVisitGo(state, 'bond');
     } else {
       arcLines = resolveArcVisitGo(state, 'go');
@@ -519,7 +521,7 @@ export function applyChoice(
 
   markEventComplete(state, event.id);
   state.pending = null;
-  const titleForLog = tags.includes('pack') ? '江湖偶遇' : event.title;
+  const titleForLog = event.title;
   pushChronicle(state, [`「${titleForLog}」——${choice.text}`, feedback, ...deltas]);
 
   if (died || !state.character.alive) {
