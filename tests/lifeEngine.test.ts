@@ -604,6 +604,23 @@ describe('life event engine', () => {
     expect(parted.deltas).toEqual(expect.arrayContaining(['內息＋16', '內力上限＋5', '氣血-4']));
   });
 
+  it('status crumbs like toxin and drops go to deltas not story', async () => {
+    const { partitionStoryAndDeltas } = await import('../core/life/playerText');
+    const parted = partitionStoryAndDeltas([
+      '【分贓不均】你攔下劫匪，珠璣散落一地。',
+      '威望＋8',
+      '悟性＋1',
+      '氣血受損',
+      '毒性',
+      '掉落：斷刃半截',
+    ]);
+    expect(parted.story).toContain('分贓不均');
+    expect(parted.story).not.toMatch(/威望|悟性|氣血受損|毒性|掉落/);
+    expect(parted.deltas).toEqual(
+      expect.arrayContaining(['威望＋8', '悟性＋1', '氣血受損', '毒性', '掉落：斷刃半截']),
+    );
+  });
+
   it('practice wander feedback keeps numbers only in deltas', async () => {
     const { applyEffects } = await import('../core/life/effects');
     const { partitionStoryAndDeltas } = await import('../core/life/playerText');
