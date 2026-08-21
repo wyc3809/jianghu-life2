@@ -693,17 +693,19 @@ export function startMonth(state: LifeGameState): LifeGameState {
       if (event) kind = 'special';
     }
     if (!event && (shouldTriggerSpecial(state) || (secretExtraChance > 0 && rng.chance(secretExtraChance)))) {
-      const packPick = pickPackEvent(state);
-      if (packPick) {
-        event = livePool(RANDOM_PACK_EVENTS).find((e) => e.id === packPick.id) ?? null;
-      }
-      if (!event) {
+      // 秘傳／金庸奇遇池唔可以永遠俾 100 條 pack 池搶晒——各半機率邊個先揀，揀唔到先 fallback 去對方
+      const pickPack = (): GameEvent | null => {
+        const packPick = pickPackEvent(state);
+        return packPick ? (livePool(RANDOM_PACK_EVENTS).find((e) => e.id === packPick.id) ?? null) : null;
+      };
+      const pickSecret = (): GameEvent | null => {
         const secretPool = listEligibleEvents(
           livePool([...SECRET_ART_EVENTS, ...JINYONG_SPECIAL_EVENTS]),
           state,
         );
-        event = weightedPick(state, secretPool);
-      }
+        return weightedPick(state, secretPool);
+      };
+      event = rng.chance(0.5) ? (pickSecret() ?? pickPack()) : (pickPack() ?? pickSecret());
       kind = 'special';
       state.specialEventCountdown = rng.nextInt(5, 12);
     }

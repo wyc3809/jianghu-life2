@@ -4793,7 +4793,7 @@ html[data-ink-motion='reduce'] .ink-combat-fx-layer {
   inset: 0;
   z-index: 1;
   background:
-    linear-gradient(180deg, rgba(250, 246, 238, 0.08), transparent 45%),
+    linear-gradient(135deg, rgba(250, 246, 238, 0.42) 0%, rgba(250, 246, 238, 0.12) 32%, transparent 55%),
     linear-gradient(180deg, transparent 62%, rgba(243, 235, 220, 0.16));
   pointer-events: none;
 }
@@ -4832,7 +4832,15 @@ html[data-ink-motion='reduce'] .ink-combat-fx-layer {
   flex-direction: column;
   gap: 2px;
   margin: 0;
-  text-shadow: 0 1px 0 rgba(250, 246, 238, 0.8);
+}
+
+.ink-home-tableau-caption span,
+.ink-home-tableau-caption strong {
+  /* 圖片背景明暗不定，用多層淺色光暈頂替單薄的 1px text-shadow，確保深色畫面仍能辨字 */
+  text-shadow:
+    0 0 6px rgba(250, 246, 238, 0.95),
+    0 0 3px rgba(250, 246, 238, 0.95),
+    0 1px 2px rgba(250, 246, 238, 0.9);
 }
 
 .ink-home-tableau-caption span {

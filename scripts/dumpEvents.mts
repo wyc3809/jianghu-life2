@@ -156,5 +156,5 @@ const header = `# 江湖一生 · 事件／奇遇一覽
 
 `;
 
-writeFileSync('/workspace/docs/EVENT-CATALOG.md', header + lines.join('\n'));
+writeFileSync('docs/EVENT-CATALOG.md', header + lines.join('\n'));
 console.log(JSON.stringify({ total, unique: seen.size, path: 'docs/EVENT-CATALOG.md' }));
