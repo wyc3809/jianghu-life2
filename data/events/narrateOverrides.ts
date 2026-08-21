@@ -74,14 +74,18 @@ export const NARRATE_OVERRIDES: Record<string, string> = {
   'lost_in_forest::calm': '你蹲下摸苔蘚的潮向，聽遠處溪聲。林霧薄了些，腳下路重新成形。',
   'lost_in_forest::panic': '你亂闖灌木，臉被划破。等到喘定，才發現自己在原地打轉。',
   'sect_library::steal_read': '藏經閣燈芯極短。你借冊抄了半頁，墨未乾便要歸還——掌心還熱。',
+  'sect_library::proper': '你按規矩登記借閱。管閣的人翻出你要的那卷，站在旁邊看你抄完才收回去。',
   'old_age_reflect::write': '你研墨寫遊記。寫到舊傷那一段，筆尖停了很久，才落下一個「雨」字。',
   'old_age_reflect::teach': '後進的孩子握拳不穩。你把他們的手腕按正，自己肩頭倒先酸了。',
   'fatal_illness::fight': '藥苦得舌根發麻。你靠着窗看完一場雨，沒喊疼，只把被子拉高。',
+  'fatal_illness::accept': '你不再到處求藥，日子過得慢了一點。窗外的天，看得比從前清楚。',
   'final_duel::all_in': '金盆水涼。你把刀橫在盆沿，聽水聲一圈圈散開——有人在門外等着看你洗不洗手。',
+  'final_duel::retire': '你把兵刃收進匣裡，鎖上。往後有人問起當年，你只是笑笑，不接話。',
   'inheritance::pass': '族規寫在粗紙上。你蓋印時手穩，紙邊卻被風掀起一角。',
   'random_fortune::pay': '先生搖卦，銅錢響了三下。他說的話你只記住半句，其餘散在茶煙裡。',
   'peaceful_year::rest': '這一年沒大事。你修了院牆，曬了兩回醬，枕邊多了一本看完的話本。',
   'meet_hermit::kowtow': '高人只教你半息吐納。松針落在肩上，你起身時膝蓋印着泥。',
+  'meet_hermit::miss': '你猶豫了一下，老人已經走遠。山風把他的背影吹得很淡。',
 };
 
 
