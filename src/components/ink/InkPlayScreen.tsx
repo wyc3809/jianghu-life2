@@ -19,7 +19,7 @@ import {
   toggleInkAudioMuted,
 } from '../../audio/inkAudio';
 import { InkSettingsPanel, type TextScale } from './InkSettingsPanel';
-import { titleLabels } from '@core/life/titles';
+import { topTitles } from '@core/life/titles';
 import { isLearnSkillDeltaLine, isLearnSkillStoryLine, LEARN_SKILL_MARKER } from '@core/life/playerText';
 import { ensureNature, dominantNature, natureSummary } from '@core/life/nature';
 import { coachCopy, nextCoachStep } from '@core/life/tutorial';
@@ -245,7 +245,7 @@ export function InkPlayScreen({ state }: Props) {
   const inkSeason = seasonToInk(month);
   const inkPlace = placeToInk(c.location);
 
-  const nicknames = titleLabels(state);
+  const nicknames = topTitles(state);
   const sceneBits = [
     'scroll-shell',
     'scroll-shell--play',
@@ -301,7 +301,7 @@ export function InkPlayScreen({ state }: Props) {
             {c.age}歲 · {stage}
             {c.location ? ` · ${c.location}` : ''}
             {sect ? ` · ${sect.name}` : ''}
-            {nicknames.length ? ` · ${nicknames.slice(0, 2).join('·')}` : ''}
+            {nicknames.length ? ` · ${nicknames.join('·')}` : ''}
           </p>
         </div>
         <div className="ink-status-actions">
