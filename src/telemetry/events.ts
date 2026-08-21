@@ -9,6 +9,7 @@ export type TelemetryEvent =
   | 'combat_end'
   | 'life_death'
   | 'life_reincarnate'
+  | 'life_end_no_heir'
   | 'coach_dismiss'
   | 'audio_mute_toggle'
   | 'a11y_text_scale'

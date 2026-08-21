@@ -3,6 +3,8 @@ import { initRng } from '../core/random';
 import { createNewLife } from '../core/life/gameState';
 import { applyChoice, fullCatalog, getRawEventById, invalidateCatalogCache } from '../core/life/eventEngine';
 import { getChoiceResultNarrate } from '../core/life/resultNarrate';
+import { isTemplateNarrate } from '../data/events/narrateOverrides';
+import { EVENT_CATALOG } from '../data/events/catalog';
 import {
   clearAllEventPatches,
   draftPatchFromEvent,
@@ -68,5 +70,29 @@ describe('result narrate aligns editor and page-flip', () => {
     const state = createNewLife(9);
     const result = applyChoice(state, ev, 'delay');
     expect(result.feedback).toBe(expected);
+  });
+
+  it('no catalog.ts choice leaks the raw template narrate to the player', () => {
+    // Regression guard: catalog.ts's raw narrate strings are placeholder
+    // templates ("就「X」一事，你選擇「Y」。...") meant to be replaced by an
+    // authored override (NARRATE_OVERRIDES / EVENT_BODIES). Every such
+    // template must have a matching override, or players see the raw
+    // placeholder text instead of real prose.
+    const leaks: string[] = [];
+    for (const ev of EVENT_CATALOG) {
+      for (const ch of ev.choices) {
+        for (const outcome of ch.outcomes) {
+          const hasTemplate = outcome.effects.some(
+            (e) => e.type === 'narrate' && isTemplateNarrate(e.text),
+          );
+          if (!hasTemplate) continue;
+          const resolved = getChoiceResultNarrate(ev, ch.id);
+          if (!resolved || isTemplateNarrate(resolved)) {
+            leaks.push(`${ev.id}::${ch.id}`);
+          }
+        }
+      }
+    }
+    expect(leaks).toEqual([]);
   });
 });

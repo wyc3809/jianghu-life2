@@ -135,6 +135,21 @@ export const useLifeStore = create<LifeStore>((set, get) => ({
       return;
     }
     const legacy = extractLegacy(prev);
+    if (!legacy.hadChildren) {
+      // 無子女、血脈斷了——不帶任何前世殘影，回第一頁重新選角
+      track('life_end_no_heir', { generation: legacy.generation });
+      flushPersist();
+      void clearLifeSave();
+      set({
+        state: null,
+        creating: true,
+        saveLabel: null,
+        sealText: null,
+        flashLines: [],
+        lastResult: null,
+      });
+      return;
+    }
     track('life_reincarnate', {
       generation: legacy.generation,
       family: legacy.familyLegacy,

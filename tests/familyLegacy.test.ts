@@ -88,4 +88,16 @@ describe('childbirth and inheritance', () => {
     expect(next.lifeLog.some((l) => /血脈|族產|小江湖/.test(l))).toBe(true);
     applyLegacyToCharacter(createNewLife({ seed: 100, skipCoach: true }), legacy);
   });
+
+  it('death without children reports hadChildren=false (gates the no-heir restart flow)', () => {
+    const prev = createNewLife({ seed: 3, skipCoach: true });
+    prev.character.childrenCount = 0;
+    prev.character.family.childrenNames = [];
+    recordDeath(prev, '客死異鄉。');
+    prev.phase = 'summary';
+
+    const legacy = extractLegacy(prev);
+    expect(legacy.hadChildren).toBe(false);
+    expect(legacy.heirName).toBeUndefined();
+  });
 });

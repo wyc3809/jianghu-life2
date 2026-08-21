@@ -16,6 +16,7 @@ import {
 } from '@data/skills/catalog';
 import { rankPowerMult } from './martialRanks';
 import { grantGear, ensureGear, gearTotals, sumGearCombatBonuses } from './equipment';
+import { titleBonusTotals } from './titles';
 import { applyLearnMartialArt, tryAdvanceSkill } from './flavor';
 import { syncAchievements } from './achievements';
 import { applyNatureDelta } from './nature';
@@ -57,6 +58,7 @@ export function buildPlayerFighter(state: LifeGameState): CombatFighter {
   const gear = gearTotals(c);
   const gearCombat = sumGearCombatBonuses(c);
   const passive = sumInternalPassives(c.skills, c.skillRanks ?? {});
+  const titleBonus = titleBonusTotals(state);
   const evasion = sumEvasionBonus(c.skills, c.skillRanks ?? {}) + c.attributes.danShi / 500;
   const maxHp = c.health;
   const maxQi = c.qi;
@@ -66,10 +68,10 @@ export function buildPlayerFighter(state: LifeGameState): CombatFighter {
     maxHp: c.maxHealth + (passive.maxHp ?? 0),
     qi: maxQi,
     maxQi: c.maxQi + (passive.maxQi ?? 0),
-    attack: 12 + Math.floor(c.martial / 4) + gear.attack + gear.martialBonus + (passive.attack ?? 0),
-    defense: 6 + Math.floor(c.attributes.genGu / 12) + gear.defense + (passive.defense ?? 0),
-    hitBonus: 0.05 + c.attributes.danShi / 400 + (passive.hitBonus ?? 0) + gearCombat.hitBonus,
-    evasion: Math.min(0.45, evasion + gearCombat.evasion),
+    attack: 12 + Math.floor(c.martial / 4) + gear.attack + gear.martialBonus + (passive.attack ?? 0) + titleBonus.attack,
+    defense: 6 + Math.floor(c.attributes.genGu / 12) + gear.defense + (passive.defense ?? 0) + titleBonus.defense,
+    hitBonus: 0.05 + c.attributes.danShi / 400 + (passive.hitBonus ?? 0) + gearCombat.hitBonus + titleBonus.hitBonus,
+    evasion: Math.min(0.45, evasion + gearCombat.evasion + titleBonus.evasion),
     // 戰鬥中不自動回內力；耗去的內力戰後亦保留，需打坐／歇息再復。
     qiRegen: 0,
     blind: 0,

@@ -32,7 +32,7 @@ import { getMasterName } from '@core/life/bonds';
 import { getHeirName, listChildNames, previewInheritanceMoney } from '@core/life/family';
 import { buildGenealogy } from '@core/life/genealogy';
 import { achievementProgress, listAchievementStatus } from '@core/life/achievements';
-import { titleLabels } from '@core/life/titles';
+import { allTitles } from '@core/life/titles';
 
 export type PersonView =
   | 'main'
@@ -70,7 +70,7 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
   const grudges = listGrudges(state);
   const known = listKnownNpcLines(state);
   const achProgress = achievementProgress(state);
-  const nicknames = titleLabels(state);
+  const nicknames = allTitles(state).map((t) => t.label);
 
   if (view === 'main') {
     const rows: { id: PersonView; label: string; hint: string }[] = [
