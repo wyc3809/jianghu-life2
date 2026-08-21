@@ -15,7 +15,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "audit:narrate": "node scripts/auditNarrate.mjs --fail",
-    "docs:events": "vite-node scripts/dumpEvents.mts && vite-node scripts/buildEventsPage.mts"
+    "docs:events": "vite-node scripts/dumpEvents.mts && vite-node scripts/buildEventsPage.mts",
+    "audit:events": "vite-node scripts/auditEventDraws.mts"
   },
   "dependencies": {
     "react": "^19.0.0",
