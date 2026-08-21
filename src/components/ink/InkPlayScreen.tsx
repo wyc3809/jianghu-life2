@@ -143,6 +143,7 @@ export function InkPlayScreen({ state }: Props) {
   const month = state.month ?? 1;
   const pendingEvent = resolvePendingEvent(state);
   const sect = c.sectId ? state.sects[c.sectId] : null;
+  const hasHeir = (c.childrenCount ?? 0) > 0;
   const stage = getLifeStageLabel(state);
   const hpPct = Math.max(0, Math.min(100, (c.health / Math.max(1, c.maxHealth)) * 100));
   const qiPct = Math.max(0, Math.min(100, ((c.qi ?? 0) / Math.max(1, c.maxQi ?? 1)) * 100));
@@ -331,6 +332,85 @@ export function InkPlayScreen({ state }: Props) {
         </div>
       </header>
 
+      {showStatStrip && (
+        <section className="ink-vitals" aria-label={showVitalsBars ? '氣血內力' : '江湖概況'}>
+          {showVitalsBars && (
+            <div className="ink-vitals-meters">
+              <div className="ink-meter">
+                <div className="ink-vitals-label">
+                  <span>氣血</span>
+                  <span>
+                    {Math.round(c.health)}/{c.maxHealth}
+                  </span>
+                </div>
+                <div
+                  className="ink-bar ink-bar--life"
+                  role="meter"
+                  aria-valuemin={0}
+                  aria-valuemax={c.maxHealth}
+                  aria-valuenow={Math.round(c.health)}
+                  aria-label="氣血"
+                >
+                  <div className="ink-bar-fill ink-bar-fill--live" style={{ width: `${hpPct}%` }} />
+                </div>
+              </div>
+              <div className="ink-meter">
+                <div className="ink-vitals-label">
+                  <span>內力</span>
+                  <span>
+                    {Math.round(c.qi ?? 0)}/{c.maxQi ?? 0}
+                  </span>
+                </div>
+                <div
+                  className="ink-bar ink-bar--qi"
+                  role="meter"
+                  aria-valuemin={0}
+                  aria-valuemax={c.maxQi ?? 0}
+                  aria-valuenow={Math.round(c.qi ?? 0)}
+                  aria-label="內力"
+                >
+                  <div className="ink-bar-fill ink-bar-fill--qi ink-bar-fill--live" style={{ width: `${qiPct}%` }} />
+                </div>
+              </div>
+            </div>
+          )}
+          <span
+            className="ink-vitals-rule"
+            aria-hidden
+            dangerouslySetInnerHTML={{ __html: INK_SVG.fadeLine }}
+          />
+          <ul className="ink-stat-row">
+            <li className="ink-stat-pill">
+              <img className="ink-stat-motif" src={inkAiUrl('motif-jade')} alt="" decoding="async" />
+              <span>銀兩 {c.money}</span>
+            </li>
+            <li className="ink-stat-pill">
+              <img className="ink-stat-motif" src={inkAiUrl('motif-scroll')} alt="" decoding="async" />
+              <span>名望 {c.reputation}</span>
+            </li>
+            <li className="ink-stat-pill">
+              <img className="ink-stat-motif" src={inkAiUrl('motif-sword')} alt="" decoding="async" />
+              <span>
+                武學 {c.martial}·{overallMartialLabel(c)}
+              </span>
+            </li>
+            <li className="ink-stat-pill">
+              <img className="ink-stat-motif" src={inkAiUrl('motif-lantern')} alt="" decoding="async" />
+              <span>疲勞 {c.fatigue ?? 0}</span>
+            </li>
+          </ul>
+          {(c.conditions?.length ?? 0) > 0 && (
+            <div className="ink-chips">
+              {c.conditions.map((cond) => (
+                <span key={cond.id} className="ink-chip">
+                  {cond.name}·{cond.monthsLeft}月
+                </span>
+              ))}
+            </div>
+          )}
+        </section>
+      )}
+
       <InkSettingsPanel
         open={settingsOpen}
         onClose={() => setSettingsOpen(false)}
@@ -480,85 +560,6 @@ export function InkPlayScreen({ state }: Props) {
             </section>
           )}
         </div>
-      )}
-
-      {showStatStrip && (
-        <section className="ink-vitals" aria-label={showVitalsBars ? '氣血內力' : '江湖概況'}>
-          {showVitalsBars && (
-            <div className="ink-vitals-meters">
-              <div className="ink-meter">
-                <div className="ink-vitals-label">
-                  <span>氣血</span>
-                  <span>
-                    {Math.round(c.health)}/{c.maxHealth}
-                  </span>
-                </div>
-                <div
-                  className="ink-bar ink-bar--life"
-                  role="meter"
-                  aria-valuemin={0}
-                  aria-valuemax={c.maxHealth}
-                  aria-valuenow={Math.round(c.health)}
-                  aria-label="氣血"
-                >
-                  <div className="ink-bar-fill ink-bar-fill--live" style={{ width: `${hpPct}%` }} />
-                </div>
-              </div>
-              <div className="ink-meter">
-                <div className="ink-vitals-label">
-                  <span>內力</span>
-                  <span>
-                    {Math.round(c.qi ?? 0)}/{c.maxQi ?? 0}
-                  </span>
-                </div>
-                <div
-                  className="ink-bar ink-bar--qi"
-                  role="meter"
-                  aria-valuemin={0}
-                  aria-valuemax={c.maxQi ?? 0}
-                  aria-valuenow={Math.round(c.qi ?? 0)}
-                  aria-label="內力"
-                >
-                  <div className="ink-bar-fill ink-bar-fill--qi ink-bar-fill--live" style={{ width: `${qiPct}%` }} />
-                </div>
-              </div>
-            </div>
-          )}
-          <span
-            className="ink-vitals-rule"
-            aria-hidden
-            dangerouslySetInnerHTML={{ __html: INK_SVG.fadeLine }}
-          />
-          <ul className="ink-stat-row">
-            <li className="ink-stat-pill">
-              <img className="ink-stat-motif" src={inkAiUrl('motif-jade')} alt="" decoding="async" />
-              <span>銀兩 {c.money}</span>
-            </li>
-            <li className="ink-stat-pill">
-              <img className="ink-stat-motif" src={inkAiUrl('motif-scroll')} alt="" decoding="async" />
-              <span>名望 {c.reputation}</span>
-            </li>
-            <li className="ink-stat-pill">
-              <img className="ink-stat-motif" src={inkAiUrl('motif-sword')} alt="" decoding="async" />
-              <span>
-                武學 {c.martial}·{overallMartialLabel(c)}
-              </span>
-            </li>
-            <li className="ink-stat-pill">
-              <img className="ink-stat-motif" src={inkAiUrl('motif-lantern')} alt="" decoding="async" />
-              <span>疲勞 {c.fatigue ?? 0}</span>
-            </li>
-          </ul>
-          {(c.conditions?.length ?? 0) > 0 && (
-            <div className="ink-chips">
-              {c.conditions.map((cond) => (
-                <span key={cond.id} className="ink-chip">
-                  {cond.name}·{cond.monthsLeft}月
-                </span>
-              ))}
-            </div>
-          )}
-        </section>
       )}
 
       {tab === 'jianghu' && !combat && !eventFocus && (
@@ -746,14 +747,20 @@ export function InkPlayScreen({ state }: Props) {
           <pre className="ink-epitaph-text">{state.summaryText}</pre>
           <InkStaticSeal text="終" className="ink-seal-static--end" />
           <button type="button" className="ink-btn ink-btn--primary" onClick={() => reincarnate()}>
-            轉世再入江湖
+            {hasHeir ? '轉世再入江湖' : '重新選角'}
           </button>
           <p className="ink-note ink-note--center">
-            前世武學餘韻
-            {c.flags.family_legacy || c.flags.legacy_teacher
-              ? `與${[c.flags.family_legacy ? '族規' : '', c.flags.legacy_teacher ? '傳功' : ''].filter(Boolean).join('、')}`
-              : ''}
-            將淡淡帶入來世。
+            {hasHeir ? (
+              <>
+                前世武學餘韻
+                {c.flags.family_legacy || c.flags.legacy_teacher
+                  ? `與${[c.flags.family_legacy ? '族規' : '', c.flags.legacy_teacher ? '傳功' : ''].filter(Boolean).join('、')}`
+                  : ''}
+                將淡淡帶入來世。
+              </>
+            ) : (
+              '這一世沒有子女，下一世會重新開始，不帶任何前世的東西。'
+            )}
           </p>
         </section>
       )}

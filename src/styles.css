@@ -4780,7 +4780,7 @@ html[data-ink-motion='reduce'] .ink-combat-fx-layer {
 
 .ink-home-tableau {
   position: relative;
-  height: clamp(154px, 30vh, 205px);
+  height: clamp(108px, 20vh, 148px);
   margin: 0 -2px 2px;
   overflow: hidden;
   border-bottom: 1px solid rgba(26, 26, 26, 0.14);
@@ -4969,7 +4969,7 @@ html[data-ink-motion='reduce'] .ink-combat-fx-layer {
 
 .scroll-shell--event .ink-event-banner {
   position: relative;
-  height: clamp(112px, 23vh, 165px);
+  height: clamp(80px, 15vh, 118px);
   margin: 0 0 8px;
   overflow: hidden;
   border-top: 1px solid rgba(26, 26, 26, 0.1);
