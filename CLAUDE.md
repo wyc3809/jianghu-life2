@@ -36,7 +36,7 @@ on top of an existing playable V1.
 
 | Path | Role |
 |------|------|
-| `src/` | React UI（`LifeGameScreen`, Zustand store） |
+| `src/` | React UI（`ink/InkPlayScreen` 等 Ink* 元件, Zustand store） |
 | `core/life/` | Event engine, requirements, effects, save |
 | `core/` | Shared RNG, ids, legacy tick sim |
 | `data/events/` | Event database |

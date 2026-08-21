@@ -25,10 +25,16 @@ BitLife × 武俠：玩家體驗一段可重玩的人生，內容由事件資料
 
 ## Current stage
 
-- **Playable MVP (V1.0)** on web: create life → yearly events → choices → death summary
-- Event catalog: 50 entries in `data/events/catalog.ts`
-- Visual: ink-wash (水墨) UI
-- Next: expand events, deepen NPC/sect systems, optional dual-mode with legacy tick engine
+- **Live game (EA0.8.0)** on web: create life → yearly events → choices → death summary
+- Event catalog: **321** deduped events across 10 data files (`data/events/catalog.ts` original
+  50 + `jianghuExtra100.ts`, `jinyongTropes.ts`, `bossEncounters.ts`, `secretArts.ts`,
+  `playabilityPack.ts`, `ordinary.ts`, `roadEncounters.ts`, `practiceWander.ts`,
+  `jianghu_random_events_100.json`). Run `npm run docs:events` to regenerate
+  `docs/EVENT-CATALOG.md`, the authoritative count.
+- Visual: ink-wash (水墨) UI, ink scroll main screen (EA0.8.0)
+- Known tech debt: event data runs two formats side by side (Zod `GameEvent` vs. Pack v1
+  `op/path/value`) — see `docs/architecture/adr-001-unified-event-runtime.md`
+- Next: unify event data format, split `InkPlayScreen.tsx`, expand NPC/sect systems
 
 ## Platform
 
