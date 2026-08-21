@@ -28,8 +28,8 @@
 4. `core/life/requirements.ts` / `effects.ts` — 條件與效果
 5. `core/life/saveIndexedDb.ts` — 存檔
 6. `src/components/LifeDebugPanel.tsx` — 除錯面板
-7. `data/events/catalog.ts` — **50** 個事件
-8. `src/components/LifeGameScreen.tsx` — 直版 UI
+7. `data/events/catalog.ts` — 核心 50 個事件（實際事件庫已擴充至 **321** 條，見下方「事件資料規模」）
+8. `src/components/ink/InkPlayScreen.tsx` — 直版水墨 UI 主畫面
 
 ## 事件資料格式
 
@@ -44,6 +44,25 @@ GameEvent {
 
 效果類型包含：`narrate`、`attr`、`money`、`health`、`martial`、`joinSect`、`learnSkill`、`lover`、`die` 等。
 
+## 事件資料規模（實際現況，非 MVP 初版）
+
+合計 **321** 條去重事件（跑 `npm run docs:events` 自動生成 `docs/EVENT-CATALOG.md`，該數字以此為準）。分佈於：
+
+| 檔案 | 條數 | 說明 |
+|------|------|------|
+| `data/events/catalog.ts` | 50 | 核心 MVP 事件（Zod `GameEvent` 格式） |
+| `data/events/jianghuExtra100.ts` | 100 | 江湖百事（日常／遊歷） |
+| `data/events/jinyongTropes.ts` | 24 | 金庸橋段 tropes |
+| `data/events/bossEncounters.ts` | 16 | 首領／宿敵遭遇 |
+| `data/events/secretArts.ts` | 12 | 秘傳武學 |
+| `data/events/playabilityPack.ts` | 9 | 可玩性補強包 |
+| `data/events/ordinary.ts` | 8 | 日常事件 |
+| `data/events/roadEncounters.ts` | 6 | 路途遭遇 |
+| `data/events/practiceWander.ts` | 5 | 修煉／遊歷 |
+| `data/events/jianghu_random_events_100.json` | 100 | Pack v1 格式（`op/path/value`，非 Zod `GameEvent`，見 [ADR-001](docs/architecture/adr-001-unified-event-runtime.md) 雙軌技術債） |
+
+以上皆由 `core/life/jianghuEventRepository.ts` + `core/life/eventEngine.ts` 在執行時合併載入，並非死碼。
+
 ## 本地開發
 
 ```bash
@@ -55,7 +74,7 @@ npm run build
 
 ## 遺留引擎（2.x）
 
-`core/world.ts`、`core/gameplay.ts` 等 tick 模擬引擎仍保留於倉庫，供後續與人生引擎合併或對照；目前 **預設入口為 V1 人生模式**（`src/App.tsx`）。
+`core/world.ts`、`core/gameplay.ts` 等 tick 模擬引擎仍保留於倉庫，供後續與人生引擎合併或對照；目前 **預設入口為 V1 人生模式**（`src/App.tsx`）。舊版對應的 UI（`GameScreen.tsx`／`LifeGameScreen.tsx`／`StartScreen.tsx`／`LifeStartScreen.tsx`）因 `App.tsx` 已完全改走 `Ink*` 系列元件、無任何引用，已於清理死碼時刪除；如需與 tick 引擎對照，走 `core/world.ts`／`core/gameplay.ts` 本身即可，不需重建舊 UI。
 
 ## Claude Code Game Studios
 

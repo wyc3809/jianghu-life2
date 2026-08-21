@@ -22,7 +22,7 @@
 
 - **Types / Interfaces**: PascalCase（`LifeGameState`, `GameEvent`）
 - **Variables / functions**: camelCase
-- **Files**: camelCase or kebab for components（`LifeGameScreen.tsx`）
+- **Files**: camelCase or kebab for components（`InkPlayScreen.tsx`）
 - **Events IDs**: snake_case（`life_birth`, `sect_recruit`）
 - **Constants**: SCREAMING_SNAKE or exported const camelCase
 
