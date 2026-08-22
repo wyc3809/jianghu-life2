@@ -2972,6 +2972,21 @@ body::before {
   grid-template-columns: repeat(2, 1fr);
 }
 
+.ink-combat-desperate {
+  margin-bottom: 10px;
+  padding: 6px 8px;
+  border: 1px solid rgba(163, 58, 50, 0.4);
+  background: rgba(163, 58, 50, 0.06);
+}
+
+.ink-choice--desperate {
+  border-color: rgba(163, 58, 50, 0.5);
+}
+
+.ink-choice--desperate .ink-choice-mark {
+  color: var(--cinnabar, #a33a32);
+}
+
 /* 架勢視覺化：雙方最近一回合架勢印章，顏色標示相剋（綠=克制／紅=被克制／灰=無關） */
 .ink-combat-stance-row {
   display: flex;

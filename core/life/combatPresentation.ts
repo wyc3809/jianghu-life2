@@ -39,9 +39,13 @@ export function summarizeExchange(lines: string[]): string | null {
   return null;
 }
 
-export function dispositionBlurb(disposition: 'kill' | 'release' | 'stun', foeName: string): string {
+export function dispositionBlurb(
+  disposition: 'kill' | 'release' | 'stun' | 'cripple',
+  foeName: string,
+): string {
   if (disposition === 'kill') return `你刃下不留——「${foeName}」這一頁，就此撕去。`;
   if (disposition === 'release') return `你收招退開半步：「走。」${foeName}看你一眼，沒有道謝，只把命帶走。`;
+  if (disposition === 'cripple') return `你廢去${foeName}一身武功——這一劫，他躲不過。`;
   return `你點暈${foeName}，把人撂在塵土裡。勝了，卻沒有把故事寫死。`;
 }
 

@@ -181,6 +181,30 @@ export const FLEE_MOVE: CombatMoveDef = {
   description: '伺機脫戰（虛）；成敗看身法與氣運。',
 };
 
+/** 絕地反擊：燃燒真氣，下招 ×2.5 傷，戰後留內傷；只在氣血 < 20% 時可用 */
+export const DESPERATE_BURN_MOVE: CombatMoveDef = {
+  id: 'sys_desperate_burn',
+  name: '燃燒真氣',
+  qiCost: 0,
+  power: 2.5,
+  stance: 'shi',
+  range: 'any',
+  description: '氣血垂危，燃盡真氣拚死一擊（威能 ×2.5），事後必留內傷。',
+};
+
+/** 絕地反擊：棄劍認輸，保住性命但折損名望，等同即時脫戰 */
+export const DESPERATE_SURRENDER_MOVE: CombatMoveDef = {
+  id: 'sys_desperate_surrender',
+  name: '棄劍認輸',
+  qiCost: 0,
+  power: 0,
+  stance: 'xu',
+  range: 'any',
+  description: '氣血垂危，棄劍認輸——保住性命，名望受損。',
+};
+
+export const DESPERATE_MOVES: CombatMoveDef[] = [DESPERATE_BURN_MOVE, DESPERATE_SURRENDER_MOVE];
+
 export const SYSTEM_MOVES: CombatMoveDef[] = [
   GUARD_STANCE,
   CHARGE_STANCE,

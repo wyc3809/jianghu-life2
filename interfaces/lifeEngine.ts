@@ -448,6 +448,10 @@ export interface PendingCombat {
   /** 最近一回合雙方架勢（虛／實／架），供架勢視覺化顯示 */
   lastPlayerStance?: 'xu' | 'shi' | 'jia';
   lastFoeStance?: 'xu' | 'shi' | 'jia';
+  /** 本場曾否燃燒真氣絕地反擊（戰後留內傷） */
+  usedDesperateBurn?: boolean;
+  /** 敵方是否已跪地求饒（可選「廢武功」處置） */
+  foeSurrendered?: boolean;
 }
 
 export const lifeCharacterSchema = z.object({

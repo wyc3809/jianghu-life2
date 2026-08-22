@@ -6,6 +6,8 @@ import {
   REST_QI_MOVE,
   REST_STAMINA_MOVE,
   REST_HEAL_MOVE,
+  DESPERATE_BURN_MOVE,
+  DESPERATE_SURRENDER_MOVE,
   getSkillDef,
   listExternalMovesForSkills,
   sumInternalPassives,
@@ -14,6 +16,7 @@ import {
   isRecoverySupportMove,
   effectiveMoveCooldown,
 } from '@data/skills/catalog';
+import { addCondition } from './monthly';
 import { rankPowerMult } from './martialRanks';
 import { grantGear, ensureGear, gearTotals, sumGearCombatBonuses } from './equipment';
 import { titleBonusTotals } from './titles';
@@ -59,7 +62,7 @@ import {
 } from './internalMode';
 import { DISTANCE_LABEL, changeDistance, distanceDamageMult, isMoveAvailableAtDistance } from './distance';
 
-export type CombatFoeDisposition = 'kill' | 'release' | 'stun';
+export type CombatFoeDisposition = 'kill' | 'release' | 'stun' | 'cripple';
 
 export type CombatFighter = CombatFighterState;
 export type PendingCombat = PendingCombatState;
@@ -245,6 +248,8 @@ function findMove(state: LifeGameState, moveId: string): CombatMoveDef | null {
   if (moveId === REST_QI_MOVE.id) return REST_QI_MOVE;
   if (moveId === REST_STAMINA_MOVE.id) return REST_STAMINA_MOVE;
   if (moveId === REST_HEAL_MOVE.id) return REST_HEAL_MOVE;
+  if (moveId === DESPERATE_BURN_MOVE.id) return DESPERATE_BURN_MOVE;
+  if (moveId === DESPERATE_SURRENDER_MOVE.id) return DESPERATE_SURRENDER_MOVE;
   for (const id of state.character.skills) {
     const def = getSkillDef(id);
     if (def?.move?.id === moveId) return def.move;
@@ -297,18 +302,21 @@ const DISPOSITION_NATURE: Record<
   kill: { e: 4, xia: -2 },
   release: { xia: 4, e: -2, kuang: -1 },
   stun: { xia: 2, e: -1, kuang: -1 },
+  cripple: { e: 3, kuang: 1, xia: -1 },
 };
 
 const DISPOSITION_REP: Record<CombatFoeDisposition, number> = {
   kill: -3,
   release: 4,
   stun: 1,
+  cripple: -1,
 };
 
 const DISPOSITION_NARRATE: Record<CombatFoeDisposition, string> = {
   kill: '你補上最後一擊。血線落地的一瞬，你知這筆債已結，心性卻也添了幾分戾氣。',
   release: '你收刃轉身，任對方踉蹣離去。江湖恩怨，未必都要以命相抵——這份寬恕，亦會留在身上。',
   stun: '你點其穴道，待其甦醒時人已走遠。留一線生機，也留一線牽掛。',
+  cripple: '你廢去他一身武功根基，任他苟活於世——從此再難稱雄江湖。',
 };
 
 /** 戰勝後處置落敗者（殺／放／暈），再結算戰利與獎勵 */
@@ -385,6 +393,10 @@ function finishCombatWin(state: LifeGameState, dispositionLabel?: CombatFoeDispo
   c.fatigue = clamp(c.fatigue + 8, 0, 100);
   c.stats.combats += 1;
   c.stats.combatsWon += 1;
+  if (combat.usedDesperateBurn) {
+    addCondition(state, 'internal');
+    lines.push('絕地反擊燃盡真氣，戰後留下內傷。');
+  }
 
   if (!dispositionLabel) {
     lines.push(`你戰勝了${combat.foe.name}！`);
@@ -493,6 +505,10 @@ function finishCombat(state: LifeGameState, won: boolean): string[] {
   }
   c.fatigue = clamp(c.fatigue + 14, 0, 100);
   c.stats.combats += 1;
+  if (combat.usedDesperateBurn) {
+    addCondition(state, 'internal');
+    lines.push('絕地反擊燃盡真氣，戰後留下內傷。');
+  }
 
   lines.push(`你敗於${combat.foe.name}。`);
   const r = combat.rewardOnLose ?? {};
@@ -614,6 +630,37 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
       const rangeLine = `「${move.name}」在${DISTANCE_LABEL[distance]}使不出來，需另覓距離。`;
       lines.push(rangeLine);
       combat.log.push(rangeLine);
+    } else if (move.id === DESPERATE_SURRENDER_MOVE.id) {
+      if (combat.player.hp / Math.max(1, combat.player.maxHp) >= 0.2) {
+        lines.push('氣血未至垂危，此刻棄劍認輸尚早。');
+        combat.log.push(lines[lines.length - 1]!);
+      } else {
+        syncPlayerVitalsToCharacter(state, combat);
+        state.character.health = Math.max(1, state.character.health);
+        state.character.reputation = Math.max(0, state.character.reputation - 5);
+        const giveUpLines = ['你棄劍認輸，僥倖保住性命。', '名望－5'];
+        lines.push(...giveUpLines);
+        combat.log.push(...giveUpLines);
+        combat.phase = 'ended';
+        state.pendingCombat = null;
+        pushChronicle(state, [`「${combat.title}」——棄劍認輸`, ...giveUpLines]);
+        snapshotRng(state);
+        return lines;
+      }
+    } else if (move.id === DESPERATE_BURN_MOVE.id) {
+      if (combat.player.hp / Math.max(1, combat.player.maxHp) >= 0.2) {
+        lines.push('氣血未至垂危，燃燒真氣未免太過。');
+        combat.log.push(lines[lines.length - 1]!);
+      } else {
+        combat.player.qi = 0;
+        combat.usedDesperateBurn = true;
+        const burnLine = '你燃盡真氣，拚死一擊！';
+        lines.push(burnLine);
+        combat.log.push(burnLine);
+        const burnLines = resolveStrike(combat.player, combat.foe, BASIC_STRIKE, rng, 2.5, 0, playerStanceMult);
+        lines.push(...burnLines);
+        combat.log.push(...burnLines);
+      }
     } else if (move.id === FLEE_MOVE.id) {
       const chance = clamp(0.32 + combat.player.evasion + state.character.attributes.danShi / 400, 0.15, 0.82);
       if (rng.chance(chance)) {
@@ -765,6 +812,22 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
       combat.log.push(...strikeLines);
       setMoveCooldown(combat, move);
     }
+  }
+
+  if (
+    combat.foe.hp > 0 &&
+    !combat.foeSurrendered &&
+    needsFoeDisposition(combat) &&
+    combat.foe.hp / Math.max(1, combat.foe.maxHp) < 0.15 &&
+    rng.chance(0.4)
+  ) {
+    combat.foeSurrendered = true;
+    combat.phase = 'resolve';
+    const surrenderLine = `${combat.foe.name}見大勢已去，跪地求饒！`;
+    lines.push(surrenderLine);
+    combat.log.push(surrenderLine);
+    snapshotRng(state);
+    return lines;
   }
 
   if (combat.foe.hp <= 0) {

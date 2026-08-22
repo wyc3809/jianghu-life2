@@ -450,6 +450,7 @@ export const useLifeStore = create<LifeStore>((set, get) => ({
       kill: '殺死',
       release: '放走',
       stun: '擊暈',
+      cripple: '廢武功',
     };
     const resolveParted = partitionStoryAndDeltas(logs);
     set({

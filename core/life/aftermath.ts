@@ -17,7 +17,7 @@ export const PENDING_BLOOD = 'pending_blood_foe';
 /** 戰後處置寫入後續旗標 */
 export function recordDispositionAftermath(
   state: LifeGameState,
-  disposition: 'kill' | 'release' | 'stun',
+  disposition: 'kill' | 'release' | 'stun' | 'cripple',
   foeName: string,
 ): string[] {
   const c = state.character;

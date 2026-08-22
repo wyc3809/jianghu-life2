@@ -21,6 +21,8 @@ import {
   GUARD_STANCE,
   CHARGE_STANCE,
   FLEE_MOVE,
+  DESPERATE_BURN_MOVE,
+  DESPERATE_SURRENDER_MOVE,
   type CombatMoveRole,
 } from '@data/skills/catalog';
 import { getGearDef, WEAPON_KIND_LABEL } from '@data/equipment/catalog';
@@ -293,13 +295,22 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
 
         {combat.phase === 'resolve' ? (
           <>
-            <p className="ink-note">勝負已分——如何處置落敗之人，亦會留在心性裡。</p>
+            <p className="ink-note">
+              {combat.foeSurrendered
+                ? '對方已跪地求饒——殺、放、廢其武功，如何抉擇，亦會留在心性裡。'
+                : '勝負已分——如何處置落敗之人，亦會留在心性裡。'}
+            </p>
             <div className="ink-choice-list ink-combat-resolve">
               {(
                 [
                   ['kill', '殺', '殺死', '永絕後患，得修為；戾氣難消', dominant === 'xia' ? '俠心較重，下手需自問' : ''],
                   ['release', '放', '放走', '留其一命，寬恕在胸', dominant === 'e' ? '惡念未消，放人亦是克制' : ''],
                   ['stun', '暈', '擊暈', '點穴制住，不傷性命', '戰利或略薄，心性較穩'],
+                  ...(combat.foeSurrendered
+                    ? ([
+                        ['cripple', '廢', '廢武功', '斷其根基，任其苟活', '較殺人留情，較放人狠絕'],
+                      ] as const)
+                    : []),
                 ] as const
               ).map(([id, mark, label, hint, extra], i) => (
                 <button
@@ -325,6 +336,36 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
           </>
         ) : (
           <>
+            {combat.player.hp / Math.max(1, combat.player.maxHp) < 0.2 && (
+              <div className="ink-combat-desperate">
+                <p className="ink-note ink-note--warn">氣血垂危——絕地反擊，孤注一擲：</p>
+                <div className="ink-choice-list">
+                  <button
+                    type="button"
+                    className="ink-choice ink-choice--desperate"
+                    onClick={() => enqueueCombatMove(DESPERATE_BURN_MOVE.id, DESPERATE_BURN_MOVE.name, 'shi')}
+                  >
+                    <span className="ink-choice-mark">拚</span>
+                    <span className="ink-combat-move">
+                      <strong>燃燒真氣</strong>
+                      <em>下招威能 ×2.5，戰後必留內傷</em>
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className="ink-choice ink-choice--desperate"
+                    onClick={() => enqueueCombatMove(DESPERATE_SURRENDER_MOVE.id, DESPERATE_SURRENDER_MOVE.name, 'xu')}
+                  >
+                    <span className="ink-choice-mark">棄</span>
+                    <span className="ink-combat-move">
+                      <strong>棄劍認輸</strong>
+                      <em>保住性命，名望－5</em>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            )}
+
             <p className="ink-combat-group-label">
               距離：{DISTANCE_LABEL[combat.distance ?? 'mid']}
             </p>
