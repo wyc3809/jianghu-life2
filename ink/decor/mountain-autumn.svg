@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" width="900" height="320">
+  <!-- 水墨远山 · autumn -->
+  <rect width="900" height="320" fill="#F3EBDC"/>
+  <path d="M 0 320 L 0 280 L 0 232 L 90 295 L 180 254 L 270 298 L 360 224 L 450 288 L 540 245 L 630 290 L 720 236 L 810 294 L 900 248 L 900 320 Z" fill="#8A7355" opacity="0.15"/>
+  <path d="M 0 320 L 0 245 L 0 201 L 64 250 L 129 205 L 193 256 L 257 207 L 321 253 L 386 224 L 450 253 L 514 203 L 579 258 L 643 229 L 707 254 L 771 223 L 836 261 L 900 207 L 900 320 Z" fill="#6B5A40" opacity="0.27"/>
+  <path d="M 0 320 L 0 210 L 0 185 L 50 218 L 100 185 L 150 220 L 200 179 L 250 224 L 300 190 L 350 219 L 400 187 L 450 224 L 500 186 L 550 216 L 600 197 L 650 227 L 700 193 L 750 220 L 800 174 L 850 225 L 900 189 L 900 320 Z" fill="#4A4030" opacity="0.39"/>
+
+  <defs>
+    <linearGradient id="fog-autumn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F3EBDC" stop-opacity="0.9"/>
+      <stop offset="40%" stop-color="#F3EBDC" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#F3EBDC" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="900" height="160.0" fill="url(#fog-autumn)"/>
+</svg>

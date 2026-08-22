@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- 剑招笔触 -->
+  <defs>
+    <filter id="brush">
+      <feTurbulence type="fractalNoise" baseFrequency="0.3" numOctaves="1" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1"/>
+    </filter>
+  </defs>
+  <path d="M 12 52 L 32 12 L 52 52" stroke="#1A1A1A" stroke-width="3" fill="none" 
+    stroke-linecap="round" stroke-linejoin="round" filter="url(#brush)" opacity="0.85"/>
+  <path d="M 18 40 L 32 20 L 46 40" stroke="#4A4540" stroke-width="1.5" fill="none" 
+    stroke-linecap="round" opacity="0.5"/>
+  <text x="32" y="58" text-anchor="middle" font-family="'Noto Serif SC', serif" 
+    font-size="10" fill="#8A8278">劍</text>
+</svg>
