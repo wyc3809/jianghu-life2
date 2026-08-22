@@ -8,7 +8,7 @@ import {
   type CombatVitalsSnap,
 } from '@core/life/combatInkFx';
 import { InkBarWithGhost, InkCombatFxLayer, useInkCombatFxQueue } from './InkCombatFx';
-import { MOVE_STANCE_LABEL, resolveMoveStance, type MoveStance } from '@core/life/moveStance';
+import { MOVE_STANCE_LABEL, resolveMoveStance, stanceBeats, type MoveStance } from '@core/life/moveStance';
 import {
   COMBAT_TECHNIQUE_ROLES,
   combatMoveRole,
@@ -21,6 +21,8 @@ import {
   GUARD_STANCE,
   CHARGE_STANCE,
   FLEE_MOVE,
+  DESPERATE_BURN_MOVE,
+  DESPERATE_SURRENDER_MOVE,
   type CombatMoveRole,
 } from '@data/skills/catalog';
 import { getGearDef, WEAPON_KIND_LABEL } from '@data/equipment/catalog';
@@ -29,6 +31,8 @@ import { classifyBeat, summarizeExchange, styleForCombat } from '@core/life/comb
 import { foeStyleLabel } from '@core/life/foeAi';
 import { dominantNature } from '@core/life/nature';
 import { playInkBlade } from '../../audio/inkAudio';
+import { INTERNAL_MODES } from '@core/life/internalMode';
+import { DISTANCE_LABEL } from '@core/life/distance';
 
 type CombatRoleFilter = 'all' | CombatMoveRole;
 
@@ -37,6 +41,8 @@ type Props = {
   combat: PendingCombat;
   onMove: (moveId: string) => void;
   onResolveFoe: (disposition: CombatFoeDisposition) => void;
+  onSetInternalMode: (modeId: string | null) => void;
+  onSetDistance: (direction: 'close' | 'far') => void;
 };
 
 /** 血條下「最新戰況」：取自己／敵人各最近一條主動作（最多兩條） */
@@ -62,7 +68,7 @@ function recentExchangeBeats(log: string[], playerName: string, foeName: string)
   return log.filter((l) => !l.startsWith('【')).slice(-2);
 }
 
-export function InkCombatPanel({ state, combat, onMove, onResolveFoe }: Props) {
+export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInternalMode, onSetDistance }: Props) {
   const c = state.character;
   const dominant = dominantNature(c);
   const equipment = c.equipment ?? { weapon: null, armor: null, accessory: null };
@@ -189,6 +195,37 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe }: Props) {
           </span>
         </p>
         <h3>交手 · {combat.foe.name}</h3>
+        {combat.lastPlayerStance && combat.lastFoeStance && (
+          <div
+            key={`stance-${combat.turn}`}
+            className="ink-combat-stance-row"
+            aria-label="雙方架勢"
+          >
+            <span
+              className={`ink-combat-stance-stamp ink-combat-stance-stamp--${
+                stanceBeats(combat.lastPlayerStance, combat.lastFoeStance)
+                  ? 'win'
+                  : stanceBeats(combat.lastFoeStance, combat.lastPlayerStance)
+                    ? 'lose'
+                    : 'neutral'
+              }`}
+            >
+              你｜{MOVE_STANCE_LABEL[combat.lastPlayerStance]}
+            </span>
+            <span className="ink-combat-stance-vs">對</span>
+            <span
+              className={`ink-combat-stance-stamp ink-combat-stance-stamp--${
+                stanceBeats(combat.lastFoeStance, combat.lastPlayerStance)
+                  ? 'win'
+                  : stanceBeats(combat.lastPlayerStance, combat.lastFoeStance)
+                    ? 'lose'
+                    : 'neutral'
+              }`}
+            >
+              {combat.foe.name}｜{MOVE_STANCE_LABEL[combat.lastFoeStance]}
+            </span>
+          </div>
+        )}
         <div className="ink-combat-bars">
           <div>
             <div className="ink-vitals-label">
@@ -258,13 +295,22 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe }: Props) {
 
         {combat.phase === 'resolve' ? (
           <>
-            <p className="ink-note">勝負已分——如何處置落敗之人，亦會留在心性裡。</p>
+            <p className="ink-note">
+              {combat.foeSurrendered
+                ? '對方已跪地求饒——殺、放、廢其武功，如何抉擇，亦會留在心性裡。'
+                : '勝負已分——如何處置落敗之人，亦會留在心性裡。'}
+            </p>
             <div className="ink-choice-list ink-combat-resolve">
               {(
                 [
                   ['kill', '殺', '殺死', '永絕後患，得修為；戾氣難消', dominant === 'xia' ? '俠心較重，下手需自問' : ''],
                   ['release', '放', '放走', '留其一命，寬恕在胸', dominant === 'e' ? '惡念未消，放人亦是克制' : ''],
                   ['stun', '暈', '擊暈', '點穴制住，不傷性命', '戰利或略薄，心性較穩'],
+                  ...(combat.foeSurrendered
+                    ? ([
+                        ['cripple', '廢', '廢武功', '斷其根基，任其苟活', '較殺人留情，較放人狠絕'],
+                      ] as const)
+                    : []),
                 ] as const
               ).map(([id, mark, label, hint, extra], i) => (
                 <button
@@ -290,6 +336,75 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe }: Props) {
           </>
         ) : (
           <>
+            {combat.player.hp / Math.max(1, combat.player.maxHp) < 0.2 && (
+              <div className="ink-combat-desperate">
+                <p className="ink-note ink-note--warn">氣血垂危——絕地反擊，孤注一擲：</p>
+                <div className="ink-choice-list">
+                  <button
+                    type="button"
+                    className="ink-choice ink-choice--desperate"
+                    onClick={() => enqueueCombatMove(DESPERATE_BURN_MOVE.id, DESPERATE_BURN_MOVE.name, 'shi')}
+                  >
+                    <span className="ink-choice-mark">拚</span>
+                    <span className="ink-combat-move">
+                      <strong>燃燒真氣</strong>
+                      <em>下招威能 ×2.5，戰後必留內傷</em>
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className="ink-choice ink-choice--desperate"
+                    onClick={() => enqueueCombatMove(DESPERATE_SURRENDER_MOVE.id, DESPERATE_SURRENDER_MOVE.name, 'xu')}
+                  >
+                    <span className="ink-choice-mark">棄</span>
+                    <span className="ink-combat-move">
+                      <strong>棄劍認輸</strong>
+                      <em>保住性命，名望－5</em>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            <p className="ink-combat-group-label">
+              距離：{DISTANCE_LABEL[combat.distance ?? 'mid']}
+            </p>
+            <div className="ink-combat-mode-bar ink-combat-mode-bar--distance">
+              <button
+                type="button"
+                className="ink-combat-mode-btn"
+                disabled={(combat.distance ?? 'mid') === 'close'}
+                onClick={() => onSetDistance('close')}
+              >
+                近身
+              </button>
+              <button
+                type="button"
+                className="ink-combat-mode-btn"
+                disabled={(combat.distance ?? 'mid') === 'far'}
+                onClick={() => onSetDistance('far')}
+              >
+                拉開
+              </button>
+            </div>
+
+            <p className="ink-combat-group-label">內功運轉</p>
+            <div className="ink-combat-mode-bar" role="tablist" aria-label="內功運轉模式">
+              {INTERNAL_MODES.map((mode) => (
+                <button
+                  key={mode.id}
+                  type="button"
+                  className={`ink-combat-mode-btn${combat.player.internalMode === mode.id ? ' ink-combat-mode-btn--on' : ''}`}
+                  title={`${mode.description} · 每回合耗內力${mode.qiCostPerTurn}`}
+                  onClick={() => {
+                    onSetInternalMode(combat.player.internalMode === mode.id ? null : mode.id);
+                  }}
+                >
+                  {mode.name}
+                </button>
+              ))}
+            </div>
+
             <button
               type="button"
               className="ink-combat-log-toggle"

@@ -20,7 +20,7 @@ import {
 import { performPracticeAction, PRACTICE_ACTIONS, type PracticeActionId } from '@core/life/actions';
 import { equipGear } from '@core/life/equipment';
 import { buildLifeSummary } from '@core/life/summary';
-import { playerCombatTurn, getPlayerMoves, resolveCombatDisposition, type CombatFoeDisposition } from '@core/life/combat';
+import { playerCombatTurn, getPlayerMoves, resolveCombatDisposition, setCombatInternalMode, setCombatDistance, type CombatFoeDisposition } from '@core/life/combat';
 import { displayChoiceText, sanitizePlayerLine, sanitizePlayerLines, partitionStoryAndDeltas, hasLearnSkillContent, hasRankUpContent } from '@core/life/playerText';
 import { BASIC_STRIKE } from '@data/skills/catalog';
 import {
@@ -76,6 +76,8 @@ export interface LifeStore {
   dismissCoach: () => void;
   practice: (actionId: PracticeActionId, opts?: { sectId?: string }) => void;
   combatMove: (moveId: string) => void;
+  combatSetInternalMode: (modeId: string | null) => void;
+  combatSetDistance: (direction: 'close' | 'far') => void;
   combatResolveFoe: (disposition: CombatFoeDisposition) => void;
   clearResult: () => void;
   setTab: (tab: NonNullable<LifeGameState['tab']>) => void;
@@ -410,6 +412,30 @@ export const useLifeStore = create<LifeStore>((set, get) => ({
     schedulePersist(next, { immediate: ended || resolving || fled });
   },
 
+  combatSetInternalMode: (modeId: string | null) => {
+    const { state } = get();
+    if (!state?.pendingCombat || state.pendingCombat.phase !== 'player') return;
+    const next = structuredClone(state);
+    const logs = setCombatInternalMode(next, modeId);
+    set({
+      state: next,
+      flashLines: logs,
+    });
+    schedulePersist(next, { immediate: false });
+  },
+
+  combatSetDistance: (direction: 'close' | 'far') => {
+    const { state } = get();
+    if (!state?.pendingCombat || state.pendingCombat.phase !== 'player') return;
+    const next = structuredClone(state);
+    const logs = setCombatDistance(next, direction);
+    set({
+      state: next,
+      flashLines: logs,
+    });
+    schedulePersist(next, { immediate: false });
+  },
+
   combatResolveFoe: (disposition: CombatFoeDisposition) => {
     const { state } = get();
     if (!state?.pendingCombat || state.pendingCombat.phase !== 'resolve') return;
@@ -424,6 +450,7 @@ export const useLifeStore = create<LifeStore>((set, get) => ({
       kill: '殺死',
       release: '放走',
       stun: '擊暈',
+      cripple: '廢武功',
     };
     const resolveParted = partitionStoryAndDeltas(logs);
     set({

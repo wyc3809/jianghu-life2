@@ -13,7 +13,7 @@ import { defaultAttributes, simulateContestDuel } from './duelSim';
 import { topGrudgeNames } from './grudgeBook';
 import { getMasterName } from './bonds';
 import { syncAchievements } from './achievements';
-import { recordHuashanPlacement, syncJianghuRank } from './jianghuRank';
+import { recordHuashanPlacement, applyHuashanPlacementRank } from './jianghuRank';
 
 export const HUASHAN_MIN_AGE = 16;
 export const HUASHAN_MIN_MARTIAL = 12;
@@ -311,7 +311,7 @@ export function applyHuashanRewards(state: LifeGameState, placement: number): st
   }
   recordHuashanPlacement(state, placement);
   lines.push(...syncAchievements(state));
-  lines.push(...syncJianghuRank(state));
+  lines.push(...applyHuashanPlacementRank(state, placement));
   return lines;
 }
 

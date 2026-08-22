@@ -64,7 +64,7 @@ export function upsertGrudge(
 /** 戰後處置記入恩怨簿（與舊 aftermath 旗標並行） */
 export function recordGrudgeFromDisposition(
   state: LifeGameState,
-  disposition: 'kill' | 'release' | 'stun',
+  disposition: 'kill' | 'release' | 'stun' | 'cripple',
   foeName: string,
 ): void {
   syncRngFromState(state);

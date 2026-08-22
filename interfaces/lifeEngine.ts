@@ -406,6 +406,12 @@ export interface CombatFighterState {
   /** 玩家體力（僅 isPlayer 時同步至角色） */
   stamina?: number;
   maxStamina?: number;
+  /** 內功運轉模式 id（龜息／虎嘯／鶴翔／蛇盤），null／缺省＝未運轉 */
+  internalMode?: string | null;
+  /** 蛇盤模式疊毒層數 */
+  venomStacks?: number;
+  /** 武學等值（等級壓制用；玩家＝角色武學，敵人＝按難度換算） */
+  martial?: number;
 }
 
 export interface PendingCombat {
@@ -435,6 +441,17 @@ export interface PendingCombat {
   foePower?: 'weak' | 'normal' | 'strong' | 'boss';
   /** 首領二階段是否已觸發 */
   bossPhase2?: boolean;
+  /** 玩家最近出招 id 歷史（連招系統用，最多 3 招） */
+  moveHistory?: string[];
+  /** 交手距離：近身／中距／遠距，缺省為中距 */
+  distance?: 'close' | 'mid' | 'far';
+  /** 最近一回合雙方架勢（虛／實／架），供架勢視覺化顯示 */
+  lastPlayerStance?: 'xu' | 'shi' | 'jia';
+  lastFoeStance?: 'xu' | 'shi' | 'jia';
+  /** 本場曾否燃燒真氣絕地反擊（戰後留內傷） */
+  usedDesperateBurn?: boolean;
+  /** 敵方是否已跪地求饒（可選「廢武功」處置） */
+  foeSurrendered?: boolean;
 }
 
 export const lifeCharacterSchema = z.object({
