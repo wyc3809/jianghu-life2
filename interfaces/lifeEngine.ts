@@ -410,6 +410,8 @@ export interface CombatFighterState {
   internalMode?: string | null;
   /** 蛇盤模式疊毒層數 */
   venomStacks?: number;
+  /** 武學等值（等級壓制用；玩家＝角色武學，敵人＝按難度換算） */
+  martial?: number;
 }
 
 export interface PendingCombat {

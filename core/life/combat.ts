@@ -100,6 +100,7 @@ export function buildPlayerFighter(state: LifeGameState): CombatFighter {
     gearBleedChance: gearCombat.bleedChance,
     stamina: c.stamina ?? c.maxStamina ?? 100,
     maxStamina: c.maxStamina ?? 120,
+    martial: c.martial,
   };
 }
 
@@ -146,6 +147,7 @@ export function buildFoe(
     defenseMod: 0,
     reflect: power === 'boss' ? 0.02 : 0,
     chargeBonus: 0,
+    martial: Math.round(martial * ratio),
   };
 }
 

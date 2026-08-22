@@ -72,8 +72,15 @@ export function resolveOneHit(
 
   const pierce = clamp((move.pierce ?? 0) + (attacker.gearPierce ?? 0), 0, 0.85);
   const def = effectiveDefense(defender) * (1 - pierce);
-  const raw = attacker.attack * move.power * powerMult;
-  const mitigated = Math.max(3, Math.round(raw - def * 0.55 + rng.nextInt(-3, 4)));
+  // 護體軟上限：防禦越高減傷比例越大，但永遠減唔盡（趨近但唔到 100%）
+  const defenseMitigation = def / (def + 100);
+  // 等級壓制：攻擊方武學明顯高於防守方時額外增傷，每差 10 點 +3%，最高 +30%
+  const martialDiff = Math.max(0, (attacker.martial ?? 0) - (defender.martial ?? 0));
+  const levelBonus = Math.min(0.3, Math.floor(martialDiff / 10) * 0.03);
+  // 亂數波動：傷害 × (0.9 ~ 1.1)，取代舊有嘅加減幾點浮動
+  const jitter = 0.9 + rng.nextFloat() * 0.2;
+  const raw = attacker.attack * move.power * powerMult * (1 + levelBonus) * jitter;
+  const mitigated = Math.max(3, Math.round(raw * (1 - defenseMitigation)));
   defender.hp = clamp(defender.hp - mitigated, 0, defender.maxHp);
   const hitLabel = mitigated >= 22 ? '重創' : '命中';
   lines.push(
