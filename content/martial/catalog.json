@@ -1129,6 +1129,20 @@
         "hitBonus": 0.04,
         "defense": 4
       }
+    },
+    {
+      "id": "art_drunken_fist",
+      "name": "醉八仙拳",
+      "kind": "external",
+      "flavor": "步履踉蹌卻招招難測，醉裡藏鋒，唯嗜酒者方能悟得。",
+      "move": {
+        "id": "mv_drunk_fist",
+        "name": "醉步連環",
+        "qiCost": 30,
+        "power": 1.3,
+        "hitBonus": 0.06,
+        "description": "身形東倒西歪，招式虛實難辨。"
+      }
     }
   ]
 }

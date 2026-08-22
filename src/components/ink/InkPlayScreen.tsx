@@ -19,6 +19,7 @@ import {
   toggleInkAudioMuted,
 } from '../../audio/inkAudio';
 import { InkSettingsPanel, type TextScale } from './InkSettingsPanel';
+import { InkGearCompareModal } from './InkGearCompareModal';
 import { titleTierColorClass, topTitle, topTitles } from '@core/life/titles';
 import { jianghuRank } from '@core/life/jianghuRank';
 import {
@@ -59,6 +60,7 @@ export function InkPlayScreen({ state }: Props) {
   const combatMove = useLifeStore((s) => s.combatMove);
   const combatSetInternalMode = useLifeStore((s) => s.combatSetInternalMode);
   const combatResolveFoe = useLifeStore((s) => s.combatResolveFoe);
+  const resolveGearCompare = useLifeStore((s) => s.resolveGearCompare);
   const clearResult = useLifeStore((s) => s.clearResult);
   const lastResult = useLifeStore((s) => s.lastResult);
   const saveLabel = useLifeStore((s) => s.saveLabel);
@@ -769,6 +771,14 @@ export function InkPlayScreen({ state }: Props) {
           </div>,
           document.body,
         )}
+
+      {!combat && !eventFocus && !showResult && state.pendingGearCompare && (
+        <InkGearCompareModal
+          state={state}
+          onEquip={() => resolveGearCompare('equip')}
+          onKeep={() => resolveGearCompare('keep')}
+        />
+      )}
 
       {flashLines.length > 0 &&
         state.phase === 'playing' &&

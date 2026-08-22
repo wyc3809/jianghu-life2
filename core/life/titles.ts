@@ -66,6 +66,13 @@ const TITLE_RULES: TitleDef[] = [
     label: '有眷',
     test: (s) => (s.character.stats.lovers ?? 0) >= 1,
   },
+  {
+    id: 'title_tipsy',
+    tier: 1,
+    category: 'fame',
+    label: '微醺客',
+    test: (s) => Number(s.character.flags.wineDrunkCount ?? 0) >= 5,
+  },
 
   // tier 2 — 門派入門／小成
   {
@@ -82,6 +89,14 @@ const TITLE_RULES: TitleDef[] = [
     category: 'wealth',
     label: '囊豐',
     test: (s) => (s.character.stats.wealthPeak ?? 0) >= 300,
+  },
+  {
+    id: 'title_wine_lover',
+    tier: 2,
+    category: 'fame',
+    label: '酒中客',
+    bonus: { evasion: 0.01 },
+    test: (s) => Number(s.character.flags.wineDrunkCount ?? 0) >= 20,
   },
   {
     id: 'title_wanderer',
@@ -174,6 +189,14 @@ const TITLE_RULES: TitleDef[] = [
     label: '百戰不殆',
     bonus: { attack: 3, hitBonus: 0.03 },
     test: (s) => (s.character.stats.combatsWon ?? 0) >= 40,
+  },
+  {
+    id: 'title_drunken_immortal',
+    tier: 4,
+    category: 'legend',
+    label: '醉八仙',
+    bonus: { attack: 3, evasion: 0.02 },
+    test: (s) => Number(s.character.flags.wineDrunkCount ?? 0) >= 60,
   },
   {
     id: 'title_grandmaster',

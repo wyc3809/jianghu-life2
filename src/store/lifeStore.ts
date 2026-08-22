@@ -18,7 +18,7 @@ import {
   setPersistFlushHook,
 } from './persistSchedule';
 import { performPracticeAction, PRACTICE_ACTIONS, type PracticeActionId } from '@core/life/actions';
-import { equipGear } from '@core/life/equipment';
+import { equipGear, resolveGearCompare as resolveGearCompareAction } from '@core/life/equipment';
 import { buildLifeSummary } from '@core/life/summary';
 import { playerCombatTurn, getPlayerMoves, resolveCombatDisposition, setCombatInternalMode, type CombatFoeDisposition } from '@core/life/combat';
 import { displayChoiceText, sanitizePlayerLine, sanitizePlayerLines, partitionStoryAndDeltas, hasLearnSkillContent, hasRankUpContent } from '@core/life/playerText';
@@ -89,6 +89,8 @@ export interface LifeStore {
   huashanClose: () => void;
   /** 免費換裝（不耗修煉次數） */
   equipOwned: (gearId: string) => void;
+  /** 「獲得新裝備」彈窗：換上或先收好 */
+  resolveGearCompare: (action: 'equip' | 'keep') => void;
   foundSect: (sectName: string) => void;
   recruitDisciple: () => void;
   teachDisciple: (discipleId: string) => void;
@@ -603,6 +605,18 @@ export const useLifeStore = create<LifeStore>((set, get) => ({
         feedback: sanitizePlayerLine(msg),
         deltas: [],
       },
+    });
+  },
+
+  resolveGearCompare: (action: 'equip' | 'keep') => {
+    const { state } = get();
+    if (!state?.pendingGearCompare) return;
+    const next = structuredClone(state);
+    const msg = resolveGearCompareAction(next, action);
+    void save(next);
+    set({
+      state: next,
+      flashLines: msg ? [sanitizePlayerLine(msg)] : [],
     });
   },
 }));

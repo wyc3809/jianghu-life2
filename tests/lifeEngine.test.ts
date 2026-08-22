@@ -182,6 +182,7 @@ describe('life event engine', () => {
       'train_internal',
       'temper_body',
       'inquire_rumors',
+      'drink_wine',
       'seek_child',
       'designate_heir',
       'heal',

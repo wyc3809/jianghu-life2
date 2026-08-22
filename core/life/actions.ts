@@ -27,6 +27,7 @@ export type PracticeActionId =
   | 'forge'
   | 'seek_master'
   | 'inquire_rumors'
+  | 'drink_wine'
   | 'heal'
   | 'equip_best'
   | 'join_sect'
@@ -60,6 +61,7 @@ export const PRACTICE_ACTIONS: PracticeAction[] = [
   { id: 'train_internal', label: '打坐運功', hint: '內力上限提升，溫養內功心法' },
   { id: 'temper_body', label: '淬體強身', hint: '氣血上限提升' },
   { id: 'inquire_rumors', label: '打聽傳聞', hint: '多聞風聲，並聞去向，翻頁可擇路' },
+  { id: 'drink_wine', label: '把酒買醉', hint: '傷氣血；飲得夠多，另有奇遇' },
   { id: 'seek_child', label: '求子添丁', hint: '有眷屬可祈嗣；費銀二十兩' },
   { id: 'designate_heir', label: '立嗣傳家', hint: '有子女時指定繼承人，死後族產可繼' },
   { id: 'heal', label: '醫館調養', hint: '費銀十五兩，療傷減疲' },
@@ -439,6 +441,28 @@ export function applyPracticeOutcome(
       } else {
         logs.push('雲深不知處，你空手而歸，只多了幾分眼界。');
         c.attributes.wuXing = clamp(c.attributes.wuXing + 1, 1, 100);
+      }
+      break;
+    }
+    case 'drink_wine': {
+      const cost = rng.nextInt(3, 9);
+      c.health = clamp(c.health - cost, 1, c.maxHealth);
+      const count = Math.max(0, Number(c.flags.wineDrunkCount ?? 0)) + 1;
+      c.flags.wineDrunkCount = count;
+      logs.push(
+        rng.pick([
+          '你連盡數碗，酒氣上頭，氣血隨之一沉。',
+          '一壺濁酒下肚，步履微晃，倒也快活。',
+          '獨酌半宿，醉眼看江湖，別有一番滋味。',
+        ]),
+      );
+      logs.push(`氣血－${cost}（今生共飲 ${count} 回）`);
+      if (count >= 20 && !c.skills.includes('art_drunken_fist')) {
+        const learned = applyLearnMartialArt(state, 'art_drunken_fist');
+        logs.push('醉裡拳腳自成章法，你悟出一路「醉八仙拳」！');
+        logs.push(learned.story);
+        if (learned.delta) logs.push(learned.delta);
+        logs.push(...learned.achievements);
       }
       break;
     }

@@ -358,6 +358,8 @@ export interface LifeGameState {
   bossEncounterCountdown?: number;
   pending: PendingEvent | null;
   pendingCombat?: PendingCombat | null;
+  /** 新獲裝備待確認是否換上（彈窗詢問，見 InkGearCompareModal） */
+  pendingGearCompare?: { gearId: string } | null;
   /** 本月剩餘修煉行動次數（每月三次） */
   practiceActionsLeft?: number;
   lifeLog: string[];
@@ -606,6 +608,7 @@ export const lifeGameStateSchema = z.object({
     })
     .nullable(),
   pendingCombat: z.any().nullable().optional(),
+  pendingGearCompare: z.object({ gearId: z.string() }).nullable().optional(),
   practiceActionsLeft: z.number().default(3),
   lifeLog: z.array(z.string()),
   phase: z.enum(['create', 'playing', 'summary']),
