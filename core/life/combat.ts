@@ -58,7 +58,9 @@ import {
   modeDefenseMult,
   modeEvasionBonus,
   modeLifestealBonus,
+  resolveInternalModeOptions,
   tickInternalMode,
+  type InternalModeDef,
 } from './internalMode';
 import { DISTANCE_LABEL, changeDistance, distanceDamageMult, isMoveAvailableAtDistance } from './distance';
 
@@ -548,6 +550,11 @@ function finishCombat(state: LifeGameState, won: boolean): string[] {
   return lines;
 }
 
+/** 按角色實際習得嘅內功武學，解析出戰鬥中可運轉嘅內功選項（顯示真實功法名） */
+export function getPlayerInternalModeOptions(state: LifeGameState): InternalModeDef[] {
+  return resolveInternalModeOptions(state.character.skills);
+}
+
 /** 切換內功運轉模式：唔消耗行動，可喺自己回合開始前任意切換（傳 null 即卸除） */
 export function setCombatInternalMode(state: LifeGameState, modeId: string | null): string[] {
   const combat = state.pendingCombat;
@@ -557,7 +564,10 @@ export function setCombatInternalMode(state: LifeGameState, modeId: string | nul
   if (modeId && !mode) return ['未知內功心法。'];
   combat.player.internalMode = modeId;
   combat.player.venomStacks = 0;
-  const line = mode ? `你運起「${mode.name}」心法。` : '你卸下內功運轉，恢復尋常。';
+  const displayName = mode
+    ? (resolveInternalModeOptions(state.character.skills).find((m) => m.id === modeId)?.name ?? mode.name)
+    : null;
+  const line = mode ? `你運起「${displayName}」心法。` : '你卸下內功運轉，恢復尋常。';
   combat.log.push(line);
   return [line];
 }

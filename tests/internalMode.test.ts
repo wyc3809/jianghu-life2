@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  BASIC_INTERNAL_MODE_ID,
   INTERNAL_MODES,
   applySnakeVenom,
   getInternalMode,
@@ -9,11 +10,17 @@ import {
   modeEvasionBonus,
   modeLifestealBonus,
   modeReflectBonus,
+  resolveInternalModeOptions,
   tickInternalMode,
 } from '../core/life/internalMode';
 import { getRng, initRng } from '../core/random';
 import type { CombatFighterState } from '../interfaces/lifeEngine';
-import { playerCombatTurn, setCombatInternalMode, startCombat } from '../core/life/combat';
+import {
+  getPlayerInternalModeOptions,
+  playerCombatTurn,
+  setCombatInternalMode,
+  startCombat,
+} from '../core/life/combat';
 import { createNewLife } from '../core/life/gameState';
 
 function fighter(overrides: Partial<CombatFighterState> = {}): CombatFighterState {
@@ -77,6 +84,53 @@ describe('internalMode: pure lookups', () => {
   });
 });
 
+describe('internalMode: resolveInternalModeOptions (角色實際習得嘅內功)', () => {
+  it('shows a single 基本內功 option (no effect) when only the baseline breath is learned', () => {
+    const options = resolveInternalModeOptions(['基礎吐納', 'art_river_fist']);
+    expect(options).toHaveLength(1);
+    expect(options[0]!.id).toBe(BASIC_INTERNAL_MODE_ID);
+    expect(options[0]!.name).toBe('基本內功');
+    expect(options[0]!.qiCostPerTurn).toBe(0);
+    expect(options[0]!.effects).toEqual({});
+  });
+
+  it('also falls back to 基本內功 for an empty skill list', () => {
+    const options = resolveInternalModeOptions([]);
+    expect(options).toEqual([expect.objectContaining({ id: BASIC_INTERNAL_MODE_ID })]);
+  });
+
+  it('surfaces a learned defense-leaning internal art (鐵布衫) under the guixi effect profile, with its real name', () => {
+    const options = resolveInternalModeOptions(['基礎吐納', 'art_iron_body']);
+    expect(options).toHaveLength(1);
+    expect(options[0]!.id).toBe('guixi');
+    expect(options[0]!.name).toBe('鐵布衫');
+    // 效果數值沿用 guixi 範本，唔會因為改名而變
+    expect(options[0]!.effects).toEqual(getInternalMode('guixi')!.effects);
+  });
+
+  it('surfaces a learned attack-leaning internal art (虎嘯內勁) under the huxiao effect profile, with its real name', () => {
+    const options = resolveInternalModeOptions(['基礎吐納', 'art_tiger_breath']);
+    expect(options).toHaveLength(1);
+    expect(options[0]!.id).toBe('huxiao');
+    expect(options[0]!.name).toBe('虎嘯內勁');
+  });
+
+  it('lists multiple options when the character learned arts spanning different archetypes', () => {
+    const options = resolveInternalModeOptions(['基礎吐納', 'art_iron_body', 'art_tiger_breath']);
+    const ids = options.map((o) => o.id).sort();
+    expect(ids).toEqual(['guixi', 'huxiao']);
+    expect(options.find((o) => o.id === 'guixi')?.name).toBe('鐵布衫');
+    expect(options.find((o) => o.id === 'huxiao')?.name).toBe('虎嘯內勁');
+  });
+
+  it('picks the strongest matching art when several learned skills map to the same archetype', () => {
+    // sl_iron_shirt（防14／血50／反12%）比 art_iron_body（防12／血40／反8%）更強，理應勝出
+    const options = resolveInternalModeOptions(['基礎吐納', 'art_iron_body', 'sl_iron_shirt']);
+    const guixiOpt = options.find((o) => o.id === 'guixi');
+    expect(guixiOpt?.name).toBe('鐵布衫功');
+  });
+});
+
 describe('internalMode: tickInternalMode upkeep', () => {
   it('deducts the qi upkeep cost each tick while a mode is active', () => {
     initRng(1);
@@ -99,6 +153,15 @@ describe('internalMode: tickInternalMode upkeep', () => {
     const lines = tickInternalMode(f, getRng());
     expect(lines).toEqual([]);
     expect(f.qi).toBe(50);
+  });
+
+  it('is a no-op for the 基本內功 (basic) placeholder mode — no qi cost, no narrative line', () => {
+    initRng(3);
+    const f = fighter({ internalMode: BASIC_INTERNAL_MODE_ID, qi: 50 });
+    const lines = tickInternalMode(f, getRng());
+    expect(lines).toEqual([]);
+    expect(f.qi).toBe(50);
+    expect(f.internalMode).toBe(BASIC_INTERNAL_MODE_ID);
   });
 });
 
@@ -145,6 +208,23 @@ describe('internalMode: integrated into combat', () => {
     const clearLines = setCombatInternalMode(state, null);
     expect(state.pendingCombat!.player.internalMode).toBeNull();
     expect(clearLines.some((l) => l.includes('卸下'))).toBe(true);
+  });
+
+  it('getPlayerInternalModeOptions shows 基本內功 for a fresh character, and the real skill name once one is learned', () => {
+    initRng(6);
+    const state = createNewLife(6);
+    expect(getPlayerInternalModeOptions(state)).toEqual([
+      expect.objectContaining({ id: BASIC_INTERNAL_MODE_ID, name: '基本內功' }),
+    ]);
+
+    state.character.skills.push('art_iron_body');
+    const options = getPlayerInternalModeOptions(state);
+    expect(options).toEqual([expect.objectContaining({ id: 'guixi', name: '鐵布衫' })]);
+
+    startCombat(state, { source: 'event', title: '試', foeName: '木樁', foePower: 'weak' });
+    const lines = setCombatInternalMode(state, 'guixi');
+    expect(lines.some((l) => l.includes('鐵布衫'))).toBe(true);
+    expect(state.pendingCombat!.player.internalMode).toBe('guixi');
   });
 
   it('playerCombatTurn deducts the qi upkeep while a mode stays active', () => {

@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import type { LifeGameState, PendingCombat } from '@interfaces/lifeEngine';
-import { type CombatFoeDisposition, getPlayerMoves, getMoveCooldownRemaining } from '@core/life/combat';
+import {
+  type CombatFoeDisposition,
+  getPlayerInternalModeOptions,
+  getPlayerMoves,
+  getMoveCooldownRemaining,
+} from '@core/life/combat';
 import {
   buildCombatInkFx,
   combatFxNeedsShock,
@@ -31,7 +36,6 @@ import { classifyBeat, summarizeExchange, styleForCombat } from '@core/life/comb
 import { foeStyleLabel } from '@core/life/foeAi';
 import { dominantNature } from '@core/life/nature';
 import { playInkBlade } from '../../audio/inkAudio';
-import { INTERNAL_MODES } from '@core/life/internalMode';
 import { DISTANCE_LABEL } from '@core/life/distance';
 
 type CombatRoleFilter = 'all' | CombatMoveRole;
@@ -143,6 +147,7 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
   };
 
   const moves = getPlayerMoves(state);
+  const internalModeOptions = getPlayerInternalModeOptions(state);
   const techniqueMoves = moves.filter((mv) => !isCombatActionMove(mv.id));
   const actionMoves = moves.filter((mv) => isCombatActionMove(mv.id));
   const sortedTechniques = [...techniqueMoves].sort((a, b) => {
@@ -390,12 +395,16 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
 
             <p className="ink-combat-group-label">內功運轉</p>
             <div className="ink-combat-mode-bar" role="tablist" aria-label="內功運轉模式">
-              {INTERNAL_MODES.map((mode) => (
+              {internalModeOptions.map((mode) => (
                 <button
                   key={mode.id}
                   type="button"
                   className={`ink-combat-mode-btn${combat.player.internalMode === mode.id ? ' ink-combat-mode-btn--on' : ''}`}
-                  title={`${mode.description} · 每回合耗內力${mode.qiCostPerTurn}`}
+                  title={
+                    mode.qiCostPerTurn > 0
+                      ? `${mode.description} · 每回合耗內力${mode.qiCostPerTurn}`
+                      : mode.description
+                  }
                   onClick={() => {
                     onSetInternalMode(combat.player.internalMode === mode.id ? null : mode.id);
                   }}
