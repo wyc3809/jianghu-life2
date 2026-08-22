@@ -15,7 +15,11 @@ export function grantGear(state: LifeGameState, gearId: string): string | null {
   if (!def) return null;
   const c = state.character;
   ensureGear(c);
-  if (!c.gear.includes(gearId)) c.gear.push(gearId);
+  const isNew = !c.gear.includes(gearId);
+  if (isNew) {
+    c.gear.push(gearId);
+    state.pendingGearCompare = { gearId };
+  }
   return def.name;
 }
 
@@ -39,6 +43,15 @@ export function equipGear(state: LifeGameState, gearId: string): string {
   c.equipment[def.slot] = gearId;
   recomputeCapBonuses(c);
   return `已裝備「${def.name}」。`;
+}
+
+/** 解決「獲得新裝備」彈窗：換上或先收入行囊 */
+export function resolveGearCompare(state: LifeGameState, action: 'equip' | 'keep'): string {
+  const pending = state.pendingGearCompare;
+  state.pendingGearCompare = null;
+  if (!pending) return '';
+  if (action === 'keep') return '你先將此物收入行囊，留待日後定奪。';
+  return equipGear(state, pending.gearId);
 }
 
 export function equippedDefs(c: LifeCharacter): GearDef[] {

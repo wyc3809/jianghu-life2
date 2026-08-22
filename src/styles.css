@@ -3360,6 +3360,55 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
   pointer-events: none;
 }
 
+.ink-gear-compare-card {
+  width: min(460px, 100%);
+}
+
+.ink-gear-compare-slot {
+  margin: 0 0 10px;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  color: var(--ink-wash);
+}
+
+.ink-gear-compare-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.ink-gear-compare-col {
+  padding: 10px;
+  border: 1px solid var(--ink-faint);
+  background: rgba(26, 26, 26, 0.02);
+}
+
+.ink-gear-compare-label {
+  margin: 0 0 4px;
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  color: var(--ink-wash);
+}
+
+.ink-gear-compare-summary {
+  margin: 4px 0 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ink-mid);
+}
+
+.ink-gear-compare-delta {
+  margin: 4px 0 14px;
+  font-weight: 600;
+  color: #3d5c4f;
+  letter-spacing: 0.04em;
+}
+
+.ink-gear-compare-delta--down {
+  color: var(--cinnabar, #a33a32);
+}
+
 .ink-note--warn {
   color: var(--cinnabar);
 }
