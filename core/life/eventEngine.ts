@@ -35,6 +35,7 @@ import { resolvePackOutcomes, applyPackFortuneTwist } from './outcomeResolver';
 import { isFleeChoice, startCombat, tryStartAftermathCombat } from './combat';
 import { applyChoiceNature } from './nature';
 import { ROAD_ENCOUNTER_EVENTS } from '@data/events/roadEncounters';
+import { NATURE_ARC_EVENTS } from '@data/events/natureArcs';
 import { applyNarrateOverrideToEffects } from '@data/events/narrateOverrides';
 import { lookupEventBody } from '@data/events/eventBodies';
 import {
@@ -142,6 +143,7 @@ export function rawCatalog(): GameEvent[] {
       ...JIANGHU_EXTRA_EVENTS,
       ...JINYONG_TROPE_EVENTS,
       ...ROAD_ENCOUNTER_EVENTS,
+      ...NATURE_ARC_EVENTS,
       ...PRACTICE_WANDER_EVENTS,
       ...PLAYABILITY_EVENTS,
       ...SECRET_ART_EVENTS,

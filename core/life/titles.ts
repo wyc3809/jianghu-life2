@@ -124,6 +124,31 @@ const TITLE_RULES: TitleDef[] = [
     bonus: { defense: 3 },
     test: (s) => s.character.age >= 60,
   },
+  {
+    id: 'title_righteous',
+    tier: 3,
+    category: 'legend',
+    label: '急公好義',
+    bonus: { defense: 2, hitBonus: 0.01 },
+    test: (s) => Boolean(s.character.flags.nature_arc_xia_hero),
+  },
+  {
+    id: 'title_underworld',
+    tier: 3,
+    category: 'legend',
+    label: '黑道梟雄',
+    bonus: { attack: 3 },
+    test: (s) =>
+      Boolean(s.character.flags.nature_arc_e_underworld) || Boolean(s.character.flags.nature_arc_e_lone),
+  },
+  {
+    id: 'title_madman',
+    tier: 3,
+    category: 'legend',
+    label: '瘋魔狂徒',
+    bonus: { attack: 2, evasion: 0.01 },
+    test: (s) => Boolean(s.character.flags.nature_arc_kuang_done),
+  },
 
   // tier 4 — 高階
   {
