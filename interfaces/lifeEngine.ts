@@ -406,6 +406,10 @@ export interface CombatFighterState {
   /** 玩家體力（僅 isPlayer 時同步至角色） */
   stamina?: number;
   maxStamina?: number;
+  /** 內功運轉模式 id（龜息／虎嘯／鶴翔／蛇盤），null／缺省＝未運轉 */
+  internalMode?: string | null;
+  /** 蛇盤模式疊毒層數 */
+  venomStacks?: number;
 }
 
 export interface PendingCombat {

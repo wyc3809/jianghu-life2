@@ -29,6 +29,7 @@ import { classifyBeat, summarizeExchange, styleForCombat } from '@core/life/comb
 import { foeStyleLabel } from '@core/life/foeAi';
 import { dominantNature } from '@core/life/nature';
 import { playInkBlade } from '../../audio/inkAudio';
+import { INTERNAL_MODES } from '@core/life/internalMode';
 
 type CombatRoleFilter = 'all' | CombatMoveRole;
 
@@ -37,6 +38,7 @@ type Props = {
   combat: PendingCombat;
   onMove: (moveId: string) => void;
   onResolveFoe: (disposition: CombatFoeDisposition) => void;
+  onSetInternalMode: (modeId: string | null) => void;
 };
 
 /** 血條下「最新戰況」：取自己／敵人各最近一條主動作（最多兩條） */
@@ -62,7 +64,7 @@ function recentExchangeBeats(log: string[], playerName: string, foeName: string)
   return log.filter((l) => !l.startsWith('【')).slice(-2);
 }
 
-export function InkCombatPanel({ state, combat, onMove, onResolveFoe }: Props) {
+export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInternalMode }: Props) {
   const c = state.character;
   const dominant = dominantNature(c);
   const equipment = c.equipment ?? { weapon: null, armor: null, accessory: null };
@@ -290,6 +292,23 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe }: Props) {
           </>
         ) : (
           <>
+            <p className="ink-combat-group-label">內功運轉</p>
+            <div className="ink-combat-mode-bar" role="tablist" aria-label="內功運轉模式">
+              {INTERNAL_MODES.map((mode) => (
+                <button
+                  key={mode.id}
+                  type="button"
+                  className={`ink-combat-mode-btn${combat.player.internalMode === mode.id ? ' ink-combat-mode-btn--on' : ''}`}
+                  title={`${mode.description} · 每回合耗內力${mode.qiCostPerTurn}`}
+                  onClick={() => {
+                    onSetInternalMode(combat.player.internalMode === mode.id ? null : mode.id);
+                  }}
+                >
+                  {mode.name}
+                </button>
+              ))}
+            </div>
+
             <button
               type="button"
               className="ink-combat-log-toggle"

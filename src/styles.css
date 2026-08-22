@@ -2961,6 +2961,33 @@ body::before {
   margin-top: 4px;
 }
 
+.ink-combat-mode-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin: 2px 0 10px;
+}
+
+.ink-combat-mode-btn {
+  padding: 6px 4px;
+  border: 1px solid var(--ink-faint);
+  background: rgba(255, 255, 255, 0.3);
+  color: var(--ink-mid);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: background 0.08s ease, border-color 0.08s ease, color 0.08s ease;
+}
+
+.ink-combat-mode-btn--on {
+  border-color: var(--cinnabar, #a33a32);
+  color: var(--cinnabar, #a33a32);
+  background: rgba(163, 58, 50, 0.08);
+  font-weight: 600;
+}
+
 .ink-combat-action {
   display: flex;
   flex-direction: column;

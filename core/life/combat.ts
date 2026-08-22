@@ -47,6 +47,16 @@ import {
 import { gainWeaponMastery, weaponSynergyBoost } from './weaponMastery';
 import { applyCombatOutcomeRank } from './jianghuRank';
 import { checkCombo, pushComboHistory } from './comboSystem';
+import {
+  applySnakeVenom,
+  getInternalMode,
+  modeAttackMult,
+  modeDamageTakenMult,
+  modeDefenseMult,
+  modeEvasionBonus,
+  modeLifestealBonus,
+  tickInternalMode,
+} from './internalMode';
 
 export type CombatFoeDisposition = 'kill' | 'release' | 'stun';
 
@@ -519,6 +529,20 @@ function finishCombat(state: LifeGameState, won: boolean): string[] {
   return lines;
 }
 
+/** 切換內功運轉模式：唔消耗行動，可喺自己回合開始前任意切換（傳 null 即卸除） */
+export function setCombatInternalMode(state: LifeGameState, modeId: string | null): string[] {
+  const combat = state.pendingCombat;
+  if (!combat || combat.phase !== 'player') return ['此刻無法運轉內功。'];
+  if (modeId === combat.player.internalMode) return [];
+  const mode = getInternalMode(modeId);
+  if (modeId && !mode) return ['未知內功心法。'];
+  combat.player.internalMode = modeId;
+  combat.player.venomStacks = 0;
+  const line = mode ? `你運起「${mode.name}」心法。` : '你卸下內功運轉，恢復尋常。';
+  combat.log.push(line);
+  return [line];
+}
+
 /**
  * 玩家回合：選招 → 與敵同期對勢（虛實架）→ 結算你我傷害
  */
@@ -532,6 +556,9 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
   const lines: string[] = [];
 
   lines.push(...tickStatus(combat.player));
+  const modeLines = tickInternalMode(combat.player, rng);
+  lines.push(...modeLines);
+  combat.log.push(...modeLines);
   if (combat.player.hp <= 0) {
     const end = finishCombat(state, false);
     snapshotRng(state);
@@ -656,7 +683,8 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
         .filter((m): m is CombatMoveDef => Boolean(m));
       const combo = checkCombo(historyMoves);
 
-      const powerMult = (sid ? rankPowerMult(rank) : 1) * wpn.power;
+      const modeLifesteal = modeLifestealBonus(combat.player.internalMode);
+      const powerMult = (sid ? rankPowerMult(rank) : 1) * wpn.power * modeAttackMult(combat.player.internalMode);
       let comboStanceMult = playerStanceMult;
       let effectiveMove = move;
       let savedFoeEvasion: number | null = null;
@@ -664,16 +692,6 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
         const eff = combo.pattern.effect;
         comboStanceMult *= eff.damageMult ?? 1;
         if (eff.critChance && rng.chance(eff.critChance)) comboStanceMult *= 1.5;
-        if (eff.pierceBonus || eff.stunChance || eff.bleedDamage) {
-          effectiveMove = {
-            ...move,
-            pierce: Math.min(0.85, (move.pierce ?? 0) + (eff.pierceBonus ?? 0)),
-            stunChance: Math.max(move.stunChance ?? 0, eff.stunChance ?? 0),
-            bleedChance: eff.bleedDamage ? Math.max(move.bleedChance ?? 0, 0.6) : move.bleedChance,
-            bleedDamage: eff.bleedDamage ? Math.max(move.bleedDamage ?? 0, eff.bleedDamage) : move.bleedDamage,
-            bleedTurns: eff.bleedTurns ? Math.max(move.bleedTurns ?? 0, eff.bleedTurns) : move.bleedTurns,
-          };
-        }
         if (eff.ignoreEvasion) {
           savedFoeEvasion = combat.foe.evasion;
           combat.foe.evasion = 0;
@@ -684,6 +702,18 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
         lines.push(combo.pattern.announce);
         combat.log.push(combo.pattern.announce);
         combat.moveHistory = []; // 觸發後清空，防止無限疊加
+      }
+      if ((combo && (combo.pattern.effect.pierceBonus || combo.pattern.effect.stunChance || combo.pattern.effect.bleedDamage)) || modeLifesteal > 0) {
+        const eff = combo?.pattern.effect;
+        effectiveMove = {
+          ...move,
+          pierce: Math.min(0.85, (move.pierce ?? 0) + (eff?.pierceBonus ?? 0)),
+          stunChance: Math.max(move.stunChance ?? 0, eff?.stunChance ?? 0),
+          bleedChance: eff?.bleedDamage ? Math.max(move.bleedChance ?? 0, 0.6) : move.bleedChance,
+          bleedDamage: eff?.bleedDamage ? Math.max(move.bleedDamage ?? 0, eff.bleedDamage) : move.bleedDamage,
+          bleedTurns: eff?.bleedTurns ? Math.max(move.bleedTurns ?? 0, eff.bleedTurns) : move.bleedTurns,
+          lifesteal: Math.min(0.6, (move.lifesteal ?? 0) + modeLifesteal),
+        };
       }
 
       const strikeLines = resolveStrike(
@@ -707,6 +737,7 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
           strikeLines.push(`連招餘韻：你回復 ${eff.qiSelf} 點內力。`);
         }
       }
+      strikeLines.push(...applySnakeVenom(combat.player, combat.foe));
       lines.push(...strikeLines);
       combat.log.push(...strikeLines);
       setMoveCooldown(combat, move);
@@ -766,7 +797,19 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
       lines.push(foeClash);
       combat.log.push(foeClash);
     }
-    const enemyLines = resolveStrike(combat.foe, combat.player, enemyMove, rng, 1, 0, foeStanceMult);
+    const modeDefenseFactor = modeDamageTakenMult(combat.player.internalMode) / modeDefenseMult(combat.player.internalMode);
+    const savedPlayerEvasion = combat.player.evasion;
+    combat.player.evasion = Math.min(0.85, combat.player.evasion + modeEvasionBonus(combat.player.internalMode));
+    const enemyLines = resolveStrike(
+      combat.foe,
+      combat.player,
+      enemyMove,
+      rng,
+      1,
+      0,
+      foeStanceMult * modeDefenseFactor,
+    );
+    combat.player.evasion = savedPlayerEvasion;
     combat.log.push(...enemyLines);
     lines.push(...enemyLines);
   }

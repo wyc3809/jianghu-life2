@@ -57,6 +57,7 @@ export function InkPlayScreen({ state }: Props) {
   const reincarnate = useLifeStore((s) => s.reincarnate);
   const practice = useLifeStore((s) => s.practice);
   const combatMove = useLifeStore((s) => s.combatMove);
+  const combatSetInternalMode = useLifeStore((s) => s.combatSetInternalMode);
   const combatResolveFoe = useLifeStore((s) => s.combatResolveFoe);
   const clearResult = useLifeStore((s) => s.clearResult);
   const lastResult = useLifeStore((s) => s.lastResult);
@@ -639,7 +640,13 @@ export function InkPlayScreen({ state }: Props) {
       )}
 
       {combat && state.phase === 'playing' && (
-        <InkCombatPanel state={state} combat={combat} onMove={combatMove} onResolveFoe={combatResolveFoe} />
+        <InkCombatPanel
+          state={state}
+          combat={combat}
+          onMove={combatMove}
+          onResolveFoe={combatResolveFoe}
+          onSetInternalMode={combatSetInternalMode}
+        />
       )}
 
       {showResult &&
