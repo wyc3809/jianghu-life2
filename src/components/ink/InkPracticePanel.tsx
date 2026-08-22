@@ -3,8 +3,27 @@ import { PRACTICE_ACTIONS, SECT_INNER_ACTIONS, SECT_DEFS, type PracticeActionId 
 import { natureGateHint } from '@core/life/nature';
 import { practiceLearningHints } from '@core/life/jianghuHints';
 import { describeSectProgress } from '@core/life/sectStanding';
+import { inkAiUrl, type InkAiAssetId } from '../../ui/inkAiCatalog';
 
 export type PracticeView = 'main' | 'sect';
+
+const PRACTICE_ICON: Partial<Record<PracticeActionId, InkAiAssetId>> = {
+  train_martial: 'motif-sword',
+  train_internal: 'motif-scroll',
+  inquire_rumors: 'motif-umbrella',
+  drink_wine: 'motif-wine-banner',
+  seek_child: 'motif-lantern',
+  designate_heir: 'motif-jade',
+  equip_best: 'motif-sword',
+};
+
+function RowIcon({ icon }: { icon?: InkAiAssetId }) {
+  return icon ? (
+    <img className="ink-row-icon" src={inkAiUrl(icon)} alt="" aria-hidden decoding="async" />
+  ) : (
+    <span className="ink-row-dot" aria-hidden />
+  );
+}
 
 type Props = {
   state: LifeGameState;
@@ -35,27 +54,33 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
           <div className="ink-practice-grid">
             <button
               type="button"
-              className="ink-practice-btn ink-practice-btn--sect"
+              className="ink-practice-btn ink-practice-btn--sect ink-practice-btn--icon"
               disabled={busy}
               onClick={() => {
                 onView('sect');
               }}
             >
-              <strong>門派</strong>
-              <span>{sect ? `${sect.name} · 進入門中` : '尚未入派 · 擇門拜師'}</span>
+              <RowIcon icon="motif-mountain-gate" />
+              <span className="ink-practice-btn-text">
+                <strong>門派</strong>
+                <span>{sect ? `${sect.name} · 進入門中` : '尚未入派 · 擇門拜師'}</span>
+              </span>
             </button>
             {PRACTICE_ACTIONS.map((act) => (
               <button
                 key={act.id}
                 type="button"
-                className="ink-practice-btn"
+                className="ink-practice-btn ink-practice-btn--icon"
                 disabled={busy}
                 onClick={() => {
                   onPractice(act.id);
                 }}
               >
-                <strong>{act.label}</strong>
-                <span>{act.hint}</span>
+                <RowIcon icon={PRACTICE_ICON[act.id]} />
+                <span className="ink-practice-btn-text">
+                  <strong>{act.label}</strong>
+                  <span>{act.hint}</span>
+                </span>
               </button>
             ))}
           </div>
