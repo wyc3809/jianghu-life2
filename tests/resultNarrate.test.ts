@@ -91,7 +91,7 @@ describe('result narrate aligns editor and page-flip', () => {
     const state = createNewLife(1);
     const result = applyChoice(state, ev, 'delay');
     expect(result.feedback).not.toBe(fairExpected);
-    expect(result.feedback).toBe('「回帖改期」扯破了他的面巾。底下是張生臉——你反倒愣了愣。');
+    expect(result.feedback).toBe('「回帖改期」壓住對方手腕。他自己咬破了舌，噴了你一臉。');
   });
 
   it('no catalog.ts choice leaks the raw template narrate to the player', () => {

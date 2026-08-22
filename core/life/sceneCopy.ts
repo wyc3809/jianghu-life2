@@ -23,6 +23,27 @@ function pick(lines: string[]): string {
   return getRng().pick(lines);
 }
 
+/**
+ * narratePractice/narrateCombat/narrateSocial 只喺 module 載入時被
+ * choiceEnrich.ts 呼叫一次（起 JINYONG_SPECIAL_EVENTS／ENRICHED_CATALOG
+ * 呢啲靜態陣列嗰陣），而唔係喺 applyChoice runtime。呢個時間點通常未有
+ * 任何 initRng(seed) 行過，getRng() 會 fallback 去用 Date.now() 起底嘅
+ * RNG——變相令呢啲波折／事與願違分支嘅文案，喺唔同 process/deploy 之間
+ * 隨機唔同，違反「種子 RNG 全程決定論」。改用文字內容嘅穩定 hash 揀句，
+ * 令選句係 act 嘅純函式，永遠可重現。
+ */
+function hashKey(key: string): number {
+  let h = 5381;
+  for (let i = 0; i < key.length; i += 1) {
+    h = ((h << 5) + h + key.charCodeAt(i)) >>> 0;
+  }
+  return h >>> 0;
+}
+
+function pickStable(lines: string[], key: string): string {
+  return lines[hashKey(key) % lines.length]!;
+}
+
 function withAct(template: string, act: string): string {
   return scrubAiSlop(template.replace(/\{act\}/g, act));
 }
@@ -141,17 +162,17 @@ export const QUIET_MONTH = [
 
 export function narratePractice(kind: 'fair' | 'mixed' | 'ill', act: string): string {
   const pool = kind === 'fair' ? PRACTICE_FAIR : kind === 'mixed' ? PRACTICE_MIXED : PRACTICE_ILL;
-  return withAct(pick(pool), act);
+  return withAct(pickStable(pool, `practice:${kind}:${act}`), act);
 }
 
 export function narrateCombat(kind: 'fair' | 'mixed' | 'ill', act: string): string {
   const pool = kind === 'fair' ? COMBAT_FAIR : kind === 'mixed' ? COMBAT_MIXED : COMBAT_ILL;
-  return withAct(pick(pool), act);
+  return withAct(pickStable(pool, `combat:${kind}:${act}`), act);
 }
 
 export function narrateSocial(kind: 'fair' | 'mixed' | 'ill', act: string): string {
   const pool = kind === 'fair' ? SOCIAL_FAIR : kind === 'mixed' ? SOCIAL_MIXED : SOCIAL_ILL;
-  return withAct(pick(pool), act);
+  return withAct(pickStable(pool, `social:${kind}:${act}`), act);
 }
 
 export function quietMonthLine(year: number, month: number, season: string): string {
