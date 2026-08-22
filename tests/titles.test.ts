@@ -1,6 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import { createNewLife } from '../core/life/gameState';
-import { allTitles, syncTitles, titleBonusTotals, topTitles } from '../core/life/titles';
+import {
+  TITLE_TIER_COLOR_CLASS,
+  allTitles,
+  syncTitles,
+  titleBonusTotals,
+  titleTierColorClass,
+  topTitle,
+  topTitles,
+} from '../core/life/titles';
 import { buildPlayerFighter } from '../core/life/combat';
 
 describe('title (稱號) system', () => {
@@ -83,5 +91,30 @@ describe('title (稱號) system', () => {
     const martialOnlyDelta = Math.floor(boosted.character.martial / 4) - Math.floor(base.character.martial / 4);
     const titleContribution = boostedFighter.attack - baseFighter.attack - martialOnlyDelta;
     expect(titleContribution).toBeGreaterThanOrEqual(8);
+  });
+
+  it('test_titles_topTitle_returns_the_single_highest_tier_title_or_null', () => {
+    const fresh = createNewLife({ seed: 6 });
+    expect(topTitle(fresh)).toBeNull();
+
+    const state = createNewLife({ seed: 6 });
+    state.character.stats.eventsSeen = 100; // tier1 + tier2
+    state.character.stats.combatsWon = 40; // tier3 x2 + tier4
+    state.character.martial = 70; // tier4
+    syncTitles(state);
+
+    const top = topTitle(state);
+    const all = allTitles(state);
+    expect(top).not.toBeNull();
+    expect(top!.label).toBe(all[0]!.label);
+    expect(top!.tier).toBe(all[0]!.tier);
+  });
+
+  it('test_titles_tierColorClass_maps_every_tier_1_to_5', () => {
+    for (let tier = 1; tier <= 5; tier++) {
+      expect(titleTierColorClass(tier)).toBe(TITLE_TIER_COLOR_CLASS[tier]);
+    }
+    // unknown tier falls back to tier 1's class rather than throwing
+    expect(titleTierColorClass(99)).toBe(TITLE_TIER_COLOR_CLASS[1]);
   });
 });

@@ -18,7 +18,8 @@ import {
 } from '@data/skills/catalog';
 import { addCondition } from './monthly';
 import { rankPowerMult } from './martialRanks';
-import { grantGear, ensureGear, gearTotals, sumGearCombatBonuses } from './equipment';
+import { grantGear, ensureGear, gearTotals, sumGearCombatBonuses, equippedDefs } from './equipment';
+import { applyGearSpecialOnHit, tryGearRevive } from './gearSpecialEffects';
 import { titleBonusTotals } from './titles';
 import { applyLearnMartialArt, tryAdvanceSkill } from './flavor';
 import { syncAchievements } from './achievements';
@@ -62,7 +63,6 @@ import {
   tickInternalMode,
   type InternalModeDef,
 } from './internalMode';
-import { DISTANCE_LABEL, changeDistance, distanceDamageMult, isMoveAvailableAtDistance } from './distance';
 
 export type CombatFoeDisposition = 'kill' | 'release' | 'stun' | 'cripple';
 
@@ -75,6 +75,9 @@ export function buildPlayerFighter(state: LifeGameState): CombatFighter {
   ensureGear(c);
   const gear = gearTotals(c);
   const gearCombat = sumGearCombatBonuses(c);
+  const gearSpecials = equippedDefs(c)
+    .map((d) => d.special)
+    .filter((s): s is NonNullable<typeof s> => Boolean(s));
   const passive = sumInternalPassives(c.skills, c.skillRanks ?? {});
   const titleBonus = titleBonusTotals(state);
   const evasion = sumEvasionBonus(c.skills, c.skillRanks ?? {}) + c.attributes.danShi / 500;
@@ -103,6 +106,7 @@ export function buildPlayerFighter(state: LifeGameState): CombatFighter {
     gearPierce: gearCombat.pierce,
     gearLifesteal: gearCombat.lifesteal,
     gearBleedChance: gearCombat.bleedChance,
+    gearSpecials,
     stamina: c.stamina ?? c.maxStamina ?? 100,
     maxStamina: c.maxStamina ?? 120,
     martial: c.martial,
@@ -572,19 +576,6 @@ export function setCombatInternalMode(state: LifeGameState, modeId: string | nul
   return [line];
 }
 
-/** 拉近／拉開距離：唔消耗行動，可喺自己回合任意調整 */
-export function setCombatDistance(state: LifeGameState, direction: 'close' | 'far'): string[] {
-  const combat = state.pendingCombat;
-  if (!combat || combat.phase !== 'player') return ['此刻無法調整距離。'];
-  const current = combat.distance ?? 'mid';
-  const next = changeDistance(current, direction);
-  if (next === current) return [];
-  combat.distance = next;
-  const line = `你${direction === 'close' ? '欺身近前' : '抽身拉開'}，距離變為「${DISTANCE_LABEL[next]}」。`;
-  combat.log.push(line);
-  return [line];
-}
-
 /**
  * 玩家回合：選招 → 與敵同期對勢（虛實架）→ 結算你我傷害
  */
@@ -602,9 +593,15 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
   lines.push(...modeLines);
   combat.log.push(...modeLines);
   if (combat.player.hp <= 0) {
-    const end = finishCombat(state, false);
-    snapshotRng(state);
-    return [...lines, ...end];
+    const reviveLines = tryGearRevive(combat.player);
+    if (reviveLines.length) {
+      lines.push(...reviveLines);
+      combat.log.push(...reviveLines);
+    } else {
+      const end = finishCombat(state, false);
+      snapshotRng(state);
+      return [...lines, ...end];
+    }
   }
 
   // 敵我同時出招，再比虛／實／架
@@ -616,7 +613,6 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
   const foeStance = resolveMoveStance(enemyMove);
   const playerStanceMult = stanceDamageMult(playerStance, foeStance);
   const foeStanceMult = stanceDamageMult(foeStance, playerStance);
-  const distance = combat.distance ?? 'mid';
   combat.lastPlayerStance = playerStance;
   combat.lastFoeStance = foeStance;
 
@@ -636,10 +632,6 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
       const cdLine = `「${move.name}」尚在調息，還需 ${cdLeft} 回合。`;
       lines.push(cdLine);
       combat.log.push(cdLine);
-    } else if (!isMoveAvailableAtDistance(move, distance)) {
-      const rangeLine = `「${move.name}」在${DISTANCE_LABEL[distance]}使不出來，需另覓距離。`;
-      lines.push(rangeLine);
-      combat.log.push(rangeLine);
     } else if (move.id === DESPERATE_SURRENDER_MOVE.id) {
       if (combat.player.hp / Math.max(1, combat.player.maxHp) >= 0.2) {
         lines.push('氣血未至垂危，此刻棄劍認輸尚早。');
@@ -765,7 +757,7 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
 
       const modeLifesteal = modeLifestealBonus(combat.player.internalMode);
       const powerMult = (sid ? rankPowerMult(rank) : 1) * wpn.power * modeAttackMult(combat.player.internalMode);
-      let comboStanceMult = playerStanceMult * distanceDamageMult(move, distance);
+      let comboStanceMult = playerStanceMult;
       let effectiveMove = move;
       let savedFoeEvasion: number | null = null;
       if (combo) {
@@ -818,6 +810,7 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
         }
       }
       strikeLines.push(...applySnakeVenom(combat.player, combat.foe));
+      strikeLines.push(...applyGearSpecialOnHit(combat.player, combat.foe, rng));
       lines.push(...strikeLines);
       combat.log.push(...strikeLines);
       setMoveCooldown(combat, move);
@@ -903,7 +896,7 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
       rng,
       1,
       0,
-      foeStanceMult * modeDefenseFactor * distanceDamageMult(enemyMove, distance),
+      foeStanceMult * modeDefenseFactor,
     );
     combat.player.evasion = savedPlayerEvasion;
     combat.log.push(...enemyLines);
@@ -911,9 +904,15 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
   }
 
   if (combat.player.hp <= 0) {
-    const end = finishCombat(state, false);
-    snapshotRng(state);
-    return [...lines, ...end];
+    const reviveLines = tryGearRevive(combat.player);
+    if (reviveLines.length) {
+      lines.push(...reviveLines);
+      combat.log.push(...reviveLines);
+    } else {
+      const end = finishCombat(state, false);
+      snapshotRng(state);
+      return [...lines, ...end];
+    }
   }
 
   combat.turn += 1;

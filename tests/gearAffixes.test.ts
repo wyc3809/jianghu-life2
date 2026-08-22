@@ -17,12 +17,13 @@ describe('Diablo-style gear affixes', () => {
     expect(RARITY_SHORT[sword.rarity]).toBe('凡');
   });
 
-  it('adds legendary line for multi-affix epic/divine gear', () => {
+  it('adds a legendary line carrying the real special-effect name for epic/mythic/divine gear', () => {
     const epic = getGearDef('inkrain-sword')!;
     const lines = listGearAffixes(epic);
     expect(lines.filter((l) => l.tier === 'magic').length).toBeGreaterThanOrEqual(2);
-    expect(lines.some((l) => l.tier === 'legendary' && l.name === '奇兵')).toBe(true);
-    expect(formatAffixDisplay(lines.find((l) => l.tier === 'legendary')!)).toContain('奇兵');
+    expect(epic.special?.name).toBe('劍雨驟至');
+    expect(lines.some((l) => l.tier === 'legendary' && l.name === '劍雨驟至')).toBe(true);
+    expect(formatAffixDisplay(lines.find((l) => l.tier === 'legendary')!)).toContain('劍雨驟至');
   });
 
   it('prefixes fine/rare names; keeps unique epic names bare', () => {

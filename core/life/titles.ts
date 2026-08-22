@@ -275,6 +275,25 @@ export function titleLabels(state: LifeGameState): string[] {
   return allTitles(state).map((t) => t.label);
 }
 
+/** 稱號稀有度色階（tier 1~5，越高越罕見）：白＜綠＜藍＜紫＜橙，對應顯示用 CSS class */
+export const TITLE_TIER_COLOR_CLASS: Record<number, string> = {
+  1: 'ink-title-tier-1',
+  2: 'ink-title-tier-2',
+  3: 'ink-title-tier-3',
+  4: 'ink-title-tier-4',
+  5: 'ink-title-tier-5',
+};
+
+export function titleTierColorClass(tier: number): string {
+  return TITLE_TIER_COLOR_CLASS[tier] ?? TITLE_TIER_COLOR_CLASS[1]!;
+}
+
+/** 最高 tier 嘅單一稱號（放全名右邊用）；未有任何稱號時回傳 null */
+export function topTitle(state: LifeGameState): { label: string; tier: number } | null {
+  const top = allTitles(state)[0];
+  return top ? { label: top.label, tier: top.tier } : null;
+}
+
 /** 顯示中最強 3 個稱號的戰鬥加成總和；未上榜的稱號不計加成 */
 export function titleBonusTotals(state: LifeGameState, count = 3): Required<TitleBonus> {
   const top = allTitles(state).slice(0, count);

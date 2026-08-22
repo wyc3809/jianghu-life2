@@ -714,10 +714,11 @@ describe('life event engine', () => {
     const { effectiveMoveCooldown, BASIC_STRIKE } = await import('../data/skills/catalog');
     const river = moves.find((m) => m.id === 'mv_river_fist')!;
     expect(effectiveMoveCooldown(BASIC_STRIKE)).toBe(0);
-    expect(effectiveMoveCooldown(river)).toBe(1);
+    // 長河崩拳（威1.5＋破防8%）按份量分屬 CD2
+    expect(effectiveMoveCooldown(river)).toBe(2);
     expect(state.pendingCombat!.player.attack).toBeGreaterThan(0);
     playerCombatTurn(state, 'mv_river_fist');
-    expect(getMoveCooldownRemaining(state.pendingCombat!, 'mv_river_fist')).toBe(1);
+    expect(getMoveCooldownRemaining(state.pendingCombat!, 'mv_river_fist')).toBe(2);
     playerCombatTurn(state, 'mv_river_fist');
     expect(state.pendingCombat!.log.some((l) => l.includes('尚在調息'))).toBe(true);
   });
@@ -768,8 +769,12 @@ describe('life event engine', () => {
 
     const healMove = moves.find((m) => m.healSelf && (m.cooldown ?? 0) > 0 && m.power > 0);
     if (healMove) {
+      const { effectiveMoveCooldown } = await import('../data/skills/catalog');
       playerCombatTurn(state, healMove.id);
-      expect(getMoveCooldownRemaining(state.pendingCombat!, healMove.id)).toBe(healMove.cooldown);
+      // 招式 CD 現按份量分（1~5）而非目錄手動 cooldown 決定
+      expect(getMoveCooldownRemaining(state.pendingCombat!, healMove.id)).toBe(
+        effectiveMoveCooldown(healMove),
+      );
     }
   });
 
