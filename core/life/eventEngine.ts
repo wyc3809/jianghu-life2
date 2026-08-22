@@ -417,15 +417,22 @@ export function applyChoice(
   } else {
     const outcome = pickOutcomeForChoice(state, choice.outcomes);
     const rng = getRng();
-    // 數值仍跟抽中嘅 outcome；結果正文同編修器「結果敘事」對齊（唔再另套 runtime override 蓋過）
-    const resultNarrate = getChoiceResultNarrate(event, choiceId);
-    const effectsForApply = resultNarrate
-      ? outcome.effects.map((e, i, arr) => {
-          const firstNarr = arr.findIndex((x) => x.type === 'narrate');
-          if (e.type === 'narrate' && i === firstNarr) return { ...e, text: resultNarrate };
-          return e;
-        })
-      : applyNarrateOverrideToEffects(event.id, choiceId, outcome.effects);
+    const isIll = outcome.id?.endsWith('_ill') || outcome.label === '事與願違';
+    const isMixed = outcome.id?.endsWith('_mixed') || outcome.label === '波折';
+    // 結果正文要跟實際抽中嘅分支走：順遂先同編修器「結果敘事」對齊；波折／事與願違
+    // 本身已帶貼題敘事（socialMixed／illExtras／negativeFactory 等），唔應該被永遠
+    // 正面嘅「順遂」文字蓋過——否則故事講好結果，數值卻扣血扣銀，兜唔攏。
+    const resultNarrate = isIll || isMixed ? undefined : getChoiceResultNarrate(event, choiceId);
+    const effectsForApply =
+      isIll || isMixed
+        ? outcome.effects
+        : resultNarrate
+          ? outcome.effects.map((e, i, arr) => {
+              const firstNarr = arr.findIndex((x) => x.type === 'narrate');
+              if (e.type === 'narrate' && i === firstNarr) return { ...e, text: resultNarrate };
+              return e;
+            })
+          : applyNarrateOverrideToEffects(event.id, choiceId, outcome.effects);
     const hasNarrate = effectsForApply.some((e) => e.type === 'narrate');
     const withNarrate =
       resultNarrate && !hasNarrate
@@ -436,7 +443,6 @@ export function applyChoice(
     logs = applied.logs;
     deltas = applied.deltas;
     died = applied.died;
-    const isIll = outcome.id?.endsWith('_ill') || outcome.label === '事與願違';
     if (!isIll && (tags.includes('secret') || tags.includes('special'))) {
       if (rng.chance(0.22)) {
         const gearId = rollAdventureGear(rng);

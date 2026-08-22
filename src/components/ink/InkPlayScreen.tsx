@@ -683,12 +683,12 @@ export function InkPlayScreen({ state }: Props) {
                   <ul className="ink-delta-board" aria-label="此番消長">
                     {lastResult.deltas.map((d, i) => {
                       const learn = isLearnSkillDeltaLine(d);
-                      const longNote = !learn && d.length > 18 && !/[+＋\-－−]/.test(d);
+                      const longNote = !learn && d.length > 18 && !/[+＋\-－−↑↓]/.test(d);
                       const tone = learn
                         ? 'learn'
-                        : /[+＋]/.test(d)
+                        : /[+＋↑]/.test(d)
                           ? 'up'
-                          : /[-－−]/.test(d)
+                          : /[-－−↓]/.test(d)
                             ? 'down'
                             : longNote
                               ? 'note'

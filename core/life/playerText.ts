@@ -138,7 +138,7 @@ export function sanitizePlayerLine(line: string): string {
   return s;
 }
 
-const NATURE_MARK = /^([俠邪狂惡])([+＋\-－]+)$/;
+const NATURE_MARK = /^([俠邪狂惡])([+＋\-－↑↓]+)$/;
 const NUMERIC_DELTA = /^(.+?)([＋+]|[－-])(\d+)$/;
 
 function formatMergedNumeric(label: string, total: number): string {
@@ -149,7 +149,8 @@ function formatMergedNumeric(label: string, total: number): string {
 
 function formatMergedNature(attr: string, total: number): string {
   if (!total) return '';
-  const mark = (total > 0 ? '+' : '-').repeat(Math.abs(total));
+  const count = Math.min(3, Math.abs(total));
+  const mark = (total > 0 ? '↑' : '↓').repeat(count);
   return `${attr}${mark}`;
 }
 
@@ -175,7 +176,7 @@ export function mergeDeltaLines(lines: string[]): string[] {
       const marks = nat[2]!;
       let delta = 0;
       for (const ch of marks) {
-        if (ch === '+' || ch === '＋') delta += 1;
+        if (ch === '+' || ch === '＋' || ch === '↑') delta += 1;
         else delta -= 1;
       }
       if (!nature.has(attr)) natureOrder.push(attr);
@@ -219,7 +220,7 @@ export function sanitizePlayerLines(lines: string[]): string[] {
 
 /** 行首即為消長芯片（不含敘事前綴） */
 export function isStatDeltaLine(line: string): boolean {
-  return /^(銀兩|氣血上限|氣血|名望|威望|武學|內息|內力上限|內力|裝備|新武學·|武功＋|成就·|心性|天下|疲勞|閱事|膽識|悟性|魅力|根骨|福緣|人情|記下|獲得|後續|傷勢|餘波|屬性|掉落|毒性|氣血受損|修為|[俠邪狂惡][+\-＋－]+)/.test(
+  return /^(銀兩|氣血上限|氣血|名望|威望|武學|內息|內力上限|內力|裝備|新武學·|武功＋|成就·|心性|天下|疲勞|閱事|膽識|悟性|魅力|根骨|福緣|人情|記下|獲得|後續|傷勢|餘波|屬性|掉落|毒性|氣血受損|修為|[俠邪狂惡][+\-＋－↑↓]+)/.test(
     line.trim(),
   );
 }
