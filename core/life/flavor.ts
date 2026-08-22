@@ -8,7 +8,7 @@ import {
   rollAdvanceNeed,
 } from './martialRanks';
 import { formatSkillLine, getSkillDef, skillKindLabel, skillLabel } from '@data/skills/catalog';
-import { learnSkillDeltaChip, LEARN_SKILL_MARKER } from './playerText';
+import { learnSkillDeltaChip, LEARN_SKILL_MARKER, RANK_UP_MARKER } from './playerText';
 import { syncAchievements } from './achievements';
 
 /** 定性描述：氣血／內力／財帛／名望／疲勞／五維／天下 */
@@ -185,7 +185,7 @@ export function tryAdvanceSkill(
     `砂袋停了。「${name}」到了「${next}」。窗外風聲變細，招式卻沉了。`,
     `你把「${name}」練到「${next}」。袖口破了，心口反而定了。`,
   ];
-  return rites[nextRank % rites.length]!;
+  return `${RANK_UP_MARKER}${rites[nextRank % rites.length]!}`;
 }
 
 /** 對已學武學隨機挑一門嘗試進階 */

@@ -19,6 +19,7 @@ import {
 import { gearTotals, sumGearCombatBonuses, previewEquipDelta, combatPowerScore } from '@core/life/equipment';
 import { MOVE_STANCE_LABEL, resolveMoveStance } from '@core/life/moveStance';
 import { skillDisplay } from '@core/life/flavor';
+import { skillAdvanceHint } from '@core/life/martialRanks';
 import { formatSkillEffects, getSkillDef, skillKindLabel } from '@data/skills/catalog';
 import { ensureNature, dominantNature, natureSummary } from '@core/life/nature';
 import { getLifeStageLabel } from '@core/life/stages';
@@ -240,6 +241,7 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
                       </p>
                     ) : null}
                     <p className="ink-skill-fx">{formatSkillEffects(id) || '尚無詳載'}</p>
+                    <p className="ink-note ink-skill-progress">{skillAdvanceHint(c, id)}</p>
                   </li>
                 );
               })}

@@ -466,6 +466,7 @@ function finishCombat(state: LifeGameState, won: boolean): string[] {
 
   const c = state.character;
   const lines: string[] = [];
+  const rng = getRng();
 
   const hpRatio = combat.player.hp / Math.max(1, combat.player.maxHp);
   c.health = clamp(Math.round(c.maxHealth * Math.min(1, hpRatio)), 0, c.maxHealth);
@@ -488,10 +489,20 @@ function finishCombat(state: LifeGameState, won: boolean): string[] {
     lines.push(`名望${r.reputation > 0 ? '＋' : ''}${r.reputation}`);
   }
   if (c.health <= 0) {
-    recordDeath(state, `敗於${combat.foe.name}，力竭倒地。`);
-    state.phase = 'summary';
-    state.summaryText = buildLifeSummary(state);
-    lines.push('你力竭倒地，江湖路斷。');
+    // 一般交手輸咗唔應該直接送命——只有頭目戰先帶真死亡風險（仲要唔係必死）。
+    // 之前設計係「氣血歸零＝死」，等於幾乎每場路遇／師門比武輸咗都可能斷魂，
+    // 太易死；改成低機率倖存，普通交手一律留一口氣。
+    const isBossFight = combat.foePower === 'boss';
+    const fatal = isBossFight && rng.chance(0.3);
+    if (fatal) {
+      recordDeath(state, `敗於${combat.foe.name}，力竭倒地。`);
+      state.phase = 'summary';
+      state.summaryText = buildLifeSummary(state);
+      lines.push('你力竭倒地，江湖路斷。');
+    } else {
+      c.health = 1;
+      lines.push('你力竭倒地——僥倖留了一口氣，未至喪命。');
+    }
   } else {
     c.health = Math.max(1, c.health);
   }

@@ -54,8 +54,11 @@ export interface PracticeAction {
   hint: string;
 }
 
-/** 修煉頁主選單（苦練／鑄兵／尋訪改為翻頁機緣） */
+/** 修煉頁主選單：苦練／打坐／淬體是不入門派也能主動練功嘅途徑，武學階位靠用（戰鬥）同練（呢三項）累積 */
 export const PRACTICE_ACTIONS: PracticeAction[] = [
+  { id: 'train_martial', label: '苦練外功', hint: '武學＋1~3，磨礪已學外功招式' },
+  { id: 'train_internal', label: '打坐運功', hint: '內力上限提升，溫養內功心法' },
+  { id: 'temper_body', label: '淬體強身', hint: '氣血上限提升' },
   { id: 'inquire_rumors', label: '打聽傳聞', hint: '多聞風聲，並聞去向，翻頁可擇路' },
   { id: 'seek_child', label: '求子添丁', hint: '有眷屬可祈嗣；費銀二十兩' },
   { id: 'designate_heir', label: '立嗣傳家', hint: '有子女時指定繼承人，死後族產可繼' },

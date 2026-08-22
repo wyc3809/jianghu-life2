@@ -21,7 +21,7 @@ import { performPracticeAction, PRACTICE_ACTIONS, type PracticeActionId } from '
 import { equipGear } from '@core/life/equipment';
 import { buildLifeSummary } from '@core/life/summary';
 import { playerCombatTurn, getPlayerMoves, resolveCombatDisposition, type CombatFoeDisposition } from '@core/life/combat';
-import { displayChoiceText, sanitizePlayerLine, sanitizePlayerLines, partitionStoryAndDeltas, hasLearnSkillContent } from '@core/life/playerText';
+import { displayChoiceText, sanitizePlayerLine, sanitizePlayerLines, partitionStoryAndDeltas, hasLearnSkillContent, hasRankUpContent } from '@core/life/playerText';
 import { BASIC_STRIKE } from '@data/skills/catalog';
 import {
   startHuashanBracket,
@@ -329,7 +329,15 @@ export const useLifeStore = create<LifeStore>((set, get) => ({
     set({
       state: next,
       sealText:
-        next.phase === 'summary' ? '終' : startedCombat ? '戰' : hasLearnSkillContent(logs) ? '武' : '煉',
+        next.phase === 'summary'
+          ? '終'
+          : startedCombat
+            ? '戰'
+            : hasRankUpContent(logs)
+              ? '晉'
+              : hasLearnSkillContent(logs)
+                ? '武'
+                : '煉',
       flashLines: [],
       lastResult: startedCombat
         ? null
