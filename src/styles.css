@@ -2968,6 +2968,10 @@ body::before {
   margin: 2px 0 10px;
 }
 
+.ink-combat-mode-bar--distance {
+  grid-template-columns: repeat(2, 1fr);
+}
+
 .ink-combat-mode-btn {
   padding: 6px 4px;
   border: 1px solid var(--ink-faint);

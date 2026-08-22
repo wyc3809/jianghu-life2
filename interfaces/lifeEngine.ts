@@ -441,6 +441,8 @@ export interface PendingCombat {
   bossPhase2?: boolean;
   /** 玩家最近出招 id 歷史（連招系統用，最多 3 招） */
   moveHistory?: string[];
+  /** 交手距離：近身／中距／遠距，缺省為中距 */
+  distance?: 'close' | 'mid' | 'far';
 }
 
 export const lifeCharacterSchema = z.object({

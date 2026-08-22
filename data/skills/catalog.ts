@@ -39,6 +39,8 @@ export interface CombatMoveDef {
   defenseBreak?: number;
   /** 傷害吸血 0–1 */
   lifesteal?: number;
+  /** 適用距離：近身／中距／遠距／不限（缺省由 inferMoveRange 推斷） */
+  range?: 'close' | 'mid' | 'far' | 'any';
   description: string;
 }
 

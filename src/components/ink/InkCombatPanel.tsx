@@ -30,6 +30,7 @@ import { foeStyleLabel } from '@core/life/foeAi';
 import { dominantNature } from '@core/life/nature';
 import { playInkBlade } from '../../audio/inkAudio';
 import { INTERNAL_MODES } from '@core/life/internalMode';
+import { DISTANCE_LABEL } from '@core/life/distance';
 
 type CombatRoleFilter = 'all' | CombatMoveRole;
 
@@ -39,6 +40,7 @@ type Props = {
   onMove: (moveId: string) => void;
   onResolveFoe: (disposition: CombatFoeDisposition) => void;
   onSetInternalMode: (modeId: string | null) => void;
+  onSetDistance: (direction: 'close' | 'far') => void;
 };
 
 /** 血條下「最新戰況」：取自己／敵人各最近一條主動作（最多兩條） */
@@ -64,7 +66,7 @@ function recentExchangeBeats(log: string[], playerName: string, foeName: string)
   return log.filter((l) => !l.startsWith('【')).slice(-2);
 }
 
-export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInternalMode }: Props) {
+export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInternalMode, onSetDistance }: Props) {
   const c = state.character;
   const dominant = dominantNature(c);
   const equipment = c.equipment ?? { weapon: null, armor: null, accessory: null };
@@ -292,6 +294,28 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
           </>
         ) : (
           <>
+            <p className="ink-combat-group-label">
+              距離：{DISTANCE_LABEL[combat.distance ?? 'mid']}
+            </p>
+            <div className="ink-combat-mode-bar ink-combat-mode-bar--distance">
+              <button
+                type="button"
+                className="ink-combat-mode-btn"
+                disabled={(combat.distance ?? 'mid') === 'close'}
+                onClick={() => onSetDistance('close')}
+              >
+                近身
+              </button>
+              <button
+                type="button"
+                className="ink-combat-mode-btn"
+                disabled={(combat.distance ?? 'mid') === 'far'}
+                onClick={() => onSetDistance('far')}
+              >
+                拉開
+              </button>
+            </div>
+
             <p className="ink-combat-group-label">內功運轉</p>
             <div className="ink-combat-mode-bar" role="tablist" aria-label="內功運轉模式">
               {INTERNAL_MODES.map((mode) => (

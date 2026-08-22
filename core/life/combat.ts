@@ -57,6 +57,7 @@ import {
   modeLifestealBonus,
   tickInternalMode,
 } from './internalMode';
+import { DISTANCE_LABEL, changeDistance, distanceDamageMult, isMoveAvailableAtDistance } from './distance';
 
 export type CombatFoeDisposition = 'kill' | 'release' | 'stun';
 
@@ -543,6 +544,19 @@ export function setCombatInternalMode(state: LifeGameState, modeId: string | nul
   return [line];
 }
 
+/** 拉近／拉開距離：唔消耗行動，可喺自己回合任意調整 */
+export function setCombatDistance(state: LifeGameState, direction: 'close' | 'far'): string[] {
+  const combat = state.pendingCombat;
+  if (!combat || combat.phase !== 'player') return ['此刻無法調整距離。'];
+  const current = combat.distance ?? 'mid';
+  const next = changeDistance(current, direction);
+  if (next === current) return [];
+  combat.distance = next;
+  const line = `你${direction === 'close' ? '欺身近前' : '抽身拉開'}，距離變為「${DISTANCE_LABEL[next]}」。`;
+  combat.log.push(line);
+  return [line];
+}
+
 /**
  * 玩家回合：選招 → 與敵同期對勢（虛實架）→ 結算你我傷害
  */
@@ -574,6 +588,7 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
   const foeStance = resolveMoveStance(enemyMove);
   const playerStanceMult = stanceDamageMult(playerStance, foeStance);
   const foeStanceMult = stanceDamageMult(foeStance, playerStance);
+  const distance = combat.distance ?? 'mid';
 
   const reveal = `對勢：你「${MOVE_STANCE_LABEL[playerStance]}」對 ${combat.foe.name}「${MOVE_STANCE_LABEL[foeStance]}」（敵出「${enemyMove.name}」）。`;
   lines.push(reveal);
@@ -591,6 +606,10 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
       const cdLine = `「${move.name}」尚在調息，還需 ${cdLeft} 回合。`;
       lines.push(cdLine);
       combat.log.push(cdLine);
+    } else if (!isMoveAvailableAtDistance(move, distance)) {
+      const rangeLine = `「${move.name}」在${DISTANCE_LABEL[distance]}使不出來，需另覓距離。`;
+      lines.push(rangeLine);
+      combat.log.push(rangeLine);
     } else if (move.id === FLEE_MOVE.id) {
       const chance = clamp(0.32 + combat.player.evasion + state.character.attributes.danShi / 400, 0.15, 0.82);
       if (rng.chance(chance)) {
@@ -685,7 +704,7 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
 
       const modeLifesteal = modeLifestealBonus(combat.player.internalMode);
       const powerMult = (sid ? rankPowerMult(rank) : 1) * wpn.power * modeAttackMult(combat.player.internalMode);
-      let comboStanceMult = playerStanceMult;
+      let comboStanceMult = playerStanceMult * distanceDamageMult(move, distance);
       let effectiveMove = move;
       let savedFoeEvasion: number | null = null;
       if (combo) {
@@ -807,7 +826,7 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
       rng,
       1,
       0,
-      foeStanceMult * modeDefenseFactor,
+      foeStanceMult * modeDefenseFactor * distanceDamageMult(enemyMove, distance),
     );
     combat.player.evasion = savedPlayerEvasion;
     combat.log.push(...enemyLines);

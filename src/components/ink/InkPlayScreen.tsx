@@ -58,6 +58,7 @@ export function InkPlayScreen({ state }: Props) {
   const practice = useLifeStore((s) => s.practice);
   const combatMove = useLifeStore((s) => s.combatMove);
   const combatSetInternalMode = useLifeStore((s) => s.combatSetInternalMode);
+  const combatSetDistance = useLifeStore((s) => s.combatSetDistance);
   const combatResolveFoe = useLifeStore((s) => s.combatResolveFoe);
   const clearResult = useLifeStore((s) => s.clearResult);
   const lastResult = useLifeStore((s) => s.lastResult);
@@ -646,6 +647,7 @@ export function InkPlayScreen({ state }: Props) {
           onMove={combatMove}
           onResolveFoe={combatResolveFoe}
           onSetInternalMode={combatSetInternalMode}
+          onSetDistance={combatSetDistance}
         />
       )}
 
