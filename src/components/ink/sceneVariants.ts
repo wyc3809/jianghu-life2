@@ -14,10 +14,10 @@ export function seasonToInk(month: number): InkSeason {
 
 export function placeToInk(location: string | undefined): InkPlace {
   const loc = location ?? '';
-  if (/山|華山|嶺|峰/.test(loc)) return 'mountain';
-  if (/河|湖|江|橋/.test(loc)) return 'river';
+  if (/山|華山|嶺|峰|崖|谷/.test(loc)) return 'mountain';
+  if (/河|湖|江|橋|溪|碼頭/.test(loc)) return 'river';
   if (/館|醫|武館|門/.test(loc)) return 'hall';
-  if (/野|官道|沙|林/.test(loc)) return 'wild';
+  if (/野|官道|沙|林|塚|寺|竹/.test(loc)) return 'wild';
   return 'town';
 }
 
