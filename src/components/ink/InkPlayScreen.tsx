@@ -20,7 +20,14 @@ import {
 } from '../../audio/inkAudio';
 import { InkSettingsPanel, type TextScale } from './InkSettingsPanel';
 import { topTitles } from '@core/life/titles';
-import { isLearnSkillDeltaLine, isLearnSkillStoryLine, LEARN_SKILL_MARKER } from '@core/life/playerText';
+import { jianghuRank } from '@core/life/jianghuRank';
+import {
+  isLearnSkillDeltaLine,
+  isLearnSkillStoryLine,
+  isRankUpStoryLine,
+  LEARN_SKILL_MARKER,
+  RANK_UP_MARKER,
+} from '@core/life/playerText';
 import { ensureNature, dominantNature, natureSummary } from '@core/life/nature';
 import { coachCopy, nextCoachStep } from '@core/life/tutorial';
 import { lifeArcStatusLine } from '@core/life/arcs';
@@ -31,6 +38,7 @@ import { InkScrollBackdrop, InkSealStamp, InkResultSeal, InkStaticSeal, InkAiWas
 import { INK_SVG } from '../../ui/inkAssets';
 import { inkAiUrl } from '../../ui/inkAiCatalog';
 import { InkHuashanPanel } from './InkHuashanPanel';
+import { InkSectFounderPanel } from './InkSectFounderPanel';
 import { InkPersonPanel, type PersonView } from './InkPersonPanel';
 import { InkEventPanel } from './InkEventPanel';
 import { InkCombatPanel } from './InkCombatPanel';
@@ -60,6 +68,9 @@ export function InkPlayScreen({ state }: Props) {
   const huashanFight = useLifeStore((s) => s.huashanFight);
   const huashanDismissReport = useLifeStore((s) => s.huashanDismissReport);
   const huashanClose = useLifeStore((s) => s.huashanClose);
+  const foundSect = useLifeStore((s) => s.foundSect);
+  const recruitDisciple = useLifeStore((s) => s.recruitDisciple);
+  const teachDisciple = useLifeStore((s) => s.teachDisciple);
   const equipOwned = useLifeStore((s) => s.equipOwned);
   const sealText = useLifeStore((s) => s.sealText);
   const flashLines = useLifeStore((s) => s.flashLines);
@@ -95,7 +106,7 @@ export function InkPlayScreen({ state }: Props) {
   useEffect(() => {
     if (!sealText) return;
     if (sealText === '月') playInkPageFlip();
-    else if (sealText === '勝' || sealText === '武') playInkWin();
+    else if (sealText === '勝' || sealText === '武' || sealText === '晉' || sealText === '宗' || sealText === '收' || sealText === '教') playInkWin();
     else if (sealText === '敗' || sealText === '終') playInkLose();
     else if (sealText === '戰') playInkBlade();
     else playInkSeal();
@@ -247,6 +258,7 @@ export function InkPlayScreen({ state }: Props) {
   const inkPlace = placeToInk(c.location);
 
   const nicknames = topTitles(state);
+  const rank = jianghuRank(state);
   const sceneBits = [
     'scroll-shell',
     'scroll-shell--play',
@@ -304,6 +316,7 @@ export function InkPlayScreen({ state }: Props) {
             {sect ? ` · ${sect.name}` : ''}
             {nicknames.length ? ` · ${nicknames.join('·')}` : ''}
           </p>
+          <p className="ink-meta ink-meta--rank">江湖排名 第{rank}位</p>
         </div>
         <div className="ink-status-actions">
           <button
@@ -592,6 +605,15 @@ export function InkPlayScreen({ state }: Props) {
         />
       )}
 
+      {tab === 'jianghu' && !combat && !eventFocus && (
+        <InkSectFounderPanel
+          state={state}
+          onFound={foundSect}
+          onRecruit={recruitDisciple}
+          onTeach={teachDisciple}
+        />
+      )}
+
       {tab === 'person' && !combat && !eventFocus && (
         <InkPersonPanel
           state={state}
@@ -643,24 +665,28 @@ export function InkPlayScreen({ state }: Props) {
               {(resultDeltasReady || lastResult.deltas.length === 0) && (
                 <InkResultSeal
                   text={
-                    resultKind === 'practice'
-                      ? '修'
-                      : lastResult.title === '整裝'
-                        ? '裝'
-                        : lastResult.deltas.some(isLearnSkillDeltaLine)
-                          ? '武'
-                          : '定'
+                    isRankUpStoryLine(lastResult.feedback)
+                      ? '晉'
+                      : resultKind === 'practice'
+                        ? '修'
+                        : lastResult.title === '整裝'
+                          ? '裝'
+                          : lastResult.deltas.some(isLearnSkillDeltaLine)
+                            ? '武'
+                            : '定'
                   }
                 />
               )}
               <p className="ink-event-year">
-                {resultKind === 'practice'
-                  ? '修煉已定'
-                  : lastResult.title === '整裝'
-                    ? '披掛已定'
-                    : lastResult.deltas.some(isLearnSkillDeltaLine)
-                      ? '武學入懷'
-                      : '本月際遇'}
+                {isRankUpStoryLine(lastResult.feedback)
+                  ? '階位精進'
+                  : resultKind === 'practice'
+                    ? '修煉已定'
+                    : lastResult.title === '整裝'
+                      ? '披掛已定'
+                      : lastResult.deltas.some(isLearnSkillDeltaLine)
+                        ? '武學入懷'
+                        : '本月際遇'}
               </p>
               <h3>{lastResult.title}</h3>
               <p className="ink-result-choice">你選擇：{lastResult.choiceText}</p>
@@ -669,9 +695,11 @@ export function InkPlayScreen({ state }: Props) {
                 {lastResult.feedback.split(/\n\n+/).map((para, i) => (
                   <p
                     key={`${i}-${para.slice(0, 12)}`}
-                    className={`ink-event-body${isLearnSkillStoryLine(para) ? ' ink-event-body--learn-skill' : ''}`}
+                    className={`ink-event-body${
+                      isLearnSkillStoryLine(para) || isRankUpStoryLine(para) ? ' ink-event-body--learn-skill' : ''
+                    }`}
                   >
-                    {para.replace(LEARN_SKILL_MARKER, '')}
+                    {para.replace(LEARN_SKILL_MARKER, '').replace(RANK_UP_MARKER, '')}
                   </p>
                 ))}
               </div>

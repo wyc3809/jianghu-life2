@@ -14,6 +14,7 @@ const contentFiles = [
   'data/events/secretArts.ts',
   'data/events/jinyongTropes.ts',
   'data/events/roadEncounters.ts',
+  'data/events/natureArcs.ts',
   'data/events/bossEncounters.ts',
   'data/events/narrateOverrides.ts',
   'data/events/playabilityPack.ts',

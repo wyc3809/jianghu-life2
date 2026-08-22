@@ -18,6 +18,17 @@ export function isLearnSkillDeltaLine(line: string): boolean {
 export function hasLearnSkillContent(lines: string[]): boolean {
   return lines.some((l) => isLearnSkillStoryLine(l) || isLearnSkillDeltaLine(l));
 }
+
+/** 武學階位突破敘事行首標記（結果匣主文高亮用；同「新學武學」分開，突顯「練熟咗」而非「初窺門徑」） */
+export const RANK_UP_MARKER = '【階位精進】';
+
+export function isRankUpStoryLine(line: string): boolean {
+  return String(line ?? '').includes(RANK_UP_MARKER);
+}
+
+export function hasRankUpContent(lines: string[]): boolean {
+  return lines.some((l) => isRankUpStoryLine(l));
+}
 const CHOICE_FALLBACK: Record<string, string> = {
   accept: '應允',
   study: '鑽研',

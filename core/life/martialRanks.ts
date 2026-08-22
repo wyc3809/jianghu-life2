@@ -47,3 +47,17 @@ export function rollAdvanceNeed(
   if (!band) return Number.POSITIVE_INFINITY;
   return rng.nextInt(band.min, band.max);
 }
+
+/** 人物頁武學卡片用：顯示距下一階仲差幾多（戰鬥＋修煉都計），畀玩家見到進度而唔係一片空白 */
+export function skillAdvanceHint(
+  c: { skillRanks?: Record<string, number>; skillProgress?: Record<string, number>; skillAdvanceNeed?: Record<string, number> },
+  skillId: string,
+): string {
+  const rank = c.skillRanks?.[skillId] ?? 0;
+  if (rank >= 3) return `已至「${rankName(3)}」，爐火純青。`;
+  const need = c.skillAdvanceNeed?.[skillId];
+  if (need === undefined || !Number.isFinite(need)) return `距「${rankName(rank + 1)}」尚早，多用多練。`;
+  const progress = c.skillProgress?.[skillId] ?? 0;
+  const pct = Math.max(0, Math.min(100, Math.round((progress / need) * 100)));
+  return `距「${rankName(rank + 1)}」：${pct}%（交手、苦練皆算）`;
+}

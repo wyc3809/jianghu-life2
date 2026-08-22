@@ -1033,6 +1033,11 @@ body::before {
   letter-spacing: 0.06em;
 }
 
+.ink-meta--rank {
+  margin-top: 2px;
+  opacity: 0.85;
+}
+
 .ink-icon-btn {
   width: 36px;
   height: 36px;
@@ -1910,6 +1915,41 @@ body::before {
 .ink-huashan-hint {
   margin-top: 0.5rem;
   opacity: 0.85;
+}
+
+.ink-sect-founder-panel {
+  margin-top: 0.75rem;
+}
+
+.ink-sect-founder-hint {
+  margin-top: 0.5rem;
+  opacity: 0.85;
+}
+
+.ink-disciple-list {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ink-disciple-card {
+  padding: 8px 10px;
+  border: 1px solid rgba(26, 26, 26, 0.12);
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.ink-disciple-name {
+  margin: 0 0 2px;
+  font-weight: 600;
+}
+
+.ink-disciple-status {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--ink-wash);
 }
 
 .ink-panel {
@@ -3983,6 +4023,32 @@ button.is-pressed,
   --danger: var(--cinnabar);
 }
 
+/* 場景色調：按地點（竹林／懸崖／酒館等）微調墨色與紙色，程序化疊在季節之上，鎮居為基準唔改 */
+.scroll-shell.ink-scene--hall {
+  --paper: color-mix(in srgb, var(--paper) 90%, var(--paper-aged) 10%);
+  --cinnabar-soft: color-mix(in srgb, var(--cinnabar-soft) 80%, var(--paper-aged) 20%);
+  --scene-edge: rgba(163, 58, 50, 0.05);
+}
+
+.scroll-shell.ink-scene--mountain {
+  --paper: color-mix(in srgb, var(--paper) 92%, var(--ink-wash) 8%);
+  --ink-wash: color-mix(in srgb, var(--ink-wash) 85%, var(--jade) 15%);
+  --mist: rgba(74, 69, 64, 0.09);
+  --mountain-opacity: 1;
+}
+
+.scroll-shell.ink-scene--river {
+  --paper: color-mix(in srgb, var(--paper) 93%, var(--jade) 7%);
+  --mist: color-mix(in srgb, var(--mist) 70%, var(--jade) 30%);
+  --scene-edge: rgba(61, 92, 79, 0.06);
+}
+
+.scroll-shell.ink-scene--wild {
+  --paper: color-mix(in srgb, var(--paper) 94%, var(--pine-smoke) 6%);
+  --ink-wash: color-mix(in srgb, var(--ink-wash) 88%, var(--pine-smoke) 12%);
+  --scene-edge: rgba(42, 53, 48, 0.06);
+}
+
 .ink-backdrop .ink-mountains-img {
   opacity: var(--mountain-opacity);
 }
@@ -4000,18 +4066,30 @@ button.is-pressed,
   filter: grayscale(0.2) brightness(1.04);
   background: linear-gradient(180deg, transparent 40%, rgba(42, 53, 48, 0.08) 100%);
 }
+.ink-backdrop--hall {
+  filter: sepia(0.1) saturate(1.02);
+}
 .ink-backdrop--hall .ink-mountains-img {
   opacity: 0.72;
+}
+.ink-backdrop--mountain {
+  filter: saturate(0.94) contrast(1.03);
 }
 .ink-backdrop--mountain .ink-mountains-img {
   transform: translateY(-4px) scale(1.04);
   transform-origin: bottom center;
+}
+.ink-backdrop--river {
+  filter: hue-rotate(4deg) saturate(1.03);
 }
 .ink-backdrop--river .ink-mist-layer {
   opacity: 0.85;
 }
 .ink-backdrop--river .ink-boat-img {
   opacity: 0.9;
+}
+.ink-backdrop--wild {
+  filter: hue-rotate(-3deg) saturate(1.05);
 }
 .ink-backdrop--wild .ink-brush-sweep {
   opacity: 0.55;
@@ -4591,6 +4669,50 @@ button.is-pressed,
   }
 }
 
+/* 水墨粒子：劍氣（實）沿斜線飛散嘅細滴、掌風（虛）散開嘅霧點、架擋（架）沉墨小點 */
+.ink-combat-particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  animation: inkParticlePop 0.55s ease-out both;
+  animation-delay: var(--particle-delay, 0s);
+  transform: scale(var(--particle-scale, 1));
+}
+
+.ink-combat-particle--shi {
+  background: radial-gradient(circle, rgba(26, 26, 26, 0.55), transparent 70%);
+}
+
+.ink-combat-particle--xu {
+  width: 16px;
+  height: 16px;
+  background: radial-gradient(circle, rgba(42, 53, 48, 0.3), transparent 75%);
+  filter: blur(0.5px);
+}
+
+.ink-combat-particle--jia {
+  width: 7px;
+  height: 7px;
+  background: radial-gradient(circle, rgba(26, 26, 26, 0.5), transparent 70%);
+}
+
+@keyframes inkParticlePop {
+  0% {
+    opacity: 0;
+    transform: scale(calc(var(--particle-scale, 1) * 0.3));
+  }
+  35% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(calc(var(--particle-scale, 1) * 1.6)) translateY(-6px);
+  }
+}
+
 .ink-combat--shock {
   animation: inkCombatShock 0.1s ease-out;
 }
@@ -4658,7 +4780,8 @@ button.is-pressed,
     inset: auto;
     margin: 4px 0 6px;
   }
-  .ink-combat-brush {
+  .ink-combat-brush,
+  .ink-combat-particle {
     display: none;
   }
 }
@@ -4675,7 +4798,8 @@ html[data-ink-motion='reduce'] .ink-combat-beat-line--hit::before {
   transform: none !important;
 }
 
-html[data-ink-motion='reduce'] .ink-combat-brush {
+html[data-ink-motion='reduce'] .ink-combat-brush,
+html[data-ink-motion='reduce'] .ink-combat-particle {
   display: none;
 }
 

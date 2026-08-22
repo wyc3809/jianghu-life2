@@ -303,6 +303,37 @@ export const huashanBracketSchema = z
   })
   .optional();
 
+/** 自立門派徒弟：獨立成長軌跡（唔同於玩家本人嘅武學階位系統，簡化版） */
+export interface Disciple {
+  id: string;
+  name: string;
+  gender: 'male' | 'female';
+  /** 資質 0–100，收徒時擲出，決定成長速度 */
+  aptitude: number;
+  /** 忠誠 0–100，過低會離門 */
+  loyalty: number;
+  /** 主修武學（傳自師父） */
+  skillId: string;
+  /** 階位 0–3，同玩家武學階位同一套稱謂 */
+  rank: number;
+  progress: number;
+  advanceNeed: number;
+  monthsWithSect: number;
+  status: 'training' | 'graduated' | 'left' | 'died';
+}
+
+/** 玩家自立嘅門派（有別於 sects：加入既有門派） */
+export interface FoundedSect {
+  id: string;
+  name: string;
+  founderName: string;
+  foundedYear: number;
+  /** 門派聲望，累積轉化做江湖排名加成 */
+  fame: number;
+  disciples: Disciple[];
+  maxDisciples: number;
+}
+
 export interface LifeGameState {
   version: 1;
   seed: number;
@@ -312,6 +343,8 @@ export interface LifeGameState {
   character: LifeCharacter;
   npcs: Record<string, LifeNpc>;
   sects: Record<string, { id: string; name: string }>;
+  /** 玩家自立門派（開宗立派），未開宗時為 undefined */
+  foundedSect?: FoundedSect | null;
   world: WorldState;
   story: StoryState;
   specialEventCountdown: number;

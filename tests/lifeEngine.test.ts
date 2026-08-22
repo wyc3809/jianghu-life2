@@ -174,10 +174,13 @@ describe('life event engine', () => {
     expect(many.filter((m) => !m.id.startsWith('sys_') && m.id !== 'basic_strike').length).toBeGreaterThan(4);
   });
 
-  it('practice page actions are rumors/heal/equip; wander arts appear on month flip', async () => {
+  it('practice page actions include train/rumors/heal/equip; wander arts appear on month flip', async () => {
     const { PRACTICE_ACTIONS, performPracticeAction } = await import('../core/life/actions');
     const { PRACTICE_WANDER_EVENTS } = await import('../data/events/practiceWander');
     expect(PRACTICE_ACTIONS.map((a) => a.id)).toEqual([
+      'train_martial',
+      'train_internal',
+      'temper_body',
       'inquire_rumors',
       'seek_child',
       'designate_heir',

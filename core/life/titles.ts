@@ -124,6 +124,31 @@ const TITLE_RULES: TitleDef[] = [
     bonus: { defense: 3 },
     test: (s) => s.character.age >= 60,
   },
+  {
+    id: 'title_righteous',
+    tier: 3,
+    category: 'legend',
+    label: '急公好義',
+    bonus: { defense: 2, hitBonus: 0.01 },
+    test: (s) => Boolean(s.character.flags.nature_arc_xia_hero),
+  },
+  {
+    id: 'title_underworld',
+    tier: 3,
+    category: 'legend',
+    label: '黑道梟雄',
+    bonus: { attack: 3 },
+    test: (s) =>
+      Boolean(s.character.flags.nature_arc_e_underworld) || Boolean(s.character.flags.nature_arc_e_lone),
+  },
+  {
+    id: 'title_madman',
+    tier: 3,
+    category: 'legend',
+    label: '瘋魔狂徒',
+    bonus: { attack: 2, evasion: 0.01 },
+    test: (s) => Boolean(s.character.flags.nature_arc_kuang_done),
+  },
 
   // tier 4 — 高階
   {
@@ -175,6 +200,24 @@ const TITLE_RULES: TitleDef[] = [
     label: '天下第一',
     bonus: { attack: 12, defense: 6, evasion: 0.05 },
     test: (s) => s.character.martial >= 99,
+  },
+
+  // 開宗立派
+  {
+    id: 'title_founder',
+    tier: 4,
+    category: 'sect',
+    label: '開山祖師',
+    bonus: { defense: 3 },
+    test: (s) => Boolean(s.foundedSect),
+  },
+  {
+    id: 'title_many_disciples',
+    tier: 5,
+    category: 'sect',
+    label: '桃李滿門',
+    bonus: { attack: 4, defense: 4 },
+    test: (s) => (s.foundedSect?.disciples.filter((d) => d.status === 'graduated').length ?? 0) >= 3,
   },
 ];
 
