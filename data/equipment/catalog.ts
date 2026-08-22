@@ -1,5 +1,8 @@
+import { applyGearPatch, getGearPatch } from './overrides';
+
 export type GearSlot = 'weapon' | 'armor' | 'accessory';
-export type GearRarity = 'common' | 'fine' | 'rare' | 'epic' | 'divine';
+/** 白（common）＜綠（fine）＜藍（rare）＜紫（epic）＜橙（mythic）＜紅（divine） */
+export type GearRarity = 'common' | 'fine' | 'rare' | 'epic' | 'mythic' | 'divine';
 export type WeaponKind = 'sword' | 'blade' | 'spear' | 'staff' | 'whip' | 'bow' | 'hidden';
 
 /** 裝備戰鬥特效（與 attack/defense 等基礎數值並存） */
@@ -10,6 +13,19 @@ export interface GearCombatBonus {
   pierce?: number;
   lifesteal?: number;
   bleedChance?: number;
+}
+
+export type GearSpecialEffectKind = 'burst' | 'stun_proc' | 'revive';
+
+/** 紫（epic）以上裝備獨有嘅特別效果——唔止數值加成，係真正嘅獨特戰鬥機制 */
+export interface GearSpecialEffect {
+  kind: GearSpecialEffectKind;
+  name: string;
+  description: string;
+  /** 觸發機率 0-1（revive 唔需要：一場戰鬥限一次，血見底時觸發） */
+  chance?: number;
+  /** 視乎 kind：burst＝額外傷害倍率；revive＝復活後氣血比例 */
+  power?: number;
 }
 
 export interface GearDef {
@@ -25,6 +41,8 @@ export interface GearDef {
   maxQiBonus?: number;
   martialBonus?: number;
   combat?: GearCombatBonus;
+  /** 紫（epic）／橙（mythic）／紅（divine）裝備嘅獨特效果 */
+  special?: GearSpecialEffect;
   description: string;
 }
 
@@ -109,6 +127,13 @@ export const GEAR_CATALOG: GearDef[] = [
     martialBonus: 8,
     maxQiBonus: 20,
     combat: { pierce: 0.08, hitBonus: 0.03 },
+    special: {
+      kind: 'burst',
+      name: '劍雨驟至',
+      description: '出手時偶有劍氣暴漲，追加一記重擊',
+      chance: 0.25,
+      power: 0.6,
+    },
     description: '劍身如墨，雨夜出鞘更冷。',
   },
   {
@@ -121,6 +146,12 @@ export const GEAR_CATALOG: GearDef[] = [
     martialBonus: 10,
     maxHpBonus: 30,
     combat: { lifesteal: 0.06 },
+    special: {
+      kind: 'stun_proc',
+      name: '百折驚魂',
+      description: '刀勢連環，偶爾令敵方穴道一窒，錯失一回合',
+      chance: 0.2,
+    },
     description: '百煉而成，刃口隱有折光。',
   },
   {
@@ -134,6 +165,12 @@ export const GEAR_CATALOG: GearDef[] = [
     maxHpBonus: 60,
     maxQiBonus: 40,
     combat: { pierce: 0.12, hitBonus: 0.06 },
+    special: {
+      kind: 'stun_proc',
+      name: '重劍無鋒',
+      description: '劍重勢沉，一擊之下常令敵方氣血逆流、穴道錯亂',
+      chance: 0.3,
+    },
     description: '神兵遺響，重若千鈞，唯有根骨深厚者可御。',
   },
   {
@@ -213,7 +250,50 @@ export const GEAR_CATALOG: GearDef[] = [
     attack: 24,
     martialBonus: 9,
     combat: { pierce: 0.1, hitBonus: 0.04 },
+    special: {
+      kind: 'burst',
+      name: '雙鉤連環',
+      description: '雙鉤相扣連削，偶有一記追加斬擊',
+      chance: 0.2,
+      power: 0.5,
+    },
     description: '雙鉤相扣，專破兵刃格擋。',
+  },
+  {
+    id: 'phoenix-blood-blade',
+    name: '鳳血刀',
+    slot: 'weapon',
+    rarity: 'mythic',
+    weaponKind: 'blade',
+    attack: 34,
+    martialBonus: 13,
+    maxHpBonus: 40,
+    combat: { lifesteal: 0.05 },
+    special: {
+      kind: 'burst',
+      name: '鳳血噬魂',
+      description: '刀刃如浴火鳳血，偶有噬魂一擊，傷勢倍增',
+      chance: 0.28,
+      power: 0.65,
+    },
+    description: '傳說以鳳血淬煉而成，刀身隱隱透紅。',
+  },
+  {
+    id: 'stormcloud-armor',
+    name: '驚雷戰甲',
+    slot: 'armor',
+    rarity: 'mythic',
+    defense: 26,
+    maxHpBonus: 70,
+    maxQiBonus: 20,
+    combat: { reflect: 0.06 },
+    special: {
+      kind: 'stun_proc',
+      name: '驚雷反震',
+      description: '受擊時偶有驚雷反震，令敵方穴道一滯',
+      chance: 0.18,
+    },
+    description: '甲上雷紋隱現，交手時偶有雷鳴之聲。',
   },
   {
     id: 'divine-silk-armor',
@@ -224,6 +304,12 @@ export const GEAR_CATALOG: GearDef[] = [
     maxHpBonus: 100,
     maxQiBonus: 30,
     combat: { reflect: 0.08, evasion: 0.03 },
+    special: {
+      kind: 'revive',
+      name: '金絲護體',
+      description: '氣血將盡時，金絲軟甲護住心脈，保命一次（一場戰鬥限一次）',
+      power: 0.3,
+    },
     description: '柔若無物，刀槍難入，傳聞出自奇人秘造。',
   },
   {
@@ -235,6 +321,13 @@ export const GEAR_CATALOG: GearDef[] = [
     maxQiBonus: 80,
     defense: 8,
     combat: { hitBonus: 0.08, evasion: 0.04 },
+    special: {
+      kind: 'burst',
+      name: '寒月奪魄',
+      description: '內息隨月盈虧，偶有奪魄一擊，傷勢驟增',
+      chance: 0.25,
+      power: 0.7,
+    },
     description: '佩之則內息如潮，夜觀星斗似有所悟。',
   },
 ];
@@ -244,10 +337,44 @@ export const rarityLabel: Record<GearRarity, string> = {
   fine: '良品',
   rare: '珍品',
   epic: '絕品',
+  mythic: '曠品',
   divine: '神兵',
 };
 
+/** 稀有度色階：白＜綠＜藍＜紫＜橙＜紅；對應 CSS class（見 src/styles.css） */
+export const RARITY_COLOR_CLASS: Record<GearRarity, string> = {
+  common: 'ink-rarity-common',
+  fine: 'ink-rarity-fine',
+  rare: 'ink-rarity-rare',
+  epic: 'ink-rarity-epic',
+  mythic: 'ink-rarity-mythic',
+  divine: 'ink-rarity-divine',
+};
+
+/** 紫（epic）以上先有獨特效果 */
+export function hasSpecialEffect(def: GearDef): boolean {
+  return (
+    Boolean(def.special) &&
+    (def.rarity === 'epic' || def.rarity === 'mythic' || def.rarity === 'divine')
+  );
+}
+
+export function formatGearSpecialLine(def: GearDef): string {
+  const s = def.special;
+  if (!s || !hasSpecialEffect(def)) return '';
+  const chanceBit = s.chance ? `（${Math.round(s.chance * 100)}%機率）` : '';
+  return `絕技·${s.name}${chanceBit}：${s.description}`;
+}
+
 export function getGearDef(id: string): GearDef | undefined {
+  const base = GEAR_CATALOG.find((g) => g.id === id);
+  if (!base) return undefined;
+  const patch = getGearPatch(id);
+  return patch ? applyGearPatch(base, patch) : base;
+}
+
+/** 唔套用本地補丁嘅底本定義（編修器對照用） */
+export function getBaseGearDef(id: string): GearDef | undefined {
   return GEAR_CATALOG.find((g) => g.id === id);
 }
 
@@ -281,8 +408,10 @@ export function formatGearCombatLine(def: GearDef): string {
 export function formatGearFullSummary(def: GearDef): string {
   const base = formatGearStatLine(def);
   const fx = formatGearCombatLine(def);
-  if (base && fx) return `${base} — ${fx}`;
-  return base || fx || def.description;
+  const special = formatGearSpecialLine(def);
+  const bits = [base, fx, special].filter(Boolean);
+  if (bits.length) return bits.join(' — ');
+  return def.description;
 }
 
 export function rollForgeResult(
@@ -295,13 +424,16 @@ export function rollForgeResult(
   const tier = Math.min(1, Math.max(0, (age - 18) / 40 + martial / 120));
   const roll = rng.nextFloat();
   const divineGate = 0.002 + tier * 0.018;
-  const epicGate = divineGate + 0.03 + tier * 0.05;
+  const mythicGate = divineGate + 0.008 + tier * 0.02;
+  const epicGate = mythicGate + 0.03 + tier * 0.05;
   const rareGate = epicGate + 0.08 + tier * 0.05;
   if (roll < divineGate * 0.34) return 'divine-xuan-sword';
   if (roll < divineGate * 0.67) return 'divine-silk-armor';
   if (roll < divineGate) return 'divine-moon-pendant';
-  if (roll < epicGate * 0.4) return 'hundredfold-blade';
-  if (roll < epicGate * 0.7) return 'inkrain-sword';
+  if (roll < divineGate + (mythicGate - divineGate) * 0.5) return 'phoenix-blood-blade';
+  if (roll < mythicGate) return 'stormcloud-armor';
+  if (roll < mythicGate + (epicGate - mythicGate) * 0.4) return 'hundredfold-blade';
+  if (roll < mythicGate + (epicGate - mythicGate) * 0.7) return 'inkrain-sword';
   if (roll < epicGate) return 'twin-hooks';
   if (roll < rareGate * 0.35) return 'jade-token';
   if (roll < rareGate * 0.55) return 'meteor-whip';
@@ -321,16 +453,18 @@ export function rollAdventureGear(rng: { nextFloat: () => number }): string | nu
   if (roll < 0.02) return 'divine-xuan-sword';
   if (roll < 0.035) return 'divine-silk-armor';
   if (roll < 0.05) return 'divine-moon-pendant';
-  if (roll < 0.1) return 'twin-hooks';
-  if (roll < 0.14) return 'inkrain-sword';
-  if (roll < 0.2) return 'hundredfold-blade';
-  if (roll < 0.28) return 'sleeve-darts';
-  if (roll < 0.35) return 'jade-token';
-  if (roll < 0.42) return 'meteor-whip';
-  if (roll < 0.5) return 'cloud-boots';
-  if (roll < 0.62) return 'crescent-blade';
-  if (roll < 0.72) return 'iron-blade';
-  if (roll < 0.82) return 'bronze-spear';
-  if (roll < 0.9) return 'hunter-bow';
+  if (roll < 0.065) return 'phoenix-blood-blade';
+  if (roll < 0.075) return 'stormcloud-armor';
+  if (roll < 0.125) return 'twin-hooks';
+  if (roll < 0.165) return 'inkrain-sword';
+  if (roll < 0.225) return 'hundredfold-blade';
+  if (roll < 0.305) return 'sleeve-darts';
+  if (roll < 0.375) return 'jade-token';
+  if (roll < 0.445) return 'meteor-whip';
+  if (roll < 0.525) return 'cloud-boots';
+  if (roll < 0.645) return 'crescent-blade';
+  if (roll < 0.745) return 'iron-blade';
+  if (roll < 0.845) return 'bronze-spear';
+  if (roll < 0.925) return 'hunter-bow';
   return null;
 }

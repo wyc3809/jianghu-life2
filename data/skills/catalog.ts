@@ -39,8 +39,6 @@ export interface CombatMoveDef {
   defenseBreak?: number;
   /** 傷害吸血 0–1 */
   lifesteal?: number;
-  /** 適用距離：近身／中距／遠距／不限（缺省由 inferMoveRange 推斷） */
-  range?: 'close' | 'mid' | 'far' | 'any';
   description: string;
 }
 
@@ -188,7 +186,6 @@ export const DESPERATE_BURN_MOVE: CombatMoveDef = {
   qiCost: 0,
   power: 2.5,
   stance: 'shi',
-  range: 'any',
   description: '氣血垂危，燃盡真氣拚死一擊（威能 ×2.5），事後必留內傷。',
 };
 
@@ -199,7 +196,6 @@ export const DESPERATE_SURRENDER_MOVE: CombatMoveDef = {
   qiCost: 0,
   power: 0,
   stance: 'xu',
-  range: 'any',
   description: '氣血垂危，棄劍認輸——保住性命，名望受損。',
 };
 
@@ -219,19 +215,49 @@ export function isCombatActionMove(moveId: string): boolean {
 }
 
 /**
- * 實際冷卻回合：目錄 `cooldown` 可覆寫。
- * 外功攻擊招預設 1 回合；普通攻擊與未標 CD 的系統招（守／蓄／遁）除外。
- * 重招（威能 ≥1.75 或連擊 ≥3）預設 2 回合。
+ * 招式「份量分」：綜合威能、連擊、破防、控制（暈眩／迷目）、流血、耗敵內息、吸血
+ * 等所有特效算出一個總分，分數愈高代表招式愈強，理應等愈耐先可再用。
+ */
+function moveWeightScore(m: CombatMoveDef): number {
+  const power = m.power ?? 0;
+  const multiHit = m.multiHit ?? 1;
+  const pierce = m.pierce ?? 0;
+  const defenseBreak = m.defenseBreak ?? 0;
+  const stunChance = m.stunChance ?? 0;
+  const bleedChance = m.bleedChance ?? 0;
+  const bleedDamage = m.bleedDamage ?? 0;
+  const bleedTurns = m.bleedTurns ?? 1;
+  const qiDrain = m.qiDrain ?? 0;
+  const lifesteal = m.lifesteal ?? 0;
+  const applyBlind = m.applyBlind ?? 0;
+  return (
+    power * 10 +
+    (multiHit - 1) * 6 +
+    pierce * 12 +
+    defenseBreak * 1.2 +
+    stunChance * 14 +
+    bleedChance * bleedDamage * bleedTurns * 0.35 +
+    qiDrain * 0.3 +
+    lifesteal * 8 +
+    applyBlind * 6
+  );
+}
+
+/**
+ * 實際冷卻回合：普通攻擊同「行動」類（守／蓄／遁／運功／養神／止血）不入呢套邏輯，
+ * 行動類仍照目錄 `cooldown` 手動設定（缺省即 0）。
+ * 其餘外功攻擊招一律按 moveWeightScore 份量分，分做 1~5 回合 CD——份量愈重、CD愈長。
  */
 export function effectiveMoveCooldown(m: CombatMoveDef): number {
-  if (m.cooldown !== undefined && m.cooldown > 0) return m.cooldown;
   if (m.id === BASIC_STRIKE.id) return 0;
-  if (isCombatActionMove(m.id)) return 0;
-  if ((m.power ?? 0) > 0) {
-    if ((m.power ?? 0) >= 1.75 || (m.multiHit ?? 1) >= 3) return 2;
-    return 1;
-  }
-  return 0;
+  if (isCombatActionMove(m.id)) return m.cooldown ?? 0;
+  if ((m.power ?? 0) <= 0) return 0;
+  const score = moveWeightScore(m);
+  if (score < 15) return 1;
+  if (score < 19) return 2;
+  if (score < 23) return 3;
+  if (score < 27) return 4;
+  return 5;
 }
 
 export const SKILL_DEFS: Record<string, SkillDef> = buildCatalog();

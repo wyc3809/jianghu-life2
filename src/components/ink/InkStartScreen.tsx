@@ -73,7 +73,7 @@ export function InkStartScreen({ onStart, onContinue, resumeHint, onSeedDebug, o
               onOpenEditor();
             }}
           >
-            手機改事件 · 奇遇／結果
+            手機改內容 · 事件／裝備／結果
           </button>
         )}
         {onSeedDebug && (

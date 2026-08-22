@@ -123,7 +123,7 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
       <section className="ink-panel ink-attrs ink-tab-pane" aria-label="人物">
         <h3>人物</h3>
         <p className="ink-note">
-          {c.name} · {c.age}歲 · {stage}
+          {c.name} · {c.age}歲 · {stage} · 名望 {c.reputation}
           {lover ? ` · 眷屬${lover.name}` : ''}
         </p>
         <div className="ink-bitlife-list" role="list">

@@ -18,6 +18,7 @@ export const RARITY_SHORT: Record<GearRarity, string> = {
   fine: '良',
   rare: '珍',
   epic: '絕',
+  mythic: '曠',
   divine: '神',
 };
 
@@ -44,14 +45,23 @@ export function listGearAffixes(def: GearDef): GearAffixLine[] {
   if (c?.lifesteal) lines.push({ tier: 'magic', name: '吞血', text: `吸血${pct(c.lifesteal)}` });
   if (c?.bleedChance) lines.push({ tier: 'magic', name: '見血', text: `出血${pct(c.bleedChance)}` });
 
-  if (def.rarity === 'epic' || def.rarity === 'divine') {
-    const magicCount = lines.filter((l) => l.tier === 'magic').length;
-    if (magicCount >= 2) {
+  if (def.rarity === 'epic' || def.rarity === 'mythic' || def.rarity === 'divine') {
+    if (def.special) {
+      const chanceBit = def.special.chance ? `（${pct(def.special.chance)}機率）` : '';
       lines.push({
         tier: 'legendary',
-        name: def.rarity === 'divine' ? '神鑄' : '奇兵',
-        text: def.rarity === 'divine' ? '氣機非凡，似有靈性' : '江湖罕見之造',
+        name: def.special.name,
+        text: `${def.special.description}${chanceBit}`,
       });
+    } else {
+      const magicCount = lines.filter((l) => l.tier === 'magic').length;
+      if (magicCount >= 2) {
+        lines.push({
+          tier: 'legendary',
+          name: def.rarity === 'divine' ? '神鑄' : def.rarity === 'mythic' ? '曠世' : '奇兵',
+          text: '江湖罕見之造',
+        });
+      }
     }
   }
   return lines;
@@ -66,7 +76,7 @@ export function gearMagicPrefix(def: GearDef): string | undefined {
 /** 展示名：準心·舊鐵劍／墨雨劍 */
 export function displayGearName(def: GearDef): string {
   const prefix = gearMagicPrefix(def);
-  if (!prefix || def.rarity === 'epic' || def.rarity === 'divine') return def.name;
+  if (!prefix || def.rarity === 'epic' || def.rarity === 'mythic' || def.rarity === 'divine') return def.name;
   return `${prefix}·${def.name}`;
 }
 

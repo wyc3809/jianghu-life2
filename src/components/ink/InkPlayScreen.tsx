@@ -19,7 +19,7 @@ import {
   toggleInkAudioMuted,
 } from '../../audio/inkAudio';
 import { InkSettingsPanel, type TextScale } from './InkSettingsPanel';
-import { topTitles } from '@core/life/titles';
+import { titleTierColorClass, topTitle, topTitles } from '@core/life/titles';
 import { jianghuRank } from '@core/life/jianghuRank';
 import {
   isLearnSkillDeltaLine,
@@ -58,7 +58,6 @@ export function InkPlayScreen({ state }: Props) {
   const practice = useLifeStore((s) => s.practice);
   const combatMove = useLifeStore((s) => s.combatMove);
   const combatSetInternalMode = useLifeStore((s) => s.combatSetInternalMode);
-  const combatSetDistance = useLifeStore((s) => s.combatSetDistance);
   const combatResolveFoe = useLifeStore((s) => s.combatResolveFoe);
   const clearResult = useLifeStore((s) => s.clearResult);
   const lastResult = useLifeStore((s) => s.lastResult);
@@ -260,6 +259,7 @@ export function InkPlayScreen({ state }: Props) {
   const inkPlace = placeToInk(c.location);
 
   const nicknames = topTitles(state);
+  const leadTitle = topTitle(state);
   const rank = jianghuRank(state);
   const sceneBits = [
     'scroll-shell',
@@ -311,7 +311,14 @@ export function InkPlayScreen({ state }: Props) {
           <p className="ink-status-kicker">
             第{state.year}年 · {seasonLabel(month)}
           </p>
-          <h2 className="ink-name">{c.name}</h2>
+          <h2 className="ink-name">
+            {c.name}
+            {leadTitle && (
+              <span className={`ink-name-title ${titleTierColorClass(leadTitle.tier)}`}>
+                {leadTitle.label}
+              </span>
+            )}
+          </h2>
           <p className="ink-meta">
             {c.age}歲 · {stage}
             {c.location ? ` · ${c.location}` : ''}
@@ -647,7 +654,6 @@ export function InkPlayScreen({ state }: Props) {
           onMove={combatMove}
           onResolveFoe={combatResolveFoe}
           onSetInternalMode={combatSetInternalMode}
-          onSetDistance={combatSetDistance}
         />
       )}
 

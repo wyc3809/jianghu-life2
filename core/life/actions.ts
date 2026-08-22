@@ -88,7 +88,8 @@ const RARITY_RANK: Record<GearRarity, number> = {
   fine: 2,
   rare: 3,
   epic: 4,
-  divine: 5,
+  mythic: 5,
+  divine: 6,
 };
 
 /** 執行一項修煉／機緣結果（不扣本月修煉次數；不寫年譜） */

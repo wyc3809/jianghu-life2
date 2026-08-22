@@ -378,6 +378,15 @@ export interface LifeGameState {
   };
 }
 
+/** 裝備獨特效果的戰鬥形狀（實際定義在 data/equipment/catalog.ts 嘅 GearSpecialEffect） */
+export interface CombatGearSpecial {
+  kind: 'burst' | 'stun_proc' | 'revive';
+  name: string;
+  description: string;
+  chance?: number;
+  power?: number;
+}
+
 export interface CombatFighterState {
   name: string;
   hp: number;
@@ -403,6 +412,10 @@ export interface CombatFighterState {
   gearPierce?: number;
   gearLifesteal?: number;
   gearBleedChance?: number;
+  /** 已裝備嘅紫（epic）以上獨特效果（形狀對應 data/equipment/catalog.ts 嘅 GearSpecialEffect） */
+  gearSpecials?: CombatGearSpecial[];
+  /** 復活型特效（如金絲軟甲）本場戰鬥已用過 */
+  usedGearRevive?: boolean;
   /** 玩家體力（僅 isPlayer 時同步至角色） */
   stamina?: number;
   maxStamina?: number;
@@ -443,8 +456,6 @@ export interface PendingCombat {
   bossPhase2?: boolean;
   /** 玩家最近出招 id 歷史（連招系統用，最多 3 招） */
   moveHistory?: string[];
-  /** 交手距離：近身／中距／遠距，缺省為中距 */
-  distance?: 'close' | 'mid' | 'far';
   /** 最近一回合雙方架勢（虛／實／架），供架勢視覺化顯示 */
   lastPlayerStance?: 'xu' | 'shi' | 'jia';
   lastFoeStance?: 'xu' | 'shi' | 'jia';

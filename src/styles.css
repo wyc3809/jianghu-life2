@@ -1025,6 +1025,32 @@ body::before {
   text-rendering: geometricPrecision;
 }
 
+/* 全名右邊嘅最高稱號：按稀有度（tier）上色，白＜綠＜藍＜紫＜橙 */
+.ink-name-title {
+  margin-left: 0.5em;
+  font-family: var(--font-body, inherit);
+  font-size: 0.5em;
+  font-weight: var(--fw-ui, 600);
+  letter-spacing: 0.08em;
+  vertical-align: middle;
+}
+
+.ink-title-tier-1 {
+  color: var(--ink-mid);
+}
+.ink-title-tier-2 {
+  color: #3d5c4f;
+}
+.ink-title-tier-3 {
+  color: #3a4f7a;
+}
+.ink-title-tier-4 {
+  color: #6b3d6e;
+}
+.ink-title-tier-5 {
+  color: #9a6b1f;
+}
+
 .ink-meta {
   margin: 4px 0 0;
   font-size: var(--fs-caption);
@@ -1368,7 +1394,7 @@ body::before {
   letter-spacing: 0.06em;
 }
 
-/* Diablo 式稀有度色階（水墨紙面可讀） */
+/* 裝備稀有度色階（水墨紙面可讀）：白＜綠＜藍＜紫＜橙＜紅 */
 .ink-rarity-common {
   color: var(--ink-mid);
 }
@@ -1381,8 +1407,11 @@ body::before {
 .ink-rarity-epic {
   color: #6b3d6e;
 }
-.ink-rarity-divine {
+.ink-rarity-mythic {
   color: #9a6b1f;
+}
+.ink-rarity-divine {
+  color: var(--cinnabar, #a33a32);
 }
 
 .ink-rarity-tag {
@@ -1417,8 +1446,11 @@ body::before {
 .ink-gear-slot--epic {
   border-left-color: #6b3d6e;
 }
-.ink-gear-slot--divine {
+.ink-gear-slot--mythic {
   border-left-color: #9a6b1f;
+}
+.ink-gear-slot--divine {
+  border-left-color: var(--cinnabar, #a33a32);
 }
 .ink-gear-slot--empty {
   opacity: 0.72;
@@ -1480,8 +1512,11 @@ body::before {
 .ink-gear-card--epic {
   box-shadow: inset 3px 0 0 #6b3d6e;
 }
-.ink-gear-card--divine {
+.ink-gear-card--mythic {
   box-shadow: inset 3px 0 0 #9a6b1f;
+}
+.ink-gear-card--divine {
+  box-shadow: inset 3px 0 0 var(--cinnabar, #a33a32);
 }
 
 .ink-gear-card-head {
@@ -2966,10 +3001,6 @@ body::before {
   grid-template-columns: repeat(4, 1fr);
   gap: 6px;
   margin: 2px 0 10px;
-}
-
-.ink-combat-mode-bar--distance {
-  grid-template-columns: repeat(2, 1fr);
 }
 
 .ink-combat-desperate {
