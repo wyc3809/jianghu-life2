@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" width="900" height="320">
+  <!-- 水墨远山 · night -->
+  <rect width="900" height="320" fill="#F3EBDC"/>
+  <path d="M 0 320 L 0 280 L 0 254 L 90 299 L 180 257 L 270 295 L 360 221 L 450 288 L 540 230 L 630 298 L 720 258 L 810 286 L 900 228 L 900 320 Z" fill="#2A3530" opacity="0.15"/>
+  <path d="M 0 320 L 0 245 L 0 225 L 64 261 L 129 201 L 193 256 L 257 202 L 321 254 L 386 219 L 450 256 L 514 209 L 579 264 L 643 201 L 707 260 L 771 211 L 836 265 L 900 203 L 900 320 Z" fill="#1E2824" opacity="0.27"/>
+  <path d="M 0 320 L 0 210 L 0 190 L 50 228 L 100 182 L 150 222 L 200 197 L 250 220 L 300 178 L 350 221 L 400 178 L 450 217 L 500 194 L 550 223 L 600 178 L 650 225 L 700 193 L 750 229 L 800 175 L 850 227 L 900 194 L 900 320 Z" fill="#141A18" opacity="0.39"/>
+
+  <defs>
+    <linearGradient id="fog-night" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F3EBDC" stop-opacity="0.9"/>
+      <stop offset="40%" stop-color="#F3EBDC" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#F3EBDC" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="900" height="160.0" fill="url(#fog-night)"/>
+</svg>

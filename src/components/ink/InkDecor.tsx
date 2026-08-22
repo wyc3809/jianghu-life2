@@ -3,7 +3,7 @@ import type { InkPlace, InkSeason } from './sceneVariants';
 import { INK_SVG, sealSvgForText } from '../../ui/inkAssets';
 import { inkAiUrl } from '../../ui/inkAiCatalog';
 
-function InkInlineSvg({ className, markup }: { className?: string; markup: string }) {
+export function InkInlineSvg({ className, markup }: { className?: string; markup: string }) {
   return (
     <span
       className={className}
