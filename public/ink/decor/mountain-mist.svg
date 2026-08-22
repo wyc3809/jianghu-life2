@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" width="900" height="320">
+  <!-- 水墨远山 · mist -->
+  <rect width="900" height="320" fill="#F3EBDC"/>
+  <path d="M 0 320 L 0 280 L 0 250 L 90 289 L 180 224 L 270 296 L 360 223 L 450 297 L 540 255 L 630 289 L 720 255 L 810 296 L 900 230 L 900 320 Z" fill="#8A8278" opacity="0.15"/>
+  <path d="M 0 320 L 0 245 L 0 206 L 64 258 L 129 218 L 193 257 L 257 207 L 321 260 L 386 211 L 450 257 L 514 202 L 579 254 L 643 211 L 707 260 L 771 209 L 836 265 L 900 218 L 900 320 Z" fill="#6B6560" opacity="0.27"/>
+  <path d="M 0 320 L 0 210 L 0 181 L 50 229 L 100 179 L 150 229 L 200 188 L 250 223 L 300 196 L 350 223 L 400 192 L 450 224 L 500 198 L 550 228 L 600 196 L 650 216 L 700 192 L 750 220 L 800 188 L 850 228 L 900 184 L 900 320 Z" fill="#4A4540" opacity="0.39"/>
+
+  <defs>
+    <linearGradient id="fog-mist" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F3EBDC" stop-opacity="0.9"/>
+      <stop offset="40%" stop-color="#F3EBDC" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#F3EBDC" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="900" height="160.0" fill="url(#fog-mist)"/>
+</svg>

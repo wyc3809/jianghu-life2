@@ -14,6 +14,16 @@ import sealShengSvg from '../../public/ink/seals/seal-sheng.svg?raw';
 import sealZhongSvg from '../../public/ink/seals/seal-zhong.svg?raw';
 import sealYuanSvg from '../../public/ink/seals/seal-yuan.svg?raw';
 import sealJianghuSvg from '../../public/ink/seals/seal-jianghu.svg?raw';
+import sealComboSvg from '../../public/ink/seals/seal-招.svg?raw';
+import sealCriticalSvg from '../../public/ink/seals/seal-危.svg?raw';
+import sealFateSvg from '../../public/ink/seals/seal-命.svg?raw';
+import sealVictorySvg from '../../public/ink/seals/seal-勝.svg?raw';
+import auraTurtleSvg from '../../public/ink/decor/aura-turtle.svg?raw';
+import auraTigerSvg from '../../public/ink/decor/aura-tiger.svg?raw';
+import auraCraneSvg from '../../public/ink/decor/aura-crane.svg?raw';
+import auraSerpentSvg from '../../public/ink/decor/aura-serpent.svg?raw';
+import strokeGuardSvg from '../../public/ink/icons/stroke-guard.svg?raw';
+import strokeDodgeSvg from '../../public/ink/icons/stroke-dodge.svg?raw';
 
 /** Strip XML/doctype noise; keep inner svg element */
 export function cleanSvgMarkup(raw: string): string {
@@ -61,6 +71,16 @@ export const INK_SVG = {
   sealZhong: prepare(sealZhongSvg, 'szh'),
   sealYuan: prepare(sealYuanSvg, 'syu'),
   sealJianghu: prepare(sealJianghuSvg, 'sjh'),
+  sealCombo: prepare(sealComboSvg, 'scb'),
+  sealCritical: prepare(sealCriticalSvg, 'scr'),
+  sealFate: prepare(sealFateSvg, 'sfa'),
+  sealVictory: prepare(sealVictorySvg, 'svi'),
+  auraTurtle: prepare(auraTurtleSvg, 'atu'),
+  auraTiger: prepare(auraTigerSvg, 'ati'),
+  auraCrane: prepare(auraCraneSvg, 'acr'),
+  auraSerpent: prepare(auraSerpentSvg, 'ase'),
+  strokeGuard: prepare(strokeGuardSvg, 'stg2'),
+  strokeDodge: prepare(strokeDodgeSvg, 'std'),
 } as const;
 
 export type EventBannerKind = 'bridge' | 'rain-inn' | 'none';
@@ -82,6 +102,24 @@ export function eventBannerSvg(kind: EventBannerKind): string | null {
   if (kind === 'bridge') return INK_SVG.bannerBridge;
   if (kind === 'rain-inn') return INK_SVG.bannerRainInn;
   return null;
+}
+
+/** 內功模式 id → 呼吸光環 SVG（見 core/life/internalMode.ts 之 INTERNAL_MODES） */
+export function auraSvgForInternalModeId(id: string | null | undefined): string | null {
+  if (id === 'guixi') return INK_SVG.auraTurtle;
+  if (id === 'huxiao') return INK_SVG.auraTiger;
+  if (id === 'hexian') return INK_SVG.auraCrane;
+  if (id === 'shepan') return INK_SVG.auraSerpent;
+  return null;
+}
+
+/** 內功模式 id → 呼吸動畫 CSS class */
+export function auraClassForInternalModeId(id: string | null | undefined): string {
+  if (id === 'guixi') return 'ink-aura--turtle';
+  if (id === 'huxiao') return 'ink-aura--tiger';
+  if (id === 'hexian') return 'ink-aura--crane';
+  if (id === 'shepan') return 'ink-aura--serpent';
+  return '';
 }
 
 /** Map 命運印文字 → SVG seal markup；無對應則回 null（沿用字印） */

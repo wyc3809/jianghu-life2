@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" width="900" height="320">
+  <!-- 水墨远山 · bamboo -->
+  <rect width="900" height="320" fill="#F3EBDC"/>
+  <path d="M 0 320 L 0 280 L 0 254 L 90 292 L 180 232 L 270 292 L 360 226 L 450 286 L 540 236 L 630 289 L 720 231 L 810 300 L 900 227 L 900 320 Z" fill="#3D5C4F" opacity="0.15"/>
+  <path d="M 0 320 L 0 245 L 0 208 L 64 254 L 129 217 L 193 262 L 257 219 L 321 264 L 386 216 L 450 255 L 514 205 L 579 259 L 643 205 L 707 260 L 771 226 L 836 260 L 900 203 L 900 320 Z" fill="#2D4C3F" opacity="0.27"/>
+  <path d="M 0 320 L 0 210 L 0 179 L 50 226 L 100 175 L 150 219 L 200 190 L 250 227 L 300 178 L 350 223 L 400 184 L 450 220 L 500 191 L 550 218 L 600 177 L 650 221 L 700 187 L 750 227 L 800 181 L 850 230 L 900 179 L 900 320 Z" fill="#1E3C2F" opacity="0.39"/>
+
+  <defs>
+    <linearGradient id="fog-bamboo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F3EBDC" stop-opacity="0.9"/>
+      <stop offset="40%" stop-color="#F3EBDC" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#F3EBDC" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="900" height="160.0" fill="url(#fog-bamboo)"/>
+</svg>

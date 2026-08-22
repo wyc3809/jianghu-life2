@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- 龜息功 · 護體光環 -->
+  <defs>
+    <radialGradient id="turtle-aura" cx="50%" cy="50%" r="50%">
+      <stop offset="60%" stop-color="#4A6741" stop-opacity="0"/>
+      <stop offset="85%" stop-color="#4A6741" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#4A6741" stop-opacity="0.35"/>
+    </radialGradient>
+    <filter id="turtle-glow">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+  </defs>
+  <circle cx="100.0" cy="100.0" r="84.0" fill="none" stroke="#4A6741" 
+    stroke-width="3" opacity="0.25" filter="url(#turtle-glow)"/>
+  <circle cx="100.0" cy="100.0" r="76.0" fill="none" stroke="#4A6741" 
+    stroke-width="1.5" opacity="0.4"/>
+  <circle cx="100.0" cy="100.0" r="90.0" fill="url(#turtle-aura)"/>
+  <!-- 龟甲纹理暗示 -->
+  <path d="M 70.0 100.0 L 130.0 100.0 M 100.0 70.0 L 100.0 130.0" 
+    stroke="#4A6741" stroke-width="0.5" opacity="0.15"/>
+</svg>

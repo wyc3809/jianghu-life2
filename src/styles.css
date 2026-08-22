@@ -4985,10 +4985,23 @@ button.is-pressed,
   .ink-combat-brush--jia,
   .ink-combat--shock,
   .ink-bar-fill--ghost,
-  .ink-combat-beat-line--hit::before {
+  .ink-combat-beat-line--hit::before,
+  .ink-combo-burst,
+  .ink-combo-burst::before,
+  .ink-aura--turtle,
+  .ink-aura--tiger,
+  .ink-aura--crane,
+  .ink-aura--serpent,
+  .ink-combat-seal {
     animation: none !important;
     filter: none !important;
     transform: none !important;
+  }
+
+  .ink-combo-burst,
+  .ink-combo-burst::before,
+  .ink-combat-seal {
+    opacity: 1;
   }
   .ink-combat-fx {
     opacity: 1;
@@ -5014,10 +5027,23 @@ html[data-ink-motion='reduce'] .ink-combat-brush--xu,
 html[data-ink-motion='reduce'] .ink-combat-brush--jia,
 html[data-ink-motion='reduce'] .ink-combat--shock,
 html[data-ink-motion='reduce'] .ink-bar-fill--ghost,
-html[data-ink-motion='reduce'] .ink-combat-beat-line--hit::before {
+html[data-ink-motion='reduce'] .ink-combat-beat-line--hit::before,
+html[data-ink-motion='reduce'] .ink-combo-burst,
+html[data-ink-motion='reduce'] .ink-combo-burst::before,
+html[data-ink-motion='reduce'] .ink-aura--turtle,
+html[data-ink-motion='reduce'] .ink-aura--tiger,
+html[data-ink-motion='reduce'] .ink-aura--crane,
+html[data-ink-motion='reduce'] .ink-aura--serpent,
+html[data-ink-motion='reduce'] .ink-combat-seal {
   animation: none !important;
   filter: none !important;
   transform: none !important;
+}
+
+html[data-ink-motion='reduce'] .ink-combo-burst,
+html[data-ink-motion='reduce'] .ink-combo-burst::before,
+html[data-ink-motion='reduce'] .ink-combat-seal {
+  opacity: 1;
 }
 
 html[data-ink-motion='reduce'] .ink-combat-brush,
@@ -5613,3 +5639,233 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   }
 }
 
+
+/* ============================================================
+   水墨戰鬥素材包：連招印章／內功光環／招式筆觸／墨漬角飾
+   來源：使用者提供之 jianghu-visual-assets.zip（已按本專案色票調整）
+   ============================================================ */
+
+@keyframes inkComboPulse {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(4px);
+    filter: blur(2px);
+  }
+  25% {
+    opacity: 1;
+    transform: scale(1.02) translateY(0);
+    filter: blur(0);
+  }
+  60% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.95) translateY(-2px);
+    filter: blur(1px);
+  }
+}
+
+.ink-combo-burst {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  margin: 4px 0;
+  animation: inkComboPulse 1.8s ease-out forwards;
+  pointer-events: none;
+}
+
+.ink-combo-burst::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(163, 58, 50, 0.08) 30%,
+    rgba(163, 58, 50, 0.15) 50%,
+    rgba(163, 58, 50, 0.08) 70%,
+    transparent 100%
+  );
+  border-radius: 2px;
+  animation: inkComboPulse 1.8s ease-out forwards;
+}
+
+.ink-combo-burst__icon {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.ink-combo-burst__icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.ink-combo-burst__name {
+  font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--cinnabar);
+  letter-spacing: 0.14em;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== 內功模式 · 呼吸光環 ===== */
+
+@keyframes auraBreathe {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.03);
+  }
+}
+
+.ink-combat-aura {
+  position: absolute;
+  top: 50%;
+  right: -6px;
+  width: 84px;
+  height: 84px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ink-combat-aura svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.ink-aura--turtle {
+  animation: auraBreathe 4s ease-in-out infinite;
+}
+
+.ink-aura--tiger {
+  animation: auraBreathe 1.5s ease-in-out infinite;
+}
+
+.ink-aura--crane {
+  animation: auraBreathe 3s ease-in-out infinite;
+}
+
+.ink-aura--serpent {
+  animation: auraBreathe 2.5s ease-in-out infinite;
+}
+
+/* ===== 印章蓋下（沿用既有 sealStamp 關鍵影格）===== */
+
+.ink-combat-seal {
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  margin: 0 6px;
+  vertical-align: middle;
+  animation: sealStamp 0.6s cubic-bezier(0.2, 0.85, 0.25, 1) forwards;
+}
+
+.ink-combat-seal svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ===== 連招槽 ===== */
+
+.ink-combo-track {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  margin: 2px 0 4px;
+}
+
+.ink-combo-track__slot {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--ink-faint);
+  border-radius: 2px;
+  background: rgba(26, 26, 26, 0.03);
+  font-family: 'Noto Serif SC', serif;
+  font-size: 11px;
+  color: var(--ink-wash);
+}
+
+.ink-combo-track__slot--shi {
+  border-color: rgba(163, 58, 50, 0.4);
+  background: rgba(163, 58, 50, 0.08);
+  color: var(--cinnabar);
+}
+
+.ink-combo-track__slot--xu {
+  border-color: rgba(61, 92, 79, 0.4);
+  background: rgba(61, 92, 79, 0.08);
+  color: var(--jade);
+}
+
+.ink-combo-track__slot--jia {
+  border-color: rgba(138, 115, 85, 0.4);
+  background: rgba(138, 115, 85, 0.08);
+  color: var(--antique-gold);
+}
+
+/* ===== 招式行動筆觸圖示 ===== */
+
+.ink-action-stroke {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 4px;
+  vertical-align: middle;
+  opacity: 0.85;
+}
+
+.ink-action-stroke svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ===== 墨漬牆角裝飾 ===== */
+
+.ink-blot-decor {
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.ink-combat-bars-player {
+  position: relative;
+}
+
+.ink-blot-decor--corner-bl {
+  bottom: 0;
+  left: 0;
+  width: 200px;
+  height: 150px;
+  background: radial-gradient(ellipse at 20% 80%, rgba(26, 26, 26, 0.05) 0%, transparent 70%);
+}
+
+.ink-blot-decor--corner-tr {
+  top: 0;
+  right: 0;
+  width: 150px;
+  height: 100px;
+  background: radial-gradient(ellipse at 80% 20%, rgba(26, 26, 26, 0.035) 0%, transparent 60%);
+}
