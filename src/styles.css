@@ -4596,6 +4596,50 @@ button.is-pressed,
   }
 }
 
+/* 水墨粒子：劍氣（實）沿斜線飛散嘅細滴、掌風（虛）散開嘅霧點、架擋（架）沉墨小點 */
+.ink-combat-particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  animation: inkParticlePop 0.55s ease-out both;
+  animation-delay: var(--particle-delay, 0s);
+  transform: scale(var(--particle-scale, 1));
+}
+
+.ink-combat-particle--shi {
+  background: radial-gradient(circle, rgba(26, 26, 26, 0.55), transparent 70%);
+}
+
+.ink-combat-particle--xu {
+  width: 16px;
+  height: 16px;
+  background: radial-gradient(circle, rgba(42, 53, 48, 0.3), transparent 75%);
+  filter: blur(0.5px);
+}
+
+.ink-combat-particle--jia {
+  width: 7px;
+  height: 7px;
+  background: radial-gradient(circle, rgba(26, 26, 26, 0.5), transparent 70%);
+}
+
+@keyframes inkParticlePop {
+  0% {
+    opacity: 0;
+    transform: scale(calc(var(--particle-scale, 1) * 0.3));
+  }
+  35% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(calc(var(--particle-scale, 1) * 1.6)) translateY(-6px);
+  }
+}
+
 .ink-combat--shock {
   animation: inkCombatShock 0.1s ease-out;
 }
@@ -4663,7 +4707,8 @@ button.is-pressed,
     inset: auto;
     margin: 4px 0 6px;
   }
-  .ink-combat-brush {
+  .ink-combat-brush,
+  .ink-combat-particle {
     display: none;
   }
 }
@@ -4680,7 +4725,8 @@ html[data-ink-motion='reduce'] .ink-combat-beat-line--hit::before {
   transform: none !important;
 }
 
-html[data-ink-motion='reduce'] .ink-combat-brush {
+html[data-ink-motion='reduce'] .ink-combat-brush,
+html[data-ink-motion='reduce'] .ink-combat-particle {
   display: none;
 }
 
