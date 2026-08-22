@@ -79,7 +79,7 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
   const [combatRoleFilter, setCombatRoleFilter] = useState<CombatRoleFilter>('all');
   const [combatLogOpen, setCombatLogOpen] = useState(false);
   const [combatFiltersOpen, setCombatFiltersOpen] = useState(false);
-  const [combatActionsOpen, setCombatActionsOpen] = useState(true);
+  const [combatActionsOpen, setCombatActionsOpen] = useState(false);
   const [expandedMoveId, setExpandedMoveId] = useState<string | null>(null);
   const combatBeatRef = useRef<HTMLDivElement | null>(null);
   const lastCombatTurn = useRef<number | null>(null);
@@ -91,7 +91,7 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
     setCombatRoleFilter('all');
     setCombatLogOpen(false);
     setCombatFiltersOpen(false);
-    setCombatActionsOpen(true);
+    setCombatActionsOpen(false);
     setExpandedMoveId(null);
   }, [combat.id]);
 
