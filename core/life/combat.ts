@@ -45,6 +45,7 @@ import {
   stanceDamageMult,
 } from './moveStance';
 import { gainWeaponMastery, weaponSynergyBoost } from './weaponMastery';
+import { applyCombatOutcomeRank } from './jianghuRank';
 
 export type CombatFoeDisposition = 'kill' | 'release' | 'stun';
 
@@ -438,6 +439,7 @@ function finishCombatWin(state: LifeGameState, dispositionLabel?: CombatFoeDispo
   }
 
   lines.push(...syncAchievements(state));
+  lines.push(...applyCombatOutcomeRank(state, true, combat.foePower));
 
   const chronicleExtra =
     dispositionLabel === 'kill'
@@ -506,6 +508,8 @@ function finishCombat(state: LifeGameState, won: boolean): string[] {
   } else {
     c.health = Math.max(1, c.health);
   }
+
+  lines.push(...applyCombatOutcomeRank(state, false, combat.foePower));
 
   combat.phase = 'ended';
   combat.log.push(...lines);

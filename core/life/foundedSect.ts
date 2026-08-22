@@ -4,9 +4,10 @@ import { randomChineseName } from '@core/ids';
 import { rankName, rollAdvanceNeed } from './martialRanks';
 import { pushChronicle } from './chronicle';
 import { syncRngFromState, snapshotRng } from './gameState';
+import { applyAchievementRankBonus } from './jianghuRank';
 
 export const FOUND_SECT_MIN_AGE = 30;
-export const FOUND_SECT_MIN_MARTIAL = 80;
+export const FOUND_SECT_MIN_MARTIAL = 300;
 export const FOUND_SECT_MIN_REPUTATION = 100;
 export const FOUND_SECT_COST = 200;
 export const RECRUIT_COST = 20;
@@ -45,6 +46,7 @@ export function foundSect(state: LifeGameState, sectName: string): string[] {
   };
   c.flags.founded_sect = true;
   const lines = [`你於${state.year}年開山立派，門號「${name}」，自此江湖上又添一支傳承。`];
+  lines.push(...applyAchievementRankBonus(state, 400));
   pushChronicle(state, lines);
   snapshotRng(state);
   return lines;
@@ -132,6 +134,7 @@ function advanceDisciple(
     sect.fame += 15;
     state.character.reputation += 10;
     lines.push(`「${disciple.name}」學成出師，下山行走江湖，為「${sect.name}」添了一段佳話。`);
+    lines.push(...applyAchievementRankBonus(state, 200));
   }
   return lines;
 }
@@ -176,12 +179,4 @@ export function tickFoundedSect(state: LifeGameState): string[] {
     }
   }
   return lines;
-}
-
-/** 門派聲望轉化做江湖排名分數（供 jianghuRank.ts 使用） */
-export function foundedSectScore(state: LifeGameState): number {
-  const sect = state.foundedSect;
-  if (!sect) return 0;
-  const graduated = sect.disciples.filter((d) => d.status === 'graduated').length;
-  return sect.fame * 8 + graduated * 300;
 }

@@ -1,5 +1,6 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getSectContent, sectStandingName } from '@data/content/packs';
+import { applyAchievementRankBonus } from './jianghuRank';
 
 /** 稱號戰鬥加成——同裝備／武學被動同一套疊加邏輯，套用時只取「最強 3 個」總和 */
 export type TitleBonus = {
@@ -238,15 +239,20 @@ function resolveLabel(rule: TitleDef, state: LifeGameState): string {
 /** 每月檢核：新達成的稱號寫入永久紀錄，回傳給年譜的新稱號提示句 */
 export function syncTitles(state: LifeGameState): string[] {
   const have = new Set(readTitleIds(state));
-  const gained: string[] = [];
+  const gained: Array<{ label: string; tier: number }> = [];
   for (const rule of TITLE_RULES) {
     if (have.has(rule.id)) continue;
     if (!rule.test(state)) continue;
     have.add(rule.id);
-    gained.push(resolveLabel(rule, state));
+    gained.push({ label: resolveLabel(rule, state), tier: rule.tier });
   }
   writeTitleIds(state, [...have]);
-  return gained.map((label) => `江湖上開始有人稱你「${label}」。`);
+  const lines: string[] = [];
+  for (const g of gained) {
+    lines.push(`江湖上開始有人稱你「${g.label}」。`);
+    lines.push(...applyAchievementRankBonus(state, g.tier * 30));
+  }
+  return lines;
 }
 
 /** 已達成的全部稱號（依 tier 由高到低排序），含動態文案（如門派地位會隨升遷更新） */

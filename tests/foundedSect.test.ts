@@ -3,7 +3,6 @@ import {
   canFoundSect,
   canRecruitDisciple,
   foundSect,
-  foundedSectScore,
   recruitDisciple,
   teachDisciple,
   tickFoundedSect,
@@ -14,7 +13,7 @@ import {
   RECRUIT_COST,
 } from '../core/life/foundedSect';
 import { allTitles, syncTitles } from '../core/life/titles';
-import { computeJianghuScore } from '../core/life/jianghuRank';
+import { JIANGHU_RANK_START, jianghuRank } from '../core/life/jianghuRank';
 import { createNewLife } from '../core/life/gameState';
 import { initRng } from '../core/random';
 import type { LifeGameState } from '../interfaces/lifeEngine';
@@ -181,27 +180,29 @@ describe('foundedSect: monthly tick', () => {
 });
 
 describe('foundedSect: ranking + title integration', () => {
-  it('foundedSectScore reflects fame and graduated disciple count', () => {
+  it('founding a sect grants a one-time jianghu rank improvement', () => {
     initRng(14);
     const state = createNewLife(14);
-    expect(foundedSectScore(state)).toBe(0);
+    expect(jianghuRank(state)).toBe(JIANGHU_RANK_START);
     qualifyFounder(state);
     foundSect(state, '青雲門');
-    state.foundedSect!.fame = 10;
-    const scoreBefore = foundedSectScore(state);
-    recruitDisciple(state);
-    state.foundedSect!.disciples[0]!.status = 'graduated';
-    expect(foundedSectScore(state)).toBeGreaterThan(scoreBefore);
+    expect(jianghuRank(state)).toBeLessThan(JIANGHU_RANK_START);
   });
 
-  it('founding and graduating disciples raises the overall jianghu score', () => {
+  it('a disciple graduating grants a further one-time rank improvement', () => {
     initRng(15);
     const state = createNewLife(15);
-    const before = computeJianghuScore(state);
     qualifyFounder(state);
     foundSect(state, '青雲門');
-    state.foundedSect!.fame = 20;
-    expect(computeJianghuScore(state)).toBeGreaterThan(before);
+    const afterFounding = jianghuRank(state);
+    recruitDisciple(state);
+    const d = state.foundedSect!.disciples[0]!;
+    for (let rank = 0; rank < 3; rank++) {
+      d.advanceNeed = 0.01;
+      teachDisciple(state, d.id);
+    }
+    expect(d.status).toBe('graduated');
+    expect(jianghuRank(state)).toBeLessThan(afterFounding);
   });
 
   it('grants 開山祖師 once founded, and 桃李滿門 once 3 disciples graduate', () => {

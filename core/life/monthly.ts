@@ -8,7 +8,6 @@ import { tickMonthlyEconomy } from './economy';
 import { tickSectMonth } from './sectLife';
 import { syncTitles } from './titles';
 import { syncAchievements } from './achievements';
-import { syncJianghuRank } from './jianghuRank';
 import { tickFoundedSect } from './foundedSect';
 import { pushChronicle } from './chronicle';
 import { tickBonds } from './bonds';
@@ -151,7 +150,6 @@ export function simulateMonthBody(state: LifeGameState): void {
     ...tickFoundedSect(state),
     ...syncTitles(state),
     ...syncAchievements(state),
-    ...syncJianghuRank(state),
   ];
   if (monthBits.length) pushChronicle(state, monthBits);
 
