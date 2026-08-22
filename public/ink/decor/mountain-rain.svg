@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" width="900" height="320">
+  <!-- 水墨远山 · rain -->
+  <rect width="900" height="320" fill="#F3EBDC"/>
+  <path d="M 0 320 L 0 280 L 0 243 L 90 298 L 180 246 L 270 296 L 360 239 L 450 291 L 540 224 L 630 299 L 720 238 L 810 292 L 900 252 L 900 320 Z" fill="#4A4540" opacity="0.15"/>
+  <path d="M 0 320 L 0 245 L 0 202 L 64 251 L 129 229 L 193 250 L 257 226 L 321 251 L 386 208 L 450 263 L 514 227 L 579 253 L 643 227 L 707 265 L 771 199 L 836 265 L 900 205 L 900 320 Z" fill="#3A3530" opacity="0.27"/>
+  <path d="M 0 320 L 0 210 L 0 191 L 50 230 L 100 183 L 150 227 L 200 190 L 250 224 L 300 184 L 350 216 L 400 190 L 450 229 L 500 175 L 550 225 L 600 187 L 650 227 L 700 197 L 750 230 L 800 195 L 850 225 L 900 190 L 900 320 Z" fill="#2A2520" opacity="0.39"/>
+
+  <defs>
+    <linearGradient id="fog-rain" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F3EBDC" stop-opacity="0.9"/>
+      <stop offset="40%" stop-color="#F3EBDC" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#F3EBDC" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="900" height="160.0" fill="url(#fog-rain)"/>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- 掌招笔触 -->
+  <circle cx="32" cy="28" r="14" stroke="#1A1A1A" stroke-width="2.5" fill="none" opacity="0.8"/>
+  <path d="M 32 14 L 32 42" stroke="#1A1A1A" stroke-width="2" opacity="0.6"/>
+  <path d="M 18 28 L 46 28" stroke="#1A1A1A" stroke-width="2" opacity="0.6"/>
+  <text x="32" y="58" text-anchor="middle" font-family="'Noto Serif SC', serif" 
+    font-size="10" fill="#8A8278">掌</text>
+</svg>

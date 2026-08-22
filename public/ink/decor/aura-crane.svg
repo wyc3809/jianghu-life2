@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- 鶴翔勁 · 輕靈光環 -->
+  <defs>
+    <radialGradient id="crane-aura" cx="50%" cy="50%" r="50%">
+      <stop offset="50%" stop-color="#5B7C99" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#5B7C99" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="crane-soft">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+  <ellipse cx="100.0" cy="100.0" rx="90.0" ry="70.0" 
+    fill="url(#crane-aura)" filter="url(#crane-soft)"/>
+  <!-- 羽毛飘带 -->
+  <path d="M 65.0 100.0 Q 80.0 85.0 95.0 95.0" 
+    stroke="#5B7C99" stroke-width="1.5" fill="none" opacity="0.25" stroke-linecap="round"/>
+  <path d="M 135.0 100.0 Q 120.0 115.0 105.0 105.0" 
+    stroke="#5B7C99" stroke-width="1.5" fill="none" opacity="0.25" stroke-linecap="round"/>
+  <circle cx="100.0" cy="100.0" r="16.0" fill="#5B7C99" opacity="0.15"/>
+</svg>

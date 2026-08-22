@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- 虎嘯訣 · 殺意光環 -->
+  <defs>
+    <radialGradient id="tiger-aura" cx="50%" cy="50%" r="50%">
+      <stop offset="40%" stop-color="#8B2500" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#8B2500" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="100.0" cy="100.0" r="80.0" fill="url(#tiger-aura)"/>
+  <!-- 放射爪痕 -->
+  <path d="M 100.0 55.0 L 92.0 75.0 M 100.0 55.0 L 108.0 75.0" 
+    stroke="#8B2500" stroke-width="2" opacity="0.3" stroke-linecap="round"/>
+  <path d="M 140.0 85.0 L 122.0 92.0 M 140.0 85.0 L 125.0 105.0" 
+    stroke="#8B2500" stroke-width="2" opacity="0.25" stroke-linecap="round"/>
+  <path d="M 60.0 85.0 L 78.0 92.0 M 60.0 85.0 L 75.0 105.0" 
+    stroke="#8B2500" stroke-width="2" opacity="0.25" stroke-linecap="round"/>
+  <circle cx="100.0" cy="100.0" r="24.0" fill="#8B2500" opacity="0.2"/>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" width="400" height="200">
+  <!-- 墨渍装饰 · 角落晕染 -->
+  <defs>
+    <radialGradient id="ink-blot-1" cx="30%" cy="70%" r="60%">
+      <stop offset="0%" stop-color="#1A1A1A" stop-opacity="0.12"/>
+      <stop offset="50%" stop-color="#1A1A1A" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#1A1A1A" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="ink-blot-2" cx="80%" cy="20%" r="50%">
+      <stop offset="0%" stop-color="#1A1A1A" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#1A1A1A" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="ink-blur">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+  </defs>
+  <!-- 左下角大墨渍 -->
+  <ellipse cx="60" cy="160" rx="120" ry="80" fill="url(#ink-blot-1)" filter="url(#ink-blur)"/>
+  <!-- 右上角小墨渍 -->
+  <ellipse cx="340" cy="50" rx="80" ry="50" fill="url(#ink-blot-2)" filter="url(#ink-blur)"/>
+  <!-- 飞白笔触 -->
+  <path d="M 20 180 Q 80 160 150 175 T 280 165" stroke="#1A1A1A" stroke-width="1.5" 
+    fill="none" opacity="0.08" stroke-linecap="round"/>
+  <path d="M 350 30 Q 320 50 280 40 T 200 45" stroke="#1A1A1A" stroke-width="1" 
+    fill="none" opacity="0.06" stroke-linecap="round"/>
+</svg>
