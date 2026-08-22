@@ -46,6 +46,7 @@ import {
 } from './moveStance';
 import { gainWeaponMastery, weaponSynergyBoost } from './weaponMastery';
 import { applyCombatOutcomeRank } from './jianghuRank';
+import { checkCombo, pushComboHistory } from './comboSystem';
 
 export type CombatFoeDisposition = 'kill' | 'release' | 'stun';
 
@@ -647,16 +648,65 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
         lines.push(masteryLine);
         combat.log.push(masteryLine);
       }
+
+      // 連招偵測：出招後先計入歷史，再核對最近幾招是否合乎套路
+      combat.moveHistory = pushComboHistory(combat.moveHistory ?? [], move.id);
+      const historyMoves = combat.moveHistory
+        .map((id) => findMove(state, id))
+        .filter((m): m is CombatMoveDef => Boolean(m));
+      const combo = checkCombo(historyMoves);
+
       const powerMult = (sid ? rankPowerMult(rank) : 1) * wpn.power;
+      let comboStanceMult = playerStanceMult;
+      let effectiveMove = move;
+      let savedFoeEvasion: number | null = null;
+      if (combo) {
+        const eff = combo.pattern.effect;
+        comboStanceMult *= eff.damageMult ?? 1;
+        if (eff.critChance && rng.chance(eff.critChance)) comboStanceMult *= 1.5;
+        if (eff.pierceBonus || eff.stunChance || eff.bleedDamage) {
+          effectiveMove = {
+            ...move,
+            pierce: Math.min(0.85, (move.pierce ?? 0) + (eff.pierceBonus ?? 0)),
+            stunChance: Math.max(move.stunChance ?? 0, eff.stunChance ?? 0),
+            bleedChance: eff.bleedDamage ? Math.max(move.bleedChance ?? 0, 0.6) : move.bleedChance,
+            bleedDamage: eff.bleedDamage ? Math.max(move.bleedDamage ?? 0, eff.bleedDamage) : move.bleedDamage,
+            bleedTurns: eff.bleedTurns ? Math.max(move.bleedTurns ?? 0, eff.bleedTurns) : move.bleedTurns,
+          };
+        }
+        if (eff.ignoreEvasion) {
+          savedFoeEvasion = combat.foe.evasion;
+          combat.foe.evasion = 0;
+        }
+        if (eff.reflectBonus) {
+          combat.player.reflect = Math.min(0.5, combat.player.reflect + eff.reflectBonus);
+        }
+        lines.push(combo.pattern.announce);
+        combat.log.push(combo.pattern.announce);
+        combat.moveHistory = []; // 觸發後清空，防止無限疊加
+      }
+
       const strikeLines = resolveStrike(
         combat.player,
         combat.foe,
-        move,
+        effectiveMove,
         rng,
         powerMult,
         wpn.hit,
-        playerStanceMult,
+        comboStanceMult,
       );
+      if (savedFoeEvasion !== null) combat.foe.evasion = savedFoeEvasion;
+      if (combo) {
+        const eff = combo.pattern.effect;
+        if (eff.healSelf) {
+          combat.player.hp = clamp(combat.player.hp + eff.healSelf, 0, combat.player.maxHp);
+          strikeLines.push(`連招餘韻：你回復 ${eff.healSelf} 點氣血。`);
+        }
+        if (eff.qiSelf) {
+          combat.player.qi = clamp(combat.player.qi + eff.qiSelf, 0, combat.player.maxQi);
+          strikeLines.push(`連招餘韻：你回復 ${eff.qiSelf} 點內力。`);
+        }
+      }
       lines.push(...strikeLines);
       combat.log.push(...strikeLines);
       setMoveCooldown(combat, move);

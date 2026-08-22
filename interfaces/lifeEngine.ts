@@ -435,6 +435,8 @@ export interface PendingCombat {
   foePower?: 'weak' | 'normal' | 'strong' | 'boss';
   /** 首領二階段是否已觸發 */
   bossPhase2?: boolean;
+  /** 玩家最近出招 id 歷史（連招系統用，最多 3 招） */
+  moveHistory?: string[];
 }
 
 export const lifeCharacterSchema = z.object({
