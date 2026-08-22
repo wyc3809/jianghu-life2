@@ -584,10 +584,10 @@ describe('life event engine', () => {
     expect(sanitizePlayerLine('習得 skill_foo 與 None')).not.toMatch(/skill_foo|None/i);
     expect(sanitizePlayerLine('閱歷加深（courage）[object Object]')).not.toMatch(/courage|object Object/i);
     expect(sanitizePlayerLine('閱歷加深（courage）')).toMatch(/膽識|閱歷/);
-    expect(mergeDeltaLines(['氣血-11', '氣血-5', '氣血-11', '名望-2', '名望＋5', '俠+++', '俠++', '傷勢', '傷勢'])).toEqual([
+    expect(mergeDeltaLines(['氣血-11', '氣血-5', '氣血-11', '名望-2', '名望＋5', '俠↑↑↑', '俠↑↑', '傷勢', '傷勢'])).toEqual([
       '氣血-27',
       '名望＋3',
-      '俠+++++',
+      '俠↑↑↑',
       '傷勢',
     ]);
     expect(sanitizePlayerLines(['銀兩－11', '銀兩-3', '武學＋2', '武學-2'])).toEqual(['銀兩-14']);
@@ -635,6 +635,18 @@ describe('life event engine', () => {
     expect(parted.story).not.toMatch(/內息\s*[＋+]?\s*\d|內力上限\s*[＋+]?\s*\d/);
     expect(parted.deltas.some((d) => /內息＋\d+/.test(d))).toBe(true);
     expect(parted.deltas.some((d) => /內力上限＋\d+/.test(d))).toBe(true);
+  });
+
+  it('world effect produces one 天下風聲 delta line, not a bare duplicate', async () => {
+    // Regression: effects.ts used to push both the prefixed "天下風聲：秩序＋1"
+    // line (into logs) AND the bare "秩序＋1" bit (into deltas). Because the two
+    // strings differ, mergeOutcomePresentation's same-string dedup couldn't
+    // catch it, so the result chip list showed the same change twice.
+    const { applyEffects } = await import('../core/life/effects');
+    const state = createNewLife(5);
+    const applied = applyEffects(state, [{ type: 'world', delta: { order: 1 } }]);
+    expect(applied.logs).toEqual(['天下風聲：秩序＋1']);
+    expect(applied.deltas).toEqual([]);
   });
 
   it('pack outcomes never leak English paths or [object Object]', async () => {
@@ -895,14 +907,16 @@ describe('life event engine', () => {
     expect(births).toBeGreaterThanOrEqual(0);
   });
 
-  it('nature delta chips use 狂++ style', async () => {
+  it('nature delta chips use 狂↑↑ arrow style, capped at 3', async () => {
     const { formatNatureDeltaMark, applyNatureDelta } = await import('../core/life/nature');
-    expect(formatNatureDeltaMark('kuang', 2)).toBe('狂++');
-    expect(formatNatureDeltaMark('xia', -2)).toBe('俠--');
-    expect(formatNatureDeltaMark('e', 1)).toBe('惡+');
+    expect(formatNatureDeltaMark('kuang', 2)).toBe('狂↑↑');
+    expect(formatNatureDeltaMark('xia', -2)).toBe('俠↓↓');
+    expect(formatNatureDeltaMark('e', 1)).toBe('惡↑');
+    expect(formatNatureDeltaMark('xia', 7)).toBe('俠↑↑↑');
+    expect(formatNatureDeltaMark('e', -9)).toBe('惡↓↓↓');
     const state = createNewLife(3);
     const lines = applyNatureDelta(state.character, { kuang: 2, xia: -1 });
-    expect(lines).toEqual(['俠-', '狂++']);
+    expect(lines).toEqual(['俠↓', '狂↑↑']);
   });
 
   it('nature 俠邪狂惡 shifts with choices and gates sects/encounters', async () => {
@@ -1242,16 +1256,19 @@ describe('life event engine', () => {
 
   it('narrate overrides replace catalog templates', async () => {
     const { lookupNarrateOverride, isTemplateNarrate } = await import('../data/events/narrateOverrides');
-    const { applyChoice, getEventById, fullCatalog } = await import('../core/life/eventEngine');
+    const { getEventById, fullCatalog } = await import('../core/life/eventEngine');
+    const { getChoiceResultNarrate } = await import('../core/life/resultNarrate');
     const text = lookupNarrateOverride('find_coin', 'keep');
     expect(text).toBeTruthy();
     expect(isTemplateNarrate(text!)).toBe(false);
-    initRng(3);
-    const state = createNewLife(3);
+    // getChoiceResultNarrate is the deterministic 順遂(fair)-branch lookup the
+    // editor also uses — test it directly rather than via applyChoice, since
+    // applyChoice's feedback now depends on which of 順遂／波折／事與願違 the
+    // RNG rolls (story follows the actually-picked branch; see that fix).
     const ev = getEventById(fullCatalog(), 'find_coin')!;
-    const result = applyChoice(state, ev, 'keep');
-    expect(result.feedback).toContain('銅錢');
-    expect(result.feedback).not.toMatch(/就「路拾銅錢」一事/);
+    const resolved = getChoiceResultNarrate(ev, 'keep');
+    expect(resolved).toContain('銅錢');
+    expect(resolved).not.toMatch(/就「路拾銅錢」一事/);
   });
 
   it('foe AI styles differ by name and runtime view marks pack', async () => {

@@ -23,10 +23,11 @@ function clamp(n: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, n));
 }
 
-/** 心性增量顯示：狂++、俠--（次數＝變化量） */
+/** 心性增量顯示：狂↑↑、俠↓（箭嘴數＝變化量，最多 3 個，避免變化大時一整排符號洗版） */
 export function formatNatureDeltaMark(attr: NatureAttr, delta: number): string {
   if (!delta) return '';
-  const mark = (delta > 0 ? '+' : '-').repeat(Math.abs(delta));
+  const count = Math.min(3, Math.abs(delta));
+  const mark = (delta > 0 ? '↑' : '↓').repeat(count);
   return `${natureLabels[attr]}${mark}`;
 }
 

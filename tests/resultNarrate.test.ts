@@ -67,9 +67,31 @@ describe('result narrate aligns editor and page-flip', () => {
     const expected = draft.choices?.delay?.narrate;
     expect(expected).toBeTruthy();
     const ev = fullCatalog().find((e) => e.id === 'jy_rival_letter')!;
-    const state = createNewLife(9);
+    // seed 2 rolls the 順遂 (fair) branch for this choice — feedback should
+    // only match the editor narrate when the fair branch is actually picked;
+    // 波折／事與願違 branches carry their own contextual text (see the
+    // "story text follows the rolled branch" fix in applyChoice).
+    const state = createNewLife(2);
     const result = applyChoice(state, ev, 'delay');
     expect(result.feedback).toBe(expected);
+  });
+
+  it('波折／事與願違 branches show their own narrate, not the 順遂 text', () => {
+    // Regression: applyChoice used to always overwrite the picked outcome's
+    // narrate with the 順遂(fair) branch's editor text, so a bad-luck roll on
+    // a good choice still displayed a purely positive story while applying
+    // negative numeric effects underneath. Now the story must follow whatever
+    // branch actually got picked.
+    const raw = getRawEventById('jy_rival_letter')!;
+    const draft = draftPatchFromEvent(raw);
+    const fairExpected = draft.choices?.delay?.narrate;
+    expect(fairExpected).toBeTruthy();
+    const ev = fullCatalog().find((e) => e.id === 'jy_rival_letter')!;
+    // seed 1 rolls a non-fair (波折/事與願違) branch for this choice
+    const state = createNewLife(1);
+    const result = applyChoice(state, ev, 'delay');
+    expect(result.feedback).not.toBe(fairExpected);
+    expect(result.feedback).toBe('「回帖改期」扯破了他的面巾。底下是張生臉——你反倒愣了愣。');
   });
 
   it('no catalog.ts choice leaks the raw template narrate to the player', () => {
