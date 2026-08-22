@@ -443,6 +443,9 @@ export interface PendingCombat {
   moveHistory?: string[];
   /** 交手距離：近身／中距／遠距，缺省為中距 */
   distance?: 'close' | 'mid' | 'far';
+  /** 最近一回合雙方架勢（虛／實／架），供架勢視覺化顯示 */
+  lastPlayerStance?: 'xu' | 'shi' | 'jia';
+  lastFoeStance?: 'xu' | 'shi' | 'jia';
 }
 
 export const lifeCharacterSchema = z.object({

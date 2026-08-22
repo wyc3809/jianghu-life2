@@ -589,6 +589,8 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
   const playerStanceMult = stanceDamageMult(playerStance, foeStance);
   const foeStanceMult = stanceDamageMult(foeStance, playerStance);
   const distance = combat.distance ?? 'mid';
+  combat.lastPlayerStance = playerStance;
+  combat.lastFoeStance = foeStance;
 
   const reveal = `對勢：你「${MOVE_STANCE_LABEL[playerStance]}」對 ${combat.foe.name}「${MOVE_STANCE_LABEL[foeStance]}」（敵出「${enemyMove.name}」）。`;
   lines.push(reveal);

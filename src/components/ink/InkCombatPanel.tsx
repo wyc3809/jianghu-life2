@@ -8,7 +8,7 @@ import {
   type CombatVitalsSnap,
 } from '@core/life/combatInkFx';
 import { InkBarWithGhost, InkCombatFxLayer, useInkCombatFxQueue } from './InkCombatFx';
-import { MOVE_STANCE_LABEL, resolveMoveStance, type MoveStance } from '@core/life/moveStance';
+import { MOVE_STANCE_LABEL, resolveMoveStance, stanceBeats, type MoveStance } from '@core/life/moveStance';
 import {
   COMBAT_TECHNIQUE_ROLES,
   combatMoveRole,
@@ -193,6 +193,37 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
           </span>
         </p>
         <h3>交手 · {combat.foe.name}</h3>
+        {combat.lastPlayerStance && combat.lastFoeStance && (
+          <div
+            key={`stance-${combat.turn}`}
+            className="ink-combat-stance-row"
+            aria-label="雙方架勢"
+          >
+            <span
+              className={`ink-combat-stance-stamp ink-combat-stance-stamp--${
+                stanceBeats(combat.lastPlayerStance, combat.lastFoeStance)
+                  ? 'win'
+                  : stanceBeats(combat.lastFoeStance, combat.lastPlayerStance)
+                    ? 'lose'
+                    : 'neutral'
+              }`}
+            >
+              你｜{MOVE_STANCE_LABEL[combat.lastPlayerStance]}
+            </span>
+            <span className="ink-combat-stance-vs">對</span>
+            <span
+              className={`ink-combat-stance-stamp ink-combat-stance-stamp--${
+                stanceBeats(combat.lastFoeStance, combat.lastPlayerStance)
+                  ? 'win'
+                  : stanceBeats(combat.lastPlayerStance, combat.lastFoeStance)
+                    ? 'lose'
+                    : 'neutral'
+              }`}
+            >
+              {combat.foe.name}｜{MOVE_STANCE_LABEL[combat.lastFoeStance]}
+            </span>
+          </div>
+        )}
         <div className="ink-combat-bars">
           <div>
             <div className="ink-vitals-label">
