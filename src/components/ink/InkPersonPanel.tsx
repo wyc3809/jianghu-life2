@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { LifeGameState } from '@interfaces/lifeEngine';
+import { inkAiUrl, type InkAiAssetId } from '../../ui/inkAiCatalog';
 import {
   natureKeys,
   natureLabels,
@@ -74,26 +75,30 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
   const nicknames = allTitles(state).map((t) => t.label);
 
   if (view === 'main') {
-    const rows: { id: PersonView; label: string; hint: string }[] = [
+    const rows: { id: PersonView; label: string; hint: string; icon?: InkAiAssetId }[] = [
       {
         id: 'attrs',
         label: '五維心性',
         hint: `${wuxiaAttributeLabels.genGu}${c.attributes.genGu} · 俠${nature.xia}`,
+        icon: 'motif-jade',
       },
       {
         id: 'skills',
         label: '武學',
         hint: c.skills.length ? `已習 ${c.skills.length} 門` : '尚未習武',
+        icon: 'motif-scroll',
       },
       {
         id: 'gear',
         label: '裝備',
         hint: `戰意 ${combatPowerScore(c)} · 庫中 ${gearIds.length}`,
+        icon: 'motif-sword',
       },
       {
         id: 'genealogy',
         label: '族譜',
         hint: `${genealogy.clanLabel} · 第${genealogy.generationIndex}世`,
+        icon: 'motif-mountain-gate',
       },
       {
         id: 'people',
@@ -101,11 +106,13 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
         hint: lover
           ? `眷屬 · 子女 ${c.childrenCount ?? 0}`
           : `故人 ${known.length} · 子女 ${c.childrenCount ?? 0}`,
+        icon: 'motif-lantern',
       },
       {
         id: 'grudges',
         label: '恩怨簿',
         hint: grudges.length ? `${grudges.length} 樁未了` : '尚無舊怨',
+        icon: 'motif-umbrella',
       },
       {
         id: 'achievements',
@@ -137,6 +144,17 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
                 onView(row.id);
               }}
             >
+              {row.icon ? (
+                <img
+                  className="ink-row-icon"
+                  src={inkAiUrl(row.icon)}
+                  alt=""
+                  aria-hidden
+                  decoding="async"
+                />
+              ) : (
+                <span className="ink-row-dot" aria-hidden />
+              )}
               <span className="ink-bitlife-row-text">
                 <strong>{row.label}</strong>
                 <span>{row.hint}</span>
