@@ -1033,6 +1033,11 @@ body::before {
   letter-spacing: 0.06em;
 }
 
+.ink-meta--rank {
+  margin-top: 2px;
+  opacity: 0.85;
+}
+
 .ink-icon-btn {
   width: 36px;
   height: 36px;

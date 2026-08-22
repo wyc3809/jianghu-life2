@@ -13,6 +13,7 @@ import { defaultAttributes, simulateContestDuel } from './duelSim';
 import { topGrudgeNames } from './grudgeBook';
 import { getMasterName } from './bonds';
 import { syncAchievements } from './achievements';
+import { recordHuashanPlacement, syncJianghuRank } from './jianghuRank';
 
 export const HUASHAN_MIN_AGE = 16;
 export const HUASHAN_MIN_MARTIAL = 12;
@@ -308,7 +309,9 @@ export function applyHuashanRewards(state: LifeGameState, placement: number): st
   } else if (placement <= 4) {
     lines.push('晉身四強，江湖傳聞又起。');
   }
+  recordHuashanPlacement(state, placement);
   lines.push(...syncAchievements(state));
+  lines.push(...syncJianghuRank(state));
   return lines;
 }
 

@@ -20,6 +20,7 @@ import {
 } from '../../audio/inkAudio';
 import { InkSettingsPanel, type TextScale } from './InkSettingsPanel';
 import { topTitles } from '@core/life/titles';
+import { jianghuRank } from '@core/life/jianghuRank';
 import {
   isLearnSkillDeltaLine,
   isLearnSkillStoryLine,
@@ -253,6 +254,7 @@ export function InkPlayScreen({ state }: Props) {
   const inkPlace = placeToInk(c.location);
 
   const nicknames = topTitles(state);
+  const rank = jianghuRank(state);
   const sceneBits = [
     'scroll-shell',
     'scroll-shell--play',
@@ -310,6 +312,7 @@ export function InkPlayScreen({ state }: Props) {
             {sect ? ` · ${sect.name}` : ''}
             {nicknames.length ? ` · ${nicknames.join('·')}` : ''}
           </p>
+          <p className="ink-meta ink-meta--rank">江湖排名 第{rank}位</p>
         </div>
         <div className="ink-status-actions">
           <button
