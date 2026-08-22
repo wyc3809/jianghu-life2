@@ -1,5 +1,6 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { allTitles } from './titles';
+import { foundedSectScore } from './foundedSect';
 
 /** 江湖排名：開局第 99999 位，隨聲望／武學／稱號／論劍名次爬升 */
 export const JIANGHU_RANK_START = 99999;
@@ -23,7 +24,13 @@ function huashanScore(state: LifeGameState): number {
 
 export function computeJianghuScore(state: LifeGameState): number {
   const c = state.character;
-  return c.martial * 4 + Math.max(0, c.reputation) * 3 + titleScore(state) + huashanScore(state);
+  return (
+    c.martial * 4 +
+    Math.max(0, c.reputation) * 3 +
+    titleScore(state) +
+    huashanScore(state) +
+    foundedSectScore(state)
+  );
 }
 
 /**

@@ -201,6 +201,24 @@ const TITLE_RULES: TitleDef[] = [
     bonus: { attack: 12, defense: 6, evasion: 0.05 },
     test: (s) => s.character.martial >= 99,
   },
+
+  // 開宗立派
+  {
+    id: 'title_founder',
+    tier: 4,
+    category: 'sect',
+    label: '開山祖師',
+    bonus: { defense: 3 },
+    test: (s) => Boolean(s.foundedSect),
+  },
+  {
+    id: 'title_many_disciples',
+    tier: 5,
+    category: 'sect',
+    label: '桃李滿門',
+    bonus: { attack: 4, defense: 4 },
+    test: (s) => (s.foundedSect?.disciples.filter((d) => d.status === 'graduated').length ?? 0) >= 3,
+  },
 ];
 
 function readTitleIds(state: LifeGameState): string[] {

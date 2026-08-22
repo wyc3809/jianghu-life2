@@ -1917,6 +1917,41 @@ body::before {
   opacity: 0.85;
 }
 
+.ink-sect-founder-panel {
+  margin-top: 0.75rem;
+}
+
+.ink-sect-founder-hint {
+  margin-top: 0.5rem;
+  opacity: 0.85;
+}
+
+.ink-disciple-list {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ink-disciple-card {
+  padding: 8px 10px;
+  border: 1px solid rgba(26, 26, 26, 0.12);
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.ink-disciple-name {
+  margin: 0 0 2px;
+  font-weight: 600;
+}
+
+.ink-disciple-status {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--ink-wash);
+}
+
 .ink-panel {
   position: relative;
   background:

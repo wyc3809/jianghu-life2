@@ -38,6 +38,7 @@ import { InkScrollBackdrop, InkSealStamp, InkResultSeal, InkStaticSeal, InkAiWas
 import { INK_SVG } from '../../ui/inkAssets';
 import { inkAiUrl } from '../../ui/inkAiCatalog';
 import { InkHuashanPanel } from './InkHuashanPanel';
+import { InkSectFounderPanel } from './InkSectFounderPanel';
 import { InkPersonPanel, type PersonView } from './InkPersonPanel';
 import { InkEventPanel } from './InkEventPanel';
 import { InkCombatPanel } from './InkCombatPanel';
@@ -67,6 +68,9 @@ export function InkPlayScreen({ state }: Props) {
   const huashanFight = useLifeStore((s) => s.huashanFight);
   const huashanDismissReport = useLifeStore((s) => s.huashanDismissReport);
   const huashanClose = useLifeStore((s) => s.huashanClose);
+  const foundSect = useLifeStore((s) => s.foundSect);
+  const recruitDisciple = useLifeStore((s) => s.recruitDisciple);
+  const teachDisciple = useLifeStore((s) => s.teachDisciple);
   const equipOwned = useLifeStore((s) => s.equipOwned);
   const sealText = useLifeStore((s) => s.sealText);
   const flashLines = useLifeStore((s) => s.flashLines);
@@ -102,7 +106,7 @@ export function InkPlayScreen({ state }: Props) {
   useEffect(() => {
     if (!sealText) return;
     if (sealText === '月') playInkPageFlip();
-    else if (sealText === '勝' || sealText === '武' || sealText === '晉') playInkWin();
+    else if (sealText === '勝' || sealText === '武' || sealText === '晉' || sealText === '宗' || sealText === '收' || sealText === '教') playInkWin();
     else if (sealText === '敗' || sealText === '終') playInkLose();
     else if (sealText === '戰') playInkBlade();
     else playInkSeal();
@@ -598,6 +602,15 @@ export function InkPlayScreen({ state }: Props) {
           onFight={huashanFight}
           onDismissReport={huashanDismissReport}
           onCloseTournament={huashanClose}
+        />
+      )}
+
+      {tab === 'jianghu' && !combat && !eventFocus && (
+        <InkSectFounderPanel
+          state={state}
+          onFound={foundSect}
+          onRecruit={recruitDisciple}
+          onTeach={teachDisciple}
         />
       )}
 

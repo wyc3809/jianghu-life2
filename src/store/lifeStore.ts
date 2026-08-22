@@ -29,6 +29,11 @@ import {
   clearCompletedHuashan,
   runPlayerHuashanDuel,
 } from '@core/life/huashan';
+import {
+  foundSect as foundSectAction,
+  recruitDisciple as recruitDiscipleAction,
+  teachDisciple as teachDiscipleAction,
+} from '@core/life/foundedSect';
 import { extractLegacy } from '@core/life/legacy';
 import { pushChronicle } from '@core/life/chronicle';
 import { resolveArcVisitLater } from '@core/life/arcs';
@@ -83,6 +88,9 @@ export interface LifeStore {
   huashanClose: () => void;
   /** 免費換裝（不耗修煉次數） */
   equipOwned: (gearId: string) => void;
+  foundSect: (sectName: string) => void;
+  recruitDisciple: () => void;
+  teachDisciple: (discipleId: string) => void;
 }
 
 async function save(state: LifeGameState, immediate = true) {
@@ -505,6 +513,63 @@ export const useLifeStore = create<LifeStore>((set, get) => ({
     clearCompletedHuashan(next);
     void save(next);
     set({ state: next });
+  },
+
+  foundSect: (sectName: string) => {
+    const { state } = get();
+    if (!state) return;
+    const next = structuredClone(state);
+    const logs = foundSectAction(next, sectName);
+    void save(next);
+    set({
+      state: next,
+      sealText: next.foundedSect ? '宗' : null,
+      flashLines: [],
+      lastResult: {
+        title: '開宗立派',
+        choiceText: '開山立派',
+        feedback: sanitizePlayerLine(logs.join('\n')),
+        deltas: [],
+      },
+    });
+  },
+
+  recruitDisciple: () => {
+    const { state } = get();
+    if (!state) return;
+    const next = structuredClone(state);
+    const logs = recruitDiscipleAction(next);
+    void save(next);
+    set({
+      state: next,
+      sealText: '收',
+      flashLines: [],
+      lastResult: {
+        title: '收徒',
+        choiceText: '收徒入門',
+        feedback: sanitizePlayerLine(logs.join('\n')),
+        deltas: [],
+      },
+    });
+  },
+
+  teachDisciple: (discipleId: string) => {
+    const { state } = get();
+    if (!state) return;
+    const next = structuredClone(state);
+    const logs = teachDiscipleAction(next, discipleId);
+    void save(next);
+    set({
+      state: next,
+      sealText: '教',
+      flashLines: [],
+      lastResult: {
+        title: '指導弟子',
+        choiceText: '親自指點',
+        feedback: sanitizePlayerLine(logs.join('\n')),
+        deltas: [],
+      },
+    });
   },
 
   equipOwned: (gearId: string) => {
