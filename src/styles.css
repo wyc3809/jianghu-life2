@@ -22,6 +22,10 @@
   --cinnabar-spot: rgba(163, 58, 50, 0.05);
 
   --bg: var(--paper);
+  /* 場景疊層（夜／地點）改色嘅輸入快照：避免同名 --paper 自我引用變成循環，喺此類疊層規則入面
+     computed value 會直接變空，令直接食 --paper 嘅背景（如選項列）變透明，透出底圖 */
+  --paper-scene: #f3ebdc;
+  --paper-bright-scene: #faf6ee;
   --bg-panel: rgba(250, 246, 238, 0.78);
   --muted: var(--ink-wash);
   --accent: var(--ink);
@@ -4152,6 +4156,8 @@ button.is-pressed,
   --mountain-opacity: 0.85;
   --scene-edge: rgba(26, 26, 26, 0.04);
   --bg: var(--paper);
+  --paper-scene: #f5f0e4;
+  --paper-bright-scene: #faf7f0;
   --bg-panel: rgba(250, 247, 240, 0.78);
   --muted: var(--ink-wash);
   --danger: var(--cinnabar);
@@ -4174,6 +4180,8 @@ button.is-pressed,
   --mountain-opacity: 0.9;
   --scene-edge: rgba(26, 26, 26, 0.04);
   --bg: var(--paper);
+  --paper-scene: #faf6ee;
+  --paper-bright-scene: #fffbf4;
   --bg-panel: rgba(255, 251, 244, 0.78);
   --muted: var(--ink-wash);
   --danger: var(--cinnabar);
@@ -4196,6 +4204,8 @@ button.is-pressed,
   --mountain-opacity: 0.88;
   --scene-edge: rgba(26, 26, 26, 0.05);
   --bg: var(--paper);
+  --paper-scene: #f0e4d0;
+  --paper-bright-scene: #f7ede0;
   --bg-panel: rgba(247, 237, 224, 0.8);
   --muted: var(--ink-wash);
   --danger: var(--cinnabar);
@@ -4219,6 +4229,8 @@ button.is-pressed,
   --mountain-opacity: 0.95;
   --scene-edge: rgba(26, 26, 26, 0.05);
   --bg: var(--paper);
+  --paper-scene: #f0eee8;
+  --paper-bright-scene: #f5f3ee;
   --bg-panel: rgba(245, 243, 238, 0.8);
   --muted: var(--ink-wash);
   --danger: var(--cinnabar);
@@ -4227,8 +4239,8 @@ button.is-pressed,
 
 /* 夜：疊在季節之上，松煙主導；朱砂略收，語意仍靠文字／邊線 */
 .scroll-shell.ink-scene--night {
-  --paper: color-mix(in srgb, var(--paper) 88%, var(--paper-aged) 12%);
-  --paper-bright: color-mix(in srgb, var(--paper-bright) 90%, var(--paper-aged) 10%);
+  --paper: color-mix(in srgb, var(--paper-scene) 88%, var(--paper-aged) 12%);
+  --paper-bright: color-mix(in srgb, var(--paper-bright-scene) 90%, var(--paper-aged) 10%);
   --ink: #141816;
   --ink-mid: #3a403c;
   --ink-soft: #3a403c;
@@ -4247,26 +4259,26 @@ button.is-pressed,
 
 /* 場景色調：按地點（竹林／懸崖／酒館等）微調墨色與紙色，程序化疊在季節之上，鎮居為基準唔改 */
 .scroll-shell.ink-scene--hall {
-  --paper: color-mix(in srgb, var(--paper) 90%, var(--paper-aged) 10%);
+  --paper: color-mix(in srgb, var(--paper-scene) 90%, var(--paper-aged) 10%);
   --cinnabar-soft: color-mix(in srgb, var(--cinnabar-soft) 80%, var(--paper-aged) 20%);
   --scene-edge: rgba(163, 58, 50, 0.05);
 }
 
 .scroll-shell.ink-scene--mountain {
-  --paper: color-mix(in srgb, var(--paper) 92%, var(--ink-wash) 8%);
+  --paper: color-mix(in srgb, var(--paper-scene) 92%, var(--ink-wash) 8%);
   --ink-wash: color-mix(in srgb, var(--ink-wash) 85%, var(--jade) 15%);
   --mist: rgba(74, 69, 64, 0.09);
   --mountain-opacity: 1;
 }
 
 .scroll-shell.ink-scene--river {
-  --paper: color-mix(in srgb, var(--paper) 93%, var(--jade) 7%);
+  --paper: color-mix(in srgb, var(--paper-scene) 93%, var(--jade) 7%);
   --mist: color-mix(in srgb, var(--mist) 70%, var(--jade) 30%);
   --scene-edge: rgba(61, 92, 79, 0.06);
 }
 
 .scroll-shell.ink-scene--wild {
-  --paper: color-mix(in srgb, var(--paper) 94%, var(--pine-smoke) 6%);
+  --paper: color-mix(in srgb, var(--paper-scene) 94%, var(--pine-smoke) 6%);
   --ink-wash: color-mix(in srgb, var(--ink-wash) 88%, var(--pine-smoke) 12%);
   --scene-edge: rgba(42, 53, 48, 0.06);
 }
