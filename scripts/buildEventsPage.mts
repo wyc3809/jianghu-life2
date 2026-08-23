@@ -73,9 +73,17 @@ function fmt(e: Record<string, unknown>): string | null {
     case 'leaveSect':
       return '離開門派';
     case 'die':
-      return '死亡';
+      return `死亡${e.reason ? `（${e.reason}）` : ''}`;
     case 'flag':
-      return null;
+      return `旗標 ${e.key}=${e.value}`;
+    case 'worldFlag':
+      return `世標 ${e.key}=${e.value}`;
+    case 'relationship':
+      return `關係 ${e.npcId}${(e.delta as number) > 0 ? '+' : ''}${e.delta}`;
+    case 'lover':
+      return `結為眷屬 ${e.npcId}`;
+    case 'memory':
+      return `記憶 ${e.npcId}`;
     case 'practice':
       return `修煉 ${e.action}`;
     default:
@@ -83,38 +91,56 @@ function fmt(e: Record<string, unknown>): string | null {
   }
 }
 
+type Outcome = { id?: string; label?: string; chance?: number; effects: Array<Record<string, unknown>> };
 type Choice = {
   id: string;
   text: string;
-  outcomes: Array<{ id?: string; effects: Array<Record<string, unknown>> }>;
+  outcomes: Outcome[];
 };
+
+/** 分支標籤：波折／事與願違按 id 後綴或 label 判斷，其餘（含唯一結果）視為順遂 */
+function outcomeLabel(o: Outcome): string {
+  if (o.label) return o.label;
+  const id = String(o.id || '');
+  if (id.endsWith('_ill')) return '事與願違';
+  if (id.endsWith('_mixed')) return '波折';
+  return '順遂';
+}
+
+function outcomeLine(ev: { id: string }, ch: Choice, o: Outcome, isPrimary: boolean) {
+  let effects = [...(o.effects || [])];
+  if (isPrimary) {
+    const ov = lookupNarrateOverride(ev.id, ch.id);
+    if (ov) {
+      let hit = false;
+      effects = effects.map((e) => {
+        if (!hit && e.type === 'narrate') {
+          hit = true;
+          return { ...e, text: ov };
+        }
+        return e;
+      });
+      if (!hit) effects.unshift({ type: 'narrate', text: ov });
+    }
+  }
+  const deltas = effects.map(fmt).filter((x): x is string => Boolean(x)).join('；') || '敘事為主';
+  const narr = String(effects.find((e) => e.type === 'narrate')?.text || '').replace(/\s+/g, ' ');
+  return { deltas, narr };
+}
 
 function choiceLine(ev: { id: string }, ch: Choice) {
   const outs = ch.outcomes || [];
-  const fair = outs.find((o) => !String(o.id || '').endsWith('_ill')) || outs[0];
-  let effects = [...(fair?.effects || [])];
-  const ov = lookupNarrateOverride(ev.id, ch.id);
-  if (ov) {
-    let hit = false;
-    effects = effects.map((e) => {
-      if (!hit && e.type === 'narrate') {
-        hit = true;
-        return { ...e, text: ov };
-      }
-      return e;
-    });
-    if (!hit) effects.unshift({ type: 'narrate', text: ov });
-  }
-  const deltas = effects.map(fmt).filter((x): x is string => Boolean(x)).join('；') || '敘事為主';
-  const narr = String(effects.find((e) => e.type === 'narrate')?.text || '')
-    .replace(/\s+/g, ' ')
-    .slice(0, 70);
-  return { text: ch.text, deltas, narr, risky: outs.length > 1 };
+  const fair = outs.find((o) => outcomeLabel(o) === '順遂') || outs[0];
+  const primary = outcomeLine(ev, ch, fair, true);
+  const branches = outs
+    .filter((o) => o !== fair)
+    .map((o) => ({ label: outcomeLabel(o), ...outcomeLine(ev, ch, o, false) }));
+  return { text: ch.text, deltas: primary.deltas, narr: primary.narr, risky: outs.length > 1, branches };
 }
 
 const plain: string[] = [];
-plain.push('江湖一生 · 事件／奇遇一覽（主結果）');
-plain.push('（標※者結算或有失手岔路）');
+plain.push('江湖一生 · 事件／奇遇一覽（全文，可直接編輯後回傳）');
+plain.push('（標※者結算或有失手岔路；※選擇下方會列出全部分支：順遂／波折／事與願違）');
 plain.push('');
 
 const sectionHtml: string[] = [];
@@ -130,14 +156,23 @@ for (const [name, list] of groups) {
     const lis: string[] = [];
     for (const ch of (ev.choices || []) as Choice[]) {
       const c = choiceLine(ev, ch);
-      plain.push(`  - ${c.text}${c.risky ? '※' : ''} → ${c.deltas}`);
-      if (c.narr) plain.push(`    ${c.narr}${c.narr.length >= 70 ? '…' : ''}`);
+      plain.push(`  - ${c.text} (${ch.id})${c.risky ? '※' : ''} → ${c.deltas}`);
+      if (c.narr) plain.push(`    〔順遂〕${c.narr}`);
+      for (const b of c.branches) {
+        plain.push(`    〔${b.label}〕→ ${b.deltas}`);
+        if (b.narr) plain.push(`      ${b.narr}`);
+      }
       lis.push(
-        `<li><strong>${escapeHtml(c.text)}</strong>${c.risky ? '<em>※</em>' : ''} → ${escapeHtml(c.deltas)}${
-          c.narr
-            ? `<div class="n">${escapeHtml(c.narr)}${c.narr.length >= 70 ? '…' : ''}</div>`
-            : ''
-        }</li>`,
+        `<li><strong>${escapeHtml(c.text)}</strong><code>${escapeHtml(ch.id)}</code>${c.risky ? '<em>※</em>' : ''} → ${escapeHtml(c.deltas)}${
+          c.narr ? `<div class="n">〔順遂〕${escapeHtml(c.narr)}</div>` : ''
+        }${c.branches
+          .map(
+            (b) =>
+              `<div class="n">〔${escapeHtml(b.label)}〕→ ${escapeHtml(b.deltas)}${
+                b.narr ? `　${escapeHtml(b.narr)}` : ''
+              }</div>`,
+          )
+          .join('')}</li>`,
       );
     }
     articles.push(
