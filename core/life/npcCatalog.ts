@@ -6,6 +6,7 @@ type StarterNpc = {
   name: string;
   role: string;
   location_id?: string;
+  gender?: 'male' | 'female';
 };
 
 const ROLE_MAP: Record<string, LifeNpc['role']> = {
@@ -14,6 +15,11 @@ const ROLE_MAP: Record<string, LifeNpc['role']> = {
   武館教頭: 'master',
   茶客: 'friend',
   商人: 'friend',
+  掃地僧: 'master',
+  啞巴鑄劍師: 'master',
+  瘋癲道人: 'master',
+  棋隱高人: 'master',
+  賣藥女醫: 'master',
 };
 
 function mapRole(role: string): LifeNpc['role'] {
@@ -27,7 +33,7 @@ export function buildStarterNpcs(): Record<string, LifeNpc> {
     out[raw.id] = {
       id: raw.id,
       name: raw.name,
-      gender: raw.id.includes('shen') || raw.name.includes('晴') ? 'female' : 'male',
+      gender: raw.gender ?? (raw.id.includes('shen') || raw.name.includes('晴') ? 'female' : 'male'),
       role: mapRole(raw.role),
       affinity: 25,
       memories: [`鎮裡人都識得這位${raw.role}`],
