@@ -1143,6 +1143,218 @@
         "hitBonus": 0.06,
         "description": "身形東倒西歪，招式虛實難辨。"
       }
+    },
+    {
+      "id": "th_finger_flick",
+      "name": "彈指神通",
+      "kind": "external",
+      "sectId": "sect_taohua",
+      "unlockStanding": 0,
+      "flavor": "外門手法：指風彈石，隔空點穴，出手看似隨意，實則精準。",
+      "move": {
+        "id": "mv_th_finger",
+        "name": "彈指一點",
+        "qiCost": 28,
+        "power": 1.2,
+        "hitBonus": 0.1,
+        "pierce": 0.08,
+        "description": "指風如彈，隔空點中破綻。"
+      }
+    },
+    {
+      "id": "th_flute_sword",
+      "name": "玉簫劍法",
+      "kind": "external",
+      "sectId": "sect_taohua",
+      "unlockStanding": 1,
+      "flavor": "內門劍式：以簫作劍，劍意隨樂音流轉，虛實難分。",
+      "weaponKind": "sword",
+      "move": {
+        "id": "mv_th_flute",
+        "name": "玉簫三疊",
+        "qiCost": 38,
+        "power": 1.32,
+        "hitBonus": 0.08,
+        "multiHit": 2,
+        "description": "簫聲三疊，劍隨聲轉，連刺不絕。"
+      }
+    },
+    {
+      "id": "th_falling_petals",
+      "name": "落英神劍掌",
+      "kind": "external",
+      "sectId": "sect_taohua",
+      "unlockStanding": 2,
+      "flavor": "真傳絕學：掌風如落英繽紛，看似柔美，觸之即傷。",
+      "move": {
+        "id": "mv_th_petals",
+        "name": "落英繽紛",
+        "qiCost": 48,
+        "power": 1.1,
+        "multiHit": 3,
+        "applyBlind": 1,
+        "description": "掌風化作漫天落花，敵目為之一眩。"
+      }
+    },
+    {
+      "id": "th_qimen_array",
+      "name": "奇門一氣",
+      "kind": "internal",
+      "sectId": "sect_taohua",
+      "unlockStanding": 3,
+      "flavor": "執事心法：奇門五行融入吐納，進退如踏八卦，敵難測方位。",
+      "passive": {
+        "evasionBonus": 0.1,
+        "hitBonus": 0.05,
+        "qiRegen": 6
+      }
+    },
+    {
+      "id": "wg_embroidery_needle",
+      "name": "繡花奪命針",
+      "kind": "external",
+      "sectId": "sect_wugen",
+      "unlockStanding": 0,
+      "flavor": "外門手法：一縷銀針藏於袖底，繡花般的手勢，扎中即見血。",
+      "move": {
+        "id": "mv_wg_needle",
+        "name": "銀針暗刺",
+        "qiCost": 26,
+        "power": 1.05,
+        "bleedChance": 0.5,
+        "bleedDamage": 3,
+        "bleedTurns": 3,
+        "description": "一針暗刺，血珠隨即滲出。"
+      }
+    },
+    {
+      "id": "wg_silent_step",
+      "name": "無聲遁跡",
+      "kind": "qinggong",
+      "sectId": "sect_wugen",
+      "unlockStanding": 1,
+      "flavor": "內門輕功：來去不聞聲響，門中人稱「影子」。",
+      "passive": {
+        "evasionBonus": 0.09,
+        "qiRegen": 3
+      }
+    },
+    {
+      "id": "wg_yin_soft_palm",
+      "name": "陰柔化勁掌",
+      "kind": "external",
+      "sectId": "sect_wugen",
+      "unlockStanding": 2,
+      "flavor": "真傳絕學：捨剛從柔，卸敵之力，反噬其身。",
+      "move": {
+        "id": "mv_wg_yin_palm",
+        "name": "化勁反噬",
+        "qiCost": 44,
+        "power": 1.15,
+        "defenseBreak": 6,
+        "lifesteal": 0.14,
+        "description": "以柔卸剛，敵力反噬其身。"
+      }
+    },
+    {
+      "id": "wg_root_severed_creed",
+      "name": "忘根訣",
+      "kind": "internal",
+      "sectId": "sect_wugen",
+      "unlockStanding": 3,
+      "flavor": "執事心法：斷絕塵根，一念不生，內力反而暴長。",
+      "passive": {
+        "attack": 6,
+        "defense": 5,
+        "maxQi": 25,
+        "qiRegen": 5
+      }
+    },
+    {
+      "id": "art_guqin_song",
+      "name": "廣陵絕響",
+      "kind": "internal",
+      "flavor": "古琴一曲，靜心凝神，唯浸淫琴道多年者能悟其中真意。",
+      "passive": {
+        "qiRegen": 6,
+        "hitBonus": 0.03,
+        "reflect": 0.04
+      }
+    },
+    {
+      "id": "art_weiqi_trap",
+      "name": "珍瓏棋局",
+      "kind": "external",
+      "flavor": "圍棋算路化入招式，步步為營，逼敵入局。",
+      "move": {
+        "id": "mv_weiqi_trap",
+        "name": "落子成局",
+        "qiCost": 34,
+        "power": 1.1,
+        "defenseBreak": 5,
+        "hitBonus": 0.07,
+        "description": "招式如落子布局，一步步逼死敵方退路。"
+      }
+    },
+    {
+      "id": "art_poetry_sword",
+      "name": "詩劍風流",
+      "kind": "external",
+      "flavor": "詩書滿腹，出劍帶三分書卷氣，卻招招見血。",
+      "weaponKind": "sword",
+      "move": {
+        "id": "mv_poetry_sword",
+        "name": "一劍成詩",
+        "qiCost": 36,
+        "power": 1.24,
+        "hitBonus": 0.09,
+        "description": "劍出如詩成句，一氣呵成。"
+      }
+    },
+    {
+      "id": "art_ink_illusion",
+      "name": "潑墨迷蹤",
+      "kind": "qinggong",
+      "flavor": "丹青浸淫日久，身形恍若潑墨，虛實莫辨。",
+      "passive": {
+        "evasionBonus": 0.07,
+        "hitBonus": 0.02
+      }
+    },
+    {
+      "id": "art_buddha_heart",
+      "name": "金剛不壞",
+      "kind": "internal",
+      "flavor": "禮佛日久，心境澄明，體魄亦隨之堅實。",
+      "passive": {
+        "defense": 8,
+        "maxHp": 24
+      }
+    },
+    {
+      "id": "art_dao_breath",
+      "name": "太乙玄清",
+      "kind": "internal",
+      "flavor": "道法自然，吐納玄清，內息綿長不絕。",
+      "passive": {
+        "maxQi": 30,
+        "qiRegen": 8
+      }
+    },
+    {
+      "id": "art_heretic_scripture",
+      "name": "天魔邪功",
+      "kind": "external",
+      "flavor": "旁門邪學，以血氣煉功，招式狠辣不留餘地，唯心性夠狠者敢學。",
+      "move": {
+        "id": "mv_heretic",
+        "name": "天魔一擊",
+        "qiCost": 42,
+        "power": 1.4,
+        "pierce": 0.15,
+        "lifesteal": 0.08,
+        "description": "邪功一擊，狠辣不留餘地。"
+      }
     }
   ]
 }

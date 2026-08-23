@@ -50,6 +50,7 @@ export const EVENT_BODIES: Record<string, string> = {
   peaceful_year: '這一年沒大事。院牆要修，醬要曬，枕邊話本看到最後一頁也不急。',
   accident_fall: '崖邊的土是鬆的。風先到袖口，腳下那塊石卻比你更早鬆口。',
   meet_hermit: '松針落在肩上。高人並不開門，只在門縫裡看你膝蓋上的泥。',
+  wugen_encounter: '灰袍人在巷口候你許久，聲音壓得極低：「斷塵緣，換身奇功，敢不敢？」',
 };
 
 export function lookupEventBody(eventId: string): string | undefined {
