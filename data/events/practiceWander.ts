@@ -197,11 +197,7 @@ const RAW: GameEvent[] = [
 export const PRACTICE_WANDER_EVENTS: GameEvent[] = RAW.map((ev) =>
   withRiskAndThree(
     ev,
-    (_id, text = '此舉', title = '這場修煉機緣') => [
-      {
-        type: 'narrate',
-        text: `「${title}」裡「${text}」岔了氣，胸口悶了一陣。躺到天亮，什麼都沒長進。`,
-      },
+    () => [
       { type: 'health', amount: -3 },
       { type: 'qi', amount: -6 },
     ],

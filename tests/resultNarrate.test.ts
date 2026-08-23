@@ -91,7 +91,7 @@ describe('result narrate aligns editor and page-flip', () => {
     const state = createNewLife(1);
     const result = applyChoice(state, ev, 'delay');
     expect(result.feedback).not.toBe(fairExpected);
-    expect(result.feedback).toBe('「回帖改期」後你們各自退開。他丟下一枚銅錢，你沒撿。');
+    expect(result.feedback).toBe('「回帖改期」後你們各自退開。血滲進衣裡，黏黏的。這一遭，傷面子多過傷身子。');
   });
 
   it('no catalog.ts choice leaks the raw template narrate to the player', () => {

@@ -256,17 +256,10 @@ const RAW: GameEvent[] = [
   },
 ];
 
-function badStory(_id: string, text?: string, eventTitle?: string): string {
-  const act = text ?? '此舉';
-  const where = eventTitle ?? '這一路';
-  return `「${where}」途中你本欲「${act}」，卻在交手邊緣失了先機：人或走避，事或橫生。你帶着挫敗感離開。`;
-}
-
 export const ROAD_ENCOUNTER_EVENTS: GameEvent[] = RAW.map((ev) =>
   withRiskAndThree(
     ev,
-    (id, text, title) => [
-      { type: 'narrate', text: badStory(id, text, title) },
+    () => [
       { type: 'health', amount: -10 },
       { type: 'money', amount: -5 },
     ],

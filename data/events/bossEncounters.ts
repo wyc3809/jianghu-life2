@@ -738,11 +738,7 @@ const FIGHTS: GameEvent[] = [
 export const BOSS_ENCOUNTER_EVENTS: GameEvent[] = [...RUMORS, ...FIGHTS].map((ev) =>
   withRiskAndThree(
     ev,
-    (_id, text = '此舉', title = '這局') => [
-      {
-        type: 'narrate',
-        text: `「${title}」一局中你欲「${text}」，卻踏空一步，當場吃了暗虧。`,
-      },
+    () => [
       { type: 'health', amount: -16 },
       { type: 'money', amount: -8 },
     ],
