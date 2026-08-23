@@ -1,5 +1,4 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
-import { persistLife } from '@core/life/saveIndexedDb';
 
 let persistTimer: ReturnType<typeof setTimeout> | null = null;
 let pendingState: LifeGameState | null = null;
@@ -12,6 +11,7 @@ export function setPersistFlushHook(hook: ((savedAt: number) => void) | null): v
 
 async function writeNow(state: LifeGameState): Promise<void> {
   pendingState = null;
+  const { persistLife } = await import('@core/life/saveIndexedDb');
   await persistLife(state);
   flushHook?.(Date.now());
 }
