@@ -354,15 +354,43 @@ export function enrichChoiceWithRisk(
   return { ...choice, outcomes };
 }
 
+/**
+ * 填充選項（事件選項不足 3 個時自動補上）嘅安全結果句庫——帶 {title} 佔位，
+ * 按事件 id 分散抽選模板之餘，再嵌入事件標題本身，令唔同事件（標題必然不同）
+ * 唔會抽出逐字相同嘅句子。
+ */
+const FALLBACK_LINES = [
+  '「{title}」這一事，你沒有深陷其中，只把經過記在心裡。',
+  '「{title}」這一樁，你退開半步，任它與你擦身而過。',
+  '「{title}」你沒接這個茬，轉身去做別的事。',
+  '「{title}」終究不歸你管，你隨它去了。',
+  '「{title}」你按下心裡那點好奇，沒有多問。',
+  '「{title}」你把這樁事留給有緣人，自己先走。',
+  '「{title}」你想了想，還是沒有出手。',
+  '「{title}」這一遭，你選擇袖手，圖個清靜。',
+  '「{title}」你繞開了這個麻煩，腳步沒停。',
+  '「{title}」你把這事記在心底，暫且擱下。',
+];
+
+function fallbackHash(key: string): number {
+  let h = 5381;
+  for (let i = 0; i < key.length; i += 1) h = ((h << 5) + h + key.charCodeAt(i)) >>> 0;
+  return h >>> 0;
+}
+
 export function ensureThreeChoices(event: GameEvent): GameEvent {
   const choices = [...event.choices];
   while (choices.length < 3) {
+    const idx = choices.length;
+    const template =
+      FALLBACK_LINES[fallbackHash(`${event.id}:fallback_${idx}`) % FALLBACK_LINES.length]!;
+    const line = template.replace(/\{title\}/g, event.title);
     choices.push({
-      id: `fallback_${choices.length}`,
-      text: choices.length === 1 ? '另謀他法' : '抽身離開',
+      id: `fallback_${idx}`,
+      text: idx === 1 ? '另謀他法' : '抽身離開',
       outcomes: [
         {
-          effects: [{ type: 'narrate', text: '你沒有深陷其中，只把經過記在心裡。' }],
+          effects: [{ type: 'narrate', text: line }],
         },
       ],
     });
@@ -412,12 +440,16 @@ export function withRiskAndThree(
           ];
           return enriched;
         }
+        // narrate 唔再由 negativeFactory 提供（文案改由句庫組合生成，避免逐字
+        // 重複）；negativeFactory 只用嚟按檔案調較數值代價，敘事一律保留原生成
         const narr = extra.find((e) => e.type === 'narrate');
-        if (narr) {
+        const extraNums = extra.filter((e) => e.type !== 'narrate');
+        if (extraNums.length || narr) {
+          const keepNarr = narr ?? ill.effects.find((e) => e.type === 'narrate');
           ill.effects = [
             ...ill.effects.filter((e) => e.type !== 'narrate'),
-            narr,
-            ...extra.filter((e) => e.type !== 'narrate'),
+            ...(keepNarr ? [keepNarr] : []),
+            ...extraNums,
           ];
         }
       }
