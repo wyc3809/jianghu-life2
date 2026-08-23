@@ -96,7 +96,12 @@ function enrichLegacyEvent(event: GameEvent): GameEvent {
   if (event.choices.length >= 3 && event.choices.every((c) => c.outcomes.length >= 2)) {
     return event;
   }
-  return withRiskAndThree(
+  // 手寫多分支（chance/label 事與願違／波折）嘅選擇原樣保留，唔畀自動
+  // fair/mixed/ill 派生蓋過——否則死亡／波折分支會靜靜消失。
+  const authoredById = new Map(
+    event.choices.filter((c) => c.outcomes.length >= 2).map((c) => [c.id, c] as const),
+  );
+  const enriched = withRiskAndThree(
     event,
     (_id, choiceText) => [
       {
@@ -110,6 +115,11 @@ function enrichLegacyEvent(event: GameEvent): GameEvent {
     ],
     0.14,
   );
+  if (!authoredById.size) return enriched;
+  return {
+    ...enriched,
+    choices: enriched.choices.map((c) => authoredById.get(c.id) ?? c),
+  };
 }
 
 const ENRICHED_CATALOG = EVENT_CATALOG.map(enrichLegacyEvent);
