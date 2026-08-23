@@ -109,7 +109,7 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
     spawnQi,
     spawnCombo,
     spawnGuard,
-    clearCanvas,
+    clear,
   } = useCombatCanvas();
   const [comboBurst, setComboBurst] = useState<{ name: string; seq: number } | null>(null);
   const comboLogLenRef = useRef(0);
@@ -124,7 +124,7 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
     setExpandedMoveId(null);
     comboLogLenRef.current = 0;
     setComboBurst(null);
-    clearCanvas();
+    clear();
   }, [combat.id]);
 
   useEffect(() => {
