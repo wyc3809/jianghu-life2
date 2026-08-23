@@ -35,6 +35,7 @@ import { getHeirName, listChildNames, previewInheritanceMoney } from '@core/life
 import { buildGenealogy } from '@core/life/genealogy';
 import { achievementProgress, listAchievementStatus } from '@core/life/achievements';
 import { allTitles } from '@core/life/titles';
+import { calculateProgress } from '@core/life/progression';
 
 export type PersonView =
   | 'main'
@@ -73,6 +74,7 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
   const known = listKnownNpcLines(state);
   const achProgress = achievementProgress(state);
   const nicknames = allTitles(state).map((t) => t.label);
+  const progress = calculateProgress(state);
 
   if (view === 'main') {
     const rows: { id: PersonView; label: string; hint: string; icon?: InkAiAssetId }[] = [
@@ -133,6 +135,50 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
           {c.name} · {c.age}歲 · {stage} · 名望 {c.reputation}
           {lover ? ` · 眷屬${lover.name}` : ''}
         </p>
+        <div className="ink-vitals-meters ink-progress-overview">
+          {progress.bars.map((bar) => (
+            <div className="ink-meter" key={bar.key}>
+              <div className="ink-vitals-label">
+                <span>{bar.label}</span>
+                <span>{bar.raw}</span>
+              </div>
+              <div
+                className="ink-bar"
+                role="meter"
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={bar.percent}
+                aria-label={bar.label}
+              >
+                <div className="ink-bar-fill ink-bar-fill--enter" style={{ width: `${bar.percent}%` }} />
+              </div>
+            </div>
+          ))}
+          {progress.sect && (
+            <div className="ink-meter">
+              <div className="ink-vitals-label">
+                <span>門派地位</span>
+                <span>
+                  {progress.sect.label}
+                  {progress.sect.nextLabel ? ` → ${progress.sect.nextLabel}` : ''}
+                </span>
+              </div>
+              <div
+                className="ink-bar"
+                role="meter"
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={progress.sect.percent}
+                aria-label="門派地位"
+              >
+                <div
+                  className="ink-bar-fill ink-bar-fill--enter"
+                  style={{ width: `${progress.sect.percent}%` }}
+                />
+              </div>
+            </div>
+          )}
+        </div>
         <div className="ink-bitlife-list" role="list">
           {rows.map((row) => (
             <button

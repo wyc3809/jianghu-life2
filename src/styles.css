@@ -3835,6 +3835,11 @@ button.is-pressed,
   border-bottom: 1px solid var(--ink-faint);
 }
 
+.ink-progress-overview {
+  margin-top: 10px;
+  padding-bottom: 4px;
+}
+
 .ink-bitlife-row {
   display: flex;
   align-items: center;
