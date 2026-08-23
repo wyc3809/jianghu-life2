@@ -1454,15 +1454,15 @@ const RAW: GameEvent[] = [
   },
 ];
 
-function badStory(_id: string, text = '此舉'): string {
-  return `你欲「${text}」，却在緊要處失了分寸：毒、寒或刀風反噬而來。事與願違之後，你把教訓嚥進肚裡，把命繼續往前帶。`;
+function badStory(_id: string, text = '此舉', eventTitle = '這樁事'): string {
+  return `「${eventTitle}」一節，你欲「${text}」，却在緊要處失了分寸：毒、寒或刀風反噬而來。事與願違之後，你把教訓嚥進肚裡，把命繼續往前帶。`;
 }
 
 export const JINYONG_TROPE_EVENTS: GameEvent[] = RAW.map((ev) =>
   withRiskAndThree(
     ev,
-    (id, text) => [
-      { type: 'narrate', text: badStory(id, text) },
+    (id, text, title) => [
+      { type: 'narrate', text: badStory(id, text, title) },
       { type: 'health', amount: -14 },
       { type: 'money', amount: -8 },
     ],

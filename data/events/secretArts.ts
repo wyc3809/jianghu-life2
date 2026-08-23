@@ -503,10 +503,10 @@ const RAW: GameEvent[] = [
 export const SECRET_ART_EVENTS: GameEvent[] = RAW.map((ev) =>
   withRiskAndThree(
     ev,
-    (_id, text = '此舉') => [
+    (_id, text = '此舉', title = '這場奇遇') => [
       {
         type: 'narrate',
-        text: `奇遇之中你欲「${text}」，卻踏空一步：暗勁反噬，內息紊亂。事與願違之後，你扶牆站穩，把這場驚險記進傷口。`,
+        text: `「${title}」之中你欲「${text}」，卻踏空一步：暗勁反噬，內息紊亂。事與願違之後，你扶牆站穩，把這場驚險記進傷口。`,
       },
       { type: 'health', amount: -18 },
       { type: 'condition', id: 'internal' },

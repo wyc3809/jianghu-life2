@@ -103,11 +103,11 @@ function enrichLegacyEvent(event: GameEvent): GameEvent {
   );
   const enriched = withRiskAndThree(
     event,
-    (_id, choiceText) => [
+    (_id, choiceText, eventTitle) => [
       {
         type: 'narrate',
         text: scrubAiSlop(
-          `「${choiceText ?? '此舉'}」踢到鐵板。短棍砸肩，你退進雨裏，只記得對方腕上的疤。`,
+          `「${eventTitle ?? '這一事'}」上「${choiceText ?? '此舉'}」踢到鐵板。短棍砸肩，你退進雨裏，只記得對方腕上的疤。`,
         ),
       },
       { type: 'health', amount: -6 },
