@@ -9903,16 +9903,17 @@ const RAW: GameEvent[] = [
   }
 ];
 
-function badStory(_choiceId: string, choiceText?: string): string {
+function badStory(_choiceId: string, choiceText?: string, eventTitle?: string): string {
   const act = choiceText ?? '此舉';
-  return `你本欲「${act}」，卻橫生枝節：人或走避，事或生變，銀錢與氣血都捱了一記。你把教訓嚥下，再上路。`;
+  const where = eventTitle ?? '這一遭';
+  return `「${where}」裡你本欲「${act}」，卻橫生枝節：人或走避，事或生變，銀錢與氣血都捱了一記。你把教訓嚥下，再上路。`;
 }
 
 export const JIANGHU_EXTRA_EVENTS: GameEvent[] = RAW.map((ev) =>
   withRiskAndThree(
     ev,
-    (id, text) => [
-      { type: 'narrate', text: badStory(id, text) },
+    (id, text, title) => [
+      { type: 'narrate', text: badStory(id, text, title) },
       { type: 'health', amount: -10 },
       { type: 'money', amount: -5 },
     ],

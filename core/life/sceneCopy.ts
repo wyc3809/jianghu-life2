@@ -160,19 +160,23 @@ export const QUIET_MONTH = [
   '你數了數銀兩，又把匣子蓋上。',
 ];
 
-export function narratePractice(kind: 'fair' | 'mixed' | 'ill', act: string): string {
+/**
+ * seed（通常帶埋 eventId）令唔同事件即使揀同一個 kind／act，都會抽到句庫入面
+ * 唔同句子——大量事件共用按鈕字面模板（如「冷眼走過」）時，避免逐字重複。
+ */
+export function narratePractice(kind: 'fair' | 'mixed' | 'ill', act: string, seed = ''): string {
   const pool = kind === 'fair' ? PRACTICE_FAIR : kind === 'mixed' ? PRACTICE_MIXED : PRACTICE_ILL;
-  return withAct(pickStable(pool, `practice:${kind}:${act}`), act);
+  return withAct(pickStable(pool, `practice:${kind}:${seed}:${act}`), act);
 }
 
-export function narrateCombat(kind: 'fair' | 'mixed' | 'ill', act: string): string {
+export function narrateCombat(kind: 'fair' | 'mixed' | 'ill', act: string, seed = ''): string {
   const pool = kind === 'fair' ? COMBAT_FAIR : kind === 'mixed' ? COMBAT_MIXED : COMBAT_ILL;
-  return withAct(pickStable(pool, `combat:${kind}:${act}`), act);
+  return withAct(pickStable(pool, `combat:${kind}:${seed}:${act}`), act);
 }
 
-export function narrateSocial(kind: 'fair' | 'mixed' | 'ill', act: string): string {
+export function narrateSocial(kind: 'fair' | 'mixed' | 'ill', act: string, seed = ''): string {
   const pool = kind === 'fair' ? SOCIAL_FAIR : kind === 'mixed' ? SOCIAL_MIXED : SOCIAL_ILL;
-  return withAct(pickStable(pool, `social:${kind}:${act}`), act);
+  return withAct(pickStable(pool, `social:${kind}:${seed}:${act}`), act);
 }
 
 export function quietMonthLine(year: number, month: number, season: string): string {

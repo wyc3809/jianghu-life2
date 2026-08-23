@@ -461,16 +461,17 @@ const RAW: GameEvent[] = [
   },
 ];
 
-function badStory(_choiceId: string, choiceText?: string): string {
+function badStory(_choiceId: string, choiceText?: string, eventTitle?: string): string {
   const act = choiceText ?? '此舉';
-  return `你本欲「${act}」，卻失手了：人走避，事橫生，口袋與袖口都捱了一記。你蹲在牆根喘了口氣，把教訓嚥回去。`;
+  const where = eventTitle ?? '這一事';
+  return `「${where}」上你本欲「${act}」，卻失手了：人走避，事橫生，口袋與袖口都捱了一記。你蹲在牆根喘了口氣，把教訓嚥回去。`;
 }
 
 export const ORDINARY_EVENTS: GameEvent[] = RAW.map((ev) =>
   withRiskAndThree(
     ev,
-    (id, text) => [
-      { type: 'narrate', text: badStory(id, text) },
+    (id, text, title) => [
+      { type: 'narrate', text: badStory(id, text, title) },
       { type: 'health', amount: -12 },
       { type: 'money', amount: -6 },
     ],
