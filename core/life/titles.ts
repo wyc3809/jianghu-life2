@@ -1,6 +1,7 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getSectContent, sectStandingName } from '@data/content/packs';
 import { applyAchievementRankBonus } from './jianghuRank';
+import { ART_MASTERY_THRESHOLD, artProficiency } from './arts';
 
 /** 稱號戰鬥加成——同裝備／武學被動同一套疊加邏輯，套用時只取「最強 3 個」總和 */
 export type TitleBonus = {
@@ -198,6 +199,28 @@ const TITLE_RULES: TitleDef[] = [
     bonus: { attack: 3, evasion: 0.02 },
     test: (s) => Number(s.character.flags.wineDrunkCount ?? 0) >= 60,
   },
+
+  // tier 3 — 雅藝有成
+  ...(
+    [
+      { id: 'guqin', label: '琴中仙', bonus: { hitBonus: 0.03 } },
+      { id: 'weiqi', label: '棋道宗師', bonus: { defense: 3 } },
+      { id: 'poetry', label: '詩劍才子', bonus: { hitBonus: 0.03 } },
+      { id: 'painting', label: '丹青妙手', bonus: { evasion: 0.03 } },
+      { id: 'buddhism', label: '禮佛居士', bonus: { defense: 3 } },
+      { id: 'daoism', label: '玄門道長', bonus: { defense: 2, evasion: 0.01 } },
+      { id: 'darkArts', label: '邪學宗師', bonus: { attack: 3 } },
+    ] as const
+  ).map(
+    (art): TitleDef => ({
+      id: `title_art_${art.id}`,
+      tier: 3,
+      category: 'fame',
+      label: art.label,
+      bonus: art.bonus,
+      test: (s) => artProficiency(s, art.id) >= ART_MASTERY_THRESHOLD,
+    }),
+  ),
   {
     id: 'title_grandmaster',
     tier: 4,

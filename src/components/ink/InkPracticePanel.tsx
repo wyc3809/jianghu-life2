@@ -1,11 +1,12 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
-import { PRACTICE_ACTIONS, SECT_INNER_ACTIONS, SECT_DEFS, type PracticeActionId } from '@core/life/actions';
+import { PRACTICE_ACTIONS, SECT_INNER_ACTIONS, SECT_DEFS, ART_DEFS, type PracticeActionId } from '@core/life/actions';
 import { natureGateHint } from '@core/life/nature';
 import { practiceLearningHints } from '@core/life/jianghuHints';
 import { describeSectProgress } from '@core/life/sectStanding';
+import { artProficiency, ART_MASTERY_THRESHOLD } from '@core/life/arts';
 import { inkAiUrl, type InkAiAssetId } from '../../ui/inkAiCatalog';
 
-export type PracticeView = 'main' | 'sect';
+export type PracticeView = 'main' | 'sect' | 'arts';
 
 const PRACTICE_ICON: Partial<Record<PracticeActionId, InkAiAssetId>> = {
   train_martial: 'motif-sword',
@@ -31,7 +32,7 @@ type Props = {
   onView: (v: PracticeView) => void;
   practiceLeft: number;
   busy: boolean;
-  onPractice: (actionId: PracticeActionId, opts?: { sectId?: string }) => void;
+  onPractice: (actionId: PracticeActionId, opts?: { sectId?: string; artId?: string }) => void;
 };
 
 export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPractice }: Props) {
@@ -64,6 +65,20 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
               <span className="ink-practice-btn-text">
                 <strong>門派</strong>
                 <span>{sect ? `${sect.name} · 進入門中` : '尚未入派 · 擇門拜師'}</span>
+              </span>
+            </button>
+            <button
+              type="button"
+              className="ink-practice-btn ink-practice-btn--sect ink-practice-btn--icon"
+              disabled={busy}
+              onClick={() => {
+                onView('arts');
+              }}
+            >
+              <RowIcon icon="motif-scroll" />
+              <span className="ink-practice-btn-text">
+                <strong>修習雅藝</strong>
+                <span>琴棋書畫、佛道邪學，各憑機緣</span>
               </span>
             </button>
             {PRACTICE_ACTIONS.map((act) => (
@@ -160,6 +175,38 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
               </div>
             </>
           )}
+        </>
+      )}
+
+      {view === 'arts' && (
+        <>
+          <div className="ink-sect-head">
+            <h3>修習雅藝</h3>
+            <button type="button" className="ink-btn ink-btn--quiet" onClick={() => onView('main')}>
+              回門
+            </button>
+          </div>
+          <p className="ink-note">
+            琴棋書畫、佛道邪學，各有所長；練至熟練度 {ART_MASTERY_THRESHOLD} 可悟對應武功。
+          </p>
+          <div className="ink-practice-grid">
+            {ART_DEFS.map((a) => (
+              <button
+                key={a.id}
+                type="button"
+                className="ink-practice-btn"
+                disabled={busy}
+                onClick={() => {
+                  onPractice('study_art', { artId: a.id });
+                }}
+              >
+                <strong>{a.name}</strong>
+                <span>
+                  {a.hint} · 熟練度 {artProficiency(state, a.id)}
+                </span>
+              </button>
+            ))}
+          </div>
         </>
       )}
 

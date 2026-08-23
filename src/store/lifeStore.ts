@@ -74,7 +74,7 @@ export interface LifeStore {
   /** 無可選抉擇時暫避 */
   dismissEvent: () => void;
   dismissCoach: () => void;
-  practice: (actionId: PracticeActionId, opts?: { sectId?: string }) => void;
+  practice: (actionId: PracticeActionId, opts?: { sectId?: string; artId?: string }) => void;
   combatMove: (moveId: string) => void;
   combatSetInternalMode: (modeId: string | null) => void;
   combatResolveFoe: (disposition: CombatFoeDisposition) => void;

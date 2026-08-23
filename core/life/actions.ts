@@ -19,6 +19,7 @@ import { rollTravelOffer } from './rumorTravel';
 import { ensureMasterBond } from './bonds';
 import { rollRandomFragment } from './manualFragments';
 import { designateHeir, listChildNames, seekChild } from './family';
+import { ART_DEFS, applyStudyArt, meetsTaohuaCultureGate, TAOHUA_CULTURE_THRESHOLD } from './arts';
 
 export type PracticeActionId =
   | 'train_martial'
@@ -28,6 +29,7 @@ export type PracticeActionId =
   | 'seek_master'
   | 'inquire_rumors'
   | 'drink_wine'
+  | 'study_art'
   | 'heal'
   | 'equip_best'
   | 'join_sect'
@@ -79,7 +81,7 @@ export const SECT_INNER_ACTIONS: PracticeAction[] = [
   { id: 'sect_politics', label: '山門站隊', hint: '門中風波，選邊或調解' },
 ];
 
-export { SECT_DEFS };
+export { SECT_DEFS, ART_DEFS };
 
 function clamp(n: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, n));
@@ -98,7 +100,7 @@ const RARITY_RANK: Record<GearRarity, number> = {
 export function applyPracticeOutcome(
   state: LifeGameState,
   actionId: PracticeActionId,
-  opts?: { sectId?: string },
+  opts?: { sectId?: string; artId?: string },
 ): string[] {
   syncRngFromState(state);
   const rng = getRng();
@@ -198,6 +200,16 @@ export function applyPracticeOutcome(
         );
         break;
       }
+      if (target === 'sect_taohua' && !meetsTaohuaCultureGate(state)) {
+        logs.push(
+          `島主只淡淡道：「琴棋書畫尚未通透，且回去再修。」（需琴棋詩書畫熟練度總和達 ${TAOHUA_CULTURE_THRESHOLD}）`,
+        );
+        break;
+      }
+      if (target === 'sect_wugen' && !c.flags.wugenInvited) {
+        logs.push('你尋不著無根門的門徑——世間傳聞雖多，未逢奇緣者終究無法叩門。');
+        break;
+      }
       if (rng.chance(0.22)) {
         logs.push(`${state.sects[target].name}此番未允，只道「機緣未到」。`);
         break;
@@ -206,6 +218,15 @@ export function applyPracticeOutcome(
       c.sectStanding = 0;
       c.flags.joined_sect = true;
       logs.push(`你拜入${state.sects[target].name}，成為外門弟子。`);
+      if (target === 'sect_wugen') {
+        c.flags.wugenSevered = true;
+        if (c.gender === 'male') {
+          c.flags.isEunuch = true;
+          logs.push('入門之日，你揮刀自宮，斷絕塵根——從此再無兒女私情，換得一身陰柔奇功。');
+        } else {
+          logs.push('入門之日，你對天立誓，斷情絕愛，此生不涉兒女私情——換得一身陰柔奇功。');
+        }
+      }
       ensureMasterBond(state, `${state.sects[target].name}執法長老`);
       logs.push(`你對執法長老執弟子禮，師徒之名已定。`);
       const artId = artForStanding(target, 0);
@@ -466,6 +487,10 @@ export function applyPracticeOutcome(
       }
       break;
     }
+    case 'study_art': {
+      logs.push(...applyStudyArt(state, opts?.artId ?? ''));
+      break;
+    }
     case 'heal': {
       if (c.money < 15) {
         logs.push('藥金不足，醫者只給你一碗清茶。');
@@ -482,6 +507,10 @@ export function applyPracticeOutcome(
       break;
     }
     case 'seek_child': {
+      if (c.flags.wugenSevered) {
+        logs.push('你早已斷絕塵根，此念作罷。');
+        break;
+      }
       logs.push(...seekChild(state));
       break;
     }
@@ -519,7 +548,7 @@ export function applyPracticeOutcome(
 export function performPracticeAction(
   state: LifeGameState,
   actionId: PracticeActionId,
-  opts?: { sectId?: string },
+  opts?: { sectId?: string; artId?: string },
 ): string[] {
   if (!state.character.alive || state.phase !== 'playing') return ['你已無法行動。'];
   if (state.pending) return ['眼前尚有未決之事，先作抉擇。'];

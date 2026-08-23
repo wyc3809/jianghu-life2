@@ -162,7 +162,7 @@ export const EVENT_CATALOG: GameEvent[] = [
   {
     id: 'love_meet',
     title: '燈會相逢',
-    requirements: { minAge: 16, maxAge: 35, once: true },
+    requirements: { minAge: 16, maxAge: 35, once: true, notFlags: ['wugenSevered'] },
     choices: [
       {
         id: 'talk',
@@ -187,7 +187,12 @@ export const EVENT_CATALOG: GameEvent[] = [
   {
     id: 'love_confess',
     title: '表白心跡',
-    requirements: { minAge: 18, flags: { romance_started: true }, once: true },
+    requirements: {
+      minAge: 18,
+      flags: { romance_started: true },
+      once: true,
+      notFlags: ['wugenSevered'],
+    },
     choices: [
       {
         id: 'yes',
@@ -1021,6 +1026,38 @@ export const EVENT_CATALOG: GameEvent[] = [
         id: 'miss',
         text: '錯過機緣',
         outcomes: [{ effects: [{ type: 'narrate', text: '你猶豫了一下，老人已經走遠。山風把他的背影吹得很淡。' }] }],
+      },
+    ],
+  },
+  {
+    id: 'wugen_encounter',
+    title: '無根門說客',
+    requirements: { minAge: 16, maxAge: 50, noSect: true, once: true },
+    weight: 5,
+    choices: [
+      {
+        id: 'accept',
+        text: '應允奇緣',
+        outcomes: [
+          {
+            effects: [
+              { type: 'flag', key: 'wugenInvited', value: true },
+              { type: 'narrate', text: '灰袍人只留下一句「無根門，斷塵緣」，便消失在巷口。你記下了那個地址。' },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'decline',
+        text: '婉言謝絕',
+        outcomes: [
+          {
+            effects: [
+              { type: 'attr', delta: { danShi: 1 } },
+              { type: 'narrate', text: '你搖頭謝絕。灰袍人也不強求，只道「有緣再會」，轉身沒入人群。' },
+            ],
+          },
+        ],
       },
     ],
   },
