@@ -14,7 +14,6 @@ import {
   type InkCombatFx,
 } from '@core/life/combatInkFx';
 import { InkBarWithGhost, InkCombatFxLayer, useInkCombatFxQueue } from './InkCombatFx';
-import { useCombatCanvas } from './useCombatCanvas';
 import { InkInlineSvg } from './InkDecor';
 import { INK_SVG, auraSvgForInternalModeId, auraClassForInternalModeId } from '../../ui/inkAssets';
 import { COMBO_PATTERNS } from '@core/life/comboSystem';
@@ -103,14 +102,7 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
   const combatVitalsRef = useRef<CombatVitalsSnap | null>(null);
   const pendingMoveMeta = useRef<{ name: string; stance: MoveStance } | null>(null);
   const { fx: combatFx, stanceBrush, shock: combatShock, pushFx, clearFx } = useInkCombatFxQueue();
-  const {
-    canvasRef: combatCanvasRef,
-    spawnHit,
-    spawnQi,
-    spawnCombo,
-    spawnGuard,
-    clear,
-  } = useCombatCanvas();
+  // Canvas particle system removed — using CSS InkCombatFxLayer instead
   const [comboBurst, setComboBurst] = useState<{ name: string; seq: number } | null>(null);
   const comboLogLenRef = useRef(0);
   const comboSeqRef = useRef(0);
@@ -124,7 +116,6 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
     setExpandedMoveId(null);
     comboLogLenRef.current = 0;
     setComboBurst(null);
-    clear();
   }, [combat.id]);
 
   useEffect(() => {
@@ -137,7 +128,6 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
       setComboBurst({ name: triggered.name, seq: comboSeqRef.current });
       if (comboBurstTimerRef.current) window.clearTimeout(comboBurstTimerRef.current);
       comboBurstTimerRef.current = window.setTimeout(() => setComboBurst(null), 1800);
-      spawnCombo();
       playInkCombo();
     }
   }, [combat.log.length]);
@@ -202,21 +192,17 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
         const hasGuard = items.some((f: InkCombatFx) => f.kind === 'guard');
 
         if (foeDmg > 0.05) {
-          spawnHit('foe', foeDmg, meta?.stance);
           if (hasCrit) playInkCrit();
           else playInkHit();
         }
         if (playerDmg > 0.05) {
-          spawnHit('player', playerDmg);
           playInkHit();
         }
         if (qiLost > 0.05) {
-          spawnQi('player');
           playInkQiFlow();
         }
         if (hasMiss) playInkMiss();
         if (hasGuard) {
-          spawnGuard('player');
           playInkGuard();
         }
       }
@@ -281,18 +267,7 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
       aria-live="polite"
     >
       <InkCombatFxLayer items={combatFx} stanceBrush={stanceBrush} />
-      <canvas
-        ref={combatCanvasRef}
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          pointerEvents: 'none',
-          zIndex: 10,
-        }}
-      />
+
       <div className="ink-blot-decor ink-blot-decor--corner-bl" aria-hidden />
       <div className="ink-blot-decor ink-blot-decor--corner-tr" aria-hidden />
       {comboBurst && (
