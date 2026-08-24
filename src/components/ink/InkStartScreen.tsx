@@ -22,7 +22,10 @@ function InkInlineSvg({ className, markup }: { className?: string; markup: strin
 export function InkStartScreen({ onStart, onContinue, resumeHint, onSeedDebug, onOpenEditor }: Props) {
   return (
     <div className="scroll-shell ink-enter ink-start">
-      <InkAiWashLayer className="ink-ai-wash ink-ai-wash--hero" src={inkAiUrl('backdrop-title-scroll')} />
+      <InkAiWashLayer
+        className="ink-ai-wash ink-ai-wash--hero ink-ai-wash--intro"
+        src={inkAiUrl('backdrop-title-chainwhip')}
+      />
       <InkScrollBackdrop variant="hero" />
       <header className="ink-hero">
         <InkStaticSeal text="生" />
