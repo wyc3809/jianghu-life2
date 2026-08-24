@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { useStillMode } from '../../hooks/useStillMode';
+import { useStillMode, useSkipJsAnimation } from '../../hooks/useStillMode';
+import { stillClassName, barOffset } from './inkStillClass';
 import styles from './InkBossIntro.module.css';
 
 type Particle = {
@@ -15,7 +16,7 @@ type Particle = {
 };
 
 /** Boss 現身：墨色迸濺（canvas 粒子，純裝飾） */
-function useInkBurst(canvasRef: React.RefObject<HTMLCanvasElement | null>, still: boolean) {
+function useInkBurst(canvasRef: React.RefObject<HTMLCanvasElement | null>, skip: boolean) {
   useEffect(() => {
     const cv = canvasRef.current;
     const ctx = cv?.getContext('2d');
@@ -50,7 +51,7 @@ function useInkBurst(canvasRef: React.RefObject<HTMLCanvasElement | null>, still
       };
     });
 
-    if (still) {
+    if (skip) {
       for (let i = 0; i < 120; i++) {
         for (const p of parts) {
           p.x += p.vx;
@@ -95,14 +96,12 @@ function useInkBurst(canvasRef: React.RefObject<HTMLCanvasElement | null>, still
       cancelAnimationFrame(raf);
       window.removeEventListener('resize', size);
     };
-  }, [canvasRef, still]);
+  }, [canvasRef, skip]);
 }
 
 type Props = {
   /** 敵人名（如「血刀老祖」） */
   foeName: string;
-  /** 副題（如「魔教長老 · 血刀門主」），沒有就唔顯示嗰行 */
-  foeTitle?: string;
   hp: number;
   maxHp: number;
   onDone: () => void;
@@ -115,21 +114,21 @@ const HP_BAR_LEN = 508;
  * 移植自水墨武俠 UI 套件 index.html #scene-boss。
  * 觸發時機：進入首領交手前播一次（見 InkPlayScreen.tsx）。
  */
-export function InkBossIntro({ foeName, foeTitle, hp, maxHp, onDone }: Props) {
+export function InkBossIntro({ foeName, hp, maxHp, onDone }: Props) {
   const still = useStillMode();
+  const skipJs = useSkipJsAnimation();
   const burstRef = useRef<HTMLCanvasElement>(null);
-  useInkBurst(burstRef, still);
+  useInkBurst(burstRef, skipJs);
 
   useEffect(() => {
-    if (still) return;
+    if (skipJs) return;
     const t = window.setTimeout(onDone, 4200);
     return () => window.clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [still]);
+  }, [skipJs]);
 
-  const cls = (base: string, stillCls?: string) => `${base}${still && stillCls ? ` ${stillCls}` : ''}`;
-  const pct = Math.max(0, Math.min(1, maxHp > 0 ? hp / maxHp : 0));
-  const off = Math.round(HP_BAR_LEN * (1 - pct));
+  const cls = (base: string, stillCls?: string) => stillClassName(base, stillCls, still);
+  const off = barOffset(HP_BAR_LEN, hp, maxHp);
 
   return createPortal(
     <div className={styles.root} role="button" tabIndex={0} aria-label="強敵現身，點擊繼續" onClick={onDone}>
@@ -143,7 +142,6 @@ export function InkBossIntro({ foeName, foeTitle, hp, maxHp, onDone }: Props) {
           </svg>
           <div className={styles.name}>
             <div className={cls(styles.kanji, styles.kanjiStill)}>{foeName}</div>
-            {foeTitle && <div className={cls(styles.subtitle, styles.subtitleStill)}>{foeTitle}</div>}
           </div>
           <div className={cls(styles.seal, styles.sealStill)}>凶</div>
           <div className={cls(styles.bar, styles.barStill)}>

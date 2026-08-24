@@ -4,6 +4,7 @@ import { wuxiaAttributeKeys, wuxiaAttributeLabels, natureKeys, natureLabels } fr
 import { ensureNature, dominantNature } from '@core/life/nature';
 import { jianghuRank, jianghuRankTier } from '@core/life/jianghuRank';
 import { useStillMode } from '../../hooks/useStillMode';
+import { stillClassName, barOffset } from './inkStillClass';
 import styles from './InkStatsPanel.module.css';
 
 const VITAL_BAR_LEN = 384;
@@ -25,11 +26,6 @@ function natureVertex(value: number, axis: { x: number; y: number }) {
   return { x: 75 + (axis.x - 75) * t, y: 75 + (axis.y - 75) * t };
 }
 
-function barOffset(len: number, raw: number, max: number): number {
-  const pct = Math.max(0, Math.min(1, max > 0 ? raw / max : 0));
-  return Math.round(len * (1 - pct));
-}
-
 type Props = {
   state: LifeGameState;
   onClose: () => void;
@@ -42,7 +38,7 @@ type Props = {
  */
 export function InkStatsPanel({ state, onClose }: Props) {
   const still = useStillMode();
-  const cls = (base: string, stillCls?: string) => `${base}${still && stillCls ? ` ${stillCls}` : ''}`;
+  const cls = (base: string, stillCls?: string) => stillClassName(base, stillCls, still);
   const c = state.character;
   const nature = ensureNature(c);
   const dominant = dominantNature(c);

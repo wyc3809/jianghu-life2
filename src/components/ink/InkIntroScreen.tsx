@@ -1,14 +1,15 @@
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { useStillMode } from '../../hooks/useStillMode';
+import { useStillMode, useSkipJsAnimation } from '../../hooks/useStillMode';
+import { stillClassName } from './inkStillClass';
 import styles from './InkIntroScreen.module.css';
 
 type Mote = { x: number; y: number; r: number; vx: number; vy: number; a: number };
 
 /** 進場：浮游墨粒（canvas 粒子，純裝飾，唔影響任何遊戲數值） */
-function useInkMotes(canvasRef: React.RefObject<HTMLCanvasElement | null>, still: boolean) {
+function useInkMotes(canvasRef: React.RefObject<HTMLCanvasElement | null>, skip: boolean) {
   useEffect(() => {
-    if (still) return;
+    if (skip) return;
     const cv = canvasRef.current;
     const ctx = cv?.getContext('2d');
     if (!cv || !ctx) return;
@@ -60,7 +61,7 @@ function useInkMotes(canvasRef: React.RefObject<HTMLCanvasElement | null>, still
       cancelAnimationFrame(raf);
       window.removeEventListener('resize', size);
     };
-  }, [canvasRef, still]);
+  }, [canvasRef, skip]);
 }
 
 /**
@@ -70,10 +71,11 @@ function useInkMotes(canvasRef: React.RefObject<HTMLCanvasElement | null>, still
  */
 export function InkIntroScreen({ onEnter }: { onEnter: () => void }) {
   const still = useStillMode();
+  const skipJs = useSkipJsAnimation();
   const motesRef = useRef<HTMLCanvasElement>(null);
-  useInkMotes(motesRef, still);
+  useInkMotes(motesRef, skipJs);
 
-  const cls = (base: string, stillCls?: string) => `${base}${still && stillCls ? ` ${stillCls}` : ''}`;
+  const cls = (base: string, stillCls?: string) => stillClassName(base, stillCls, still);
 
   return createPortal(
     <div
