@@ -36,6 +36,7 @@ import { buildGenealogy } from '@core/life/genealogy';
 import { achievementProgress, listAchievementStatus } from '@core/life/achievements';
 import { allTitles } from '@core/life/titles';
 import { calculateProgress } from '@core/life/progression';
+import { InkStatsPanel } from './InkStatsPanel';
 
 export type PersonView =
   | 'main'
@@ -59,6 +60,7 @@ type Props = {
 
 export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest }: Props) {
   const [previewGearId, setPreviewGearId] = useState<string | null>(null);
+  const [showStatsScroll, setShowStatsScroll] = useState(false);
   const c = state.character;
   const nature = ensureNature(c);
   const dominant = dominantNature(c);
@@ -129,6 +131,7 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
     ];
 
     return (
+      <>
       <section className="ink-panel ink-attrs ink-tab-pane" aria-label="人物">
         <h3>人物</h3>
         <p className="ink-note">
@@ -211,7 +214,16 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
             </button>
           ))}
         </div>
+        <button
+          type="button"
+          className="ink-btn ink-btn--quiet"
+          onClick={() => setShowStatsScroll(true)}
+        >
+          人物誌卷 · 山水橫幅
+        </button>
       </section>
+      {showStatsScroll && <InkStatsPanel state={state} onClose={() => setShowStatsScroll(false)} />}
+    </>
     );
   }
 

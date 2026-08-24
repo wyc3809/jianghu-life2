@@ -1,0 +1,373 @@
+/* 江湖一生 · Boss 動畫（黑紙反墨 + 原畫立繪）
+   移植自水墨武俠 UI 套件 index.html #scene-boss，動畫數值原樣保留 */
+
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: 210;
+  overflow: hidden;
+  background: radial-gradient(75% 60% at 50% 44%, #221d16 0%, #14110d 52%, #0a0806 100%);
+  color: #efe6cf;
+  font-family:
+    'Noto Serif CJK TC',
+    'Noto Serif CJK SC',
+    'Songti TC',
+    'STSong',
+    serif;
+  cursor: pointer;
+}
+
+.root::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(140% 120% at 50% 50%, transparent 52%, rgba(0, 0, 0, 0.8) 100%);
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.35;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E");
+}
+
+.stage {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+}
+
+.burst {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+.shake {
+  position: absolute;
+  inset: 0;
+  animation: shk 0.5s linear 1.7s;
+}
+
+.shakeStill {
+  animation: none;
+}
+
+@keyframes shk {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-7px, 3px);
+  }
+  40% {
+    transform: translate(6px, -4px);
+  }
+  60% {
+    transform: translate(-5px, -2px);
+  }
+  80% {
+    transform: translate(4px, 2px);
+  }
+}
+
+.art {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  height: min(72vh, 760px);
+  aspect-ratio: 2 / 3;
+  transform: translate(-50%, -50%);
+  clip-path: inset(100% 0 0 0);
+  filter: drop-shadow(0 0 44px rgba(179, 52, 42, 0.22));
+  animation:
+    bossRise 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.45s forwards,
+    bossIdle 5s ease-in-out 1.8s infinite;
+}
+
+.artStill {
+  animation: none;
+  clip-path: inset(0 0 0 0);
+}
+
+@keyframes bossRise {
+  0% {
+    clip-path: inset(100% 0 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes bossIdle {
+  0%,
+  100% {
+    transform: translate(-50%, -50%);
+  }
+  50% {
+    transform: translate(-50%, -51.4%);
+  }
+}
+
+.slash {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.slash path {
+  fill: none;
+  stroke: #b3342a;
+  stroke-linecap: round;
+  stroke-dasharray: var(--len);
+  stroke-dashoffset: var(--len);
+  filter: drop-shadow(0 0 16px rgba(179, 52, 42, 0.75));
+  animation: drawSlash 0.28s cubic-bezier(0.6, 0, 0.9, 0.4) 1.7s forwards;
+}
+
+.slashStill path {
+  animation: none;
+  stroke-dashoffset: 0;
+}
+
+@keyframes drawSlash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.name {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: 13.5vh;
+  transform: translateX(-50%);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.kanji {
+  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
+  font-size: clamp(54px, 10vh, 112px);
+  letter-spacing: 0.14em;
+  color: #efe6cf;
+  text-shadow:
+    0 0 26px rgba(179, 52, 42, 0.4),
+    0 3px 0 rgba(0, 0, 0, 0.6);
+  clip-path: inset(0 100% 0 0);
+  animation: wipe 0.9s cubic-bezier(0.22, 1, 0.36, 1) 2s forwards;
+}
+
+.kanjiStill {
+  animation: none;
+  clip-path: inset(0 0 0 0);
+}
+
+@keyframes wipe {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.subtitle {
+  margin-top: 8px;
+  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
+  font-size: clamp(14px, 2vh, 19px);
+  letter-spacing: 0.7em;
+  color: #a79b82;
+  opacity: 0;
+  animation: fadeInBoss 0.7s ease 2.6s forwards;
+}
+
+.subtitleStill {
+  animation: none;
+  opacity: 1;
+}
+
+@keyframes fadeInBoss {
+  to {
+    opacity: 1;
+  }
+}
+
+.seal {
+  position: absolute;
+  z-index: 5;
+  left: calc(50% + clamp(54px, 10vh, 112px) * 2.35);
+  bottom: calc(13.5vh + clamp(54px, 10vh, 112px) * 0.62);
+  width: clamp(44px, 7vh, 68px);
+  height: clamp(44px, 7vh, 68px);
+  background: #b3342a;
+  color: #f6ead9;
+  display: grid;
+  place-items: center;
+  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
+  font-size: clamp(25px, 4.4vh, 42px);
+  border-radius: 6px;
+  transform: rotate(6deg) scale(2.2);
+  opacity: 0;
+  animation: stamp 0.5s cubic-bezier(0.17, 0.89, 0.32, 1.28) 2.7s forwards;
+}
+
+.sealStill {
+  animation: none;
+  opacity: 1;
+  transform: rotate(6deg) scale(1);
+}
+
+@keyframes stamp {
+  0% {
+    opacity: 0;
+    transform: rotate(6deg) scale(2.2);
+  }
+  60% {
+    opacity: 1;
+    transform: rotate(6deg) scale(0.94);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(6deg) scale(1);
+  }
+}
+
+.warn {
+  position: absolute;
+  z-index: 5;
+  top: 8.5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
+  letter-spacing: 1.1em;
+  text-indent: 1.1em;
+  font-size: clamp(16px, 2.6vh, 24px);
+  color: #b3342a;
+  text-shadow: 0 0 18px rgba(179, 52, 42, 0.55);
+  opacity: 0;
+  margin: 0;
+  animation:
+    warnIn 0.6s ease 0.3s forwards,
+    warnPulse 1.6s ease-in-out 1s infinite;
+}
+
+.warnStill {
+  animation: none;
+  opacity: 1;
+}
+
+@keyframes warnIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes warnPulse {
+  0%,
+  100% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.bar {
+  position: absolute;
+  z-index: 5;
+  bottom: 4.5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(64vw, 520px);
+  opacity: 0;
+  animation: fadeInBoss 0.7s ease 2.85s forwards;
+}
+
+.barStill {
+  animation: none;
+  opacity: 1;
+}
+
+.barLbl {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
+  font-size: 13px;
+  letter-spacing: 0.35em;
+  color: #b7ab90;
+  margin-bottom: 6px;
+}
+
+.bar svg {
+  width: 100%;
+  height: 22px;
+  display: block;
+}
+
+.rail {
+  fill: none;
+  stroke: #3a3227;
+  stroke-width: 14;
+  stroke-linecap: round;
+}
+
+.fill {
+  fill: none;
+  stroke: #b3342a;
+  stroke-width: 14;
+  stroke-linecap: round;
+  stroke-dasharray: var(--len);
+  stroke-dashoffset: var(--len);
+  filter: drop-shadow(0 0 8px rgba(179, 52, 42, 0.55));
+  animation: barFill 1s cubic-bezier(0.22, 1, 0.36, 1) 3s forwards;
+}
+
+.fillStill {
+  animation: none;
+  stroke-dashoffset: var(--off);
+}
+
+@keyframes barFill {
+  to {
+    stroke-dashoffset: var(--off);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shake,
+  .art,
+  .slash path,
+  .kanji,
+  .subtitle,
+  .seal,
+  .warn,
+  .bar,
+  .fill {
+    animation: none !important;
+  }
+  .art,
+  .kanji {
+    clip-path: inset(0 0 0 0);
+  }
+  .slash path,
+  .fill {
+    stroke-dashoffset: var(--off, 0);
+  }
+  .subtitle,
+  .seal,
+  .warn,
+  .bar {
+    opacity: 1;
+  }
+}

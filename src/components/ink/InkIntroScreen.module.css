@@ -1,0 +1,351 @@
+/* 江湖一生 · 進場畫面（原畫全幅 + 墨拭揭示）
+   移植自水墨武俠 UI 套件 index.html #scene-intro，動畫數值原樣保留 */
+
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  overflow: hidden;
+  background: #f0e9d8;
+  color: #16130f;
+  font-family:
+    'Noto Serif CJK TC',
+    'Noto Serif CJK SC',
+    'Songti TC',
+    'STSong',
+    serif;
+  cursor: pointer;
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E");
+}
+
+.art {
+  position: absolute;
+  inset: -2%;
+  background: url('/art/art-intro.png') center/cover no-repeat;
+  clip-path: inset(0 100% 0 0);
+  transform: scale(1.02);
+  animation:
+    artWipe 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards,
+    kenburns 16s ease-in-out 1.8s infinite alternate;
+}
+
+.artStill {
+  animation: none;
+  clip-path: inset(0 0 0 0);
+}
+
+@keyframes artWipe {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes kenburns {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.09);
+  }
+}
+
+.veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 18vmin 6vmin rgba(240, 233, 216, 0.95);
+}
+
+.motes {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.block {
+  position: absolute;
+  z-index: 3;
+  right: 6vw;
+  top: 9vh;
+  display: flex;
+  align-items: flex-start;
+}
+
+.title {
+  writing-mode: vertical-rl;
+  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
+  font-size: clamp(60px, 12.5vh, 140px);
+  line-height: 1.06;
+  letter-spacing: 0.12em;
+  color: #16130f;
+  text-shadow:
+    0 0 22px rgba(240, 233, 216, 0.95),
+    0 0 6px rgba(240, 233, 216, 0.9);
+  display: flex;
+  gap: 0.16em;
+  position: relative;
+  margin: 0;
+}
+
+.ch {
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(14px);
+  animation: chIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.chStill {
+  animation: none;
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
+
+.ch:nth-child(1) {
+  animation-delay: 0.9s;
+}
+.ch:nth-child(2) {
+  animation-delay: 1.1s;
+}
+.ch:nth-child(3) {
+  animation-delay: 1.3s;
+}
+.ch:nth-child(4) {
+  animation-delay: 1.5s;
+}
+
+@keyframes chIn {
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+.sub {
+  writing-mode: vertical-rl;
+  position: absolute;
+  top: 1vh;
+  right: calc(100% + 3.6vw);
+  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
+  font-size: clamp(14px, 2vh, 19px);
+  letter-spacing: 0.55em;
+  color: #3b352c;
+  text-shadow: 0 0 14px rgba(240, 233, 216, 0.9);
+  opacity: 0;
+  white-space: nowrap;
+  margin: 0;
+  animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 2s forwards;
+}
+
+.subStill {
+  animation: none;
+  opacity: 1;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.seal {
+  position: absolute;
+  z-index: 4;
+  left: calc(-1 * clamp(50px, 8.5vh, 82px) - 1.4vh);
+  bottom: -0.5vh;
+  width: clamp(50px, 8.5vh, 82px);
+  height: clamp(50px, 8.5vh, 82px);
+  background: #b3342a;
+  color: #f6ead9;
+  display: grid;
+  place-items: center;
+  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
+  font-size: clamp(28px, 5vh, 50px);
+  border-radius: 8px;
+  box-shadow: 0 0 0 3px rgba(179, 52, 42, 0.35) inset;
+  transform: scale(2.4) rotate(-18deg);
+  opacity: 0;
+  animation: stamp 0.55s cubic-bezier(0.17, 0.89, 0.32, 1.28) 2.2s forwards;
+}
+
+.sealStill {
+  animation: none;
+  opacity: 1;
+  transform: scale(1) rotate(-8deg);
+}
+
+.seal::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1.5px solid rgba(246, 234, 217, 0.8);
+  border-radius: 4px;
+}
+
+@keyframes stamp {
+  0% {
+    opacity: 0;
+    transform: scale(2.4) rotate(-18deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(0.94) rotate(-8deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(-8deg);
+  }
+}
+
+.splat {
+  position: absolute;
+  inset: -46px;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(179, 52, 42, 0.5), rgba(179, 52, 42, 0.16) 45%, transparent 70%);
+  opacity: 0;
+  animation: splat 0.6s ease-out 2.35s forwards;
+}
+
+.splatStill {
+  animation: none;
+  opacity: 1;
+}
+
+@keyframes splat {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.hint {
+  position: absolute;
+  bottom: 7vh;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(240, 233, 216, 0.72);
+  padding: 10px 18px 10px 26px;
+  border-radius: 2px;
+  z-index: 3;
+  text-align: center;
+  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
+  color: #3b352c;
+  letter-spacing: 0.55em;
+  font-size: clamp(15px, 2.2vh, 20px);
+  text-shadow: 0 0 14px rgba(240, 233, 216, 0.95);
+  opacity: 0;
+  animation:
+    fadeUpC 0.8s cubic-bezier(0.22, 1, 0.36, 1) 2.6s forwards,
+    breathe 2.8s ease-in-out 3.4s infinite;
+}
+
+.hintStill {
+  animation: none;
+  opacity: 1;
+}
+
+@keyframes fadeUpC {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 12px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.line {
+  width: 1px;
+  height: 52px;
+  margin: 14px auto 0;
+  background: #3b352c;
+  position: relative;
+  overflow: hidden;
+}
+
+.line::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(240, 233, 216, 0.9);
+  animation: scrollHint 2.5s ease-in-out infinite;
+}
+
+@keyframes scrollHint {
+  0% {
+    transform: translateY(-100%);
+  }
+  80%,
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@media (max-width: 640px) {
+  .block {
+    right: 4vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .art,
+  .ch,
+  .sub,
+  .seal,
+  .splat,
+  .hint,
+  .line::after {
+    animation: none !important;
+  }
+  .art {
+    clip-path: inset(0 0 0 0);
+  }
+  .ch {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+  .sub,
+  .hint,
+  .splat {
+    opacity: 1;
+  }
+  .seal {
+    opacity: 1;
+    transform: scale(1) rotate(-8deg);
+  }
+}

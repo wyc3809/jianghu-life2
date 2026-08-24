@@ -1,0 +1,476 @@
+/* 江湖一生 · 數值 UI（山水橫幅 + 卷軸）
+   移植自水墨武俠 UI 套件 index.html #scene-stats，動畫數值原樣保留 */
+
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: 190;
+  overflow: auto;
+  background: linear-gradient(#f0e9d8, #e7ddc6);
+  color: #16130f;
+  font-family:
+    'Noto Serif CJK TC',
+    'Noto Serif CJK SC',
+    'Songti TC',
+    'STSong',
+    serif;
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  background: url('/art/art-landscape.png') center/cover no-repeat;
+  opacity: 0.34;
+}
+
+.wrap {
+  position: relative;
+  z-index: 2;
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 70px 20px 40px;
+}
+
+.scroll {
+  position: relative;
+  width: min(92vw, 760px);
+  background: rgba(250, 245, 232, 0.9);
+  padding: 0 clamp(22px, 4vw, 52px) clamp(26px, 4.5vh, 46px);
+  box-shadow: 0 18px 50px -18px rgba(22, 19, 15, 0.4);
+}
+
+.close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 6;
+  appearance: none;
+  border: 1px solid #3b352c;
+  background: rgba(240, 233, 216, 0.82);
+  color: #3b352c;
+  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.banner {
+  margin: 0 calc(-1 * clamp(22px, 4vw, 52px)) 20px;
+  height: clamp(120px, 20vh, 190px);
+  background: url('/art/art-landscape.png') center 32% / cover no-repeat;
+  -webkit-mask-image: linear-gradient(#000 55%, transparent);
+  mask-image: linear-gradient(#000 55%, transparent);
+  clip-path: inset(0 100% 0 0);
+  animation: artWipe 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+}
+
+.bannerStill {
+  animation: none;
+  clip-path: inset(0 0 0 0);
+}
+
+@keyframes artWipe {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.corner {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.corner svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.corner path {
+  fill: none;
+  stroke: #3b352c;
+  stroke-width: 3;
+  stroke-linecap: square;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: drawSlash 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
+}
+
+.cornerStill path {
+  animation: none;
+  stroke-dashoffset: 0;
+}
+
+@keyframes drawSlash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.tl {
+  top: 10px;
+  left: 10px;
+}
+.tr {
+  top: 10px;
+  right: 10px;
+  transform: scaleX(-1);
+}
+.bl {
+  bottom: 10px;
+  left: 10px;
+  transform: scaleY(-1);
+}
+.br {
+  bottom: 10px;
+  right: 10px;
+  transform: scale(-1);
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  border-bottom: 2px solid #16130f;
+  padding-bottom: 14px;
+  opacity: 0;
+  animation: fadeUpS 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+}
+
+.headStill {
+  animation: none;
+  opacity: 1;
+}
+
+.head h2 {
+  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
+  font-weight: 700;
+  font-size: clamp(28px, 4.6vh, 40px);
+  letter-spacing: 0.28em;
+  margin: 0;
+}
+
+.headEn {
+  font-size: 12px;
+  letter-spacing: 0.42em;
+  color: #6b6355;
+}
+
+.miniSeal {
+  margin-left: auto;
+  width: 44px;
+  height: 44px;
+  background: #b3342a;
+  color: #f6ead9;
+  display: grid;
+  place-items: center;
+  border-radius: 5px;
+  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
+  font-size: 24px;
+  transform: rotate(-6deg);
+}
+
+@keyframes fadeUpS {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.meta {
+  display: flex;
+  gap: 26px;
+  flex-wrap: wrap;
+  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
+  font-size: 15px;
+  letter-spacing: 0.18em;
+  color: #3b352c;
+  padding: 14px 0 4px;
+  opacity: 0;
+  animation: fadeUpS 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.62s forwards;
+  margin: 0;
+}
+
+.metaStill {
+  animation: none;
+  opacity: 1;
+}
+
+.meta b {
+  color: #a8331f;
+  font-weight: 600;
+}
+
+.vitals {
+  padding: 16px 0 6px;
+  opacity: 0;
+  animation: fadeUpS 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.74s forwards;
+}
+
+.vitalsStill {
+  animation: none;
+  opacity: 1;
+}
+
+.vital {
+  display: grid;
+  grid-template-columns: 64px 1fr 74px;
+  align-items: center;
+  gap: 14px;
+  margin: 12px 0;
+}
+
+.vitalName {
+  writing-mode: vertical-rl;
+  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
+  font-size: 19px;
+  letter-spacing: 0.3em;
+  color: #16130f;
+  border-left: 1px solid #6b6355;
+  padding-left: 8px;
+  height: 64px;
+}
+
+.vital svg {
+  width: 100%;
+  height: 26px;
+  display: block;
+}
+
+.rail {
+  fill: none;
+  stroke: #d8cfba;
+  stroke-width: 18;
+  stroke-linecap: round;
+}
+
+.vitalFill {
+  fill: none;
+  stroke-linecap: round;
+  stroke-width: 18;
+  stroke-dasharray: var(--len);
+  stroke-dashoffset: var(--len);
+  animation: barFill 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.9s forwards;
+}
+
+.vitalFillStill {
+  animation: none;
+  stroke-dashoffset: var(--off);
+}
+
+.hpFill {
+  stroke: #a8331f;
+}
+
+.qiFill {
+  stroke: #16130f;
+}
+
+@keyframes barFill {
+  to {
+    stroke-dashoffset: var(--off);
+  }
+}
+
+.vitalVal {
+  font-size: 14px;
+  color: #3b352c;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.attrGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 16px;
+  padding: 22px 0 6px;
+  opacity: 0;
+  animation: fadeUpS 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.88s forwards;
+}
+
+.attrGridStill {
+  animation: none;
+  opacity: 1;
+}
+
+.attr {
+  text-align: center;
+}
+
+.attrName {
+  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
+  font-size: 17px;
+  letter-spacing: 0.35em;
+  text-indent: 0.35em;
+}
+
+.attrVal {
+  font-size: 26px;
+  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
+  color: #16130f;
+  margin: 6px 0 2px;
+}
+
+.attrVal small {
+  font-size: 12px;
+  color: #6b6355;
+}
+
+.attr svg {
+  width: 100%;
+  height: 10px;
+  display: block;
+  margin-top: 4px;
+}
+
+.attrRail {
+  fill: none;
+  stroke: #d8cfba;
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+
+.attrFill {
+  fill: none;
+  stroke: #3b352c;
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: var(--len);
+  stroke-dashoffset: var(--len);
+  animation: barFill 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1.05s forwards;
+}
+
+.attrFillStill {
+  animation: none;
+  stroke-dashoffset: var(--off);
+}
+
+.nature {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 22px;
+  align-items: center;
+  padding: 20px 0 4px;
+  opacity: 0;
+  animation: fadeUpS 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1s forwards;
+}
+
+.natureStill {
+  animation: none;
+  opacity: 1;
+}
+
+.nature svg {
+  width: 150px;
+  height: 150px;
+}
+
+.dia {
+  fill: rgba(168, 51, 31, 0.14);
+  stroke: #a8331f;
+  stroke-width: 1.5;
+}
+
+.axis {
+  stroke: #6b6355;
+  stroke-width: 0.7;
+  stroke-dasharray: 2 3;
+}
+
+.dot {
+  fill: #a8331f;
+}
+
+.nlbl {
+  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
+  font-size: 14px;
+  fill: #16130f;
+}
+
+.natureNote {
+  font-size: 13.5px;
+  line-height: 2;
+  color: #3b352c;
+  letter-spacing: 0.06em;
+  margin: 0;
+}
+
+.tag {
+  display: inline-block;
+  border: 1px solid #3b352c;
+  padding: 1px 10px;
+  margin-right: 8px;
+  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
+  letter-spacing: 0.25em;
+  font-size: 13px;
+}
+
+.tagRed {
+  border-color: #a8331f;
+  color: #a8331f;
+}
+
+.foot {
+  margin-top: 22px;
+  padding-top: 12px;
+  border-top: 1px dashed #6b6355;
+  font-size: 12.5px;
+  letter-spacing: 0.3em;
+  color: #6b6355;
+  display: flex;
+  justify-content: space-between;
+  opacity: 0;
+  animation: fadeUpS 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1.12s forwards;
+}
+
+.footStill {
+  animation: none;
+  opacity: 1;
+}
+
+@media (max-width: 640px) {
+  .nature {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .banner,
+  .corner path,
+  .head,
+  .meta,
+  .vitals,
+  .vitalFill,
+  .attrGrid,
+  .attrFill,
+  .nature,
+  .foot {
+    animation: none !important;
+  }
+  .banner {
+    clip-path: inset(0 0 0 0);
+  }
+  .corner path,
+  .vitalFill,
+  .attrFill {
+    stroke-dashoffset: var(--off, 0);
+  }
+  .head,
+  .meta,
+  .vitals,
+  .attrGrid,
+  .nature,
+  .foot {
+    opacity: 1;
+  }
+}
