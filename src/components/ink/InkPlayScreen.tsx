@@ -43,6 +43,7 @@ import { InkSectFounderPanel } from './InkSectFounderPanel';
 import { InkPersonPanel, type PersonView } from './InkPersonPanel';
 import { InkEventPanel } from './InkEventPanel';
 import { InkCombatPanel } from './InkCombatPanel';
+import { InkBossIntro } from './InkBossIntro';
 import { InkPracticePanel, type PracticeView } from './InkPracticePanel';
 import { LifeDebugPanel } from '../LifeDebugPanel';
 
@@ -93,6 +94,8 @@ export function InkPlayScreen({ state }: Props) {
   });
   const [monthTurning, setMonthTurning] = useState(false);
   const [choicesReady, setChoicesReady] = useState(false);
+  /** Boss 動畫：記低已播過邊個 combat.id，避免同一場交手 re-render 時重播 */
+  const [bossIntroShownFor, setBossIntroShownFor] = useState<string | null>(null);
   /** 結果匣：先經過，點擊後再揭消長 */
   const [resultDeltasReady, setResultDeltasReady] = useState(false);
   const prevYearMonth = useRef<string | null>(null);
@@ -171,6 +174,9 @@ export function InkPlayScreen({ state }: Props) {
   });
   const showResult = Boolean(lastResult) && state.phase === 'playing' && !state.pendingCombat;
   const combat = state.pendingCombat ?? null;
+  const showBossIntro = Boolean(
+    combat && combat.foePower === 'boss' && bossIntroShownFor !== combat.id,
+  );
 
   const practiceLeft = state.practiceActionsLeft ?? 3;
   const busy = Boolean(state.pending) || Boolean(combat) || showResult || !c.alive;
@@ -649,7 +655,16 @@ export function InkPlayScreen({ state }: Props) {
         />
       )}
 
-      {combat && state.phase === 'playing' && (
+      {combat && state.phase === 'playing' && showBossIntro && (
+        <InkBossIntro
+          foeName={combat.foe.name}
+          hp={combat.foe.hp}
+          maxHp={combat.foe.maxHp}
+          onDone={() => setBossIntroShownFor(combat.id)}
+        />
+      )}
+
+      {combat && state.phase === 'playing' && !showBossIntro && (
         <InkCombatPanel
           state={state}
           combat={combat}
