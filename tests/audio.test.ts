@@ -29,6 +29,7 @@ describe('inkAudio', () => {
     expect(typeof isInkAudioMuted).toBe('function');
     expect(typeof toggleInkAudioMuted).toBe('function');
     expect(typeof isAmbientEnabled).toBe('function');
+    expect(typeof setAmbientEnabled).toBe('function');
     expect(typeof setAmbientVolume).toBe('function');
     expect(typeof playInkTap).toBe('function');
     expect(typeof playInkHit).toBe('function');

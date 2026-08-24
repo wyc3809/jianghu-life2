@@ -189,6 +189,13 @@ export function toggleInkAudioMuted(): boolean {
   return muted;
 }
 
+export function setAmbientEnabled(next: boolean) {
+  ambientEnabled = next;
+  try { localStorage.setItem(AMBIENT_KEY, next ? '1' : '0'); } catch {}
+  if (!next) stopAmbient();
+  else if (!muted) startAmbient();
+}
+
 // ===== UI 音效 =====
 export function playInkTap() {
   const audioCtx = getAC();

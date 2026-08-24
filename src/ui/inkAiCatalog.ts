@@ -36,6 +36,14 @@ export const INK_AI_ASSETS: readonly InkAiAsset[] = [
     tags: ['start', 'hero', 'mountains'],
   },
   {
+    id: 'backdrop-title-chainwhip',
+    kind: 'backdrop',
+    path: 'ai/backdrops/backdrop-title-chainwhip.webp',
+    titleZh: '鎖鏈少俠',
+    useWhen: '首屏開場動畫主視覺，墨拭揭示 + 緩慢推鏡',
+    tags: ['start', 'hero', 'intro'],
+  },
+  {
     id: 'backdrop-night-mountains',
     kind: 'backdrop',
     path: 'ai/backdrops/backdrop-night-mountains.webp',
