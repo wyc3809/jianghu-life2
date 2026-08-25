@@ -465,38 +465,6 @@ body::before {
   opacity: 0.55;
 }
 
-.ink-ai-wash--hero {
-  opacity: 0.42;
-  mix-blend-mode: multiply;
-}
-
-/* 開場動畫主視覺：墨拭揭示（右→左）+ 緩慢推鏡，人物偏左入鏡 */
-.ink-ai-wash--intro {
-  opacity: 0.36;
-  object-position: 26% 58%;
-  animation:
-    inkArtWipe 1.3s cubic-bezier(0.22, 1, 0.36, 1) both,
-    inkArtKenburns 18s ease-in-out 1.5s infinite alternate;
-}
-
-@keyframes inkArtWipe {
-  from {
-    clip-path: inset(0 100% 0 0);
-  }
-  to {
-    clip-path: inset(0 0 0 0);
-  }
-}
-
-@keyframes inkArtKenburns {
-  from {
-    transform: scale(1.02);
-  }
-  to {
-    transform: scale(1.09);
-  }
-}
-
 /* 分卷啟用態：紙字於墨底，避免看起來像空白黑塊 */
 .ink-tab--active {
   color: var(--paper-bright);
@@ -3518,7 +3486,6 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
   .ink-btn--ack,
   .ink-modal,
   .ink-modal-card,
-  .ink-ai-wash--intro,
   .ink-enter,
   .ink-event,
   .ink-choice,

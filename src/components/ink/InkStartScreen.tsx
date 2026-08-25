@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
-import { InkAiWashLayer, InkScrollBackdrop, InkStaticSeal } from './InkDecor';
+import { InkScrollBackdrop, InkStaticSeal } from './InkDecor';
 import { INK_SVG } from '../../ui/inkAssets';
-import { inkAiUrl } from '../../ui/inkAiCatalog';
 
 type Props = {
   onStart: () => void;
@@ -22,10 +21,6 @@ function InkInlineSvg({ className, markup }: { className?: string; markup: strin
 export function InkStartScreen({ onStart, onContinue, resumeHint, onSeedDebug, onOpenEditor }: Props) {
   return (
     <div className="scroll-shell ink-enter ink-start">
-      <InkAiWashLayer
-        className="ink-ai-wash ink-ai-wash--hero ink-ai-wash--intro"
-        src={inkAiUrl('backdrop-title-chainwhip')}
-      />
       <InkScrollBackdrop variant="hero" />
       <header className="ink-hero">
         <InkStaticSeal text="生" />
