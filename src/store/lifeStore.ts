@@ -67,6 +67,13 @@ export interface LifeStore {
   foundSect: (sectName: string) => void;
   recruitDisciple: () => void;
   teachDisciple: (discipleId: string) => void;
+  /** 放置修為：實時累積（deltaSeconds 由 UI 嘅 ticker 計出） */
+  tickCultivation: (deltaSeconds: number) => void;
+  /** 突破：修為滿咗先可以觸發 */
+  attemptBreakthrough: () => void;
+  /** 上次讀檔嘅離線收益提示（null＝冇要顯示） */
+  offlineGainXp: number | null;
+  clearOfflineGain: () => void;
 }
 
 async function save(state: LifeGameState, immediate = true) {
@@ -83,6 +90,7 @@ export const useLifeStore = create<LifeStore>()(
     flashLines: [],
     lastResult: null,
     creating: false,
+    offlineGainXp: null,
 
     ...createProgressionSlice(set, get, save),
     ...createEventSlice(set, get, save),

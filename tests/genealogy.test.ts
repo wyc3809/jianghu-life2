@@ -10,6 +10,31 @@ import { recordDeath } from '../core/life/death';
 import { chineseSurnameOf } from '../core/ids';
 import { seekChild } from '../core/life/family';
 
+describe('genealogy 族譜: does not mutate a frozen state (render safety)', () => {
+  it('buildGenealogy never writes into its input, even when the input is deep-frozen', () => {
+    const state = createNewLife({ seed: 88, name: '蔣潤天', skipCoach: true });
+    const clan = chineseSurnameOf(state.character.name);
+    // 模擬需要「族譜校正」嘅雜姓資料（同下面果個 test 一樣嘅前設）
+    state.character.family.fatherName = '王聽雨';
+    state.character.family.motherName = `${clan}忘機`;
+
+    function deepFreeze<T>(obj: T): T {
+      if (obj && typeof obj === 'object' && !Object.isFrozen(obj)) {
+        Object.values(obj as Record<string, unknown>).forEach(deepFreeze);
+        Object.freeze(obj);
+      }
+      return obj;
+    }
+    deepFreeze(state);
+
+    expect(() => buildGenealogy(state)).not.toThrow();
+    // 校正後嘅顯示結果仍然要啱（clone 上做，唔係冇做）
+    const book = buildGenealogy(state);
+    const mother = book.entries.find((e) => e.title === '母');
+    expect(mother && chineseSurnameOf(mother.name)).not.toBe(clan);
+  });
+});
+
 describe('genealogy 族譜', () => {
   it('lists parents self and children with heir mark', () => {
     const state = createNewLife({ seed: 21, skipCoach: true });

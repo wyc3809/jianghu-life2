@@ -2224,37 +2224,6 @@ body::before {
   letter-spacing: 0.12em;
 }
 
-/* 際遇品質：白（預設，無標籤）／藍／紫／金——同稱號 tier 色譜一致 */
-.ink-event-rarity-tag {
-  margin-left: 6px;
-  padding: 1px 6px;
-  border-radius: 3px;
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
-  vertical-align: middle;
-  border: 1px solid currentColor;
-}
-
-.ink-event-rarity-tag--blue {
-  color: #3a4f7a;
-}
-.ink-event-rarity-tag--purple {
-  color: #6b3d6e;
-}
-.ink-event-rarity-tag--gold {
-  color: #9a6b1f;
-}
-
-.ink-event--rarity-blue {
-  box-shadow: inset 3px 0 0 0 rgba(58, 79, 122, 0.45);
-}
-.ink-event--rarity-purple {
-  box-shadow: inset 3px 0 0 0 rgba(107, 61, 110, 0.5);
-}
-.ink-event--rarity-gold {
-  box-shadow: inset 3px 0 0 0 rgba(154, 107, 31, 0.6);
-}
-
 .ink-event h3 {
   border: none;
   padding: 0 0 10px;
@@ -5189,36 +5158,6 @@ html[data-ink-motion='reduce'] .ink-combat-fx-layer {
   transform: skewY(-8deg);
 }
 
-/* 壽元線：頂欄整條淡淡嘅剩餘壽元感——歲月不留人，靜靜見底 */
-.ink-lifespan-line {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 2px;
-  background: rgba(26, 26, 26, 0.08);
-  overflow: hidden;
-}
-
-.ink-lifespan-line::after {
-  content: '';
-  display: block;
-  height: 100%;
-  width: var(--pct, 100%);
-  background: rgba(26, 26, 26, 0.22);
-  transition: width 1.2s ease;
-}
-
-.ink-lifespan-line--urgent::after {
-  background: rgba(163, 58, 50, 0.4);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ink-lifespan-line::after {
-    transition: none;
-  }
-}
-
 .ink-status-kicker {
   margin: 0 0 2px;
   color: var(--cinnabar);
@@ -6102,109 +6041,62 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   }
 }
 
-/* ===== 金際遇特別演出 ===== */
+/* ===== 放置修為：頂欄跳動數字 ===== */
 
-.ink-fortune-flash {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
+.ink-cultivation-hud {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(20, 14, 4, 0.32);
-  animation: inkFortuneFade 1.1s ease both;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: 2px;
+  font-size: 0.74rem;
+  color: var(--ink-wash);
 }
 
-.ink-fortune-flash-burst {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 45%, rgba(255, 214, 130, 0.85), rgba(255, 214, 130, 0) 55%);
-  animation: inkFortuneBurst 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+.ink-cultivation-tier {
+  color: var(--cinnabar);
+  font-weight: var(--fw-ui);
+  letter-spacing: 0.04em;
 }
 
-.ink-fortune-flash-text {
+.ink-cultivation-xp {
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--fw-ui);
+}
+
+.ink-cultivation-capped-tag {
+  padding: 0 5px;
+  border: 1px solid var(--cinnabar);
+  border-radius: 3px;
+  color: var(--cinnabar);
+  font-size: 0.64rem;
+  letter-spacing: 0.06em;
+}
+
+.ink-bar--capped .ink-bar-fill {
+  background: linear-gradient(90deg, rgba(163, 58, 50, 0.4), var(--cinnabar) 70%);
+}
+
+/* ===== 離線收益提示 ===== */
+
+.ink-offline-toast {
   position: relative;
-  margin: 0;
-  padding: 10px 28px;
-  border: 2px solid #9a6b1f;
+  z-index: 10;
+  margin: 0 0 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--cinnabar);
   border-radius: 4px;
-  background: rgba(250, 240, 215, 0.92);
-  color: #9a6b1f;
-  font-family: var(--font-title);
-  font-size: 1.5rem;
-  font-weight: var(--fw-strong);
-  letter-spacing: 0.2em;
-  animation: inkFortuneTextPop 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-@keyframes inkFortuneFade {
-  0% {
-    opacity: 0;
-  }
-  12% {
-    opacity: 1;
-  }
-  78% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes inkFortuneBurst {
-  0% {
-    opacity: 0;
-    transform: scale(0.4);
-  }
-  30% {
-    opacity: 1;
-    transform: scale(1.15);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.6);
-  }
-}
-
-@keyframes inkFortuneTextPop {
-  0% {
-    opacity: 0;
-    transform: scale(0.7);
-  }
-  22% {
-    opacity: 1;
-    transform: scale(1.08);
-  }
-  32% {
-    transform: scale(1);
-  }
-  82% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-.ink-fortune-flash--still .ink-fortune-flash-burst,
-.ink-fortune-flash--still .ink-fortune-flash-text {
-  animation: none;
-  opacity: 1;
-  transform: none;
+  background: color-mix(in srgb, var(--paper-bright) 88%, var(--cinnabar) 6%);
+  color: var(--cinnabar);
+  font-size: 0.8rem;
+  font-weight: var(--fw-ui);
+  text-align: center;
+  cursor: pointer;
+  animation: inkFadeUp 0.4s ease both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ink-fortune-flash,
-  .ink-fortune-flash-burst,
-  .ink-fortune-flash-text {
+  .ink-offline-toast {
     animation: none;
   }
-  .ink-fortune-flash-burst {
-    opacity: 0.5;
-  }
-  .ink-fortune-flash-text {
-    opacity: 1;
-    transform: none;
-  }
 }
+

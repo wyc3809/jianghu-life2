@@ -37,6 +37,14 @@ import { achievementProgress, listAchievementStatus } from '@core/life/achieveme
 import { allTitles } from '@core/life/titles';
 import { calculateProgress } from '@core/life/progression';
 import { InkStatsPanel } from './InkStatsPanel';
+import {
+  calculateCultivationRate,
+  canAttemptBreakthrough,
+  cultivationProgressPercent,
+  currentCultivationTier,
+  CULTIVATION_TIERS,
+  isCultivationCapped,
+} from '@core/life/cultivation';
 
 export type PersonView =
   | 'main'
@@ -47,7 +55,8 @@ export type PersonView =
   | 'people'
   | 'grudges'
   | 'roots'
-  | 'achievements';
+  | 'achievements'
+  | 'cultivation';
 
 type Props = {
   state: LifeGameState;
@@ -56,9 +65,10 @@ type Props = {
   busy: boolean;
   onEquip: (id: string) => void;
   onEquipBest: () => void;
+  onBreakthrough: () => void;
 };
 
-export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest }: Props) {
+export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest, onBreakthrough }: Props) {
   const [previewGearId, setPreviewGearId] = useState<string | null>(null);
   const [showStatsScroll, setShowStatsScroll] = useState(false);
   const c = state.character;
@@ -79,7 +89,15 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
   const progress = calculateProgress(state);
 
   if (view === 'main') {
+    const cultTier = currentCultivationTier(state);
+    const cultCapped = isCultivationCapped(state);
     const rows: { id: PersonView; label: string; hint: string; icon?: InkAiAssetId }[] = [
+      {
+        id: 'cultivation',
+        label: '修為',
+        hint: cultCapped ? `${cultTier.name} · 可突破` : `${cultTier.name} · 修煉中`,
+        icon: 'motif-jade',
+      },
       {
         id: 'attrs',
         label: '五維心性',
@@ -239,6 +257,86 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
       >
         ← 返回人物
       </button>
+
+      {view === 'cultivation' &&
+        (() => {
+          const tier = currentCultivationTier(state);
+          const rate = calculateCultivationRate(state);
+          const pct = cultivationProgressPercent(state);
+          const capped = isCultivationCapped(state);
+          const canBreak = canAttemptBreakthrough(state);
+          const nextTier = CULTIVATION_TIERS[tier.level + 1];
+          return (
+            <>
+              <h3>修為</h3>
+              <p className="ink-note">
+                現時境界：{tier.name}
+                {nextTier ? ` · 下一境：${nextTier.name}` : ' · 已至巔峰'}
+              </p>
+              <div className="ink-meter">
+                <div className="ink-vitals-label">
+                  <span>修為</span>
+                  <span>
+                    {Math.floor(c.cultivation.xp).toLocaleString('zh-Hant')}
+                    {Number.isFinite(tier.cap) ? ` / ${tier.cap.toLocaleString('zh-Hant')}` : ''}
+                  </span>
+                </div>
+                <div
+                  className={`ink-bar${capped ? ' ink-bar--capped' : ''}`}
+                  role="meter"
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-valuenow={pct}
+                  aria-label="修為進度"
+                >
+                  <div className="ink-bar-fill ink-bar-fill--enter" style={{ width: `${pct}%` }} />
+                </div>
+              </div>
+
+              <h3 className="ink-subhead">速率拆解（修為/秒）</h3>
+              <ul className="ink-delta-board" aria-label="修為速率拆解">
+                <li className="ink-delta-row ink-delta-row--flat">
+                  <span className="ink-delta-row-text">基礎吐納 ＋{rate.base.toFixed(2)}</span>
+                </li>
+                <li className="ink-delta-row ink-delta-row--flat">
+                  <span className="ink-delta-row-text">武學根基 ＋{rate.fromMartial.toFixed(2)}</span>
+                </li>
+                <li className="ink-delta-row ink-delta-row--flat">
+                  <span className="ink-delta-row-text">已學功法 ＋{rate.fromSkills.toFixed(2)}</span>
+                </li>
+                {rate.fromSect > 0 && (
+                  <li className="ink-delta-row ink-delta-row--up">
+                    <span className="ink-delta-row-text">門派加成 ＋{rate.fromSect.toFixed(2)}</span>
+                  </li>
+                )}
+                {rate.fromGear > 0 && (
+                  <li className="ink-delta-row ink-delta-row--up">
+                    <span className="ink-delta-row-text">裝備詞條 ＋{rate.fromGear.toFixed(2)}</span>
+                  </li>
+                )}
+                <li className="ink-delta-row ink-delta-row--flat">
+                  <strong className="ink-delta-row-text">總計 ＋{rate.total.toFixed(2)}／秒</strong>
+                </li>
+              </ul>
+
+              {capped && nextTier && (
+                <>
+                  <p className="ink-note">
+                    修為已滿，需突破方可入「{nextTier.name}」之境。突破有走火入魔之險，失敗會令修為倒退並損傷氣血、內力。
+                  </p>
+                  <button
+                    type="button"
+                    className="ink-btn ink-btn--primary ink-btn--pulse"
+                    disabled={busy || !canBreak}
+                    onClick={() => onBreakthrough()}
+                  >
+                    閉關突破
+                  </button>
+                </>
+              )}
+            </>
+          );
+        })()}
 
       {view === 'attrs' && (
         <>

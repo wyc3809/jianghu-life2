@@ -64,6 +64,7 @@ function fakeCharacter(loadout: ContestantBuild): LifeCharacter {
       lovers: 0,
       wealthPeak: 0,
     },
+    cultivation: { xp: 0, tier: 0 },
   };
   ensureGear(c);
   return c;
