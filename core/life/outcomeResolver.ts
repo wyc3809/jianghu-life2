@@ -145,12 +145,12 @@ function applyPackOutcome(
         return { log: line, delta: line };
       }
       if (path.includes('health.fatigue') || path.includes('resources.time')) {
-        c.fatigue = clamp(c.fatigue + Math.abs(amount), 0, 100);
-        const line = `疲勞＋${Math.abs(amount)}`;
+        c.actionPoints = clamp(c.actionPoints - Math.abs(amount), 0, 100);
+        const line = `氣力－${Math.abs(amount)}`;
         return { log: line, delta: line };
       }
       if (path.includes('health.stress') || path.includes('emotions.stress')) {
-        c.fatigue = clamp(c.fatigue + Math.ceil(Math.abs(amount) / 2), 0, 100);
+        c.actionPoints = clamp(c.actionPoints - Math.ceil(Math.abs(amount) / 2), 0, 100);
         const dmg = Math.max(1, Math.floor(Math.abs(amount) / 3));
         c.health = clamp(c.health - dmg, 0, c.maxHealth);
         const line = `心神受擾（氣血－${dmg}）`;

@@ -28,7 +28,7 @@ export function tickSectMonth(state: LifeGameState): string[] {
     c.martial += rng.chance(0.35) ? 1 : 0;
     lines.push(`你完成${sect.name}差事，得銀 ${pay} 兩。`);
   } else if (roll < 0.34) {
-    c.fatigue = Math.min(100, (c.fatigue ?? 0) + rng.nextInt(6, 14));
+    c.actionPoints = Math.max(0, (c.actionPoints ?? 0) - rng.nextInt(6, 14));
     c.health = Math.max(1, c.health - rng.nextInt(0, 3));
     lines.push(`${sect.name}罰你跪香一炷。膝頭青了，心裡卻更定了半分。`);
   } else if (roll < 0.42) {

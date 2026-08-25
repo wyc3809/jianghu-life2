@@ -153,6 +153,18 @@ export function applyOfflineCultivation(state: LifeGameState, elapsedMs: number)
   };
 }
 
+/** 每次事件了結（唔問成敗）隨手加嘅一筆修為，做「事件回饋感」；細過 idle 速率，唔會蓋過原有曲線 */
+export function grantEventCultivation(state: LifeGameState): number {
+  if (!state.character.alive || state.phase !== 'playing') return 0;
+  const tier = currentCultivationTier(state);
+  const gain = getRng().nextInt(2, 6);
+  const before = state.character.cultivation.xp;
+  const rawAfter = before + gain;
+  const after = Number.isFinite(tier.cap) ? Math.min(tier.cap, rawAfter) : rawAfter;
+  state.character.cultivation.xp = after;
+  return after - before;
+}
+
 const BREAKTHROUGH_BASE_CHANCE = 0.62;
 /** 境界越高，突破越難 */
 const BREAKTHROUGH_TIER_PENALTY = 0.05;
@@ -170,6 +182,13 @@ export function canAttemptBreakthrough(state: LifeGameState): boolean {
 export interface BreakthroughResult {
   success: boolean;
   lines: string[];
+  oldTierName: string;
+  /** 成功先有 */
+  newTierName?: string;
+  martialGain?: number;
+  hpLoss?: number;
+  qiLoss?: number;
+  setback?: number;
 }
 
 /**
@@ -178,8 +197,9 @@ export interface BreakthroughResult {
  * 用 seeded RNG（唔用 Math.random()），走 syncRngFromState/snapshotRng 慣例。
  */
 export function attemptCultivationBreakthrough(state: LifeGameState): BreakthroughResult {
+  const beforeTierName = currentCultivationTier(state).name;
   if (!canAttemptBreakthrough(state)) {
-    return { success: false, lines: ['尚未到突破關口，修為未滿。'] };
+    return { success: false, lines: ['尚未到突破關口，修為未滿。'], oldTierName: beforeTierName };
   }
   syncRngFromState(state);
   const rng = getRng();
@@ -207,21 +227,29 @@ export function attemptCultivationBreakthrough(state: LifeGameState): Breakthrou
       `自此踏入「${nextTier.name}」之境，武學＋${martialGain}，氣血上限、內力上限同步提升。`,
     );
     lines.push(...gainJianghuPrestige(state, 60 + nextTier.level * 40));
-  } else {
-    const setback = Math.round((Number.isFinite(tier.cap) ? tier.cap : 0) * BREAKTHROUGH_SETBACK_RATIO);
-    c.cultivation.xp = Math.max(0, c.cultivation.xp - setback);
-    const hpLoss = Math.round(c.maxHealth * 0.12);
-    const qiLoss = Math.round(c.maxQi * 0.18);
-    c.health = Math.max(1, c.health - hpLoss);
-    c.qi = Math.max(0, c.qi - qiLoss);
-    addCondition(state, 'internal');
-    lines.push(
-      '閉關數月，行至緊要關頭卻氣息紊亂——走火入魔！',
-      `修為倒退，氣血－${hpLoss}，內力－${qiLoss}，落下內傷，需再修煉方可重闖此關。`,
-    );
+    pushChronicle(state, lines);
+    snapshotRng(state);
+    return {
+      success: true,
+      lines,
+      oldTierName: tier.name,
+      newTierName: nextTier.name,
+      martialGain,
+    };
   }
 
+  const setback = Math.round((Number.isFinite(tier.cap) ? tier.cap : 0) * BREAKTHROUGH_SETBACK_RATIO);
+  c.cultivation.xp = Math.max(0, c.cultivation.xp - setback);
+  const hpLoss = Math.round(c.maxHealth * 0.12);
+  const qiLoss = Math.round(c.maxQi * 0.18);
+  c.health = Math.max(1, c.health - hpLoss);
+  c.qi = Math.max(0, c.qi - qiLoss);
+  addCondition(state, 'internal');
+  lines.push(
+    '閉關數月，行至緊要關頭卻氣息紊亂——走火入魔！',
+    `修為倒退，氣血－${hpLoss}，內力－${qiLoss}，落下內傷，需再修煉方可重闖此關。`,
+  );
   pushChronicle(state, lines);
   snapshotRng(state);
-  return { success, lines };
+  return { success: false, lines, oldTierName: tier.name, hpLoss, qiLoss, setback };
 }

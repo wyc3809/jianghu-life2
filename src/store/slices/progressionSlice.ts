@@ -7,11 +7,7 @@ import {
   startMonth,
 } from '@core/life/eventEngine';
 import { clearLifeSave, loadLifeSave } from '@core/life/saveIndexedDb';
-import {
-  flushPersist,
-  installPersistLifecycle,
-  setPersistFlushHook,
-} from '../persistSchedule';
+import { flushPersist, installPersistLifecycle } from '../persistSchedule';
 import {
   startHuashanBracket,
   dismissHuashanReport,
@@ -29,7 +25,9 @@ import {
   applyOfflineCultivation,
   attemptCultivationBreakthrough,
   tickCultivation as tickCultivationCore,
+  type BreakthroughResult,
 } from '@core/life/cultivation';
+import { tickActionPoints } from '@core/life/actionPoints';
 import { track } from '../../telemetry/events';
 import type { LifeStore } from '../lifeStore';
 
@@ -62,14 +60,12 @@ export function createProgressionSlice(
   | 'teachDisciple'
   | 'tickCultivation'
   | 'attemptBreakthrough'
+  | 'clearBreakthroughResult'
   | 'clearOfflineGain'
 > {
   return {
     bootstrap: async () => {
       if (get().bootstrapped) return;
-      setPersistFlushHook((savedAt) => {
-        set({ saveLabel: new Date(savedAt).toLocaleString('zh-TW') });
-      });
       installPersistLifecycle();
       set({ bootstrapped: true });
     },
@@ -87,7 +83,6 @@ export function createProgressionSlice(
       set({
         state,
         creating: false,
-        saveLabel: new Date().toLocaleString('zh-TW'),
         sealText: '生',
         flashLines: [],
         lastResult: null,
@@ -108,7 +103,6 @@ export function createProgressionSlice(
         set({
           state: null,
           creating: true,
-          saveLabel: null,
           sealText: null,
           flashLines: [],
           lastResult: null,
@@ -141,7 +135,6 @@ export function createProgressionSlice(
       set({
         state,
         creating: false,
-        saveLabel: new Date(loaded.savedAt).toLocaleString('zh-TW'),
         sealText: null,
         flashLines: [],
         lastResult: null,
@@ -345,6 +338,7 @@ export function createProgressionSlice(
       if (!state || state.phase !== 'playing' || !state.character.alive) return;
       const next = produce(state, (draft) => {
         tickCultivationCore(draft, deltaSeconds);
+        tickActionPoints(draft, deltaSeconds);
       });
       save(next, false);
       set({ state: next });
@@ -353,27 +347,20 @@ export function createProgressionSlice(
     attemptBreakthrough: () => {
       const { state } = get();
       if (!state) return;
-      let success = false;
-      let lines: string[] = [];
+      let result: BreakthroughResult = { success: false, lines: [], oldTierName: '' };
       const next = produce(state, (draft) => {
-        const result = attemptCultivationBreakthrough(draft);
-        success = result.success;
-        lines = result.lines;
+        result = attemptCultivationBreakthrough(draft);
       });
       void save(next);
-      track('cultivation_breakthrough', { success });
+      track('cultivation_breakthrough', { success: result.success });
       set({
         state: next,
-        sealText: success ? '晉' : '傷',
         flashLines: [],
-        lastResult: {
-          title: success ? '突破關口' : '走火入魔',
-          choiceText: '閉關突破',
-          feedback: sanitizePlayerLine(lines.join('\n')),
-          deltas: [],
-        },
+        breakthroughResult: result,
       });
     },
+
+    clearBreakthroughResult: () => set({ breakthroughResult: null }),
 
     clearOfflineGain: () => set({ offlineGainXp: null }),
   };

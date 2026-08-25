@@ -95,7 +95,7 @@ export function createNewLife(options: CreateLifeOptions | number = {}): LifeGam
     maxQi,
     stamina: maxStamina,
     maxStamina,
-    fatigue: 0,
+    actionPoints: 100,
     birthplace,
     location: birthplace,
     conditions: [],
@@ -322,7 +322,11 @@ export function migrateLifeState(raw: LifeGameState): LifeGameState {
   if (c.maxQi === undefined) c.maxQi = 120;
   if (c.stamina === undefined) c.stamina = 100;
   if (c.maxStamina === undefined) c.maxStamina = 120;
-  if (c.fatigue === undefined) c.fatigue = 0;
+  if (c.actionPoints === undefined) {
+    // 舊存檔嘅「疲勞」（高＝攰）已改做「行動力」（高＝仲有力），方向倒轉承接
+    const legacyFatigue = (c as unknown as { fatigue?: number }).fatigue;
+    c.actionPoints = legacyFatigue === undefined ? 100 : Math.max(0, Math.min(100, 100 - legacyFatigue));
+  }
   if (!c.birthplace) c.birthplace = '千燈鎮';
   if (!c.location) c.location = c.birthplace;
   if (!c.conditions) c.conditions = [];

@@ -3,6 +3,7 @@ import { InkEventBanner } from './InkDecor';
 import { eventBannerSvg } from '../../ui/inkAssets';
 import { pickAiEventBanner, aiEventBannerUrl } from '../../ui/inkAiCatalog';
 import { displayChoiceText } from '@core/life/playerText';
+import { EVENT_ACTION_POINT_COST, hasEnoughActionPoints } from '@core/life/actionPoints';
 
 type Props = {
   state: LifeGameState;
@@ -37,6 +38,7 @@ export function InkEventPanel({
   const eventBodyParas = pendingEvent.body
     ? pendingEvent.body.split(/\n\n+/).map((p) => p.trim()).filter(Boolean)
     : [];
+  const lowActionPoints = !hasEnoughActionPoints(state, EVENT_ACTION_POINT_COST);
 
   return (
     <section className="ink-panel ink-event ink-event--focus" aria-label="待決之事">
@@ -69,7 +71,8 @@ export function InkEventPanel({
             type="button"
             className="ink-choice"
             style={{ ['--i' as string]: i }}
-            disabled={!choicesReady}
+            disabled={!choicesReady || lowActionPoints}
+            aria-disabled={lowActionPoints}
             onClick={() => {
               onChoose(ch.id);
             }}
@@ -85,6 +88,11 @@ export function InkEventPanel({
           </button>
         )}
       </div>
+      {choicesReady && lowActionPoints && (
+        <p className="ink-ap-hint" role="status">
+          氣力不繼，回氣中……
+        </p>
+      )}
     </section>
   );
 }

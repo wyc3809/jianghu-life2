@@ -34,6 +34,7 @@ import { pickPackEvent, getPackChoice } from './jianghuEventRepository';
 import { resolvePackOutcomes, applyPackFortuneTwist } from './outcomeResolver';
 import { isFleeChoice, startCombat, tryStartAftermathCombat } from './combat';
 import { applyChoiceNature } from './nature';
+import { grantEventCultivation } from './cultivation';
 import { ROAD_ENCOUNTER_EVENTS } from '@data/events/roadEncounters';
 import { NATURE_ARC_EVENTS } from '@data/events/natureArcs';
 import { applyNarrateOverrideToEffects } from '@data/events/narrateOverrides';
@@ -371,6 +372,7 @@ export function applyChoice(
       eventId: event.id,
     });
     markEventComplete(state, event.id);
+    grantEventCultivation(state);
     const deltas: string[] = [];
     const natureLines = applyChoiceNature(state, choice.text);
     if (natureLines.length) {
@@ -532,6 +534,7 @@ export function applyChoice(
   }
 
   markEventComplete(state, event.id);
+  grantEventCultivation(state);
   state.pending = null;
   const titleForLog = event.title;
   pushChronicle(state, [`「${titleForLog}」——${choice.text}`, feedback, ...deltas]);

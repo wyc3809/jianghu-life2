@@ -302,7 +302,7 @@ export function applyHuashanRewards(state: LifeGameState, placement: number): st
   c.reputation += rep;
   c.money += money;
   c.martial += martial;
-  c.fatigue = Math.min(100, c.fatigue + 8);
+  c.actionPoints = Math.max(0, c.actionPoints - 8);
   lines.push(`名望＋${rep}，銀兩＋${money}，武學＋${martial}`);
   if (placement === 1) {
     c.flags.title_huashan_champion = bracketSeasonFlag(state);

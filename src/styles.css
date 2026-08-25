@@ -1194,15 +1194,6 @@ body::before {
   color: var(--ink-soft);
 }
 
-.ink-save {
-  margin: 0;
-  text-align: right;
-  font-size: var(--fs-caption);
-  color: var(--ink-soft);
-  font-weight: var(--fw-ui);
-  letter-spacing: 0.08em;
-}
-
 .ink-vitals {
   position: relative;
   margin: 4px 0 12px;
@@ -1335,42 +1326,6 @@ body::before {
 .ink-bar--qi .ink-bar {
   height: 7px;
   opacity: 1;
-}
-
-.ink-stat-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 14px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: 0.8rem;
-  color: var(--ink-mid);
-}
-
-.ink-stat-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 0;
-  margin: 0;
-  border: none;
-  letter-spacing: 0.04em;
-}
-
-.ink-stat-motif {
-  width: 16px;
-  height: 16px;
-  object-fit: contain;
-  opacity: 0.78;
-  flex-shrink: 0;
-  filter: grayscale(0.15) contrast(1.05);
-}
-
-.ink-stat-pill span {
-  border: none;
-  padding: 0;
-  margin: 0;
 }
 
 .ink-gear-stat {
@@ -3276,6 +3231,14 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
 .ink-choice:disabled {
   opacity: 0.45;
   cursor: not-allowed;
+}
+
+.ink-ap-hint {
+  margin: 8px 2px 0;
+  font-size: var(--fs-caption);
+  color: var(--ink-soft);
+  letter-spacing: 0.08em;
+  text-align: center;
 }
 
 .ink-subhead {
@@ -5357,33 +5320,6 @@ html[data-ink-motion='reduce'] .ink-combat-fx-layer {
   opacity: 0.35;
 }
 
-.ink-stat-row {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0;
-}
-
-.ink-stat-pill {
-  min-width: 0;
-  justify-content: center;
-  padding: 3px 5px;
-  border-right: 1px solid rgba(26, 26, 26, 0.08);
-  text-align: center;
-}
-
-.ink-stat-pill:last-child {
-  border-right: 0;
-}
-
-.ink-stat-motif {
-  display: none;
-}
-
-.ink-stat-pill span {
-  overflow-wrap: anywhere;
-  line-height: 1.35;
-}
-
 /* 事件像一幅打開的橫卷：圖先落墨，題簽與正文再入場。 */
 .scroll-shell--event {
   gap: 6px;
@@ -5589,18 +5525,6 @@ html[data-ink-motion='reduce'] .ink-combat-fx-layer {
 
   .ink-home-tableau {
     margin-inline: -4px;
-  }
-
-  .ink-stat-row {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .ink-stat-pill:nth-child(2) {
-    border-right: 0;
-  }
-
-  .ink-stat-pill:nth-child(-n + 2) {
-    border-bottom: 1px solid rgba(26, 26, 26, 0.08);
   }
 
   .scroll-shell--event {
@@ -5951,13 +5875,75 @@ html[data-ink-motion='reduce'] .ink-result-wash {
 .ink-prestige-main {
   position: relative;
   display: flex;
-  align-items: baseline;
-  gap: 4px;
-  padding: 3px 9px;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px 4px 4px;
   border: 1px solid var(--ink-faint);
   border-radius: 4px;
   background: color-mix(in srgb, var(--paper-bright) 90%, var(--cinnabar) 4%);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.ink-prestige-seal {
+  display: inline-flex;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 1px rgba(163, 58, 50, 0.3);
+}
+
+.ink-prestige-seal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ink-prestige-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 64px;
+}
+
+.ink-prestige-line {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.ink-prestige-rule-svg {
+  width: 100%;
+  height: 4px;
+  margin-top: 2px;
+  overflow: visible;
+}
+
+.ink-prestige-rule-track,
+.ink-prestige-rule-fill {
+  stroke-width: 2;
+}
+
+.ink-prestige-rule-track {
+  stroke: rgba(26, 26, 26, 0.12);
+}
+
+.ink-prestige-rule-fill {
+  stroke: var(--cinnabar);
+  stroke-linecap: round;
+  stroke-dasharray: var(--len);
+  stroke-dashoffset: var(--off);
+  transition: stroke-dashoffset 0.6s ease;
+}
+
+.ink-prestige-rank-motif {
+  width: 11px;
+  height: 11px;
+  object-fit: contain;
+  opacity: 0.8;
+  vertical-align: -1px;
+  margin-right: 3px;
 }
 
 .ink-prestige-main--pulse {
@@ -6039,17 +6025,70 @@ html[data-ink-motion='reduce'] .ink-result-wash {
     opacity: 0.9;
     transform: none;
   }
+  .ink-prestige-rule-fill {
+    transition: none;
+  }
 }
 
 /* ===== 放置修為：頂欄跳動數字 ===== */
 
 .ink-cultivation-hud {
   display: flex;
-  align-items: baseline;
-  gap: 6px;
-  margin-top: 2px;
+  align-items: center;
+  gap: 7px;
+  margin-top: 3px;
   font-size: 0.74rem;
   color: var(--ink-wash);
+}
+
+.ink-cultivation-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.ink-cultivation-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.ink-cultivation-ring-track,
+.ink-cultivation-ring-fill {
+  fill: none;
+  stroke-width: 2.4;
+}
+
+.ink-cultivation-ring-track {
+  stroke: rgba(26, 26, 26, 0.14);
+}
+
+.ink-cultivation-ring-fill {
+  stroke: var(--cinnabar);
+  stroke-linecap: round;
+  stroke-dasharray: var(--len);
+  stroke-dashoffset: var(--off);
+  transition: stroke-dashoffset 0.6s ease;
+}
+
+.ink-cultivation-motif {
+  width: 12px;
+  height: 12px;
+  object-fit: contain;
+  opacity: 0.85;
+  filter: grayscale(0.1) contrast(1.05);
+}
+
+.ink-cultivation-text {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
 }
 
 .ink-cultivation-tier {
@@ -6061,6 +6100,26 @@ html[data-ink-motion='reduce'] .ink-result-wash {
 .ink-cultivation-xp {
   font-variant-numeric: tabular-nums;
   font-weight: var(--fw-ui);
+  transition: text-shadow 0.5s ease;
+}
+
+.ink-cultivation-hud--glow .ink-cultivation-xp {
+  text-shadow: 0 0 6px rgba(163, 58, 50, 0.55);
+}
+
+.ink-cultivation-hud--capped .ink-cultivation-ring-fill {
+  stroke: var(--cinnabar);
+  animation: inkCultivationPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes inkCultivationPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
 }
 
 .ink-cultivation-capped-tag {
@@ -6072,8 +6131,38 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   letter-spacing: 0.06em;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .ink-cultivation-ring-fill,
+  .ink-cultivation-hud--capped .ink-cultivation-ring-fill {
+    animation: none;
+    transition: none;
+  }
+}
+
 .ink-bar--capped .ink-bar-fill {
   background: linear-gradient(90deg, rgba(163, 58, 50, 0.4), var(--cinnabar) 70%);
+}
+
+/* ===== 行動力量表：事件耗損，隨時間回復 ===== */
+
+.ink-ap-meter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  max-width: 160px;
+}
+
+.ink-ap-meter-label {
+  font-size: 0.68rem;
+  color: var(--ink-wash);
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
+}
+
+.ink-ap-meter-bar {
+  flex: 1;
+  height: 5px;
 }
 
 /* ===== 離線收益提示 ===== */

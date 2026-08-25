@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import type { LifeGameState } from '@interfaces/lifeEngine';
+import type { BreakthroughResult } from '@core/life/cultivation';
 import { fullCatalog } from '@core/life/eventEngine';
 import { subscribeEventOverrides } from '@core/life/eventOverrides';
 import { clearLifeSave } from '@core/life/saveIndexedDb';
@@ -27,7 +28,6 @@ export interface LastResult {
 
 export interface LifeStore {
   state: LifeGameState | null;
-  saveLabel: string | null;
   debugOpen: boolean;
   bootstrapped: boolean;
   sealText: string | null;
@@ -71,6 +71,9 @@ export interface LifeStore {
   tickCultivation: (deltaSeconds: number) => void;
   /** 突破：修為滿咗先可以觸發 */
   attemptBreakthrough: () => void;
+  /** 突破結果：驅動專屬彈窗＋升級動畫（null＝冇要顯示） */
+  breakthroughResult: BreakthroughResult | null;
+  clearBreakthroughResult: () => void;
   /** 上次讀檔嘅離線收益提示（null＝冇要顯示） */
   offlineGainXp: number | null;
   clearOfflineGain: () => void;
@@ -83,7 +86,6 @@ async function save(state: LifeGameState, immediate = true) {
 export const useLifeStore = create<LifeStore>()(
   immer((set, get) => ({
     state: null,
-    saveLabel: null,
     debugOpen: false,
     bootstrapped: false,
     sealText: null,
@@ -91,6 +93,7 @@ export const useLifeStore = create<LifeStore>()(
     lastResult: null,
     creating: false,
     offlineGainXp: null,
+    breakthroughResult: null,
 
     ...createProgressionSlice(set, get, save),
     ...createEventSlice(set, get, save),

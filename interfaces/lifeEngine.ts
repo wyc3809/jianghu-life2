@@ -188,7 +188,8 @@ export interface LifeCharacter {
   maxQi: number;
   stamina: number;
   maxStamina: number;
-  fatigue: number;
+  /** 行動力：處理事件／勞動會耗損，隨時間回復；耗盡前會擋住新的事件抉擇 */
+  actionPoints: number;
   birthplace: string;
   location: string;
   conditions: LifeCondition[];
@@ -488,7 +489,7 @@ export const lifeCharacterSchema = z.object({
   maxQi: z.number().default(120),
   stamina: z.number().default(100),
   maxStamina: z.number().default(120),
-  fatigue: z.number().default(0),
+  actionPoints: z.number().default(100),
   birthplace: z.string().default('千燈鎮'),
   location: z.string().default('千燈鎮'),
   conditions: z

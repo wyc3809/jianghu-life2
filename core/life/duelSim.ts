@@ -35,7 +35,7 @@ function fakeCharacter(loadout: ContestantBuild): LifeCharacter {
     maxQi: loadout.maxQi,
     stamina: 100,
     maxStamina: 100,
-    fatigue: 0,
+    actionPoints: 100,
     birthplace: '',
     location: '',
     conditions: [],

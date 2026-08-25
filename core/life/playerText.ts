@@ -80,7 +80,7 @@ const LATIN_WORD_ZH: Record<string, string> = {
   honor: '名望',
   reputation: '名望',
   health: '氣血',
-  fatigue: '疲勞',
+  fatigue: '氣力',
   stress: '心神',
   calm: '內息',
   curiosity: '內息',

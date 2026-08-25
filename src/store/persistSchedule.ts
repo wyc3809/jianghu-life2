@@ -2,18 +2,11 @@ import type { LifeGameState } from '@interfaces/lifeEngine';
 
 let persistTimer: ReturnType<typeof setTimeout> | null = null;
 let pendingState: LifeGameState | null = null;
-let flushHook: ((savedAt: number) => void) | null = null;
-
-/** 供 store 更新「已落筆」時間戳 */
-export function setPersistFlushHook(hook: ((savedAt: number) => void) | null): void {
-  flushHook = hook;
-}
 
 async function writeNow(state: LifeGameState): Promise<void> {
   pendingState = null;
   const { persistLife } = await import('@core/life/saveIndexedDb');
   await persistLife(state);
-  flushHook?.(Date.now());
 }
 
 /** 延遲寫盤（戰鬥回合等熱路徑）；immediate 用於月結／抉擇／戰畢 */
