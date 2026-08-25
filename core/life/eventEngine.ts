@@ -13,7 +13,6 @@ import { pushChronicle } from './chronicle';
 import { simulateMonthBody, seasonLabel } from './monthly';
 import { stageWeightBias } from './stages';
 import { recordDeath } from './death';
-import { rarityForOrdinaryEvent, rarityForSpecialEvent } from './eventRarity';
 import { RANDOM_PACK_EVENTS } from './packAdapter';
 import { ORDINARY_EVENTS } from '@data/events/ordinary';
 import { EVENT_CATALOG } from '@data/events/catalog';
@@ -636,7 +635,6 @@ export function startMonth(state: LifeGameState): LifeGameState {
 
   let event: GameEvent | null = null;
   let kind: 'ordinary' | 'special' | 'story' = 'ordinary';
-  let isBossPick = false;
 
   // 傳承專屬劇本：來世前幾個月優先
   if (!event) {
@@ -682,10 +680,7 @@ export function startMonth(state: LifeGameState): LifeGameState {
     const bossChance = 0.38 + rumorBoostEarly * 0.1;
     if (rng.chance(bossChance)) {
       event = pickBossEvent(state);
-      if (event) {
-        kind = 'special';
-        isBossPick = true;
-      }
+      if (event) kind = 'special';
     }
     state.bossEncounterCountdown = rng.nextInt(5, 11);
   }
@@ -707,10 +702,7 @@ export function startMonth(state: LifeGameState): LifeGameState {
   if (!event) {
     if (rng.chance(bossChance)) {
       event = pickBossEvent(state);
-      if (event) {
-        kind = 'special';
-        isBossPick = true;
-      }
+      if (event) kind = 'special';
     }
     if (!event && (shouldTriggerSpecial(state) || (secretExtraChance > 0 && rng.chance(secretExtraChance)))) {
       // 秘傳／金庸奇遇池唔可以永遠俾 100 條 pack 池搶晒——各半機率邊個先揀，揀唔到先 fallback 去對方
@@ -767,18 +759,11 @@ export function startMonth(state: LifeGameState): LifeGameState {
   }
 
   if (event) {
-    const rarity =
-      kind === 'special'
-        ? rarityForSpecialEvent(isBossPick)
-        : kind === 'story'
-          ? 'purple'
-          : rarityForOrdinaryEvent(event.weight);
     state.pending = {
       eventId: event.id,
       year: state.year,
       month: state.month,
       kind,
-      rarity,
     };
   } else {
     pushChronicle(state, [quietMonthLine(state.year, state.month, seasonLabel(state.month))]);

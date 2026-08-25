@@ -25,6 +25,11 @@ import {
 } from '@core/life/foundedSect';
 import { extractLegacy } from '@core/life/legacy';
 import { sanitizePlayerLine, sanitizePlayerLines } from '@core/life/playerText';
+import {
+  applyOfflineCultivation,
+  attemptCultivationBreakthrough,
+  tickCultivation as tickCultivationCore,
+} from '@core/life/cultivation';
 import { track } from '../../telemetry/events';
 import type { LifeStore } from '../lifeStore';
 
@@ -55,6 +60,9 @@ export function createProgressionSlice(
   | 'foundSect'
   | 'recruitDisciple'
   | 'teachDisciple'
+  | 'tickCultivation'
+  | 'attemptBreakthrough'
+  | 'clearOfflineGain'
 > {
   return {
     bootstrap: async () => {
@@ -121,6 +129,15 @@ export function createProgressionSlice(
       const state = migrateLifeState(loaded.state);
       syncRngFromState(state);
       track('life_resume', { age: state.character.age });
+      const elapsedMs = Date.now() - loaded.savedAt;
+      const offline = applyOfflineCultivation(state, elapsedMs);
+      if (offline.gainedXp > 0) {
+        track('cultivation_offline_gain', {
+          gainedXp: Math.round(offline.gainedXp),
+          countedSeconds: Math.round(offline.countedSeconds),
+        });
+        void save(state);
+      }
       set({
         state,
         creating: false,
@@ -128,6 +145,7 @@ export function createProgressionSlice(
         sealText: null,
         flashLines: [],
         lastResult: null,
+        offlineGainXp: offline.gainedXp > 0 ? Math.round(offline.gainedXp) : null,
       });
       return true;
     },
@@ -321,5 +339,42 @@ export function createProgressionSlice(
         },
       });
     },
+
+    tickCultivation: (deltaSeconds: number) => {
+      const { state } = get();
+      if (!state || state.phase !== 'playing' || !state.character.alive) return;
+      const next = produce(state, (draft) => {
+        tickCultivationCore(draft, deltaSeconds);
+      });
+      save(next, false);
+      set({ state: next });
+    },
+
+    attemptBreakthrough: () => {
+      const { state } = get();
+      if (!state) return;
+      let success = false;
+      let lines: string[] = [];
+      const next = produce(state, (draft) => {
+        const result = attemptCultivationBreakthrough(draft);
+        success = result.success;
+        lines = result.lines;
+      });
+      void save(next);
+      track('cultivation_breakthrough', { success });
+      set({
+        state: next,
+        sealText: success ? '晉' : '傷',
+        flashLines: [],
+        lastResult: {
+          title: success ? '突破關口' : '走火入魔',
+          choiceText: '閉關突破',
+          feedback: sanitizePlayerLine(lines.join('\n')),
+          deltas: [],
+        },
+      });
+    },
+
+    clearOfflineGain: () => set({ offlineGainXp: null }),
   };
 }

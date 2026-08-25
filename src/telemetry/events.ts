@@ -13,7 +13,9 @@ export type TelemetryEvent =
   | 'coach_dismiss'
   | 'audio_mute_toggle'
   | 'a11y_text_scale'
-  | 'a11y_reduce_motion';
+  | 'a11y_reduce_motion'
+  | 'cultivation_offline_gain'
+  | 'cultivation_breakthrough';
 
 const buffer: Array<{ name: TelemetryEvent; props?: Record<string, string | number | boolean>; t: number }> =
   [];

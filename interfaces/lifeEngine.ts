@@ -232,6 +232,13 @@ export interface LifeCharacter {
     wealthPeak: number;
     monthsLived: number;
   };
+  /** 放置修為：實時累積、到頂需突破先可再升 */
+  cultivation: {
+    /** 現時境界內已累積嘅修為 */
+    xp: number;
+    /** 境界索引，對應 core/life/cultivation.ts 嘅 CULTIVATION_TIERS */
+    tier: number;
+  };
 }
 
 export interface PendingEvent {
@@ -239,8 +246,6 @@ export interface PendingEvent {
   year: number;
   month?: number;
   kind?: 'ordinary' | 'special' | 'story';
-  /** 際遇品質：源自抽中嘅事件池本身（boss／秘傳池最罕，一般池按 weight 分白/藍） */
-  rarity?: 'white' | 'blue' | 'purple' | 'gold';
 }
 
 /** 華山論劍報名快照（可對戰、可存檔） */
@@ -538,6 +543,12 @@ export const lifeCharacterSchema = z.object({
     wealthPeak: z.number(),
     monthsLived: z.number().default(0),
   }),
+  cultivation: z
+    .object({
+      xp: z.number(),
+      tier: z.number(),
+    })
+    .default({ xp: 0, tier: 0 }),
 });
 
 export const lifeGameStateSchema = z.object({
@@ -607,7 +618,6 @@ export const lifeGameStateSchema = z.object({
       year: z.number(),
       month: z.number().optional(),
       kind: z.enum(['ordinary', 'special', 'story']).optional(),
-      rarity: z.enum(['white', 'blue', 'purple', 'gold']).optional(),
     })
     .nullable(),
   pendingCombat: z.any().nullable().optional(),

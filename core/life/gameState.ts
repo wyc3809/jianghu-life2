@@ -132,6 +132,7 @@ export function createNewLife(options: CreateLifeOptions | number = {}): LifeGam
       lovers: 0,
       wealthPeak: 0,
     },
+    cultivation: { xp: 0, tier: 0 },
   };
   character.stats.wealthPeak = character.money;
 
@@ -349,6 +350,9 @@ export function migrateLifeState(raw: LifeGameState): LifeGameState {
   if (c.flags.baseMaxQi === undefined) c.flags.baseMaxQi = c.maxQi;
   if (c.sectId && !c.flags.joined_sect) c.flags.joined_sect = true;
   if (c.stats.monthsLived === undefined) c.stats.monthsLived = 0;
+  if (!c.cultivation) c.cultivation = { xp: 0, tier: 0 };
+  if (typeof c.cultivation.xp !== 'number' || !Number.isFinite(c.cultivation.xp)) c.cultivation.xp = 0;
+  if (typeof c.cultivation.tier !== 'number' || !Number.isFinite(c.cultivation.tier)) c.cultivation.tier = 0;
   if (raw.month === undefined) raw.month = 1;
   if (!raw.world) raw.world = makeWorldState();
   if (!raw.story) raw.story = makeStoryState();

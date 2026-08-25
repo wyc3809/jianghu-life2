@@ -73,16 +73,32 @@ export function snapshotLifeForGenealogy(state: LifeGameState): string {
 }
 
 /** 組裝當前可展示的族譜 */
+/**
+ * 讀取用（喺 render 直接叫）：唔可以直接改傳入嘅 state（可能係 immer
+ * 凍結咗嘅 store 狀態，mutate 會直接拋錯）。姓氏對齊喺 createNewLife／
+ * migrateLifeState／legacy 承接嗰啲會真正改動狀態嘅時間點已經做咗，
+ * 呢度額外淺 clone 一份先再 align，純粹係防守舊存檔/手改資料嘅雜姓，
+ * 對畫面顯示負責、唔影響真正 state。
+ */
 export function buildGenealogy(state: LifeGameState): GenealogyView {
-  alignClanSurnames(state);
-  const c = state.character;
+  const view: LifeGameState = {
+    ...state,
+    character: {
+      ...state.character,
+      family: { ...(state.character.family ?? {}) },
+      flags: { ...state.character.flags },
+    },
+    npcs: Object.fromEntries(Object.entries(state.npcs).map(([id, n]) => [id, { ...n }])),
+  };
+  alignClanSurnames(view);
+  const c = view.character;
   const gen = Math.max(1, Number(c.flags.legacy_generation ?? 1));
   const entries: GenealogyEntry[] = [];
   const father = c.family?.fatherName;
   const mother = c.family?.motherName;
   const ancestor =
     typeof c.flags.legacy_ancestor === 'string' ? c.flags.legacy_ancestor : undefined;
-  const surname = clanSurnameOf(state);
+  const surname = clanSurnameOf(view);
 
   if (ancestor && gen > 1) {
     entries.push({
@@ -98,7 +114,7 @@ export function buildGenealogy(state: LifeGameState): GenealogyView {
       generation: '上一代',
       title: '父',
       name: father,
-      note: state.npcs.parent_father?.alive === false ? '已故' : undefined,
+      note: view.npcs.parent_father?.alive === false ? '已故' : undefined,
     });
   }
   if (mother) {
@@ -106,7 +122,7 @@ export function buildGenealogy(state: LifeGameState): GenealogyView {
       generation: '上一代',
       title: '母',
       name: mother,
-      note: state.npcs.parent_mother?.alive === false ? '已故' : undefined,
+      note: view.npcs.parent_mother?.alive === false ? '已故' : undefined,
     });
   }
 
@@ -118,14 +134,14 @@ export function buildGenealogy(state: LifeGameState): GenealogyView {
     note: [
       `${c.age}歲`,
       c.birthplace ? `籍${c.birthplace}` : '',
-      c.sectId && state.sects[c.sectId] ? state.sects[c.sectId]!.name : '',
+      c.sectId && view.sects[c.sectId] ? view.sects[c.sectId]!.name : '',
     ]
       .filter(Boolean)
       .join(' · '),
   });
 
-  if (c.loverId && state.npcs[c.loverId]) {
-    const lover = state.npcs[c.loverId]!;
+  if (c.loverId && view.npcs[c.loverId]) {
+    const lover = view.npcs[c.loverId]!;
     entries.push({
       generation: '本世',
       title: c.flags.lover_severed ? '舊侶' : '眷屬',
@@ -147,10 +163,10 @@ export function buildGenealogy(state: LifeGameState): GenealogyView {
     });
   }
 
-  const heir = getHeirName(state);
-  const kids = listChildNames(state);
+  const heir = getHeirName(view);
+  const kids = listChildNames(view);
   for (const name of kids) {
-    const childNpc = Object.values(state.npcs).find(
+    const childNpc = Object.values(view.npcs).find(
       (n) => n.name === name && n.id.startsWith('child_'),
     );
     entries.push({

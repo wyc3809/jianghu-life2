@@ -24,7 +24,8 @@ import { titleTierColorClass, topTitle, topTitles } from '@core/life/titles';
 import { jianghuRank } from '@core/life/jianghuRank';
 import { jianghuPrestige } from '@core/life/jianghuPrestige';
 import { InkPrestigeHud } from './InkPrestigeHud';
-import { lifespanRemainingPercent, isLifespanUrgent } from '@core/life/lifespanPressure';
+import { InkCultivationHud } from './InkCultivationHud';
+import { useCultivationTicker } from '../../hooks/useCultivationTicker';
 import {
   isLearnSkillDeltaLine,
   isLearnSkillStoryLine,
@@ -47,7 +48,6 @@ import { InkPersonPanel, type PersonView } from './InkPersonPanel';
 import { InkEventPanel } from './InkEventPanel';
 import { InkCombatPanel } from './InkCombatPanel';
 import { InkBossIntro } from './InkBossIntro';
-import { InkFortuneFlash } from './InkFortuneFlash';
 import { InkPracticePanel, type PracticeView } from './InkPracticePanel';
 import { LifeDebugPanel } from '../LifeDebugPanel';
 
@@ -83,6 +83,10 @@ export function InkPlayScreen({ state }: Props) {
   const sealText = useLifeStore((s) => s.sealText);
   const flashLines = useLifeStore((s) => s.flashLines);
   const clearSeal = useLifeStore((s) => s.clearSeal);
+  const tickCultivation = useLifeStore((s) => s.tickCultivation);
+  const attemptBreakthrough = useLifeStore((s) => s.attemptBreakthrough);
+  const offlineGainXp = useLifeStore((s) => s.offlineGainXp);
+  const clearOfflineGain = useLifeStore((s) => s.clearOfflineGain);
   const [practiceView, setPracticeView] = useState<PracticeView>('main');
   const [personView, setPersonView] = useState<PersonView>('main');
   const [chronicleOpen, setChronicleOpen] = useState(() => (state.character.stats.monthsLived ?? 0) < 3);
@@ -100,8 +104,6 @@ export function InkPlayScreen({ state }: Props) {
   const [choicesReady, setChoicesReady] = useState(false);
   /** Boss 動畫：記低已播過邊個 combat.id，避免同一場交手 re-render 時重播 */
   const [bossIntroShownFor, setBossIntroShownFor] = useState<string | null>(null);
-  /** 金際遇特別演出：記低已播過邊個 pending event，避免 re-render 時重播 */
-  const [fortuneFlashShownFor, setFortuneFlashShownFor] = useState<string | null>(null);
   /** 結果匣：先經過，點擊後再揭消長 */
   const [resultDeltasReady, setResultDeltasReady] = useState(false);
   const prevYearMonth = useRef<string | null>(null);
@@ -125,6 +127,12 @@ export function InkPlayScreen({ state }: Props) {
     const t = window.setTimeout(() => clearSeal(), 920);
     return () => window.clearTimeout(t);
   }, [sealText, clearSeal]);
+
+  useEffect(() => {
+    if (offlineGainXp === null) return;
+    const t = window.setTimeout(() => clearOfflineGain(), 5000);
+    return () => window.clearTimeout(t);
+  }, [offlineGainXp, clearOfflineGain]);
 
   useEffect(() => {
     try {
@@ -163,6 +171,7 @@ export function InkPlayScreen({ state }: Props) {
   }, [state.tab]);
 
   const c = state.character;
+  useCultivationTicker(state.phase === 'playing' && c.alive, tickCultivation);
   const month = state.month ?? 1;
   const pendingEvent = resolvePendingEvent(state);
   const sect = c.sectId ? state.sects[c.sectId] : null;
@@ -201,9 +210,6 @@ export function InkPlayScreen({ state }: Props) {
   /** 有待決事件時進入專注版面，避免選項被頂欄／年譜擠出可視區 */
   const eventFocus =
     state.phase === 'playing' && Boolean(pendingEvent) && !showResult && !combat;
-  const showFortuneFlash = Boolean(
-    eventFocus && state.pending?.rarity === 'gold' && fortuneFlashShownFor !== state.pending?.eventId,
-  );
   /** 交手中隱藏全局氣血條，避免與戰鬥血條重複 */
   const showVitalsBars = !combat && !eventFocus && (tab === 'home' || tab === 'person');
   const showStatStrip = !combat && !eventFocus;
@@ -279,8 +285,6 @@ export function InkPlayScreen({ state }: Props) {
   const leadTitle = topTitle(state);
   const rank = jianghuRank(state);
   const prestige = jianghuPrestige(state);
-  const lifespanPct = lifespanRemainingPercent(c.age);
-  const lifespanUrgent = isLifespanUrgent(c.age);
   const sceneBits = [
     'scroll-shell',
     'scroll-shell--play',
@@ -326,12 +330,13 @@ export function InkPlayScreen({ state }: Props) {
       />
       {sealText && <InkSealStamp text={sealText} onDone={clearSeal} />}
 
+      {offlineGainXp !== null && (
+        <div className="ink-offline-toast" role="status" onClick={() => clearOfflineGain()}>
+          你閉關苦修，修為大增 ＋{offlineGainXp.toLocaleString('zh-Hant')}
+        </div>
+      )}
+
       <header className="ink-status">
-        <div
-          className={`ink-lifespan-line${lifespanUrgent ? ' ink-lifespan-line--urgent' : ''}`}
-          style={{ ['--pct' as string]: `${lifespanPct}%` }}
-          aria-hidden
-        />
         <div className="ink-identity">
           <p className="ink-status-kicker">
             第{state.year}年 · {seasonLabel(month)}
@@ -350,6 +355,7 @@ export function InkPlayScreen({ state }: Props) {
             {sect ? ` · ${sect.name}` : ''}
             {nicknames.length ? ` · ${nicknames.join('·')}` : ''}
           </p>
+          <InkCultivationHud state={state} />
         </div>
         <div className="ink-status-actions">
           <InkPrestigeHud prestige={prestige} rank={rank} />
@@ -536,10 +542,6 @@ export function InkPlayScreen({ state }: Props) {
         />
       )}
 
-      {showFortuneFlash && state.pending && (
-        <InkFortuneFlash onDone={() => setFortuneFlashShownFor(state.pending!.eventId)} />
-      )}
-
       {/* 鎮居首屏：翻頁優先於儀表與年譜（無待決事件時） */}
       {onHomeTab && !combat && !eventFocus && (
         <div key={`${state.year}-${month}`} className="ink-home-focus ink-scroll-flip">
@@ -664,6 +666,7 @@ export function InkPlayScreen({ state }: Props) {
           onEquipBest={() => {
             practice('equip_best');
           }}
+          onBreakthrough={attemptBreakthrough}
         />
       )}
 
