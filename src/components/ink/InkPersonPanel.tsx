@@ -20,7 +20,7 @@ import {
 import { gearTotals, sumGearCombatBonuses, previewEquipDelta, combatPowerScore } from '@core/life/equipment';
 import { MOVE_STANCE_LABEL, resolveMoveStance } from '@core/life/moveStance';
 import { skillDisplay } from '@core/life/flavor';
-import { skillAdvanceHint } from '@core/life/martialRanks';
+import { rankName, skillAdvanceHint, skillAdvancePercent } from '@core/life/martialRanks';
 import { formatSkillEffects, getSkillDef, skillKindLabel } from '@data/skills/catalog';
 import { ensureNature, dominantNature, natureSummary } from '@core/life/nature';
 import { getLifeStageLabel } from '@core/life/stages';
@@ -297,6 +297,7 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
                 const def = getSkillDef(id);
                 const kind = def?.kind ?? 'external';
                 const stance = def?.move ? resolveMoveStance(def.move) : null;
+                const advancePct = skillAdvancePercent(c, id);
                 return (
                   <li key={id} className={`ink-skill-card ink-skill-card--${kind}`}>
                     <div className="ink-skill-card-head">
@@ -317,7 +318,23 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
                       </p>
                     ) : null}
                     <p className="ink-skill-fx">{formatSkillEffects(id) || '尚無詳載'}</p>
-                    <p className="ink-note ink-skill-progress">{skillAdvanceHint(c, id)}</p>
+                    {advancePct === null ? (
+                      <p className="ink-note ink-skill-progress">{skillAdvanceHint(c, id)}</p>
+                    ) : (
+                      <div
+                        className={`ink-skill-advance-bar${advancePct >= 85 ? ' ink-skill-advance-bar--close' : ''}`}
+                      >
+                        <div className="ink-skill-advance-track">
+                          <div
+                            className="ink-skill-advance-fill"
+                            style={{ ['--pct' as string]: `${advancePct}%` }}
+                          />
+                        </div>
+                        <span className="ink-skill-advance-label">
+                          距「{rankName((c.skillRanks?.[id] ?? 0) + 1)}」 {advancePct}%
+                        </span>
+                      </div>
+                    )}
                   </li>
                 );
               })}

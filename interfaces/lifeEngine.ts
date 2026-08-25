@@ -239,6 +239,8 @@ export interface PendingEvent {
   year: number;
   month?: number;
   kind?: 'ordinary' | 'special' | 'story';
+  /** 際遇品質：源自抽中嘅事件池本身（boss／秘傳池最罕，一般池按 weight 分白/藍） */
+  rarity?: 'white' | 'blue' | 'purple' | 'gold';
 }
 
 /** 華山論劍報名快照（可對戰、可存檔） */
@@ -605,6 +607,7 @@ export const lifeGameStateSchema = z.object({
       year: z.number(),
       month: z.number().optional(),
       kind: z.enum(['ordinary', 'special', 'story']).optional(),
+      rarity: z.enum(['white', 'blue', 'purple', 'gold']).optional(),
     })
     .nullable(),
   pendingCombat: z.any().nullable().optional(),
