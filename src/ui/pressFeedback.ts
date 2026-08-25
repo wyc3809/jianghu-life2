@@ -8,7 +8,6 @@ const PRESS_SEL = [
   '.ink-tab',
   '.ink-practice-btn',
   '.ink-icon-btn',
-  '.ink-chronicle-toggle',
   '.ink-combat-action',
   '.ink-combat-filter',
   '.ink-combat-detail-btn',

@@ -6,7 +6,6 @@ import { useLifeStore } from '../../store/lifeStore';
 import { resolvePendingEvent } from '@core/life/eventEngine';
 import { getLifeStageLabel } from '@core/life/stages';
 import { seasonLabel } from '@core/life/monthly';
-import { jianghuHints } from '@core/life/jianghuHints';
 import { meetsRequirements } from '@core/life/requirements';
 import {
   playInkSeal,
@@ -34,7 +33,6 @@ import {
 } from '@core/life/playerText';
 import { ensureNature, dominantNature, natureSummary } from '@core/life/nature';
 import { coachCopy, nextCoachStep } from '@core/life/tutorial';
-import { lifeArcStatusLine } from '@core/life/arcs';
 import { getAftermathStatus } from '@core/life/combatPresentation';
 import { track } from '../../telemetry/events';
 import { seasonToInk, placeToInk, isInkNight, shouldReduceInkMotion } from './sceneVariants';
@@ -90,8 +88,6 @@ export function InkPlayScreen({ state }: Props) {
   const clearOfflineGain = useLifeStore((s) => s.clearOfflineGain);
   const [practiceView, setPracticeView] = useState<PracticeView>('main');
   const [personView, setPersonView] = useState<PersonView>('main');
-  const [chronicleOpen, setChronicleOpen] = useState(() => (state.character.stats.monthsLived ?? 0) < 3);
-  const [hintsOpen, setHintsOpen] = useState(false);
   const [audioMuted, setAudioMuted] = useState(() => isInkAudioMuted());
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(() => {
@@ -213,7 +209,6 @@ export function InkPlayScreen({ state }: Props) {
     state.phase === 'playing' && Boolean(pendingEvent) && !showResult && !combat;
   /** 交手中隱藏全局氣血條，避免與戰鬥血條重複 */
   const showVitalsBars = !combat && !eventFocus && (tab === 'home' || tab === 'person');
-  const homeHints = onHomeTab && !eventFocus ? jianghuHints(state) : [];
   const resultKind = lastResult?.title === '修煉' ? 'practice' : 'month';
 
   useEffect(() => {
@@ -277,7 +272,6 @@ export function InkPlayScreen({ state }: Props) {
     !c.flags.coach_done;
 
   const aftermath = getAftermathStatus(state);
-  const arcLine = lifeArcStatusLine(state);
   const inkSeason = seasonToInk(month);
   const inkPlace = placeToInk(c.location);
 
@@ -477,37 +471,10 @@ export function InkPlayScreen({ state }: Props) {
         }}
       />
 
-      {!eventFocus && arcLine && state.phase === 'playing' && !combat && (
-        <p className="ink-arc-chip" aria-label="因緣">{arcLine}</p>
-      )}
       {!eventFocus && aftermath && state.phase === 'playing' && !combat && (
         <p className={`ink-aftermath-chip ink-aftermath-chip--${aftermath.kind}`} aria-label="餘波">
           {aftermath.text}
         </p>
-      )}
-
-      {!combat && !eventFocus && (
-        <nav className="ink-tabs" aria-label="分卷">
-          {(
-            [
-              ['home', '鎮居'],
-              ['person', '人物'],
-              ['jianghu', '江湖'],
-              ['practice', '修煉'],
-            ] as const
-          ).map(([id, label]) => (
-            <button
-              key={id}
-              type="button"
-              className={tab === id ? 'ink-tab ink-tab--active' : 'ink-tab'}
-              onClick={() => {
-                setTab(id);
-              }}
-            >
-              {label}
-            </button>
-          ))}
-        </nav>
       )}
 
       <div className="ink-play-body">
@@ -574,28 +541,6 @@ export function InkPlayScreen({ state }: Props) {
             </button>
           )}
 
-          {homeHints.length > 0 && (
-            <section className="ink-world" aria-label="近日傳聞">
-              <p className="ink-note">{homeHints[0]}</p>
-              {homeHints.length > 1 && (
-                <button
-                  type="button"
-                  className="ink-btn ink-btn--quiet ink-toggle-quiet"
-                  onClick={() => {
-                    setHintsOpen((v) => !v);
-                  }}
-                >
-                  {hintsOpen ? '收起傳聞' : `更多傳聞（${homeHints.length - 1}）`}
-                </button>
-              )}
-              {hintsOpen &&
-                homeHints.slice(1).map((h) => (
-                  <p key={h} className="ink-note">
-                    {h}
-                  </p>
-                ))}
-            </section>
-          )}
         </div>
       )}
 
@@ -849,32 +794,34 @@ export function InkPlayScreen({ state }: Props) {
         <p className="ink-note ink-note--center">修煉不催歲月——請回「鎮居」翻過一頁。</p>
       )}
       {(tab === 'person' || tab === 'jianghu') && !combat && !showResult && !eventFocus && (
-        <p className="ink-note ink-note--center">請回「鎮居」翻頁、覽年譜。</p>
+        <p className="ink-note ink-note--center">請回「鎮居」翻頁。</p>
       )}
 
-      {onHomeTab && !combat && !eventFocus && (
-        <section className={`ink-panel ink-chronicle${chronicleOpen ? ' ink-chronicle--open' : ''}`}>
-          <button
-            type="button"
-            className="ink-chronicle-toggle"
-            onClick={() => {
-              setChronicleOpen((v) => !v);
-            }}
-            aria-expanded={chronicleOpen}
-          >
-            <h3>年譜</h3>
-            <span>{chronicleOpen ? '掩上' : `展開（${Math.min(14, state.lifeLog.length)}）`}</span>
-          </button>
-          {chronicleOpen && (
-            <ul className="ink-log">
-              {state.lifeLog.slice(0, 14).map((line, i) => (
-                <li key={`${i}-${line.slice(0, 16)}`}>{line}</li>
-              ))}
-            </ul>
-          )}
-        </section>
-      )}
       </div>
+
+      {!combat && !eventFocus && (
+        <nav className="ink-tabs" aria-label="分卷">
+          {(
+            [
+              ['home', '鎮居'],
+              ['person', '人物'],
+              ['jianghu', '江湖'],
+              ['practice', '修煉'],
+            ] as const
+          ).map(([id, label]) => (
+            <button
+              key={id}
+              type="button"
+              className={tab === id ? 'ink-tab ink-tab--active' : 'ink-tab'}
+              onClick={() => {
+                setTab(id);
+              }}
+            >
+              {label}
+            </button>
+          ))}
+        </nav>
+      )}
 
       {debugOpen && <LifeDebugPanel state={state} />}
     </div>

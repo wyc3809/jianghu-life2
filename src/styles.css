@@ -1677,52 +1677,6 @@ body::before {
   gap: 12px;
 }
 
-.ink-toggle-quiet {
-  align-self: flex-start;
-  margin-top: 2px;
-  font-size: 0.75rem;
-}
-
-.ink-toggle-quiet:active:not(:disabled) {
-  transform: scale(0.96);
-  background: rgba(26, 26, 26, 0.08);
-}
-
-.ink-chronicle-toggle {
-  display: flex;
-  width: 100%;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: inherit;
-  cursor: pointer;
-  text-align: left;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  transition:
-    background 0.08s ease,
-    transform 0.06s ease;
-}
-
-.ink-chronicle-toggle:active {
-  transform: scale(0.96);
-  background: rgba(26, 26, 26, 0.06);
-}
-
-.ink-chronicle-toggle h3 {
-  margin: 0;
-}
-
-.ink-chronicle-toggle span {
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  color: var(--ink-mid);
-  flex-shrink: 0;
-}
-
 .ink-backdrop--quiet .ink-mist-layer,
 .ink-backdrop--quiet .ink-brush-sweep,
 .ink-backdrop--quiet .ink-blot,
@@ -2357,64 +2311,6 @@ body::before {
   animation-delay: 0.19s;
 }
 
-.ink-chronicle {
-  /* 收合時唔好撑滿剩餘視窗，否則會變大片空白框；隨內容排在儀表之下 */
-  flex: 0 0 auto;
-  min-height: 0;
-  max-height: none;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  gap: 8px;
-}
-
-.ink-chronicle:not(.ink-chronicle--open) {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  background: transparent;
-  border: 0;
-  box-shadow: none;
-  backdrop-filter: none;
-  animation: none;
-}
-
-.ink-chronicle:not(.ink-chronicle--open)::before,
-.ink-chronicle:not(.ink-chronicle--open)::after {
-  content: none;
-}
-
-.ink-chronicle--open {
-  max-height: min(42vh, 280px);
-}
-
-.ink-chronicle--open .ink-log {
-  flex: 1 1 auto;
-  min-height: 0;
-}
-
-.ink-log {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  font-size: 0.82rem;
-  line-height: 1.55;
-  color: var(--ink-mid);
-}
-
-.ink-log li {
-  padding: 8px 0;
-  border-bottom: 1px dashed var(--ink-faint);
-  animation: writeIn 0.35s ease both;
-}
-
-.ink-log li:first-child {
-  color: var(--ink);
-  border-left: 2px solid var(--cinnabar);
-  padding-left: 8px;
-}
-
 .ink-epitaph-text {
   margin: 0 0 8px;
   white-space: pre-wrap;
@@ -2632,17 +2528,6 @@ body::before {
   transform: scaleX(1);
   opacity: 1;
   animation: tabInkGrow 0.35s ease both;
-}
-
-.ink-world {
-  padding: 8px 2px;
-  font-size: 0.8rem;
-  color: var(--ink-mid);
-  border-bottom: 1px dashed var(--ink-faint);
-}
-
-.ink-world p {
-  margin: 0 0 4px;
 }
 
 .ink-world-compact {
@@ -3536,7 +3421,6 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
   .ink-scroll-flip,
   .ink-tab-pane,
   .ink-bar-fill,
-  .ink-log li,
   .ink-tab--active::after,
   .ink-nature-card.ink-nature--dominant,
   .ink-combat-beat,
@@ -3574,12 +3458,10 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
   .ink-tab--active:active,
   .ink-practice-btn:active:not(:disabled),
   .ink-icon-btn:active,
-  .ink-chronicle-toggle:active,
   .ink-combat-action:active:not(:disabled),
   .ink-combat-filter:active,
   .ink-combat-detail-btn:active,
-  .ink-combat-log-toggle:active,
-  .ink-toggle-quiet:active:not(:disabled) {
+  .ink-combat-log-toggle:active {
     transform: none !important;
   }
 }
@@ -3619,7 +3501,6 @@ html[data-ink-motion='reduce'] .ink-delta-row {
 .ink-tab,
 .ink-practice-btn,
 .ink-icon-btn,
-.ink-chronicle-toggle,
 .ink-combat-log-toggle,
 .ink-combat-filter,
 .ink-combat-detail-btn,
@@ -3637,7 +3518,6 @@ button.is-pressed,
 .ink-tab.is-pressed,
 .ink-practice-btn.is-pressed,
 .ink-icon-btn.is-pressed,
-.ink-chronicle-toggle.is-pressed,
 .ink-combat-log-toggle.is-pressed,
 .ink-combat-filter.is-pressed,
 .ink-combat-detail-btn.is-pressed,
@@ -3665,8 +3545,7 @@ button.is-pressed,
 .ink-btn--quiet.is-pressed,
 .ink-icon-btn.is-pressed,
 .ink-combat-detail-btn.is-pressed,
-.ink-combat-log-toggle.is-pressed,
-.ink-chronicle-toggle.is-pressed {
+.ink-combat-log-toggle.is-pressed {
   background: rgba(26, 26, 26, 0.12) !important;
   box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.12);
 }
@@ -4362,7 +4241,6 @@ button.is-pressed,
 .ink-backdrop--omen .ink-mountains-img {
   filter: brightness(0.92);
 }
-.ink-arc-chip,
 .ink-aftermath-chip {
   margin: 0;
   padding: 6px 10px;
@@ -4414,8 +4292,7 @@ button.is-pressed,
 .ink-combat-action span,
 .ink-combat-move em,
 .ink-gear-desc,
-.ink-hint-learn,
-.ink-chronicle-toggle span {
+.ink-hint-learn {
   color: var(--ink-soft) !important;
   font-size: var(--fs-caption) !important;
   font-weight: var(--fw-ui) !important;
@@ -5152,6 +5029,16 @@ html[data-ink-motion='reduce'] .ink-combat-fx-layer {
   gap: 0;
   border-top: 1px solid var(--ink-faint);
   border-bottom: 1px solid var(--ink-faint);
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  flex: 0 0 auto;
+  margin: 0 -18px calc(-1 * 28px);
+  padding-left: 18px;
+  padding-right: 18px;
+  padding-bottom: max(8px, env(safe-area-inset-bottom, 0px));
+  background: var(--paper);
+  box-shadow: 0 -8px 16px rgba(243, 235, 220, 0.85);
 }
 
 .ink-tab,
@@ -5287,13 +5174,6 @@ html[data-ink-motion='reduce'] .ink-combat-fx-layer {
   border-left: 4px solid var(--cinnabar);
   letter-spacing: 0.2em;
   box-shadow: none;
-}
-
-.ink-world {
-  padding: 8px 10px 9px;
-  border: 0;
-  border-left: 2px solid rgba(26, 26, 26, 0.16);
-  background: rgba(250, 246, 238, 0.42);
 }
 
 .ink-vitals {
