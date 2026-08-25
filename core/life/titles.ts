@@ -1,6 +1,7 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getSectContent, sectStandingName } from '@data/content/packs';
 import { applyAchievementRankBonus } from './jianghuRank';
+import { gainJianghuPrestige } from './jianghuPrestige';
 import { ART_MASTERY_THRESHOLD, artProficiency } from './arts';
 
 /** 稱號戰鬥加成——同裝備／武學被動同一套疊加邏輯，套用時只取「最強 3 個」總和 */
@@ -297,6 +298,7 @@ export function syncTitles(state: LifeGameState): string[] {
   for (const g of gained) {
     lines.push(`江湖上開始有人稱你「${g.label}」。`);
     lines.push(...applyAchievementRankBonus(state, g.tier * 30));
+    lines.push(...gainJianghuPrestige(state, g.tier * 12));
   }
   return lines;
 }

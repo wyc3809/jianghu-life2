@@ -4,7 +4,6 @@ import { InkPlayScreen } from './components/ink/InkPlayScreen';
 import { InkStartGate, InkStartScreen } from './components/ink/InkStartScreen';
 import { InkCreateScreen } from './components/ink/InkCreateScreen';
 import { InkEventEditor } from './components/ink/InkEventEditor';
-import { InkIntroScreen } from './components/ink/InkIntroScreen';
 import { loadEventOverrides } from '@core/life/eventOverrides';
 
 function readHashRoute(): 'editor' | 'home' {
@@ -21,7 +20,6 @@ export default function App() {
   const bootstrap = useLifeStore((s) => s.bootstrap);
   const [canResume, setCanResume] = useState(false);
   const [resumeHint, setResumeHint] = useState<string | undefined>();
-  const [showIntro, setShowIntro] = useState(false);
   const [route, setRoute] = useState<'editor' | 'home'>(() =>
     typeof window !== 'undefined' ? readHashRoute() : 'home',
   );
@@ -46,11 +44,6 @@ export default function App() {
     await resetLifeSave();
     beginCreate();
   }, [beginCreate]);
-
-  const handleEnterIntro = useCallback(() => {
-    setShowIntro(false);
-    void handleStart();
-  }, [handleStart]);
 
   const handleSeed = useCallback(async () => {
     await resetLifeSave();
@@ -86,7 +79,7 @@ export default function App() {
     <>
       <InkStartGate onReady={onReady} />
       <InkStartScreen
-        onStart={() => setShowIntro(true)}
+        onStart={() => void handleStart()}
         onContinue={() => void handleContinue()}
         resumeHint={canResume ? resumeHint : undefined}
         onSeedDebug={import.meta.env.DEV ? () => void handleSeed() : undefined}
@@ -94,7 +87,6 @@ export default function App() {
           window.location.hash = 'editor';
         }}
       />
-      {showIntro && <InkIntroScreen onEnter={handleEnterIntro} />}
     </>
   );
 }

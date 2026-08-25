@@ -22,6 +22,8 @@ import { InkSettingsPanel, type TextScale } from './InkSettingsPanel';
 import { InkGearCompareModal } from './InkGearCompareModal';
 import { titleTierColorClass, topTitle, topTitles } from '@core/life/titles';
 import { jianghuRank } from '@core/life/jianghuRank';
+import { jianghuPrestige } from '@core/life/jianghuPrestige';
+import { InkPrestigeHud } from './InkPrestigeHud';
 import {
   isLearnSkillDeltaLine,
   isLearnSkillStoryLine,
@@ -269,6 +271,7 @@ export function InkPlayScreen({ state }: Props) {
   const nicknames = topTitles(state);
   const leadTitle = topTitle(state);
   const rank = jianghuRank(state);
+  const prestige = jianghuPrestige(state);
   const sceneBits = [
     'scroll-shell',
     'scroll-shell--play',
@@ -333,32 +336,34 @@ export function InkPlayScreen({ state }: Props) {
             {sect ? ` · ${sect.name}` : ''}
             {nicknames.length ? ` · ${nicknames.join('·')}` : ''}
           </p>
-          <p className="ink-meta ink-meta--rank">江湖排名 第{rank}位</p>
         </div>
         <div className="ink-status-actions">
-          <button
-            type="button"
-            className="ink-icon-btn ink-icon-btn--wide"
-            onClick={() => setSettingsOpen(true)}
-            title="設定"
-            aria-label="開啟設定"
-            aria-haspopup="dialog"
-            aria-expanded={settingsOpen}
-          >
-            設定
-          </button>
-          {import.meta.env.DEV && (
+          <InkPrestigeHud prestige={prestige} rank={rank} />
+          <div className="ink-status-buttons">
             <button
               type="button"
-              className="ink-icon-btn"
-              onClick={() => {
-                setDebugOpen(!debugOpen);
-              }}
-              title="除錯"
+              className="ink-icon-btn ink-icon-btn--wide"
+              onClick={() => setSettingsOpen(true)}
+              title="設定"
+              aria-label="開啟設定"
+              aria-haspopup="dialog"
+              aria-expanded={settingsOpen}
             >
-              墨
+              設定
             </button>
-          )}
+            {import.meta.env.DEV && (
+              <button
+                type="button"
+                className="ink-icon-btn"
+                onClick={() => {
+                  setDebugOpen(!debugOpen);
+                }}
+                title="除錯"
+              >
+                墨
+              </button>
+            )}
+          </div>
         </div>
       </header>
 
