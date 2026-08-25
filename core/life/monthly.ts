@@ -130,14 +130,11 @@ export function advanceStoryMonth(_state: LifeGameState): void {
 export function simulateMonthBody(state: LifeGameState): void {
   const rng = getRng();
   const c = state.character;
-  // 疲勞累積略緩；高疲勞扣血改為輕傷，並提高自然回血，避免「翻幾頁就氣血歸零」
-  c.fatigue = clamp(c.fatigue + rng.nextInt(3, 10), 0, 100);
-  const fatigueHit = c.fatigue > 90 ? 4 : c.fatigue > 80 ? 2 : 0;
-  c.health = clamp(c.health + rng.nextInt(5, 12) - fatigueHit, 0, c.maxHealth);
+  // 行動力已改由實時 ticker 回復（見 actionPoints.ts）；呢度只保留「氣力見底扣自然回血」嘅 flavor
+  const actionPointsHit = c.actionPoints < 10 ? 4 : c.actionPoints < 20 ? 2 : 0;
+  c.health = clamp(c.health + rng.nextInt(5, 12) - actionPointsHit, 0, c.maxHealth);
   c.qi = clamp(c.qi + rng.nextInt(4, 12), 0, c.maxQi);
   c.stamina = clamp(c.stamina + rng.nextInt(4, 12), 0, c.maxStamina);
-  // 疲勞自然緩解一截，唔讓數值永遠卡死在危險區
-  if (c.fatigue > 40) c.fatigue = clamp(c.fatigue - rng.nextInt(2, 6), 0, 100);
   tickConditions(state);
   simulateWorldMonth(state);
   tryMonthlyBirth(state);
@@ -157,7 +154,7 @@ export function simulateMonthBody(state: LifeGameState): void {
   if (c.alive && c.age >= 65) {
     if (rng.chance(0.12)) {
       c.health = clamp(c.health - rng.nextInt(2, 6), 0, c.maxHealth);
-      c.fatigue = clamp(c.fatigue + rng.nextInt(4, 10), 0, 100);
+      c.actionPoints = clamp(c.actionPoints - rng.nextInt(4, 10), 0, 100);
     }
   }
 

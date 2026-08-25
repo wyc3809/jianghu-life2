@@ -47,11 +47,11 @@ export function reputationLabel(n: number): string {
   return '威震江湖';
 }
 
-export function fatigueLabel(n: number): string {
-  if (n < 20) return '精神飽滿';
-  if (n < 45) return '略感疲憊';
-  if (n < 70) return '身心勞頓';
-  return '力竭難支';
+export function actionPointsLabel(n: number): string {
+  if (n < 20) return '力竭難支';
+  if (n < 45) return '身心勞頓';
+  if (n < 70) return '略感疲憊';
+  return '精神飽滿';
 }
 
 export function attrLabel(n: number): string {

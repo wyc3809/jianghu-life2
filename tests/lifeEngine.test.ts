@@ -1066,12 +1066,12 @@ describe('life event engine', () => {
     expect(quietHits).toBeGreaterThan(0);
   });
 
-  it('monthly body soft-regens and does not spike-kill on fatigue alone', async () => {
+  it('monthly body soft-regens and does not spike-kill on low action points alone', async () => {
     const { simulateMonthBody } = await import('../core/life/monthly');
     initRng(3);
     const state = createNewLife(3);
     state.character.health = 40;
-    state.character.fatigue = 85;
+    state.character.actionPoints = 5;
     simulateMonthBody(state);
     expect(state.character.alive).toBe(true);
     expect(state.character.health).toBeGreaterThan(0);
@@ -1139,7 +1139,7 @@ describe('life event engine', () => {
     // also ensure startMonth path records cause when health hits 0 mid-month
     const s2 = createNewLife(8);
     s2.character.health = 1;
-    s2.character.fatigue = 100;
+    s2.character.actionPoints = 0;
     for (let i = 0; i < 30 && s2.character.alive; i++) {
       s2.pending = null;
       s2.pendingCombat = null;

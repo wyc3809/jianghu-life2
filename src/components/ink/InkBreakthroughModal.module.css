@@ -1,0 +1,232 @@
+/* 江湖一生 · 修為突破彈窗（成功躍境／失敗走火入魔）+ 升級動畫 */
+
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: 220;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: #efe6cf;
+  font-family:
+    'Noto Serif CJK TC',
+    'Noto Serif CJK SC',
+    'Songti TC',
+    'STSong',
+    serif;
+  cursor: pointer;
+}
+
+.rootSuccess {
+  background: radial-gradient(75% 60% at 50% 42%, #241d10 0%, #16110a 55%, #0a0806 100%);
+}
+
+.rootFail {
+  background: radial-gradient(75% 60% at 50% 42%, #241210 0%, #160d0a 55%, #0a0806 100%);
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0.3;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E");
+}
+
+.burst {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.stage {
+  position: relative;
+  z-index: 6;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  cursor: default;
+}
+
+.shake {
+  animation: bkShake 0.5s linear 0.15s;
+}
+
+.shakeStill {
+  animation: none;
+}
+
+@keyframes bkShake {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-6px, 3px);
+  }
+  40% {
+    transform: translate(5px, -3px);
+  }
+  60% {
+    transform: translate(-4px, -2px);
+  }
+  80% {
+    transform: translate(3px, 2px);
+  }
+}
+
+.seal {
+  position: relative;
+  width: clamp(72px, 14vh, 116px);
+  height: clamp(72px, 14vh, 116px);
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 0 0 2px rgba(212, 168, 83, 0.5), 0 0 32px rgba(179, 52, 42, 0.4);
+  transform: scale(2);
+  opacity: 0;
+  animation: bkStamp 0.5s cubic-bezier(0.17, 0.89, 0.32, 1.28) 0.2s forwards;
+}
+
+.sealStill {
+  animation: none;
+  opacity: 1;
+  transform: scale(1);
+}
+
+@keyframes bkStamp {
+  0% {
+    opacity: 0;
+    transform: scale(2);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.seal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.seal span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
+  font-size: clamp(28px, 5vh, 44px);
+  color: #f6ead9;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  background: rgba(20, 14, 10, 0.28);
+}
+
+.headline {
+  margin: 4px 0 0;
+  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
+  font-size: clamp(22px, 4vh, 34px);
+  letter-spacing: 0.16em;
+  color: #efe6cf;
+  text-shadow: 0 0 20px rgba(179, 52, 42, 0.4);
+}
+
+.tierWrap {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: clamp(14px, 2.2vh, 18px);
+  letter-spacing: 0.08em;
+  opacity: 0;
+  animation: bkFadeIn 0.6s ease 0.55s forwards;
+}
+
+.tierWrapStill {
+  animation: none;
+  opacity: 1;
+}
+
+@keyframes bkFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.tierOld {
+  color: #a79b82;
+}
+
+.tierArrow {
+  color: #d4a853;
+}
+
+.tierNew {
+  color: #d4a853;
+  font-weight: 700;
+  font-size: 1.1em;
+}
+
+.deltas {
+  margin: 6px 0 4px;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: clamp(12px, 1.8vh, 15px);
+  color: #cabfa4;
+  opacity: 0;
+  animation: bkFadeIn 0.6s ease 0.75s forwards;
+}
+
+.ack {
+  margin-top: 14px;
+  padding: 9px 22px;
+  border: 1px solid rgba(212, 168, 83, 0.6);
+  border-radius: 4px;
+  background: rgba(20, 14, 10, 0.4);
+  color: #efe6cf;
+  font-family: inherit;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  opacity: 0;
+  animation: bkFadeIn 0.6s ease 0.95s forwards;
+}
+
+.ack:hover {
+  background: rgba(212, 168, 83, 0.16);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shake,
+  .seal,
+  .tierWrap,
+  .deltas,
+  .ack {
+    animation: none !important;
+  }
+  .seal {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .tierWrap,
+  .deltas,
+  .ack {
+    opacity: 1;
+  }
+}

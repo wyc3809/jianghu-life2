@@ -6,7 +6,6 @@ import { useLifeStore } from '../../store/lifeStore';
 import { resolvePendingEvent } from '@core/life/eventEngine';
 import { getLifeStageLabel } from '@core/life/stages';
 import { seasonLabel } from '@core/life/monthly';
-import { overallMartialLabel } from '@core/life/flavor';
 import { jianghuHints } from '@core/life/jianghuHints';
 import { meetsRequirements } from '@core/life/requirements';
 import {
@@ -48,6 +47,7 @@ import { InkPersonPanel, type PersonView } from './InkPersonPanel';
 import { InkEventPanel } from './InkEventPanel';
 import { InkCombatPanel } from './InkCombatPanel';
 import { InkBossIntro } from './InkBossIntro';
+import { InkBreakthroughModal } from './InkBreakthroughModal';
 import { InkPracticePanel, type PracticeView } from './InkPracticePanel';
 import { LifeDebugPanel } from '../LifeDebugPanel';
 
@@ -68,7 +68,6 @@ export function InkPlayScreen({ state }: Props) {
   const resolveGearCompare = useLifeStore((s) => s.resolveGearCompare);
   const clearResult = useLifeStore((s) => s.clearResult);
   const lastResult = useLifeStore((s) => s.lastResult);
-  const saveLabel = useLifeStore((s) => s.saveLabel);
   const debugOpen = useLifeStore((s) => s.debugOpen);
   const setDebugOpen = useLifeStore((s) => s.setDebugOpen);
   const setTab = useLifeStore((s) => s.setTab);
@@ -85,6 +84,8 @@ export function InkPlayScreen({ state }: Props) {
   const clearSeal = useLifeStore((s) => s.clearSeal);
   const tickCultivation = useLifeStore((s) => s.tickCultivation);
   const attemptBreakthrough = useLifeStore((s) => s.attemptBreakthrough);
+  const breakthroughResult = useLifeStore((s) => s.breakthroughResult);
+  const clearBreakthroughResult = useLifeStore((s) => s.clearBreakthroughResult);
   const offlineGainXp = useLifeStore((s) => s.offlineGainXp);
   const clearOfflineGain = useLifeStore((s) => s.clearOfflineGain);
   const [practiceView, setPracticeView] = useState<PracticeView>('main');
@@ -212,7 +213,6 @@ export function InkPlayScreen({ state }: Props) {
     state.phase === 'playing' && Boolean(pendingEvent) && !showResult && !combat;
   /** 交手中隱藏全局氣血條，避免與戰鬥血條重複 */
   const showVitalsBars = !combat && !eventFocus && (tab === 'home' || tab === 'person');
-  const showStatStrip = !combat && !eventFocus;
   const homeHints = onHomeTab && !eventFocus ? jianghuHints(state) : [];
   const resultKind = lastResult?.title === '修煉' ? 'practice' : 'month';
 
@@ -356,6 +356,15 @@ export function InkPlayScreen({ state }: Props) {
             {nicknames.length ? ` · ${nicknames.join('·')}` : ''}
           </p>
           <InkCultivationHud state={state} />
+          <div className="ink-ap-meter" role="meter" aria-label="氣力" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(c.actionPoints ?? 0)}>
+            <span className="ink-ap-meter-label">氣力</span>
+            <div className="ink-bar ink-ap-meter-bar">
+              <div
+                className="ink-bar-fill ink-bar-fill--live"
+                style={{ width: `${Math.max(0, Math.min(100, c.actionPoints ?? 0))}%` }}
+              />
+            </div>
+          </div>
         </div>
         <div className="ink-status-actions">
           <InkPrestigeHud prestige={prestige} rank={rank} />
@@ -387,73 +396,51 @@ export function InkPlayScreen({ state }: Props) {
         </div>
       </header>
 
-      {showStatStrip && (
-        <section className="ink-vitals" aria-label={showVitalsBars ? '氣血內力' : '江湖概況'}>
-          {showVitalsBars && (
-            <div className="ink-vitals-meters">
-              <div className="ink-meter">
-                <div className="ink-vitals-label">
-                  <span>氣血</span>
-                  <span>
-                    {Math.round(c.health)}/{c.maxHealth}
-                  </span>
-                </div>
-                <div
-                  className="ink-bar ink-bar--life"
-                  role="meter"
-                  aria-valuemin={0}
-                  aria-valuemax={c.maxHealth}
-                  aria-valuenow={Math.round(c.health)}
-                  aria-label="氣血"
-                >
-                  <div className="ink-bar-fill ink-bar-fill--live" style={{ width: `${hpPct}%` }} />
-                </div>
+      {showVitalsBars && (
+        <section className="ink-vitals" aria-label="氣血內力">
+          <div className="ink-vitals-meters">
+            <div className="ink-meter">
+              <div className="ink-vitals-label">
+                <span>氣血</span>
+                <span>
+                  {Math.round(c.health)}/{c.maxHealth}
+                </span>
               </div>
-              <div className="ink-meter">
-                <div className="ink-vitals-label">
-                  <span>內力</span>
-                  <span>
-                    {Math.round(c.qi ?? 0)}/{c.maxQi ?? 0}
-                  </span>
-                </div>
-                <div
-                  className="ink-bar ink-bar--qi"
-                  role="meter"
-                  aria-valuemin={0}
-                  aria-valuemax={c.maxQi ?? 0}
-                  aria-valuenow={Math.round(c.qi ?? 0)}
-                  aria-label="內力"
-                >
-                  <div className="ink-bar-fill ink-bar-fill--qi ink-bar-fill--live" style={{ width: `${qiPct}%` }} />
-                </div>
+              <div
+                className="ink-bar ink-bar--life"
+                role="meter"
+                aria-valuemin={0}
+                aria-valuemax={c.maxHealth}
+                aria-valuenow={Math.round(c.health)}
+                aria-label="氣血"
+              >
+                <div className="ink-bar-fill ink-bar-fill--live" style={{ width: `${hpPct}%` }} />
               </div>
             </div>
-          )}
+            <div className="ink-meter">
+              <div className="ink-vitals-label">
+                <span>內力</span>
+                <span>
+                  {Math.round(c.qi ?? 0)}/{c.maxQi ?? 0}
+                </span>
+              </div>
+              <div
+                className="ink-bar ink-bar--qi"
+                role="meter"
+                aria-valuemin={0}
+                aria-valuemax={c.maxQi ?? 0}
+                aria-valuenow={Math.round(c.qi ?? 0)}
+                aria-label="內力"
+              >
+                <div className="ink-bar-fill ink-bar-fill--qi ink-bar-fill--live" style={{ width: `${qiPct}%` }} />
+              </div>
+            </div>
+          </div>
           <span
             className="ink-vitals-rule"
             aria-hidden
             dangerouslySetInnerHTML={{ __html: INK_SVG.fadeLine }}
           />
-          <ul className="ink-stat-row">
-            <li className="ink-stat-pill">
-              <img className="ink-stat-motif" src={inkAiUrl('motif-jade')} alt="" decoding="async" />
-              <span>銀兩 {c.money}</span>
-            </li>
-            <li className="ink-stat-pill">
-              <img className="ink-stat-motif" src={inkAiUrl('motif-scroll')} alt="" decoding="async" />
-              <span>名望 {c.reputation}</span>
-            </li>
-            <li className="ink-stat-pill">
-              <img className="ink-stat-motif" src={inkAiUrl('motif-sword')} alt="" decoding="async" />
-              <span>
-                武學 {c.martial}·{overallMartialLabel(c)}
-              </span>
-            </li>
-            <li className="ink-stat-pill">
-              <img className="ink-stat-motif" src={inkAiUrl('motif-lantern')} alt="" decoding="async" />
-              <span>疲勞 {c.fatigue ?? 0}</span>
-            </li>
-          </ul>
           {(c.conditions?.length ?? 0) > 0 && (
             <div className="ink-chips">
               {c.conditions.map((cond) => (
@@ -490,11 +477,6 @@ export function InkPlayScreen({ state }: Props) {
         }}
       />
 
-      {!eventFocus && !combat && saveLabel && (
-        <p className="ink-save" title={`上次落筆：${saveLabel}`}>
-          墨跡已存
-        </p>
-      )}
       {!eventFocus && arcLine && state.phase === 'playing' && !combat && (
         <p className="ink-arc-chip" aria-label="因緣">{arcLine}</p>
       )}
@@ -698,6 +680,10 @@ export function InkPlayScreen({ state }: Props) {
           onResolveFoe={combatResolveFoe}
           onSetInternalMode={combatSetInternalMode}
         />
+      )}
+
+      {breakthroughResult && (
+        <InkBreakthroughModal result={breakthroughResult} onClose={clearBreakthroughResult} />
       )}
 
       {showResult &&

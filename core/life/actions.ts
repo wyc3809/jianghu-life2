@@ -113,7 +113,7 @@ export function applyPracticeOutcome(
     case 'train_martial': {
       const gain = rng.nextInt(1, 3);
       c.health = clamp(c.health - rng.nextInt(0, 6), 1, c.maxHealth);
-      c.fatigue = clamp(c.fatigue + rng.nextInt(4, 10), 0, 100);
+      c.actionPoints = clamp(c.actionPoints - rng.nextInt(4, 10), 0, 100);
       c.martial += gain;
       logs.push('你苦練外功，拳腳往復，汗透衣背。');
       logs.push(`武學＋${gain}`);
@@ -153,7 +153,7 @@ export function applyPracticeOutcome(
     case 'temper_body': {
       const up = rng.nextInt(8, 20);
       raiseBaseMaxHp(c, up);
-      c.fatigue = clamp(c.fatigue + rng.nextInt(6, 14), 0, 100);
+      c.actionPoints = clamp(c.actionPoints - rng.nextInt(6, 14), 0, 100);
       logs.push('你以藥浴與樁功淬體，筋骨隱隱發沉，像是又厚了一層。');
       logs.push(`氣血上限＋${up}`);
       break;
@@ -257,7 +257,7 @@ export function applyPracticeOutcome(
         logs.push('你尚未拜入門派。');
         break;
       }
-      c.fatigue = clamp(c.fatigue + 3, 0, 100);
+      c.actionPoints = clamp(c.actionPoints - 3, 0, 100);
       logs.push('長老只點了三處破綻，餘下要你自己悟。');
       const standing = c.sectStanding ?? 0;
       const teach = teachSectArtForStanding(state, standing);
@@ -292,7 +292,7 @@ export function applyPracticeOutcome(
         logs.push('你尚未拜入門派。');
         break;
       }
-      c.fatigue = clamp(c.fatigue + rng.nextInt(4, 10), 0, 100);
+      c.actionPoints = clamp(c.actionPoints - rng.nextInt(4, 10), 0, 100);
       c.attributes.danShi = clamp(c.attributes.danShi + (rng.chance(0.4) ? 1 : 0), 1, 100);
       logs.push('你守了一夜山門，風聲鶴唳中心膽更定。');
       if (rng.chance(0.15)) {
@@ -409,7 +409,7 @@ export function applyPracticeOutcome(
       break;
     }
     case 'seek_master': {
-      c.fatigue = clamp(c.fatigue + 5, 0, 100);
+      c.actionPoints = clamp(c.actionPoints - 5, 0, 100);
       if (rng.chance(0.22)) {
         const arts = [
           { id: 'art_nine_shadow', name: '九影迷踪步' },

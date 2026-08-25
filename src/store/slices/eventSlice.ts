@@ -18,6 +18,7 @@ import {
 } from '@core/life/playerText';
 import { pushChronicle } from '@core/life/chronicle';
 import { resolveArcVisitLater } from '@core/life/arcs';
+import { EVENT_ACTION_POINT_COST, hasEnoughActionPoints, spendActionPoints } from '@core/life/actionPoints';
 import { track } from '../../telemetry/events';
 import type { LifeStore } from '../lifeStore';
 
@@ -30,6 +31,7 @@ export function createEventSlice(
     choose: (choiceId: string) => {
       const { state } = get();
       if (!state?.pending || state.pendingCombat) return;
+      if (!hasEnoughActionPoints(state, EVENT_ACTION_POINT_COST)) return;
       const event = resolvePendingEvent(state) ?? lookupEvent(state.pending.eventId);
       if (!event) {
         const next = produce(state, (draft) => {
@@ -48,6 +50,7 @@ export function createEventSlice(
 
       const next = produce(state, (draft) => {
         if (!draft.character.flags.coach_chose) draft.character.flags.coach_chose = true;
+        spendActionPoints(draft, EVENT_ACTION_POINT_COST);
         const r = applyChoice(draft, event, choiceId);
         resultLogs = r.logs;
         resultFeedback = r.feedback;

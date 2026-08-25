@@ -7,6 +7,7 @@ import {
   canAttemptBreakthrough,
   cultivationProgressPercent,
   currentCultivationTier,
+  grantEventCultivation,
   isCultivationCapped,
   isMaxCultivationTier,
   OFFLINE_CULTIVATION_CAP_MS,
@@ -85,6 +86,27 @@ describe('cultivation: tiers and cap', () => {
     expect(isMaxCultivationTier(state)).toBe(true);
     expect(isCultivationCapped(state)).toBe(false);
     expect(cultivationProgressPercent(state)).toBe(100);
+  });
+});
+
+describe('cultivation: per-event grant (functional #5 — 事件普遍加修為)', () => {
+  it('grants a small amount of xp each call, never exceeding the current tier cap', () => {
+    initRng(40);
+    const state = createNewLife(40);
+    const cap = currentCultivationTier(state).cap;
+    state.character.cultivation.xp = cap - 3;
+    const gained = grantEventCultivation(state);
+    expect(gained).toBeGreaterThan(0);
+    expect(state.character.cultivation.xp).toBeLessThanOrEqual(cap);
+  });
+
+  it('does nothing once the character has died or the game is not in the playing phase', () => {
+    initRng(41);
+    const state = createNewLife(41);
+    state.character.alive = false;
+    const before = state.character.cultivation.xp;
+    expect(grantEventCultivation(state)).toBe(0);
+    expect(state.character.cultivation.xp).toBe(before);
   });
 });
 
@@ -219,6 +241,9 @@ describe('cultivation: breakthrough', () => {
         expect(state.character.cultivation.xp).toBe(0);
         expect(state.character.martial).toBeGreaterThan(before.martial);
         expect(result.lines.join('')).toContain('打通任督');
+        expect(result.newTierName).toBe(currentCultivationTier(state).name);
+        expect(result.oldTierName).not.toBe(result.newTierName);
+        expect(result.martialGain).toBeGreaterThan(0);
       }
 
       if (!result.success && !sawFailure) {
@@ -228,6 +253,9 @@ describe('cultivation: breakthrough', () => {
         expect(state.character.health).toBeLessThan(before.health);
         expect(state.character.qi).toBeLessThanOrEqual(before.qi);
         expect(result.lines.join('')).toContain('走火入魔');
+        expect(result.oldTierName).toBe(currentCultivationTier(state).name);
+        expect(result.newTierName).toBeUndefined();
+        expect(result.hpLoss).toBeGreaterThan(0);
       }
     }
 

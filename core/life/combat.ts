@@ -397,7 +397,7 @@ function finishCombatWin(state: LifeGameState, dispositionLabel?: CombatFoeDispo
   if (combat.player.stamina !== undefined) {
     c.stamina = clamp(Math.round(combat.player.stamina), 0, c.maxStamina);
   }
-  c.fatigue = clamp(c.fatigue + 8, 0, 100);
+  c.actionPoints = clamp(c.actionPoints - 8, 0, 100);
   c.stats.combats += 1;
   c.stats.combatsWon += 1;
   if (combat.usedDesperateBurn) {
@@ -511,7 +511,7 @@ function finishCombat(state: LifeGameState, won: boolean): string[] {
   if (combat.player.stamina !== undefined) {
     c.stamina = clamp(Math.round(combat.player.stamina), 0, c.maxStamina);
   }
-  c.fatigue = clamp(c.fatigue + 14, 0, 100);
+  c.actionPoints = clamp(c.actionPoints - 14, 0, 100);
   c.stats.combats += 1;
   if (combat.usedDesperateBurn) {
     addCondition(state, 'internal');
@@ -671,7 +671,7 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
         syncPlayerVitalsToCharacter(state, combat);
         state.character.health = Math.max(1, state.character.health);
         state.character.reputation = Math.max(0, state.character.reputation - 2);
-        state.character.fatigue = clamp(state.character.fatigue + 6, 0, 100);
+        state.character.actionPoints = clamp(state.character.actionPoints - 6, 0, 100);
         const fleeLines = [`你足尖一點，借身法抽身離場（逃離成功）。`, '名望－2'];
         lines.push(...fleeLines);
         combat.log.push(...fleeLines);
