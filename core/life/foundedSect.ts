@@ -5,6 +5,7 @@ import { rankName, rollAdvanceNeed } from './martialRanks';
 import { pushChronicle } from './chronicle';
 import { syncRngFromState, snapshotRng } from './gameState';
 import { applyAchievementRankBonus } from './jianghuRank';
+import { gainJianghuPrestige } from './jianghuPrestige';
 
 export const FOUND_SECT_MIN_AGE = 30;
 export const FOUND_SECT_MIN_MARTIAL = 300;
@@ -47,6 +48,7 @@ export function foundSect(state: LifeGameState, sectName: string): string[] {
   c.flags.founded_sect = true;
   const lines = [`你於${state.year}年開山立派，門號「${name}」，自此江湖上又添一支傳承。`];
   lines.push(...applyAchievementRankBonus(state, 400));
+  lines.push(...gainJianghuPrestige(state, 150));
   pushChronicle(state, lines);
   snapshotRng(state);
   return lines;
@@ -135,6 +137,7 @@ function advanceDisciple(
     state.character.reputation += 10;
     lines.push(`「${disciple.name}」學成出師，下山行走江湖，為「${sect.name}」添了一段佳話。`);
     lines.push(...applyAchievementRankBonus(state, 200));
+    lines.push(...gainJianghuPrestige(state, 60));
   }
   return lines;
 }

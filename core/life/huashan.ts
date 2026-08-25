@@ -14,6 +14,7 @@ import { topGrudgeNames } from './grudgeBook';
 import { getMasterName } from './bonds';
 import { syncAchievements } from './achievements';
 import { recordHuashanPlacement, applyHuashanPlacementRank } from './jianghuRank';
+import { gainJianghuPrestige } from './jianghuPrestige';
 
 export const HUASHAN_MIN_AGE = 16;
 export const HUASHAN_MIN_MARTIAL = 12;
@@ -312,6 +313,9 @@ export function applyHuashanRewards(state: LifeGameState, placement: number): st
   recordHuashanPlacement(state, placement);
   lines.push(...syncAchievements(state));
   lines.push(...applyHuashanPlacementRank(state, placement));
+  const prestigeGain =
+    placement === 1 ? 300 : placement === 2 ? 150 : placement <= 4 ? 80 : 20;
+  lines.push(...gainJianghuPrestige(state, prestigeGain));
   return lines;
 }
 

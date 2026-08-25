@@ -1013,8 +1013,15 @@ body::before {
 
 .ink-status-actions {
   display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   gap: 6px;
   flex-shrink: 0;
+}
+
+.ink-status-buttons {
+  display: flex;
+  gap: 6px;
 }
 
 .ink-coach {
@@ -1088,11 +1095,6 @@ body::before {
   color: var(--ink-soft);
   font-weight: var(--fw-ui);
   letter-spacing: 0.06em;
-}
-
-.ink-meta--rank {
-  margin-top: 2px;
-  opacity: 0.85;
 }
 
 .ink-icon-btn {
@@ -5913,4 +5915,106 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   width: 150px;
   height: 100px;
   background: radial-gradient(ellipse at 80% 20%, rgba(26, 26, 26, 0.035) 0%, transparent 60%);
+}
+
+/* ===== 江湖威望／排名 HUD（右上角，即時反饋） ===== */
+
+.ink-prestige-hud {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.ink-prestige-main {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 3px 9px;
+  border: 1px solid var(--ink-faint);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--paper-bright) 90%, var(--cinnabar) 4%);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.ink-prestige-main--pulse {
+  box-shadow:
+    0 0 0 2px rgba(163, 58, 50, 0.35),
+    0 0 12px rgba(163, 58, 50, 0.28);
+  transform: scale(1.06);
+}
+
+.ink-prestige-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  opacity: 0.72;
+  white-space: nowrap;
+}
+
+.ink-prestige-score {
+  font-size: 1.05rem;
+  font-weight: var(--fw-ui);
+  color: var(--cinnabar);
+  font-variant-numeric: tabular-nums;
+}
+
+.ink-prestige-tier {
+  font-size: 0.64rem;
+  color: var(--ink);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+.ink-prestige-rank {
+  margin: 0;
+  font-size: 0.64rem;
+  color: var(--ink);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+.ink-prestige-pop {
+  position: absolute;
+  right: 2px;
+  top: -6px;
+  font-size: 0.76rem;
+  font-weight: var(--fw-ui);
+  color: var(--cinnabar);
+  animation: inkPrestigePop 1.1s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes inkPrestigePop {
+  0% {
+    opacity: 0;
+    transform: translateY(4px) scale(0.85);
+  }
+  15% {
+    opacity: 1;
+    transform: translateY(-6px) scale(1.05);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-16px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-26px) scale(0.95);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-prestige-main {
+    transition: none;
+  }
+  .ink-prestige-main--pulse {
+    transform: none;
+  }
+  .ink-prestige-pop {
+    animation: none;
+    opacity: 0.9;
+    transform: none;
+  }
 }

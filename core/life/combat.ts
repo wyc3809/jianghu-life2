@@ -50,6 +50,7 @@ import {
 } from './moveStance';
 import { gainWeaponMastery, weaponSynergyBoost } from './weaponMastery';
 import { applyCombatOutcomeRank } from './jianghuRank';
+import { gainPrestigeForCombatWin } from './jianghuPrestige';
 import { checkCombo, pushComboHistory } from './comboSystem';
 import {
   applySnakeVenom,
@@ -472,6 +473,7 @@ function finishCombatWin(state: LifeGameState, dispositionLabel?: CombatFoeDispo
 
   lines.push(...syncAchievements(state));
   lines.push(...applyCombatOutcomeRank(state, true, combat.foePower));
+  lines.push(...gainPrestigeForCombatWin(state, combat.foePower));
 
   const chronicleExtra =
     dispositionLabel === 'kill'
