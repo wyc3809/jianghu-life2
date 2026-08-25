@@ -3,6 +3,7 @@ import { InkEventBanner } from './InkDecor';
 import { eventBannerSvg } from '../../ui/inkAssets';
 import { pickAiEventBanner, aiEventBannerUrl } from '../../ui/inkAiCatalog';
 import { displayChoiceText } from '@core/life/playerText';
+import { EVENT_RARITY_LABEL } from '@core/life/eventRarity';
 
 type Props = {
   state: LifeGameState;
@@ -37,9 +38,13 @@ export function InkEventPanel({
   const eventBodyParas = pendingEvent.body
     ? pendingEvent.body.split(/\n\n+/).map((p) => p.trim()).filter(Boolean)
     : [];
+  const rarity = state.pending?.rarity ?? 'white';
 
   return (
-    <section className="ink-panel ink-event ink-event--focus" aria-label="待決之事">
+    <section
+      className={`ink-panel ink-event ink-event--focus${rarity !== 'white' ? ` ink-event--rarity-${rarity}` : ''}`}
+      aria-label="待決之事"
+    >
       <div className="ink-event-scroll">
         {(eventBannerSrc || eventBannerMarkup) && (
           <InkEventBanner src={eventBannerSrc} markup={eventBannerMarkup ?? undefined} />
@@ -47,6 +52,11 @@ export function InkEventPanel({
         <p className="ink-event-year">
           {state.year}年{month}月 · {c.age}歲
           {state.pending?.kind === 'special' ? ' · 奇遇' : ''}
+          {rarity !== 'white' && (
+            <span className={`ink-event-rarity-tag ink-event-rarity-tag--${rarity}`}>
+              {EVENT_RARITY_LABEL[rarity]}
+            </span>
+          )}
         </p>
         <h3 className="ink-write-in">{pendingEvent.title}</h3>
         {eventBodyParas.map((para, i) => (

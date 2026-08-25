@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { PRACTICE_ACTIONS, performPracticeAction } from '../core/life/actions';
 import { tryAdvanceSkill } from '../core/life/flavor';
-import { skillAdvanceHint } from '../core/life/martialRanks';
+import { skillAdvanceHint, skillAdvancePercent } from '../core/life/martialRanks';
 import { hasRankUpContent, isRankUpStoryLine, RANK_UP_MARKER } from '../core/life/playerText';
 import { createNewLife } from '../core/life/gameState';
 import { initRng } from '../core/random';
@@ -50,6 +50,17 @@ describe('growth feel: rank-up marker', () => {
     expect(state.character.skillRanks[skillId]).toBe(1);
   });
 
+  it('breakthrough rite always carries the ritual phrase 「打通任督」', () => {
+    initRng(31);
+    const state = createNewLife(31);
+    const skillId = state.character.skills[0] ?? '基礎吐納';
+    state.character.skillRanks = { [skillId]: 0 };
+    state.character.skillProgress = { [skillId]: 0 };
+    state.character.skillAdvanceNeed = { [skillId]: 1 };
+    const result = tryAdvanceSkill(state, skillId, 'combat');
+    expect(result).toContain('打通任督');
+  });
+
   it('tryAdvanceSkill returns null (no marker) when progress has not reached the threshold', () => {
     initRng(4);
     const state = createNewLife(4);
@@ -80,5 +91,31 @@ describe('growth feel: skillAdvanceHint', () => {
     );
     expect(hint).toContain('50%');
     expect(hint).toContain('駕輕就熟');
+  });
+});
+
+describe('growth feel: skillAdvancePercent (visual progress bar)', () => {
+  it('returns null at max rank so the UI skips drawing a bar', () => {
+    expect(skillAdvancePercent({ skillRanks: { foo: 3 } }, 'foo')).toBeNull();
+  });
+
+  it('returns null when no advance-need has been rolled yet', () => {
+    expect(skillAdvancePercent({ skillRanks: { foo: 0 } }, 'foo')).toBeNull();
+  });
+
+  it('returns a clamped 0-100 percent toward the next rank', () => {
+    const pct = skillAdvancePercent(
+      { skillRanks: { foo: 0 }, skillProgress: { foo: 87 }, skillAdvanceNeed: { foo: 100 } },
+      'foo',
+    );
+    expect(pct).toBe(87);
+  });
+
+  it('clamps above 100 when progress overshoots advance-need', () => {
+    const pct = skillAdvancePercent(
+      { skillRanks: { foo: 0 }, skillProgress: { foo: 999 }, skillAdvanceNeed: { foo: 100 } },
+      'foo',
+    );
+    expect(pct).toBe(100);
   });
 });

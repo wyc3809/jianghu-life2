@@ -14,6 +14,7 @@ import {
   sanitizePlayerLines,
   partitionStoryAndDeltas,
   hasLearnSkillContent,
+  hasRankUpContent,
 } from '@core/life/playerText';
 import { BASIC_STRIKE } from '@data/skills/catalog';
 import { schedulePersist } from '../persistSchedule';
@@ -52,9 +53,11 @@ export function createCombatSlice(
                 : ended
                   ? logs.some((l) => /敗於|力竭/.test(l))
                     ? '敗'
-                    : hasLearnSkillContent(logs)
-                      ? '武'
-                      : '勝'
+                    : hasRankUpContent(logs)
+                      ? '晉'
+                      : hasLearnSkillContent(logs)
+                        ? '武'
+                        : '勝'
                   : null,
         flashLines: ended || resolving ? [] : logs.slice(0, 5),
         lastResult:

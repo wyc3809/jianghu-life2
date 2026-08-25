@@ -188,7 +188,7 @@ export function tryAdvanceSkill(
   ];
   const prestigeGain = gainJianghuPrestige(state, 10);
   const prestigeSuffix = prestigeGain.length ? ` ${prestigeGain.join(' ')}` : '';
-  return `${RANK_UP_MARKER}${rites[nextRank % rites.length]!}${prestigeSuffix}`;
+  return `${RANK_UP_MARKER}「打通任督」——${rites[nextRank % rites.length]!}${prestigeSuffix}`;
 }
 
 /** 對已學武學隨機挑一門嘗試進階 */

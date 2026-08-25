@@ -48,6 +48,22 @@ export function rollAdvanceNeed(
   return rng.nextInt(band.min, band.max);
 }
 
+/**
+ * 人物頁武學卡片用：距下一階仲差幾多個百分比（戰鬥＋修煉都計）。
+ * 已至頂階或未有進度紀錄回傳 null（呢種情況卡片唔畫進度條）。
+ */
+export function skillAdvancePercent(
+  c: { skillRanks?: Record<string, number>; skillProgress?: Record<string, number>; skillAdvanceNeed?: Record<string, number> },
+  skillId: string,
+): number | null {
+  const rank = c.skillRanks?.[skillId] ?? 0;
+  if (rank >= 3) return null;
+  const need = c.skillAdvanceNeed?.[skillId];
+  if (need === undefined || !Number.isFinite(need)) return null;
+  const progress = c.skillProgress?.[skillId] ?? 0;
+  return Math.max(0, Math.min(100, Math.round((progress / need) * 100)));
+}
+
 /** 人物頁武學卡片用：顯示距下一階仲差幾多（戰鬥＋修煉都計），畀玩家見到進度而唔係一片空白 */
 export function skillAdvanceHint(
   c: { skillRanks?: Record<string, number>; skillProgress?: Record<string, number>; skillAdvanceNeed?: Record<string, number> },
