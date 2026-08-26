@@ -344,14 +344,9 @@ export function InkPlayScreen({ state }: Props) {
             {sect ? ` · ${sect.name}` : ''}
             {nicknames.length ? ` · ${nicknames.join('·')}` : ''}
           </p>
-          <div className="ink-ap-meter" role="meter" aria-label="氣力" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(c.actionPoints ?? 0)}>
-            <span className="ink-ap-meter-label">氣力</span>
-            <div className="ink-bar ink-ap-meter-bar">
-              <div
-                className="ink-bar-fill ink-bar-fill--live"
-                style={{ width: `${Math.max(0, Math.min(100, c.actionPoints ?? 0))}%` }}
-              />
-            </div>
+          <div className="ink-ap-meter" role="meter" aria-label="疲勞度" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(c.actionPoints ?? 0)}>
+            <span className="ink-ap-meter-label">疲勞度</span>
+            <span className="ink-ap-meter-value">{Math.round(c.actionPoints ?? 0)}/100</span>
           </div>
         </div>
         <div className="ink-status-actions">

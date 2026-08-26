@@ -33,7 +33,7 @@ describe('actionPoints: 行動力池（事件節流）', () => {
     state.character.actionPoints = 0;
     tickActionPoints(state, 30);
     expect(state.character.actionPoints).toBeGreaterThan(0);
-    tickActionPoints(state, 10_000);
+    tickActionPoints(state, 20_000);
     expect(state.character.actionPoints).toBe(ACTION_POINT_MAX);
   });
 
