@@ -6,13 +6,18 @@ import {
   isCultivationCapped,
 } from '@core/life/cultivation';
 import { useStillMode, usePrefersReducedMotion } from '../../hooks/useStillMode';
-import { inkAiUrl } from '../../ui/inkAiCatalog';
 import { barOffset } from './inkStillClass';
 
 const RING_LEN = 100;
 
-/** 頂欄跳動嘅修為數字：唔靠撳嘢，開住遊戲都會郁；配合環形進度＋墨光閃動 */
-export function InkCultivationHud({ state }: { state: LifeGameState }) {
+type Props = {
+  state: LifeGameState;
+  onAdvance: () => void;
+  disabled: boolean;
+};
+
+/** 分卷列中心大圓：修為環形進度（藍色、持續流轉）包住「過一月」按鈕 */
+export function InkCultivationHud({ state, onAdvance, disabled }: Props) {
   const committedXp = state.character.cultivation.xp;
   const rate = calculateCultivationRate(state).total;
   const tier = currentCultivationTier(state);
@@ -67,26 +72,28 @@ export function InkCultivationHud({ state }: { state: LifeGameState }) {
   const ringOff = barOffset(RING_LEN, shownPct, 100);
 
   return (
-    <div className={`ink-cultivation-hud${capped ? ' ink-cultivation-hud--capped' : ''}${glow ? ' ink-cultivation-hud--glow' : ''}`}>
-      <span className="ink-cultivation-badge">
-        <svg className="ink-cultivation-ring" viewBox="0 0 32 32" aria-hidden focusable="false">
-          <circle className="ink-cultivation-ring-track" cx="16" cy="16" r="14" pathLength={RING_LEN} />
-          <circle
-            className="ink-cultivation-ring-fill"
-            cx="16"
-            cy="16"
-            r="14"
-            pathLength={RING_LEN}
-            style={{ ['--len' as string]: RING_LEN, ['--off' as string]: ringOff }}
-          />
-        </svg>
-        <img className="ink-cultivation-motif" src={inkAiUrl('motif-scroll')} alt="" aria-hidden decoding="async" />
-      </span>
-      <span className="ink-cultivation-text">
-        <span className="ink-cultivation-tier">{tier.name}</span>
-        <span className="ink-cultivation-xp">{Math.floor(shownXp).toLocaleString('zh-Hant')}</span>
-      </span>
-      {capped && <span className="ink-cultivation-capped-tag">可突破</span>}
-    </div>
+    <button
+      type="button"
+      className={`ink-nav-center${glow ? ' ink-nav-center--glow' : ''}`}
+      onClick={onAdvance}
+      disabled={disabled}
+      aria-label={`翻過一頁．過一月（${tier.name}．${Math.floor(shownXp).toLocaleString('zh-Hant')}）`}
+    >
+      <svg className="ink-nav-center-ring" viewBox="0 0 64 64" aria-hidden focusable="false">
+        <circle className="ink-nav-center-ring-track" cx="32" cy="32" r="28" pathLength={RING_LEN} />
+        <circle
+          className="ink-nav-center-ring-fill"
+          cx="32"
+          cy="32"
+          r="28"
+          pathLength={RING_LEN}
+          style={{ ['--len' as string]: RING_LEN, ['--off' as string]: ringOff }}
+        />
+        {!capped && <circle className="ink-nav-center-ring-flow" cx="32" cy="32" r="28" pathLength={RING_LEN} />}
+      </svg>
+      <span className="ink-nav-center-tier">{tier.name}</span>
+      <span className="ink-nav-center-action">{capped ? '可突破' : '過一月'}</span>
+      {capped && <span className="ink-nav-center-capped-dot" aria-hidden />}
+    </button>
   );
 }

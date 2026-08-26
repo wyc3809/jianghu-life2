@@ -7,7 +7,7 @@ export function coachCopy(step: CoachStep): { title: string; body: string } | nu
     case 'flip':
       return {
         title: '開卷第一筆',
-        body: '點「翻過一頁」，歲月前移一月。機緣、路遇與抉擇，皆在紙上自來。',
+        body: '點下方圓鈕「過一月」，歲月前移一月。機緣、路遇與抉擇，皆在紙上自來。',
       };
     case 'choice':
       return {
