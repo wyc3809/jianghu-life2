@@ -4,7 +4,6 @@ import type { LifeGameState } from '@interfaces/lifeEngine';
 import { natureKeys, natureLabels } from '@interfaces/lifeEngine';
 import { useLifeStore } from '../../store/lifeStore';
 import { resolvePendingEvent } from '@core/life/eventEngine';
-import { getLifeStageLabel } from '@core/life/stages';
 import { seasonLabel } from '@core/life/monthly';
 import { meetsRequirements } from '@core/life/requirements';
 import {
@@ -173,7 +172,6 @@ export function InkPlayScreen({ state }: Props) {
   const pendingEvent = resolvePendingEvent(state);
   const sect = c.sectId ? state.sects[c.sectId] : null;
   const hasHeir = (c.childrenCount ?? 0) > 0;
-  const stage = getLifeStageLabel(state);
   const hpPct = Math.max(0, Math.min(100, (c.health / Math.max(1, c.maxHealth)) * 100));
   const qiPct = Math.max(0, Math.min(100, ((c.qi ?? 0) / Math.max(1, c.maxQi ?? 1)) * 100));
   const tab = state.tab ?? 'home';
@@ -270,8 +268,9 @@ export function InkPlayScreen({ state }: Props) {
   const inkSeason = seasonToInk(month);
   const inkPlace = placeToInk(c.location);
 
-  const nicknames = topTitles(state);
   const leadTitle = topTitle(state);
+  /** 頭銜已喺全名右邊顯示，呢度只補列第二、三名，避免重複 */
+  const nicknames = topTitles(state).slice(1);
   const rank = jianghuRank(state);
   const prestige = jianghuPrestige(state);
   const sceneBits = [
@@ -339,11 +338,15 @@ export function InkPlayScreen({ state }: Props) {
             )}
           </h2>
           <p className="ink-meta">
-            {c.age}歲 · {stage}
+            {c.age}歲
             {c.location ? ` · ${c.location}` : ''}
             {sect ? ` · ${sect.name}` : ''}
             {nicknames.length ? ` · ${nicknames.join('·')}` : ''}
           </p>
+          <span className="ink-money-chip">
+            <span className="ink-money-icon" aria-hidden>両</span>
+            {Math.round(c.money ?? 0).toLocaleString('zh-Hant')}
+          </span>
           <div className="ink-ap-meter" role="meter" aria-label="疲勞度" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(c.actionPoints ?? 0)}>
             <span className="ink-ap-meter-label">疲勞度</span>
             <span className="ink-ap-meter-value">{Math.round(c.actionPoints ?? 0)}/100</span>
