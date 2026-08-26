@@ -6044,6 +6044,34 @@ html[data-ink-motion='reduce'] .ink-result-wash {
 
 /* ===== 行動力量表：事件耗損，隨時間回復 ===== */
 
+.ink-money-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+  padding: 2px 8px 2px 2px;
+  border: 1px solid var(--ink-faint);
+  border-radius: 999px;
+  background: var(--paper-bright);
+  font-size: 0.76rem;
+  font-weight: var(--fw-ui);
+  color: var(--ink-mid);
+  font-variant-numeric: tabular-nums;
+}
+
+.ink-money-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--antique-gold);
+  color: var(--paper-bright);
+  font-size: 0.62rem;
+  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
+}
+
 .ink-ap-meter {
   display: flex;
   align-items: center;
