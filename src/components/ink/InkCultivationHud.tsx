@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import {
   calculateCultivationRate,
+  canAttemptBreakthrough,
   currentCultivationTier,
   isCultivationCapped,
 } from '@core/life/cultivation';
@@ -13,15 +14,17 @@ const RING_LEN = 100;
 type Props = {
   state: LifeGameState;
   onAdvance: () => void;
+  onBreakthrough: () => void;
   disabled: boolean;
 };
 
-/** 分卷列中心大圓：修為環形進度（藍色、持續流轉）包住「過一月」按鈕 */
-export function InkCultivationHud({ state, onAdvance, disabled }: Props) {
+/** 分卷列中心大圓：修為環形進度（藍色、持續流轉）包住「過一月」按鈕；修為滿咗就變做「突破」按鈕 */
+export function InkCultivationHud({ state, onAdvance, onBreakthrough, disabled }: Props) {
   const committedXp = state.character.cultivation.xp;
   const rate = calculateCultivationRate(state).total;
   const tier = currentCultivationTier(state);
   const capped = isCultivationCapped(state);
+  const canBreak = canAttemptBreakthrough(state);
   const still = useStillMode();
   const reduceMotion = usePrefersReducedMotion();
 
@@ -71,13 +74,19 @@ export function InkCultivationHud({ state, onAdvance, disabled }: Props) {
     : 100;
   const ringOff = barOffset(RING_LEN, shownPct, 100);
 
+  const isBreakthroughReady = capped && canBreak;
+
   return (
     <button
       type="button"
-      className={`ink-nav-center${glow ? ' ink-nav-center--glow' : ''}`}
-      onClick={onAdvance}
-      disabled={disabled}
-      aria-label={`翻過一頁．過一月（${tier.name}．${Math.floor(shownXp).toLocaleString('zh-Hant')}）`}
+      className={`ink-nav-center${glow ? ' ink-nav-center--glow' : ''}${isBreakthroughReady ? ' ink-nav-center--capped' : ''}`}
+      onClick={isBreakthroughReady ? onBreakthrough : onAdvance}
+      disabled={isBreakthroughReady ? false : disabled}
+      aria-label={
+        isBreakthroughReady
+          ? `修為已滿．突破（${tier.name}）`
+          : `翻過一頁．過一月（${tier.name}．${Math.floor(shownXp).toLocaleString('zh-Hant')}）`
+      }
     >
       <svg className="ink-nav-center-ring" viewBox="0 0 64 64" aria-hidden focusable="false">
         <circle className="ink-nav-center-ring-track" cx="32" cy="32" r="28" pathLength={RING_LEN} />
@@ -92,8 +101,7 @@ export function InkCultivationHud({ state, onAdvance, disabled }: Props) {
         {!capped && <circle className="ink-nav-center-ring-flow" cx="32" cy="32" r="28" pathLength={RING_LEN} />}
       </svg>
       <span className="ink-nav-center-tier">{tier.name}</span>
-      <span className="ink-nav-center-action">{capped ? '可突破' : '過一月'}</span>
-      {capped && <span className="ink-nav-center-capped-dot" aria-hidden />}
+      <span className="ink-nav-center-action">{isBreakthroughReady ? '突破' : '過一月'}</span>
     </button>
   );
 }

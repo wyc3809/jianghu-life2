@@ -6020,14 +6020,12 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   text-shadow: 0 0 6px rgba(53, 89, 122, 0.5);
 }
 
-.ink-nav-center-capped-dot {
-  position: absolute;
-  top: 9px;
-  right: 13px;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--cinnabar);
+.ink-nav-center--capped .ink-nav-center-ring-fill {
+  stroke: var(--cinnabar);
+}
+
+.ink-nav-center--capped .ink-nav-center-action {
+  color: var(--cinnabar);
 }
 
 @media (prefers-reduced-motion: reduce) {
