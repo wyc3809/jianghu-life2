@@ -342,6 +342,8 @@ body::before {
   width: 100%;
   height: 88%;
   opacity: 0.92;
+  object-fit: cover;
+  object-position: center bottom;
   /* 平時靜紙；只留極緩遠山呼吸 */
   animation: inkBreathe 28s ease-in-out infinite;
 }
