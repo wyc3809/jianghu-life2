@@ -100,7 +100,7 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
             ))}
           </div>
           {practiceLeft <= 0 && (
-            <p className="ink-note ink-note--warn">本月修煉已盡，請回「鎮居」翻過一頁。</p>
+            <p className="ink-note ink-note--warn">本月修煉已盡，按下方圓鈕過一月。</p>
           )}
         </>
       )}

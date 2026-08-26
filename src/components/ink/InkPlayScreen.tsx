@@ -195,13 +195,8 @@ export function InkPlayScreen({ state }: Props) {
   const practiceBusy = busy || practiceLeft <= 0;
   const onPracticeTab = tab === 'practice';
   const onHomeTab = tab === 'home';
-  const canAdvanceMonth =
-    state.phase === 'playing' &&
-    !state.pending &&
-    !combat &&
-    c.alive &&
-    !showResult &&
-    onHomeTab;
+  const canAdvanceMonthGlobal =
+    state.phase === 'playing' && !state.pending && !combat && c.alive && !showResult;
   const nature = ensureNature(c);
   const dominant = dominantNature(c);
   /** 有待決事件時進入專注版面，避免選項被頂欄／年譜擠出可視區 */
@@ -349,7 +344,6 @@ export function InkPlayScreen({ state }: Props) {
             {sect ? ` · ${sect.name}` : ''}
             {nicknames.length ? ` · ${nicknames.join('·')}` : ''}
           </p>
-          <InkCultivationHud state={state} />
           <div className="ink-ap-meter" role="meter" aria-label="氣力" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(c.actionPoints ?? 0)}>
             <span className="ink-ap-meter-label">氣力</span>
             <div className="ink-bar ink-ap-meter-bar">
@@ -527,18 +521,6 @@ export function InkPlayScreen({ state }: Props) {
                 <p key={line}>{line}</p>
               ))}
             </section>
-          )}
-
-          {canAdvanceMonth && (
-            <button
-              type="button"
-              className="ink-btn ink-btn--primary ink-btn--year ink-btn--pulse"
-              onClick={() => {
-                advanceMonth();
-              }}
-            >
-              翻過一頁 · 過一月
-            </button>
           )}
 
         </div>
@@ -791,10 +773,10 @@ export function InkPlayScreen({ state }: Props) {
       )}
 
       {onPracticeTab && !combat && !showResult && !eventFocus && (
-        <p className="ink-note ink-note--center">修煉不催歲月——請回「鎮居」翻過一頁。</p>
+        <p className="ink-note ink-note--center">修煉不催歲月——按下方圓鈕過一月。</p>
       )}
       {(tab === 'person' || tab === 'jianghu') && !combat && !showResult && !eventFocus && (
-        <p className="ink-note ink-note--center">請回「鎮居」翻頁。</p>
+        <p className="ink-note ink-note--center">按下方圓鈕即可過一月。</p>
       )}
 
       </div>
@@ -805,6 +787,29 @@ export function InkPlayScreen({ state }: Props) {
             [
               ['home', '鎮居'],
               ['person', '人物'],
+            ] as const
+          ).map(([id, label]) => (
+            <button
+              key={id}
+              type="button"
+              className={tab === id ? 'ink-tab ink-tab--active' : 'ink-tab'}
+              onClick={() => {
+                setTab(id);
+              }}
+            >
+              {label}
+            </button>
+          ))}
+          <InkCultivationHud
+            state={state}
+            disabled={!canAdvanceMonthGlobal}
+            onAdvance={() => {
+              advanceMonth();
+              setTab('home');
+            }}
+          />
+          {(
+            [
               ['jianghu', '江湖'],
               ['practice', '修煉'],
             ] as const
