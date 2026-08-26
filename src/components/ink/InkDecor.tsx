@@ -44,9 +44,12 @@ export function InkScrollBackdrop({
       className={`ink-backdrop ink-backdrop--${variant}${quiet ? ' ink-backdrop--quiet' : ''}${scene ? ` ${scene}` : ''}`}
       aria-hidden
     >
-      <InkInlineSvg
+      <img
         className="ink-mountains-img"
-        markup={useNight ? INK_SVG.mountainsNight : INK_SVG.mountains}
+        src={inkAiUrl(useNight ? 'backdrop-night-mountains' : 'backdrop-title-scroll')}
+        alt=""
+        aria-hidden
+        decoding="async"
       />
       {(variant === 'hero' || place === 'river') && (
         <InkInlineSvg className="ink-boat-img" markup={INK_SVG.boat} />
