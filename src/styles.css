@@ -6059,9 +6059,11 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   flex-shrink: 0;
 }
 
-.ink-ap-meter-bar {
-  flex: 1;
-  height: 5px;
+.ink-ap-meter-value {
+  font-size: 0.72rem;
+  font-weight: var(--fw-ui);
+  color: var(--ink-mid);
+  font-variant-numeric: tabular-nums;
 }
 
 /* ===== 離線收益提示 ===== */

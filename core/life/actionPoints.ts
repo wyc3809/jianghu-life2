@@ -7,8 +7,8 @@ import type { LifeGameState } from '@interfaces/lifeEngine';
 
 export const ACTION_POINT_MAX = 100;
 export const EVENT_ACTION_POINT_COST = 5;
-/** 回氣速度：約 6 秒 1 點，即扣一次事件代價後約 30 秒回滿 */
-const ACTION_POINT_REGEN_PER_SEC = 1 / 6;
+/** 回復速度：每 10 分鐘回 5 點（即扣一次事件代價後約 10 分鐘回滿） */
+const ACTION_POINT_REGEN_PER_SEC = 5 / 600;
 
 function clamp(n: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, n));
