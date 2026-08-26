@@ -807,6 +807,10 @@ export function InkPlayScreen({ state }: Props) {
               advanceMonth();
               setTab('home');
             }}
+            onBreakthrough={() => {
+              attemptBreakthrough();
+              setTab('home');
+            }}
           />
           {(
             [
