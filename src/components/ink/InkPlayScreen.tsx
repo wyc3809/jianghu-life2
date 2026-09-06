@@ -4,6 +4,7 @@ import type { LifeGameState } from '@interfaces/lifeEngine';
 import { natureKeys, natureLabels } from '@interfaces/lifeEngine';
 import { useLifeStore } from '../../store/lifeStore';
 import { resolvePendingEvent } from '@core/life/eventEngine';
+import { hasEnoughActionPoints } from '@core/life/actionPoints';
 import { seasonLabel } from '@core/life/monthly';
 import { meetsRequirements } from '@core/life/requirements';
 import {
@@ -17,11 +18,12 @@ import {
 } from '../../audio/inkAudio';
 import { InkSettingsPanel, type TextScale } from './InkSettingsPanel';
 import { InkGearCompareModal } from './InkGearCompareModal';
+import { InkGlyphText } from './InkGlyphText';
 import { titleTierColorClass, topTitle, topTitles } from '@core/life/titles';
-import { jianghuRank } from '@core/life/jianghuRank';
-import { jianghuPrestige } from '@core/life/jianghuPrestige';
-import { InkPrestigeHud } from './InkPrestigeHud';
+import { JIANGHU_RANK_START, jianghuRank } from '@core/life/jianghuRank';
+import { jianghuPrestige, jianghuPrestigeTier } from '@core/life/jianghuPrestige';
 import { InkCultivationHud } from './InkCultivationHud';
+import { InkOfflineGainModal } from './InkOfflineGainModal';
 import { useCultivationTicker } from '../../hooks/useCultivationTicker';
 import {
   isLearnSkillDeltaLine,
@@ -32,11 +34,9 @@ import {
 } from '@core/life/playerText';
 import { ensureNature, dominantNature, natureSummary } from '@core/life/nature';
 import { coachCopy, nextCoachStep } from '@core/life/tutorial';
-import { getAftermathStatus } from '@core/life/combatPresentation';
 import { track } from '../../telemetry/events';
 import { seasonToInk, placeToInk, isInkNight, shouldReduceInkMotion } from './sceneVariants';
 import { InkScrollBackdrop, InkSealStamp, InkResultSeal, InkStaticSeal, InkAiWashLayer } from './InkDecor';
-import { INK_SVG } from '../../ui/inkAssets';
 import { inkAiUrl } from '../../ui/inkAiCatalog';
 import { InkHuashanPanel } from './InkHuashanPanel';
 import { InkSectFounderPanel } from './InkSectFounderPanel';
@@ -46,6 +46,7 @@ import { InkCombatPanel } from './InkCombatPanel';
 import { InkBossIntro } from './InkBossIntro';
 import { InkBreakthroughModal } from './InkBreakthroughModal';
 import { InkPracticePanel, type PracticeView } from './InkPracticePanel';
+import { InkSparStage } from './InkSparStage';
 import { LifeDebugPanel } from '../LifeDebugPanel';
 
 type Props = {
@@ -83,7 +84,7 @@ export function InkPlayScreen({ state }: Props) {
   const attemptBreakthrough = useLifeStore((s) => s.attemptBreakthrough);
   const breakthroughResult = useLifeStore((s) => s.breakthroughResult);
   const clearBreakthroughResult = useLifeStore((s) => s.clearBreakthroughResult);
-  const offlineGainXp = useLifeStore((s) => s.offlineGainXp);
+  const offlineGain = useLifeStore((s) => s.offlineGain);
   const clearOfflineGain = useLifeStore((s) => s.clearOfflineGain);
   const [practiceView, setPracticeView] = useState<PracticeView>('main');
   const [personView, setPersonView] = useState<PersonView>('main');
@@ -123,12 +124,6 @@ export function InkPlayScreen({ state }: Props) {
     const t = window.setTimeout(() => clearSeal(), 920);
     return () => window.clearTimeout(t);
   }, [sealText, clearSeal]);
-
-  useEffect(() => {
-    if (offlineGainXp === null) return;
-    const t = window.setTimeout(() => clearOfflineGain(), 5000);
-    return () => window.clearTimeout(t);
-  }, [offlineGainXp, clearOfflineGain]);
 
   useEffect(() => {
     try {
@@ -193,8 +188,9 @@ export function InkPlayScreen({ state }: Props) {
   const practiceBusy = busy || practiceLeft <= 0;
   const onPracticeTab = tab === 'practice';
   const onHomeTab = tab === 'home';
+  const enoughActionPoints = hasEnoughActionPoints(state);
   const canAdvanceMonthGlobal =
-    state.phase === 'playing' && !state.pending && !combat && c.alive && !showResult;
+    state.phase === 'playing' && !state.pending && !combat && c.alive && !showResult && enoughActionPoints;
   const nature = ensureNature(c);
   const dominant = dominantNature(c);
   /** 有待決事件時進入專注版面，避免選項被頂欄／年譜擠出可視區 */
@@ -264,7 +260,6 @@ export function InkPlayScreen({ state }: Props) {
     Boolean(coach) &&
     !c.flags.coach_done;
 
-  const aftermath = getAftermathStatus(state);
   const inkSeason = seasonToInk(month);
   const inkPlace = placeToInk(c.location);
 
@@ -273,6 +268,7 @@ export function InkPlayScreen({ state }: Props) {
   const nicknames = topTitles(state).slice(1);
   const rank = jianghuRank(state);
   const prestige = jianghuPrestige(state);
+  const prestigeTierLabel = jianghuPrestigeTier(prestige);
   const sceneBits = [
     'scroll-shell',
     'scroll-shell--play',
@@ -318,42 +314,84 @@ export function InkPlayScreen({ state }: Props) {
       />
       {sealText && <InkSealStamp text={sealText} onDone={clearSeal} />}
 
-      {offlineGainXp !== null && (
-        <div className="ink-offline-toast" role="status" onClick={() => clearOfflineGain()}>
-          你閉關苦修，修為大增 ＋{offlineGainXp.toLocaleString('zh-Hant')}
-        </div>
+      {offlineGain !== null && (
+        <InkOfflineGainModal gain={offlineGain} onClose={clearOfflineGain} />
       )}
 
-      <header className="ink-status">
-        <div className="ink-identity">
-          <p className="ink-status-kicker">
-            第{state.year}年 · {seasonLabel(month)}
-          </p>
-          <h2 className="ink-name">
-            {c.name}
-            {leadTitle && (
-              <span className={`ink-name-title ${titleTierColorClass(leadTitle.tier)}`}>
-                {leadTitle.label}
-              </span>
-            )}
-          </h2>
-          <p className="ink-meta">
-            {c.age}歲
-            {c.location ? ` · ${c.location}` : ''}
-            {sect ? ` · ${sect.name}` : ''}
-            {nicknames.length ? ` · ${nicknames.join('·')}` : ''}
-          </p>
-          <span className="ink-money-chip">
-            <span className="ink-money-icon" aria-hidden>両</span>
-            {Math.round(c.money ?? 0).toLocaleString('zh-Hant')}
+      <header className="ink-status ink-status--bare-top">
+        <div className="ink-status-row">
+          <div className="ink-identity">
+            <p className="ink-status-kicker">
+              第{state.year}年 · {seasonLabel(month)}
+            </p>
+            <h2 className="ink-name">
+              {c.name}
+              {leadTitle && (
+                <span className={`ink-name-title ${titleTierColorClass(leadTitle.tier)}`}>
+                  {leadTitle.label}
+                </span>
+              )}
+            </h2>
+            <p className="ink-meta">
+              {c.age}歲
+              {c.location ? ` · ${c.location}` : ''}
+              {sect ? ` · ${sect.name}` : ''}
+              {nicknames.length ? ` · ${nicknames.join('·')}` : ''}
+            </p>
+          </div>
+          {showVitalsBars && (
+            <div className="ink-vitals-meters ink-vitals-meters--bare" aria-label="氣血內力">
+              <div className="ink-meter">
+                <div className="ink-vitals-label">
+                  <span>氣血</span>
+                  <span>
+                    {Math.round(c.health)}/{c.maxHealth}
+                  </span>
+                </div>
+                <div
+                  className="ink-bar ink-bar--life"
+                  role="meter"
+                  aria-valuemin={0}
+                  aria-valuemax={c.maxHealth}
+                  aria-valuenow={Math.round(c.health)}
+                  aria-label="氣血"
+                >
+                  <div className="ink-bar-fill ink-bar-fill--live" style={{ width: `${hpPct}%` }} />
+                </div>
+              </div>
+              <div className="ink-meter">
+                <div className="ink-vitals-label">
+                  <span>內力</span>
+                  <span>
+                    {Math.round(c.qi ?? 0)}/{c.maxQi ?? 0}
+                  </span>
+                </div>
+                <div
+                  className="ink-bar ink-bar--qi"
+                  role="meter"
+                  aria-valuemin={0}
+                  aria-valuemax={c.maxQi ?? 0}
+                  aria-valuenow={Math.round(c.qi ?? 0)}
+                  aria-label="內力"
+                >
+                  <div className="ink-bar-fill ink-bar-fill--qi ink-bar-fill--live" style={{ width: `${qiPct}%` }} />
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="ink-status-metaline">
+          <span className="ink-money-chip" aria-label={`銀両 ${Math.round(c.money ?? 0)}`}>
+            <img className="ink-label-img" src={`${import.meta.env.BASE_URL || '/'}ink/ui/label-yinliang.webp`} alt="" aria-hidden draggable={false} />
+            <InkGlyphText text={Math.round(c.money ?? 0).toLocaleString('zh-Hant')} height={14} />
           </span>
           <div className="ink-ap-meter" role="meter" aria-label="疲勞度" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(c.actionPoints ?? 0)}>
-            <span className="ink-ap-meter-label">疲勞度</span>
-            <span className="ink-ap-meter-value">{Math.round(c.actionPoints ?? 0)}/100</span>
+            <img className="ink-label-img ink-label-img--ap" src={`${import.meta.env.BASE_URL || '/'}ink/ui/label-pilao.webp`} alt="疲勞度" draggable={false} />
+            <InkGlyphText text={`${Math.round(c.actionPoints ?? 0)}/100`} height={13} className="ink-ap-meter-value" />
           </div>
-        </div>
-        <div className="ink-status-actions">
-          <InkPrestigeHud prestige={prestige} rank={rank} />
+          <span className="ink-metaline-prestige">
+            威望 <b>{prestige}</b> · {prestigeTierLabel} · {rank >= JIANGHU_RANK_START ? '未列名' : `第${rank}位`}
+          </span>
           <div className="ink-status-buttons">
             <button
               type="button"
@@ -382,63 +420,6 @@ export function InkPlayScreen({ state }: Props) {
         </div>
       </header>
 
-      {showVitalsBars && (
-        <section className="ink-vitals" aria-label="氣血內力">
-          <div className="ink-vitals-meters">
-            <div className="ink-meter">
-              <div className="ink-vitals-label">
-                <span>氣血</span>
-                <span>
-                  {Math.round(c.health)}/{c.maxHealth}
-                </span>
-              </div>
-              <div
-                className="ink-bar ink-bar--life"
-                role="meter"
-                aria-valuemin={0}
-                aria-valuemax={c.maxHealth}
-                aria-valuenow={Math.round(c.health)}
-                aria-label="氣血"
-              >
-                <div className="ink-bar-fill ink-bar-fill--live" style={{ width: `${hpPct}%` }} />
-              </div>
-            </div>
-            <div className="ink-meter">
-              <div className="ink-vitals-label">
-                <span>內力</span>
-                <span>
-                  {Math.round(c.qi ?? 0)}/{c.maxQi ?? 0}
-                </span>
-              </div>
-              <div
-                className="ink-bar ink-bar--qi"
-                role="meter"
-                aria-valuemin={0}
-                aria-valuemax={c.maxQi ?? 0}
-                aria-valuenow={Math.round(c.qi ?? 0)}
-                aria-label="內力"
-              >
-                <div className="ink-bar-fill ink-bar-fill--qi ink-bar-fill--live" style={{ width: `${qiPct}%` }} />
-              </div>
-            </div>
-          </div>
-          <span
-            className="ink-vitals-rule"
-            aria-hidden
-            dangerouslySetInnerHTML={{ __html: INK_SVG.fadeLine }}
-          />
-          {(c.conditions?.length ?? 0) > 0 && (
-            <div className="ink-chips">
-              {c.conditions.map((cond) => (
-                <span key={cond.id} className="ink-chip">
-                  {cond.name}·{cond.monthsLeft}月
-                </span>
-              ))}
-            </div>
-          )}
-        </section>
-      )}
-
       <InkSettingsPanel
         open={settingsOpen}
         onClose={() => setSettingsOpen(false)}
@@ -463,12 +444,6 @@ export function InkPlayScreen({ state }: Props) {
         }}
       />
 
-      {!eventFocus && aftermath && state.phase === 'playing' && !combat && (
-        <p className={`ink-aftermath-chip ink-aftermath-chip--${aftermath.kind}`} aria-label="餘波">
-          {aftermath.text}
-        </p>
-      )}
-
       <div className="ink-play-body">
 
       {/* 待決事件：專注版面，選項固定在可視區底部 */}
@@ -486,22 +461,21 @@ export function InkPlayScreen({ state }: Props) {
       {/* 鎮居首屏：翻頁優先於儀表與年譜（無待決事件時） */}
       {onHomeTab && !combat && !eventFocus && (
         <div key={`${state.year}-${month}`} className="ink-home-focus ink-scroll-flip">
-          <figure className="ink-home-tableau">
-            <img
-              className="ink-home-tableau-img"
-              src={inkAiUrl('backdrop-town-scroll')}
-              alt=""
-              aria-hidden
-              decoding="async"
+          {/* 演武台直接用地圖 banner 嘅鎮景長卷做背景，季節・地點名浮喺動畫入面，唔再分開兩張圖 */}
+          <div className="ink-home-scene">
+            <InkSparStage
+              reduceMotion={reduceMotion}
+              background="town"
+              overlay={
+                <p className="ink-spar-caption">
+                  <span>
+                    {seasonLabel(month)} · {state.year}年{month}月
+                  </span>
+                  <strong>{c.location || '千燈鎮'}</strong>
+                </p>
+              }
             />
-            <span className="ink-home-tableau-mist" aria-hidden />
-            <figcaption className="ink-home-tableau-caption">
-              <span>
-                {seasonLabel(month)} · {state.year}年{month}月
-              </span>
-              <strong>{c.location || '千燈鎮'}</strong>
-            </figcaption>
-          </figure>
+          </div>
 
           {showCoach && coach && (
             <section className="ink-coach" aria-live="polite">
@@ -795,12 +769,20 @@ export function InkPlayScreen({ state }: Props) {
                 setTab(id);
               }}
             >
-              {label}
+              <span className="ink-tab-label">{label}</span>
+              <img
+                className="ink-tab-icon"
+                src={`${import.meta.env.BASE_URL || '/'}ink/icons/tab-${id}.webp`}
+                alt=""
+                aria-hidden
+                decoding="async"
+              />
             </button>
           ))}
           <InkCultivationHud
             state={state}
             disabled={!canAdvanceMonthGlobal}
+            exhausted={!enoughActionPoints}
             onAdvance={() => {
               advanceMonth();
               setTab('home');
@@ -824,7 +806,14 @@ export function InkPlayScreen({ state }: Props) {
                 setTab(id);
               }}
             >
-              {label}
+              <span className="ink-tab-label">{label}</span>
+              <img
+                className="ink-tab-icon"
+                src={`${import.meta.env.BASE_URL || '/'}ink/icons/tab-${id}.webp`}
+                alt=""
+                aria-hidden
+                decoding="async"
+              />
             </button>
           ))}
         </nav>

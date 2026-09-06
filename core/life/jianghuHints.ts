@@ -1,8 +1,6 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { natureLabels } from '@interfaces/lifeEngine';
-import { getSkillDef } from '@data/skills/catalog';
 import { sumEvasionBonus } from '@data/skills/catalog';
-import { getGearDef, WEAPON_KIND_LABEL } from '@data/equipment/catalog';
 import { ensureNature, dominantNature } from './nature';
 import { natureVisibleHint } from './lifeVariance';
 
@@ -46,31 +44,8 @@ export function jianghuHints(state: LifeGameState): string[] {
     );
   }
 
-  if (Number(f.aftermath_mercy_months ?? 0) > 0) {
-    hints.push('你曾放走過對手，江湖上或有回音。');
-  }
-  if (Number(f.aftermath_blood_months ?? 0) > 0) {
-    hints.push('血債未冷，暗處或有耳目。');
-  }
-
   if (state.world?.lastWorldShift) {
     hints.push(state.world.lastWorldShift);
-  }
-
-  const weaponId = c.equipment?.weapon;
-  const weapon = weaponId ? getGearDef(weaponId) : undefined;
-  if (weapon?.weaponKind) {
-    const match = c.skills.some((id) => getSkillDef(id)?.weaponKind === weapon.weaponKind);
-    if (!match) {
-      hints.push(
-        `你持「${weapon.name}」（${WEAPON_KIND_LABEL[weapon.weaponKind]}），宜習對路功夫，方能人器相合。`,
-      );
-    }
-  }
-
-  const hasQg = c.skills.some((id) => getSkillDef(id)?.kind === 'qinggong');
-  if (!hasQg) {
-    hints.push('尚未習得輕功；奇遇、尋訪機緣或強敵交手，或可得身法殘篇。');
   }
 
   const nature = ensureNature(c);
@@ -95,40 +70,4 @@ export function playerEvasionPercent(state: LifeGameState): number {
   const c = state.character;
   const ev = sumEvasionBonus(c.skills, c.skillRanks ?? {}) + c.attributes.danShi / 500;
   return Math.round(Math.min(0.45, ev) * 100);
-}
-
-/** 修煉頁：尚未習得的江湖武學／輕功提示 */
-export function practiceLearningHints(state: LifeGameState): string[] {
-  const c = state.character;
-  const known = new Set(c.skills);
-  const tips: string[] = [];
-
-  const pools: { id: string; how: string }[] = [
-    { id: 'art_spear_cloud', how: '聞穿雲槍散佚民間，尋訪或可得（持槍加威）' },
-    { id: 'art_staff_iron', how: '鐵杖訣傳於行腳僧道，訪之或可習' },
-    { id: 'art_whip_silk', how: '柔絲鞭法多藏於高手袖中，戰勝或尋訪可學' },
-    { id: 'art_bow_star', how: '逐星箭意在獵戶與遊俠間流傳，訪之或可得' },
-    { id: 'art_sand_palm', how: '沙道人言流沙掌，西行或可遇' },
-    { id: 'art_mirror_breath', how: '鏡湖隱士或以澄心鏡息會友' },
-    { id: 'art_heavy_halberd', how: '開山戟意沉雄，尋訪長兵高手或可習' },
-    { id: 'qg_snow_track', how: '高人或傳「踏雪無痕」輕功' },
-    { id: 'qg_reed_drift', how: '放走過對手後，或有人以「蘆花身法」報恩' },
-    { id: 'qg_wall_cat', how: '危牆夜影之中，或可習「壁虎遊牆」' },
-    { id: 'qg_lotus_steps', how: '荷塘奇遇，或得「踏蓮步」' },
-    { id: 'art_shadow_needle', how: '戰勝赤練娘，或可奪「無影針訣」' },
-  ];
-  for (const p of pools) {
-    if (!known.has(p.id)) tips.push(p.how);
-  }
-
-  const weaponId = c.equipment?.weapon;
-  const weapon = weaponId ? getGearDef(weaponId) : undefined;
-  if (weapon?.weaponKind) {
-    const hasMatch = c.skills.some((id) => getSkillDef(id)?.weaponKind === weapon.weaponKind);
-    if (!hasMatch) {
-      tips.unshift(`兵刃「${weapon.name}」尚無對路武學，尋訪奇緣可補。`);
-    }
-  }
-
-  return tips.slice(0, 3);
 }

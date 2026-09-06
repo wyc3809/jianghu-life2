@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import { InkScrollBackdrop, InkStaticSeal } from './InkDecor';
-import { INK_SVG } from '../../ui/inkAssets';
+import { inkAiUrl } from '../../ui/inkAiCatalog';
 
 type Props = {
   onStart: () => void;
@@ -10,23 +9,27 @@ type Props = {
   onOpenEditor?: () => void;
 };
 
-function InkInlineSvg({ className, markup }: { className?: string; markup: string }) {
-  return <span className={className} aria-hidden dangerouslySetInnerHTML={{ __html: markup }} />;
-}
-
 /**
- * 開卷首屏：印章 + 品牌 + 一句副句 + CTA + 遠山滿底。
- * 不放題簽框／十階 icon 列（易似輸入框與現代 App 圖示列）。
+ * 開卷首屏：夜嶺風雲滿底 + 古銅印 + 金字品牌 + 金線 + 卷首三句 + CTA。
+ * 深色系獨立配色（見 styles.css .ink-start 段），唔影響入面宣紙主題。
  */
 export function InkStartScreen({ onStart, onContinue, resumeHint, onSeedDebug, onOpenEditor }: Props) {
   return (
     <div className="scroll-shell ink-enter ink-start">
-      <InkScrollBackdrop variant="hero" />
+      <div className="ink-start-bg" aria-hidden>
+        <img src={inkAiUrl('backdrop-title-night')} alt="" decoding="async" />
+      </div>
       <header className="ink-hero">
-        <InkStaticSeal text="生" />
+        <img
+          className="ink-start-seal"
+          src={inkAiUrl('seal-bronze-title')}
+          alt=""
+          aria-hidden
+          decoding="async"
+        />
         <p className="ink-eyebrow">水墨江湖 · 一生一卷</p>
         <h1 className="ink-brand">江湖一生</h1>
-        <InkInlineSvg className="ink-brush-divider" markup={INK_SVG.brushStroke} />
+        <span className="ink-gold-rule" aria-hidden />
         <p className="ink-tagline">一筆成江湖，留白即命運</p>
       </header>
 

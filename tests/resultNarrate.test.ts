@@ -76,22 +76,19 @@ describe('result narrate aligns editor and page-flip', () => {
     expect(result.feedback).toBe(expected);
   });
 
-  it('波折／事與願違 branches show their own narrate, not the 順遂 text', () => {
-    // Regression: applyChoice used to always overwrite the picked outcome's
-    // narrate with the 順遂(fair) branch's editor text, so a bad-luck roll on
-    // a good choice still displayed a purely positive story while applying
-    // negative numeric effects underneath. Now the story must follow whatever
-    // branch actually got picked.
+  it('選擇結果永遠跟作者寫定嘅結局（唔再抽波折分支）', () => {
+    // 新制：自動派生嘅「波折／事與願違」分支已去除，無論 RNG 點擲，
+    // 結果正文都係作者寫嘅嗰段。
     const raw = getRawEventById('jy_rival_letter')!;
     const draft = draftPatchFromEvent(raw);
     const fairExpected = draft.choices?.delay?.narrate;
     expect(fairExpected).toBeTruthy();
     const ev = fullCatalog().find((e) => e.id === 'jy_rival_letter')!;
-    // seed 1 rolls a non-fair (波折/事與願違) branch for this choice
-    const state = createNewLife(1);
-    const result = applyChoice(state, ev, 'delay');
-    expect(result.feedback).not.toBe(fairExpected);
-    expect(result.feedback).toBe('「回帖改期」後你們各自退開。血滲進衣裡，黏黏的。這一遭，傷面子多過傷身子。');
+    for (const seed of [1, 2, 3]) {
+      const state = createNewLife(seed);
+      const result = applyChoice(state, ev, 'delay');
+      expect(result.feedback).toBe(fairExpected);
+    }
   });
 
   it('no catalog.ts choice leaks the raw template narrate to the player', () => {

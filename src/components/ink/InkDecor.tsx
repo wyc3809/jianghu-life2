@@ -1,6 +1,6 @@
 /** 宣紙遠山 + 墨漬 + 竹角（內嵌 SVG，避免外連圖失敗） */
 import type { InkPlace, InkSeason } from './sceneVariants';
-import { INK_SVG, sealSvgForText } from '../../ui/inkAssets';
+import { sealSvgForText } from '../../ui/inkAssets';
 import { inkAiUrl } from '../../ui/inkAiCatalog';
 
 export function InkInlineSvg({ className, markup }: { className?: string; markup: string }) {
@@ -45,17 +45,12 @@ export function InkScrollBackdrop({
       aria-hidden
     >
       <img
-        className="ink-mountains-img"
-        src={inkAiUrl(useNight ? 'backdrop-night-mountains' : 'backdrop-title-scroll')}
+        className="ink-backdrop-ai"
+        src={inkAiUrl(useNight ? 'backdrop-night-mountains' : 'backdrop-play-main')}
         alt=""
         aria-hidden
         decoding="async"
       />
-      {(variant === 'hero' || place === 'river') && (
-        <InkInlineSvg className="ink-boat-img" markup={INK_SVG.boat} />
-      )}
-      <InkInlineSvg className="ink-blots-img" markup={INK_SVG.blots} />
-      <InkInlineSvg className="ink-bamboo-img" markup={INK_SVG.bamboo} />
       {/* 平時只留一層靜霧；掃筆僅在翻頁時由 .ink-scroll-flip 觸發 */}
       <div className="ink-mist-layer" />
       <div className="ink-paper-edge" />

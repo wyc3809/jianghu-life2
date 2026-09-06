@@ -362,7 +362,9 @@ export function resolveCombatDisposition(
     lines.push(`名望${rep > 0 ? '＋' : ''}${rep}`);
   }
 
-  lines.push(...recordDispositionAftermath(state, disposition, combat.foe.name));
+  // 舊怨／血債系列的最終一戰：恩怨到此為止，不再留後續
+  const chainEnd = typeof combat.eventId === 'string' && combat.eventId.startsWith('aftermath_');
+  lines.push(...recordDispositionAftermath(state, disposition, combat.foe.name, chainEnd));
   lines.push(...finishCombatWin(state, disposition));
   snapshotRng(state);
   return lines;

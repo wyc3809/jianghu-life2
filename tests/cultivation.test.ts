@@ -8,6 +8,7 @@ import {
   cultivationProgressPercent,
   currentCultivationTier,
   grantEventCultivation,
+  grantSparCultivation,
   isCultivationCapped,
   isMaxCultivationTier,
   OFFLINE_CULTIVATION_CAP_MS,
@@ -107,6 +108,30 @@ describe('cultivation: per-event grant (functional #5 — 事件普遍加修為)
     const before = state.character.cultivation.xp;
     expect(grantEventCultivation(state)).toBe(0);
     expect(state.character.cultivation.xp).toBe(before);
+  });
+});
+
+describe('cultivation: spar strike grant (主畫面切磋演武)', () => {
+  it('grants exactly 1 xp per hit and stops at the tier cap', () => {
+    initRng(50);
+    const state = createNewLife(50);
+    expect(grantSparCultivation(state)).toBe(1);
+    expect(state.character.cultivation.xp).toBe(1);
+
+    const cap = currentCultivationTier(state).cap;
+    state.character.cultivation.xp = cap;
+    expect(grantSparCultivation(state)).toBe(0);
+    expect(state.character.cultivation.xp).toBe(cap);
+  });
+
+  it('is deterministic (no RNG) and does nothing when dead or not playing', () => {
+    initRng(51);
+    const state = createNewLife(51);
+    state.character.alive = false;
+    expect(grantSparCultivation(state)).toBe(0);
+    state.character.alive = true;
+    state.phase = 'summary';
+    expect(grantSparCultivation(state)).toBe(0);
   });
 });
 

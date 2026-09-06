@@ -124,13 +124,10 @@ describe('life event engine', () => {
     expect(state.character.maxQi).toBeGreaterThan(100);
   });
 
-  it('ordinary events offer three choices with fair/mixed/ill branches', () => {
+  it('ordinary events offer three choices with authored outcomes only', () => {
     const market = getEventById(fullCatalog(), 'ord_market')!;
     expect(market.choices.length).toBe(3);
-    expect(market.choices.every((c) => c.outcomes.length >= 3)).toBe(true);
-    expect(market.choices.every((c) => c.outcomes.some((o) => o.label === '順遂'))).toBe(true);
-    expect(market.choices.every((c) => c.outcomes.some((o) => o.label === '波折'))).toBe(true);
-    expect(market.choices.every((c) => c.outcomes.some((o) => o.label === '事與願違'))).toBe(true);
+    expect(market.choices.every((c) => c.outcomes.length >= 1)).toBe(true);
   });
 
   it('road encounters exist and combat countdown starts in 7–15', () => {
@@ -632,7 +629,7 @@ describe('life event engine', () => {
     initRng(11);
     const state = createNewLife(11);
     const ev = getEventById(fullCatalog(), 'wander_train_internal')!;
-    const fair = ev.choices.find((c) => c.id === 'do')!.outcomes.find((o) => o.id === 'do_fair')!;
+    const fair = ev.choices.find((c) => c.id === 'do')!.outcomes[0]!;
     const applied = applyEffects(state, fair.effects);
     const parted = partitionStoryAndDeltas(applied.logs);
     expect(parted.story).toMatch(/打坐|運功|調息/);
@@ -992,51 +989,33 @@ describe('life event engine', () => {
     expect(failures.size).toBe(300);
   });
 
-  it('risk branches narrate the chosen action, not vague platitudes', async () => {
-    const { enrichChoiceWithRisk } = await import('../core/life/choiceEnrich');
-    const enriched = enrichChoiceWithRisk({
-      id: 'probe',
-      text: '暗中相助',
-      outcomes: [{ effects: [{ type: 'money', amount: 5 }] }],
-    });
-    const mixed = enriched.outcomes.find((o) => o.label === '波折')!;
-    const narr = mixed.effects.find((e) => e.type === 'narrate');
-    expect(narr && narr.type === 'narrate' && narr.text).toContain('暗中相助');
-    expect(narr && narr.type === 'narrate' && narr.text).not.toMatch(/^有得有失/);
+  it('選擇唔再自動派生波折分支：結果＝作者寫定嘅結局', async () => {
+    const { withRiskAndThree } = await import('../core/life/choiceEnrich');
+    const ev = withRiskAndThree({
+      id: 'probe_ev',
+      title: '試事',
+      body: '試。',
+      choices: [
+        {
+          id: 'probe',
+          text: '暗中相助',
+          outcomes: [{ effects: [{ type: 'money' as const, amount: 5 }] }],
+        },
+      ],
+    } as never);
+    const choice = ev.choices.find((c) => c.id === 'probe')!;
+    // 單一結局，同作者寫嘅完全一致；冇「波折」「事與願違」
+    expect(choice.outcomes).toHaveLength(1);
+    expect(choice.outcomes[0]!.effects).toEqual([{ type: 'money', amount: 5 }]);
+    expect(choice.outcomes.some((o) => o.label === '波折' || o.label === '事與願違')).toBe(false);
   });
 
-  it('practice risk branches stay on-theme and avoid street intrigue', async () => {
-    const { enrichChoiceWithRisk, inferSceneTone } = await import('../core/life/choiceEnrich');
-    const base = [{ type: 'practice' as const, action: 'train_internal' as const }];
-    expect(inferSceneTone(base, '閉目運功', ['practice_wander'])).toBe('practice');
-    const enriched = enrichChoiceWithRisk(
-      {
-        id: 'do',
-        text: '閉目運功',
-        outcomes: [{ effects: base }],
-      },
-      undefined,
-      0.1,
-      ['practice_wander'],
-    );
-    const fair = enriched.outcomes.find((o) => o.label === '順遂')!;
-    expect(fair.effects.some((e) => e.type === 'practice')).toBe(true);
-    // 順遂靠修煉本身出文，唔再疊市井抄件敘事
-    expect(fair.effects.some((e) => e.type === 'narrate')).toBe(false);
-
-    for (const label of ['波折', '事與願違'] as const) {
-      const o = enriched.outcomes.find((x) => x.label === label)!;
-      const narr = o.effects.find((e) => e.type === 'narrate');
-      const blob = narr && narr.type === 'narrate' ? narr.text : '';
-      expect(blob).toContain('閉目運功');
-      expect(blob).not.toMatch(/抄件|銀角|名冊|談判|跑堂|密帳|局面鬆動|終究|立誓|有得有失/);
-      const hpHits = o.effects.filter((e) => e.type === 'health' && e.amount < 0);
-      for (const h of hpHits) {
-        if (h.type === 'health') expect(h.amount).toBeGreaterThanOrEqual(-4);
-      }
-    }
-    const mixed = enriched.outcomes.find((o) => o.label === '波折')!;
-    expect(mixed.effects.some((e) => e.type === 'practice')).toBe(true);
+  it('ordinary events keep three choices but no auto twist branches', () => {
+    const market = getEventById(fullCatalog(), 'ord_market')!;
+    expect(market.choices.length).toBe(3);
+    expect(
+      market.choices.every((c) => !c.outcomes.some((o) => o.label === '波折' || o.label === '事與願違')),
+    ).toBe(true);
   });
 
   it('quiet months can pass without pending events', async () => {
