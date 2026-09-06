@@ -1,17 +1,45 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 260" role="img" aria-label="encounter hermit">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 260" role="img" aria-label="山中隱者">
   <defs>
-    <linearGradient id="paper" x1="0" x2="1"><stop stop-color="#f5eedc"/><stop offset="1" stop-color="#d1bf93"/></linearGradient>
-    <radialGradient id="lamp" cx="52%" cy="46%" r="28%"><stop stop-color="#d1a44a" stop-opacity=".8"/><stop offset="1" stop-color="#d1a44a" stop-opacity="0"/></radialGradient>
+    <linearGradient id="mist" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#1a1a1a" stop-opacity="0"/>
+      <stop offset="1" stop-color="#1a1a1a" stop-opacity="0.16"/>
+    </linearGradient>
+    <filter id="washBlur" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+    <filter id="softInk" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="0.7"/>
+    </filter>
+    <radialGradient id="lamp" cx="50%" cy="50%" r="50%">
+    <stop stop-color="#a33a32" stop-opacity="0.5"/>
+    <stop offset="1" stop-color="#a33a32" stop-opacity="0"/>
+  </radialGradient>
   </defs>
-  <rect width="900" height="260" rx="18" fill="url(#paper)"/>
-  <rect width="900" height="260" fill="url(#lamp)"/>
-  <path d="M0 174 C128 112 226 132 344 78 C462 24 590 128 704 76 C790 36 842 60 900 42 L900 260 L0 260Z" fill="#17130f" opacity=".16"/>
-  <path d="M0 220 C182 178 290 198 430 158 C568 118 708 176 900 126 L900 260 L0 260Z" fill="#17130f" opacity=".18"/>
-  <path d="M252 76c-22 34-26 84-8 138M238 110c-54 32-76 62-86 104M252 114c50 34 78 66 86 102" stroke="#17130f" stroke-width="10" fill="none" opacity=".84" stroke-linecap="round"/>
-  <circle cx="252" cy="70" r="18" fill="#17130f" opacity=".78"/>
-  <path d="M310 112l58 34M366 146v36" stroke="#17130f" stroke-width="5" opacity=".75" stroke-linecap="round"/>
-  <rect x="350" y="178" width="32" height="42" rx="5" fill="#2b241d" opacity=".72"/>
-  <circle cx="366" cy="198" r="18" fill="#d1a44a" opacity=".55"/>
-  <path d="M620 100c-16 22-22 56-14 96M612 122c-32 26-54 54-68 86M618 122c44 24 74 52 94 86" stroke="#17130f" stroke-width="8" fill="none" opacity=".72" stroke-linecap="round"/>
-  <circle cx="620" cy="94" r="13" fill="#17130f" opacity=".8"/>
+  <rect width="900" height="260" fill="#f3ebdc"/>
+  
+  <path d="M0 210 Q90 150 170 190 Q240 140 330 185 Q420 135 520 190 Q610 145 700 190 Q800 150 900 200 L900 260 L0 260Z" fill="#1a1a1a" fill-opacity="0.07" filter="url(#washBlur)"/>
+  <path d="M0 228 Q110 185 210 216 Q330 175 450 218 Q570 180 690 220 Q790 190 900 224 L900 260 L0 260Z" fill="#1a1a1a" fill-opacity="0.12" filter="url(#washBlur)"/>
+  <path d="M0 246 Q900 236 900 246 L900 260 L0 260Z" fill="#1a1a1a" fill-opacity="0.1"/>
+
+  <g>
+    <path d="M600 196 L600 150 L648 122 L696 150 L696 196Z" fill="#1a1a1a" fill-opacity="0.14"/>
+    <path d="M592 152 L648 118 L704 152" stroke="#1a1a1a" stroke-linecap="round" fill="none" stroke-width="4"/>
+    <path d="M600 152 L600 196 M696 152 L696 196 M600 196 L696 196" stroke="#1a1a1a" stroke-linecap="round" fill="none" stroke-width="2.4"/>
+    <rect x="636" y="164" width="24" height="22" fill="#a33a32" fill-opacity="0.35"/>
+    <circle cx="648" cy="175" r="26" fill="url(#lamp)"/>
+  </g>
+  <g>
+    <path d="M214 128 Q206 160 210 196" stroke="#1a1a1a" stroke-linecap="round" fill="none" stroke-width="3.4"/>
+    <path d="M214 132 Q196 138 184 156 M214 140 Q234 142 246 158 M212 122 Q228 116 240 120" stroke="#1a1a1a" stroke-linecap="round" fill="none" stroke-width="2.4"/>
+    <path d="M196 162 Q214 154 232 164" stroke="#1a1a1a" stroke-linecap="round" fill="none" stroke-width="1.6" opacity="0.7"/>
+  </g>
+  <g>
+    <ellipse cx="330" cy="222" rx="17" ry="5" fill="#1a1a1a" opacity="0.14"/>
+    <path d="M330 176 Q320 190 322 208 Q330 216 338 208 Q340 190 330 176Z" fill="#1a1a1a" fill-opacity="0.8"/>
+    <circle cx="330" cy="170" r="7" fill="#1a1a1a" fill-opacity="0.8"/>
+    <path d="M336 184 Q346 178 352 170" stroke="#1a1a1a" stroke-linecap="round" fill="none" stroke-width="2.2"/>
+  </g>
+  <path d="M120 210 Q300 196 520 212" stroke="#1a1a1a" stroke-linecap="round" fill="none" stroke-width="1.2" opacity="0.25"/>
+  <circle cx="780" cy="86" r="1.8" fill="#1a1a1a" opacity="0.4"/>
+  <circle cx="800" cy="94" r="1.4" fill="#1a1a1a" opacity="0.3"/>
 </svg>

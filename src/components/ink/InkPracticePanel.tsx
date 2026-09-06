@@ -1,7 +1,6 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { PRACTICE_ACTIONS, SECT_INNER_ACTIONS, SECT_DEFS, ART_DEFS, type PracticeActionId } from '@core/life/actions';
 import { natureGateHint } from '@core/life/nature';
-import { practiceLearningHints } from '@core/life/jianghuHints';
 import { describeSectProgress } from '@core/life/sectStanding';
 import { artProficiency, ART_MASTERY_THRESHOLD } from '@core/life/arts';
 import { inkAiUrl, type InkAiAssetId } from '../../ui/inkAiCatalog';
@@ -47,11 +46,6 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
           <p className="ink-note">
             本月可煉 {practiceLeft}/3 次。多問風聲，翻頁易逢奇人；苦練、鑄兵、尋訪，亦在歲月裡。
           </p>
-          {practiceLearningHints(state).map((h) => (
-            <p key={h} className="ink-note ink-hint-learn">
-              {h}
-            </p>
-          ))}
           <div className="ink-practice-grid">
             <button
               type="button"

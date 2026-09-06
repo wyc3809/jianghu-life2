@@ -153,6 +153,18 @@ export function applyOfflineCultivation(state: LifeGameState, elapsedMs: number)
   };
 }
 
+/** 切磋演武：主畫面俠客每擊中敵影一次嘅修為回饋。固定 +1（deterministic，唔碰 RNG），到頂自動停 */
+export function grantSparCultivation(state: LifeGameState): number {
+  if (!state.character.alive || state.phase !== 'playing') return 0;
+  const tier = currentCultivationTier(state);
+  const gain = 1;
+  const before = state.character.cultivation.xp;
+  const rawAfter = before + gain;
+  const after = Number.isFinite(tier.cap) ? Math.min(tier.cap, rawAfter) : rawAfter;
+  state.character.cultivation.xp = after;
+  return after - before;
+}
+
 /** 每次事件了結（唔問成敗）隨手加嘅一筆修為，做「事件回饋感」；細過 idle 速率，唔會蓋過原有曲線 */
 export function grantEventCultivation(state: LifeGameState): number {
   if (!state.character.alive || state.phase !== 'playing') return 0;

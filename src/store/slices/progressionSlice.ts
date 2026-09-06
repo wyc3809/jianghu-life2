@@ -24,10 +24,11 @@ import { sanitizePlayerLine, sanitizePlayerLines } from '@core/life/playerText';
 import {
   applyOfflineCultivation,
   attemptCultivationBreakthrough,
+  grantSparCultivation,
   tickCultivation as tickCultivationCore,
   type BreakthroughResult,
 } from '@core/life/cultivation';
-import { tickActionPoints } from '@core/life/actionPoints';
+import { hasEnoughActionPoints, tickActionPoints } from '@core/life/actionPoints';
 import { track } from '../../telemetry/events';
 import type { LifeStore } from '../lifeStore';
 
@@ -59,6 +60,7 @@ export function createProgressionSlice(
   | 'recruitDisciple'
   | 'teachDisciple'
   | 'tickCultivation'
+  | 'sparStrike'
   | 'attemptBreakthrough'
   | 'clearBreakthroughResult'
   | 'clearOfflineGain'
@@ -138,7 +140,15 @@ export function createProgressionSlice(
         sealText: null,
         flashLines: [],
         lastResult: null,
-        offlineGainXp: offline.gainedXp > 0 ? Math.round(offline.gainedXp) : null,
+        offlineGain:
+          offline.gainedXp > 0
+            ? {
+                xp: Math.round(offline.gainedXp),
+                countedMs: Math.round(offline.countedSeconds * 1000),
+                timeCapped: offline.timeCapped,
+                tierCapped: offline.tierCapped,
+              }
+            : null,
       });
       return true;
     },
@@ -155,6 +165,8 @@ export function createProgressionSlice(
       }
       const current = get().state;
       if (!current || current.pending || current.pendingCombat) return;
+      // 氣力（疲勞度）見底唔准翻頁——歇息回氣先好繼續
+      if (!hasEnoughActionPoints(current)) return;
       if (get().lastResult) set({ lastResult: null });
       const next = produce(current, (draft) => {
         if (!draft.character.flags.coach_flipped) draft.character.flags.coach_flipped = true;
@@ -344,6 +356,20 @@ export function createProgressionSlice(
       set({ state: next });
     },
 
+    sparStrike: () => {
+      const { state } = get();
+      if (!state || state.phase !== 'playing' || !state.character.alive) return 0;
+      let gained = 0;
+      const next = produce(state, (draft) => {
+        gained = grantSparCultivation(draft);
+      });
+      if (gained > 0) {
+        save(next, false);
+        set({ state: next });
+      }
+      return gained;
+    },
+
     attemptBreakthrough: () => {
       const { state } = get();
       if (!state) return;
@@ -362,6 +388,6 @@ export function createProgressionSlice(
 
     clearBreakthroughResult: () => set({ breakthroughResult: null }),
 
-    clearOfflineGain: () => set({ offlineGainXp: null }),
+    clearOfflineGain: () => set({ offlineGain: null }),
   };
 }

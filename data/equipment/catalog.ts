@@ -330,6 +330,64 @@ export const GEAR_CATALOG: GearDef[] = [
     },
     description: '佩之則內息如潮，夜觀星斗似有所悟。',
   },
+  // ===== 百兵譜：五十兵器，七門各擅 =====
+  // —— 劍（八） ——
+  { id: 'qingfeng-sword', name: '鐵匠鋪青鋒劍', slot: 'weapon', rarity: 'common', weaponKind: 'sword', attack: 5, combat: { hitBonus: 0.02 }, description: '鎮上鐵匠鋪的常備貨，勝在結實。' },
+  { id: 'wanderer-sword', name: '游俠佩劍', slot: 'weapon', rarity: 'common', weaponKind: 'sword', attack: 6, combat: { hitBonus: 0.03 }, description: '劍鞘磨得發亮，主人換過好幾個。' },
+  { id: 'frostvein-sword', name: '霜紋劍', slot: 'weapon', rarity: 'fine', weaponKind: 'sword', attack: 11, martialBonus: 1, combat: { pierce: 0.04 }, description: '劍身霜紋如裂冰，出鞘帶三分寒氣。' },
+  { id: 'pinewind-sword', name: '松風劍', slot: 'weapon', rarity: 'fine', weaponKind: 'sword', attack: 9, martialBonus: 2, combat: { hitBonus: 0.05 }, description: '揮動時隱有松濤之聲，劍路清正。' },
+  { id: 'autumnwater-sword', name: '秋水長劍', slot: 'weapon', rarity: 'rare', weaponKind: 'sword', attack: 15, martialBonus: 4, maxQiBonus: 10, combat: { hitBonus: 0.05 }, description: '劍光如一泓秋水，靜時已教人心寒。' },
+  { id: 'peakbreaker-sword', name: '斷岳重劍', slot: 'weapon', rarity: 'rare', weaponKind: 'sword', attack: 17, martialBonus: 3, combat: { pierce: 0.07 }, description: '重劍無花巧，一壓一劈皆是山勢。' },
+  { id: 'snowstream-sword', name: '流光飛雪劍', slot: 'weapon', rarity: 'epic', weaponKind: 'sword', attack: 25, martialBonus: 9, maxQiBonus: 15, combat: { pierce: 0.07, hitBonus: 0.04 }, special: { kind: 'burst', name: '飛雪連星', description: '劍勢如飛雪連星，偶有追加一記寒芒', chance: 0.22, power: 0.55 }, description: '劍光過處，如見雪落無聲。' },
+  { id: 'taiya-sword', name: '太阿遺鋒', slot: 'weapon', rarity: 'mythic', weaponKind: 'sword', attack: 36, martialBonus: 14, maxQiBonus: 30, combat: { pierce: 0.1, hitBonus: 0.05 }, special: { kind: 'stun_proc', name: '太阿壓頂', description: '劍勢如泰山壓頂，偶令敵方氣機一窒、錯失一回合', chance: 0.25 }, description: '古劍太阿的遺鋒，威風凜凜，非大勇之士不能用。' },
+  // —— 刀（七） ——
+  { id: 'firewood-blade', name: '柴口短刀', slot: 'weapon', rarity: 'common', weaponKind: 'blade', attack: 4, description: '砍柴剖魚都使得，殺敵勉强也使得。' },
+  { id: 'rustring-blade', name: '鏽環刀', slot: 'weapon', rarity: 'common', weaponKind: 'blade', attack: 5, combat: { bleedChance: 0.05 }, description: '刀環鏽跡斑斑，搖起來卻還響亮。' },
+  { id: 'yanling-blade', name: '雁翎刀', slot: 'weapon', rarity: 'fine', weaponKind: 'blade', attack: 10, martialBonus: 1, combat: { pierce: 0.05 }, description: '刀形修長如雁翎，官道鏢師多用此刀。' },
+  { id: 'nightwalk-blade', name: '夜行薄刀', slot: 'weapon', rarity: 'fine', weaponKind: 'blade', attack: 9, combat: { evasion: 0.03, hitBonus: 0.04 }, description: '刀薄如紙，收在袖中不見痕跡。' },
+  { id: 'streamcut-blade', name: '斷水快刀', slot: 'weapon', rarity: 'rare', weaponKind: 'blade', attack: 15, martialBonus: 4, combat: { bleedChance: 0.1 }, description: '快得能斷水流，敵人見血方知中刀。' },
+  { id: 'redbronze-blade', name: '赤銅砍刀', slot: 'weapon', rarity: 'rare', weaponKind: 'blade', attack: 16, martialBonus: 3, combat: { pierce: 0.06 }, description: '赤銅為脊，劈砍之勢沉雄。' },
+  { id: 'wavebreaker-blade', name: '斷浪狂刀', slot: 'weapon', rarity: 'epic', weaponKind: 'blade', attack: 26, martialBonus: 9, maxHpBonus: 20, combat: { lifesteal: 0.05 }, special: { kind: 'burst', name: '斷浪三疊', description: '刀勢如浪三疊，偶有追加一記狂斬', chance: 0.24, power: 0.6 }, description: '刀出如浪崩，連綿不絕。' },
+  // —— 槍（七） ——
+  { id: 'waxwood-spear', name: '白蠟桿槍', slot: 'weapon', rarity: 'common', weaponKind: 'spear', attack: 5, combat: { pierce: 0.03 }, description: '白蠟桿柔韌，槍尖一顫三變。' },
+  { id: 'bambootip-spear', name: '竹尖槍', slot: 'weapon', rarity: 'common', weaponKind: 'spear', attack: 4, combat: { pierce: 0.04 }, description: '獵戶自削的竹槍，輕便堪用。' },
+  { id: 'pearflower-spear', name: '梨花槍', slot: 'weapon', rarity: 'fine', weaponKind: 'spear', attack: 11, martialBonus: 1, combat: { hitBonus: 0.05 }, description: '槍花抖開如梨花紛落，好看亦好殺。' },
+  { id: 'snakespine-spear', name: '鐵脊蛇矛', slot: 'weapon', rarity: 'fine', weaponKind: 'spear', attack: 12, martialBonus: 1, combat: { pierce: 0.06 }, description: '矛身如蛇脊，刺出詭直難測。' },
+  { id: 'prairie-spear', name: '燎原火槍', slot: 'weapon', rarity: 'rare', weaponKind: 'spear', attack: 16, martialBonus: 4, combat: { bleedChance: 0.08 }, description: '槍勢燎原，一旦搶先便步步進逼。' },
+  { id: 'turnback-spear', name: '回馬槍', slot: 'weapon', rarity: 'rare', weaponKind: 'spear', attack: 14, martialBonus: 5, combat: { evasion: 0.04 }, description: '敗中藏勝，回馬一槍最難防。' },
+  { id: 'dragoncall-spear', name: '龍膽亮銀槍', slot: 'weapon', rarity: 'epic', weaponKind: 'spear', attack: 27, martialBonus: 10, combat: { pierce: 0.09, hitBonus: 0.05 }, special: { kind: 'burst', name: '龍膽七探', description: '槍出如龍探爪，偶有一記追加突刺', chance: 0.25, power: 0.6 }, description: '亮銀槍身，傳聞隨名將七進七出。' },
+  // —— 杖（七） ——
+  { id: 'firestick-staff', name: '燒火棍', slot: 'weapon', rarity: 'common', weaponKind: 'staff', attack: 3, defense: 2, description: '灶下燒火棍，黑是黑，夠硬淨。' },
+  { id: 'elm-staff', name: '榆木齊眉棍', slot: 'weapon', rarity: 'common', weaponKind: 'staff', attack: 4, defense: 2, description: '齊眉長短，武館學徒的第一根棍。' },
+  { id: 'madmonk-staff', name: '瘋魔杖', slot: 'weapon', rarity: 'fine', weaponKind: 'staff', attack: 9, martialBonus: 2, combat: { reflect: 0.04 }, description: '杖法瘋魔，亂中自有章法。' },
+  { id: 'vajra-staff', name: '鐵包裹金剛杵', slot: 'weapon', rarity: 'fine', weaponKind: 'staff', attack: 10, defense: 4, description: '鐵皮包杵，舞起來風聲赫赫。' },
+  { id: 'demonquell-staff', name: '降魔禪杖', slot: 'weapon', rarity: 'rare', weaponKind: 'staff', attack: 15, defense: 6, martialBonus: 3, description: '禪杖降魔，月下鐵影如塔。' },
+  { id: 'dogbeat-staff', name: '打狗青竹杖', slot: 'weapon', rarity: 'rare', weaponKind: 'staff', attack: 13, martialBonus: 5, combat: { evasion: 0.05 }, description: '青竹一根，專打惡犬與惡人。' },
+  { id: 'dragonbind-staff', name: '伏龍鐵杖', slot: 'weapon', rarity: 'epic', weaponKind: 'staff', attack: 24, defense: 8, martialBonus: 8, combat: { reflect: 0.05 }, special: { kind: 'stun_proc', name: '伏龍鎮嶽', description: '杖落如鎮嶽，偶令敵方氣血一滯、錯失一回合', chance: 0.2 }, description: '重杖伏龍，非膂力過人者不能舉。' },
+  // —— 鞭（七） ——
+  { id: 'oxhide-whip', name: '牛皮短鞭', slot: 'weapon', rarity: 'common', weaponKind: 'whip', attack: 4, combat: { hitBonus: 0.03 }, description: '車把式的牛皮鞭，甩得脆響。' },
+  { id: 'hemp-whip', name: '麻繩軟鞭', slot: 'weapon', rarity: 'common', weaponKind: 'whip', attack: 3, combat: { bleedChance: 0.05 }, description: '麻繩浸油，抽在身上又辣又痛。' },
+  { id: 'silverbell-whip', name: '銀鈴九節鞭', slot: 'weapon', rarity: 'fine', weaponKind: 'whip', attack: 9, combat: { hitBonus: 0.07 }, description: '九節相連，銀鈴一響鞭已至。' },
+  { id: 'snakebone-whip', name: '蛇骨鞭', slot: 'weapon', rarity: 'fine', weaponKind: 'whip', attack: 10, combat: { bleedChance: 0.08 }, description: '鞭節如蛇骨，纏上便見血痕。' },
+  { id: 'dragonswim-whip', name: '游龍長鞭', slot: 'weapon', rarity: 'rare', weaponKind: 'whip', attack: 15, martialBonus: 4, combat: { hitBonus: 0.09 }, description: '鞭走如游龍，長短遠近俱在掌握。' },
+  { id: 'wolffang-whip', name: '倒鉤狼牙鞭', slot: 'weapon', rarity: 'rare', weaponKind: 'whip', attack: 14, martialBonus: 4, combat: { bleedChance: 0.12 }, description: '倒鉤如狼牙，着肉難解。' },
+  { id: 'yama-whip', name: '閻羅索命鞭', slot: 'weapon', rarity: 'epic', weaponKind: 'whip', attack: 23, martialBonus: 9, maxQiBonus: 15, combat: { hitBonus: 0.07 }, special: { kind: 'stun_proc', name: '索命纏絲', description: '鞭如索命纏絲，偶令敵方手腳一僵、錯失一回合', chance: 0.2 }, description: '鞭影起處，如聞閻羅點名。' },
+  // —— 弓（七） ——
+  { id: 'mulberry-bow', name: '桑木弓', slot: 'weapon', rarity: 'common', weaponKind: 'bow', attack: 5, combat: { hitBonus: 0.04 }, description: '農家桑木弓，射雀有餘。' },
+  { id: 'hunter-shortbow', name: '獵戶短弓', slot: 'weapon', rarity: 'common', weaponKind: 'bow', attack: 6, combat: { hitBonus: 0.06 }, description: '山林獵戶的短弓，上弦極快。' },
+  { id: 'birch-bow', name: '樺皮角弓', slot: 'weapon', rarity: 'fine', weaponKind: 'bow', attack: 11, martialBonus: 2, combat: { hitBonus: 0.09 }, description: '角弓樺皮，北地好手的爱物。' },
+  { id: 'repeater-bow', name: '連珠弩', slot: 'weapon', rarity: 'fine', weaponKind: 'bow', attack: 12, combat: { pierce: 0.05 }, description: '弩匣連珠，短瞬三矢。' },
+  { id: 'goosedrop-bow', name: '落雁弓', slot: 'weapon', rarity: 'rare', weaponKind: 'bow', attack: 16, martialBonus: 4, combat: { hitBonus: 0.11 }, description: '弓開如滿月，雁落長空。' },
+  { id: 'armorbreaker-bow', name: '破甲重弩', slot: 'weapon', rarity: 'rare', weaponKind: 'bow', attack: 17, martialBonus: 2, combat: { pierce: 0.09 }, description: '重弩破甲，鐵盾亦難擋。' },
+  { id: 'sunshot-bow', name: '射日神臂弓', slot: 'weapon', rarity: 'epic', weaponKind: 'bow', attack: 26, martialBonus: 9, combat: { hitBonus: 0.08, pierce: 0.06 }, special: { kind: 'burst', name: '射日貫虹', description: '箭出如貫長虹，偶有追加一記奪命遠射', chance: 0.22, power: 0.65 }, description: '神臂開弓，傳聞可射落九日。' },
+  // —— 暗器（七） ——
+  { id: 'sleeve-arrow', name: '袖箭', slot: 'weapon', rarity: 'common', weaponKind: 'hidden', attack: 4, combat: { bleedChance: 0.06 }, description: '袖中藏箭，近身一抬手便見紅。' },
+  { id: 'locust-stones', name: '飛蝗石', slot: 'weapon', rarity: 'common', weaponKind: 'hidden', attack: 3, combat: { hitBonus: 0.05 }, description: '河灘圓石，兜裡總有幾枚。' },
+  { id: 'plum-needles', name: '梅花袖針', slot: 'weapon', rarity: 'fine', weaponKind: 'hidden', attack: 9, combat: { bleedChance: 0.1 }, description: '針出五點如梅花，着膚即麻。' },
+  { id: 'iron-lotus', name: '鐵蓮子', slot: 'weapon', rarity: 'fine', weaponKind: 'hidden', attack: 10, combat: { hitBonus: 0.06 }, description: '鐵蓮子入手沉實，打穴最準。' },
+  { id: 'bonepierce-nails', name: '透骨釘', slot: 'weapon', rarity: 'rare', weaponKind: 'hidden', attack: 13, martialBonus: 5, combat: { bleedChance: 0.14 }, description: '釘長三分，透骨而過。' },
+  { id: 'shadowless-knives', name: '無影飛刀', slot: 'weapon', rarity: 'rare', weaponKind: 'hidden', attack: 14, martialBonus: 5, combat: { hitBonus: 0.08 }, description: '刀小無影，出手無聲。' },
+  { id: 'thousandworks-box', name: '千機暴雨匣', slot: 'weapon', rarity: 'epic', weaponKind: 'hidden', attack: 24, martialBonus: 10, combat: { hitBonus: 0.06, bleedChance: 0.1 }, special: { kind: 'burst', name: '暴雨千機', description: '機括一響暗器如雨，偶有追加一輪攢射', chance: 0.26, power: 0.5 }, description: '匣藏千機，開時如暴雨傾盆。' },
 ];
 
 export const rarityLabel: Record<GearRarity, string> = {
@@ -414,6 +472,21 @@ export function formatGearFullSummary(def: GearDef): string {
   return def.description;
 }
 
+/** 按稀有度分池（百兵譜入咗目錄就自動入池） */
+const POOL_BY_RARITY: Record<GearRarity, string[]> = GEAR_CATALOG.reduce(
+  (acc, g) => {
+    acc[g.rarity].push(g.id);
+    return acc;
+  },
+  { common: [], fine: [], rare: [], epic: [], mythic: [], divine: [] } as Record<GearRarity, string[]>,
+);
+
+function pickFromPool(rng: { nextFloat: () => number }, rarity: GearRarity): string {
+  const pool = POOL_BY_RARITY[rarity];
+  if (!pool.length) return 'old-sword';
+  return pool[Math.min(pool.length - 1, Math.floor(rng.nextFloat() * pool.length))];
+}
+
 export function rollForgeResult(
   rng: { nextFloat: () => number; chance: (p: number) => boolean },
   opts?: { age?: number; martial?: number },
@@ -427,44 +500,21 @@ export function rollForgeResult(
   const mythicGate = divineGate + 0.008 + tier * 0.02;
   const epicGate = mythicGate + 0.03 + tier * 0.05;
   const rareGate = epicGate + 0.08 + tier * 0.05;
-  if (roll < divineGate * 0.34) return 'divine-xuan-sword';
-  if (roll < divineGate * 0.67) return 'divine-silk-armor';
-  if (roll < divineGate) return 'divine-moon-pendant';
-  if (roll < divineGate + (mythicGate - divineGate) * 0.5) return 'phoenix-blood-blade';
-  if (roll < mythicGate) return 'stormcloud-armor';
-  if (roll < mythicGate + (epicGate - mythicGate) * 0.4) return 'hundredfold-blade';
-  if (roll < mythicGate + (epicGate - mythicGate) * 0.7) return 'inkrain-sword';
-  if (roll < epicGate) return 'twin-hooks';
-  if (roll < rareGate * 0.35) return 'jade-token';
-  if (roll < rareGate * 0.55) return 'meteor-whip';
-  if (roll < rareGate * 0.75) return 'crescent-blade';
-  if (roll < rareGate) return 'sleeve-darts';
-  if (roll < rareGate + 0.1) return 'cloud-boots';
-  if (roll < rareGate + 0.22) return 'iron-blade';
-  if (roll < rareGate + 0.34) return 'bronze-spear';
-  if (roll < rareGate + 0.44) return 'hunter-bow';
-  if (roll < rareGate + 0.54) return 'pine-staff';
-  if (roll < rareGate + 0.7) return 'pine-armor';
-  return 'old-sword';
+  if (roll < divineGate) return pickFromPool(rng, 'divine');
+  if (roll < mythicGate) return pickFromPool(rng, 'mythic');
+  if (roll < epicGate) return pickFromPool(rng, 'epic');
+  if (roll < rareGate) return pickFromPool(rng, 'rare');
+  if (roll < rareGate + 0.34) return pickFromPool(rng, 'fine');
+  return pickFromPool(rng, 'common');
 }
 
 export function rollAdventureGear(rng: { nextFloat: () => number }): string | null {
   const roll = rng.nextFloat();
-  if (roll < 0.02) return 'divine-xuan-sword';
-  if (roll < 0.035) return 'divine-silk-armor';
-  if (roll < 0.05) return 'divine-moon-pendant';
-  if (roll < 0.065) return 'phoenix-blood-blade';
-  if (roll < 0.075) return 'stormcloud-armor';
-  if (roll < 0.125) return 'twin-hooks';
-  if (roll < 0.165) return 'inkrain-sword';
-  if (roll < 0.225) return 'hundredfold-blade';
-  if (roll < 0.305) return 'sleeve-darts';
-  if (roll < 0.375) return 'jade-token';
-  if (roll < 0.445) return 'meteor-whip';
-  if (roll < 0.525) return 'cloud-boots';
-  if (roll < 0.645) return 'crescent-blade';
-  if (roll < 0.745) return 'iron-blade';
-  if (roll < 0.845) return 'bronze-spear';
-  if (roll < 0.925) return 'hunter-bow';
+  if (roll < 0.05) return pickFromPool(rng, 'divine');
+  if (roll < 0.075) return pickFromPool(rng, 'mythic');
+  if (roll < 0.225) return pickFromPool(rng, 'epic');
+  if (roll < 0.525) return pickFromPool(rng, 'rare');
+  if (roll < 0.845) return pickFromPool(rng, 'fine');
+  if (roll < 0.925) return pickFromPool(rng, 'common');
   return null;
 }

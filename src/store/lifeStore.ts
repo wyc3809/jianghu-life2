@@ -26,6 +26,17 @@ export interface LastResult {
   choiceText: string;
 }
 
+/** 閉關所得（離線收益）彈窗資料 */
+export interface OfflineGainInfo {
+  xp: number;
+  /** 實際計咗幾多離線時間（ms，已按上限截斷） */
+  countedMs: number;
+  /** 離開時間長過上限，多出嚟嘅修持流走咗 */
+  timeCapped: boolean;
+  /** 境界瓶頂截斷：未突破前唔會再漲 */
+  tierCapped: boolean;
+}
+
 export interface LifeStore {
   state: LifeGameState | null;
   debugOpen: boolean;
@@ -69,13 +80,15 @@ export interface LifeStore {
   teachDisciple: (discipleId: string) => void;
   /** 放置修為：實時累積（deltaSeconds 由 UI 嘅 ticker 計出） */
   tickCultivation: (deltaSeconds: number) => void;
+  /** 主畫面切磋演武：俠客每擊中敵影一次嘅修為回饋，回傳實際入賬數（0＝已到頂或未開局） */
+  sparStrike: () => number;
   /** 突破：修為滿咗先可以觸發 */
   attemptBreakthrough: () => void;
   /** 突破結果：驅動專屬彈窗＋升級動畫（null＝冇要顯示） */
   breakthroughResult: BreakthroughResult | null;
   clearBreakthroughResult: () => void;
-  /** 上次讀檔嘅離線收益提示（null＝冇要顯示） */
-  offlineGainXp: number | null;
+  /** 上次讀檔嘅離線收益彈窗資料（null＝冇要顯示） */
+  offlineGain: OfflineGainInfo | null;
   clearOfflineGain: () => void;
 }
 
@@ -92,7 +105,7 @@ export const useLifeStore = create<LifeStore>()(
     flashLines: [],
     lastResult: null,
     creating: false,
-    offlineGainXp: null,
+    offlineGain: null,
     breakthroughResult: null,
 
     ...createProgressionSlice(set, get, save),

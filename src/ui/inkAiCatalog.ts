@@ -36,6 +36,22 @@ export const INK_AI_ASSETS: readonly InkAiAsset[] = [
     tags: ['start', 'hero', 'mountains'],
   },
   {
+    id: 'backdrop-title-night',
+    kind: 'backdrop',
+    path: 'ai/backdrops/backdrop-title-night.webp',
+    titleZh: '夜嶺雙閣',
+    useWhen: '首屏暗夜底，風雲月夜、雙閣夾谷',
+    tags: ['start', 'hero', 'night', 'pagoda', 'storm'],
+  },
+  {
+    id: 'backdrop-play-main',
+    kind: 'backdrop',
+    path: 'ai/backdrops/backdrop-play-main.webp',
+    titleZh: '江上孤舟',
+    useWhen: '主畫面底景，山水壓下角、上方大留白俾 UI',
+    tags: ['play', 'home', 'river', 'boat', 'mountains'],
+  },
+  {
     id: 'backdrop-night-mountains',
     kind: 'backdrop',
     path: 'ai/backdrops/backdrop-night-mountains.webp',
@@ -148,6 +164,14 @@ export const INK_AI_ASSETS: readonly InkAiAsset[] = [
     tags: ['road', 'encounter', 'arc', 'rain'],
   },
   {
+    id: 'vitals-frame-clouds',
+    kind: 'motif',
+    path: 'ai/motifs/vitals-frame-clouds.webp',
+    titleZh: '雲紋墨框',
+    useWhen: '氣血／內力欄底框，兩端雲紋、中間留白',
+    tags: ['frame', 'vitals', 'clouds'],
+  },
+  {
     id: 'motif-sword',
     kind: 'motif',
     path: 'ai/motifs/motif-sword.webp',
@@ -210,6 +234,14 @@ export const INK_AI_ASSETS: readonly InkAiAsset[] = [
     titleZh: '朱砂命運印',
     useWhen: '出生、蓋印確認、死亡落款',
     tags: ['seal', 'cinnabar', 'fate'],
+  },
+  {
+    id: 'seal-bronze-title',
+    kind: 'seal',
+    path: 'ai/seals/seal-bronze-title.webp',
+    titleZh: '古銅江湖印',
+    useWhen: '首屏頂部品牌印',
+    tags: ['seal', 'bronze', 'title', 'start'],
   },
 ] as const;
 

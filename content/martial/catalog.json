@@ -470,6 +470,22 @@
       }
     },
     {
+      "id": "jy_ash_manual",
+      "name": "灰中拳",
+      "kind": "external",
+      "flavor": "火場焦譜悟出嘅拳路——拳勁藏於灰燼，中者如墜煙塵。",
+      "encounterOnly": true,
+      "move": {
+        "id": "mv_ash_fist",
+        "name": "灰飛煙滅",
+        "qiCost": 30,
+        "power": 1.28,
+        "hitBonus": 0.1,
+        "applyBlind": 0.22,
+        "description": "拳影裹灰，迷眼封喉。"
+      }
+    },
+    {
       "id": "art_mirror_breath",
       "name": "澄心鏡息",
       "kind": "internal",
