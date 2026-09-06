@@ -1,5 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="gear plain robe">
-  <rect width="160" height="160" rx="24" fill="#f2ead6"/>
-  <path d="M50 34l30-14 30 14 24 30-20 18-8-14v62H54V68l-8 14-20-18z" fill="#b8a985"/>
-  <path d="M80 24v104M58 64h44" stroke="#675d4f" stroke-width="5" opacity=".42"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="粗布衣裳">
+  <defs>
+    <filter id="softInk" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="0.6"/>
+    </filter>
+    <filter id="washBlur" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.4"/>
+    </filter>
+    <linearGradient id="wash" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#1a1a1a" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#1a1a1a" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="160" height="160" rx="18" fill="#f3ebdc"/>
+  <rect x="5" y="5" width="150" height="150" rx="14" fill="none" stroke="#1a1a1a" stroke-opacity="0.14" stroke-width="1.5"/>
+  
+  <path d="M80 34 Q60 40 52 62 Q46 84 50 118 Q64 126 80 126 Q96 126 110 118 Q114 84 108 62 Q100 40 80 34Z" fill="#1a1a1a" fill-opacity="0.1"/>
+  <path d="M80 34 Q60 40 52 62 Q46 84 50 118 Q64 126 80 126 Q96 126 110 118 Q114 84 108 62 Q100 40 80 34Z" stroke="#1a1a1a" stroke-linecap="round" fill="none" stroke-width="3"/>
+  <path d="M80 34 Q74 44 76 56 L80 70 L84 56 Q86 44 80 34Z" fill="#f3ebdc" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M52 62 Q38 74 34 96 M108 62 Q122 74 126 96" stroke="#1a1a1a" stroke-linecap="round" fill="none" stroke-width="3"/>
+  <path d="M62 88 Q80 94 98 88" stroke="#1a1a1a" stroke-linecap="round" fill="none" stroke-width="1.6" opacity="0.5"/>
+  <path d="M58 104 Q80 110 102 104" stroke="#1a1a1a" stroke-linecap="round" fill="none" stroke-width="1.6" opacity="0.4"/>
+
 </svg>

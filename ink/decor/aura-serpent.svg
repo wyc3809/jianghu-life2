@@ -1,18 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
-  <!-- 蛇盤勁 · 陰柔光環 -->
-  <defs>
-    <radialGradient id="serpent-aura" cx="50%" cy="50%" r="50%">
-      <stop offset="30%" stop-color="#2D5016" stop-opacity="0.15"/>
-      <stop offset="70%" stop-color="#2D5016" stop-opacity="0.05"/>
-      <stop offset="100%" stop-color="#2D5016" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-  <circle cx="100.0" cy="100.0" r="84.0" fill="url(#serpent-aura)"/>
-  <!-- 螺旋暗示 -->
-  <path d="M 125.0 100.0 A 25 25 0 0 1 100.0 75.0 A 18 18 0 0 1 82.0 100.0 
-    A 12 12 0 0 1 100.0 112.0" stroke="#2D5016" stroke-width="1.5" 
-    fill="none" opacity="0.3" stroke-linecap="round"/>
-  <path d="M 75.0 100.0 A 25 25 0 0 0 100.0 125.0 A 18 18 0 0 0 118.0 100.0 
-    A 12 12 0 0 0 100.0 88.0" stroke="#2D5016" stroke-width="1.5" 
-    fill="none" opacity="0.2" stroke-linecap="round"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" role="img" aria-label="氣場"><defs></defs><circle cx="100" cy="100" r="86" stroke="#1a1a1a" stroke-opacity="0.35" stroke-width="2.5" stroke-dasharray="220 14 160 10"/><circle cx="100" cy="100" r="70" stroke="#1a1a1a" stroke-opacity="0.22" stroke-width="1.6" stroke-dasharray="120 10 90 8"/><path d="M104.0,100.0 L105.0,101.7 L105.1,104.1 L104.0,106.6 L101.6,108.7 L98.1,109.9 L93.9,109.8 L89.6,108.1 L86.1,104.7 L83.9,99.9 L83.6,94.2 L85.7,88.5 L90.1,83.5 L96.5,80.0 L104.3,78.9 L112.4,80.4 L119.9,84.8 L125.5,91.7 L128.3,100.4 L127.7,110.0 L123.4,119.1 L115.6,126.6 L105.2,131.3 L93.2,132.3 L81.1,129.2 L70.5,122.2 L62.9,111.7 L59.6,99.0 L61.1,85.6 L67.7,73.1 L78.8,63.2 L93.3,57.4 L109.6,56.6 L125.6,61.2 L139.2,71.0 L148.7,85.0 L152.6,101.7 L150.0,119.0 L141.1,134.8 L126.5,147.1 L107.9,154.0 L87.5,154.5 L67.6,148.3" stroke="#1a1a1a" stroke-opacity="0.4" stroke-width="2.6" stroke-linecap="round"/><circle cx="67.6" cy="148.3" r="3.4" fill="#1a1a1a" fill-opacity="0.45"/></svg>
