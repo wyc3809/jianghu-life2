@@ -187,20 +187,21 @@ export const SECT_RIGS: Record<string, WarriorRig> = Object.fromEntries(
 );
 
 /**
- * v3 溫和揮擊：霧接臂嘅門派（手臂同身軀靠薄霧相連）蓄勢收到 -55°，
- * 避免大風車式後引令臂根甩離身軀；其餘節奏同標準 attack 一致。
+ * v3 溫和揮擊：同主 attack 節奏，蓄勢略收（霧接臂門派唔好大風車）。
+ * 仍走純黑影骨骼，只係角度細啲。
  */
 const V3_ATTACK_SOFT: SparClip = {
   name: 'attack',
-  dur: 0.62,
+  dur: 0.72,
   tracks: [
-    { bone: 'arm', prop: 'rot', keys: [ { t: 0, v: 0, e: 'out' }, { t: 0.2, v: -55, e: 'expoin' }, { t: 0.32, v: 24, e: 'linear' }, { t: 0.4, v: 24, e: 'inout' }, { t: 0.62, v: 0 } ] },
-    { bone: 'weapon', prop: 'rot', keys: [ { t: 0, v: 0, e: 'inout' }, { t: 0.2, v: 10, e: 'in' }, { t: 0.28, v: 7, e: 'expoin' }, { t: 0.34, v: 30, e: 'out' }, { t: 0.46, v: 22, e: 'inout' }, { t: 0.62, v: 0 } ] },
-    { bone: 'body', prop: 'rot', keys: [ { t: 0, v: 0, e: 'out' }, { t: 0.2, v: -4, e: 'expoin' }, { t: 0.32, v: 6, e: 'linear' }, { t: 0.4, v: 6, e: 'inout' }, { t: 0.62, v: 0 } ] },
-    { bone: 'body', prop: 'x', keys: [ { t: 0, v: 0, e: 'out' }, { t: 0.2, v: -10, e: 'expoin' }, { t: 0.32, v: 64, e: 'linear' }, { t: 0.46, v: 64, e: 'inout' }, { t: 0.62, v: 0 } ] },
-    { bone: 'body', prop: 'y', keys: [ { t: 0, v: 0, e: 'out' }, { t: 0.2, v: 6, e: 'expoin' }, { t: 0.32, v: -2, e: 'linear' }, { t: 0.62, v: 0 } ] },
+    { bone: 'arm', prop: 'rot', keys: [ { t: 0, v: 0, e: 'out' }, { t: 0.22, v: -95, e: 'expoin' }, { t: 0.36, v: 30, e: 'linear' }, { t: 0.48, v: 26, e: 'inout' }, { t: 0.72, v: 0 } ] },
+    { bone: 'weapon', prop: 'rot', keys: [ { t: 0, v: 0, e: 'inout' }, { t: 0.2, v: 14, e: 'in' }, { t: 0.3, v: 8, e: 'expoin' }, { t: 0.38, v: 36, e: 'out' }, { t: 0.52, v: 22, e: 'inout' }, { t: 0.72, v: 0 } ] },
+    { bone: 'body', prop: 'rot', keys: [ { t: 0, v: 0, e: 'out' }, { t: 0.22, v: -6, e: 'expoin' }, { t: 0.36, v: 8, e: 'linear' }, { t: 0.5, v: 6, e: 'inout' }, { t: 0.72, v: 0 } ] },
+    { bone: 'body', prop: 'x', keys: [ { t: 0, v: 0, e: 'out' }, { t: 0.22, v: -14, e: 'expoin' }, { t: 0.36, v: 72, e: 'linear' }, { t: 0.52, v: 68, e: 'inout' }, { t: 0.72, v: 0 } ] },
+    { bone: 'body', prop: 'y', keys: [ { t: 0, v: 0, e: 'out' }, { t: 0.22, v: 10, e: 'expoin' }, { t: 0.36, v: -6, e: 'linear' }, { t: 0.72, v: 0 } ] },
+    { bone: 'head', prop: 'rot', keys: [ { t: 0, v: 0, e: 'out' }, { t: 0.22, v: -4, e: 'expoin' }, { t: 0.36, v: 6, e: 'inout' }, { t: 0.72, v: 0 } ] },
   ],
-  events: [{ t: 0.32, id: 'strike' }],
+  events: [{ t: 0.36, id: 'strike' }],
 };
 
 /**
@@ -427,117 +428,129 @@ export const WEAPON_SPRITES: Record<string, WeaponSpriteDef> = {
   },
 };
 
-/* ================= 動作 clip ================= */
+/* ================= 動作 clip（純黑影專用：誇張剪影可讀性） ================= */
 
-/** 呼吸閒立（循環，絕對值而非增量）：袍角起伏、頭髮微擺、持械手輕晃 */
+/**
+ * 閒立：明顯呼吸起伏＋持械臂／兵器相位錯開，斗笠微擺。
+ * 剪影場要「郁得到」，唔好似紙板企定。
+ */
 const IDLE: SparClip = {
   name: 'idle',
-  dur: 3.4,
+  dur: 2.8,
   loop: true,
   tracks: [
-    { bone: 'body', prop: 'sy', keys: [ { t: 0, v: 1 }, { t: 1.7, v: 1.012 }, { t: 3.4, v: 1 } ] },
-    { bone: 'body', prop: 'y', keys: [ { t: 0, v: 0 }, { t: 1.7, v: -2.5 }, { t: 3.4, v: 0 } ] },
-    { bone: 'head', prop: 'rot', keys: [ { t: 0, v: 0 }, { t: 1.2, v: 1.4 }, { t: 2.6, v: -1.2 }, { t: 3.4, v: 0 } ] },
-    { bone: 'arm', prop: 'rot', keys: [ { t: 0, v: 0 }, { t: 1.7, v: 2.4 }, { t: 3.4, v: 0 } ] },
-    { bone: 'weapon', prop: 'rot', keys: [ { t: 0, v: 0 }, { t: 1.7, v: -1.6 }, { t: 3.4, v: 0 } ] },
+    { bone: 'body', prop: 'sy', keys: [ { t: 0, v: 1 }, { t: 1.4, v: 1.028 }, { t: 2.8, v: 1 } ] },
+    { bone: 'body', prop: 'y', keys: [ { t: 0, v: 0 }, { t: 1.4, v: -7 }, { t: 2.8, v: 0 } ] },
+    { bone: 'body', prop: 'rot', keys: [ { t: 0, v: 0 }, { t: 0.9, v: -1.6 }, { t: 2.0, v: 1.4 }, { t: 2.8, v: 0 } ] },
+    { bone: 'head', prop: 'rot', keys: [ { t: 0, v: 0 }, { t: 0.8, v: 3.2 }, { t: 1.8, v: -2.6 }, { t: 2.8, v: 0 } ] },
+    { bone: 'arm', prop: 'rot', keys: [ { t: 0, v: -8 }, { t: 1.4, v: 6 }, { t: 2.8, v: -8 } ] },
+    { bone: 'weapon', prop: 'rot', keys: [ { t: 0, v: 4 }, { t: 1.4, v: -8 }, { t: 2.8, v: 4 } ] },
   ],
 };
 
 /**
- * 揮擊一擊（v2 增量，全長 0.62s，節奏爽脆）：
- * 0.00–0.20 蓄勢：提臂後引、身形微沉後坐
- * 0.20–0.32 出擊：expoin 爆發，踏步前撲、臂劈落、武器甩腕加成
- * 0.32–0.40 定格：hit-stop 由引擎喺 strike 事件嗰刻凍結
- * 0.40–0.62 收招：順勢歸位
+ * 揮擊（剪影可讀版，0.72s）：
+ * 蓄勢大後引（臂 -130°）→ 爆發踏步前撲 → 定格 → 收招。
+ * 武器 follow-through 刻意滯後，令斬弧喺剪影入面清楚。
  */
 const ATTACK: SparClip = {
   name: 'attack',
-  dur: 0.62,
+  dur: 0.72,
   tracks: [
     {
       bone: 'arm', prop: 'rot',
       keys: [
         { t: 0, v: 0, e: 'out' },
-        { t: 0.2, v: -110, e: 'expoin' },
-        { t: 0.32, v: 26, e: 'linear' },
-        { t: 0.4, v: 26, e: 'inout' },
-        { t: 0.62, v: 0 },
+        { t: 0.22, v: -130, e: 'expoin' },
+        { t: 0.36, v: 38, e: 'linear' },
+        { t: 0.48, v: 32, e: 'inout' },
+        { t: 0.72, v: 0 },
       ],
     },
     {
-      // 武器唔同手臂齊上齊落（overlapping action）：後引時劍滯後拖住，
-      // 爆發嗰刻先鞭打過鋒，命中後帶一段慢速 follow-through 先慢回持式
       bone: 'weapon', prop: 'rot',
       keys: [
         { t: 0, v: 0, e: 'inout' },
-        { t: 0.2, v: 16, e: 'in' },
-        { t: 0.28, v: 12, e: 'expoin' },
-        { t: 0.34, v: 34, e: 'out' },
-        { t: 0.46, v: 26, e: 'inout' },
-        { t: 0.62, v: 0 },
+        { t: 0.2, v: 22, e: 'in' },
+        { t: 0.3, v: 10, e: 'expoin' },
+        { t: 0.38, v: 48, e: 'out' },
+        { t: 0.52, v: 28, e: 'inout' },
+        { t: 0.72, v: 0 },
       ],
     },
     {
       bone: 'body', prop: 'rot',
       keys: [
         { t: 0, v: 0, e: 'out' },
-        { t: 0.2, v: -4, e: 'expoin' },
-        { t: 0.32, v: 6, e: 'linear' },
-        { t: 0.4, v: 6, e: 'inout' },
-        { t: 0.62, v: 0 },
+        { t: 0.22, v: -8, e: 'expoin' },
+        { t: 0.36, v: 10, e: 'linear' },
+        { t: 0.5, v: 8, e: 'inout' },
+        { t: 0.72, v: 0 },
       ],
     },
     {
       bone: 'body', prop: 'x',
       keys: [
         { t: 0, v: 0, e: 'out' },
-        { t: 0.2, v: -10, e: 'expoin' },
-        { t: 0.32, v: 64, e: 'linear' },
-        { t: 0.46, v: 64, e: 'inout' },
-        { t: 0.62, v: 0 },
+        { t: 0.22, v: -18, e: 'expoin' },
+        { t: 0.36, v: 92, e: 'linear' },
+        { t: 0.52, v: 86, e: 'inout' },
+        { t: 0.72, v: 0 },
       ],
     },
     {
       bone: 'body', prop: 'y',
       keys: [
         { t: 0, v: 0, e: 'out' },
-        { t: 0.2, v: 6, e: 'expoin' },
-        { t: 0.32, v: -2, e: 'linear' },
-        { t: 0.62, v: 0 },
+        { t: 0.22, v: 12, e: 'expoin' },
+        { t: 0.36, v: -8, e: 'linear' },
+        { t: 0.5, v: -2, e: 'inout' },
+        { t: 0.72, v: 0 },
+      ],
+    },
+    {
+      bone: 'body', prop: 'sy',
+      keys: [
+        { t: 0, v: 0, e: 'out' },
+        { t: 0.22, v: -0.04, e: 'expoin' },
+        { t: 0.36, v: 0.05, e: 'linear' },
+        { t: 0.72, v: 0 },
       ],
     },
     {
       bone: 'head', prop: 'rot',
       keys: [
         { t: 0, v: 0, e: 'out' },
-        { t: 0.2, v: -3, e: 'expoin' },
-        { t: 0.32, v: 5, e: 'inout' },
-        { t: 0.62, v: 0 },
+        { t: 0.22, v: -6, e: 'expoin' },
+        { t: 0.36, v: 8, e: 'inout' },
+        { t: 0.72, v: 0 },
       ],
     },
   ],
-  events: [{ t: 0.32, id: 'strike' }],
+  events: [{ t: 0.36, id: 'strike' }],
 };
 
-/** 敵影潰散（alpha 係絕對值由 1 歸 0；其餘屬性係增量）：中劍即散，快潰快補 */
+/** 敵影潰散：飛退＋翻仰＋壓扁，剪影碎散感 */
 const ENEMY_DEATH: SparClip = {
   name: 'enemy-death',
-  dur: 0.55,
+  dur: 0.62,
   tracks: [
-    { bone: 'enemy', prop: 'alpha', keys: [ { t: 0, v: 1, e: 'linear' }, { t: 0.14, v: 1, e: 'in' }, { t: 0.55, v: 0 } ] },
-    { bone: 'enemy', prop: 'y', keys: [ { t: 0, v: 0, e: 'in' }, { t: 0.55, v: 44 } ] },
-    { bone: 'enemy', prop: 'rot', keys: [ { t: 0, v: 0, e: 'in' }, { t: 0.55, v: 13 } ] },
-    { bone: 'enemy', prop: 'sy', keys: [ { t: 0, v: 0, e: 'in' }, { t: 0.55, v: -0.2 } ] },
+    { bone: 'enemy', prop: 'alpha', keys: [ { t: 0, v: 1, e: 'linear' }, { t: 0.12, v: 1, e: 'in' }, { t: 0.62, v: 0 } ] },
+    { bone: 'enemy', prop: 'x', keys: [ { t: 0, v: 0, e: 'in' }, { t: 0.62, v: 36 } ] },
+    { bone: 'enemy', prop: 'y', keys: [ { t: 0, v: 0, e: 'out' }, { t: 0.18, v: -28, e: 'in' }, { t: 0.62, v: 58 } ] },
+    { bone: 'enemy', prop: 'rot', keys: [ { t: 0, v: 0, e: 'in' }, { t: 0.62, v: 28 } ] },
+    { bone: 'enemy', prop: 'sy', keys: [ { t: 0, v: 0, e: 'in' }, { t: 0.2, v: 0.08, e: 'in' }, { t: 0.62, v: -0.35 } ] },
   ],
 };
 
-/** 新敵影凝聚（alpha 係絕對值由 0 返 1；其餘屬性係增量） */
+/** 新敵影由地影抽高凝聚 */
 const ENEMY_SPAWN: SparClip = {
   name: 'enemy-spawn',
-  dur: 0.45,
+  dur: 0.5,
   tracks: [
-    { bone: 'enemy', prop: 'alpha', keys: [ { t: 0, v: 0, e: 'out' }, { t: 0.45, v: 1 } ] },
-    { bone: 'enemy', prop: 'sy', keys: [ { t: 0, v: 0.05, e: 'out' }, { t: 0.45, v: 0 } ] },
+    { bone: 'enemy', prop: 'alpha', keys: [ { t: 0, v: 0, e: 'out' }, { t: 0.5, v: 1 } ] },
+    { bone: 'enemy', prop: 'sy', keys: [ { t: 0, v: -0.55, e: 'out' }, { t: 0.5, v: 0 } ] },
+    { bone: 'enemy', prop: 'y', keys: [ { t: 0, v: 36, e: 'out' }, { t: 0.5, v: 0 } ] },
   ],
 };
 

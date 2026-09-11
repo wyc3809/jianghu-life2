@@ -24,16 +24,21 @@ import {
   type SparEasing,
   type WeaponSpriteDef,
 } from './rig';
+import {
+  drawEnemySilhouette,
+  drawHeroSilhouette,
+  enemyArchetypeFromSrc,
+  weaponFromKind,
+  weaponTipLocal,
+} from './silhouetteDraw';
 
 const DEG = Math.PI / 180;
 const INK = '22,19,15';
 const CINNABAR = '168,51,31';
-/** 純黑影風格：英雄青帶點綴（對照剪影動作遊戲嘅色帶） */
-const SASH_BLUE = '48,110,190';
 
 /**
- * 將彩色貼圖轉成「純黑影 + 淡宣紙描邊」並快取。
- * 透明區保留；實心區壓成近黑，外緣一圈淡白線——唔使重畫素材。
+ * 將彩色貼圖轉成「純黑影 + 淡宣紙描邊」並快取（特效用）。
+ * 角色本體已改原生剪影人偶，唔再靠呢個濾鏡。
  */
 const silhouetteCache = new WeakMap<CanvasImageSource, HTMLCanvasElement>();
 
@@ -74,7 +79,6 @@ function toInkSilhouette(img: CanvasImageSource): HTMLCanvasElement {
       d[i + 3] = 0;
       continue;
     }
-    // 近純黑，略留一點層次（用原本亮度做極微灰階，保持剪影可讀）
     const lum = (src[i]! * 0.3 + src[i + 1]! * 0.59 + src[i + 2]! * 0.11) / 255;
     const v = Math.round(8 + lum * 18);
     d[i] = v;
@@ -83,7 +87,6 @@ function toInkSilhouette(img: CanvasImageSource): HTMLCanvasElement {
     d[i + 3] = a;
   }
 
-  // 淡白描邊：透明像素若鄰近不透明，塗淡宣紙色
   const opaque = (px: number, py: number) => {
     if (px < 0 || py < 0 || px >= w || py >= h) return false;
     return src[(py * w + px) * 4 + 3]! >= 48;
@@ -114,17 +117,6 @@ function toInkSilhouette(img: CanvasImageSource): HTMLCanvasElement {
   x.putImageData(data, 0, 0);
   silhouetteCache.set(img, c);
   return c;
-}
-
-function drawSilhouette(
-  ctx: CanvasRenderingContext2D,
-  img: CanvasImageSource,
-  dx: number,
-  dy: number,
-  dw: number,
-  dh: number,
-) {
-  ctx.drawImage(toInkSilhouette(img), dx, dy, dw, dh);
 }
 
 type EaseFn = (p: number) => number;
@@ -253,7 +245,6 @@ export class SparStage {
   private onStrike?: () => number;
 
   private weaponDef: WeaponSpriteDef | null = null;
-  private weaponImg: HTMLImageElement | null = null;
 
   private bgImg: HTMLImageElement | null = null;
   private bgOpacity = 1;
@@ -292,7 +283,6 @@ export class SparStage {
     this.enemyPool = opts.enemies && opts.enemies.length ? opts.enemies : [ENEMY_SHADOW];
     this.onStrike = opts.onStrike;
     this.weaponDef = opts.weapon ?? null;
-    this.weaponImg = opts.images.weapon ?? null;
     this.bgImg = opts.images.background ?? null;
   }
 
@@ -305,10 +295,9 @@ export class SparStage {
     this.bgFade = 0;
   }
 
-  /** 換武器（裝備欄轉武器時叫）；null＝空手 */
-  setWeapon(def: WeaponSpriteDef | null, img: HTMLImageElement | null) {
+  /** 換武器（裝備欄轉武器時叫）；null＝空手。剪影模式只讀 def.src 推斷兵種。 */
+  setWeapon(def: WeaponSpriteDef | null, _img: HTMLImageElement | null) {
     this.weaponDef = def;
-    this.weaponImg = def ? img : null;
   }
 
   /** 靜態模式：右邊擺兩個企定嘅敵人，唔行唔郁 */
@@ -545,11 +534,6 @@ export class SparStage {
     return e.def.part.w * this.enemyKe(e) * 0.22;
   }
 
-  private enemyImg(e: EnemyInst): HTMLImageElement {
-    const i = this.enemyPool.indexOf(e.def);
-    return this.images.enemies[i >= 0 ? i : 0]!;
-  }
-
   render() {
     const { ctx } = this;
     const g = this.geom();
@@ -649,148 +633,85 @@ export class SparStage {
 
   private drawWarrior(g: ReturnType<SparStage['geom']>): { x: number; y: number } | null {
     const { ctx } = this;
-    const rig = this.rig;
-    const v3 = isV3Rig(rig);
     const attack = this.attackT !== null ? this.attackClipNow() : null;
     const at = this.attackT ?? 0;
     const body = evalPose('body', this.idleT, attack, at);
-    const head = v3 ? null : evalPose('head', this.idleT, attack, at);
+    const head = evalPose('head', this.idleT, attack, at);
     const arm = evalPose('arm', this.idleT, attack, at);
     const wep = evalPose('weapon', this.idleT, attack, at);
 
     const fx = g.heroX + body.x * g.k;
     const fy = g.groundY + body.y * g.k;
+    const src = this.weaponDef?.src ?? '';
+    const weaponKind = !this.weaponDef
+      ? weaponFromKind(null)
+      : src.includes('blade')
+        ? weaponFromKind('blade')
+        : src.includes('spear')
+          ? weaponFromKind('spear')
+          : src.includes('staff')
+            ? weaponFromKind('staff')
+            : src.includes('bow')
+              ? weaponFromKind('bow')
+              : src.includes('hidden')
+                ? weaponFromKind('hidden')
+                : src.includes('whip')
+                  ? weaponFromKind('whip')
+                  : weaponFromKind('sword');
 
     let tip: { x: number; y: number } | null = null;
 
-    const bodyPart = v3 ? rig.skin.full : rig.skin.body;
     ctx.save();
     ctx.translate(fx, fy);
     ctx.rotate(body.rot * DEG);
     ctx.scale(1, body.sy);
-    drawSilhouette(ctx, this.images.body, bodyPart.dx * g.k, bodyPart.dy * g.k, bodyPart.w * g.k, bodyPart.h * g.k);
-    // 青帶：腰間飄帶，跟身搖——純黑影唯一色點
-    this.drawHeroSash(g.k, arm.rot);
-    ctx.restore();
+    drawHeroSilhouette(ctx, {
+      k: g.k,
+      armRot: arm.rot,
+      weaponRot: wep.rot,
+      headRot: head.rot,
+      idleT: this.idleT,
+      weapon: weaponKind,
+    });
 
-    const armPart = v3 ? rig.skin.arm : rig.skin.arm;
+    // 鋒尖世界座標（拖墨）
     ctx.save();
-    ctx.translate(fx, fy);
-    ctx.rotate(body.rot * DEG);
-    ctx.scale(1, body.sy);
-    ctx.translate(rig.shoulderSocket.x * g.k, rig.shoulderSocket.y * g.k);
+    ctx.translate(18 * g.k, -330 * g.k);
     ctx.rotate(arm.rot * DEG);
-    drawSilhouette(ctx, this.images.arm, armPart.dx * g.k, armPart.dy * g.k, armPart.w * g.k, armPart.h * g.k);
-    if (v3 && this.images.patch) {
-      ctx.save();
-      ctx.rotate(-arm.rot * DEG);
-      const pp = rig.skin.shoulderPatch;
-      drawSilhouette(ctx, this.images.patch, pp.dx * g.k, pp.dy * g.k, pp.w * g.k, pp.h * g.k);
-      ctx.restore();
-    }
-    ctx.translate(this.rig.gripSocket.x * g.k, this.rig.gripSocket.y * g.k);
-    if (this.weaponDef && this.weaponImg) {
-      const wd = this.weaponDef;
-      const kw = (this.rig.designHeight * wd.lengthRatio) / wd.h;
-      ctx.rotate((wd.restRot + wep.rot) * DEG);
-      drawSilhouette(
-        ctx,
-        this.weaponImg,
-        -wd.grip.x * kw * g.k,
-        -wd.grip.y * kw * g.k,
-        wd.w * kw * g.k,
-        wd.h * kw * g.k,
-      );
-      const m = ctx.getTransform();
-      const tx = (wd.tip.x - wd.grip.x) * kw * g.k;
-      const ty = (wd.tip.y - wd.grip.y) * kw * g.k;
-      tip = {
-        x: (m.a * tx + m.c * ty + m.e) / this.dpr,
-        y: (m.b * tx + m.d * ty + m.f) / this.dpr,
-      };
-    }
+    ctx.translate(104 * g.k, 40 * g.k);
+    ctx.rotate(wep.rot * DEG);
+    const local = weaponTipLocal(weaponKind, g.k);
+    const m = ctx.getTransform();
+    tip = {
+      x: (m.a * local.x + m.c * local.y + m.e) / this.dpr,
+      y: (m.b * local.x + m.d * local.y + m.f) / this.dpr,
+    };
     ctx.restore();
-
-    if (!v3 && head && this.images.head) {
-      ctx.save();
-      ctx.translate(fx, fy);
-      ctx.rotate(body.rot * DEG);
-      ctx.scale(1, body.sy);
-      ctx.translate(rig.neckSocket.x * g.k, rig.neckSocket.y * g.k);
-      ctx.rotate(head.rot * DEG);
-      drawSilhouette(
-        ctx,
-        this.images.head,
-        rig.skin.head.dx * g.k,
-        rig.skin.head.dy * g.k,
-        rig.skin.head.w * g.k,
-        rig.skin.head.h * g.k,
-      );
-      ctx.restore();
-    }
+    ctx.restore();
 
     return tip;
-  }
-
-  /** 俠客腰間青帶（局部座標系：已喺身 transform 之內） */
-  private drawHeroSash(k: number, armRot: number) {
-    const { ctx } = this;
-    const sway = Math.sin(this.idleT * 2.4) * 6 + armRot * 0.08;
-    const baseX = 8 * k;
-    const baseY = -210 * k;
-    ctx.save();
-    ctx.globalAlpha = 0.92;
-    ctx.strokeStyle = `rgba(${SASH_BLUE},0.95)`;
-    ctx.lineWidth = Math.max(2.2, 3.2 * k);
-    ctx.lineCap = 'round';
-    ctx.beginPath();
-    ctx.moveTo(baseX, baseY);
-    ctx.bezierCurveTo(
-      baseX + 18 * k + sway,
-      baseY + 22 * k,
-      baseX + 34 * k + sway * 1.4,
-      baseY + 48 * k,
-      baseX + 22 * k + sway * 0.6,
-      baseY + 78 * k,
-    );
-    ctx.stroke();
-    ctx.strokeStyle = `rgba(${SASH_BLUE},0.55)`;
-    ctx.lineWidth = Math.max(1.4, 2 * k);
-    ctx.beginPath();
-    ctx.moveTo(baseX - 4 * k, baseY + 4 * k);
-    ctx.bezierCurveTo(
-      baseX + 10 * k - sway * 0.5,
-      baseY + 28 * k,
-      baseX + 28 * k - sway,
-      baseY + 52 * k,
-      baseX + 14 * k - sway * 0.3,
-      baseY + 72 * k,
-    );
-    ctx.stroke();
-    ctx.restore();
   }
 
   private drawEnemy(g: ReturnType<SparStage['geom']>, e: EnemyInst) {
     const pose = this.enemyPose(e);
     if (pose.alpha <= 0.01) return;
     const { ctx } = this;
-    const { part } = e.def;
     const ke = this.enemyKe(e);
-    const footX = e.x;
+    const footX = e.x + pose.x * ke;
     const footY = g.groundY + pose.y * ke;
+    const arch = enemyArchetypeFromSrc(e.def.part.src);
 
-    // 腳底殺氣紅光（Boss 感）
     if (e.state !== 'dead') {
       ctx.save();
-      ctx.globalAlpha = Math.max(0, Math.min(1, pose.alpha)) * 0.85;
+      ctx.globalAlpha = Math.max(0, Math.min(1, pose.alpha)) * 0.9;
       const pulse = 0.55 + 0.25 * Math.sin(e.bob * 2.6);
-      const rg = ctx.createRadialGradient(footX, footY, 2, footX, footY, 56 * ke);
-      rg.addColorStop(0, `rgba(${CINNABAR},${0.45 * pulse})`);
-      rg.addColorStop(0.45, `rgba(${CINNABAR},${0.14 * pulse})`);
+      const rg = ctx.createRadialGradient(footX, footY, 2, footX, footY, 58 * ke);
+      rg.addColorStop(0, `rgba(${CINNABAR},${0.5 * pulse})`);
+      rg.addColorStop(0.45, `rgba(${CINNABAR},${0.16 * pulse})`);
       rg.addColorStop(1, `rgba(${CINNABAR},0)`);
       ctx.fillStyle = rg;
       ctx.beginPath();
-      ctx.ellipse(footX, footY, 52 * ke, 14 * ke, 0, 0, Math.PI * 2);
+      ctx.ellipse(footX, footY, 54 * ke, 15 * ke, 0, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
     }
@@ -800,18 +721,24 @@ export class SparStage {
     ctx.translate(footX, footY);
     ctx.rotate(pose.rot * DEG);
     ctx.scale(1, pose.sy);
-    drawSilhouette(ctx, this.enemyImg(e), part.dx * ke, part.dy * ke, part.w * ke, part.h * ke);
+    drawEnemySilhouette(ctx, {
+      k: ke,
+      archetype: arch,
+      idleT: e.bob,
+      facingLeft: true,
+    });
     if (e.state !== 'dead') {
-      const glow = 0.5 + 0.35 * Math.sin(e.bob * 3.1);
-      for (const eye of e.def.eyes) {
-        const ex = eye.x * ke;
-        const ey = eye.y * ke;
-        const grad = ctx.createRadialGradient(ex, ey, 0, ex, ey, 10 * ke);
+      const glow = 0.55 + 0.35 * Math.sin(e.bob * 3.1);
+      for (const eye of [
+        { x: 10 * ke, y: -410 * ke },
+        { x: -8 * ke, y: -410 * ke },
+      ]) {
+        const grad = ctx.createRadialGradient(eye.x, eye.y, 0, eye.x, eye.y, 11 * ke);
         grad.addColorStop(0, `rgba(${CINNABAR},${glow})`);
         grad.addColorStop(1, `rgba(${CINNABAR},0)`);
         ctx.fillStyle = grad;
         ctx.beginPath();
-        ctx.arc(ex, ey, 10 * ke, 0, Math.PI * 2);
+        ctx.arc(eye.x, eye.y, 11 * ke, 0, Math.PI * 2);
         ctx.fill();
       }
     }
