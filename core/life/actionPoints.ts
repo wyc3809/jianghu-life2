@@ -7,8 +7,11 @@ import type { LifeGameState } from '@interfaces/lifeEngine';
 
 export const ACTION_POINT_MAX = 100;
 export const EVENT_ACTION_POINT_COST = 5;
-/** 回復速度：每 10 分鐘回 5 點（即扣一次事件代價後約 10 分鐘回滿） */
-const ACTION_POINT_REGEN_PER_SEC = 5 / 600;
+/**
+ * 回復速度：約 6 秒回 1 點（扣一次事件代價 5 點後約 30 秒回夠再選）。
+ * 曾試過 10 分鐘回 5 點，玩家會喺待決事件畫面見到選項但撳唔到，等同軟鎖。
+ */
+const ACTION_POINT_REGEN_PER_SEC = 1 / 6;
 
 function clamp(n: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, n));

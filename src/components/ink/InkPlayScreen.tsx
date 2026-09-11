@@ -224,17 +224,13 @@ export function InkPlayScreen({ state }: Props) {
   }, [eventFocus, tab, setTab]);
 
   useEffect(() => {
+    // 選項必須即時可點：唔好再用 opacity:0 + pointer-events:none 閘住，
+    // 否則玩家會以為「點不到選項」。動畫只做視覺，唔擋互動。
     if (!eventFocus || !pendingEvent) {
       setChoicesReady(false);
       return;
     }
-    if (shouldReduceInkMotion()) {
-      setChoicesReady(true);
-      return;
-    }
-    setChoicesReady(false);
-    const t = window.setTimeout(() => setChoicesReady(true), 420);
-    return () => window.clearTimeout(t);
+    setChoicesReady(true);
   }, [eventFocus, pendingEvent?.id]);
 
   useEffect(() => {
@@ -385,9 +381,16 @@ export function InkPlayScreen({ state }: Props) {
             <img className="ink-label-img" src={`${import.meta.env.BASE_URL || '/'}ink/ui/label-yinliang.webp`} alt="" aria-hidden draggable={false} />
             <InkGlyphText text={Math.round(c.money ?? 0).toLocaleString('zh-Hant')} height={14} />
           </span>
-          <div className="ink-ap-meter" role="meter" aria-label="疲勞度" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(c.actionPoints ?? 0)}>
+          <div
+            className="ink-ap-meter"
+            role="meter"
+            aria-label="疲勞度"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(100 - (c.actionPoints ?? 0))}
+          >
             <img className="ink-label-img ink-label-img--ap" src={`${import.meta.env.BASE_URL || '/'}ink/ui/label-pilao.webp`} alt="疲勞度" draggable={false} />
-            <InkGlyphText text={`${Math.round(c.actionPoints ?? 0)}/100`} height={13} className="ink-ap-meter-value" />
+            <InkGlyphText text={`${Math.round(100 - (c.actionPoints ?? 0))}/100`} height={13} className="ink-ap-meter-value" />
           </div>
           <span className="ink-metaline-prestige">
             威望 <b>{prestige}</b> · {prestigeTierLabel} · {rank >= JIANGHU_RANK_START ? '未列名' : `第${rank}位`}

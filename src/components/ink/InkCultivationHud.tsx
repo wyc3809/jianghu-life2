@@ -204,7 +204,7 @@ export function InkCultivationHud({ state, onAdvance, onBreakthrough, disabled, 
           isBreakthroughReady
             ? `修為已滿．突破（${tier.name}）`
             : blockedByExhaustion
-              ? '氣力不繼，歇息片刻先好翻頁'
+              ? '過勞未歇，調息片刻先好翻頁'
               : `翻過一頁．過一月（${tier.name}．${Math.floor(shownXp).toLocaleString('zh-Hant')}）`
         }
       >
