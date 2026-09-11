@@ -2194,17 +2194,15 @@ body::before {
   margin-top: 6px;
 }
 
-/* 選項稍後現：減少按鈕牆感 */
-.ink-choice-list--await {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(8px);
-}
-
+/* 選項入場：只做輕動畫，永遠保持可點（唔再用 opacity:0 閘互動） */
+.ink-choice-list--await,
 .ink-choice-list--reveal {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
+}
+
+.ink-choice-list--reveal {
   transition:
     opacity 0.24s ease-out,
     transform 0.24s ease-out;
@@ -3133,10 +3131,13 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
 
 .ink-ap-hint {
   margin: 8px 2px 0;
+  padding: 8px 10px;
   font-size: var(--fs-caption);
-  color: var(--ink-soft);
+  color: var(--cinnabar);
   letter-spacing: 0.08em;
   text-align: center;
+  border: 1px solid rgba(163, 58, 50, 0.28);
+  background: rgba(163, 58, 50, 0.08);
 }
 
 .ink-subhead {

@@ -63,7 +63,6 @@ export function InkEventPanel({
       </div>
       <div
         className={`ink-choice-list ink-choice-list--dock${choicesReady ? ' ink-choice-list--reveal' : ' ink-choice-list--await'}`}
-        aria-hidden={!choicesReady}
       >
         {eligibleChoices.map((ch, i) => (
           <button
@@ -71,9 +70,10 @@ export function InkEventPanel({
             type="button"
             className="ink-choice"
             style={{ ['--i' as string]: i }}
-            disabled={!choicesReady || lowActionPoints}
+            disabled={lowActionPoints}
             aria-disabled={lowActionPoints}
             onClick={() => {
+              if (lowActionPoints) return;
               onChoose(ch.id);
             }}
           >
@@ -82,15 +82,15 @@ export function InkEventPanel({
           </button>
         ))}
         {eligibleChoices.length === 0 && (
-          <button type="button" className="ink-choice" disabled={!choicesReady} onClick={() => onDismiss()}>
+          <button type="button" className="ink-choice" onClick={() => onDismiss()}>
             <span className="ink-choice-mark">避</span>
             暫避鋒芒（此刻無可行之選）
           </button>
         )}
       </div>
-      {choicesReady && lowActionPoints && (
+      {lowActionPoints && (
         <p className="ink-ap-hint" role="status">
-          氣力不繼，回氣中……
+          過勞未歇——疲勞回落後先可以再選（約數十秒）。
         </p>
       )}
     </section>
