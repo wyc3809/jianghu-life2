@@ -28,6 +28,104 @@ import {
 const DEG = Math.PI / 180;
 const INK = '22,19,15';
 const CINNABAR = '168,51,31';
+/** 純黑影風格：英雄青帶點綴（對照剪影動作遊戲嘅色帶） */
+const SASH_BLUE = '48,110,190';
+
+/**
+ * 將彩色貼圖轉成「純黑影 + 淡宣紙描邊」並快取。
+ * 透明區保留；實心區壓成近黑，外緣一圈淡白線——唔使重畫素材。
+ */
+const silhouetteCache = new WeakMap<CanvasImageSource, HTMLCanvasElement>();
+
+function toInkSilhouette(img: CanvasImageSource): HTMLCanvasElement {
+  const hit = silhouetteCache.get(img);
+  if (hit) return hit;
+
+  const iw =
+    img instanceof HTMLImageElement
+      ? img.naturalWidth || img.width
+      : img instanceof HTMLCanvasElement
+        ? img.width
+        : 1;
+  const ih =
+    img instanceof HTMLImageElement
+      ? img.naturalHeight || img.height
+      : img instanceof HTMLCanvasElement
+        ? img.height
+        : 1;
+  const c = document.createElement('canvas');
+  c.width = Math.max(1, iw);
+  c.height = Math.max(1, ih);
+  const x = c.getContext('2d', { willReadFrequently: true })!;
+  x.clearRect(0, 0, c.width, c.height);
+  x.drawImage(img as CanvasImageSource, 0, 0);
+  const data = x.getImageData(0, 0, c.width, c.height);
+  const d = data.data;
+  const w = c.width;
+  const h = c.height;
+  const src = new Uint8ClampedArray(d);
+
+  for (let i = 0; i < d.length; i += 4) {
+    const a = src[i + 3]!;
+    if (a < 10) {
+      d[i] = 0;
+      d[i + 1] = 0;
+      d[i + 2] = 0;
+      d[i + 3] = 0;
+      continue;
+    }
+    // 近純黑，略留一點層次（用原本亮度做極微灰階，保持剪影可讀）
+    const lum = (src[i]! * 0.3 + src[i + 1]! * 0.59 + src[i + 2]! * 0.11) / 255;
+    const v = Math.round(8 + lum * 18);
+    d[i] = v;
+    d[i + 1] = v;
+    d[i + 2] = v + 2;
+    d[i + 3] = a;
+  }
+
+  // 淡白描邊：透明像素若鄰近不透明，塗淡宣紙色
+  const opaque = (px: number, py: number) => {
+    if (px < 0 || py < 0 || px >= w || py >= h) return false;
+    return src[(py * w + px) * 4 + 3]! >= 48;
+  };
+  for (let y = 0; y < h; y++) {
+    for (let px = 0; px < w; px++) {
+      const i = (y * w + px) * 4;
+      if (src[i + 3]! >= 48) continue;
+      let border = false;
+      for (let dy = -1; dy <= 1 && !border; dy++) {
+        for (let dx = -1; dx <= 1; dx++) {
+          if (dx === 0 && dy === 0) continue;
+          if (opaque(px + dx, y + dy)) {
+            border = true;
+            break;
+          }
+        }
+      }
+      if (border) {
+        d[i] = 228;
+        d[i + 1] = 222;
+        d[i + 2] = 210;
+        d[i + 3] = 150;
+      }
+    }
+  }
+
+  x.putImageData(data, 0, 0);
+  silhouetteCache.set(img, c);
+  return c;
+}
+
+function drawSilhouette(
+  ctx: CanvasRenderingContext2D,
+  img: CanvasImageSource,
+  dx: number,
+  dy: number,
+  dw: number,
+  dh: number,
+) {
+  ctx.drawImage(toInkSilhouette(img), dx, dy, dw, dh);
+}
 
 type EaseFn = (p: number) => number;
 const EASE: Record<SparEasing, EaseFn> = {
@@ -496,16 +594,16 @@ export class SparStage {
     }
   }
 
-  /** 場景背景：cover 模式貼底對齊（遠山喺上、留白做地面），極慢横向漂移營造卷軸感；切換時淡入淡出 */
+  /** 場景背景：cover 貼底 + 冷霧罩層，襯托純黑影角色 */
   private drawBackground() {
     const { ctx } = this;
     const drawOne = (img: HTMLImageElement, alpha: number) => {
-      const scale = Math.max(this.cssW / img.width, this.cssH / img.height) * 1.08; // 8% overscan 俾漂移用
+      const scale = Math.max(this.cssW / img.width, this.cssH / img.height) * 1.08;
       const dw = img.width * scale;
       const dh = img.height * scale;
-      const drift = Math.sin(this.idleT * 0.18) * 5; // 極慢橫漂（±5px）
+      const drift = Math.sin(this.idleT * 0.18) * 5;
       const dx = (this.cssW - dw) / 2 + drift;
-      const dy = this.cssH - dh; // 貼底：圖下半留白就係戰鬥地面
+      const dy = this.cssH - dh;
       ctx.save();
       ctx.globalAlpha = alpha * this.bgOpacity;
       ctx.drawImage(img, dx, dy, dw, dh);
@@ -514,6 +612,18 @@ export class SparStage {
     if (this.bgPrev && this.bgFade < 1) drawOne(this.bgPrev, 1 - this.bgFade);
     if (this.bgImg) drawOne(this.bgImg, this.bgFade);
     if (this.bgFade >= 1) this.bgPrev = null;
+
+    // 冷青灰霧：把彩色山水壓成參考圖嗰種煙嵐剪影舞台
+    ctx.save();
+    ctx.globalAlpha = 0.55 * this.bgOpacity;
+    const mist = ctx.createLinearGradient(0, 0, 0, this.cssH);
+    mist.addColorStop(0, 'rgba(55, 72, 92, 0.55)');
+    mist.addColorStop(0.45, 'rgba(70, 88, 108, 0.28)');
+    mist.addColorStop(0.78, 'rgba(90, 100, 110, 0.12)');
+    mist.addColorStop(1, 'rgba(120, 118, 110, 0.05)');
+    ctx.fillStyle = mist;
+    ctx.fillRect(0, 0, this.cssW, this.cssH);
+    ctx.restore();
   }
 
   private enemyAlpha(e: EnemyInst): number {
@@ -523,7 +633,6 @@ export class SparStage {
   private enemyPose(e: EnemyInst): Pose {
     if (e.state === 'dead') return evalPose('enemy', this.idleT, SPAR_CLIPS['enemy-death'], e.t);
     if (e.state === 'spawn') return evalPose('enemy', this.idleT, SPAR_CLIPS['enemy-spawn'], e.t);
-    // 行緊／企定：浮沉 + 行路微震
     const bobY = Math.sin(e.bob * (e.state === 'walk' ? 8.5 : 2.4)) * (e.state === 'walk' ? 3.4 : 2.2);
     return { ...REST, y: bobY };
   }
@@ -531,9 +640,9 @@ export class SparStage {
   private shadow(x: number, y: number, rx: number) {
     const { ctx } = this;
     ctx.save();
-    ctx.fillStyle = `rgba(${INK},0.10)`;
+    ctx.fillStyle = `rgba(${INK},0.22)`;
     ctx.beginPath();
-    ctx.ellipse(x, y, rx, rx * 0.14, 0, 0, Math.PI * 2);
+    ctx.ellipse(x, y, rx, rx * 0.16, 0, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
   }
@@ -554,16 +663,16 @@ export class SparStage {
 
     let tip: { x: number; y: number } | null = null;
 
-    // 身先畫（v3：全身連頭帽一張過；舊版：袍幅遮住臂根，之後手臂壓返上嚟）
     const bodyPart = v3 ? rig.skin.full : rig.skin.body;
     ctx.save();
     ctx.translate(fx, fy);
     ctx.rotate(body.rot * DEG);
     ctx.scale(1, body.sy);
-    ctx.drawImage(this.images.body, bodyPart.dx * g.k, bodyPart.dy * g.k, bodyPart.w * g.k, bodyPart.h * g.k);
+    drawSilhouette(ctx, this.images.body, bodyPart.dx * g.k, bodyPart.dy * g.k, bodyPart.w * g.k, bodyPart.h * g.k);
+    // 青帶：腰間飄帶，跟身搖——純黑影唯一色點
+    this.drawHeroSash(g.k, arm.rot);
     ctx.restore();
 
-    // 劍臂 + 武器（畫喺身體前面：閒立時武器都睇到，唔會俾長袍食咗）
     const armPart = v3 ? rig.skin.arm : rig.skin.arm;
     ctx.save();
     ctx.translate(fx, fy);
@@ -571,29 +680,27 @@ export class SparStage {
     ctx.scale(1, body.sy);
     ctx.translate(rig.shoulderSocket.x * g.k, rig.shoulderSocket.y * g.k);
     ctx.rotate(arm.rot * DEG);
-    ctx.drawImage(this.images.arm, armPart.dx * g.k, armPart.dy * g.k, armPart.w * g.k, armPart.h * g.k);
-    // v3：肩位墨痕遮縫（唔跟臂轉，揮臂嗰陣遮住關節切口）
+    drawSilhouette(ctx, this.images.arm, armPart.dx * g.k, armPart.dy * g.k, armPart.w * g.k, armPart.h * g.k);
     if (v3 && this.images.patch) {
       ctx.save();
       ctx.rotate(-arm.rot * DEG);
       const pp = rig.skin.shoulderPatch;
-      ctx.drawImage(this.images.patch, pp.dx * g.k, pp.dy * g.k, pp.w * g.k, pp.h * g.k);
+      drawSilhouette(ctx, this.images.patch, pp.dx * g.k, pp.dy * g.k, pp.w * g.k, pp.h * g.k);
       ctx.restore();
     }
-    // 武器掛手掌
     ctx.translate(this.rig.gripSocket.x * g.k, this.rig.gripSocket.y * g.k);
     if (this.weaponDef && this.weaponImg) {
       const wd = this.weaponDef;
-      const kw = (this.rig.designHeight * wd.lengthRatio) / wd.h; // du → 武器貼圖 px 縮放
+      const kw = (this.rig.designHeight * wd.lengthRatio) / wd.h;
       ctx.rotate((wd.restRot + wep.rot) * DEG);
-      ctx.drawImage(
+      drawSilhouette(
+        ctx,
         this.weaponImg,
         -wd.grip.x * kw * g.k,
         -wd.grip.y * kw * g.k,
         wd.w * kw * g.k,
         wd.h * kw * g.k,
       );
-      // 鋒尖畫布座標（拖墨用）
       const m = ctx.getTransform();
       const tx = (wd.tip.x - wd.grip.x) * kw * g.k;
       const ty = (wd.tip.y - wd.grip.y) * kw * g.k;
@@ -604,7 +711,6 @@ export class SparStage {
     }
     ctx.restore();
 
-    // 頭（舊三件套先有：跟身郁，再加自己嘅微轉；畫最前，帽簷同頭髮會自然遮住臂根接縫）
     if (!v3 && head && this.images.head) {
       ctx.save();
       ctx.translate(fx, fy);
@@ -612,11 +718,56 @@ export class SparStage {
       ctx.scale(1, body.sy);
       ctx.translate(rig.neckSocket.x * g.k, rig.neckSocket.y * g.k);
       ctx.rotate(head.rot * DEG);
-      ctx.drawImage(this.images.head, rig.skin.head.dx * g.k, rig.skin.head.dy * g.k, rig.skin.head.w * g.k, rig.skin.head.h * g.k);
+      drawSilhouette(
+        ctx,
+        this.images.head,
+        rig.skin.head.dx * g.k,
+        rig.skin.head.dy * g.k,
+        rig.skin.head.w * g.k,
+        rig.skin.head.h * g.k,
+      );
       ctx.restore();
     }
 
     return tip;
+  }
+
+  /** 俠客腰間青帶（局部座標系：已喺身 transform 之內） */
+  private drawHeroSash(k: number, armRot: number) {
+    const { ctx } = this;
+    const sway = Math.sin(this.idleT * 2.4) * 6 + armRot * 0.08;
+    const baseX = 8 * k;
+    const baseY = -210 * k;
+    ctx.save();
+    ctx.globalAlpha = 0.92;
+    ctx.strokeStyle = `rgba(${SASH_BLUE},0.95)`;
+    ctx.lineWidth = Math.max(2.2, 3.2 * k);
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(baseX, baseY);
+    ctx.bezierCurveTo(
+      baseX + 18 * k + sway,
+      baseY + 22 * k,
+      baseX + 34 * k + sway * 1.4,
+      baseY + 48 * k,
+      baseX + 22 * k + sway * 0.6,
+      baseY + 78 * k,
+    );
+    ctx.stroke();
+    ctx.strokeStyle = `rgba(${SASH_BLUE},0.55)`;
+    ctx.lineWidth = Math.max(1.4, 2 * k);
+    ctx.beginPath();
+    ctx.moveTo(baseX - 4 * k, baseY + 4 * k);
+    ctx.bezierCurveTo(
+      baseX + 10 * k - sway * 0.5,
+      baseY + 28 * k,
+      baseX + 28 * k - sway,
+      baseY + 52 * k,
+      baseX + 14 * k - sway * 0.3,
+      baseY + 72 * k,
+    );
+    ctx.stroke();
+    ctx.restore();
   }
 
   private drawEnemy(g: ReturnType<SparStage['geom']>, e: EnemyInst) {
@@ -625,25 +776,42 @@ export class SparStage {
     const { ctx } = this;
     const { part } = e.def;
     const ke = this.enemyKe(e);
+    const footX = e.x;
+    const footY = g.groundY + pose.y * ke;
+
+    // 腳底殺氣紅光（Boss 感）
+    if (e.state !== 'dead') {
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, Math.min(1, pose.alpha)) * 0.85;
+      const pulse = 0.55 + 0.25 * Math.sin(e.bob * 2.6);
+      const rg = ctx.createRadialGradient(footX, footY, 2, footX, footY, 56 * ke);
+      rg.addColorStop(0, `rgba(${CINNABAR},${0.45 * pulse})`);
+      rg.addColorStop(0.45, `rgba(${CINNABAR},${0.14 * pulse})`);
+      rg.addColorStop(1, `rgba(${CINNABAR},0)`);
+      ctx.fillStyle = rg;
+      ctx.beginPath();
+      ctx.ellipse(footX, footY, 52 * ke, 14 * ke, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
     ctx.save();
     ctx.globalAlpha = Math.max(0, Math.min(1, pose.alpha));
-    ctx.translate(e.x, g.groundY + pose.y * ke);
-    // 潰散時向右（遠離俠客方向）倒
+    ctx.translate(footX, footY);
     ctx.rotate(pose.rot * DEG);
     ctx.scale(1, pose.sy);
-    ctx.drawImage(this.enemyImg(e), part.dx * ke, part.dy * ke, part.w * ke, part.h * ke);
-    // 紅瞳殺氣脈動（潰散時熄滅）
+    drawSilhouette(ctx, this.enemyImg(e), part.dx * ke, part.dy * ke, part.w * ke, part.h * ke);
     if (e.state !== 'dead') {
-      const glow = 0.45 + 0.35 * Math.sin(e.bob * 3.1);
+      const glow = 0.5 + 0.35 * Math.sin(e.bob * 3.1);
       for (const eye of e.def.eyes) {
         const ex = eye.x * ke;
         const ey = eye.y * ke;
-        const grad = ctx.createRadialGradient(ex, ey, 0, ex, ey, 9 * ke);
+        const grad = ctx.createRadialGradient(ex, ey, 0, ex, ey, 10 * ke);
         grad.addColorStop(0, `rgba(${CINNABAR},${glow})`);
         grad.addColorStop(1, `rgba(${CINNABAR},0)`);
         ctx.fillStyle = grad;
         ctx.beginPath();
-        ctx.arc(ex, ey, 9 * ke, 0, Math.PI * 2);
+        ctx.arc(ex, ey, 10 * ke, 0, Math.PI * 2);
         ctx.fill();
       }
     }
@@ -707,7 +875,7 @@ export class SparStage {
       ctx.globalAlpha = Math.pow(1 - p, 1.4) * 0.9;
       ctx.translate(s.x, s.y);
       ctx.rotate(s.rot);
-      ctx.drawImage(this.images.splash, -size / 2, -size / 2, size, size * (this.images.splash.height / this.images.splash.width));
+      ctx.drawImage(toInkSilhouette(this.images.splash), -size / 2, -size / 2, size, size * (this.images.splash.height / this.images.splash.width));
       ctx.restore();
     }
   }
