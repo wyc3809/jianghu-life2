@@ -1,6 +1,8 @@
 /**
  * 純黑影人偶：唔靠彩色立繪濾鏡，直接用路徑砌出剪影。
  * 座標系：腳底為原點，y 向下為正；單位＝css px（呼叫端已乘好 k）。
+ *
+ * 設計高度約 400du（斗笠頂 → 腳底），袍身要夠闊先有水墨剪影可讀性。
  */
 
 export type SilhouetteWeapon =
@@ -27,10 +29,13 @@ export type SilhouetteEnemyArchetype =
   | 'chifa'
   | 'boss';
 
+/** 剪影人偶設計高度（du）——引擎用嚟計 k，令角色佔舞台約七八成高 */
+export const SILHOUETTE_DESIGN_H = 400;
+
 const FILL = '#0b0b0d';
-const STROKE = 'rgba(236, 230, 218, 0.72)';
+const STROKE = 'rgba(236, 230, 218, 0.78)';
 const SASH = 'rgba(48, 110, 190, 0.95)';
-const SASH_SOFT = 'rgba(48, 110, 190, 0.5)';
+const SASH_SOFT = 'rgba(48, 110, 190, 0.55)';
 
 function strokeFill(ctx: CanvasRenderingContext2D, line = 1.35) {
   ctx.fillStyle = FILL;
@@ -81,8 +86,8 @@ export function weaponFromKind(kind: string | null | undefined): SilhouetteWeapo
 }
 
 /**
- * 俠客剪影：斗笠＋長袍＋持械臂。呼叫時 ctx 應已平移到腳底、套上 body 旋轉／縮放。
- * armRot／weaponRot 係度數（同骨骼一致）。
+ * 俠客剪影：闊斗笠＋豐滿長袍＋青帶＋持械臂。
+ * 比例刻意加闊，避免線條人偶「睇唔見」。
  */
 export function drawHeroSilhouette(
   ctx: CanvasRenderingContext2D,
@@ -96,84 +101,96 @@ export function drawHeroSilhouette(
   },
 ) {
   const { k, armRot, weaponRot, headRot, idleT, weapon } = opts;
-  const hem = Math.sin(idleT * 2.1) * 3 * k;
+  const hem = Math.sin(idleT * 2.1) * 5 * k;
+  const breath = Math.sin(idleT * 2.1) * 2 * k;
 
-  // —— 袍身 ——
+  // —— 袍身（闊擺）：約 140du 底寬，先有剪影量感 ——
   ctx.beginPath();
-  ctx.moveTo(-18 * k, -8 * k);
-  ctx.quadraticCurveTo(-42 * k - hem, -90 * k, -36 * k, -210 * k);
-  ctx.quadraticCurveTo(-28 * k, -300 * k, -10 * k, -360 * k);
-  ctx.lineTo(8 * k, -368 * k);
-  ctx.quadraticCurveTo(34 * k, -300 * k, 30 * k, -210 * k);
-  ctx.quadraticCurveTo(48 * k + hem, -100 * k, 22 * k, -6 * k);
-  ctx.quadraticCurveTo(4 * k, 4 * k, -18 * k, -8 * k);
+  ctx.moveTo(-48 * k, -6 * k);
+  ctx.quadraticCurveTo(-78 * k - hem, -70 * k, -72 * k, -160 * k);
+  ctx.quadraticCurveTo(-68 * k, -250 * k, -42 * k, -310 * k);
+  ctx.quadraticCurveTo(-28 * k, -345 * k, -16 * k, -355 * k);
+  ctx.lineTo(18 * k, -358 * k);
+  ctx.quadraticCurveTo(36 * k, -345 * k, 48 * k, -310 * k);
+  ctx.quadraticCurveTo(74 * k, -250 * k, 78 * k, -160 * k);
+  ctx.quadraticCurveTo(84 * k + hem, -70 * k, 52 * k, -4 * k);
+  ctx.quadraticCurveTo(8 * k, 6 * k, -48 * k, -6 * k);
   ctx.closePath();
-  strokeFill(ctx, Math.max(1.1, 1.4 * k));
+  strokeFill(ctx, Math.max(1.2, 1.55 * k));
 
-  // 內層衣紋（白線）
+  // 內層衣紋
   ctx.beginPath();
-  ctx.moveTo(-2 * k, -40 * k);
-  ctx.quadraticCurveTo(6 * k, -160 * k, 0 * k, -300 * k);
-  ctx.strokeStyle = 'rgba(236,230,218,0.35)';
-  ctx.lineWidth = Math.max(0.8, 1.05 * k);
+  ctx.moveTo(-4 * k, -30 * k);
+  ctx.quadraticCurveTo(10 * k, -150 * k, 2 * k, -300 * k);
+  ctx.strokeStyle = 'rgba(236,230,218,0.4)';
+  ctx.lineWidth = Math.max(1.0, 1.25 * k);
   ctx.stroke();
+
+  // 左袖（靜態量感）
+  ctx.beginPath();
+  ctx.moveTo(-40 * k, -280 * k);
+  ctx.quadraticCurveTo(-95 * k, -240 * k, -88 * k, -170 * k);
+  ctx.quadraticCurveTo(-82 * k, -150 * k, -55 * k, -175 * k);
+  ctx.quadraticCurveTo(-48 * k, -230 * k, -40 * k, -280 * k);
+  ctx.closePath();
+  strokeFill(ctx, Math.max(1.0, 1.3 * k));
 
   // —— 頭／斗笠 ——
   ctx.save();
-  ctx.translate(2 * k, -372 * k);
+  ctx.translate(2 * k, -358 * k + breath);
   ctx.rotate((headRot * Math.PI) / 180);
-  // 笠
+  // 闊斗笠
   ctx.beginPath();
-  ctx.ellipse(4 * k, -18 * k, 54 * k, 16 * k, 0, 0, Math.PI * 2);
-  strokeFill(ctx, Math.max(1.1, 1.35 * k));
+  ctx.ellipse(4 * k, -14 * k, 72 * k, 18 * k, 0, 0, Math.PI * 2);
+  strokeFill(ctx, Math.max(1.2, 1.45 * k));
   // 笠頂
   ctx.beginPath();
-  ctx.moveTo(-10 * k, -18 * k);
-  ctx.quadraticCurveTo(4 * k, -48 * k, 22 * k, -18 * k);
+  ctx.moveTo(-16 * k, -14 * k);
+  ctx.quadraticCurveTo(4 * k, -52 * k, 28 * k, -14 * k);
   ctx.closePath();
-  strokeFill(ctx, Math.max(1.0, 1.2 * k));
-  // 下顎剪影
+  strokeFill(ctx, Math.max(1.0, 1.25 * k));
+  // 臉／下顎
   ctx.beginPath();
-  ctx.ellipse(6 * k, 6 * k, 14 * k, 16 * k, 0.1, 0, Math.PI * 2);
-  strokeFill(ctx, Math.max(1.0, 1.15 * k));
+  ctx.ellipse(6 * k, 10 * k, 18 * k, 20 * k, 0.08, 0, Math.PI * 2);
+  strokeFill(ctx, Math.max(1.0, 1.2 * k));
   ctx.restore();
 
-  // —— 青帶 ——
-  const sway = Math.sin(idleT * 2.5) * 7 * k + armRot * 0.05 * k;
+  // —— 青帶（腰間垂落，剪影主色點） ——
+  const sway = Math.sin(idleT * 2.5) * 10 * k + armRot * 0.06 * k;
   ctx.save();
   ctx.strokeStyle = SASH;
-  ctx.lineWidth = Math.max(2.2, 3.1 * k);
+  ctx.lineWidth = Math.max(3.2, 4.2 * k);
   ctx.lineCap = 'round';
   ctx.beginPath();
-  ctx.moveTo(6 * k, -205 * k);
-  ctx.bezierCurveTo(22 * k + sway, -175 * k, 40 * k + sway * 1.3, -145 * k, 26 * k + sway * 0.5, -105 * k);
+  ctx.moveTo(8 * k, -210 * k);
+  ctx.bezierCurveTo(28 * k + sway, -175 * k, 48 * k + sway * 1.2, -130 * k, 32 * k + sway * 0.4, -70 * k);
   ctx.stroke();
   ctx.strokeStyle = SASH_SOFT;
-  ctx.lineWidth = Math.max(1.4, 2 * k);
+  ctx.lineWidth = Math.max(2.0, 2.6 * k);
   ctx.beginPath();
-  ctx.moveTo(2 * k, -200 * k);
-  ctx.bezierCurveTo(14 * k - sway * 0.4, -168 * k, 30 * k - sway, -130 * k, 16 * k - sway * 0.2, -98 * k);
+  ctx.moveTo(2 * k, -205 * k);
+  ctx.bezierCurveTo(18 * k - sway * 0.3, -165 * k, 36 * k - sway, -115 * k, 20 * k - sway * 0.2, -65 * k);
   ctx.stroke();
   ctx.restore();
 
   // —— 劍臂＋兵器 ——
   ctx.save();
-  ctx.translate(18 * k, -330 * k); // 肩
+  ctx.translate(28 * k, -300 * k); // 肩
   ctx.rotate((armRot * Math.PI) / 180);
-  // 上臂
+  // 上臂（加粗）
   ctx.beginPath();
-  ctx.moveTo(-6 * k, -4 * k);
-  ctx.quadraticCurveTo(40 * k, 10 * k, 88 * k, 28 * k);
-  ctx.quadraticCurveTo(96 * k, 40 * k, 84 * k, 46 * k);
-  ctx.quadraticCurveTo(36 * k, 28 * k, -4 * k, 12 * k);
+  ctx.moveTo(-10 * k, -6 * k);
+  ctx.quadraticCurveTo(48 * k, 8 * k, 96 * k, 22 * k);
+  ctx.quadraticCurveTo(108 * k, 36 * k, 94 * k, 48 * k);
+  ctx.quadraticCurveTo(42 * k, 32 * k, -8 * k, 14 * k);
   ctx.closePath();
-  strokeFill(ctx, Math.max(1.0, 1.25 * k));
-  // 前臂／掌
+  strokeFill(ctx, Math.max(1.1, 1.35 * k));
+  // 掌
   ctx.beginPath();
-  ctx.ellipse(100 * k, 38 * k, 16 * k, 11 * k, 0.3, 0, Math.PI * 2);
-  strokeFill(ctx, Math.max(1.0, 1.2 * k));
+  ctx.ellipse(108 * k, 36 * k, 18 * k, 13 * k, 0.25, 0, Math.PI * 2);
+  strokeFill(ctx, Math.max(1.0, 1.25 * k));
 
-  ctx.translate(104 * k, 40 * k); // 握點
+  ctx.translate(112 * k, 38 * k); // 握點
   ctx.rotate((weaponRot * Math.PI) / 180);
   drawWeaponSilhouette(ctx, weapon, k);
   ctx.restore();
@@ -183,85 +200,85 @@ function drawWeaponSilhouette(ctx: CanvasRenderingContext2D, weapon: SilhouetteW
   ctx.beginPath();
   switch (weapon) {
     case 'blade':
-      ctx.moveTo(0, 8 * k);
-      ctx.lineTo(8 * k, 4 * k);
-      ctx.lineTo(12 * k, -110 * k);
-      ctx.lineTo(0, -118 * k);
-      ctx.lineTo(-6 * k, -108 * k);
-      ctx.lineTo(-2 * k, 6 * k);
+      ctx.moveTo(0, 10 * k);
+      ctx.lineTo(10 * k, 6 * k);
+      ctx.lineTo(14 * k, -130 * k);
+      ctx.lineTo(0, -142 * k);
+      ctx.lineTo(-8 * k, -128 * k);
+      ctx.lineTo(-2 * k, 8 * k);
       break;
     case 'spear':
-      ctx.moveTo(-3 * k, 18 * k);
-      ctx.lineTo(3 * k, 18 * k);
-      ctx.lineTo(2 * k, -130 * k);
-      ctx.lineTo(0, -148 * k);
-      ctx.lineTo(-2 * k, -130 * k);
-      break;
-    case 'staff':
       ctx.moveTo(-4 * k, 22 * k);
       ctx.lineTo(4 * k, 22 * k);
-      ctx.lineTo(3 * k, -125 * k);
-      ctx.lineTo(-3 * k, -125 * k);
+      ctx.lineTo(3 * k, -150 * k);
+      ctx.lineTo(0, -172 * k);
+      ctx.lineTo(-3 * k, -150 * k);
+      break;
+    case 'staff':
+      ctx.moveTo(-5 * k, 26 * k);
+      ctx.lineTo(5 * k, 26 * k);
+      ctx.lineTo(4 * k, -145 * k);
+      ctx.lineTo(-4 * k, -145 * k);
       break;
     case 'bow':
-      ctx.moveTo(0, 20 * k);
-      ctx.quadraticCurveTo(36 * k, -40 * k, 0, -110 * k);
-      ctx.quadraticCurveTo(18 * k, -40 * k, 0, 20 * k);
+      ctx.moveTo(0, 24 * k);
+      ctx.quadraticCurveTo(42 * k, -45 * k, 0, -125 * k);
+      ctx.quadraticCurveTo(22 * k, -45 * k, 0, 24 * k);
       break;
     case 'whip':
-      ctx.moveTo(0, 6 * k);
-      ctx.quadraticCurveTo(28 * k, -20 * k, 18 * k, -70 * k);
-      ctx.quadraticCurveTo(40 * k, -100 * k, 8 * k, -130 * k);
-      ctx.quadraticCurveTo(22 * k, -90 * k, 6 * k, -50 * k);
-      ctx.quadraticCurveTo(16 * k, -10 * k, 0, 6 * k);
+      ctx.moveTo(0, 8 * k);
+      ctx.quadraticCurveTo(32 * k, -25 * k, 22 * k, -80 * k);
+      ctx.quadraticCurveTo(48 * k, -115 * k, 10 * k, -150 * k);
+      ctx.quadraticCurveTo(28 * k, -100 * k, 8 * k, -55 * k);
+      ctx.quadraticCurveTo(20 * k, -12 * k, 0, 8 * k);
       break;
     case 'hidden':
-      ctx.moveTo(-2 * k, 4 * k);
-      ctx.lineTo(4 * k, 0);
-      ctx.lineTo(2 * k, -36 * k);
-      ctx.lineTo(-4 * k, -32 * k);
+      ctx.moveTo(-3 * k, 6 * k);
+      ctx.lineTo(5 * k, 2 * k);
+      ctx.lineTo(3 * k, -42 * k);
+      ctx.lineTo(-5 * k, -38 * k);
       break;
     case 'fist':
-      ctx.ellipse(6 * k, 2 * k, 12 * k, 10 * k, 0.2, 0, Math.PI * 2);
+      ctx.ellipse(8 * k, 2 * k, 14 * k, 12 * k, 0.2, 0, Math.PI * 2);
       break;
     case 'sword':
     default:
-      ctx.moveTo(-2 * k, 10 * k);
-      ctx.lineTo(6 * k, 8 * k);
-      ctx.lineTo(5 * k, -4 * k);
-      ctx.lineTo(9 * k, -8 * k);
-      ctx.lineTo(4 * k, -12 * k);
-      ctx.lineTo(3 * k, -120 * k);
-      ctx.lineTo(-1 * k, -128 * k);
-      ctx.lineTo(-3 * k, -118 * k);
-      ctx.lineTo(-2 * k, -12 * k);
-      ctx.lineTo(-8 * k, -8 * k);
-      ctx.lineTo(-3 * k, -4 * k);
+      ctx.moveTo(-3 * k, 12 * k);
+      ctx.lineTo(7 * k, 10 * k);
+      ctx.lineTo(6 * k, -4 * k);
+      ctx.lineTo(11 * k, -10 * k);
+      ctx.lineTo(5 * k, -14 * k);
+      ctx.lineTo(4 * k, -138 * k);
+      ctx.lineTo(-1 * k, -148 * k);
+      ctx.lineTo(-4 * k, -136 * k);
+      ctx.lineTo(-3 * k, -14 * k);
+      ctx.lineTo(-10 * k, -10 * k);
+      ctx.lineTo(-4 * k, -4 * k);
       break;
   }
   ctx.closePath();
-  strokeFill(ctx, Math.max(1.0, 1.2 * k));
+  strokeFill(ctx, Math.max(1.1, 1.3 * k));
 }
 
 /** 回傳鋒尖相對握點（未旋轉前），畀拖墨軌用 */
 export function weaponTipLocal(weapon: SilhouetteWeapon, k: number): { x: number; y: number } {
   switch (weapon) {
     case 'spear':
-      return { x: 0, y: -148 * k };
+      return { x: 0, y: -172 * k };
     case 'staff':
-      return { x: 0, y: -125 * k };
+      return { x: 0, y: -145 * k };
     case 'bow':
-      return { x: 18 * k, y: -70 * k };
+      return { x: 20 * k, y: -80 * k };
     case 'whip':
-      return { x: 8 * k, y: -130 * k };
+      return { x: 10 * k, y: -150 * k };
     case 'hidden':
-      return { x: 0, y: -36 * k };
+      return { x: 0, y: -42 * k };
     case 'fist':
-      return { x: 14 * k, y: 0 };
+      return { x: 16 * k, y: 0 };
     case 'blade':
-      return { x: 4 * k, y: -118 * k };
+      return { x: 4 * k, y: -142 * k };
     default:
-      return { x: 0, y: -128 * k };
+      return { x: 0, y: -148 * k };
   }
 }
 
@@ -283,93 +300,100 @@ export function drawEnemySilhouette(
   if (facingLeft) ctx.scale(-1, 1);
 
   const bulk =
-    archetype === 'boss' || archetype === 'toutuo' || archetype === 'tiemian'
-      ? 1.18
+    archetype === 'boss' || archetype === 'toutuo' || archetype === 'tiemian' || archetype === 'chifa'
+      ? 1.22
       : archetype === 'laoweng' || archetype === 'qigai'
-        ? 0.9
+        ? 0.92
         : archetype === 'nvcike'
-          ? 0.92
-          : 1;
+          ? 0.94
+          : 1.05;
   const bk = k * bulk;
-  const sway = Math.sin(idleT * 2.2) * 2.5 * bk;
+  const sway = Math.sin(idleT * 2.2) * 4 * bk;
+  const breath = Math.sin(idleT * 2.0) * 1.5 * bk;
 
-  // 身
+  // 闊袍身
   ctx.beginPath();
-  ctx.moveTo(-22 * bk, -6 * bk);
-  ctx.quadraticCurveTo(-48 * bk - sway, -100 * bk, -40 * bk, -220 * bk);
-  ctx.quadraticCurveTo(-30 * bk, -320 * bk, -8 * bk, -380 * bk);
-  ctx.lineTo(14 * bk, -385 * bk);
-  ctx.quadraticCurveTo(42 * bk, -310 * bk, 38 * bk, -210 * bk);
-  ctx.quadraticCurveTo(55 * bk + sway, -110 * bk, 26 * bk, -4 * bk);
-  ctx.quadraticCurveTo(2 * bk, 6 * bk, -22 * bk, -6 * bk);
+  ctx.moveTo(-55 * bk, -5 * bk);
+  ctx.quadraticCurveTo(-88 * bk - sway, -80 * bk, -80 * bk, -175 * bk);
+  ctx.quadraticCurveTo(-74 * bk, -270 * bk, -40 * bk, -330 * bk);
+  ctx.quadraticCurveTo(-22 * bk, -360 * bk, -10 * bk, -368 * bk);
+  ctx.lineTo(22 * bk, -370 * bk);
+  ctx.quadraticCurveTo(40 * bk, -358 * bk, 52 * bk, -328 * bk);
+  ctx.quadraticCurveTo(84 * bk, -265 * bk, 88 * bk, -170 * bk);
+  ctx.quadraticCurveTo(94 * bk + sway, -80 * bk, 58 * bk, -4 * bk);
+  ctx.quadraticCurveTo(4 * bk, 7 * bk, -55 * bk, -5 * bk);
   ctx.closePath();
-  strokeFill(ctx, Math.max(1.1, 1.35 * bk));
+  strokeFill(ctx, Math.max(1.2, 1.5 * bk));
 
   // 頭
   ctx.beginPath();
   if (archetype === 'toutuo') {
-    ctx.ellipse(4 * bk, -410 * bk, 28 * bk, 30 * bk, 0, 0, Math.PI * 2);
+    ctx.ellipse(6 * bk, -390 * bk + breath, 34 * bk, 36 * bk, 0, 0, Math.PI * 2);
   } else if (archetype === 'laoweng') {
-    ctx.ellipse(2 * bk, -400 * bk, 22 * bk, 24 * bk, 0, 0, Math.PI * 2);
+    ctx.ellipse(4 * bk, -380 * bk + breath, 26 * bk, 28 * bk, 0, 0, Math.PI * 2);
   } else {
-    ctx.ellipse(6 * bk, -405 * bk, 24 * bk, 26 * bk, 0.05, 0, Math.PI * 2);
+    ctx.ellipse(8 * bk, -385 * bk + breath, 28 * bk, 30 * bk, 0.05, 0, Math.PI * 2);
   }
-  strokeFill(ctx, Math.max(1.0, 1.2 * bk));
+  strokeFill(ctx, Math.max(1.0, 1.25 * bk));
 
   // 斗笠／盔
   if (archetype !== 'toutuo' && archetype !== 'qigai') {
     ctx.beginPath();
-    ctx.ellipse(6 * bk, -422 * bk, 46 * bk, 14 * bk, 0, 0, Math.PI * 2);
-    strokeFill(ctx, Math.max(1.0, 1.25 * bk));
+    ctx.ellipse(8 * bk, -402 * bk + breath, 62 * bk, 16 * bk, 0, 0, Math.PI * 2);
+    strokeFill(ctx, Math.max(1.1, 1.35 * bk));
+    ctx.beginPath();
+    ctx.moveTo(-10 * bk, -402 * bk + breath);
+    ctx.quadraticCurveTo(8 * bk, -438 * bk + breath, 30 * bk, -402 * bk + breath);
+    ctx.closePath();
+    strokeFill(ctx, Math.max(1.0, 1.2 * bk));
   }
 
-  // 兵器剪影（肩扛／手持）
+  // 兵器
   ctx.save();
-  ctx.translate(28 * bk, -300 * bk);
-  ctx.rotate(-0.55);
+  ctx.translate(36 * bk, -275 * bk);
+  ctx.rotate(-0.5);
   ctx.beginPath();
   if (archetype === 'qiangke' || archetype === 'boss') {
-    ctx.moveTo(-4 * bk, 20 * bk);
-    ctx.lineTo(4 * bk, 20 * bk);
-    ctx.lineTo(3 * bk, -140 * bk);
-    ctx.lineTo(0, -160 * bk);
-    ctx.lineTo(-3 * bk, -140 * bk);
+    ctx.moveTo(-5 * bk, 24 * bk);
+    ctx.lineTo(5 * bk, 24 * bk);
+    ctx.lineTo(4 * bk, -155 * bk);
+    ctx.lineTo(0, -178 * bk);
+    ctx.lineTo(-4 * bk, -155 * bk);
   } else if (archetype === 'gouke' || archetype === 'chifa') {
-    ctx.moveTo(0, 10 * bk);
-    ctx.quadraticCurveTo(40 * bk, -40 * bk, 10 * bk, -120 * bk);
-    ctx.quadraticCurveTo(30 * bk, -40 * bk, 0, 10 * bk);
+    ctx.moveTo(0, 12 * bk);
+    ctx.quadraticCurveTo(48 * bk, -45 * bk, 14 * bk, -135 * bk);
+    ctx.quadraticCurveTo(36 * bk, -45 * bk, 0, 12 * bk);
   } else {
-    ctx.moveTo(-3 * bk, 12 * bk);
-    ctx.lineTo(8 * bk, 8 * bk);
-    ctx.lineTo(6 * bk, -100 * bk);
-    ctx.lineTo(0, -112 * bk);
-    ctx.lineTo(-4 * bk, -98 * bk);
+    ctx.moveTo(-4 * bk, 14 * bk);
+    ctx.lineTo(10 * bk, 10 * bk);
+    ctx.lineTo(8 * bk, -120 * bk);
+    ctx.lineTo(0, -135 * bk);
+    ctx.lineTo(-6 * bk, -118 * bk);
   }
   ctx.closePath();
-  strokeFill(ctx, Math.max(1.0, 1.2 * bk));
-  // 狼牙棒刺（boss）
+  strokeFill(ctx, Math.max(1.1, 1.3 * bk));
   if (archetype === 'boss' || archetype === 'tiemian') {
     for (const [sx, sy] of [
-      [10, -40],
-      [14, -70],
-      [8, -95],
+      [12, -45],
+      [16, -78],
+      [10, -108],
     ] as const) {
       ctx.beginPath();
       ctx.moveTo(sx * bk, sy * bk);
-      ctx.lineTo((sx + 14) * bk, (sy - 6) * bk);
-      ctx.lineTo(sx * bk, (sy + 8) * bk);
+      ctx.lineTo((sx + 16) * bk, (sy - 7) * bk);
+      ctx.lineTo(sx * bk, (sy + 10) * bk);
       ctx.closePath();
       strokeFill(ctx, 1);
     }
   }
   ctx.restore();
 
-  // 內輪廓線
+  // 內輪廓
   ctx.beginPath();
-  ctx.moveTo(-4 * bk, -40 * bk);
-  ctx.quadraticCurveTo(8 * bk, -180 * bk, 2 * bk, -320 * bk);
-  ctx.strokeStyle = 'rgba(236,230,218,0.32)';
-  ctx.lineWidth = Math.max(0.8, 1.05 * bk);
+  ctx.moveTo(-6 * bk, -35 * bk);
+  ctx.quadraticCurveTo(12 * bk, -175 * bk, 4 * bk, -310 * bk);
+  ctx.strokeStyle = 'rgba(236,230,218,0.36)';
+  ctx.lineWidth = Math.max(0.9, 1.15 * bk);
   ctx.stroke();
 
   ctx.restore();

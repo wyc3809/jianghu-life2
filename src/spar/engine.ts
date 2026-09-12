@@ -25,6 +25,7 @@ import {
   type WeaponSpriteDef,
 } from './rig';
 import {
+  SILHOUETTE_DESIGN_H,
   drawEnemySilhouette,
   drawHeroSilhouette,
   enemyArchetypeFromSrc,
@@ -368,7 +369,7 @@ export class SparStage {
         const scaleMul = 0.94 + Math.random() * 0.12;
         // 停步梯級：前中後三段錯開；同場上敵人嘅停步位至少隔開 52px，唔會疊埋一舊
         let stopJitter = 0.9 + (this.enemies.length * 0.5) % 1.5 + Math.random() * 0.12;
-        const candPos = () => stop * stopJitter + def.part.w * (g.k * (this.rig.designHeight / def.part.h) * 1.05 * (def.scale ?? 1) * scaleMul) * 0.22;
+        const candPos = () => stop * stopJitter + 90 * g.k * 1.06 * (def.scale ?? 1) * scaleMul * 0.45;
         for (const other of this.enemies) {
           if (other.state === 'dead') continue;
           const otherPos = stop * other.stopJitter + this.enemyFront(other);
@@ -515,23 +516,24 @@ export class SparStage {
   /** 舞台幾何：全部 px（CSS 像素）。俠客企台左，右邊留位俾敵影大軍壓境 */
   private geom() {
     const h = this.cssH;
-    const k = (h * 0.62) / this.rig.designHeight;
+    // 剪影人偶用獨立設計高度，佔舞台約 82%，唔再跟舊立繪 531du（否則人偶瘦到睇唔見）
+    const k = (h * 0.82) / SILHOUETTE_DESIGN_H;
     return {
       k,
-      groundY: h * 0.9,
-      heroX: this.cssW * 0.32,
+      groundY: h * 0.92,
+      heroX: this.cssW * 0.28,
     };
   }
 
-  /** 某隻敵嘅貼圖縮放（敵影略高大；每款有身高倍率，每隻再有微調） */
+  /** 敵影縮放：剪影模式唔跟舊貼圖高度（否則高圖敵人會縮成火柴） */
   private enemyKe(e: EnemyInst) {
     const g = this.geom();
-    return g.k * (this.rig.designHeight / e.def.part.h) * 1.05 * (e.def.scale ?? 1) * e.scaleMul;
+    return g.k * 1.06 * (e.def.scale ?? 1) * e.scaleMul;
   }
 
-  /** 敵人貼圖左緣伸出錨點幾遠（css px）——寬身敵人（長槍／雙鉤）停步要預鬆啲，否則身軀壓埋俠客 */
+  /** 敵人前緣伸出（css px）——剪影袍身約 90du 半寬 */
   private enemyFront(e: EnemyInst) {
-    return e.def.part.w * this.enemyKe(e) * 0.22;
+    return 90 * this.enemyKe(e) * 0.45;
   }
 
   render() {
@@ -674,11 +676,11 @@ export class SparStage {
       weapon: weaponKind,
     });
 
-    // 鋒尖世界座標（拖墨）
+    // 鋒尖世界座標（拖墨）——同 silhouetteDraw 肩／握點對齊
     ctx.save();
-    ctx.translate(18 * g.k, -330 * g.k);
+    ctx.translate(28 * g.k, -300 * g.k);
     ctx.rotate(arm.rot * DEG);
-    ctx.translate(104 * g.k, 40 * g.k);
+    ctx.translate(112 * g.k, 38 * g.k);
     ctx.rotate(wep.rot * DEG);
     const local = weaponTipLocal(weaponKind, g.k);
     const m = ctx.getTransform();
@@ -730,8 +732,8 @@ export class SparStage {
     if (e.state !== 'dead') {
       const glow = 0.55 + 0.35 * Math.sin(e.bob * 3.1);
       for (const eye of [
-        { x: 10 * ke, y: -410 * ke },
-        { x: -8 * ke, y: -410 * ke },
+        { x: 12 * ke, y: -392 * ke },
+        { x: -10 * ke, y: -392 * ke },
       ]) {
         const grad = ctx.createRadialGradient(eye.x, eye.y, 0, eye.x, eye.y, 11 * ke);
         grad.addColorStop(0, `rgba(${CINNABAR},${glow})`);
@@ -874,13 +876,27 @@ export class SparStage {
   }
 }
 
-/** 載入俠客＋敵人池＋特效素材；武器貼圖用 loadSparImage 另外載（可以換） */
+/** 載入俠客＋敵人池＋特效素材；剪影模式角色貼圖可失敗（用佔位），淨係 splash 必要 */
 export function loadSparImages(
   rig: AnyWarriorRig = WARRIOR,
   enemies: EnemyDef[] = [ENEMY_SHADOW],
   splashSrc?: string,
 ): Promise<SparStageImages> {
-  const load = (src: string) =>
+  const loadOptional = (src: string) =>
+    new Promise<HTMLImageElement>((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = () => {
+        const blank = document.createElement('canvas');
+        blank.width = 1;
+        blank.height = 1;
+        const placeholder = new Image();
+        placeholder.src = blank.toDataURL();
+        placeholder.onload = () => resolve(placeholder);
+      };
+      img.src = src;
+    });
+  const loadRequired = (src: string) =>
     new Promise<HTMLImageElement>((resolve, reject) => {
       const img = new Image();
       img.onload = () => resolve(img);
@@ -890,9 +906,9 @@ export function loadSparImages(
   const v3 = isV3Rig(rig);
   const skinSrcs = v3 ? [rig.skin.full.src, rig.skin.arm.src, rig.skin.shoulderPatch.src] : [rig.skin.body.src, rig.skin.head.src, rig.skin.arm.src];
   return Promise.all([
-    ...skinSrcs.map(load),
-    ...enemies.map((d) => load(d.part.src)),
-    load(splashSrc ?? `${import.meta.env.BASE_URL || '/'}ink/spar/fx-splash.webp`),
+    ...skinSrcs.map(loadOptional),
+    ...enemies.map((d) => loadOptional(d.part.src)),
+    loadRequired(splashSrc ?? `${import.meta.env.BASE_URL || '/'}ink/spar/fx-splash.webp`),
   ]).then((loaded) => {
     const rest = loaded.slice(skinSrcs.length);
     const enemyImgs = rest.slice(0, enemies.length);
