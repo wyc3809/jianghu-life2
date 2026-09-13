@@ -301,28 +301,28 @@ export class SparStage {
   /** 靜態模式：右邊擺兩個企定嘅敵人，唔行唔郁 */
   settleIntro() {
     if (this.cssW === 0) return;
-    this.heroX = this.cssW * 0.18;
+    this.heroX = this.cssW * 0.12;
     this.laneResetting = false;
     const pick = (i: number) => this.enemyPool[i % this.enemyPool.length]!;
-    // 敵人企喺右邊固定畫面位置，望左唔郁
+    // 敵人企喺右緣固定畫面位置，望左唔郁（俾俠客有空間行過去）
     this.enemies = [
-      { x: this.cssW * 0.62, state: 'hold', t: 9, bob: 1.7, stopJitter: 1, def: pick(1), speedMul: 1, scaleMul: 1 },
-      { x: this.cssW * 0.82, state: 'hold', t: 9, bob: 3.9, stopJitter: 1.55, def: pick(4), speedMul: 1, scaleMul: 1 },
+      { x: this.cssW * 0.72, state: 'hold', t: 9, bob: 1.7, stopJitter: 1, def: pick(1), speedMul: 1, scaleMul: 1 },
+      { x: this.cssW * 0.88, state: 'hold', t: 9, bob: 3.9, stopJitter: 1.55, def: pick(4), speedMul: 1, scaleMul: 1 },
     ];
   }
 
   /** 清場後／行盡右緣：俠客返左，右邊再企兩個望左敵人 */
   private resetLane() {
-    this.heroX = this.cssW * 0.18;
+    this.heroX = this.cssW * 0.12;
     this.laneResetting = false;
     this.attackT = null;
     this.attackCooldown = 0.35;
     const pick = (i: number) => this.enemyPool[i % this.enemyPool.length]!;
     const defIdx = Math.floor(Math.random() * this.enemyPool.length);
-    // 每條道最多兩個望左敵人
+    // 敵人企右邊，留出大半畫面畀主角行過去
     this.enemies = [
-      { x: this.cssW * 0.55 + this.stopDist() * 0.15 + Math.random() * 16, state: 'spawn', t: 0, bob: Math.random() * 6, stopJitter: 1, def: pick(defIdx), speedMul: 1, scaleMul: 0.94 + Math.random() * 0.12 },
-      { x: this.cssW * 0.78 + Math.random() * 24, state: 'spawn', t: 0, bob: Math.random() * 6, stopJitter: 1.4, def: pick((defIdx + 3) % this.enemyPool.length), speedMul: 1, scaleMul: 0.94 + Math.random() * 0.12 },
+      { x: this.cssW * 0.70 + Math.random() * 12, state: 'spawn', t: 0, bob: Math.random() * 6, stopJitter: 1, def: pick(defIdx), speedMul: 1, scaleMul: 0.94 + Math.random() * 0.12 },
+      { x: this.cssW * 0.86 + Math.random() * 14, state: 'spawn', t: 0, bob: Math.random() * 6, stopJitter: 1.4, def: pick((defIdx + 3) % this.enemyPool.length), speedMul: 1, scaleMul: 0.94 + Math.random() * 0.12 },
     ];
   }
 
@@ -348,7 +348,7 @@ export class SparStage {
     if (this.bgFade < 1) this.bgFade = Math.min(1, this.bgFade + dt / 0.6);
 
     this.geom(); // 確保 heroX 已初始化
-    const walkSpeed = 88 * (this.cssH / 218); // 俠客向右行速 css px/s
+    const walkSpeed = 110 * (this.cssH / 218); // 俠客向右行速 css px/s（要明顯行過半個舞台）
 
     // 敵人：望左企定，畫面 x 唔郁；淨處理出生／死亡
     for (const e of this.enemies) {
@@ -364,15 +364,15 @@ export class SparStage {
     }
     this.enemies = this.enemies.filter((e) => !(e.state === 'dead' && e.t >= SPAR_CLIPS['enemy-death'].dur));
 
-    // 俠客行過去：畫面 x 向右加；打緊唔行（或行慢）
+    // 俠客行過去：畫面 x 向右加；揮擊中略慢但仍前進，唔好企死左邊
     const striking = this.attackT !== null;
     if (!this.laneResetting) {
-      this.heroX += walkSpeed * dt * (striking ? 0.15 : 1);
+      this.heroX += walkSpeed * dt * (striking ? 0.45 : 1);
     }
 
-    // 行過右緣或清光敵人 → 重置一條道（主角返左，敵人再企右邊）
+    // 行過右緣、或清場後繼續行過敵位 → 重置（主角返左，敵人再企右邊）
     const alive = this.enemies.filter((e) => e.state !== 'dead').length;
-    if (!this.laneResetting && (this.heroX > this.cssW * 0.92 || (alive === 0 && this.heroX > this.cssW * 0.45))) {
+    if (!this.laneResetting && (this.heroX > this.cssW * 0.94 || (alive === 0 && this.heroX > this.cssW * 0.78))) {
       this.laneResetting = true;
       this.resetLane();
     }
@@ -431,11 +431,6 @@ export class SparStage {
     return (this.weaponDef?.reach ?? 210) * this.geom().k;
   }
 
-  /** 敵影停步位（css px，離俠客中線）——一定要細過攻擊判定，否則企喺射程外永遠僵持 */
-  private stopDist() {
-    return this.reachPx() * 0.8 + 6;
-  }
-
   private aliveEnemy(e: EnemyInst) {
     return e.state !== 'dead';
   }
@@ -444,11 +439,13 @@ export class SparStage {
     const g = this.geom();
     let best: EnemyInst | null = null;
     let bestD = Infinity;
+    // 近戰先出手：要主角真係行埋去，唔好半個舞台外就揮劍
+    const melee = this.reachPx() * 0.72 + this.cssW * 0.04;
     for (const e of this.enemies) {
       if (!this.aliveEnemy(e)) continue;
       const d = e.x - g.heroX; // 畫面距離：敵人喺俠客右邊
       if (d < -10) continue;
-      if (d <= this.reachPx() + 48 + this.enemyFront(e) && d < bestD) {
+      if (d <= melee + this.enemyFront(e) && d < bestD) {
         best = e;
         bestD = d;
       }
@@ -500,7 +497,7 @@ export class SparStage {
     const h = this.cssH;
     const k = (h * 0.82) / SILHOUETTE_DESIGN_H;
     // 首次／重設：俠客由左邊起步
-    if (this.heroX <= 0) this.heroX = this.cssW * 0.18;
+    if (this.heroX <= 0) this.heroX = this.cssW * 0.12;
     return {
       k,
       groundY: h * 0.92,

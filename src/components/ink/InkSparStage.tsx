@@ -127,10 +127,11 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
             .then((img) => { if (!cancelled) { stage?.setBackground(img, bgDef.opacity ?? 1); if (reduceMotion) stage?.render(); } })
             .catch(() => { /* 背景載唔到就用淨色舞台 */ });
         }
+        // 無論動靜：先擺好右邊望左敵人；減少動態就淨畫一格，否則俠客行過去
+        stage.settleIntro();
         if (reduceMotion) {
-          stage.settleIntro();
           stage.update(0);
-          stage.render(); // 減少動態：淨係畫一格靜態
+          stage.render();
         } else {
           startLoop();
         }
