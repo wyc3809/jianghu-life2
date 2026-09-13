@@ -254,6 +254,8 @@ export class SparStage {
   /** 俠客畫面 x（由左向右行過去敵人）；敵人 x 固定 */
   private heroX = 0;
   private laneResetting = false;
+  /** 減少動態：仍行過去，但慢啲、唔震唔噴墨 */
+  private quiet = false;
 
   private idleT = 0;
   private attackT: number | null = null;
@@ -298,6 +300,11 @@ export class SparStage {
     this.weaponDef = def;
   }
 
+  /** 減少動態：保留「行過去打敵人」核心觀感，關掉震屏／粒子 */
+  setQuiet(quiet: boolean) {
+    this.quiet = quiet;
+  }
+
   /** 靜態模式：右邊擺兩個企定嘅敵人，唔行唔郁 */
   settleIntro() {
     if (this.cssW === 0) return;
@@ -338,8 +345,8 @@ export class SparStage {
   update(rawDt: number) {
     const dt = Math.min(rawDt, 0.05);
     if (this.hitStop > 0) {
-      this.hitStop -= dt;
-      return; // 打擊停格：時間凍結，淨係渲染
+      this.hitStop -= dt * (this.quiet ? 3 : 1);
+      if (!this.quiet) return; // 打擊停格：時間凍結，淨係渲染（減少動態唔凍）
     }
 
     this.idleT = (this.idleT + dt * 1.35) % SPAR_CLIPS.idle.dur; // 向右行時節奏略快，似行路
@@ -348,7 +355,8 @@ export class SparStage {
     if (this.bgFade < 1) this.bgFade = Math.min(1, this.bgFade + dt / 0.6);
 
     this.geom(); // 確保 heroX 已初始化
-    const walkSpeed = 110 * (this.cssH / 218); // 俠客向右行速 css px/s（要明顯行過半個舞台）
+    // 俠客向右行速：減少動態時放慢，但仍要明顯行過半個舞台
+    const walkSpeed = (this.quiet ? 70 : 110) * (this.cssH / 218);
 
     // 敵人：望左企定，畫面 x 唔郁；淨處理出生／死亡
     for (const e of this.enemies) {
@@ -456,9 +464,9 @@ export class SparStage {
   private fireStrike() {
     if (this.firedStrike) return;
     this.firedStrike = true;
-    this.hitStop = 0.085;
-    this.shake = 4.5;
-    this.flash = 1;
+    this.hitStop = this.quiet ? 0 : 0.085;
+    this.shake = this.quiet ? 0 : 4.5;
+    this.flash = this.quiet ? 0 : 1;
 
     const target = this.nearestInRange();
     if (target && target.state !== 'dead') {
