@@ -83,7 +83,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
     };
 
     const startLoop = () => {
-      if (running || !stage || reduceMotion || !visible) return;
+      if (running || !stage || !visible) return;
       running = true;
       last = 0;
       raf = requestAnimationFrame(frame);
@@ -127,13 +127,10 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
             .then((img) => { if (!cancelled) { stage?.setBackground(img, bgDef.opacity ?? 1); if (reduceMotion) stage?.render(); } })
             .catch(() => { /* 背景載唔到就用淨色舞台 */ });
         }
-        if (reduceMotion) {
-          stage.settleIntro();
-          stage.update(0);
-          stage.render(); // 減少動態：淨係畫一格靜態
-        } else {
-          startLoop();
-        }
+        // 先擺好右邊望左敵人；減少動態仍播慢速行過去（唔再凍格，否則好似壞咗）
+        stage.setQuiet(reduceMotion);
+        stage.settleIntro();
+        startLoop();
       })
       .catch(() => {
         if (!cancelled) setFailed(true);
