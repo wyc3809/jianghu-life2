@@ -25,10 +25,9 @@ import {
   type WeaponSpriteDef,
 } from './rig';
 import {
+  HERO_SIL,
   SILHOUETTE_DESIGN_H,
-  drawEnemySilhouette,
-  drawHeroSilhouette,
-  enemyArchetypeFromSrc,
+  drawSilhouetteSprite,
   weaponFromKind,
   weaponTipLocal,
 } from './silhouetteDraw';
@@ -195,16 +194,14 @@ interface EnemyInst {
 }
 
 export interface SparStageImages {
-  body: HTMLImageElement;
-  /** v3 一圖切件冇獨立頭件，可留空 */
-  head?: HTMLImageElement;
-  arm: HTMLImageElement;
-  /** v3 肩位遮縫墨痕（v3 皮膚先有） */
-  patch?: HTMLImageElement;
-  /** 出敵池貼圖（同 EnemyDef 池一一對應） */
+  /** AI 剪影：俠客待機全身 */
+  heroIdle: HTMLImageElement;
+  /** AI 剪影：俠客揮擊全身 */
+  heroAttack: HTMLImageElement;
+  /** 出敵池剪影貼圖（同 EnemyDef 池一一對應） */
   enemies: HTMLImageElement[];
   splash: HTMLImageElement;
-  /** 武器貼圖可以之後先載入／轉款，用 setWeapon 注入 */
+  /** 武器貼圖（剪影位圖模式可唔用；保留畀特效／將來） */
   weapon?: HTMLImageElement | null;
   /** 場景背景圖，用 setBackground 注入／切換（自動淡入淡出） */
   background?: HTMLImageElement | null;
@@ -638,7 +635,6 @@ export class SparStage {
     const attack = this.attackT !== null ? this.attackClipNow() : null;
     const at = this.attackT ?? 0;
     const body = evalPose('body', this.idleT, attack, at);
-    const head = evalPose('head', this.idleT, attack, at);
     const arm = evalPose('arm', this.idleT, attack, at);
     const wep = evalPose('weapon', this.idleT, attack, at);
 
@@ -661,30 +657,28 @@ export class SparStage {
                   ? weaponFromKind('whip')
                   : weaponFromKind('sword');
 
-    let tip: { x: number; y: number } | null = null;
+    const striking = this.attackT !== null && this.attackT > 0.18 && this.attackT < 0.55;
+    const heroImg = striking ? this.images.heroAttack : this.images.heroIdle;
+    const part = striking ? HERO_SIL.attack : HERO_SIL.idle;
 
     ctx.save();
     ctx.translate(fx, fy);
     ctx.rotate(body.rot * DEG);
     ctx.scale(1, body.sy);
-    drawHeroSilhouette(ctx, {
+    drawSilhouetteSprite(ctx, heroImg, {
       k: g.k,
-      armRot: arm.rot,
-      weaponRot: wep.rot,
-      headRot: head.rot,
-      idleT: this.idleT,
-      weapon: weaponKind,
+      w: part.w,
+      h: part.h,
+      dx: part.dx,
+      dy: part.dy,
     });
 
-    // 鋒尖世界座標（拖墨）——同 silhouetteDraw 肩／握點對齊
     ctx.save();
-    ctx.translate(28 * g.k, -300 * g.k);
-    ctx.rotate(arm.rot * DEG);
-    ctx.translate(112 * g.k, 38 * g.k);
-    ctx.rotate(wep.rot * DEG);
+    ctx.rotate(arm.rot * DEG * 0.15);
+    ctx.rotate(wep.rot * DEG * 0.1);
     const local = weaponTipLocal(weaponKind, g.k);
     const m = ctx.getTransform();
-    tip = {
+    const tip = {
       x: (m.a * local.x + m.c * local.y + m.e) / this.dpr,
       y: (m.b * local.x + m.d * local.y + m.f) / this.dpr,
     };
@@ -701,7 +695,9 @@ export class SparStage {
     const ke = this.enemyKe(e);
     const footX = e.x + pose.x * ke;
     const footY = g.groundY + pose.y * ke;
-    const arch = enemyArchetypeFromSrc(e.def.part.src);
+    const idx = Math.max(0, this.enemyPool.indexOf(e.def));
+    const enemyImg = this.images.enemies[idx] ?? this.images.enemies[0];
+    if (!enemyImg) return;
 
     if (e.state !== 'dead') {
       ctx.save();
@@ -723,24 +719,25 @@ export class SparStage {
     ctx.translate(footX, footY);
     ctx.rotate(pose.rot * DEG);
     ctx.scale(1, pose.sy);
-    drawEnemySilhouette(ctx, {
+    drawSilhouetteSprite(ctx, enemyImg, {
       k: ke,
-      archetype: arch,
-      idleT: e.bob,
-      facingLeft: true,
+      flipX: true,
+      w: e.def.part.w,
+      h: e.def.part.h,
+      dx: e.def.part.dx,
+      dy: e.def.part.dy,
     });
     if (e.state !== 'dead') {
-      const glow = 0.55 + 0.35 * Math.sin(e.bob * 3.1);
-      for (const eye of [
-        { x: 12 * ke, y: -392 * ke },
-        { x: -10 * ke, y: -392 * ke },
-      ]) {
-        const grad = ctx.createRadialGradient(eye.x, eye.y, 0, eye.x, eye.y, 11 * ke);
+      const glow = 0.45 + 0.35 * Math.sin(e.bob * 3.1);
+      for (const eye of e.def.eyes) {
+        const ex = eye.x * ke;
+        const ey = eye.y * ke;
+        const grad = ctx.createRadialGradient(ex, ey, 0, ex, ey, 14 * ke);
         grad.addColorStop(0, `rgba(${CINNABAR},${glow})`);
         grad.addColorStop(1, `rgba(${CINNABAR},0)`);
         ctx.fillStyle = grad;
         ctx.beginPath();
-        ctx.arc(eye.x, eye.y, 11 * ke, 0, Math.PI * 2);
+        ctx.arc(ex, ey, 14 * ke, 0, Math.PI * 2);
         ctx.fill();
       }
     }
@@ -876,9 +873,9 @@ export class SparStage {
   }
 }
 
-/** 載入俠客＋敵人池＋特效素材；剪影模式角色貼圖可失敗（用佔位），淨係 splash 必要 */
+/** 載入 AI 剪影位圖（俠客待機／揮擊＋敵人池）＋特效；角色可失敗用佔位，splash 必要 */
 export function loadSparImages(
-  rig: AnyWarriorRig = WARRIOR,
+  _rig: AnyWarriorRig = WARRIOR,
   enemies: EnemyDef[] = [ENEMY_SHADOW],
   splashSrc?: string,
 ): Promise<SparStageImages> {
@@ -903,22 +900,17 @@ export function loadSparImages(
       img.onerror = () => reject(new Error(`spar asset failed: ${src}`));
       img.src = src;
     });
-  const v3 = isV3Rig(rig);
-  const skinSrcs = v3 ? [rig.skin.full.src, rig.skin.arm.src, rig.skin.shoulderPatch.src] : [rig.skin.body.src, rig.skin.head.src, rig.skin.arm.src];
   return Promise.all([
-    ...skinSrcs.map(loadOptional),
+    loadOptional(HERO_SIL.idle.src),
+    loadOptional(HERO_SIL.attack.src),
     ...enemies.map((d) => loadOptional(d.part.src)),
     loadRequired(splashSrc ?? `${import.meta.env.BASE_URL || '/'}ink/spar/fx-splash.webp`),
   ]).then((loaded) => {
-    const rest = loaded.slice(skinSrcs.length);
-    const enemyImgs = rest.slice(0, enemies.length);
-    const splash = rest[enemies.length]!;
-    if (v3) {
-      const [body, arm, patch] = loaded;
-      return { body: body!, arm: arm!, patch: patch!, enemies: enemyImgs, splash };
-    }
-    const [body, head, arm] = loaded;
-    return { body: body!, head: head!, arm: arm!, enemies: enemyImgs, splash };
+    const heroIdle = loaded[0]!;
+    const heroAttack = loaded[1]!;
+    const enemyImgs = loaded.slice(2, 2 + enemies.length);
+    const splash = loaded[2 + enemies.length]!;
+    return { heroIdle, heroAttack, enemies: enemyImgs, splash };
   });
 }
 

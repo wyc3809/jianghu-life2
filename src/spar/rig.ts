@@ -338,16 +338,16 @@ export function rigForSect(sectId: string | null | undefined): AnyWarriorRig {
 
 /** 敵影：單圖，腳底錨點，雙眼位置（紅眼脈動） */
 export const ENEMY_SHADOW: EnemyDef = {
-  part: { src: `${SPAR_BASE}enemy-shadow.webp`, w: 475, h: 602, dx: -234.5, dy: -602 },
+  part: { src: `${SPAR_BASE}sil/enemy-shadow.webp`, w: 616, h: 788, dx: -308, dy: -788 },
   eyes: [
-    { x: -6.5, y: -507 },
-    { x: 28.5, y: -507 },
+    { x: -18, y: -520 },
+    { x: 22, y: -520 },
   ],
 };
 
 /** 敵人圖鑑組裝：腳底錨點＝圖中底部中央，eye 係紅瞳殺氣位置（相對錨點） */
 const SPAR_E = (n: string, w: number, h: number, eye: { x: number; y: number }, scale = 1): EnemyDef => ({
-  part: { src: `${SPAR_BASE}enemy-${n}.webp`, w, h, dx: -w / 2, dy: -h },
+  part: { src: `${SPAR_BASE}sil/enemy-${n}.webp`, w, h, dx: -w / 2, dy: -h },
   eyes: [eye],
   scale,
 });
@@ -355,16 +355,16 @@ const SPAR_E = (n: string, w: number, h: number, eye: { x: number; y: number }, 
 /** 十款江湖敵手（AI 水墨立繪，側身面左行向俠客）＋墨影，組成出敵池 */
 export const ENEMY_POOL: EnemyDef[] = [
   ENEMY_SHADOW,
-  SPAR_E('daoke', 642, 860, { x: -45, y: -727 }), // 黑衣刀客
-  SPAR_E('laoweng', 722, 860, { x: -118, y: -718 }, 0.92), // 白髮老翁（駝背較矮）
-  SPAR_E('nvcike', 870, 860, { x: -142, y: -715 }, 0.95), // 紅衣女刺客
-  SPAR_E('toutuo', 924, 860, { x: -157, y: -755 }), // 胖頭陀
-  SPAR_E('qiangke', 987, 754, { x: -8.5, y: -619 }, 1.08), // 瘦高槍客
-  SPAR_E('tiemian', 581, 860, { x: -12.5, y: -676 }, 1.15), // 鐵面人
-  SPAR_E('gouke', 870, 860, { x: -46, y: -702 }), // 雙鉤客
-  SPAR_E('qigai', 626, 860, { x: -99, y: -708 }, 0.97), // 丐幫拳師
-  SPAR_E('suoyi', 921, 781, { x: -175.5, y: -648 }, 0.95), // 蓑衣漁殺
-  SPAR_E('chifa', 744, 860, { x: -82, y: -575 }, 1.22), // 赤髮巨漢
+  SPAR_E('daoke', 616, 788, { x: -20, y: -520 }), // 黑衣刀客（AI 剪影）
+  SPAR_E('laoweng', 616, 788, { x: -18, y: -500 }, 0.94), // 白髮老翁
+  SPAR_E('nvcike', 616, 788, { x: -16, y: -530 }, 0.96), // 女刺客
+  SPAR_E('toutuo', 616, 788, { x: -10, y: -510 }, 1.08), // 胖頭陀
+  SPAR_E('qiangke', 611, 788, { x: -8, y: -540 }, 1.05), // 槍客
+  SPAR_E('tiemian', 615, 788, { x: -12, y: -520 }, 1.1), // 鐵面／影魁
+  SPAR_E('gouke', 616, 788, { x: -20, y: -520 }), // 雙鉤客（刀客剪影）
+  SPAR_E('qigai', 616, 788, { x: -18, y: -500 }, 0.97), // 丐幫（老翁剪影）
+  SPAR_E('suoyi', 611, 788, { x: -8, y: -540 }, 0.98), // 蓑衣（槍客剪影）
+  SPAR_E('chifa', 616, 788, { x: -10, y: -510 }, 1.15), // 赤髮（頭陀剪影）
 ];
 
 export const FX_SPLASH_SRC = `${SPAR_BASE}fx-splash.webp`;
