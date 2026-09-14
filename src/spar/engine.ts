@@ -26,11 +26,18 @@ import {
 } from './rig';
 import {
   HERO_SIL,
+  HERO_WALK_FRAMES,
+  HERO_ATK_FRAMES,
+  HERO_LAYERS,
   SILHOUETTE_DESIGN_H,
+  attackFrameIndex,
   drawSilhouetteSprite,
+  walkFrameIndex,
   weaponFromKind,
+  weaponTipFromGrip,
   weaponTipLocal,
 } from './silhouetteDraw';
+import { AnimDirector, type DirectorSample } from './animDirector';
 
 const DEG = Math.PI / 180;
 const INK = '22,19,15';
@@ -198,6 +205,14 @@ export interface SparStageImages {
   heroIdle: HTMLImageElement;
   /** AI 剪影：俠客揮擊全身 */
   heroAttack: HTMLImageElement;
+  /** A：行路多幀 */
+  heroWalk?: HTMLImageElement[];
+  /** A：揮擊多幀 */
+  heroAtk?: HTMLImageElement[];
+  /** C：分層身／笠／臂 */
+  layerBody?: HTMLImageElement | null;
+  layerHat?: HTMLImageElement | null;
+  layerArm?: HTMLImageElement | null;
   /** 出敵池剪影貼圖（同 EnemyDef 池一一對應） */
   enemies: HTMLImageElement[];
   splash: HTMLImageElement;
@@ -256,6 +271,12 @@ export class SparStage {
   private laneResetting = false;
   /** 減少動態：仍行過去，但慢啲、唔震唔噴墨 */
   private quiet = false;
+  private director = new AnimDirector();
+  private directorSample: DirectorSample | null = null;
+  private walkT = 0;
+  private heroFade = 1;
+  private dust: { x: number; y: number; age: number; dur: number; vx: number }[] = [];
+  private footClock = 0;
 
   private idleT = 0;
   private attackT: number | null = null;
@@ -310,6 +331,9 @@ export class SparStage {
     if (this.cssW === 0) return;
     this.heroX = this.cssW * 0.12;
     this.laneResetting = false;
+    this.director.resetToEnter();
+    this.walkT = 0;
+    this.heroFade = 1;
     const pick = (i: number) => this.enemyPool[i % this.enemyPool.length]!;
     // 敵人企喺右緣固定畫面位置，望左唔郁（俾俠客有空間行過去）
     this.enemies = [
@@ -323,6 +347,8 @@ export class SparStage {
     this.heroX = this.cssW * 0.12;
     this.laneResetting = false;
     this.attackT = null;
+    this.walkT = 0;
+    this.heroFade = 0.2;
     this.attackCooldown = 0.35;
     const pick = (i: number) => this.enemyPool[i % this.enemyPool.length]!;
     const defIdx = Math.floor(Math.random() * this.enemyPool.length);
@@ -355,8 +381,22 @@ export class SparStage {
     if (this.bgFade < 1) this.bgFade = Math.min(1, this.bgFade + dt / 0.6);
 
     this.geom(); // 確保 heroX 已初始化
-    // 俠客向右行速：減少動態時放慢，但仍要明顯行過半個舞台
-    const walkSpeed = (this.quiet ? 70 : 110) * (this.cssH / 218);
+
+    // B：導演節奏
+    const inMelee = !!this.nearestInRange();
+    this.director.notifyMelee(inMelee);
+    if (inMelee && this.attackT === null) this.director.requestWindup();
+    if (this.director.consumeWindupReady() && this.attackT === null) {
+      this.attackT = 0;
+      this.firedStrike = false;
+      this.trail = [];
+    }
+    const dir = this.director.update(dt);
+    this.directorSample = dir;
+    this.heroFade = dir.fadeIn;
+
+    // 俠客向右行速：導演倍率 × 基礎速
+    const walkSpeed = (this.quiet ? 70 : 110) * (this.cssH / 218) * dir.walkMul;
 
     // 敵人：望左企定，畫面 x 唔郁；淨處理出生／死亡
     for (const e of this.enemies) {
@@ -372,20 +412,38 @@ export class SparStage {
     }
     this.enemies = this.enemies.filter((e) => !(e.state === 'dead' && e.t >= SPAR_CLIPS['enemy-death'].dur));
 
-    // 俠客行過去：畫面 x 向右加；揮擊中略慢但仍前進，唔好企死左邊
+    // 俠客行過去
     const striking = this.attackT !== null;
-    if (!this.laneResetting) {
-      this.heroX += walkSpeed * dt * (striking ? 0.45 : 1);
+    const moving = !this.laneResetting && dir.phase !== 'reset' && walkSpeed > 1;
+    if (moving) {
+      this.heroX += walkSpeed * dt * (striking ? 0.55 : 1);
+      this.walkT += dt * (striking ? 0.4 : 1);
+      // A：腳步揚塵
+      this.footClock += dt;
+      if (!this.quiet && this.footClock > 0.22 && dir.phase === 'approach') {
+        this.footClock = 0;
+        this.dust.push({
+          x: this.heroX - 8,
+          y: this.geom().groundY - 2,
+          age: 0,
+          dur: 0.45,
+          vx: -20 - Math.random() * 30,
+        });
+      }
     }
 
-    // 行過右緣、或清場後繼續行過敵位 → 重置（主角返左，敵人再企右邊）
+    // 行過右緣、或清場後繼續行過敵位 → 重置
     const alive = this.enemies.filter((e) => e.state !== 'dead').length;
     if (!this.laneResetting && (this.heroX > this.cssW * 0.94 || (alive === 0 && this.heroX > this.cssW * 0.78))) {
       this.laneResetting = true;
+      this.director.notifyLaneReset();
+    }
+    if (this.director.consumeResetDone()) {
       this.resetLane();
+      this.director.resetToEnter();
     }
 
-    // 攻擊排程：射程內最近嘅敵影，入程即打
+    // 攻擊排程：導演 strike 階段播 clip；否則射程內備招
     const inRange = this.nearestInRange();
     if (this.attackT !== null) {
       const clip = this.attackClipNow();
@@ -397,13 +455,13 @@ export class SparStage {
       if (this.attackT >= clip.dur) {
         this.attackT = null;
         this.attackCooldown = ATTACK_COOLDOWN;
+        this.director.notifyStrikeDone();
       }
-    } else if (inRange) {
+    } else if (dir.phase === 'strike' || (inRange && dir.phase === 'approach')) {
+      // approach 入近戰已 requestWindup；strike 由 consumeWindup 開招
       this.attackCooldown -= dt;
-      if (this.attackCooldown <= 0) {
-        this.attackT = 0;
-        this.firedStrike = false;
-        this.trail = [];
+      if (dir.phase === 'approach' && this.attackCooldown <= 0 && inRange) {
+        this.director.requestWindup();
       }
     } else {
       this.attackCooldown = Math.min(this.attackCooldown, 0.1);
@@ -418,12 +476,14 @@ export class SparStage {
     for (const p of this.particles) {
       p.x += p.vx * dt;
       p.y += p.vy * dt;
-      p.vy += 240 * dt; // 微重力，墨滴下墜
+      p.vy += 240 * dt;
     }
     this.floaters = age(this.floaters, dt);
     this.splashes = age(this.splashes, dt);
+    this.dust = age(this.dust, dt);
+    for (const d of this.dust) d.x += d.vx * dt;
     this.trail = age(
-      this.trail.map((d) => ({ ...d, dur: 0.26 })),
+      this.trail.map((d) => ({ ...d, dur: 0.32 })),
       dt,
     );
   }
@@ -541,6 +601,8 @@ export class SparStage {
       if (this.enemyAlpha(e) > 0.01) this.shadow(e.x, g.groundY, 68 * this.enemyKe(e));
     }
 
+    this.drawDust(g);
+
     // 敵影先畫（喺俠客身後）
     for (const e of this.enemies) this.drawEnemy(g, e);
     const tip = this.drawWarrior(g);
@@ -628,9 +690,11 @@ export class SparStage {
     const body = evalPose('body', this.idleT, attack, at);
     const arm = evalPose('arm', this.idleT, attack, at);
     const wep = evalPose('weapon', this.idleT, attack, at);
+    const head = evalPose('head', this.idleT, attack, at);
+    const crouch = (this.directorSample?.crouchY ?? 0) * g.k;
 
     const fx = g.heroX + body.x * g.k;
-    const fy = g.groundY + body.y * g.k;
+    const fy = g.groundY + body.y * g.k + crouch;
     const src = this.weaponDef?.src ?? '';
     const weaponKind = !this.weaponDef
       ? weaponFromKind(null)
@@ -648,25 +712,74 @@ export class SparStage {
                   ? weaponFromKind('whip')
                   : weaponFromKind('sword');
 
-    const striking = this.attackT !== null && this.attackT > 0.18 && this.attackT < 0.55;
-    const heroImg = striking ? this.images.heroAttack : this.images.heroIdle;
-    const part = striking ? HERO_SIL.attack : HERO_SIL.idle;
+    const striking = this.attackT !== null;
+    const useLayers = !!(this.images.layerBody && this.images.layerArm);
 
     ctx.save();
+    ctx.globalAlpha *= Math.max(0, Math.min(1, this.heroFade));
     ctx.translate(fx, fy);
     ctx.rotate(body.rot * DEG);
     ctx.scale(1, body.sy);
-    drawSilhouetteSprite(ctx, heroImg, {
-      k: g.k,
-      w: part.w,
-      h: part.h,
-      dx: part.dx,
-      dy: part.dy,
-    });
 
+    if (useLayers && this.directorSample?.phase !== 'approach' && striking) {
+      // C：揮擊時用分層傀儡，臂／武器跟 clip 大開合
+      this.drawLayeredHero(g, body, arm, head, wep, weaponKind);
+    } else {
+      // A：行路／待機／一般揮擊用多幀全身
+      let heroImg: CanvasImageSource = this.images.heroIdle;
+      let part: { w: number; h: number; dx: number; dy: number } = HERO_SIL.idle;
+      if (striking && this.images.heroAtk && this.images.heroAtk.length >= 3) {
+        const fi = attackFrameIndex(at, this.attackClipNow().dur);
+        heroImg = this.images.heroAtk[fi] ?? this.images.heroAttack;
+        part = HERO_ATK_FRAMES[fi] ?? HERO_SIL.attack;
+      } else if (striking) {
+        heroImg = this.images.heroAttack;
+        part = HERO_SIL.attack;
+      } else if (this.images.heroWalk && this.images.heroWalk.length >= 4 && (this.directorSample?.walkMul ?? 0) > 0.2) {
+        const fi = walkFrameIndex(this.walkT);
+        heroImg = this.images.heroWalk[fi] ?? this.images.heroIdle;
+        part = HERO_WALK_FRAMES[fi] ?? HERO_SIL.idle;
+      }
+      drawSilhouetteSprite(ctx, heroImg, {
+        k: g.k,
+        w: part.w,
+        h: part.h,
+        dx: part.dx,
+        dy: part.dy,
+      });
+      // C 輕量：喺全身幀上疊臂層，令刀弧同 clip 有聯動
+      if (this.images.layerArm && (striking || (this.directorSample?.walkMul ?? 0) > 0.3)) {
+        const shoulder = isV3Rig(this.rig) ? this.rig.shoulderSocket : this.rig.shoulderSocket;
+        ctx.save();
+        ctx.translate(shoulder.x * g.k, shoulder.y * g.k);
+        ctx.rotate((arm.rot + wep.rot * 0.35) * DEG);
+        drawSilhouetteSprite(ctx, this.images.layerArm, {
+          k: g.k * 0.95,
+          w: HERO_LAYERS.arm.w,
+          h: HERO_LAYERS.arm.h,
+          dx: HERO_LAYERS.arm.dx,
+          dy: HERO_LAYERS.arm.dy,
+          alpha: striking ? 0.92 : 0.55,
+        });
+        if (this.images.weapon && this.weaponDef) {
+          const grip = isV3Rig(this.rig) ? this.rig.gripSocket : this.rig.gripSocket;
+          ctx.save();
+          ctx.translate(grip.x * g.k * 0.85, grip.y * g.k * 0.85);
+          ctx.rotate(wep.rot * DEG);
+          const wd = this.weaponDef;
+          const ww = wd.w * g.k * 0.55;
+          const wh = wd.h * g.k * 0.55;
+          ctx.drawImage(toInkSilhouette(this.images.weapon), -wd.grip.x * g.k * 0.55, -wd.grip.y * g.k * 0.55, ww, wh);
+          ctx.restore();
+        }
+        ctx.restore();
+      }
+    }
+
+    // tip 供拖墨
     ctx.save();
-    ctx.rotate(arm.rot * DEG * 0.15);
-    ctx.rotate(wep.rot * DEG * 0.1);
+    ctx.rotate(arm.rot * DEG * 0.35);
+    ctx.rotate(wep.rot * DEG * 0.25);
     const local = weaponTipLocal(weaponKind, g.k);
     const m = ctx.getTransform();
     const tip = {
@@ -677,6 +790,73 @@ export class SparStage {
     ctx.restore();
 
     return tip;
+  }
+
+  /** C：身＋笠＋臂分層繪製（揮擊高潮） */
+  private drawLayeredHero(
+    g: ReturnType<SparStage['geom']>,
+    _body: Pose,
+    arm: Pose,
+    head: Pose,
+    wep: Pose,
+    weaponKind: string,
+  ) {
+    const { ctx } = this;
+    const bodyImg = this.images.layerBody!;
+    const hatImg = this.images.layerHat;
+    const armImg = this.images.layerArm!;
+    drawSilhouetteSprite(ctx, bodyImg, {
+      k: g.k,
+      w: HERO_LAYERS.body.w,
+      h: HERO_LAYERS.body.h,
+      dx: HERO_LAYERS.body.dx,
+      dy: HERO_LAYERS.body.dy,
+    });
+    const neck = isV3Rig(this.rig) ? { x: 20, y: -520 } : this.rig.neckSocket;
+    if (hatImg) {
+      ctx.save();
+      ctx.translate(neck.x * g.k, neck.y * g.k);
+      ctx.rotate(head.rot * DEG);
+      drawSilhouetteSprite(ctx, hatImg, {
+        k: g.k,
+        w: HERO_LAYERS.hat.w,
+        h: HERO_LAYERS.hat.h,
+        dx: HERO_LAYERS.hat.dx,
+        dy: HERO_LAYERS.hat.dy,
+      });
+      ctx.restore();
+    }
+    const shoulder = this.rig.shoulderSocket;
+    ctx.save();
+    ctx.translate(shoulder.x * g.k, shoulder.y * g.k);
+    ctx.rotate((arm.rot + wep.rot * 0.2) * DEG);
+    drawSilhouetteSprite(ctx, armImg, {
+      k: g.k,
+      w: HERO_LAYERS.arm.w,
+      h: HERO_LAYERS.arm.h,
+      dx: HERO_LAYERS.arm.dx,
+      dy: HERO_LAYERS.arm.dy,
+    });
+    if (this.images.weapon && this.weaponDef) {
+      const grip = this.rig.gripSocket;
+      ctx.save();
+      ctx.translate(grip.x * g.k, grip.y * g.k);
+      ctx.rotate(wep.rot * DEG);
+      const wd = this.weaponDef;
+      ctx.drawImage(
+        toInkSilhouette(this.images.weapon),
+        -wd.grip.x * g.k * 0.7,
+        -wd.grip.y * g.k * 0.7,
+        wd.w * g.k * 0.7,
+        wd.h * g.k * 0.7,
+      );
+      ctx.restore();
+    } else {
+      // 空手：用 tip 偏移估刀位（淨軌跡）
+      void weaponKind;
+      void weaponTipFromGrip;
+    }
+    ctx.restore();
   }
 
   private drawEnemy(g: ReturnType<SparStage['geom']>, e: EnemyInst) {
@@ -740,6 +920,18 @@ export class SparStage {
    * 劍鋒拖墨（參考水墨動作遊戲嘅斬擊殘影）：軌跡畫做一條漸幼漸淡嘅墨帶，
    * 最新一段加宣紙白刃高光——快揮嗰陣就好似一彎墨虹掃過，唔再係一串圓點。
    */
+  private drawDust(g: ReturnType<SparStage['geom']>) {
+    if (this.quiet) return;
+    const { ctx } = this;
+    for (const d of this.dust) {
+      const p = d.age / d.dur;
+      ctx.fillStyle = `rgba(${INK},${0.28 * (1 - p)})`;
+      ctx.beginPath();
+      ctx.ellipse(d.x, g.groundY - 1, 10 * (1 + p), 3.2 * (1 - p * 0.5), 0, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
   private drawTrail() {
     const { ctx } = this;
     const pts = this.trail;
@@ -892,21 +1084,46 @@ export function loadSparImages(
       img.onerror = () => reject(new Error(`spar asset failed: ${src}`));
       img.src = src;
     });
+  const walkSrcs = HERO_WALK_FRAMES.map((f) => f.src);
+  const atkSrcs = HERO_ATK_FRAMES.map((f) => f.src);
   return Promise.all([
     loadOptional(HERO_SIL.idle.src),
     loadOptional(HERO_SIL.attack.src),
+    ...walkSrcs.map(loadOptional),
+    ...atkSrcs.map(loadOptional),
+    loadOptional(HERO_LAYERS.body.src),
+    loadOptional(HERO_LAYERS.hat.src),
+    loadOptional(HERO_LAYERS.arm.src),
     ...enemies.map((d) => loadOptional(d.part.src)),
     loadRequired(splashSrc ?? `${import.meta.env.BASE_URL || '/'}ink/spar/fx-splash.webp`),
   ]).then((loaded) => {
-    const heroIdle = loaded[0]!;
-    const heroAttack = loaded[1]!;
-    const enemyImgs = loaded.slice(2, 2 + enemies.length);
-    const splash = loaded[2 + enemies.length]!;
-    return { heroIdle, heroAttack, enemies: enemyImgs, splash };
+    let i = 0;
+    const heroIdle = loaded[i++]!;
+    const heroAttack = loaded[i++]!;
+    const heroWalk = loaded.slice(i, i + walkSrcs.length) as HTMLImageElement[];
+    i += walkSrcs.length;
+    const heroAtk = loaded.slice(i, i + atkSrcs.length) as HTMLImageElement[];
+    i += atkSrcs.length;
+    const layerBody = loaded[i++]!;
+    const layerHat = loaded[i++]!;
+    const layerArm = loaded[i++]!;
+    const enemyImgs = loaded.slice(i, i + enemies.length) as HTMLImageElement[];
+    i += enemies.length;
+    const splash = loaded[i++]!;
+    return {
+      heroIdle,
+      heroAttack,
+      heroWalk,
+      heroAtk,
+      layerBody,
+      layerHat,
+      layerArm,
+      enemies: enemyImgs,
+      splash,
+    };
   });
 }
 
-/** 載入修為浮字嘅水墨素材；邊張載唔到就嗰張留空（floater 會用返文字 fallback） */
 export function loadSparUiImages(): Promise<SparUiImages> {
   const base = `${import.meta.env.BASE_URL || '/'}ink/ui/`;
   const tryLoad = (src: string) =>
