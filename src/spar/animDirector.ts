@@ -149,8 +149,8 @@ export class AnimDirector {
         break;
       case 'reset':
         walkMul = 0;
-        // 重置時保持可見下限，避免清場一瞬間主角蒸發
-        fadeIn = Math.max(0.35, 1 - phaseT);
+        // 重置唔淡出——直接瞬移返左，避免「人消失」錯覺
+        fadeIn = 1;
         break;
     }
 

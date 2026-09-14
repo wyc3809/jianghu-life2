@@ -396,7 +396,7 @@ export class SparStage {
     this.heroFade = Math.max(0.35, dir.fadeIn);
 
     // 俠客向右行速：導演倍率 × 基礎速
-    const walkSpeed = (this.quiet ? 70 : 110) * (this.cssH / 218) * dir.walkMul;
+    const walkSpeed = (this.quiet ? 85 : 130) * (this.cssH / 218) * dir.walkMul;
 
     // 敵人：望左企定，畫面 x 唔郁；淨處理出生／死亡
     for (const e of this.enemies) {
