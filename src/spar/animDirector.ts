@@ -123,7 +123,8 @@ export class AnimDirector {
     switch (this.phase) {
       case 'enter':
         walkMul = 0.15 + 0.35 * easeOutCubic(phaseT);
-        fadeIn = easeOutCubic(phaseT);
+        // 唔好由 0 淡入——否則首幀／重置後主角會「消失」半秒
+        fadeIn = 0.4 + 0.6 * easeOutCubic(phaseT);
         crouchY = 4 * (1 - phaseT);
         break;
       case 'approach': {
@@ -148,7 +149,8 @@ export class AnimDirector {
         break;
       case 'reset':
         walkMul = 0;
-        fadeIn = 1 - phaseT;
+        // 重置時保持可見下限，避免清場一瞬間主角蒸發
+        fadeIn = Math.max(0.35, 1 - phaseT);
         break;
     }
 

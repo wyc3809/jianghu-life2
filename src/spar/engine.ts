@@ -34,7 +34,6 @@ import {
   drawSilhouetteSprite,
   walkFrameIndex,
   weaponFromKind,
-  weaponTipFromGrip,
   weaponTipLocal,
 } from './silhouetteDraw';
 import { AnimDirector, type DirectorSample } from './animDirector';
@@ -329,7 +328,8 @@ export class SparStage {
   /** 靜態模式：右邊擺兩個企定嘅敵人，唔行唔郁 */
   settleIntro() {
     if (this.cssW === 0) return;
-    this.heroX = this.cssW * 0.12;
+    // 0.22：避開電話框／UI 左緣，首幀就要見到人
+    this.heroX = this.cssW * 0.22;
     this.laneResetting = false;
     this.director.resetToEnter();
     this.walkT = 0;
@@ -344,11 +344,11 @@ export class SparStage {
 
   /** 清場後／行盡右緣：俠客返左，右邊再企兩個望左敵人 */
   private resetLane() {
-    this.heroX = this.cssW * 0.12;
+    this.heroX = this.cssW * 0.22;
     this.laneResetting = false;
     this.attackT = null;
     this.walkT = 0;
-    this.heroFade = 0.2;
+    this.heroFade = 0.45;
     this.attackCooldown = 0.35;
     const pick = (i: number) => this.enemyPool[i % this.enemyPool.length]!;
     const defIdx = Math.floor(Math.random() * this.enemyPool.length);
@@ -393,7 +393,7 @@ export class SparStage {
     }
     const dir = this.director.update(dt);
     this.directorSample = dir;
-    this.heroFade = dir.fadeIn;
+    this.heroFade = Math.max(0.35, dir.fadeIn);
 
     // 俠客向右行速：導演倍率 × 基礎速
     const walkSpeed = (this.quiet ? 70 : 110) * (this.cssH / 218) * dir.walkMul;
@@ -565,7 +565,7 @@ export class SparStage {
     const h = this.cssH;
     const k = (h * 0.82) / SILHOUETTE_DESIGN_H;
     // 首次／重設：俠客由左邊起步
-    if (this.heroX <= 0) this.heroX = this.cssW * 0.12;
+    if (this.heroX <= 0) this.heroX = this.cssW * 0.22;
     return {
       k,
       groundY: h * 0.92,
@@ -685,47 +685,39 @@ export class SparStage {
 
   private drawWarrior(g: ReturnType<SparStage['geom']>): { x: number; y: number } | null {
     const { ctx } = this;
-    const attack = this.attackT !== null ? this.attackClipNow() : null;
-    const at = this.attackT ?? 0;
-    const body = evalPose('body', this.idleT, attack, at);
-    const arm = evalPose('arm', this.idleT, attack, at);
-    const wep = evalPose('weapon', this.idleT, attack, at);
-    const head = evalPose('head', this.idleT, attack, at);
-    const crouch = (this.directorSample?.crouchY ?? 0) * g.k;
+    try {
+      const attack = this.attackT !== null ? this.attackClipNow() : null;
+      const at = this.attackT ?? 0;
+      const body = evalPose('body', this.idleT, attack, at);
+      const arm = evalPose('arm', this.idleT, attack, at);
+      const wep = evalPose('weapon', this.idleT, attack, at);
+      const head = evalPose('head', this.idleT, attack, at);
+      const crouch = (this.directorSample?.crouchY ?? 0) * g.k;
+      const fade = Math.max(0.35, Math.min(1, this.heroFade || 1));
 
-    const fx = g.heroX + body.x * g.k;
-    const fy = g.groundY + body.y * g.k + crouch;
-    const src = this.weaponDef?.src ?? '';
-    const weaponKind = !this.weaponDef
-      ? weaponFromKind(null)
-      : src.includes('blade')
-        ? weaponFromKind('blade')
-        : src.includes('spear')
-          ? weaponFromKind('spear')
-          : src.includes('staff')
-            ? weaponFromKind('staff')
-            : src.includes('bow')
-              ? weaponFromKind('bow')
-              : src.includes('hidden')
-                ? weaponFromKind('hidden')
-                : src.includes('whip')
-                  ? weaponFromKind('whip')
-                  : weaponFromKind('sword');
+      const fx = g.heroX + body.x * g.k;
+      const fy = g.groundY + body.y * g.k + crouch;
+      const src = this.weaponDef?.src ?? '';
+      const weaponKind = !this.weaponDef
+        ? weaponFromKind(null)
+        : src.includes('blade')
+          ? weaponFromKind('blade')
+          : src.includes('spear')
+            ? weaponFromKind('spear')
+            : src.includes('staff')
+              ? weaponFromKind('staff')
+              : src.includes('bow')
+                ? weaponFromKind('bow')
+                : src.includes('hidden')
+                  ? weaponFromKind('hidden')
+                  : src.includes('whip')
+                    ? weaponFromKind('whip')
+                    : weaponFromKind('sword');
 
-    const striking = this.attackT !== null;
-    const useLayers = !!(this.images.layerBody && this.images.layerArm);
+      const striking = this.attackT !== null;
+      const sy = Number.isFinite(body.sy) && body.sy > 0.2 ? body.sy : 1;
 
-    ctx.save();
-    ctx.globalAlpha *= Math.max(0, Math.min(1, this.heroFade));
-    ctx.translate(fx, fy);
-    ctx.rotate(body.rot * DEG);
-    ctx.scale(1, body.sy);
-
-    if (useLayers && this.directorSample?.phase !== 'approach' && striking) {
-      // C：揮擊時用分層傀儡，臂／武器跟 clip 大開合
-      this.drawLayeredHero(g, body, arm, head, wep, weaponKind);
-    } else {
-      // A：行路／待機／一般揮擊用多幀全身
+      // A：揀全身幀（行路／揮擊／待機）——永遠先畫，確保主角可見
       let heroImg: CanvasImageSource = this.images.heroIdle;
       let part: { w: number; h: number; dx: number; dy: number } = HERO_SIL.idle;
       if (striking && this.images.heroAtk && this.images.heroAtk.length >= 3) {
@@ -735,11 +727,17 @@ export class SparStage {
       } else if (striking) {
         heroImg = this.images.heroAttack;
         part = HERO_SIL.attack;
-      } else if (this.images.heroWalk && this.images.heroWalk.length >= 4 && (this.directorSample?.walkMul ?? 0) > 0.2) {
+      } else if (this.images.heroWalk && this.images.heroWalk.length >= 4 && (this.directorSample?.walkMul ?? 1) > 0.15) {
         const fi = walkFrameIndex(this.walkT);
         heroImg = this.images.heroWalk[fi] ?? this.images.heroIdle;
         part = HERO_WALK_FRAMES[fi] ?? HERO_SIL.idle;
       }
+
+      ctx.save();
+      ctx.globalAlpha *= fade;
+      ctx.translate(fx, fy);
+      ctx.rotate(body.rot * DEG);
+      ctx.scale(1, sy);
       drawSilhouetteSprite(ctx, heroImg, {
         k: g.k,
         w: part.w,
@@ -747,117 +745,78 @@ export class SparStage {
         dx: part.dx,
         dy: part.dy,
       });
-      // C 輕量：喺全身幀上疊臂層，令刀弧同 clip 有聯動
-      if (this.images.layerArm && (striking || (this.directorSample?.walkMul ?? 0) > 0.3)) {
-        const shoulder = isV3Rig(this.rig) ? this.rig.shoulderSocket : this.rig.shoulderSocket;
-        ctx.save();
-        ctx.translate(shoulder.x * g.k, shoulder.y * g.k);
-        ctx.rotate((arm.rot + wep.rot * 0.35) * DEG);
-        drawSilhouetteSprite(ctx, this.images.layerArm, {
-          k: g.k * 0.95,
-          w: HERO_LAYERS.arm.w,
-          h: HERO_LAYERS.arm.h,
-          dx: HERO_LAYERS.arm.dx,
-          dy: HERO_LAYERS.arm.dy,
-          alpha: striking ? 0.92 : 0.55,
-        });
-        if (this.images.weapon && this.weaponDef) {
-          const grip = isV3Rig(this.rig) ? this.rig.gripSocket : this.rig.gripSocket;
+
+      // C：揮擊／快走時疊臂層（失敗唔影響主體）
+      if (this.images.layerArm && (striking || (this.directorSample?.walkMul ?? 0) > 0.35)) {
+        try {
+          const shoulder = this.rig.shoulderSocket;
           ctx.save();
-          ctx.translate(grip.x * g.k * 0.85, grip.y * g.k * 0.85);
-          ctx.rotate(wep.rot * DEG);
-          const wd = this.weaponDef;
-          const ww = wd.w * g.k * 0.55;
-          const wh = wd.h * g.k * 0.55;
-          ctx.drawImage(toInkSilhouette(this.images.weapon), -wd.grip.x * g.k * 0.55, -wd.grip.y * g.k * 0.55, ww, wh);
+          ctx.translate(shoulder.x * g.k, shoulder.y * g.k);
+          ctx.rotate((arm.rot + wep.rot * 0.35) * DEG);
+          drawSilhouetteSprite(ctx, this.images.layerArm, {
+            k: g.k * 0.95,
+            w: HERO_LAYERS.arm.w,
+            h: HERO_LAYERS.arm.h,
+            dx: HERO_LAYERS.arm.dx,
+            dy: HERO_LAYERS.arm.dy,
+            alpha: striking ? 0.85 : 0.45,
+          });
+          void head;
+          if (this.images.weapon && this.weaponDef) {
+            const grip = this.rig.gripSocket;
+            ctx.save();
+            ctx.translate(grip.x * g.k * 0.85, grip.y * g.k * 0.85);
+            ctx.rotate(wep.rot * DEG);
+            const wd = this.weaponDef;
+            ctx.drawImage(
+              toInkSilhouette(this.images.weapon),
+              -wd.grip.x * g.k * 0.55,
+              -wd.grip.y * g.k * 0.55,
+              wd.w * g.k * 0.55,
+              wd.h * g.k * 0.55,
+            );
+            ctx.restore();
+          }
           ctx.restore();
+        } catch {
+          /* 分層失敗唔影響全身幀 */
         }
-        ctx.restore();
       }
+
+      ctx.save();
+      ctx.rotate(arm.rot * DEG * 0.35);
+      ctx.rotate(wep.rot * DEG * 0.25);
+      const local = weaponTipLocal(weaponKind, g.k);
+      const m = ctx.getTransform();
+      const tip = {
+        x: (m.a * local.x + m.c * local.y + m.e) / this.dpr,
+        y: (m.b * local.x + m.d * local.y + m.f) / this.dpr,
+      };
+      ctx.restore();
+      ctx.restore();
+      return tip;
+    } catch (err) {
+      // 兜底：最簡全身待機，避免整幀崩潰令主角消失
+      try {
+        const { ctx } = this;
+        ctx.save();
+        ctx.translate(g.heroX, g.groundY);
+        drawSilhouetteSprite(ctx, this.images.heroIdle, {
+          k: g.k,
+          w: HERO_SIL.idle.w,
+          h: HERO_SIL.idle.h,
+          dx: HERO_SIL.idle.dx,
+          dy: HERO_SIL.idle.dy,
+        });
+        ctx.restore();
+      } catch {
+        /* ignore */
+      }
+      console.warn('[spar] drawWarrior failed', err);
+      return null;
     }
-
-    // tip 供拖墨
-    ctx.save();
-    ctx.rotate(arm.rot * DEG * 0.35);
-    ctx.rotate(wep.rot * DEG * 0.25);
-    const local = weaponTipLocal(weaponKind, g.k);
-    const m = ctx.getTransform();
-    const tip = {
-      x: (m.a * local.x + m.c * local.y + m.e) / this.dpr,
-      y: (m.b * local.x + m.d * local.y + m.f) / this.dpr,
-    };
-    ctx.restore();
-    ctx.restore();
-
-    return tip;
   }
 
-  /** C：身＋笠＋臂分層繪製（揮擊高潮） */
-  private drawLayeredHero(
-    g: ReturnType<SparStage['geom']>,
-    _body: Pose,
-    arm: Pose,
-    head: Pose,
-    wep: Pose,
-    weaponKind: string,
-  ) {
-    const { ctx } = this;
-    const bodyImg = this.images.layerBody!;
-    const hatImg = this.images.layerHat;
-    const armImg = this.images.layerArm!;
-    drawSilhouetteSprite(ctx, bodyImg, {
-      k: g.k,
-      w: HERO_LAYERS.body.w,
-      h: HERO_LAYERS.body.h,
-      dx: HERO_LAYERS.body.dx,
-      dy: HERO_LAYERS.body.dy,
-    });
-    const neck = isV3Rig(this.rig) ? { x: 20, y: -520 } : this.rig.neckSocket;
-    if (hatImg) {
-      ctx.save();
-      ctx.translate(neck.x * g.k, neck.y * g.k);
-      ctx.rotate(head.rot * DEG);
-      drawSilhouetteSprite(ctx, hatImg, {
-        k: g.k,
-        w: HERO_LAYERS.hat.w,
-        h: HERO_LAYERS.hat.h,
-        dx: HERO_LAYERS.hat.dx,
-        dy: HERO_LAYERS.hat.dy,
-      });
-      ctx.restore();
-    }
-    const shoulder = this.rig.shoulderSocket;
-    ctx.save();
-    ctx.translate(shoulder.x * g.k, shoulder.y * g.k);
-    ctx.rotate((arm.rot + wep.rot * 0.2) * DEG);
-    drawSilhouetteSprite(ctx, armImg, {
-      k: g.k,
-      w: HERO_LAYERS.arm.w,
-      h: HERO_LAYERS.arm.h,
-      dx: HERO_LAYERS.arm.dx,
-      dy: HERO_LAYERS.arm.dy,
-    });
-    if (this.images.weapon && this.weaponDef) {
-      const grip = this.rig.gripSocket;
-      ctx.save();
-      ctx.translate(grip.x * g.k, grip.y * g.k);
-      ctx.rotate(wep.rot * DEG);
-      const wd = this.weaponDef;
-      ctx.drawImage(
-        toInkSilhouette(this.images.weapon),
-        -wd.grip.x * g.k * 0.7,
-        -wd.grip.y * g.k * 0.7,
-        wd.w * g.k * 0.7,
-        wd.h * g.k * 0.7,
-      );
-      ctx.restore();
-    } else {
-      // 空手：用 tip 偏移估刀位（淨軌跡）
-      void weaponKind;
-      void weaponTipFromGrip;
-    }
-    ctx.restore();
-  }
 
   private drawEnemy(g: ReturnType<SparStage['geom']>, e: EnemyInst) {
     const pose = this.enemyPose(e);

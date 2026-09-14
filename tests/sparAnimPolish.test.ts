@@ -24,9 +24,11 @@ describe('spar A+B+C animation polish', () => {
     const d = new AnimDirector();
     let s = d.update(0.05);
     expect(s.phase).toBe('enter');
+    expect(s.fadeIn).toBeGreaterThanOrEqual(0.4);
     for (let i = 0; i < 20; i++) s = d.update(0.05);
     expect(s.phase).toBe('approach');
     expect(s.walkMul).toBeGreaterThan(0.4);
+    expect(s.fadeIn).toBe(1);
     d.notifyMelee(true);
     expect(d.requestWindup()).toBe(true);
     s = d.update(0.05);

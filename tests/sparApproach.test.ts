@@ -64,7 +64,7 @@ describe('spar approach walk', () => {
     };
     const startHero = internal.heroX;
     const enemyXs = internal.enemies.map((e) => e.x);
-    expect(startHero).toBeCloseTo(360 * 0.12, 0);
+    expect(startHero).toBeCloseTo(360 * 0.22, 0);
     expect(enemyXs[0]).toBeGreaterThan(360 * 0.65);
 
     for (let i = 0; i < 40; i++) stage.update(0.05); // 2 秒
