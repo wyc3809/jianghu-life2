@@ -325,37 +325,44 @@ export class SparStage {
     this.quiet = quiet;
   }
 
-  /** 靜態模式：右邊擺兩個企定嘅敵人，唔行唔郁 */
+  /** 開局：右邊企一個望左敵人，一打一個 */
   settleIntro() {
     if (this.cssW === 0) return;
-    // 0.22：避開電話框／UI 左緣，首幀就要見到人
-    this.heroX = this.cssW * 0.22;
+    // 0.20：縮小身形後留多啲行路空間
+    this.heroX = this.cssW * 0.20;
     this.laneResetting = false;
     this.director.resetToEnter();
     this.walkT = 0;
     this.heroFade = 1;
     const pick = (i: number) => this.enemyPool[i % this.enemyPool.length]!;
-    // 敵人企喺右緣固定畫面位置，望左唔郁（俾俠客有空間行過去）
+    // 單挑：淨擺一個敵人喺右緣望左
     this.enemies = [
-      { x: this.cssW * 0.72, state: 'hold', t: 9, bob: 1.7, stopJitter: 1, def: pick(1), speedMul: 1, scaleMul: 1 },
-      { x: this.cssW * 0.88, state: 'hold', t: 9, bob: 3.9, stopJitter: 1.55, def: pick(4), speedMul: 1, scaleMul: 1 },
+      { x: this.cssW * 0.74, state: 'hold', t: 9, bob: 1.7, stopJitter: 1, def: pick(1), speedMul: 1, scaleMul: 1 },
     ];
   }
 
-  /** 清場後／行盡右緣：俠客返左，右邊再企兩個望左敵人 */
+  /** 清場後／行盡右緣：俠客返左，再出下一個望左敵人 */
   private resetLane() {
-    this.heroX = this.cssW * 0.22;
+    this.heroX = this.cssW * 0.20;
     this.laneResetting = false;
     this.attackT = null;
     this.walkT = 0;
     this.heroFade = 0.45;
-    this.attackCooldown = 0.35;
+    this.attackCooldown = 0.28;
     const pick = (i: number) => this.enemyPool[i % this.enemyPool.length]!;
     const defIdx = Math.floor(Math.random() * this.enemyPool.length);
-    // 敵人企右邊，留出大半畫面畀主角行過去
+    // 一打一個：每次淨補一個
     this.enemies = [
-      { x: this.cssW * 0.70 + Math.random() * 12, state: 'spawn', t: 0, bob: Math.random() * 6, stopJitter: 1, def: pick(defIdx), speedMul: 1, scaleMul: 0.94 + Math.random() * 0.12 },
-      { x: this.cssW * 0.86 + Math.random() * 14, state: 'spawn', t: 0, bob: Math.random() * 6, stopJitter: 1.4, def: pick((defIdx + 3) % this.enemyPool.length), speedMul: 1, scaleMul: 0.94 + Math.random() * 0.12 },
+      {
+        x: this.cssW * 0.72 + Math.random() * 16,
+        state: 'spawn',
+        t: 0,
+        bob: Math.random() * 6,
+        stopJitter: 1,
+        def: pick(defIdx),
+        speedMul: 1,
+        scaleMul: 0.94 + Math.random() * 0.1,
+      },
     ];
   }
 
@@ -432,9 +439,14 @@ export class SparStage {
       }
     }
 
-    // 行過右緣、或清場後繼續行過敵位 → 重置
+    // 行過右緣、或單挑清場後 → 重置再出下一個
     const alive = this.enemies.filter((e) => e.state !== 'dead').length;
-    if (!this.laneResetting && (this.heroX > this.cssW * 0.94 || (alive === 0 && this.heroX > this.cssW * 0.78))) {
+    if (
+      !this.laneResetting &&
+      (this.heroX > this.cssW * 0.94 ||
+        (alive === 0 && this.attackT === null && this.enemies.length === 0) ||
+        (alive === 0 && this.attackT === null && this.heroX > this.cssW * 0.52))
+    ) {
       this.laneResetting = true;
       this.director.notifyLaneReset();
     }
@@ -563,9 +575,10 @@ export class SparStage {
   /** 舞台幾何：全部 px（CSS 像素）。俠客由左行過去；敵人右邊企定望左 */
   private geom() {
     const h = this.cssH;
-    const k = (h * 0.82) / SILHOUETTE_DESIGN_H;
+    // 身形約佔舞台高度一半，留山水同行走空間（舊 0.82 太大）
+    const k = (h * 0.48) / SILHOUETTE_DESIGN_H;
     // 首次／重設：俠客由左邊起步
-    if (this.heroX <= 0) this.heroX = this.cssW * 0.22;
+    if (this.heroX <= 0) this.heroX = this.cssW * 0.20;
     return {
       k,
       groundY: h * 0.92,
@@ -576,7 +589,7 @@ export class SparStage {
   /** 敵影縮放：剪影模式唔跟舊貼圖高度（否則高圖敵人會縮成火柴） */
   private enemyKe(e: EnemyInst) {
     const g = this.geom();
-    return g.k * 1.06 * (e.def.scale ?? 1) * e.scaleMul;
+    return g.k * 1.0 * (e.def.scale ?? 1) * e.scaleMul;
   }
 
   /** 敵人前緣伸出（css px）——剪影袍身約 90du 半寬 */
@@ -746,8 +759,8 @@ export class SparStage {
         dy: part.dy,
       });
 
-      // C：揮擊／快走時疊臂層（失敗唔影響主體）
-      if (this.images.layerArm && (striking || (this.directorSample?.walkMul ?? 0) > 0.35)) {
+      // C：全身幀已帶臂／武器；舊分層臂只喺揮擊極淡疊一層（避免蓋過新剪影）
+      if (this.images.layerArm && striking && (this.directorSample?.phase === 'strike')) {
         try {
           const shoulder = this.rig.shoulderSocket;
           ctx.save();
