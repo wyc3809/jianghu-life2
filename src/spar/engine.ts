@@ -575,8 +575,8 @@ export class SparStage {
   /** 舞台幾何：全部 px（CSS 像素）。俠客由左行過去；敵人右邊企定望左 */
   private geom() {
     const h = this.cssH;
-    // 身形約佔舞台高度 1/3，同山水比例更協調（舊 0.82 太大）
-    const k = (h * 0.34) / SILHOUETTE_DESIGN_H;
+    // 身形約佔舞台高度 1/4，同山水比例更協調（舊 0.82 太大）
+    const k = (h * 0.26) / SILHOUETTE_DESIGN_H;
     // 首次／重設：俠客由左邊起步
     if (this.heroX <= 0) this.heroX = this.cssW * 0.20;
     return {
