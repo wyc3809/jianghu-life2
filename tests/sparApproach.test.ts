@@ -64,7 +64,8 @@ describe('spar approach walk', () => {
     };
     const startHero = internal.heroX;
     const enemyXs = internal.enemies.map((e) => e.x);
-    expect(startHero).toBeCloseTo(360 * 0.12, 0);
+    expect(startHero).toBeCloseTo(360 * 0.20, 0);
+    expect(enemyXs).toHaveLength(1);
     expect(enemyXs[0]).toBeGreaterThan(360 * 0.65);
 
     for (let i = 0; i < 40; i++) stage.update(0.05); // 2 秒
@@ -72,5 +73,31 @@ describe('spar approach walk', () => {
     expect(internal.heroX).toBeGreaterThan(startHero + 80);
     expect(internal.enemies.map((e) => e.x)).toEqual(enemyXs);
     expect(internal.enemies.every((e) => e.state === 'hold' || e.state === 'spawn' || e.state === 'dead')).toBe(true);
+  });
+});
+
+describe('spar one-at-a-time duel', () => {
+  it('開局同重置都淨係一個敵人', () => {
+    const stage = new SparStage({
+      canvas: mockCanvas(),
+      images: {
+        heroIdle: blankImg(),
+        heroAttack: blankImg(),
+        enemies: [blankImg()],
+        splash: blankImg(),
+      },
+      enemies: [ENEMY_SHADOW],
+    });
+    stage.resize(360, 218, 1);
+    stage.settleIntro();
+    const internal = stage as unknown as { enemies: unknown[]; heroX: number };
+    expect(internal.enemies).toHaveLength(1);
+
+    // 強制清場後重置
+    (stage as unknown as { enemies: { state: string; t: number }[] }).enemies = [];
+    (stage as unknown as { heroX: number }).heroX = 360 * 0.6;
+    for (let i = 0; i < 30; i++) stage.update(0.05);
+    expect(internal.enemies.length).toBeLessThanOrEqual(1);
+    expect(internal.enemies.length).toBeGreaterThanOrEqual(1);
   });
 });
