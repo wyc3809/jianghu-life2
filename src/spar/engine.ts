@@ -41,6 +41,25 @@ import { AnimDirector, type DirectorSample } from './animDirector';
 const DEG = Math.PI / 180;
 const INK = '22,19,15';
 const CINNABAR = '168,51,31';
+const JADE = '46,110,78';
+const GOLD = '168,122,42';
+
+type ArtTone = 'cinnabar' | 'ink' | 'jade' | 'gold';
+
+/** 按招式名字碼輪轉色調，令不同招式視覺上可辨 */
+function artTone(name: string): ArtTone {
+  let h = 0;
+  for (let i = 0; i < name.length; i++) h = (h * 33 + name.charCodeAt(i)) >>> 0;
+  const tones: ArtTone[] = ['cinnabar', 'ink', 'jade', 'gold'];
+  return tones[h % tones.length]!;
+}
+
+function toneRgb(tone: ArtTone): string {
+  if (tone === 'cinnabar') return CINNABAR;
+  if (tone === 'jade') return JADE;
+  if (tone === 'gold') return GOLD;
+  return INK;
+}
 
 /**
  * 將彩色貼圖轉成「純黑影 + 淡宣紙描邊」並快取（特效用）。
@@ -182,10 +201,39 @@ function evalPose(bone: string, idleT: number, deltaClip: SparClip | null, delta
   return pose;
 }
 
-interface Particle { x: number; y: number; vx: number; vy: number; r: number; age: number; dur: number }
-interface Floater { x: number; y: number; text: string; gain: number; age: number; dur: number }
+interface Particle {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  r: number;
+  age: number;
+  dur: number;
+  /** 墨點色調（招式特效用） */
+  rgb?: string;
+}
+interface Floater {
+  x: number;
+  y: number;
+  text: string;
+  gain: number;
+  age: number;
+  dur: number;
+  /** xp＝修為；art＝招式名 */
+  kind?: 'xp' | 'art';
+  /** 招式浮字色調 */
+  tone?: 'cinnabar' | 'ink' | 'jade' | 'gold';
+}
 interface TrailDot { x: number; y: number; age: number }
 interface SplashFx { x: number; y: number; rot: number; age: number; dur: number }
+interface ArtBurst {
+  x: number;
+  y: number;
+  age: number;
+  dur: number;
+  tone: 'cinnabar' | 'ink' | 'jade' | 'gold';
+  label: string;
+}
 
 type EnemyState = 'spawn' | 'walk' | 'hold' | 'dead';
 interface EnemyInst {
@@ -291,7 +339,11 @@ export class SparStage {
   private floaters: Floater[] = [];
   private trail: TrailDot[] = [];
   private splashes: SplashFx[] = [];
+  private artBursts: ArtBurst[] = [];
   private prevTip: { x: number; y: number } | null = null;
+  /** 已學外功招式名（首頁演武出招顯示） */
+  private learnedArts: string[] = [];
+  private artCursor = 0;
 
   constructor(opts: SparStageOptions) {
     this.canvas = opts.canvas;
@@ -318,6 +370,12 @@ export class SparStage {
   /** 換武器（裝備欄轉武器時叫）；null＝空手。剪影模式只讀 def.src 推斷兵種。 */
   setWeapon(def: WeaponSpriteDef | null, _img: HTMLImageElement | null) {
     this.weaponDef = def;
+  }
+
+  /** 注入已學外功招式名；出手時輪流出招名＋特效 */
+  setLearnedArts(names: string[]) {
+    this.learnedArts = names.filter(Boolean);
+    if (this.artCursor >= this.learnedArts.length) this.artCursor = 0;
   }
 
   /** 減少動態：保留「行過去打敵人」核心觀感，關掉震屏／粒子 */
@@ -493,6 +551,7 @@ export class SparStage {
     this.floaters = age(this.floaters, dt);
     this.splashes = age(this.splashes, dt);
     this.dust = age(this.dust, dt);
+    this.artBursts = age(this.artBursts, dt);
     for (const d of this.dust) d.x += d.vx * dt;
     this.trail = age(
       this.trail.map((d) => ({ ...d, dur: 0.32 })),
@@ -550,11 +609,44 @@ export class SparStage {
     const ix = target ? target.x - 12 : g.heroX + this.reachPx() * 0.8;
     const iy = g.groundY - 300 * g.k * 1.05;
 
+    // 已學招式：輪流出招名＋水墨爆開
+    const art = this.nextArt();
+    if (art) {
+      const tone = artTone(art);
+      this.floaters.push({
+        x: ix,
+        y: iy - 36,
+        text: art,
+        gain: 0,
+        age: 0,
+        dur: 1.35,
+        kind: 'art',
+        tone,
+      });
+      this.artBursts.push({ x: ix, y: iy, age: 0, dur: 0.55, tone, label: art });
+      const rgb = toneRgb(tone);
+      const n = this.quiet ? 6 : 18;
+      for (let i = 0; i < n; i++) {
+        const a = (Math.PI * 2 * i) / n + Math.random() * 0.2;
+        const sp = 55 + Math.random() * 140;
+        this.particles.push({
+          x: ix,
+          y: iy,
+          vx: Math.cos(a) * sp,
+          vy: Math.sin(a) * sp - 20,
+          r: 1.2 + Math.random() * 2.8,
+          age: 0,
+          dur: 0.45 + Math.random() * 0.35,
+          rgb,
+        });
+      }
+    }
+
     const gained = this.onStrike?.() ?? 0;
     if (gained > 0) {
       // 修為累積有浮點尾數（1.0000000000000004），顯示時收返整
       const shown = Math.abs(gained - Math.round(gained)) < 1e-6 ? Math.round(gained) : Number(gained.toFixed(1));
-      this.floaters.push({ x: ix, y: iy - 14, text: `+${shown} 修為`, gain: shown, age: 0, dur: 1.15 });
+      this.floaters.push({ x: ix, y: iy - 14, text: `+${shown} 修為`, gain: shown, age: 0, dur: 1.15, kind: 'xp' });
     }
     this.splashes.push({ x: ix, y: iy, rot: Math.random() * Math.PI * 2, age: 0, dur: 0.5 });
     for (let i = 0; i < 14; i++) {
@@ -570,6 +662,13 @@ export class SparStage {
         dur: 0.5 + Math.random() * 0.35,
       });
     }
+  }
+
+  private nextArt(): string | null {
+    if (!this.learnedArts.length) return null;
+    const name = this.learnedArts[this.artCursor % this.learnedArts.length]!;
+    this.artCursor = (this.artCursor + 1) % this.learnedArts.length;
+    return name;
   }
 
   /** 舞台幾何：全部 px（CSS 像素）。俠客由左行過去；敵人右邊企定望左 */
@@ -633,6 +732,7 @@ export class SparStage {
     }
     this.drawTrail();
     this.drawSplashes();
+    this.drawArtBursts();
     this.drawParticles();
     this.drawFloaters();
 
@@ -962,11 +1062,50 @@ export class SparStage {
     }
   }
 
+  private drawArtBursts() {
+    const { ctx } = this;
+    for (const b of this.artBursts) {
+      const p = b.age / b.dur;
+      const rgb = toneRgb(b.tone);
+      const alpha = Math.pow(1 - p, 1.2);
+      const r0 = 18 + p * 52;
+      const r1 = 8 + p * 28;
+      ctx.save();
+      ctx.translate(b.x, b.y);
+      // 外圈墨暈
+      ctx.beginPath();
+      ctx.arc(0, 0, r0, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(${rgb},${0.55 * alpha})`;
+      ctx.lineWidth = 2.2 - p * 1.2;
+      ctx.stroke();
+      // 內圈急閃
+      ctx.beginPath();
+      ctx.arc(0, 0, r1, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${rgb},${0.22 * alpha})`;
+      ctx.fill();
+      // 四向短墨線（招式印記）
+      ctx.strokeStyle = `rgba(${rgb},${0.7 * alpha})`;
+      ctx.lineWidth = 1.6;
+      ctx.lineCap = 'round';
+      for (let i = 0; i < 4; i++) {
+        const a = (Math.PI / 2) * i + p * 0.6;
+        const inR = 6 + p * 10;
+        const outR = 22 + p * 36;
+        ctx.beginPath();
+        ctx.moveTo(Math.cos(a) * inR, Math.sin(a) * inR);
+        ctx.lineTo(Math.cos(a) * outR, Math.sin(a) * outR);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+  }
+
   private drawParticles() {
     const { ctx } = this;
     for (const pt of this.particles) {
       const p = pt.age / pt.dur;
-      ctx.fillStyle = `rgba(${INK},${0.75 * (1 - p)})`;
+      const rgb = pt.rgb ?? INK;
+      ctx.fillStyle = `rgba(${rgb},${0.75 * (1 - p)})`;
       ctx.beginPath();
       ctx.arc(pt.x, pt.y, pt.r * (1 - p * 0.5), 0, Math.PI * 2);
       ctx.fill();
@@ -980,6 +1119,27 @@ export class SparStage {
       const p = f.age / f.dur;
       const alpha = p < 0.15 ? p / 0.15 : 1 - Math.pow((p - 0.15) / 0.85, 2);
       const ty = f.y - p * 38;
+
+      // 招式名：楷體浮字＋色調描邊（唔走修為徽章）
+      if (f.kind === 'art') {
+        const rgb = toneRgb(f.tone ?? 'cinnabar');
+        const pop = p < 0.12 ? 0.85 + (p / 0.12) * 0.2 : 1;
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.translate(f.x, ty);
+        ctx.scale(pop, pop);
+        ctx.font = `700 15px 'Kaiti TC', 'STKaiti', 'KaiTi', 'Songti TC', serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = 'rgba(240,233,216,0.95)';
+        ctx.strokeText(f.text, 0, 0);
+        ctx.fillStyle = `rgba(${rgb},1)`;
+        ctx.fillText(f.text, 0, 0);
+        ctx.restore();
+        continue;
+      }
+
       // AI 水墨版：宣紙墨漬徽章＋朱砂書法字形（未載好就用文字 fallback）
       if (ui?.splashPaper && ui.xiuwei && ui.glyphs['+']) {
         const gh = 17; // 數字字形高（css px）
