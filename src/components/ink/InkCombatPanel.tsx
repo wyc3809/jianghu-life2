@@ -14,8 +14,14 @@ import {
   type InkCombatFx,
 } from '@core/life/combatInkFx';
 import { InkBarWithGhost, InkCombatFxLayer, useInkCombatFxQueue } from './InkCombatFx';
-import { InkInlineSvg } from './InkDecor';
-import { INK_SVG, auraSvgForInternalModeId, auraClassForInternalModeId } from '../../ui/inkAssets';
+import { InkArt } from './InkDecor';
+import {
+  INK_COMBAT_SEAL,
+  sealUrlForText,
+  strokeUrl,
+  auraUrlForInternalModeId,
+  auraClassForInternalModeId,
+} from '../../ui/inkAssets';
 import { COMBO_PATTERNS } from '@core/life/comboSystem';
 import { MOVE_STANCE_LABEL, resolveMoveStance, stanceBeats, type MoveStance } from '@core/life/moveStance';
 import {
@@ -254,7 +260,7 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
   const latestBeats = combat.log.length ? recentExchangeBeats(combat.log, combat.player.name, combat.foe.name) : [];
   const exchangeHint = summarizeExchange(latestBeats);
   const combatStyle = styleForCombat(combat);
-  const auraMarkup = auraSvgForInternalModeId(combat.player.internalMode);
+  const auraSrc = auraUrlForInternalModeId(combat.player.internalMode);
   const auraClass = auraClassForInternalModeId(combat.player.internalMode);
   const moveStanceById = new Map(moves.map((mv) => [mv.id, resolveMoveStance(mv)]));
   const comboTrail = combat.moveHistory?.slice(-3) ?? [];
@@ -272,7 +278,7 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
       <div className="ink-blot-decor ink-blot-decor--corner-tr" aria-hidden />
       {comboBurst && (
         <div className="ink-combo-burst" key={comboBurst.seq}>
-          <InkInlineSvg className="ink-combo-burst__icon" markup={INK_SVG.sealCombo} />
+          <InkArt className="ink-combo-burst__icon" src={sealUrlForText(INK_COMBAT_SEAL.combo)!} />
           <span className="ink-combo-burst__name">{comboBurst.name}</span>
         </div>
       )}
@@ -288,7 +294,7 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
         <h3>
           交手 · {combat.foe.name}
           {combat.phase === 'resolve' && (
-            <InkInlineSvg className="ink-combat-seal" markup={INK_SVG.sealVictory} />
+            <InkArt className="ink-combat-seal" src={sealUrlForText(INK_COMBAT_SEAL.victory)!} />
           )}
         </h3>
         {combat.lastPlayerStance && combat.lastFoeStance && (
@@ -348,8 +354,8 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
                 active
               />
             </div>
-            {auraMarkup && (
-              <InkInlineSvg className={`ink-combat-aura ${auraClass}`} markup={auraMarkup} />
+            {auraSrc && (
+              <InkArt className={`ink-combat-aura ${auraClass}`} src={auraSrc} />
             )}
           </div>
         </div>
@@ -395,7 +401,7 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
         {combat.phase === 'resolve' ? (
           <>
             <p className="ink-note">
-              <InkInlineSvg className="ink-combat-seal" markup={INK_SVG.sealFate} />
+              <InkArt className="ink-combat-seal" src={sealUrlForText(INK_COMBAT_SEAL.fate)!} />
               {combat.foeSurrendered
                 ? '對方已跪地求饒——殺、放、廢其武功，如何抉擇，亦會留在心性裡。'
                 : '勝負已分——如何處置落敗之人，亦會留在心性裡。'}
@@ -439,7 +445,7 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
             {combat.player.hp / Math.max(1, combat.player.maxHp) < 0.2 && (
               <div className="ink-combat-desperate">
                 <p className="ink-note ink-note--warn">
-                  <InkInlineSvg className="ink-combat-seal" markup={INK_SVG.sealCritical} />
+                  <InkArt className="ink-combat-seal" src={sealUrlForText(INK_COMBAT_SEAL.critical)!} />
                   氣血垂危——絕地反擊，孤注一擲：
                 </p>
                 <div className="ink-choice-list">
@@ -656,11 +662,11 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
                                 : mv.id === REST_HEAL_MOVE.id
                                   ? `架 · 回血${mv.healSelf ?? 0}${mv.cooldown ? ` · CD${mv.cooldown}` : ''}`
                                   : mv.description;
-                    const strokeMarkup =
+                    const strokeSrc =
                       mv.id === GUARD_STANCE.id
-                        ? INK_SVG.strokeGuard
+                        ? strokeUrl('guard')
                         : mv.id === FLEE_MOVE.id
-                          ? INK_SVG.strokeDodge
+                          ? strokeUrl('dodge')
                           : null;
                     return (
                       <button
@@ -674,7 +680,7 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
                         }}
                       >
                         <strong>
-                          {strokeMarkup && <InkInlineSvg className="ink-action-stroke" markup={strokeMarkup} />}
+                          {strokeSrc && <InkArt className="ink-action-stroke" src={strokeSrc} />}
                           {MOVE_STANCE_LABEL[stance]}·{mark} {mv.name}
                           {onCd ? ` · 冷卻${cdLeft}` : ''}
                         </strong>

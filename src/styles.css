@@ -214,8 +214,6 @@ body::before {
   margin-bottom: 6px;
 }
 
-.scroll-shell--event .ink-event-banner-svg,
-.scroll-shell--event .ink-event-banner-svg svg,
 .scroll-shell--event .ink-event-banner-img {
   max-height: 72px;
 }
@@ -274,19 +272,6 @@ body::before {
   mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 100%);
 }
 
-.ink-backdrop--hero .ink-mountains-img {
-  opacity: 1;
-  height: 92%;
-}
-
-.ink-backdrop--hero .ink-boat-img {
-  opacity: 0.85;
-}
-
-.ink-backdrop--hero .ink-bamboo-img {
-  opacity: 0.5;
-}
-
 .ink-start .ink-hero {
   padding-top: 40px;
 }
@@ -297,89 +282,6 @@ body::before {
 
 .ink-start .ink-verse {
   margin-top: 6px;
-}
-
-.ink-mountains {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-/* 素材包遠山／孤舟／墨漬／竹角（內嵌 span>svg） */
-.ink-mountains-img,
-.ink-boat-img,
-.ink-blots-img,
-.ink-bamboo-img,
-.ink-fade-line,
-.ink-brush-divider,
-.ink-stages-strip,
-.ink-event-banner-svg,
-.ink-title-slip {
-  display: block;
-  line-height: 0;
-  pointer-events: none;
-  user-select: none;
-}
-
-.ink-mountains-img svg,
-.ink-boat-img svg,
-.ink-blots-img svg,
-.ink-bamboo-img svg,
-.ink-fade-line svg,
-.ink-brush-divider svg,
-.ink-stages-strip svg,
-.ink-title-slip svg,
-.ink-event-banner-svg svg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.ink-mountains-img {
-  position: absolute;
-  inset: auto 0 0 0;
-  width: 100%;
-  height: 88%;
-  opacity: 0.92;
-  /* 平時靜紙；只留極緩遠山呼吸 */
-  animation: inkBreathe 28s ease-in-out infinite;
-}
-
-.ink-mountains-img svg {
-  height: 100%;
-}
-
-.ink-boat-img {
-  position: absolute;
-  left: 8%;
-  bottom: 28%;
-  width: 42%;
-  max-width: 180px;
-  opacity: 0.78;
-  /* 船靜置，唔再漂移 */
-  animation: none;
-}
-
-.ink-blots-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.55;
-  animation: none;
-}
-
-.ink-blots-img svg {
-  height: 100%;
-}
-
-.ink-bamboo-img {
-  position: absolute;
-  right: -2%;
-  bottom: 6%;
-  width: 38%;
-  max-width: 140px;
-  opacity: 0.42;
 }
 
 .ink-blot {
@@ -413,25 +315,6 @@ body::before {
   opacity: 0.32;
 }
 
-.ink-title-slip {
-  width: min(220px, 72%);
-  margin: 0 auto 10px;
-  opacity: 0.9;
-}
-
-.ink-fade-line,
-.ink-brush-divider {
-  width: min(220px, 72%);
-  margin: 16px auto 14px;
-  opacity: 0.78;
-}
-
-.ink-stages-strip {
-  width: min(340px, 92%);
-  margin: 4px auto 8px;
-  opacity: 0.55;
-}
-
 .ink-event-banner {
   margin: 0 0 12px;
   overflow: hidden;
@@ -440,7 +323,6 @@ body::before {
   background: transparent;
 }
 
-.ink-event-banner-svg,
 .ink-event-banner-img {
   width: 100%;
   max-height: 132px;
@@ -452,10 +334,6 @@ body::before {
   object-fit: cover;
   object-position: center bottom;
   height: 132px;
-}
-
-.ink-event-banner-svg svg {
-  max-height: 132px;
 }
 
 /* AI 水墨洗底（首屏等） */
@@ -818,20 +696,6 @@ body::before {
   transform: rotate(-6deg);
   background:
     radial-gradient(circle at 30% 28%, rgba(163, 58, 50, 0.08), transparent 55%);
-}
-
-.ink-seal-static--svg {
-  border: none;
-  box-shadow: none;
-  background: transparent;
-  padding: 0;
-  overflow: visible;
-}
-
-.ink-seal-static--svg svg {
-  width: 100%;
-  height: 100%;
-  display: block;
 }
 
 .ink-seal-static--end {
@@ -1686,9 +1550,6 @@ body::before {
 .ink-backdrop--quiet .ink-mist-layer,
 .ink-backdrop--quiet .ink-brush-sweep,
 .ink-backdrop--quiet .ink-blot,
-.ink-backdrop--quiet .ink-mountains-img,
-.ink-backdrop--quiet .ink-boat-img,
-.ink-backdrop--quiet .ink-blots-img,
 .ink-backdrop--quiet .ink-ridge,
 .ink-backdrop--quiet .ink-mist-orb,
 .ink-backdrop--quiet .ink-spark {
@@ -1698,12 +1559,6 @@ body::before {
 .ink-backdrop--quiet .ink-mist-layer,
 .ink-backdrop--quiet .ink-brush-sweep {
   opacity: 0.28;
-}
-
-.ink-backdrop--quiet .ink-mountains-img,
-.ink-backdrop--quiet .ink-blots-img,
-.ink-backdrop--quiet .ink-bamboo-img {
-  opacity: 0.35;
 }
 
 .ink-backdrop--quiet .ink-spark {
@@ -2357,35 +2212,17 @@ body::before {
   transform: rotate(-8deg);
 }
 
-.ink-seal-stamp--svg {
-  border: none;
-  box-shadow: none;
-  background: transparent;
-  padding: 0;
-}
-
-.ink-seal-stamp--svg svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-  filter: drop-shadow(0 8px 18px rgba(163, 58, 50, 0.18));
-}
-
-.ink-result-seal--svg {
+.ink-result-seal--art {
   display: inline-block;
   width: 1.6rem;
   height: 1.6rem;
   vertical-align: middle;
 }
 
-.ink-result-seal--svg svg {
+.ink-result-seal--art img {
   width: 100%;
   height: 100%;
   display: block;
-}
-
-.ink-backdrop--night .ink-mountains-img {
-  opacity: 0.92;
 }
 
 /* debug + legacy aliases used by LifeDebugPanel */
@@ -3413,13 +3250,6 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
   .ink-result,
   .ink-panel,
   .ink-blot,
-  .ink-mountains-img,
-  .ink-boat-img,
-  .ink-blots-img,
-  .ink-title-slip,
-  .ink-fade-line,
-  .ink-brush-divider,
-  .ink-stages-strip,
   .ink-mist-layer,
   .ink-brush-sweep,
   .ink-ridge,
@@ -4196,10 +4026,6 @@ button.is-pressed,
   --scene-edge: rgba(42, 53, 48, 0.06);
 }
 
-.ink-backdrop .ink-mountains-img {
-  opacity: var(--mountain-opacity);
-}
-
 .ink-backdrop--spring {
   filter: saturate(1.05) hue-rotate(-6deg);
 }
@@ -4216,45 +4042,29 @@ button.is-pressed,
 .ink-backdrop--hall {
   filter: sepia(0.1) saturate(1.02);
 }
-.ink-backdrop--hall .ink-mountains-img {
-  opacity: 0.72;
-}
+
 .ink-backdrop--mountain {
   filter: saturate(0.94) contrast(1.03);
 }
-.ink-backdrop--mountain .ink-mountains-img {
-  transform: translateY(-4px) scale(1.04);
-  transform-origin: bottom center;
-}
+
 .ink-backdrop--river {
   filter: hue-rotate(4deg) saturate(1.03);
 }
 .ink-backdrop--river .ink-mist-layer {
   opacity: 0.85;
 }
-.ink-backdrop--river .ink-boat-img {
-  opacity: 0.9;
-}
+
 .ink-backdrop--wild {
   filter: hue-rotate(-3deg) saturate(1.05);
 }
 .ink-backdrop--wild .ink-brush-sweep {
   opacity: 0.55;
 }
-.ink-backdrop--wild .ink-bamboo-img {
-  opacity: 0.55;
-}
+
 .ink-backdrop--omen {
   box-shadow: inset 0 -40px 60px var(--cinnabar-soft);
 }
-.ink-backdrop--night .ink-mountains-img {
-  opacity: var(--mountain-opacity);
-  filter: brightness(0.92);
-}
-.ink-backdrop--winter .ink-mountains-img,
-.ink-backdrop--omen .ink-mountains-img {
-  filter: brightness(0.92);
-}
+
 .ink-aftermath-chip {
   margin: 0;
   padding: 6px 10px;
@@ -4341,11 +4151,6 @@ button.is-pressed,
   .scroll-shell--combat .ink-combat-moves .ink-choice {
     min-height: 46px;
     padding: 12px 8px;
-  }
-
-  .scroll-shell--event .ink-event-banner-svg,
-  .scroll-shell--event .ink-event-banner-svg svg {
-    max-height: 64px;
   }
 
   .ink-choice {
@@ -4565,10 +4370,7 @@ button.is-pressed,
   z-index: 5;
 }
 
-
-
-.ink-seal-static--img,
-.ink-seal-static--svg {
+.ink-seal-static--img {
   border: none;
   box-shadow: none;
   background: transparent;
@@ -4582,14 +4384,7 @@ button.is-pressed,
   height: 64px;
 }
 
-.ink-seal-static--svg svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.ink-seal-stamp--img,
-.ink-seal-stamp--svg {
+.ink-seal-stamp--img {
   border: none;
   box-shadow: none;
   background: transparent;
@@ -4603,21 +4398,14 @@ button.is-pressed,
   filter: drop-shadow(0 8px 18px rgba(163, 58, 50, 0.18));
 }
 
-.ink-seal-stamp--svg svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-  filter: drop-shadow(0 8px 18px rgba(163, 58, 50, 0.18));
-}
-
-.ink-result-seal--svg {
+.ink-result-seal--art {
   display: inline-block;
   width: 1.6rem;
   height: 1.6rem;
   vertical-align: middle;
 }
 
-.ink-result-seal--svg svg {
+.ink-result-seal--art img {
   width: 100%;
   height: 100%;
   display: block;
@@ -4625,10 +4413,6 @@ button.is-pressed,
 
 .ink-ai-wash--play {
   opacity: 0.42;
-}
-
-.ink-backdrop--night .ink-mountains-img {
-  opacity: 0.88;
 }
 
 /* —— 交手水墨特效（旁註／筆勢／紙震）—— */
@@ -5252,9 +5036,7 @@ html[data-ink-motion='reduce'] .ink-combat-fx-layer {
   pointer-events: none;
 }
 
-.scroll-shell--event .ink-event-banner-img,
-.scroll-shell--event .ink-event-banner-svg,
-.scroll-shell--event .ink-event-banner-svg svg {
+.scroll-shell--event .ink-event-banner-img {
   width: 100%;
   height: 100%;
   max-height: none;
@@ -5518,7 +5300,6 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   }
 }
 
-
 /* ============================================================
    水墨戰鬥素材包：連招印章／內功光環／招式筆觸／墨漬角飾
    來源：使用者提供之 jianghu-visual-assets.zip（已按本專案色票調整）
@@ -5582,7 +5363,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   z-index: 1;
 }
 
-.ink-combo-burst__icon svg {
+.ink-combo-burst__icon img {
   width: 100%;
   height: 100%;
   display: block;
@@ -5623,7 +5404,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   z-index: 0;
 }
 
-.ink-combat-aura svg {
+.ink-combat-aura img {
   width: 100%;
   height: 100%;
   display: block;
@@ -5657,7 +5438,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   animation: sealStamp 0.6s cubic-bezier(0.2, 0.85, 0.25, 1) forwards;
 }
 
-.ink-combat-seal svg {
+.ink-combat-seal img {
   width: 100%;
   height: 100%;
   display: block;
@@ -5715,7 +5496,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   opacity: 0.85;
 }
 
-.ink-action-stroke svg {
+.ink-action-stroke img {
   width: 100%;
   height: 100%;
   display: block;
@@ -6334,7 +6115,6 @@ html[data-ink-motion='reduce'] .ink-result-wash {
     animation: none;
   }
 }
-
 
 /* 主畫面 AI 水墨底景（取代舊 SVG 遠山層） */
 .ink-backdrop-ai {

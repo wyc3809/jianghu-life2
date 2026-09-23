@@ -34,7 +34,7 @@
 ## 3. Lighting & Atmosphere
 
 - 均勻紙面光，無戲劇性打光。
-- 底部遠山墨暈 + 角落淡墨漬（`public/ink/decor/` SVG）。
+- 底部遠山墨暈 + 角落淡墨漬（`public/ink/ai/backdrops/` WebP）。
 - 霧感靠透明度與 blur，不靠 glow。
 
 ## 4. Character Art Direction
@@ -53,7 +53,7 @@
 - 直角或極小圓角（≤2px）；邊框 1px 淡墨線。
 - 主按鈕：墨底紙字；次按鈕：空心墨線。
 - 選項：左側豎線筆觸，hover 加深。
-- 標題字距加寬；分隔用淡墨橫線漸隱（`frames/ink-fade-line.svg`）。
+- 標題字距加寬；分隔用淡墨橫線漸隱（CSS 漸層）。
 
 ## 7. VFX & Motion
 

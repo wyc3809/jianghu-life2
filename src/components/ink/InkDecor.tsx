@@ -1,15 +1,14 @@
-/** 宣紙遠山 + 墨漬 + 竹角（內嵌 SVG，避免外連圖失敗） */
+/** 宣紙底圖、朱砂印、事件橫幅 — 全為 WebP 位圖（無 SVG 手繪） */
 import type { InkPlace, InkSeason } from './sceneVariants';
-import { sealSvgForText } from '../../ui/inkAssets';
+import { sealUrlForText } from '../../ui/inkAssets';
 import { inkAiUrl } from '../../ui/inkAiCatalog';
 
-export function InkInlineSvg({ className, markup }: { className?: string; markup: string }) {
+/** 裝飾用位圖：外層 span 承接尺寸／動畫 class，內層 img 撐滿 */
+export function InkArt({ className, src }: { className?: string; src: string }) {
   return (
-    <span
-      className={className}
-      aria-hidden
-      dangerouslySetInnerHTML={{ __html: markup }}
-    />
+    <span className={className} aria-hidden>
+      <img src={src} alt="" decoding="async" draggable={false} />
+    </span>
   );
 }
 
@@ -26,7 +25,7 @@ export function InkScrollBackdrop({
   season?: InkSeason;
   place?: InkPlace;
   omen?: boolean;
-  /** 夜雨／奇遇時改用夜山 SVG；可與 AI wash 疊用 */
+  /** 夜雨／奇遇時改用夜山底圖 */
   night?: boolean;
 }) {
   const useNight = night || omen;
@@ -65,19 +64,11 @@ export function InkSealStamp({
   text: string;
   onDone?: () => void;
 }) {
-  const sealMarkup = sealSvgForText(text);
-  const useAiFate = text === '生' || text === '終' || text === '緣';
+  const sealSrc = sealUrlForText(text);
   return (
     <div className="ink-seal-overlay" onAnimationEnd={() => onDone?.()} aria-live="polite">
-      {useAiFate ? (
-        <img
-          className="ink-seal-stamp ink-seal-stamp--img"
-          src={inkAiUrl('seal-cinnabar-fate')}
-          alt={text}
-          decoding="async"
-        />
-      ) : sealMarkup ? (
-        <InkInlineSvg className="ink-seal-stamp ink-seal-stamp--svg" markup={sealMarkup} />
+      {sealSrc ? (
+        <img className="ink-seal-stamp ink-seal-stamp--img" src={sealSrc} alt={text} decoding="async" />
       ) : (
         <span className="ink-seal-stamp">{text}</span>
       )}
@@ -87,9 +78,9 @@ export function InkSealStamp({
 
 /** 結果匣角印／題簽裝飾 */
 export function InkResultSeal({ text = '定' }: { text?: string }) {
-  const sealMarkup = sealSvgForText(text);
-  if (sealMarkup) {
-    return <InkInlineSvg className="ink-result-seal ink-result-seal--svg" markup={sealMarkup} />;
+  const sealSrc = sealUrlForText(text);
+  if (sealSrc) {
+    return <InkArt className="ink-result-seal ink-result-seal--art" src={sealSrc} />;
   }
   return (
     <span className="ink-result-seal" aria-hidden>
@@ -98,7 +89,7 @@ export function InkResultSeal({ text = '定' }: { text?: string }) {
   );
 }
 
-/** 靜態朱砂印（開卷／掩卷）— 優先 AI 命運印，其次 SVG 字印 */
+/** 靜態朱砂印（開卷／掩卷）— 逐字朱砂印位圖；無對應字則 CSS 字印 */
 export function InkStaticSeal({
   text,
   className = '',
@@ -106,23 +97,15 @@ export function InkStaticSeal({
   text: string;
   className?: string;
 }) {
-  if (text === '生' || text === '終' || text === '緣' || text === '江湖') {
+  const sealSrc = sealUrlForText(text);
+  if (sealSrc) {
     return (
       <img
         className={`ink-seal-static ink-seal-static--img${className ? ` ${className}` : ''}`}
-        src={inkAiUrl('seal-cinnabar-fate')}
+        src={sealSrc}
         alt=""
         aria-hidden
         decoding="async"
-      />
-    );
-  }
-  const sealMarkup = sealSvgForText(text);
-  if (sealMarkup) {
-    return (
-      <InkInlineSvg
-        className={`ink-seal-static ink-seal-static--svg${className ? ` ${className}` : ''}`}
-        markup={sealMarkup}
       />
     );
   }
@@ -133,29 +116,17 @@ export function InkStaticSeal({
   );
 }
 
-/** 事件橫幅 — AI WebP 優先，或 SVG 內嵌 */
-export function InkEventBanner({
-  markup,
-  src,
-  alt = '',
-}: {
-  markup?: string;
-  src?: string | null;
-  alt?: string;
-}) {
-  if (!markup && !src) return null;
+/** 事件橫幅 — AI 水墨 WebP */
+export function InkEventBanner({ src, alt = '' }: { src?: string | null; alt?: string }) {
+  if (!src) return null;
   return (
     <div className="ink-event-banner" role={alt ? 'img' : undefined} aria-label={alt || undefined}>
-      {src ? (
-        <img className="ink-event-banner-img" src={src} alt="" decoding="async" />
-      ) : (
-        <InkInlineSvg className="ink-event-banner-svg" markup={markup!} />
-      )}
+      <img className="ink-event-banner-img" src={src} alt="" decoding="async" />
     </div>
   );
 }
 
-/** AI 水墨底圖層（可疊在 SVG 遠山之下） */
+/** AI 水墨底圖層 */
 export function InkAiWashLayer({
   src,
   className = 'ink-ai-wash',

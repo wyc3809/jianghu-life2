@@ -53,38 +53,25 @@
 
 完整 STYLE／writing／prompts／svg（含印章與夜山）。執行時已同步至 `public/ink/`；見 [`ink-pack-pointer.md`](./ink-pack-pointer.md)。
 
-## SVG · 裝飾 `public/ink/decor/`
+## 位圖 · 朱砂印／氣場／筆觸 `public/ink/art/`
 
-| 檔名 | 說明 |
-|------|------|
-| `mountains-wide.svg` | 日間遠山底 |
-| `mountains-night.svg` | 夜雨遠山（SVG 備援） |
-| `ink-blots.svg` | 墨漬 |
-| `bamboo-corner.svg` | 竹角飾 |
-| `boat-mist.svg` | 孤舟煙波 |
-| `event-banner-rain-inn.svg` | 夜雨投店橫幅（AI 無匹配時備援） |
-| `event-banner-bridge.svg` | 橋上有人橫幅（備援） |
+由 `scripts/art/build_ink_stamps.py` 產生（霞鶩文楷 TC Bold，OFL；固定種子可重跑）。取代舊手繪 SVG。
 
-## SVG · 印章 `public/ink/seals/`
+| 資料夾 | 檔案 | 用途 |
+|--------|------|------|
+| `seals/` | `seal-sheng`（生，朱文）· `seal-zhong`（終，白文）· `seal-yuan`（緣，朱文）· `seal-jianghu`（江湖，白文雙字） | 開卷／掩卷／命運落印 |
+| `seals/` | `seal-zhao`（招）· `seal-sheng-win`（勝）· `seal-ming`（命，朱文）· `seal-wei`（危） | 戰鬥：連招、得勝、命懸、危 |
+| `auras/` | `aura-guixi`（龜·青）· `aura-huxiao`（虎·朱）· `aura-hexian`（鶴·墨）· `aura-shepan`（蛇·金） | 內功模式呼吸氣場 |
+| `strokes/` | `stroke-guard`（守）· `stroke-dodge`（遁） | 招式按鈕筆觸 |
 
-`seal-sheng.svg`（生）· `seal-zhong.svg`（終）· `seal-yuan.svg`（緣）· `seal-jianghu.svg`（江湖）
+## 已退役 SVG
 
-## SVG · 圖示 `public/ink/icons/`
-
-劍、傘、酒旗、玉佩、石橋、卷軸、燈籠、山門、`stages-strip.svg`（十階意象條）
-
-## SVG · 框線 `public/ink/frames/`
-
-`scroll-frame.svg` · `title-slip.svg` · `ink-fade-line.svg` · `brush-stroke.svg`
-
-## 遊戲專用
-
-`public/ink/gear-*.svg`、`encounter-hermit.svg`、`event-bridge.svg`、`ui-header.svg`
+`public/ink/{decor,seals,icons,frames}/*.svg`、`gear-*.svg`、`encounter-hermit.svg`、`event-bridge.svg`、`ui-header.svg` 已自 `public/` 移除（原始檔仍在 `assets/ink-pack/` 作參考）。遊戲內容美術一律位圖，見 `.claude/rules/no-svg-game-art.md`。
 
 ## 程式接線
 
 - AI 目錄：`src/ui/inkAiCatalog.ts`（玩法橫幅／首屏／命運印優先用 WebP）
-- SVG 助手：`src/ui/inkAssets.ts`（`INK_SVG` / `pickEventBanner` / `sealSvgForText`）
+- 位圖助手：`src/ui/inkAssets.ts`（`sealUrlForText` / `auraUrlForInternalModeId` / `strokeUrl`）
 - 遠山底：`InkScrollBackdrop` + 可選 `InkAiWashLayer`
 - 開卷／掩卷朱砂印：`InkStaticSeal`
 - 命運落印動畫：`InkSealStamp`
