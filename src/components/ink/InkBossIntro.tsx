@@ -4,6 +4,7 @@ import { useStillMode, useSkipJsAnimation } from '../../hooks/useStillMode';
 import { stillClassName } from './inkStillClass';
 import { InkBrushBar, clampPct } from './InkBrush';
 import { inkArtUrl } from '../../ui/inkAssets';
+import { foeSilhouetteUrl } from '../../ui/inkSilhouettes';
 import styles from './InkBossIntro.module.css';
 
 type Particle = {
@@ -135,7 +136,14 @@ export function InkBossIntro({ foeName, hp, maxHp, onDone }: Props) {
       <div className={styles.stage}>
         <div className={cls(styles.shake, styles.shakeStill)}>
           <p className={cls(styles.warn, styles.warnStill)}>強 敵 現 身</p>
-          <img className={cls(styles.art, styles.artStill)} src="/art/art-boss.png" alt={foeName} />
+          {/* 月下剪影：淡月輪襯出首領朱砂描邊剪影 */}
+          <span className={cls(styles.moon, styles.moonStill)} aria-hidden />
+          <img
+            className={cls(styles.art, styles.artStill)}
+            src={foeSilhouetteUrl(foeName, true)}
+            alt={foeName}
+            draggable={false}
+          />
           <div className={styles.slash} aria-hidden>
             <img
               className={cls(styles.slashStroke, styles.slashStill)}

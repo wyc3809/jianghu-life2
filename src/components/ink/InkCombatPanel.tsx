@@ -15,6 +15,7 @@ import {
 } from '@core/life/combatInkFx';
 import { InkBarWithGhost, InkCombatFxLayer, useInkCombatFxQueue } from './InkCombatFx';
 import { InkArt } from './InkDecor';
+import { InkDuelStage } from './InkDuelStage';
 import {
   INK_COMBAT_SEAL,
   sealUrlForText,
@@ -328,6 +329,14 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
             </span>
           </div>
         )}
+        <InkDuelStage
+          sectId={c.sectId}
+          foeName={combat.foe.name}
+          boss={combat.foePower === 'boss'}
+          fx={combatFx}
+          foeDown={combat.foe.hp <= 0}
+          playerDown={combat.player.hp <= 0}
+        />
         <div className="ink-combat-bars">
           <div>
             <div className="ink-vitals-label">

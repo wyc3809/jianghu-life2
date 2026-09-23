@@ -78,6 +78,19 @@
 | `slash-stroke` | 首領現身一斬 | CSS 旋轉 + clip-path 劃出 |
 | `paper-grain` | 全域／彈窗紙紋 | 平鋪背景（取代 SVG feTurbulence data URI） |
 
+## 位圖 · 剪影（C 款）`public/ink/art/sil/`
+
+由 `scripts/art/build_silhouettes.py` 產生：純墨剪影＋乾筆描邊＋一筆朱砂。出圖要求見 [`SILHOUETTE-PROMPTS.md`](./SILHOUETTE-PROMPTS.md)。
+
+| 檔案 | 描邊 | 朱砂 | 用喺 |
+|------|------|------|------|
+| `hero-{sect}`（10 派） | 門派色 | 頭帶一筆 | 人物誌橫幅、交手對峙 |
+| `enemy-{key}`（daoke／gouke／nvcike／toutuo／tiemian） | 淡墨 | 無 | 交手對峙 |
+| `boss-{key}`（1400px） | 朱砂 | 描邊 | 首領現身（月下剪影）、首領交手 |
+
+門派色：武當 `#3D5C4F`、少林 `#8A7355`、峨嵋 `#8A93A0`、華山 `#44607A`、唐門 `#4F5B3A`、桃花 `#B07A78`、青雲 `#5E7F8C`、天刀 `#5A5650`、魔教 `#5A3E48`、無根 `#8A8278`。
+名 → 剪影對應：`src/ui/inkSilhouettes.ts`。切磋小窗仍用 `public/ink/spar/sil/`（刻意保留）。
+
 ## 已退役 SVG
 
 `public/ink/{decor,seals,icons,frames}/*.svg`、`gear-*.svg`、`encounter-hermit.svg`、`event-bridge.svg`、`ui-header.svg` 已自 `public/` 移除（原始檔仍在 `assets/ink-pack/` 作參考）。遊戲內容美術一律位圖，見 `.claude/rules/no-svg-game-art.md`。

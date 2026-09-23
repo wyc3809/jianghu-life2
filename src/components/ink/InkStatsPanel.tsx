@@ -7,6 +7,7 @@ import { useStillMode } from '../../hooks/useStillMode';
 import { stillClassName } from './inkStillClass';
 import { InkBrushBar, clampPct } from './InkBrush';
 import { inkArtUrl } from '../../ui/inkAssets';
+import { heroSilhouetteUrl } from '../../ui/inkSilhouettes';
 import styles from './InkStatsPanel.module.css';
 
 /** 五維顯示上限（純顯示用標準化，唔影響數值判定） */
@@ -61,7 +62,14 @@ export function InkStatsPanel({ state, onClose }: Props) {
           <button type="button" className={styles.close} onClick={onClose}>
             掩卷
           </button>
-          <div className={cls(styles.banner, styles.bannerStill)} aria-hidden />
+          <div className={cls(styles.banner, styles.bannerStill)} aria-hidden>
+            <img
+              className={`${styles.heroSil} ${still ? styles.heroSilStill : ''}`}
+              src={heroSilhouetteUrl(c.sectId)}
+              alt=""
+              draggable={false}
+            />
+          </div>
           <span className={`${styles.corner} ${styles.tl} ${still ? styles.cornerStill : ''}`} aria-hidden>
             <img src={cornerSrc} alt="" draggable={false} />
           </span>
