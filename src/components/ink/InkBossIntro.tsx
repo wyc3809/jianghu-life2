@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useStillMode, useSkipJsAnimation } from '../../hooks/useStillMode';
-import { stillClassName, barOffset } from './inkStillClass';
+import { stillClassName } from './inkStillClass';
+import { InkBrushBar, clampPct } from './InkBrush';
+import { inkArtUrl } from '../../ui/inkAssets';
 import styles from './InkBossIntro.module.css';
 
 type Particle = {
@@ -107,8 +109,6 @@ type Props = {
   onDone: () => void;
 };
 
-const HP_BAR_LEN = 508;
-
 /**
  * Boss 動畫：黑紙反墨 + 原畫立繪 + 猩紅一斬。
  * 移植自水墨武俠 UI 套件 index.html #scene-boss。
@@ -128,7 +128,6 @@ export function InkBossIntro({ foeName, hp, maxHp, onDone }: Props) {
   }, [skipJs]);
 
   const cls = (base: string, stillCls?: string) => stillClassName(base, stillCls, still);
-  const off = barOffset(HP_BAR_LEN, hp, maxHp);
 
   return createPortal(
     <div className={styles.root} role="button" tabIndex={0} aria-label="強敵現身，點擊繼續" onClick={onDone}>
@@ -137,9 +136,14 @@ export function InkBossIntro({ foeName, hp, maxHp, onDone }: Props) {
         <div className={cls(styles.shake, styles.shakeStill)}>
           <p className={cls(styles.warn, styles.warnStill)}>強 敵 現 身</p>
           <img className={cls(styles.art, styles.artStill)} src="/art/art-boss.png" alt={foeName} />
-          <svg className={cls(styles.slash, styles.slashStill)} viewBox="0 0 1000 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <path style={{ ['--len' as string]: 1200 }} strokeWidth={9} d="M40 660 L 960 400" />
-          </svg>
+          <div className={styles.slash} aria-hidden>
+            <img
+              className={cls(styles.slashStroke, styles.slashStill)}
+              src={inkArtUrl('art/ui/slash-stroke.webp')}
+              alt=""
+              draggable={false}
+            />
+          </div>
           <div className={styles.name}>
             <div className={cls(styles.kanji, styles.kanjiStill)}>{foeName}</div>
           </div>
@@ -151,14 +155,14 @@ export function InkBossIntro({ foeName, hp, maxHp, onDone }: Props) {
                 {Math.max(0, Math.round(hp))} / {Math.round(maxHp)}
               </span>
             </div>
-            <svg viewBox="0 0 520 22" preserveAspectRatio="none">
-              <path className={styles.rail} d="M6 11 H 514" />
-              <path
-                className={cls(styles.fill, styles.fillStill)}
-                style={{ ['--len' as string]: HP_BAR_LEN, ['--off' as string]: off }}
-                d="M6 11 H 514"
-              />
-            </svg>
+            <InkBrushBar
+              className={styles.hpBar}
+              pct={clampPct(hp, maxHp)}
+              tone="cinnabar"
+              intro={!still}
+              delay={3}
+              duration={1}
+            />
           </div>
         </div>
       </div>

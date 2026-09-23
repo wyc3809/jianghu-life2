@@ -53,38 +53,39 @@
 
 完整 STYLE／writing／prompts／svg（含印章與夜山）。執行時已同步至 `public/ink/`；見 [`ink-pack-pointer.md`](./ink-pack-pointer.md)。
 
-## SVG · 裝飾 `public/ink/decor/`
+## 位圖 · 朱砂印／氣場／筆觸 `public/ink/art/`
 
-| 檔名 | 說明 |
-|------|------|
-| `mountains-wide.svg` | 日間遠山底 |
-| `mountains-night.svg` | 夜雨遠山（SVG 備援） |
-| `ink-blots.svg` | 墨漬 |
-| `bamboo-corner.svg` | 竹角飾 |
-| `boat-mist.svg` | 孤舟煙波 |
-| `event-banner-rain-inn.svg` | 夜雨投店橫幅（AI 無匹配時備援） |
-| `event-banner-bridge.svg` | 橋上有人橫幅（備援） |
+由 `scripts/art/build_ink_stamps.py` 產生（霞鶩文楷 TC Bold，OFL；固定種子可重跑）。取代舊手繪 SVG。
 
-## SVG · 印章 `public/ink/seals/`
+| 資料夾 | 檔案 | 用途 |
+|--------|------|------|
+| `seals/` | `seal-sheng`（生，朱文）· `seal-zhong`（終，白文）· `seal-yuan`（緣，朱文）· `seal-jianghu`（江湖，白文雙字） | 開卷／掩卷／命運落印 |
+| `seals/` | `seal-zhao`（招）· `seal-sheng-win`（勝）· `seal-ming`（命，朱文）· `seal-wei`（危） | 戰鬥：連招、得勝、命懸、危 |
+| `auras/` | `aura-guixi`（龜·青）· `aura-huxiao`（虎·朱）· `aura-hexian`（鶴·墨）· `aura-shepan`（蛇·金） | 內功模式呼吸氣場 |
+| `strokes/` | `stroke-guard`（守）· `stroke-dodge`（遁） | 招式按鈕筆觸 |
 
-`seal-sheng.svg`（生）· `seal-zhong.svg`（終）· `seal-yuan.svg`（緣）· `seal-jianghu.svg`（江湖）
+## 位圖 · 水墨 UI `public/ink/art/ui/`
 
-## SVG · 圖示 `public/ink/icons/`
+由 `scripts/art/build_ink_ui.py` 產生（毛筆刷毛模擬，固定種子）。UI 一律不用 SVG；AI 出圖可同名同尺寸直接替換。
 
-劍、傘、酒旗、玉佩、石橋、卷軸、燈籠、山門、`stages-strip.svg`（十階意象條）
+| 檔案 | 用途 | 用法 |
+|------|------|------|
+| `brush-bar` / `brush-bar-rail` | 氣血、內力、五維、威望、首領血條 | `InkBrushBar`：mask + 染色，`--pct` 羽化前緣，入場落筆動畫 |
+| `brush-ring` / `brush-ring-rail` | 修為環 | `InkBrushRing`：mask ∩ conic 扇形，自 12 點順時針寫出 |
+| `ink-halo-a` / `ink-halo-b` | 過一月鈕外圈殘墨 | 兩層反向慢轉 |
+| `corner-bracket` | 人物誌四角 | clip-path 自角點寫出 |
+| `nature-grid` / `nature-wash` / `ink-dot` | 心性四象圖 | clip-path 多邊形 + 由中心暈開 |
+| `slash-stroke` | 首領現身一斬 | CSS 旋轉 + clip-path 劃出 |
+| `paper-grain` | 全域／彈窗紙紋 | 平鋪背景（取代 SVG feTurbulence data URI） |
 
-## SVG · 框線 `public/ink/frames/`
+## 已退役 SVG
 
-`scroll-frame.svg` · `title-slip.svg` · `ink-fade-line.svg` · `brush-stroke.svg`
-
-## 遊戲專用
-
-`public/ink/gear-*.svg`、`encounter-hermit.svg`、`event-bridge.svg`、`ui-header.svg`
+`public/ink/{decor,seals,icons,frames}/*.svg`、`gear-*.svg`、`encounter-hermit.svg`、`event-bridge.svg`、`ui-header.svg` 已自 `public/` 移除（原始檔仍在 `assets/ink-pack/` 作參考）。遊戲內容美術一律位圖，見 `.claude/rules/no-svg-game-art.md`。
 
 ## 程式接線
 
 - AI 目錄：`src/ui/inkAiCatalog.ts`（玩法橫幅／首屏／命運印優先用 WebP）
-- SVG 助手：`src/ui/inkAssets.ts`（`INK_SVG` / `pickEventBanner` / `sealSvgForText`）
+- 位圖助手：`src/ui/inkAssets.ts`（`sealUrlForText` / `auraUrlForInternalModeId` / `strokeUrl`）
 - 遠山底：`InkScrollBackdrop` + 可選 `InkAiWashLayer`
 - 開卷／掩卷朱砂印：`InkStaticSeal`
 - 命運落印動畫：`InkSealStamp`

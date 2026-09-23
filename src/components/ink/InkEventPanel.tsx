@@ -1,6 +1,5 @@
 import type { GameEvent, LifeGameState } from '@interfaces/lifeEngine';
 import { InkEventBanner } from './InkDecor';
-import { eventBannerSvg } from '../../ui/inkAssets';
 import { pickAiEventBanner, aiEventBannerUrl } from '../../ui/inkAiCatalog';
 import { displayChoiceText } from '@core/life/playerText';
 import { EVENT_ACTION_POINT_COST, hasEnoughActionPoints } from '@core/life/actionPoints';
@@ -30,11 +29,6 @@ export function InkEventPanel({
     tags: pendingEvent.tags,
   });
   const eventBannerSrc = aiEventBannerUrl(bannerKind);
-  /** AI 橫幅優先；若無匹配則回退舊 SVG 橋／雨店 */
-  const eventBannerMarkup =
-    eventBannerSrc == null
-      ? eventBannerSvg(bannerKind === 'rain-inn' ? 'rain-inn' : bannerKind === 'bridge-mist' ? 'bridge' : 'none')
-      : null;
   const eventBodyParas = pendingEvent.body
     ? pendingEvent.body.split(/\n\n+/).map((p) => p.trim()).filter(Boolean)
     : [];
@@ -43,9 +37,7 @@ export function InkEventPanel({
   return (
     <section className="ink-panel ink-event ink-event--focus" aria-label="待決之事">
       <div className="ink-event-scroll">
-        {(eventBannerSrc || eventBannerMarkup) && (
-          <InkEventBanner src={eventBannerSrc} markup={eventBannerMarkup ?? undefined} />
-        )}
+        {eventBannerSrc && <InkEventBanner src={eventBannerSrc} />}
         <p className="ink-event-year">
           {state.year}年{month}月 · {c.age}歲
           {state.pending?.kind === 'special' ? ' · 奇遇' : ''}

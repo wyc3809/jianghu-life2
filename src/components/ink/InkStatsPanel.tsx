@@ -4,11 +4,11 @@ import { wuxiaAttributeKeys, wuxiaAttributeLabels, natureKeys, natureLabels } fr
 import { ensureNature, dominantNature } from '@core/life/nature';
 import { jianghuRank, jianghuRankTier } from '@core/life/jianghuRank';
 import { useStillMode } from '../../hooks/useStillMode';
-import { stillClassName, barOffset } from './inkStillClass';
+import { stillClassName } from './inkStillClass';
+import { InkBrushBar, clampPct } from './InkBrush';
+import { inkArtUrl } from '../../ui/inkAssets';
 import styles from './InkStatsPanel.module.css';
 
-const VITAL_BAR_LEN = 384;
-const ATTR_BAR_LEN = 92;
 /** 五維顯示上限（純顯示用標準化，唔影響數值判定） */
 const ATTR_CAP = 100;
 /** 心性四象圖顯示上限 */
@@ -45,16 +45,13 @@ export function InkStatsPanel({ state, onClose }: Props) {
   const sectName = c.sectId ? (state.sects[c.sectId]?.name ?? '無門無派') : '江湖散人';
   const rankLabel = jianghuRankTier(jianghuRank(state));
 
-  const hpOff = barOffset(VITAL_BAR_LEN, c.health, c.maxHealth);
-  const qiOff = barOffset(VITAL_BAR_LEN, c.qi ?? 0, c.maxQi ?? 1);
-
   const natureOrder: (typeof natureKeys)[number][] = ['xia', 'kuang', 'xie', 'e'];
-  const points = (['xia', 'e', 'xie', 'kuang'] as const)
-    .map((k) => {
-      const v = natureVertex(nature[k], NATURE_AXIS[k]);
-      return `${v.x},${v.y}`;
-    })
-    .join(' ');
+  /** 四象多邊形：150 格座標 → 百分比，供 CSS clip-path 使用 */
+  const toPct = (n: number) => `${((n / 150) * 100).toFixed(2)}%`;
+  const vertices = (['xia', 'e', 'xie', 'kuang'] as const).map((k) => natureVertex(nature[k], NATURE_AXIS[k]));
+  const polygon = `polygon(${vertices.map((v) => `${toPct(v.x)} ${toPct(v.y)}`).join(', ')})`;
+
+  const cornerSrc = inkArtUrl('art/ui/corner-bracket.webp');
 
   return createPortal(
     <div className={styles.root}>
@@ -65,25 +62,17 @@ export function InkStatsPanel({ state, onClose }: Props) {
             掩卷
           </button>
           <div className={cls(styles.banner, styles.bannerStill)} aria-hidden />
-          <span className={`${styles.corner} ${styles.tl} ${still ? styles.cornerStill : ''}`}>
-            <svg viewBox="0 0 34 34">
-              <path d="M32 2 H 6 V 32" />
-            </svg>
+          <span className={`${styles.corner} ${styles.tl} ${still ? styles.cornerStill : ''}`} aria-hidden>
+            <img src={cornerSrc} alt="" draggable={false} />
           </span>
-          <span className={`${styles.corner} ${styles.tr} ${still ? styles.cornerStill : ''}`}>
-            <svg viewBox="0 0 34 34">
-              <path d="M32 2 H 6 V 32" />
-            </svg>
+          <span className={`${styles.corner} ${styles.tr} ${still ? styles.cornerStill : ''}`} aria-hidden>
+            <img src={cornerSrc} alt="" draggable={false} />
           </span>
-          <span className={`${styles.corner} ${styles.bl} ${still ? styles.cornerStill : ''}`}>
-            <svg viewBox="0 0 34 34">
-              <path d="M32 2 H 6 V 32" />
-            </svg>
+          <span className={`${styles.corner} ${styles.bl} ${still ? styles.cornerStill : ''}`} aria-hidden>
+            <img src={cornerSrc} alt="" draggable={false} />
           </span>
-          <span className={`${styles.corner} ${styles.br} ${still ? styles.cornerStill : ''}`}>
-            <svg viewBox="0 0 34 34">
-              <path d="M32 2 H 6 V 32" />
-            </svg>
+          <span className={`${styles.corner} ${styles.br} ${still ? styles.cornerStill : ''}`} aria-hidden>
+            <img src={cornerSrc} alt="" draggable={false} />
           </span>
 
           <header className={cls(styles.head, styles.headStill)}>
@@ -110,28 +99,28 @@ export function InkStatsPanel({ state, onClose }: Props) {
           <div className={cls(styles.vitals, styles.vitalsStill)}>
             <div className={styles.vital}>
               <span className={styles.vitalName}>氣血</span>
-              <svg viewBox="0 0 400 26" preserveAspectRatio="none">
-                <path className={styles.rail} d="M8 13 H 392" />
-                <path
-                  className={`${styles.vitalFill} ${styles.hpFill} ${still ? styles.vitalFillStill : ''}`}
-                  style={{ ['--len' as string]: VITAL_BAR_LEN, ['--off' as string]: hpOff }}
-                  d="M8 13 H 392"
-                />
-              </svg>
+              <InkBrushBar
+                className={styles.vitalBar}
+                pct={clampPct(c.health, c.maxHealth)}
+                tone="cinnabar"
+                intro={!still}
+                delay={0.9}
+                duration={1.1}
+              />
               <span className={styles.vitalVal}>
                 {Math.round(c.health)} / {c.maxHealth}
               </span>
             </div>
             <div className={styles.vital}>
               <span className={styles.vitalName}>內力</span>
-              <svg viewBox="0 0 400 26" preserveAspectRatio="none">
-                <path className={styles.rail} d="M8 13 H 392" />
-                <path
-                  className={`${styles.vitalFill} ${styles.qiFill} ${still ? styles.vitalFillStill : ''}`}
-                  style={{ ['--len' as string]: VITAL_BAR_LEN, ['--off' as string]: qiOff }}
-                  d="M8 13 H 392"
-                />
-              </svg>
+              <InkBrushBar
+                className={styles.vitalBar}
+                pct={clampPct(c.qi ?? 0, c.maxQi ?? 1)}
+                tone="ink"
+                intro={!still}
+                delay={1}
+                duration={1.1}
+              />
               <span className={styles.vitalVal}>
                 {Math.round(c.qi ?? 0)} / {c.maxQi ?? 0}
               </span>
@@ -141,7 +130,6 @@ export function InkStatsPanel({ state, onClose }: Props) {
           <div className={cls(styles.attrGrid, styles.attrGridStill)}>
             {wuxiaAttributeKeys.map((k) => {
               const raw = c.attributes[k];
-              const off = barOffset(ATTR_BAR_LEN, raw, ATTR_CAP);
               return (
                 <div className={styles.attr} key={k}>
                   <div className={styles.attrName}>{wuxiaAttributeLabels[k]}</div>
@@ -149,41 +137,44 @@ export function InkStatsPanel({ state, onClose }: Props) {
                     {raw}
                     <small> / {ATTR_CAP}</small>
                   </div>
-                  <svg viewBox="0 0 100 10" preserveAspectRatio="none">
-                    <path className={styles.attrRail} d="M4 5 H 96" />
-                    <path
-                      className={`${styles.attrFill} ${still ? styles.attrFillStill : ''}`}
-                      style={{ ['--len' as string]: ATTR_BAR_LEN, ['--off' as string]: off }}
-                      d="M4 5 H 96"
-                    />
-                  </svg>
+                  <InkBrushBar
+                    className={styles.attrBar}
+                    pct={clampPct(raw, ATTR_CAP)}
+                    tone="ink"
+                    intro={!still}
+                    delay={1.05}
+                    duration={0.9}
+                  />
                 </div>
               );
             })}
           </div>
 
           <div className={cls(styles.nature, styles.natureStill)}>
-            <svg viewBox="0 0 150 150" aria-label="心性四象">
-              <line className={styles.axis} x1={75} y1={8} x2={75} y2={142} />
-              <line className={styles.axis} x1={8} y1={75} x2={142} y2={75} />
-              <polygon className={styles.dia} points={points} />
-              {(['xia', 'e', 'xie', 'kuang'] as const).map((k) => {
-                const v = natureVertex(nature[k], NATURE_AXIS[k]);
-                return <circle key={k} className={styles.dot} cx={v.x} cy={v.y} r={3} />;
-              })}
-              <text className={styles.nlbl} x={75} y={16} textAnchor="middle">
-                俠
-              </text>
-              <text className={styles.nlbl} x={75} y={146} textAnchor="middle">
-                邪
-              </text>
-              <text className={styles.nlbl} x={16} y={79} textAnchor="middle">
-                狂
-              </text>
-              <text className={styles.nlbl} x={134} y={79} textAnchor="middle">
-                惡
-              </text>
-            </svg>
+            <div
+              className={`${styles.chart} ${still ? styles.chartStill : ''}`}
+              role="img"
+              aria-label={`心性四象：${natureOrder.map((k) => `${natureLabels[k]}${nature[k]}`).join('、')}`}
+            >
+              {/* 外層深朱＝描邊，內層紙色淡染＝填色（同一多邊形，內層向中心縮 10%）；虛軸疊最上 */}
+              <span className={styles.diaEdge} style={{ clipPath: polygon }} aria-hidden />
+              <span className={styles.dia} style={{ clipPath: polygon }} aria-hidden />
+              <img className={styles.grid} src={inkArtUrl('art/ui/nature-grid.webp')} alt="" draggable={false} />
+              {vertices.map((v, i) => (
+                <img
+                  key={i}
+                  className={styles.dot}
+                  src={inkArtUrl('art/ui/ink-dot.webp')}
+                  alt=""
+                  draggable={false}
+                  style={{ left: toPct(v.x), top: toPct(v.y) }}
+                />
+              ))}
+              <span className={`${styles.nlbl} ${styles.nTop}`}>俠</span>
+              <span className={`${styles.nlbl} ${styles.nBottom}`}>邪</span>
+              <span className={`${styles.nlbl} ${styles.nLeft}`}>狂</span>
+              <span className={`${styles.nlbl} ${styles.nRight}`}>惡</span>
+            </div>
             <p className={styles.natureNote}>
               {natureOrder.map((k) => (
                 <span key={k} className={`${styles.tag}${k === dominant ? ` ${styles.tagRed}` : ''}`}>

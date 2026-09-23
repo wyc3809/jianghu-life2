@@ -1,116 +1,55 @@
-/** Inline SVG markup (avoids Safari <img> + cached/corrupt external SVG failures) */
-import mountainsSvg from '../../public/ink/decor/mountains-wide.svg?raw';
-import mountainsNightSvg from '../../public/ink/decor/mountains-night.svg?raw';
-import boatSvg from '../../public/ink/decor/boat-mist.svg?raw';
-import bambooSvg from '../../public/ink/decor/bamboo-corner.svg?raw';
-import blotsSvg from '../../public/ink/decor/ink-blots.svg?raw';
-import bannerBridgeSvg from '../../public/ink/decor/event-banner-bridge.svg?raw';
-import bannerRainInnSvg from '../../public/ink/decor/event-banner-rain-inn.svg?raw';
-import fadeLineSvg from '../../public/ink/frames/ink-fade-line.svg?raw';
-import brushStrokeSvg from '../../public/ink/frames/brush-stroke.svg?raw';
-import titleSlipSvg from '../../public/ink/frames/title-slip.svg?raw';
-import stagesStripSvg from '../../public/ink/icons/stages-strip.svg?raw';
-import sealShengSvg from '../../public/ink/seals/seal-sheng.svg?raw';
-import sealZhongSvg from '../../public/ink/seals/seal-zhong.svg?raw';
-import sealYuanSvg from '../../public/ink/seals/seal-yuan.svg?raw';
-import sealJianghuSvg from '../../public/ink/seals/seal-jianghu.svg?raw';
-import sealComboSvg from '../../public/ink/seals/seal-招.svg?raw';
-import sealCriticalSvg from '../../public/ink/seals/seal-危.svg?raw';
-import sealFateSvg from '../../public/ink/seals/seal-命.svg?raw';
-import sealVictorySvg from '../../public/ink/seals/seal-勝.svg?raw';
-import auraTurtleSvg from '../../public/ink/decor/aura-turtle.svg?raw';
-import auraTigerSvg from '../../public/ink/decor/aura-tiger.svg?raw';
-import auraCraneSvg from '../../public/ink/decor/aura-crane.svg?raw';
-import auraSerpentSvg from '../../public/ink/decor/aura-serpent.svg?raw';
-import strokeGuardSvg from '../../public/ink/icons/stroke-guard.svg?raw';
-import strokeDodgeSvg from '../../public/ink/icons/stroke-dodge.svg?raw';
+/**
+ * 水墨位圖素材（WebP）：朱砂印、內功氣場、招式筆觸。
+ * 實體檔：`public/ink/art/{seals,auras,strokes}/`
+ * 產生器：`scripts/art/build_ink_stamps.py`（固定種子，可重跑）
+ *
+ * 舊版手繪 SVG（`public/ink/{seals,decor,icons,frames}/*.svg`）已全數退役 —
+ * 見 `.claude/rules/no-svg-game-art.md`。
+ */
 
-/** Strip XML/doctype noise; keep inner svg element */
-export function cleanSvgMarkup(raw: string): string {
-  return raw
-    .replace(/^\uFEFF/, '')
-    .replace(/<\?xml[\s\S]*?\?>/i, '')
-    .replace(/<!DOCTYPE[\s\S]*?>/i, '')
-    .trim();
+/** 相對 `public/ink/` 的路徑 → 帶 cache bust 的 URL */
+export function inkArtUrl(pathUnderInk: string): string {
+  const base = import.meta.env.BASE_URL || '/';
+  const cleaned = pathUnderInk.replace(/^\/+/, '');
+  return `${base}ink/${cleaned}?v=art1`;
 }
 
-/** Prefix ids so multiple inlined SVGs do not clash in one document */
-export function namespaceSvgIds(raw: string, prefix: string): string {
-  const ids = new Set<string>();
-  for (const m of raw.matchAll(/\bid=["']([^"']+)["']/g)) ids.add(m[1]!);
-  let out = raw;
-  for (const id of ids) {
-    const next = `${prefix}-${id}`;
-    out = out
-      .replaceAll(`id="${id}"`, `id="${next}"`)
-      .replaceAll(`id='${id}'`, `id='${next}'`)
-      .replaceAll(`url(#${id})`, `url(#${next})`)
-      .replaceAll(`href="#${id}"`, `href="#${next}"`)
-      .replaceAll(`xlink:href="#${id}"`, `xlink:href="#${next}"`);
-  }
-  return out;
+/** 印文 → 檔名 id（`public/ink/art/seals/seal-{id}.webp`） */
+const SEAL_ID_BY_TEXT: Readonly<Record<string, string>> = {
+  生: 'sheng',
+  終: 'zhong',
+  緣: 'yuan',
+  江湖: 'jianghu',
+  招: 'zhao',
+  勝: 'sheng-win',
+  命: 'ming',
+  危: 'wei',
+};
+
+/** 已有位圖的印文 */
+export const INK_SEAL_TEXTS = Object.keys(SEAL_ID_BY_TEXT);
+
+/** 印文 → 朱砂印 WebP URL；無對應則回 null（呼叫端沿用 CSS 字印） */
+export function sealUrlForText(text: string | null | undefined): string | null {
+  if (!text) return null;
+  const id = SEAL_ID_BY_TEXT[text];
+  return id ? inkArtUrl(`art/seals/seal-${id}.webp`) : null;
 }
 
-function prepare(raw: string, prefix: string): string {
-  return namespaceSvgIds(cleanSvgMarkup(raw), prefix);
-}
-
-export const INK_SVG = {
-  mountains: prepare(mountainsSvg, 'mtn'),
-  mountainsNight: prepare(mountainsNightSvg, 'mtnn'),
-  boat: prepare(boatSvg, 'boat'),
-  bamboo: prepare(bambooSvg, 'bam'),
-  blots: prepare(blotsSvg, 'blot'),
-  bannerBridge: prepare(bannerBridgeSvg, 'bnb'),
-  bannerRainInn: prepare(bannerRainInnSvg, 'bnr'),
-  titleSlip: prepare(titleSlipSvg, 'slip'),
-  fadeLine: prepare(fadeLineSvg, 'fade'),
-  brushStroke: prepare(brushStrokeSvg, 'brush'),
-  stagesStrip: prepare(stagesStripSvg, 'stg'),
-  sealSheng: prepare(sealShengSvg, 'ssh'),
-  sealZhong: prepare(sealZhongSvg, 'szh'),
-  sealYuan: prepare(sealYuanSvg, 'syu'),
-  sealJianghu: prepare(sealJianghuSvg, 'sjh'),
-  sealCombo: prepare(sealComboSvg, 'scb'),
-  sealCritical: prepare(sealCriticalSvg, 'scr'),
-  sealFate: prepare(sealFateSvg, 'sfa'),
-  sealVictory: prepare(sealVictorySvg, 'svi'),
-  auraTurtle: prepare(auraTurtleSvg, 'atu'),
-  auraTiger: prepare(auraTigerSvg, 'ati'),
-  auraCrane: prepare(auraCraneSvg, 'acr'),
-  auraSerpent: prepare(auraSerpentSvg, 'ase'),
-  strokeGuard: prepare(strokeGuardSvg, 'stg2'),
-  strokeDodge: prepare(strokeDodgeSvg, 'std'),
+/** 戰鬥用印（連招／勝／命懸／危） */
+export const INK_COMBAT_SEAL = {
+  combo: '招',
+  victory: '勝',
+  fate: '命',
+  critical: '危',
 } as const;
 
-export type EventBannerKind = 'bridge' | 'rain-inn' | 'none';
+/** 內功模式 id（見 core/life/internalMode.ts 之 INTERNAL_MODES） */
+const AURA_MODE_IDS = new Set(['guixi', 'huxiao', 'hexian', 'shepan']);
 
-/** 依事件標題／標籤挑選橫幅 */
-export function pickEventBanner(opts: {
-  title?: string;
-  body?: string;
-  tags?: string[];
-}): EventBannerKind {
-  const blob = `${opts.title ?? ''}${opts.body ?? ''}${(opts.tags ?? []).join('')}`;
-  if (/雨|夜|店|客棧|酒/.test(blob)) return 'rain-inn';
-  if (/橋|河|逢|遇|路/.test(blob)) return 'bridge';
-  if ((opts.tags ?? []).includes('pack') || (opts.tags ?? []).includes('special')) return 'bridge';
-  return 'none';
-}
-
-export function eventBannerSvg(kind: EventBannerKind): string | null {
-  if (kind === 'bridge') return INK_SVG.bannerBridge;
-  if (kind === 'rain-inn') return INK_SVG.bannerRainInn;
-  return null;
-}
-
-/** 內功模式 id → 呼吸光環 SVG（見 core/life/internalMode.ts 之 INTERNAL_MODES） */
-export function auraSvgForInternalModeId(id: string | null | undefined): string | null {
-  if (id === 'guixi') return INK_SVG.auraTurtle;
-  if (id === 'huxiao') return INK_SVG.auraTiger;
-  if (id === 'hexian') return INK_SVG.auraCrane;
-  if (id === 'shepan') return INK_SVG.auraSerpent;
-  return null;
+/** 內功模式 id → 呼吸氣場 WebP URL */
+export function auraUrlForInternalModeId(id: string | null | undefined): string | null {
+  return id && AURA_MODE_IDS.has(id) ? inkArtUrl(`art/auras/aura-${id}.webp`) : null;
 }
 
 /** 內功模式 id → 呼吸動畫 CSS class */
@@ -122,44 +61,9 @@ export function auraClassForInternalModeId(id: string | null | undefined): strin
   return '';
 }
 
-/** Map 命運印文字 → SVG seal markup；無對應則回 null（沿用字印） */
-export function sealSvgForText(text: string | null | undefined): string | null {
-  if (!text) return null;
-  if (text === '生') return INK_SVG.sealSheng;
-  if (text === '終') return INK_SVG.sealZhong;
-  if (text === '緣') return INK_SVG.sealYuan;
-  if (text === '江湖') return INK_SVG.sealJianghu;
-  return null;
-}
+export type InkStrokeKind = 'guard' | 'dodge';
 
-/** @deprecated Prefer INK_SVG inlining; kept for any leftover URL needs */
-export function inkUrl(path: string): string {
-  const base = import.meta.env.BASE_URL || '/';
-  const cleaned = path.replace(/^\/+/, '');
-  return `${base}ink/${cleaned}?v=4`;
-}
-
-export const INK_DECOR = {
-  mountains: () => inkUrl('decor/mountains-wide.svg'),
-  mountainsNight: () => inkUrl('decor/mountains-night.svg'),
-  boat: () => inkUrl('decor/boat-mist.svg'),
-  bamboo: () => inkUrl('decor/bamboo-corner.svg'),
-  blots: () => inkUrl('decor/ink-blots.svg'),
-  bannerBridge: () => inkUrl('decor/event-banner-bridge.svg'),
-  bannerRainInn: () => inkUrl('decor/event-banner-rain-inn.svg'),
-  titleSlip: () => inkUrl('frames/title-slip.svg'),
-  fadeLine: () => inkUrl('frames/ink-fade-line.svg'),
-  brushStroke: () => inkUrl('frames/brush-stroke.svg'),
-  scrollFrame: () => inkUrl('frames/scroll-frame.svg'),
-  stagesStrip: () => inkUrl('icons/stages-strip.svg'),
-  sealSheng: () => inkUrl('seals/seal-sheng.svg'),
-  sealZhong: () => inkUrl('seals/seal-zhong.svg'),
-  sealYuan: () => inkUrl('seals/seal-yuan.svg'),
-  sealJianghu: () => inkUrl('seals/seal-jianghu.svg'),
-} as const;
-
-export function eventBannerUrl(kind: EventBannerKind): string | null {
-  if (kind === 'bridge') return INK_DECOR.bannerBridge();
-  if (kind === 'rain-inn') return INK_DECOR.bannerRainInn();
-  return null;
+/** 招式筆觸小圖示（守／遁） */
+export function strokeUrl(kind: InkStrokeKind): string {
+  return inkArtUrl(`art/strokes/stroke-${kind}.webp`);
 }

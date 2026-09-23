@@ -85,30 +85,24 @@
   z-index: 3;
 }
 
-.corner svg {
+.corner img {
   width: 100%;
   height: 100%;
   display: block;
+  opacity: 0.85;
+  /* 落筆：自角點向兩邊寫出 */
+  clip-path: circle(0% at 8% 8%);
+  animation: cornerWrite 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
 }
 
-.corner path {
-  fill: none;
-  stroke: #3b352c;
-  stroke-width: 3;
-  stroke-linecap: square;
-  stroke-dasharray: 48;
-  stroke-dashoffset: 48;
-  animation: drawSlash 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
-}
-
-.cornerStill path {
+.cornerStill img {
   animation: none;
-  stroke-dashoffset: 0;
+  clip-path: none;
 }
 
-@keyframes drawSlash {
+@keyframes cornerWrite {
   to {
-    stroke-dashoffset: 0;
+    clip-path: circle(142% at 8% 8%);
   }
 }
 
@@ -240,45 +234,9 @@
   height: 64px;
 }
 
-.vital svg {
-  width: 100%;
-  height: 26px;
-  display: block;
-}
-
-.rail {
-  fill: none;
-  stroke: #d8cfba;
-  stroke-width: 18;
-  stroke-linecap: round;
-}
-
-.vitalFill {
-  fill: none;
-  stroke-linecap: round;
-  stroke-width: 18;
-  stroke-dasharray: var(--len);
-  stroke-dashoffset: var(--len);
-  animation: barFill 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.9s forwards;
-}
-
-.vitalFillStill {
-  animation: none;
-  stroke-dashoffset: var(--off);
-}
-
-.hpFill {
-  stroke: #a8331f;
-}
-
-.qiFill {
-  stroke: #16130f;
-}
-
-@keyframes barFill {
-  to {
-    stroke-dashoffset: var(--off);
-  }
+.vitalBar {
+  --brush-h: 26px;
+  --brush-rail: rgba(59, 53, 44, 0.2);
 }
 
 .vitalVal {
@@ -325,33 +283,10 @@
   color: #6b6355;
 }
 
-.attr svg {
-  width: 100%;
-  height: 10px;
-  display: block;
+.attrBar {
+  --brush-h: 11px;
+  --brush-rail: rgba(59, 53, 44, 0.18);
   margin-top: 4px;
-}
-
-.attrRail {
-  fill: none;
-  stroke: #d8cfba;
-  stroke-width: 6;
-  stroke-linecap: round;
-}
-
-.attrFill {
-  fill: none;
-  stroke: #3b352c;
-  stroke-width: 6;
-  stroke-linecap: round;
-  stroke-dasharray: var(--len);
-  stroke-dashoffset: var(--len);
-  animation: barFill 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1.05s forwards;
-}
-
-.attrFillStill {
-  animation: none;
-  stroke-dashoffset: var(--off);
 }
 
 .nature {
@@ -369,31 +304,98 @@
   opacity: 1;
 }
 
-.nature svg {
+.chart {
+  position: relative;
   width: 150px;
   height: 150px;
 }
 
-.dia {
-  fill: rgba(168, 51, 31, 0.14);
-  stroke: #a8331f;
-  stroke-width: 1.5;
+.grid {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
-.axis {
-  stroke: #6b6355;
-  stroke-width: 0.7;
-  stroke-dasharray: 2 3;
+/* 四象多邊形：朱砂淡染位圖 + clip-path；入場由中心暈開 */
+.diaEdge,
+.dia {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 50%;
+  animation: natureBloom 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1.15s both;
+}
+
+.diaEdge {
+  background: #a8331f;
+  -webkit-mask: url('/ink/art/ui/nature-wash.webp') center / cover;
+  mask: url('/ink/art/ui/nature-wash.webp') center / cover;
+  opacity: 0.85;
+}
+
+.dia {
+  /* 紙色底 + 淡朱染：蓋住外層，只留一圈朱邊 */
+  background:
+    linear-gradient(rgba(247, 240, 225, 0.7), rgba(247, 240, 225, 0.7)),
+    url('/ink/art/ui/nature-wash.webp') center / cover,
+    #f7f0e1;
+  scale: 0.9;
 }
 
 .dot {
-  fill: #a8331f;
+  position: absolute;
+  z-index: 2;
+  width: 11px;
+  height: 11px;
+  margin: -5.5px 0 0 -5.5px;
+  animation: natureBloom 0.5s ease 1.5s both;
+}
+
+@keyframes natureBloom {
+  from {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+}
+
+.chartStill .diaEdge,
+.chartStill .dia,
+.chartStill .dot {
+  animation: none;
 }
 
 .nlbl {
+  position: absolute;
   font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
   font-size: 14px;
-  fill: #16130f;
+  line-height: 1;
+  color: #16130f;
+}
+
+.nTop {
+  top: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nBottom {
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nLeft {
+  left: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.nRight {
+  right: 3px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .natureNote {
@@ -446,24 +448,21 @@
 
 @media (prefers-reduced-motion: reduce) {
   .banner,
-  .corner path,
+  .corner img,
   .head,
   .meta,
   .vitals,
-  .vitalFill,
   .attrGrid,
-  .attrFill,
   .nature,
+  .diaEdge,
+  .dia,
+  .dot,
   .foot {
     animation: none !important;
   }
-  .banner {
-    clip-path: inset(0 0 0 0);
-  }
-  .corner path,
-  .vitalFill,
-  .attrFill {
-    stroke-dashoffset: var(--off, 0);
+  .banner,
+  .corner img {
+    clip-path: none;
   }
   .head,
   .meta,
