@@ -19,7 +19,13 @@ import { rollTravelOffer } from './rumorTravel';
 import { ensureMasterBond } from './bonds';
 import { rollRandomFragment } from './manualFragments';
 import { designateHeir, listChildNames, seekChild } from './family';
-import { ART_DEFS, applyStudyArt, meetsTaohuaCultureGate, TAOHUA_CULTURE_THRESHOLD } from './arts';
+import {
+  ART_DEFS,
+  applyStudyArt,
+  getArtDef,
+  meetsTaohuaCultureGate,
+  TAOHUA_CULTURE_THRESHOLD,
+} from './arts';
 
 export type PracticeActionId =
   | 'train_martial'
@@ -82,6 +88,32 @@ export const SECT_INNER_ACTIONS: PracticeAction[] = [
 ];
 
 export { SECT_DEFS, ART_DEFS };
+
+/** 修煉結果卡「你選擇：…」用——涵蓋主選單、門內、雅藝等全部 PracticeActionId，絕不露出英文 id */
+export function practiceActionLabel(
+  actionId: PracticeActionId,
+  opts?: { sectId?: string; artId?: string },
+): string {
+  const fromMain = PRACTICE_ACTIONS.find((a) => a.id === actionId)?.label;
+  if (fromMain) return fromMain;
+  const fromSect = SECT_INNER_ACTIONS.find((a) => a.id === actionId)?.label;
+  if (fromSect) return fromSect;
+
+  if (actionId === 'study_art') {
+    const art = opts?.artId ? getArtDef(opts.artId) : undefined;
+    return art ? `修習${art.name}` : '修習雅藝';
+  }
+  if (actionId === 'join_sect') {
+    const sect = opts?.sectId ? SECT_DEFS.find((s) => s.id === opts.sectId) : undefined;
+    return sect ? `拜入${sect.name}` : '拜入門派';
+  }
+  if (actionId === 'sect_leave') return '離開門派';
+  if (actionId === 'forge') return '鍛造兵器';
+  if (actionId === 'seek_master') return '尋訪高人';
+
+  // 最後兜底：唔好把 snake_case id 直接寫上畫面
+  return '修煉';
+}
 
 function clamp(n: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, n));

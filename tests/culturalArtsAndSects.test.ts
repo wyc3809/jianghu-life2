@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { ART_DEFS, applyPracticeOutcome, performPracticeAction } from '../core/life/actions';
+import {
+  ART_DEFS,
+  applyPracticeOutcome,
+  performPracticeAction,
+  practiceActionLabel,
+} from '../core/life/actions';
 import { ART_MASTERY_THRESHOLD, artProficiency, meetsTaohuaCultureGate } from '../core/life/arts';
 import { allTitles, syncTitles } from '../core/life/titles';
 import { createNewLife } from '../core/life/gameState';
@@ -11,6 +16,17 @@ describe('雅藝系統：琴棋書畫佛道邪學', () => {
   it('exposes all 7 arts', () => {
     const ids = ART_DEFS.map((a) => a.id);
     expect(ids).toEqual(['guqin', 'weiqi', 'poetry', 'painting', 'buddhism', 'daoism', 'darkArts']);
+  });
+
+  it('practiceActionLabel：雅藝／門派唔再露出英文 id', () => {
+    expect(practiceActionLabel('study_art', { artId: 'darkArts' })).toBe('修習邪學');
+    expect(practiceActionLabel('study_art', { artId: 'guqin' })).toBe('修習古琴');
+    expect(practiceActionLabel('study_art')).toBe('修習雅藝');
+    expect(practiceActionLabel('train_martial')).toBe('苦練外功');
+    expect(practiceActionLabel('sect_spar')).toBe('師門比武');
+    expect(practiceActionLabel('join_sect', { sectId: 'sect_wudang' })).toMatch(/^拜入/);
+    // 絕不把 snake_case 直接寫上畫面
+    expect(practiceActionLabel('study_art', { artId: 'darkArts' })).not.toMatch(/study_art|darkArts/);
   });
 
   it('increments proficiency each time studied', () => {
