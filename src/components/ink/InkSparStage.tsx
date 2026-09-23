@@ -23,6 +23,7 @@ import {
   type AnyWarriorRig,
 } from '../../spar/rig';
 import { getGearDef } from '@data/equipment/catalog';
+import { getSkillDef, listExternalMovesForSkills } from '@data/skills/catalog';
 import { useLifeStore } from '../../store/lifeStore';
 
 interface Props {
@@ -38,6 +39,28 @@ interface Props {
 
 const STAGE_HEIGHT = 218;
 const NO_CONDITIONS: { id: string; name: string; monthsLeft: number; severity: number }[] = [];
+const NO_SKILLS: string[] = [];
+
+/** 已學外功招式名（系統招／普攻唔算）——畀演武台輪流出招字 */
+export function learnedArtNames(skillIds: string[]): string[] {
+  const systemIds = new Set(
+    listExternalMovesForSkills([])
+      .map((m) => m.id)
+      .filter((id) => id === 'basic_strike' || id.startsWith('sys_')),
+  );
+  const names: string[] = [];
+  const seen = new Set<string>();
+  for (const id of skillIds) {
+    const def = getSkillDef(id);
+    if (!def || def.kind !== 'external' || !def.move) continue;
+    if (systemIds.has(def.move.id)) continue;
+    const label = def.move.name || def.name;
+    if (!label || seen.has(label)) continue;
+    seen.add(label);
+    names.push(label);
+  }
+  return names;
+}
 
 export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL, background = SPAR_DEFAULT_BACKGROUND, overlay }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -58,6 +81,10 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
 
   // 身上狀態（流血不止之類）——顯示喺演武台左上角浮層
   const conditions = useLifeStore((s) => s.state?.character.conditions ?? NO_CONDITIONS);
+
+  // 已學外功 → 演武出招特效／招式名
+  const skillIds = useLifeStore((s) => s.state?.character.skills ?? NO_SKILLS);
+  const artNamesKey = learnedArtNames(skillIds).join('|');
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -127,6 +154,9 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
             .then((img) => { if (!cancelled) { stage?.setBackground(img, bgDef.opacity ?? 1); if (reduceMotion) stage?.render(); } })
             .catch(() => { /* 背景載唔到就用淨色舞台 */ });
         }
+        // 已學外功招式名（首頁出招特效）
+        const arts = learnedArtNames(useLifeStore.getState().state?.character.skills ?? []);
+        stage.setLearnedArts(arts);
         // 先擺好右邊望左敵人；減少動態仍播慢速行過去（唔再凍格，否則好似壞咗）
         stage.setQuiet(reduceMotion);
         stage.settleIntro();
@@ -175,6 +205,11 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
       .catch(() => { /* 載唔到保持現狀 */ });
     return () => { cancelled = true; };
   }, [weaponKind]);
+
+  // 學到新招／失去招式 → 更新演武出招池
+  useEffect(() => {
+    stageRef.current?.setLearnedArts(artNamesKey ? artNamesKey.split('|') : []);
+  }, [artNamesKey]);
 
   // 換場景 → 背景淡入淡出
   useEffect(() => {
