@@ -6,7 +6,7 @@ import {
   lookupEvent,
   resolvePendingEvent,
 } from '@core/life/eventEngine';
-import { performPracticeAction, PRACTICE_ACTIONS, type PracticeActionId } from '@core/life/actions';
+import { performPracticeAction, practiceActionLabel, type PracticeActionId } from '@core/life/actions';
 import { buildLifeSummary } from '@core/life/summary';
 import {
   displayChoiceText,
@@ -130,28 +130,7 @@ export function createEventSlice(
         }
       });
       void save(next);
-      const label =
-        PRACTICE_ACTIONS.find((a) => a.id === actionId)?.label ??
-        ({
-          inquire_rumors: '打聽傳聞',
-          join_sect: '拜入門派',
-          sect_duty: '門派差事',
-          sect_ask_elder: '請教長老',
-          sect_spar: '師門比武',
-          sect_guard: '守護山門',
-          sect_meditate: '靜室修煉',
-          sect_leave: '離開門派',
-          train_martial: '苦練外功',
-          train_internal: '打坐運功',
-          temper_body: '淬體強身',
-          forge: '鍛造兵器',
-          seek_master: '尋訪高人',
-          seek_child: '求子添丁',
-          designate_heir: '立嗣傳家',
-          sect_namecard: '名帖往來',
-          sect_politics: '山門站隊',
-        } as Record<string, string>)[actionId] ??
-        actionId;
+      const label = practiceActionLabel(actionId, opts);
       const startedCombat = Boolean(next.pendingCombat);
       const parted = partitionStoryAndDeltas(logs);
       set({
