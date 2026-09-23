@@ -64,6 +64,20 @@
 | `auras/` | `aura-guixi`（龜·青）· `aura-huxiao`（虎·朱）· `aura-hexian`（鶴·墨）· `aura-shepan`（蛇·金） | 內功模式呼吸氣場 |
 | `strokes/` | `stroke-guard`（守）· `stroke-dodge`（遁） | 招式按鈕筆觸 |
 
+## 位圖 · 水墨 UI `public/ink/art/ui/`
+
+由 `scripts/art/build_ink_ui.py` 產生（毛筆刷毛模擬，固定種子）。UI 一律不用 SVG；AI 出圖可同名同尺寸直接替換。
+
+| 檔案 | 用途 | 用法 |
+|------|------|------|
+| `brush-bar` / `brush-bar-rail` | 氣血、內力、五維、威望、首領血條 | `InkBrushBar`：mask + 染色，`--pct` 羽化前緣，入場落筆動畫 |
+| `brush-ring` / `brush-ring-rail` | 修為環 | `InkBrushRing`：mask ∩ conic 扇形，自 12 點順時針寫出 |
+| `ink-halo-a` / `ink-halo-b` | 過一月鈕外圈殘墨 | 兩層反向慢轉 |
+| `corner-bracket` | 人物誌四角 | clip-path 自角點寫出 |
+| `nature-grid` / `nature-wash` / `ink-dot` | 心性四象圖 | clip-path 多邊形 + 由中心暈開 |
+| `slash-stroke` | 首領現身一斬 | CSS 旋轉 + clip-path 劃出 |
+| `paper-grain` | 全域／彈窗紙紋 | 平鋪背景（取代 SVG feTurbulence data URI） |
+
 ## 已退役 SVG
 
 `public/ink/{decor,seals,icons,frames}/*.svg`、`gear-*.svg`、`encounter-hermit.svg`、`event-bridge.svg`、`ui-header.svg` 已自 `public/` 移除（原始檔仍在 `assets/ink-pack/` 作參考）。遊戲內容美術一律位圖，見 `.claude/rules/no-svg-game-art.md`。

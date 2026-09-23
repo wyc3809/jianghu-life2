@@ -76,9 +76,11 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  opacity: 0.4;
+  /* 紙紋位圖（原 SVG feTurbulence 雜訊 × 0.045 × 0.4） */
+  opacity: 0.06;
+  mix-blend-mode: multiply;
   z-index: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+  background-image: url('/ink/art/ui/paper-grain.webp');
 }
 
 #root {
@@ -1110,12 +1112,6 @@ body::before {
   margin: 10px 0 8px;
   opacity: 0.55;
   pointer-events: none;
-}
-
-.ink-vitals-rule svg {
-  width: 100%;
-  height: 100%;
-  display: block;
 }
 
 .ink-bar {
@@ -5580,28 +5576,10 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   gap: 4px;
 }
 
-.ink-prestige-rule-svg {
-  width: 100%;
-  height: 4px;
+.ink-prestige-rule {
+  --brush-h: 6px;
+  --brush-rail: rgba(26, 26, 26, 0.12);
   margin-top: 2px;
-  overflow: visible;
-}
-
-.ink-prestige-rule-track,
-.ink-prestige-rule-fill {
-  stroke-width: 2;
-}
-
-.ink-prestige-rule-track {
-  stroke: rgba(26, 26, 26, 0.12);
-}
-
-.ink-prestige-rule-fill {
-  stroke: var(--cinnabar);
-  stroke-linecap: round;
-  stroke-dasharray: var(--len);
-  stroke-dashoffset: var(--off);
-  transition: stroke-dashoffset 0.6s ease;
 }
 
 .ink-prestige-rank-motif {
@@ -5692,7 +5670,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
     opacity: 0.9;
     transform: none;
   }
-  .ink-prestige-rule-fill {
+  .ink-prestige-rule .ink-brush-bar__fill {
     transition: none;
   }
 }
@@ -5804,31 +5782,22 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   animation: inkRingBreath 4.2s ease-in-out infinite;
 }
 
-.ink-nav-center-inkring svg {
+.ink-nav-center-inkring img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   display: block;
-}
-
-.ink-nav-center-inkring circle {
-  fill: none;
-  stroke: var(--ink);
   transform-origin: 50% 50%;
 }
 
 .ink-nav-center-inkring .inkring-a {
-  stroke-width: 2.6;
-  stroke-dasharray: 42 30 16 96 24 50;
-  opacity: 0.5;
-  filter: blur(1.4px);
+  opacity: 0.55;
   animation: inkRingSpin 17s linear infinite;
 }
 
 .ink-nav-center-inkring .inkring-b {
-  stroke-width: 3.4;
-  stroke-dasharray: 60 55 22 120;
-  opacity: 0.26;
-  filter: blur(2.2px);
+  opacity: 0.3;
   animation: inkRingSpin 26s linear infinite reverse;
 }
 
@@ -5872,7 +5841,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
 }
 
 .ink-nav-center--exhausted .ink-nav-center-inkring,
-.ink-nav-center--exhausted .ink-nav-center-inkring circle {
+.ink-nav-center--exhausted .ink-nav-center-inkring img {
   animation-play-state: paused;
   opacity: 0.22;
 }
@@ -5881,7 +5850,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   color: var(--cinnabar, #a33a32);
 }
 
-.ink-nav-center--exhausted .ink-nav-center-ring-flow {
+.ink-nav-center--exhausted .ink-brush-ring__flow {
   display: none;
 }
 
@@ -5917,48 +5886,13 @@ html[data-ink-motion='reduce'] .ink-result-wash {
 }
 
 .ink-nav-center-ring {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  transform: rotate(-90deg);
-}
-
-.ink-nav-center-ring-track,
-.ink-nav-center-ring-fill,
-.ink-nav-center-ring-flow {
-  fill: none;
-}
-
-.ink-nav-center-ring-track {
-  stroke: rgba(26, 26, 26, 0.14);
-  stroke-width: 3;
-}
-
-.ink-nav-center-ring-fill {
-  stroke: var(--cultivation-blue);
-  stroke-width: 3;
-  stroke-linecap: round;
-  stroke-dasharray: var(--len);
-  stroke-dashoffset: var(--off);
-  transition: stroke-dashoffset 0.6s ease;
+  --brush-rail: rgba(26, 26, 26, 0.14);
   /* 進度弧柔光，等佢喺墨環之上立體少少 */
-  filter: drop-shadow(0 0 2.5px rgba(53, 89, 122, 0.55));
+  --brush-glow: drop-shadow(0 0 2.5px rgba(53, 89, 122, 0.55));
 }
 
-.ink-nav-center-ring-flow {
-  stroke: var(--cultivation-blue);
-  stroke-width: 1.4;
-  stroke-linecap: round;
-  stroke-dasharray: 8 92;
-  opacity: 0.6;
-  animation: inkNavFlow 3.4s linear infinite;
-}
-
-@keyframes inkNavFlow {
-  to {
-    stroke-dashoffset: -100;
-  }
+.ink-nav-center-ring.ink-brush--cinnabar {
+  --brush-glow: drop-shadow(0 0 2.5px rgba(163, 58, 50, 0.5));
 }
 
 .ink-nav-center-tier {
@@ -5981,25 +5915,13 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   text-shadow: 0 0 6px rgba(53, 89, 122, 0.5);
 }
 
-.ink-nav-center--capped .ink-nav-center-ring-fill {
-  stroke: var(--cinnabar);
-  filter: drop-shadow(0 0 2.5px rgba(163, 58, 50, 0.5));
-}
-
 .ink-nav-center--capped .ink-nav-center-action {
   color: var(--cinnabar);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ink-nav-center-ring-fill {
-    transition: none;
-  }
-  .ink-nav-center-ring-flow {
-    animation: none;
-    opacity: 0.3;
-  }
   .ink-nav-center-inkring,
-  .ink-nav-center-inkring circle {
+  .ink-nav-center-inkring img {
     animation: none;
     opacity: 0.28;
   }
@@ -6556,4 +6478,157 @@ html[data-ink-motion='reduce'] .ink-result-wash {
 .ink-start .ink-btn--quiet:hover {
   background: transparent;
   color: #dcc99b;
+}
+
+/* ===== 水墨筆觸 UI（取代內嵌 SVG；紋理見 public/ink/art/ui/，元件見 InkBrush.tsx）===== */
+
+@property --pct {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+.ink-brush--ink {
+  --brush-color: var(--ink);
+}
+.ink-brush--cinnabar {
+  --brush-color: var(--cinnabar);
+}
+.ink-brush--jade {
+  --brush-color: var(--jade);
+}
+.ink-brush--blue {
+  --brush-color: var(--cultivation-blue);
+}
+.ink-brush--gold {
+  --brush-color: var(--antique-gold);
+}
+
+.ink-brush-bar {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: var(--brush-h, 16px);
+}
+
+.ink-brush-bar__rail,
+.ink-brush-bar__fill {
+  position: absolute;
+  inset: 0;
+  -webkit-mask: url('/ink/art/ui/brush-bar-rail.webp') center / 100% 100% no-repeat;
+  mask: url('/ink/art/ui/brush-bar-rail.webp') center / 100% 100% no-repeat;
+}
+
+.ink-brush-bar__rail {
+  background: var(--brush-rail, rgba(26, 26, 26, 0.13));
+}
+
+.ink-brush-bar__fill {
+  --brush-edge: 3%;
+  background: var(--brush-color, var(--ink));
+  /* 筆劃紋理 ∩ 羽化前緣（墨漸化開，唔係硬切） */
+  -webkit-mask:
+    url('/ink/art/ui/brush-bar.webp') center / 100% 100% no-repeat,
+    linear-gradient(
+      to right,
+      #000 calc(var(--pct) * 1% - var(--brush-edge)),
+      transparent calc(var(--pct) * 1% + var(--brush-edge))
+    );
+  -webkit-mask-composite: source-in;
+  mask:
+    url('/ink/art/ui/brush-bar.webp') center / 100% 100% no-repeat,
+    linear-gradient(
+      to right,
+      #000 calc(var(--pct) * 1% - var(--brush-edge)),
+      transparent calc(var(--pct) * 1% + var(--brush-edge))
+    );
+  mask-composite: intersect;
+  filter: var(--brush-glow, none);
+  transition: --pct 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 落筆：由左至右寫出 */
+.ink-brush-bar--intro .ink-brush-bar__fill {
+  animation: inkBrushWrite var(--brush-dur, 1s) cubic-bezier(0.22, 1, 0.36, 1) var(--brush-delay, 0s) both;
+}
+
+@keyframes inkBrushWrite {
+  from {
+    --pct: 0;
+  }
+}
+
+.ink-brush-ring {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ink-brush-ring__rail,
+.ink-brush-ring__fill,
+.ink-brush-ring__flow {
+  position: absolute;
+  inset: 0;
+  -webkit-mask: url('/ink/art/ui/brush-ring.webp') center / 100% 100% no-repeat;
+  mask: url('/ink/art/ui/brush-ring.webp') center / 100% 100% no-repeat;
+}
+
+.ink-brush-ring__rail {
+  -webkit-mask-image: url('/ink/art/ui/brush-ring-rail.webp');
+  mask-image: url('/ink/art/ui/brush-ring-rail.webp');
+  background: var(--brush-rail, rgba(26, 26, 26, 0.16));
+}
+
+/* 進度：筆環 ∩ 圓錐扇形 */
+.ink-brush-ring__fill {
+  background: var(--brush-color);
+  -webkit-mask:
+    url('/ink/art/ui/brush-ring.webp') center / 100% 100% no-repeat,
+    conic-gradient(#000 calc(var(--pct) * 1% - 1.5%), transparent calc(var(--pct) * 1% + 1.5%));
+  -webkit-mask-composite: source-in;
+  mask:
+    url('/ink/art/ui/brush-ring.webp') center / 100% 100% no-repeat,
+    conic-gradient(#000 calc(var(--pct) * 1% - 1.5%), transparent calc(var(--pct) * 1% + 1.5%));
+  mask-composite: intersect;
+  filter: var(--brush-glow, none);
+  transition: --pct 0.6s ease;
+}
+
+/* 墨光：一小段亮弧沿環遊走 */
+.ink-brush-ring__flow {
+  background: var(--brush-color);
+  -webkit-mask:
+    url('/ink/art/ui/brush-ring.webp') center / 100% 100% no-repeat,
+    conic-gradient(transparent 0 86%, #000 97%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask:
+    url('/ink/art/ui/brush-ring.webp') center / 100% 100% no-repeat,
+    conic-gradient(transparent 0 86%, #000 97%, transparent 100%);
+  mask-composite: intersect;
+  opacity: 0.45;
+  animation: inkBrushSpin 3.4s linear infinite;
+}
+
+@keyframes inkBrushSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-brush-bar__fill,
+  .ink-brush-ring__fill {
+    transition: none;
+  }
+  .ink-brush-bar--intro .ink-brush-bar__fill {
+    animation: none;
+  }
+  .ink-brush-ring__flow {
+    animation: none;
+  }
+}
+
+html[data-ink-motion='reduce'] .ink-brush-bar--intro .ink-brush-bar__fill,
+html[data-ink-motion='reduce'] .ink-brush-ring__flow {
+  animation: none;
 }

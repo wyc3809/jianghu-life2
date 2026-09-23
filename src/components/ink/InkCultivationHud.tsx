@@ -7,9 +7,8 @@ import {
   isCultivationCapped,
 } from '@core/life/cultivation';
 import { useStillMode, usePrefersReducedMotion } from '../../hooks/useStillMode';
-import { barOffset } from './inkStillClass';
-
-const RING_LEN = 100;
+import { InkBrushRing } from './InkBrush';
+import { inkArtUrl } from '../../ui/inkAssets';
 
 /** 墨跡粒子：修為入賬時由數字中心向外擴散 */
 type XpParticle = {
@@ -168,7 +167,6 @@ export function InkCultivationHud({ state, onAdvance, onBreakthrough, disabled, 
   const shownPct = Number.isFinite(tier.cap)
     ? Math.max(0, Math.min(100, (shownXp / tier.cap) * 100))
     : 100;
-  const ringOff = barOffset(RING_LEN, shownPct, 100);
 
   const isBreakthroughReady = capped && canBreak;
   const blockedByExhaustion = exhausted && !isBreakthroughReady;
@@ -209,24 +207,16 @@ export function InkCultivationHud({ state, onAdvance, onBreakthrough, disabled, 
         }
       >
         <span className="ink-nav-center-inkring" aria-hidden>
-          <svg viewBox="0 0 90 90" focusable="false">
-            <circle className="inkring-a" cx="45" cy="45" r="41" pathLength={258} />
-            <circle className="inkring-b" cx="45" cy="45" r="41" pathLength={257} />
-          </svg>
+          <img className="inkring-a" src={inkArtUrl('art/ui/ink-halo-a.webp')} alt="" draggable={false} />
+          <img className="inkring-b" src={inkArtUrl('art/ui/ink-halo-b.webp')} alt="" draggable={false} />
         </span>
         {xpPop && <span className="ink-nav-center-ripple" aria-hidden />}
-        <svg className="ink-nav-center-ring" viewBox="0 0 64 64" aria-hidden focusable="false">
-          <circle className="ink-nav-center-ring-track" cx="32" cy="32" r="28" pathLength={RING_LEN} />
-          <circle
-            className="ink-nav-center-ring-fill"
-            cx="32"
-            cy="32"
-            r="28"
-            pathLength={RING_LEN}
-            style={{ ['--len' as string]: RING_LEN, ['--off' as string]: ringOff }}
-          />
-          {!capped && <circle className="ink-nav-center-ring-flow" cx="32" cy="32" r="28" pathLength={RING_LEN} />}
-        </svg>
+        <InkBrushRing
+          className="ink-nav-center-ring"
+          pct={shownPct}
+          tone={isBreakthroughReady ? 'cinnabar' : 'blue'}
+          flow={!capped}
+        />
         <span className="ink-nav-center-tier">{blockedByExhaustion ? '氣力不繼' : tier.name}</span>
         <span className="ink-nav-center-action">{isBreakthroughReady ? '突破' : '過一月'}</span>
       </button>

@@ -2,14 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import { PRESTIGE_TIERS, jianghuPrestigeTier, nextPrestigeTier } from '@core/life/jianghuPrestige';
 import { useSkipJsAnimation } from '../../hooks/useStillMode';
 import { inkAiUrl } from '../../ui/inkAiCatalog';
-import { barOffset } from './inkStillClass';
+import { InkBrushBar } from './InkBrush';
 
 interface InkPrestigeHudProps {
   prestige: number;
   rank: number;
 }
-
-const RULE_LEN = 100;
 
 function currentTierMin(prestige: number): number {
   let min = PRESTIGE_TIERS[0]!.min;
@@ -46,7 +44,6 @@ export function InkPrestigeHud({ prestige, rank }: InkPrestigeHudProps) {
   const next = nextPrestigeTier(prestige);
   const floor = currentTierMin(prestige);
   const ruleProgress = next ? ((prestige - floor) / (next.min - floor)) * 100 : 100;
-  const ruleOff = barOffset(RULE_LEN, ruleProgress, 100);
 
   return (
     <div className="ink-prestige-hud">
@@ -60,18 +57,7 @@ export function InkPrestigeHud({ prestige, rank }: InkPrestigeHudProps) {
             <span className="ink-prestige-score">{prestige}</span>
           </span>
           <span className="ink-prestige-tier">{tier}</span>
-          <svg className="ink-prestige-rule-svg" viewBox="0 0 100 4" preserveAspectRatio="none" aria-hidden>
-            <line className="ink-prestige-rule-track" x1="0" y1="2" x2="100" y2="2" pathLength={RULE_LEN} />
-            <line
-              className="ink-prestige-rule-fill"
-              x1="0"
-              y1="2"
-              x2="100"
-              y2="2"
-              pathLength={RULE_LEN}
-              style={{ ['--len' as string]: RULE_LEN, ['--off' as string]: ruleOff }}
-            />
-          </svg>
+          <InkBrushBar className="ink-prestige-rule" pct={ruleProgress} tone="cinnabar" />
         </span>
         {pop && (
           <span key={pop.id} className="ink-prestige-pop">
