@@ -1,6 +1,6 @@
 /** 宣紙底圖、朱砂印、事件橫幅 — 全為 WebP 位圖（無 SVG 手繪） */
 import type { InkPlace, InkSeason } from './sceneVariants';
-import { sealUrlForText } from '../../ui/inkAssets';
+import { sealPhrase, sealUrlForText } from '../../ui/inkAssets';
 import { inkAiUrl } from '../../ui/inkAiCatalog';
 
 /** 裝飾用位圖：外層 span 承接尺寸／動畫 class，內層 img 撐滿 */
@@ -68,7 +68,7 @@ export function InkSealStamp({
   return (
     <div className="ink-seal-overlay" onAnimationEnd={() => onDone?.()} aria-live="polite">
       {sealSrc ? (
-        <img className="ink-seal-stamp ink-seal-stamp--img" src={sealSrc} alt={text} decoding="async" />
+        <img className="ink-seal-stamp ink-seal-stamp--img" src={sealSrc} alt={sealPhrase(text)} decoding="async" />
       ) : (
         <span className="ink-seal-stamp">{text}</span>
       )}

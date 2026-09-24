@@ -72,8 +72,24 @@
 - CSS 模組（`*.module.css`）唔會自動食到全域設定：每個 `@media (prefers-reduced-motion)` 區塊都要再寫一份 `:global(html[data-ink-motion='reduce'])` 版本。
 - JS 計時器（例如落印清除、翻月 class 移除）要長過對應 CSS 時長，否則動畫會被中途截斷。
 
-## 5. 落印字全集
+## 5. 落印全集（印面係 2–4 字詞語）
 
-store 嘅 `sealText` 用到嘅字全部有朱砂印位圖（`public/ink/art/seals/`，`src/ui/inkAssets.ts` `SEAL_ID_BY_TEXT`）：
-生 終 緣 江湖 招 勝 命 危 定 劍 戰 敗 武 遁（白文為主）· 宗 收 教 晉 月 煉 裝（朱文）。
-新增 sealText 時要同步加印（`scripts/art/build_ink_stamps.py` SEALS），`tests/inkSilhouettes.test.ts` 會檢查。
+store 嘅 `sealText` 同特效用一字「印鍵」做代號，印面係完整詞語（`src/ui/inkAssets.ts` `SEALS`；位圖 `public/ink/art/seals/`）。
+四字印「田」字格、右行先讀；三字印右行一字、左行兩字。
+
+| 印鍵 | 印面 | 用喺 | 印鍵 | 印面 | 用喺 |
+|---|---|---|---|---|---|
+| 生 | 人生初度 | 出生 | 終 | 塵緣已了 | 死亡／總結 |
+| 定 | 落子無悔 | 選擇確認 | 月 | 歲月如流 | 過月 |
+| 戰 | 狹路相逢 | 開戰 | 勝 | 旗開得勝 | 得勝 |
+| 敗 | 技不如人 | 戰敗 | 遁 | 全身而退 | 逃走 |
+| 招 | 一氣呵成 | 連招 | 命 | 命懸一線 | 絕地 |
+| 危 | 險象環生 | 危急／突破失敗 | 劍 | 華山論劍 | 論劍開賽 |
+| 武 | 得窺門徑 | 學新武學 | 煉 | 精益求精 | 武學升階 |
+| 晉 | 聲名鵲起 | 稱號晉升 | 破 | 更上層樓 | 境界突破 |
+| 傷 | 傷筋動骨 | 重傷 | 殘 | 傷及根本 | 傷殘 |
+| 癒 | 妙手回春 | 醫殘 | 裝 | 披掛上陣 | 換裝 |
+| 宗 | 開宗立派 | 立派 | 收 | 廣納門徒 | 收徒 |
+| 教 | 傳道授業 | 傳功 | 緣／江湖 | 緣定三生／笑傲江湖 | 裝飾 |
+
+新增印要同步改 `scripts/art/build_ink_stamps.py` SEALS 同 `inkAssets.ts`；`tests/inkSilhouettes.test.ts` 會核對兩邊詞語一致、檔案存在、字數 2–4。

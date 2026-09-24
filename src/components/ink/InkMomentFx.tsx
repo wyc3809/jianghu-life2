@@ -62,7 +62,7 @@ function viewOf(m: LifeMoment): View {
         return { variant: 'toast', kicker: '輕傷', name: part, sub: effect, seal: '', lifeMs: 1800 };
       }
       if (m.tier === 'heavy') {
-        return { variant: 'wound', kicker: '身受重傷', name: `${part}重傷`, sub: effect, seal: '危', lifeMs: 1800 };
+        return { variant: 'wound', kicker: '身受重傷', name: `${part}重傷`, sub: effect, seal: '傷', lifeMs: 1800 };
       }
       return {
         variant: 'wound',

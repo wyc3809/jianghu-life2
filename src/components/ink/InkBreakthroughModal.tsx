@@ -20,7 +20,7 @@ export function InkBreakthroughModal({ result, onClose }: Props) {
   const cls = (base: string, stillCls?: string) => stillClassName(base, stillCls, still);
   const ok = result.success;
   const bigText = ok ? (result.newTierName ?? result.oldTierName) : '走火入魔';
-  const seal = sealUrlForText(ok ? '晉' : '危');
+  const seal = sealUrlForText(ok ? '破' : '危');
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {

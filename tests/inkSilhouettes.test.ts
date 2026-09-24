@@ -1,4 +1,4 @@
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
   FOE_SILHOUETTE_KEYS,
@@ -49,6 +49,21 @@ describe('seal coverage', () => {
     }
     for (const t of INK_SEAL_TEXTS) {
       expect(existsSync(fileOf(sealUrlForText(t)!)), t).toBe(true);
+    }
+  });
+
+  it('seal phrases are 2–4 chars and match the generator script', async () => {
+    const { sealPhrase, sealUrlForText, INK_SEAL_TEXTS } = await import('../src/ui/inkAssets');
+    const script = readFileSync('scripts/art/build_ink_stamps.py', 'utf8');
+    const generated = new Map(
+      [...script.matchAll(/\("([\w-]+)", "([^"]+)", "(?:zhuwen|baiwen)"/g)].map((m) => [m[1], m[2]] as const),
+    );
+    for (const t of INK_SEAL_TEXTS) {
+      const phrase = sealPhrase(t);
+      expect([...phrase].length, t).toBeGreaterThanOrEqual(2);
+      expect([...phrase].length, t).toBeLessThanOrEqual(4);
+      const id = sealUrlForText(t)!.match(/seal-([\w-]+)\.webp/)![1]!;
+      expect(generated.get(id), t).toBe(phrase);
     }
   });
 });

@@ -207,10 +207,10 @@
 /* 印：大字寫完先壓落，留喺字腳 */
 .seal {
   position: absolute;
-  right: -58px;
-  bottom: -6px;
-  width: 58px;
-  height: 58px;
+  right: -76px;
+  bottom: -10px;
+  width: 72px;
+  height: 72px;
   animation: bkSealPress var(--motion-slow) var(--ease-stamp) calc(var(--motion-base) + var(--motion-slow)) both;
 }
 

@@ -6806,10 +6806,10 @@ html[data-ink-motion='reduce'] .ink-combat-slash {
 /* 落印：寫完字先蓋 */
 .ink-moment__seal {
   position: absolute;
-  right: -18px;
-  bottom: -14px;
-  width: 64px;
-  height: 64px;
+  right: -26px;
+  bottom: -20px;
+  width: 80px;
+  height: 80px;
   animation: sealPress var(--motion-slow) var(--ease-stamp) calc(var(--motion-base) + var(--motion-slow)) both;
 }
 
