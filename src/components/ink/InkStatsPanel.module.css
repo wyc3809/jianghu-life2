@@ -71,6 +71,37 @@
   clip-path: inset(0 0 0 0);
 }
 
+/* 主角剪影：企喺山水橫幅右側，隨橫幅展開後由霧中淡入 */
+.banner {
+  position: relative;
+}
+
+.heroSil {
+  position: absolute;
+  right: 12%;
+  bottom: 4%;
+  height: 92%;
+  width: auto;
+  opacity: 0;
+  animation: heroSilIn 0.9s ease 1s forwards;
+}
+
+.heroSilStill {
+  animation: none;
+  opacity: 1;
+}
+
+@keyframes heroSilIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes artWipe {
   to {
     clip-path: inset(0 0 0 0);
@@ -448,6 +479,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .banner,
+  .heroSil,
   .corner img,
   .head,
   .meta,
@@ -463,6 +495,9 @@
   .banner,
   .corner img {
     clip-path: none;
+  }
+  .heroSil {
+    opacity: 1;
   }
   .head,
   .meta,
