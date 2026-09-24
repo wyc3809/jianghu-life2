@@ -3,7 +3,8 @@ import { PRACTICE_ACTIONS, SECT_INNER_ACTIONS, SECT_DEFS, ART_DEFS, type Practic
 import { natureGateHint } from '@core/life/nature';
 import { describeSectProgress } from '@core/life/sectStanding';
 import { artProficiency, ART_MASTERY_THRESHOLD } from '@core/life/arts';
-import { inkAiUrl, type InkAiAssetId } from '../../ui/inkAiCatalog';
+import type { InkAiAssetId } from '../../ui/inkAiCatalog';
+import { motifIconUrl } from '../../ui/inkAssets';
 
 export type PracticeView = 'main' | 'sect' | 'arts';
 
@@ -18,10 +19,14 @@ const PRACTICE_ICON: Partial<Record<PracticeActionId, InkAiAssetId>> = {
 };
 
 function RowIcon({ icon }: { icon?: InkAiAssetId }) {
-  return icon ? (
-    <img className="ink-row-icon" src={inkAiUrl(icon)} alt="" aria-hidden decoding="async" />
-  ) : (
-    <span className="ink-row-dot" aria-hidden />
+  return (
+    <span className="ink-row-icon-frame" aria-hidden>
+      {icon ? (
+        <img className="ink-row-icon" src={motifIconUrl(icon)} alt="" decoding="async" draggable={false} />
+      ) : (
+        <span className="ink-row-dot" />
+      )}
+    </span>
   );
 }
 

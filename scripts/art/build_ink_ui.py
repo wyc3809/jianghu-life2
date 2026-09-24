@@ -14,6 +14,7 @@
   nature-wash.webp     朱砂淡染（四象多邊形填色）
   ink-dot.webp         墨點（四象頂點）
   slash-stroke.webp    首領一斬（橫向，CSS 旋轉）
+  brush-btn-cinnabar.webp 主要按鈕朱砂筆觸底
   paper-grain.webp     可平鋪紙紋（灰階雜訊）
 
 填色類素材皆以 alpha 為主：CSS 用 mask-image + background-color 染色，
@@ -272,6 +273,13 @@ def build_nature() -> None:
     save(to_img(dot, CINNABAR), "ink-dot.webp", (48, 48))
 
 
+def build_button() -> None:
+    """主要按鈕底：朱砂一筆，飽滿、兩端收得短，文字壓喺上面仍然清楚。"""
+    rng = np.random.default_rng(701)
+    a = brush_stroke(rng, 2048, 256, width_frac=0.9, bristles=120, dry=0.35, taper=0.05, head=0.03, wobble=0.02)
+    save(to_img(a, CINNABAR), "brush-btn-cinnabar.webp", (1024, 128))
+
+
 def build_slash() -> None:
     rng = np.random.default_rng(501)
     a = brush_stroke(rng, 3200, 200, width_frac=0.42, bristles=90, dry=0.75, taper=0.35, head=0.04, wobble=0.04)
@@ -305,6 +313,7 @@ def main() -> None:
     build_corner()
     build_nature()
     build_slash()
+    build_button()
     build_grain()
 
 
