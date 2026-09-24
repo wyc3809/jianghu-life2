@@ -58,6 +58,8 @@ export interface LifeStore {
   /** 無可選抉擇時暫避 */
   dismissEvent: () => void;
   dismissCoach: () => void;
+  /** 特效時刻播完：移出佇列（見 core/life/moments.ts） */
+  ackMoment: () => void;
   practice: (actionId: PracticeActionId, opts?: { sectId?: string; artId?: string }) => void;
   combatMove: (moveId: string) => void;
   combatSetInternalMode: (modeId: string | null) => void;

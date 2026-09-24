@@ -342,6 +342,12 @@ export interface FoundedSect {
   maxDisciples: number;
 }
 
+/** 值得全屏儀式特效嘅時刻（UI 逐個播放後由 store 移除） */
+export type LifeMoment =
+  | { kind: 'learn'; name: string }
+  | { kind: 'rank'; name: string; rank: number; rankName: string }
+  | { kind: 'title'; label: string; tier: number };
+
 export interface LifeGameState {
   version: 1;
   seed: number;
@@ -368,6 +374,8 @@ export interface LifeGameState {
   pendingCombat?: PendingCombat | null;
   /** 新獲裝備待確認是否換上（彈窗詢問，見 InkGearCompareModal） */
   pendingGearCompare?: { gearId: string } | null;
+  /** 待播特效時刻（學新武學／武學升階／稱號晉升），見 core/life/moments.ts */
+  moments?: LifeMoment[];
   /** 本月剩餘修煉行動次數（每月三次） */
   practiceActionsLeft?: number;
   lifeLog: string[];
@@ -623,6 +631,15 @@ export const lifeGameStateSchema = z.object({
     .nullable(),
   pendingCombat: z.any().nullable().optional(),
   pendingGearCompare: z.object({ gearId: z.string() }).nullable().optional(),
+  moments: z
+    .array(
+      z.union([
+        z.object({ kind: z.literal('learn'), name: z.string() }),
+        z.object({ kind: z.literal('rank'), name: z.string(), rank: z.number(), rankName: z.string() }),
+        z.object({ kind: z.literal('title'), label: z.string(), tier: z.number() }),
+      ]),
+    )
+    .optional(),
   practiceActionsLeft: z.number().default(3),
   lifeLog: z.array(z.string()),
   phase: z.enum(['create', 'playing', 'summary']),

@@ -1,4 +1,5 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
+import { pushMoment } from './moments';
 import { getSectContent, sectStandingName } from '@data/content/packs';
 import { applyAchievementRankBonus } from './jianghuRank';
 import { gainJianghuPrestige } from './jianghuPrestige';
@@ -296,6 +297,7 @@ export function syncTitles(state: LifeGameState): string[] {
   writeTitleIds(state, [...have]);
   const lines: string[] = [];
   for (const g of gained) {
+    pushMoment(state, { kind: 'title', label: g.label, tier: g.tier });
     lines.push(`江湖上開始有人稱你「${g.label}」。`);
     lines.push(...applyAchievementRankBonus(state, g.tier * 30));
     lines.push(...gainJianghuPrestige(state, g.tier * 12));

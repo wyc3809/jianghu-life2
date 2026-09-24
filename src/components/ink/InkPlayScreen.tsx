@@ -46,6 +46,7 @@ import { InkEventPanel } from './InkEventPanel';
 import { InkCombatPanel } from './InkCombatPanel';
 import { InkBossIntro } from './InkBossIntro';
 import { InkBreakthroughModal } from './InkBreakthroughModal';
+import { InkMomentFx } from './InkMomentFx';
 import { InkPracticePanel, type PracticeView } from './InkPracticePanel';
 import { InkSparStage } from './InkSparStage';
 import { LifeDebugPanel } from '../LifeDebugPanel';
@@ -85,6 +86,7 @@ export function InkPlayScreen({ state }: Props) {
   const attemptBreakthrough = useLifeStore((s) => s.attemptBreakthrough);
   const breakthroughResult = useLifeStore((s) => s.breakthroughResult);
   const clearBreakthroughResult = useLifeStore((s) => s.clearBreakthroughResult);
+  const ackMoment = useLifeStore((s) => s.ackMoment);
   const offlineGain = useLifeStore((s) => s.offlineGain);
   const clearOfflineGain = useLifeStore((s) => s.clearOfflineGain);
   const [practiceView, setPracticeView] = useState<PracticeView>('main');
@@ -591,6 +593,17 @@ export function InkPlayScreen({ state }: Props) {
       {breakthroughResult && (
         <InkBreakthroughModal result={breakthroughResult} onClose={clearBreakthroughResult} />
       )}
+
+      {/* 特效時刻：等戰鬥、結果匣、落印、突破、換裝詢問都完咗先播 */}
+      {state.moments?.[0] &&
+        state.phase === 'playing' &&
+        !combat &&
+        !showResult &&
+        !sealText &&
+        !breakthroughResult &&
+        !state.pendingGearCompare && (
+          <InkMomentFx key={JSON.stringify(state.moments[0])} moment={state.moments[0]} onDone={ackMoment} />
+        )}
 
       {showResult &&
         lastResult &&

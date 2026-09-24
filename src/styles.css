@@ -6633,3 +6633,205 @@ html[data-ink-motion='reduce'] .ink-combat-slash {
     transform: translateY(-4px);
   }
 }
+
+/* ===== 特效時刻（學新武學／武學升階／稱號晉升；元件 InkMomentFx.tsx）===== */
+
+.ink-moment {
+  position: fixed;
+  inset: 0;
+  z-index: 260;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  background: radial-gradient(ellipse at 50% 46%, rgba(250, 246, 238, 0.985) 0%, rgba(243, 235, 220, 0.97) 55%, rgba(214, 200, 176, 0.95) 100%);
+  animation: inkMomentIn var(--motion-base) var(--ease-ink) both;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@keyframes inkMomentIn {
+  from {
+    opacity: 0;
+  }
+}
+
+.ink-moment__stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 36px 40px 44px;
+  min-width: 240px;
+}
+
+/* 紙卷（學武）／題簽（稱號）底：由中間向兩邊展開 */
+.ink-moment__paper {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(26, 26, 26, 0.18), transparent 7%, transparent 93%, rgba(26, 26, 26, 0.18)),
+    var(--paper-bright);
+  box-shadow:
+    0 0 0 1px rgba(26, 26, 26, 0.12),
+    0 18px 40px -16px rgba(26, 26, 26, 0.35);
+  transform-origin: 50% 50%;
+  animation: inkMomentUnroll var(--motion-slow) var(--ease-brush) both;
+}
+
+.ink-moment--learn .ink-moment__paper::before,
+.ink-moment--learn .ink-moment__paper::after {
+  /* 卷軸兩端木軸 */
+  content: '';
+  position: absolute;
+  top: -8px;
+  bottom: -8px;
+  width: 9px;
+  background: linear-gradient(90deg, #3a2a1c, #6b4c33 50%, #3a2a1c);
+  border-radius: 3px;
+}
+.ink-moment--learn .ink-moment__paper::before {
+  left: -5px;
+}
+.ink-moment--learn .ink-moment__paper::after {
+  right: -5px;
+}
+
+@keyframes inkMomentUnroll {
+  from {
+    transform: scaleX(0.04);
+  }
+}
+
+/* 題簽：窄長直條，由上跌落 */
+.ink-moment--title .ink-moment__stage {
+  padding: 40px 34px 48px;
+}
+.ink-moment--title .ink-moment__paper {
+  box-shadow:
+    inset 0 0 0 3px var(--paper-bright),
+    inset 0 0 0 4px rgba(163, 58, 50, 0.5),
+    0 18px 40px -16px rgba(26, 26, 26, 0.35);
+  animation: inkMomentDrop var(--motion-slow) var(--ease-stamp) both;
+}
+
+@keyframes inkMomentDrop {
+  from {
+    transform: translateY(-60vh) rotate(-4deg);
+  }
+  70% {
+    transform: translateY(6px) rotate(0.6deg);
+  }
+}
+
+/* 升階：身後墨環慢轉 */
+.ink-moment__halo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 300px;
+  height: 300px;
+  translate: -50% -50%;
+  z-index: -1;
+  opacity: 0.55;
+  animation:
+    inkMomentHaloIn var(--motion-slow) var(--ease-ink) both,
+    inkRingSpin 14s linear infinite;
+}
+
+@keyframes inkMomentHaloIn {
+  from {
+    opacity: 0;
+    scale: 0.6;
+    filter: blur(6px);
+  }
+}
+
+.ink-moment__kicker {
+  margin: 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.5em;
+  text-indent: 0.5em;
+  color: var(--cinnabar);
+  animation: inkMomentFade var(--motion-base) var(--ease-ink) calc(var(--motion-base) * 0.8) both;
+}
+
+/* 名：直書大字，由上而下「寫」出 */
+.ink-moment__name {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.12em;
+  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', var(--font-title);
+  font-size: clamp(2.3rem, 11vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--ink);
+  clip-path: inset(0 0 100% 0);
+  animation: inkMomentWrite var(--motion-slow) var(--ease-brush) var(--motion-base) both;
+}
+
+@keyframes inkMomentWrite {
+  from {
+    clip-path: inset(0 0 100% 0);
+    filter: blur(1.5px);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    filter: blur(0);
+  }
+}
+
+.ink-moment__sub {
+  margin: 0;
+  font-size: 0.9rem;
+  letter-spacing: 0.22em;
+  color: var(--ink-mid);
+  animation: inkMomentFade var(--motion-base) var(--ease-ink) calc(var(--motion-base) + var(--motion-slow)) both;
+}
+
+.ink-moment--rank .ink-moment__sub {
+  color: var(--cinnabar);
+  font-size: 1.05rem;
+}
+
+@keyframes inkMomentFade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+/* 落印：寫完字先蓋 */
+.ink-moment__seal {
+  position: absolute;
+  right: -18px;
+  bottom: -14px;
+  width: 64px;
+  height: 64px;
+  animation: sealPress var(--motion-slow) var(--ease-stamp) calc(var(--motion-base) + var(--motion-slow)) both;
+}
+
+.ink-moment__hint {
+  position: absolute;
+  bottom: max(28px, env(safe-area-inset-bottom, 0px));
+  left: 0;
+  right: 0;
+  margin: 0;
+  text-align: center;
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  color: var(--ink-wash);
+  animation: inkMomentFade var(--motion-base) var(--ease-ink) var(--motion-ritual) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-moment__halo {
+    animation: none;
+  }
+}
+
+html[data-ink-motion='reduce'] .ink-moment__halo {
+  animation: none;
+}
