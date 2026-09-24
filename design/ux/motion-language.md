@@ -30,10 +30,10 @@
 
 | 動作 | 時機 | 做法 |
 |------|------|------|
-| **翻頁** | 過一月 | 紙卷收放一下＋墨暈掃過（ritual） |
+| **翻頁** | 過一月 | 一道紙影由右掃向左（slow；每月都播，唔用 ritual 以免拖慢節奏） |
 | **落墨** | 事件文字、題簽 | 逐句由淡到實，微微上移（base，逐句延遲） |
-| **蓋印** | 選擇確認、出生／死亡、得勝 | 朱砂印由大壓細、落定（slow，stamp） |
-| **暈開** | 結果、數值變化 | 由中心化開、模糊收實（slow，ink） |
+| **蓋印** | 選擇確認、出生／死亡、得勝 | 朱砂印由空中壓落（1.6→0.94→1）、停一停再淡走（ritual，stamp）；戰鬥標題旁嘅印壓落後留低（`sealPress`） |
+| **暈開** | 結果、數值變化 | 由化開嘅墨（blur 6px）收實（slow，ink，`inkBloom`） |
 
 ## 4. 可跳過與減少動態（`.claude/rules/ui-code.md`）
 
@@ -41,3 +41,11 @@
 - 無限循環動畫要逐個喺 reduce 條件下 `animation: none`。
 - 儀式時刻（翻月、突破、首領）要可點擊跳過。
 - 新加動畫**必須**用上表變數，唔好再寫死秒數。
+- CSS 模組（`*.module.css`）唔會自動食到全域設定：每個 `@media (prefers-reduced-motion)` 區塊都要再寫一份 `:global(html[data-ink-motion='reduce'])` 版本。
+- JS 計時器（例如落印清除、翻月 class 移除）要長過對應 CSS 時長，否則動畫會被中途截斷。
+
+## 5. 落印字全集
+
+store 嘅 `sealText` 用到嘅字全部有朱砂印位圖（`public/ink/art/seals/`，`src/ui/inkAssets.ts` `SEAL_ID_BY_TEXT`）：
+生 終 緣 江湖 招 勝 命 危 定 劍 戰 敗 武 遁（白文為主）· 宗 收 教 晉 月 煉 裝（朱文）。
+新增 sealText 時要同步加印（`scripts/art/build_ink_stamps.py` SEALS），`tests/inkSilhouettes.test.ts` 會檢查。

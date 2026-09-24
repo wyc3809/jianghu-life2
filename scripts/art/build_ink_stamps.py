@@ -267,6 +267,20 @@ SEALS = [
     ("sheng-win", "勝", "baiwen", 22, 3.0),
     ("ming", "命", "zhuwen", 23, -2.5),
     ("wei", "危", "baiwen", 24, 4.0),
+    # 落印（sealText）全集補齊：果斷用白文、溫和用朱文
+    ("ding", "定", "baiwen", 31, -3.0),
+    ("jian", "劍", "baiwen", 32, 2.5),
+    ("zhan", "戰", "baiwen", 33, -4.0),
+    ("bai", "敗", "baiwen", 34, 3.5),
+    ("wu", "武", "baiwen", 35, -2.0),
+    ("dun", "遁", "baiwen", 36, 3.0),
+    ("zong", "宗", "zhuwen", 37, -2.5),
+    ("shou", "收", "zhuwen", 38, 2.0),
+    ("jiao", "教", "zhuwen", 39, -3.0),
+    ("jin", "晉", "zhuwen", 40, 2.5),
+    ("yue", "月", "zhuwen", 41, -2.0),
+    ("lian", "煉", "zhuwen", 42, 3.0),
+    ("zhuang", "裝", "zhuwen", 43, -3.5),
 ]
 
 AURAS = [

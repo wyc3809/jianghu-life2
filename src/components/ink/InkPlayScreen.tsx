@@ -122,7 +122,8 @@ export function InkPlayScreen({ state }: Props) {
     else if (sealText === '敗' || sealText === '終') playInkLose();
     else if (sealText === '戰') playInkBlade();
     else playInkSeal();
-    const t = window.setTimeout(() => clearSeal(), 920);
+    // 保險：正常由 InkSealStamp onAnimationEnd 清；呢度只係後備，要長過 --motion-ritual（1.2s）
+    const t = window.setTimeout(() => clearSeal(), 1300);
     return () => window.clearTimeout(t);
   }, [sealText, clearSeal]);
 
@@ -153,7 +154,8 @@ export function InkPlayScreen({ state }: Props) {
     prevYearMonth.current = ym;
     if (shouldReduceInkMotion()) return;
     setMonthTurning(true);
-    const t = window.setTimeout(() => setMonthTurning(false), 400);
+    // 同 CSS 翻頁動畫（--motion-slow 0.7s）對齊，略長少少等佢播完
+    const t = window.setTimeout(() => setMonthTurning(false), 760);
     return () => window.clearTimeout(t);
   }, [state.year, state.month]);
 

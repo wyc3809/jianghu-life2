@@ -389,3 +389,37 @@
     opacity: 1;
   }
 }
+
+/* 遊戲內「減少動態」設定（html[data-ink-motion='reduce']）：同上 */
+:global(html[data-ink-motion='reduce']) .shake,
+:global(html[data-ink-motion='reduce']) .art,
+:global(html[data-ink-motion='reduce']) .slashStroke,
+:global(html[data-ink-motion='reduce']) .kanji,
+:global(html[data-ink-motion='reduce']) .subtitle,
+:global(html[data-ink-motion='reduce']) .seal,
+:global(html[data-ink-motion='reduce']) .warn,
+:global(html[data-ink-motion='reduce']) .bar {
+  animation: none !important;
+}
+
+:global(html[data-ink-motion='reduce']) .art,
+:global(html[data-ink-motion='reduce']) .kanji {
+  clip-path: inset(0 0 0 0);
+}
+
+:global(html[data-ink-motion='reduce']) .moon {
+  animation: none !important;
+  opacity: 0.9;
+}
+
+:global(html[data-ink-motion='reduce']) .slashStroke {
+  clip-path: none;
+}
+
+:global(html[data-ink-motion='reduce']) .subtitle,
+:global(html[data-ink-motion='reduce']) .seal,
+:global(html[data-ink-motion='reduce']) .warn,
+:global(html[data-ink-motion='reduce']) .bar {
+  opacity: 1;
+}
+

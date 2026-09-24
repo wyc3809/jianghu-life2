@@ -39,3 +39,16 @@ describe('inkSilhouettes', () => {
     expect(bossSilhouetteUrl('刀客')).toContain('boss-daoke.webp');
   });
 });
+
+describe('seal coverage', () => {
+  it('every sealText used by the store has a bitmap seal', async () => {
+    const { sealUrlForText, INK_SEAL_TEXTS } = await import('../src/ui/inkAssets');
+    const used = ['定', '劍', '勝', '宗', '戰', '收', '敗', '教', '晉', '月', '武', '煉', '生', '終', '裝', '遁'];
+    for (const t of used) {
+      expect(sealUrlForText(t), t).not.toBeNull();
+    }
+    for (const t of INK_SEAL_TEXTS) {
+      expect(existsSync(fileOf(sealUrlForText(t)!)), t).toBe(true);
+    }
+  });
+});

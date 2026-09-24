@@ -137,29 +137,50 @@ body::before {
 }
 
 /* 翻月：短促墨暈（招牌動效；不整頁 remount） */
-@keyframes inkPaperBreathe {
-  0% {
-    opacity: 0;
-  }
-  32% {
-    opacity: 0.55;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
 .scroll-shell.ink-month-turn::after {
   content: '';
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 4;
+  /* 招牌動作「翻頁」：一道紙影由右掃向左，似翻過一頁 */
   background:
-    radial-gradient(ellipse at 50% 42%, var(--mist), transparent 68%),
-    linear-gradient(180deg, transparent 20%, var(--paper-aged) 100%);
+    linear-gradient(
+      100deg,
+      transparent 30%,
+      rgba(250, 246, 238, 0.85) 44%,
+      var(--paper-aged) 49%,
+      rgba(26, 26, 26, 0.07) 51%,
+      transparent 64%
+    ),
+    radial-gradient(ellipse at 50% 42%, var(--mist), transparent 68%);
+  background-size:
+    260% 100%,
+    100% 100%;
+  background-repeat: no-repeat;
   opacity: 0;
-  animation: inkPaperBreathe var(--motion-base) var(--ease-brush) both;
+  animation: inkPageTurn var(--motion-slow) var(--ease-brush) both;
+}
+
+@keyframes inkPageTurn {
+  0% {
+    opacity: 0;
+    background-position:
+      100% 0,
+      0 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    background-position:
+      0% 0,
+      0 0;
+  }
 }
 
 .scroll-shell--play {
@@ -441,23 +462,45 @@ body::before {
   }
 }
 
+/* 招牌動作「蓋印」：印由空中壓落（大→略細→定），停一停先淡走 */
 @keyframes sealStamp {
   0% {
     opacity: 0;
-    transform: scale(0.82) rotate(-14deg);
-    filter: blur(1px);
+    transform: scale(1.6) rotate(-14deg);
+    filter: blur(2px);
   }
-  35% {
+  22% {
     opacity: 1;
-    transform: scale(1.04) rotate(-7deg);
+    transform: scale(0.94) rotate(-8deg);
     filter: blur(0);
   }
-  55% {
+  30% {
+    transform: scale(1) rotate(-8deg);
+  }
+  74% {
     opacity: 1;
-    transform: scale(0.98) rotate(-8deg);
+    transform: scale(1) rotate(-8deg);
   }
   100% {
     opacity: 0;
+    transform: scale(1.02) rotate(-8deg);
+  }
+}
+
+/* 蓋印（留低版）：壓落後停喺紙上，唔淡走 */
+@keyframes sealPress {
+  0% {
+    opacity: 0;
+    transform: scale(1.6) rotate(-14deg);
+    filter: blur(2px);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(0.94) rotate(-8deg);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
     transform: scale(1) rotate(-8deg);
   }
 }
@@ -2215,7 +2258,8 @@ body::before {
   box-shadow:
     inset 0 0 0 3px rgba(243, 235, 220, 0.92),
     0 8px 28px rgba(163, 58, 50, 0.18);
-  animation: sealStamp var(--motion-slow) var(--ease-stamp) forwards;
+  /* 落印停留約 1 秒先淡走，睇得清印文 */
+  animation: sealStamp var(--motion-ritual) var(--ease-stamp) forwards;
   transform: rotate(-8deg);
 }
 
@@ -3024,15 +3068,32 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
     var(--bg-panel);
 }
 
-/* 結果三階：故事 →（點擊）消長 → 印 */
+/* 結果三階：故事 →（點擊）消長 → 印；招牌動作「暈開」：由化開嘅墨收實 */
 .ink-result--staged .ink-result-story {
-  animation: inkFadeUp var(--motion-base) var(--ease-ink) both;
+  animation: inkBloom var(--motion-slow) var(--ease-ink) both;
 }
 
 .ink-result--staged .ink-result-deltas {
   opacity: 0;
-  animation: inkFadeUp var(--motion-base) var(--ease-ink) both;
+  animation: inkBloom var(--motion-slow) var(--ease-ink) both;
   animation-fill-mode: both;
+}
+
+@keyframes inkBloom {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: scale(0.985);
+  }
+  60% {
+    opacity: 1;
+    filter: blur(1px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
 }
 
 .ink-result--staged.ink-result--deltas-open .ink-result-deltas {
@@ -5433,7 +5494,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   animation: auraBreathe 2.5s ease-in-out infinite;
 }
 
-/* ===== 印章蓋下（沿用既有 sealStamp 關鍵影格）===== */
+/* ===== 印章蓋下（sealPress：壓落後留喺標題旁）===== */
 
 .ink-combat-seal {
   display: inline-flex;
@@ -5442,7 +5503,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   height: 30px;
   margin: 0 6px;
   vertical-align: middle;
-  animation: sealStamp var(--motion-slow) var(--ease-stamp) forwards;
+  animation: sealPress var(--motion-slow) var(--ease-stamp) both;
 }
 
 .ink-combat-seal img {
@@ -6832,4 +6893,19 @@ html[data-ink-motion='reduce'] {
   --motion-base: 1ms;
   --motion-slow: 1ms;
   --motion-ritual: 1ms;
+}
+
+/* 過月鈕殘墨環：原 reduce 規則（.ink-nav-center-inkring img）特異度低過 .inkring-a／-b，需要加強 */
+@media (prefers-reduced-motion: reduce) {
+  .ink-nav-center-inkring .inkring-a,
+  .ink-nav-center-inkring .inkring-b,
+  .ink-nav-center .ink-nav-center-inkring {
+    animation: none;
+  }
+}
+
+html[data-ink-motion='reduce'] .ink-nav-center-inkring .inkring-a,
+html[data-ink-motion='reduce'] .ink-nav-center-inkring .inkring-b,
+html[data-ink-motion='reduce'] .ink-nav-center .ink-nav-center-inkring {
+  animation: none;
 }

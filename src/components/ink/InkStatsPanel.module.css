@@ -525,3 +525,38 @@
     opacity: 1;
   }
 }
+
+/* 遊戲內「減少動態」設定（html[data-ink-motion='reduce']）：同上 */
+:global(html[data-ink-motion='reduce']) .banner,
+:global(html[data-ink-motion='reduce']) .heroSil,
+:global(html[data-ink-motion='reduce']) .corner img,
+:global(html[data-ink-motion='reduce']) .head,
+:global(html[data-ink-motion='reduce']) .meta,
+:global(html[data-ink-motion='reduce']) .vitals,
+:global(html[data-ink-motion='reduce']) .attrGrid,
+:global(html[data-ink-motion='reduce']) .nature,
+:global(html[data-ink-motion='reduce']) .diaEdge,
+:global(html[data-ink-motion='reduce']) .dia,
+:global(html[data-ink-motion='reduce']) .dot,
+:global(html[data-ink-motion='reduce']) .foot {
+  animation: none !important;
+}
+
+:global(html[data-ink-motion='reduce']) .banner,
+:global(html[data-ink-motion='reduce']) .corner img {
+  clip-path: none;
+}
+
+:global(html[data-ink-motion='reduce']) .heroSil {
+  opacity: 1;
+}
+
+:global(html[data-ink-motion='reduce']) .head,
+:global(html[data-ink-motion='reduce']) .meta,
+:global(html[data-ink-motion='reduce']) .vitals,
+:global(html[data-ink-motion='reduce']) .attrGrid,
+:global(html[data-ink-motion='reduce']) .nature,
+:global(html[data-ink-motion='reduce']) .foot {
+  opacity: 1;
+}
+

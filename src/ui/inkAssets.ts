@@ -24,6 +24,20 @@ const SEAL_ID_BY_TEXT: Readonly<Record<string, string>> = {
   勝: 'sheng-win',
   命: 'ming',
   危: 'wei',
+  // 落印全集（store slices 嘅 sealText）
+  定: 'ding',
+  劍: 'jian',
+  戰: 'zhan',
+  敗: 'bai',
+  武: 'wu',
+  遁: 'dun',
+  宗: 'zong',
+  收: 'shou',
+  教: 'jiao',
+  晉: 'jin',
+  月: 'yue',
+  煉: 'lian',
+  裝: 'zhuang',
 };
 
 /** 已有位圖的印文 */
