@@ -275,6 +275,8 @@ export function InkPlayScreen({ state }: Props) {
     state.pending?.kind === 'special' || c.flags.rumor_boost ? 'ink-scene--omen' : '',
     combat ? 'scroll-shell--combat' : '',
     eventFocus ? 'scroll-shell--event' : '',
+    /* 底部分卷導航顯示時：預留空間（條件同下方 <nav className="ink-tabs"> 一致） */
+    !combat && !eventFocus ? 'scroll-shell--has-tabs' : '',
     monthTurning ? 'ink-month-turn' : '',
   ]
     .filter(Boolean)

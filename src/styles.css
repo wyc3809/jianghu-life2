@@ -6632,3 +6632,34 @@ html[data-ink-motion='reduce'] .ink-brush-bar--intro .ink-brush-bar__fill,
 html[data-ink-motion='reduce'] .ink-brush-ring__flow {
   animation: none;
 }
+
+/* ===== 底部分卷導航：預留空間＋宣紙漸層底（放檔尾，避免被上面各 media query 覆寫）===== */
+
+/* 導航總高 ≈ 分卷圖示 70px ＋ 中央圓鈕上浮 ＋「修為」標籤 ≈ 150px */
+.scroll-shell--play.scroll-shell--has-tabs {
+  padding-bottom: calc(156px + env(safe-area-inset-bottom, 0px));
+}
+
+/* 內容區唔好俾 flex 壓細：否則長列表（修煉）溢出到預留空間，最後幾項被導航遮住 */
+.scroll-shell--has-tabs .ink-play-body {
+  flex: 1 0 auto;
+}
+
+/* 內容捲到導航後面時淡出，唔再同分卷字疊埋 */
+.ink-tabs::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(100% + 56px);
+  background: linear-gradient(
+    to top,
+    var(--paper) 0%,
+    var(--paper) 58%,
+    color-mix(in srgb, var(--paper) 82%, transparent) 76%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
