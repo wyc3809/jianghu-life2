@@ -60,7 +60,7 @@
 }
 
 .shake {
-  animation: bkShake 0.5s linear 0.15s;
+  animation: bkShake var(--motion-base) linear 0.15s;
 }
 
 .shakeStill {
@@ -95,7 +95,7 @@
   box-shadow: 0 0 0 2px rgba(212, 168, 83, 0.5), 0 0 32px rgba(179, 52, 42, 0.4);
   transform: scale(2);
   opacity: 0;
-  animation: bkStamp 0.5s cubic-bezier(0.17, 0.89, 0.32, 1.28) 0.2s forwards;
+  animation: bkStamp var(--motion-base) cubic-bezier(0.17, 0.89, 0.32, 1.28) 0.2s forwards;
 }
 
 .sealStill {
@@ -153,7 +153,7 @@
   font-size: clamp(14px, 2.2vh, 18px);
   letter-spacing: 0.08em;
   opacity: 0;
-  animation: bkFadeIn 0.6s ease 0.55s forwards;
+  animation: bkFadeIn var(--motion-slow) var(--ease-ink) 0.55s forwards;
 }
 
 .tierWrapStill {
@@ -191,7 +191,7 @@
   font-size: clamp(12px, 1.8vh, 15px);
   color: #cabfa4;
   opacity: 0;
-  animation: bkFadeIn 0.6s ease 0.75s forwards;
+  animation: bkFadeIn var(--motion-slow) var(--ease-ink) 0.75s forwards;
 }
 
 .ack {
@@ -206,7 +206,7 @@
   letter-spacing: 0.1em;
   cursor: pointer;
   opacity: 0;
-  animation: bkFadeIn 0.6s ease 0.95s forwards;
+  animation: bkFadeIn var(--motion-slow) var(--ease-ink) 0.95s forwards;
 }
 
 .ack:hover {

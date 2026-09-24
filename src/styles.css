@@ -1,4 +1,15 @@
 :root {
+  /* —— 動態語言（design/ux/motion-language.md）——
+     時長四檔：快＝按後回應、常＝面板／文字入場、慢＝落印／暈開、儀式＝翻月／突破／首領。
+     緩動三種：落筆（出手快、收筆慢）、暈開（墨慢慢化開）、蓋印（重按即止）。 */
+  --motion-quick: 0.2s;
+  --motion-base: 0.36s;
+  --motion-slow: 0.7s;
+  --motion-ritual: 1.2s;
+  --ease-brush: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-ink: cubic-bezier(0.25, 0.6, 0.3, 1);
+  --ease-stamp: cubic-bezier(0.2, 0.85, 0.25, 1);
+
   /* STYLE-BIBLE / tokens-colors.json */
   --paper: #f3ebdc;
   --paper-aged: #e6d9c4;
@@ -148,7 +159,7 @@ body::before {
     radial-gradient(ellipse at 50% 42%, var(--mist), transparent 68%),
     linear-gradient(180deg, transparent 20%, var(--paper-aged) 100%);
   opacity: 0;
-  animation: inkPaperBreathe 0.38s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation: inkPaperBreathe var(--motion-base) var(--ease-brush) both;
 }
 
 .scroll-shell--play {
@@ -608,7 +619,7 @@ body::before {
 
 /* 手卷殼本身唔好用 transform 入場，否則 iOS 捲動容易失效 */
 .ink-enter {
-  animation: inkFadeOpacity 0.55s ease both;
+  animation: inkFadeOpacity var(--motion-slow) var(--ease-ink) both;
 }
 
 @keyframes inkFadeOpacity {
@@ -621,7 +632,7 @@ body::before {
 }
 
 .ink-scroll-flip {
-  animation: scrollFlip 0.52s cubic-bezier(0.22, 0.7, 0.25, 1) both;
+  animation: scrollFlip var(--motion-slow) var(--ease-brush) both;
 }
 
 .ink-play-body {
@@ -651,7 +662,7 @@ body::before {
   line-height: 1.12;
   color: var(--ink);
   text-shadow: 0 1px 0 rgba(250, 246, 238, 0.55);
-  animation: inkWashReveal 0.9s ease both;
+  animation: inkWashReveal var(--motion-slow) var(--ease-ink) both;
 }
 
 .ink-eyebrow {
@@ -676,7 +687,7 @@ body::before {
   margin: 16px auto;
   background: linear-gradient(90deg, transparent, var(--ink) 18%, var(--ink) 82%, transparent);
   opacity: 0.24;
-  animation: tabInkGrow 0.7s ease both 0.18s;
+  animation: tabInkGrow var(--motion-slow) var(--ease-ink) both 0.18s;
   transform-origin: center;
 }
 
@@ -869,7 +880,7 @@ body::before {
   padding: 14px 16px;
   border: 1px dashed rgba(45, 42, 38, 0.28);
   background: rgba(255, 252, 245, 0.72);
-  animation: inkFadeUp 0.5s ease both;
+  animation: inkFadeUp var(--motion-base) var(--ease-ink) both;
 }
 
 .ink-coach h3 {
@@ -1140,12 +1151,12 @@ body::before {
   background:
     linear-gradient(90deg, rgba(26, 26, 26, 0.22), var(--ink) 55%, rgba(26, 26, 26, 0.78));
   transform-origin: left center;
-  transition: width 0.55s cubic-bezier(0.22, 0.7, 0.25, 1);
+  transition: width var(--motion-slow) var(--ease-brush);
   box-shadow: 0 0 0 1px rgba(26, 26, 26, 0.06);
 }
 
 .ink-bar-fill--enter {
-  animation: barInkFill 0.65s ease both;
+  animation: barInkFill var(--motion-slow) var(--ease-ink) both;
 }
 
 /* 交手／數值更新：只平滑變寬，不重播入場 */
@@ -1162,7 +1173,7 @@ body::before {
   z-index: 0;
   opacity: 0.35;
   background: rgba(26, 26, 26, 0.28);
-  animation: inkBarGhostFade 0.55s ease forwards;
+  animation: inkBarGhostFade var(--motion-slow) var(--ease-ink) forwards;
   transition: none;
   pointer-events: none;
 }
@@ -1496,7 +1507,7 @@ body::before {
   height: 100%;
   width: var(--pct, 0%);
   background: linear-gradient(90deg, rgba(26, 26, 26, 0.3), var(--ink) 70%);
-  transition: width 0.5s cubic-bezier(0.22, 0.7, 0.25, 1);
+  transition: width var(--motion-base) var(--ease-brush);
 }
 
 .ink-skill-advance-label {
@@ -1917,8 +1928,8 @@ body::before {
   background: var(--nature-wash);
   padding: 8px 10px;
   transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+    transform var(--motion-base) var(--ease-ink),
+    box-shadow var(--motion-base) var(--ease-ink);
 }
 
 .ink-nature-card .ink-attr-label,
@@ -1978,7 +1989,7 @@ body::before {
 }
 
 .ink-event {
-  animation: inkFadeUp 0.45s ease both;
+  animation: inkFadeUp var(--motion-base) var(--ease-ink) both;
 }
 
 .ink-event-year {
@@ -2016,7 +2027,7 @@ body::before {
 
 /* 事件正文：淡墨寫入（招牌） */
 .ink-event-body.ink-write-in {
-  animation: inkWriteIn 0.32s ease-out both;
+  animation: inkWriteIn var(--motion-base) var(--ease-ink) both;
   animation-delay: calc(var(--i, 0) * 80ms);
 }
 
@@ -2036,7 +2047,7 @@ body::before {
 }
 
 .ink-event h3.ink-write-in {
-  animation: inkWriteIn 0.36s ease-out both;
+  animation: inkWriteIn var(--motion-base) var(--ease-ink) both;
 }
 
 .ink-choice-list {
@@ -2055,12 +2066,12 @@ body::before {
 
 .ink-choice-list--reveal {
   transition:
-    opacity 0.24s ease-out,
-    transform 0.24s ease-out;
+    opacity var(--motion-quick) var(--ease-ink),
+    transform var(--motion-quick) var(--ease-ink);
 }
 
 .ink-choice-list--reveal .ink-choice {
-  animation: choiceIn 0.24s ease both;
+  animation: choiceIn var(--motion-quick) var(--ease-ink) both;
   animation-delay: calc(var(--i, 0) * 45ms);
 }
 
@@ -2082,7 +2093,7 @@ body::before {
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-  animation: choiceIn 0.22s ease both;
+  animation: choiceIn var(--motion-quick) var(--ease-ink) both;
   animation-delay: calc(var(--i, 0) * 18ms);
   transition:
     background 0.08s ease,
@@ -2148,12 +2159,12 @@ body::before {
   color: var(--ink-mid);
   font-size: 0.88rem;
   line-height: 1.6;
-  animation: inkFadeUp 0.4s ease both;
+  animation: inkFadeUp var(--motion-base) var(--ease-ink) both;
 }
 
 .ink-flash p {
   margin: 0 0 4px;
-  animation: writeIn 0.4s ease both;
+  animation: writeIn var(--motion-base) var(--ease-ink) both;
 }
 
 .ink-flash p:nth-child(1) {
@@ -2204,7 +2215,7 @@ body::before {
   box-shadow:
     inset 0 0 0 3px rgba(243, 235, 220, 0.92),
     0 8px 28px rgba(163, 58, 50, 0.18);
-  animation: sealStamp 0.88s cubic-bezier(0.2, 0.85, 0.25, 1) forwards;
+  animation: sealStamp var(--motion-slow) var(--ease-stamp) forwards;
   transform: rotate(-8deg);
 }
 
@@ -2344,8 +2355,8 @@ body::before {
   transform: scaleX(0);
   opacity: 0;
   transition:
-    transform 0.28s ease,
-    opacity 0.28s ease;
+    transform var(--motion-base) var(--ease-ink),
+    opacity var(--motion-base) var(--ease-ink);
 }
 
 .ink-tab:hover {
@@ -2371,7 +2382,7 @@ body::before {
 .ink-tab--active::after {
   transform: scaleX(1);
   opacity: 1;
-  animation: tabInkGrow 0.35s ease both;
+  animation: tabInkGrow var(--motion-base) var(--ease-ink) both;
 }
 
 .ink-world-compact {
@@ -2567,7 +2578,7 @@ body::before {
   font-size: 0.8rem;
   line-height: 1.45;
   letter-spacing: 0.04em;
-  animation: inkFadeUp 0.35s ease both;
+  animation: inkFadeUp var(--motion-base) var(--ease-ink) both;
   overflow-x: hidden;
   overflow-y: visible;
 }
@@ -2786,7 +2797,7 @@ body::before {
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  animation: inkStanceWash 0.4s ease-out both;
+  animation: inkStanceWash var(--motion-base) var(--ease-ink) both;
 }
 
 .ink-combat-stance-vs {
@@ -3006,7 +3017,7 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
 }
 
 .ink-result {
-  animation: inkFadeUp 0.45s ease both;
+  animation: inkFadeUp var(--motion-base) var(--ease-ink) both;
   border-color: rgba(163, 58, 50, 0.28);
   background:
     linear-gradient(180deg, var(--cinnabar-soft), transparent 40%),
@@ -3015,12 +3026,12 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
 
 /* 結果三階：故事 →（點擊）消長 → 印 */
 .ink-result--staged .ink-result-story {
-  animation: inkFadeUp 0.35s ease both;
+  animation: inkFadeUp var(--motion-base) var(--ease-ink) both;
 }
 
 .ink-result--staged .ink-result-deltas {
   opacity: 0;
-  animation: inkFadeUp 0.35s ease both;
+  animation: inkFadeUp var(--motion-base) var(--ease-ink) both;
   animation-fill-mode: both;
 }
 
@@ -3030,7 +3041,7 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
 
 .ink-result--staged.ink-result--await-deltas .ink-btn--ack {
   opacity: 1;
-  animation: inkFadeUp 0.3s ease both;
+  animation: inkFadeUp var(--motion-base) var(--ease-ink) both;
   animation-delay: 0.18s;
 }
 
@@ -3040,14 +3051,14 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
 
 .ink-result--staged.ink-result--deltas-open .ink-btn--ack {
   opacity: 0;
-  animation: inkFadeUp 0.3s ease both;
+  animation: inkFadeUp var(--motion-base) var(--ease-ink) both;
   animation-delay: 0.28s;
   animation-fill-mode: both;
 }
 
 .ink-result--staged:not(.ink-result--await-deltas):not(.ink-result--deltas-open) .ink-btn--ack {
   opacity: 0;
-  animation: inkFadeUp 0.3s ease both;
+  animation: inkFadeUp var(--motion-base) var(--ease-ink) both;
   animation-delay: 0.22s;
   animation-fill-mode: both;
 }
@@ -3067,7 +3078,7 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
   border: 2px solid var(--cinnabar);
   opacity: 0.78;
   transform: rotate(-12deg);
-  animation: resultSealIn 0.7s cubic-bezier(0.2, 0.85, 0.25, 1) both;
+  animation: resultSealIn var(--motion-slow) var(--ease-stamp) both;
   pointer-events: none;
   box-shadow: inset 0 0 0 2px rgba(243, 235, 220, 0.85);
 }
@@ -3098,7 +3109,7 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
   background:
     radial-gradient(ellipse at 50% 40%, rgba(26, 26, 26, 0.35), rgba(26, 26, 26, 0.58));
   backdrop-filter: blur(3px);
-  animation: inkFadeUp 0.32s ease both;
+  animation: inkFadeUp var(--motion-base) var(--ease-ink) both;
   overscroll-behavior: contain;
 }
 
@@ -3114,7 +3125,7 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
   box-shadow:
     0 0 0 1px rgba(163, 58, 50, 0.12),
     0 22px 56px rgba(26, 26, 26, 0.35);
-  animation: inkModalIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation: inkModalIn var(--motion-base) var(--ease-brush) both;
 }
 
 .ink-modal-card::before {
@@ -3421,7 +3432,7 @@ button.is-pressed,
   text-align: left;
   line-height: 1.65;
   letter-spacing: 0.03em;
-  animation: writeIn 0.4s ease both;
+  animation: writeIn var(--motion-base) var(--ease-ink) both;
 }
 
 .ink-result-story .ink-event-body:nth-child(1) {
@@ -3440,7 +3451,7 @@ button.is-pressed,
   letter-spacing: 0.28em;
   color: var(--ink-wash);
   text-align: center;
-  animation: inkFadeOpacity 0.35s ease both;
+  animation: inkFadeOpacity var(--motion-base) var(--ease-ink) both;
 }
 
 /* 此番消長：漸出式直板（逐行淡入上移） */
@@ -3469,7 +3480,7 @@ button.is-pressed,
   letter-spacing: 0.14em;
   line-height: 1.35;
   opacity: 0;
-  animation: inkDeltaReveal 0.42s cubic-bezier(0.22, 0.7, 0.25, 1) both;
+  animation: inkDeltaReveal var(--motion-base) var(--ease-brush) both;
   animation-delay: calc(0.06s + var(--i, 0) * 0.08s);
 }
 
@@ -4430,7 +4441,7 @@ button.is-pressed,
   font-size: 0.92rem;
   letter-spacing: 0.18em;
   white-space: nowrap;
-  animation: inkFxRise 1.45s ease-out both;
+  animation: inkFxRise var(--motion-ritual) var(--ease-ink) both;
 }
 
 .ink-combat-fx--foe {
@@ -4481,7 +4492,7 @@ button.is-pressed,
 
 .ink-combat-fx--move {
   top: 28%;
-  animation: inkWriteIn 0.4s ease-out both, inkFxCenterFade 1.45s ease-out both;
+  animation: inkWriteIn var(--motion-base) var(--ease-ink) both, inkFxCenterFade var(--motion-ritual) var(--ease-ink) both;
 }
 
 @keyframes inkFxRise {
@@ -4507,7 +4518,7 @@ button.is-pressed,
 }
 
 .ink-combat-fx--center.ink-combat-fx--move {
-  animation: inkWriteIn 0.4s ease-out both, inkFxCenterFade 1.45s ease-out both;
+  animation: inkWriteIn var(--motion-base) var(--ease-ink) both, inkFxCenterFade var(--motion-ritual) var(--ease-ink) both;
 }
 
 @keyframes inkFxCenterFade {
@@ -4534,13 +4545,13 @@ button.is-pressed,
   height: 2px;
   background: linear-gradient(105deg, transparent, rgba(26, 26, 26, 0.45), transparent);
   transform: rotate(-18deg);
-  animation: inkBrushSlash 0.65s ease-out both;
+  animation: inkBrushSlash var(--motion-slow) var(--ease-ink) both;
 }
 
 .ink-combat-brush--xu {
   inset: 12% 8% 28% 8%;
   background: radial-gradient(ellipse at 50% 40%, rgba(42, 53, 48, 0.14), transparent 70%);
-  animation: inkBrushMist 0.65s ease-out both;
+  animation: inkBrushMist var(--motion-slow) var(--ease-ink) both;
 }
 
 .ink-combat-brush--jia {
@@ -4549,7 +4560,7 @@ button.is-pressed,
   width: 76%;
   height: 2px;
   background: linear-gradient(90deg, transparent, rgba(26, 26, 26, 0.5), transparent);
-  animation: inkBrushGuard 0.65s ease-out both;
+  animation: inkBrushGuard var(--motion-slow) var(--ease-ink) both;
 }
 
 @keyframes inkBrushSlash {
@@ -4601,7 +4612,7 @@ button.is-pressed,
   border-radius: 50%;
   pointer-events: none;
   opacity: 0;
-  animation: inkParticlePop 0.55s ease-out both;
+  animation: inkParticlePop var(--motion-slow) var(--ease-ink) both;
   animation-delay: var(--particle-delay, 0s);
   transform: scale(var(--particle-scale, 1));
 }
@@ -4665,7 +4676,7 @@ button.is-pressed,
   width: 0;
   height: 1px;
   background: rgba(26, 26, 26, 0.35);
-  animation: inkFlyBai 0.35s ease-out both;
+  animation: inkFlyBai var(--motion-base) var(--ease-ink) both;
 }
 
 @keyframes inkFlyBai {
@@ -5019,7 +5030,7 @@ html[data-ink-motion='reduce'] .ink-combat-fx-layer {
   border-top: 1px solid rgba(26, 26, 26, 0.1);
   border-bottom: 1px solid rgba(26, 26, 26, 0.15);
   mask-image: linear-gradient(90deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
-  animation: inkSceneUnroll 0.62s cubic-bezier(0.22, 0.7, 0.25, 1) both;
+  animation: inkSceneUnroll var(--motion-slow) var(--ease-brush) both;
 }
 
 .scroll-shell--event .ink-event-banner::after {
@@ -5431,7 +5442,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   height: 30px;
   margin: 0 6px;
   vertical-align: middle;
-  animation: sealStamp 0.6s cubic-bezier(0.2, 0.85, 0.25, 1) forwards;
+  animation: sealStamp var(--motion-slow) var(--ease-stamp) forwards;
 }
 
 .ink-combat-seal img {
@@ -5544,7 +5555,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   border: 1px solid var(--ink-faint);
   border-radius: 4px;
   background: color-mix(in srgb, var(--paper-bright) 90%, var(--cinnabar) 4%);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  transition: box-shadow var(--motion-base) var(--ease-ink), transform var(--motion-base) var(--ease-ink);
 }
 
 .ink-prestige-seal {
@@ -5635,7 +5646,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   font-size: 0.76rem;
   font-weight: var(--fw-ui);
   color: var(--cinnabar);
-  animation: inkPrestigePop 1.1s ease-out forwards;
+  animation: inkPrestigePop var(--motion-ritual) var(--ease-ink) forwards;
   pointer-events: none;
 }
 
@@ -5704,7 +5715,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
 }
 
 .ink-nav-center-xp--pop {
-  animation: inkNavXpPop 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: inkNavXpPop var(--motion-slow) var(--ease-brush);
   border-color: var(--xp-gold, #d4b896);
 }
 
@@ -5826,7 +5837,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   border-radius: 50%;
   border: 2px solid rgba(53, 89, 122, 0.55);
   pointer-events: none;
-  animation: inkNavRipple 0.7s ease-out forwards;
+  animation: inkNavRipple var(--motion-slow) var(--ease-ink) forwards;
 }
 
 @keyframes inkNavRipple {
@@ -5873,7 +5884,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-  transition: transform 0.06s ease, opacity 0.2s ease;
+  transition: transform 0.06s ease, opacity var(--motion-quick) var(--ease-ink);
 }
 
 .ink-nav-center:active:not(:disabled) {
@@ -5908,7 +5919,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   font-weight: var(--fw-ui);
   color: var(--ink);
   letter-spacing: 0.06em;
-  transition: text-shadow 0.5s ease;
+  transition: text-shadow var(--motion-base) var(--ease-ink);
 }
 
 .ink-nav-center--glow .ink-nav-center-action {
@@ -6029,7 +6040,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   font-weight: var(--fw-ui);
   text-align: center;
   cursor: pointer;
-  animation: inkFadeUp 0.4s ease both;
+  animation: inkFadeUp var(--motion-base) var(--ease-ink) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -6086,7 +6097,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   box-shadow: 0 14px 40px rgba(26, 26, 26, 0.35);
   padding: 22px 22px 18px;
   text-align: center;
-  animation: inkOfflineModalIn 0.28s ease;
+  animation: inkOfflineModalIn var(--motion-base) var(--ease-ink);
 }
 
 @keyframes inkOfflineModalIn {
@@ -6122,7 +6133,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   font-size: 1.6rem;
   font-weight: 700;
   color: var(--cinnabar);
-  animation: inkOfflineXpPop 0.55s ease 0.15s both;
+  animation: inkOfflineXpPop var(--motion-slow) var(--ease-ink) 0.15s both;
 }
 
 @keyframes inkOfflineXpPop {
@@ -6210,7 +6221,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
 .ink-tabs .ink-tab-icon {
   width: 44px;
   margin-top: 0;
-  transition: transform 0.15s ease;
+  transition: transform var(--motion-quick) var(--ease-ink);
 }
 
 .ink-tabs .ink-tab--active .ink-tab-label {
@@ -6357,7 +6368,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   object-fit: contain;
   margin-bottom: 8px;
   filter: drop-shadow(0 5px 16px rgba(0, 0, 0, 0.65));
-  animation: inkWashReveal 0.8s ease both;
+  animation: inkWashReveal var(--motion-slow) var(--ease-ink) both;
 }
 
 .ink-start .ink-eyebrow {
@@ -6544,7 +6555,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
     );
   mask-composite: intersect;
   filter: var(--brush-glow, none);
-  transition: --pct 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: --pct var(--motion-slow) var(--ease-brush);
 }
 
 /* 落筆：由左至右寫出 */
@@ -6591,7 +6602,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
     conic-gradient(#000 calc(var(--pct) * 1% - 1.5%), transparent calc(var(--pct) * 1% + 1.5%));
   mask-composite: intersect;
   filter: var(--brush-glow, none);
-  transition: --pct 0.6s ease;
+  transition: --pct var(--motion-slow) var(--ease-ink);
 }
 
 /* 墨光：一小段亮弧沿環遊走 */
@@ -6804,4 +6815,21 @@ html[data-ink-motion='reduce'] .ink-brush-ring__flow {
   --brush-h: 10px;
   --brush-rail: rgba(26, 26, 26, 0.12);
   margin-top: 2px;
+}
+
+/* ===== 減少動態：所有用動態語言時長嘅動畫一律即時完成（停喺終態）===== */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-quick: 1ms;
+    --motion-base: 1ms;
+    --motion-slow: 1ms;
+    --motion-ritual: 1ms;
+  }
+}
+
+html[data-ink-motion='reduce'] {
+  --motion-quick: 1ms;
+  --motion-base: 1ms;
+  --motion-slow: 1ms;
+  --motion-ritual: 1ms;
 }
