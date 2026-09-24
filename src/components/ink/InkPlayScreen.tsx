@@ -23,6 +23,7 @@ import { titleTierColorClass, topTitle, topTitles } from '@core/life/titles';
 import { JIANGHU_RANK_START, jianghuRank } from '@core/life/jianghuRank';
 import { jianghuPrestige, jianghuPrestigeTier } from '@core/life/jianghuPrestige';
 import { InkCultivationHud } from './InkCultivationHud';
+import { InkBrushBar } from './InkBrush';
 import { InkOfflineGainModal } from './InkOfflineGainModal';
 import { useCultivationTicker } from '../../hooks/useCultivationTicker';
 import {
@@ -347,14 +348,14 @@ export function InkPlayScreen({ state }: Props) {
                   </span>
                 </div>
                 <div
-                  className="ink-bar ink-bar--life"
+                  className="ink-meter-bar"
                   role="meter"
                   aria-valuemin={0}
                   aria-valuemax={c.maxHealth}
                   aria-valuenow={Math.round(c.health)}
                   aria-label="氣血"
                 >
-                  <div className="ink-bar-fill ink-bar-fill--live" style={{ width: `${hpPct}%` }} />
+                  <InkBrushBar pct={hpPct} tone="cinnabar" />
                 </div>
               </div>
               <div className="ink-meter">
@@ -365,14 +366,14 @@ export function InkPlayScreen({ state }: Props) {
                   </span>
                 </div>
                 <div
-                  className="ink-bar ink-bar--qi"
+                  className="ink-meter-bar"
                   role="meter"
                   aria-valuemin={0}
                   aria-valuemax={c.maxQi ?? 0}
                   aria-valuenow={Math.round(c.qi ?? 0)}
                   aria-label="內力"
                 >
-                  <div className="ink-bar-fill ink-bar-fill--qi ink-bar-fill--live" style={{ width: `${qiPct}%` }} />
+                  <InkBrushBar pct={qiPct} tone="ink" />
                 </div>
               </div>
             </div>
@@ -515,7 +516,6 @@ export function InkPlayScreen({ state }: Props) {
                 {i > 0 ? ' ' : ''}
                 {natureLabels[k]}
                 {nature[k]}
-                {k === dominant ? '◆' : ''}
               </span>
             ))}
           </p>

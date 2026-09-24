@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { LifeGameState } from '@interfaces/lifeEngine';
-import { inkAiUrl, type InkAiAssetId } from '../../ui/inkAiCatalog';
+import type { InkAiAssetId } from '../../ui/inkAiCatalog';
+import { motifIconUrl } from '../../ui/inkAssets';
 import {
   natureKeys,
   natureLabels,
@@ -211,17 +212,13 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
                 onView(row.id);
               }}
             >
-              {row.icon ? (
-                <img
-                  className="ink-row-icon"
-                  src={inkAiUrl(row.icon)}
-                  alt=""
-                  aria-hidden
-                  decoding="async"
-                />
-              ) : (
-                <span className="ink-row-dot" aria-hidden />
-              )}
+              <span className="ink-row-icon-frame" aria-hidden>
+                {row.icon ? (
+                  <img className="ink-row-icon" src={motifIconUrl(row.icon)} alt="" decoding="async" draggable={false} />
+                ) : (
+                  <span className="ink-row-dot" />
+                )}
+              </span>
               <span className="ink-bitlife-row-text">
                 <strong>{row.label}</strong>
                 <span>{row.hint}</span>

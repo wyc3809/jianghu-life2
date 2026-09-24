@@ -61,6 +61,11 @@ export function auraClassForInternalModeId(id: string | null | undefined): strin
   return '';
 }
 
+/** 列表小圖示：AI 物象圖裁正、紙色轉透明（`scripts/art/build_icons.py`）→ `public/ink/art/icons/` */
+export function motifIconUrl(id: string): string {
+  return inkArtUrl(`art/icons/${id}.webp`);
+}
+
 export type InkStrokeKind = 'guard' | 'dodge';
 
 /** 招式筆觸小圖示（守／遁） */
