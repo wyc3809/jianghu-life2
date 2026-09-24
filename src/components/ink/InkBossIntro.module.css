@@ -51,7 +51,7 @@
 .shake {
   position: absolute;
   inset: 0;
-  animation: shk 0.5s linear 1.7s;
+  animation: shk var(--motion-base) linear 1.7s;
 }
 
 .shakeStill {
@@ -93,7 +93,7 @@
   background:
     radial-gradient(circle at 42% 38%, rgba(243, 235, 220, 0.95), rgba(214, 200, 176, 0.9) 58%, rgba(170, 150, 122, 0.85) 72%, transparent 73%);
   opacity: 0;
-  animation: moonIn 1.2s ease 0.2s forwards;
+  animation: moonIn var(--motion-ritual) var(--ease-ink) 0.2s forwards;
 }
 
 .moonStill {
@@ -117,7 +117,7 @@
   clip-path: inset(100% 0 0 0);
   filter: drop-shadow(0 0 18px rgba(179, 52, 42, 0.28));
   animation:
-    bossRise 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.45s forwards,
+    bossRise var(--motion-ritual) var(--ease-brush) 0.45s forwards,
     bossIdle 5s ease-in-out 1.8s infinite;
 }
 
@@ -126,12 +126,21 @@
   clip-path: inset(0 0 0 0);
 }
 
+/* 墨暈入場：由腳向上顯形，同時由化開嘅墨收成實影 */
 @keyframes bossRise {
   0% {
     clip-path: inset(100% 0 0 0);
+    filter: blur(12px) drop-shadow(0 0 18px rgba(179, 52, 42, 0));
+    opacity: 0.4;
+  }
+  60% {
+    filter: blur(3px) drop-shadow(0 0 18px rgba(179, 52, 42, 0.18));
+    opacity: 0.9;
   }
   100% {
     clip-path: inset(0 0 0 0);
+    filter: blur(0) drop-shadow(0 0 18px rgba(179, 52, 42, 0.28));
+    opacity: 1;
   }
 }
 
@@ -166,7 +175,7 @@
   rotate: -15.8deg;
   filter: drop-shadow(0 0 16px rgba(179, 52, 42, 0.75));
   clip-path: inset(-50% 100% -50% 0);
-  animation: drawSlash 0.28s cubic-bezier(0.6, 0, 0.9, 0.4) 1.7s forwards;
+  animation: drawSlash var(--motion-base) cubic-bezier(0.6, 0, 0.9, 0.4) 1.7s forwards;
 }
 
 .slashStill {
@@ -199,7 +208,7 @@
     0 0 26px rgba(179, 52, 42, 0.4),
     0 3px 0 rgba(0, 0, 0, 0.6);
   clip-path: inset(0 100% 0 0);
-  animation: wipe 0.9s cubic-bezier(0.22, 1, 0.36, 1) 2s forwards;
+  animation: wipe var(--motion-slow) var(--ease-brush) 2s forwards;
 }
 
 .kanjiStill {
@@ -220,7 +229,7 @@
   letter-spacing: 0.7em;
   color: #a79b82;
   opacity: 0;
-  animation: fadeInBoss 0.7s ease 2.6s forwards;
+  animation: fadeInBoss var(--motion-slow) var(--ease-ink) 2.6s forwards;
 }
 
 .subtitleStill {
@@ -250,7 +259,7 @@
   border-radius: 6px;
   transform: rotate(6deg) scale(2.2);
   opacity: 0;
-  animation: stamp 0.5s cubic-bezier(0.17, 0.89, 0.32, 1.28) 2.7s forwards;
+  animation: stamp var(--motion-base) cubic-bezier(0.17, 0.89, 0.32, 1.28) 2.7s forwards;
 }
 
 .sealStill {
@@ -289,7 +298,7 @@
   opacity: 0;
   margin: 0;
   animation:
-    warnIn 0.6s ease 0.3s forwards,
+    warnIn var(--motion-slow) var(--ease-ink) 0.3s forwards,
     warnPulse 1.6s ease-in-out 1s infinite;
 }
 
@@ -327,7 +336,7 @@
   transform: translateX(-50%);
   width: min(64vw, 520px);
   opacity: 0;
-  animation: fadeInBoss 0.7s ease 2.85s forwards;
+  animation: fadeInBoss var(--motion-slow) var(--ease-ink) 2.85s forwards;
 }
 
 .barStill {
@@ -380,3 +389,37 @@
     opacity: 1;
   }
 }
+
+/* 遊戲內「減少動態」設定（html[data-ink-motion='reduce']）：同上 */
+:global(html[data-ink-motion='reduce']) .shake,
+:global(html[data-ink-motion='reduce']) .art,
+:global(html[data-ink-motion='reduce']) .slashStroke,
+:global(html[data-ink-motion='reduce']) .kanji,
+:global(html[data-ink-motion='reduce']) .subtitle,
+:global(html[data-ink-motion='reduce']) .seal,
+:global(html[data-ink-motion='reduce']) .warn,
+:global(html[data-ink-motion='reduce']) .bar {
+  animation: none !important;
+}
+
+:global(html[data-ink-motion='reduce']) .art,
+:global(html[data-ink-motion='reduce']) .kanji {
+  clip-path: inset(0 0 0 0);
+}
+
+:global(html[data-ink-motion='reduce']) .moon {
+  animation: none !important;
+  opacity: 0.9;
+}
+
+:global(html[data-ink-motion='reduce']) .slashStroke {
+  clip-path: none;
+}
+
+:global(html[data-ink-motion='reduce']) .subtitle,
+:global(html[data-ink-motion='reduce']) .seal,
+:global(html[data-ink-motion='reduce']) .warn,
+:global(html[data-ink-motion='reduce']) .bar {
+  opacity: 1;
+}
+

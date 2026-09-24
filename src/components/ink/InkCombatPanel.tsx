@@ -8,12 +8,12 @@ import {
 } from '@core/life/combat';
 import {
   buildCombatInkFx,
-  combatFxNeedsShock,
+  combatFxShockLevel,
   snapCombatVitals,
   type CombatVitalsSnap,
   type InkCombatFx,
 } from '@core/life/combatInkFx';
-import { InkBarWithGhost, InkCombatFxLayer, useInkCombatFxQueue } from './InkCombatFx';
+import { InkBarWithGhost, InkCombatFxLayer, InkSideFx, useInkCombatFxQueue } from './InkCombatFx';
 import { InkArt } from './InkDecor';
 import {
   INK_COMBAT_SEAL,
@@ -179,7 +179,7 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
       });
       if (items.length || meta?.stance) {
         pushFx(items, {
-          shock: combatFxNeedsShock(items),
+          shock: combatFxShockLevel(items),
           stance: meta?.stance,
         });
       }
@@ -267,7 +267,9 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
 
   return (
     <section
-      className={`ink-panel ink-combat ink-combat--focus${combatShock ? ' ink-combat--shock' : ''}${
+      className={`ink-panel ink-combat ink-combat--focus${
+        combatShock ? ` ink-combat--shock ink-combat--shock-${combatShock}` : ''
+      }${
         stanceBrush ? ` ink-combat--brush-${stanceBrush}` : ''
       }`}
       aria-live="polite"
@@ -329,13 +331,14 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
           </div>
         )}
         <div className="ink-combat-bars">
-          <div>
+          <div className="ink-combat-bars-foe">
             <div className="ink-vitals-label">
               <span>{combat.foe.name}</span>
               <span>
                 氣血 {Math.round(combat.foe.hp)}/{combat.foe.maxHp}
               </span>
             </div>
+            <InkSideFx items={combatFx} side="foe" />
             <InkBarWithGhost pct={(combat.foe.hp / combat.foe.maxHp) * 100} fillClass="ink-bar-fill--foe" active />
           </div>
           <div className="ink-combat-bars-player">
@@ -346,6 +349,7 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
                 {Math.round(combat.player.qi)}/{combat.player.maxQi}
               </span>
             </div>
+            <InkSideFx items={combatFx} side="player" />
             <InkBarWithGhost pct={(combat.player.hp / combat.player.maxHp) * 100} fillClass="" active />
             <div className="ink-bar--qi">
               <InkBarWithGhost

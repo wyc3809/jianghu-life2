@@ -2,9 +2,11 @@ import { describe, expect, it } from 'vitest';
 import {
   buildCombatInkFx,
   combatFxNeedsShock,
+  combatFxShockLevel,
   snapCombatVitals,
 } from '../core/life/combatInkFx';
 import type { PendingCombat } from '../interfaces/lifeEngine';
+import type { InkCombatFx } from '../core/life/combatInkFx';
 
 function fakeCombat(partial?: Partial<PendingCombat>): PendingCombat {
   return {
@@ -123,5 +125,19 @@ describe('combatInkFx', () => {
       stance: 'jia',
     });
     expect(fx.length).toBeLessThanOrEqual(4);
+  });
+
+  it('grades hit shock: crit/danger heavy, plain hp light, others none', () => {
+    const mk = (kind: InkCombatFx['kind'], side: InkCombatFx['side'] = 'foe'): InkCombatFx => ({
+      id: kind,
+      kind,
+      text: '',
+      side,
+    });
+    expect(combatFxShockLevel([mk('crit')])).toBe('heavy');
+    expect(combatFxShockLevel([mk('hp', 'player'), mk('danger', 'player')])).toBe('heavy');
+    expect(combatFxShockLevel([mk('hp')])).toBe('light');
+    expect(combatFxShockLevel([mk('miss'), mk('qi', 'player')])).toBeNull();
+    expect(combatFxShockLevel([])).toBeNull();
   });
 });
