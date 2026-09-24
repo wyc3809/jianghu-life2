@@ -41,6 +41,8 @@ distinctive readable silhouette, side 3/4 view, entire figure in frame with marg
 
 ## B. 敵人（面向左）→ `public/ink/spar/sil/enemy-{key}.webp`
 
+用喺首領現身（月下剪影）同切磋來源；戰鬥畫面唔放剪影。
+
 現有可用：daoke 刀客、gouke 雙鉤客、nvcike 女刺客、toutuo 頭陀、tiemian 鐵面。以下補齊／取代：
 
 | key | 角色 | 輪廓標誌 | 追加英文提示 |

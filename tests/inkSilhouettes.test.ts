@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
   FOE_SILHOUETTE_KEYS,
   foeSilhouetteKey,
-  foeSilhouetteUrl,
+  bossSilhouetteUrl,
   heroSilhouetteUrl,
 } from '../src/ui/inkSilhouettes';
 
@@ -33,10 +33,9 @@ describe('inkSilhouettes', () => {
 
   it('every referenced silhouette file exists', () => {
     for (const key of FOE_SILHOUETTE_KEYS) {
-      expect(existsSync(`public/ink/art/sil/enemy-${key}.webp`)).toBe(true);
       expect(existsSync(`public/ink/art/sil/boss-${key}.webp`)).toBe(true);
     }
     expect(existsSync(fileOf(heroSilhouetteUrl('sect_emei')))).toBe(true);
-    expect(foeSilhouetteUrl('刀客', true)).toContain('boss-daoke.webp');
+    expect(bossSilhouetteUrl('刀客')).toContain('boss-daoke.webp');
   });
 });

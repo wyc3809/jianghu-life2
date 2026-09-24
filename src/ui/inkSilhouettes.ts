@@ -2,8 +2,8 @@
  * 剪影素材（C 款：純墨 + 門派色描邊 + 朱砂點綴）
  * 實體檔：`public/ink/art/sil/`（`scripts/art/build_silhouettes.py` 產生）
  * - hero-{sect}：主角（門派色描邊 + 朱砂頭帶）
- * - enemy-{key}：普通敵人（淡墨描邊）
- * - boss-{key}：首領（朱砂描邊）
+ * - boss-{key}：首領（朱砂描邊，首領現身用）
+ * 戰鬥畫面唔用剪影（切磋小窗另用 public/ink/spar/sil/）。
  */
 import { inkArtUrl } from './inkAssets';
 
@@ -58,7 +58,7 @@ export function foeSilhouetteKey(name: string): FoeSilhouetteKey {
   return FOE_SILHOUETTE_KEYS[hashName(name) % FOE_SILHOUETTE_KEYS.length]!;
 }
 
-/** 敵人剪影 URL；boss＝朱砂描邊版 */
-export function foeSilhouetteUrl(name: string, boss = false): string {
-  return inkArtUrl(`art/sil/${boss ? 'boss' : 'enemy'}-${foeSilhouetteKey(name)}.webp`);
+/** 首領剪影 URL（朱砂描邊） */
+export function bossSilhouetteUrl(name: string): string {
+  return inkArtUrl(`art/sil/boss-${foeSilhouetteKey(name)}.webp`);
 }

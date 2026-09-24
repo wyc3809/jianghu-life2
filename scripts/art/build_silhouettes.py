@@ -8,7 +8,6 @@
 
 輸出 WebP（透明底）至 public/ink/art/sil/：
   hero-{sect}.webp        主角：純墨 + 門派色描邊 + 一筆朱砂（兵器／頭帶位置，見 HERO_ACCENT）
-  enemy-{name}.webp       普通敵人：純墨 + 淡墨描邊（無朱砂）
   boss-{name}.webp        首領：純墨 + 朱砂描邊
 
 規則見 design/art/ASSET_INDEX.md「剪影」段；不用 SVG／canvas path。
@@ -35,7 +34,6 @@ OUT_H = 720  # 輸出高度（px）；寬按比例
 BOSS_H = 1400  # 首領全屏用
 INK = np.array([22, 19, 15]) / 255
 CINNABAR = np.array([163, 58, 50]) / 255
-INK_WASH = np.array([138, 130, 120]) / 255
 
 # 門派色（低飽和；見 ASSET_INDEX 剪影段）
 SECT_RIM: dict[str, str] = {
@@ -81,7 +79,7 @@ def auto_headband(mask: np.ndarray) -> tuple[tuple[float, float], tuple[float, f
     return ((cx - half) / w, y / h), ((cx + half) / w, (y + h * 0.004) / h), 0.0085
 
 
-# 敵人：只出輪廓清楚、互不重複嘅 5 款（與 src/ui/inkSilhouettes.ts FOE_SILHOUETTE_KEYS 同步）。
+# 首領剪影：只出輪廓清楚、互不重複嘅 5 款（與 src/ui/inkSilhouettes.ts FOE_SILHOUETTE_KEYS 同步）。
 # laoweng／qiangke／qigai／suoyi 來源有墨霧雜點；chifa＝toutuo、shadow＝tiemian 重複。
 ENEMY_KEYS = ["daoke", "gouke", "nvcike", "toutuo", "tiemian"]
 
@@ -190,17 +188,14 @@ def main() -> None:
         acc = accent_stroke(mask, spec, 200 + i)
         sheet_items.append((f"主角·{sect}", save(compose(mask, rim, hex_rgb(rim_hex), acc), f"hero-{sect}.webp")))
 
-    print("enemies")
+    print("bosses")
     for j, name in enumerate(ENEMY_KEYS):
         src = SRC / "sil" / f"enemy-{name}.webp"
         # 用切磋剪影底（輪廓清）；部分檔四周有淡霧，提高門檻只留實墨
-        mask = load_mask(src, cut=0.6)
-        sheet_items.append((f"敵·{name}", save(compose(mask, rim_of(mask, 5, 300 + j), INK_WASH), f"enemy-{name}.webp")))
         # 首領會放到成個畫面咁大：高解像度（1400px）另出
         bmask = load_mask(src, cut=0.6, out_h=BOSS_H)
         boss = save(compose(bmask, rim_of(bmask, 11, 400 + j), CINNABAR), f"boss-{name}.webp")
-        if name in ("daoke", "toutuo"):
-            sheet_items.append((f"首領·{name}", boss))
+        sheet_items.append((f"首領·{name}", boss))
 
     if args.sheet:
         cols, cw, ch = 6, 200, 300

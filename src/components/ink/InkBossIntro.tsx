@@ -4,7 +4,7 @@ import { useStillMode, useSkipJsAnimation } from '../../hooks/useStillMode';
 import { stillClassName } from './inkStillClass';
 import { InkBrushBar, clampPct } from './InkBrush';
 import { inkArtUrl } from '../../ui/inkAssets';
-import { foeSilhouetteUrl } from '../../ui/inkSilhouettes';
+import { bossSilhouetteUrl } from '../../ui/inkSilhouettes';
 import styles from './InkBossIntro.module.css';
 
 type Particle = {
@@ -140,7 +140,7 @@ export function InkBossIntro({ foeName, hp, maxHp, onDone }: Props) {
           <span className={cls(styles.moon, styles.moonStill)} aria-hidden />
           <img
             className={cls(styles.art, styles.artStill)}
-            src={foeSilhouetteUrl(foeName, true)}
+            src={bossSilhouetteUrl(foeName)}
             alt={foeName}
             draggable={false}
           />

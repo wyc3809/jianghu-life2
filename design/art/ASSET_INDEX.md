@@ -84,12 +84,11 @@
 
 | 檔案 | 描邊 | 朱砂 | 用喺 |
 |------|------|------|------|
-| `hero-{sect}`（10 派） | 門派色 | 頭帶一筆 | 人物誌橫幅、交手對峙 |
-| `enemy-{key}`（daoke／gouke／nvcike／toutuo／tiemian） | 淡墨 | 無 | 交手對峙 |
-| `boss-{key}`（1400px） | 朱砂 | 描邊 | 首領現身（月下剪影）、首領交手 |
+| `hero-{sect}`（10 派） | 門派色 | 頭帶一筆 | 人物誌橫幅 |
+| `boss-{key}`（daoke／gouke／nvcike／toutuo／tiemian，1400px） | 朱砂 | 描邊 | 首領現身（月下剪影） |
 
 門派色：武當 `#3D5C4F`、少林 `#8A7355`、峨嵋 `#8A93A0`、華山 `#44607A`、唐門 `#4F5B3A`、桃花 `#B07A78`、青雲 `#5E7F8C`、天刀 `#5A5650`、魔教 `#5A3E48`、無根 `#8A8278`。
-名 → 剪影對應：`src/ui/inkSilhouettes.ts`。切磋小窗仍用 `public/ink/spar/sil/`（刻意保留）。
+名 → 剪影對應：`src/ui/inkSilhouettes.ts`。切磋小窗仍用 `public/ink/spar/sil/`（刻意保留）。戰鬥畫面不放剪影。
 
 ## 已退役 SVG
 
