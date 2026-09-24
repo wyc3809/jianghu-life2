@@ -1,6 +1,6 @@
 # 部位傷勢系統（Injury System）
 
-> 狀態：**草稿，待審批**　·　擁有模組（預定）：`core/life/injuries.ts`　·　UI：`InkPersonPanel`、`InkMomentFx`
+> 狀態：**已審批（寬鬆機率）**　·　擁有模組（預定）：`core/life/injuries.ts`　·　UI：`InkPersonPanel`、`InkMomentFx`
 
 ## 1. Overview
 
@@ -49,7 +49,7 @@ interface LifeInjury {
 ### 3.3 來源
 
 1. **戰鬥**（`finishCombat`）
-   - 戰敗：必定受一處傷；中過暴擊或氣血 < 15% → 重傷，否則輕傷。
+   - 戰敗：`LOSS_INJURY_CHANCE` 受一處傷；按敵強度擲重傷（`LOSS_HEAVY_CHANCE`：弱 10%／普通 25%／強 50%／首領 70%），否則輕傷。（戰敗時氣血必為 0，故唔用氣血門檻）
    - 險勝（氣血 < 30%）：`WIN_INJURY_CHANCE` 輕傷。
    - 首領戰敗且重傷：額外 `BOSS_CRIPPLE_CHANCE` 直接傷殘。
    - 切磋（spar）唔會傷殘，最多重傷。
@@ -71,9 +71,9 @@ interface LifeInjury {
 | 頭部 | 修煉／領悟進度 −10% | −25% | −40% | `tryAdvanceSkill` 進度、修為增長 |
 | 軀幹 | 氣血上限 −5% | −15% | −25% | `maxHealth` 衍生值 |
 | 手臂 | 出手 −8% | −20% | −35% | 戰鬥攻擊 |
-| 腿腳 | 閃避 −5 點、每月精力 −4 | −12、−10 | −25、−16 | 戰鬥閃避、`stamina` |
+| 腿腳 | 閃避 −3%、每月精力 −4 | −6%、−10 | −12%、−16 | 戰鬥閃避、`stamina` |
 
-所有數值喺 `data/injuries.ts`（資料驅動），核心只讀表。
+所有數值喺 `data/injuries/tuning.ts`（資料驅動），核心只讀表。
 
 ### 3.6 呈現
 
@@ -93,18 +93,18 @@ interface LifeInjury {
 部位擲選：P(part) = PART_WEIGHTS[part] / Σ PART_WEIGHTS
   預設 PART_WEIGHTS = { torso: 35, arm: 30, leg: 25, head: 10 }
 
-戰敗傷級：tier = (被暴擊 ∨ hp/maxHp < HEAVY_HP_RATIO) ? heavy : light
-  HEAVY_HP_RATIO = 0.15
+戰敗受傷：P(injury | loss) = LOSS_INJURY_CHANCE = 0.60
+戰敗傷級：P(heavy | loss, power) = LOSS_HEAVY_CHANCE[power] = { weak .10, normal .25, strong .50, boss .70 }
 
-疊傷成殘：P(crippled | heavy + heavy) = CRIPPLE_ON_STACK = 0.35
-首領戰敗：P(crippled | boss ∧ heavy) = BOSS_CRIPPLE_CHANCE = 0.10
-險勝受傷：P(light | win ∧ hp/maxHp < 0.30) = WIN_INJURY_CHANCE = 0.40
+疊傷成殘：P(crippled | heavy + heavy) = CRIPPLE_ON_STACK = 0.20
+首領戰敗：P(crippled | boss ∧ heavy) = BOSS_CRIPPLE_CHANCE = 0.05
+險勝受傷：P(light | win ∧ hp/maxHp < 0.30) = WIN_INJURY_CHANCE = 0.20
 
 效果（乘法疊加，同部位只有一條所以唔會自疊）：
   attack'   = attack   × (1 − ARM_PENALTY[tier])        ARM   = { .08, .20, .35 }
   maxHealth'= maxHealth× (1 − TORSO_PENALTY[tier])      TORSO = { .05, .15, .25 }
   progress' = progress × (1 − HEAD_PENALTY[tier])       HEAD  = { .10, .25, .40 }
-  dodge'    = dodge − LEG_DODGE[tier]                   LEG_DODGE = { 5, 12, 25 }（下限 0）
+  evasion'  = evasion − LEG_EVASION[tier]               LEG_EVASION = { .03, .06, .12 }（戰鬥閃避 0–0.45，下限 0）
   每月 stamina −= LEG_STAMINA[tier]                      LEG_STAMINA = { 4, 10, 16 }
 
 時間：LIGHT_MONTHS = 3，HEAVY_MONTHS = 8，HEAL_MONTHS = 2
@@ -145,10 +145,11 @@ interface LifeInjury {
 | `LIGHT_MONTHS` | 3 | 1–6 | 輕傷持續 |
 | `HEAVY_MONTHS` | 8 | 4–14 | 重傷持續 |
 | `HEAL_MONTHS` | 2 | 1–4 | 醫館效率 |
-| `HEAVY_HP_RATIO` | 0.15 | 0.05–0.3 | 戰敗變重傷門檻 |
-| `WIN_INJURY_CHANCE` | 0.40 | 0–0.6 | 險勝代價 |
-| `CRIPPLE_ON_STACK` | 0.35 | 0.1–0.6 | 疊傷成殘 |
-| `BOSS_CRIPPLE_CHANCE` | 0.10 | 0–0.25 | 首領重創 |
+| `LOSS_HEAVY_CHANCE` | .10/.25/.50/.70 | 各 0–0.9 | 戰敗變重傷（按敵強度） |
+| `LOSS_INJURY_CHANCE` | 0.60 | 0.3–1 | 戰敗代價 |
+| `WIN_INJURY_CHANCE` | 0.20 | 0–0.6 | 險勝代價 |
+| `CRIPPLE_ON_STACK` | 0.20 | 0.1–0.6 | 疊傷成殘 |
+| `BOSS_CRIPPLE_CHANCE` | 0.05 | 0–0.25 | 首領重創 |
 | 各部位懲罰表 | 見 §4 | 輕 ≤ .15、殘 ≤ .5 | 傷勢手感 |
 | 醫殘奇遇權重 | 低（≈ 每世 ≤ 1 次） | — | 傷殘可逆程度 |
 
@@ -161,7 +162,7 @@ interface LifeInjury {
 5. `cure_crippled` 將傷殘變重傷，且只作用於傷殘。
 6. 舊存檔（無 `injuries`、有 `fracture`）讀入後：`injuries` 有對應重傷，`conditions` 無 `fracture`；Zod 驗證通過。
 7. 手臂重傷時戰鬥攻擊 = 原值 × 0.8（誤差 ±1 捨入）；軀幹傷殘時 `maxHealth` = 原值 × 0.75。
-8. 戰敗必受一處傷；切磋永不出傷殘（1,000 次種子模擬）。
+8. 戰敗受傷率 ≈ 60%（1,000 次種子模擬 ±5%）；切磋永不出傷殘（1,000 次種子模擬）。
 9. 人物欄：有傷時剪影標記數目 = 傷勢條數，清單文字正確；無傷顯示「身無新傷」（截圖證據）。
 10. 重傷／傷殘特效顯示並可跳過；輕傷唔開全屏（截圖證據）。
 11. 全程無 SVG（`no-svg-game-art` 規則）。

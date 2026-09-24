@@ -281,6 +281,9 @@ SEALS = [
     ("yue", "月", "zhuwen", 41, -2.0),
     ("lian", "煉", "zhuwen", 42, 3.0),
     ("zhuang", "裝", "zhuwen", 43, -3.5),
+    # 部位傷勢（design/gdd/injury-system.md）：傷殘用白文、醫好用朱文
+    ("can", "殘", "baiwen", 44, -3.5),
+    ("yu", "癒", "zhuwen", 45, 2.0),
 ]
 
 AURAS = [

@@ -6835,3 +6835,304 @@ html[data-ink-motion='reduce'] .ink-combat-slash {
 html[data-ink-motion='reduce'] .ink-moment__halo {
   animation: none;
 }
+
+/* ===== 部位傷勢（人物欄；元件 InkInjuryCard.tsx）===== */
+
+.ink-injury-none {
+  margin: 10px 0 4px;
+  font-size: 0.82rem;
+  color: var(--ink-wash);
+  letter-spacing: 0.12em;
+}
+
+.ink-injury-none__k {
+  margin-right: 0.8em;
+  color: var(--ink-mid);
+}
+
+.ink-injury {
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  gap: 12px;
+  align-items: center;
+  margin: 12px 0 6px;
+  padding: 10px 12px;
+  background: rgba(250, 246, 238, 0.6);
+  box-shadow: inset 0 0 0 1px rgba(163, 58, 50, 0.22);
+  border-radius: 4px;
+}
+
+.ink-injury__figure {
+  position: relative;
+  width: 76px;
+  aspect-ratio: 0.7;
+}
+
+.ink-injury__sil {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.88;
+}
+
+/* 墨點：位圖作 mask，顏色按傷級 */
+.ink-injury__mark {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  translate: -50% -50%;
+  -webkit-mask: url('/ink/art/ui/ink-dot.webp') center / contain no-repeat;
+  mask: url('/ink/art/ui/ink-dot.webp') center / contain no-repeat;
+  animation: inkInjuryMark var(--motion-slow) var(--ease-stamp) both;
+}
+
+.ink-injury__mark--light {
+  width: 15px;
+  height: 15px;
+  background: var(--paper-bright);
+  opacity: 0.85;
+}
+
+.ink-injury__mark--heavy {
+  background: var(--cinnabar);
+}
+
+.ink-injury__mark--crippled {
+  width: 34px;
+  height: 14px;
+  background: var(--cinnabar);
+  rotate: -28deg;
+  -webkit-mask-image: url('/ink/art/ui/slash-stroke.webp');
+  mask-image: url('/ink/art/ui/slash-stroke.webp');
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+/* 「殘」印：mask 元素入面放唔到（會被裁），掛喺圖框角 */
+.ink-injury__figure:has(.ink-injury__mark--crippled)::after {
+  content: '';
+  position: absolute;
+  right: -8px;
+  bottom: -4px;
+  width: 26px;
+  height: 26px;
+  background: url('/ink/art/seals/seal-can.webp') center / contain no-repeat;
+  rotate: -8deg;
+}
+
+@keyframes inkInjuryMark {
+  from {
+    opacity: 0;
+    scale: 1.8;
+  }
+}
+
+.ink-injury__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ink-injury__row {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  font-size: 0.78rem;
+  color: var(--ink-mid);
+  line-height: 1.4;
+}
+
+.ink-injury__row strong {
+  font-size: 0.92rem;
+  color: var(--ink);
+  letter-spacing: 0.08em;
+}
+
+.ink-injury__row em {
+  margin-left: 0.6em;
+  font-style: normal;
+  font-size: 0.78rem;
+  color: var(--ink-mid);
+}
+
+.ink-injury__row--heavy em,
+.ink-injury__row--crippled em {
+  color: var(--cinnabar);
+  font-weight: 700;
+}
+
+.ink-injury__cause {
+  font-size: 0.72rem;
+  color: var(--ink-wash);
+}
+
+/* 受傷時刻：左剪影、傷處朱砂濺墨；右直書 */
+.ink-moment--wound .ink-moment__stage {
+  padding-left: 150px;
+  min-height: 300px;
+  justify-content: center;
+}
+
+.ink-moment__wound {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  translate: 0 -50%;
+  width: 140px;
+  aspect-ratio: 0.7;
+  animation: inkMomentFade var(--motion-base) var(--ease-ink) both;
+}
+
+.ink-moment__wound img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ink-moment__splat {
+  position: absolute;
+  width: 58px;
+  height: 58px;
+  translate: -50% -50%;
+  background: var(--cinnabar);
+  -webkit-mask: url('/ink/art/ui/ink-dot.webp') center / contain no-repeat;
+  mask: url('/ink/art/ui/ink-dot.webp') center / contain no-repeat;
+  animation: inkMomentSplat var(--motion-slow) var(--ease-stamp) var(--motion-base) both;
+}
+
+.ink-moment--crippled .ink-moment__splat {
+  width: 96px;
+  height: 36px;
+  rotate: -28deg;
+  -webkit-mask-image: url('/ink/art/ui/slash-stroke.webp');
+  mask-image: url('/ink/art/ui/slash-stroke.webp');
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+@keyframes inkMomentSplat {
+  0% {
+    opacity: 0;
+    scale: 0.2;
+  }
+  60% {
+    opacity: 1;
+    scale: 1.15;
+  }
+}
+
+.ink-moment--wound .ink-moment__name {
+  color: var(--cinnabar);
+}
+
+.ink-moment--wound .ink-moment__sub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.ink-moment--crippled {
+  background: radial-gradient(ellipse at 50% 46%, rgba(250, 246, 238, 0.985) 0%, rgba(236, 222, 204, 0.98) 60%, rgba(214, 178, 160, 0.97) 100%);
+}
+
+/* 輕傷：頂部一行，唔擋操作 */
+.ink-moment-toast {
+  position: fixed;
+  left: 50%;
+  top: max(72px, calc(env(safe-area-inset-top, 0px) + 56px));
+  translate: -50% 0;
+  z-index: 260;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6em;
+  max-width: calc(100vw - 32px);
+  padding: 8px 16px 8px 34px;
+  background: var(--paper-bright);
+  box-shadow:
+    0 0 0 1px rgba(26, 26, 26, 0.12),
+    0 10px 24px -14px rgba(26, 26, 26, 0.45);
+  border-radius: 3px;
+  font-size: 0.8rem;
+  color: var(--ink-mid);
+  white-space: nowrap;
+  pointer-events: none;
+  animation: inkMomentToast 1.8s var(--ease-ink) both;
+}
+
+.ink-moment-toast strong {
+  color: var(--ink);
+  letter-spacing: 0.1em;
+}
+
+.ink-moment-toast em {
+  font-style: normal;
+  color: var(--cinnabar);
+}
+
+.ink-moment-toast__dot {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  translate: 0 -50%;
+  background: var(--ink);
+  -webkit-mask: url('/ink/art/ui/ink-dot.webp') center / contain no-repeat;
+  mask: url('/ink/art/ui/ink-dot.webp') center / contain no-repeat;
+}
+
+@keyframes inkMomentToast {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  15%,
+  80% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-moment-toast {
+    animation: none;
+  }
+}
+
+html[data-ink-motion='reduce'] .ink-moment-toast {
+  animation: none;
+}
+
+/* 頂欄：身有重傷／傷殘（按鈕 24px 觸控範圍，墨點畫喺 ::after） */
+.ink-name-wound {
+  position: relative;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin: -8px -4px -8px 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  vertical-align: 0.1em;
+  cursor: pointer;
+}
+
+.ink-name-wound::after {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 7px;
+  width: 10px;
+  height: 10px;
+  background: var(--cinnabar);
+  -webkit-mask: url('/ink/art/ui/ink-dot.webp') center / contain no-repeat;
+  mask: url('/ink/art/ui/ink-dot.webp') center / contain no-repeat;
+}

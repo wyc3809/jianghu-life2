@@ -20,6 +20,7 @@ import { ensureLifeTheme, scheduleLegacyScripts, themeHintLine } from './lifeVar
 import { syncAchievements } from './achievements';
 import { wuxiaAttributeLabels } from '@interfaces/lifeEngine';
 import type { NatureAttr } from '@interfaces/lifeEngine';
+import { migrateInjuries } from './injuries';
 
 export const SECT_DEFS = SECT_CONTENT.map((s) => ({
   id: s.id,
@@ -330,6 +331,7 @@ export function migrateLifeState(raw: LifeGameState): LifeGameState {
   if (!c.birthplace) c.birthplace = '千燈鎮';
   if (!c.location) c.location = c.birthplace;
   if (!c.conditions) c.conditions = [];
+  migrateInjuries(c);
   if (!c.gear) c.gear = ['old-sword', 'plain-robe'];
   if (!c.equipment) c.equipment = { weapon: 'old-sword', armor: 'plain-robe', accessory: null };
   if (!c.skillRanks) c.skillRanks = {};

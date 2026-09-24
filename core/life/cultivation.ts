@@ -5,6 +5,7 @@ import { getSkillDef } from '@data/skills/catalog';
 import { gearTotals, raiseBaseMaxHp, raiseBaseMaxQi } from './equipment';
 import { gainJianghuPrestige } from './jianghuPrestige';
 import { addCondition } from './monthly';
+import { headProgressFactor } from './injuryMath';
 import { pushChronicle } from './chronicle';
 
 /**
@@ -97,7 +98,8 @@ export function calculateCultivationRate(state: LifeGameState): CultivationRateB
   const preSectSubtotal = base + fromMartial + fromSkills;
   const fromSect = c.sectId ? preSectSubtotal * (SECT_STANDING_BONUS_PER_STEP * (c.sectStanding ?? 0)) : 0;
   const fromGear = gearTotals(c).martialBonus * GEAR_MARTIAL_COEF;
-  const total = preSectSubtotal + fromSect + fromGear;
+  // 頭部傷：修煉速率按比例扣
+  const total = (preSectSubtotal + fromSect + fromGear) * headProgressFactor(c);
   return { base, fromMartial, fromSkills, fromSect, fromGear, total };
 }
 

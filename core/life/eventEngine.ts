@@ -69,6 +69,7 @@ import {
   takeEchoLine,
   varianceWeight,
 } from './lifeVariance';
+import { INJURY_CURE_EVENTS } from '@data/events/injuryCures';
 
 function buildStoryFeedback(logs: string[], fallback = '事已了結。'): string {
   const cleaned = logs
@@ -715,7 +716,7 @@ export function startMonth(state: LifeGameState): LifeGameState {
       };
       const pickSecret = (): GameEvent | null => {
         const secretPool = listEligibleEvents(
-          livePool([...SECRET_ART_EVENTS, ...JINYONG_SPECIAL_EVENTS]),
+          livePool([...SECRET_ART_EVENTS, ...JINYONG_SPECIAL_EVENTS, ...INJURY_CURE_EVENTS]),
           state,
         );
         return weightedPick(state, secretPool);

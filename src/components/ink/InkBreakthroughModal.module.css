@@ -8,8 +8,7 @@
   place-items: center;
   overflow: hidden;
   color: #efe6cf;
-  font-family:
-    "Noto Serif CJK TC", "Noto Serif CJK SC", "Songti TC", "STSong", serif;
+  font-family: 'Noto Serif CJK TC', 'Noto Serif CJK SC', 'Songti TC', 'STSong', serif;
   cursor: pointer;
   animation: bkIn var(--motion-base) var(--ease-ink) both;
 }
@@ -21,21 +20,11 @@
 }
 
 .rootSuccess {
-  background: radial-gradient(
-    75% 60% at 50% 44%,
-    #231d15 0%,
-    #15110c 55%,
-    #0a0806 100%
-  );
+  background: radial-gradient(75% 60% at 50% 44%, #231d15 0%, #15110c 55%, #0a0806 100%);
 }
 
 .rootFail {
-  background: radial-gradient(
-    75% 60% at 50% 44%,
-    #26120f 0%,
-    #170d0a 55%,
-    #0a0806 100%
-  );
+  background: radial-gradient(75% 60% at 50% 44%, #26120f 0%, #170d0a 55%, #0a0806 100%);
 }
 
 .grain {
@@ -45,7 +34,7 @@
   pointer-events: none;
   opacity: 0.1;
   mix-blend-mode: overlay;
-  background-image: url("/ink/art/ui/paper-grain.webp");
+  background-image: url('/ink/art/ui/paper-grain.webp');
 }
 
 .stage {
@@ -145,8 +134,7 @@
 }
 
 .rootFail .haloB {
-  animation: bkHaloBreak var(--motion-ritual) var(--ease-ink)
-    var(--motion-quick) both;
+  animation: bkHaloBreak var(--motion-ritual) var(--ease-ink) var(--motion-quick) both;
 }
 
 @keyframes bkHaloBreak {
@@ -181,8 +169,7 @@
   letter-spacing: 0.5em;
   text-indent: 0.5em;
   color: #c9624f;
-  animation: bkFade var(--motion-base) var(--ease-ink)
-    calc(var(--motion-base) * 0.6) both;
+  animation: bkFade var(--motion-base) var(--ease-ink) calc(var(--motion-base) * 0.6) both;
 }
 
 /* 新境界：直書大字，逐字落墨 */
@@ -193,8 +180,7 @@
   flex-direction: column;
   align-items: center;
   gap: 0.1em;
-  font-family:
-    "Kaiti TC", "STKaiti", "KaiTi", "DFKai-SB", "Noto Serif CJK TC", serif;
+  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
   font-size: clamp(2.6rem, 12vw, 3.8rem);
   font-weight: 700;
   line-height: 1.08;
@@ -202,8 +188,8 @@
 }
 
 .bigName span {
-  animation: bkWrite var(--motion-slow) var(--ease-brush)
-    calc(var(--motion-base) + var(--i, 0) * var(--motion-quick)) both;
+  animation: bkWrite var(--motion-slow) var(--ease-brush) calc(var(--motion-base) + var(--i, 0) * var(--motion-quick))
+    both;
 }
 
 .rootFail .bigName {
@@ -225,8 +211,7 @@
   bottom: -6px;
   width: 58px;
   height: 58px;
-  animation: bkSealPress var(--motion-slow) var(--ease-stamp)
-    calc(var(--motion-base) + var(--motion-slow)) both;
+  animation: bkSealPress var(--motion-slow) var(--ease-stamp) calc(var(--motion-base) + var(--motion-slow)) both;
 }
 
 @keyframes bkSealPress {
@@ -279,8 +264,7 @@
   gap: 3px;
   font-size: clamp(12px, 1.8vh, 15px);
   color: #cabfa4;
-  animation: bkFade var(--motion-slow) var(--ease-ink)
-    calc(var(--motion-ritual) + var(--motion-quick)) both;
+  animation: bkFade var(--motion-slow) var(--ease-ink) calc(var(--motion-ritual) + var(--motion-quick)) both;
 }
 
 .ack {
@@ -294,8 +278,7 @@
   font-size: 0.9rem;
   letter-spacing: 0.1em;
   cursor: pointer;
-  animation: bkFade var(--motion-slow) var(--ease-ink)
-    calc(var(--motion-ritual) + var(--motion-base)) both;
+  animation: bkFade var(--motion-slow) var(--ease-ink) calc(var(--motion-ritual) + var(--motion-base)) both;
 }
 
 .ack:hover {
@@ -317,7 +300,7 @@
   }
 }
 
-:global(html[data-ink-motion="reduce"]) .haloA,
-:global(html[data-ink-motion="reduce"]) .haloB {
+:global(html[data-ink-motion='reduce']) .haloA,
+:global(html[data-ink-motion='reduce']) .haloB {
   animation: none;
 }

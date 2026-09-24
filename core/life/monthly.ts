@@ -7,6 +7,7 @@ import { tickLifeArc } from './arcs';
 import { tickMonthlyEconomy } from './economy';
 import { tickSectMonth } from './sectLife';
 import { syncTitles } from './titles';
+import { conditionAsInjury, tickInjuries } from './injuries';
 import { syncAchievements } from './achievements';
 import { tickFoundedSect } from './foundedSect';
 import { pushChronicle } from './chronicle';
@@ -45,6 +46,8 @@ const CONDITION_PRESETS: Record<string, Omit<LifeCondition, 'monthsLeft'> & { mo
 };
 
 export function addCondition(state: LifeGameState, id: string): void {
+  // 骨裂／腿傷難行已併入部位傷勢（design/gdd/injury-system.md §3.3）
+  if (conditionAsInjury(state, id)) return;
   const preset = CONDITION_PRESETS[id];
   if (!preset) return;
   const c = state.character;
@@ -136,6 +139,7 @@ export function simulateMonthBody(state: LifeGameState): void {
   c.qi = clamp(c.qi + rng.nextInt(4, 12), 0, c.maxQi);
   c.stamina = clamp(c.stamina + rng.nextInt(4, 12), 0, c.maxStamina);
   tickConditions(state);
+  tickInjuries(state);
   simulateWorldMonth(state);
   tryMonthlyBirth(state);
   tickAftermath(state);

@@ -38,6 +38,9 @@ const SEAL_ID_BY_TEXT: Readonly<Record<string, string>> = {
   月: 'yue',
   煉: 'lian',
   裝: 'zhuang',
+  // 部位傷勢
+  殘: 'can',
+  癒: 'yu',
 };
 
 /** 已有位圖的印文 */

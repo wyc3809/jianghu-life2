@@ -1,5 +1,6 @@
 import type { LifeCharacter, LifeGameState, WuxiaAttribute } from '@interfaces/lifeEngine';
 import { pushMoment } from './moments';
+import { headProgressFactor } from './injuryMath';
 import { getRng } from '@core/random';
 import {
   ensureSkillRanks,
@@ -167,7 +168,8 @@ export function tryAdvanceSkill(
   if (c.skillAdvanceNeed[skillId] === undefined) {
     c.skillAdvanceNeed[skillId] = rollAdvanceNeed(rank, rng);
   }
-  const gain = source === 'combat' ? 1 : PRACTICE_PROGRESS_WEIGHT;
+  // 頭部傷：領悟進度按比例扣
+  const gain = (source === 'combat' ? 1 : PRACTICE_PROGRESS_WEIGHT) * headProgressFactor(c);
   c.skillProgress[skillId] = (c.skillProgress[skillId] ?? 0) + gain;
 
   const need = c.skillAdvanceNeed[skillId] ?? rollAdvanceNeed(rank, rng);
