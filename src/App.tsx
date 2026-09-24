@@ -1,12 +1,17 @@
-import { useCallback, useEffect, useState } from 'react';
+import { Suspense, lazy, useCallback, useEffect, useState } from 'react';
 import { useLifeStore, resetLifeSave } from './store/lifeStore';
 import { InkPlayScreen } from './components/ink/InkPlayScreen';
 import { InkStartGate, InkStartScreen } from './components/ink/InkStartScreen';
 import { InkCreateScreen } from './components/ink/InkCreateScreen';
-import { InkEventEditor } from './components/ink/InkEventEditor';
 import { loadEventOverrides } from '@core/life/eventOverrides';
 
+/** 事件編輯器只限開發版（正式版唔打包，#editor 亦唔生效） */
+const InkEventEditor = import.meta.env.DEV
+  ? lazy(() => import('./components/ink/InkEventEditor').then((m) => ({ default: m.InkEventEditor })))
+  : null;
+
 function readHashRoute(): 'editor' | 'home' {
+  if (!import.meta.env.DEV) return 'home';
   const h = window.location.hash.replace(/^#/, '');
   return h === 'editor' || h.startsWith('editor/') ? 'editor' : 'home';
 }
@@ -63,8 +68,12 @@ export default function App() {
     }
   }, []);
 
-  if (route === 'editor' && !state && !creating) {
-    return <InkEventEditor onClose={closeEditor} />;
+  if (InkEventEditor && route === 'editor' && !state && !creating) {
+    return (
+      <Suspense fallback={null}>
+        <InkEventEditor onClose={closeEditor} />
+      </Suspense>
+    );
   }
 
   if (state) {
@@ -83,9 +92,13 @@ export default function App() {
         onContinue={() => void handleContinue()}
         resumeHint={canResume ? resumeHint : undefined}
         onSeedDebug={import.meta.env.DEV ? () => void handleSeed() : undefined}
-        onOpenEditor={() => {
-          window.location.hash = 'editor';
-        }}
+        onOpenEditor={
+          import.meta.env.DEV
+            ? () => {
+                window.location.hash = 'editor';
+              }
+            : undefined
+        }
       />
     </>
   );

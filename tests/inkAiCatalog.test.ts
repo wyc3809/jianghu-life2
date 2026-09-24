@@ -40,6 +40,6 @@ describe('inkAiCatalog', () => {
 
   it('finds assets by tag and id', () => {
     expect(findInkAiByTag('seal')[0]?.id).toBe('seal-cinnabar-fate');
-    expect(getInkAiAsset('backdrop-title-scroll').kind).toBe('backdrop');
+    expect(getInkAiAsset('backdrop-title-night').kind).toBe('backdrop');
   });
 });

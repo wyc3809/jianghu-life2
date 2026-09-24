@@ -28,14 +28,6 @@ function inkPublicUrl(pathUnderInk: string): string {
 /** 全部 AI 素材（可 import 後遍歷／搜尋） */
 export const INK_AI_ASSETS: readonly InkAiAsset[] = [
   {
-    id: 'backdrop-title-scroll',
-    kind: 'backdrop',
-    path: 'ai/backdrops/backdrop-title-scroll.webp',
-    titleZh: '開卷遠山',
-    useWhen: '首屏／品牌底，上方留白給標題',
-    tags: ['start', 'hero', 'mountains'],
-  },
-  {
     id: 'backdrop-title-night',
     kind: 'backdrop',
     path: 'ai/backdrops/backdrop-title-night.webp',
@@ -162,14 +154,6 @@ export const INK_AI_ASSETS: readonly InkAiAsset[] = [
     titleZh: '竹雨山亭',
     useWhen: '一般路遇、故人、未另有專景的事件',
     tags: ['road', 'encounter', 'arc', 'rain'],
-  },
-  {
-    id: 'vitals-frame-clouds',
-    kind: 'motif',
-    path: 'ai/motifs/vitals-frame-clouds.webp',
-    titleZh: '雲紋墨框',
-    useWhen: '氣血／內力欄底框，兩端雲紋、中間留白',
-    tags: ['frame', 'vitals', 'clouds'],
   },
   {
     id: 'motif-sword',

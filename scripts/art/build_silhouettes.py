@@ -3,7 +3,7 @@
 江湖一生 · 剪影（C 款：純墨 + 門派色乾筆描邊 + 一筆朱砂）
 
 來源（皆為既有 AI 水墨位圖）：
-  public/ink/spar/hero-v3-{sect}-full.webp   門派主角立繪 → 主角剪影
+  assets/art-source/hero-v3/hero-v3-{sect}-full.webp   門派主角立繪（只作來源，唔部署）→ 主角剪影
   public/ink/spar/sil/enemy-{name}.webp       切磋敵人剪影 → 敵人剪影（立繪潑墨太多，唔適合直接轉）
 
 輸出 WebP（透明底）至 public/ink/art/sil/：
@@ -28,6 +28,7 @@ from scipy import ndimage
 
 ROOT = Path(__file__).resolve().parents[2]
 SRC = ROOT / "public" / "ink" / "spar"
+HERO_SRC = ROOT / "assets" / "art-source" / "hero-v3"
 OUT = ROOT / "public" / "ink" / "art" / "sil"
 
 OUT_H = 720  # 輸出高度（px）；寬按比例
@@ -181,7 +182,7 @@ def main() -> None:
     sheet_items: list[tuple[str, Image.Image]] = []
     print("heroes")
     for i, (sect, rim_hex) in enumerate(SECT_RIM.items()):
-        src = SRC / f"hero-v3-{sect}-full.webp"
+        src = HERO_SRC / f"hero-v3-{sect}-full.webp"
         mask = load_mask(src)
         rim = rim_of(mask, 5, 100 + i)
         spec = HERO_ACCENT.get(sect) or auto_headband(mask)

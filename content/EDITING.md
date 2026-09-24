@@ -12,9 +12,8 @@
 | `family/rules.json` | 生育機率、一生孩子上限、年齡與冷卻 |
 | `story/chapters.json` | 主線章節標題與目標（劇本大綱） |
 | `sects/sects.json` 的 `natureGate` | 門派心性門檻（俠邪狂惡） |
-| `events/...` 的 `minNature`/`maxNature`/`nature`/`world` | 奇遇門檻與心性／天下效果 |
-| `events/jianghu_random_events_100.json` | 江湖偶遇事件包（條件／選項／結果） |
-| `events/starter_events.json` | 較早期的事件範例 |
+| `../data/events/*.ts` 的 `minNature`/`maxNature`/`nature`/`world` | 奇遇門檻與心性／天下效果 |
+| `../data/events/jianghu_random_events_100.json` | 江湖偶遇事件包（條件／選項／結果） |
 | `systems/overview.md` | 各系統說明（給人讀的總覽） |
 
 ## 門派地位與四套武學
