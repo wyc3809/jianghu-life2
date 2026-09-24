@@ -126,12 +126,21 @@
   clip-path: inset(0 0 0 0);
 }
 
+/* 墨暈入場：由腳向上顯形，同時由化開嘅墨收成實影 */
 @keyframes bossRise {
   0% {
     clip-path: inset(100% 0 0 0);
+    filter: blur(12px) drop-shadow(0 0 18px rgba(179, 52, 42, 0));
+    opacity: 0.4;
+  }
+  60% {
+    filter: blur(3px) drop-shadow(0 0 18px rgba(179, 52, 42, 0.18));
+    opacity: 0.9;
   }
   100% {
     clip-path: inset(0 0 0 0);
+    filter: blur(0) drop-shadow(0 0 18px rgba(179, 52, 42, 0.28));
+    opacity: 1;
   }
 }
 

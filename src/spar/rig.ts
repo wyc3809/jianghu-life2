@@ -352,18 +352,18 @@ const SPAR_E = (n: string, w: number, h: number, eye: { x: number; y: number }, 
   scale,
 });
 
-/** 十款江湖敵手（AI 水墨立繪，側身面左行向俠客）＋墨影，組成出敵池 */
+/**
+ * 江湖敵手（AI 水墨剪影，側身面左行向俠客）＋墨影，組成出敵池。
+ * 老翁／槍客／丐幫／蓑衣嘅剪影檔四周有墨霧雜點，暫時移出池；
+ * 新圖（design/art/SILHOUETTE-PROMPTS.md B 表）到咗再加返。
+ */
 export const ENEMY_POOL: EnemyDef[] = [
   ENEMY_SHADOW,
   SPAR_E('daoke', 616, 788, { x: -20, y: -520 }), // 黑衣刀客（AI 剪影）
-  SPAR_E('laoweng', 616, 788, { x: -18, y: -500 }, 0.94), // 白髮老翁
   SPAR_E('nvcike', 616, 788, { x: -16, y: -530 }, 0.96), // 女刺客
   SPAR_E('toutuo', 616, 788, { x: -10, y: -510 }, 1.08), // 胖頭陀
-  SPAR_E('qiangke', 611, 788, { x: -8, y: -540 }, 1.05), // 槍客
   SPAR_E('tiemian', 615, 788, { x: -12, y: -520 }, 1.1), // 鐵面／影魁
   SPAR_E('gouke', 616, 788, { x: -20, y: -520 }), // 雙鉤客（刀客剪影）
-  SPAR_E('qigai', 616, 788, { x: -18, y: -500 }, 0.97), // 丐幫（老翁剪影）
-  SPAR_E('suoyi', 611, 788, { x: -8, y: -540 }, 0.98), // 蓑衣（槍客剪影）
   SPAR_E('chifa', 616, 788, { x: -10, y: -510 }, 1.15), // 赤髮（頭陀剪影）
 ];
 
