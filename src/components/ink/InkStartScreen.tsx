@@ -63,10 +63,13 @@ export function InkStartScreen({ onStart, onContinue, resumeHint, onSeedDebug, o
         >
           {resumeHint ? '開卷新篇' : '開卷'}
         </button>
-        <a className="ink-btn ink-btn--quiet" href={`${import.meta.env.BASE_URL}events.html`}>
-          事件一覽 · 可分享下載
-        </a>
-        {onOpenEditor && (
+        {/* 開發工具：事件一覽／編輯器／定種子只喺開發版顯示 */}
+        {import.meta.env.DEV && (
+          <a className="ink-btn ink-btn--quiet" href={`${import.meta.env.BASE_URL}events.html`}>
+            事件一覽 · 可分享下載
+          </a>
+        )}
+        {import.meta.env.DEV && onOpenEditor && (
           <button
             type="button"
             className="ink-btn ink-btn--quiet"
@@ -77,7 +80,7 @@ export function InkStartScreen({ onStart, onContinue, resumeHint, onSeedDebug, o
             手機改內容 · 事件／裝備／結果
           </button>
         )}
-        {onSeedDebug && (
+        {import.meta.env.DEV && onSeedDebug && (
           <button
             type="button"
             className="ink-btn ink-btn--quiet"

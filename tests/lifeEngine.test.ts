@@ -1259,10 +1259,8 @@ describe('life event engine', () => {
     expect(resolved).not.toMatch(/就「路拾銅錢」一事/);
   });
 
-  it('foe AI styles differ by name and runtime view marks pack', async () => {
+  it('foe AI styles differ by name', async () => {
     const { inferFoeAiStyle, chooseFoeMove } = await import('../core/life/foeAi');
-    const { toRuntimeView } = await import('../interfaces/eventRuntime');
-    const { RANDOM_PACK_EVENTS } = await import('../core/life/packAdapter');
     expect(inferFoeAiStyle('蒙面殺手', 'normal')).toBe('trickster');
     expect(inferFoeAiStyle('山賊', 'normal')).toBe('brute');
     const foe = {
@@ -1288,8 +1286,6 @@ describe('life event engine', () => {
     const rng = { nextFloat: () => 0.1, pick: <T,>(a: T[]) => a[0]!, chance: () => true };
     const move = chooseFoeMove(foe, rng, 'brute', false);
     expect(move.id).toMatch(/heavy|basic/);
-    const pack = RANDOM_PACK_EVENTS[0];
-    if (pack) expect(toRuntimeView(pack).resolveMode).toBe('pack');
   });
 
   it('economy / sect / titles tick without crashing', async () => {

@@ -318,37 +318,6 @@ body::before {
   margin-top: 6px;
 }
 
-.ink-blot {
-  position: absolute;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(26, 26, 26, 0.1), transparent 72%);
-  filter: blur(2.4px);
-  animation: none;
-}
-
-.ink-blot--tr {
-  width: 160px;
-  height: 100px;
-  top: 8%;
-  right: -36px;
-}
-
-.ink-blot--bl {
-  width: 78px;
-  height: 78px;
-  bottom: 16%;
-  left: 4px;
-  opacity: 0.72;
-}
-
-.ink-blot--drift {
-  width: 54px;
-  height: 54px;
-  top: 36%;
-  left: 40%;
-  opacity: 0.32;
-}
-
 .ink-event-banner {
   margin: 0 0 12px;
   overflow: hidden;
@@ -400,18 +369,6 @@ body::before {
   opacity: 0.55;
 }
 
-.ink-mist-layer--soft {
-  display: none;
-}
-
-.ink-brush-sweep {
-  display: none;
-}
-
-.ink-brush-sweep--late {
-  display: none;
-}
-
 .ink-paper-edge {
   position: absolute;
   left: 0;
@@ -420,23 +377,6 @@ body::before {
   height: 28%;
   background: linear-gradient(180deg, transparent, rgba(230, 217, 196, 0.35));
   pointer-events: none;
-}
-
-.ink-ridge--far,
-.ink-ridge--mid,
-.ink-ridge--near {
-  animation: none;
-  transform-origin: center bottom;
-}
-
-.ink-mist-orb--a,
-.ink-mist-orb--b,
-.ink-spark--1,
-.ink-spark--2,
-.ink-spark--3,
-.ink-spark--4 {
-  animation: none;
-  opacity: 0;
 }
 
 /* motion */
@@ -516,90 +456,6 @@ body::before {
   }
 }
 
-@keyframes inkBreathe {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.9;
-  }
-  50% {
-    transform: scale(1.012);
-    opacity: 0.96;
-  }
-}
-
-@keyframes inkDrift {
-  0%,
-  100% {
-    transform: translate(0, 0);
-    opacity: 0.22;
-  }
-  50% {
-    transform: translate(22px, -14px);
-    opacity: 0.48;
-  }
-}
-
-@keyframes mistSweep {
-  0%,
-  100% {
-    opacity: 0.18;
-    transform: translateX(-5%);
-  }
-  50% {
-    opacity: 0.58;
-    transform: translateX(7%);
-  }
-}
-
-@keyframes brushSweep {
-  0%,
-  100% {
-    opacity: 0;
-    transform: translateX(0) rotate(-8deg);
-  }
-  35% {
-    opacity: 0.75;
-  }
-  70% {
-    opacity: 0;
-    transform: translateX(48%) rotate(-8deg);
-  }
-}
-
-@keyframes ridgeFloat {
-  0%,
-  100% {
-    transform: translateY(0) translateX(0);
-  }
-  50% {
-    transform: translateY(-4px) translateX(2px);
-  }
-}
-
-@keyframes sparkFloat {
-  0%,
-  100% {
-    opacity: 0.15;
-    transform: translateY(0);
-  }
-  50% {
-    opacity: 0.55;
-    transform: translateY(-6px);
-  }
-}
-
-@keyframes panelWashIn {
-  from {
-    opacity: 0;
-    clip-path: inset(0 0 100% 0);
-  }
-  to {
-    opacity: 1;
-    clip-path: inset(0 0 0 0);
-  }
-}
-
 @keyframes scrollFlip {
   0% {
     opacity: 0;
@@ -643,20 +499,6 @@ body::before {
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes sealBreath {
-  0%,
-  100% {
-    transform: rotate(-5deg) scale(1);
-    box-shadow: inset 0 0 0 2px var(--paper);
-  }
-  50% {
-    transform: rotate(-4deg) scale(1.03);
-    box-shadow:
-      inset 0 0 0 2px var(--paper),
-      0 0 0 1px rgba(163, 58, 50, 0.2);
   }
 }
 
@@ -905,14 +747,6 @@ body::before {
   border-bottom: 1px solid var(--ink-faint);
 }
 
-.ink-status-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 6px;
-  flex-shrink: 0;
-}
-
 .ink-status-buttons {
   display: flex;
   gap: 6px;
@@ -1157,15 +991,6 @@ body::before {
 .ink-vitals-label span:first-child {
   color: var(--ink);
   letter-spacing: 0.22em;
-}
-
-.ink-vitals-rule {
-  display: block;
-  width: 100%;
-  height: 14px;
-  margin: 10px 0 8px;
-  opacity: 0.55;
-  pointer-events: none;
 }
 
 .ink-bar {
@@ -1455,11 +1280,6 @@ body::before {
   gap: 8px;
 }
 
-.ink-skill-cards--compact .ink-skill-fx,
-.ink-skill-cards--compact .ink-skill-move {
-  font-size: 0.74rem;
-}
-
 .ink-skill-card {
   padding: 8px 10px;
   border-left: 2px solid var(--ink-faint);
@@ -1597,22 +1417,12 @@ body::before {
   gap: 12px;
 }
 
-.ink-backdrop--quiet .ink-mist-layer,
-.ink-backdrop--quiet .ink-brush-sweep,
-.ink-backdrop--quiet .ink-blot,
-.ink-backdrop--quiet .ink-ridge,
-.ink-backdrop--quiet .ink-mist-orb,
-.ink-backdrop--quiet .ink-spark {
+.ink-backdrop--quiet .ink-mist-layer {
   animation-play-state: paused !important;
 }
 
-.ink-backdrop--quiet .ink-mist-layer,
-.ink-backdrop--quiet .ink-brush-sweep {
+.ink-backdrop--quiet .ink-mist-layer {
   opacity: 0.28;
-}
-
-.ink-backdrop--quiet .ink-spark {
-  opacity: 0.2;
 }
 
 .scroll-shell--combat {
@@ -1778,10 +1588,6 @@ body::before {
   flex-wrap: wrap;
   gap: 6px;
   margin-top: 6px;
-}
-
-.ink-gear-item--on {
-  opacity: 0.92;
 }
 
 .ink-gear-preview {
@@ -2006,20 +1812,6 @@ body::before {
 
 .ink-nature-line {
   line-height: 1.9;
-}
-
-@keyframes naturePulse {
-  0%,
-  100% {
-    box-shadow:
-      0 0 0 1px color-mix(in srgb, var(--nature-color) 30%, transparent),
-      0 3px 10px var(--nature-wash);
-  }
-  50% {
-    box-shadow:
-      0 0 0 2px color-mix(in srgb, var(--nature-color) 45%, transparent),
-      0 6px 16px var(--nature-wash);
-  }
 }
 
 .ink-note {
@@ -2429,25 +2221,8 @@ body::before {
   animation: tabInkGrow var(--motion-base) var(--ease-ink) both;
 }
 
-.ink-world-compact {
-  letter-spacing: 0.02em;
-}
-
 .ink-world-panel h3 {
   margin-bottom: 10px;
-}
-
-.ink-world-grid .ink-attr {
-  min-height: 4.2rem;
-}
-
-.ink-attr-tone {
-  display: block;
-  margin-top: 4px;
-  font-style: normal;
-  font-size: 0.68rem;
-  color: var(--ink-mid);
-  letter-spacing: 0.04em;
 }
 
 .ink-chips {
@@ -3279,30 +3054,6 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
   }
 }
 
-@keyframes inkBtnPulse {
-  0%,
-  100% {
-    transform: translateY(0);
-    box-shadow: 0 0 0 0 rgba(163, 58, 50, 0.28);
-  }
-  50% {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 28px rgba(163, 58, 50, 0.22);
-  }
-}
-
-@keyframes inkBtnAck {
-  0%,
-  100% {
-    filter: brightness(1);
-    transform: scale(1);
-  }
-  50% {
-    filter: brightness(1.08);
-    transform: scale(1.02);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .ink-btn--pulse,
   .ink-btn--ack,
@@ -3317,12 +3068,7 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
   .ink-flash p,
   .ink-result,
   .ink-panel,
-  .ink-blot,
   .ink-mist-layer,
-  .ink-brush-sweep,
-  .ink-ridge,
-  .ink-mist-orb,
-  .ink-spark,
   .ink-seal-static,
   .ink-brand,
   .ink-eyebrow,
@@ -3925,14 +3671,6 @@ button.is-pressed,
   font-size: 0.68rem;
 }
 
-.ink-hint-learn {
-  margin-top: 4px;
-  color: var(--ink-wash);
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  line-height: 1.55;
-}
-
 .ink-combat-resolve {
   gap: 2px;
   margin-top: 8px;
@@ -4125,32 +3863,9 @@ button.is-pressed,
 .ink-backdrop--wild {
   filter: hue-rotate(-3deg) saturate(1.05);
 }
-.ink-backdrop--wild .ink-brush-sweep {
-  opacity: 0.55;
-}
 
 .ink-backdrop--omen {
   box-shadow: inset 0 -40px 60px var(--cinnabar-soft);
-}
-
-.ink-aftermath-chip {
-  margin: 0;
-  padding: 6px 10px;
-  font-size: var(--fs-caption);
-  font-weight: var(--fw-ui);
-  letter-spacing: 0.06em;
-  border-left: 2px solid var(--ink-soft);
-  background: rgba(255, 252, 245, 0.65);
-  color: var(--ink-mid);
-}
-.ink-aftermath-chip--blood,
-.ink-aftermath-chip--hunt {
-  border-left-color: var(--cinnabar);
-  color: var(--cinnabar);
-}
-.ink-aftermath-chip--mercy,
-.ink-aftermath-chip--revenge {
-  border-left-color: #4a7fa8;
 }
 
 /* —— 江湖字體統一加固（壓過殘餘細灰字） —— */
@@ -4183,8 +3898,7 @@ button.is-pressed,
 .ink-practice-btn span,
 .ink-combat-action span,
 .ink-combat-move em,
-.ink-gear-desc,
-.ink-hint-learn {
+.ink-gear-desc {
   color: var(--ink-soft) !important;
   font-size: var(--fs-caption) !important;
   font-weight: var(--fw-ui) !important;
@@ -4263,9 +3977,6 @@ button.is-pressed,
     gap: 8px;
   }
 
-  .ink-hint-learn {
-    font-size: 0.74rem;
-  }
 }
 
 /* —— 手機事件編修 —— */
@@ -5091,12 +4802,6 @@ html[data-ink-motion='reduce'] .ink-combat-fx-layer {
   height: 6px;
 }
 
-.ink-vitals-rule {
-  height: 8px;
-  margin: 7px 0 5px;
-  opacity: 0.35;
-}
-
 /* 事件像一幅打開的橫卷：圖先落墨，題簽與正文再入場。 */
 .scroll-shell--event {
   gap: 6px;
@@ -5307,8 +5012,6 @@ html[data-ink-motion='reduce'] .ink-combat-fx-layer {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ink-home-tableau-img,
-  .ink-home-tableau-mist,
   .scroll-shell--event .ink-event-banner,
   .scroll-shell--event .ink-event-banner-img,
   .ink-result-wash {
@@ -5317,8 +5020,6 @@ html[data-ink-motion='reduce'] .ink-combat-fx-layer {
   }
 }
 
-html[data-ink-motion='reduce'] .ink-home-tableau-img,
-html[data-ink-motion='reduce'] .ink-home-tableau-mist,
 html[data-ink-motion='reduce'] .scroll-shell--event .ink-event-banner,
 html[data-ink-motion='reduce'] .scroll-shell--event .ink-event-banner-img,
 html[data-ink-motion='reduce'] .ink-result-wash {
@@ -5634,155 +5335,6 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   width: 150px;
   height: 100px;
   background: radial-gradient(ellipse at 80% 20%, rgba(26, 26, 26, 0.035) 0%, transparent 60%);
-}
-
-/* ===== 江湖威望／排名 HUD（右上角，即時反饋） ===== */
-
-.ink-prestige-hud {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 2px;
-}
-
-.ink-prestige-main {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 9px 4px 4px;
-  border: 1px solid var(--ink-faint);
-  border-radius: 4px;
-  background: color-mix(in srgb, var(--paper-bright) 90%, var(--cinnabar) 4%);
-  transition: box-shadow var(--motion-base) var(--ease-ink), transform var(--motion-base) var(--ease-ink);
-}
-
-.ink-prestige-seal {
-  display: inline-flex;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  overflow: hidden;
-  flex-shrink: 0;
-  box-shadow: 0 0 0 1px rgba(163, 58, 50, 0.3);
-}
-
-.ink-prestige-seal img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.ink-prestige-body {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  min-width: 64px;
-}
-
-.ink-prestige-line {
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
-}
-
-.ink-prestige-rule {
-  --brush-h: 6px;
-  --brush-rail: rgba(26, 26, 26, 0.12);
-  margin-top: 2px;
-}
-
-.ink-prestige-rank-motif {
-  width: 11px;
-  height: 11px;
-  object-fit: contain;
-  opacity: 0.8;
-  vertical-align: -1px;
-  margin-right: 3px;
-}
-
-.ink-prestige-main--pulse {
-  box-shadow:
-    0 0 0 2px rgba(163, 58, 50, 0.35),
-    0 0 12px rgba(163, 58, 50, 0.28);
-  transform: scale(1.06);
-}
-
-.ink-prestige-label {
-  font-size: 0.6rem;
-  letter-spacing: 0.1em;
-  color: var(--ink);
-  opacity: 0.72;
-  white-space: nowrap;
-}
-
-.ink-prestige-score {
-  font-size: 1.05rem;
-  font-weight: var(--fw-ui);
-  color: var(--cinnabar);
-  font-variant-numeric: tabular-nums;
-}
-
-.ink-prestige-tier {
-  font-size: 0.64rem;
-  color: var(--ink);
-  opacity: 0.7;
-  white-space: nowrap;
-}
-
-.ink-prestige-rank {
-  margin: 0;
-  font-size: 0.64rem;
-  color: var(--ink);
-  opacity: 0.7;
-  white-space: nowrap;
-}
-
-.ink-prestige-pop {
-  position: absolute;
-  right: 2px;
-  top: -6px;
-  font-size: 0.76rem;
-  font-weight: var(--fw-ui);
-  color: var(--cinnabar);
-  animation: inkPrestigePop var(--motion-ritual) var(--ease-ink) forwards;
-  pointer-events: none;
-}
-
-@keyframes inkPrestigePop {
-  0% {
-    opacity: 0;
-    transform: translateY(4px) scale(0.85);
-  }
-  15% {
-    opacity: 1;
-    transform: translateY(-6px) scale(1.05);
-  }
-  70% {
-    opacity: 1;
-    transform: translateY(-16px) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-26px) scale(0.95);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ink-prestige-main {
-    transition: none;
-  }
-  .ink-prestige-main--pulse {
-    transform: none;
-  }
-  .ink-prestige-pop {
-    animation: none;
-    opacity: 0.9;
-    transform: none;
-  }
-  .ink-prestige-rule .ink-brush-bar__fill {
-    transition: none;
-  }
 }
 
 /* ===== 放置修為：頂欄跳動數字 ===== */
@@ -6113,39 +5665,8 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   max-width: 160px;
 }
 
-.ink-ap-meter-label {
-  font-size: 0.68rem;
-  color: var(--ink-wash);
-  letter-spacing: 0.08em;
-  flex-shrink: 0;
-}
-
 .ink-ap-meter-value {
   flex-shrink: 0;
-}
-
-/* ===== 離線收益提示 ===== */
-
-.ink-offline-toast {
-  position: relative;
-  z-index: 10;
-  margin: 0 0 8px;
-  padding: 8px 12px;
-  border: 1px solid var(--cinnabar);
-  border-radius: 4px;
-  background: color-mix(in srgb, var(--paper-bright) 88%, var(--cinnabar) 6%);
-  color: var(--cinnabar);
-  font-size: 0.8rem;
-  font-weight: var(--fw-ui);
-  text-align: center;
-  cursor: pointer;
-  animation: inkFadeUp var(--motion-base) var(--ease-ink) both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ink-offline-toast {
-    animation: none;
-  }
 }
 
 /* 主畫面 AI 水墨底景（取代舊 SVG 遠山層） */

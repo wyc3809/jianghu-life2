@@ -16,7 +16,7 @@
 - **Primary Input**: Touch
 - **Gamepad Support**: None
 - **Touch Support**: Full (420px phone frame)
-- **Platform Notes**: GitHub Pages base path `/App/`；`VITE_BASE` for builds
+- **Platform Notes**: GitHub Pages base path `/jianghu-life2/`；`VITE_BASE` for builds
 
 ## Naming Conventions
 
@@ -55,7 +55,6 @@
 ## Architecture Decisions Log
 
 - Event-driven life engine (`core/life/*`) as V1 primary loop
-- Legacy tick world sim (`core/gameplay.ts`) retained but not default UI entry
 - IndexedDB + localStorage fallback for saves
 
 ## Project-Specific Notes

@@ -4,9 +4,8 @@ Indie game development managed through 49 coordinated Claude Code subagents.
 This repo has **adopted** [Claude Code Game Studios](https://github.com/Donchitos/Claude-Code-Game-Studios)
 on top of an existing playable V1.
 
-> **Split products**: Git `main` in this remote is **WorthBook** (Next.js). Jianghu
-> work stays on Jianghu branches only — never merge the two app trees.
-> See `docs/PRODUCT-SEPARATION.md`.
+> **Repo**: this repo (`wyc3809/jianghu-life2`) is 江湖一生 only — `main` is the game's
+> mainline. WorthBook lives in `wyc3809/App`. See `docs/PRODUCT-SEPARATION.md`.
 
 ## Technology Stack
 
@@ -29,7 +28,7 @@ on top of an existing playable V1.
 - **Title**: 江湖一生 · Jianghu Life Engine V1.0
 - **Genre**: BitLife × 武俠人生模擬（事件驅動）
 - **Loop**: 出生 → 家庭 → 成長 → 拜師 → 江湖 → 戀愛 → 門派 → 戰鬥 → 財富 → 老年 → 死亡 → 總結 → 傳承
-- **Content model**: JSON / TS event catalog (`data/events/catalog.ts`) — 50 events MVP
+- **Content model**: JSON / TS event catalog (`data/events/*.ts` + `jianghu_random_events_100.json`) — run `npm run docs:events` for the current count
 - **UI**: 水墨風直版手機窗（`src/styles.css`）
 
 ## Project Structure (game code)
@@ -38,7 +37,7 @@ on top of an existing playable V1.
 |------|------|
 | `src/` | React UI（`ink/InkPlayScreen` 等 Ink* 元件, Zustand store） |
 | `core/life/` | Event engine, requirements, effects, save |
-| `core/` | Shared RNG, ids, legacy tick sim |
+| `core/` | Shared RNG, ids |
 | `data/events/` | Event database |
 | `interfaces/` | Zod + TypeScript contracts |
 | `tests/` | Vitest |

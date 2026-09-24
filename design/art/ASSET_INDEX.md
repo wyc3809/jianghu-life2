@@ -1,6 +1,6 @@
 # 素材索引
 
-本倉庫落地路徑以 `public/ink/`（執行時）、`assets/ink-pack/`（可攜 SVG／文檔包）與 `design/art/` 為準。風格鐵律見 [`STYLE-BIBLE.md`](./STYLE-BIBLE.md)。
+本倉庫落地路徑以 `public/ink/`（執行時）、`assets/art-source/`（只作腳本來源，唔部署）與 `design/art/` 為準。風格鐵律見 [`STYLE-BIBLE.md`](./STYLE-BIBLE.md)。
 
 ## 文件
 
@@ -9,7 +9,6 @@
 | `STYLE-BIBLE.md` | 視覺＋文字鐵律 |
 | `AI-PROMPT-PACK.md` | AI 出圖提示詞（水墨專用） |
 | `art-bible.md` | 實作摘要（指向 STYLE-BIBLE） |
-| `ink-pack-pointer.md` | 指向可攜素材包 |
 | `tokens-colors.json` | 色票 |
 | `tokens-typography.json` | 字級 |
 | `../ux/css-motions.md` | 動效片段 |
@@ -22,7 +21,8 @@
 
 | 檔名 | 說明 |
 |------|------|
-| `backdrop-title-scroll.webp` | 開卷遠山（已接首屏洗底） |
+| `backdrop-title-night.webp` | 開卷夜嶺雙閣（首屏） |
+| `backdrop-play-main.webp` | 主畫面江上孤舟 |
 | `backdrop-night-mountains.webp` | 夜山松煙（夜雨／奇遇／傳承） |
 | `backdrop-town-scroll.webp` | 鎮居主景（遠山、石橋、千燈鎮） |
 | `backdrop-result-mist.webp` | 結果匣霧嶺淡墨底 |
@@ -49,9 +49,11 @@
 
 說明見 `public/ink/ai/README.md`。
 
-## 可攜 SVG 包 `assets/ink-pack/`
+## 來源圖 `assets/art-source/`（唔部署）
 
-完整 STYLE／writing／prompts／svg（含印章與夜山）。執行時已同步至 `public/ink/`；見 [`ink-pack-pointer.md`](./ink-pack-pointer.md)。
+| 路徑 | 用途 |
+|------|------|
+| `hero-v3/hero-v3-{sect}-full.webp` | 十派主角立繪 → `build_silhouettes.py` 生成人物誌剪影 |
 
 ## 位圖 · 朱砂印／氣場／筆觸 `public/ink/art/`
 
@@ -92,7 +94,7 @@
 
 ## 已退役 SVG
 
-`public/ink/{decor,seals,icons,frames}/*.svg`、`gear-*.svg`、`encounter-hermit.svg`、`event-bridge.svg`、`ui-header.svg` 已自 `public/` 移除（原始檔仍在 `assets/ink-pack/` 作參考）。遊戲內容美術一律位圖，見 `.claude/rules/no-svg-game-art.md`。
+`public/ink/{decor,seals,icons,frames}/*.svg`、`gear-*.svg`、`encounter-hermit.svg`、`event-bridge.svg`、`ui-header.svg` 已全數移除（原 `assets/ink-pack/` SVG 參考包亦已刪）。遊戲內容美術一律位圖，見 `.claude/rules/no-svg-game-art.md`。
 
 ## 程式接線
 

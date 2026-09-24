@@ -22,7 +22,7 @@ distinctive readable silhouette, side 3/4 view, entire figure in frame with marg
 
 ---
 
-## A. 十派主角（面向右）→ `public/ink/spar/hero-v3-{key}-full.webp`
+## A. 十派主角（面向右）→ `assets/art-source/hero-v3/hero-v3-{key}-full.webp`（只作剪影來源，唔部署）
 
 每派要有**唔同輪廓標誌**，唔好全部戴斗笠。
 

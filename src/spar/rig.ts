@@ -10,8 +10,7 @@
  *
  * 日後擴展：
  * - 新動作：加一個 SparClip 落 SPAR_CLIPS，喺引擎 schedule 嗰度引用個名。
- * - 新時裝：整一套新嘅 SparSkin（body/head/arm 三張圖，相同骨架座標），
- *   傳入 <InkSparStage skin={...} /> 即成，動作完全唔使郁。
+ * - 俠客外觀：引擎只畫 `sil/` 剪影幀（見 silhouetteDraw.ts）；rig 只提供骨架掛點同揮擊 clip。
  * - 新武器：整張垂直（柄上鋒下）透明圖，加一個 WeaponSpriteDef 落 WEAPON_SPRITES。
  * - 新敵人：加一個 EnemyDef（單圖 + 腳底錨點 + 眼部位置），喺 STAGE 揀用。
  */
@@ -57,29 +56,8 @@ export interface SparPart {
   dy: number;
 }
 
-/** 俠客皮膚：三件套（之後時裝就係換呢三張） */
-export interface SparSkin {
-  body: SparPart;
-  head: SparPart;
-  arm: SparPart;
-}
-
-/**
- * v3 一圖切件皮膚：全身（連頭帽）一張完整立繪，劍臂由同一張圖切出，
- * 肩位加一塊原圖拷貝嘅墨痕遮縫。邊位由構造上同身體一致，唔會再甩。
- * - full：全身貼圖，腳底錨點（頭帽身腳一體）
- * - arm：劍臂，dx/dy 相對肩錨點（rest pose 同 full 無縫重合）
- * - shoulderPatch：肩位遮縫，dx/dy 相對肩錨點，畫喺臂之上（唔跟臂轉）
- */
-export interface SparSkinV3 {
-  full: SparPart;
-  arm: SparPart;
-  shoulderPatch: SparPart;
-}
-
 export interface WarriorRigV3 {
   v: 3;
-  skin: SparSkinV3;
   /** 劍臂掛喺身嘅邊個位（相對腳底錨點，du） */
   shoulderSocket: { x: number; y: number };
   /** 武器握點相對肩錨點（du） */
@@ -94,7 +72,6 @@ export type AnyWarriorRig = WarriorRig | WarriorRigV3;
 export const isV3Rig = (r: AnyWarriorRig): r is WarriorRigV3 => (r as WarriorRigV3).v === 3;
 
 export interface WarriorRig {
-  skin: SparSkin;
   /** 頭掛喺身嘅邊個位（相對腳底錨點，du） */
   neckSocket: { x: number; y: number };
   /** 劍臂掛喺身嘅邊個位（相對腳底錨點，du） */
@@ -133,58 +110,13 @@ export interface WeaponSpriteDef {
 
 const SPAR_BASE = `${import.meta.env.BASE_URL || '/'}ink/spar/`;
 
-/**
- * 默認皮膚：側身斗笠墨衣俠客（面向右，斗笠陰影遮樣、紅繩點綴，AI 水墨立繪拆件）。
- * body 腳底錨點＝全身旋轉軸；head 繞頸微擺；arm 繞肩揮動，右手前伸拎武器。
- */
+/** 默認骨架（無門派）：頸／肩／握點錨點＋設計身高 */
 export const WARRIOR: WarriorRig = {
-  skin: {
-    body: { src: `${SPAR_BASE}hero3-body.webp`, w: 410, h: 424, dx: -234, dy: -412 },
-    head: { src: `${SPAR_BASE}hero3-head.webp`, w: 264, h: 146, dx: -153, dy: -124.5 },
-    arm: { src: `${SPAR_BASE}hero3-arm.webp`, w: 170, h: 139, dx: -23.5, dy: -23 },
-  },
   neckSocket: { x: 27.5, y: -395 },
   shoulderSocket: { x: 70, y: -355 },
   gripSocket: { x: 116, y: 84 },
   designHeight: 531,
 };
-
-/**
- * 門派服裝：十派各有 AI 水墨袍色（身＋斗笠繩色），骨架錨點同默認一致。
- * 每派身圖高度統一 424du，dx 按腳掌位置逐張定位。
- */
-const SECT_BODY: Record<string, { w: number; dx: number; neck: { x: number; y: number }; shoulder: { x: number; y: number } }> = {
-  // 每派身圖高度統一 424du，dx 按腳掌定位；頸／肩錨點逐派按領口同臂根實測
-  sect_qingyun: { w: 375, dx: -252, neck: { x: 47, y: -390 }, shoulder: { x: 80, y: -352 } }, // 青雲劍派：月白青雲紋
-  sect_tiandao: { w: 321, dx: -203, neck: { x: 50, y: -388 }, shoulder: { x: 85, y: -352 } }, // 天刀門：玄黑赤紅滾邊
-  sect_emei: { w: 417, dx: -273, neck: { x: 60, y: -385 }, shoulder: { x: 85, y: -352 } }, // 峨嵋派：月白配玉綠
-  sect_shaolin: { w: 372, dx: -234, neck: { x: 55, y: -385 }, shoulder: { x: 88, y: -352 } }, // 少林派：土黃僧袍
-  sect_wudang: { w: 352, dx: -231, neck: { x: 58, y: -388 }, shoulder: { x: 85, y: -355 } }, // 武當派：灰藍道袍
-  sect_tangmen: { w: 384, dx: -240, neck: { x: 52, y: -386 }, shoulder: { x: 80, y: -353 } }, // 唐門：紫黑夜行
-  sect_mojiao: { w: 315, dx: -201, neck: { x: 55, y: -386 }, shoulder: { x: 85, y: -355 } }, // 魔教：血焰黑袍
-  sect_huashan: { w: 364, dx: -234, neck: { x: 60, y: -386 }, shoulder: { x: 88, y: -355 } }, // 華山：松綠劍袍
-  sect_taohua: { w: 410, dx: -255, neck: { x: 60, y: -385 }, shoulder: { x: 82, y: -352 } }, // 桃花島：白袍桃花
-  sect_wugen: { w: 352, dx: -224, neck: { x: 55, y: -385 }, shoulder: { x: 82, y: -352 } }, // 無根門：灰紫幽衫
-};
-
-const sectKey = (sectId: string) => sectId.replace(/^sect_/, '');
-
-export const SECT_RIGS: Record<string, WarriorRig> = Object.fromEntries(
-  Object.entries(SECT_BODY).map(([sectId, b]) => [
-    sectId,
-    {
-      skin: {
-        body: { src: `${SPAR_BASE}hero-sect-${sectKey(sectId)}-body.webp`, w: b.w, h: 424, dx: b.dx, dy: -424 },
-        head: { src: `${SPAR_BASE}hero-sect-${sectKey(sectId)}-head.webp`, w: 264, h: 146, dx: -153, dy: -124.5 },
-        arm: { src: `${SPAR_BASE}hero-sect-${sectKey(sectId)}-arm.webp`, w: 170, h: 139, dx: -23.5, dy: -23 },
-      },
-      neckSocket: b.neck,
-      shoulderSocket: b.shoulder,
-      gripSocket: WARRIOR.gripSocket,
-      designHeight: WARRIOR.designHeight,
-    },
-  ]),
-);
 
 /**
  * v3 溫和揮擊：同主 attack 節奏，蓄勢略收（霧接臂門派唔好大風車）。
@@ -204,29 +136,16 @@ const V3_ATTACK_SOFT: SparClip = {
   events: [{ t: 0.36, id: 'strike' }],
 };
 
-/**
- * v3 門派時裝（一圖切件）：full＝完整全身立繪（958×1341px，0.38031 du/px，腳底錨點 x≈284.5px），
- * arm／shoulderPatch 由 full 原圖切出，rest pose 無縫重合；揮臂時肩位墨痕遮住關節縫。
- */
+/** 十派骨架：肩／握點錨點（按原 v3 立繪實測）＋可選溫和揮擊 clip */
 export const SECT_RIGS_V3: Record<string, WarriorRigV3> = {
   sect_emei: {
     v: 3,
-    skin: {
-      full: { src: `${SPAR_BASE}hero-v3-emei-full.webp`, w: 364.3, h: 510, dx: -108.2, dy: -510 },
-      arm: { src: `${SPAR_BASE}hero-v3-emei-arm.webp`, w: 189.4, h: 109.5, dx: -23.6, dy: -25.9 },
-      shoulderPatch: { src: `${SPAR_BASE}hero-v3-emei-patch.webp`, w: 70.7, h: 63.9, dx: -34.6, dy: -31.9 },
-    },
     shoulderSocket: { x: -1.7, y: -384.5 },
     gripSocket: { x: 117.9, y: 64.7 },
     designHeight: WARRIOR.designHeight,
   },
   sect_qingyun: {
     v: 3,
-    skin: {
-      full: { src: `${SPAR_BASE}hero-v3-qingyun-full.webp`, w: 373.9, h: 510, dx: -161.8, dy: -510 },
-      arm: { src: `${SPAR_BASE}hero-v3-qingyun-arm.webp`, w: 119.9, h: 112.4, dx: -24.1, dy: -21.0 },
-      shoulderPatch: { src: `${SPAR_BASE}hero-v3-qingyun-patch.webp`, w: 72.0, h: 66.5, dx: -36.0, dy: -32.8 },
-    },
     shoulderSocket: { x: 14.2, y: -375.5 },
     gripSocket: { x: 67.3, y: 67.3 },
     designHeight: WARRIOR.designHeight, // 青雲劍派
@@ -234,11 +153,6 @@ export const SECT_RIGS_V3: Record<string, WarriorRigV3> = {
   },
   sect_tiandao: {
     v: 3,
-    skin: {
-      full: { src: `${SPAR_BASE}hero-v3-tiandao-full.webp`, w: 381.1, h: 510, dx: -236.5, dy: -510 },
-      arm: { src: `${SPAR_BASE}hero-v3-tiandao-arm.webp`, w: 135.0, h: 61.0, dx: -13.1, dy: -16.2 },
-      shoulderPatch: { src: `${SPAR_BASE}hero-v3-tiandao-patch.webp`, w: 71.8, h: 65.2, dx: -35.1, dy: -32.4 },
-    },
     shoulderSocket: { x: 6.6, y: -394.3 },
     gripSocket: { x: 96.4, y: 30.9 },
     designHeight: WARRIOR.designHeight, // 天刀門
@@ -246,11 +160,6 @@ export const SECT_RIGS_V3: Record<string, WarriorRigV3> = {
   },
   sect_shaolin: {
     v: 3,
-    skin: {
-      full: { src: `${SPAR_BASE}hero-v3-shaolin-full.webp`, w: 357.0, h: 510, dx: -211.5, dy: -510 },
-      arm: { src: `${SPAR_BASE}hero-v3-shaolin-arm.webp`, w: 130.5, h: 88.5, dx: -15.6, dy: -16.4 },
-      shoulderPatch: { src: `${SPAR_BASE}hero-v3-shaolin-patch.webp`, w: 70.6, h: 64.5, dx: -34.7, dy: -32.0 },
-    },
     shoulderSocket: { x: 0.2, y: -384.1 },
     gripSocket: { x: 89.6, y: 53.4 },
     designHeight: WARRIOR.designHeight, // 少林派
@@ -258,11 +167,6 @@ export const SECT_RIGS_V3: Record<string, WarriorRigV3> = {
   },
   sect_wudang: {
     v: 3,
-    skin: {
-      full: { src: `${SPAR_BASE}hero-v3-wudang-full.webp`, w: 342.9, h: 510, dx: -120.5, dy: -510 },
-      arm: { src: `${SPAR_BASE}hero-v3-wudang-arm.webp`, w: 115.1, h: 103.3, dx: -9.0, dy: -10.4 },
-      shoulderPatch: { src: `${SPAR_BASE}hero-v3-wudang-patch.webp`, w: 63.8, h: 58.6, dx: -31.5, dy: -29.1 },
-    },
     shoulderSocket: { x: 25.1, y: -378.3 },
     gripSocket: { x: 86.7, y: 72.8 },
     designHeight: WARRIOR.designHeight, // 武當派（霧接臂，蓄勢收細）
@@ -270,11 +174,6 @@ export const SECT_RIGS_V3: Record<string, WarriorRigV3> = {
   },
   sect_tangmen: {
     v: 3,
-    skin: {
-      full: { src: `${SPAR_BASE}hero-v3-tangmen-full.webp`, w: 354.1, h: 510, dx: -120.7, dy: -510 },
-      arm: { src: `${SPAR_BASE}hero-v3-tangmen-arm.webp`, w: 94.4, h: 111.9, dx: -39.5, dy: -29.1 },
-      shoulderPatch: { src: `${SPAR_BASE}hero-v3-tangmen-patch.webp`, w: 69.0, h: 63.1, dx: -34.0, dy: -31.3 },
-    },
     shoulderSocket: { x: 52.8, y: -373.8 },
     gripSocket: { x: 29.8, y: 67.2 },
     designHeight: WARRIOR.designHeight, // 唐門（霧接臂，蓄勢收細）
@@ -282,11 +181,6 @@ export const SECT_RIGS_V3: Record<string, WarriorRigV3> = {
   },
   sect_mojiao: {
     v: 3,
-    skin: {
-      full: { src: `${SPAR_BASE}hero-v3-mojiao-full.webp`, w: 361.1, h: 510, dx: -212.7, dy: -510 },
-      arm: { src: `${SPAR_BASE}hero-v3-mojiao-arm.webp`, w: 117.1, h: 72.8, dx: -23.8, dy: -21.6 },
-      shoulderPatch: { src: `${SPAR_BASE}hero-v3-mojiao-patch.webp`, w: 67.7, h: 59.6, dx: -33.3, dy: -28.5 },
-    },
     shoulderSocket: { x: 50.7, y: -367.3 },
     gripSocket: { x: 73.2, y: 27.4 },
     designHeight: WARRIOR.designHeight, // 魔教（霧接臂，蓄勢收細）
@@ -294,11 +188,6 @@ export const SECT_RIGS_V3: Record<string, WarriorRigV3> = {
   },
   sect_huashan: {
     v: 3,
-    skin: {
-      full: { src: `${SPAR_BASE}hero-v3-huashan-full.webp`, w: 336.9, h: 510, dx: -118.8, dy: -510 },
-      arm: { src: `${SPAR_BASE}hero-v3-huashan-arm.webp`, w: 132.1, h: 64.2, dx: -10.4, dy: -11.9 },
-      shoulderPatch: { src: `${SPAR_BASE}hero-v3-huashan-patch.webp`, w: 69.4, h: 63.1, dx: -34.0, dy: -31.3 },
-    },
     shoulderSocket: { x: 34.1, y: -401.8 },
     gripSocket: { x: 93.3, y: 42.9 },
     designHeight: WARRIOR.designHeight, // 華山（霧接臂，蓄勢收細）
@@ -306,11 +195,6 @@ export const SECT_RIGS_V3: Record<string, WarriorRigV3> = {
   },
   sect_taohua: {
     v: 3,
-    skin: {
-      full: { src: `${SPAR_BASE}hero-v3-taohua-full.webp`, w: 312.7, h: 510, dx: -109.9, dy: -510 },
-      arm: { src: `${SPAR_BASE}hero-v3-taohua-arm.webp`, w: 87.5, h: 126.4, dx: -8.3, dy: -10.3 },
-      shoulderPatch: { src: `${SPAR_BASE}hero-v3-taohua-patch.webp`, w: 61.3, h: 58.2, dx: -31.3, dy: -28.9 },
-    },
     shoulderSocket: { x: 3.8, y: -365.4 },
     gripSocket: { x: 63.7, y: 96.4 },
     designHeight: WARRIOR.designHeight, // 桃花島
@@ -318,11 +202,6 @@ export const SECT_RIGS_V3: Record<string, WarriorRigV3> = {
   },
   sect_wugen: {
     v: 3,
-    skin: {
-      full: { src: `${SPAR_BASE}hero-v3-wugen-full.webp`, w: 358.8, h: 510, dx: -152.3, dy: -510 },
-      arm: { src: `${SPAR_BASE}hero-v3-wugen-arm.webp`, w: 129.2, h: 45.1, dx: -9.2, dy: -12.1 },
-      shoulderPatch: { src: `${SPAR_BASE}hero-v3-wugen-patch.webp`, w: 68.2, h: 62.0, dx: -33.4, dy: -30.8 },
-    },
     shoulderSocket: { x: 23.8, y: -363.2 },
     gripSocket: { x: 97.2, y: 25.7 },
     designHeight: WARRIOR.designHeight, // 無根門（霧接臂，蓄勢收細）
@@ -330,10 +209,9 @@ export const SECT_RIGS_V3: Record<string, WarriorRigV3> = {
   },
 };
 
-/** 按門派揀俠客骨架皮膚；v3 時裝優先，冇就用舊三件套，再冇就用默認浪人裝 */
+/** 按門派揀俠客骨架；冇門派／未知門派用默認骨架 */
 export function rigForSect(sectId: string | null | undefined): AnyWarriorRig {
-  if (sectId && SECT_RIGS_V3[sectId]) return SECT_RIGS_V3[sectId];
-  return (sectId && SECT_RIGS[sectId]) || WARRIOR;
+  return (sectId && SECT_RIGS_V3[sectId]) || WARRIOR;
 }
 
 /** 敵影：單圖，腳底錨點，雙眼位置（紅眼脈動） */
