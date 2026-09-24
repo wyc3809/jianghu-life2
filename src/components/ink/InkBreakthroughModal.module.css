@@ -1,4 +1,4 @@
-/* 江湖一生 · 修為突破彈窗（成功躍境／失敗走火入魔）+ 升級動畫 */
+/* 江湖一生 · 修為突破（夜墨儀式：墨環、直書大字、落印；語言同 styles.css「特效時刻」） */
 
 .root {
   position: fixed;
@@ -8,21 +8,23 @@
   place-items: center;
   overflow: hidden;
   color: #efe6cf;
-  font-family:
-    'Noto Serif CJK TC',
-    'Noto Serif CJK SC',
-    'Songti TC',
-    'STSong',
-    serif;
+  font-family: 'Noto Serif CJK TC', 'Noto Serif CJK SC', 'Songti TC', 'STSong', serif;
   cursor: pointer;
+  animation: bkIn var(--motion-base) var(--ease-ink) both;
+}
+
+@keyframes bkIn {
+  from {
+    opacity: 0;
+  }
 }
 
 .rootSuccess {
-  background: radial-gradient(75% 60% at 50% 42%, #241d10 0%, #16110a 55%, #0a0806 100%);
+  background: radial-gradient(75% 60% at 50% 44%, #231d15 0%, #15110c 55%, #0a0806 100%);
 }
 
 .rootFail {
-  background: radial-gradient(75% 60% at 50% 42%, #241210 0%, #160d0a 55%, #0a0806 100%);
+  background: radial-gradient(75% 60% at 50% 44%, #26120f 0%, #170d0a 55%, #0a0806 100%);
 }
 
 .grain {
@@ -30,16 +32,9 @@
   inset: 0;
   z-index: 5;
   pointer-events: none;
-  /* 紙紋位圖（原 SVG feTurbulence 雜訊 × 0.15） */
   opacity: 0.1;
   mix-blend-mode: overlay;
   background-image: url('/ink/art/ui/paper-grain.webp');
-}
-
-.burst {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
 }
 
 .stage {
@@ -50,17 +45,8 @@
   padding: 24px;
 }
 
-.body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  text-align: center;
-  cursor: default;
-}
-
 .shake {
-  animation: bkShake var(--motion-base) linear 0.15s;
+  animation: bkShake var(--motion-base) linear var(--motion-slow);
 }
 
 .shakeStill {
@@ -86,85 +72,173 @@
   }
 }
 
-.seal {
-  position: relative;
-  width: clamp(72px, 14vh, 116px);
-  height: clamp(72px, 14vh, 116px);
-  border-radius: 50%;
-  overflow: hidden;
-  box-shadow: 0 0 0 2px rgba(212, 168, 83, 0.5), 0 0 32px rgba(179, 52, 42, 0.4);
-  transform: scale(2);
-  opacity: 0;
-  animation: bkStamp var(--motion-base) cubic-bezier(0.17, 0.89, 0.32, 1.28) 0.2s forwards;
+/* 墨環：位圖反白成宣紙色，喺夜墨底上慢轉 */
+.halos {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  width: min(86vw, 360px);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  pointer-events: none;
 }
 
-.sealStill {
-  animation: none;
-  opacity: 1;
-  transform: scale(1);
+.halo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: invert(0.92) sepia(0.35);
+  mix-blend-mode: screen;
 }
 
-@keyframes bkStamp {
+.haloA {
+  opacity: 0.4;
+  animation:
+    bkHaloIn var(--motion-ritual) var(--ease-ink) both,
+    bkSpin 18s linear infinite;
+}
+
+.haloB {
+  inset: 12%;
+  width: 76%;
+  height: 76%;
+  opacity: 0.22;
+  animation:
+    bkHaloIn var(--motion-ritual) var(--ease-ink) var(--motion-quick) both,
+    bkSpin 26s linear infinite reverse;
+}
+
+@keyframes bkHaloIn {
+  from {
+    opacity: 0;
+    scale: 0.55;
+    filter: invert(0.92) sepia(0.35) blur(8px);
+  }
+}
+
+@keyframes bkSpin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+/* 失敗：墨環轉入朱砂、向外崩散 */
+.rootFail .halo {
+  filter: invert(0.3) sepia(1) saturate(3) hue-rotate(-28deg);
+  mix-blend-mode: normal;
+}
+
+.rootFail .haloA {
+  animation: bkHaloBreak var(--motion-ritual) var(--ease-ink) both;
+}
+
+.rootFail .haloB {
+  animation: bkHaloBreak var(--motion-ritual) var(--ease-ink) var(--motion-quick) both;
+}
+
+@keyframes bkHaloBreak {
   0% {
     opacity: 0;
-    transform: scale(2);
+    scale: 0.6;
   }
-  60% {
+  35% {
+    opacity: 0.5;
+    scale: 1;
+  }
+  100% {
+    opacity: 0.12;
+    scale: 1.35;
+    filter: invert(0.3) sepia(1) saturate(3) hue-rotate(-28deg) blur(5px);
+  }
+}
+
+.body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  cursor: default;
+}
+
+.kicker {
+  margin: 0;
+  font-size: 0.82rem;
+  letter-spacing: 0.5em;
+  text-indent: 0.5em;
+  color: #c9624f;
+  animation: bkFade var(--motion-base) var(--ease-ink) calc(var(--motion-base) * 0.6) both;
+}
+
+/* 新境界：直書大字，逐字落墨 */
+.bigName {
+  position: relative;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1em;
+  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
+  font-size: clamp(2.6rem, 12vw, 3.8rem);
+  font-weight: 700;
+  line-height: 1.08;
+  color: #f3ead6;
+}
+
+.bigName span {
+  animation: bkWrite var(--motion-slow) var(--ease-brush) calc(var(--motion-base) + var(--i, 0) * var(--motion-quick))
+    both;
+}
+
+.rootFail .bigName {
+  color: #d88b78;
+}
+
+@keyframes bkWrite {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+    filter: blur(5px);
+  }
+}
+
+/* 印：大字寫完先壓落，留喺字腳 */
+.seal {
+  position: absolute;
+  right: -76px;
+  bottom: -10px;
+  width: 72px;
+  height: 72px;
+  animation: bkSealPress var(--motion-slow) var(--ease-stamp) calc(var(--motion-base) + var(--motion-slow)) both;
+}
+
+@keyframes bkSealPress {
+  0% {
+    opacity: 0;
+    transform: scale(1.6) rotate(-14deg);
+    filter: blur(2px);
+  }
+  55% {
     opacity: 1;
-    transform: scale(0.92);
+    transform: scale(0.94) rotate(-8deg);
+    filter: blur(0);
   }
   100% {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) rotate(-8deg);
   }
-}
-
-.seal img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.seal span {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
-  font-size: clamp(28px, 5vh, 44px);
-  color: #f6ead9;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
-  background: rgba(20, 14, 10, 0.28);
-}
-
-.headline {
-  margin: 4px 0 0;
-  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
-  font-size: clamp(22px, 4vh, 34px);
-  letter-spacing: 0.16em;
-  color: #efe6cf;
-  text-shadow: 0 0 20px rgba(179, 52, 42, 0.4);
 }
 
 .tierWrap {
   display: flex;
   align-items: baseline;
   gap: 10px;
-  font-size: clamp(14px, 2.2vh, 18px);
-  letter-spacing: 0.08em;
-  opacity: 0;
-  animation: bkFadeIn var(--motion-slow) var(--ease-ink) 0.55s forwards;
-}
-
-.tierWrapStill {
-  animation: none;
-  opacity: 1;
-}
-
-@keyframes bkFadeIn {
-  to {
-    opacity: 1;
-  }
+  margin-top: 6px;
+  font-size: clamp(14px, 2.2vh, 17px);
+  letter-spacing: 0.12em;
+  animation: bkFade var(--motion-slow) var(--ease-ink) var(--motion-ritual) both;
 }
 
 .tierOld {
@@ -172,17 +246,17 @@
 }
 
 .tierArrow {
-  color: #d4a853;
+  color: #c9624f;
+  letter-spacing: -0.1em;
 }
 
 .tierNew {
-  color: #d4a853;
+  color: #f3ead6;
   font-weight: 700;
-  font-size: 1.1em;
 }
 
 .deltas {
-  margin: 6px 0 4px;
+  margin: 0 0 4px;
   padding: 0;
   list-style: none;
   display: flex;
@@ -190,65 +264,43 @@
   gap: 3px;
   font-size: clamp(12px, 1.8vh, 15px);
   color: #cabfa4;
-  opacity: 0;
-  animation: bkFadeIn var(--motion-slow) var(--ease-ink) 0.75s forwards;
+  animation: bkFade var(--motion-slow) var(--ease-ink) calc(var(--motion-ritual) + var(--motion-quick)) both;
 }
 
 .ack {
-  margin-top: 14px;
+  margin-top: 12px;
   padding: 9px 22px;
-  border: 1px solid rgba(212, 168, 83, 0.6);
+  border: 1px solid rgba(201, 98, 79, 0.65);
   border-radius: 4px;
-  background: rgba(20, 14, 10, 0.4);
+  background: rgba(163, 58, 50, 0.22);
   color: #efe6cf;
   font-family: inherit;
   font-size: 0.9rem;
   letter-spacing: 0.1em;
   cursor: pointer;
-  opacity: 0;
-  animation: bkFadeIn var(--motion-slow) var(--ease-ink) 0.95s forwards;
+  animation: bkFade var(--motion-slow) var(--ease-ink) calc(var(--motion-ritual) + var(--motion-base)) both;
 }
 
 .ack:hover {
-  background: rgba(212, 168, 83, 0.16);
+  background: rgba(163, 58, 50, 0.36);
 }
 
+@keyframes bkFade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+/* 減少動態：時長 token 已變 1ms；淨係要停埋無限慢轉 */
 @media (prefers-reduced-motion: reduce) {
-  .shake,
-  .seal,
-  .tierWrap,
-  .deltas,
-  .ack {
-    animation: none !important;
-  }
-  .seal {
-    opacity: 1;
-    transform: scale(1);
-  }
-  .tierWrap,
-  .deltas,
-  .ack {
-    opacity: 1;
+  .haloA,
+  .haloB {
+    animation: none;
   }
 }
 
-/* 遊戲內「減少動態」設定（html[data-ink-motion='reduce']）：同上 */
-:global(html[data-ink-motion='reduce']) .shake,
-:global(html[data-ink-motion='reduce']) .seal,
-:global(html[data-ink-motion='reduce']) .tierWrap,
-:global(html[data-ink-motion='reduce']) .deltas,
-:global(html[data-ink-motion='reduce']) .ack {
-  animation: none !important;
+:global(html[data-ink-motion='reduce']) .haloA,
+:global(html[data-ink-motion='reduce']) .haloB {
+  animation: none;
 }
-
-:global(html[data-ink-motion='reduce']) .seal {
-  opacity: 1;
-  transform: scale(1);
-}
-
-:global(html[data-ink-motion='reduce']) .tierWrap,
-:global(html[data-ink-motion='reduce']) .deltas,
-:global(html[data-ink-motion='reduce']) .ack {
-  opacity: 1;
-}
-

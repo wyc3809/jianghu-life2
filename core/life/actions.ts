@@ -3,6 +3,8 @@ import { getRng } from '@core/random';
 import { getGearDef, rollForgeResult, type GearRarity } from '@data/equipment/catalog';
 import { artForStanding, getSectContent } from '@data/content/packs';
 import { addCondition } from './monthly';
+import { addInjury, healInjuries } from './injuries';
+import { HEAL_MONTHS } from '@data/injuries/tuning';
 import { grantGear, raiseBaseMaxHp, raiseBaseMaxQi, equipGear, ensureGear } from './equipment';
 import { snapshotRng, syncRngFromState, SECT_DEFS } from './gameState';
 import { pushChronicle } from './chronicle';
@@ -126,7 +128,7 @@ export function applyPracticeOutcome(
       }
       if (rng.chance(0.12)) {
         logs.push('走岔半招，皮肉受苦。');
-        addCondition(state, 'bleeding');
+        logs.push(addInjury(state, 'light', '練功走岔', rng.chance(0.5) ? 'arm' : 'leg'));
       }
       break;
     }
@@ -503,7 +505,10 @@ export function applyPracticeOutcome(
           .map((x) => ({ ...x, monthsLeft: x.monthsLeft - 2 }))
           .filter((x) => x.monthsLeft > 0);
       }
+      const treated = healInjuries(state, HEAL_MONTHS);
       logs.push('醫館調養後，氣色好了許多。');
+      if (treated) logs.push('大夫正骨敷藥，身上傷勢好轉。');
+      if (c.injuries?.some((x) => x.tier === 'crippled')) logs.push('大夫搖頭：殘疾之處，非尋常藥石可醫。');
       break;
     }
     case 'seek_child': {

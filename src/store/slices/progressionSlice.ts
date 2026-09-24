@@ -1,4 +1,5 @@
 import { produce } from 'immer';
+import { shiftMoment } from '@core/life/moments';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { createNewLife, migrateLifeState, syncRngFromState, type CreateLifeOptions } from '@core/life/gameState';
 import {
@@ -47,6 +48,7 @@ export function createProgressionSlice(
   | 'advanceMonth'
   | 'advanceYear'
   | 'dismissCoach'
+  | 'ackMoment'
   | 'clearResult'
   | 'setTab'
   | 'setDebugOpen'
@@ -186,6 +188,16 @@ export function createProgressionSlice(
     },
 
     advanceYear: () => get().advanceMonth(),
+
+    ackMoment: () => {
+      const { state } = get();
+      if (!state?.moments?.length) return;
+      const next = produce(state, (draft) => {
+        shiftMoment(draft);
+      });
+      void save(next);
+      set({ state: next });
+    },
 
     dismissCoach: () => {
       const { state } = get();

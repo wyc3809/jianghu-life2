@@ -25,6 +25,9 @@ export function meetsRequirements(
   if (req.minHealth !== undefined && c.health < req.minHealth) return false;
   if (req.minMartial !== undefined && c.martial < req.minMartial) return false;
   if (req.minReputation !== undefined && c.reputation < req.minReputation) return false;
+  if (req.hasCrippled !== undefined && (c.injuries ?? []).some((x) => x.tier === 'crippled') !== req.hasCrippled) {
+    return false;
+  }
 
   if (req.minAttrs) {
     for (const [k, v] of Object.entries(req.minAttrs)) {

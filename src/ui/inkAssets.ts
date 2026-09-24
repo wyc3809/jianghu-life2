@@ -14,40 +14,53 @@ export function inkArtUrl(pathUnderInk: string): string {
   return `${base}ink/${cleaned}?v=art1`;
 }
 
-/** 印文 → 檔名 id（`public/ink/art/seals/seal-{id}.webp`） */
-const SEAL_ID_BY_TEXT: Readonly<Record<string, string>> = {
-  生: 'sheng',
-  終: 'zhong',
-  緣: 'yuan',
-  江湖: 'jianghu',
-  招: 'zhao',
-  勝: 'sheng-win',
-  命: 'ming',
-  危: 'wei',
+/**
+ * 印鍵（store 嘅 sealText／各元件用嘅一字代號）→ 印面詞語（2–4 字）＋檔名 id。
+ * 印面係完整詞語，唔再係單字（`scripts/art/build_ink_stamps.py` SEALS 同步）。
+ */
+const SEALS: Readonly<Record<string, { id: string; phrase: string }>> = {
+  生: { id: 'sheng', phrase: '人生初度' },
+  終: { id: 'zhong', phrase: '塵緣已了' },
+  緣: { id: 'yuan', phrase: '緣定三生' },
+  江湖: { id: 'jianghu', phrase: '笑傲江湖' },
+  招: { id: 'zhao', phrase: '一氣呵成' },
+  勝: { id: 'sheng-win', phrase: '旗開得勝' },
+  命: { id: 'ming', phrase: '命懸一線' },
+  危: { id: 'wei', phrase: '險象環生' },
   // 落印全集（store slices 嘅 sealText）
-  定: 'ding',
-  劍: 'jian',
-  戰: 'zhan',
-  敗: 'bai',
-  武: 'wu',
-  遁: 'dun',
-  宗: 'zong',
-  收: 'shou',
-  教: 'jiao',
-  晉: 'jin',
-  月: 'yue',
-  煉: 'lian',
-  裝: 'zhuang',
+  定: { id: 'ding', phrase: '落子無悔' },
+  劍: { id: 'jian', phrase: '華山論劍' },
+  戰: { id: 'zhan', phrase: '狹路相逢' },
+  敗: { id: 'bai', phrase: '技不如人' },
+  武: { id: 'wu', phrase: '得窺門徑' },
+  遁: { id: 'dun', phrase: '全身而退' },
+  宗: { id: 'zong', phrase: '開宗立派' },
+  收: { id: 'shou', phrase: '廣納門徒' },
+  教: { id: 'jiao', phrase: '傳道授業' },
+  晉: { id: 'jin', phrase: '聲名鵲起' },
+  月: { id: 'yue', phrase: '歲月如流' },
+  煉: { id: 'lian', phrase: '精益求精' },
+  裝: { id: 'zhuang', phrase: '披掛上陣' },
+  // 特效時刻
+  破: { id: 'po', phrase: '更上層樓' },
+  傷: { id: 'shang', phrase: '傷筋動骨' },
+  殘: { id: 'can', phrase: '傷及根本' },
+  癒: { id: 'yu', phrase: '妙手回春' },
 };
 
-/** 已有位圖的印文 */
-export const INK_SEAL_TEXTS = Object.keys(SEAL_ID_BY_TEXT);
+/** 已有位圖的印鍵 */
+export const INK_SEAL_TEXTS = Object.keys(SEALS);
 
-/** 印文 → 朱砂印 WebP URL；無對應則回 null（呼叫端沿用 CSS 字印） */
+/** 印鍵 → 朱砂印 WebP URL；無對應則回 null（呼叫端沿用 CSS 字印） */
 export function sealUrlForText(text: string | null | undefined): string | null {
   if (!text) return null;
-  const id = SEAL_ID_BY_TEXT[text];
-  return id ? inkArtUrl(`art/seals/seal-${id}.webp`) : null;
+  const seal = SEALS[text];
+  return seal ? inkArtUrl(`art/seals/seal-${seal.id}.webp`) : null;
+}
+
+/** 印鍵 → 印面詞語（無障礙文字用）；無對應回原字 */
+export function sealPhrase(text: string): string {
+  return SEALS[text]?.phrase ?? text;
 }
 
 /** 戰鬥用印（連招／勝／命懸／危） */

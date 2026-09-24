@@ -46,6 +46,8 @@ const partialAttrsSchema = z.partialRecord(
   z.number(),
 );
 
+const injuryPartSchema = z.enum(['head', 'torso', 'arm', 'leg']);
+const injuryTierSchema = z.enum(['light', 'heavy', 'crippled']);
 const partialNatureSchema = z.partialRecord(z.enum(natureKeys), z.number());
 const partialWorldSchema = z.partialRecord(z.enum(worldAttrKeys), z.number());
 
@@ -64,6 +66,8 @@ export const requirementSchema = z.object({
   minHealth: z.number().optional(),
   minMartial: z.number().optional(),
   minReputation: z.number().optional(),
+  /** 身有傷殘先出（奇遇醫殘） */
+  hasCrippled: z.boolean().optional(),
   once: z.boolean().optional(),
   tags: z.array(z.string()).optional(),
   anyTag: z.array(z.string()).optional(),
@@ -94,6 +98,8 @@ export const effectSchema = z.discriminatedUnion('type', [
   z.object({ type: z.literal('maxQi'), amount: z.number() }),
   z.object({ type: z.literal('qi'), amount: z.number() }),
   z.object({ type: z.literal('condition'), id: z.string() }),
+  z.object({ type: z.literal('injury'), tier: injuryTierSchema, part: injuryPartSchema.optional() }),
+  z.object({ type: z.literal('cure_crippled'), part: injuryPartSchema.optional() }),
   z.object({
     type: z.literal('practice'),
     action: z.enum(['train_martial', 'train_internal', 'temper_body', 'forge', 'seek_master']),
@@ -150,6 +156,18 @@ export interface LifeSect {
   merit: number;
 }
 
+/** 部位傷勢（design/gdd/injury-system.md） */
+export type InjuryPart = 'head' | 'torso' | 'arm' | 'leg';
+export type InjuryTier = 'light' | 'heavy' | 'crippled';
+export interface LifeInjury {
+  part: InjuryPart;
+  tier: InjuryTier;
+  /** 剩餘月數；null＝傷殘（永久） */
+  monthsLeft: number | null;
+  /** 傷從何來（人物欄顯示） */
+  cause: string;
+}
+
 export interface LifeCondition {
   id: string;
   name: string;
@@ -193,6 +211,8 @@ export interface LifeCharacter {
   birthplace: string;
   location: string;
   conditions: LifeCondition[];
+  /** 部位傷勢；每部位最多一條。舊存檔無此欄＝無傷 */
+  injuries?: LifeInjury[];
   attributes: Record<WuxiaAttribute, number>;
   /** 心性：俠、邪、狂、惡 */
   nature: NatureState;
@@ -342,6 +362,14 @@ export interface FoundedSect {
   maxDisciples: number;
 }
 
+/** 值得全屏儀式特效嘅時刻（UI 逐個播放後由 store 移除） */
+export type LifeMoment =
+  | { kind: 'learn'; name: string }
+  | { kind: 'rank'; name: string; rank: number; rankName: string }
+  | { kind: 'title'; label: string; tier: number }
+  | { kind: 'injury'; part: InjuryPart; tier: InjuryTier }
+  | { kind: 'cure'; part: InjuryPart };
+
 export interface LifeGameState {
   version: 1;
   seed: number;
@@ -368,6 +396,8 @@ export interface LifeGameState {
   pendingCombat?: PendingCombat | null;
   /** 新獲裝備待確認是否換上（彈窗詢問，見 InkGearCompareModal） */
   pendingGearCompare?: { gearId: string } | null;
+  /** 待播特效時刻（學新武學／武學升階／稱號晉升），見 core/life/moments.ts */
+  moments?: LifeMoment[];
   /** 本月剩餘修煉行動次數（每月三次） */
   practiceActionsLeft?: number;
   lifeLog: string[];
@@ -502,6 +532,16 @@ export const lifeCharacterSchema = z.object({
       }),
     )
     .default([]),
+  injuries: z
+    .array(
+      z.object({
+        part: injuryPartSchema,
+        tier: injuryTierSchema,
+        monthsLeft: z.number().nullable(),
+        cause: z.string(),
+      }),
+    )
+    .optional(),
   attributes: z.record(z.enum(wuxiaAttributeKeys), z.number()),
   nature: z
     .object({
@@ -623,6 +663,17 @@ export const lifeGameStateSchema = z.object({
     .nullable(),
   pendingCombat: z.any().nullable().optional(),
   pendingGearCompare: z.object({ gearId: z.string() }).nullable().optional(),
+  moments: z
+    .array(
+      z.union([
+        z.object({ kind: z.literal('learn'), name: z.string() }),
+        z.object({ kind: z.literal('rank'), name: z.string(), rank: z.number(), rankName: z.string() }),
+        z.object({ kind: z.literal('title'), label: z.string(), tier: z.number() }),
+        z.object({ kind: z.literal('injury'), part: injuryPartSchema, tier: injuryTierSchema }),
+        z.object({ kind: z.literal('cure'), part: injuryPartSchema }),
+      ]),
+    )
+    .optional(),
   practiceActionsLeft: z.number().default(3),
   lifeLog: z.array(z.string()),
   phase: z.enum(['create', 'playing', 'summary']),

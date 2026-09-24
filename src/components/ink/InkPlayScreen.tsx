@@ -46,6 +46,7 @@ import { InkEventPanel } from './InkEventPanel';
 import { InkCombatPanel } from './InkCombatPanel';
 import { InkBossIntro } from './InkBossIntro';
 import { InkBreakthroughModal } from './InkBreakthroughModal';
+import { InkMomentFx } from './InkMomentFx';
 import { InkPracticePanel, type PracticeView } from './InkPracticePanel';
 import { InkSparStage } from './InkSparStage';
 import { LifeDebugPanel } from '../LifeDebugPanel';
@@ -85,6 +86,7 @@ export function InkPlayScreen({ state }: Props) {
   const attemptBreakthrough = useLifeStore((s) => s.attemptBreakthrough);
   const breakthroughResult = useLifeStore((s) => s.breakthroughResult);
   const clearBreakthroughResult = useLifeStore((s) => s.clearBreakthroughResult);
+  const ackMoment = useLifeStore((s) => s.ackMoment);
   const offlineGain = useLifeStore((s) => s.offlineGain);
   const clearOfflineGain = useLifeStore((s) => s.clearOfflineGain);
   const [practiceView, setPracticeView] = useState<PracticeView>('main');
@@ -200,6 +202,12 @@ export function InkPlayScreen({ state }: Props) {
   const eventFocus =
     state.phase === 'playing' && Boolean(pendingEvent) && !showResult && !combat;
   /** 交手中隱藏全局氣血條，避免與戰鬥血條重複 */
+  // 有重傷／傷殘：名字旁朱砂點（撳入人物欄）
+  const worstInjury = (c.injuries ?? []).reduce<'heavy' | 'crippled' | null>(
+    (w, x) => (x.tier === 'crippled' ? 'crippled' : x.tier === 'heavy' && w !== 'crippled' ? 'heavy' : w),
+    null,
+  );
+  const woundLabel = worstInjury === 'crippled' ? '傷殘' : worstInjury === 'heavy' ? '重傷' : null;
   const showVitalsBars = !combat && !eventFocus && (tab === 'home' || tab === 'person');
   const resultKind = lastResult?.title === '修煉' ? 'practice' : 'month';
 
@@ -327,6 +335,18 @@ export function InkPlayScreen({ state }: Props) {
             </p>
             <h2 className="ink-name">
               {c.name}
+              {woundLabel && !combat && (
+                <button
+                  type="button"
+                  className="ink-name-wound"
+                  aria-label={`身有${woundLabel}，查看傷勢`}
+                  title={woundLabel}
+                  onClick={() => {
+                    setTab('person');
+                    setPersonView('main');
+                  }}
+                />
+              )}
               {leadTitle && (
                 <span className={`ink-name-title ${titleTierColorClass(leadTitle.tier)}`}>
                   {leadTitle.label}
@@ -591,6 +611,20 @@ export function InkPlayScreen({ state }: Props) {
       {breakthroughResult && (
         <InkBreakthroughModal result={breakthroughResult} onClose={clearBreakthroughResult} />
       )}
+
+      {/* 特效時刻：等戰鬥、結果匣、落印、突破、換裝詢問都完咗先播 */}
+      {state.moments?.[0] &&
+        state.phase === 'playing' &&
+        !combat &&
+        !showResult &&
+        !sealText &&
+        !breakthroughResult &&
+        !state.pendingGearCompare && (
+          <InkMomentFx key={JSON.stringify(state.moments[0])} moment={state.moments[0]}
+            onDone={ackMoment}
+            sectId={state.character.sectId}
+          />
+        )}
 
       {showResult &&
         lastResult &&

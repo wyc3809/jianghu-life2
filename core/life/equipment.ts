@@ -1,5 +1,6 @@
 import type { LifeCharacter, LifeGameState } from '@interfaces/lifeEngine';
 import { GEAR_CATALOG, getGearDef, type GearCombatBonus, type GearDef, type GearSlot } from '@data/equipment/catalog';
+import { torsoHpFactor } from './injuryMath';
 
 export function emptyEquipment(): Record<GearSlot, string | null> {
   return { weapon: 'old-sword', armor: 'plain-robe', accessory: null };
@@ -136,7 +137,8 @@ export function recomputeCapBonuses(c: LifeCharacter): void {
   c.flags.baseMaxHp = baseHp;
   c.flags.baseMaxQi = baseQi;
   const t = gearTotals(c);
-  c.maxHealth = baseHp + t.maxHpBonus;
+  // 軀幹傷：上限按比例扣（design/gdd/injury-system.md §3.5）
+  c.maxHealth = Math.round((baseHp + t.maxHpBonus) * torsoHpFactor(c));
   c.maxQi = baseQi + t.maxQiBonus;
   if (c.health > c.maxHealth) c.health = c.maxHealth;
   if (c.qi > c.maxQi) c.qi = c.maxQi;

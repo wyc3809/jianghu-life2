@@ -79,7 +79,8 @@ def roughen(mask: Image.Image, rng: random.Random, amount: float, blur: float = 
 
 
 def glyph_mask(font_path: str, text: str, box: tuple[int, int, int, int], weight: int = 0) -> Image.Image:
-    """把字（可多字，直排右起）塞滿 box；weight>0 加粗（刀刻白文較肥）。"""
+    """把字（1–4 字，直排右起）塞滿 box；weight>0 加粗（刀刻白文較肥）。
+    版式跟傳統印：兩字左右分行；三字右行一字拉長、左行兩字；四字「田」字格（右行上下、再左行上下）。"""
     x0, y0, x1, y1 = box
     bw, bh = x1 - x0, y1 - y0
     canvas = Image.new("L", (WORK, WORK), 0)
@@ -91,8 +92,20 @@ def glyph_mask(font_path: str, text: str, box: tuple[int, int, int, int], weight
         mid = x0 + bw // 2
         gap = int(bw * 0.04)
         slots = [(mid + gap, y0, x1, y1), (x0, y0, mid - gap, y1)]
+    elif len(chars) in (3, 4):
+        mid_x = x0 + bw // 2
+        mid_y = y0 + bh // 2
+        gx, gy = int(bw * 0.03), int(bh * 0.03)
+        right_top = (mid_x + gx, y0, x1, mid_y - gy)
+        right_bot = (mid_x + gx, mid_y + gy, x1, y1)
+        left_top = (x0, y0, mid_x - gx, mid_y - gy)
+        left_bot = (x0, mid_y + gy, mid_x - gx, y1)
+        if len(chars) == 3:
+            slots = [(mid_x + gx, y0, x1, y1), left_top, left_bot]
+        else:
+            slots = [right_top, right_bot, left_top, left_bot]
     else:
-        raise ValueError("最多兩字")
+        raise ValueError("印文最多四字")
 
     for ch, (sx0, sy0, sx1, sy1) in zip(chars, slots):
         sw, sh = sx1 - sx0, sy1 - sy0
@@ -104,7 +117,9 @@ def glyph_mask(font_path: str, text: str, box: tuple[int, int, int, int], weight
         # 印文字要撐滿格：保持比例放到最大，再沿短邊拉伸（單字 18%；雙字直排瘦長格可拉到 1.8 倍）
         gw, gh = g.size
         k = min(sw / gw, sh / gh)
-        stretch = 1.18 if len(chars) == 1 else 1.8
+        # 三字印右行單字格瘦長，同兩字一樣可拉長；四字方格只輕拉
+        tall = (sy1 - sy0) > (sx1 - sx0) * 1.4
+        stretch = 1.8 if tall else 1.18
         tw = min(sw, int(gw * k * (stretch if gw * k < sw else 1)))
         th = min(sh, int(gh * k * (stretch if gh * k < sh else 1)))
         g = g.resize((tw, th), Image.LANCZOS)
@@ -154,7 +169,7 @@ def make_seal(font: str, text: str, style: str, seed: int, tilt: float = 0.0) ->
         # 白文：實心朱底，字為留白
         block = rounded_rect(S, outer, radius=int(S * 0.035))
         inner = int(S * 0.15)
-        g = glyph_mask(font, text, (inner, inner, S - inner, S - inner), weight=7)
+        g = glyph_mask(font, text, (inner, inner, S - inner, S - inner), weight=7 if len(text) <= 2 else 5)
         body = ImageChops.subtract(block, g)
     else:
         # 朱文：朱字 + 朱框（框內留白）
@@ -258,29 +273,33 @@ def make_stroke(font: str, glyph: str, seed: int) -> Image.Image:
 # ----------------------------------------------------------------- main ---
 
 SEALS = [
-    # id, 印文, 樣式, 種子, 傾角
-    ("sheng", "生", "zhuwen", 11, -3.0),
-    ("zhong", "終", "baiwen", 12, 2.0),
-    ("yuan", "緣", "zhuwen", 13, -2.0),
-    ("jianghu", "江湖", "baiwen", 14, 0.0),
-    ("zhao", "招", "baiwen", 21, -4.0),
-    ("sheng-win", "勝", "baiwen", 22, 3.0),
-    ("ming", "命", "zhuwen", 23, -2.5),
-    ("wei", "危", "baiwen", 24, 4.0),
-    # 落印（sealText）全集補齊：果斷用白文、溫和用朱文
-    ("ding", "定", "baiwen", 31, -3.0),
-    ("jian", "劍", "baiwen", 32, 2.5),
-    ("zhan", "戰", "baiwen", 33, -4.0),
-    ("bai", "敗", "baiwen", 34, 3.5),
-    ("wu", "武", "baiwen", 35, -2.0),
-    ("dun", "遁", "baiwen", 36, 3.0),
-    ("zong", "宗", "zhuwen", 37, -2.5),
-    ("shou", "收", "zhuwen", 38, 2.0),
-    ("jiao", "教", "zhuwen", 39, -3.0),
-    ("jin", "晉", "zhuwen", 40, 2.5),
-    ("yue", "月", "zhuwen", 41, -2.0),
-    ("lian", "煉", "zhuwen", 42, 3.0),
-    ("zhuang", "裝", "zhuwen", 43, -3.5),
+    # id（= src/ui/inkAssets.ts SEAL_ID_BY_TEXT 嘅值）, 印文（2–4 字成語／詞）, 樣式, 種子, 傾角
+    # 果斷、命運、受創用白文；溫和、成長用朱文
+    ("sheng", "人生初度", "zhuwen", 11, -3.0),
+    ("zhong", "塵緣已了", "baiwen", 12, 2.0),
+    ("yuan", "緣定三生", "zhuwen", 13, -2.0),
+    ("jianghu", "笑傲江湖", "baiwen", 14, 0.0),
+    ("zhao", "一氣呵成", "baiwen", 21, -4.0),
+    ("sheng-win", "旗開得勝", "baiwen", 22, 3.0),
+    ("ming", "命懸一線", "zhuwen", 23, -2.5),
+    ("wei", "險象環生", "baiwen", 24, 4.0),
+    ("ding", "落子無悔", "baiwen", 31, -3.0),
+    ("jian", "華山論劍", "baiwen", 32, 2.5),
+    ("zhan", "狹路相逢", "baiwen", 33, -4.0),
+    ("bai", "技不如人", "baiwen", 34, 3.5),
+    ("wu", "得窺門徑", "baiwen", 35, -2.0),
+    ("dun", "全身而退", "baiwen", 36, 3.0),
+    ("zong", "開宗立派", "zhuwen", 37, -2.5),
+    ("shou", "廣納門徒", "zhuwen", 38, 2.0),
+    ("jiao", "傳道授業", "zhuwen", 39, -3.0),
+    ("jin", "聲名鵲起", "zhuwen", 40, 2.5),
+    ("yue", "歲月如流", "zhuwen", 41, -2.0),
+    ("lian", "精益求精", "zhuwen", 42, 3.0),
+    ("zhuang", "披掛上陣", "zhuwen", 43, -3.5),
+    ("can", "傷及根本", "baiwen", 44, -3.5),
+    ("yu", "妙手回春", "zhuwen", 45, 2.0),
+    ("shang", "傷筋動骨", "baiwen", 46, 3.0),
+    ("po", "更上層樓", "zhuwen", 47, -2.5),
 ]
 
 AURAS = [

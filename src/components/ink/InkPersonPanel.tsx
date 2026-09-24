@@ -38,6 +38,7 @@ import { achievementProgress, listAchievementStatus } from '@core/life/achieveme
 import { allTitles } from '@core/life/titles';
 import { calculateProgress } from '@core/life/progression';
 import { InkStatsPanel } from './InkStatsPanel';
+import { InkInjuryCard } from './InkInjuryCard';
 import {
   calculateCultivationRate,
   canAttemptBreakthrough,
@@ -201,6 +202,7 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
             </div>
           )}
         </div>
+        <InkInjuryCard character={c} />
         <div className="ink-bitlife-list" role="list">
           {rows.map((row) => (
             <button

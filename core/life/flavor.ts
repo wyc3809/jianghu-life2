@@ -1,4 +1,6 @@
 import type { LifeCharacter, LifeGameState, WuxiaAttribute } from '@interfaces/lifeEngine';
+import { pushMoment } from './moments';
+import { headProgressFactor } from './injuryMath';
 import { getRng } from '@core/random';
 import {
   ensureSkillRanks,
@@ -166,7 +168,8 @@ export function tryAdvanceSkill(
   if (c.skillAdvanceNeed[skillId] === undefined) {
     c.skillAdvanceNeed[skillId] = rollAdvanceNeed(rank, rng);
   }
-  const gain = source === 'combat' ? 1 : PRACTICE_PROGRESS_WEIGHT;
+  // 頭部傷：領悟進度按比例扣
+  const gain = (source === 'combat' ? 1 : PRACTICE_PROGRESS_WEIGHT) * headProgressFactor(c);
   c.skillProgress[skillId] = (c.skillProgress[skillId] ?? 0) + gain;
 
   const need = c.skillAdvanceNeed[skillId] ?? rollAdvanceNeed(rank, rng);
@@ -180,6 +183,7 @@ export function tryAdvanceSkill(
   c.martial += 2 + rank;
   const name = skillLabel(skillId);
   const next = rankName(nextRank);
+  pushMoment(state, { kind: 'rank', name, rank: nextRank, rankName: next });
   // 突破儀式感：短敘事 + 朱砂印語感（UI 會蓋「定／修」）
   const rites = [
     `燭花爆了一下。「${name}」進至「${next}」。你跪坐片刻，像給自己蓋了一印。`,
@@ -296,6 +300,7 @@ export function applyLearnMartialArt(
   }
   const label = resolveLearnDisplayName(skillId, displayName);
   const prestigeLines = isNew ? gainJianghuPrestige(state, 15) : [];
+  if (isNew) pushMoment(state, { kind: 'learn', name: label });
   return {
     story: learnSkillProse(rng, skillId, label, isNew),
     delta: isNew ? learnSkillDeltaChip(skillId, label) : null,

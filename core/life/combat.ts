@@ -17,6 +17,8 @@ import {
   effectiveMoveCooldown,
 } from '@data/skills/catalog';
 import { addCondition } from './monthly';
+import { applyCombatInjuries } from './injuries';
+import { armAttackFactor, legEvasionPenalty } from './injuryMath';
 import { rankPowerMult } from './martialRanks';
 import { grantGear, ensureGear, gearTotals, sumGearCombatBonuses, equippedDefs } from './equipment';
 import { applyGearSpecialOnHit, tryGearRevive } from './gearSpecialEffects';
@@ -90,10 +92,15 @@ export function buildPlayerFighter(state: LifeGameState): CombatFighter {
     maxHp: c.maxHealth + (passive.maxHp ?? 0),
     qi: maxQi,
     maxQi: c.maxQi + (passive.maxQi ?? 0),
-    attack: 12 + Math.floor(c.martial / 4) + gear.attack + gear.martialBonus + (passive.attack ?? 0) + titleBonus.attack,
+    // 手臂傷：出手按比例扣
+    attack: Math.round(
+      (12 + Math.floor(c.martial / 4) + gear.attack + gear.martialBonus + (passive.attack ?? 0) + titleBonus.attack) *
+        armAttackFactor(c),
+    ),
     defense: 6 + Math.floor(c.attributes.genGu / 12) + gear.defense + (passive.defense ?? 0) + titleBonus.defense,
     hitBonus: 0.05 + c.attributes.danShi / 400 + (passive.hitBonus ?? 0) + gearCombat.hitBonus + titleBonus.hitBonus,
-    evasion: Math.min(0.45, evasion + gearCombat.evasion + titleBonus.evasion),
+    // 腿腳傷：閃避扣減
+    evasion: Math.max(0, Math.min(0.45, evasion + gearCombat.evasion + titleBonus.evasion) - legEvasionPenalty(c)),
     // 戰鬥中不自動回內力；耗去的內力戰後亦保留，需打坐／歇息再復。
     qiRegen: 0,
     blind: 0,
@@ -406,6 +413,13 @@ function finishCombatWin(state: LifeGameState, dispositionLabel?: CombatFoeDispo
     addCondition(state, 'internal');
     lines.push('絕地反擊燃盡真氣，戰後留下內傷。');
   }
+  lines.push(
+    ...applyCombatInjuries(
+      state,
+      { won: true, hpRatio, foePower: combat.foePower, source: combat.source, foeName: combat.foe.name },
+      rng,
+    ),
+  );
 
   if (!dispositionLabel) {
     lines.push(`你戰勝了${combat.foe.name}！`);
@@ -521,6 +535,13 @@ function finishCombat(state: LifeGameState, won: boolean): string[] {
   }
 
   lines.push(`你敗於${combat.foe.name}。`);
+  lines.push(
+    ...applyCombatInjuries(
+      state,
+      { won: false, hpRatio, foePower: combat.foePower, source: combat.source, foeName: combat.foe.name },
+      rng,
+    ),
+  );
   const r = combat.rewardOnLose ?? {};
   if (r.money) {
     c.money = Math.max(0, c.money + r.money);

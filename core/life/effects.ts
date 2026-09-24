@@ -5,6 +5,7 @@ import { randomChineseName } from '@core/ids';
 import { artForStanding } from '@data/content/packs';
 import { grantGear, raiseBaseMaxHp, raiseBaseMaxQi, ensureGear } from './equipment';
 import { addCondition } from './monthly';
+import { addInjury, cureCrippled } from './injuries';
 import { applyLearnMartialArt } from './flavor';
 import { syncAchievements } from './achievements';
 import { isStatDeltaLine } from './playerText';
@@ -147,6 +148,18 @@ export function applyEffects(state: LifeGameState, effects: GameEffect[]): Effec
         logs.push('罹患傷勢。');
         deltas.push('傷勢');
         break;
+      case 'injury':
+        logs.push(addInjury(state, eff.tier, '江湖風波', eff.part));
+        deltas.push('傷勢');
+        break;
+      case 'cure_crippled': {
+        const line = cureCrippled(state, eff.part);
+        if (line) {
+          logs.push(line);
+          deltas.push('殘疾轉機');
+        }
+        break;
+      }
       case 'joinSect': {
         let sectId = eff.sectId;
         if (!sectId && eff.sectName) {
