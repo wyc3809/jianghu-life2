@@ -153,3 +153,14 @@ export function buildCombatInkFx(opts: {
 export function combatFxNeedsShock(fx: InkCombatFx[]): boolean {
   return fx.some((f) => f.kind === 'crit' || f.kind === 'danger');
 }
+
+export type CombatShockLevel = 'light' | 'heavy';
+
+/**
+ * 打擊感分級（UI 用）：暴擊／重傷＝重（停頓長、震幅大）；一般扣血＝輕；其餘（落空、內力、架）＝無。
+ */
+export function combatFxShockLevel(fx: InkCombatFx[]): CombatShockLevel | null {
+  if (combatFxNeedsShock(fx)) return 'heavy';
+  if (fx.some((f) => f.kind === 'hp')) return 'light';
+  return null;
+}

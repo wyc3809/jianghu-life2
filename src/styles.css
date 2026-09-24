@@ -4709,19 +4709,57 @@ button.is-pressed,
   }
 }
 
-.ink-combat--shock {
-  animation: inkCombatShock 0.1s ease-out;
+/* 打擊感：先「停」一剎（微放大、墨色略沉），再震；重擊停得長、震得大 */
+.ink-combat--shock-light {
+  animation: inkHitStopLight 0.22s linear;
 }
 
-@keyframes inkCombatShock {
-  0% {
-    transform: translate(0, 0);
+.ink-combat--shock-heavy {
+  animation: inkHitStopHeavy 0.34s linear;
+}
+
+@keyframes inkHitStopLight {
+  0%,
+  22% {
+    transform: scale(1.003);
+    filter: brightness(0.97);
   }
   40% {
-    transform: translate(-1px, 1px);
+    transform: translate(-2px, 1px);
+    filter: none;
+  }
+  60% {
+    transform: translate(2px, -1px);
+  }
+  80% {
+    transform: translate(-1px, 0);
   }
   100% {
-    transform: translate(0, 0);
+    transform: none;
+  }
+}
+
+@keyframes inkHitStopHeavy {
+  0%,
+  20% {
+    transform: scale(1.006);
+    filter: brightness(0.94) contrast(1.05);
+  }
+  34% {
+    transform: translate(-4px, 2px) rotate(-0.3deg);
+    filter: none;
+  }
+  48% {
+    transform: translate(4px, -2px) rotate(0.3deg);
+  }
+  62% {
+    transform: translate(-3px, 1px);
+  }
+  78% {
+    transform: translate(2px, -1px);
+  }
+  100% {
+    transform: none;
   }
 }
 
@@ -6908,4 +6946,169 @@ html[data-ink-motion='reduce'] .ink-nav-center-inkring .inkring-a,
 html[data-ink-motion='reduce'] .ink-nav-center-inkring .inkring-b,
 html[data-ink-motion='reduce'] .ink-nav-center .ink-nav-center-inkring {
   animation: none;
+}
+
+/* ===== 戰鬥打擊感（UI 動畫第四步）===== */
+
+/* 血條濺墨：扣血時喺新尾端爆一點朱砂 */
+.ink-bar-wrap {
+  position: relative;
+}
+
+.ink-bar-splash {
+  position: absolute;
+  top: 50%;
+  width: 30px;
+  height: 28px;
+  margin: -14px 0 0 -15px;
+  pointer-events: none;
+  background: var(--cinnabar);
+  -webkit-mask: url('/ink/spar/fx-splash.webp') center / contain no-repeat;
+  mask: url('/ink/spar/fx-splash.webp') center / contain no-repeat;
+  animation: inkBarSplash var(--motion-slow) var(--ease-ink) both;
+}
+
+@keyframes inkBarSplash {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(-20deg);
+  }
+  18% {
+    opacity: 0.9;
+    transform: scale(1.1) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.35) rotate(8deg);
+  }
+}
+
+/* 暴擊數字：蓋印式壓落再上浮 */
+.ink-combat-fx--crit {
+  font-size: 1.15rem;
+  animation:
+    inkFxCritStamp var(--motion-base) var(--ease-stamp) both,
+    /* 第二段唔可以用 both：延遲期間會套第一格（透明）蓋走蓋印 */
+    inkFxRise var(--motion-ritual) var(--ease-ink) var(--motion-base) forwards;
+}
+
+@keyframes inkFxCritStamp {
+  from {
+    opacity: 0;
+    transform: scale(1.8);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+/* 暴擊斬痕：朱砂一筆由左劃到右，再淡走 */
+.ink-combat-slash {
+  position: absolute;
+  left: -6%;
+  top: 34%;
+  width: 112%;
+  height: 34px;
+  pointer-events: none;
+  background: var(--cinnabar);
+  -webkit-mask: url('/ink/art/ui/slash-stroke.webp') center / 100% 100% no-repeat;
+  mask: url('/ink/art/ui/slash-stroke.webp') center / 100% 100% no-repeat;
+  rotate: -9deg;
+  clip-path: inset(-50% 100% -50% 0);
+  animation:
+    inkSlashDraw var(--motion-quick) cubic-bezier(0.6, 0, 0.9, 0.4) both,
+    inkSlashFade var(--motion-slow) var(--ease-ink) var(--motion-quick) both;
+}
+
+@keyframes inkSlashDraw {
+  to {
+    clip-path: inset(-50% 0 -50% 0);
+  }
+}
+
+@keyframes inkSlashFade {
+  0% {
+    opacity: 0.85;
+    clip-path: inset(-50% 0 -50% 0);
+  }
+  100% {
+    opacity: 0;
+    clip-path: inset(-50% 0 -50% 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-bar-splash,
+  .ink-combat-slash {
+    display: none;
+  }
+}
+
+html[data-ink-motion='reduce'] .ink-bar-splash,
+html[data-ink-motion='reduce'] .ink-combat-slash {
+  display: none;
+}
+
+/* 傷害數字：零高度錨點夾喺名字行同血條之間，數字浮喺血條上（扣血位置），唔推郁版面 */
+.ink-combat-side-fx {
+  position: relative;
+  display: block;
+  height: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.ink-combat-side-fx__row {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  translate: -50% -26%;
+  display: flex;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.ink-combat-side-fx__row > .ink-combat-fx {
+  position: static;
+}
+
+.ink-combat-side-fx .ink-combat-fx--crit,
+.ink-combat-side-fx .ink-combat-fx--danger {
+  font-size: 1rem;
+}
+
+.ink-combat-side-fx .ink-combat-fx {
+  padding: 0 6px;
+  background: color-mix(in srgb, var(--paper) 62%, transparent);
+  /* 原位浮現：唔再上飄到上一行 */
+  animation: inkFxHold var(--motion-ritual) var(--ease-ink) both;
+}
+
+.ink-combat-side-fx .ink-combat-fx--crit {
+  animation:
+    inkFxCritStamp var(--motion-base) var(--ease-stamp) both,
+    inkFxHold var(--motion-ritual) var(--ease-ink) var(--motion-base) forwards;
+}
+
+@keyframes inkFxHold {
+  0% {
+    opacity: 0;
+    transform: translateY(3px);
+    filter: blur(1px);
+  }
+  14% {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
 }

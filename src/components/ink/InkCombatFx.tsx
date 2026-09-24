@@ -1,16 +1,17 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
-import type { InkCombatFx } from '@core/life/combatInkFx';
+import type { CombatShockLevel, InkCombatFx } from '@core/life/combatInkFx';
 import type { MoveStance } from '@core/life/moveStance';
 import { shouldReduceInkMotion } from './sceneVariants';
 
 const FX_LIFE_MS = 1600;
 const STANCE_LIFE_MS = 700;
-const SHOCK_MS = 120;
+/** 打擊停頓＋震：同 CSS inkHitStop 時長對齊（輕 0.22s／重 0.34s） */
+const SHOCK_MS: Record<CombatShockLevel, number> = { light: 240, heavy: 360 };
 
 export function useInkCombatFxQueue() {
   const [fx, setFx] = useState<InkCombatFx[]>([]);
   const [stanceBrush, setStanceBrush] = useState<MoveStance | null>(null);
-  const [shock, setShock] = useState(false);
+  const [shock, setShock] = useState<CombatShockLevel | null>(null);
   const timers = useRef<number[]>([]);
 
   useEffect(() => {
@@ -19,7 +20,7 @@ export function useInkCombatFxQueue() {
     };
   }, []);
 
-  const pushFx = useCallback((items: InkCombatFx[], opts?: { shock?: boolean; stance?: MoveStance }) => {
+  const pushFx = useCallback((items: InkCombatFx[], opts?: { shock?: CombatShockLevel | null; stance?: MoveStance }) => {
     if (!items.length && !opts?.stance && !opts?.shock) return;
     const reduce = shouldReduceInkMotion();
     if (items.length) {
@@ -37,8 +38,8 @@ export function useInkCombatFxQueue() {
       timers.current.push(t);
     }
     if (opts?.shock && !reduce) {
-      setShock(true);
-      const t = window.setTimeout(() => setShock(false), SHOCK_MS);
+      setShock(opts.shock);
+      const t = window.setTimeout(() => setShock(null), SHOCK_MS[opts.shock]);
       timers.current.push(t);
     }
   }, []);
@@ -46,7 +47,7 @@ export function useInkCombatFxQueue() {
   const clearFx = useCallback(() => {
     setFx([]);
     setStanceBrush(null);
-    setShock(false);
+    setShock(null);
   }, []);
 
   return { fx, stanceBrush, shock, pushFx, clearFx };
@@ -107,8 +108,13 @@ export function InkCombatFxLayer({
   items: InkCombatFx[];
   stanceBrush: MoveStance | null;
 }) {
+  const crit = items.find((f) => f.kind === 'crit');
+  // 敵／我兩側數字由 InkSideFx 掛喺各自血條行；呢層淨係畫中間嘅招式名同筆勢
+  const center = items.filter((f) => f.side === 'center');
   return (
     <div className="ink-combat-fx-layer" aria-hidden>
+      {/* 暴擊：朱砂一斬掃過（key＝特效 id，每次暴擊重播） */}
+      {crit && <span key={`slash-${crit.id}`} className="ink-combat-slash" />}
       {stanceBrush && (
         <>
           <span className={`ink-combat-brush ink-combat-brush--${stanceBrush}`} />
@@ -128,17 +134,37 @@ export function InkCombatFxLayer({
           ))}
         </>
       )}
-      {items.map((f) => (
-        <span
-          key={f.id}
-          className={`ink-combat-fx ink-combat-fx--${f.kind} ink-combat-fx--${f.side}${
-            f.stance ? ` ink-combat-fx--stance-${f.stance}` : ''
-          }`}
-        >
-          {f.text}
-        </span>
+      {center.map((f) => (
+        <InkFxLabel key={f.id} f={f} />
       ))}
     </div>
+  );
+}
+
+function InkFxLabel({ f }: { f: InkCombatFx }) {
+  return (
+    <span
+      className={`ink-combat-fx ink-combat-fx--${f.kind} ink-combat-fx--${f.side}${
+        f.stance ? ` ink-combat-fx--stance-${f.stance}` : ''
+      }`}
+    >
+      {f.text}
+    </span>
+  );
+}
+
+/** 敵／我傷害數字：掛喺該方血條行（父層需 position:relative），唔再用固定高度定位 */
+export function InkSideFx({ items, side }: { items: InkCombatFx[]; side: 'foe' | 'player' }) {
+  const mine = items.filter((f) => f.side === side);
+  if (!mine.length) return null;
+  return (
+    <span className="ink-combat-side-fx" aria-hidden>
+      <span className="ink-combat-side-fx__row">
+        {mine.map((f) => (
+          <InkFxLabel key={f.id} f={f} />
+        ))}
+      </span>
+    </span>
   );
 }
 
@@ -153,7 +179,9 @@ export function InkBarWithGhost({
 }) {
   const clamped = Math.max(0, Math.min(100, pct));
   const { ghostPct, showGhost } = useInkBarGhost(clamped, active);
-  return (
+  /** 扣血：喺血條新尾端濺一點朱砂（內力條唔濺；.ink-bar 有 overflow:hidden，墨點放外層） */
+  const splashable = !fillClass.includes('qi');
+  const bar = (
     <div className="ink-bar">
       {showGhost && (
         <div
@@ -166,6 +194,13 @@ export function InkBarWithGhost({
         className={`ink-bar-fill ink-bar-fill--live ${fillClass}`.trim()}
         style={{ width: `${clamped}%` }}
       />
+    </div>
+  );
+  if (!splashable) return bar;
+  return (
+    <div className="ink-bar-wrap">
+      {bar}
+      {showGhost && <span className="ink-bar-splash" style={{ left: `${clamped}%` }} aria-hidden />}
     </div>
   );
 }
