@@ -7387,3 +7387,152 @@ html[data-ink-motion='reduce'] .ink-moment-toast {
   font-size: 1.3rem;
   color: var(--cinnabar);
 }
+
+/* ===== 事件結果精簡（src/ui/resultFormat.ts）：故事同系統訊息分開、消長變標籤 ===== */
+
+.ink-result .ink-result-choice {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
+.ink-result-choice-tag {
+  padding: 0 6px;
+  border: 1px solid rgba(163, 58, 50, 0.55);
+  border-radius: 2px;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--cinnabar);
+}
+
+/* 經過：唔再加框，只係正文；長文先摺起約四行 */
+.ink-result .ink-result-story {
+  gap: 6px;
+  margin-bottom: 4px;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+.ink-result .ink-result-story .ink-event-body {
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
+.ink-result-story--clamped {
+  max-height: calc(1.7em * 4);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent);
+  mask-image: linear-gradient(180deg, #000 60%, transparent);
+}
+
+.ink-result-more {
+  align-self: flex-start;
+  margin: 0 0 6px;
+  padding: 2px 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  color: var(--cinnabar);
+  cursor: pointer;
+}
+
+/* 江湖記事：成就／威望／稱號／了結 → 細朱砂籤 */
+.ink-result-notices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 4px 0 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.ink-result-notice {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px 2px 2px;
+  border: 1px solid rgba(163, 58, 50, 0.35);
+  border-radius: 2px;
+  font-size: 0.8rem;
+  color: var(--ink);
+  background: rgba(250, 246, 238, 0.85);
+}
+
+.ink-result-notice b {
+  padding: 1px 5px;
+  border-radius: 1px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--paper-bright);
+  background: var(--cinnabar);
+}
+
+/* 此番消長：一排細標籤（加＝墨、減＝朱砂） */
+.ink-result .ink-result-deltas {
+  margin-top: 6px;
+  padding-top: 8px;
+}
+
+.ink-delta-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ink-delta-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 3px 9px;
+  border: 1px solid rgba(26, 26, 26, 0.16);
+  border-radius: 2px;
+  font-size: 0.86rem;
+  color: var(--ink);
+  background: rgba(250, 246, 238, 0.9);
+  animation: inkFadeUp var(--motion-base) var(--ease-ink) calc(var(--i, 0) * 45ms) both;
+}
+
+.ink-delta-chip-value {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.ink-delta-chip--up .ink-delta-chip-value {
+  color: #3d5c4f;
+}
+
+.ink-delta-chip--down {
+  border-color: rgba(163, 58, 50, 0.35);
+}
+
+.ink-delta-chip--down .ink-delta-chip-value {
+  color: var(--cinnabar);
+}
+
+.ink-delta-chip-note {
+  font-size: 0.7rem;
+  color: var(--ink-wash);
+}
+
+.ink-delta-chip--note,
+.ink-delta-chip--learn {
+  flex-basis: 100%;
+  justify-content: center;
+  font-size: 0.82rem;
+  color: var(--ink-mid);
+}
+
+.ink-delta-chip--learn {
+  color: var(--cinnabar);
+  border-color: rgba(163, 58, 50, 0.4);
+}

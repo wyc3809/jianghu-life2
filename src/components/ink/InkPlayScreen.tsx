@@ -53,6 +53,10 @@ import { LifeDebugPanel } from '../LifeDebugPanel';
 import { useAncestryStore } from '../../store/ancestryStore';
 import { InkAncestryPanel } from './InkAncestryPanel';
 import { flyInkDots } from '../../ui/hudFlyer';
+import { parseDelta, splitFeedback, type ResultNotice } from '../../ui/resultFormat';
+
+/** 經過超過幾多字就先摺起（約四行） */
+const RESULT_STORY_CLAMP_CHARS = 72;
 import { useRollingNumber } from '../../hooks/useRollingNumber';
 import { HighlightFxLazy, canUseWebGL, prefetchHighlight } from '../../fx/highlight';
 import { breakthroughHighlight, momentHighlight } from '../../fx/highlight/fromGame';
@@ -270,6 +274,22 @@ export function InkPlayScreen({ state }: Props) {
   useEffect(() => {
     if (state.phase === 'summary') awardCurrentLife();
   }, [state.phase, awardCurrentLife]);
+
+  // 結果彈窗：故事同系統訊息分開、長文先摺起
+  const [resultStoryOpen, setResultStoryOpen] = useState(false);
+  const resultStory = useMemo(() => {
+    const paras: { text: string; learn: boolean }[] = [];
+    const notices: ResultNotice[] = [];
+    for (const raw of (lastResult?.feedback ?? '').split(/\n\n+/)) {
+      const learn = isLearnSkillStoryLine(raw) || isRankUpStoryLine(raw);
+      const split = splitFeedback(raw.replace(LEARN_SKILL_MARKER, '').replace(RANK_UP_MARKER, ''));
+      notices.push(...split.notices);
+      for (const text of split.story) paras.push({ text, learn });
+    }
+    const chars = paras.reduce((n, p) => n + p.text.length, 0);
+    return { paras, notices, long: chars > RESULT_STORY_CLAMP_CHARS };
+  }, [lastResult]);
+  useEffect(() => setResultStoryOpen(false), [lastResult]);
 
   const showVitalsBars = !combat && !eventFocus && (tab === 'home' || tab === 'person');
   const resultKind = lastResult?.title === '修煉' ? 'practice' : 'month';
@@ -744,45 +764,69 @@ export function InkPlayScreen({ state }: Props) {
                         : '本月際遇'}
               </p>
               <h3>{lastResult.title}</h3>
-              <p className="ink-result-choice">你選擇：{lastResult.choiceText}</p>
-              <div className="ink-result-story">
-                <p className="ink-result-story-label">經過</p>
-                {lastResult.feedback.split(/\n\n+/).map((para, i) => (
+              {lastResult.choiceText && (
+                <p className="ink-result-choice">
+                  <span className="ink-result-choice-tag">所擇</span>
+                  {lastResult.choiceText}
+                </p>
+              )}
+              <div
+                className={`ink-result-story${resultStory.long && !resultStoryOpen ? ' ink-result-story--clamped' : ''}`}
+              >
+                {resultStory.paras.map((para, i) => (
                   <p
-                    key={`${i}-${para.slice(0, 12)}`}
-                    className={`ink-event-body${
-                      isLearnSkillStoryLine(para) || isRankUpStoryLine(para) ? ' ink-event-body--learn-skill' : ''
-                    }`}
+                    key={`${i}-${para.text.slice(0, 12)}`}
+                    className={`ink-event-body${para.learn ? ' ink-event-body--learn-skill' : ''}`}
                   >
-                    {para.replace(LEARN_SKILL_MARKER, '').replace(RANK_UP_MARKER, '')}
+                    {para.text}
                   </p>
                 ))}
               </div>
+              {resultStory.long && (
+                <button
+                  type="button"
+                  className="ink-result-more"
+                  aria-expanded={resultStoryOpen}
+                  onClick={() => setResultStoryOpen((v) => !v)}
+                >
+                  {resultStoryOpen ? '收起' : '展開全文'}
+                </button>
+              )}
+              {resultStory.notices.length > 0 && (
+                <ul className="ink-result-notices" aria-label="江湖記事">
+                  {resultStory.notices.map((n, i) => (
+                    <li key={`${n.label}-${n.text}-${i}`} className="ink-result-notice">
+                      <b>{n.label}</b>
+                      {n.text}
+                    </li>
+                  ))}
+                </ul>
+              )}
               {lastResult.deltas.length > 0 && resultDeltasReady && (
                 <div className="ink-result-deltas">
                   <p className="ink-result-delta-label">
                     {lastResult.deltas.some(isLearnSkillDeltaLine) ? '新學武學' : '此番消長'}
                   </p>
-                  <ul className="ink-delta-board" aria-label="此番消長">
+                  <ul className="ink-delta-chips" aria-label="此番消長">
                     {lastResult.deltas.map((d, i) => {
-                      const learn = isLearnSkillDeltaLine(d);
-                      const longNote = !learn && d.length > 18 && !/[+＋\-－−↑↓]/.test(d);
-                      const tone = learn
-                        ? 'learn'
-                        : /[+＋↑]/.test(d)
-                          ? 'up'
-                          : /[-－−↓]/.test(d)
-                            ? 'down'
-                            : longNote
-                              ? 'note'
-                              : 'flat';
+                      if (isLearnSkillDeltaLine(d)) {
+                        return (
+                          <li key={`${i}-${d}`} className="ink-delta-chip ink-delta-chip--learn" style={{ ['--i' as string]: i }}>
+                            {d.replace(LEARN_SKILL_MARKER, '')}
+                          </li>
+                        );
+                      }
+                      const chip = parseDelta(d);
                       return (
                         <li
                           key={`${i}-${d}`}
-                          className={`ink-delta-row ink-delta-row--${tone}`}
+                          className={`ink-delta-chip ink-delta-chip--${chip.tone}`}
                           style={{ ['--i' as string]: i }}
+                          title={chip.note}
                         >
-                          <span className="ink-delta-row-text">{d}</span>
+                          <span className="ink-delta-chip-label">{chip.label}</span>
+                          {chip.value && <span className="ink-delta-chip-value">{chip.value}</span>}
+                          {chip.note && <span className="ink-delta-chip-note">{chip.note}</span>}
                         </li>
                       );
                     })}
