@@ -190,6 +190,9 @@ export function conditionAsInjury(state: LifeGameState, id: string, cause = '舊
 
 /** 讀檔遷移：補 injuries；舊 conditions 嘅 fracture／limp 轉部位重傷（保留剩餘月數，唔播特效） */
 export function migrateInjuries(c: LifeCharacter): void {
+  // 已遷移（有 injuries、冇舊式骨裂／腿傷）就乜都唔寫：凍結嘅 state 都唔會出錯
+  const legacy = (c.conditions ?? []).some((x) => x.id === 'fracture' || x.id === 'limp');
+  if (c.injuries && !legacy) return;
   const list = ensureInjuries(c);
   const keep = [];
   for (const cond of c.conditions ?? []) {

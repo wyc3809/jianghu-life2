@@ -21,6 +21,7 @@ import {
   teachDisciple as teachDiscipleAction,
 } from '@core/life/foundedSect';
 import { extractLegacy } from '@core/life/legacy';
+import { loadAncestry } from '../ancestryMeta';
 import { sanitizePlayerLine, sanitizePlayerLines } from '@core/life/playerText';
 import {
   applyOfflineCultivation,
@@ -78,7 +79,9 @@ export function createProgressionSlice(
     cancelCreate: () => set({ creating: false }),
 
     newLife: (opts?: CreateLifeOptions | number) => {
-      const state = createNewLife(opts);
+      // 帳戶祖蔭（天賦＋家傳武學）每一世都套用
+      const base: CreateLifeOptions = typeof opts === 'number' ? { seed: opts } : (opts ?? {});
+      const state = createNewLife({ ...base, ancestry: base.ancestry ?? loadAncestry() });
       void save(state);
       track('life_create', {
         seed: state.seed,

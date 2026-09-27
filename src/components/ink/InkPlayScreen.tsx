@@ -50,6 +50,8 @@ import { InkMomentFx } from './InkMomentFx';
 import { InkPracticePanel, type PracticeView } from './InkPracticePanel';
 import { InkSparStage } from './InkSparStage';
 import { LifeDebugPanel } from '../LifeDebugPanel';
+import { useAncestryStore } from '../../store/ancestryStore';
+import { InkAncestryPanel } from './InkAncestryPanel';
 import { flyInkDots } from '../../ui/hudFlyer';
 import { useRollingNumber } from '../../hooks/useRollingNumber';
 import { HighlightFxLazy, canUseWebGL, prefetchHighlight } from '../../fx/highlight';
@@ -258,6 +260,16 @@ export function InkPlayScreen({ state }: Props) {
   }, [moneyNow, prestigeNow]);
   const moneyShown = useRollingNumber(moneyNow, { delayRef: moneyDelay });
   const prestigeShown = useRollingNumber(prestigeNow, { delayRef: prestigeDelay });
+
+  // 祖蔭：人生到總結就結算一次（角色 flag 防重複）
+  const ancestryAward = useAncestryStore((s) => s.award);
+  const ancestryPoints = useAncestryStore((s) => s.meta.points);
+  const awardCurrentLife = useAncestryStore((s) => s.awardCurrentLife);
+  const ancestryOpen = useAncestryStore((s) => s.panelOpen);
+  const setAncestryOpen = useAncestryStore((s) => s.setPanelOpen);
+  useEffect(() => {
+    if (state.phase === 'summary') awardCurrentLife();
+  }, [state.phase, awardCurrentLife]);
 
   const showVitalsBars = !combat && !eventFocus && (tab === 'home' || tab === 'person');
   const resultKind = lastResult?.title === '修煉' ? 'practice' : 'month';
@@ -820,11 +832,23 @@ export function InkPlayScreen({ state }: Props) {
         </section>
       )}
 
+      {ancestryOpen && <InkAncestryPanel onClose={() => setAncestryOpen(false)} />}
+
       {state.phase === 'summary' && (
         <section className="ink-panel ink-epitaph">
           <h3>掩卷</h3>
           <pre className="ink-epitaph-text">{state.summaryText}</pre>
           <InkStaticSeal text="終" className="ink-seal-static--end" />
+          {ancestryAward && ancestryAward.total > 0 && (
+            <p className="ink-ancestry-summary">
+              祖蔭 <b>＋{ancestryAward.total}</b>
+              <br />
+              {ancestryAward.parts.map((p) => `${p.label} ${p.value}`).join(' · ')}
+            </p>
+          )}
+          <button type="button" className="ink-btn ink-btn--quiet" onClick={() => setAncestryOpen(true)}>
+            入祖祠 · 祖蔭 {ancestryPoints} 點
+          </button>
           <button type="button" className="ink-btn ink-btn--primary" onClick={() => reincarnate()}>
             {hasHeir ? '轉世再入江湖' : '重新選角'}
           </button>
@@ -838,7 +862,7 @@ export function InkPlayScreen({ state }: Props) {
                 將淡淡帶入來世。
               </>
             ) : (
-              '這一世沒有子女，下一世會重新開始，不帶任何前世的東西。'
+              '這一世沒有子女，血脈不傳；祖蔭仍在，下一世照樣受用。'
             )}
           </p>
         </section>
