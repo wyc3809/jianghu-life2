@@ -1,6 +1,7 @@
 import type { LifeCharacter, LifeGameState } from '@interfaces/lifeEngine';
 import { GEAR_CATALOG, getGearDef, type GearCombatBonus, type GearDef, type GearSlot } from '@data/equipment/catalog';
 import { torsoHpFactor } from './injuryMath';
+import { pushMoment } from './moments';
 
 export function emptyEquipment(): Record<GearSlot, string | null> {
   return { weapon: 'old-sword', armor: 'plain-robe', accessory: null };
@@ -20,6 +21,8 @@ export function grantGear(state: LifeGameState, gearId: string): string | null {
   if (isNew) {
     c.gear.push(gearId);
     state.pendingGearCompare = { gearId };
+    // 高光時刻（寶箱）：新裝備入手
+    pushMoment(state, { kind: 'loot', gearId });
   }
   return def.name;
 }

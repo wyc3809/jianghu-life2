@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { Suspense, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { createPortal } from 'react-dom';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { natureKeys, natureLabels } from '@interfaces/lifeEngine';
@@ -50,6 +50,8 @@ import { InkMomentFx } from './InkMomentFx';
 import { InkPracticePanel, type PracticeView } from './InkPracticePanel';
 import { InkSparStage } from './InkSparStage';
 import { LifeDebugPanel } from '../LifeDebugPanel';
+import { HighlightFxLazy, canUseWebGL, prefetchHighlight } from '../../fx/highlight';
+import { breakthroughHighlight, momentHighlight } from '../../fx/highlight/fromGame';
 
 type Props = {
   state: LifeGameState;
@@ -208,6 +210,28 @@ export function InkPlayScreen({ state }: Props) {
     null,
   );
   const woundLabel = worstInjury === 'crippled' ? '傷殘' : worstInjury === 'heavy' ? '重傷' : null;
+  // 高光時刻（3D）：學武／升階／新裝備／突破成功；冇 WebGL 就退返水墨特效
+  const headMoment = state.moments?.[0];
+  const momentKey = headMoment ? JSON.stringify(headMoment) : '';
+  const momentFx = useMemo(
+    () => (headMoment && canUseWebGL() ? momentHighlight(state, headMoment) : null),
+    // 只喺換咗時刻先重算（播放中遊戲狀態變都唔好重設演出）
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [momentKey],
+  );
+  const breakthroughFx = useMemo(
+    () => (breakthroughResult && canUseWebGL() ? breakthroughHighlight(state, breakthroughResult) : null),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [breakthroughResult],
+  );
+  useEffect(() => {
+    if (state.phase !== 'playing' || !canUseWebGL()) return;
+    // 開局後閒時預載 Three.js／GSAP，真正要播時唔使等
+    const w = window as Window & { requestIdleCallback?: (cb: () => void) => number };
+    if (w.requestIdleCallback) w.requestIdleCallback(prefetchHighlight);
+    else window.setTimeout(prefetchHighlight, 3000);
+  }, [state.phase]);
+
   const showVitalsBars = !combat && !eventFocus && (tab === 'home' || tab === 'person');
   const resultKind = lastResult?.title === '修煉' ? 'practice' : 'month';
 
@@ -608,23 +632,30 @@ export function InkPlayScreen({ state }: Props) {
         />
       )}
 
-      {breakthroughResult && (
-        <InkBreakthroughModal result={breakthroughResult} onClose={clearBreakthroughResult} />
-      )}
+      {breakthroughResult &&
+        (breakthroughFx ? (
+          <Suspense fallback={null}>
+            <HighlightFxLazy config={breakthroughFx} onDone={clearBreakthroughResult} />
+          </Suspense>
+        ) : (
+          <InkBreakthroughModal result={breakthroughResult} onClose={clearBreakthroughResult} />
+        ))}
 
-      {/* 特效時刻：等戰鬥、結果匣、落印、突破、換裝詢問都完咗先播 */}
-      {state.moments?.[0] &&
+      {/* 特效時刻：等戰鬥、結果匣、落印、突破都完咗先播；新裝備（寶箱）排喺換裝詢問之前 */}
+      {headMoment &&
         state.phase === 'playing' &&
         !combat &&
         !showResult &&
         !sealText &&
         !breakthroughResult &&
-        !state.pendingGearCompare && (
-          <InkMomentFx key={JSON.stringify(state.moments[0])} moment={state.moments[0]}
-            onDone={ackMoment}
-            sectId={state.character.sectId}
-          />
-        )}
+        (!state.pendingGearCompare || headMoment.kind === 'loot') &&
+        (momentFx ? (
+          <Suspense fallback={null}>
+            <HighlightFxLazy key={momentKey} config={momentFx} onDone={ackMoment} />
+          </Suspense>
+        ) : (
+          <InkMomentFx key={momentKey} moment={headMoment} onDone={ackMoment} sectId={state.character.sectId} />
+        ))}
 
       {showResult &&
         lastResult &&
@@ -739,7 +770,7 @@ export function InkPlayScreen({ state }: Props) {
           document.body,
         )}
 
-      {!combat && !eventFocus && !showResult && state.pendingGearCompare && (
+      {!combat && !eventFocus && !showResult && state.pendingGearCompare && headMoment?.kind !== 'loot' && (
         <InkGearCompareModal
           state={state}
           onEquip={() => resolveGearCompare('equip')}

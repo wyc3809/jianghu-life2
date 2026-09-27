@@ -8,11 +8,13 @@ import { useCallback, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import type { LifeMoment } from '@interfaces/lifeEngine';
 import { INJURY_PART_LABEL } from '@data/injuries/tuning';
+import { getGearDef, rarityLabel } from '@data/equipment/catalog';
 import { injuryEffectText } from '@core/life/injuryMath';
 import { inkArtUrl, sealUrlForText } from '../../ui/inkAssets';
 import { heroSilhouetteUrl } from '../../ui/inkSilhouettes';
 import { INJURY_ANCHOR } from './InkInjuryCard';
 import { shouldReduceInkMotion } from './sceneVariants';
+import { playInkAscend, playInkWound } from '../../audio/inkAudio';
 
 type View = {
   /** 版式：紙卷／墨環／題簽／受傷剪影／頂部小條 */
@@ -73,6 +75,18 @@ function viewOf(m: LifeMoment): View {
         lifeMs: null,
       };
     }
+    case 'loot': {
+      // 冇 WebGL 時嘅後備（正常由高光時刻寶箱接手）
+      const def = getGearDef(m.gearId);
+      return {
+        variant: 'learn',
+        kicker: '寶物入手',
+        name: def?.name ?? '新裝備',
+        sub: def ? rarityLabel[def.rarity] : null,
+        seal: '裝',
+        lifeMs: 2900,
+      };
+    }
     case 'cure':
       return {
         variant: 'learn',
@@ -97,6 +111,12 @@ export function InkMomentFx({ moment, onDone, sectId }: Props) {
     doneRef.current = true;
     onDone();
   }, [onDone]);
+  // 聲同震：一出現就播一次（輕傷小籤都有）
+  useEffect(() => {
+    if (moment.kind === 'injury') playInkWound(moment.tier);
+    else playInkAscend(moment.kind === 'loot' ? 'learn' : moment.kind);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- 每個時刻只播一次（元件以 moment 作 key）
+  }, []);
   useEffect(() => {
     if (view.lifeMs == null) return;
     const t = window.setTimeout(finish, reduce ? Math.min(1600, view.lifeMs) : view.lifeMs);
