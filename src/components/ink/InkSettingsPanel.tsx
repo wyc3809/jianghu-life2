@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { APP_VERSION_LABEL } from '../../version';
+import { haptic, hapticsSupported, isHapticsEnabled, setHapticsEnabled } from '../../ui/haptics';
 
 export type TextScale = 1 | 1.15 | 1.3;
 
@@ -32,6 +33,7 @@ export function InkSettingsPanel({
   onToggleReduceMotion,
 }: Props) {
   const closeRef = useRef<HTMLButtonElement | null>(null);
+  const [hapticsOn, setHapticsOn] = useState(isHapticsEnabled);
 
   useEffect(() => {
     if (!open) return;
@@ -101,6 +103,25 @@ export function InkSettingsPanel({
             {audioMuted ? '靜音中 · 點此開聲' : '已開聲 · 點此靜音'}
           </button>
         </section>
+
+        {hapticsSupported() && (
+          <section className="ink-settings-block" aria-label="震動">
+            <p className="ink-settings-label">震動</p>
+            <button
+              type="button"
+              className={`ink-settings-toggle${hapticsOn ? ' is-on' : ''}`}
+              aria-pressed={hapticsOn}
+              onClick={() => {
+                const next = !hapticsOn;
+                setHapticsEnabled(next);
+                setHapticsOn(next);
+                if (next) haptic('medium');
+              }}
+            >
+              {hapticsOn ? '震動開 · 點此關閉' : '震動關 · 點此開啟'}
+            </button>
+          </section>
+        )}
 
         <section className="ink-settings-block" aria-label="動態">
           <p className="ink-settings-label">動態</p>

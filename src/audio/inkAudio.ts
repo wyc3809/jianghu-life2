@@ -4,6 +4,8 @@
  * 原則：精確調度、零 setTimeout、ADSR 包絡、動態範圍控制
  */
 
+import { haptic } from '../ui/haptics';
+
 const MUTE_KEY = 'ink_audio_muted';
 const AMBIENT_KEY = 'ink_ambient_enabled';
 
@@ -198,6 +200,7 @@ export function setAmbientEnabled(next: boolean) {
 
 // ===== UI 音效 =====
 export function playInkTap() {
+  haptic('light');
   const audioCtx = getAC();
   if (!audioCtx) return;
   const t = audioCtx.currentTime;
@@ -206,6 +209,7 @@ export function playInkTap() {
 }
 
 export function playInkSeal() {
+  haptic('medium');
   const audioCtx = getAC();
   if (!audioCtx) return;
   const t = audioCtx.currentTime;
@@ -214,6 +218,7 @@ export function playInkSeal() {
 }
 
 export function playInkWin() {
+  haptic('ritual');
   const audioCtx = getAC();
   if (!audioCtx) return;
   const t = audioCtx.currentTime;
@@ -223,6 +228,7 @@ export function playInkWin() {
 }
 
 export function playInkLose() {
+  haptic('fail');
   const audioCtx = getAC();
   if (!audioCtx) return;
   const t = audioCtx.currentTime;
@@ -238,6 +244,51 @@ export function playInkPageFlip() {
   synth({ freq: 380, dur: 0.04, type: 'sine', gain: 0.008, when: t + 0.025 });
 }
 
+// ===== 特效時刻 =====
+/** 古琴撥弦：快起長收，帶泛音 */
+function pluck(freq: number, when: number, gain = 0.03) {
+  synth({ freq, dur: 0.5, type: 'triangle', gain, harmonics: [2, 3], harmonicGain: 0.18, adsr: { attack: 0.003, decay: 0.25, sustain: 0.15, release: 0.6 }, when });
+}
+
+/** 學新武學／升階／稱號：五聲音階上行撥弦（宮商角徵羽） */
+export function playInkAscend(kind: 'learn' | 'rank' | 'title' | 'cure' = 'learn') {
+  haptic(kind === 'title' ? 'medium' : 'ritual');
+  const audioCtx = getAC();
+  if (!audioCtx) return;
+  const t = audioCtx.currentTime;
+  const scale = kind === 'rank' ? [392, 440, 523, 587, 784] : kind === 'title' ? [523, 659, 784] : [294, 330, 392, 440, 587];
+  scale.forEach((f, i) => pluck(f, t + i * 0.09, 0.028));
+}
+
+/** 境界突破：寺鐘（非諧和泛音）＋低頻；失敗：沉悶破音 */
+export function playInkBreakthrough(success: boolean) {
+  haptic(success ? 'ritual' : 'fail');
+  const audioCtx = getAC();
+  if (!audioCtx) return;
+  const t = audioCtx.currentTime;
+  if (success) {
+    synth({ freq: 196, dur: 1.2, type: 'sine', gain: 0.05, harmonics: [2.76, 5.4, 8.93], harmonicGain: 0.22, adsr: { attack: 0.004, decay: 0.6, sustain: 0.25, release: 1.4 }, when: t });
+    synth({ freq: 98, dur: 1.4, type: 'sine', gain: 0.04, adsr: { attack: 0.02, decay: 0.8, sustain: 0.3, release: 1.4 }, when: t });
+    [392, 523, 659].forEach((f, i) => pluck(f, t + 0.5 + i * 0.12, 0.022));
+  } else {
+    synth({ freq: 110, dur: 0.5, type: 'sawtooth', gain: 0.035, freqSlide: 2, slideTarget: 55, noiseMix: 0.35, noiseFilter: 400, adsr: { attack: 0.005, decay: 0.2, sustain: 0.3, release: 0.4 }, when: t });
+    synth({ freq: 233, dur: 0.4, type: 'triangle', gain: 0.02, detune: 30, when: t + 0.05 });
+  }
+}
+
+/** 受傷：輕＝悶擊；重／殘＝重擊＋裂音 */
+export function playInkWound(tier: 'light' | 'heavy' | 'crippled') {
+  haptic(tier === 'light' ? 'medium' : 'heavy');
+  const audioCtx = getAC();
+  if (!audioCtx) return;
+  const t = audioCtx.currentTime;
+  synth({ freq: 70, dur: 0.14, type: 'sine', gain: tier === 'light' ? 0.04 : 0.07, freqSlide: 2, slideTarget: 35, noiseMix: 0.4, noiseFilter: 500, when: t });
+  if (tier !== 'light') {
+    synth({ freq: 160, dur: 0.3, type: 'sawtooth', gain: 0.025, freqSlide: 2, slideTarget: 80, noiseMix: 0.5, noiseFilter: 900, when: t + 0.08 });
+  }
+  if (tier === 'crippled') synth({ freq: 55, dur: 0.8, type: 'sine', gain: 0.04, adsr: { attack: 0.05, decay: 0.4, sustain: 0.3, release: 0.8 }, when: t + 0.2 });
+}
+
 // ===== 戰鬥音效 v3（精確調度） =====
 export function playInkBlade() {
   const audioCtx = getAC();
@@ -249,6 +300,7 @@ export function playInkBlade() {
 }
 
 export function playInkHit() {
+  haptic('medium');
   const audioCtx = getAC();
   if (!audioCtx) return;
   const t = audioCtx.currentTime;
@@ -266,6 +318,7 @@ export function playInkMiss() {
 }
 
 export function playInkCrit() {
+  haptic('heavy');
   const audioCtx = getAC();
   if (!audioCtx) return;
   const t = audioCtx.currentTime;
@@ -275,6 +328,7 @@ export function playInkCrit() {
 }
 
 export function playInkGuard() {
+  haptic('light');
   const audioCtx = getAC();
   if (!audioCtx) return;
   const t = audioCtx.currentTime;
@@ -294,6 +348,7 @@ export function playInkQiFlow() {
 }
 
 export function playInkCombo() {
+  haptic('medium');
   const audioCtx = getAC();
   if (!audioCtx) return;
   const t = audioCtx.currentTime;
@@ -313,6 +368,7 @@ export function playInkFlee() {
 }
 
 export function playInkDesperate() {
+  haptic('heavy');
   const audioCtx = getAC();
   if (!audioCtx) return;
   const t = audioCtx.currentTime;
@@ -321,6 +377,7 @@ export function playInkDesperate() {
 }
 
 export function playInkVictory() {
+  haptic('ritual');
   const audioCtx = getAC();
   if (!audioCtx) return;
   const t = audioCtx.currentTime;
@@ -331,6 +388,7 @@ export function playInkVictory() {
 }
 
 export function playInkDefeat() {
+  haptic('fail');
   const audioCtx = getAC();
   if (!audioCtx) return;
   const t = audioCtx.currentTime;

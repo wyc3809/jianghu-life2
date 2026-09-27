@@ -5,6 +5,7 @@ import { useStillMode } from '../../hooks/useStillMode';
 import { stillClassName } from './inkStillClass';
 import { inkArtUrl, sealUrlForText } from '../../ui/inkAssets';
 import styles from './InkBreakthroughModal.module.css';
+import { playInkBreakthrough } from '../../audio/inkAudio';
 
 type Props = {
   result: BreakthroughResult;
@@ -21,6 +22,11 @@ export function InkBreakthroughModal({ result, onClose }: Props) {
   const ok = result.success;
   const bigText = ok ? (result.newTierName ?? result.oldTierName) : '走火入魔';
   const seal = sealUrlForText(ok ? '破' : '危');
+
+  useEffect(() => {
+    playInkBreakthrough(ok);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- 開彈窗播一次
+  }, []);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
