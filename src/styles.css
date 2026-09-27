@@ -7136,3 +7136,29 @@ html[data-ink-motion='reduce'] .ink-moment-toast {
   -webkit-mask: url('/ink/art/ui/ink-dot.webp') center / contain no-repeat;
   mask: url('/ink/art/ui/ink-dot.webp') center / contain no-repeat;
 }
+
+/* 數字飛入（src/ui/hudFlyer.ts）：墨點沿弧線飛入頂欄 */
+.ink-hud-flyer {
+  position: fixed;
+  left: -7px;
+  top: -7px;
+  z-index: 300;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  -webkit-mask: url('/ink/art/ui/ink-dot.webp') center / contain no-repeat;
+  mask: url('/ink/art/ui/ink-dot.webp') center / contain no-repeat;
+  will-change: transform, opacity;
+}
+
+.ink-hud-flyer--gold {
+  background: #b8862b;
+}
+
+.ink-hud-flyer--cinnabar {
+  background: var(--cinnabar);
+}
+
+.ink-hud-flyer--ink {
+  background: var(--ink);
+}
