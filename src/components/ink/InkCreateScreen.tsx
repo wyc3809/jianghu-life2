@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react';
 import { InkScrollBackdrop } from './InkDecor';
 import { useLifeStore } from '../../store/lifeStore';
+import { useAncestryStore } from '../../store/ancestryStore';
+import { InkAncestryPanel } from './InkAncestryPanel';
 import { LIFE_THEMES } from '@core/life/lifeVariance';
 import {
   ORIGIN_EVENTS,
@@ -14,6 +16,9 @@ type Step = 'identity' | 'origin' | 'seal';
 export function InkCreateScreen() {
   const newLife = useLifeStore((s) => s.newLife);
   const cancelCreate = useLifeStore((s) => s.cancelCreate);
+  const ancestryPoints = useAncestryStore((s) => s.meta.points);
+  const ancestryOpen = useAncestryStore((s) => s.panelOpen);
+  const setAncestryOpen = useAncestryStore((s) => s.setPanelOpen);
   const [name, setName] = useState('');
   const [gender, setGender] = useState<'male' | 'female'>('male');
   const [step, setStep] = useState<Step>('identity');
@@ -104,10 +109,14 @@ export function InkCreateScreen() {
             >
               翻開少時
             </button>
+            <button type="button" className="ink-btn ink-btn--quiet" onClick={() => setAncestryOpen(true)}>
+              入祖祠 · 祖蔭 {ancestryPoints} 點
+            </button>
             <button type="button" className="ink-btn ink-btn--ghost" onClick={() => cancelCreate()}>
               回卷
             </button>
           </div>
+          {ancestryOpen && <InkAncestryPanel onClose={() => setAncestryOpen(false)} />}
         </>
       )}
 

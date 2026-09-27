@@ -11,6 +11,7 @@
 | Combat presentation | `core/life/combatPresentation.ts` | opening / aftermath UI |
 | Combat ink FX | `core/life/combatInkFx.ts` · `design/gdd/combat-ink-fx.md` | 旁註／血條墨滲／站位筆勢 |
 | Injury (部位傷勢) | `core/life/injuries.ts`（預定）· `design/gdd/injury-system.md` | approved · 實作中 |
+| Ancestral merit (祖蔭) | `core/life/ancestry.ts` · `design/gdd/ancestral-merit.md` | active |
 | Ink scene variants | `src/components/ink/sceneVariants.ts` | season + place |
 | Legacy / death / coach | `legacy.ts` / `death.ts` / `tutorial.ts` | stable |
 | Story chapters | — | **cancelled** |

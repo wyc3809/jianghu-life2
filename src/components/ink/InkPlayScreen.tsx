@@ -50,6 +50,10 @@ import { InkMomentFx } from './InkMomentFx';
 import { InkPracticePanel, type PracticeView } from './InkPracticePanel';
 import { InkSparStage } from './InkSparStage';
 import { LifeDebugPanel } from '../LifeDebugPanel';
+import { useAncestryStore } from '../../store/ancestryStore';
+import { InkAncestryPanel } from './InkAncestryPanel';
+import { flyInkDots } from '../../ui/hudFlyer';
+import { useRollingNumber } from '../../hooks/useRollingNumber';
 import { HighlightFxLazy, canUseWebGL, prefetchHighlight } from '../../fx/highlight';
 import { breakthroughHighlight, momentHighlight } from '../../fx/highlight/fromGame';
 
@@ -231,6 +235,41 @@ export function InkPlayScreen({ state }: Props) {
     if (w.requestIdleCallback) w.requestIdleCallback(prefetchHighlight);
     else window.setTimeout(prefetchHighlight, 3000);
   }, [state.phase]);
+
+  // 數字飛入：銀兩／威望增加時墨點飛入頂欄，飛到先滾數字
+  const moneyChipRef = useRef<HTMLSpanElement>(null);
+  const prestigeRef = useRef<HTMLElement>(null);
+  const moneyNow = Math.round(c.money ?? 0);
+  const prestigeNow = jianghuPrestige(state);
+  const prevMoney = useRef(moneyNow);
+  const prevPrestige = useRef(prestigeNow);
+  const moneyDelay = useRef(0);
+  const prestigeDelay = useRef(0);
+  useEffect(() => {
+    const dm = moneyNow - prevMoney.current;
+    const dp = prestigeNow - prevPrestige.current;
+    prevMoney.current = moneyNow;
+    prevPrestige.current = prestigeNow;
+    moneyDelay.current = 0;
+    prestigeDelay.current = 0;
+    if (combat || (dm <= 0 && dp <= 0)) return;
+    // 喺數字滾動 effect 之前寫好延遲（同一輪 effect，順序按宣告）
+    moneyDelay.current = dm > 0 ? flyInkDots(moneyChipRef.current, Math.ceil(dm / 10), 'gold') * 0.8 : 0;
+    prestigeDelay.current = dp > 0 ? flyInkDots(prestigeRef.current, Math.ceil(dp / 20), 'cinnabar') * 0.8 : 0;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [moneyNow, prestigeNow]);
+  const moneyShown = useRollingNumber(moneyNow, { delayRef: moneyDelay });
+  const prestigeShown = useRollingNumber(prestigeNow, { delayRef: prestigeDelay });
+
+  // 祖蔭：人生到總結就結算一次（角色 flag 防重複）
+  const ancestryAward = useAncestryStore((s) => s.award);
+  const ancestryPoints = useAncestryStore((s) => s.meta.points);
+  const awardCurrentLife = useAncestryStore((s) => s.awardCurrentLife);
+  const ancestryOpen = useAncestryStore((s) => s.panelOpen);
+  const setAncestryOpen = useAncestryStore((s) => s.setPanelOpen);
+  useEffect(() => {
+    if (state.phase === 'summary') awardCurrentLife();
+  }, [state.phase, awardCurrentLife]);
 
   const showVitalsBars = !combat && !eventFocus && (tab === 'home' || tab === 'person');
   const resultKind = lastResult?.title === '修煉' ? 'practice' : 'month';
@@ -426,9 +465,9 @@ export function InkPlayScreen({ state }: Props) {
           )}
         </div>
         <div className="ink-status-metaline">
-          <span className="ink-money-chip" aria-label={`銀両 ${Math.round(c.money ?? 0)}`}>
+          <span ref={moneyChipRef} className="ink-money-chip" aria-label={`銀両 ${Math.round(c.money ?? 0)}`}>
             <img className="ink-label-img" src={`${import.meta.env.BASE_URL || '/'}ink/ui/label-yinliang.webp`} alt="" aria-hidden draggable={false} />
-            <InkGlyphText text={Math.round(c.money ?? 0).toLocaleString('zh-Hant')} height={14} />
+            <InkGlyphText text={moneyShown.toLocaleString('zh-Hant')} height={14} />
           </span>
           <div
             className="ink-ap-meter"
@@ -442,7 +481,7 @@ export function InkPlayScreen({ state }: Props) {
             <InkGlyphText text={`${Math.round(100 - (c.actionPoints ?? 0))}/100`} height={13} className="ink-ap-meter-value" />
           </div>
           <span className="ink-metaline-prestige">
-            威望 <b>{prestige}</b> · {prestigeTierLabel} · {rank >= JIANGHU_RANK_START ? '未列名' : `第${rank}位`}
+            威望 <b ref={prestigeRef}>{prestigeShown}</b> · {prestigeTierLabel} · {rank >= JIANGHU_RANK_START ? '未列名' : `第${rank}位`}
           </span>
           <div className="ink-status-buttons">
             <button
@@ -501,6 +540,7 @@ export function InkPlayScreen({ state }: Props) {
       {/* 待決事件：專注版面，選項固定在可視區底部 */}
       {eventFocus && pendingEvent && (
         <InkEventPanel
+          key={`${pendingEvent.id}-${state.year}-${month}`}
           state={state}
           pendingEvent={pendingEvent}
           choicesReady={choicesReady}
@@ -792,11 +832,23 @@ export function InkPlayScreen({ state }: Props) {
         </section>
       )}
 
+      {ancestryOpen && <InkAncestryPanel onClose={() => setAncestryOpen(false)} />}
+
       {state.phase === 'summary' && (
         <section className="ink-panel ink-epitaph">
           <h3>掩卷</h3>
           <pre className="ink-epitaph-text">{state.summaryText}</pre>
           <InkStaticSeal text="終" className="ink-seal-static--end" />
+          {ancestryAward && ancestryAward.total > 0 && (
+            <p className="ink-ancestry-summary">
+              祖蔭 <b>＋{ancestryAward.total}</b>
+              <br />
+              {ancestryAward.parts.map((p) => `${p.label} ${p.value}`).join(' · ')}
+            </p>
+          )}
+          <button type="button" className="ink-btn ink-btn--quiet" onClick={() => setAncestryOpen(true)}>
+            入祖祠 · 祖蔭 {ancestryPoints} 點
+          </button>
           <button type="button" className="ink-btn ink-btn--primary" onClick={() => reincarnate()}>
             {hasHeir ? '轉世再入江湖' : '重新選角'}
           </button>
@@ -810,7 +862,7 @@ export function InkPlayScreen({ state }: Props) {
                 將淡淡帶入來世。
               </>
             ) : (
-              '這一世沒有子女，下一世會重新開始，不帶任何前世的東西。'
+              '這一世沒有子女，血脈不傳；祖蔭仍在，下一世照樣受用。'
             )}
           </p>
         </section>

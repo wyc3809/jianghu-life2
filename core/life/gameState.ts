@@ -21,6 +21,7 @@ import { syncAchievements } from './achievements';
 import { wuxiaAttributeLabels } from '@interfaces/lifeEngine';
 import type { NatureAttr } from '@interfaces/lifeEngine';
 import { migrateInjuries } from './injuries';
+import { applyAncestry } from './ancestry';
 
 export const SECT_DEFS = SECT_CONTENT.map((s) => ({
   id: s.id,
@@ -55,6 +56,8 @@ export interface CreateLifeOptions {
   legacy?: LegacyCarry;
   /** 首局教練（預設開） */
   skipCoach?: boolean;
+  /** 帳戶祖蔭（天賦＋家傳武學）；開局套用 */
+  ancestry?: import('@interfaces/ancestry').AncestryMeta;
 }
 
 export function createNewLife(options: CreateLifeOptions | number = {}): LifeGameState {
@@ -232,6 +235,10 @@ export function createNewLife(options: CreateLifeOptions | number = {}): LifeGam
     const legacyLines = applyLegacyToCharacter(state, opts.legacy);
     state.lifeLog.push(...legacyLines);
     recomputeCapBonuses(state.character);
+  }
+
+  if (opts.ancestry) {
+    state.lifeLog.push(...applyAncestry(state, opts.ancestry));
   }
 
   const themeId = ensureLifeTheme(state, opts.lifeTheme);

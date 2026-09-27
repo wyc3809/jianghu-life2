@@ -202,4 +202,11 @@ describe('injury system (design/gdd/injury-system.md)', () => {
     applyEffects(state, INJURY_CURE_EVENTS[0]!.choices[0]!.outcomes[0]!.effects);
     expect(state.character.injuries![0]).toMatchObject({ part: 'leg', tier: 'heavy' });
   });
+
+  it('test_injury_migrate_frozen_migrated_state_does_not_throw', () => {
+    const state = fresh(12);
+    addInjury(state, 'light', 'a', 'arm');
+    const frozen = Object.freeze({ ...state.character, conditions: Object.freeze([...state.character.conditions]) });
+    expect(() => migrateInjuries(frozen as typeof state.character)).not.toThrow();
+  });
 });
