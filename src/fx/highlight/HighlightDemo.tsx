@@ -19,6 +19,7 @@ function demoConfig(subject: HighlightSubject, g: Grade): HighlightConfig {
       subject,
       targetGrade: g,
       revealTitle: '神兵出世',
+      seal: '裝',
       revealSub: '青霜劍 · 入手',
       balances,
       rewards: [
@@ -65,6 +66,7 @@ function demoConfig(subject: HighlightSubject, g: Grade): HighlightConfig {
       subject,
       targetGrade: g,
       revealTitle: '武學精進',
+      seal: '煉',
       revealSub: '驚鴻劍法 · 融會貫通',
       balances,
       rewards: [
@@ -99,6 +101,7 @@ function demoConfig(subject: HighlightSubject, g: Grade): HighlightConfig {
     subject,
     targetGrade: g,
     revealTitle: '境界突破',
+    seal: '破',
     revealSub: '內息初成 → 氣貫周天',
     balances,
     rewards: [

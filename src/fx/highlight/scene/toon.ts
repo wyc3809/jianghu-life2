@@ -8,7 +8,8 @@ let gradientMap: THREE.DataTexture | null = null;
 /** 4 階：暗部、陰影、亮面、高光 */
 export function toonGradient(): THREE.DataTexture {
   if (gradientMap) return gradientMap;
-  const steps = [90, 150, 215, 255];
+  // 水墨：暗部唔好太黑（淡墨暈），層次收窄
+  const steps = [120, 175, 225, 255];
   const data = new Uint8Array(steps.length * 4);
   steps.forEach((v, i) => data.set([v, v, v, 255], i * 4));
   gradientMap = new THREE.DataTexture(data, steps.length, 1, THREE.RGBAFormat);

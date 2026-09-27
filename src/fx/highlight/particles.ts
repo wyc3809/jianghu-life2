@@ -1,7 +1,7 @@
 /**
- * Canvas 2D 粒子系統（疊加混合 'lighter'）。
+ * Canvas 2D 粒子系統（水墨版：墨點落紙用正常混合，唔用發光疊加）。
  * 物理：重力、阻力、生命週期；運動模式：自由（free）、吸入（attract）、曲線飛行（curve）、環繞（orbit）。
- * 每粒火花帶一圈低透明度外暈；衝擊波三層描邊（寬而淡、中等、幼而亮）。
+ * 每粒墨點帶一圈淡墨暈（化開）；衝擊波三層墨環（寬而淡、中墨、幼而濃）；星點＝旋轉金箔；彩帶＝花瓣。
  */
 
 export type ParticleShape = 'spark' | 'streak' | 'star' | 'confetti' | 'dust' | 'ring';
@@ -97,14 +97,15 @@ export class ParticleSystem {
   }
 
   /** 爆發火花：向外放射，帶重力 */
-  sparks(x: number, y: number, count: number, colors: string[], speed = 9, gravity = 0.16) {
+  sparks(x: number, y: number, count: number, colors: string[], speed = 9, gravity = 0.16, minR = 0) {
     for (let i = 0; i < this.n(count); i++) {
       const a = Math.random() * Math.PI * 2;
       const s = speed * (0.35 + Math.random() * 0.8);
       const life = 0.7 + Math.random() * 0.7;
+      // minR：由主體輪廓邊開始噴，唔喺主體正面
       this.add({
-        x,
-        y,
+        x: x + Math.cos(a) * minR,
+        y: y + Math.sin(a) * minR,
         vx: Math.cos(a) * s,
         vy: Math.sin(a) * s - 2,
         color: colors[i % colors.length]!,
@@ -118,15 +119,15 @@ export class ParticleSystem {
   }
 
   /** 細長流光：高速直線，拖長 */
-  streaks(x: number, y: number, count: number, color: string, speed = 22) {
+  streaks(x: number, y: number, count: number, color: string, speed = 22, minR = 0) {
     for (let i = 0; i < this.n(count); i++) {
       const a = (i / count) * Math.PI * 2 + Math.random() * 0.2;
       const s = speed * (0.7 + Math.random() * 0.5);
       const life = 0.45 + Math.random() * 0.3;
       this.add({
         shape: 'streak',
-        x,
-        y,
+        x: x + Math.cos(a) * minR,
+        y: y + Math.sin(a) * minR,
         vx: Math.cos(a) * s,
         vy: Math.sin(a) * s,
         color,
@@ -324,7 +325,7 @@ export class ParticleSystem {
     const c = this.ctx;
     c.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
     c.clearRect(0, 0, this.w, this.h);
-    c.globalCompositeOperation = 'lighter';
+    c.globalCompositeOperation = 'source-over';
     for (const p of this.list) {
       const t = p.life / p.maxLife; // 1 → 0
       const a = Math.min(1, t * 1.6);
@@ -341,8 +342,8 @@ export class ParticleSystem {
               c.fill();
             });
           }
-          // 外暈（低透明度）
-          c.globalAlpha = a * 0.22;
+          // 淡墨暈（化開）
+          c.globalAlpha = a * 0.16;
           c.fillStyle = p.color;
           c.beginPath();
           c.arc(p.x, p.y, p.size * 3.2, 0, Math.PI * 2);
@@ -375,38 +376,38 @@ export class ParticleSystem {
           break;
         }
         case 'star': {
-          // 四角星（旋轉）＋ 外暈；大細隨生命先升後降
-          const s = p.size * Math.sin(Math.PI * Math.min(1, (1 - t) * 1.4 + 0.1));
+          // 金箔：不規則四邊形，旋轉閃爍（翻面時變窄）
+          const sz = p.size * 0.8 * Math.sin(Math.PI * Math.min(1, (1 - t) * 1.4 + 0.1));
           c.save();
           c.translate(p.x, p.y);
           c.rotate(p.rot);
-          c.globalAlpha = a * 0.25;
+          c.scale(1, 0.35 + 0.65 * Math.abs(Math.cos(p.rot * 1.7)));
+          c.globalAlpha = a;
           c.fillStyle = p.color;
           c.beginPath();
-          c.arc(0, 0, s * 1.3, 0, Math.PI * 2);
-          c.fill();
-          c.globalAlpha = a;
-          c.fillStyle = '#ffffff';
-          c.beginPath();
-          for (let i = 0; i < 8; i++) {
-            const r = i % 2 === 0 ? s : s * 0.22;
-            const an = (i / 8) * Math.PI * 2;
-            c.lineTo(Math.cos(an) * r, Math.sin(an) * r);
-          }
+          c.moveTo(-sz * 0.6, -sz * 0.5);
+          c.lineTo(sz * 0.55, -sz * 0.35);
+          c.lineTo(sz * 0.45, sz * 0.55);
+          c.lineTo(-sz * 0.5, sz * 0.4);
           c.closePath();
           c.fill();
+          c.globalAlpha = a * 0.6;
+          c.fillStyle = '#FFF8E6';
+          c.fillRect(-sz * 0.3, -sz * 0.3, sz * 0.25, sz * 0.18);
           c.restore();
           break;
         }
         case 'confetti': {
+          // 花瓣：橢圓，翻面時變扁
           c.save();
-          c.globalCompositeOperation = 'source-over';
           c.translate(p.x, p.y);
           c.rotate(p.rot);
-          c.scale(1, Math.cos(p.rot * 2)); // 翻面
-          c.globalAlpha = a;
+          c.scale(1, Math.cos(p.rot * 2));
+          c.globalAlpha = a * 0.9;
           c.fillStyle = p.color;
-          c.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+          c.beginPath();
+          c.ellipse(0, 0, p.size * 0.6, p.size * 0.32, 0, 0, Math.PI * 2);
+          c.fill();
           c.restore();
           break;
         }
@@ -414,15 +415,15 @@ export class ParticleSystem {
           const prog = 1 - t;
           const e = 1 - Math.pow(1 - prog, 3);
           const r = p.maxR! * e;
-          // 三層：寬而淡、中等、幼而亮
+          // 三層墨環：寬而淡（暈）、中墨、幼而濃
           const layers: [number, number][] = [
-            [22, 0.14],
-            [9, 0.32],
-            [2.5, 0.9],
+            [22, 0.1],
+            [9, 0.22],
+            [2.5, 0.75],
           ];
           for (const [lw, al] of layers) {
             c.globalAlpha = al * t;
-            c.strokeStyle = lw < 3 ? '#ffffff' : p.color;
+            c.strokeStyle = lw < 3 ? '#1C1A17' : p.color;
             c.lineWidth = lw * (0.5 + t * 0.5);
             c.beginPath();
             c.ellipse(p.x, p.y, r, r * 0.78, 0, 0, Math.PI * 2);

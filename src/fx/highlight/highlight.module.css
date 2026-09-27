@@ -1,4 +1,4 @@
-/* 高光時刻（HighlightFx.tsx）——卡通手遊風：高飽和、#1A1033 描邊、圓胖字 */
+/* 高光時刻（HighlightFx.tsx）——水墨版：宣紙、墨暈、泥金光、楷書題款、朱砂印、裝裱紙卡 */
 
 @property --ang {
   syntax: '<angle>';
@@ -7,11 +7,17 @@
 }
 
 .root {
-  --ink: #1a1033;
-  --main: #c9ccd6;
-  --glow: #ffffff;
-  --bg-in: #5b5f78;
-  --bg-out: #1e2033;
+  --ink: #1c1a17;
+  --ink-mid: #4a453e;
+  --ink-wash: #8a857c;
+  --paper: #f3ebdc;
+  --paper-bright: #faf6ee;
+  --cinnabar: #a33a32;
+  --gold: #c29a45;
+  --main: #8a857c;
+  --glow: #e9e2d2;
+  --bg-in: #f6f0e3;
+  --bg-out: #cfc6b4;
   --cx: 50%;
   --cy: 45%;
   --bx: 50%;
@@ -19,17 +25,17 @@
   --gx: 50%;
   --gy: 60%;
   --sr: 120px;
-  --font: 'Lilita One', 'Chiron GoRound TC', 'Noto Sans TC', system-ui, sans-serif;
+  --font: 'LXGW WenKai TC', 'Kaiti TC', 'STKaiti', 'KaiTi', 'Noto Serif TC', serif;
   position: fixed;
   inset: 0;
   z-index: 400;
   overflow: hidden;
-  color: #fff;
+  color: var(--ink);
   font-family: var(--font);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-  background: var(--bg-out);
+  background: var(--paper);
 }
 
 /* ---------------------------------------------------------------- 場景層 --- */
@@ -41,65 +47,76 @@
   will-change: transform;
 }
 
+/* 宣紙：紙心淡、邊緣墨暈（品階色輕染），疊紙紋 */
 .bg {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 70% 55% at var(--cx) var(--cy), var(--bg-in) 0%, var(--bg-out) 78%);
-  transition: background 0.35s;
+  background: radial-gradient(
+    ellipse 75% 60% at var(--cx) var(--cy),
+    var(--bg-in) 0%,
+    var(--bg-in) 30%,
+    var(--bg-out) 100%
+  );
+  transition: background 0.5s;
 }
 
-/* 背景光芒：三層不同密度、不同轉速；色帶本身有漸變過渡，冇硬邊 */
+.bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/ink/art/ui/paper-grain.webp');
+  mix-blend-mode: multiply;
+  opacity: 0.16;
+}
+
+/* 背景：兩個慢轉墨環＋一團品階色暈染（取代放射光） */
 .rays {
   position: absolute;
   left: var(--cx);
   top: var(--cy);
   width: 0;
   height: 0;
-  -webkit-mask: radial-gradient(circle, #000 0, #000 12vmax, transparent 62vmax);
-  mask: radial-gradient(circle, #000 0, #000 12vmax, transparent 62vmax);
 }
 
 .rays i {
   position: absolute;
-  left: -90vmax;
-  top: -90vmax;
-  width: 180vmax;
-  height: 180vmax;
   border-radius: 50%;
-  mix-blend-mode: screen;
+  mix-blend-mode: multiply;
 }
 
 .rays i:nth-child(1) {
-  background: repeating-conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    color-mix(in srgb, var(--glow) 22%, transparent) 7deg,
-    transparent 15deg,
-    transparent 30deg
-  );
-  animation: spin 46s linear infinite;
+  left: calc(var(--sr) * -2.1);
+  top: calc(var(--sr) * -2.1);
+  width: calc(var(--sr) * 4.2);
+  height: calc(var(--sr) * 4.2);
+  background: url('/ink/art/ui/ink-halo-a.webp') center / contain no-repeat;
+  opacity: 0.16;
+  animation: spin 60s linear infinite;
 }
 
 .rays i:nth-child(2) {
-  background: repeating-conic-gradient(
-    from 10deg,
-    transparent 0deg,
-    color-mix(in srgb, var(--main) 18%, transparent) 4deg,
-    transparent 9deg,
-    transparent 20deg
-  );
-  animation: spin 70s linear infinite reverse;
+  left: calc(var(--sr) * -1.6);
+  top: calc(var(--sr) * -1.6);
+  width: calc(var(--sr) * 3.2);
+  height: calc(var(--sr) * 3.2);
+  background: url('/ink/art/ui/ink-halo-b.webp') center / contain no-repeat;
+  opacity: 0.12;
+  animation: spin 84s linear infinite reverse;
 }
 
 .rays i:nth-child(3) {
-  background: repeating-conic-gradient(
-    from 5deg,
-    transparent 0deg,
-    color-mix(in srgb, #ffffff 12%, transparent) 12deg,
-    transparent 26deg,
-    transparent 51deg
+  left: calc(var(--sr) * -2.6);
+  top: calc(var(--sr) * -2.6);
+  width: calc(var(--sr) * 5.2);
+  height: calc(var(--sr) * 5.2);
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--main) 22%, transparent) 0%,
+    color-mix(in srgb, var(--main) 10%, transparent) 38%,
+    transparent 66%
   );
-  animation: spin 30s linear infinite;
+  filter: blur(12px);
+  transition: background 0.5s;
 }
 
 @keyframes spin {
@@ -108,62 +125,70 @@
   }
 }
 
-/* 揭曉舞台幕布：乾淨漸變＋慢轉柔光（最高品階先出） */
+/* 揭曉舞台：乾淨紙面＋四邊濃墨暈＋慢轉淡墨環 */
 .curtain {
   position: absolute;
   inset: 0;
   opacity: 0;
   pointer-events: none;
-  background: radial-gradient(
-    ellipse 80% 65% at var(--cx) var(--cy),
-    color-mix(in srgb, var(--bg-in) 85%, #fff) 0%,
-    var(--bg-in) 35%,
-    var(--bg-out) 100%
-  );
+  background:
+    radial-gradient(
+      ellipse 70% 58% at var(--cx) var(--cy),
+      transparent 0%,
+      transparent 45%,
+      rgba(28, 26, 23, 0.34) 100%
+    ),
+    radial-gradient(
+      ellipse 80% 65% at var(--cx) var(--cy),
+      var(--paper-bright) 0%,
+      var(--bg-in) 40%,
+      var(--bg-out) 100%
+    );
+}
+
+.curtain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/ink/art/ui/paper-grain.webp');
+  mix-blend-mode: multiply;
+  opacity: 0.3;
 }
 
 .curtain i {
   position: absolute;
-  left: calc(var(--cx) - 70vmax);
-  top: calc(var(--cy) - 70vmax);
-  width: 140vmax;
-  height: 140vmax;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    transparent,
-    color-mix(in srgb, var(--glow) 16%, transparent) 60deg,
-    transparent 120deg,
-    color-mix(in srgb, var(--glow) 12%, transparent) 220deg,
-    transparent 300deg
-  );
-  filter: blur(30px);
-  animation: spin 24s linear infinite;
+  left: calc(var(--cx) - var(--sr) * 2.6);
+  top: calc(var(--cy) - var(--sr) * 2.6);
+  width: calc(var(--sr) * 5.2);
+  height: calc(var(--sr) * 5.2);
+  background: url('/ink/art/ui/ink-halo-a.webp') center / contain no-repeat;
+  opacity: 0.14;
+  mix-blend-mode: multiply;
+  animation: spin 40s linear infinite;
 }
 
-/* 外發光：放喺主體背後，只由邊緣溢出 */
+/* 主體背後：品階色暈染＋泥金，只由邊緣化開 */
 .backGlow {
   position: absolute;
   left: var(--cx);
   top: var(--cy);
-  width: calc(var(--sr) * 3.6);
-  height: calc(var(--sr) * 3.6);
+  width: calc(var(--sr) * 3.4);
+  height: calc(var(--sr) * 3.4);
   translate: -50% -50%;
   border-radius: 50%;
   opacity: 0;
   pointer-events: none;
-  /* 實色（唔用 screen）：喺深幕布上都清楚；主體擋住中間，只見邊緣溢出 */
   background: radial-gradient(
     circle,
-    #fff 0%,
-    var(--glow) 24%,
-    color-mix(in srgb, var(--glow) 55%, transparent) 40%,
+    color-mix(in srgb, var(--gold) 55%, transparent) 0%,
+    color-mix(in srgb, var(--main) 38%, transparent) 34%,
+    color-mix(in srgb, var(--main) 14%, transparent) 50%,
     transparent 66%
   );
-  filter: blur(10px);
+  filter: blur(14px);
 }
 
-/* 光柱：7 道模糊光束扇形散開，各自輕微閃動；根部柔光核心 */
+/* 泥金光束：7 道模糊金光扇形散開，各自輕微閃動；根部金色柔光 */
 .beams {
   position: absolute;
   left: var(--bx);
@@ -177,29 +202,23 @@
 
 .beams i {
   position: absolute;
-  left: -24px;
+  left: -22px;
   bottom: 0;
-  width: 48px;
-  height: 62vh;
+  width: 44px;
+  height: 58vh;
   transform-origin: 50% 100%;
   transform: rotate(var(--a));
-  background: linear-gradient(
-    to top,
-    #fff 0%,
-    var(--glow) 18%,
-    color-mix(in srgb, var(--glow) 70%, transparent) 50%,
-    transparent 100%
-  );
+  background: linear-gradient(to top, rgba(194, 154, 69, 0.75) 0%, rgba(241, 223, 168, 0.45) 40%, transparent 100%);
   filter: blur(9px);
-  mix-blend-mode: screen;
   border-radius: 50% 50% 12px 12px;
-  animation: flicker calc(1.1s + var(--i) * 0.23s) ease-in-out infinite alternate;
+  animation: flicker calc(1.3s + var(--i) * 0.27s) ease-in-out infinite alternate;
 }
 
 .beams i:nth-child(odd) {
-  width: 30px;
-  left: -15px;
-  height: 48vh;
+  width: 28px;
+  left: -14px;
+  height: 44vh;
+  opacity: 0.8;
 }
 
 .beams b {
@@ -209,20 +228,20 @@
   width: 140px;
   height: 140px;
   border-radius: 50%;
-  background: radial-gradient(circle, #fff 0%, color-mix(in srgb, var(--glow) 70%, transparent) 30%, transparent 70%);
+  background: radial-gradient(circle, #fffaf0 0%, rgba(241, 223, 168, 0.8) 30%, transparent 70%);
   filter: blur(6px);
-  mix-blend-mode: screen;
 }
 
 @keyframes flicker {
   from {
-    opacity: 0.55;
+    opacity: 0.5;
   }
   to {
-    opacity: 1;
+    opacity: 0.95;
   }
 }
 
+/* 淡墨投影 */
 .shadow {
   position: absolute;
   left: var(--gx);
@@ -230,13 +249,13 @@
   width: calc(var(--sr) * 1.7);
   height: calc(var(--sr) * 0.34);
   border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(10, 5, 25, 0.75) 0%, rgba(10, 5, 25, 0.35) 45%, transparent 72%);
+  background: radial-gradient(ellipse, rgba(28, 26, 23, 0.42) 0%, rgba(28, 26, 23, 0.18) 45%, transparent 72%);
   pointer-events: none;
   transform: translate(-50%, -50%);
 }
 
 .root[data-top] .shadow {
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 .gl,
@@ -248,7 +267,7 @@
   pointer-events: none;
 }
 
-/* 閃白：由爆點向外嘅徑向泛光（screen），上限 0.8 */
+/* 爆點亮紙：由爆點向外嘅紙白＋泥金暈（唔用發光混合），上限 0.8 */
 .flash {
   --fx: 50%;
   --fy: 40%;
@@ -256,12 +275,11 @@
   inset: 0;
   opacity: 0;
   pointer-events: none;
-  mix-blend-mode: screen;
   background: radial-gradient(
     circle at var(--fx) var(--fy),
-    #fff 0%,
-    color-mix(in srgb, var(--glow) 80%, #fff) 12%,
-    color-mix(in srgb, var(--glow) 35%, transparent) 34%,
+    #fffdf6 0%,
+    rgba(255, 250, 236, 0.9) 12%,
+    rgba(241, 223, 168, 0.45) 32%,
     transparent 62%
   );
 }
@@ -284,43 +302,42 @@
 
 .root[data-top][data-phase='revealing'] .hud,
 .root[data-top][data-phase='settle'] .hud {
-  opacity: 0.55;
+  opacity: 0.5;
 }
 
 .modes {
   display: flex;
-  padding: 3px;
-  border-radius: 999px;
-  background: rgba(10, 5, 25, 0.55);
-  box-shadow:
-    0 0 0 2px var(--ink),
-    inset 0 2px 4px rgba(0, 0, 0, 0.5);
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid rgba(28, 26, 23, 0.35);
+  border-radius: 3px;
+  background: rgba(250, 246, 238, 0.8);
 }
 
 .mode {
-  padding: 6px 12px;
+  padding: 4px 9px;
   border: 0;
-  border-radius: 999px;
+  border-radius: 2px;
   background: transparent;
-  color: rgba(255, 255, 255, 0.7);
-  font: 700 13px var(--font);
+  color: var(--ink-mid);
+  font: 700 14px var(--font);
+  letter-spacing: 0.1em;
+  white-space: nowrap;
   cursor: pointer;
 }
 
 .mode[aria-selected='true'] {
-  color: var(--ink);
-  background: linear-gradient(#fff6c8, #ffc83a);
-  box-shadow:
-    inset 1px 1px 0 rgba(255, 255, 255, 0.8),
-    inset -1px -2px 0 rgba(150, 80, 0, 0.5);
+  color: var(--paper-bright);
+  background: var(--ink);
 }
 
 .tag {
-  padding: 5px 12px;
-  border-radius: 999px;
-  font-size: 14px;
-  background: rgba(10, 5, 25, 0.55);
-  box-shadow: 0 0 0 2px var(--ink);
+  padding: 3px 12px;
+  border: 1px solid rgba(28, 26, 23, 0.35);
+  border-radius: 3px;
+  font-size: 15px;
+  letter-spacing: 0.2em;
+  background: rgba(250, 246, 238, 0.8);
 }
 
 .balances {
@@ -334,56 +351,45 @@
   align-items: center;
   gap: 4px;
   min-width: 64px;
-  height: 30px;
+  height: 28px;
   padding: 0 10px 0 4px;
-  border-radius: 999px;
-  font-size: 15px;
-  letter-spacing: 0.02em;
-  background: linear-gradient(#3a3160, #1f1840);
-  box-shadow:
-    0 0 0 2px var(--ink),
-    inset 1px 2px 0 rgba(255, 255, 255, 0.18),
-    inset -1px -2px 0 rgba(0, 0, 0, 0.45);
-  -webkit-text-stroke: 3px var(--ink);
-  paint-order: stroke fill;
+  border: 1px solid rgba(28, 26, 23, 0.3);
+  border-radius: 3px;
+  font: 700 16px var(--font);
+  color: var(--ink);
+  background: rgba(250, 246, 238, 0.85);
 }
 
 .pill img {
   width: 26px;
   height: 26px;
   margin-left: -8px;
-  filter: drop-shadow(0 2px 0 rgba(26, 16, 51, 0.6));
 }
 
 .mute {
   position: relative;
-  width: 34px;
-  height: 34px;
-  border: 0;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(28, 26, 23, 0.35);
   border-radius: 50%;
   color: var(--ink);
-  font: 20px var(--font);
+  font: 18px var(--font);
   cursor: pointer;
-  background: linear-gradient(135deg, #f4f6fb 0%, #b8c2d4 55%, #7a869c 100%);
-  box-shadow:
-    0 0 0 2px var(--ink),
-    inset 2px 2px 0 rgba(255, 255, 255, 0.8),
-    inset -2px -2px 0 rgba(0, 0, 0, 0.3);
+  background: rgba(250, 246, 238, 0.85);
 }
 
 .muteOff {
-  opacity: 0.45;
+  opacity: 0.4;
 }
 
 .muteOff::after {
   content: '';
   position: absolute;
-  left: 7px;
-  right: 7px;
+  left: 6px;
+  right: 6px;
   top: 50%;
-  height: 3px;
-  border-radius: 2px;
-  background: #e0353f;
+  height: 2px;
+  background: var(--cinnabar);
   transform: rotate(-40deg);
 }
 
@@ -392,54 +398,87 @@
   right: 12px;
   bottom: max(16px, env(safe-area-inset-bottom));
   z-index: 5;
-  padding: 6px 14px;
-  border: 0;
-  border-radius: 999px;
-  color: rgba(255, 255, 255, 0.75);
+  padding: 4px 14px;
+  border: 1px solid rgba(28, 26, 23, 0.3);
+  border-radius: 3px;
+  color: var(--ink-mid);
   font: 14px var(--font);
-  background: rgba(10, 5, 25, 0.45);
-  box-shadow: 0 0 0 2px rgba(26, 16, 51, 0.7);
+  letter-spacing: 0.15em;
+  background: rgba(250, 246, 238, 0.75);
   cursor: pointer;
 }
 
-/* ---------------------------------------------------------------- 標題 --- */
+/* ---------------------------------------------------------------- 題款 --- */
 
 .titleWrap {
   position: absolute;
-  top: calc(max(10px, env(safe-area-inset-top)) + 52px);
+  top: calc(max(10px, env(safe-area-inset-top)) + 50px);
   left: 0;
   right: 0;
   z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
   pointer-events: none;
 }
 
+/* 題款＋詞語印同一行（印喺字右邊，唔會壓落主體） */
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .title {
   margin: 0;
-  font: 900 clamp(32px, 10vw, 48px) / 1.1 var(--font);
-  letter-spacing: 0.04em;
-  color: #fff;
-  -webkit-text-stroke: 8px var(--ink);
-  paint-order: stroke fill;
+  font: 700 clamp(34px, 10vw, 50px) / 1.15 var(--font);
+  letter-spacing: 0.14em;
+  text-indent: 0.14em;
+  color: var(--ink);
+  /* 墨滲：一層極細暈，似濕墨落紙 */
   text-shadow:
-    0 5px 0 var(--ink),
-    0 10px 18px rgba(0, 0, 0, 0.45);
+    0 0 1px rgba(28, 26, 23, 0.55),
+    0 2px 8px rgba(28, 26, 23, 0.14);
 }
 
 .title span {
   display: inline-block;
-  /* 實色（漸變 clip 落字會俾 8px 描邊食咗） */
-  color: color-mix(in srgb, var(--main) 30%, #fff);
 }
 
 .gradeTag,
 .sub {
   margin: 6px 0 0;
-  font: 900 16px var(--font);
-  letter-spacing: 0.12em;
-  color: var(--glow);
-  -webkit-text-stroke: 4px var(--ink);
-  paint-order: stroke fill;
+  font: 700 16px var(--font);
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  color: var(--main);
+  transition: color 0.4s;
+}
+
+/* 揭曉詞語印：題款下壓落 */
+.seal {
+  width: 50px;
+  height: 50px;
+  flex: none;
+  animation: sealDrop 0.7s cubic-bezier(0.2, 0.85, 0.25, 1) 0.45s both;
+}
+
+@keyframes sealDrop {
+  0% {
+    opacity: 0;
+    transform: scale(1.7) rotate(-14deg);
+    filter: blur(2px);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(0.94) rotate(-6deg);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(-6deg);
+  }
 }
 
 .hint {
@@ -450,23 +489,20 @@
   z-index: 4;
   margin: 0;
   text-align: center;
-  font: 900 22px var(--font);
-  letter-spacing: 0.3em;
-  color: #fff;
-  -webkit-text-stroke: 6px var(--ink);
-  paint-order: stroke fill;
+  font: 700 22px var(--font);
+  letter-spacing: 0.4em;
+  text-indent: 0.4em;
+  color: var(--ink);
   pointer-events: none;
-  animation: hintPulse 1.2s ease-in-out infinite;
+  animation: hintPulse 1.6s ease-in-out infinite;
 }
 
 @keyframes hintPulse {
   0%,
   100% {
-    transform: scale(1);
-    opacity: 0.85;
+    opacity: 0.45;
   }
   50% {
-    transform: scale(1.12);
     opacity: 1;
   }
 }
@@ -486,20 +522,39 @@
   padding: 0 12px;
 }
 
+/* 資訊面板：橫軸紙卷（上下木軸） */
 .panel {
+  position: relative;
   display: flex;
   gap: 12px;
   width: min(360px, 100%);
-  padding: 10px 12px;
-  border-radius: 16px;
+  padding: 12px 14px;
   opacity: 0;
-  background: linear-gradient(160deg, #3b3268 0%, #211a45 60%, #17122f 100%);
+  background: var(--paper-bright);
   box-shadow:
-    0 0 0 3px var(--ink),
-    inset 2px 2px 0 rgba(255, 255, 255, 0.16),
-    inset -2px -3px 0 rgba(0, 0, 0, 0.45),
-    inset 0 0 0 5px color-mix(in srgb, var(--pc) 45%, transparent),
-    0 10px 20px rgba(0, 0, 0, 0.35);
+    0 0 0 1px rgba(28, 26, 23, 0.2),
+    inset 0 0 0 4px var(--paper-bright),
+    inset 0 0 0 5px color-mix(in srgb, var(--pc) 55%, transparent),
+    0 12px 22px -12px rgba(28, 26, 23, 0.45);
+}
+
+.panel::before,
+.panel::after {
+  content: '';
+  position: absolute;
+  left: -6px;
+  right: -6px;
+  height: 7px;
+  border-radius: 4px;
+  background: linear-gradient(#6e5438, #3e2e1e);
+}
+
+.panel::before {
+  top: -6px;
+}
+
+.panel::after {
+  bottom: -6px;
 }
 
 .panelBody {
@@ -509,56 +564,46 @@
 
 .panelName {
   margin: 0;
-  font: 900 19px var(--font);
+  font: 700 21px var(--font);
+  letter-spacing: 0.08em;
   color: var(--pc);
-  -webkit-text-stroke: 4px var(--ink);
-  paint-order: stroke fill;
 }
 
 .panelGrade {
   display: inline-block;
   margin: 2px 0 4px;
-  padding: 1px 8px;
-  border-radius: 999px;
+  padding: 0 7px;
+  border-radius: 2px;
   font: 700 12px var(--font);
-  color: var(--ink);
+  letter-spacing: 0.15em;
+  color: var(--paper-bright);
   background: var(--pc);
 }
 
 .blurb {
   margin: 0 0 4px;
-  font:
-    700 13px/1.45 'Chiron GoRound TC',
-    'Noto Sans TC',
-    sans-serif;
-  color: #e9e4ff;
+  font: 14px/1.5 var(--font);
+  color: var(--ink-mid);
 }
 
 .stat {
   display: flex;
   align-items: baseline;
   gap: 8px;
-  font:
-    700 14px 'Chiron GoRound TC',
-    'Noto Sans TC',
-    sans-serif;
-  color: #cfc8ef;
+  font: 14px var(--font);
+  color: var(--ink-mid);
 }
 
 .stat b {
-  font: 20px var(--font);
-  color: #fff;
-  -webkit-text-stroke: 4px var(--ink);
-  paint-order: stroke fill;
   min-width: 2.5em;
+  font: 700 20px var(--font);
+  color: var(--ink);
 }
 
 .up {
-  font: 15px var(--font);
+  font: 700 15px var(--font);
   font-style: normal;
-  color: #7cff6b;
-  -webkit-text-stroke: 3px var(--ink);
-  paint-order: stroke fill;
+  color: var(--cinnabar);
   opacity: 0;
 }
 
@@ -569,65 +614,64 @@
   gap: 12px;
 }
 
-/* 卡框：金屬拉絲漸變、左上亮右下暗倒角光、內陰影；按稀有度換鑲嵌件 */
+/* 紙卡：裝裱（綾邊／錦緞邊／泥金錦緞），內紙心，淡墨內框 */
 .card {
-  --m1: #dfe5ee;
-  --m2: #9aa6b8;
-  --m3: #5b6578;
+  --edge: #d9d0bd;
+  --brocade: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.16) 0 2px, transparent 2px 6px);
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
   width: 88px;
-  padding: 8px 6px 6px;
-  border: 0;
-  border-radius: 14px;
+  padding: 4px 2px 2px;
+  border: 5px solid transparent;
+  border-radius: 3px;
   cursor: pointer;
-  color: #fff;
+  color: var(--ink);
   font: inherit;
+  /* 紙心（padding-box）＋ 綾／錦緞邊（border-box） */
   background:
-    repeating-linear-gradient(100deg, rgba(255, 255, 255, 0.07) 0 1px, transparent 1px 3px),
-    linear-gradient(145deg, var(--m1) 0%, var(--m2) 48%, var(--m3) 100%);
+    linear-gradient(var(--paper-bright), var(--paper-bright)) padding-box,
+    var(--brocade) border-box,
+    linear-gradient(var(--edge), var(--edge)) border-box;
   box-shadow:
-    0 0 0 3px var(--ink),
-    inset 2px 2px 0 rgba(255, 255, 255, 0.65),
-    inset -2px -3px 0 rgba(0, 0, 0, 0.35),
-    0 6px 0 var(--ink),
-    0 12px 18px rgba(0, 0, 0, 0.35);
+    0 0 0 1px rgba(28, 26, 23, 0.35),
+    inset 0 0 0 1px rgba(28, 26, 23, 0.45),
+    0 8px 14px -8px rgba(28, 26, 23, 0.5);
 }
 
-.card[data-inlay='gem'] {
-  --m1: #ffffff;
-  --m2: #c4cde0;
-  --m3: #7a869c;
+.card[data-inlay='brocade'] {
+  --edge: color-mix(in srgb, var(--cc) 70%, #d9d0bd);
 }
 
-.card[data-inlay='crown'] {
-  --m1: #fff3b8;
-  --m2: #f5b82e;
-  --m3: #a8620c;
+.card[data-inlay='gold'] {
+  --edge: color-mix(in srgb, var(--cc) 55%, #c29a45);
+  /* 泥金：錦緞上撒金點 */
+  --brocade:
+    radial-gradient(circle at 30% 40%, rgba(255, 236, 170, 0.75) 0 1px, transparent 1.6px) 0 0 / 6px 7px,
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.16) 0 2px, transparent 2px 6px);
 }
 
 .card[aria-pressed='true'] {
-  outline: 3px solid #fff;
+  outline: 2px solid var(--ink);
   outline-offset: 3px;
 }
 
-/* 流光邊框（稀有以上） */
+/* 珍品以上：泥金光沿邊慢慢游走 */
 .card[data-shine]::after {
   content: '';
   position: absolute;
-  inset: -3px;
+  inset: -1px;
   padding: 3px;
-  border-radius: 16px;
+  border-radius: 4px;
   background: conic-gradient(
     from var(--ang),
     transparent 0%,
-    transparent 62%,
-    color-mix(in srgb, var(--cg) 80%, transparent) 76%,
-    #fff 82%,
-    color-mix(in srgb, var(--cg) 80%, transparent) 88%,
+    transparent 70%,
+    rgba(194, 154, 69, 0.85) 82%,
+    #fff4d2 86%,
+    rgba(194, 154, 69, 0.85) 90%,
     transparent 100%
   );
   -webkit-mask:
@@ -635,7 +679,7 @@
     linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  animation: shine 2.4s linear infinite;
+  animation: shine 3.2s linear infinite;
   pointer-events: none;
 }
 
@@ -647,11 +691,8 @@
 
 .art {
   overflow: hidden;
-  border-radius: 10px;
-  box-shadow:
-    0 0 0 2px var(--ink),
-    inset 0 0 0 3px color-mix(in srgb, var(--cc) 70%, transparent),
-    inset 0 3px 6px rgba(0, 0, 0, 0.45);
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(28, 26, 23, 0.4);
 }
 
 .art canvas {
@@ -661,8 +702,8 @@
 .panel .art {
   flex: none;
   box-shadow:
-    0 0 0 2px var(--ink),
-    inset 0 0 0 3px color-mix(in srgb, var(--pc) 70%, transparent);
+    0 0 0 1px rgba(28, 26, 23, 0.4),
+    0 0 0 4px color-mix(in srgb, var(--pc) 35%, transparent);
 }
 
 .cardName {
@@ -670,127 +711,83 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font: 900 13px var(--font);
-  color: #fff;
-  -webkit-text-stroke: 3.5px var(--ink);
-  paint-order: stroke fill;
+  font: 700 14px var(--font);
+  letter-spacing: 0.05em;
+  color: var(--ink);
 }
 
 .amount {
   position: absolute;
-  right: 6px;
-  top: 52px;
-  font: 20px var(--font);
-  color: #fff;
-  -webkit-text-stroke: 5px var(--ink);
-  paint-order: stroke fill;
+  right: 4px;
+  top: 44px;
+  font: 700 20px var(--font);
+  color: var(--ink);
+  text-shadow:
+    0 0 3px var(--paper-bright),
+    0 0 6px var(--paper-bright);
 }
 
-/* 鑲嵌件：鋼鉚釘 → 銀框寶石 → 金框鑽石 */
+/* 角印：錦緞以上喺左上、右下各一個細朱砂印 */
 .inlay {
   position: absolute;
   width: 9px;
   height: 9px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #fff 0%, #c9d1dc 35%, #59606e 100%);
-  box-shadow: 0 0 0 1.5px var(--ink);
+  border-radius: 1px;
+  background: var(--cinnabar);
+  box-shadow: inset 0 0 0 1.5px rgba(250, 246, 238, 0.6);
 }
 
 .inlay[data-pos='tl'] {
-  left: 4px;
-  top: 4px;
-}
-.inlay[data-pos='tr'] {
-  right: 4px;
-  top: 4px;
-}
-.inlay[data-pos='bl'] {
-  left: 4px;
-  bottom: 4px;
+  left: -3px;
+  top: -3px;
 }
 .inlay[data-pos='br'] {
-  right: 4px;
-  bottom: 4px;
+  right: -3px;
+  bottom: -3px;
 }
 
-.card[data-inlay='gem'] .inlay,
-.card[data-inlay='crown'] .inlay {
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
-  transform: rotate(45deg);
-  background: linear-gradient(135deg, #fff 0%, var(--cg) 40%, var(--cc) 100%);
-  box-shadow:
-    0 0 0 2px #e8edf5,
-    0 0 0 3.5px var(--ink);
+.card[data-inlay='gold'] .inlay {
+  background: var(--gold);
 }
 
-.card[data-inlay='crown'] .inlay {
-  background: linear-gradient(135deg, #fff 0%, #dff6ff 40%, #8fd3ff 100%);
-  box-shadow:
-    0 0 0 2px #ffd34d,
-    0 0 0 3.5px var(--ink);
-}
-
-/* 小王冠 */
-.crown {
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  width: 30px;
-  height: 18px;
-  translate: -50% 0;
-  background: linear-gradient(#fff3b8, #f5b82e 60%, #b8700e);
-  clip-path: polygon(0 100%, 0 25%, 22% 60%, 50% 0, 78% 60%, 100% 25%, 100% 100%);
-  filter: drop-shadow(0 0 0 var(--ink)) drop-shadow(1px 0 0 var(--ink)) drop-shadow(-1px 0 0 var(--ink))
-    drop-shadow(0 -1px 0 var(--ink)) drop-shadow(0 1.5px 0 var(--ink));
-}
-
+/* 「新」：朱砂印 */
 .newBadge {
   position: absolute;
-  top: -11px;
-  right: -14px;
-  padding: 2px 7px;
-  border-radius: 8px;
-  font: 13px var(--font);
-  color: #fff;
-  background: linear-gradient(#ff6a6a, #e0203a);
-  box-shadow:
-    0 0 0 2px var(--ink),
-    inset 1px 1px 0 rgba(255, 255, 255, 0.5);
-  -webkit-text-stroke: 3px var(--ink);
-  paint-order: stroke fill;
-  transform: rotate(12deg);
+  top: -10px;
+  right: -10px;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 3px;
+  font: 700 16px var(--font);
+  color: var(--paper-bright);
+  background: var(--cinnabar);
+  box-shadow: inset 0 0 0 2px rgba(250, 246, 238, 0.55);
+  transform: rotate(-8deg);
 }
 
+/* 領取：朱砂一筆（筆觸位圖作 mask） */
 .claim {
-  width: 200px;
-  height: 52px;
+  position: relative;
+  width: 210px;
+  height: 54px;
   border: 0;
-  border-radius: 16px;
   cursor: pointer;
-  font: 24px var(--font);
-  letter-spacing: 0.3em;
-  text-indent: 0.3em;
-  color: #fff;
-  -webkit-text-stroke: 5px var(--ink);
-  paint-order: stroke fill;
-  background:
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 4px),
-    linear-gradient(#ffe27a 0%, #f5a623 50%, #d0730f 100%);
-  box-shadow:
-    0 0 0 3px var(--ink),
-    inset 2px 3px 0 rgba(255, 255, 255, 0.7),
-    inset -2px -4px 0 rgba(120, 50, 0, 0.45),
-    0 6px 0 var(--ink);
+  font: 700 24px var(--font);
+  letter-spacing: 0.5em;
+  text-indent: 0.5em;
+  color: var(--paper-bright);
+  background: var(--cinnabar);
+  -webkit-mask: url('/ink/art/ui/brush-btn-cinnabar.webp') center / 100% 100% no-repeat;
+  mask: url('/ink/art/ui/brush-btn-cinnabar.webp') center / 100% 100% no-repeat;
   transition:
     transform 0.08s,
-    opacity 0.3s,
-    filter 0.3s;
+    opacity 0.3s;
 }
 
 .claim:active {
-  transform: translateY(3px);
+  transform: translateY(2px) scale(0.98);
 }
 
 .claim:disabled {
@@ -814,11 +811,12 @@
   will-change: transform;
 }
 
-/* 減少動態：光芒同光柱閃動停低（震屏同粒子由 Director 處理） */
+/* 減少動態：墨環、光束、提示、泥金游走停低（震屏同粒子由 Director 處理） */
 .root[data-reduce] .rays i,
 .root[data-reduce] .curtain i,
 .root[data-reduce] .beams i,
 .root[data-reduce] .hint,
+.root[data-reduce] .seal,
 .root[data-reduce] .card::after {
   animation: none;
 }

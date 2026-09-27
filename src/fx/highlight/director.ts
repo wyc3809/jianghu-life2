@@ -60,6 +60,11 @@ export const TUNING = {
 
 /** 主體最長邊（世界單位）：三個模型尺寸唔同，統一縮到呢個大細 */
 const SUBJECT_SIZE = 2.3;
+/** 水墨粒子色：濃墨、淡墨、金箔、朱砂 */
+const INK = '#1C1A17';
+const INK_WASH = '#8A857C';
+const GOLD_LEAF = '#C29A45';
+const CINNABAR = '#A33A32';
 /** 主體中心喺畫面由上計嘅比例 */
 const SUBJECT_SCREEN_Y = 0.42;
 
@@ -207,8 +212,9 @@ export class Director {
     // 閃一下光＋一圈粒子
     const c = this.centerScreen();
     this.flash(0.45, 0.35, c);
-    this.particles.shockwave(c.x, c.y, 150, st.glow, 0.55);
-    this.particles.sparks(c.x, c.y, 22, [st.glow, st.main, '#ffffff'], 7, 0.12);
+    this.particles.shockwave(c.x, c.y, 150, st.main, 0.55);
+    // 由輪廓邊向外濺，唔會落喺主體正面
+    this.particles.sparks(c.x, c.y, 22, [INK, st.main, GOLD_LEAF], 7, 0.12, this.subjectRadiusPx().rx);
     sfx.levelUp(g);
   }
 
@@ -361,7 +367,7 @@ export class Director {
         () => {
           sfx.land();
           const b = this.baseScreen();
-          this.particles.sparks(b.x, b.y, 14, ['#ffffff', this.style.glow], 4, 0.05);
+          this.particles.sparks(b.x, b.y, 14, [INK_WASH, INK], 4, 0.05);
         },
         [],
         0.64,
@@ -394,9 +400,9 @@ export class Director {
             b.x,
             b.y,
             10,
-            [st.glow, '#ffffff'],
+            [INK, st.main],
             Math.max(this.cssW, this.cssH) * 0.42,
-            this.subjectRadiusPx().rx * 1.1,
+            Math.max(this.subjectRadiusPx().rx, this.subjectRadiusPx().ry) * 1.15,
           );
         },
         [],
@@ -451,27 +457,29 @@ export class Director {
     // 多層衝擊波
     [0, 0.07, 0.16].forEach((d, i) =>
       tl.call(
-        () => this.particles.shockwave(b.x, b.y, (180 + i * 90) * pw, i === 1 ? '#ffffff' : st.glow, 0.7 + i * 0.1),
+        () => this.particles.shockwave(b.x, b.y, (180 + i * 90) * pw, i === 1 ? INK : st.main, 0.7 + i * 0.1),
         [],
         d,
       ),
     );
     tl.call(
       () => {
-        this.particles.streaks(b.x, b.y, Math.round(TUNING.streakBase * pw), st.glow, 20 + pw * 6);
+        const edgeR = this.subjectRadiusPx().rx * 0.9;
+        this.particles.streaks(b.x, b.y, Math.round(TUNING.streakBase * pw), INK, 20 + pw * 6, edgeR);
         this.particles.sparks(
           b.x,
           b.y,
           Math.round(TUNING.sparkBase * pw),
-          [st.glow, st.main, '#ffffff'],
+          [INK, INK, st.main, GOLD_LEAF],
           8 + pw * 5,
           0.15,
+          edgeR,
         );
         this.particles.stars(
           b.x,
           b.y,
           Math.round(TUNING.starBase * pw),
-          st.glow,
+          GOLD_LEAF,
           60 + 90 * pw,
           this.subjectRadiusPx().rx,
         );
@@ -491,11 +499,11 @@ export class Director {
       tl.call(
         () =>
           this.particles.confetti(this.cssW / 2, this.cssH * 0.18, TUNING.confetti, [
+            CINNABAR,
+            GOLD_LEAF,
+            '#E7B7A8',
+            '#F3EBDC',
             st.main,
-            st.glow,
-            '#ffffff',
-            '#5FD3FF',
-            '#5BD65B',
           ]),
         [],
         0.22,
@@ -511,7 +519,7 @@ export class Director {
       if (this.phase === 'done') return;
       const b = this.burstScreen();
       // 光塵喺開口上方先出，唔喺主體正面飄
-      this.particles.dust(b.x, b.y - 40, 90, 2, this.style.glow);
+      this.particles.dust(b.x, b.y - 40, 90, 2, GOLD_LEAF);
       this.dustTimer = gsap.delayedCall(0.18, loop);
     };
     loop();
@@ -524,7 +532,9 @@ export class Director {
     const top = this.grade === 5;
     if (top) this.enterStage();
     sfx.fanfare();
-    gsap.to(this.A, { pan: this.subH * 0.2, camK: 1.08, duration: 0.8, ease: 'power2.inOut' });
+    // 揭曉取景：主體上移、拉遠讓出下面面板；丹爐開蓋後最高，拉遠多啲
+    const frame = this.cfg.subject === 'cauldron' ? { pan: 0.1, k: 1.24 } : { pan: 0.2, k: 1.08 };
+    gsap.to(this.A, { pan: this.subH * frame.pan, camK: frame.k, duration: 0.8, ease: 'power2.inOut' });
     this.startIdle();
     this.cb.onReveal();
   }
@@ -544,7 +554,7 @@ export class Director {
       const c = this.centerScreen();
       const { rx, ry } = this.subjectRadiusPx();
       // 軌道完整喺輪廓外側
-      this.particles.orbit(c.x, c.y, rx * 1.35 + 30, ry * 1.05 + 30, this.reduce ? 3 : 9, '#ffffff');
+      this.particles.orbit(c.x, c.y, rx * 1.35 + 30, ry * 1.05 + 30, this.reduce ? 3 : 9, GOLD_LEAF);
     }
   }
 

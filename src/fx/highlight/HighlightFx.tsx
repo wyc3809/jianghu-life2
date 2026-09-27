@@ -13,9 +13,10 @@ import { drawArt, iconDataUrl } from './icons';
 import type { Grade, HighlightConfig, HighlightSubject, RewardCard } from './types';
 import { isInkAudioMuted, toggleInkAudioMuted } from '../../audio/inkAudio';
 import styles from './highlight.module.css';
+import { sealPhrase, sealUrlForText } from '../../ui/inkAssets';
 
-const FONT_HREF =
-  'https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@700;900&family=Lilita+One&display=swap';
+/** 霞鶩文楷 TC（繁體毛筆楷書，同朱砂印同一字型） */
+const FONT_HREF = 'https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&display=swap';
 
 function ensureFonts() {
   if (typeof document === 'undefined' || document.querySelector(`link[href="${FONT_HREF}"]`)) return;
@@ -51,7 +52,7 @@ function CardArt({ card, size }: { card: RewardCard; size: number }) {
       kind: card.icon,
       pattern: card.pattern,
       bg: st.bgInner,
-      fg: st.glow,
+      fg: st.main,
       cssSize: size,
       tint: card.icon === 'gem' ? st.main : undefined,
     });
@@ -67,18 +68,18 @@ function Title({ text, gradeKey }: { text: string; gradeKey: string }) {
   useLayoutEffect(() => {
     const chars = ref.current?.querySelectorAll('span');
     if (!chars?.length) return;
-    // 逐字「砸」入：由大、由上、旋轉 → 落位回彈
+    // 逐字落墨：由化開（大、模糊、淡）收實，輕微回彈似筆鋒按落
     gsap.fromTo(
       chars,
-      { scale: 2.8, y: -46, opacity: 0, rotation: () => gsap.utils.random(-25, 25) },
+      { scale: 1.9, y: -18, opacity: 0, filter: 'blur(10px)' },
       {
         scale: 1,
         y: 0,
         opacity: 1,
-        rotation: 0,
-        duration: 0.5,
-        ease: 'back.out(3.2)',
-        stagger: 0.055,
+        filter: 'blur(0px)',
+        duration: 0.55,
+        ease: 'back.out(2)',
+        stagger: 0.07,
         overwrite: true,
       },
     );
@@ -448,7 +449,12 @@ export default function HighlightFx({ config, onDone, modes, onMode }: Highlight
       </header>
 
       <div className={styles.titleWrap}>
-        <Title text={titleText} gradeKey={beforeReveal ? `g${grade}` : 'reveal'} />
+        <div className={styles.titleRow}>
+          <Title text={titleText} gradeKey={beforeReveal ? `g${grade}` : 'reveal'} />
+          {!beforeReveal && config.seal && sealUrlForText(config.seal) && (
+            <img className={styles.seal} src={sealUrlForText(config.seal)!} alt={sealPhrase(config.seal)} />
+          )}
+        </div>
         {!beforeReveal && config.revealSub && <p className={styles.sub}>{config.revealSub}</p>}
         {beforeReveal && config.titles?.[grade] && <p className={styles.gradeTag}>{st.name}</p>}
       </div>
@@ -506,11 +512,12 @@ export default function HighlightFx({ config, onDone, modes, onMode }: Highlight
                 style={{ '--cc': GRADES[card.grade].main, '--cg': GRADES[card.grade].glow } as CSSProperties}
                 onClick={() => setPanelIdx(i)}
               >
-                <i className={styles.inlay} data-pos="tl" />
-                <i className={styles.inlay} data-pos="tr" />
-                <i className={styles.inlay} data-pos="bl" />
-                <i className={styles.inlay} data-pos="br" />
-                {GRADES[card.grade].inlay === 'crown' && <i className={styles.crown} />}
+                {GRADES[card.grade].inlay !== 'plain' && (
+                  <>
+                    <i className={styles.inlay} data-pos="tl" />
+                    <i className={styles.inlay} data-pos="br" />
+                  </>
+                )}
                 <CardArt card={card} size={64} />
                 <span className={styles.cardName}>{card.name}</span>
                 {card.amount ? (
@@ -519,8 +526,8 @@ export default function HighlightFx({ config, onDone, modes, onMode }: Highlight
                   </span>
                 ) : null}
                 {card.isNew && (
-                  <span className={styles.newBadge} data-new>
-                    NEW!
+                  <span className={styles.newBadge} data-new aria-label="新">
+                    新
                   </span>
                 )}
               </button>
