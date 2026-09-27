@@ -59,6 +59,7 @@ function lootConfig(state: LifeGameState, gearId: string): HighlightConfig | nul
     subject: 'chest',
     targetGrade: g,
     revealTitle: g >= 4 ? '神兵出世' : g >= 2 ? '寶物入手' : '得到裝備',
+    seal: '裝',
     revealSub: `${def.name} · ${rarityLabel[def.rarity]}`,
     balances: balances(state),
     rewards: [
@@ -84,6 +85,7 @@ function tokenConfig(state: LifeGameState, m: Extract<LifeMoment, { kind: 'learn
     subject: 'token',
     targetGrade: g,
     revealTitle: m.kind === 'learn' ? '武學入懷' : rank >= 3 ? '神乎其技' : '武學精進',
+    seal: m.kind === 'learn' ? '武' : '煉',
     revealSub: m.kind === 'learn' ? `${m.name} · 秘笈到手` : `${m.name} · ${m.rankName}`,
     balances: balances(state),
     rewards: [
@@ -128,6 +130,7 @@ export function breakthroughHighlight(state: LifeGameState, r: BreakthroughResul
     subject: 'cauldron',
     targetGrade: g,
     revealTitle: '境界突破',
+    seal: '破',
     revealSub: `${r.oldTierName} → ${r.newTierName}`,
     balances: balances(state, prestigeNow - prestige),
     rewards: [

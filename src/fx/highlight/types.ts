@@ -67,6 +67,8 @@ export interface HighlightConfig {
   revealTitle: string;
   /** 標題下一行 */
   revealSub?: string;
+  /** 揭曉時蓋嘅詞語印（印鍵，見 src/ui/inkAssets.ts） */
+  seal?: string;
   rewards: RewardCard[];
   /** HUD 餘額 */
   balances: { coin: Balance; gem: Balance };

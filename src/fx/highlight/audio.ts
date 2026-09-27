@@ -66,86 +66,95 @@ function noise(dur: number, gain: number, filterHz: number, when = 0, type: Biqu
   s.stop(t + dur + 0.02);
 }
 
+/** 古琴撥弦：三角波＋泛音，快起長收 */
+function pluck(freq: number, when = 0, gain = 0.07) {
+  tone(freq, 0.9, 'triangle', gain, when);
+  tone(freq * 2, 0.5, 'sine', gain * 0.35, when);
+  tone(freq * 3.01, 0.25, 'sine', gain * 0.12, when);
+}
+
+/** 鑼／鐘：非諧和泛音 */
+function gong(freq: number, dur: number, gain: number, when = 0) {
+  [1, 2.76, 5.4, 8.93].forEach((m, i) => tone(freq * m, dur / (1 + i * 0.6), 'sine', gain / (1 + i * 1.4), when));
+}
+
+/** 宮商角徵羽（D 調五聲） */
+const PENTA = [294, 330, 370, 440, 494, 587, 659, 740, 880];
+
 export const sfx = {
+  /** 起跳：木魚一聲 */
   jump() {
-    tone(260, 0.18, 'square', 0.05, 0, 620);
+    tone(620, 0.08, 'sine', 0.12, 0, 380);
+    noise(0.03, 0.05, 2400, 0, 'bandpass');
     haptic('light');
   },
+  /** 落地：堂鼓 */
   land() {
-    tone(120, 0.16, 'sine', 0.22, 0, 55);
-    noise(0.08, 0.08, 900);
+    tone(110, 0.28, 'sine', 0.26, 0, 62);
+    noise(0.07, 0.07, 500);
     haptic('medium');
   },
-  /** 升級和弦：品階越高越高、越厚 */
+  /** 升級：五聲撥弦上行，品階越高音越高、越多音 */
   levelUp(grade: number) {
-    const base = 262 * Math.pow(2, grade / 6);
-    [1, 1.25, 1.5, 2].forEach((m, i) => tone(base * m, 0.5, i % 2 ? 'triangle' : 'square', 0.045, i * 0.035));
+    const start = Math.min(grade, 4);
+    const notes = PENTA.slice(start, start + 3 + Math.floor(grade / 2));
+    notes.forEach((f, i) => pluck(f, i * 0.07, 0.06));
   },
-  /** 蓄力上升音：回傳停止函數 */
+  /** 蓄力：擦弦（三角波顫音）漸升＋沙沙聲；回傳停止函數 */
   charge(seconds: number): () => void {
     const c = ok();
     if (!c) return () => {};
     const t = c.currentTime;
-    const o1 = c.createOscillator();
-    const o2 = c.createOscillator();
+    const o = c.createOscillator();
     const g = c.createGain();
-    o1.type = 'sawtooth';
-    o2.type = 'square';
-    o1.frequency.setValueAtTime(110, t);
-    o1.frequency.exponentialRampToValueAtTime(880, t + seconds);
-    o2.frequency.setValueAtTime(111.5, t);
-    o2.frequency.exponentialRampToValueAtTime(884, t + seconds);
+    o.type = 'triangle';
+    o.frequency.setValueAtTime(147, t);
+    o.frequency.exponentialRampToValueAtTime(587, t + seconds);
     const lfo = c.createOscillator();
     const lfoG = c.createGain();
-    lfo.frequency.setValueAtTime(6, t);
-    lfo.frequency.linearRampToValueAtTime(28, t + seconds);
-    lfoG.gain.value = 0.02;
-    lfo.connect(lfoG).connect(g.gain);
+    lfo.frequency.setValueAtTime(5, t);
+    lfo.frequency.linearRampToValueAtTime(14, t + seconds);
+    lfoG.gain.value = 8;
+    lfo.connect(lfoG).connect(o.frequency);
     g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(0.05, t + seconds);
-    o1.connect(g);
-    o2.connect(g);
-    g.connect(master!);
-    [o1, o2, lfo].forEach((o) => o.start(t));
+    g.gain.exponentialRampToValueAtTime(0.09, t + seconds);
+    o.connect(g).connect(master!);
+    o.start(t);
+    lfo.start(t);
+    noise(seconds, 0.03, 3000, 0, 'highpass');
     return () => {
       const now = c.currentTime;
       g.gain.cancelScheduledValues(now);
       g.gain.setValueAtTime(g.gain.value, now);
       g.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
-      [o1, o2, lfo].forEach((o) => o.stop(now + 0.06));
+      o.stop(now + 0.06);
+      lfo.stop(now + 0.06);
     };
   },
-  /** 爆炸：低頻衝擊＋噪聲；power 越大越厚 */
+  /** 爆發：大鼓＋鑼；power 越大鑼聲越長 */
   explode(power: number) {
-    tone(80, 0.6 + power * 0.2, 'sine', 0.5, 0, 30);
-    tone(160, 0.3, 'triangle', 0.18, 0, 50);
-    noise(0.7 + power * 0.25, 0.35 * Math.min(1.4, power), 1400);
-    noise(0.25, 0.2, 5000, 0, 'highpass');
+    tone(70, 0.7, 'sine', 0.5, 0, 38);
+    noise(0.35, 0.25, 700);
+    gong(147, 1.2 + power * 0.8, 0.14 * Math.min(1.4, power), 0.02);
     haptic('heavy');
   },
+  /** 卡片彈出：撥一下 */
   pop() {
-    tone(660, 0.09, 'sine', 0.12, 0, 1320);
+    pluck(PENTA[5]!, 0, 0.05);
     haptic('light');
   },
+  /** 數字滾動：梆子 */
   tick() {
-    tone(1800, 0.03, 'square', 0.025);
+    tone(1500, 0.025, 'sine', 0.05);
   },
+  /** 錢入賬：小鈴 */
   coin() {
-    tone(1568, 0.09, 'square', 0.04);
-    tone(2093, 0.18, 'square', 0.035, 0.06);
+    gong(1320, 0.35, 0.05);
   },
-  /** 勝利號角：上行大三和弦 */
+  /** 揭曉：五聲琶音＋鑼 */
   fanfare() {
-    const seq: [number, number, number][] = [
-      [523, 0, 0.14],
-      [659, 0.12, 0.14],
-      [784, 0.24, 0.14],
-      [1047, 0.36, 0.55],
-    ];
-    for (const [f, w, d] of seq) {
-      tone(f, d, 'sawtooth', 0.05, w);
-      tone(f / 2, d, 'square', 0.03, w);
-    }
+    PENTA.slice(2, 8).forEach((f, i) => pluck(f, i * 0.08, 0.055));
+    gong(196, 1.8, 0.1, 0.5);
     haptic('ritual');
   },
 };

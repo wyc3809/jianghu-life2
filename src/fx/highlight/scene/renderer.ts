@@ -28,7 +28,17 @@ uniform float innerPx;     // 內線半徑（RT 像素）
 uniform vec3 lineColor;
 uniform float cameraNear;
 uniform float cameraFar;
+uniform vec2 rtSize;       // RT 像素尺寸（筆觸雜訊用）
 varying vec2 vUv;
+
+// ---- 水墨：值雜訊（筆觸粗幼、飛白、紙紋）----
+float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+float vnoise(vec2 p) {
+  vec2 i = floor(p);
+  vec2 f = fract(p);
+  f = f * f * (3.0 - 2.0 * f);
+  return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x), mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y);
+}
 
 float linDepth(float d) {
   float z = d * 2.0 - 1.0;
@@ -40,14 +50,20 @@ void main() {
   vec4 col = texture2D(tColor, vUv);
   float here = covered(vUv);
 
-  // 外輪廓：半徑內任何一點覆蓋狀態唔同 → 邊（向內外各長，粗細一致）
+  vec2 px = vUv * rtSize;
+  // 外輪廓：毛筆粗幼有起伏（低頻雜訊調半徑），但唔會斷線
+  float wobble = 0.72 + 0.56 * vnoise(px / (outerPx * 9.0));
+  float r = outerPx * wobble;
   float outer = 0.0;
   for (int i = 0; i < 16; i++) {
     float a = float(i) * 0.3926991;
     vec2 d = vec2(cos(a), sin(a));
-    outer = max(outer, abs(covered(vUv + d * outerPx * texel) - here));
-    outer = max(outer, abs(covered(vUv + d * outerPx * 0.5 * texel) - here));
+    outer = max(outer, abs(covered(vUv + d * r * texel) - here));
+    outer = max(outer, abs(covered(vUv + d * r * 0.5 * texel) - here));
   }
+  // 飛白：拉長嘅高頻雜訊喺筆畫入面挖出紙色細縫（只喺外線）
+  float dry = vnoise(vec2(px.x / 2.2, px.y / 7.0) + vec2(px.y / 31.0, 0.0));
+  outer *= mix(1.0, smoothstep(0.12, 0.34, dry), 0.85);
 
   // 內線：只喺主體上計；法線差為主，深度差門檻放寬（斜面唔會冒細碎斜紋）
   float inner = 0.0;
@@ -68,7 +84,17 @@ void main() {
     }
   }
 
+  // 內線用淡墨（主體結構線唔搶外輪廓）
+  inner *= 0.72;
   float edge = max(outer, inner);
+  // 設色：略去飽和、加紙紋（顏料喺宣紙上嘅顆粒感）
+  if (col.a > 0.0) {
+    vec3 base = col.rgb / col.a;
+    float luma = dot(base, vec3(0.299, 0.587, 0.114));
+    base = mix(base, vec3(luma), 0.18);
+    base *= 0.93 + 0.09 * vnoise(px / 2.5) + 0.04 * vnoise(px / 23.0);
+    col.rgb = base * col.a;
+  }
   // colorRT 背景透明（rgb＝0），即係預乘；線色疊上去保持預乘
   vec3 rgb = col.rgb * (1.0 - edge) + lineColor * edge;
   float alpha = max(col.a, edge);
@@ -91,9 +117,9 @@ export class HighlightStage {
   readonly subjectRoot = new THREE.Group();
   /** 台座等其他物件（揭曉舞台時隱藏，免得描邊畫落幕布） */
   readonly props = new THREE.Group();
-  readonly keyLight = new THREE.DirectionalLight(0xfff4e0, 2.2);
-  readonly skyLight = new THREE.HemisphereLight(0xcfe3ff, 0x3a2a4a, 1.1);
-  readonly rimLight = new THREE.DirectionalLight(0xffffff, 3.2);
+  readonly keyLight = new THREE.DirectionalLight(0xfff6ea, 2.0);
+  readonly skyLight = new THREE.HemisphereLight(0xf6efe0, 0x6b6257, 1.35);
+  readonly rimLight = new THREE.DirectionalLight(0xffffff, 2.2);
 
   private colorRT: THREE.WebGLRenderTarget;
   private normalRT: THREE.WebGLRenderTarget;
@@ -134,6 +160,7 @@ export class HighlightStage {
         lineColor: { value: new THREE.Color(OUTLINE) },
         cameraNear: { value: this.camera.near },
         cameraFar: { value: this.camera.far },
+        rtSize: { value: new THREE.Vector2(1, 1) },
       },
       transparent: true,
       depthTest: false,
@@ -161,6 +188,7 @@ export class HighlightStage {
     this.colorRT.setSize(rw, rh);
     this.normalRT.setSize(rw, rh);
     this.composite.uniforms.texel!.value.set(1 / rw, 1 / rh);
+    this.composite.uniforms.rtSize!.value.set(rw, rh);
     // 線寬以輸出像素定義（dpr 1 時外 2.2px、內 0.9px），換算落 RT 像素
     const perOut = rw / this.width;
     this.composite.uniforms.outerPx!.value = 2.4 * dpr * perOut;

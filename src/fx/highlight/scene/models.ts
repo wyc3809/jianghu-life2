@@ -25,7 +25,7 @@ export interface SubjectModel {
   height: number;
 }
 
-const DARK_CORE = new THREE.Color('#2A1630');
+const DARK_CORE = new THREE.Color('#3A342C'); // 內膽：濃墨，透光時轉金
 
 /** 發光核心：MeshBasic，唔受燈光；顏色由深色插值到光色 */
 class GlowCore {
@@ -90,11 +90,12 @@ function buildChest(): SubjectModel {
   const H = 1.05;
   const T = 0.12; // 板厚
   const GAP = 0.038; // 板縫
-  const woods = [toon('#B8743A'), toon('#A8652E'), toon('#C4824A')];
+  // 木：赭石淡設色
+  const woods = [toon('#A88660'), toon('#9A7853'), toon('#B4936C')];
   const metal = toon('#C9CCD6');
   const rivetMat = toon('#E9ECF4');
   const gemMat = toon('#FFFFFF');
-  const dark = toon('#1A1033');
+  const dark = toon('#1C1A17');
   const core = new GlowCore();
 
   const body = new THREE.Group();
@@ -230,7 +231,7 @@ function buildChest(): SubjectModel {
     height: H + R,
     setGrade(g) {
       metal.color.set(g.main);
-      rivetMat.color.set(g.main).lerp(new THREE.Color('#ffffff'), 0.45);
+      rivetMat.color.set(g.main).lerp(new THREE.Color('#F3EBDC'), 0.45);
       gemMat.color.set(g.glow);
       core.setColor(g.glow);
     },
@@ -273,10 +274,10 @@ function buildToken(): SubjectModel {
   const spin = new THREE.Group();
   root.add(spin);
   const metal = toon('#C9CCD6');
-  const jade = toon('#E6F2DD');
+  const jade = toon('#E4E8D6');
   const relief = toon('#7A8B99');
   const gemMat = toon('#FFFFFF');
-  const cord = toon('#C8323C');
+  const cord = toon('#A33A32');
   const core = new GlowCore();
   const CY = 1.15; // 牌心高度
   const FW = 1.5;
@@ -359,7 +360,7 @@ function buildToken(): SubjectModel {
     height: CY + FH / 2 + 0.3,
     setGrade(g) {
       metal.color.set(g.main);
-      relief.color.set(g.main).lerp(new THREE.Color('#1A1033'), 0.35);
+      relief.color.set(g.main).lerp(new THREE.Color('#1C1A17'), 0.35);
       gemMat.color.set(g.glow);
       core.setColor(g.glow);
     },
@@ -479,9 +480,9 @@ function buildCauldron(): SubjectModel {
     burstPoint: new THREE.Vector3(0, LEG + 1.3, 0.1),
     height: LEG + 1.9,
     setGrade(g) {
-      bronze.color.set(g.main).lerp(new THREE.Color('#8A5A2B'), 0.25);
-      bandMat.color.set(g.main).lerp(new THREE.Color('#1A1033'), 0.2);
-      studMat.color.set(g.main).lerp(new THREE.Color('#ffffff'), 0.5);
+      bronze.color.set(g.main).lerp(new THREE.Color('#6E6254'), 0.3);
+      bandMat.color.set(g.main).lerp(new THREE.Color('#1C1A17'), 0.3);
+      studMat.color.set(g.main).lerp(new THREE.Color('#F3EBDC'), 0.5);
       gemMat.color.set(g.glow);
       core.setColor(g.glow);
     },
@@ -497,8 +498,9 @@ function buildCauldron(): SubjectModel {
 /** 台座（揭曉舞台時會隱藏） */
 export function buildPedestal(): THREE.Group {
   const g = new THREE.Group();
-  const stone = toon('#3E3558');
-  const rim = toon('#6B5E8F');
+  // 台座：硯石
+  const stone = toon('#5A554D');
+  const rim = toon('#7C766B');
   g.add(mesh(new THREE.CylinderGeometry(1.75, 1.9, 0.28, 48), stone, 0, -0.14, 0));
   g.add(mesh(new THREE.TorusGeometry(1.76, 0.06, 8, 48), rim, 0, 0.0, 0).rotateX(Math.PI / 2));
   g.position.y = -0.62;
