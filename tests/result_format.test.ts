@@ -8,8 +8,8 @@ describe('result formatting (事件結果排版)', () => {
     const { story, notices } = splitFeedback(fb);
     expect(story.join('')).not.toMatch(/成就|威望|完滿/);
     expect(story.join('')).toContain('你補上最後一擊。');
+    // 【完滿】直接唔顯示
     expect(notices).toEqual([
-      { label: '了結', text: '此事已了' },
       { label: '成就', text: '初勝' },
       { label: '成就', text: '血手' },
       { label: '威望', text: '略有小成' },

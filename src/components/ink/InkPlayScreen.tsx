@@ -52,6 +52,7 @@ import { InkSparStage } from './InkSparStage';
 import { LifeDebugPanel } from '../LifeDebugPanel';
 import { useAncestryStore } from '../../store/ancestryStore';
 import { InkAncestryPanel } from './InkAncestryPanel';
+import { InkAchievementToast } from './InkAchievementToast';
 import { flyInkDots } from '../../ui/hudFlyer';
 import { parseDelta, splitFeedback, type ResultNotice } from '../../ui/resultFormat';
 
@@ -290,6 +291,12 @@ export function InkPlayScreen({ state }: Props) {
     return { paras, notices, long: chars > RESULT_STORY_CLAMP_CHARS };
   }, [lastResult]);
   useEffect(() => setResultStoryOpen(false), [lastResult]);
+  // 成就改做頂部動畫；其餘（威望、稱號）留喺結果頁做細籤
+  const achievementNames = useMemo(
+    () => resultStory.notices.filter((n) => n.label === '成就').map((n) => n.text),
+    [resultStory],
+  );
+  const resultNotices = useMemo(() => resultStory.notices.filter((n) => n.label !== '成就'), [resultStory]);
 
   const showVitalsBars = !combat && !eventFocus && (tab === 'home' || tab === 'person');
   const resultKind = lastResult?.title === '修煉' ? 'practice' : 'month';
@@ -717,6 +724,7 @@ export function InkPlayScreen({ state }: Props) {
           <InkMomentFx key={momentKey} moment={headMoment} onDone={ackMoment} sectId={state.character.sectId} />
         ))}
 
+      {showResult && lastResult && <InkAchievementToast key={lastResult.feedback} names={achievementNames} />}
       {showResult &&
         lastResult &&
         createPortal(
@@ -792,9 +800,9 @@ export function InkPlayScreen({ state }: Props) {
                   {resultStoryOpen ? '收起' : '展開全文'}
                 </button>
               )}
-              {resultStory.notices.length > 0 && (
+              {resultNotices.length > 0 && (
                 <ul className="ink-result-notices" aria-label="江湖記事">
-                  {resultStory.notices.map((n, i) => (
+                  {resultNotices.map((n, i) => (
                     <li key={`${n.label}-${n.text}-${i}`} className="ink-result-notice">
                       <b>{n.label}</b>
                       {n.text}

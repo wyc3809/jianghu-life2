@@ -10,12 +10,14 @@ export interface ResultNotice {
   text: string;
 }
 
-const NOTICE_RULES: readonly [RegExp, (m: RegExpMatchArray) => ResultNotice][] = [
+/** 回傳 null＝呢句系統訊息直接唔顯示 */
+const NOTICE_RULES: readonly [RegExp, (m: RegExpMatchArray) => ResultNotice | null][] = [
   [/^【成就】「(.+?)」記入卷首。?$/, (m) => ({ label: '成就', text: m[1]! })],
   [/^江湖威望大增——你已是「(.+?)」。?$/, (m) => ({ label: '威望', text: m[1]! })],
   [/^江湖上開始有人稱你「(.+?)」。?$/, (m) => ({ label: '稱號', text: m[1]! })],
-  [/^【完滿】$/, () => ({ label: '了結', text: '此事已了' })],
-  [/^【待續】$/, () => ({ label: '未完', text: '後事待續' })],
+  // 事件了結／待續：對玩家冇意義，唔顯示
+  [/^【完滿】$/, () => null],
+  [/^【待續】$/, () => null],
 ];
 
 /** 段落切句：句號／嘆號／問號之後，或者「【」之前 */
@@ -33,7 +35,10 @@ export function splitFeedback(feedback: string): { story: string[]; notices: Res
     const kept: string[] = [];
     for (const s of sentences(para)) {
       const rule = NOTICE_RULES.find(([re]) => re.test(s));
-      if (rule) notices.push(rule[1](s.match(rule[0])!));
+      if (rule) {
+        const n = rule[1](s.match(rule[0])!);
+        if (n) notices.push(n);
+      }
       else kept.push(s);
     }
     if (kept.length) story.push(kept.join(''));

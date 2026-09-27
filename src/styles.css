@@ -7536,3 +7536,151 @@ html[data-ink-motion='reduce'] .ink-moment-toast {
   color: var(--cinnabar);
   border-color: rgba(163, 58, 50, 0.4);
 }
+
+/* ===== 成就動畫（InkAchievementToast）：頂部紙籤跌落 → 印壓 → 逐字寫 → 金光掃 → 收起 ===== */
+
+.ink-achv-stack {
+  position: fixed;
+  top: max(14px, env(safe-area-inset-top));
+  left: 0;
+  right: 0;
+  z-index: 10050;
+  display: grid;
+  justify-items: center;
+  pointer-events: none;
+}
+
+.ink-achv {
+  --d: calc(var(--k) * var(--gap));
+  grid-area: 1 / 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 200px;
+  max-width: calc(100vw - 32px);
+  padding: 8px 18px 8px 8px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: var(--paper-bright);
+  box-shadow:
+    0 0 0 1px rgba(26, 26, 26, 0.18),
+    inset 0 0 0 3px var(--paper-bright),
+    inset 0 0 0 4px rgba(194, 154, 69, 0.55),
+    0 12px 24px -10px rgba(26, 26, 26, 0.45);
+  opacity: 0;
+  animation: inkAchvLife 2.6s var(--ease-brush) var(--d) both;
+}
+
+/* 泥金掃光 */
+.ink-achv::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 30%, rgba(241, 223, 168, 0.75) 48%, rgba(255, 248, 226, 0.9) 50%, transparent 66%);
+  transform: translateX(-120%);
+  animation: inkAchvSweep 0.9s var(--ease-ink) calc(var(--d) + 0.75s) both;
+}
+
+.ink-achv-seal {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 3px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0.1em;
+  writing-mode: horizontal-tb;
+  color: var(--paper-bright);
+  background: var(--cinnabar);
+  box-shadow: inset 0 0 0 2px rgba(250, 246, 238, 0.6);
+  animation: sealPress var(--motion-slow) var(--ease-stamp) calc(var(--d) + 0.28s) both;
+}
+
+.ink-achv-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.ink-achv-name i {
+  display: inline-block;
+  font-style: normal;
+  animation: inkAchvWrite var(--motion-base) var(--ease-brush) calc(var(--d) + 0.5s + var(--j) * 70ms) both;
+}
+
+@keyframes inkAchvLife {
+  0% {
+    opacity: 0;
+    transform: translateY(-120%) rotate(-2deg);
+  }
+  12% {
+    opacity: 1;
+    transform: translateY(6px) rotate(0.5deg);
+  }
+  18% {
+    transform: translateY(0) rotate(0);
+  }
+  84% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-40%);
+  }
+}
+
+@keyframes inkAchvWrite {
+  from {
+    opacity: 0;
+    filter: blur(5px);
+    transform: scale(1.4);
+  }
+}
+
+@keyframes inkAchvSweep {
+  from {
+    transform: translateX(-120%);
+  }
+  to {
+    transform: translateX(120%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-achv {
+    animation: inkAchvFade 2.2s linear var(--d) both;
+  }
+  .ink-achv::after,
+  .ink-achv-seal,
+  .ink-achv-name i {
+    animation: none;
+  }
+}
+
+html[data-ink-motion='reduce'] .ink-achv {
+  animation: inkAchvFade 2.2s linear var(--d) both;
+}
+
+html[data-ink-motion='reduce'] .ink-achv::after,
+html[data-ink-motion='reduce'] .ink-achv-seal,
+html[data-ink-motion='reduce'] .ink-achv-name i {
+  animation: none;
+}
+
+@keyframes inkAchvFade {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  10%,
+  85% {
+    opacity: 1;
+  }
+}
