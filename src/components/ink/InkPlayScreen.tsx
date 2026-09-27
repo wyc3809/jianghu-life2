@@ -528,6 +528,7 @@ export function InkPlayScreen({ state }: Props) {
       {/* 待決事件：專注版面，選項固定在可視區底部 */}
       {eventFocus && pendingEvent && (
         <InkEventPanel
+          key={`${pendingEvent.id}-${state.year}-${month}`}
           state={state}
           pendingEvent={pendingEvent}
           choicesReady={choicesReady}

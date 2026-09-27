@@ -7162,3 +7162,122 @@ html[data-ink-motion='reduce'] .ink-moment-toast {
 .ink-hud-flyer--ink {
   background: var(--ink);
 }
+
+/* ===== 事件掃卡（InkEventPanel）：左掃甲、右掃乙，第三項起喺卡底 ===== */
+
+.ink-swipe-card {
+  --swipe: 0;
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  margin: 4px 2px 8px;
+  padding: 10px 12px 0;
+  border-radius: 6px;
+  background: var(--paper-bright);
+  box-shadow:
+    0 0 0 1px rgba(26, 26, 26, 0.12),
+    0 10px 22px -14px rgba(26, 26, 26, 0.45);
+  transform-origin: 50% 110%;
+  touch-action: pan-y;
+  will-change: transform;
+}
+
+/* 卡疊：後面兩張紙邊 */
+.ink-swipe-card.is-swipeable::before,
+.ink-swipe-card.is-swipeable::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: -5px;
+  height: 12px;
+  z-index: -1;
+  border-radius: 0 0 6px 6px;
+  background: #ece3d0;
+  box-shadow: 0 0 0 1px rgba(26, 26, 26, 0.1);
+}
+
+.ink-swipe-card.is-swipeable::after {
+  left: 16px;
+  right: 16px;
+  bottom: -10px;
+  background: #e2d7c0;
+}
+
+/* 拖動時卡邊浮現選項（左拖顯甲、右拖顯乙） */
+.ink-swipe-hint {
+  position: absolute;
+  top: 10px;
+  z-index: 2;
+  max-width: 62%;
+  padding: 6px 10px;
+  border: 2px solid var(--cinnabar);
+  border-radius: 4px;
+  font-size: 0.86rem;
+  line-height: 1.35;
+  color: var(--cinnabar);
+  background: rgba(250, 246, 238, 0.94);
+  pointer-events: none;
+}
+
+.ink-swipe-hint b {
+  margin-right: 0.4em;
+  padding: 0 0.3em;
+  color: var(--paper-bright);
+  background: var(--cinnabar);
+  border-radius: 2px;
+}
+
+.ink-swipe-hint--left {
+  right: 10px;
+  transform: rotate(6deg);
+  opacity: clamp(0, calc(var(--swipe) * -1.4), 1);
+}
+
+.ink-swipe-hint--right {
+  left: 10px;
+  transform: rotate(-6deg);
+  opacity: clamp(0, calc(var(--swipe) * 1.4), 1);
+}
+
+.ink-swipe-card.is-blocked .ink-swipe-hint {
+  display: none;
+}
+
+.ink-swipe-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.ink-choice--swipe {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  text-align: left;
+}
+
+.ink-choice--right {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.ink-swipe-text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.ink-swipe-arrow {
+  flex: none;
+  font-size: 1.2rem;
+  line-height: 1;
+  color: var(--cinnabar);
+}
+
+.ink-choice--extra {
+  margin-top: 8px;
+  font-size: 0.86rem;
+  opacity: 0.92;
+}
