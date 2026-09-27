@@ -368,7 +368,8 @@ export type LifeMoment =
   | { kind: 'rank'; name: string; rank: number; rankName: string }
   | { kind: 'title'; label: string; tier: number }
   | { kind: 'injury'; part: InjuryPart; tier: InjuryTier }
-  | { kind: 'cure'; part: InjuryPart };
+  | { kind: 'cure'; part: InjuryPart }
+  | { kind: 'loot'; gearId: string };
 
 export interface LifeGameState {
   version: 1;
@@ -671,6 +672,7 @@ export const lifeGameStateSchema = z.object({
         z.object({ kind: z.literal('title'), label: z.string(), tier: z.number() }),
         z.object({ kind: z.literal('injury'), part: injuryPartSchema, tier: injuryTierSchema }),
         z.object({ kind: z.literal('cure'), part: injuryPartSchema }),
+        z.object({ kind: z.literal('loot'), gearId: z.string() }),
       ]),
     )
     .optional(),

@@ -51,11 +51,13 @@
 - zod
 - vite, vitest
 - @vitejs/plugin-react
+- three, gsap — 只限 `src/fx/highlight/`（按需載入，見 `docs/architecture/adr-002-highlight-fx-three-gsap.md`）
 
 ## Architecture Decisions Log
 
 - Event-driven life engine (`core/life/*`) as V1 primary loop
 - IndexedDB + localStorage fallback for saves
+- ADR-002：高光時刻 3D 演出用 Three.js ＋ GSAP，lazy chunk
 
 ## Project-Specific Notes
 

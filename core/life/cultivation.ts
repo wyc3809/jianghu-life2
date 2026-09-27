@@ -199,7 +199,12 @@ export interface BreakthroughResult {
   oldTierName: string;
   /** 成功先有 */
   newTierName?: string;
+  /** 成功後新境界 level（高光時刻品階用） */
+  newTierLevel?: number;
   martialGain?: number;
+  hpGain?: number;
+  qiGain?: number;
+  prestigeGain?: number;
   hpLoss?: number;
   qiLoss?: number;
   setback?: number;
@@ -234,13 +239,16 @@ export function attemptCultivationBreakthrough(state: LifeGameState): Breakthrou
     c.cultivation.xp = 0;
     const martialGain = 8 + nextTier.level * 4;
     c.martial += martialGain;
-    raiseBaseMaxHp(c, 20 + nextTier.level * 8);
-    raiseBaseMaxQi(c, 24 + nextTier.level * 10);
+    const hpGain = 20 + nextTier.level * 8;
+    const qiGain = 24 + nextTier.level * 10;
+    raiseBaseMaxHp(c, hpGain);
+    raiseBaseMaxQi(c, qiGain);
     lines.push(
       `你於千鈞一髮之際，忽覺丹田一暖——「打通任督二脈」！`,
       `自此踏入「${nextTier.name}」之境，武學＋${martialGain}，氣血上限、內力上限同步提升。`,
     );
-    lines.push(...gainJianghuPrestige(state, 60 + nextTier.level * 40));
+    const prestigeGain = 60 + nextTier.level * 40;
+    lines.push(...gainJianghuPrestige(state, prestigeGain));
     pushChronicle(state, lines);
     snapshotRng(state);
     return {
@@ -248,7 +256,11 @@ export function attemptCultivationBreakthrough(state: LifeGameState): Breakthrou
       lines,
       oldTierName: tier.name,
       newTierName: nextTier.name,
+      newTierLevel: nextTier.level,
       martialGain,
+      hpGain,
+      qiGain,
+      prestigeGain,
     };
   }
 
