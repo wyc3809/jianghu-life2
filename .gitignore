@@ -28,3 +28,4 @@ Desktop.ini
 # Import archives (keep content/, not raw zips)
 imports/*.zip
 imports/*.tar.gz
+__pycache__/

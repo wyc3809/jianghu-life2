@@ -584,7 +584,6 @@ export function InkPlayScreen({ state }: Props) {
           <div className="ink-home-scene">
             <InkSparStage
               reduceMotion={reduceMotion}
-              background="town"
               overlay={
                 <p className="ink-spar-caption">
                   <span>

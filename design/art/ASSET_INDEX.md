@@ -90,7 +90,7 @@
 | `boss-{key}`（daoke／gouke／nvcike／toutuo／tiemian，1400px） | 朱砂 | 描邊 | 首領現身（月下剪影） |
 
 門派色：武當 `#3D5C4F`、少林 `#8A7355`、峨嵋 `#8A93A0`、華山 `#44607A`、唐門 `#4F5B3A`、桃花 `#B07A78`、青雲 `#5E7F8C`、天刀 `#5A5650`、魔教 `#5A3E48`、無根 `#8A8278`。
-名 → 剪影對應：`src/ui/inkSilhouettes.ts`。切磋小窗仍用 `public/ink/spar/sil/`（刻意保留）。戰鬥畫面不放剪影。
+名 → 剪影對應：`src/ui/inkSilhouettes.ts`。鎮居演武台改用 `public/ink/spar/v4/` 分層逐格圖（見 `design/ux/spar-stage.md`；舊 `public/ink/spar/sil/` 已停用）。戰鬥畫面不放剪影。
 
 ## 已退役 SVG
 
