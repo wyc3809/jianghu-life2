@@ -14,6 +14,7 @@
 - 全部放喺 `src/fx/highlight/`，以 `React.lazy` 按需載入，主包唔包 three／gsap（build 驗證：只喺 `HighlightFx-*.js`）。
 - 開局後閒時 `prefetchHighlight()` 預載；冇 WebGL 就退返水墨 `InkMomentFx`／`InkBreakthroughModal`。
 - 模擬層（`core/`）只負責入隊 `state.moments`（`loot`／`learn`／`rank`）同突破結果；UI 映射喺 `src/fx/highlight/fromGame.ts`，唔改遊戲狀態。
+- 2026-09-28 擴展：主頁 3D 斗笠劍客（`src/fx/highlight/title/`，`TitleHeroLazy`）共用同一套渲染器、粒子、音效；主頁一打開就 lazy 載入，未載好／冇 WebGL 時顯示同角度靜態 WebP（`public/ink/art/title/swordsman.webp`）。設計見 `design/ux/title-hero.md`。
 - 視覺上呢個演出係卡通手遊風（用戶選「完全照規格」），同水墨主畫面刻意分開；稱號、受傷、突破失敗仍用水墨特效。
 
 ## 代價

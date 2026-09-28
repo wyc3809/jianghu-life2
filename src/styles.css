@@ -287,7 +287,7 @@ body::before {
   font-size: 0.92rem;
 }
 
-.scroll-shell > *:not(.ink-backdrop):not(.ink-seal-overlay):not(.ink-ai-wash):not(.ink-tabs):not(.ink-start-bg) {
+.scroll-shell > *:not(.ink-backdrop):not(.ink-seal-overlay):not(.ink-ai-wash):not(.ink-tabs):not(.ink-start-bg):not(.ink-start-stage):not(.ink-start-verse) {
   position: relative;
   z-index: 1;
 }
@@ -5939,13 +5939,15 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   margin-left: auto;
 }
 
-/* ===== 開卷首屏：夜嶺金字版（照題字參考圖重做，深色系，只影響 .ink-start） ===== */
+/* ===== 開卷首屏：宣紙水墨版（3D 斗笠劍客見 src/fx/highlight/title/，只影響 .ink-start） ===== */
 .ink-start {
-  background: #07090d;
-  color: #e8dfc8;
+  --title-font: 'LXGW WenKai TC', 'Ma Shan Zheng', 'Noto Serif TC', serif;
+  background: var(--paper);
+  color: var(--ink);
+  overflow: hidden;
 }
 
-/* 夜嶺風雲滿底：貼頂 cover，上下壓暗令金字浮出 */
+/* 霧山宣紙滿底＋紙紋＋四邊墨暈 */
 .ink-start-bg {
   position: absolute;
   inset: 0;
@@ -5957,158 +5959,271 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 18%;
+  object-position: 82% bottom;
   display: block;
+}
+
+.ink-start-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/ink/art/ui/paper-grain.webp');
+  background-size: 320px auto;
+  mix-blend-mode: multiply;
+  opacity: 0.1;
 }
 
 .ink-start-bg::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(5, 7, 10, 0.5) 0%,
-    rgba(5, 7, 10, 0.1) 26%,
-    rgba(5, 7, 10, 0.08) 52%,
-    rgba(5, 7, 10, 0.42) 78%,
-    rgba(5, 7, 10, 0.72) 100%
+  background: radial-gradient(
+    ellipse 78% 64% at 50% 48%,
+    transparent 0%,
+    transparent 58%,
+    rgba(120, 108, 90, 0.1) 84%,
+    rgba(60, 54, 46, 0.24) 100%
   );
+}
+
+/* 劍客舞台：3D（lazy）同靜態後備圖疊喺同一位置 */
+.ink-start-stage {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ink-start.is-leaving .ink-start-stage {
+  z-index: 30;
+}
+
+/* 主角空位：標題同按鈕之間剩低嘅高度 */
+.ink-start .ink-start-slot {
+  flex: 1 1 auto;
+  min-height: 160px;
+  margin: 6px 0 10px;
+}
+
+.ink-start-still {
+  position: absolute;
+  left: 50%;
+  top: 5%;
+  height: 90%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  object-fit: contain;
+  transition: opacity 0.35s var(--ease-ink);
+}
+
+.ink-start.is-hero-ready .ink-start-still {
+  opacity: 0;
+}
+
+/* 冇 WebGL／未載好：紙面化開（CSS 版） */
+.ink-start-wash {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: var(--paper);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 0%, transparent 0%);
+  mask-image: radial-gradient(circle at 50% 50%, #000 0%, transparent 0%);
+}
+
+.ink-start.is-leaving .ink-start-wash {
+  animation: inkStartWash 0.44s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+}
+
+@property --start-wash {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
+@keyframes inkStartWash {
+  from {
+    opacity: 1;
+    --start-wash: 0%;
+  }
+  to {
+    opacity: 1;
+    --start-wash: 130%;
+  }
+}
+
+.ink-start.is-leaving .ink-start-wash {
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 var(--start-wash), transparent calc(var(--start-wash) + 12%));
+  mask-image: radial-gradient(circle at 50% 50%, #000 var(--start-wash), transparent calc(var(--start-wash) + 12%));
+}
+
+/* 過場時字同按鈕淡走，讓劍客獨佔畫面 */
+.ink-start > .ink-hero,
+.ink-start .ink-verse,
+.ink-start > .ink-cta-stack {
+  transition:
+    opacity 0.22s var(--ease-ink),
+    transform 0.22s var(--ease-ink);
+}
+
+.ink-start.is-leaving > .ink-hero,
+.ink-start.is-leaving .ink-verse,
+.ink-start.is-leaving > .ink-cta-stack {
+  animation: none;
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
 }
 
 .ink-start .ink-hero {
   position: relative;
   z-index: 1;
-  padding-top: 30px;
+  padding: 18px 8px 0;
 }
 
-/* 古銅江湖印 */
+/* 朱砂「江湖」印 */
 .ink-start-seal {
-  width: 86px;
-  height: 86px;
+  width: 46px;
+  height: 46px;
   object-fit: contain;
-  margin-bottom: 8px;
-  filter: drop-shadow(0 5px 16px rgba(0, 0, 0, 0.65));
-  animation: inkWashReveal var(--motion-slow) var(--ease-ink) both;
+  margin-bottom: 4px;
+  transform: rotate(-6deg);
+  animation: inkStartSeal 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.75s both;
+}
+
+@keyframes inkStartSeal {
+  from {
+    opacity: 0;
+    transform: rotate(-6deg) scale(1.7);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(-6deg) scale(1);
+  }
 }
 
 .ink-start .ink-eyebrow {
-  color: #cfc2a0;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85);
+  color: var(--ink-soft);
+  font-family: var(--title-font);
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
 }
 
-/* 金字招牌：金漸變入字，夜色投影 */
+/* 題字：霞鶩文楷逐字落墨（化開 → 收實） */
 .ink-start .ink-brand {
-  color: transparent;
-  background: linear-gradient(180deg, #f6e6b0 6%, #dcb96c 48%, #a67c33 94%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  text-shadow: none;
-  filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.8));
+  font-family: var(--title-font);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 12.5vw, 3.3rem);
+  letter-spacing: 0.16em;
+  margin: 4px 0 2px;
+  padding-left: 0.16em;
+  color: var(--ink);
+  text-shadow: 0 1px 0 rgba(250, 246, 238, 0.7);
+  animation: none;
 }
 
-/* 金線分隔（兩端漸隱、中段微亮） */
-.ink-gold-rule {
-  display: block;
-  width: 200px;
-  height: 2px;
-  margin: 18px auto 16px;
-  border-radius: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    #b9934a 20%,
-    #f0d792 50%,
-    #b9934a 80%,
-    transparent 100%
-  );
-  box-shadow: 0 0 9px rgba(222, 184, 92, 0.5);
+.ink-start .ink-brand span {
+  display: inline-block;
+  animation: inkStartInk 0.62s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+
+@keyframes inkStartInk {
+  0% {
+    opacity: 0;
+    transform: translateY(-14px) scale(1.8);
+    filter: blur(9px);
+    color: #8a857c;
+  }
+  60% {
+    opacity: 1;
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+    color: var(--ink);
+  }
 }
 
 .ink-start .ink-tagline {
-  color: #e9ddba;
-  font-weight: 600;
-  text-shadow: 0 1px 7px rgba(0, 0, 0, 0.9);
+  font-family: var(--title-font);
+  font-size: 0.98rem;
+  color: var(--ink-mid);
+  letter-spacing: 0.2em;
+  animation: inkWashReveal var(--motion-slow) var(--ease-ink) 0.7s both;
 }
 
+/* 卷首三句：直排題款，喺劍客左邊（.ink-start-verse 唔受 scroll-shell 子元素 relative 規則影響） */
 .ink-start .ink-verse {
-  position: relative;
+  position: absolute;
   z-index: 1;
-  color: #d3c8a9;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
+  left: -2px;
+  top: 4%;
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 8px;
+  margin: 0;
+  font-family: var(--title-font);
+  /* 矮屏收細，唔好頂落按鈕 */
+  font-size: min(0.9rem, 1.85dvh);
+  line-height: 1.15;
+  letter-spacing: 0;
+  color: var(--ink-mid);
+  animation: inkWashReveal var(--motion-slow) var(--ease-ink) 0.95s both;
+}
+
+.ink-start .ink-verse p {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ink-start .ink-verse p:nth-child(2) {
+  margin-top: 1.6em;
+}
+
+.ink-start .ink-verse span {
+  display: block;
+}
+
+.ink-start .ink-verse .ink-verse-gap {
+  display: block;
+  height: 0.6em;
 }
 
 .ink-start .ink-cta-stack {
   position: relative;
   z-index: 1;
-  gap: 14px;
+  gap: 12px;
+  padding: 0 18px;
 }
 
-/* 續寫前緣：深朱砂底 + 金邊金字 */
-.ink-start .ink-btn--primary {
-  background: linear-gradient(180deg, #8e2b1e 0%, #701d13 100%);
-  border: 1px solid rgba(216, 178, 96, 0.65);
-  border-radius: 3px;
-  color: #f0dfae;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 226, 160, 0.22),
-    inset 0 0 0 3px rgba(5, 7, 10, 0.18),
-    0 4px 14px rgba(0, 0, 0, 0.5);
-}
-
-.ink-start .ink-btn--primary:hover {
-  background: linear-gradient(180deg, #9c3122 0%, #7a2116 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 226, 160, 0.26),
-    0 4px 16px rgba(0, 0, 0, 0.55);
-}
-
-.ink-start .ink-btn--primary:active:not(:disabled) {
-  background: linear-gradient(180deg, #7a2116 0%, #5f170e 100%);
-}
-
-.ink-start .ink-btn--primary .ink-btn-sub {
-  color: rgba(240, 223, 174, 0.75);
-}
-
-/* 開卷新篇：深古銅底 + 金邊金字 */
 .ink-start .ink-btn--ghost {
-  background: linear-gradient(180deg, #413a2b 0%, #322c20 100%);
-  border: 1px solid rgba(216, 178, 96, 0.55);
-  border-radius: 3px;
-  color: #e7d7a8;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 226, 160, 0.16),
-    0 4px 14px rgba(0, 0, 0, 0.5);
+  background: rgba(243, 235, 220, 0.72);
 }
 
-.ink-start .ink-btn--ghost:hover {
-  background: linear-gradient(180deg, #4a4231 0%, #383124 100%);
-}
-
-.ink-start .ink-btn--ghost:active:not(:disabled) {
-  background: linear-gradient(180deg, #322c20 0%, #26211a 100%);
-}
-
-/* 左右金飾短線同色 */
 .ink-start .ink-btn--scroll::before,
 .ink-start .ink-btn--scroll::after {
   opacity: 0.5;
 }
 
-/* 事件一覽：純文字金調連結 */
 .ink-start .ink-btn--quiet {
   align-self: center;
-  color: #bfae87;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  text-decoration-color: rgba(191, 174, 135, 0.45);
   min-height: 0;
   padding: 6px 8px;
+  color: var(--ink-soft);
 }
 
-.ink-start .ink-btn--quiet:hover {
-  background: transparent;
-  color: #dcc99b;
+@media (prefers-reduced-motion: reduce) {
+  .ink-start .ink-brand span,
+  .ink-start-seal {
+    animation: none;
+  }
+}
+
+html[data-ink-motion='reduce'] .ink-start .ink-brand span,
+html[data-ink-motion='reduce'] .ink-start-seal {
+  animation: none;
 }
 
 /* ===== 水墨筆觸 UI（取代內嵌 SVG；紋理見 public/ink/art/ui/，元件見 InkBrush.tsx）===== */
