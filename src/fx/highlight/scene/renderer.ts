@@ -123,7 +123,8 @@ export class HighlightStage {
 
   private colorRT: THREE.WebGLRenderTarget;
   private normalRT: THREE.WebGLRenderTarget;
-  private normalMat = new THREE.MeshNormalMaterial();
+  /** 雙面：披風、垂紗呢類開口薄片喺法線 pass 都要有覆蓋，外輪廓先唔會漏 */
+  private normalMat = new THREE.MeshNormalMaterial({ side: THREE.DoubleSide });
   private quadScene = new THREE.Scene();
   private quadCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
   private composite: THREE.ShaderMaterial;

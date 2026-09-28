@@ -162,9 +162,9 @@ export class ParticleSystem {
     }
   }
 
-  /** 衝擊波（一次三層） */
-  shockwave(x: number, y: number, maxR: number, color: string, life = 0.7) {
-    this.add({ shape: 'ring', x, y, color, maxR, life, maxLife: life, size: 1 });
+  /** 衝擊波（一次三層）；minR：由主體輪廓外開始擴 */
+  shockwave(x: number, y: number, maxR: number, color: string, life = 0.7, minR = 0) {
+    this.add({ shape: 'ring', x, y, color, maxR, life, maxLife: life, size: 1, killRadius: minR });
   }
 
   /** 吸入：由四周吸向中心，到 killRadius 內淡走 */
@@ -414,7 +414,8 @@ export class ParticleSystem {
         case 'ring': {
           const prog = 1 - t;
           const e = 1 - Math.pow(1 - prog, 3);
-          const r = p.maxR! * e;
+          const r0 = p.killRadius ?? 0;
+          const r = r0 + (p.maxR! - r0) * e;
           // 三層墨環：寬而淡（暈）、中墨、幼而濃
           const layers: [number, number][] = [
             [22, 0.1],
