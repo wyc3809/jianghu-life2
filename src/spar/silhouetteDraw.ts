@@ -44,6 +44,34 @@ export const HERO_LAYERS = {
   arm: { src: `${SIL_LAYERS}hero-arm.webp`, w: 161, h: 220, dx: -28, dy: -24 },
 } as const;
 
+/**
+ * 每格主角握點（剪影位圖像素；腳底錨點 (308, 788)）同兵器方向（度，0＝向右，順時針正）。
+ * 主角剪影已擦走原本畫死嘅刀，兵器剪影由引擎按裝備欄畫返上去（劍／刀／槍／棍／鞭／弓／暗器）。
+ */
+export const HERO_WEAPON_GRIPS: Readonly<Record<string, { x: number; y: number; angle: number }>> = {
+  idle: { x: 398, y: 490, angle: 37.9 },
+  'walk-0': { x: 398, y: 494, angle: 37.3 },
+  'walk-1': { x: 430, y: 468, angle: 37.8 },
+  'walk-2': { x: 398, y: 494, angle: 37.3 },
+  'walk-3': { x: 406, y: 497, angle: 38.2 },
+  attack: { x: 425, y: 262, angle: -154.2 },
+  'atk-0': { x: 422, y: 260, angle: -156.7 },
+  'atk-1': { x: 425, y: 262, angle: -154.2 },
+  'atk-2': { x: 512, y: 349, angle: 19.4 },
+};
+
+/** 兵器剪影長度：握點到尖（剪影設計單位，主角全高 788）；空手用嚟計拳風拖墨 */
+export const WEAPON_SIL_LENGTH: Readonly<Record<string, number>> = {
+  sword: 240,
+  blade: 230,
+  spear: 400,
+  staff: 380,
+  whip: 300,
+  bow: 210,
+  hidden: 110,
+  fist: 60,
+};
+
 /** 鋒尖相對腳底（設計單位）——拖墨軌用 */
 export function weaponTipLocal(_weapon: string, k: number): { x: number; y: number } {
   return { x: 210 * k, y: -420 * k };

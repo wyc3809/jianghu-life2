@@ -30,11 +30,12 @@ import {
   HERO_ATK_FRAMES,
   HERO_LAYERS,
   SILHOUETTE_DESIGN_H,
+  HERO_WEAPON_GRIPS,
+  WEAPON_SIL_LENGTH,
   attackFrameIndex,
   drawSilhouetteSprite,
   walkFrameIndex,
   weaponFromKind,
-  weaponTipLocal,
 } from './silhouetteDraw';
 import { AnimDirector, type DirectorSample } from './animDirector';
 
@@ -315,9 +316,10 @@ export class SparStage {
     this.bgFade = 0;
   }
 
-  /** 換武器（裝備欄轉武器時叫）；null＝空手。剪影模式只讀 def.src 推斷兵種。 */
-  setWeapon(def: WeaponSpriteDef | null, _img: HTMLImageElement | null) {
+  /** 換武器（裝備欄轉武器時叫）；null＝空手。兵器剪影掛喺每格握點（HERO_WEAPON_GRIPS）。 */
+  setWeapon(def: WeaponSpriteDef | null, img: HTMLImageElement | null) {
     this.weaponDef = def;
+    this.images.weapon = def ? img : null;
   }
 
   /** 減少動態：保留「行過去打敵人」核心觀感，關掉震屏／粒子 */
@@ -733,17 +735,21 @@ export class SparStage {
       // A：揀全身幀（行路／揮擊／待機）——永遠先畫，確保主角可見
       let heroImg: CanvasImageSource = this.images.heroIdle;
       let part: { w: number; h: number; dx: number; dy: number } = HERO_SIL.idle;
+      let frameKey = 'idle';
       if (striking && this.images.heroAtk && this.images.heroAtk.length >= 3) {
         const fi = attackFrameIndex(at, this.attackClipNow().dur);
         heroImg = this.images.heroAtk[fi] ?? this.images.heroAttack;
         part = HERO_ATK_FRAMES[fi] ?? HERO_SIL.attack;
+        frameKey = this.images.heroAtk[fi] ? `atk-${fi}` : 'attack';
       } else if (striking) {
         heroImg = this.images.heroAttack;
         part = HERO_SIL.attack;
+        frameKey = 'attack';
       } else if (this.images.heroWalk && this.images.heroWalk.length >= 4 && (this.directorSample?.walkMul ?? 1) > 0.15) {
         const fi = walkFrameIndex(this.walkT);
         heroImg = this.images.heroWalk[fi] ?? this.images.heroIdle;
         part = HERO_WALK_FRAMES[fi] ?? HERO_SIL.idle;
+        frameKey = this.images.heroWalk[fi] ? `walk-${fi}` : 'idle';
       }
 
       ctx.save();
@@ -759,47 +765,27 @@ export class SparStage {
         dy: part.dy,
       });
 
-      // C：全身幀已帶臂／武器；舊分層臂只喺揮擊極淡疊一層（避免蓋過新剪影）
-      if (this.images.layerArm && striking && (this.directorSample?.phase === 'strike')) {
-        try {
-          const shoulder = this.rig.shoulderSocket;
-          ctx.save();
-          ctx.translate(shoulder.x * g.k, shoulder.y * g.k);
-          ctx.rotate((arm.rot + wep.rot * 0.35) * DEG);
-          drawSilhouetteSprite(ctx, this.images.layerArm, {
-            k: g.k * 0.95,
-            w: HERO_LAYERS.arm.w,
-            h: HERO_LAYERS.arm.h,
-            dx: HERO_LAYERS.arm.dx,
-            dy: HERO_LAYERS.arm.dy,
-            alpha: striking ? 0.85 : 0.45,
-          });
-          void head;
-          if (this.images.weapon && this.weaponDef) {
-            const grip = this.rig.gripSocket;
-            ctx.save();
-            ctx.translate(grip.x * g.k * 0.85, grip.y * g.k * 0.85);
-            ctx.rotate(wep.rot * DEG);
-            const wd = this.weaponDef;
-            ctx.drawImage(
-              toInkSilhouette(this.images.weapon),
-              -wd.grip.x * g.k * 0.55,
-              -wd.grip.y * g.k * 0.55,
-              wd.w * g.k * 0.55,
-              wd.h * g.k * 0.55,
-            );
-            ctx.restore();
-          }
-          ctx.restore();
-        } catch {
-          /* 分層失敗唔影響全身幀 */
-        }
+      // 兵器剪影：掛喺呢格握點，沿該格揮擊方向；空手唔畫（拖墨用拳風距離）
+      void arm;
+      void head;
+      const gripDef = HERO_WEAPON_GRIPS[frameKey] ?? HERO_WEAPON_GRIPS.idle!;
+      const gx = (gripDef.x + HERO_SIL.idle.dx) * g.k;
+      const gy = (gripDef.y + HERO_SIL.idle.dy) * g.k;
+      // 待機時兵器隨呼吸輕晃
+      const ang = gripDef.angle * DEG + (striking ? wep.rot * DEG * 0.15 : Math.sin(this.idleT * 2.2) * 0.03);
+      const len = (WEAPON_SIL_LENGTH[weaponKind] ?? WEAPON_SIL_LENGTH.fist!) * g.k;
+      if (this.images.weapon && this.weaponDef) {
+        const wd = this.weaponDef;
+        const s = len / Math.max(1, wd.tip.y - wd.grip.y);
+        ctx.save();
+        ctx.translate(gx, gy);
+        ctx.rotate(ang - Math.PI / 2);
+        ctx.drawImage(toInkSilhouette(this.images.weapon), -wd.grip.x * s, -wd.grip.y * s, wd.w * s, wd.h * s);
+        ctx.restore();
       }
 
       ctx.save();
-      ctx.rotate(arm.rot * DEG * 0.35);
-      ctx.rotate(wep.rot * DEG * 0.25);
-      const local = weaponTipLocal(weaponKind, g.k);
+      const local = { x: gx + Math.cos(ang) * len, y: gy + Math.sin(ang) * len };
       const m = ctx.getTransform();
       const tip = {
         x: (m.a * local.x + m.c * local.y + m.e) / this.dpr,
