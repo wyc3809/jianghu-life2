@@ -69,60 +69,18 @@ class Layer:
     def __init__(self):
         self.img = Image.new("RGBA", (int(CW * S), int(CH * S)), (0, 0, 0, 0))
 
-    def paste_shape(self, poly, base, shade=None, light=None, outline=True, width=4.2, smooth=True, opacity=1.0):
-        """淡彩設色（墨暈陰影、邊緣積色、顏料顆粒、留白高光）＋粗幼有變化嘅乾筆描邊。
-        poly：設計座標點列（預設 Catmull-Rom 圓滑）或 ('circle', c, r)／('ellipse', c, rx, ry)。"""
-        m = shape_mask(poly, smooth)
-        fill_wash(self.img, m, base, opacity)
+    def paste_shape(self, poly, base, shade=None, light=None, outline=True, width=4.2):
+        """三層設色（底色、成塊陰影、留白高光）＋乾筆描邊。poly：設計座標點列或 ('circle', c, r)。"""
+        m = shape_mask(poly)
+        fill_cel(self.img, m, base, shade, light)
         if outline:
             stroke_mask(self.img, m, width)
 
-    def outline_only(self, poly, width=4.2, smooth=True):
-        stroke_mask(self.img, shape_mask(poly, smooth), width)
-
-    def brush(self, pts, width, color=INK, alpha=0.8, taper=0.25):
-        """一筆（沿點列、起筆粗收筆尖、帶飛白），用嚟畫衣褶、竹篾、繩"""
-        brush_line(self.img, pts, width, color, alpha, taper)
+    def outline_only(self, poly, width=4.2):
+        stroke_mask(self.img, shape_mask(poly), width)
 
 
-def smooth_poly(pts, n=7):
-    """閉合 Catmull-Rom：多邊形變圓潤（衣袍、披風、袖）"""
-    N = len(pts)
-    out = []
-    for i in range(N):
-        p0, p1, p2, p3 = pts[i - 1], pts[i], pts[(i + 1) % N], pts[(i + 2) % N]
-        for k in range(n):
-            t = k / n
-            t2, t3 = t * t, t * t * t
-            out.append(tuple(
-                0.5 * (2 * p1[j] + (-p0[j] + p2[j]) * t + (2 * p0[j] - 5 * p1[j] + 4 * p2[j] - p3[j]) * t2
-                       + (-p0[j] + 3 * p1[j] - 3 * p2[j] + p3[j]) * t3)
-                for j in (0, 1)
-            ))
-    return out
-
-
-def open_spline(pts, n=10):
-    """開放 Catmull-Rom（筆畫用）"""
-    if len(pts) < 3:
-        return pts
-    ext = [pts[0]] + list(pts) + [pts[-1]]
-    out = []
-    for i in range(1, len(ext) - 2):
-        p0, p1, p2, p3 = ext[i - 1], ext[i], ext[i + 1], ext[i + 2]
-        for k in range(n):
-            t = k / n
-            t2, t3 = t * t, t * t * t
-            out.append(tuple(
-                0.5 * (2 * p1[j] + (-p0[j] + p2[j]) * t + (2 * p0[j] - 5 * p1[j] + 4 * p2[j] - p3[j]) * t2
-                       + (-p0[j] + 3 * p1[j] - 3 * p2[j] + p3[j]) * t3)
-                for j in (0, 1)
-            ))
-    out.append(pts[-1])
-    return out
-
-
-def shape_mask(poly, smooth=True):
+def shape_mask(poly):
     m = Image.new("L", (int(CW * S), int(CH * S)), 0)
     d = ImageDraw.Draw(m)
     if isinstance(poly, tuple) and poly and poly[0] == "circle":
@@ -134,8 +92,7 @@ def shape_mask(poly, smooth=True):
         cx, cy = P(c)
         d.ellipse([cx - rx * S, cy - ry * S, cx + rx * S, cy + ry * S], fill=255)
     else:
-        pts = smooth_poly(poly) if smooth and len(poly) >= 4 else poly
-        d.polygon([P(p) for p in pts], fill=255)
+        d.polygon([P(p) for p in poly], fill=255)
     return m
 
 
@@ -143,82 +100,40 @@ def shift(m, dx, dy):
     return ImageChops.offset(m, int(dx), int(dy))
 
 
-_FIELDS = {}
+def fill_cel(img, m, base, shade=None, light=None):
+    shade = shade or tuple(int(c * 0.78) for c in base)
+    light = light or tuple(min(255, int(c + (255 - c) * 0.45)) for c in base)
+    # 陰影：右下邊緣一塊；高光：左上邊緣一條
+    sh = ImageChops.subtract(m, shift(m, -int(9 * S), -int(7 * S)))
+    li = ImageChops.subtract(m, shift(m, int(4 * S), int(4 * S)))
+    img.paste(Image.new("RGBA", img.size, base + (255,)), (0, 0), m)
+    img.paste(Image.new("RGBA", img.size, shade + (255,)), (0, 0), sh)
+    img.paste(Image.new("RGBA", img.size, light + (255,)), (0, 0), li)
 
 
-def field(size, cell, key):
-    """固定雜訊場（0..1），同尺寸重用"""
-    k = (size, cell, key)
-    if k not in _FIELDS:
-        w, h = size
-        _FIELDS[k] = value_noise_2d(RNG, h, w, cell).astype(np.float32)
-    return _FIELDS[k]
-
-
-def fill_wash(img, m, base, opacity=1.0):
-    """宣紙淡彩：底色＋右下墨暈陰影（柔邊）＋左上留白高光＋邊緣積色＋顏料顆粒"""
-    size = m.size
-    M = np.asarray(m, np.float32) / 255
-    if M.max() <= 0:
-        return
-    blur = np.asarray(m.filter(ImageFilter.GaussianBlur(9 * S)), np.float32) / 255
-    sh_src = np.asarray(shift(Image.fromarray((blur * 255).astype(np.uint8)), -7 * S, -8 * S), np.float32) / 255
-    shadow = np.clip(M - sh_src * 1.05, 0, 1)
-    shadow = np.asarray(Image.fromarray((shadow * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(2.5 * S)), np.float32) / 255
-    hi = np.clip(M - np.asarray(shift(m, 4 * S, 5 * S), np.float32) / 255, 0, 1)
-    hi = np.asarray(Image.fromarray((hi * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(2 * S)), np.float32) / 255
-    er = np.asarray(m.filter(ImageFilter.MinFilter(int(5 * S) | 1)).filter(ImageFilter.GaussianBlur(2 * S)), np.float32) / 255
-    pool = np.clip(M - er, 0, 1)
-    gran = field(size, 2, "g") * 0.6 + field(size, 9, "g2") * 0.4
-    b = np.array(base, np.float32)[None, None, :]
-    col = b * (1 - 0.3 * shadow[..., None]) * (1 - 0.14 * pool[..., None]) * (0.93 + 0.1 * gran[..., None])
-    col = col + (255 - col) * 0.32 * hi[..., None]
-    col = np.clip(col, 0, 255)
-    src = np.zeros(M.shape + (4,), np.float32)
-    src[..., :3] = col
-    src[..., 3] = M * 255 * opacity
-    over = Image.fromarray(src.astype(np.uint8), "RGBA")
-    img.alpha_composite(over)
+_DRY = None
 
 
 def dry_mask(size):
     """飛白：拉長嘅雜訊，挖出紙色細縫"""
-    n = field(size, 3, "d") * 0.6 + field(size, 11, "d2") * 0.4
-    return Image.fromarray((np.clip((n - 0.2) * 4.0, 0, 1) * 255).astype(np.uint8), "L")
+    global _DRY
+    if _DRY is None or _DRY.size != size:
+        w, h = size
+        n = value_noise_2d(RNG, h, w, 3) * 0.6 + value_noise_2d(RNG, h, w, 11) * 0.4
+        a = np.clip((n - 0.22) * 4.0, 0, 1) * 255
+        _DRY = Image.fromarray(a.astype(np.uint8), "L")
+    return _DRY
 
 
 def stroke_mask(img, m, width):
-    """外輪廓：粗幼隨雜訊起伏（幼線同粗線之間混合）＋內緣淡墨＋飛白"""
-    size = m.size
-    w1 = max(3, int(width * S * 0.5)) | 1
-    w2 = max(5, int(width * S * 1.5)) | 1
-    M = np.asarray(m, np.float32)
-    thin = np.asarray(m.filter(ImageFilter.MaxFilter(w1)), np.float32) - M
-    thick = np.asarray(m.filter(ImageFilter.MaxFilter(w2)), np.float32) - M
-    n = field(size, int(16 * S), "w")
-    ring = thin * (1 - n) + thick * n
-    lip = (M - np.asarray(m.filter(ImageFilter.MinFilter(3)), np.float32)) * 0.55
-    a = np.clip(ring * 1.25 + lip, 0, 255) * np.clip(np.asarray(dry_mask(size), np.float32) / 255 * 0.55 + 0.45 + 0.2 * n, 0, 1)
-    ring_img = Image.fromarray(a.astype(np.uint8), "L").filter(ImageFilter.GaussianBlur(0.7))
-    img.paste(Image.new("RGBA", img.size, INK + (255,)), (0, 0), ring_img)
-
-
-def brush_line(img, pts, width, color=INK, alpha=0.8, taper=0.25):
-    pts = open_spline(pts)
-    n = len(pts)
-    m = Image.new("L", img.size, 0)
-    d = ImageDraw.Draw(m)
-    for i in range(n - 1):
-        t = i / max(1, n - 2)
-        # 起筆略頓、中段飽滿、收筆收尖
-        w = width * (0.75 + 0.35 * math.sin(math.pi * min(1, t * 1.6))) * (1 - (1 - taper) * max(0, t - 0.55) / 0.45)
-        a, b = P(pts[i]), P(pts[i + 1])
-        r = max(0.6, w * S / 2)
-        d.line([a, b], fill=255, width=max(1, int(r * 2)))
-        d.ellipse([b[0] - r, b[1] - r, b[0] + r, b[1] + r], fill=255)
-    m = ImageChops.multiply(m, dry_mask(img.size)).filter(ImageFilter.GaussianBlur(0.6))
-    m = m.point(lambda v: int(v * alpha))
-    img.paste(Image.new("RGBA", img.size, tuple(color) + (255,)), (0, 0), m)
+    """由形狀外緣畫一圈濃墨：膨脹減原形（外線）＋少少內收，再乘飛白"""
+    w = max(1, int(width * S))
+    outer = m.filter(ImageFilter.MaxFilter(w | 1))
+    inner = m.filter(ImageFilter.MinFilter(max(3, (w // 2) | 1)))
+    ring = ImageChops.subtract(outer, inner)
+    ring = ImageChops.multiply(ring, dry_mask(m.size))
+    ring = ring.filter(ImageFilter.GaussianBlur(0.6))
+    img.paste(Image.new("RGBA", img.size, INK + (255,)), (0, 0), ring)
 
 
 def limb(a, b, wa, wb):
@@ -232,25 +147,6 @@ def limb(a, b, wa, wb):
         (b[0] - nx * wb / 2, b[1] - ny * wb / 2),
         (a[0] - nx * wa / 2, a[1] - ny * wa / 2),
     ]
-
-
-def sleeve(sh, el, hand, sgn, w_up=24, w_cuff=44, drape=14):
-    """闊袖：上臂窄、前臂向袖口張開，袖口向下垂（重力），圓滑輪廓"""
-    up = limb(sh, el, w_up, w_up + 4)
-    dx, dy = hand[0] - el[0], hand[1] - el[1]
-    L = math.hypot(dx, dy) or 1
-    nx, ny = -dy / L, dx / L
-    # 下緣＝法線指向地面嗰邊
-    if ny < 0:
-        nx, ny = -nx, -ny
-    top_el = (el[0] - nx * (w_up + 4) / 2, el[1] - ny * (w_up + 4) / 2)
-    bot_el = (el[0] + nx * (w_up + 4) / 2, el[1] + ny * (w_up + 4) / 2)
-    tip = (hand[0] - dx / L * 4, hand[1] - dy / L * 4)
-    top_h = (tip[0] - nx * w_cuff * 0.35, tip[1] - ny * w_cuff * 0.35)
-    bot_h = (tip[0] + nx * w_cuff * 0.65, tip[1] + ny * w_cuff * 0.65 + drape)
-    mid_b = ((bot_el[0] + bot_h[0]) / 2, (bot_el[1] + bot_h[1]) / 2 + drape * 0.8)
-    fore = [top_el, top_h, bot_h, mid_b, bot_el]
-    return up, fore, (top_h, bot_h)
 
 
 def gray_to_mask_strip(frames):
@@ -351,12 +247,12 @@ def hero_clips():
 
 HAT = (201, 179, 135)
 HAT_RIB = (156, 132, 91)
-VEIL = (226, 220, 206)
+VEIL = (240, 235, 224)
 CAPE = (84, 79, 72)
 LEG = (110, 104, 96)
 BOOT = (58, 52, 44)
 SKIN = (227, 211, 185)
-FACE = (122, 114, 104)
+FACE = (140, 133, 122)
 BELT = (70, 64, 56)
 ROBE_G = (224, 224, 224)
 ARMOR = (122, 128, 132)
@@ -411,120 +307,98 @@ def draw_hero_frame(p):
     L = {n: Layer() for n in ("back", "robe", "front", "armor", "acc", "hand")}
     hip, sh, head, up = k["hip"], k["sh"], k["head"], k["up"]
     sgn = k["sgn"]
+    # ---- back：披風
     wave = math.sin(p["cape"] * math.tau)
-    wave2 = math.sin(p["cape"] * math.tau + 1.3)
     fl = p["flare"]
-    # ---- back：披風（由肩後飄出，尾端分兩條波浪）
-    tx = -44 - 52 * fl
+    tail = (-38 - 46 * fl, 96 + 6 * wave)
     cape = [
-        add(sh, (-6, -8)),
-        add(sh, (14, -2)),
-        add(sh, (8, 20)),
-        add(hip, (-8, 34)),
-        add(hip, (tx * 0.5, 84 + 6 * wave)),
-        add(hip, (tx * 0.85, 96 - 14 * fl + 10 * wave2)),
-        add(hip, (tx, 70 - 22 * fl + 8 * wave)),
-        add(hip, (tx * 0.9 - 4, 30 - 16 * fl)),
-        add(sh, (-26 - 22 * fl, 30 + 6 * wave2)),
-        add(sh, (-18, 4)),
+        add(sh, (-10, -4)),
+        add(sh, (12, 2)),
+        add(hip, (-6, 30)),
+        add(hip, (tail[0] * 0.55, tail[1] * 0.75 + 8 * wave)),
+        add(hip, (tail[0], tail[1] - 10 + 10 * wave)),
+        add(hip, (tail[0] * 0.8 - 6, 34 - 12 * fl)),
+        add(sh, (-22 - 18 * fl, 22)),
     ]
-    L["back"].paste_shape(cape, CAPE, width=4.4)
-    L["back"].brush([add(sh, (-10, 10)), add(hip, (tx * 0.35, 40)), add(hip, (tx * 0.6, 80 + 4 * wave))], 2.2, alpha=0.45)
-    # 雙腿（褲＋靴，圓滑）
-    for foot in (k["footB"], k["footF"]):
-        L["back"].paste_shape(limb(add(hip, (0, 12)), add(foot, (0, -10)), 24, 17), LEG, width=3.4)
-        boot = [add(foot, (-9, -20)), add(foot, (9, -20)), add(foot, (12, -8)), add(foot, (24, -2)), add(foot, (22, 3)), add(foot, (-10, 3)), add(foot, (-11, -8))]
-        L["back"].paste_shape(boot, BOOT, width=3.2)
-    # 後袖（闊袖，袍色喺 robe 層；外線喺 back 層）＋後手
-    bUp, bFore, _ = sleeve(k["shB"], k["elB"], k["handB"], sgn, 20, 30, 6)
-    L["back"].outline_only(bUp, 3.4)
-    L["back"].outline_only(bFore, 3.4)
-    L["back"].paste_shape(("circle", k["handB"], 6.5), SKIN, width=2.6)
-    # ---- robe（灰階，執行時染門派色）
+    L["back"].paste_shape(cape, CAPE)
+    # 雙腿（褲＋靴）
+    for foot, a in ((k["footB"], p["legB"]), (k["footF"], p["legF"])):
+        L["back"].paste_shape(limb(add(hip, (0, 10)), foot, 26, 20), LEG)
+        boot = [add(foot, (-10, -18)), add(foot, (10, -18)), add(foot, (22, -2)), add(foot, (22, 3)), add(foot, (-10, 3))]
+        L["back"].paste_shape(boot, BOOT)
+    # 後袖（袍色，喺 robe 層先畫）＋後袖邊喺 back 層
+    backSleeve = limb(k["shB"], k["elB"], 24, 26) + []
+    backFore = limb(k["elB"], k["handB"], 26, 30)
+    L["back"].outline_only(backSleeve)
+    L["back"].outline_only(backFore)
+    L["back"].paste_shape(("circle", k["handB"], 7), SKIN)
+    # ---- robe（灰階）
     R = L["robe"]
-    R.paste_shape(bUp, ROBE_G, outline=False)
-    R.paste_shape(bFore, ROBE_G, outline=False)
-    sway = (p["legF"] + p["legB"]) * 0.22
-    fw = max(0, p["legF"]) * 0.55
-    bw = min(0, p["legB"]) * 0.55
+    R.paste_shape(backSleeve, ROBE_G, outline=False)
+    R.paste_shape(backFore, ROBE_G, outline=False)
+    skirt_sway = (p["legF"] + p["legB"]) * 0.2
     skirt = [
-        add(hip, (-25, -8)),
-        add(hip, (25, -8)),
-        add(hip, (34 + fw * 0.5, 40)),
-        add(hip, (44 + fw + sway, 90 + 3 * wave)),
-        add(hip, (20 + sway, 96)),
-        add(hip, (-8 + sway, 98 + 2 * wave2)),
-        add(hip, (-40 + bw + sway, 92)),
-        add(hip, (-32 + bw * 0.5, 40)),
+        add(hip, (-26, -6)),
+        add(hip, (26, -6)),
+        add(hip, (40 + max(0, p["legF"]) * 0.5 + skirt_sway, 88)),
+        add(hip, (8, 94)),
+        add(hip, (-38 + min(0, p["legB"]) * 0.5 + skirt_sway, 88)),
     ]
     torso = [
-        add(hip, (-24, 4)),
-        add(hip, (24, 4)),
-        add(sh, (28, 10)),
-        add(sh, (20, -6)),
-        add(sh, (4, -12)),
-        add(sh, (-16, -8)),
-        add(sh, (-26, 10)),
+        add(hip, (-24, 2)),
+        add(hip, (24, 2)),
+        add(sh, (26 * 1.0 + up[0] * 4, 6)),
+        add(sh, (14, -8)),
+        add(sh, (-14, -8)),
+        add(sh, (-24, 8)),
     ]
     R.paste_shape(skirt, ROBE_G, outline=False)
     R.paste_shape(torso, ROBE_G, outline=False)
-    fUp, fFore, cuff = sleeve(k["shF"], k["elF"], k["handF"], sgn, 22, 32, 7)
-    R.paste_shape(fUp, ROBE_G, outline=False)
-    R.paste_shape(fFore, ROBE_G, outline=False)
-    # ---- front：袍外線、衣褶、交領、腰帶、斗笠、垂紗
+    frontSleeve = limb(k["shF"], k["elF"], 24, 26)
+    frontFore = limb(k["elF"], k["handF"], 26, 32)
+    R.paste_shape(frontSleeve, ROBE_G, outline=False)
+    R.paste_shape(frontFore, ROBE_G, outline=False)
+    # ---- front：袍外緣、交領、腰帶、斗笠、垂紗
     F = L["front"]
     body_mask = ImageChops.lighter(shape_mask(skirt), shape_mask(torso))
-    stroke_mask(F.img, body_mask, 4.4)
-    stroke_mask(F.img, ImageChops.lighter(shape_mask(fUp), shape_mask(fFore)), 3.8)
-    # 衣褶：由腰落到下襬，跟腿方向
-    for dx, lx, al in ((-6, p["legB"], 0.42), (10, p["legF"], 0.5), (22, p["legF"] * 1.2, 0.36)):
-        a0 = add(hip, (dx, 4))
-        a1 = add(hip, (dx + lx * 0.25 + sway * 0.5, 50))
-        a2 = add(hip, (dx + lx * 0.45 + sway, 88))
-        F.brush([a0, a1, a2], 2.0, alpha=al)
-    F.brush([cuff[0], ((cuff[0][0] + cuff[1][0]) / 2 + 2, (cuff[0][1] + cuff[1][1]) / 2 + 3), cuff[1]], 2.4, alpha=0.6)
-    F.brush([add(k["elF"], (0, 0)), cuff[1]], 1.6, alpha=0.3)
-    # 交領（右衽）
-    F.brush([add(sh, (-12, -8)), add(sh, (2, 12)), add(hip, (16, -8))], 2.6, alpha=0.75)
-    F.brush([add(sh, (8, -10)), add(sh, (0, 6))], 2.2, alpha=0.6)
-    # 腰帶＋帶尾（隨風）
-    F.paste_shape(limb(add(hip, (-26, -5)), add(hip, (26, -5)), 11, 11), BELT, width=2.2, smooth=False)
-    F.brush([add(hip, (-18, 0)), add(hip, (-26 - 10 * fl, 18 + 3 * wave)), add(hip, (-30 - 16 * fl, 34 + 4 * wave2))], 4.2, color=BELT, alpha=0.95)
-    F.brush([add(hip, (-14, 0)), add(hip, (-20 - 8 * fl, 22 + 3 * wave2)), add(hip, (-22 - 12 * fl, 40))], 3.6, color=BELT, alpha=0.9)
-    # 頭（斗笠下淡墨陰影面，冇五官）
-    F.paste_shape(("ellipse", add(head, (2 * sgn, 2)), 14, 17), FACE, width=2.2)
-    hat_c = add(head, (0, -9))
-    tilt = p["hat"]
-    brimL = add(hat_c, rot((-62, 2), tilt))
-    brimR = add(hat_c, rot((62, 2), tilt))
-    apex = add(hat_c, rot((0, -32), tilt))
-    # 斗笠陰影落喺面上：淡墨面（冇五官），笠沿下一抹淡墨暈
-    F.paste_shape(("ellipse", add(hat_c, (4 * sgn, 12)), 30, 7), (120, 112, 100), outline=False, opacity=0.45)
-    # 斗笠：寬扁錐，笠沿有厚度
-    hat = [brimL, add(hat_c, rot((-30, -12), tilt)), apex, add(hat_c, rot((30, -12), tilt)), brimR, add(hat_c, rot((58, 7), tilt)), add(hat_c, rot((-58, 7), tilt))]
-    F.paste_shape(hat, HAT, width=4.6, smooth=False)
-    for t in (-0.75, -0.45, -0.15, 0.15, 0.45, 0.75):
-        end = add(hat_c, rot((60 * t, 2 + 3 * abs(t)), tilt))
-        F.brush([add(apex, (0, 3)), end], 1.4, color=HAT_RIB, alpha=0.7, taper=0.6)
-    F.brush([brimL, add(hat_c, rot((0, 7), tilt)), brimR], 2.2, color=HAT_RIB, alpha=0.8, taper=0.8)
-    F.paste_shape(("circle", add(apex, (0, -1)), 3.4), HAT_RIB, width=1.6)
-    # ---- armor：護肩（兩片疊甲）＋護胸
+    stroke_mask(F.img, body_mask, 4.2)
+    stroke_mask(F.img, ImageChops.lighter(shape_mask(frontSleeve), shape_mask(frontFore)), 3.6)
+    collar = limb(add(sh, (-10, -6)), add(hip, (14, -6)), 7, 6)
+    F.paste_shape(collar, (90, 96, 98), outline=False)
+    belt = limb(add(hip, (-26, -4)), add(hip, (26, -4)), 12, 12)
+    F.paste_shape(belt, BELT, outline=True, width=2.4)
+    # 頭（淡墨陰影面）＋斗笠＋垂紗
+    F.paste_shape(("circle", head, 16), FACE, outline=False)
+    hat_c = add(head, (0, -8))
+    brim = [rot((x, y), p["hat"]) for x, y in ((-54, 0), (54, 0), (0, -38))]
+    hat = [add(hat_c, v) for v in (brim[0], (brim[0][0] + 6, brim[0][1] + 5), (brim[1][0] - 6, brim[1][1] + 5), brim[1], brim[2])]
+    veil = [add(hat_c, (-44, 2)), add(hat_c, (44, 2)), add(hat_c, (46, 26)), add(hat_c, (-46, 26))]
+    # 垂紗前開縫（見淡墨面）
+    veil_l = [veil[0], add(hat_c, (8 * sgn - 6, 2)), add(hat_c, (8 * sgn - 8, 22)), veil[3]]
+    veil_r = [add(hat_c, (8 * sgn + 10, 2)), veil[1], veil[2], add(hat_c, (8 * sgn + 12, 22))]
+    F.paste_shape(veil_l, VEIL, width=3)
+    F.paste_shape(veil_r, VEIL, width=3)
+    F.paste_shape(hat, HAT, width=4.6)
+    # 竹篾骨
+    d = ImageDraw.Draw(F.img)
+    for t in (-0.6, -0.3, 0.0, 0.3, 0.6):
+        a = add(hat_c, brim[2])
+        b = add(hat_c, (brim[0][0] + (brim[1][0] - brim[0][0]) * (0.5 + t * 0.8), brim[0][1] + (brim[1][1] - brim[0][1]) * (0.5 + t * 0.8)))
+        d.line([P(a), P(b)], fill=HAT_RIB + (255,), width=int(1.6 * S))
+    # ---- armor：護肩＋護胸
     A = L["armor"]
-    s0 = k["shF"]
-    A.paste_shape([add(s0, (-16, -8)), add(s0, (6, -14)), add(s0, (20, -2)), add(s0, (16, 12)), add(s0, (-12, 10))], ARMOR, width=3)
-    A.paste_shape([add(s0, (-12, 6)), add(s0, (14, 4)), add(s0, (16, 18)), add(s0, (-10, 20))], (112, 118, 122), width=2.6)
-    # 皮護胸帶：由肩斜落腰
-    A.brush([add(s0, (-6, 8)), add(sh, (6, 26)), add(hip, (20, -10))], 5, color=(92, 72, 56), alpha=0.95)
-    A.paste_shape(("circle", add(sh, (8, 28)), 3.6), (176, 138, 62), width=1.6)
+    pauld = [add(k["shF"], (-14, -8)), add(k["shF"], (14, -10)), add(k["shF"], (18, 10)), add(k["shF"], (-10, 14))]
+    A.paste_shape(pauld, ARMOR, width=3.2)
+    plate = [add(sh, (-6, 14)), add(sh, (20, 12)), add(hip, (20, -16)), add(hip, (-4, -14))]
+    A.paste_shape(plate, (140, 144, 146), width=3)
     # ---- acc：玉佩（繩＋玉環＋流蘇）
     C = L["acc"]
-    pend = add(hip, (16 + 2 * wave, 24))
-    C.brush([add(hip, (12, -2)), add(hip, (15, 10)), pend], 1.6, color=BELT, alpha=0.9)
-    C.paste_shape(("circle", pend, 6.5), JADE, width=2.2)
-    C.paste_shape(("circle", pend, 2.2), (220, 230, 222), outline=False)
-    C.brush([add(pend, (0, 6)), add(pend, (1 + 2 * wave, 16)), add(pend, (2 + 4 * wave, 26))], 4.5, color=TASSEL, alpha=0.95, taper=0.5)
+    pend = add(hip, (14, 22))
+    C.paste_shape(limb(add(hip, (12, 2)), pend, 2, 2), BELT, outline=False)
+    C.paste_shape(("circle", pend, 6), JADE, width=2.4)
+    C.paste_shape(limb(add(pend, (0, 6)), add(pend, (1, 22)), 3, 7), TASSEL, width=1.8)
     # ---- hand：前手
-    L["hand"].paste_shape(("ellipse", k["handF"], 7.5, 7), SKIN, width=2.8)
+    L["hand"].paste_shape(("circle", k["handF"], 7.5), SKIN, width=3)
     return L, k
 
 
@@ -588,46 +462,28 @@ def draw_enemy_frame(p, tier, boss=False):
         tail = 40 + 40 * p["flare"]
         cape = [add(sh, (10, -4)), add(sh, (-6, 0)), add(hip, (4, 40)), add(hip, (tail, 92)), add(sh, (26 + tail * 0.4, 20))]
         img.paste_shape(cape, (74, 38, 34))
-    wave = math.sin(p["cape"] * math.tau)
-    dark = tuple(int(c * 0.78) for c in cloth)
-    # 後袖
-    bUp, bFore, _ = sleeve(k["shB"], k["elB"], k["handB"], sgn, 20 * wmul, 28 * wmul, 5)
-    img.paste_shape(bUp, dark, width=3.4)
-    img.paste_shape(bFore, dark, width=3.4)
-    img.paste_shape(("circle", k["handB"], 6.5), (170, 150, 128), width=2.4)
-    # 腿（綁腿褲＋布鞋，同主角比例）
+    # 後手臂
+    img.paste_shape(limb(k["shB"], k["elB"], 22 * wmul, 22 * wmul), tuple(int(c * 0.8) for c in cloth))
+    img.paste_shape(limb(k["elB"], k["handB"], 22 * wmul, 20 * wmul), tuple(int(c * 0.8) for c in cloth))
+    # 腿
     for foot in (k["footB"], k["footF"]):
-        img.paste_shape(limb(add(hip, (0, 12)), add(foot, (0, -10)), 22 * wmul, 16), (84, 78, 70), width=3.2)
-        img.brush([add(foot, (-6 * sgn, -30)), add(foot, (6 * sgn, -24)), add(foot, (-6 * sgn, -18))], 1.6, alpha=0.5)
-        boot = [add(foot, (9, -18)), add(foot, (-9, -18)), add(foot, (-12, -8)), add(foot, (-24, -2)), add(foot, (-22, 3)), add(foot, (10, 3)), add(foot, (11, -8))]
-        img.paste_shape(boot, (44, 40, 36), width=3)
-    # 身：短打上衣＋長下襬（開衩隨步擺）
-    sway = (p["legF"] + p["legB"]) * 0.2 * sgn
-    skirt = [
-        add(hip, (-25 * wmul, -8)), add(hip, (25 * wmul, -8)),
-        add(hip, (30 * wmul, 36)), add(hip, (36 * wmul + sway, 72 + 3 * wave)),
-        add(hip, (4 + sway, 78)), add(hip, (-34 * wmul + sway, 72)), add(hip, (-30 * wmul, 36)),
-    ]
-    torso = [
-        add(hip, (-26 * wmul, 4)), add(hip, (26 * wmul, 4)), add(sh, (30 * wmul, 10)), add(sh, (18, -6)),
-        add(sh, (0, -12)), add(sh, (-18, -6)), add(sh, (-30 * wmul, 10)),
-    ]
-    img.paste_shape(skirt, tuple(int(c * 0.9) for c in cloth), width=4.2)
-    img.paste_shape(torso, cloth, width=4.4)
-    for dx in (-10, 8):
-        img.brush([add(hip, (dx * sgn, 2)), add(hip, (dx * sgn + sway * 0.6, 40)), add(hip, (dx * sgn + sway, 70))], 1.8, alpha=0.4)
-    img.brush([add(sh, (12 * sgn, -8)), add(sh, (-2 * sgn, 12)), add(hip, (-14 * sgn, -8))], 2.4, alpha=0.7)
+        img.paste_shape(limb(add(hip, (0, 8)), foot, 26 * wmul, 20 * wmul), (72, 66, 60))
+        boot = [add(foot, (10, -16)), add(foot, (-10, -16)), add(foot, (-22, -2)), add(foot, (-22, 3)), add(foot, (10, 3))]
+        img.paste_shape(boot, (40, 36, 32))
+    # 身
+    torso = [add(hip, (-26 * wmul, 4)), add(hip, (26 * wmul, 4)), add(sh, (28 * wmul, 8)), add(sh, (14, -8)),
+             add(sh, (-14, -8)), add(sh, (-28 * wmul, 8))]
+    skirt = [add(hip, (-24 * wmul, -4)), add(hip, (24 * wmul, -4)), add(hip, (32 * wmul, 58)), add(hip, (-34 * wmul, 58))]
+    img.paste_shape(skirt, tuple(int(c * 0.9) for c in cloth))
+    img.paste_shape(torso, cloth)
     sash = (163, 58, 50) if boss else (56, 50, 44)
-    img.paste_shape(limb(add(hip, (-26 * wmul, -4)), add(hip, (26 * wmul, -4)), 11, 11), sash, width=2.2, smooth=False)
-    img.brush([add(hip, (16 * sgn, 0)), add(hip, (26 * sgn, 18 + 3 * wave)), add(hip, (30 * sgn, 34))], 4, color=sash, alpha=0.95)
+    img.paste_shape(limb(add(hip, (-26 * wmul, -2)), add(hip, (26 * wmul, -2)), 12, 12), sash, width=2.4)
     if boss:
         # 肩甲
-        for s0 in (k["shF"], k["shB"]):
-            img.paste_shape([add(s0, (-18, -10)), add(s0, (4, -16)), add(s0, (20, -4)), add(s0, (16, 12)), add(s0, (-16, 12))], (96, 90, 84), width=3)
+        for s in (k["shF"], k["shB"]):
+            img.paste_shape([add(s, (-18, -10)), add(s, (16, -12)), add(s, (20, 10)), add(s, (-16, 12))], (96, 90, 84), width=3)
     # 頭：蒙面（濃墨布）＋款式
-    img.paste_shape(("ellipse", head, 15.5 * (1.08 if boss else 1), 17.5 * (1.08 if boss else 1)), (150, 132, 112), width=3)
-    # 蒙面：濃墨布包住下半面，留雙眼位
-    img.paste_shape([add(head, (-17, -1)), add(head, (17, -1)), add(head, (18, 14)), add(head, (0, 20)), add(head, (-18, 14))], (40, 36, 33), width=2.6)
+    img.paste_shape(("circle", head, 17 * (1.08 if boss else 1)), (46, 42, 38))
     hc = head
     hd = look["head"]
     if hd == "band":
@@ -669,10 +525,9 @@ def draw_enemy_frame(p, tier, boss=False):
                          add(ax, (n[0] * 30 - dirv[0] * 22, n[1] * 30 - dirv[1] * 22)), add(ax, (-dirv[0] * 18, -dirv[1] * 18))],
                         (200, 204, 200), width=2.6)
     # 前手臂＋手
-    fUp, fFore, _ = sleeve(k["shF"], k["elF"], hand, sgn, 21 * wmul, 28 * wmul, 5)
-    img.paste_shape(fUp, cloth, width=3.8)
-    img.paste_shape(fFore, cloth, width=3.8)
-    img.paste_shape(("ellipse", hand, 7.5, 7), (170, 150, 128), width=2.6)
+    img.paste_shape(limb(k["shF"], k["elF"], 22 * wmul, 22 * wmul), cloth)
+    img.paste_shape(limb(k["elF"], hand, 22 * wmul, 20 * wmul), cloth)
+    img.paste_shape(("circle", hand, 7), (180, 160, 136), width=2.6)
     # 紅眼位（望左）
     eye = add(head, (-8, -2))
     return img, eye
@@ -792,9 +647,9 @@ def drop_sprite(kind):
 BG_W, BG_H = 1440, 576
 
 
-def wrap_draw(d, fn, x, w=BG_W):
-    for off in (-w, 0, w):
-        fn(d, x + off)
+def wrap_draw(d, fn, x, *a):
+    for off in (-BG_W, 0, BG_W):
+        fn(d, x + off, *a)
 
 
 def ridge(rng, amp, base, knots, w=BG_W):
@@ -809,57 +664,86 @@ def ridge(rng, amp, base, knots, w=BG_W):
     return base - y * amp
 
 
-# 背景用 repo 已有嘅 AI 水墨長卷（public/ink/ai/banners/）：紙色轉透明、淨留墨跡，頭尾交叉淡化成無縫平鋪
-PLACE_BANNERS = {
-    "town": ("banner-market", "banner-bridge-mist"),
-    "river": ("banner-lonely-boat", "banner-bridge-mist"),
-    "mountain": ("banner-mountain-road", "banner-sword-road"),
-    "hall": ("banner-sect-gate", "banner-courtyard"),
-    "wild": ("banner-bamboo-practice", "banner-bond-plum"),
-}
-
-
-def banner_ink(name, fade=1.0, blur=0.0, lift=0):
-    im = Image.open(ROOT / "public" / "ink" / "ai" / "banners" / f"{name}.webp").convert("L")
-    im = im.resize((int(im.width * BG_H / im.height), BG_H), Image.LANCZOS)
-    a = np.asarray(im, np.float32)
-    paper = np.percentile(a, 90)
-    alpha = np.clip((paper - a) / max(1.0, paper - 30), 0, 1) ** 0.85 * fade
-    if lift:
-        # 遠景：向上移，令地平線高過中景
-        alpha = np.concatenate([alpha[lift:], np.zeros((lift, alpha.shape[1]), np.float32)], 0)
-    # 頭尾交叉淡化成循環（唔用鏡像，免得出現對稱接口）
-    w = alpha.shape[1]
-    o = int(w * 0.12)
-    k = np.linspace(0, 1, o, dtype=np.float32)[None, :]
-    tile = alpha[:, : w - o].copy()
-    tile[:, :o] = alpha[:, w - o :] * (1 - k) + alpha[:, :o] * k
-    img = Image.fromarray((np.clip(tile, 0, 1) * 255).astype(np.uint8), "L")
-    if blur:
-        img = img.filter(ImageFilter.GaussianBlur(blur))
-    return np.asarray(img, np.float32) / 255
-
-
 def bg_layers(place):
     rng = np.random.default_rng({"town": 11, "river": 23, "mountain": 37, "hall": 41, "wild": 53}[place])
-    main_b, far_b = PLACE_BANNERS[place]
-    far_img = to_ink(banner_ink(far_b, fade=0.32, blur=2.4, lift=70), (92, 88, 82))
-    mid_img = to_ink(banner_ink(main_b, fade=0.72, blur=0.4), (58, 54, 48))
-    W = far_img.width
+    # far：兩重遠山淡墨暈
+    far = np.zeros((BG_H, BG_W), np.float32)
+    for amp, base, tone, kn in ((90, BG_H * 0.46, 0.18, 5), (60, BG_H * 0.58, 0.28, 7)):
+        if place == "river":
+            amp *= 0.6
+            base += 30
+        if place == "mountain":
+            amp *= 1.5
+        top = ridge(rng, amp, base, kn)
+        yy = np.arange(BG_H)[:, None]
+        body = np.clip((yy - top[None, :]) / 60, 0, 1) * np.clip(1 - (yy - top[None, :]) / 260, 0.25, 1)
+        far = np.maximum(far, body * tone)
+    far = far * (0.85 + 0.15 * value_noise_2d(rng, BG_H, BG_W, 40))
+    far_img = to_ink(far, (70, 66, 60))
+    # mid：地點特色剪影
+    mid = Image.new("L", (BG_W, BG_H), 0)
+    d = ImageDraw.Draw(mid)
+    ground = BG_H * 0.72
+    if place == "town":
+        x = 0
+        while x < BG_W:
+            w = rng.integers(80, 150)
+            h = rng.integers(60, 120)
+            wrap_draw(d, lambda dd, xx, w=w, h=h: (dd.rectangle([xx, ground - h, xx + w, ground], fill=70),
+                      dd.polygon([(xx - 14, ground - h), (xx + w / 2, ground - h - 34), (xx + w + 14, ground - h)], fill=110)), x)
+            x += w + rng.integers(20, 90)
+    elif place == "river":
+        for i in range(40):
+            x = rng.integers(0, BG_W)
+            h = rng.integers(30, 80)
+            wrap_draw(d, lambda dd, xx, h=h: dd.line([(xx, ground + 6), (xx + rng.integers(-8, 8), ground - h)], fill=110, width=3), x)
+        wrap_draw(d, lambda dd, xx: dd.polygon([(xx, ground - 8), (xx + 140, ground - 8), (xx + 120, ground + 10), (xx + 20, ground + 10)], fill=120), 700)
+    elif place == "mountain":
+        for i in range(9):
+            x = rng.integers(0, BG_W)
+            h = rng.integers(120, 220)
+            def pine(dd, xx, h=h):
+                dd.line([(xx, ground), (xx, ground - h)], fill=120, width=6)
+                for j in range(4):
+                    y = ground - h + j * h * 0.18
+                    w = 30 + j * 18
+                    dd.polygon([(xx - w, y + 26), (xx, y - 6), (xx + w, y + 26)], fill=100)
+            wrap_draw(d, pine, x)
+    elif place == "hall":
+        wrap_draw(d, lambda dd, xx: (dd.rectangle([xx, ground - 170, xx + 26, ground], fill=110), dd.rectangle([xx + 220, ground - 170, xx + 246, ground], fill=110),
+                  dd.polygon([(xx - 40, ground - 170), (xx + 123, ground - 230), (xx + 286, ground - 170)], fill=120),
+                  dd.rectangle([xx - 400, ground - 70, xx - 20, ground], fill=60), dd.rectangle([xx + 266, ground - 70, xx + 700, ground], fill=60)), 500)
+    else:  # wild：竹
+        for i in range(34):
+            x = rng.integers(0, BG_W)
+            h = rng.integers(180, 330)
+            def bamboo(dd, xx, h=h):
+                dd.line([(xx, ground), (xx + 6, ground - h)], fill=110, width=5)
+                for j in range(1, 6):
+                    y = ground - h * j / 6
+                    dd.line([(xx - 3, y), (xx + 9, y)], fill=150, width=2)
+                    dd.polygon([(xx + 6, y), (xx + 40, y - 12), (xx + 12, y + 4)], fill=90)
+            wrap_draw(d, bamboo, x)
+    mid_a = np.asarray(mid.filter(ImageFilter.GaussianBlur(1.6)), np.float32) / 255 * 0.55
+    mid_img = to_ink(mid_a, (60, 56, 50))
     # near：地面淡墨帶＋草石
-    near = np.zeros((BG_H, W), np.float32)
+    near = np.zeros((BG_H, BG_W), np.float32)
     yy = np.arange(BG_H)[:, None]
-    gl = ridge(rng, 8, BG_H * 0.86, 9, w=W)
+    gl = ridge(rng, 8, BG_H * 0.86, 9)
     near = np.maximum(near, np.clip((yy - gl[None, :]) / 30, 0, 1) * 0.16)
     near_img_l = Image.fromarray((near * 255).astype(np.uint8), "L")
     dn = ImageDraw.Draw(near_img_l)
-    for i in range(36):
-        x = rng.integers(0, W)
+    for i in range(60):
+        x = rng.integers(0, BG_W)
         y = BG_H * 0.86 + rng.integers(-4, 30)
         def tuft(dd, xx, y=y):
             for j in range(4):
                 dd.line([(xx + j * 4, y), (xx + j * 4 + rng.integers(-10, 10), y - rng.integers(10, 26))], fill=120, width=2)
-        wrap_draw(dn, tuft, x, W)
+        wrap_draw(dn, tuft, x)
+    for i in range(10):
+        x = rng.integers(0, BG_W)
+        y = BG_H * 0.9 + rng.integers(0, 30)
+        wrap_draw(dn, lambda dd, xx, y=y: dd.ellipse([xx, y - 12, xx + 44, y + 8], fill=110), x)
     near_img = to_ink(np.asarray(near_img_l.filter(ImageFilter.GaussianBlur(0.8)), np.float32) / 255, (52, 48, 42))
     return far_img, mid_img, near_img
 
