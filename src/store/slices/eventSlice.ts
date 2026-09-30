@@ -88,7 +88,7 @@ export function createEventSlice(
       });
     },
 
-    dismissEvent: () => {
+    dismissEvent: (label?: string) => {
       const { state } = get();
       if (!state?.pending || state.pendingCombat) return;
       let feedback = '';
@@ -101,7 +101,7 @@ export function createEventSlice(
             ? resolveArcVisitLater(draft)
             : [];
         draft.pending = null;
-        feedback = arcDelay[0] ?? '你選擇暫避鋒芒，此事輕輕揭過。';
+        feedback = arcDelay[0] ?? (label ? `你${label}，此事輕輕揭過。` : '你選擇暫避鋒芒，此事輕輕揭過。');
         pushChronicle(draft, [`「${title}」`, feedback]);
       });
       void save(next);
@@ -110,7 +110,7 @@ export function createEventSlice(
         sealText: '定',
         lastResult: {
           title,
-          choiceText: '暫避鋒芒',
+          choiceText: label ?? '暫避鋒芒',
           feedback,
           deltas: [],
         },

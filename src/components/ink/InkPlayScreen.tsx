@@ -49,6 +49,7 @@ import { InkBreakthroughModal } from './InkBreakthroughModal';
 import { InkMomentFx } from './InkMomentFx';
 import { InkPracticePanel, type PracticeView } from './InkPracticePanel';
 import { InkSparStage } from './InkSparStage';
+import { choicePickKey, pickSwipeChoices } from '@core/life/choicePick';
 import { LifeDebugPanel } from '../LifeDebugPanel';
 import { useAncestryStore } from '../../store/ancestryStore';
 import { InkAncestryPanel } from './InkAncestryPanel';
@@ -341,11 +342,11 @@ export function InkPlayScreen({ state }: Props) {
     }
   }, [combat, tab, setTab]);
 
-  const choiceCap = pendingEvent?.tags?.includes('arc') ? 4 : 3;
-  const eligibleChoices =
-    pendingEvent?.choices
-      .filter((ch) => meetsRequirements(state, ch.requirements))
-      .slice(0, choiceCap) ?? [];
+  // 事件二選一：合資格選項多過兩個就按存檔種子＋年月抽兩個（見 core/life/choicePick.ts）
+  const eligibleChoices = pickSwipeChoices(
+    pendingEvent?.choices.filter((ch) => meetsRequirements(state, ch.requirements)) ?? [],
+    choicePickKey(state.seed, state.pending?.eventId ?? '', state.pending?.year ?? state.year, state.pending?.month),
+  );
   const coachStep = nextCoachStep(c.flags);
   const coach = coachCopy(coachStep);
   const showCoach =
@@ -573,7 +574,7 @@ export function InkPlayScreen({ state }: Props) {
           choicesReady={choicesReady}
           eligibleChoices={eligibleChoices}
           onChoose={choose}
-          onDismiss={dismissEvent}
+          onDismiss={(label?: string) => dismissEvent(label)}
         />
       )}
 

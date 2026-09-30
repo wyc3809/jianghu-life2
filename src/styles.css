@@ -7163,10 +7163,30 @@ html[data-ink-motion='reduce'] .ink-moment-toast {
   background: var(--ink);
 }
 
-/* ===== 事件掃卡（InkEventPanel）：左掃甲、右掃乙，第三項起喺卡底 ===== */
+/* ===== 事件掃卡（InkEventPanel）：二選一，左掃甲（墨青）、右掃乙（朱砂） =====
+   --swipe（-1..1）由拖動寫落 .ink-event：卡、卡邊墨暈、提示、卡底兩個選項一齊跟住染色。 */
+
+@property --swipe {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+.ink-event {
+  --swipe: 0;
+  --swipe-left-ink: #3f6283;
+  --swipe-right-ink: #a33a32;
+  /* 左／右拉力 0..1 */
+  --pl: clamp(0, calc(var(--swipe) * -1), 1);
+  --pr: clamp(0, var(--swipe), 1);
+}
+
+/* 鬆手彈返：顏色跟卡一齊慢慢褪 */
+.ink-event.is-snapping {
+  transition: --swipe 0.36s cubic-bezier(0.2, 0.85, 0.25, 1);
+}
 
 .ink-swipe-card {
-  --swipe: 0;
   position: relative;
   flex: 1 1 auto;
   min-height: 0;
@@ -7178,13 +7198,15 @@ html[data-ink-motion='reduce'] .ink-moment-toast {
   background: var(--paper-bright);
   box-shadow:
     0 0 0 1px rgba(26, 26, 26, 0.12),
-    0 10px 22px -14px rgba(26, 26, 26, 0.45);
+    0 calc(10px + (var(--pl) + var(--pr)) * 8px) calc(22px + (var(--pl) + var(--pr)) * 14px) -14px rgba(26, 26, 26, 0.45);
   transform-origin: 50% 110%;
   touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
   will-change: transform;
 }
 
-/* 卡疊：後面兩張紙邊 */
+/* 卡疊：後面兩張紙邊（拉扯時被拖少少，似紙張黏住） */
 .ink-swipe-card.is-swipeable::before,
 .ink-swipe-card.is-swipeable::after {
   content: '';
@@ -7197,6 +7219,7 @@ html[data-ink-motion='reduce'] .ink-moment-toast {
   border-radius: 0 0 6px 6px;
   background: #ece3d0;
   box-shadow: 0 0 0 1px rgba(26, 26, 26, 0.1);
+  transform: translateX(calc(var(--swipe) * -18px));
 }
 
 .ink-swipe-card.is-swipeable::after {
@@ -7204,45 +7227,84 @@ html[data-ink-motion='reduce'] .ink-moment-toast {
   right: 16px;
   bottom: -10px;
   background: #e2d7c0;
+  transform: translateX(calc(var(--swipe) * -30px));
 }
 
-/* 拖動時卡邊浮現選項（左拖顯甲、右拖顯乙） */
+/* 墨染：卡邊由拉向嗰邊暈入同色墨 */
+.ink-swipe-wash {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 70% 110% at 0% 50%,
+      rgb(63 98 131 / calc(var(--pl) * 0.34)) 0%,
+      rgb(63 98 131 / calc(var(--pl) * 0.14)) 45%,
+      transparent 75%
+    ),
+    radial-gradient(
+      ellipse 70% 110% at 100% 50%,
+      rgb(163 58 50 / calc(var(--pr) * 0.3)) 0%,
+      rgb(163 58 50 / calc(var(--pr) * 0.12)) 45%,
+      transparent 75%
+    );
+}
+
+/* 拖動時卡邊浮現選項（左拖顯甲、右拖顯乙），顏色同染色一致 */
 .ink-swipe-hint {
   position: absolute;
   top: 10px;
   z-index: 2;
   max-width: 62%;
   padding: 6px 10px;
-  border: 2px solid var(--cinnabar);
+  border: 2px solid currentColor;
   border-radius: 4px;
   font-size: 0.86rem;
   line-height: 1.35;
-  color: var(--cinnabar);
   background: rgba(250, 246, 238, 0.94);
   pointer-events: none;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .ink-swipe-hint b {
   margin-right: 0.4em;
   padding: 0 0.3em;
   color: var(--paper-bright);
-  background: var(--cinnabar);
+  background: currentColor;
   border-radius: 2px;
+}
+
+.ink-swipe-hint b {
+  -webkit-text-fill-color: var(--paper-bright);
 }
 
 .ink-swipe-hint--left {
   right: 10px;
-  transform: rotate(6deg);
-  opacity: clamp(0, calc(var(--swipe) * -1.4), 1);
+  color: var(--swipe-left-ink);
+  transform: rotate(6deg) scale(calc(0.9 + var(--pl) * 0.1));
+  opacity: clamp(0, calc(var(--pl) * 1.4), 1);
 }
 
 .ink-swipe-hint--right {
   left: 10px;
-  transform: rotate(-6deg);
-  opacity: clamp(0, calc(var(--swipe) * 1.4), 1);
+  color: var(--swipe-right-ink);
+  transform: rotate(-6deg) scale(calc(0.9 + var(--pr) * 0.1));
+  opacity: clamp(0, calc(var(--pr) * 1.4), 1);
 }
 
-.ink-swipe-card.is-blocked .ink-swipe-hint {
+/* 過門檻：提示放大、蓋印咁頓一頓 */
+.ink-event.is-armed-left .ink-swipe-hint--left {
+  transform: rotate(4deg) scale(1.12);
+}
+
+.ink-event.is-armed-right .ink-swipe-hint--right {
+  transform: rotate(-4deg) scale(1.12);
+}
+
+.ink-swipe-card.is-blocked .ink-swipe-hint,
+.ink-swipe-card.is-blocked .ink-swipe-wash {
   display: none;
 }
 
@@ -7252,16 +7314,81 @@ html[data-ink-motion='reduce'] .ink-moment-toast {
   gap: 8px;
 }
 
+/* 卡底兩個選項：拉向嗰邊由淡墨漸漸染滿色，另一邊褪淡 */
 .ink-choice--swipe {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   gap: 4px;
   text-align: left;
+  isolation: isolate;
+  transition:
+    opacity 0.12s linear,
+    transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ink-choice--swipe > :not(.ink-choice-ink) {
+  position: relative;
+  z-index: 1;
+}
+
+.ink-choice-ink {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.ink-choice--left .ink-choice-ink {
+  background: linear-gradient(
+    90deg,
+    var(--swipe-left-ink) 0%,
+    var(--swipe-left-ink) calc(var(--pl) * 100% - 14%),
+    rgb(63 98 131 / 0.35) calc(var(--pl) * 100%),
+    transparent calc(var(--pl) * 100% + 10%)
+  );
+  opacity: calc(var(--pl) * 1.2);
+}
+
+.ink-choice--right .ink-choice-ink {
+  background: linear-gradient(
+    270deg,
+    var(--swipe-right-ink) 0%,
+    var(--swipe-right-ink) calc(var(--pr) * 100% - 14%),
+    rgb(163 58 50 / 0.35) calc(var(--pr) * 100%),
+    transparent calc(var(--pr) * 100% + 10%)
+  );
+  opacity: calc(var(--pr) * 1.2);
+}
+
+.ink-choice--left {
+  color: color-mix(in srgb, var(--paper-bright) calc(clamp(0, (var(--pl) - 0.45) * 2, 1) * 100%), var(--ink));
+  opacity: calc(1 - var(--pr) * 0.55);
+  transform: scale(calc(1 + var(--pl) * 0.03));
 }
 
 .ink-choice--right {
   justify-content: flex-end;
   text-align: right;
+  color: color-mix(in srgb, var(--paper-bright) calc(clamp(0, (var(--pr) - 0.45) * 2, 1) * 100%), var(--ink));
+  opacity: calc(1 - var(--pl) * 0.55);
+  transform: scale(calc(1 + var(--pr) * 0.03));
+}
+
+.ink-event.is-armed-left .ink-choice--left,
+.ink-event.is-armed-right .ink-choice--right {
+  transform: scale(1.05);
+}
+
+.ink-choice--left .ink-choice-mark {
+  color: color-mix(in srgb, var(--paper-bright) calc(var(--pl) * 100%), var(--swipe-left-ink));
+  border-color: currentColor;
+}
+
+.ink-choice--right .ink-choice-mark {
+  color: color-mix(in srgb, var(--paper-bright) calc(var(--pr) * 100%), var(--swipe-right-ink));
+  border-color: currentColor;
 }
 
 .ink-swipe-text {
@@ -7273,13 +7400,21 @@ html[data-ink-motion='reduce'] .ink-moment-toast {
   flex: none;
   font-size: 1.2rem;
   line-height: 1;
-  color: var(--cinnabar);
 }
 
-.ink-choice--extra {
-  margin-top: 8px;
-  font-size: 0.86rem;
-  opacity: 0.92;
+.ink-choice--left .ink-swipe-arrow {
+  color: color-mix(in srgb, var(--paper-bright) calc(var(--pl) * 100%), var(--swipe-left-ink));
+}
+
+.ink-choice--right .ink-swipe-arrow {
+  color: color-mix(in srgb, var(--paper-bright) calc(var(--pr) * 100%), var(--swipe-right-ink));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-choice--swipe,
+  .ink-swipe-hint {
+    transition: none;
+  }
 }
 
 /* ===== 祖祠（InkAncestryPanel） ===== */

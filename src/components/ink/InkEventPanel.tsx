@@ -13,12 +13,18 @@ const SWIPE_COMMIT_VELOCITY = 0.55;
 /** 開始判定為橫拖嘅最少位移 */
 const SWIPE_INTENT_PX = 8;
 const FLY_MS = 260;
+/** 拉扯阻力：最大拉距同漸重系數（拉 ~110px 先到門檻 90） */
+const SWIPE_MAX_PULL = 210;
+const SWIPE_PULL_K = 190;
 
 type Side = 'left' | 'right';
 
 /**
- * 事件掃卡：左掃＝甲（第一個選項）、右掃＝乙（第二個）；第三個以後喺卡底做按鈕。
- * 直向拖照常捲動內文；只有橫向意圖明確先當掃卡。按鈕同鍵盤（←／→）都可以揀。
+ * 事件掃卡（二選一）：左掃＝甲、右掃＝乙；卡底兩個按鈕同鍵盤（←／→）亦可以揀。
+ * 拉動時：
+ * - 墨染漸色：拉向嗰邊嘅選項由淡墨漸漸染色（左墨青、右朱砂），另一邊褪淡；卡邊同色墨暈化開
+ * - 拉扯紙張力：越拉越重（阻力漸增），卡被扯斜；過門檻輕震、提示放大，鬆手即選
+ * 直向拖照常捲動內文；只有橫向意圖明確先當掃卡。
  */
 function useSwipeCard(opts: { enabled: boolean; blocked: boolean; onCommit: (side: Side) => void }) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -30,9 +36,23 @@ function useSwipeCard(opts: { enabled: boolean; blocked: boolean; onCommit: (sid
     const el = cardRef.current;
     if (!el) return;
     const reduce = shouldReduceInkMotion();
-    el.style.transition = animate ? `transform ${reduce ? 1 : 320}ms cubic-bezier(0.2, 0.85, 0.25, 1.15)` : 'none';
-    el.style.transform = dx ? `translateX(${dx}px) rotate(${reduce ? 0 : dx * 0.05}deg)` : '';
-    el.style.setProperty('--swipe', String(Math.max(-1, Math.min(1, dx / SWIPE_COMMIT_PX))));
+    const p = Math.max(-1, Math.min(1, dx / SWIPE_COMMIT_PX));
+    el.style.transition = animate
+      ? `transform ${reduce ? 1 : 360}ms cubic-bezier(0.2, 0.85, 0.25, 1.25)`
+      : 'none';
+    // 紙被扯：跟手平移、向拉嗰邊傾斜、少少斜拉變形
+    el.style.transform = dx
+      ? reduce
+        ? `translateX(${dx}px)`
+        : `translateX(${dx}px) rotate(${dx * 0.045}deg) skewX(${-p * 2.4}deg) scale(${1 - Math.abs(p) * 0.015})`
+      : '';
+    // --swipe 寫落成個面板：卡、提示、卡底兩個選項一齊跟住染色
+    const host = el.parentElement ?? el;
+    host.style.setProperty('--swipe', p.toFixed(3));
+    host.classList.toggle('is-armed-left', p <= -1);
+    host.classList.toggle('is-armed-right', p >= 1);
+    // 彈返原位時顏色跟住慢慢褪（--swipe 已用 @property 註冊，可以過渡）
+    host.classList.toggle('is-snapping', animate);
   };
 
   const commit = useCallback(
@@ -42,6 +62,7 @@ function useSwipeCard(opts: { enabled: boolean; blocked: boolean; onCommit: (sid
       haptic('medium');
       setFlying(side);
       if (el) {
+        (el.parentElement ?? el).style.setProperty('--swipe', side === 'left' ? '-1' : '1');
         const reduce = shouldReduceInkMotion();
         el.style.transition = `transform ${reduce ? 1 : FLY_MS}ms cubic-bezier(0.5, 0, 0.75, 0.2), opacity ${reduce ? 1 : FLY_MS}ms`;
         el.style.transform = `translateX(${side === 'left' ? -120 : 120}vw) rotate(${reduce ? 0 : side === 'left' ? -18 : 18}deg)`;
@@ -70,8 +91,10 @@ function useSwipeCard(opts: { enabled: boolean; blocked: boolean; onCommit: (sid
       d.active = true;
       (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
     }
-    // 過勞：拖唔郁幾多（阻尼）
-    const eased = opts.blocked ? dx * 0.18 : Math.abs(dx) > 160 ? Math.sign(dx) * (160 + (Math.abs(dx) - 160) * 0.35) : dx;
+    // 拉扯阻力：越拉越重（指數收斂，最多約 210px）；過勞：拖唔郁幾多
+    const eased = opts.blocked
+      ? dx * 0.18
+      : Math.sign(dx) * SWIPE_MAX_PULL * (1 - Math.exp(-Math.abs(dx) / SWIPE_PULL_K));
     d.dx = eased;
     d.t = e.timeStamp;
     const over = Math.abs(eased) >= SWIPE_COMMIT_PX;
@@ -108,8 +131,14 @@ type Props = {
   choicesReady: boolean;
   eligibleChoices: GameEvent['choices'];
   onChoose: (choiceId: string) => void;
-  onDismiss: () => void;
+  /** 冇得揀／一笑置之：label 顯示喺結果 */
+  onDismiss: (label?: string) => void;
 };
+
+/** 左右兩格：甲（左掃）、乙（右掃） */
+type Slot = { key: string; label: string; pick: () => void };
+
+const IGNORE_LABEL = '一笑置之';
 
 export function InkEventPanel({
   state,
@@ -131,18 +160,23 @@ export function InkEventPanel({
     ? pendingEvent.body.split(/\n\n+/).map((p) => p.trim()).filter(Boolean)
     : [];
   const lowActionPoints = !hasEnoughActionPoints(state, EVENT_ACTION_POINT_COST);
-  const swipeChoices = eligibleChoices.slice(0, 2);
-  const extraChoices = eligibleChoices.slice(2);
-  const canSwipe = choicesReady && swipeChoices.length === 2;
+  const choiceLabel = (ch: GameEvent['choices'][number]) => displayChoiceText(ch.text, ch.id);
+  // 二選一：得一個選項就左邊補「一笑置之」（冇任何效果）
+  const slots: Slot[] =
+    eligibleChoices.length >= 2
+      ? eligibleChoices.slice(0, 2).map((ch) => ({ key: ch.id, label: choiceLabel(ch), pick: () => onChoose(ch.id) }))
+      : eligibleChoices.length === 1
+        ? [
+            { key: '__ignore', label: IGNORE_LABEL, pick: () => onDismiss(IGNORE_LABEL) },
+            { key: eligibleChoices[0]!.id, label: choiceLabel(eligibleChoices[0]!), pick: () => onChoose(eligibleChoices[0]!.id) },
+          ]
+        : [];
+  const canSwipe = choicesReady && slots.length === 2;
   const swipe = useSwipeCard({
     enabled: canSwipe,
     blocked: lowActionPoints,
-    onCommit: (side) => {
-      const ch = swipeChoices[side === 'left' ? 0 : 1];
-      if (ch) onChoose(ch.id);
-    },
+    onCommit: (side) => slots[side === 'left' ? 0 : 1]?.pick(),
   });
-  const choiceLabel = (ch: GameEvent['choices'][number]) => displayChoiceText(ch.text, ch.id);
 
   return (
     <section
@@ -162,13 +196,15 @@ export function InkEventPanel({
       >
         {canSwipe && (
           <>
+            {/* 墨染：拉向嗰邊，卡邊暈出同色墨 */}
+            <span className="ink-swipe-wash" aria-hidden />
             <span className="ink-swipe-hint ink-swipe-hint--left" aria-hidden>
               <b>甲</b>
-              {choiceLabel(swipeChoices[0]!)}
+              {slots[0]!.label}
             </span>
             <span className="ink-swipe-hint ink-swipe-hint--right" aria-hidden>
               <b>乙</b>
-              {choiceLabel(swipeChoices[1]!)}
+              {slots[1]!.label}
             </span>
           </>
         )}
@@ -193,66 +229,30 @@ export function InkEventPanel({
       <div
         className={`ink-choice-list ink-choice-list--dock${choicesReady ? ' ink-choice-list--reveal' : ' ink-choice-list--await'}`}
       >
-        {canSwipe ? (
-          <>
-            <div className="ink-swipe-row">
-              {swipeChoices.map((ch, i) => (
-                <button
-                  key={ch.id}
-                  type="button"
-                  className={`ink-choice ink-choice--swipe ink-choice--${i === 0 ? 'left' : 'right'}`}
-                  style={{ ['--i' as string]: i }}
-                  disabled={lowActionPoints || !!swipe.flying}
-                  aria-disabled={lowActionPoints}
-                  aria-label={`${i === 0 ? '甲（左掃）' : '乙（右掃）'}：${choiceLabel(ch)}`}
-                  onClick={() => {
-                    if (lowActionPoints) return;
-                    swipe.commit(i === 0 ? 'left' : 'right');
-                  }}
-                >
-                  {i === 0 && <span className="ink-swipe-arrow" aria-hidden>‹</span>}
-                  <span className="ink-choice-mark">{i === 0 ? '甲' : '乙'}</span>
-                  <span className="ink-swipe-text">{choiceLabel(ch)}</span>
-                  {i === 1 && <span className="ink-swipe-arrow" aria-hidden>›</span>}
-                </button>
-              ))}
-            </div>
-            {extraChoices.map((ch, k) => (
+        {slots.length === 2 && (
+          <div className="ink-swipe-row">
+            {slots.map((slot, i) => (
               <button
-                key={ch.id}
+                key={slot.key}
                 type="button"
-                className="ink-choice ink-choice--extra"
-                style={{ ['--i' as string]: k + 2 }}
-                disabled={lowActionPoints || !!swipe.flying}
+                className={`ink-choice ink-choice--swipe ink-choice--${i === 0 ? 'left' : 'right'}`}
+                style={{ ['--i' as string]: i }}
+                disabled={!choicesReady || lowActionPoints || !!swipe.flying}
                 aria-disabled={lowActionPoints}
+                aria-label={`${i === 0 ? '甲（左掃）' : '乙（右掃）'}：${slot.label}`}
                 onClick={() => {
                   if (lowActionPoints) return;
-                  onChoose(ch.id);
+                  swipe.commit(i === 0 ? 'left' : 'right');
                 }}
               >
-                <span className="ink-choice-mark">{['丙', '丁'][k] ?? '註'}</span>
-                {choiceLabel(ch)}
+                <span className="ink-choice-ink" aria-hidden />
+                {i === 0 && <span className="ink-swipe-arrow" aria-hidden>‹</span>}
+                <span className="ink-choice-mark">{i === 0 ? '甲' : '乙'}</span>
+                <span className="ink-swipe-text">{slot.label}</span>
+                {i === 1 && <span className="ink-swipe-arrow" aria-hidden>›</span>}
               </button>
             ))}
-          </>
-        ) : (
-          eligibleChoices.map((ch, i) => (
-            <button
-              key={ch.id}
-              type="button"
-              className="ink-choice"
-              style={{ ['--i' as string]: i }}
-              disabled={lowActionPoints}
-              aria-disabled={lowActionPoints}
-              onClick={() => {
-                if (lowActionPoints) return;
-                onChoose(ch.id);
-              }}
-            >
-              <span className="ink-choice-mark">{['甲', '乙', '丙', '丁'][i] ?? '註'}</span>
-              {choiceLabel(ch)}
-            </button>
-          ))
+          </div>
         )}
         {eligibleChoices.length === 0 && (
           <button type="button" className="ink-choice" onClick={() => onDismiss()}>

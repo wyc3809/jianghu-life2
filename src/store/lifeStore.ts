@@ -55,8 +55,8 @@ export interface LifeStore {
   advanceMonth: () => void;
   advanceYear: () => void;
   choose: (choiceId: string) => void;
-  /** 無可選抉擇時暫避 */
-  dismissEvent: () => void;
+  /** 無可選抉擇時暫避；label：顯示喺結果嘅所擇（例如「一笑置之」） */
+  dismissEvent: (label?: string) => void;
   dismissCoach: () => void;
   /** 特效時刻播完：移出佇列（見 core/life/moments.ts） */
   ackMoment: () => void;
