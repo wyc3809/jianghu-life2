@@ -464,32 +464,3 @@ export function setAmbientVolume(vol: number) {
     ambientBus.gain.value = Math.max(0, Math.min(1, vol));
   }
 }
-
-// ===== 演武台 v4：古樂器打擊（梆子＋堂鼓；頭目大招加鑼） =====
-/** 演武台命中：小兵＝梆子＋堂鼓；頭目中招＝加重；大招收尾＝加鑼。手機輕震（跟設定） */
-export function playSparHit(kind: 'minion' | 'boss' | 'ultimate') {
-  // 自動播放：玩家未撳過畫面之前瀏覽器唔准震，咁就唔叫
-  const act = (navigator as Navigator & { userActivation?: { hasBeenActive: boolean } }).userActivation;
-  if (!act || act.hasBeenActive) haptic(kind === 'ultimate' ? 'heavy' : kind === 'boss' ? 'medium' : 'light');
-  const audioCtx = getAC();
-  if (!audioCtx) return;
-  const t = audioCtx.currentTime;
-  // 梆子：短促木聲
-  synth({ freq: 1320, dur: 0.03, type: 'sine', gain: 0.03, adsr: { attack: 0.001, decay: 0.02, sustain: 0, release: 0.04 }, noiseMix: 0.25, noiseFilter: 2600, when: t });
-  // 堂鼓：低頻下滑
-  synth({ freq: kind === 'minion' ? 120 : 96, dur: 0.14, type: 'sine', gain: kind === 'minion' ? 0.05 : 0.07, freqSlide: 2, slideTarget: 58, when: t + 0.005 });
-  if (kind === 'ultimate') {
-    // 鑼：非諧和泛音長收
-    for (const [m, g] of [[1, 0.035], [2.76, 0.016], [5.4, 0.008]] as const) {
-      synth({ freq: 147 * m, dur: 0.9, type: 'sine', gain: g, adsr: { attack: 0.004, decay: 0.3, sustain: 0.3, release: 0.8 }, when: t + 0.03 });
-    }
-  }
-}
-
-/** 演武台出手：擦弦破空（短） */
-export function playSparSwing(big: boolean) {
-  const audioCtx = getAC();
-  if (!audioCtx) return;
-  const t = audioCtx.currentTime;
-  synth({ freq: big ? 520 : 700, dur: big ? 0.12 : 0.06, type: 'triangle', gain: 0.012, freqSlide: 2, slideTarget: big ? 1400 : 1600, noiseMix: 0.5, noiseFilter: 3200, when: t });
-}

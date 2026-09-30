@@ -3,7 +3,7 @@
  * 實體檔：`public/ink/art/sil/`（`scripts/art/build_silhouettes.py` 產生）
  * - hero-{sect}：主角（門派色描邊 + 朱砂頭帶）
  * - boss-{key}：首領（朱砂描邊，首領現身用）
- * 戰鬥畫面唔用剪影（鎮居演武台另用 public/ink/spar/v4/ 分層逐格圖，見 design/ux/spar-stage.md）。
+ * 戰鬥畫面唔用剪影（切磋小窗另用 public/ink/spar/sil/）。
  */
 import { inkArtUrl } from './inkAssets';
 
