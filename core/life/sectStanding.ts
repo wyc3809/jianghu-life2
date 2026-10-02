@@ -1,10 +1,11 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getRng } from '@core/random';
-import { artForStanding, getSectContent, sectStandingName } from '@data/content/packs';
+import { artForStanding, getSectContent, MAX_SECT_STANDING, sectStandingName } from '@data/content/packs';
 import { skillLabel } from '@data/skills/catalog';
 import { applyLearnMartialArt } from './flavor';
 
-const MAX_STANDING = 3;
+/** 每升一級，晉升機率乘呢個數（越上越難；記名→外門照原機率，長老→掌門約剩 40%） */
+const STANDING_CHANCE_DECAY = 0.86;
 
 export function ensureSectStanding(c: LifeGameState['character']): number {
   if (typeof c.sectStanding !== 'number' || Number.isNaN(c.sectStanding)) {
@@ -18,9 +19,9 @@ export function tryGainSectStanding(state: LifeGameState, chance = 0.35): string
   const c = state.character;
   if (!c.sectId) return null;
   const standing = ensureSectStanding(c);
-  if (standing >= MAX_STANDING) return null;
+  if (standing >= MAX_SECT_STANDING) return null;
   const rng = getRng();
-  if (!rng.chance(chance)) return null;
+  if (!rng.chance(chance * STANDING_CHANCE_DECAY ** standing)) return null;
 
   c.sectStanding = standing + 1;
   const name = sectStandingName(c.sectStanding);

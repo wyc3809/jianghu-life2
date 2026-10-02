@@ -175,7 +175,7 @@ export function applyEffects(state: LifeGameState, effects: GameEffect[]): Effec
           c.sectId = sectId;
           c.sectStanding = 0;
           c.flags.joined_sect = true;
-          logs.push(`拜入${state.sects[sectId].name}，成為外門弟子。`);
+          logs.push(`拜入${state.sects[sectId].name}，成為記名弟子。`);
           deltas.push(`門派＝${state.sects[sectId].name}`);
           const artId = artForStanding(sectId, 0);
           if (artId && !c.skills.includes(artId)) {

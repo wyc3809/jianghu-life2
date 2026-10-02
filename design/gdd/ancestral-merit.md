@@ -40,13 +40,13 @@ gain = min(MERIT_CAP_PER_LIFE,
            floor(age / 10)                 // 壽數：每 10 歲 1 點
          + floor(martial / 20)             // 武學
          + floor(max(0, reputation) / 25)  // 名望
-         + 2 × cultivationTier             // 境界
+         + round(12 × cultivationTier / 14) // 境界（15 境，頂境 12 分）
          + titleCount                      // 稱號數
          + (hadChildren ? 2 : 0))          // 血脈延續
 MERIT_CAP_PER_LIFE = 40
 ```
 
-例：60 歲、武學 80、名望 50、境界 3、稱號 3、有子女 → 6 + 4 + 2 + 6 + 3 + 2 = 23 點。
+例：60 歲、武學 80、名望 50、境界 7（脫胎換骨）、稱號 3、有子女 → 6 + 4 + 2 + 6 + 3 + 2 = 23 點。
 一維天賦滿級要 35 點（約兩世）；五維全滿 175 點（約 8–10 世），夠長線但唔會無底。
 
 ## 5. Edge Cases

@@ -54,9 +54,9 @@ describe('title (稱號) system', () => {
     syncTitles(state);
     const rankLow = allTitles(state).find((t) => t.id === 'title_sect_rank');
     expect(rankLow?.label).toContain('青雲劍派');
-    expect(rankLow?.label).toContain('外門弟子');
+    expect(rankLow?.label).toContain('記名弟子');
 
-    state.character.sectStanding = 3;
+    state.character.sectStanding = 4;
     const rankHigh = allTitles(state).find((t) => t.id === 'title_sect_rank');
     expect(rankHigh?.label).toContain('門中執事');
   });

@@ -29,7 +29,7 @@ describe('ancestral merit (design/gdd/ancestral-merit.md)', () => {
     c.age = 60;
     c.martial = 80;
     c.reputation = 50;
-    c.cultivation = { xp: 0, tier: 3 };
+    c.cultivation = { xp: 0, tier: 7 };
     c.childrenCount = 1;
     const g = computeMeritGain(s);
     const titles = g.parts.find((p) => p.label === '稱號')?.value ?? 0;

@@ -219,7 +219,7 @@ export function applyPracticeOutcome(
       c.sectId = target;
       c.sectStanding = 0;
       c.flags.joined_sect = true;
-      logs.push(`你拜入${state.sects[target].name}，成為外門弟子。`);
+      logs.push(`你拜入${state.sects[target].name}，成為記名弟子。`);
       if (target === 'sect_wugen') {
         c.flags.wugenSevered = true;
         if (c.gender === 'male') {

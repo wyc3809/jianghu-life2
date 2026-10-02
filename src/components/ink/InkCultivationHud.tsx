@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import {
-  calculateCultivationRate,
+  effectiveCultivationRate,
   canAttemptBreakthrough,
   currentCultivationTier,
   isCultivationCapped,
@@ -58,7 +58,7 @@ type Props = {
 /** 分卷列中心大圓：修為環形進度（藍色、持續流轉）包住「過一月」按鈕；修為滿咗就變做「突破」按鈕 */
 export function InkCultivationHud({ state, onAdvance, onBreakthrough, disabled, exhausted = false }: Props) {
   const committedXp = state.character.cultivation.xp;
-  const rate = calculateCultivationRate(state).total;
+  const rate = effectiveCultivationRate(state);
   const tier = currentCultivationTier(state);
   const capped = isCultivationCapped(state);
   const canBreak = canAttemptBreakthrough(state);

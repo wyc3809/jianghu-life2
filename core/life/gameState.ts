@@ -22,6 +22,7 @@ import { wuxiaAttributeLabels } from '@interfaces/lifeEngine';
 import type { NatureAttr } from '@interfaces/lifeEngine';
 import { migrateInjuries } from './injuries';
 import { applyAncestry } from './ancestry';
+import { CULTIVATION_TIERS, LEGACY_TIER_MAP } from './cultivation';
 
 export const SECT_DEFS = SECT_CONTENT.map((s) => ({
   id: s.id,
@@ -121,6 +122,7 @@ export function createNewLife(options: CreateLifeOptions | number = {}): LifeGam
     childrenMax: rollLifetimeChildrenMax(rng),
     monthsSinceLastBirth: 99,
     flags: {
+      ladder_v2: true,
       baseMaxHp: maxHealth,
       baseMaxQi: maxQi,
       legacy_generation: opts.legacy?.generation ?? 1,
@@ -324,6 +326,21 @@ export function ensureNpc(
 }
 
 /** Migrate older saves missing monthly fields */
+/**
+ * 階梯 v2（EA0.48）：修為 7 境→15 境、門派 4 職→8 職（記名…掌門）。
+ * 舊存檔按同名位置對返；新角色開局已標記，唔會重複轉換。
+ */
+function migrateLadderV2(c: LifeGameState['character']): void {
+  if (c.flags.ladder_v2) return;
+  const oldTier = Math.max(0, Math.min(LEGACY_TIER_MAP.length - 1, Math.floor(c.cultivation.tier)));
+  c.cultivation.tier = LEGACY_TIER_MAP[oldTier]!;
+  const cap = CULTIVATION_TIERS[c.cultivation.tier]!.cap;
+  if (Number.isFinite(cap)) c.cultivation.xp = Math.min(c.cultivation.xp, cap);
+  // 舊 0 外門／1 內門／2 真傳／3 執事 → 新 1／2／3／4
+  if (c.sectId) c.sectStanding = Math.min(4, Math.max(0, Math.floor(c.sectStanding ?? 0)) + 1);
+  c.flags.ladder_v2 = true;
+}
+
 export function migrateLifeState(raw: LifeGameState): LifeGameState {
   const c = raw.character;
   if (c.qi === undefined) c.qi = 80;
@@ -366,6 +383,7 @@ export function migrateLifeState(raw: LifeGameState): LifeGameState {
   if (!c.cultivation) c.cultivation = { xp: 0, tier: 0 };
   if (typeof c.cultivation.xp !== 'number' || !Number.isFinite(c.cultivation.xp)) c.cultivation.xp = 0;
   if (typeof c.cultivation.tier !== 'number' || !Number.isFinite(c.cultivation.tier)) c.cultivation.tier = 0;
+  migrateLadderV2(c);
   if (raw.month === undefined) raw.month = 1;
   if (!raw.world) raw.world = makeWorldState();
   if (!raw.story) raw.story = makeStoryState();

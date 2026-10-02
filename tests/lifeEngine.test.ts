@@ -824,7 +824,7 @@ describe('life event engine', () => {
     for (const sect of SECT_CONTENT) {
       expect(sect.arts).toHaveLength(4);
       const standings = sect.arts.map((a) => a.standing).sort();
-      expect(standings).toEqual([0, 1, 2, 3]);
+      expect(standings).toEqual([0, 2, 3, 5]);
       for (const art of sect.arts) {
         const def = getSkillDef(art.skillId);
         expect(def, art.skillId).toBeTruthy();
