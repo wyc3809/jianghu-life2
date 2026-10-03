@@ -1,4 +1,11 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
+import { jianghuRank } from './jianghuRank';
+
+const bestSkillRank = (s: LifeGameState): number =>
+  Math.max(0, ...Object.values(s.character.skillRanks ?? {}));
+const cultTier = (s: LifeGameState): number => s.character.cultivation?.tier ?? 0;
+const sectRank = (s: LifeGameState): number => (s.character.sectId ? (s.character.sectStanding ?? 0) : -1);
+
 
 export type AchievementDef = {
   id: string;
@@ -99,6 +106,163 @@ export const ACHIEVEMENT_RULES: AchievementDef[] = [
     label: '再世',
     hint: '轉世再入江湖',
     test: (s) => Number(s.character.flags.legacy_generation ?? 1) >= 2,
+  },
+  // —— 戰績 ——
+  {
+    id: 'ach_thirty_fights',
+    label: '身經三十戰',
+    hint: '累計交手三十場',
+    test: (s) => (s.character.stats.combats ?? 0) >= 30,
+  },
+  {
+    id: 'ach_thirty_wins',
+    label: '三十捷',
+    hint: '累計戰勝三十場',
+    test: (s) => (s.character.stats.combatsWon ?? 0) >= 30,
+  },
+  {
+    id: 'ach_ten_kills',
+    label: '十步一殺',
+    hint: '決勝取命十回',
+    test: (s) => Number(s.character.flags.kills ?? 0) >= 10,
+  },
+  // —— 武學 ——
+  {
+    id: 'ach_ten_arts',
+    label: '十藝傍身',
+    hint: '身懷十門武學',
+    test: (s) => (s.character.skills?.length ?? 0) >= 10,
+  },
+  {
+    id: 'ach_art_fluent',
+    label: '融會貫通',
+    hint: '任一武學練至「融會貫通」',
+    test: (s) => bestSkillRank(s) >= 2,
+  },
+  {
+    id: 'ach_art_master',
+    label: '神乎其技',
+    hint: '任一武學練至「神乎其技」',
+    test: (s) => bestSkillRank(s) >= 3,
+  },
+  {
+    id: 'ach_martial_300',
+    label: '武學三百',
+    hint: '武學修為達三百',
+    test: (s) => (s.character.martial ?? 0) >= 300,
+  },
+  // —— 修為境界（索引對應 cultivation.ts CULTIVATION_TIERS）——
+  {
+    id: 'ach_tier_small_cycle',
+    label: '小周天',
+    hint: '修為踏入「小周天」',
+    test: (s) => cultTier(s) >= 3,
+  },
+  {
+    id: 'ach_tier_rendu',
+    label: '任督已通',
+    hint: '修為踏入「打通任督」',
+    test: (s) => cultTier(s) >= 6,
+  },
+  {
+    id: 'ach_tier_xiantian',
+    label: '先天',
+    hint: '修為踏入「先天之境」',
+    test: (s) => cultTier(s) >= 9,
+  },
+  {
+    id: 'ach_tier_tianren',
+    label: '天人',
+    hint: '修為踏入「天人合一」',
+    test: (s) => cultTier(s) >= 12,
+  },
+  {
+    id: 'ach_tier_god',
+    label: '武道通神',
+    hint: '修為登臨最後一境',
+    test: (s) => cultTier(s) >= 14,
+  },
+  // —— 門派（索引對應 content/sects/sects.json ranks）——
+  {
+    id: 'ach_sect_inner',
+    label: '登堂入室',
+    hint: '升為內門弟子',
+    test: (s) => sectRank(s) >= 2,
+  },
+  {
+    id: 'ach_sect_true',
+    label: '衣缽真傳',
+    hint: '升為真傳弟子',
+    test: (s) => sectRank(s) >= 3,
+  },
+  {
+    id: 'ach_sect_elder',
+    label: '一堂長老',
+    hint: '升為門中長老',
+    test: (s) => sectRank(s) >= 6,
+  },
+  {
+    id: 'ach_sect_master',
+    label: '一派之主',
+    hint: '接任掌門',
+    test: (s) => sectRank(s) >= 7,
+  },
+  {
+    id: 'ach_found_sect',
+    label: '開宗立派',
+    hint: '自立門戶',
+    test: (s) => Boolean(s.foundedSect || s.character.flags.founded_sect),
+  },
+  // —— 江湖排名 ——
+  {
+    id: 'ach_rank_1000',
+    label: '嶄露頭角',
+    hint: '江湖排名進入前一千',
+    test: (s) => jianghuRank(s) <= 1000,
+  },
+  {
+    id: 'ach_rank_100',
+    label: '一流高手',
+    hint: '江湖排名進入前一百',
+    test: (s) => jianghuRank(s) <= 100,
+  },
+  {
+    id: 'ach_rank_10',
+    label: '天下絕頂',
+    hint: '江湖排名進入前十',
+    test: (s) => jianghuRank(s) <= 10,
+  },
+  // —— 名利 ——
+  {
+    id: 'ach_wealth_1000',
+    label: '千金之家',
+    hint: '家資峰值達一千兩',
+    test: (s) => (s.character.stats.wealthPeak ?? 0) >= 1000,
+  },
+  {
+    id: 'ach_rep_100',
+    label: '名動一方',
+    hint: '名望達一百',
+    test: (s) => (s.character.reputation ?? 0) >= 100,
+  },
+  // —— 人生 ——
+  {
+    id: 'ach_events_200',
+    label: '閱盡滄桑',
+    hint: '歷事兩百回',
+    test: (s) => (s.character.stats.eventsSeen ?? 0) >= 200,
+  },
+  {
+    id: 'ach_children_three',
+    label: '兒孫滿堂',
+    hint: '得三名子女',
+    test: (s) => (s.character.childrenCount ?? 0) >= 3,
+  },
+  {
+    id: 'ach_age_80',
+    label: '耄耋',
+    hint: '年滿八十',
+    test: (s) => s.character.age >= 80,
   },
 ];
 

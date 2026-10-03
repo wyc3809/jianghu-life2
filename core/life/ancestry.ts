@@ -59,7 +59,8 @@ export function computeMeritGain(state: LifeGameState): MeritGain {
     { label: '壽數', value: Math.floor(Math.max(0, c.age) / 10) },
     { label: '武學', value: Math.floor(Math.max(0, c.martial) / 20) },
     { label: '名望', value: Math.floor(Math.max(0, c.reputation) / 25) },
-    { label: '境界', value: 2 * Math.max(0, Math.floor(c.cultivation?.tier ?? 0)) },
+    // 15 境縮放返舊 7 境嘅分值（頂境 12 分）
+    { label: '境界', value: Math.round((12 * Math.max(0, Math.floor(c.cultivation?.tier ?? 0))) / 14) },
     { label: '稱號', value: allTitles(state).length },
     { label: '血脈', value: (c.childrenCount ?? 0) > 0 ? 2 : 0 },
   ].filter((p) => p.value > 0);

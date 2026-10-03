@@ -16,7 +16,8 @@ const RARITY_GRADE: Record<GearRarity, Grade> = { common: 0, fine: 1, rare: 2, e
 const RANK_GRADE: readonly Grade[] = [1, 2, 3, 5];
 
 /** 境界 level → 品階 */
-const TIER_GRADE: readonly Grade[] = [0, 1, 2, 3, 3, 4, 5];
+/** 修為 15 境 → 高光品階 */
+const TIER_GRADE: readonly Grade[] = [0, 0, 1, 1, 1, 2, 2, 3, 3, 3, 4, 4, 5, 5, 5];
 
 function balances(state: LifeGameState, prestigeBefore?: number) {
   return {

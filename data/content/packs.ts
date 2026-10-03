@@ -52,9 +52,12 @@ export function getSectContent(id: string): SectContentDef | undefined {
   return SECT_CONTENT.find((s) => s.id === id);
 }
 
+/** 最高門中地位（掌門） */
+export const MAX_SECT_STANDING = SECT_RANKS.length - 1;
+
 export function sectStandingName(standing: number): string {
   const rank = SECT_RANKS.find((r) => r.standing === standing) ?? SECT_RANKS[0];
-  return rank?.name ?? '外門弟子';
+  return rank?.name ?? '記名弟子';
 }
 
 export function artForStanding(sectId: string, standing: number): string | undefined {

@@ -20,16 +20,43 @@ export interface CultivationTier {
   cap: number;
 }
 
-/** 境界階梯：cap 越後越大（放置遊戲常見嘅指數式門檻）；已至頂境冇上限 */
+/**
+ * 境界階梯（15 境）：每境門檻約 ×1.8（放置遊戲常見嘅指數式門檻）；已至頂境冇上限。
+ * 等待有封頂：見 MAX_TIER_FILL_SECONDS——速率再慢，儲滿任何一境都唔使超過 24 小時。
+ */
 export const CULTIVATION_TIERS: readonly CultivationTier[] = [
   { level: 0, name: '引氣入體', cap: 600 },
-  { level: 1, name: '內息初成', cap: 1800 },
-  { level: 2, name: '氣貫周天', cap: 4500 },
-  { level: 3, name: '融匯貫通', cap: 10000 },
-  { level: 4, name: '脫胎換骨', cap: 22000 },
-  { level: 5, name: '返璞歸真', cap: 48000 },
-  { level: 6, name: '天人合一', cap: Number.POSITIVE_INFINITY },
+  { level: 1, name: '內息初成', cap: 1100 },
+  { level: 2, name: '氣貫周天', cap: 2000 },
+  { level: 3, name: '小周天', cap: 3600 },
+  { level: 4, name: '大周天', cap: 6500 },
+  { level: 5, name: '融匯貫通', cap: 11700 },
+  { level: 6, name: '打通任督', cap: 21000 },
+  { level: 7, name: '脫胎換骨', cap: 38000 },
+  { level: 8, name: '洗髓伐毛', cap: 68000 },
+  { level: 9, name: '先天之境', cap: 122000 },
+  { level: 10, name: '返璞歸真', cap: 220000 },
+  { level: 11, name: '化境', cap: 396000 },
+  { level: 12, name: '天人合一', cap: 713000 },
+  { level: 13, name: '破碎虛空', cap: 1284000 },
+  { level: 14, name: '武道通神', cap: Number.POSITIVE_INFINITY },
 ];
+
+/** 舊 7 境存檔 → 新 15 境（同名境界對返原位） */
+export const LEGACY_TIER_MAP: readonly number[] = [0, 1, 2, 5, 7, 10, 12];
+
+/** 等待封頂：任何一境由零儲滿，最多 24 小時現實時間（速率太慢會自動補底） */
+export const MAX_TIER_FILL_SECONDS = 24 * 60 * 60;
+
+/** 呢一境嘅保底速率：cap / 24 小時；頂境冇 cap 就冇保底 */
+export function tierFloorRate(tier: CultivationTier): number {
+  return Number.isFinite(tier.cap) ? tier.cap / MAX_TIER_FILL_SECONDS : 0;
+}
+
+/** 實際累積速率＝max(功法計出嚟嘅速率, 保底速率) */
+export function effectiveCultivationRate(state: LifeGameState): number {
+  return Math.max(calculateCultivationRate(state).total, tierFloorRate(currentCultivationTier(state)));
+}
 
 export function currentCultivationTier(state: LifeGameState): CultivationTier {
   const idx = Math.max(
@@ -103,15 +130,15 @@ export function calculateCultivationRate(state: LifeGameState): CultivationRateB
   return { base, fromMartial, fromSkills, fromSect, fromGear, total };
 }
 
-/** 離線收益上限：最多計 8 小時 */
-export const OFFLINE_CULTIVATION_CAP_MS = 8 * 60 * 60 * 1000;
+/** 離線收益上限：最多計 24 小時（同每境儲滿封頂一致） */
+export const OFFLINE_CULTIVATION_CAP_MS = MAX_TIER_FILL_SECONDS * 1000;
 
 /** 實時累積一段時間；到頂會自動停低（唔會爆錶），純算術唔碰 RNG */
 export function tickCultivation(state: LifeGameState, deltaSeconds: number): number {
   if (deltaSeconds <= 0) return 0;
   if (!state.character.alive || state.phase !== 'playing') return 0;
   const tier = currentCultivationTier(state);
-  const rate = calculateCultivationRate(state).total;
+  const rate = effectiveCultivationRate(state);
   const before = state.character.cultivation.xp;
   const rawAfter = before + rate * deltaSeconds;
   const after = Number.isFinite(tier.cap) ? Math.min(tier.cap, rawAfter) : rawAfter;
@@ -122,9 +149,9 @@ export function tickCultivation(state: LifeGameState, deltaSeconds: number): num
 export interface OfflineCultivationResult {
   /** 實際入帳修為（已扣減境界上限／時間上限） */
   gainedXp: number;
-  /** 計入嘅離線秒數（已扣 8 小時上限） */
+  /** 計入嘅離線秒數（已扣 24 小時上限） */
   countedSeconds: number;
-  /** 離線時間是否超過 8 小時而被截斷 */
+  /** 離線時間是否超過 24 小時而被截斷 */
   timeCapped: boolean;
   /** 是否因境界已滿而截斷 */
   tierCapped: boolean;
@@ -142,7 +169,7 @@ export function applyOfflineCultivation(state: LifeGameState, elapsedMs: number)
   }
   const seconds = clampedMs / 1000;
   const tier = currentCultivationTier(state);
-  const rate = calculateCultivationRate(state).total;
+  const rate = effectiveCultivationRate(state);
   const before = state.character.cultivation.xp;
   const rawAfter = before + rate * seconds;
   const after = Number.isFinite(tier.cap) ? Math.min(tier.cap, rawAfter) : rawAfter;
@@ -179,9 +206,9 @@ export function grantEventCultivation(state: LifeGameState): number {
   return after - before;
 }
 
-const BREAKTHROUGH_BASE_CHANCE = 0.62;
-/** 境界越高，突破越難 */
-const BREAKTHROUGH_TIER_PENALTY = 0.05;
+const BREAKTHROUGH_BASE_CHANCE = 0.66;
+/** 境界越高，突破越難：每境 −3.5%，後期（第 12–13 境）未計屬性約 20%，計埋根骨悟性約 25–35% */
+const BREAKTHROUGH_TIER_PENALTY = 0.035;
 /** 根骨／悟性合計每點加成 */
 const BREAKTHROUGH_ATTR_BONUS = 0.003;
 /** 失敗回退：現境界上限的 30% */
@@ -237,17 +264,17 @@ export function attemptCultivationBreakthrough(state: LifeGameState): Breakthrou
   if (success && nextTier) {
     c.cultivation.tier = nextTier.level;
     c.cultivation.xp = 0;
-    const martialGain = 8 + nextTier.level * 4;
+    const martialGain = 6 + nextTier.level * 2;
     c.martial += martialGain;
-    const hpGain = 20 + nextTier.level * 8;
-    const qiGain = 24 + nextTier.level * 10;
+    const hpGain = 16 + nextTier.level * 5;
+    const qiGain = 20 + nextTier.level * 6;
     raiseBaseMaxHp(c, hpGain);
     raiseBaseMaxQi(c, qiGain);
     lines.push(
       `你於千鈞一髮之際，忽覺丹田一暖——「打通任督二脈」！`,
       `自此踏入「${nextTier.name}」之境，武學＋${martialGain}，氣血上限、內力上限同步提升。`,
     );
-    const prestigeGain = 60 + nextTier.level * 40;
+    const prestigeGain = 50 + nextTier.level * 25;
     lines.push(...gainJianghuPrestige(state, prestigeGain));
     pushChronicle(state, lines);
     snapshotRng(state);

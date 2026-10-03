@@ -41,6 +41,8 @@ import { InkStatsPanel } from './InkStatsPanel';
 import { InkInjuryCard } from './InkInjuryCard';
 import {
   calculateCultivationRate,
+  effectiveCultivationRate,
+  MAX_TIER_FILL_SECONDS,
   canAttemptBreakthrough,
   cultivationProgressPercent,
   currentCultivationTier,
@@ -261,6 +263,7 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
         (() => {
           const tier = currentCultivationTier(state);
           const rate = calculateCultivationRate(state);
+          const effective = effectiveCultivationRate(state);
           const pct = cultivationProgressPercent(state);
           const capped = isCultivationCapped(state);
           const canBreak = canAttemptBreakthrough(state);
@@ -313,8 +316,15 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
                     <span className="ink-delta-row-text">裝備詞條 ＋{rate.fromGear.toFixed(2)}</span>
                   </li>
                 )}
+                {effective > rate.total && (
+                  <li className="ink-delta-row ink-delta-row--up">
+                    <span className="ink-delta-row-text">
+                      閉關保底 ＋{(effective - rate.total).toFixed(2)}（{MAX_TIER_FILL_SECONDS / 3600} 小時內必滿）
+                    </span>
+                  </li>
+                )}
                 <li className="ink-delta-row ink-delta-row--flat">
-                  <strong className="ink-delta-row-text">總計 ＋{rate.total.toFixed(2)}／秒</strong>
+                  <strong className="ink-delta-row-text">總計 ＋{effective.toFixed(2)}／秒</strong>
                 </li>
               </ul>
 

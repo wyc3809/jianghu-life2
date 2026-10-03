@@ -55,7 +55,7 @@ describe('highlight fx mapping (高光時刻)', () => {
       lines: [],
       oldTierName: 'a',
       newTierName: 'b',
-      newTierLevel: 6,
+      newTierLevel: 14,
       hpGain: 10,
       qiGain: 20,
       martialGain: 5,

@@ -64,7 +64,7 @@ describe('calculateProgress', () => {
     initRng(5);
     const state = createNewLife(5);
     state.character.sectId = 'some_sect';
-    state.character.sectStanding = 3;
+    state.character.sectStanding = 7;
 
     const progress = calculateProgress(state);
     expect(progress.sect!.nextLabel).toBeNull();

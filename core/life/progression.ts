@@ -1,5 +1,5 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
-import { sectStandingName } from '@data/content/packs';
+import { MAX_SECT_STANDING, sectStandingName } from '@data/content/packs';
 
 /** 顯示用進度條：純 UI 呈現，唔影響任何遊戲數值判定或存檔格式 */
 export interface ProgressBar {
@@ -20,8 +20,6 @@ export interface ProgressSnapshot {
   bars: ProgressBar[];
   sect: SectProgress | null;
 }
-
-const MAX_SECT_STANDING = 3;
 
 /**
  * 校準基準（非任意數字）：

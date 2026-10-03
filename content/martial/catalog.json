@@ -545,7 +545,7 @@
       "name": "雲中步",
       "kind": "external",
       "sectId": "sect_qingyun",
-      "unlockStanding": 1,
+      "unlockStanding": 2,
       "flavor": "內門身法：人在雲中，步影迷離，連點取穴。",
       "move": {
         "id": "mv_qy_mist",
@@ -563,7 +563,7 @@
       "name": "破雲刺",
       "kind": "external",
       "sectId": "sect_qingyun",
-      "unlockStanding": 2,
+      "unlockStanding": 3,
       "flavor": "真傳劍刺：如針破雲，專透硬防，兼擾內息。",
       "move": {
         "id": "mv_qy_pierce",
@@ -581,8 +581,8 @@
       "name": "青冥劍意",
       "kind": "external",
       "sectId": "sect_qingyun",
-      "unlockStanding": 3,
-      "flavor": "執事絕學：劍意化作連綿青冥，又快又透。",
+      "unlockStanding": 5,
+      "flavor": "護法絕學：劍意化作連綿青冥，又快又透。",
       "move": {
         "id": "mv_qy_sky",
         "name": "青冥三刺",
@@ -615,7 +615,7 @@
       "name": "裂風斬",
       "kind": "external",
       "sectId": "sect_tiandao",
-      "unlockStanding": 1,
+      "unlockStanding": 2,
       "flavor": "內門刀法：刀風割膚，傷口難收。",
       "move": {
         "id": "mv_td_wind",
@@ -633,7 +633,7 @@
       "name": "雷鳴連刀",
       "kind": "external",
       "sectId": "sect_tiandao",
-      "unlockStanding": 2,
+      "unlockStanding": 3,
       "flavor": "真傳連刀：如雷三響，勢不可擋。",
       "move": {
         "id": "mv_td_thunder",
@@ -652,8 +652,8 @@
       "name": "天刀無回",
       "kind": "external",
       "sectId": "sect_tiandao",
-      "unlockStanding": 3,
-      "flavor": "執事殺着：全力一刀，傷敵亦耗己力。",
+      "unlockStanding": 5,
+      "flavor": "護法殺着：全力一刀，傷敵亦耗己力。",
       "move": {
         "id": "mv_td_noreturn",
         "name": "無回一刀",
@@ -689,7 +689,7 @@
       "name": "繞指柔",
       "kind": "external",
       "sectId": "sect_emei",
-      "unlockStanding": 1,
+      "unlockStanding": 2,
       "flavor": "內門鎖脈：纏絲之力，令敵招滯、防卸。",
       "move": {
         "id": "mv_em_silk",
@@ -707,7 +707,7 @@
       "name": "金頂綿掌",
       "kind": "external",
       "sectId": "sect_emei",
-      "unlockStanding": 2,
+      "unlockStanding": 3,
       "flavor": "真傳綿掌：打中吸血回氣，越戰越穩。",
       "move": {
         "id": "mv_em_golden",
@@ -725,8 +725,8 @@
       "name": "峨嵋心法",
       "kind": "internal",
       "sectId": "sect_emei",
-      "unlockStanding": 3,
-      "flavor": "執事心法：柔中藏剛，護體命中兼得。",
+      "unlockStanding": 5,
+      "flavor": "護法心法：柔中藏剛，護體命中兼得。",
       "passive": {
         "defense": 8,
         "qiRegen": 7,
@@ -754,7 +754,7 @@
       "name": "韋陀杖意",
       "kind": "external",
       "sectId": "sect_shaolin",
-      "unlockStanding": 1,
+      "unlockStanding": 2,
       "flavor": "內門杖意：點穴定身，令敵一瞬失措。",
       "move": {
         "id": "mv_sl_weituo",
@@ -770,7 +770,7 @@
       "name": "鐵布衫功",
       "kind": "internal",
       "sectId": "sect_shaolin",
-      "unlockStanding": 2,
+      "unlockStanding": 3,
       "flavor": "真傳硬功：皮肉如鐵，反震來招。",
       "passive": {
         "defense": 14,
@@ -783,8 +783,8 @@
       "name": "易筋吐納",
       "kind": "internal",
       "sectId": "sect_shaolin",
-      "unlockStanding": 3,
-      "flavor": "執事吐納：筋骨重塑，攻防氣海皆厚。",
+      "unlockStanding": 5,
+      "flavor": "護法吐納：筋骨重塑，攻防氣海皆厚。",
       "passive": {
         "attack": 5,
         "defense": 10,
@@ -816,7 +816,7 @@
       "name": "太極推手",
       "kind": "external",
       "sectId": "sect_wudang",
-      "unlockStanding": 1,
+      "unlockStanding": 2,
       "flavor": "內門推手：四兩撥千斤，卸力回春兼破防。",
       "move": {
         "id": "mv_wd_push",
@@ -835,7 +835,7 @@
       "name": "純陽吐納",
       "kind": "internal",
       "sectId": "sect_wudang",
-      "unlockStanding": 2,
+      "unlockStanding": 3,
       "flavor": "真傳吐納：氣機悠長，越打越有後勁。",
       "passive": {
         "maxQi": 40,
@@ -848,8 +848,8 @@
       "name": "無極劍意",
       "kind": "external",
       "sectId": "sect_wudang",
-      "unlockStanding": 3,
-      "flavor": "執事劍意：連綿無極，透防耗氣。",
+      "unlockStanding": 5,
+      "flavor": "護法劍意：連綿無極，透防耗氣。",
       "move": {
         "id": "mv_wd_wuji",
         "name": "無極連刺",
@@ -952,7 +952,7 @@
       "name": "影步",
       "kind": "qinggong",
       "sectId": "sect_tangmen",
-      "unlockStanding": 1,
+      "unlockStanding": 2,
       "flavor": "內門身法：步入陰影，閃避與準頭俱增。",
       "passive": {
         "evasionBonus": 0.1,
@@ -964,7 +964,7 @@
       "name": "淬毒鏢",
       "kind": "external",
       "sectId": "sect_tangmen",
-      "unlockStanding": 2,
+      "unlockStanding": 3,
       "flavor": "真傳暗器：鏢尖帶毒，透防擾脈。",
       "weaponKind": "hidden",
       "move": {
@@ -986,8 +986,8 @@
       "name": "千機手",
       "kind": "external",
       "sectId": "sect_tangmen",
-      "unlockStanding": 3,
-      "flavor": "執事奇門：機關連射，可眩敵半息。",
+      "unlockStanding": 5,
+      "flavor": "護法奇門：機關連射，可眩敵半息。",
       "weaponKind": "hidden",
       "move": {
         "id": "mv_tm_mech",
@@ -1025,7 +1025,7 @@
       "name": "魔息吐納",
       "kind": "internal",
       "sectId": "sect_mojiao",
-      "unlockStanding": 1,
+      "unlockStanding": 2,
       "flavor": "內門吐納：魔息入體，攻勢更烈，亦能反震。",
       "passive": {
         "attack": 8,
@@ -1039,7 +1039,7 @@
       "name": "吸脈指",
       "kind": "external",
       "sectId": "sect_mojiao",
-      "unlockStanding": 2,
+      "unlockStanding": 3,
       "flavor": "真傳魔指：透防抽脈，敵氣為我用。",
       "move": {
         "id": "mv_mj_drain",
@@ -1057,8 +1057,8 @@
       "name": "修羅斬",
       "kind": "external",
       "sectId": "sect_mojiao",
-      "unlockStanding": 3,
-      "flavor": "執事魔刀：一斬定生死，流血兼吸血。",
+      "unlockStanding": 5,
+      "flavor": "護法魔刀：一斬定生死，流血兼吸血。",
       "weaponKind": "blade",
       "move": {
         "id": "mv_mj_asura",
@@ -1097,7 +1097,7 @@
       "name": "雲臺步",
       "kind": "external",
       "sectId": "sect_huashan",
-      "unlockStanding": 1,
+      "unlockStanding": 2,
       "flavor": "內門身法劍：步上雲臺，連刺取隙。",
       "weaponKind": "sword",
       "move": {
@@ -1116,7 +1116,7 @@
       "name": "劈岳劍",
       "kind": "external",
       "sectId": "sect_huashan",
-      "unlockStanding": 2,
+      "unlockStanding": 3,
       "flavor": "真傳劍勢：一劍劈岳，破防震敵。",
       "weaponKind": "sword",
       "move": {
@@ -1136,8 +1136,8 @@
       "name": "華嶽吐納",
       "kind": "internal",
       "sectId": "sect_huashan",
-      "unlockStanding": 3,
-      "flavor": "執事吐納：氣接華嶽，劍勢與氣海同厚。",
+      "unlockStanding": 5,
+      "flavor": "護法吐納：氣接華嶽，劍勢與氣海同厚。",
       "passive": {
         "attack": 4,
         "maxQi": 35,
@@ -1182,7 +1182,7 @@
       "name": "玉簫劍法",
       "kind": "external",
       "sectId": "sect_taohua",
-      "unlockStanding": 1,
+      "unlockStanding": 2,
       "flavor": "內門劍式：以簫作劍，劍意隨樂音流轉，虛實難分。",
       "weaponKind": "sword",
       "move": {
@@ -1200,7 +1200,7 @@
       "name": "落英神劍掌",
       "kind": "external",
       "sectId": "sect_taohua",
-      "unlockStanding": 2,
+      "unlockStanding": 3,
       "flavor": "真傳絕學：掌風如落英繽紛，看似柔美，觸之即傷。",
       "move": {
         "id": "mv_th_petals",
@@ -1217,8 +1217,8 @@
       "name": "奇門一氣",
       "kind": "internal",
       "sectId": "sect_taohua",
-      "unlockStanding": 3,
-      "flavor": "執事心法：奇門五行融入吐納，進退如踏八卦，敵難測方位。",
+      "unlockStanding": 5,
+      "flavor": "護法心法：奇門五行融入吐納，進退如踏八卦，敵難測方位。",
       "passive": {
         "evasionBonus": 0.1,
         "hitBonus": 0.05,
@@ -1248,7 +1248,7 @@
       "name": "無聲遁跡",
       "kind": "qinggong",
       "sectId": "sect_wugen",
-      "unlockStanding": 1,
+      "unlockStanding": 2,
       "flavor": "內門輕功：來去不聞聲響，門中人稱「影子」。",
       "passive": {
         "evasionBonus": 0.09,
@@ -1260,7 +1260,7 @@
       "name": "陰柔化勁掌",
       "kind": "external",
       "sectId": "sect_wugen",
-      "unlockStanding": 2,
+      "unlockStanding": 3,
       "flavor": "真傳絕學：捨剛從柔，卸敵之力，反噬其身。",
       "move": {
         "id": "mv_wg_yin_palm",
@@ -1277,8 +1277,8 @@
       "name": "忘根訣",
       "kind": "internal",
       "sectId": "sect_wugen",
-      "unlockStanding": 3,
-      "flavor": "執事心法：斷絕塵根，一念不生，內力反而暴長。",
+      "unlockStanding": 5,
+      "flavor": "護法心法：斷絕塵根，一念不生，內力反而暴長。",
       "passive": {
         "attack": 6,
         "defense": 5,
