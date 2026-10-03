@@ -7819,3 +7819,114 @@ html[data-ink-motion='reduce'] .ink-achv-name i {
     opacity: 1;
   }
 }
+
+/* ===== 雲端 · 江湖榜（InkCloudSection / InkLeaderboardPanel） ===== */
+.ink-cloud-status,
+.ink-cloud-msg,
+.ink-board-hint {
+  margin: 0 0 8px;
+  font-size: var(--fs-caption);
+  letter-spacing: 0.06em;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.ink-cloud-msg {
+  margin-top: 8px;
+  color: var(--ink);
+}
+
+.ink-cloud-input {
+  width: 100%;
+  margin: 8px 0 6px;
+  padding: 10px 12px;
+  border: 1px solid var(--ink-faint);
+  background: rgba(255, 252, 245, 0.8);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 0.92rem;
+  letter-spacing: 0.04em;
+  box-sizing: border-box;
+}
+
+.ink-cloud-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+  gap: 6px;
+}
+
+.ink-cloud-actions button:disabled {
+  opacity: 0.5;
+}
+
+.ink-board-card {
+  max-height: min(88vh, 720px);
+  display: flex;
+  flex-direction: column;
+}
+
+.ink-board-hint {
+  margin-top: 10px;
+}
+
+.ink-board-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+.ink-board-row {
+  display: grid;
+  grid-template-columns: 2.2em 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 4px;
+  border-bottom: 1px solid var(--ink-faint);
+}
+
+.ink-board-row.is-me {
+  background: rgba(163, 58, 50, 0.08);
+}
+
+.ink-board-pos {
+  font-family: var(--font-title);
+  font-size: 1.05rem;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.ink-board-row:nth-child(-n + 3) .ink-board-pos {
+  color: #a33a32;
+  font-weight: 700;
+}
+
+.ink-board-name {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+}
+
+.ink-board-name em {
+  font-style: normal;
+  font-size: 0.78rem;
+  color: #a33a32;
+}
+
+.ink-board-name small {
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+
+.ink-board-val {
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  white-space: nowrap;
+}

@@ -23,6 +23,10 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build:pages
+        env:
+          # 雲端（Supabase）公開設定：Settings → Secrets and variables → Actions → Variables
+          VITE_SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ vars.SUPABASE_ANON_KEY }}
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
         with:

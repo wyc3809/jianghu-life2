@@ -19,6 +19,7 @@
     "audit:events": "vite-node scripts/auditEventDraws.mts"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.117.2",
     "gsap": "^3.15.0",
     "immer": "^11.1.18",
     "react": "^19.0.0",

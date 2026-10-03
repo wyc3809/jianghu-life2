@@ -17,6 +17,9 @@ import {
   toggleInkAudioMuted,
 } from '../../audio/inkAudio';
 import { InkSettingsPanel, type TextScale } from './InkSettingsPanel';
+import { InkLeaderboardPanel } from './InkLeaderboardPanel';
+import { cloudConfigured } from '../../cloud/cloud';
+import { lifeScore } from '@core/life/leaderboardScore';
 import { InkGearCompareModal } from './InkGearCompareModal';
 import { InkGlyphText } from './InkGlyphText';
 import { titleTierColorClass, topTitle, topTitles } from '@core/life/titles';
@@ -105,6 +108,7 @@ export function InkPlayScreen({ state }: Props) {
   const [personView, setPersonView] = useState<PersonView>('main');
   const [audioMuted, setAudioMuted] = useState(() => isInkAudioMuted());
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [boardOpen, setBoardOpen] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(() => {
     try {
       return localStorage.getItem('ink_reduce_motion') === '1';
@@ -539,9 +543,15 @@ export function InkPlayScreen({ state }: Props) {
         </div>
       </header>
 
+      {boardOpen && <InkLeaderboardPanel onClose={() => setBoardOpen(false)} />}
+
       <InkSettingsPanel
         open={settingsOpen}
         onClose={() => setSettingsOpen(false)}
+        onOpenBoard={() => {
+          setSettingsOpen(false);
+          setBoardOpen(true);
+        }}
         textScale={textScale}
         onTextScale={(scale) => {
           setTextScale(scale);
@@ -902,6 +912,11 @@ export function InkPlayScreen({ state }: Props) {
           <button type="button" className="ink-btn ink-btn--quiet" onClick={() => setAncestryOpen(true)}>
             入祖祠 · 祖蔭 {ancestryPoints} 點
           </button>
+          {cloudConfigured() && (
+            <button type="button" className="ink-btn ink-btn--quiet" onClick={() => setBoardOpen(true)}>
+              江湖榜 · 一生總結 {lifeScore(state).toLocaleString('zh-Hant')} 分
+            </button>
+          )}
           <button type="button" className="ink-btn ink-btn--primary" onClick={() => reincarnate()}>
             {hasHeir ? '轉世再入江湖' : '重新選角'}
           </button>
