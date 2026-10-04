@@ -21,14 +21,14 @@ Dashboard → **Authentication** → **URL Configuration**：
 
 ## 3. 建資料表
 
-Dashboard → **SQL Editor** → New query → 貼上 `supabase/schema.sql` 全部內容 → **Run**。
+Dashboard → **SQL Editor** → New query → 開 [schema.sql](../supabase/schema.sql)，撳 **Raw**，複製全部內容並貼上 → **Run**。
 
-## 4. 攞兩條公開 key
+## 4. 攞公開 URL 同 key
 
 Dashboard → **Project Settings** → **API**（或 **Data API**）：
 
 - **Project URL**（例如 `https://abcd1234.supabase.co`）
-- **anon public** key（`eyJ...` 開頭；呢條係公開 key，放喺網頁冇問題）
+- **API Keys** 頁面嘅 **publishable key**（`sb_publishable_...`），或者 **Legacy API Keys** 入面嘅 **anon public** key（`eyJ...`）。兩種都可以。
 
 > ⚠️ 唔好用 `service_role` key——嗰條係管理員鎖匙，絕對唔可以放入網頁。
 
@@ -39,11 +39,11 @@ GitHub repo → **Settings** → **Secrets and variables** → **Actions** → *
 | Name | Value |
 |------|-------|
 | `SUPABASE_URL` | 第 4 步嘅 Project URL |
-| `SUPABASE_ANON_KEY` | 第 4 步嘅 anon public key |
+| `SUPABASE_ANON_KEY` | 第 4 步嘅 publishable／anon public key |
 
 ## 6. 重新部署
 
-GitHub → **Actions** → **Deploy to GitHub Pages** → **Run workflow**（或者下次「上線」自動帶埋）。
+GitHub → **Actions** → **Deploy to GitHub Pages** → **Run workflow**（必須重新 build，單改 Variables 唔會更新已上線版本）。
 
 ## 本機開發
 
@@ -55,3 +55,9 @@ VITE_SUPABASE_ANON_KEY=eyJ...
 ```
 
 冇雲端都想睇排行榜畫面：`npm run dev` 後開 `http://localhost:5173/?cloudDemo=1`（示範數據，只限 dev）。
+
+## 7. 驗證
+
+等 Pages workflow 同部署完成後，重新開遊戲 → 設定 → 雲端。確認有匿名身份，再綁定電郵並完成確認；用另一個瀏覽器登入相同電郵，檢查人生同祖蔭有還原。唔好喺綁定成功前清除原有瀏覽器資料。
+
+如果 SQL 報錯、頁面顯示登入失敗，記低錯誤文字再處理。新專案嘅實際登入、RLS 同換機流程需要專案開通後先可以驗證。

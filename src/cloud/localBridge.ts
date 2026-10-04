@@ -6,7 +6,9 @@ const ANCESTRY_KEY = 'jianghu_ancestry_v1';
 export async function readLocalSavedAt(): Promise<number | null> {
   const { loadLifeSave } = await import('@core/life/saveIndexedDb');
   const save = await loadLifeSave();
-  return save?.savedAt ?? null;
+  let ancestryAt = 0;
+  try { ancestryAt = Number(localStorage.getItem('jianghu_ancestry_saved_at_v1')); } catch { /* unavailable */ }
+  return Math.max(save?.savedAt ?? 0, Number.isFinite(ancestryAt) ? ancestryAt : 0) || null;
 }
 
 export async function writeLocal(life: LifeGameState | null, ancestry: string | null): Promise<void> {
@@ -17,9 +19,14 @@ export async function writeLocal(life: LifeGameState | null, ancestry: string | 
     ]);
     await persistLife(migrateLifeState(life));
   }
+  if (!life) {
+    const { clearLifeSave } = await import('@core/life/saveIndexedDb');
+    await clearLifeSave();
+  }
   if (ancestry) {
     try {
       localStorage.setItem(ANCESTRY_KEY, ancestry);
+      localStorage.setItem('jianghu_ancestry_saved_at_v1', String(Date.now()));
     } catch {
       /* 私隱模式 */
     }

@@ -1,3 +1,4 @@
+import { queueCloudSync } from '../cloud/sync';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import type { LifeGameState } from '@interfaces/lifeEngine';
@@ -5,7 +6,7 @@ import type { BreakthroughResult } from '@core/life/cultivation';
 import { fullCatalog } from '@core/life/eventEngine';
 import { subscribeEventOverrides } from '@core/life/eventOverrides';
 import { clearLifeSave } from '@core/life/saveIndexedDb';
-import { flushPersist, schedulePersist } from './persistSchedule';
+import { discardPendingPersist, flushPersist, schedulePersist } from './persistSchedule';
 import { type PracticeActionId } from '@core/life/actions';
 import { type CombatFoeDisposition } from '@core/life/combat';
 import { createCharacterSlice } from './slices/characterSlice';
@@ -123,7 +124,9 @@ export const useLifeStore = create<LifeStore>()(
 
 export async function resetLifeSave() {
   flushPersist();
+  discardPendingPersist();
   await clearLifeSave();
+  queueCloudSync(null);
 }
 
 export { CATALOG as LIFE_CATALOG };

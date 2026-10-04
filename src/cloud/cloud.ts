@@ -25,6 +25,14 @@ function client(): Promise<SupabaseClient> {
     clientPromise = import('@supabase/supabase-js').then(({ createClient }) =>
       createClient(URL, ANON_KEY, {
         auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
+        global: {
+          fetch: (input, init) => fetch(input, {
+            ...init,
+            signal: init?.signal
+              ? AbortSignal.any([init.signal, AbortSignal.timeout(15_000)])
+              : AbortSignal.timeout(15_000),
+          }),
+        },
       }),
     );
   }

@@ -3,6 +3,7 @@
  * 「重新開始」都唔會清。私隱模式寫唔到就只留喺記憶體。
  * 規則：design/gdd/ancestral-merit.md；邏輯：core/life/ancestry.ts。
  */
+import { queueCloudSync } from '../cloud/sync';
 import { create } from 'zustand';
 import { produce } from 'immer';
 import type { AncestryMeta } from '@interfaces/ancestry';
@@ -32,6 +33,7 @@ function mutate(get: () => AncestryStore, set: (p: Partial<AncestryStore>) => vo
   if (!fn(next)) return;
   persistAncestry(next);
   set({ meta: next });
+  queueCloudSync(useLifeStore.getState().state);
 }
 
 export const useAncestryStore = create<AncestryStore>()((set, get) => ({

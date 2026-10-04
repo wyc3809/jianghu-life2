@@ -1,6 +1,7 @@
 import { writeFileSync, mkdirSync } from 'fs';
 import { ORDINARY_EVENTS } from '../data/events/ordinary';
 import { EVENT_CATALOG } from '../data/events/catalog';
+import { INJURY_CURE_EVENTS } from '../data/events/injuryCures';
 import { SECRET_ART_EVENTS } from '../data/events/secretArts';
 import { BOSS_ENCOUNTER_EVENTS } from '../data/events/bossEncounters';
 import { PRACTICE_WANDER_EVENTS } from '../data/events/practiceWander';
@@ -19,6 +20,7 @@ const groups = [
   ['江湖百事', JIANGHU_EXTRA_EVENTS],
   ['金庸·奇遇', JINYONG_SPECIAL_EVENTS],
   ['金庸·日常', JINYONG_ORDINARY_EVENTS],
+  ['醫傷', INJURY_CURE_EVENTS],
   ['秘傳奇遇', SECRET_ART_EVENTS],
   ['修煉機緣', PRACTICE_WANDER_EVENTS],
   ['路遇', ROAD_ENCOUNTER_EVENTS],
