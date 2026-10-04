@@ -14,7 +14,7 @@
 
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { SparStage, loadSparImages, loadSparImage, loadSparUiImages, type SparCombatHooks } from '../../spar/engine';
-import { SparDuel, sparHeroStats, sparSavedStage, type SparDuelSnapshot } from '@core/life/sparDuel';
+import { SparDuel, formatSparNumber, sparHeroStats, sparSavedStage, type SparDuelSnapshot } from '@core/life/sparDuel';
 import { InkBrushBar } from './InkBrush';
 import {
   ENEMY_POOL,
@@ -43,7 +43,7 @@ const STAGE_HEIGHT = 218;
 const COIN_SRC = `${import.meta.env.BASE_URL || '/'}ink/spar/fx-coin.webp`;
 /** 演武對打實例快取：元件重新掛載唔會重開一場 */
 const DUEL_CACHE = new Map<string, SparDuel>();
-const fmt = (n: number) => Math.max(0, Math.round(n)).toLocaleString('en-US');
+const fmt = formatSparNumber;
 
 /** 演武數值嘅指紋：角色實力一變（升境、換兵器、武學進步）就重算主角數值 */
 function useHeroStatsKey() {

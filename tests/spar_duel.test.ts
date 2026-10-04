@@ -181,3 +181,17 @@ describe('spar themes (出場有規律、主題)', () => {
     expect([foes.at(-1)!.look, foes.at(-1)!.name]).toEqual([...theme.boss]);
   });
 });
+
+describe('spar number format (過千用 k、m)', () => {
+  it('test_format_uses_k_and_m', async () => {
+    const { formatSparNumber } = await import('../core/life/sparDuel');
+    expect(formatSparNumber(950)).toBe('950');
+    expect(formatSparNumber(1000)).toBe('1k');
+    expect(formatSparNumber(1234)).toBe('1.2k');
+    expect(formatSparNumber(12_400)).toBe('12k');
+    expect(formatSparNumber(304_437)).toBe('304k');
+    expect(formatSparNumber(1_500_000)).toBe('1.5m');
+    expect(formatSparNumber(3_923_950)).toBe('3.9m');
+    expect(formatSparNumber(25_000_000)).toBe('25m');
+  });
+});

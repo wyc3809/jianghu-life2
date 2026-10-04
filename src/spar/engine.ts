@@ -38,6 +38,7 @@ import {
   weaponFromKind,
 } from './silhouetteDraw';
 import { AnimDirector, type DirectorSample } from './animDirector';
+import { formatSparNumber } from '@core/life/sparDuel';
 
 const DEG = Math.PI / 180;
 const INK = '22,19,15';
@@ -675,7 +676,7 @@ export class SparStage {
     this.floaters.push({
       x: g.heroX + (Math.random() - 0.5) * 22,
       y: g.groundY - SILHOUETTE_DESIGN_H * g.k * 0.58,
-      text: `-${r.dmg.toLocaleString('en-US')}`,
+      text: `-${formatSparNumber(r.dmg)}`,
       gain: r.dmg,
       age: 0,
       dur: 0.95,
@@ -778,7 +779,7 @@ export class SparStage {
         this.floaters.push({
           x: target.x + (Math.random() - 0.5) * 34,
           y: headY - Math.random() * 14,
-          text: r.dmg.toLocaleString('en-US'),
+          text: formatSparNumber(r.dmg),
           gain: r.dmg,
           age: 0,
           dur: r.crit ? 1.15 : 0.9,
@@ -788,7 +789,7 @@ export class SparStage {
           this.floaters.push({
             x: g.heroX - 14 + (Math.random() - 0.5) * 16,
             y: g.groundY - SILHOUETTE_DESIGN_H * g.k * 0.78,
-            text: `+${r.heal.toLocaleString('en-US')}`,
+            text: `+${formatSparNumber(r.heal)}`,
             gain: r.heal,
             age: 0,
             dur: 0.95,

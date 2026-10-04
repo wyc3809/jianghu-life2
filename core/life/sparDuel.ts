@@ -348,3 +348,19 @@ export function sparSavedStage(state: LifeGameState): number {
   const v = Number(state.character.flags.spar_stage ?? 1);
   return Number.isFinite(v) && v >= 1 ? Math.floor(v) : 1;
 }
+
+/**
+ * 演武數字簡寫：過千用 k、過百萬用 m（例：950、1.2k、12.4k、123k、1.5m）。
+ * 血條同彈出傷害數字共用，避免長數字遮住畫面。
+ */
+export function formatSparNumber(n: number): string {
+  const v = Math.max(0, Math.round(n));
+  const short = (x: number, unit: string) => {
+    const d = x < 10 ? 1 : 0;
+    return `${x.toFixed(d).replace(/\.0$/, '')}${unit}`;
+  };
+  if (v >= 1e9) return short(v / 1e9, 'b');
+  if (v >= 1e6) return short(v / 1e6, 'm');
+  if (v >= 1e3) return short(v / 1e3, 'k');
+  return String(v);
+}
