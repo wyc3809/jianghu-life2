@@ -8103,3 +8103,76 @@ html[data-ink-motion='reduce'] .ink-achv-name i {
   color: var(--ink);
   font-variant-numeric: tabular-nums;
 }
+
+/* 演武換場景：墨暈＋地名題字（入 · 竹林） */
+.ink-spar-place {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  pointer-events: none;
+  background: radial-gradient(ellipse 60% 48% at 50% 46%, rgba(22, 19, 15, 0.55), rgba(22, 19, 15, 0) 72%);
+  animation: inkSparPlace 2.6s ease both;
+}
+
+.ink-spar-place small {
+  margin-bottom: 6px;
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  color: #f6d36b;
+  text-shadow: 0 0 4px rgba(22, 19, 15, 0.9);
+}
+
+.ink-spar-place span {
+  font-size: 0.72rem;
+  letter-spacing: 0.6em;
+  color: rgba(251, 247, 238, 0.85);
+}
+
+.ink-spar-place strong {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  color: #fbf7ee;
+  text-shadow:
+    0 0 10px rgba(22, 19, 15, 0.8),
+    0 2px 2px rgba(22, 19, 15, 0.6);
+}
+
+.ink-spar-place em {
+  font-style: normal;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  padding: 1px 10px;
+  color: #fbf7ee;
+  background: var(--cinnabar);
+}
+
+@keyframes inkSparPlace {
+  0% {
+    opacity: 0;
+    filter: blur(6px);
+    transform: scale(1.08);
+  }
+  18%,
+  78% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-spar-place {
+    animation: none;
+  }
+}

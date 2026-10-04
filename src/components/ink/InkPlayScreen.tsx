@@ -555,14 +555,7 @@ export function InkPlayScreen({ state }: Props) {
             <InkSparStage
               reduceMotion={reduceMotion}
               background="town"
-              overlay={
-                <p className="ink-spar-caption">
-                  <span>
-                    {seasonLabel(month)} · {state.year}年{month}月
-                  </span>
-                  <strong>{c.location || '千燈鎮'}</strong>
-                </p>
-              }
+              caption={{ date: `${seasonLabel(month)} · ${state.year}年${month}月`, home: c.location || '千燈鎮' }}
             />
           </div>
 

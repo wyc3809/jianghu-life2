@@ -133,59 +133,104 @@ export interface SparTheme {
 }
 
 /**
- * 演武主題：每 SPAR_THEME_SPAN 關換一個主題，五個主題循環（循環一輪後敵人更強）。
- * 同一主題內小兵按固定次序出，首領固定——出場有規律，唔再亂抽。
+ * 演武場景：每 SPAR_SCENE_SPAN 關換一個場景（千燈鎮 → 山道 → 竹林 → 雨夜客棧 → 山門 → 夜山，之後循環、敵人更強）。
+ * 一個場景一個敵人主題：同主題小兵按固定次序出，首領固定——出場有規律，唔再亂抽。
+ * bg 對應 src/spar/rig.ts 嘅 SPAR_BACKGROUNDS key。
  */
-export const SPAR_THEMES: readonly SparTheme[] = [
+export interface SparScene {
+  /** 場景 key（＝背景 key） */
+  bg: string;
+  /** 地名（換場題字、HUD） */
+  place: string;
+  theme: SparTheme;
+}
+
+export const SPAR_SCENES: readonly SparScene[] = [
   {
-    name: '山道劫匪',
-    minions: [
-      [SPAR_LOOK.daoke, '攔路刀匪'],
-      [SPAR_LOOK.gouke, '雙鉤山賊'],
-    ],
-    boss: [SPAR_LOOK.chifa, '赤髮寨主'],
+    bg: 'town',
+    place: '千燈鎮',
+    theme: {
+      name: '市井潑皮',
+      minions: [
+        [SPAR_LOOK.daoke, '市井潑皮'],
+        [SPAR_LOOK.gouke, '收數打手'],
+      ],
+      boss: [SPAR_LOOK.toutuo, '鎮上惡霸'],
+    },
   },
   {
-    name: '夜行刺客',
-    minions: [
-      [SPAR_LOOK.nvcike, '夜行女刺'],
-      [SPAR_LOOK.shadow, '影衛'],
-    ],
-    boss: [SPAR_LOOK.tiemian, '鐵面影魁'],
+    bg: 'road',
+    place: '山道',
+    theme: {
+      name: '山道劫匪',
+      minions: [
+        [SPAR_LOOK.daoke, '攔路刀匪'],
+        [SPAR_LOOK.gouke, '雙鉤山賊'],
+      ],
+      boss: [SPAR_LOOK.chifa, '赤髮寨主'],
+    },
   },
   {
-    name: '邪寺頭陀',
-    minions: [
-      [SPAR_LOOK.toutuo, '護寺頭陀'],
-      [SPAR_LOOK.shadow, '黑衣僧兵'],
-    ],
-    boss: [SPAR_LOOK.toutuo, '鬼面頭陀'],
+    bg: 'bamboo',
+    place: '竹林',
+    theme: {
+      name: '影門殺陣',
+      minions: [
+        [SPAR_LOOK.shadow, '影門殺手'],
+        [SPAR_LOOK.nvcike, '影門女刺'],
+      ],
+      boss: [SPAR_LOOK.tiemian, '影門門主'],
+    },
   },
   {
-    name: '黑風寨',
-    minions: [
-      [SPAR_LOOK.daoke, '黑風刀手'],
-      [SPAR_LOOK.toutuo, '黑風力士'],
-      [SPAR_LOOK.gouke, '黑風鉤客'],
-    ],
-    boss: [SPAR_LOOK.chifa, '黑風寨主'],
+    bg: 'inn',
+    place: '雨夜客棧',
+    theme: {
+      name: '夜行刺客',
+      minions: [
+        [SPAR_LOOK.nvcike, '夜行女刺'],
+        [SPAR_LOOK.shadow, '影衛'],
+      ],
+      boss: [SPAR_LOOK.tiemian, '鐵面影魁'],
+    },
   },
   {
-    name: '影門殺陣',
-    minions: [
-      [SPAR_LOOK.shadow, '影門殺手'],
-      [SPAR_LOOK.nvcike, '影門女刺'],
-    ],
-    boss: [SPAR_LOOK.tiemian, '影門門主'],
+    bg: 'gate',
+    place: '山門',
+    theme: {
+      name: '邪寺頭陀',
+      minions: [
+        [SPAR_LOOK.toutuo, '護寺頭陀'],
+        [SPAR_LOOK.shadow, '黑衣僧兵'],
+      ],
+      boss: [SPAR_LOOK.toutuo, '鬼面頭陀'],
+    },
+  },
+  {
+    bg: 'nightpeak',
+    place: '夜山',
+    theme: {
+      name: '黑風寨',
+      minions: [
+        [SPAR_LOOK.daoke, '黑風刀手'],
+        [SPAR_LOOK.toutuo, '黑風力士'],
+        [SPAR_LOOK.gouke, '黑風鉤客'],
+      ],
+      boss: [SPAR_LOOK.chifa, '黑風寨主'],
+    },
   },
 ];
 
-/** 每個主題連續幾多關 */
-export const SPAR_THEME_SPAN = 5;
+/** 每個場景（主題）連續幾多關 */
+export const SPAR_SCENE_SPAN = 10;
+
+export function sparSceneFor(stage: number): SparScene {
+  const s = Math.max(1, Math.floor(stage));
+  return SPAR_SCENES[Math.floor((s - 1) / SPAR_SCENE_SPAN) % SPAR_SCENES.length]!;
+}
 
 export function sparThemeFor(stage: number): SparTheme {
-  const s = Math.max(1, Math.floor(stage));
-  return SPAR_THEMES[Math.floor((s - 1) / SPAR_THEME_SPAN) % SPAR_THEMES.length]!;
+  return sparSceneFor(stage).theme;
 }
 
 export function sparMinionCount(stage: number): number {
@@ -234,6 +279,9 @@ export interface SparDuelSnapshot {
   stage: number;
   /** 本關主題名 */
   theme: string;
+  /** 本關場景（背景 key＋地名） */
+  sceneBg: string;
+  place: string;
   heroHp: number;
   heroMaxHp: number;
   foe: SparFoe | null;
@@ -278,6 +326,8 @@ export class SparDuel {
     return {
       stage: this.stage,
       theme: sparThemeFor(this.stage).name,
+      sceneBg: sparSceneFor(this.stage).bg,
+      place: sparSceneFor(this.stage).place,
       heroHp: this.heroHp,
       heroMaxHp: this.hero.maxHp,
       foe,

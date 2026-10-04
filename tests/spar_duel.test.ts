@@ -162,23 +162,35 @@ describe('spar heal rules (無回血技唔會自動回血)', () => {
   });
 });
 
-describe('spar themes (出場有規律、主題)', () => {
-  it('test_same_stage_same_roster_and_theme_changes_every_span', async () => {
-    const { sparThemeFor, SPAR_THEME_SPAN, SPAR_THEMES } = await import('../core/life/sparDuel');
-    expect(sparStageFoes(3).map((f) => f.look)).toEqual(sparStageFoes(3).map((f) => f.look));
-    expect(sparThemeFor(1).name).toBe(sparThemeFor(SPAR_THEME_SPAN).name);
-    expect(sparThemeFor(SPAR_THEME_SPAN + 1).name).not.toBe(sparThemeFor(1).name);
-    expect(sparThemeFor(SPAR_THEME_SPAN * SPAR_THEMES.length + 1).name).toBe(sparThemeFor(1).name);
+describe('spar scenes & themes (場景／出場有規律)', () => {
+  it('test_scene_changes_every_ten_stages_and_loops', async () => {
+    const { sparSceneFor, SPAR_SCENE_SPAN, SPAR_SCENES } = await import('../core/life/sparDuel');
+    expect(SPAR_SCENES).toHaveLength(6);
+    expect(SPAR_SCENE_SPAN).toBe(10);
+    expect(sparSceneFor(1).place).toBe('千燈鎮');
+    expect(sparSceneFor(10).place).toBe('千燈鎮');
+    expect(sparSceneFor(11).place).toBe('山道');
+    expect(sparSceneFor(51).place).toBe('夜山');
+    expect(sparSceneFor(61).place).toBe('千燈鎮');
   });
 
-  it('test_roster_follows_theme_order_and_boss_last', async () => {
+  it('test_roster_follows_scene_theme_order_and_boss_last', async () => {
     const { sparThemeFor } = await import('../core/life/sparDuel');
-    const theme = sparThemeFor(2);
-    const foes = sparStageFoes(2);
-    foes.slice(0, -1).forEach((f, i) => {
-      expect([f.look, f.name]).toEqual([...theme.minions[i % theme.minions.length]!]);
-    });
-    expect([foes.at(-1)!.look, foes.at(-1)!.name]).toEqual([...theme.boss]);
+    for (const stage of [2, 23, 47]) {
+      const theme = sparThemeFor(stage);
+      const foes = sparStageFoes(stage);
+      foes.slice(0, -1).forEach((f, i) => {
+        expect([f.look, f.name]).toEqual([...theme.minions[i % theme.minions.length]!]);
+      });
+      expect([foes.at(-1)!.look, foes.at(-1)!.name]).toEqual([...theme.boss]);
+      expect(sparStageFoes(stage).map((f) => f.look)).toEqual(foes.map((f) => f.look));
+    }
+  });
+
+  it('test_snapshot_carries_scene', () => {
+    const d = new SparDuel(HERO, 15);
+    expect(d.snapshot().place).toBe('山道');
+    expect(d.snapshot().sceneBg).toBe('road');
   });
 });
 

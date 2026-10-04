@@ -426,6 +426,13 @@ export class SparStage {
     this.enemies = [this.makeEnemy(this.cssW * 0.72 + Math.random() * 16, 'spawn')];
   }
 
+  /** 換場景：俠客由左邊重新行入（背景由 setBackground 淡入淡出） */
+  enterScene() {
+    if (this.cssW === 0) return;
+    this.resetLane();
+    this.director.resetToEnter();
+  }
+
   /** 對打模式：敵人站位（固定右邊），俠客最多行到佢面前 */
   private foeSpotX() {
     return this.cssW * 0.7;

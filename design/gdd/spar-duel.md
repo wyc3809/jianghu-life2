@@ -15,7 +15,8 @@
 - 主角每擊：±10% 浮動；暴擊率擲中 ×1.85；**有吸血招式／裝備先會吸血**。
 - **無回血技唔會自動回血**：過關回血只限學咗回血招式（`move.healSelf > 0`）；冇就帶住傷入下一關。
 - 敵人每擊 ±15% 浮動，扣主角減傷。
-- **出場有主題**：每 5 關一個主題（山道劫匪 → 夜行刺客 → 邪寺頭陀 → 黑風寨 → 影門殺陣，循環），同主題小兵按固定次序輪流出，首領固定（`SPAR_THEMES`）。
+- **場景＋主題**：每 10 關換一個場景，一個場景一個敵人主題（`SPAR_SCENES`）：千燈鎮＝市井潑皮 → 山道＝山道劫匪 → 竹林＝影門殺陣 → 雨夜客棧＝夜行刺客 → 山門＝邪寺頭陀 → 夜山＝黑風寨，60 關一輪後循環（敵人照越嚟越強）。同主題小兵按固定次序輪流出，首領固定。
+- 換場景：背景墨暈淡入淡出、中間題字「入 · 地名＋主題」約 2.6 秒、俠客由左重新行入；跨場景過關嘅獎勵併入題字卡。左上角地名跟場景（千燈鎮場景照用角色所在地）。
 - 小兵倒下 → 下一個；首領倒下 → 過關（stage+1；有回血招式先回 35% 血），掉 6 個銅錢，入賬銀兩＋修為。
 - 主角演武血條見底 → 倒地 1.6 秒 → 退 `max(1, floor(stage/10))` 關、回滿血。
 - 關數存喺 `character.flags.spar_stage`；每次命中仍經 `sparStrike()` +1 修為（同舊版一樣）。
@@ -52,7 +53,7 @@ reward    = { silver: 2 + floor(stage/3), xp: 10 + stage × 4 }
 
 ## 7. Tuning Knobs
 
-`SPAR_THEMES`／`SPAR_THEME_SPAN`（主題陣容同長度）、`SPAR_TIER_SCALE`、`SPAR_STAGE_GROWTH`、`SPAR_BOSS_HP_MUL`、`SPAR_BOSS_ATK_MUL`、`SPAR_STAGE_CLEAR_HEAL`（`core/life/sparDuel.ts`）；撲擊節奏 `LUNGE_DUR`／`LUNGE_HIT_AT`、敗退時長 `HERO_DOWN_DUR`（`src/spar/engine.ts`）。
+`SPAR_SCENES`／`SPAR_SCENE_SPAN`（場景、主題陣容、每場景關數）、`SPAR_TIER_SCALE`、`SPAR_STAGE_GROWTH`、`SPAR_BOSS_HP_MUL`、`SPAR_BOSS_ATK_MUL`、`SPAR_STAGE_CLEAR_HEAL`（`core/life/sparDuel.ts`）；撲擊節奏 `LUNGE_DUR`／`LUNGE_HIT_AT`、敗退時長 `HERO_DOWN_DUR`（`src/spar/engine.ts`）。
 
 ## 8. Acceptance Criteria
 
