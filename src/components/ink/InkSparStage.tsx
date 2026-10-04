@@ -16,6 +16,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { SparStage, loadSparImages, loadSparImage, loadSparUiImages, type SparCombatHooks } from '../../spar/engine';
 import { SparDuel, formatSparNumber, sparHeroStats, sparSavedStage, type SparDuelSnapshot } from '@core/life/sparDuel';
 import { InkBrushBar } from './InkBrush';
+import { inkHop, inkPopIn, inkRevealChars, inkShake, inkTweenVar } from '../../ui/inkMotion';
 import {
   ENEMY_POOL,
   WEAPON_SPRITES,
@@ -57,6 +58,31 @@ function useHeroStatsKey() {
 }
 const NO_CONDITIONS: { id: string; name: string; monthsLeft: number; severity: number }[] = [];
 
+/**
+ * 血條動效：扣血 → 條震一震、白色殘血延遲追落；回血或換敵人 → 殘血即刻對齊。
+ * resetKey 一變（新敵人／新關）唔播扣血效果。
+ */
+function useBarMotion(
+  innerRef: React.RefObject<HTMLDivElement | null>,
+  ghostRef: React.RefObject<HTMLSpanElement | null>,
+  pct: number,
+  resetKey: string,
+) {
+  const prev = useRef<{ pct: number; key: string } | null>(null);
+  useEffect(() => {
+    const ghost = ghostRef.current?.querySelector<HTMLElement>('.ink-brush-bar');
+    const last = prev.current;
+    prev.current = { pct, key: resetKey };
+    if (!ghost) return;
+    if (!last || last.key !== resetKey || pct >= last.pct) {
+      ghost.style.setProperty('--pct', pct.toFixed(2));
+      return;
+    }
+    inkShake(innerRef.current, pct < last.pct - 8 ? 4 : 2.5, 300);
+    inkTweenVar(ghost, '--pct', last.pct, pct, { delay: 260, duration: 520 });
+  }, [pct, resetKey, innerRef, ghostRef]);
+}
+
 export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL, background = SPAR_DEFAULT_BACKGROUND, overlay, caption }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const wrapRef = useRef<HTMLDivElement | null>(null);
@@ -68,6 +94,14 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
   const [snap, setSnap] = useState<SparDuelSnapshot | null>(null);
   const [clearNote, setClearNote] = useState<string | null>(null);
   const heroBarRef = useRef<HTMLDivElement | null>(null);
+  const heroInnerRef = useRef<HTMLDivElement | null>(null);
+  const heroGhostRef = useRef<HTMLSpanElement | null>(null);
+  const foeInnerRef = useRef<HTMLDivElement | null>(null);
+  const foeGhostRef = useRef<HTMLSpanElement | null>(null);
+  const bossNameRef = useRef<HTMLElement | null>(null);
+  const placeRef = useRef<HTMLDivElement | null>(null);
+  const clearNoteRef = useRef<HTMLParagraphElement | null>(null);
+  const leftRef = useRef<HTMLSpanElement | null>(null);
   const foeBarRef = useRef<HTMLDivElement | null>(null);
   const statsKey = useHeroStatsKey();
   // 場景跟關數走（每 10 關換）；未有對打資料就用外面傳入嘅背景
@@ -328,6 +362,38 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
     return () => clearTimeout(t);
   }, [placeTitle]);
 
+  // ───── anime.js 浮層動效 ─────
+  const heroPct = snap ? (snap.heroHp / Math.max(1, snap.heroMaxHp)) * 100 : 0;
+  const foePct = snap?.foe ? (snap.foeHp / Math.max(1, snap.foe.maxHp)) * 100 : 0;
+  const foeKey = snap?.foe ? `${snap.stage}|${snap.minionsLeft}|${snap.foe.name}` : '';
+  useBarMotion(heroInnerRef, heroGhostRef, heroPct, String(snap?.stage ?? ''));
+  useBarMotion(foeInnerRef, foeGhostRef, foePct, foeKey);
+
+  // 首領名：逐字凝聚
+  const bossName = snap?.foe?.boss ? `${snap.stage}-${snap.foe.name}` : '';
+  useEffect(() => {
+    if (!bossName) return;
+    return inkRevealChars(bossNameRef.current, { delay: 120, step: 90 }) ?? undefined;
+  }, [bossName]);
+
+  // 換景題字：地名逐字、其餘落筆出場
+  useEffect(() => {
+    const el = placeRef.current;
+    if (!placeTitle || !el) return;
+    const undo = inkRevealChars(el.querySelector('strong'), { delay: 260, step: 140 });
+    inkPopIn(el.querySelectorAll('small, span, em'), { step: 120 });
+    return undo ?? undefined;
+  }, [placeTitle]);
+
+  // 過關提示、餘敵數字
+  useEffect(() => {
+    if (clearNote && !placeTitle) inkPopIn(clearNoteRef.current, { y: 8 });
+  }, [clearNote, placeTitle]);
+  const leftLabel = snap ? (snap.foe?.boss ? 'boss' : String(snap.minionsLeft)) : '';
+  useEffect(() => {
+    if (leftLabel) inkHop(leftRef.current);
+  }, [leftLabel]);
+
   if (failed) return null; // 素材載入唔到就靜靜哋隱藏，唔好阻住遊戲
 
   return (
@@ -346,13 +412,19 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
             <span className="ink-spar-hud-stage">
               第 {snap.stage} 關 · {snap.theme}
             </span>
-            <span className="ink-spar-hud-left">
+            <span className="ink-spar-hud-left" ref={leftRef}>
               {snap.foe?.boss ? '首領之戰' : `餘敵 ${snap.minionsLeft + 1}`}
             </span>
           </div>
           <div className="ink-spar-bar ink-spar-bar--hero" ref={heroBarRef} aria-label={`演武氣血 ${fmt(snap.heroHp)}`}>
-            <InkBrushBar pct={(snap.heroHp / Math.max(1, snap.heroMaxHp)) * 100} tone="jade" />
-            <span className="ink-spar-bar-num">{fmt(snap.heroHp)}</span>
+            <div className="ink-spar-bar-inner" ref={heroInnerRef}>
+              {/* 殘血：扣血後白影慢慢追落 */}
+              <span className="ink-spar-bar-ghost" ref={heroGhostRef}>
+                <InkBrushBar pct={100} tone="ink" />
+              </span>
+              <InkBrushBar pct={heroPct} tone="jade" className="ink-spar-bar-main" />
+              <span className="ink-spar-bar-num">{fmt(snap.heroHp)}</span>
+            </div>
           </div>
           <div
             className={`ink-spar-bar ink-spar-bar--foe${snap.foe?.boss ? ' is-boss' : ''}`}
@@ -362,16 +434,25 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
             {snap.foe?.boss && (
               <span className="ink-spar-boss-name" key={`${snap.stage}-${snap.foe.name}`}>
                 <em>首領</em>
-                {snap.foe.name}
+                <b ref={bossNameRef}>{snap.foe.name}</b>
               </span>
             )}
-            <InkBrushBar pct={snap.foe ? (snap.foeHp / Math.max(1, snap.foe.maxHp)) * 100 : 0} tone="cinnabar" />
-            <span className="ink-spar-bar-num">{fmt(snap.foeHp)}</span>
+            <div className="ink-spar-bar-inner" ref={foeInnerRef}>
+              <span className="ink-spar-bar-ghost" ref={foeGhostRef}>
+                <InkBrushBar pct={100} tone="ink" />
+              </span>
+              <InkBrushBar pct={foePct} tone="cinnabar" className="ink-spar-bar-main" />
+              <span className="ink-spar-bar-num">{fmt(snap.foeHp)}</span>
+            </div>
           </div>
           {/* 跨場景過關：獎勵併入題字卡，唔好兩個提示疊埋 */}
-          {clearNote && !placeTitle && <p className="ink-spar-clear-note">{clearNote}</p>}
+          {clearNote && !placeTitle && (
+            <p className="ink-spar-clear-note" ref={clearNoteRef}>
+              {clearNote}
+            </p>
+          )}
           {placeTitle && (
-            <div className="ink-spar-place" key={placeTitle.n} aria-live="polite">
+            <div className="ink-spar-place" key={placeTitle.n} aria-live="polite" ref={placeRef}>
               {clearNote && <small>{clearNote}</small>}
               <span>入</span>
               <strong>{placeTitle.place}</strong>

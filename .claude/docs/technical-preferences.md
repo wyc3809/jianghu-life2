@@ -52,6 +52,7 @@
 - vite, vitest
 - @vitejs/plugin-react
 - @supabase/supabase-js — 只限 `src/cloud/`（按需載入，見 `docs/architecture/adr-003-cloud-supabase.md`）
+- animejs — DOM 介面動效，統一經 `src/ui/inkMotion.ts`（見 `docs/architecture/adr-004-anime-js-ui-motion.md`）
 - three, gsap — 只限 `src/fx/highlight/`（按需載入，見 `docs/architecture/adr-002-highlight-fx-three-gsap.md`）
 
 ## Architecture Decisions Log

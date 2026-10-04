@@ -8176,3 +8176,38 @@ html[data-ink-motion='reduce'] .ink-achv-name i {
     animation: none;
   }
 }
+
+/* 演武血條殘影（anime.js 推 --pct）：底層黑軌＋白殘血，上層主色條唔畫軌 */
+.ink-spar-bar-inner {
+  position: relative;
+}
+
+.ink-spar-bar-ghost {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--brush-h);
+}
+
+.ink-spar-bar-ghost .ink-brush-bar {
+  --brush-color: rgba(251, 247, 238, 0.92);
+}
+
+.ink-spar-bar .ink-spar-bar-main {
+  --brush-rail: transparent;
+}
+
+.ink-spar-bar .ink-spar-bar-main .ink-brush-bar__fill {
+  transition: none;
+}
+
+.ink-spar-boss-name b {
+  font-weight: inherit;
+  display: inline-block;
+}
+
+/* anime.js 接手嘅出場：停用舊 CSS 入場，避免雙重動畫 */
+.ink-delta-chips.is-anime .ink-delta-chip {
+  animation: none;
+}

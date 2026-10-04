@@ -1,4 +1,5 @@
-import { useCallback, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent } from 'react';
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent } from 'react';
+import { inkCardIn, inkPopIn, inkRevealChars } from '../../ui/inkMotion';
 import type { GameEvent, LifeGameState } from '@interfaces/lifeEngine';
 import { InkEventBanner } from './InkDecor';
 import { pickAiEventBanner, aiEventBannerUrl } from '../../ui/inkAiCatalog';
@@ -178,6 +179,18 @@ export function InkEventPanel({
     onCommit: (side) => slots[side === 'left' ? 0 : 1]?.pick(),
   });
 
+  // anime.js：新事件 → 卡面由墨點展開、標題逐字落筆；選項解鎖 → 兩粒掣錯開彈出
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const rowRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    inkCardIn(scrollRef.current);
+    return inkRevealChars(titleRef.current, { delay: 200, step: 70 }) ?? undefined;
+  }, [pendingEvent.id]);
+  useEffect(() => {
+    if (choicesReady) inkPopIn(rowRef.current?.children, { step: 110, y: 16 });
+  }, [choicesReady, pendingEvent.id]);
+
   return (
     <section
       className="ink-panel ink-event ink-event--focus"
@@ -208,13 +221,13 @@ export function InkEventPanel({
             </span>
           </>
         )}
-      <div className="ink-event-scroll">
+      <div className="ink-event-scroll" ref={scrollRef}>
         {eventBannerSrc && <InkEventBanner src={eventBannerSrc} />}
         <p className="ink-event-year">
           {state.year}年{month}月 · {c.age}歲
           {state.pending?.kind === 'special' ? ' · 奇遇' : ''}
         </p>
-        <h3 className="ink-write-in">{pendingEvent.title}</h3>
+        <h3 ref={titleRef}>{pendingEvent.title}</h3>
         {eventBodyParas.map((para, i) => (
           <p
             key={`${pendingEvent.id}-p${i}`}
@@ -230,7 +243,7 @@ export function InkEventPanel({
         className={`ink-choice-list ink-choice-list--dock${choicesReady ? ' ink-choice-list--reveal' : ' ink-choice-list--await'}`}
       >
         {slots.length === 2 && (
-          <div className="ink-swipe-row">
+          <div className="ink-swipe-row" ref={rowRef}>
             {slots.map((slot, i) => (
               <button
                 key={slot.key}

@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { APP_VERSION, APP_VERSION_LABEL } from '../src/version';
 
 describe('app version', () => {
-  it('exposes Early Access release EA0.50.0', () => {
-    expect(APP_VERSION).toBe('EA0.50.0');
-    expect(APP_VERSION_LABEL).toContain('EA0.50.0');
+  it('exposes Early Access release EA0.51.0', () => {
+    expect(APP_VERSION).toBe('EA0.51.0');
+    expect(APP_VERSION_LABEL).toContain('EA0.51.0');
   });
 });

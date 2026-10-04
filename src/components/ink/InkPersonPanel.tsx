@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { inkCountTo, inkPopIn } from '../../ui/inkMotion';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import type { InkAiAssetId } from '../../ui/inkAiCatalog';
 import { motifIconUrl } from '../../ui/inkAssets';
@@ -80,6 +81,23 @@ const numText = (v: number) => Math.round(v).toLocaleString('en-US');
 export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest, onBreakthrough }: Props) {
   const [previewGearId, setPreviewGearId] = useState<string | null>(null);
   const [showStatsScroll, setShowStatsScroll] = useState(false);
+  // anime.js：入頁時列表／格仔錯開落筆出場；戰力數字由 0 滾到現值
+  const paneRef = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    const pane = paneRef.current;
+    if (!pane) return;
+    inkPopIn(
+      pane.querySelectorAll('.ink-bitlife-row, .ink-combat-grid > div, .ink-delta-row, .ink-ach-list > li'),
+      { step: 32, y: 10 },
+    );
+    pane.querySelectorAll<HTMLElement>('[data-count]').forEach((el, i) => {
+      const to = Number(el.dataset.count);
+      const kind = el.dataset.fmt;
+      const fmt = (n: number) =>
+        kind === 'pct' ? `${(n * 100).toFixed(1).replace(/\.0$/, '')}%` : Math.round(n).toLocaleString('en-US');
+      setTimeout(() => inkCountTo(el, 0, to, fmt, 820), 60 + i * 50);
+    });
+  }, [view]);
   const c = state.character;
   const nature = ensureNature(c);
   const dominant = dominantNature(c);
@@ -166,7 +184,7 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
 
     return (
       <>
-      <section className="ink-panel ink-attrs ink-tab-pane" aria-label="人物">
+      <section className="ink-panel ink-attrs ink-tab-pane" aria-label="人物" ref={paneRef}>
         <h3>人物</h3>
         <p className="ink-note">
           {c.name} · {c.age}歲 · {stage} · 名望 {c.reputation}
@@ -259,7 +277,7 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
   }
 
   return (
-    <section className="ink-panel ink-attrs ink-tab-pane" aria-label="人物詳情">
+    <section className="ink-panel ink-attrs ink-tab-pane" aria-label="人物詳情" ref={paneRef}>
       <button
         type="button"
         className="ink-btn ink-btn--quiet ink-person-back"
@@ -710,15 +728,21 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
           <dl className="ink-combat-grid" aria-label="戰力總覽">
             <div>
               <dt>演武氣血</dt>
-              <dd>{numText(spar.stats.maxHp)}</dd>
+              <dd data-count={spar.stats.maxHp} data-fmt="num">
+                {numText(spar.stats.maxHp)}
+              </dd>
             </div>
             <div>
               <dt>攻擊</dt>
-              <dd>{numText(spar.stats.atk)}</dd>
+              <dd data-count={spar.stats.atk} data-fmt="num">
+                {numText(spar.stats.atk)}
+              </dd>
             </div>
             <div>
               <dt>暴擊率</dt>
-              <dd>{pctText(spar.stats.critRate)}</dd>
+              <dd data-count={spar.stats.critRate} data-fmt="pct">
+                {pctText(spar.stats.critRate)}
+              </dd>
             </div>
             <div>
               <dt>暴擊傷害</dt>
@@ -726,11 +750,15 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
             </div>
             <div>
               <dt>吸血</dt>
-              <dd>{pctText(spar.stats.lifesteal)}</dd>
+              <dd data-count={spar.stats.lifesteal} data-fmt="pct">
+                {pctText(spar.stats.lifesteal)}
+              </dd>
             </div>
             <div>
               <dt>減傷</dt>
-              <dd>{pctText(spar.stats.guard)}</dd>
+              <dd data-count={spar.stats.guard} data-fmt="pct">
+                {pctText(spar.stats.guard)}
+              </dd>
             </div>
           </dl>
 
