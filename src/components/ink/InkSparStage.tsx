@@ -286,6 +286,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
         // 場景背景
         const bgDef = SPAR_BACKGROUNDS[duel ? duel.snapshot().sceneBg : background];
         lastSceneRef.current = duel ? duel.snapshot().sceneBg : background;
+        stage.setAmbience(lastSceneRef.current);
         if (bgDef) {
           loadSparImage(bgDef.src)
             .then((img) => { if (!cancelled) { stage?.setBackground(img, bgDef.opacity ?? 1); if (reduceMotion) stage?.render(); } })
@@ -349,6 +350,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
     if (!stage) return;
     const bgDef = SPAR_BACKGROUNDS[sceneBg];
     let cancelled = false;
+    stage.setAmbience(sceneBg);
     if (prev !== null && prev !== sceneBg) {
       stage.enterScene();
       if (snap) setPlaceTitle((t) => ({ place: snap.place, n: (t?.n ?? 0) + 1 }));

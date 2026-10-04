@@ -38,6 +38,8 @@ import {
   weaponFromKind,
 } from './silhouetteDraw';
 import { AnimDirector, type DirectorSample } from './animDirector';
+import { StripRig, drawWarpedSprite } from './stripRig';
+import { SceneAmbience } from './ambience';
 import { formatSparNumber } from '@core/life/sparDuel';
 
 const DEG = Math.PI / 180;
@@ -206,6 +208,18 @@ interface EnemyInst {
   atkTimer: number; // 距離下一次出手
   lungeT: number | null; // 撲擊動作計時
   lungeHit: boolean; // 今次撲擊已結算
+  rig: StripRig; // 條帶變形骨架（衣擺、傾身）
+}
+
+/** 揮擊殘影：記低某一格嘅繪製參數，之後淡出重畫 */
+interface Afterimage {
+  img: CanvasImageSource;
+  part: { w: number; h: number; dx: number; dy: number };
+  x: number;
+  y: number;
+  rot: number;
+  sy: number;
+  age: number;
 }
 
 export interface SparStageImages {
@@ -287,6 +301,10 @@ const LUNGE_DUR = 0.55;
 const LUNGE_HIT_AT = 0.3;
 const HERO_DOWN_DUR = 1.6;
 
+/** 揮擊殘影壽命（秒）同取樣間隔 */
+const AFTERIMAGE_LIFE = 0.2;
+const AFTERIMAGE_EVERY = 0.035;
+
 const ATTACK_COOLDOWN = 0.18; // 收招後幾耐再出手（射程內有敵即出手）
 
 export class SparStage {
@@ -300,6 +318,12 @@ export class SparStage {
   private combat?: SparCombatHooks;
   private coins: CoinFx[] = [];
   private heroHitT = 9;
+  private heroRig = new StripRig();
+  private afterimages: Afterimage[] = [];
+  private afterClock = 0;
+  private ambience = new SceneAmbience();
+  private ambienceKey = 'valley';
+  private bgT = 0;
   private heroDownT: number | null = null;
   private pendingDefeat = false;
 
@@ -370,9 +394,16 @@ export class SparStage {
     this.images.weapon = def ? img : null;
   }
 
+  /** 場景氛圍（霧、雨、落葉、雲、螢火…）：key 同背景 key 一致 */
+  setAmbience(key: string) {
+    this.ambienceKey = key;
+    this.ambience.setScene(key, this.cssW, this.cssH, this.quiet);
+  }
+
   /** 減少動態：保留「行過去打敵人」核心觀感，關掉震屏／粒子 */
   setQuiet(quiet: boolean) {
     this.quiet = quiet;
+    this.ambience.setScene(this.ambienceKey, this.cssW, this.cssH, quiet);
   }
 
   /** 開局：右邊企一個望左敵人，一打一個 */
@@ -409,6 +440,7 @@ export class SparStage {
       atkTimer: 1.1 + Math.random() * 0.5,
       lungeT: null,
       lungeHit: false,
+      rig: new StripRig(),
     };
   }
 
@@ -470,6 +502,7 @@ export class SparStage {
     this.dpr = dpr;
     this.canvas.width = Math.round(cssW * dpr);
     this.canvas.height = Math.round(cssH * dpr);
+    this.ambience.setScene(this.ambienceKey, cssW, cssH, this.quiet);
   }
 
   /** 推進一幀；dt 以秒計 */
@@ -611,11 +644,33 @@ export class SparStage {
       this.attackCooldown = Math.min(this.attackCooldown, 0.1);
     }
 
+    this.updateRigs(dt);
     this.ageFx(dt);
+  }
+
+  /** 骨架彈簧：主角按導演階段傾身，敵人按撲擊／受擊；殘影計時 */
+  private updateRigs(dt: number) {
+    const g = this.geom();
+    const phase = this.directorSample?.phase;
+    const heroLean =
+      phase === 'windup' ? -26 : phase === 'strike' ? 34 : this.heroHitT < 0.25 ? -30 : 0;
+    this.heroRig.update(dt, g.heroX, g.k, heroLean);
+    for (const e of this.enemies) {
+      const ke = this.enemyKe(e);
+      const pose = this.enemyPose(e);
+      // 敵人望左：蓄勢向右（正）、撲前向左（負）
+      let lean = 0;
+      if (e.lungeT !== null) lean = e.lungeT < 0.18 ? 22 : e.lungeT < LUNGE_HIT_AT + 0.04 ? -36 : 0;
+      e.rig.update(dt, e.x + pose.x * ke, ke, lean);
+    }
+    for (const a of this.afterimages) a.age += dt;
+    this.afterimages = this.afterimages.filter((a) => a.age < AFTERIMAGE_LIFE);
   }
 
   /** 特效老化（停格／倒地時都要繼續） */
   private ageFx(dt: number) {
+    this.ambience.update(dt);
+    this.bgT += dt;
     const age = <T extends { age: number; dur: number }>(arr: T[], dtv: number) => {
       for (const it of arr) it.age += dtv;
       return arr.filter((it) => it.age < it.dur);
@@ -679,6 +734,7 @@ export class SparStage {
     if (r.dmg <= 0) return;
     const g = this.geom();
     this.heroHitT = 0;
+    this.heroRig.kick(e.boss ? -460 : -320);
     this.shake = Math.max(this.shake, this.quiet ? 0 : e.boss ? 5 : 3);
     this.floaters.push({
       x: g.heroX + (Math.random() - 0.5) * 22,
@@ -775,6 +831,8 @@ export class SparStage {
         const r = this.combat.heroStrike();
         if (r.dmg <= 0 && !r.killed) return; // 冇嘢好打（保險：唔好彈「0」）
         this.onStrike?.();
+        this.heroRig.kick(340);
+        target.rig.kick(r.crit ? 560 : 380);
         if (r.killed) {
           target.state = 'dead';
           target.t = 0;
@@ -871,6 +929,7 @@ export class SparStage {
     }
 
     this.drawBackground();
+    this.ambience.draw(ctx, 'back');
 
     // 地面淡墨影
     this.shadow(g.heroX, g.groundY, 60 * g.k);
@@ -883,6 +942,7 @@ export class SparStage {
     // 敵影先畫（喺俠客身後）
     for (const e of this.enemies) this.drawEnemy(g, e);
     const tip = this.drawWarrior(g);
+    this.ambience.draw(ctx, 'front');
 
     // 武器鋒拖墨：攻擊爆發段先記錄
     const attacking = this.attackT !== null && this.attackT > 0.16 && this.attackT < 0.46;
@@ -912,7 +972,9 @@ export class SparStage {
   private drawBackground() {
     const { ctx } = this;
     const drawOne = (img: HTMLImageElement, alpha: number) => {
-      const scale = Math.max(this.cssW / img.width, this.cssH / img.height) * 1.08;
+      // 鏡頭慢慢呼吸（推近拉遠少少），靜態圖都似有景深
+      const breathe = 1 + 0.022 * Math.sin(this.bgT * 0.11);
+      const scale = Math.max(this.cssW / img.width, this.cssH / img.height) * 1.08 * breathe;
       const dw = img.width * scale;
       const dh = img.height * scale;
       const drift = Math.sin(this.idleT * 0.18) * 5 - (this.heroX * 0.04) % 40;
@@ -1081,24 +1143,48 @@ export class SparStage {
         frameKey = this.images.heroWalk[fi] ? `walk-${fi}` : 'idle';
       }
 
+      const rot = (body.rot - 6 * flinch - 78 * (1 - (1 - downP) ** 3)) * DEG;
+
+      // 揮擊殘影：出招爆發段每隔少少記一格，淡灰墨影跟喺身後
+      if (striking && at > 0.12 && at < 0.52 && !this.quiet) {
+        this.afterClock += 1 / 60;
+        if (this.afterClock >= AFTERIMAGE_EVERY) {
+          this.afterClock = 0;
+          this.afterimages.push({ img: heroImg, part, x: fx, y: fy, rot, sy, age: 0 });
+          if (this.afterimages.length > 5) this.afterimages.shift();
+        }
+      }
+      for (const a of this.afterimages) {
+        ctx.save();
+        ctx.globalAlpha *= 0.26 * (1 - a.age / AFTERIMAGE_LIFE);
+        ctx.translate(a.x, a.y);
+        ctx.rotate(a.rot);
+        ctx.scale(1, a.sy);
+        drawSilhouetteSprite(ctx, a.img, { k: g.k, w: a.part.w, h: a.part.h, dx: a.part.dx, dy: a.part.dy });
+        ctx.restore();
+      }
+
       ctx.save();
       ctx.globalAlpha *= fade * downFade;
       ctx.translate(fx, fy);
-      ctx.rotate((body.rot - 6 * flinch - 78 * (1 - (1 - downP) ** 3)) * DEG);
+      ctx.rotate(rot);
       ctx.scale(1, sy);
-      drawSilhouetteSprite(ctx, heroImg, {
-        k: g.k,
-        w: part.w,
-        h: part.h,
-        dx: part.dx,
-        dy: part.dy,
-      });
+      // 條帶變形：上身傾、衣擺擺、頭髮飄（腳底固定）
+      const heroRig = this.heroRig;
+      drawWarpedSprite(
+        ctx,
+        heroImg,
+        { k: g.k, w: part.w, h: part.h, dx: part.dx, dy: part.dy },
+        // 倒地時成個人轉，唔再疊加變形（避免條帶錯位）
+        (t) => (this.heroDownT !== null ? 0 : heroRig.offsetAt(t)),
+      );
 
       // 兵器剪影：掛喺呢格握點，沿該格揮擊方向；空手唔畫（拖墨用拳風距離）
       void arm;
       void head;
       const gripDef = HERO_WEAPON_GRIPS[frameKey] ?? HERO_WEAPON_GRIPS.idle!;
-      const gx = (gripDef.x + HERO_SIL.idle.dx) * g.k;
+      // 握點跟住條帶變形一齊郁，兵器唔會同手分家
+      const gx = (gripDef.x + HERO_SIL.idle.dx + this.heroRig.offsetAt(gripDef.y / SILHOUETTE_DESIGN_H)) * g.k;
       const gy = (gripDef.y + HERO_SIL.idle.dy) * g.k;
       // 待機時兵器隨呼吸輕晃
       const ang = gripDef.angle * DEG + (striking ? wep.rot * DEG * 0.15 : Math.sin(this.idleT * 2.2) * 0.03);
@@ -1180,15 +1266,13 @@ export class SparStage {
     ctx.translate(footX, footY);
     ctx.rotate(pose.rot * DEG);
     ctx.scale(1, pose.sy);
-    // 素材本身望左，唔好再 flip（否則會變望右）
-    drawSilhouetteSprite(ctx, enemyImg, {
-      k: ke,
-      flipX: false,
-      w: e.def.part.w,
-      h: e.def.part.h,
-      dx: e.def.part.dx,
-      dy: e.def.part.dy,
-    });
+    // 素材本身望左，唔好再 flip（否則會變望右）；條帶變形做衣擺同傾身
+    drawWarpedSprite(
+      ctx,
+      enemyImg,
+      { k: ke, w: e.def.part.w, h: e.def.part.h, dx: e.def.part.dx, dy: e.def.part.dy },
+      (t) => e.rig.offsetAt(t),
+    );
     if (e.state !== 'dead') {
       const glow = 0.45 + 0.35 * Math.sin(e.bob * 3.1);
       for (const eye of e.def.eyes) {
