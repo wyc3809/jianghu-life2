@@ -18,6 +18,7 @@ import {
 } from '../../audio/inkAudio';
 import { InkSettingsPanel } from './InkSettingsPanel';
 import { InkLeaderboardPanel } from './InkLeaderboardPanel';
+import { inkHop, inkPageIn, inkPopIn, inkRevealChars } from '../../ui/inkMotion';
 import { cloudConfigured } from '../../cloud/cloud';
 import { lifeScore } from '@core/life/leaderboardScore';
 import { InkGearCompareModal } from './InkGearCompareModal';
@@ -109,6 +110,10 @@ export function InkPlayScreen({ state }: Props) {
   const [audioMuted, setAudioMuted] = useState(() => isInkAudioMuted());
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [boardOpen, setBoardOpen] = useState(false);
+  const resultTitleRef = useRef<HTMLHeadingElement | null>(null);
+  const deltaListRef = useRef<HTMLUListElement | null>(null);
+  const flipRef = useRef<HTMLDivElement | null>(null);
+  const navRef = useRef<HTMLElement | null>(null);
   /** 字級同動態已固定（標準字、全動態），唔再畀玩家揀 */
   const reduceMotion = false;
   const [monthTurning, setMonthTurning] = useState(false);
@@ -369,6 +374,32 @@ export function InkPlayScreen({ state }: Props) {
     .filter(Boolean)
     .join(' ');
 
+  // ───── anime.js 動效 ─────
+  // 結果彈窗：標題逐字落筆
+  const resultKey = showResult && lastResult ? `${lastResult.title}|${lastResult.feedback.slice(0, 24)}` : '';
+  useEffect(() => {
+    if (!resultKey) return;
+    return inkRevealChars(resultTitleRef.current, { delay: 120, step: 60 }) ?? undefined;
+  }, [resultKey]);
+  // 消長：逐格彈出
+  useEffect(() => {
+    if (resultDeltasReady) inkPopIn(deltaListRef.current?.children, { step: 70, y: 10 });
+  }, [resultDeltasReady, resultKey]);
+  // 過月：鎮居提示區紙張翻入
+  const monthKey = `${state.year}-${month}`;
+  const firstMonth = useRef(true);
+  useEffect(() => {
+    if (firstMonth.current) {
+      firstMonth.current = false;
+      return;
+    }
+    inkPageIn(flipRef.current);
+  }, [monthKey]);
+  // 導航：切 tab 時新 tab 圖示跳一跳
+  useEffect(() => {
+    inkHop(navRef.current?.querySelector('.ink-tab--active .ink-tab-icon'));
+  }, [tab]);
+
   return (
     <div
       className={sceneBits}
@@ -560,7 +591,7 @@ export function InkPlayScreen({ state }: Props) {
           </div>
 
           {/* 翻頁效果只套喺下面嘅提示，唔影響演武台 */}
-          <div key={`${state.year}-${month}`} className="ink-scroll-flip">
+          <div ref={flipRef}>
           {showCoach && coach && (
             <section className="ink-coach" aria-live="polite">
               <h3>{coach.title}</h3>
@@ -736,7 +767,7 @@ export function InkPlayScreen({ state }: Props) {
                         ? '武學入懷'
                         : '本月際遇'}
               </p>
-              <h3>{lastResult.title}</h3>
+              <h3 ref={resultTitleRef}>{lastResult.title}</h3>
               {lastResult.choiceText && (
                 <p className="ink-result-choice">
                   <span className="ink-result-choice-tag">所擇</span>
@@ -780,7 +811,7 @@ export function InkPlayScreen({ state }: Props) {
                   <p className="ink-result-delta-label">
                     {lastResult.deltas.some(isLearnSkillDeltaLine) ? '新學武學' : '此番消長'}
                   </p>
-                  <ul className="ink-delta-chips" aria-label="此番消長">
+                  <ul className="ink-delta-chips is-anime" aria-label="此番消長" ref={deltaListRef}>
                     {lastResult.deltas.map((d, i) => {
                       if (isLearnSkillDeltaLine(d)) {
                         return (
@@ -900,7 +931,7 @@ export function InkPlayScreen({ state }: Props) {
       </div>
 
       {!combat && !eventFocus && (
-        <nav className="ink-tabs" aria-label="分卷">
+        <nav className="ink-tabs" aria-label="分卷" ref={navRef}>
           {(
             [
               ['home', '鎮居'],
