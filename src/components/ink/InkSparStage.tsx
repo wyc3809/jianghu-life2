@@ -165,30 +165,39 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
       if (duel) setSnap(duel.snapshot());
     };
     let noteTimer: ReturnType<typeof setTimeout> | null = null;
+    /** 敵人 0 血就換人；過咗關就入賬、出提示。回傳係咪過關 */
+    const settleDeadFoe = (): boolean => {
+      if (!duel) return false;
+      const r = duel.ensureLiveFoe();
+      if (!r) return false;
+      sync();
+      if (!r.stageCleared) return false;
+      const reward = useLifeStore.getState().sparStageClear(r.clearedStage);
+      setClearNote(`第 ${r.clearedStage} 關 過關　銀兩 +${reward.silver}　修為 +${Math.round(reward.xp)}`);
+      if (noteTimer) clearTimeout(noteTimer);
+      noteTimer = setTimeout(() => setClearNote(null), 2400);
+      return true;
+    };
     const combat: SparCombatHooks | undefined = duel
       ? {
           heroStrike: () => {
+            settleDeadFoe();
             const r = duel.heroStrike();
             sync();
             return r;
           },
           foeStrike: () => {
+            if (duel.foeHp <= 0) return { dmg: 0, heroDown: false };
             const r = duel.foeStrike();
             sync();
             return r;
           },
-          nextFoe: () => ({ boss: duel.foe?.boss ?? false, look: duel.foe?.look }),
-          foeDefeated: () => {
-            const clearedStage = duel.stage;
-            const { stageCleared } = duel.advance();
-            sync();
-            if (!stageCleared) return { coins: 0 };
-            const reward = useLifeStore.getState().sparStageClear(clearedStage);
-            setClearNote(`第 ${clearedStage} 關 過關　銀兩 +${reward.silver}　修為 +${Math.round(reward.xp)}`);
-            if (noteTimer) clearTimeout(noteTimer);
-            noteTimer = setTimeout(() => setClearNote(null), 2400);
-            return { coins: 6 };
+          nextFoe: () => {
+            // 重新載入時可能接住一個已死嘅敵人：先結算換人，先決定出邊個
+            settleDeadFoe();
+            return { boss: duel.foe?.boss ?? false, look: duel.foe?.look };
           },
+          foeDefeated: () => ({ coins: settleDeadFoe() ? 6 : 0 }),
           heroRecovered: () => {
             duel.retreat();
             useLifeStore.getState().sparSetStage(duel.stage);

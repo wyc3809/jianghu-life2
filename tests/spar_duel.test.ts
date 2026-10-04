@@ -207,3 +207,33 @@ describe('spar number format (過千用 k、m)', () => {
     expect(formatSparNumber(25_000_000)).toBe('25m');
   });
 });
+
+describe('spar dead-foe recovery (卡喺 0 血)', () => {
+  it('test_ensure_live_foe_advances_when_foe_already_dead', () => {
+    const d = new SparDuel({ ...HERO, atk: 1e9 }, 1, seq([0.9]));
+    const first = d.foe;
+    d.heroStrike(); // 打死，但未 advance（模擬倒地動畫未播完就重新載入）
+    expect(d.foeHp).toBe(0);
+    const r = d.ensureLiveFoe();
+    expect(r).toEqual({ stageCleared: false, clearedStage: 1 });
+    expect(d.foeHp).toBeGreaterThan(0);
+    expect(d.snapshot().minionsLeft).toBeLessThan(sparMinionCount(1) - 1 + 1);
+    expect(d.foe).not.toBe(first);
+    expect(d.ensureLiveFoe()).toBeNull();
+    // 之後引擎照常叫 advance 都唔會再跳多一個
+    expect(d.advance().stageCleared).toBe(false);
+    expect(d.foeHp).toBeGreaterThan(0);
+  });
+
+  it('test_ensure_live_foe_clears_stage_when_boss_already_dead', () => {
+    const d = new SparDuel({ ...HERO, atk: 1e9 }, 3, seq([0.9]));
+    for (let i = 0; i < sparMinionCount(3); i++) {
+      d.heroStrike();
+      d.advance();
+    }
+    expect(d.foe!.boss).toBe(true);
+    d.heroStrike();
+    expect(d.ensureLiveFoe()).toEqual({ stageCleared: true, clearedStage: 3 });
+    expect(d.stage).toBe(4);
+  });
+});
