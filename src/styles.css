@@ -8073,3 +8073,32 @@ html[data-ink-motion='reduce'] .ink-achv-name i {
     animation: none;
   }
 }
+
+/* ===== 人物 · 戰力頁（演武數值總覽） ===== */
+.ink-combat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin: 0 0 10px;
+}
+
+.ink-combat-grid div {
+  padding: 8px 6px;
+  text-align: center;
+  border: 1px solid var(--ink-faint);
+  background: rgba(255, 252, 245, 0.6);
+}
+
+.ink-combat-grid dt {
+  font-size: var(--fs-caption);
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+}
+
+.ink-combat-grid dd {
+  margin: 2px 0 0;
+  font-family: var(--font-title);
+  font-size: 1.05rem;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}

@@ -37,6 +37,7 @@ import { buildGenealogy } from '@core/life/genealogy';
 import { achievementProgress, listAchievementStatus } from '@core/life/achievements';
 import { allTitles } from '@core/life/titles';
 import { calculateProgress } from '@core/life/progression';
+import { SPAR_TIER_SCALE, sparHeroBreakdown, sparSavedStage } from '@core/life/sparDuel';
 import { InkStatsPanel } from './InkStatsPanel';
 import { InkInjuryCard } from './InkInjuryCard';
 import {
@@ -60,7 +61,8 @@ export type PersonView =
   | 'grudges'
   | 'roots'
   | 'achievements'
-  | 'cultivation';
+  | 'cultivation'
+  | 'combat';
 
 type Props = {
   state: LifeGameState;
@@ -71,6 +73,9 @@ type Props = {
   onEquipBest: () => void;
   onBreakthrough: () => void;
 };
+
+const pctText = (v: number) => `${(v * 100).toFixed(1).replace(/\.0$/, '')}%`;
+const numText = (v: number) => Math.round(v).toLocaleString('en-US');
 
 export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest, onBreakthrough }: Props) {
   const [previewGearId, setPreviewGearId] = useState<string | null>(null);
@@ -91,6 +96,7 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
   const achProgress = achievementProgress(state);
   const nicknames = allTitles(state).map((t) => t.label);
   const progress = calculateProgress(state);
+  const spar = sparHeroBreakdown(state);
 
   if (view === 'main') {
     const cultTier = currentCultivationTier(state);
@@ -101,6 +107,12 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
         label: '修為',
         hint: cultCapped ? `${cultTier.name} · 可突破` : `${cultTier.name} · 修煉中`,
         icon: 'motif-jade',
+      },
+      {
+        id: 'combat',
+        label: '戰力',
+        hint: `攻擊 ${spar.stats.atk.toLocaleString('en-US')} · 暴擊 ${pctText(spar.stats.critRate)}`,
+        icon: 'motif-sword',
       },
       {
         id: 'attrs',
@@ -684,6 +696,104 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
               ))}
             </ul>
           )}
+        </>
+      )}
+
+      {view === 'combat' && (
+        <>
+          <h3>戰力</h3>
+          <p className="ink-note">
+            演武台對打用嘅數值，跟武學、修為境界、氣血上限同裝備計。演武現時去到第 {sparSavedStage(state)} 關。
+          </p>
+
+          <h3 className="ink-subhead">總覽</h3>
+          <dl className="ink-combat-grid" aria-label="戰力總覽">
+            <div>
+              <dt>演武氣血</dt>
+              <dd>{numText(spar.stats.maxHp)}</dd>
+            </div>
+            <div>
+              <dt>攻擊</dt>
+              <dd>{numText(spar.stats.atk)}</dd>
+            </div>
+            <div>
+              <dt>暴擊率</dt>
+              <dd>{pctText(spar.stats.critRate)}</dd>
+            </div>
+            <div>
+              <dt>暴擊傷害</dt>
+              <dd>×{spar.stats.critMul}</dd>
+            </div>
+            <div>
+              <dt>吸血</dt>
+              <dd>{pctText(spar.stats.lifesteal)}</dd>
+            </div>
+            <div>
+              <dt>減傷</dt>
+              <dd>{pctText(spar.stats.guard)}</dd>
+            </div>
+          </dl>
+
+          <h3 className="ink-subhead">境界倍率</h3>
+          <ul className="ink-delta-board" aria-label="境界倍率">
+            <li className="ink-delta-row ink-delta-row--up">
+              <span className="ink-delta-row-text">
+                {currentCultivationTier(state).name} · 氣血、攻擊 ×{spar.scale.toFixed(2)}（每升一境 ×{SPAR_TIER_SCALE}）
+              </span>
+            </li>
+          </ul>
+
+          <h3 className="ink-subhead">攻擊拆解</h3>
+          <ul className="ink-delta-board" aria-label="攻擊拆解">
+            <li className="ink-delta-row ink-delta-row--flat">
+              <span className="ink-delta-row-text">基礎 ＋{numText(spar.atk.base)}</span>
+            </li>
+            <li className="ink-delta-row ink-delta-row--flat">
+              <span className="ink-delta-row-text">武學 {numText(spar.martial)} × 1.6 ＋{numText(spar.atk.fromMartial)}</span>
+            </li>
+            <li className={`ink-delta-row ${spar.atk.fromWeapon > 0 ? 'ink-delta-row--up' : 'ink-delta-row--flat'}`}>
+              <span className="ink-delta-row-text">兵器攻擊 {numText(spar.gearAttack)} × 3 ＋{numText(spar.atk.fromWeapon)}</span>
+            </li>
+            <li className="ink-delta-row ink-delta-row--flat">
+              <strong className="ink-delta-row-text">
+                小計 {numText(spar.atk.base + spar.atk.fromMartial + spar.atk.fromWeapon)} × 境界 {spar.scale.toFixed(2)} ＝ {numText(spar.stats.atk)}
+              </strong>
+            </li>
+          </ul>
+
+          <h3 className="ink-subhead">氣血拆解</h3>
+          <ul className="ink-delta-board" aria-label="演武氣血拆解">
+            <li className="ink-delta-row ink-delta-row--flat">
+              <span className="ink-delta-row-text">氣血上限 {numText(c.maxHealth)} × 12 ＋{numText(spar.hp.fromHealth)}</span>
+            </li>
+            <li className="ink-delta-row ink-delta-row--flat">
+              <span className="ink-delta-row-text">武學 {numText(spar.martial)} × 25 ＋{numText(spar.hp.fromMartial)}</span>
+            </li>
+            <li className="ink-delta-row ink-delta-row--flat">
+              <strong className="ink-delta-row-text">
+                小計 {numText(spar.hp.fromHealth + spar.hp.fromMartial)} × 境界 {spar.scale.toFixed(2)} ＝ {numText(spar.stats.maxHp)}
+              </strong>
+            </li>
+          </ul>
+
+          <h3 className="ink-subhead">暴擊・吸血・減傷</h3>
+          <ul className="ink-delta-board" aria-label="暴擊吸血減傷拆解">
+            <li className="ink-delta-row ink-delta-row--flat">
+              <span className="ink-delta-row-text">
+                暴擊率：基礎 {pctText(spar.crit.base)} ＋ 膽識 {pctText(spar.crit.fromDanShi)} ＋ 悟性 {pctText(spar.crit.fromWuXing)}（上限 {pctText(spar.crit.cap)}）
+              </span>
+            </li>
+            <li className="ink-delta-row ink-delta-row--flat">
+              <span className="ink-delta-row-text">
+                吸血：基礎 {pctText(spar.lifesteal.base)} ＋ 境界 {pctText(spar.lifesteal.fromTier)}（上限 {pctText(spar.lifesteal.cap)}）
+              </span>
+            </li>
+            <li className="ink-delta-row ink-delta-row--flat">
+              <span className="ink-delta-row-text">
+                減傷：裝備防禦 {numText(spar.gearDefense)} × 1.2% ＝ {pctText(spar.guard.fromArmor)}（上限 {pctText(spar.guard.cap)}）
+              </span>
+            </li>
+          </ul>
         </>
       )}
 

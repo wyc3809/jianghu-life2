@@ -112,3 +112,17 @@ describe('spar duel (演武台對打)', () => {
     expect(sparSavedStage(s)).toBe(7);
   });
 });
+
+describe('spar hero breakdown (戰力頁)', () => {
+  it('test_breakdown_parts_sum_to_stats', async () => {
+    const { sparHeroBreakdown } = await import('../core/life/sparDuel');
+    initRng(6);
+    const s = createNewLife(6);
+    s.character.cultivation = { xp: 0, tier: 3 };
+    const b = sparHeroBreakdown(s);
+    expect(b.stats.atk).toBe(Math.round((b.atk.base + b.atk.fromMartial + b.atk.fromWeapon) * b.scale));
+    expect(b.stats.maxHp).toBe(Math.round((b.hp.fromHealth + b.hp.fromMartial) * b.scale));
+    expect(b.stats.critRate).toBeCloseTo(Math.min(b.crit.cap, b.crit.base + b.crit.fromDanShi + b.crit.fromWuXing), 9);
+    expect(b.stats).toEqual(sparHeroStats(s));
+  });
+});

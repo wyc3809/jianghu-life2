@@ -31,18 +31,58 @@ export const SPAR_BOSS_ATK_MUL = 2.2;
 /** 過關回血比例 */
 export const SPAR_STAGE_CLEAR_HEAL = 0.35;
 
-export function sparHeroStats(state: LifeGameState): SparHeroStats {
+/** 戰力頁用：每項數值由邊度嚟（未乘境界倍率嘅分項＋倍率） */
+export interface SparHeroBreakdown {
+  stats: SparHeroStats;
+  tier: number;
+  /** 境界倍率 */
+  scale: number;
+  hp: { fromHealth: number; fromMartial: number };
+  atk: { base: number; fromMartial: number; fromWeapon: number };
+  crit: { base: number; fromDanShi: number; fromWuXing: number; cap: number };
+  lifesteal: { base: number; fromTier: number; cap: number };
+  guard: { fromArmor: number; cap: number };
+  /** 武學（含裝備武學加成） */
+  martial: number;
+  gearAttack: number;
+  gearDefense: number;
+}
+
+const CRIT_BASE = 0.1;
+const CRIT_CAP = 0.45;
+const LIFESTEAL_BASE = 0.06;
+const LIFESTEAL_CAP = 0.25;
+const GUARD_CAP = 0.6;
+
+export function sparHeroBreakdown(state: LifeGameState): SparHeroBreakdown {
   const c = state.character;
   const gear = gearTotals(c);
   const tier = Math.max(0, Math.floor(c.cultivation?.tier ?? 0));
   const scale = SPAR_TIER_SCALE ** tier;
   const martial = Math.max(0, c.martial + gear.martialBonus);
-  const maxHp = Math.round((c.maxHealth * 12 + martial * 25) * scale);
-  const atk = Math.round((24 + martial * 1.6 + gear.attack * 3) * scale);
-  const critRate = Math.min(0.45, 0.1 + (c.attributes.danShi ?? 0) * 0.003 + (c.attributes.wuXing ?? 0) * 0.001);
-  const lifesteal = Math.min(0.25, 0.06 + tier * 0.008);
-  const guard = Math.min(0.6, gear.defense * 0.012);
-  return { maxHp, atk, critRate, critMul: 1.85, lifesteal, guard };
+  const hp = { fromHealth: c.maxHealth * 12, fromMartial: martial * 25 };
+  const atk = { base: 24, fromMartial: martial * 1.6, fromWeapon: gear.attack * 3 };
+  const crit = {
+    base: CRIT_BASE,
+    fromDanShi: (c.attributes.danShi ?? 0) * 0.003,
+    fromWuXing: (c.attributes.wuXing ?? 0) * 0.001,
+    cap: CRIT_CAP,
+  };
+  const lifesteal = { base: LIFESTEAL_BASE, fromTier: tier * 0.008, cap: LIFESTEAL_CAP };
+  const guard = { fromArmor: gear.defense * 0.012, cap: GUARD_CAP };
+  const stats: SparHeroStats = {
+    maxHp: Math.round((hp.fromHealth + hp.fromMartial) * scale),
+    atk: Math.round((atk.base + atk.fromMartial + atk.fromWeapon) * scale),
+    critRate: Math.min(CRIT_CAP, crit.base + crit.fromDanShi + crit.fromWuXing),
+    critMul: 1.85,
+    lifesteal: Math.min(LIFESTEAL_CAP, lifesteal.base + lifesteal.fromTier),
+    guard: Math.min(GUARD_CAP, guard.fromArmor),
+  };
+  return { stats, tier, scale, hp, atk, crit, lifesteal, guard, martial, gearAttack: gear.attack, gearDefense: gear.defense };
+}
+
+export function sparHeroStats(state: LifeGameState): SparHeroStats {
+  return sparHeroBreakdown(state).stats;
 }
 
 export interface SparFoe {
