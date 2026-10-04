@@ -946,14 +946,14 @@ export function InkPlayScreen({ state }: Props) {
                 setTab(id);
               }}
             >
-              <span className="ink-tab-label">{label}</span>
               <img
                 className="ink-tab-icon"
-                src={`${import.meta.env.BASE_URL || '/'}ink/icons/tab-${id}.webp`}
+                src={`${import.meta.env.BASE_URL || '/'}ink/icons/tab-${id}-badge.webp`}
                 alt=""
                 aria-hidden
                 decoding="async"
               />
+              <span className="ink-tab-label">{label}</span>
             </button>
           ))}
           <InkCultivationHud
@@ -983,14 +983,14 @@ export function InkPlayScreen({ state }: Props) {
                 setTab(id);
               }}
             >
-              <span className="ink-tab-label">{label}</span>
               <img
                 className="ink-tab-icon"
-                src={`${import.meta.env.BASE_URL || '/'}ink/icons/tab-${id}.webp`}
+                src={`${import.meta.env.BASE_URL || '/'}ink/icons/tab-${id}-badge.webp`}
                 alt=""
                 aria-hidden
                 decoding="async"
               />
+              <span className="ink-tab-label">{label}</span>
             </button>
           ))}
         </nav>

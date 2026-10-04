@@ -8211,3 +8211,51 @@ html[data-ink-motion='reduce'] .ink-achv-name i {
 .ink-delta-chips.is-anime .ink-delta-chip {
   animation: none;
 }
+
+/* 分卷 tab：墨圈徽章（scripts/art/build_tab_badges.py），白字黑邊標籤喺徽章下面，揀中加朱紅點 */
+.ink-tabs .ink-tab {
+  position: relative;
+  overflow: visible;
+  gap: 0;
+}
+
+.ink-tabs .ink-tab-icon {
+  width: 50px;
+  margin-bottom: -10px;
+  opacity: 0.8;
+  filter: saturate(0.6);
+}
+
+.ink-tabs .ink-tab-label {
+  font-family: var(--font-title);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-indent: 0.08em;
+  color: #fbf7ee;
+  -webkit-text-stroke: 3px var(--ink);
+  paint-order: stroke fill;
+  text-shadow: 0 1px 2px rgba(22, 19, 15, 0.35);
+}
+
+.ink-tabs .ink-tab--active .ink-tab-label {
+  color: #fbf7ee;
+}
+
+.ink-tabs .ink-tab--active .ink-tab-icon {
+  opacity: 1;
+  filter: none;
+}
+
+/* 朱紅點：揀中嗰格 */
+.ink-tabs .ink-tab--active::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: calc(50% + 12px);
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #e0584a, #a33a32 70%);
+  box-shadow: 0 1px 2px rgba(22, 19, 15, 0.4);
+}
