@@ -377,6 +377,17 @@ export class SparDuel {
     return { stageCleared: wasBoss };
   }
 
+  /**
+   * 當前敵人已經 0 血但未換人（例如倒地動畫未播完演武台就重新載入）→ 即刻結算換人。
+   * 回傳 null＝敵人仲生，唔使處理。
+   */
+  ensureLiveFoe(): { stageCleared: boolean; clearedStage: number } | null {
+    if (this.foeHp > 0 || !this.foe) return null;
+    const clearedStage = this.stage;
+    const { stageCleared } = this.advance();
+    return { stageCleared, clearedStage };
+  }
+
   /** 演武敗退：退一關（關數高就退多啲，約一成；最低第 1 關），回滿血 */
   retreat() {
     this.stage = Math.max(1, this.stage - Math.max(1, Math.floor(this.stage / 10)));

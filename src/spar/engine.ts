@@ -773,6 +773,7 @@ export class SparStage {
     if (this.combat) {
       if (target && target.state !== 'dead') {
         const r = this.combat.heroStrike();
+        if (r.dmg <= 0 && !r.killed) return; // 冇嘢好打（保險：唔好彈「0」）
         this.onStrike?.();
         if (r.killed) {
           target.state = 'dead';
