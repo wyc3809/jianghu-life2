@@ -17,7 +17,7 @@ function seq(values: number[]) {
   return () => values[i++ % values.length]!;
 }
 
-const HERO: SparHeroStats = { maxHp: 1000, atk: 100, critRate: 0.2, critMul: 2, lifesteal: 0.1, guard: 0 };
+const HERO: SparHeroStats = { maxHp: 1000, atk: 100, critRate: 0.2, critMul: 2, lifesteal: 0.1, clearHeal: 0.35, guard: 0 };
 
 describe('spar duel (演武台對打)', () => {
   it('test_stage_has_minions_then_boss_and_grows', () => {
@@ -124,5 +124,60 @@ describe('spar hero breakdown (戰力頁)', () => {
     expect(b.stats.maxHp).toBe(Math.round((b.hp.fromHealth + b.hp.fromMartial) * b.scale));
     expect(b.stats.critRate).toBeCloseTo(Math.min(b.crit.cap, b.crit.base + b.crit.fromDanShi + b.crit.fromWuXing), 9);
     expect(b.stats).toEqual(sparHeroStats(s));
+  });
+});
+
+describe('spar heal rules (無回血技唔會自動回血)', () => {
+  it('test_no_heal_skill_means_no_lifesteal_and_no_clear_heal', () => {
+    initRng(7);
+    const s = createNewLife(7);
+    s.character.skills = ['art_river_fist'];
+    s.character.equipment = { weapon: null, armor: null, accessory: null };
+    const st = sparHeroStats(s);
+    expect(st.lifesteal).toBe(0);
+    expect(st.clearHeal).toBe(0);
+    const d = new SparDuel({ ...st, atk: 1e6 }, 1, seq([0.9]));
+    d.heroHp = 10;
+    const h = d.heroStrike();
+    expect(h.heal).toBe(0);
+    expect(d.heroHp).toBe(10);
+  });
+
+  it('test_stage_clear_heals_only_with_heal_skill', () => {
+    const noHeal = new SparDuel({ ...HERO, atk: 1e9, clearHeal: 0, lifesteal: 0 }, 1, seq([0.9]));
+    noHeal.heroHp = 100;
+    for (let i = 0; i < 10 && noHeal.stage === 1; i++) {
+      noHeal.heroStrike();
+      noHeal.advance();
+    }
+    expect(noHeal.stage).toBe(2);
+    expect(noHeal.heroHp).toBe(100);
+    const withHeal = new SparDuel({ ...HERO, atk: 1e9, clearHeal: 0.35, lifesteal: 0 }, 1, seq([0.9]));
+    withHeal.heroHp = 100;
+    for (let i = 0; i < 10 && withHeal.stage === 1; i++) {
+      withHeal.heroStrike();
+      withHeal.advance();
+    }
+    expect(withHeal.heroHp).toBe(450);
+  });
+});
+
+describe('spar themes (出場有規律、主題)', () => {
+  it('test_same_stage_same_roster_and_theme_changes_every_span', async () => {
+    const { sparThemeFor, SPAR_THEME_SPAN, SPAR_THEMES } = await import('../core/life/sparDuel');
+    expect(sparStageFoes(3).map((f) => f.look)).toEqual(sparStageFoes(3).map((f) => f.look));
+    expect(sparThemeFor(1).name).toBe(sparThemeFor(SPAR_THEME_SPAN).name);
+    expect(sparThemeFor(SPAR_THEME_SPAN + 1).name).not.toBe(sparThemeFor(1).name);
+    expect(sparThemeFor(SPAR_THEME_SPAN * SPAR_THEMES.length + 1).name).toBe(sparThemeFor(1).name);
+  });
+
+  it('test_roster_follows_theme_order_and_boss_last', async () => {
+    const { sparThemeFor } = await import('../core/life/sparDuel');
+    const theme = sparThemeFor(2);
+    const foes = sparStageFoes(2);
+    foes.slice(0, -1).forEach((f, i) => {
+      expect([f.look, f.name]).toEqual([...theme.minions[i % theme.minions.length]!]);
+    });
+    expect([foes.at(-1)!.look, foes.at(-1)!.name]).toEqual([...theme.boss]);
   });
 });

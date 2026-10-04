@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
+import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { natureKeys, natureLabels } from '@interfaces/lifeEngine';
@@ -16,7 +16,7 @@ import {
   isInkAudioMuted,
   toggleInkAudioMuted,
 } from '../../audio/inkAudio';
-import { InkSettingsPanel, type TextScale } from './InkSettingsPanel';
+import { InkSettingsPanel } from './InkSettingsPanel';
 import { InkLeaderboardPanel } from './InkLeaderboardPanel';
 import { cloudConfigured } from '../../cloud/cloud';
 import { lifeScore } from '@core/life/leaderboardScore';
@@ -109,13 +109,8 @@ export function InkPlayScreen({ state }: Props) {
   const [audioMuted, setAudioMuted] = useState(() => isInkAudioMuted());
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [boardOpen, setBoardOpen] = useState(false);
-  const [reduceMotion, setReduceMotion] = useState(() => {
-    try {
-      return localStorage.getItem('ink_reduce_motion') === '1';
-    } catch {
-      return false;
-    }
-  });
+  /** 字級同動態已固定（標準字、全動態），唔再畀玩家揀 */
+  const reduceMotion = false;
   const [monthTurning, setMonthTurning] = useState(false);
   const [choicesReady, setChoicesReady] = useState(false);
   /** Boss 動畫：記低已播過邊個 combat.id，避免同一場交手 re-render 時重播 */
@@ -123,14 +118,6 @@ export function InkPlayScreen({ state }: Props) {
   /** 結果匣：先經過，點擊後再揭消長 */
   const [resultDeltasReady, setResultDeltasReady] = useState(false);
   const prevYearMonth = useRef<string | null>(null);
-  const [textScale, setTextScale] = useState<TextScale>(() => {
-    try {
-      const v = Number(localStorage.getItem('ink_text_scale') ?? '1');
-      return v === 1.15 || v === 1.3 ? v : 1;
-    } catch {
-      return 1;
-    }
-  });
   const resultAckRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
@@ -145,22 +132,16 @@ export function InkPlayScreen({ state }: Props) {
     return () => window.clearTimeout(t);
   }, [sealText, clearSeal]);
 
+  // 舊版設定（字級／減少動態）已取消：清走殘留值，一律標準字、全動態
   useEffect(() => {
+    document.documentElement.dataset.inkMotion = 'full';
     try {
-      localStorage.setItem('ink_text_scale', String(textScale));
+      localStorage.removeItem('ink_text_scale');
+      localStorage.removeItem('ink_reduce_motion');
     } catch {
       /* ignore */
     }
-  }, [textScale]);
-
-  useEffect(() => {
-    document.documentElement.dataset.inkMotion = reduceMotion ? 'reduce' : 'full';
-    try {
-      localStorage.setItem('ink_reduce_motion', reduceMotion ? '1' : '0');
-    } catch {
-      /* ignore */
-    }
-  }, [reduceMotion]);
+  }, []);
 
   useEffect(() => {
     const ym = `${state.year}-${state.month ?? 1}`;
@@ -391,16 +372,6 @@ export function InkPlayScreen({ state }: Props) {
   return (
     <div
       className={sceneBits}
-      data-text-scale={textScale === 1 ? undefined : String(textScale)}
-      style={
-        textScale !== 1
-          ? ({
-              ['--fs-body' as string]: `${textScale}rem`,
-              ['--fs-caption' as string]: `${0.82 * textScale}rem`,
-              ['--fs-label' as string]: `${0.8 * textScale}rem`,
-            } as CSSProperties)
-          : undefined
-      }
     >
       {useNightWash && (
         <InkAiWashLayer
@@ -552,24 +523,11 @@ export function InkPlayScreen({ state }: Props) {
           setSettingsOpen(false);
           setBoardOpen(true);
         }}
-        textScale={textScale}
-        onTextScale={(scale) => {
-          setTextScale(scale);
-          track('a11y_text_scale', { scale });
-        }}
         audioMuted={audioMuted}
         onToggleAudio={() => {
           const next = toggleInkAudioMuted();
           setAudioMuted(next);
           track('audio_mute_toggle', { muted: next });
-        }}
-        reduceMotion={reduceMotion}
-        onToggleReduceMotion={() => {
-          setReduceMotion((v) => {
-            const next = !v;
-            track('a11y_reduce_motion', { reduce: next });
-            return next;
-          });
         }}
       />
 
@@ -589,8 +547,9 @@ export function InkPlayScreen({ state }: Props) {
       )}
 
       {/* 鎮居首屏：翻頁優先於儀表與年譜（無待決事件時） */}
-      {onHomeTab && !combat && !eventFocus && (
-        <div key={`${state.year}-${month}`} className="ink-home-focus ink-scroll-flip">
+      {/* 演武台常駐（事件／交手時只係收埋）：過月唔再重新載入，關數、血量、敵陣接住打 */}
+      {onHomeTab && (
+        <div className="ink-home-focus" style={combat || eventFocus ? { display: 'none' } : undefined}>
           {/* 演武台直接用地圖 banner 嘅鎮景長卷做背景，季節・地點名浮喺動畫入面，唔再分開兩張圖 */}
           <div className="ink-home-scene">
             <InkSparStage
@@ -607,6 +566,8 @@ export function InkPlayScreen({ state }: Props) {
             />
           </div>
 
+          {/* 翻頁效果只套喺下面嘅提示，唔影響演武台 */}
+          <div key={`${state.year}-${month}`} className="ink-scroll-flip">
           {showCoach && coach && (
             <section className="ink-coach" aria-live="polite">
               <h3>{coach.title}</h3>
@@ -624,7 +585,7 @@ export function InkPlayScreen({ state }: Props) {
               ))}
             </section>
           )}
-
+          </div>
         </div>
       )}
 

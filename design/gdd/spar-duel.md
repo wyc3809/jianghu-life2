@@ -12,8 +12,11 @@
 
 - 一關＝`sparMinionCount(stage)` 個小兵（3 起，每 5 關 +1，最多 6）＋ 1 個首領。
 - 主角每 ~1.2 秒出手一次（導演節奏 windup→strike→recover）；敵人入近身後每 1.6 秒（首領 1.15 秒）撲擊一次，±0.5 秒浮動。
-- 主角每擊：±10% 浮動；暴擊率擲中 ×1.85；按傷害吸血。敵人每擊 ±15% 浮動，扣主角減傷。
-- 小兵倒下 → 下一個；首領倒下 → 過關（stage+1、回 35% 血），掉 6 個銅錢，入賬銀兩＋修為。
+- 主角每擊：±10% 浮動；暴擊率擲中 ×1.85；**有吸血招式／裝備先會吸血**。
+- **無回血技唔會自動回血**：過關回血只限學咗回血招式（`move.healSelf > 0`）；冇就帶住傷入下一關。
+- 敵人每擊 ±15% 浮動，扣主角減傷。
+- **出場有主題**：每 5 關一個主題（山道劫匪 → 夜行刺客 → 邪寺頭陀 → 黑風寨 → 影門殺陣，循環），同主題小兵按固定次序輪流出，首領固定（`SPAR_THEMES`）。
+- 小兵倒下 → 下一個；首領倒下 → 過關（stage+1；有回血招式先回 35% 血），掉 6 個銅錢，入賬銀兩＋修為。
 - 主角演武血條見底 → 倒地 1.6 秒 → 退 `max(1, floor(stage/10))` 關、回滿血。
 - 關數存喺 `character.flags.spar_stage`；每次命中仍經 `sparStrike()` +1 修為（同舊版一樣）。
 
@@ -24,7 +27,8 @@ scale    = 1.32 ^ cultivationTier
 heroMaxHp = (maxHealth × 12 + (martial + gearMartial) × 25) × scale
 heroAtk   = (24 + (martial + gearMartial) × 1.6 + gearAttack × 3) × scale
 critRate  = min(0.45, 0.10 + 膽識 × 0.003 + 悟性 × 0.001)
-lifesteal = min(0.25, 0.06 + tier × 0.008)
+lifesteal = min(0.25, Σ已學招式 move.lifesteal + 裝備詞條 lifesteal)   // 冇就 0
+clearHeal = 有任何已學招式 move.healSelf > 0 ? 0.35 : 0
 guard     = min(0.6, gearDefense × 0.012)
 
 g         = 1.16 ^ (stage − 1)
@@ -48,7 +52,7 @@ reward    = { silver: 2 + floor(stage/3), xp: 10 + stage × 4 }
 
 ## 7. Tuning Knobs
 
-`SPAR_TIER_SCALE`、`SPAR_STAGE_GROWTH`、`SPAR_BOSS_HP_MUL`、`SPAR_BOSS_ATK_MUL`、`SPAR_STAGE_CLEAR_HEAL`（`core/life/sparDuel.ts`）；撲擊節奏 `LUNGE_DUR`／`LUNGE_HIT_AT`、敗退時長 `HERO_DOWN_DUR`（`src/spar/engine.ts`）。
+`SPAR_THEMES`／`SPAR_THEME_SPAN`（主題陣容同長度）、`SPAR_TIER_SCALE`、`SPAR_STAGE_GROWTH`、`SPAR_BOSS_HP_MUL`、`SPAR_BOSS_ATK_MUL`、`SPAR_STAGE_CLEAR_HEAL`（`core/life/sparDuel.ts`）；撲擊節奏 `LUNGE_DUR`／`LUNGE_HIT_AT`、敗退時長 `HERO_DOWN_DUR`（`src/spar/engine.ts`）。
 
 ## 8. Acceptance Criteria
 

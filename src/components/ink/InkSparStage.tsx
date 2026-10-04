@@ -41,6 +41,8 @@ interface Props {
 
 const STAGE_HEIGHT = 218;
 const COIN_SRC = `${import.meta.env.BASE_URL || '/'}ink/spar/fx-coin.webp`;
+/** 演武對打實例快取：元件重新掛載唔會重開一場 */
+const DUEL_CACHE = new Map<string, SparDuel>();
 const fmt = (n: number) => Math.max(0, Math.round(n)).toLocaleString('en-US');
 
 /** 演武數值嘅指紋：角色實力一變（升境、換兵器、武學進步）就重算主角數值 */
@@ -69,7 +71,17 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
 
   if (!duelRef.current) {
     const st = useLifeStore.getState().state;
-    if (st) duelRef.current = new SparDuel(sparHeroStats(st), sparSavedStage(st));
+    if (st) {
+      // 同一世共用一場演武：轉 tab／開事件再返嚟，血量同敵陣接住打
+      const key = `${st.seed}:${String(st.character.flags.legacy_generation ?? 1)}:${st.character.name}`;
+      let duel = DUEL_CACHE.get(key);
+      if (!duel) {
+        duel = new SparDuel(sparHeroStats(st), sparSavedStage(st));
+        DUEL_CACHE.clear();
+        DUEL_CACHE.set(key, duel);
+      }
+      duelRef.current = duel;
+    }
   }
 
   // 角色實力變咗：按比例保留血量換新數值
@@ -125,7 +137,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
             sync();
             return r;
           },
-          nextFoe: () => ({ boss: duel.foe?.boss ?? false }),
+          nextFoe: () => ({ boss: duel.foe?.boss ?? false, look: duel.foe?.look }),
           foeDefeated: () => {
             const clearedStage = duel.stage;
             const { stageCleared } = duel.advance();
@@ -304,7 +316,9 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
       {snap && (
         <>
           <div className="ink-spar-hud" aria-live="polite">
-            <span className="ink-spar-hud-stage">第 {snap.stage} 關</span>
+            <span className="ink-spar-hud-stage">
+              第 {snap.stage} 關 · {snap.theme}
+            </span>
             <span className="ink-spar-hud-left">
               {snap.foe?.boss ? '首領之戰' : `餘敵 ${snap.minionsLeft + 1}`}
             </span>

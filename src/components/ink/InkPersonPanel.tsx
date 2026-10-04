@@ -783,9 +783,20 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
                 暴擊率：基礎 {pctText(spar.crit.base)} ＋ 膽識 {pctText(spar.crit.fromDanShi)} ＋ 悟性 {pctText(spar.crit.fromWuXing)}（上限 {pctText(spar.crit.cap)}）
               </span>
             </li>
-            <li className="ink-delta-row ink-delta-row--flat">
+            <li className={`ink-delta-row ${spar.stats.lifesteal > 0 ? 'ink-delta-row--up' : 'ink-delta-row--flat'}`}>
               <span className="ink-delta-row-text">
-                吸血：基礎 {pctText(spar.lifesteal.base)} ＋ 境界 {pctText(spar.lifesteal.fromTier)}（上限 {pctText(spar.lifesteal.cap)}）
+                吸血：
+                {spar.stats.lifesteal > 0
+                  ? `武學 ${pctText(spar.lifesteal.fromSkills)}${spar.lifesteal.skillNames.length ? `（${spar.lifesteal.skillNames.join('、')}）` : ''} ＋ 裝備 ${pctText(spar.lifesteal.fromGear)}（上限 ${pctText(spar.lifesteal.cap)}）`
+                  : '未學吸血招式、裝備亦冇吸血詞條 → 唔會吸血'}
+              </span>
+            </li>
+            <li className={`ink-delta-row ${spar.stats.clearHeal > 0 ? 'ink-delta-row--up' : 'ink-delta-row--flat'}`}>
+              <span className="ink-delta-row-text">
+                過關回血：
+                {spar.stats.clearHeal > 0
+                  ? `${pctText(spar.stats.clearHeal)}（${spar.heal.skillNames.join('、')}）`
+                  : '未學回血招式 → 唔會自動回血（敗退重來先回滿）'}
               </span>
             </li>
             <li className="ink-delta-row ink-delta-row--flat">

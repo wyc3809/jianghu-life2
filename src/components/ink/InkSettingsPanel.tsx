@@ -4,35 +4,19 @@ import { APP_VERSION_LABEL } from '../../version';
 import { haptic, hapticsSupported, isHapticsEnabled, setHapticsEnabled } from '../../ui/haptics';
 import { InkCloudSection } from './InkCloudSection';
 
-export type TextScale = 1 | 1.15 | 1.3;
-
-const TEXT_SCALE_OPTIONS: { value: TextScale; label: string }[] = [
-  { value: 1, label: '標準' },
-  { value: 1.15, label: '較大' },
-  { value: 1.3, label: '最大' },
-];
-
 type Props = {
   open: boolean;
   onClose: () => void;
-  textScale: TextScale;
-  onTextScale: (scale: TextScale) => void;
   audioMuted: boolean;
   onToggleAudio: () => void;
-  reduceMotion: boolean;
-  onToggleReduceMotion: () => void;
   onOpenBoard: () => void;
 };
 
 export function InkSettingsPanel({
   open,
   onClose,
-  textScale,
-  onTextScale,
   audioMuted,
   onToggleAudio,
-  reduceMotion,
-  onToggleReduceMotion,
   onOpenBoard,
 }: Props) {
   const closeRef = useRef<HTMLButtonElement | null>(null);
@@ -78,23 +62,6 @@ export function InkSettingsPanel({
           </button>
         </header>
 
-        <section className="ink-settings-block" aria-label="字級">
-          <p className="ink-settings-label">字級</p>
-          <div className="ink-settings-seg" role="group" aria-label="字級">
-            {TEXT_SCALE_OPTIONS.map((opt) => (
-              <button
-                key={opt.value}
-                type="button"
-                className={`ink-settings-seg-btn${textScale === opt.value ? ' is-on' : ''}`}
-                aria-pressed={textScale === opt.value}
-                onClick={() => onTextScale(opt.value)}
-              >
-                {opt.label}
-              </button>
-            ))}
-          </div>
-        </section>
-
         <section className="ink-settings-block" aria-label="音效">
           <p className="ink-settings-label">音效</p>
           <button
@@ -125,18 +92,6 @@ export function InkSettingsPanel({
             </button>
           </section>
         )}
-
-        <section className="ink-settings-block" aria-label="動態">
-          <p className="ink-settings-label">動態</p>
-          <button
-            type="button"
-            className={`ink-settings-toggle${reduceMotion ? ' is-on' : ''}`}
-            aria-pressed={reduceMotion}
-            onClick={onToggleReduceMotion}
-          >
-            {reduceMotion ? '已減少動態 · 點此恢復' : '紙卷動效開 · 點此減少'}
-          </button>
-        </section>
 
         <InkCloudSection onOpenBoard={onOpenBoard} />
 
