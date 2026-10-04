@@ -1,8 +1,9 @@
 /**
- * 切磋演武台：主畫面千燈鎮之下嘅主動畫（v3 側面圍剿版）。
- * 側身斗笠俠客企台左面向右，敵影由右邊行埋嚟，入射程即揮武器擊殺，
- * 每擊中一次經 store.sparStrike() 加修為，修為一入賬，
- * 底部大圓圈嘅修為數字就會自己滾動（佢睇 committedXp）。
+ * 切磋演武台：主畫面千燈鎮之下嘅主動畫（長血條對打版）。
+ * 每關＝幾個小兵＋一個長血條首領；俠客同敵人你一刀我一刀，彈傷害／暴擊／吸血數字，
+ * 首領倒下過關掉銅錢（銀兩＋修為）；主角演武血條打光就敗退一關、回滿血再戰（唔傷真氣血）。
+ * 數值同關卡由 core/life/sparDuel.ts 話事；引擎淨係播動畫，血條係 DOM 浮層（墨筆血條）。
+ * 每擊中一次仍經 store.sparStrike() 加修為，底部大圓圈嘅修為數字會自己滾動。
  *
  * 武器連動：讀裝備欄 equipment.weapon → getGearDef → weaponKind，
  * 對應 WEAPON_SPRITES 嘅貼圖；換裝備即換樣，冇裝備就空手。
@@ -12,7 +13,9 @@
  */
 
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { SparStage, loadSparImages, loadSparImage, loadSparUiImages } from '../../spar/engine';
+import { SparStage, loadSparImages, loadSparImage, loadSparUiImages, type SparCombatHooks } from '../../spar/engine';
+import { SparDuel, sparHeroStats, sparSavedStage, type SparDuelSnapshot } from '@core/life/sparDuel';
+import { InkBrushBar } from './InkBrush';
 import {
   ENEMY_POOL,
   WEAPON_SPRITES,
@@ -37,6 +40,17 @@ interface Props {
 }
 
 const STAGE_HEIGHT = 218;
+const COIN_SRC = `${import.meta.env.BASE_URL || '/'}ink/spar/fx-coin.webp`;
+const fmt = (n: number) => Math.max(0, Math.round(n)).toLocaleString('en-US');
+
+/** 演武數值嘅指紋：角色實力一變（升境、換兵器、武學進步）就重算主角數值 */
+function useHeroStatsKey() {
+  return useLifeStore((s) => {
+    const c = s.state?.character;
+    if (!c) return '';
+    return [c.martial, c.maxHealth, c.cultivation?.tier ?? 0, c.equipment.weapon, c.equipment.armor, c.equipment.accessory].join('|');
+  });
+}
 const NO_CONDITIONS: { id: string; name: string; monthsLeft: number; severity: number }[] = [];
 
 export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL, background = SPAR_DEFAULT_BACKGROUND, overlay }: Props) {
@@ -44,6 +58,28 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const stageRef = useRef<SparStage | null>(null);
   const [failed, setFailed] = useState(false);
+
+  // 對打狀態（純邏輯）＋血條浮層
+  const duelRef = useRef<SparDuel | null>(null);
+  const [snap, setSnap] = useState<SparDuelSnapshot | null>(null);
+  const [clearNote, setClearNote] = useState<string | null>(null);
+  const heroBarRef = useRef<HTMLDivElement | null>(null);
+  const foeBarRef = useRef<HTMLDivElement | null>(null);
+  const statsKey = useHeroStatsKey();
+
+  if (!duelRef.current) {
+    const st = useLifeStore.getState().state;
+    if (st) duelRef.current = new SparDuel(sparHeroStats(st), sparSavedStage(st));
+  }
+
+  // 角色實力變咗：按比例保留血量換新數值
+  useEffect(() => {
+    const st = useLifeStore.getState().state;
+    const duel = duelRef.current;
+    if (!st || !duel) return;
+    duel.setHero(sparHeroStats(st));
+    setSnap(duel.snapshot());
+  }, [statsKey]);
 
   // 門派服裝：冇特別指定 skin 就按角色門派著衫（無門派＝默認浪人裝）
   const sectId = useLifeStore((s) => s.state?.character.sectId ?? null);
@@ -72,6 +108,68 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
     let cancelled = false;
 
     const sparStrike = useLifeStore.getState().sparStrike;
+    const duel = duelRef.current;
+    const sync = () => {
+      if (duel) setSnap(duel.snapshot());
+    };
+    let noteTimer: ReturnType<typeof setTimeout> | null = null;
+    const combat: SparCombatHooks | undefined = duel
+      ? {
+          heroStrike: () => {
+            const r = duel.heroStrike();
+            sync();
+            return r;
+          },
+          foeStrike: () => {
+            const r = duel.foeStrike();
+            sync();
+            return r;
+          },
+          nextFoe: () => ({ boss: duel.foe?.boss ?? false }),
+          foeDefeated: () => {
+            const clearedStage = duel.stage;
+            const { stageCleared } = duel.advance();
+            sync();
+            if (!stageCleared) return { coins: 0 };
+            const reward = useLifeStore.getState().sparStageClear(clearedStage);
+            setClearNote(`第 ${clearedStage} 關 過關　銀兩 +${reward.silver}　修為 +${Math.round(reward.xp)}`);
+            if (noteTimer) clearTimeout(noteTimer);
+            noteTimer = setTimeout(() => setClearNote(null), 2400);
+            return { coins: 6 };
+          },
+          heroRecovered: () => {
+            duel.retreat();
+            useLifeStore.getState().sparSetStage(duel.stage);
+            setClearNote(`演武敗退　退守第 ${duel.stage} 關`);
+            if (noteTimer) clearTimeout(noteTimer);
+            noteTimer = setTimeout(() => setClearNote(null), 2000);
+            sync();
+          },
+        }
+      : undefined;
+
+    /** 血條跟住頭頂行（直接改 style，唔觸發 React 重繪） */
+    const placeBars = () => {
+      if (!stage) return;
+      const a = stage.getAnchors();
+      const w = wrap.clientWidth;
+      // 主角血條向左伸、敵人血條向右伸，上下錯開，唔會疊埋
+      const hb = heroBarRef.current;
+      if (hb) {
+        const left = Math.max(6, a.heroX + 18 - hb.offsetWidth);
+        hb.style.transform = `translate(${left.toFixed(1)}px, ${(a.heroHeadY - 12).toFixed(1)}px)`;
+      }
+      const fb = foeBarRef.current;
+      if (fb) {
+        if (a.foeX === null) fb.style.opacity = '0';
+        else {
+          fb.style.opacity = '1';
+          const left = Math.min(a.foeX - 18, w - fb.offsetWidth - 6);
+          const lift = fb.offsetHeight + 30;
+          fb.style.transform = `translate(${left.toFixed(1)}px, ${(a.foeHeadY - lift).toFixed(1)}px)`;
+        }
+      }
+    };
 
     const frame = (now: number) => {
       if (!stage) return;
@@ -79,6 +177,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
       last = now;
       stage.update(dt);
       stage.render();
+      placeBars();
       if (running) raf = requestAnimationFrame(frame);
     };
 
@@ -97,6 +196,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
     loadSparImages(rig, enemies)
       .then(async (images) => {
         images.ui = await loadSparUiImages();
+        images.coin = await loadSparImage(COIN_SRC).catch(() => null);
         if (cancelled) return;
         stage = new SparStage({
           canvas,
@@ -104,7 +204,9 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
           rig,
           enemies,
           onStrike: () => sparStrike(),
+          combat,
         });
+        sync();
         stageRef.current = stage;
         const rect = wrap.getBoundingClientRect();
         stage.resize(rect.width, STAGE_HEIGHT, Math.min(window.devicePixelRatio || 1, 2.5));
@@ -153,6 +255,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
 
     return () => {
       cancelled = true;
+      if (noteTimer) clearTimeout(noteTimer);
       stageRef.current = null;
       stopLoop();
       ro.disconnect();
@@ -198,6 +301,35 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
     <div className="ink-spar-stage" ref={wrapRef} aria-label="切磋演武">
       <canvas ref={canvasRef} style={{ width: '100%', height: STAGE_HEIGHT, display: 'block' }} />
       {overlay}
+      {snap && (
+        <>
+          <div className="ink-spar-hud" aria-live="polite">
+            <span className="ink-spar-hud-stage">第 {snap.stage} 關</span>
+            <span className="ink-spar-hud-left">
+              {snap.foe?.boss ? '首領之戰' : `餘敵 ${snap.minionsLeft + 1}`}
+            </span>
+          </div>
+          <div className="ink-spar-bar ink-spar-bar--hero" ref={heroBarRef} aria-label={`演武氣血 ${fmt(snap.heroHp)}`}>
+            <InkBrushBar pct={(snap.heroHp / Math.max(1, snap.heroMaxHp)) * 100} tone="jade" />
+            <span className="ink-spar-bar-num">{fmt(snap.heroHp)}</span>
+          </div>
+          <div
+            className={`ink-spar-bar ink-spar-bar--foe${snap.foe?.boss ? ' is-boss' : ''}`}
+            ref={foeBarRef}
+            aria-label={snap.foe ? `${snap.foe.name} ${fmt(snap.foeHp)}` : undefined}
+          >
+            {snap.foe?.boss && (
+              <span className="ink-spar-boss-name" key={`${snap.stage}-${snap.foe.name}`}>
+                <em>首領</em>
+                {snap.foe.name}
+              </span>
+            )}
+            <InkBrushBar pct={snap.foe ? (snap.foeHp / Math.max(1, snap.foe.maxHp)) * 100 : 0} tone="cinnabar" />
+            <span className="ink-spar-bar-num">{fmt(snap.foeHp)}</span>
+          </div>
+          {clearNote && <p className="ink-spar-clear-note">{clearNote}</p>}
+        </>
+      )}
       {conditions.length > 0 && (
         <div className="ink-spar-conditions" aria-label="狀態">
           {conditions.map((cond) => (

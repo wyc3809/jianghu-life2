@@ -84,6 +84,10 @@ export interface LifeStore {
   tickCultivation: (deltaSeconds: number) => void;
   /** 主畫面切磋演武：俠客每擊中敵影一次嘅修為回饋，回傳實際入賬數（0＝已到頂或未開局） */
   sparStrike: () => number;
+  /** 演武台：首領倒下過關（銀兩＋修為），記低去到第幾關；回傳實際獎勵 */
+  sparStageClear: (clearedStage: number) => { silver: number; xp: number };
+  /** 演武台：敗退後記低退返嘅關數 */
+  sparSetStage: (stage: number) => void;
   /** 突破：修為滿咗先可以觸發 */
   attemptBreakthrough: () => void;
   /** 突破結果：驅動專屬彈窗＋升級動畫（null＝冇要顯示） */

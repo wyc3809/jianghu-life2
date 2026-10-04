@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { APP_VERSION_LABEL } from '../../version';
 import { haptic, hapticsSupported, isHapticsEnabled, setHapticsEnabled } from '../../ui/haptics';
+import { InkCloudSection } from './InkCloudSection';
 
 export type TextScale = 1 | 1.15 | 1.3;
 
@@ -20,6 +21,7 @@ type Props = {
   onToggleAudio: () => void;
   reduceMotion: boolean;
   onToggleReduceMotion: () => void;
+  onOpenBoard: () => void;
 };
 
 export function InkSettingsPanel({
@@ -31,6 +33,7 @@ export function InkSettingsPanel({
   onToggleAudio,
   reduceMotion,
   onToggleReduceMotion,
+  onOpenBoard,
 }: Props) {
   const closeRef = useRef<HTMLButtonElement | null>(null);
   const [hapticsOn, setHapticsOn] = useState(isHapticsEnabled);
@@ -134,6 +137,8 @@ export function InkSettingsPanel({
             {reduceMotion ? '已減少動態 · 點此恢復' : '紙卷動效開 · 點此減少'}
           </button>
         </section>
+
+        <InkCloudSection onOpenBoard={onOpenBoard} />
 
         <footer className="ink-settings-foot">
           <p className="ink-settings-version" title={APP_VERSION_LABEL}>

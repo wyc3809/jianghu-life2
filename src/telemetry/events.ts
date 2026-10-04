@@ -4,6 +4,7 @@ export type TelemetryEvent =
   | 'life_create'
   | 'life_resume'
   | 'month_advance'
+  | 'spar_stage_clear'
   | 'choice_made'
   | 'combat_start'
   | 'combat_end'

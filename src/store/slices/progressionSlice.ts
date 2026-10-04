@@ -32,6 +32,8 @@ import {
 } from '@core/life/cultivation';
 import { hasEnoughActionPoints, tickActionPoints } from '@core/life/actionPoints';
 import { track } from '../../telemetry/events';
+import { sparStageReward } from '@core/life/sparDuel';
+import { currentCultivationTier } from '@core/life/cultivation';
 import type { LifeStore } from '../lifeStore';
 
 export function createProgressionSlice(
@@ -64,6 +66,8 @@ export function createProgressionSlice(
   | 'teachDisciple'
   | 'tickCultivation'
   | 'sparStrike'
+  | 'sparStageClear'
+  | 'sparSetStage'
   | 'attemptBreakthrough'
   | 'clearBreakthroughResult'
   | 'clearOfflineGain'
@@ -383,6 +387,36 @@ export function createProgressionSlice(
         set({ state: next });
       }
       return gained;
+    },
+
+    sparStageClear: (clearedStage: number) => {
+      const { state } = get();
+      if (!state || state.phase !== 'playing' || !state.character.alive) return { silver: 0, xp: 0 };
+      const reward = sparStageReward(clearedStage);
+      let xp = 0;
+      const next = produce(state, (draft) => {
+        const c = draft.character;
+        c.money += reward.silver;
+        const cap = currentCultivationTier(draft).cap;
+        const before = c.cultivation.xp;
+        c.cultivation.xp = Number.isFinite(cap) ? Math.min(cap, before + reward.xp) : before + reward.xp;
+        xp = c.cultivation.xp - before;
+        c.flags.spar_stage = clearedStage + 1;
+      });
+      save(next, false);
+      set({ state: next });
+      track('spar_stage_clear', { stage: clearedStage });
+      return { silver: reward.silver, xp };
+    },
+
+    sparSetStage: (stage: number) => {
+      const { state } = get();
+      if (!state) return;
+      const next = produce(state, (draft) => {
+        draft.character.flags.spar_stage = Math.max(1, Math.floor(stage));
+      });
+      save(next, false);
+      set({ state: next });
     },
 
     attemptBreakthrough: () => {

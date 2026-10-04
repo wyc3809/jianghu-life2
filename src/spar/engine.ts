@@ -184,7 +184,9 @@ function evalPose(bone: string, idleT: number, deltaClip: SparClip | null, delta
 }
 
 interface Particle { x: number; y: number; vx: number; vy: number; r: number; age: number; dur: number }
-interface Floater { x: number; y: number; text: string; gain: number; age: number; dur: number }
+type FloaterKind = 'xp' | 'dmg' | 'crit' | 'heal' | 'hurt';
+interface Floater { x: number; y: number; text: string; gain: number; age: number; dur: number; kind?: FloaterKind }
+interface CoinFx { x: number; y: number; vx: number; vy: number; rot: number; vr: number; age: number; dur: number; groundY: number }
 interface TrailDot { x: number; y: number; age: number }
 interface SplashFx { x: number; y: number; rot: number; age: number; dur: number }
 
@@ -198,6 +200,11 @@ interface EnemyInst {
   def: EnemyDef; // 邊款敵人（出敵池抽）
   speedMul: number; // 行路速度倍率（每隻唔同節奏）
   scaleMul: number; // 身形微調倍率
+  boss: boolean; // 首領（身形大啲、出手快啲）
+  hitT: number; // 受擊後退計時（大＝冇受擊）
+  atkTimer: number; // 距離下一次出手
+  lungeT: number | null; // 撲擊動作計時
+  lungeHit: boolean; // 今次撲擊已結算
 }
 
 export interface SparStageImages {
@@ -222,6 +229,34 @@ export interface SparStageImages {
   background?: HTMLImageElement | null;
   /** 修為浮字嘅 AI 水墨素材（未載好就用文字 fallback） */
   ui?: SparUiImages;
+  /** 首領掉落銅錢（位圖） */
+  coin?: HTMLImageElement | null;
+}
+
+/**
+ * 對打鈎（演武台長血條玩法）：引擎淨係播動畫，數值同關卡由外面（core/life/sparDuel）話事。
+ * 唔俾就係舊玩法（一擊一個、彈修為字）。
+ */
+export interface SparCombatHooks {
+  /** 主角劍鋒到肉 */
+  heroStrike(): { dmg: number; crit: boolean; heal: number; killed: boolean };
+  /** 敵人撲擊到肉 */
+  foeStrike(): { dmg: number; heroDown: boolean };
+  /** 下一個出場敵人係咪首領 */
+  nextFoe(): { boss: boolean };
+  /** 敵人倒地動畫完：換下一個（或過關）；回傳要彈幾多個銅錢 */
+  foeDefeated(): { coins: number };
+  /** 敗退倒地動畫完：退一關、回血 */
+  heroRecovered(): void;
+}
+
+/** 血條等 DOM 浮層嘅錨點（css px） */
+export interface SparAnchors {
+  heroX: number;
+  heroHeadY: number;
+  foeX: number | null;
+  foeHeadY: number;
+  foeBoss: boolean;
 }
 
 /** 修為浮字用嘅水墨素材：宣紙墨漬徽章＋朱砂書法字形 */
@@ -243,7 +278,13 @@ export interface SparStageOptions {
   /** 出敵池：每次入場隨機抽一款；冇俾就淨係墨影 */
   enemies?: EnemyDef[];
   weapon?: WeaponSpriteDef | null;
+  combat?: SparCombatHooks;
 }
+
+/** 敵人撲擊節奏（秒） */
+const LUNGE_DUR = 0.55;
+const LUNGE_HIT_AT = 0.3;
+const HERO_DOWN_DUR = 1.6;
 
 const ATTACK_COOLDOWN = 0.18; // 收招後幾耐再出手（射程內有敵即出手）
 
@@ -255,6 +296,11 @@ export class SparStage {
   /** 出敵池：每次入場隨機抽一款 */
   private enemyPool: EnemyDef[];
   private onStrike?: () => number;
+  private combat?: SparCombatHooks;
+  private coins: CoinFx[] = [];
+  private heroHitT = 9;
+  private heroDownT: number | null = null;
+  private pendingDefeat = false;
 
   private weaponDef: WeaponSpriteDef | null = null;
 
@@ -303,6 +349,7 @@ export class SparStage {
     this.rig = opts.rig ?? WARRIOR;
     this.enemyPool = opts.enemies && opts.enemies.length ? opts.enemies : [ENEMY_SHADOW];
     this.onStrike = opts.onStrike;
+    this.combat = opts.combat;
     this.weaponDef = opts.weapon ?? null;
     this.bgImg = opts.images.background ?? null;
   }
@@ -336,11 +383,33 @@ export class SparStage {
     this.director.resetToEnter();
     this.walkT = 0;
     this.heroFade = 1;
-    const pick = (i: number) => this.enemyPool[i % this.enemyPool.length]!;
     // 單挑：淨擺一個敵人喺右緣望左
-    this.enemies = [
-      { x: this.cssW * 0.74, state: 'hold', t: 9, bob: 1.7, stopJitter: 1, def: pick(1), speedMul: 1, scaleMul: 1 },
-    ];
+    this.enemies = [this.makeEnemy(this.cssW * 0.74, 'hold', 1)];
+  }
+
+  /** 出一個敵人：對打模式問外面係咪首領（首領用鐵面／赤髮，身形大啲） */
+  private makeEnemy(x: number, state: EnemyState, defIdx?: number): EnemyInst {
+    const boss = this.combat?.nextFoe().boss ?? false;
+    const pool = this.enemyPool;
+    const bossIdx = [4, 6].filter((i) => i < pool.length);
+    const idx = boss && bossIdx.length
+      ? bossIdx[Math.floor(Math.random() * bossIdx.length)]!
+      : defIdx ?? Math.floor(Math.random() * pool.length);
+    return {
+      x,
+      state,
+      t: state === 'hold' ? 9 : 0,
+      bob: Math.random() * 6,
+      stopJitter: 1,
+      def: pool[idx % pool.length]!,
+      speedMul: 1,
+      scaleMul: boss ? 1.3 : 0.94 + Math.random() * 0.1,
+      boss,
+      hitT: 9,
+      atkTimer: 1.1 + Math.random() * 0.5,
+      lungeT: null,
+      lungeHit: false,
+    };
   }
 
   /** 清場後／行盡右緣：俠客返左，再出下一個望左敵人 */
@@ -351,21 +420,41 @@ export class SparStage {
     this.walkT = 0;
     this.heroFade = 0.45;
     this.attackCooldown = 0.28;
-    const pick = (i: number) => this.enemyPool[i % this.enemyPool.length]!;
-    const defIdx = Math.floor(Math.random() * this.enemyPool.length);
+    this.heroDownT = null;
+    this.heroHitT = 9;
     // 一打一個：每次淨補一個
-    this.enemies = [
-      {
-        x: this.cssW * 0.72 + Math.random() * 16,
-        state: 'spawn',
-        t: 0,
-        bob: Math.random() * 6,
-        stopJitter: 1,
-        def: pick(defIdx),
-        speedMul: 1,
-        scaleMul: 0.94 + Math.random() * 0.1,
-      },
-    ];
+    this.enemies = [this.makeEnemy(this.cssW * 0.72 + Math.random() * 16, 'spawn')];
+  }
+
+  /** 對打模式：敵人站位（固定右邊），俠客最多行到佢面前 */
+  private foeSpotX() {
+    return this.cssW * 0.7;
+  }
+
+  /** 對打企位間距：兩個剪影唔好疊埋，敵人撲擊剛好撲到 */
+  private duelGap() {
+    return Math.max(34, this.cssW * 0.11);
+  }
+
+  /** 俠客停步位：唔好穿過敵人 */
+  private heroStopX(e: EnemyInst | null) {
+    const ex = e ? e.x : this.foeSpotX();
+    const front = e ? this.enemyFront(e) : 90 * this.geom().k * 0.45;
+    return ex - this.duelGap() - front;
+  }
+
+  /** DOM 浮層（血條）錨點 */
+  getAnchors(): SparAnchors {
+    const g = this.geom();
+    const foe = this.enemies.find((e) => e.state !== 'dead') ?? null;
+    const ke = foe ? this.enemyKe(foe) : g.k;
+    return {
+      heroX: g.heroX,
+      heroHeadY: g.groundY - SILHOUETTE_DESIGN_H * g.k * 0.98,
+      foeX: foe ? foe.x : null,
+      foeHeadY: g.groundY - SILHOUETTE_DESIGN_H * ke * 0.98,
+      foeBoss: foe?.boss ?? false,
+    };
   }
 
   resize(cssW: number, cssH: number, dpr: number) {
@@ -390,6 +479,21 @@ export class SparStage {
     if (this.bgFade < 1) this.bgFade = Math.min(1, this.bgFade + dt / 0.6);
 
     this.geom(); // 確保 heroX 已初始化
+    this.heroHitT += dt;
+
+    // 對打：敗退倒地 → 退一關、回血、重新入場
+    if (this.heroDownT !== null) {
+      this.heroDownT += dt;
+      this.attackT = null;
+      for (const e of this.enemies) e.bob += dt;
+      if (this.heroDownT >= HERO_DOWN_DUR) {
+        this.combat?.heroRecovered();
+        this.resetLane();
+        this.director.resetToEnter();
+      }
+      this.ageFx(dt);
+      return;
+    }
 
     // B：導演節奏
     const inMelee = !!this.nearestInRange();
@@ -410,6 +514,8 @@ export class SparStage {
     // 敵人：望左企定，畫面 x 唔郁；淨處理出生／死亡
     for (const e of this.enemies) {
       e.bob += dt;
+      e.hitT += dt;
+      if (this.combat && e.state === 'hold') this.updateLunge(e, dt);
       if (e.state === 'spawn') {
         e.t += dt;
         if (e.t >= SPAR_CLIPS['enemy-spawn'].dur) { e.state = 'hold'; e.t = 0; }
@@ -420,6 +526,16 @@ export class SparStage {
       }
     }
     this.enemies = this.enemies.filter((e) => !(e.state === 'dead' && e.t >= SPAR_CLIPS['enemy-death'].dur));
+
+    // 對打：敵人倒地動畫完 → 結算（換人／過關掉錢）→ 右邊再出一個
+    if (this.combat && this.enemies.length === 0) {
+      if (this.pendingDefeat) {
+        this.pendingDefeat = false;
+        const { coins } = this.combat.foeDefeated();
+        this.spawnCoins(coins);
+      }
+      this.enemies = [this.makeEnemy(this.foeSpotX(), 'spawn')];
+    }
 
     // 俠客行過去
     const striking = this.attackT !== null;
@@ -441,9 +557,16 @@ export class SparStage {
       }
     }
 
-    // 行過右緣、或單挑清場後 → 重置再出下一個
+    // 對打：唔好穿過敵人（企喺射程內你一刀我一刀）
+    if (this.combat) {
+      const foe = this.enemies.find((e) => e.state !== 'dead') ?? null;
+      this.heroX = Math.min(this.heroX, this.heroStopX(foe));
+    }
+
+    // 行過右緣、或單挑清場後 → 重置再出下一個（對打模式由上面自己補敵）
     const alive = this.enemies.filter((e) => e.state !== 'dead').length;
     if (
+      !this.combat &&
       !this.laneResetting &&
       (this.heroX > this.cssW * 0.94 ||
         (alive === 0 && this.attackT === null && this.enemies.length === 0) ||
@@ -481,7 +604,11 @@ export class SparStage {
       this.attackCooldown = Math.min(this.attackCooldown, 0.1);
     }
 
-    // 特效老化
+    this.ageFx(dt);
+  }
+
+  /** 特效老化（停格／倒地時都要繼續） */
+  private ageFx(dt: number) {
     const age = <T extends { age: number; dur: number }>(arr: T[], dtv: number) => {
       for (const it of arr) it.age += dtv;
       return arr.filter((it) => it.age < it.dur);
@@ -500,6 +627,86 @@ export class SparStage {
       this.trail.map((d) => ({ ...d, dur: 0.32 })),
       dt,
     );
+    this.coins = age(this.coins, dt);
+    for (const c of this.coins) {
+      c.vy += 620 * dt;
+      c.x += c.vx * dt;
+      c.y += c.vy * dt;
+      c.rot += c.vr * dt;
+      if (c.y > c.groundY && c.vy > 0) {
+        c.y = c.groundY;
+        c.vy *= -0.38;
+        c.vx *= 0.6;
+        c.vr *= 0.5;
+      }
+    }
+  }
+
+  /** 敵人撲擊：射程內計時 → 後縮蓄勢 → 撲前到肉 → 收勢 */
+  private updateLunge(e: EnemyInst, dt: number) {
+    const close = e.x - this.heroX <= this.duelGap() + this.enemyFront(e) + 24;
+    if (e.lungeT === null) {
+      if (!close) return;
+      e.atkTimer -= dt;
+      if (e.atkTimer <= 0) {
+        e.lungeT = 0;
+        e.lungeHit = false;
+      }
+      return;
+    }
+    e.lungeT += dt;
+    if (!e.lungeHit && e.lungeT >= LUNGE_HIT_AT) {
+      e.lungeHit = true;
+      this.foeHits(e);
+    }
+    if (e.lungeT >= LUNGE_DUR) {
+      e.lungeT = null;
+      e.atkTimer = (e.boss ? 1.15 : 1.6) + Math.random() * 0.5;
+    }
+  }
+
+  /** 敵人一擊到肉：主角退縮、彈紅字；血見底就敗退 */
+  private foeHits(e: EnemyInst) {
+    if (!this.combat || this.heroDownT !== null) return;
+    const r = this.combat.foeStrike();
+    if (r.dmg <= 0) return;
+    const g = this.geom();
+    this.heroHitT = 0;
+    this.shake = Math.max(this.shake, this.quiet ? 0 : e.boss ? 5 : 3);
+    this.floaters.push({
+      x: g.heroX + (Math.random() - 0.5) * 22,
+      y: g.groundY - SILHOUETTE_DESIGN_H * g.k * 0.58,
+      text: `-${r.dmg.toLocaleString('en-US')}`,
+      gain: r.dmg,
+      age: 0,
+      dur: 0.95,
+      kind: 'hurt',
+    });
+    if (r.heroDown) {
+      this.heroDownT = 0;
+      this.attackT = null;
+      this.trail = [];
+    }
+  }
+
+  /** 首領掉銅錢：由首領位彈出、跌落地彈兩彈 */
+  private spawnCoins(n: number) {
+    if (n <= 0 || this.quiet) return;
+    const g = this.geom();
+    const x0 = this.foeSpotX();
+    for (let i = 0; i < n; i++) {
+      this.coins.push({
+        x: x0 + (Math.random() - 0.5) * 20,
+        y: g.groundY - 60 * (this.cssH / 218),
+        vx: -40 - Math.random() * 120,
+        vy: -170 - Math.random() * 130,
+        rot: Math.random() * 6,
+        vr: (Math.random() - 0.5) * 14,
+        age: 0,
+        dur: 1.8 + Math.random() * 0.4,
+        groundY: g.groundY - 6,
+      });
+    }
   }
 
   /** 而家用緊嘅揮擊 clip：v3 皮膚可以有自訂（霧接臂用溫和版） */
@@ -522,7 +729,7 @@ export class SparStage {
     let best: EnemyInst | null = null;
     let bestD = Infinity;
     // 近戰先出手：要主角真係行埋去，唔好半個舞台外就揮劍
-    const melee = this.reachPx() * 0.72 + this.cssW * 0.04;
+    const melee = this.combat ? this.duelGap() + 12 : this.reachPx() * 0.72 + this.cssW * 0.04;
     for (const e of this.enemies) {
       if (!this.aliveEnemy(e)) continue;
       const d = e.x - g.heroX; // 畫面距離：敵人喺俠客右邊
@@ -543,16 +750,54 @@ export class SparStage {
     this.flash = this.quiet ? 0 : 1;
 
     const target = this.nearestInRange();
-    if (target && target.state !== 'dead') {
-      target.state = 'dead';
-      target.t = 0;
-    }
-
     const g = this.geom();
     const ix = target ? target.x - 12 : g.heroX + this.reachPx() * 0.8;
     const iy = g.groundY - 300 * g.k * 1.05;
 
-    const gained = this.onStrike?.() ?? 0;
+    if (this.combat) {
+      if (target && target.state !== 'dead') {
+        const r = this.combat.heroStrike();
+        this.onStrike?.();
+        if (r.killed) {
+          target.state = 'dead';
+          target.t = 0;
+          target.lungeT = null;
+          this.pendingDefeat = true;
+        } else {
+          target.hitT = 0;
+        }
+        const headY = g.groundY - SILHOUETTE_DESIGN_H * this.enemyKe(target) * 0.6;
+        this.floaters.push({
+          x: target.x + (Math.random() - 0.5) * 34,
+          y: headY - Math.random() * 14,
+          text: r.dmg.toLocaleString('en-US'),
+          gain: r.dmg,
+          age: 0,
+          dur: r.crit ? 1.15 : 0.9,
+          kind: r.crit ? 'crit' : 'dmg',
+        });
+        if (r.heal > 0) {
+          this.floaters.push({
+            x: g.heroX - 14 + (Math.random() - 0.5) * 16,
+            y: g.groundY - SILHOUETTE_DESIGN_H * g.k * 0.78,
+            text: `+${r.heal.toLocaleString('en-US')}`,
+            gain: r.heal,
+            age: 0,
+            dur: 0.95,
+            kind: 'heal',
+          });
+        }
+        if (r.crit && !this.quiet) {
+          this.shake = 9;
+          this.hitStop = 0.13;
+        }
+      }
+    } else if (target && target.state !== 'dead') {
+      target.state = 'dead';
+      target.t = 0;
+    }
+
+    const gained = this.combat ? 0 : this.onStrike?.() ?? 0;
     if (gained > 0) {
       // 修為累積有浮點尾數（1.0000000000000004），顯示時收返整
       const shown = Math.abs(gained - Math.round(gained)) < 1e-6 ? Math.round(gained) : Number(gained.toFixed(1));
@@ -636,6 +881,7 @@ export class SparStage {
     this.drawTrail();
     this.drawSplashes();
     this.drawParticles();
+    this.drawCoins();
     this.drawFloaters();
 
     // 敵影受擊白閃：全台微微提亮一瞬（極輕）
@@ -685,7 +931,32 @@ export class SparStage {
     if (e.state === 'dead') return evalPose('enemy', this.idleT, SPAR_CLIPS['enemy-death'], e.t);
     if (e.state === 'spawn') return evalPose('enemy', this.idleT, SPAR_CLIPS['enemy-spawn'], e.t);
     const bobY = Math.sin(e.bob * (e.state === 'walk' ? 8.5 : 2.4)) * (e.state === 'walk' ? 3.4 : 2.2);
-    return { ...REST, y: bobY };
+    let x = 0;
+    let rot = 0;
+    // 受擊：向後一彈、身仰
+    if (e.hitT < 0.24) {
+      const p = 1 - e.hitT / 0.24;
+      x += 130 * p * p;
+      rot += 7 * p;
+    }
+    // 撲擊：後縮蓄勢 → 撲前 → 收勢（du，向左＝負）
+    if (e.lungeT !== null) {
+      const t = e.lungeT;
+      if (t < 0.18) {
+        const p = t / 0.18;
+        x += 90 * p;
+        rot += 5 * p;
+      } else if (t < LUNGE_HIT_AT + 0.04) {
+        const p = (t - 0.18) / (LUNGE_HIT_AT + 0.04 - 0.18);
+        x += 90 - 520 * Math.sin((p * Math.PI) / 2);
+        rot += 5 - 14 * p;
+      } else {
+        const p = Math.min(1, (t - LUNGE_HIT_AT - 0.04) / (LUNGE_DUR - LUNGE_HIT_AT - 0.04));
+        x += -430 * (1 - p) * (1 - p);
+        rot += -9 * (1 - p);
+      }
+    }
+    return { ...REST, x, y: bobY, rot };
   }
 
   private shadow(x: number, y: number, rx: number) {
@@ -710,7 +981,11 @@ export class SparStage {
       const crouch = (this.directorSample?.crouchY ?? 0) * g.k;
       const fade = Math.max(0.35, Math.min(1, this.heroFade || 1));
 
-      const fx = g.heroX + body.x * g.k;
+      // 對打：中招向後一縮；敗退向後仰倒、淡出
+      const flinch = this.heroHitT < 0.22 ? 1 - this.heroHitT / 0.22 : 0;
+      const downP = this.heroDownT !== null ? Math.min(1, this.heroDownT / 0.7) : 0;
+      const downFade = this.heroDownT !== null ? Math.max(0, 1 - Math.max(0, this.heroDownT - 0.9) / 0.6) : 1;
+      const fx = g.heroX + body.x * g.k - 9 * flinch * flinch - 18 * downP;
       const fy = g.groundY + body.y * g.k + crouch;
       const src = this.weaponDef?.src ?? '';
       const weaponKind = !this.weaponDef
@@ -753,9 +1028,9 @@ export class SparStage {
       }
 
       ctx.save();
-      ctx.globalAlpha *= fade;
+      ctx.globalAlpha *= fade * downFade;
       ctx.translate(fx, fy);
-      ctx.rotate(body.rot * DEG);
+      ctx.rotate((body.rot - 6 * flinch - 78 * (1 - (1 - downP) ** 3)) * DEG);
       ctx.scale(1, sy);
       drawSilhouetteSprite(ctx, heroImg, {
         k: g.k,
@@ -832,13 +1107,14 @@ export class SparStage {
       ctx.save();
       ctx.globalAlpha = Math.max(0, Math.min(1, pose.alpha)) * 0.9;
       const pulse = 0.55 + 0.25 * Math.sin(e.bob * 2.6);
-      const rg = ctx.createRadialGradient(footX, footY, 2, footX, footY, 58 * ke);
+      const aura = e.boss ? 1.6 : 1;
+      const rg = ctx.createRadialGradient(footX, footY, 2, footX, footY, 58 * ke * aura);
       rg.addColorStop(0, `rgba(${CINNABAR},${0.5 * pulse})`);
       rg.addColorStop(0.45, `rgba(${CINNABAR},${0.16 * pulse})`);
       rg.addColorStop(1, `rgba(${CINNABAR},0)`);
       ctx.fillStyle = rg;
       ctx.beginPath();
-      ctx.ellipse(footX, footY, 54 * ke, 15 * ke, 0, 0, Math.PI * 2);
+      ctx.ellipse(footX, footY, 54 * ke * aura, 15 * ke * aura, 0, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
     }
@@ -966,6 +1242,10 @@ export class SparStage {
       const p = f.age / f.dur;
       const alpha = p < 0.15 ? p / 0.15 : 1 - Math.pow((p - 0.15) / 0.85, 2);
       const ty = f.y - p * 38;
+      if (f.kind && f.kind !== 'xp') {
+        this.drawCombatNumber(f, p, alpha);
+        continue;
+      }
       // AI 水墨版：宣紙墨漬徽章＋朱砂書法字形（未載好就用文字 fallback）
       if (ui?.splashPaper && ui.xiuwei && ui.glyphs['+']) {
         const gh = 17; // 數字字形高（css px）
@@ -1013,7 +1293,67 @@ export class SparStage {
       ctx.restore();
     }
   }
+
+  /** 傷害／暴擊／回血／受傷數字：彈出放大再縮返、向上飄 */
+  private drawCombatNumber(f: Floater, p: number, alpha: number) {
+    const { ctx } = this;
+    const k = this.cssH / 218;
+    const base = f.kind === 'crit' ? 30 : f.kind === 'heal' ? 19 : f.kind === 'hurt' ? 20 : 23;
+    const pop = p < 0.12 ? 1.5 - (p / 0.12) * 0.5 : 1;
+    const size = Math.round(base * k * pop);
+    const rise = f.kind === 'crit' ? 22 : 30;
+    const y = f.y - (1 - (1 - p) ** 2) * rise * k;
+    const fill =
+      f.kind === 'crit'
+        ? '#f6d36b'
+        : f.kind === 'heal'
+          ? '#9ee06a'
+          : f.kind === 'hurt'
+            ? '#f08a70'
+            : '#fbf7ee';
+    ctx.save();
+    ctx.globalAlpha = Math.max(0, alpha);
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'alphabetic';
+    ctx.lineJoin = 'round';
+    if (f.kind === 'crit') {
+      ctx.font = NUM_FONT.replace('SIZE', String(Math.round(12 * k)));
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = `rgba(${INK},0.9)`;
+      ctx.strokeText('暴擊', f.x - size * 1.1, y - size * 0.62);
+      ctx.fillStyle = `rgb(${CINNABAR})`;
+      ctx.fillText('暴擊', f.x - size * 1.1, y - size * 0.62);
+    }
+    ctx.font = NUM_FONT.replace('SIZE', String(size));
+    ctx.lineWidth = Math.max(3, size * 0.22);
+    ctx.strokeStyle = `rgba(${INK},0.92)`;
+    ctx.strokeText(f.text, f.x, y);
+    ctx.fillStyle = fill;
+    ctx.fillText(f.text, f.x, y);
+    ctx.restore();
+  }
+
+  /** 首領掉嘅銅錢（位圖）：落地彈兩彈、最後淡出 */
+  private drawCoins() {
+    const img = this.images.coin;
+    if (!img || !this.coins.length) return;
+    const { ctx } = this;
+    const size = 18 * (this.cssH / 218);
+    for (const c of this.coins) {
+      const p = c.age / c.dur;
+      ctx.save();
+      ctx.globalAlpha = p > 0.75 ? 1 - (p - 0.75) / 0.25 : 1;
+      ctx.translate(c.x, c.y);
+      ctx.rotate(c.rot);
+      ctx.scale(Math.max(0.25, Math.abs(Math.cos(c.rot * 0.7))), 1);
+      ctx.drawImage(img, -size / 2, -size / 2, size, size);
+      ctx.restore();
+    }
+  }
 }
+
+/** 對打數字字型：粗楷書斜體，白字墨邊（似參考圖嘅手寫大數） */
+const NUM_FONT = `italic 800 SIZEpx 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', serif`;
 
 /** 載入 AI 剪影位圖（俠客待機／揮擊＋敵人池）＋特效；角色可失敗用佔位，splash 必要 */
 export function loadSparImages(

@@ -1,4 +1,5 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
+import { flushCloudSync, queueCloudSync } from '../cloud/sync';
 
 let persistTimer: ReturnType<typeof setTimeout> | null = null;
 let pendingState: LifeGameState | null = null;
@@ -7,6 +8,7 @@ async function writeNow(state: LifeGameState): Promise<void> {
   pendingState = null;
   const { persistLife } = await import('@core/life/saveIndexedDb');
   await persistLife(state);
+  queueCloudSync(state);
 }
 
 /** 延遲寫盤（戰鬥回合等熱路徑）；immediate 用於月結／抉擇／戰畢 */
@@ -41,7 +43,10 @@ export function flushPersist(): void {
 
 export function installPersistLifecycle(): () => void {
   if (typeof window === 'undefined') return () => {};
-  const onHide = () => flushPersist();
+  const onHide = () => {
+    flushPersist();
+    flushCloudSync();
+  };
   window.addEventListener('pagehide', onHide);
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') onHide();
