@@ -260,6 +260,12 @@ export const SPAR_BACKGROUNDS: Record<string, { src: string; opacity?: number }>
     src: `${import.meta.env.BASE_URL || '/'}ink/ai/backdrops/backdrop-town-scroll.webp`,
     opacity: 0.52,
   },
+  /** 演武場景（每 10 關換，見 core/life/sparDuel.ts SPAR_SCENES）；AI 新圖可同名覆蓋 */
+  road: { src: `${import.meta.env.BASE_URL || '/'}ink/ai/banners/banner-mountain-road.webp`, opacity: 0.62 },
+  bamboo: { src: `${import.meta.env.BASE_URL || '/'}ink/ai/banners/banner-bamboo-practice.webp`, opacity: 0.62 },
+  inn: { src: `${import.meta.env.BASE_URL || '/'}ink/ai/banners/banner-rain-inn.webp`, opacity: 0.6 },
+  gate: { src: `${import.meta.env.BASE_URL || '/'}ink/ai/banners/banner-sect-gate.webp`, opacity: 0.6 },
+  nightpeak: { src: `${import.meta.env.BASE_URL || '/'}ink/ai/backdrops/backdrop-night-mountains.webp`, opacity: 0.55 },
 };
 
 export const SPAR_DEFAULT_BACKGROUND = 'valley';

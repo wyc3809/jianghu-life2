@@ -17,7 +17,7 @@ function seq(values: number[]) {
   return () => values[i++ % values.length]!;
 }
 
-const HERO: SparHeroStats = { maxHp: 1000, atk: 100, critRate: 0.2, critMul: 2, lifesteal: 0.1, guard: 0 };
+const HERO: SparHeroStats = { maxHp: 1000, atk: 100, critRate: 0.2, critMul: 2, lifesteal: 0.1, clearHeal: 0.35, guard: 0 };
 
 describe('spar duel (演武台對打)', () => {
   it('test_stage_has_minions_then_boss_and_grows', () => {
@@ -110,5 +110,100 @@ describe('spar duel (演武台對打)', () => {
     expect(sparSavedStage(s)).toBe(1);
     s.character.flags.spar_stage = 7;
     expect(sparSavedStage(s)).toBe(7);
+  });
+});
+
+describe('spar hero breakdown (戰力頁)', () => {
+  it('test_breakdown_parts_sum_to_stats', async () => {
+    const { sparHeroBreakdown } = await import('../core/life/sparDuel');
+    initRng(6);
+    const s = createNewLife(6);
+    s.character.cultivation = { xp: 0, tier: 3 };
+    const b = sparHeroBreakdown(s);
+    expect(b.stats.atk).toBe(Math.round((b.atk.base + b.atk.fromMartial + b.atk.fromWeapon) * b.scale));
+    expect(b.stats.maxHp).toBe(Math.round((b.hp.fromHealth + b.hp.fromMartial) * b.scale));
+    expect(b.stats.critRate).toBeCloseTo(Math.min(b.crit.cap, b.crit.base + b.crit.fromDanShi + b.crit.fromWuXing), 9);
+    expect(b.stats).toEqual(sparHeroStats(s));
+  });
+});
+
+describe('spar heal rules (無回血技唔會自動回血)', () => {
+  it('test_no_heal_skill_means_no_lifesteal_and_no_clear_heal', () => {
+    initRng(7);
+    const s = createNewLife(7);
+    s.character.skills = ['art_river_fist'];
+    s.character.equipment = { weapon: null, armor: null, accessory: null };
+    const st = sparHeroStats(s);
+    expect(st.lifesteal).toBe(0);
+    expect(st.clearHeal).toBe(0);
+    const d = new SparDuel({ ...st, atk: 1e6 }, 1, seq([0.9]));
+    d.heroHp = 10;
+    const h = d.heroStrike();
+    expect(h.heal).toBe(0);
+    expect(d.heroHp).toBe(10);
+  });
+
+  it('test_stage_clear_heals_only_with_heal_skill', () => {
+    const noHeal = new SparDuel({ ...HERO, atk: 1e9, clearHeal: 0, lifesteal: 0 }, 1, seq([0.9]));
+    noHeal.heroHp = 100;
+    for (let i = 0; i < 10 && noHeal.stage === 1; i++) {
+      noHeal.heroStrike();
+      noHeal.advance();
+    }
+    expect(noHeal.stage).toBe(2);
+    expect(noHeal.heroHp).toBe(100);
+    const withHeal = new SparDuel({ ...HERO, atk: 1e9, clearHeal: 0.35, lifesteal: 0 }, 1, seq([0.9]));
+    withHeal.heroHp = 100;
+    for (let i = 0; i < 10 && withHeal.stage === 1; i++) {
+      withHeal.heroStrike();
+      withHeal.advance();
+    }
+    expect(withHeal.heroHp).toBe(450);
+  });
+});
+
+describe('spar scenes & themes (場景／出場有規律)', () => {
+  it('test_scene_changes_every_ten_stages_and_loops', async () => {
+    const { sparSceneFor, SPAR_SCENE_SPAN, SPAR_SCENES } = await import('../core/life/sparDuel');
+    expect(SPAR_SCENES).toHaveLength(6);
+    expect(SPAR_SCENE_SPAN).toBe(10);
+    expect(sparSceneFor(1).place).toBe('千燈鎮');
+    expect(sparSceneFor(10).place).toBe('千燈鎮');
+    expect(sparSceneFor(11).place).toBe('山道');
+    expect(sparSceneFor(51).place).toBe('夜山');
+    expect(sparSceneFor(61).place).toBe('千燈鎮');
+  });
+
+  it('test_roster_follows_scene_theme_order_and_boss_last', async () => {
+    const { sparThemeFor } = await import('../core/life/sparDuel');
+    for (const stage of [2, 23, 47]) {
+      const theme = sparThemeFor(stage);
+      const foes = sparStageFoes(stage);
+      foes.slice(0, -1).forEach((f, i) => {
+        expect([f.look, f.name]).toEqual([...theme.minions[i % theme.minions.length]!]);
+      });
+      expect([foes.at(-1)!.look, foes.at(-1)!.name]).toEqual([...theme.boss]);
+      expect(sparStageFoes(stage).map((f) => f.look)).toEqual(foes.map((f) => f.look));
+    }
+  });
+
+  it('test_snapshot_carries_scene', () => {
+    const d = new SparDuel(HERO, 15);
+    expect(d.snapshot().place).toBe('山道');
+    expect(d.snapshot().sceneBg).toBe('road');
+  });
+});
+
+describe('spar number format (過千用 k、m)', () => {
+  it('test_format_uses_k_and_m', async () => {
+    const { formatSparNumber } = await import('../core/life/sparDuel');
+    expect(formatSparNumber(950)).toBe('950');
+    expect(formatSparNumber(1000)).toBe('1k');
+    expect(formatSparNumber(1234)).toBe('1.2k');
+    expect(formatSparNumber(12_400)).toBe('12k');
+    expect(formatSparNumber(304_437)).toBe('304k');
+    expect(formatSparNumber(1_500_000)).toBe('1.5m');
+    expect(formatSparNumber(3_923_950)).toBe('3.9m');
+    expect(formatSparNumber(25_000_000)).toBe('25m');
   });
 });

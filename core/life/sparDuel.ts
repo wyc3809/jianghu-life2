@@ -1,5 +1,6 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
-import { gearTotals } from './equipment';
+import { gearTotals, sumGearCombatBonuses } from './equipment';
+import { getSkillDef } from '@data/skills/catalog';
 
 /**
  * 演武台對打（純邏輯、唔碰模擬 RNG）：
@@ -17,8 +18,10 @@ export interface SparHeroStats {
   /** 0..1 */
   critRate: number;
   critMul: number;
-  /** 每擊吸血比例（傷害 ×） */
+  /** 每擊吸血比例（傷害 ×）；冇吸血武學／裝備就係 0 */
   lifesteal: number;
+  /** 過關回血比例（maxHp ×）；冇回血武學就係 0 */
+  clearHeal: number;
   /** 減傷比例 0..0.6 */
   guard: number;
 }
@@ -28,21 +31,82 @@ export const SPAR_TIER_SCALE = 1.32;
 export const SPAR_STAGE_GROWTH = 1.16;
 export const SPAR_BOSS_HP_MUL = 7;
 export const SPAR_BOSS_ATK_MUL = 2.2;
-/** 過關回血比例 */
+/** 有回血武學先有：過關回血比例 */
 export const SPAR_STAGE_CLEAR_HEAL = 0.35;
 
-export function sparHeroStats(state: LifeGameState): SparHeroStats {
+/** 戰力頁用：每項數值由邊度嚟（未乘境界倍率嘅分項＋倍率） */
+export interface SparHeroBreakdown {
+  stats: SparHeroStats;
+  tier: number;
+  /** 境界倍率 */
+  scale: number;
+  hp: { fromHealth: number; fromMartial: number };
+  atk: { base: number; fromMartial: number; fromWeapon: number };
+  crit: { base: number; fromDanShi: number; fromWuXing: number; cap: number };
+  lifesteal: { fromSkills: number; fromGear: number; cap: number; skillNames: string[] };
+  /** 回血武學（有先會過關回血） */
+  heal: { skillNames: string[]; onClear: number };
+  guard: { fromArmor: number; cap: number };
+  /** 武學（含裝備武學加成） */
+  martial: number;
+  gearAttack: number;
+  gearDefense: number;
+}
+
+const CRIT_BASE = 0.1;
+const CRIT_CAP = 0.45;
+const LIFESTEAL_CAP = 0.25;
+const GUARD_CAP = 0.6;
+
+export function sparHeroBreakdown(state: LifeGameState): SparHeroBreakdown {
   const c = state.character;
   const gear = gearTotals(c);
   const tier = Math.max(0, Math.floor(c.cultivation?.tier ?? 0));
   const scale = SPAR_TIER_SCALE ** tier;
   const martial = Math.max(0, c.martial + gear.martialBonus);
-  const maxHp = Math.round((c.maxHealth * 12 + martial * 25) * scale);
-  const atk = Math.round((24 + martial * 1.6 + gear.attack * 3) * scale);
-  const critRate = Math.min(0.45, 0.1 + (c.attributes.danShi ?? 0) * 0.003 + (c.attributes.wuXing ?? 0) * 0.001);
-  const lifesteal = Math.min(0.25, 0.06 + tier * 0.008);
-  const guard = Math.min(0.6, gear.defense * 0.012);
-  return { maxHp, atk, critRate, critMul: 1.85, lifesteal, guard };
+  const hp = { fromHealth: c.maxHealth * 12, fromMartial: martial * 25 };
+  const atk = { base: 24, fromMartial: martial * 1.6, fromWeapon: gear.attack * 3 };
+  const crit = {
+    base: CRIT_BASE,
+    fromDanShi: (c.attributes.danShi ?? 0) * 0.003,
+    fromWuXing: (c.attributes.wuXing ?? 0) * 0.001,
+    cap: CRIT_CAP,
+  };
+  // 無回血技唔會自動回血：吸血只計已學武學招式＋裝備詞條；過關回血要有回血招式
+  const stealSkills: string[] = [];
+  const healSkills: string[] = [];
+  let fromSkills = 0;
+  for (const id of c.skills) {
+    const mv = getSkillDef(id)?.move;
+    if (!mv) continue;
+    if ((mv.lifesteal ?? 0) > 0) {
+      fromSkills += mv.lifesteal!;
+      stealSkills.push(mv.name);
+    }
+    if ((mv.healSelf ?? 0) > 0) healSkills.push(mv.name);
+  }
+  const lifesteal = {
+    fromSkills,
+    fromGear: sumGearCombatBonuses(c).lifesteal,
+    cap: LIFESTEAL_CAP,
+    skillNames: stealSkills,
+  };
+  const heal = { skillNames: healSkills, onClear: healSkills.length ? SPAR_STAGE_CLEAR_HEAL : 0 };
+  const guard = { fromArmor: gear.defense * 0.012, cap: GUARD_CAP };
+  const stats: SparHeroStats = {
+    maxHp: Math.round((hp.fromHealth + hp.fromMartial) * scale),
+    atk: Math.round((atk.base + atk.fromMartial + atk.fromWeapon) * scale),
+    critRate: Math.min(CRIT_CAP, crit.base + crit.fromDanShi + crit.fromWuXing),
+    critMul: 1.85,
+    lifesteal: Math.min(LIFESTEAL_CAP, lifesteal.fromSkills + lifesteal.fromGear),
+    clearHeal: heal.onClear,
+    guard: Math.min(GUARD_CAP, guard.fromArmor),
+  };
+  return { stats, tier, scale, hp, atk, crit, lifesteal, heal, guard, martial, gearAttack: gear.attack, gearDefense: gear.defense };
+}
+
+export function sparHeroStats(state: LifeGameState): SparHeroStats {
+  return sparHeroBreakdown(state).stats;
 }
 
 export interface SparFoe {
@@ -50,10 +114,124 @@ export interface SparFoe {
   boss: boolean;
   maxHp: number;
   atk: number;
+  /** 剪影款式：對應 src/spar/rig.ts ENEMY_POOL 嘅索引 */
+  look: number;
 }
 
-const MINION_NAMES = ['黑衣刀客', '蒙面刺客', '頭陀', '雙鉤客', '山賊', '黑風盜'];
-const BOSS_NAMES = ['鐵面影魁', '赤髮狂刀', '血手判官', '黑風寨主', '無影劍', '斷腸客', '鬼面頭陀'];
+/**
+ * 剪影款式索引（同 ENEMY_POOL 次序一致）：
+ * 0 墨影、1 黑衣刀客、2 女刺客、3 胖頭陀、4 鐵面影魁、5 雙鉤客、6 赤髮
+ */
+export const SPAR_LOOK = { shadow: 0, daoke: 1, nvcike: 2, toutuo: 3, tiemian: 4, gouke: 5, chifa: 6 } as const;
+
+export interface SparTheme {
+  /** 主題名（HUD 顯示） */
+  name: string;
+  /** 小兵按次序輪住出：[款式, 名] */
+  minions: ReadonlyArray<readonly [number, string]>;
+  boss: readonly [number, string];
+}
+
+/**
+ * 演武場景：每 SPAR_SCENE_SPAN 關換一個場景（千燈鎮 → 山道 → 竹林 → 雨夜客棧 → 山門 → 夜山，之後循環、敵人更強）。
+ * 一個場景一個敵人主題：同主題小兵按固定次序出，首領固定——出場有規律，唔再亂抽。
+ * bg 對應 src/spar/rig.ts 嘅 SPAR_BACKGROUNDS key。
+ */
+export interface SparScene {
+  /** 場景 key（＝背景 key） */
+  bg: string;
+  /** 地名（換場題字、HUD） */
+  place: string;
+  theme: SparTheme;
+}
+
+export const SPAR_SCENES: readonly SparScene[] = [
+  {
+    bg: 'town',
+    place: '千燈鎮',
+    theme: {
+      name: '市井潑皮',
+      minions: [
+        [SPAR_LOOK.daoke, '市井潑皮'],
+        [SPAR_LOOK.gouke, '收數打手'],
+      ],
+      boss: [SPAR_LOOK.toutuo, '鎮上惡霸'],
+    },
+  },
+  {
+    bg: 'road',
+    place: '山道',
+    theme: {
+      name: '山道劫匪',
+      minions: [
+        [SPAR_LOOK.daoke, '攔路刀匪'],
+        [SPAR_LOOK.gouke, '雙鉤山賊'],
+      ],
+      boss: [SPAR_LOOK.chifa, '赤髮寨主'],
+    },
+  },
+  {
+    bg: 'bamboo',
+    place: '竹林',
+    theme: {
+      name: '影門殺陣',
+      minions: [
+        [SPAR_LOOK.shadow, '影門殺手'],
+        [SPAR_LOOK.nvcike, '影門女刺'],
+      ],
+      boss: [SPAR_LOOK.tiemian, '影門門主'],
+    },
+  },
+  {
+    bg: 'inn',
+    place: '雨夜客棧',
+    theme: {
+      name: '夜行刺客',
+      minions: [
+        [SPAR_LOOK.nvcike, '夜行女刺'],
+        [SPAR_LOOK.shadow, '影衛'],
+      ],
+      boss: [SPAR_LOOK.tiemian, '鐵面影魁'],
+    },
+  },
+  {
+    bg: 'gate',
+    place: '山門',
+    theme: {
+      name: '邪寺頭陀',
+      minions: [
+        [SPAR_LOOK.toutuo, '護寺頭陀'],
+        [SPAR_LOOK.shadow, '黑衣僧兵'],
+      ],
+      boss: [SPAR_LOOK.toutuo, '鬼面頭陀'],
+    },
+  },
+  {
+    bg: 'nightpeak',
+    place: '夜山',
+    theme: {
+      name: '黑風寨',
+      minions: [
+        [SPAR_LOOK.daoke, '黑風刀手'],
+        [SPAR_LOOK.toutuo, '黑風力士'],
+        [SPAR_LOOK.gouke, '黑風鉤客'],
+      ],
+      boss: [SPAR_LOOK.chifa, '黑風寨主'],
+    },
+  },
+];
+
+/** 每個場景（主題）連續幾多關 */
+export const SPAR_SCENE_SPAN = 10;
+
+export function sparSceneFor(stage: number): SparScene {
+  const s = Math.max(1, Math.floor(stage));
+  return SPAR_SCENES[Math.floor((s - 1) / SPAR_SCENE_SPAN) % SPAR_SCENES.length]!;
+}
+
+export function sparThemeFor(stage: number): SparTheme {
+  return sparSceneFor(stage).theme;
+}
 
 export function sparMinionCount(stage: number): number {
   return Math.min(6, 3 + Math.floor((Math.max(1, stage) - 1) / 5));
@@ -65,16 +243,20 @@ export function sparStageFoes(stage: number): SparFoe[] {
   const g = SPAR_STAGE_GROWTH ** (s - 1);
   const minionHp = Math.round(140 * g);
   const minionAtk = Math.round(16 * g);
+  const theme = sparThemeFor(s);
   const foes: SparFoe[] = [];
   const n = sparMinionCount(s);
   for (let i = 0; i < n; i++) {
-    foes.push({ name: MINION_NAMES[(s + i) % MINION_NAMES.length]!, boss: false, maxHp: minionHp, atk: minionAtk });
+    const [look, name] = theme.minions[i % theme.minions.length]!;
+    foes.push({ name, boss: false, maxHp: minionHp, atk: minionAtk, look });
   }
+  const [bossLook, bossName] = theme.boss;
   foes.push({
-    name: BOSS_NAMES[(s - 1) % BOSS_NAMES.length]!,
+    name: bossName,
     boss: true,
     maxHp: Math.round(minionHp * SPAR_BOSS_HP_MUL),
     atk: Math.round(minionAtk * SPAR_BOSS_ATK_MUL),
+    look: bossLook,
   });
   return foes;
 }
@@ -95,6 +277,11 @@ export interface SparFoeHit {
 
 export interface SparDuelSnapshot {
   stage: number;
+  /** 本關主題名 */
+  theme: string;
+  /** 本關場景（背景 key＋地名） */
+  sceneBg: string;
+  place: string;
   heroHp: number;
   heroMaxHp: number;
   foe: SparFoe | null;
@@ -138,6 +325,9 @@ export class SparDuel {
     const bossIdx = this.queue.length - 1;
     return {
       stage: this.stage,
+      theme: sparThemeFor(this.stage).name,
+      sceneBg: sparSceneFor(this.stage).bg,
+      place: sparSceneFor(this.stage).place,
       heroHp: this.heroHp,
       heroMaxHp: this.hero.maxHp,
       foe,
@@ -179,7 +369,7 @@ export class SparDuel {
       this.stage += 1;
       this.queue = sparStageFoes(this.stage);
       this.idx = 0;
-      this.heroHp = Math.min(this.hero.maxHp, this.heroHp + Math.round(this.hero.maxHp * SPAR_STAGE_CLEAR_HEAL));
+      this.heroHp = Math.min(this.hero.maxHp, this.heroHp + Math.round(this.hero.maxHp * this.hero.clearHeal));
     } else {
       this.idx += 1;
     }
@@ -207,4 +397,20 @@ export function sparStageReward(stage: number): { silver: number; xp: number } {
 export function sparSavedStage(state: LifeGameState): number {
   const v = Number(state.character.flags.spar_stage ?? 1);
   return Number.isFinite(v) && v >= 1 ? Math.floor(v) : 1;
+}
+
+/**
+ * 演武數字簡寫：過千用 k、過百萬用 m（例：950、1.2k、12.4k、123k、1.5m）。
+ * 血條同彈出傷害數字共用，避免長數字遮住畫面。
+ */
+export function formatSparNumber(n: number): string {
+  const v = Math.max(0, Math.round(n));
+  const short = (x: number, unit: string) => {
+    const d = x < 10 ? 1 : 0;
+    return `${x.toFixed(d).replace(/\.0$/, '')}${unit}`;
+  };
+  if (v >= 1e9) return short(v / 1e9, 'b');
+  if (v >= 1e6) return short(v / 1e6, 'm');
+  if (v >= 1e3) return short(v / 1e3, 'k');
+  return String(v);
 }

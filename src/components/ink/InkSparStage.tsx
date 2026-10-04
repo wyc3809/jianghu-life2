@@ -14,7 +14,7 @@
 
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { SparStage, loadSparImages, loadSparImage, loadSparUiImages, type SparCombatHooks } from '../../spar/engine';
-import { SparDuel, sparHeroStats, sparSavedStage, type SparDuelSnapshot } from '@core/life/sparDuel';
+import { SparDuel, formatSparNumber, sparHeroStats, sparSavedStage, type SparDuelSnapshot } from '@core/life/sparDuel';
 import { InkBrushBar } from './InkBrush';
 import {
   ENEMY_POOL,
@@ -35,13 +35,17 @@ interface Props {
   enemies?: EnemyDef[];
   /** 場景背景 key（SPAR_BACKGROUNDS），日後可以按地點切換 */
   background?: string;
-  /** 浮層內容（例如季節・地點名），壓喺 canvas 之上 */
+  /** 浮層內容，壓喺 canvas 之上 */
   overlay?: ReactNode;
+  /** 左上角題字：日期＋地名（千燈鎮場景用角色所在地，其他場景用場景地名） */
+  caption?: { date: string; home: string };
 }
 
 const STAGE_HEIGHT = 218;
 const COIN_SRC = `${import.meta.env.BASE_URL || '/'}ink/spar/fx-coin.webp`;
-const fmt = (n: number) => Math.max(0, Math.round(n)).toLocaleString('en-US');
+/** 演武對打實例快取：元件重新掛載唔會重開一場 */
+const DUEL_CACHE = new Map<string, SparDuel>();
+const fmt = formatSparNumber;
 
 /** 演武數值嘅指紋：角色實力一變（升境、換兵器、武學進步）就重算主角數值 */
 function useHeroStatsKey() {
@@ -53,7 +57,7 @@ function useHeroStatsKey() {
 }
 const NO_CONDITIONS: { id: string; name: string; monthsLeft: number; severity: number }[] = [];
 
-export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL, background = SPAR_DEFAULT_BACKGROUND, overlay }: Props) {
+export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL, background = SPAR_DEFAULT_BACKGROUND, overlay, caption }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const stageRef = useRef<SparStage | null>(null);
@@ -66,10 +70,24 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
   const heroBarRef = useRef<HTMLDivElement | null>(null);
   const foeBarRef = useRef<HTMLDivElement | null>(null);
   const statsKey = useHeroStatsKey();
+  // 場景跟關數走（每 10 關換）；未有對打資料就用外面傳入嘅背景
+  const sceneBg = snap?.sceneBg ?? background;
+  const [placeTitle, setPlaceTitle] = useState<{ place: string; n: number } | null>(null);
+  const lastSceneRef = useRef<string | null>(null);
 
   if (!duelRef.current) {
     const st = useLifeStore.getState().state;
-    if (st) duelRef.current = new SparDuel(sparHeroStats(st), sparSavedStage(st));
+    if (st) {
+      // 同一世共用一場演武：轉 tab／開事件再返嚟，血量同敵陣接住打
+      const key = `${st.seed}:${String(st.character.flags.legacy_generation ?? 1)}:${st.character.name}`;
+      let duel = DUEL_CACHE.get(key);
+      if (!duel) {
+        duel = new SparDuel(sparHeroStats(st), sparSavedStage(st));
+        DUEL_CACHE.clear();
+        DUEL_CACHE.set(key, duel);
+      }
+      duelRef.current = duel;
+    }
   }
 
   // 角色實力變咗：按比例保留血量換新數值
@@ -125,7 +143,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
             sync();
             return r;
           },
-          nextFoe: () => ({ boss: duel.foe?.boss ?? false }),
+          nextFoe: () => ({ boss: duel.foe?.boss ?? false, look: duel.foe?.look }),
           foeDefeated: () => {
             const clearedStage = duel.stage;
             const { stageCleared } = duel.advance();
@@ -223,7 +241,8 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
             .catch(() => { /* 武器圖載唔到就空手，唔影響動畫 */ });
         }
         // 場景背景
-        const bgDef = SPAR_BACKGROUNDS[background];
+        const bgDef = SPAR_BACKGROUNDS[duel ? duel.snapshot().sceneBg : background];
+        lastSceneRef.current = duel ? duel.snapshot().sceneBg : background;
         if (bgDef) {
           loadSparImage(bgDef.src)
             .then((img) => { if (!cancelled) { stage?.setBackground(img, bgDef.opacity ?? 1); if (reduceMotion) stage?.render(); } })
@@ -279,12 +298,18 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
     return () => { cancelled = true; };
   }, [weaponKind]);
 
-  // 換場景 → 背景淡入淡出
+  // 換場景 → 背景墨暈淡入淡出＋地名題字＋俠客由左行入
   useEffect(() => {
+    const prev = lastSceneRef.current;
+    lastSceneRef.current = sceneBg;
     const stage = stageRef.current;
     if (!stage) return;
-    const bgDef = SPAR_BACKGROUNDS[background];
+    const bgDef = SPAR_BACKGROUNDS[sceneBg];
     let cancelled = false;
+    if (prev !== null && prev !== sceneBg) {
+      stage.enterScene();
+      if (snap) setPlaceTitle((t) => ({ place: snap.place, n: (t?.n ?? 0) + 1 }));
+    }
     if (!bgDef) {
       stage.setBackground(null);
       return;
@@ -293,7 +318,15 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
       .then((img) => { if (!cancelled) stage.setBackground(img, bgDef.opacity ?? 1); })
       .catch(() => { /* 保持現狀 */ });
     return () => { cancelled = true; };
-  }, [background]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sceneBg]);
+
+  // 題字顯示兩秒半後收起
+  useEffect(() => {
+    if (!placeTitle) return;
+    const t = setTimeout(() => setPlaceTitle(null), 2600);
+    return () => clearTimeout(t);
+  }, [placeTitle]);
 
   if (failed) return null; // 素材載入唔到就靜靜哋隱藏，唔好阻住遊戲
 
@@ -301,10 +334,18 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
     <div className="ink-spar-stage" ref={wrapRef} aria-label="切磋演武">
       <canvas ref={canvasRef} style={{ width: '100%', height: STAGE_HEIGHT, display: 'block' }} />
       {overlay}
+      {caption && (
+        <p className="ink-spar-caption">
+          <span>{caption.date}</span>
+          <strong>{snap && snap.sceneBg !== 'town' ? snap.place : caption.home}</strong>
+        </p>
+      )}
       {snap && (
         <>
           <div className="ink-spar-hud" aria-live="polite">
-            <span className="ink-spar-hud-stage">第 {snap.stage} 關</span>
+            <span className="ink-spar-hud-stage">
+              第 {snap.stage} 關 · {snap.theme}
+            </span>
             <span className="ink-spar-hud-left">
               {snap.foe?.boss ? '首領之戰' : `餘敵 ${snap.minionsLeft + 1}`}
             </span>
@@ -327,7 +368,16 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
             <InkBrushBar pct={snap.foe ? (snap.foeHp / Math.max(1, snap.foe.maxHp)) * 100 : 0} tone="cinnabar" />
             <span className="ink-spar-bar-num">{fmt(snap.foeHp)}</span>
           </div>
-          {clearNote && <p className="ink-spar-clear-note">{clearNote}</p>}
+          {/* 跨場景過關：獎勵併入題字卡，唔好兩個提示疊埋 */}
+          {clearNote && !placeTitle && <p className="ink-spar-clear-note">{clearNote}</p>}
+          {placeTitle && (
+            <div className="ink-spar-place" key={placeTitle.n} aria-live="polite">
+              {clearNote && <small>{clearNote}</small>}
+              <span>入</span>
+              <strong>{placeTitle.place}</strong>
+              <em>{snap.theme}</em>
+            </div>
+          )}
         </>
       )}
       {conditions.length > 0 && (

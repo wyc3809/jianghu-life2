@@ -38,6 +38,7 @@ import {
   weaponFromKind,
 } from './silhouetteDraw';
 import { AnimDirector, type DirectorSample } from './animDirector';
+import { formatSparNumber } from '@core/life/sparDuel';
 
 const DEG = Math.PI / 180;
 const INK = '22,19,15';
@@ -242,8 +243,8 @@ export interface SparCombatHooks {
   heroStrike(): { dmg: number; crit: boolean; heal: number; killed: boolean };
   /** 敵人撲擊到肉 */
   foeStrike(): { dmg: number; heroDown: boolean };
-  /** 下一個出場敵人係咪首領 */
-  nextFoe(): { boss: boolean };
+  /** 下一個出場敵人：係咪首領、用邊款剪影（ENEMY_POOL 索引，按關卡主題） */
+  nextFoe(): { boss: boolean; look?: number };
   /** 敵人倒地動畫完：換下一個（或過關）；回傳要彈幾多個銅錢 */
   foeDefeated(): { coins: number };
   /** 敗退倒地動畫完：退一關、回血 */
@@ -389,12 +390,11 @@ export class SparStage {
 
   /** 出一個敵人：對打模式問外面係咪首領（首領用鐵面／赤髮，身形大啲） */
   private makeEnemy(x: number, state: EnemyState, defIdx?: number): EnemyInst {
-    const boss = this.combat?.nextFoe().boss ?? false;
+    const next = this.combat?.nextFoe();
+    const boss = next?.boss ?? false;
     const pool = this.enemyPool;
-    const bossIdx = [4, 6].filter((i) => i < pool.length);
-    const idx = boss && bossIdx.length
-      ? bossIdx[Math.floor(Math.random() * bossIdx.length)]!
-      : defIdx ?? Math.floor(Math.random() * pool.length);
+    // 對打模式：剪影跟關卡主題（唔再亂抽）
+    const idx = next?.look !== undefined ? next.look : defIdx ?? Math.floor(Math.random() * pool.length);
     return {
       x,
       state,
@@ -424,6 +424,13 @@ export class SparStage {
     this.heroHitT = 9;
     // 一打一個：每次淨補一個
     this.enemies = [this.makeEnemy(this.cssW * 0.72 + Math.random() * 16, 'spawn')];
+  }
+
+  /** 換場景：俠客由左邊重新行入（背景由 setBackground 淡入淡出） */
+  enterScene() {
+    if (this.cssW === 0) return;
+    this.resetLane();
+    this.director.resetToEnter();
   }
 
   /** 對打模式：敵人站位（固定右邊），俠客最多行到佢面前 */
@@ -518,7 +525,7 @@ export class SparStage {
       if (this.combat && e.state === 'hold') this.updateLunge(e, dt);
       if (e.state === 'spawn') {
         e.t += dt;
-        if (e.t >= SPAR_CLIPS['enemy-spawn'].dur) { e.state = 'hold'; e.t = 0; }
+        if (e.t >= this.spawnDur()) { e.state = 'hold'; e.t = 0; }
       } else if (e.state === 'walk') {
         e.state = 'hold'; // 永不向俠客行
       } else if (e.state === 'dead') {
@@ -676,12 +683,21 @@ export class SparStage {
     this.floaters.push({
       x: g.heroX + (Math.random() - 0.5) * 22,
       y: g.groundY - SILHOUETTE_DESIGN_H * g.k * 0.58,
-      text: `-${r.dmg.toLocaleString('en-US')}`,
+      text: `-${formatSparNumber(r.dmg)}`,
       gain: r.dmg,
       age: 0,
       dur: 0.95,
       kind: 'hurt',
     });
+    if (!this.quiet) {
+      const hy = g.groundY - SILHOUETTE_DESIGN_H * g.k * 0.55;
+      this.splashes.push({ x: g.heroX + 6, y: hy, rot: Math.random() * Math.PI * 2, age: 0, dur: e.boss ? 0.45 : 0.32 });
+      for (let i = 0; i < (e.boss ? 10 : 6); i++) {
+        const a = Math.PI + (Math.random() - 0.5) * 1.6;
+        const sp = 50 + Math.random() * 110;
+        this.particles.push({ x: g.heroX + 6, y: hy, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 40, r: 0.8 + Math.random() * 2, age: 0, dur: 0.45 });
+      }
+    }
     if (r.heroDown) {
       this.heroDownT = 0;
       this.attackT = null;
@@ -770,7 +786,7 @@ export class SparStage {
         this.floaters.push({
           x: target.x + (Math.random() - 0.5) * 34,
           y: headY - Math.random() * 14,
-          text: r.dmg.toLocaleString('en-US'),
+          text: formatSparNumber(r.dmg),
           gain: r.dmg,
           age: 0,
           dur: r.crit ? 1.15 : 0.9,
@@ -780,7 +796,7 @@ export class SparStage {
           this.floaters.push({
             x: g.heroX - 14 + (Math.random() - 0.5) * 16,
             y: g.groundY - SILHOUETTE_DESIGN_H * g.k * 0.78,
-            text: `+${r.heal.toLocaleString('en-US')}`,
+            text: `+${formatSparNumber(r.heal)}`,
             gain: r.heal,
             age: 0,
             dur: 0.95,
@@ -927,36 +943,73 @@ export class SparStage {
     return this.enemyPose(e).alpha;
   }
 
+  /** 出場時長：對打模式由右邊行入（長啲），舊玩法地影抽高 */
+  private spawnDur() {
+    return this.combat ? 0.9 : SPAR_CLIPS['enemy-spawn'].dur;
+  }
+
   private enemyPose(e: EnemyInst): Pose {
-    if (e.state === 'dead') return evalPose('enemy', this.idleT, SPAR_CLIPS['enemy-death'], e.t);
-    if (e.state === 'spawn') return evalPose('enemy', this.idleT, SPAR_CLIPS['enemy-spawn'], e.t);
+    if (e.state === 'dead') {
+      const pose = evalPose('enemy', this.idleT, SPAR_CLIPS['enemy-death'], e.t);
+      if (!this.combat) return pose;
+      // 對打：中最後一刀向後飛、打轉（首領飛得遠啲）
+      const p = Math.min(1, e.t / SPAR_CLIPS['enemy-death'].dur);
+      const fly = e.boss ? 420 : 300;
+      return { ...pose, x: pose.x + fly * (1 - (1 - p) ** 2), rot: pose.rot + 30 * p };
+    }
+    if (e.state === 'spawn') {
+      if (!this.combat) return evalPose('enemy', this.idleT, SPAR_CLIPS['enemy-spawn'], e.t);
+      // 由右邊大步行入：三步跳躍、落地微蹲；首領慢啲、重啲
+      const p = Math.min(1, e.t / this.spawnDur());
+      const ease = 1 - (1 - p) ** 3;
+      const steps = e.boss ? 2 : 3;
+      const hop = Math.abs(Math.sin(p * Math.PI * steps)) * (e.boss ? 14 : 26) * (1 - p);
+      return {
+        ...REST,
+        x: 760 * (1 - ease),
+        y: -hop,
+        rot: -4 * Math.sin(p * Math.PI * steps * 2) * (1 - p),
+        sy: p > 0.85 ? 1 - 0.08 * Math.sin(((p - 0.85) / 0.15) * Math.PI) : 1,
+        alpha: Math.min(1, p * 3),
+      };
+    }
     const bobY = Math.sin(e.bob * (e.state === 'walk' ? 8.5 : 2.4)) * (e.state === 'walk' ? 3.4 : 2.2);
-    let x = 0;
-    let rot = 0;
-    // 受擊：向後一彈、身仰
-    if (e.hitT < 0.24) {
-      const p = 1 - e.hitT / 0.24;
-      x += 130 * p * p;
-      rot += 7 * p;
+    // 待機：呼吸起伏、重心左右移、身體微擺（剪影唔再企到死實）
+    let x = this.combat ? 14 * Math.sin(e.bob * 1.3) : 0;
+    let rot = this.combat ? 2.4 * Math.sin(e.bob * 1.7) : 0;
+    let sy = this.combat ? 1 + 0.028 * Math.sin(e.bob * 2.6) : 1;
+    let alpha = 1;
+    // 受擊：向後一彈、身仰、壓扁；頭 0.06 秒閃一閃
+    if (e.hitT < 0.26) {
+      const p = 1 - e.hitT / 0.26;
+      x += (e.boss ? 120 : 180) * p * p;
+      rot += 9 * p;
+      sy -= 0.08 * p;
+      if (e.hitT < 0.06) alpha = 0.55;
     }
     // 撲擊：後縮蓄勢 → 撲前 → 收勢（du，向左＝負）
     if (e.lungeT !== null) {
       const t = e.lungeT;
       if (t < 0.18) {
+        // 蓄勢：後縮、蹲低
         const p = t / 0.18;
-        x += 90 * p;
-        rot += 5 * p;
+        x += 110 * p;
+        rot += 7 * p;
+        sy -= 0.1 * p;
       } else if (t < LUNGE_HIT_AT + 0.04) {
+        // 撲前：拉長身形
         const p = (t - 0.18) / (LUNGE_HIT_AT + 0.04 - 0.18);
-        x += 90 - 520 * Math.sin((p * Math.PI) / 2);
-        rot += 5 - 14 * p;
+        x += 110 - 560 * Math.sin((p * Math.PI) / 2);
+        rot += 7 - 18 * p;
+        sy += -0.1 + 0.16 * p;
       } else {
         const p = Math.min(1, (t - LUNGE_HIT_AT - 0.04) / (LUNGE_DUR - LUNGE_HIT_AT - 0.04));
-        x += -430 * (1 - p) * (1 - p);
-        rot += -9 * (1 - p);
+        x += -450 * (1 - p) * (1 - p);
+        rot += -11 * (1 - p);
+        sy += 0.06 * (1 - p);
       }
     }
-    return { ...REST, x, y: bobY, rot };
+    return { ...REST, x, y: bobY, rot, sy, alpha };
   }
 
   private shadow(x: number, y: number, rx: number) {
@@ -1106,7 +1159,9 @@ export class SparStage {
     if (e.state !== 'dead') {
       ctx.save();
       ctx.globalAlpha = Math.max(0, Math.min(1, pose.alpha)) * 0.9;
-      const pulse = 0.55 + 0.25 * Math.sin(e.bob * 2.6);
+      // 蓄勢時腳下紅光暴漲：預告要出手
+      const windup = e.lungeT !== null && e.lungeT < LUNGE_HIT_AT ? e.lungeT / LUNGE_HIT_AT : 0;
+      const pulse = (0.55 + 0.25 * Math.sin(e.bob * 2.6)) * (1 + windup * 1.6);
       const aura = e.boss ? 1.6 : 1;
       const rg = ctx.createRadialGradient(footX, footY, 2, footX, footY, 58 * ke * aura);
       rg.addColorStop(0, `rgba(${CINNABAR},${0.5 * pulse})`);
