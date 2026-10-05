@@ -70,7 +70,7 @@
 | 6b | 掛機收成：銀兩線上離線累積（最多 48 小時量），撳「收成」入袋（玩家要求） | 玩家已確認 | `qa/evidence/redesign/step6-harvest.png` |
 | 7 | 招式／內功／身法三主修＋6 流派協同（2 門小成、3 門大成，裝備當一門）（C1、C2） | 玩家已確認 | `qa/evidence/redesign/step7-schools.png` |
 | 8 | 玉石（免費／付費測試分開）、兩個卡池、心願保底、重複秘笈升階／轉書頁、19 門珍本奇功（C3–C5） | 玩家已確認，EA0.53.0 已上線 | `qa/evidence/redesign/step8-entry.png`、`step8-gacha.png` |
-| 9 | 在線奇遇：每星期 2–3 次、揀咗先計 1–3 日、遊戲進度考驗、過期冇嘢、離線照計（C6） | 已做，等確認 | `qa/evidence/redesign/step9-encounter.png` |
+| 9 | 在線奇遇：每星期 2–3 次、揀咗先計 1–3 日、遊戲進度考驗、過期冇嘢、離線照計（C6） | 玩家已確認，EA0.54.0 上線 | `qa/evidence/redesign/step9-encounter.png` |
 
 備註：
 - 第 1 步：銀兩／材料「離線繼續累積」現時遊戲未有離線銀兩收益，收益率屬未定，今步未加。
