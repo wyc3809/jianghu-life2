@@ -31,6 +31,12 @@ import {
   type PullResult,
 } from '@core/life/gacha';
 import { getSkillDef } from '@data/skills/catalog';
+import {
+  chooseEncounterRoute,
+  claimEncounter,
+  dismissEncounterOffer,
+  tickEncounter,
+} from '@core/life/encounters';
 
 export { loadAncestry };
 
@@ -67,6 +73,17 @@ interface AncestryStore {
   learnManual: (artId: string) => void;
   gachaOpen: boolean;
   setGachaOpen: (open: boolean) => void;
+  /** 在線奇遇：定時叫（只喺開住遊戲時） */
+  encounterTick: (now: number) => void;
+  /** 奇遇彈窗開住（彈出／玩家撳返） */
+  encounterOpen: boolean;
+  setEncounterOpen: (open: boolean) => void;
+  chooseEncounter: (routeId: string) => void;
+  dismissEncounter: () => void;
+  claimEncounter: () => string | null;
+  /** 啱啱領到嘅傳承（彈窗顯示） */
+  encounterReward: string | null;
+  clearEncounterReward: () => void;
 }
 
 function mutate(get: () => AncestryStore, set: (p: Partial<AncestryStore>) => void, fn: (m: AncestryMeta) => boolean) {
@@ -148,6 +165,41 @@ export const useAncestryStore = create<AncestryStore>()((set, get) => ({
   pulpManual: (id) => mutate(get, set, (m) => pulpManual(m, id)),
   exchangePages: (id) => mutate(get, set, (m) => exchangePages(m, id)),
   grantTestJade: () => mutate(get, set, (m) => grantTestPaidJade(m) > 0),
+  encounterOpen: false,
+  encounterReward: null,
+  setEncounterOpen: (open) => set({ encounterOpen: open }),
+  clearEncounterReward: () => set({ encounterReward: null }),
+  encounterTick: (now) => {
+    const life = useLifeStore.getState().state;
+    const next = structuredClone(get().meta);
+    const before = JSON.stringify(next.encounter ?? null);
+    const r = tickEncounter(next, life, now);
+    if (JSON.stringify(next.encounter ?? null) === before) return;
+    persistAncestry(next);
+    set({ meta: next, ...(r === 'offered' ? { encounterOpen: true } : {}) });
+    if (r !== 'progress') queueCloudSync(life);
+  },
+  chooseEncounter: (routeId) => {
+    const life = useLifeStore.getState().state;
+    if (!life) return;
+    mutate(get, set, (m) => chooseEncounterRoute(m, life, routeId, Date.now()));
+  },
+  dismissEncounter: () => {
+    mutate(get, set, (m) => {
+      dismissEncounterOffer(m, Date.now());
+      return true;
+    });
+    set({ encounterOpen: false });
+  },
+  claimEncounter: () => {
+    const next = structuredClone(get().meta);
+    const id = claimEncounter(next, Date.now());
+    if (!id) return null;
+    persistAncestry(next);
+    set({ meta: next, encounterReward: id, encounterOpen: true });
+    queueCloudSync(useLifeStore.getState().state);
+    return id;
+  },
   learnManual: (id) => {
     const life = useLifeStore.getState().state;
     if (!life || life.phase !== 'playing' || !life.character.alive) return;

@@ -33,6 +33,31 @@ export interface AncestryMeta {
   pages?: number;
   /** 已領過玉石嘅成就 id（帳戶首次） */
   jadeAchv?: string[];
+  /** 在線奇遇（見 core/life/encounters.ts） */
+  encounter?: EncounterState;
+}
+
+export interface EncounterState {
+  /** 下次可以彈奇遇嘅時間（ms） */
+  nextAt: number;
+  seq: number;
+  done: number;
+  expired: number;
+  /** 彈咗出嚟、未揀 */
+  offer?: { tpl: string; at: number };
+  /** 已揀路線、限期進行中 */
+  active?: {
+    tpl: string;
+    route: string;
+    startAt: number;
+    deadline: number;
+    /** 之前幾代累積嘅進度 */
+    carried: number;
+    base: { lifeKey: string; value: number };
+    progress: number;
+  };
+  /** 最近一次結果（介面提示用） */
+  last?: { tpl: string; result: 'done' | 'expired'; reward?: string; at: number };
 }
 
 export const ancestryMetaSchema = z.object({
@@ -59,4 +84,32 @@ export const ancestryMetaSchema = z.object({
   manuals: z.record(z.string(), z.object({ stars: z.number().int().min(0), copies: z.number().int().min(0) })).optional(),
   pages: z.number().int().min(0).optional(),
   jadeAchv: z.array(z.string()).optional(),
+  encounter: z
+    .object({
+      nextAt: z.number(),
+      seq: z.number().int().min(0),
+      done: z.number().int().min(0),
+      expired: z.number().int().min(0),
+      offer: z.object({ tpl: z.string(), at: z.number() }).optional(),
+      active: z
+        .object({
+          tpl: z.string(),
+          route: z.string(),
+          startAt: z.number(),
+          deadline: z.number(),
+          carried: z.number().min(0),
+          base: z.object({ lifeKey: z.string(), value: z.number() }),
+          progress: z.number().min(0),
+        })
+        .optional(),
+      last: z
+        .object({
+          tpl: z.string(),
+          result: z.enum(['done', 'expired']),
+          reward: z.string().optional(),
+          at: z.number(),
+        })
+        .optional(),
+    })
+    .optional(),
 });
