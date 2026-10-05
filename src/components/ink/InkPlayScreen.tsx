@@ -49,6 +49,9 @@ import { InkEventPanel } from './InkEventPanel';
 import { InkCombatPanel } from './InkCombatPanel';
 import { InkLifeOrDeathConfirm } from './InkLifeOrDeathConfirm';
 import { InkSuccessionModal } from './InkSuccessionModal';
+import { InkHomeGoals } from './InkHomeGoals';
+import { newbieActive } from '@core/life/goals';
+import { NEWBIE_TRIAL } from '@data/redesign/newbie';
 import { familyGearCarry, getHeirName, previewInheritanceMoney } from '@core/life/family';
 import { needsLifeOrDeathConfirm } from '@core/life/combat';
 import { InkBossIntro } from './InkBossIntro';
@@ -105,6 +108,7 @@ export function InkPlayScreen({ state }: Props) {
   const clearSeal = useLifeStore((s) => s.clearSeal);
   const tickCultivation = useLifeStore((s) => s.tickCultivation);
   const attemptBreakthrough = useLifeStore((s) => s.attemptBreakthrough);
+  const startNewbieTrial = useLifeStore((s) => s.startNewbieTrial);
   const breakthroughResult = useLifeStore((s) => s.breakthroughResult);
   const clearBreakthroughResult = useLifeStore((s) => s.clearBreakthroughResult);
   const ackMoment = useLifeStore((s) => s.ackMoment);
@@ -365,7 +369,8 @@ export function InkPlayScreen({ state }: Props) {
     !showResult &&
     state.phase === 'playing' &&
     Boolean(coach) &&
-    !c.flags.coach_done;
+    !c.flags.coach_done &&
+    !newbieActive(state);
 
   const inkSeason = seasonToInk(month);
   const inkPlace = placeToInk(c.location);
@@ -610,6 +615,18 @@ export function InkPlayScreen({ state }: Props) {
               caption={{ date: `${seasonLabel(month)} · ${state.year}年${month}月`, home: c.location || '千燈鎮' }}
             />
           </div>
+
+          {state.phase === 'playing' && c.alive && !showResult && (
+            <InkHomeGoals
+              state={state}
+              busy={Boolean(combat)}
+              onAction={(a) => {
+                if (a === 'trial') startNewbieTrial();
+                else if (a === 'equip') equipOwned(NEWBIE_TRIAL.rewardGearId);
+                else if (a === 'breakthrough') attemptBreakthrough();
+              }}
+            />
+          )}
 
           {/* 翻頁效果只套喺下面嘅提示，唔影響演武台 */}
           <div ref={flipRef}>

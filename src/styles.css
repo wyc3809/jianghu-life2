@@ -8583,3 +8583,109 @@ html[data-ink-motion='reduce'] .ink-achv-name i {
   color: var(--ink-soft);
   font-weight: 400;
 }
+
+/* 主畫面：當前目標＋掛機收益（演武台下面，design/agreed-design-2026-10.md §5） */
+.ink-home-goals {
+  margin: 10px 0 12px;
+  border: 1px solid var(--ink-faint);
+  background: rgba(255, 252, 245, 0.72);
+}
+
+.ink-goal {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px 10px;
+}
+
+.ink-goal-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.ink-goal-kicker {
+  margin: 0;
+  font-size: 0.74rem;
+  letter-spacing: 0.24em;
+  color: var(--cinnabar);
+}
+
+.ink-goal-title {
+  margin: 3px 0 2px;
+  font-size: 1.02rem;
+  letter-spacing: 0.08em;
+  color: var(--ink, #1a1a1a);
+  font-weight: 700;
+}
+
+.ink-goal-detail {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+
+.ink-goal-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 0.78rem;
+  color: var(--ink-mid);
+  font-variant-numeric: tabular-nums;
+}
+
+.ink-goal-progress .ink-brush-bar {
+  flex: 1;
+  height: 8px;
+}
+
+.ink-goal-btn {
+  flex: none;
+  min-width: 64px;
+  min-height: 44px;
+  padding: 6px 14px 6px 18px;
+  border: none;
+  background: var(--cinnabar);
+  color: #f6f1e6;
+  font-family: inherit;
+  font-size: 0.98rem;
+  letter-spacing: 0.24em;
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ink-goal-btn:disabled {
+  opacity: 0.45;
+}
+
+.ink-idle {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0;
+  border-top: 1px dashed var(--ink-faint);
+}
+
+.ink-idle > div {
+  padding: 7px 8px 8px;
+  text-align: center;
+}
+
+.ink-idle > div + div {
+  border-left: 1px dashed var(--ink-faint);
+}
+
+.ink-idle dt {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--ink-soft);
+}
+
+.ink-idle dd {
+  margin: 2px 0 0;
+  font-size: 0.8rem;
+  color: var(--ink, #1a1a1a);
+  font-variant-numeric: tabular-nums;
+}

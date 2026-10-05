@@ -67,6 +67,8 @@ export interface LifeStore {
   ackMoment: () => void;
   practice: (actionId: PracticeActionId, opts?: { sectId?: string; artId?: string }) => void;
   combatMove: (moveId: string) => void;
+  /** 新手試煉：開打（贏咗得有用裝備） */
+  startNewbieTrial: () => void;
   combatSetInternalMode: (modeId: string | null) => void;
   combatResolveFoe: (disposition: CombatFoeDisposition) => void;
   /** 生死戰：玩家確認風險，應戰 */

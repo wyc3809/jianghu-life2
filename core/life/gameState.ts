@@ -127,6 +127,8 @@ export function createNewLife(options: CreateLifeOptions | number = {}): LifeGam
       baseMaxQi: maxQi,
       legacy_generation: opts.legacy?.generation ?? 1,
       ...(opts.skipCoach || opts.legacy ? { coach_done: true } : {}),
+      // 新手流程（挑戰→得裝備→換裝→下個目標）只畀全新角色；接班後人同測試用 skipCoach 唔行
+      ...(opts.skipCoach || opts.legacy ? {} : { newbie_active: true }),
     },
     family: { fatherName, motherName, childrenNames: [] },
     stats: {

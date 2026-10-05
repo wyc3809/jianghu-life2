@@ -413,6 +413,7 @@ function finishCombatWin(state: LifeGameState, dispositionLabel?: CombatFoeDispo
   c.stats.combats += 1;
   c.stats.combatsWon += 1;
   if (combat.foePower === 'boss') c.flags.boss_wins = Number(c.flags.boss_wins ?? 0) + 1;
+  if (combat.eventId === 'newbie_trial') c.flags.newbie_trial_won = true;
   if (combat.usedDesperateBurn) {
     addCondition(state, 'internal');
     lines.push('絕地反擊燃盡真氣，戰後留下內傷。');
