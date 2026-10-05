@@ -8559,3 +8559,27 @@ html[data-ink-motion='reduce'] .ink-achv-name i {
   content: '・';
   color: var(--cinnabar);
 }
+
+/* 祖祠 · 家族里程碑 */
+.ink-ancestry-row.ink-milestone {
+  grid-template-columns: 4.6em 1fr auto;
+  min-height: 34px;
+  font-size: 0.9rem;
+}
+
+.ink-milestone-hint {
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.ink-milestone .ink-ancestry-bonus {
+  color: var(--cinnabar);
+  font-weight: 700;
+}
+
+.ink-milestone.is-done .ink-ancestry-name,
+.ink-milestone.is-done .ink-ancestry-bonus {
+  color: var(--ink-soft);
+  font-weight: 400;
+}

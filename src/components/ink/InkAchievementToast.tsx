@@ -10,7 +10,7 @@ import { shouldReduceInkMotion } from './sceneVariants';
 /** 每條成就之間嘅間隔（ms），要同 CSS 嘅 --gap 一致 */
 const GAP_MS = 1400;
 
-export function InkAchievementToast({ names }: { names: string[] }) {
+export function InkAchievementToast({ names, seal = '成就' }: { names: string[]; seal?: string }) {
   useEffect(() => {
     if (!names.length) return;
     const reduce = shouldReduceInkMotion();
@@ -28,10 +28,10 @@ export function InkAchievementToast({ names }: { names: string[] }) {
           className="ink-achv"
           role="status"
           style={{ ['--k' as string]: i, ['--gap' as string]: `${GAP_MS}ms` }}
-          aria-label={`成就達成：${name}`}
+          aria-label={`${seal}：${name}`}
         >
           <span className="ink-achv-seal" aria-hidden>
-            成就
+            {seal}
           </span>
           <span className="ink-achv-name" aria-hidden>
             {Array.from(name).map((ch, j) => (

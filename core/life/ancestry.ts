@@ -16,6 +16,7 @@ import {
 } from '@data/ancestry/tuning';
 import { getSkillDef } from '@data/skills/catalog';
 import { allTitles } from './titles';
+import { FAMILY_MILESTONES, type FamilyMilestone } from '@data/ancestry/milestones';
 
 export function emptyAncestry(): AncestryMeta {
   return {
@@ -28,6 +29,7 @@ export function emptyAncestry(): AncestryMeta {
     unlockedArts: [],
     familyArts: [],
     familySlots: 1,
+    milestones: [],
   };
 }
 
@@ -147,4 +149,22 @@ export function applyAncestry(state: LifeGameState, meta: AncestryMeta): string[
   }
   if (names.length) bits.push(`家傳${names.join('、')}`);
   return bits.length ? [`祖蔭：${bits.join('、')}。`] : [];
+}
+
+/**
+ * 家族里程碑：首次達成即得祖蔭，同一個只領一次（帳戶層記錄，跨世唔重複）。
+ * 改 meta；回傳今次新領嘅里程碑。純函數、唔用 RNG。
+ */
+export function claimFamilyMilestones(meta: AncestryMeta, state: LifeGameState): FamilyMilestone[] {
+  const have = new Set(meta.milestones ?? []);
+  const gained: FamilyMilestone[] = [];
+  for (const m of FAMILY_MILESTONES) {
+    if (have.has(m.id) || !m.test(state)) continue;
+    have.add(m.id);
+    gained.push(m);
+    meta.points += m.merit;
+    meta.earnedTotal += m.merit;
+  }
+  if (gained.length) meta.milestones = [...have];
+  return gained;
 }

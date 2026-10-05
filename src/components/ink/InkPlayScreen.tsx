@@ -110,6 +110,18 @@ export function InkPlayScreen({ state }: Props) {
   const ackMoment = useLifeStore((s) => s.ackMoment);
   const offlineGain = useLifeStore((s) => s.offlineGain);
   const succession = useLifeStore((s) => s.succession);
+  const milestoneToast = useAncestryStore((s) => s.milestoneToast);
+  const checkMilestones = useAncestryStore((s) => s.checkMilestones);
+  const clearMilestoneToast = useAncestryStore((s) => s.clearMilestoneToast);
+  // 家族里程碑：每次狀態變就檢查（純函數，已領過嘅唔會重複）
+  useEffect(() => {
+    checkMilestones();
+  }, [state, checkMilestones]);
+  useEffect(() => {
+    if (!milestoneToast.length) return;
+    const t = window.setTimeout(clearMilestoneToast, 1400 * milestoneToast.length + 3200);
+    return () => window.clearTimeout(t);
+  }, [milestoneToast, clearMilestoneToast]);
   const clearSuccession = useLifeStore((s) => s.clearSuccession);
   const clearOfflineGain = useLifeStore((s) => s.clearOfflineGain);
   const [practiceView, setPracticeView] = useState<PracticeView>('main');
@@ -428,6 +440,8 @@ export function InkPlayScreen({ state }: Props) {
       {sealText && <InkSealStamp text={sealText} onDone={clearSeal} />}
 
       {succession && <InkSuccessionModal lines={succession} onClose={clearSuccession} />}
+
+      {milestoneToast.length > 0 && <InkAchievementToast key={milestoneToast.join('|')} names={milestoneToast} seal="祖蔭" />}
 
       {offlineGain !== null && (
         <InkOfflineGainModal gain={offlineGain} onClose={clearOfflineGain} />

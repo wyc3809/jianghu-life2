@@ -1,6 +1,7 @@
 /**
  * 祖祠：花祖蔭點（天賦加點、家傳武學）。規則見 design/gdd/ancestral-merit.md。
  */
+import { FAMILY_MILESTONES } from '@data/ancestry/milestones';
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { wuxiaAttributeKeys, wuxiaAttributeLabels } from '@interfaces/lifeEngine';
@@ -114,6 +115,22 @@ export function InkAncestryPanel({ onClose }: { onClose: () => void }) {
               );
             })
           )}
+        </section>
+
+        <section aria-label="家族里程碑">
+          <p className="ink-ancestry-label">
+            家族里程碑 · 首次達成得祖蔭（{(meta.milestones ?? []).length}／{FAMILY_MILESTONES.length}）
+          </p>
+          {FAMILY_MILESTONES.map((m) => {
+            const done = (meta.milestones ?? []).includes(m.id);
+            return (
+              <div key={m.id} className={`ink-ancestry-row ink-milestone${done ? ' is-done' : ''}`}>
+                <span className="ink-ancestry-name">{m.label}</span>
+                <span className="ink-milestone-hint">{m.hint}</span>
+                <span className="ink-ancestry-bonus">{done ? '已領' : `＋${m.merit}`}</span>
+              </div>
+            );
+          })}
         </section>
 
         <p className="ink-note ink-note--center">祖蔭跨世永存；下一世開局自動受用。</p>

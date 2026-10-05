@@ -8,7 +8,15 @@ import { create } from 'zustand';
 import { produce } from 'immer';
 import type { AncestryMeta } from '@interfaces/ancestry';
 import type { WuxiaAttribute } from '@interfaces/lifeEngine';
-import { buySecondSlot, buyTalent, recordLife, toggleFamilyArt, unlockArt, type MeritGain } from '@core/life/ancestry';
+import {
+  buySecondSlot,
+  buyTalent,
+  claimFamilyMilestones,
+  recordLife,
+  toggleFamilyArt,
+  unlockArt,
+  type MeritGain,
+} from '@core/life/ancestry';
 import { useLifeStore } from './lifeStore';
 import { loadAncestry, persistAncestry } from './ancestryMeta';
 
@@ -19,6 +27,11 @@ interface AncestryStore {
   /** 呢一世結算咗幾多（總結頁顯示） */
   award: MeritGain | null;
   panelOpen: boolean;
+  /** 啱啱達成嘅家族里程碑（toast 用），例如「開枝散葉 · 祖蔭＋3」 */
+  milestoneToast: string[];
+  /** 檢查家族里程碑：首次達成即入祖蔭（帳戶層，同一個只領一次） */
+  checkMilestones: () => void;
+  clearMilestoneToast: () => void;
   /** 人生去到總結：結算一次（靠角色 flag 防重複） */
   awardCurrentLife: () => void;
   buyTalent: (attr: WuxiaAttribute) => void;
@@ -40,6 +53,18 @@ export const useAncestryStore = create<AncestryStore>()((set, get) => ({
   meta: loadAncestry(),
   award: null,
   panelOpen: false,
+  milestoneToast: [],
+  checkMilestones: () => {
+    const life = useLifeStore.getState().state;
+    if (!life) return;
+    const meta = structuredClone(get().meta);
+    const gained = claimFamilyMilestones(meta, life);
+    if (!gained.length) return;
+    persistAncestry(meta);
+    set({ meta, milestoneToast: gained.map((m) => `${m.label} · 祖蔭＋${m.merit}`) });
+    queueCloudSync(life);
+  },
+  clearMilestoneToast: () => set({ milestoneToast: [] }),
   awardCurrentLife: () => {
     const life = useLifeStore.getState().state;
     if (!life || life.phase !== 'summary' || life.character.flags.ancestry_awarded) return;

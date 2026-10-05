@@ -63,7 +63,9 @@
 | 1 | 離線 48 小時＋修為儲備（A1、A2） | 玩家已確認 | `qa/evidence/redesign/step1-offline.png`、`step1-person.png` |
 | 2 | 音樂／音效分開＋設定頁帳戶存檔狀態（D1、D2） | 玩家已確認 | `qa/evidence/redesign/step2-settings.png` |
 | 3 | 突破失敗保留修為；普通戰敗唔死；生死戰確認（A3、A4） | 玩家已確認 | `qa/evidence/redesign/step3-breakthrough.png`、`step3-boss-lose.png`、`step3-lod.png` |
-| 4 | 家族銀庫全數傳、裝備庫全數傳、無子女旁支接班、接班「承祧」卡（B1、B2、B4） | 已做，等確認 | `qa/evidence/redesign/step4-summary.png`、`step4-next.png` |
+| 4 | 家族銀庫全數傳、裝備庫全數傳、無子女旁支接班、接班「承祧」卡（B1、B2、B4） | 玩家已確認 | `qa/evidence/redesign/step4-summary.png`、`step4-next.png` |
+| — | 頂部銀兩千位逗號字形修正（玩家要求） | 已做，等確認 | `qa/evidence/redesign/fix-money.png` |
+| 5 | 祖蔭家族里程碑：首次達成得祖蔭、同一個只領一次（B5） | 已做，等確認 | `qa/evidence/redesign/step5-toast.png`、`step5-shrine.png` |
 
 備註：
 - 第 1 步：銀兩／材料「離線繼續累積」現時遊戲未有離線銀兩收益，收益率屬未定，今步未加。
@@ -75,6 +77,9 @@
 - 第 4 步：秘笈收藏（B3）沿用現有祖祠「歷代學過嘅武學」記錄，今步冇改；後人點樣由收藏學返武學未定。
 - 第 4 步：裝備傳承冇設使用門檻（md 話門檻未定）；舊版「夢中兵器」提示只喺冇裝備可傳時先出。
 - 第 4 步：銀兩全數傳，冇上限（取代舊版「40% 現銀＋8% 峰值、最多 160 兩、要有子女」）。
+- 第 5 步：里程碑清單（8 項）同每項祖蔭數全部係測試參數（`data/ancestry/milestones.ts`），等玩家揀。
+- 第 5 步：舊玩家開遊戲時，如果已經達成某啲里程碑（例如已傳到第 3 代），會即刻當首次領取。
+- 第 5 步：祖蔭「新起步路線」未做（路線內容未定）；人生結算祖蔭沿用現有。
 - 第 2 步：配樂曲目未定，音樂聲道暫時冇聲源；雲端未開通時「帳戶 · 存檔」照樣顯示三項狀態。
 
 ## 5. 測試參數紀錄（`data/redesign/testParams.ts`）
@@ -83,3 +88,4 @@
 |---|---|---|---|
 | `TEST_CULTIVATION_RESERVE_RATIO` | 0.5（儲備上限＝境界上限 50%） | **玩家已確認 50%** | 48 小時最多儲半境，突破後即見進度，唔會一次跳兩境 |
 | `TEST_CULTIVATION_RESERVE_RELEASE` | `instant`（突破成功即撥入新境界） | 釋放方式未確認 | 最易理解，唔使額外操作 |
+| `FAMILY_MILESTONES`（8 項：開枝散葉 3、三世同譜 5、五世其昌 8、家門初顯 3、一門宗師 6、首斬強敵 4、執掌一派 8、家資萬兩 3） | 見左 | 里程碑項目、祖蔭數未確認 | 參考一世結算上限 40、天賦一級 3 點、解鎖家傳武學 8 點：小里程碑約一級天賦，大里程碑約一門家傳武學 |

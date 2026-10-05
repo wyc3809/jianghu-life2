@@ -18,6 +18,8 @@ export interface AncestryMeta {
   familyArts: string[];
   /** 家傳欄位數（1 或 2） */
   familySlots: number;
+  /** 已領過祖蔭嘅家族里程碑 id（首次先有，同一個只領一次）；舊資料冇＝空 */
+  milestones?: string[];
 }
 
 export const ancestryMetaSchema = z.object({
@@ -30,4 +32,5 @@ export const ancestryMetaSchema = z.object({
   unlockedArts: z.array(z.string()),
   familyArts: z.array(z.string()),
   familySlots: z.number().int().min(1).max(2),
+  milestones: z.array(z.string()).optional(),
 });
