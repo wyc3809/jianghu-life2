@@ -9263,3 +9263,203 @@ html[data-ink-motion='reduce'] .ink-achv-name i {
   opacity: 0.32;
   cursor: default;
 }
+
+/* 在線奇遇（design/agreed-design-2026-10.md §3.3） */
+.ink-enc-card {
+  text-align: center;
+  padding: 26px 18px 20px;
+  border-color: rgba(176, 122, 28, 0.6);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(196, 150, 60, 0.18), transparent 60%),
+    linear-gradient(180deg, rgba(250, 246, 238, 0.99), rgba(230, 217, 196, 0.98));
+}
+
+.ink-enc-seal {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 50px;
+  height: 50px;
+  transform: rotate(-6deg);
+}
+
+.ink-enc-kicker {
+  margin: 0;
+  font-size: 0.82rem;
+  letter-spacing: 0.5em;
+  color: #8a5a12;
+  font-weight: 700;
+}
+
+.ink-enc-title {
+  margin: 6px 0 8px;
+  font-size: 1.5rem;
+  letter-spacing: 0.2em;
+}
+
+.ink-enc-meta {
+  margin: -4px 0 8px;
+  font-size: 0.82rem;
+  color: #8a5a12;
+}
+
+.ink-enc-story {
+  margin: 0 0 14px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--ink-mid);
+  text-align: left;
+}
+
+.ink-enc-routes {
+  margin: 0 0 10px;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
+.ink-enc-route {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgba(176, 122, 28, 0.6);
+  background: rgba(255, 252, 245, 0.85);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ink-enc-route-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink, #1a1a1a);
+}
+
+.ink-enc-route-trial {
+  font-size: 0.8rem;
+  color: #8a5a12;
+}
+
+.ink-enc-note {
+  margin: 0 0 12px;
+  font-size: 0.74rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  text-align: left;
+}
+
+.ink-enc-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.ink-enc-btn {
+  flex: 1;
+  min-height: 44px;
+  border: 1px solid var(--ink, #1a1a1a);
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.92rem;
+  letter-spacing: 0.16em;
+  cursor: pointer;
+}
+
+.ink-enc-btn.is-main {
+  border-color: #8a5a12;
+  background: #8a5a12;
+  color: #f6f1e6;
+  font-weight: 700;
+}
+
+.ink-enc-btn.is-quiet {
+  border-color: var(--ink-faint);
+  color: var(--ink-soft);
+}
+
+.ink-enc-strip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border: 1px solid rgba(176, 122, 28, 0.55);
+  background: linear-gradient(100deg, rgba(196, 150, 60, 0.16), rgba(255, 252, 245, 0.75));
+  font-family: inherit;
+  text-align: left;
+}
+
+button.ink-enc-strip {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  cursor: pointer;
+}
+
+.ink-enc-strip-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.ink-enc-strip-kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  color: #8a5a12;
+  font-weight: 700;
+}
+
+.ink-enc-strip-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--ink, #1a1a1a);
+}
+
+.ink-enc-strip-time {
+  font-size: 0.76rem;
+  color: var(--ink-soft);
+}
+
+.ink-enc-strip-bar {
+  display: block;
+  height: 5px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #b07a1c 0 var(--fill, 0%), rgba(26, 26, 26, 0.12) var(--fill, 0%) 100%);
+}
+
+.ink-enc-strip.is-offer {
+  animation: inkEncPulse 2.4s ease-in-out infinite;
+}
+
+.ink-enc-strip.is-done {
+  border-color: var(--cinnabar);
+}
+
+.ink-enc-claim {
+  flex: none;
+  min-height: 44px;
+  padding: 6px 14px 6px 18px;
+  border: none;
+  background: var(--cinnabar);
+  color: #f6f1e6;
+  font-family: inherit;
+  font-size: 0.94rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+}
+
+@keyframes inkEncPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(176, 122, 28, 0); }
+  50% { box-shadow: 0 0 0 4px rgba(176, 122, 28, 0.18); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-enc-strip.is-offer { animation: none; }
+}

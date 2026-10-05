@@ -51,6 +51,7 @@ import { InkLifeOrDeathConfirm } from './InkLifeOrDeathConfirm';
 import { InkSuccessionModal } from './InkSuccessionModal';
 import { InkHomeGoals } from './InkHomeGoals';
 import { InkGachaPanel } from './InkGachaPanel';
+import { InkEncounterCard, InkEncounterModal } from './InkEncounter';
 import { newbieActive } from '@core/life/goals';
 import { NEWBIE_TRIAL } from '@data/redesign/newbie';
 import { familyGearCarry, getHeirName, previewInheritanceMoney } from '@core/life/family';
@@ -123,6 +124,18 @@ export function InkPlayScreen({ state }: Props) {
   const jadeToast = useAncestryStore((s) => s.jadeToast);
   const clearJadeToast = useAncestryStore((s) => s.clearJadeToast);
   const gachaOpen = useAncestryStore((s) => s.gachaOpen);
+  const encounterOpen = useAncestryStore((s) => s.encounterOpen);
+  const encounterTick = useAncestryStore((s) => s.encounterTick);
+  const learnManual = useAncestryStore((s) => s.learnManual);
+  // 在線奇遇：只喺開住遊戲時計（每 20 秒＋每次狀態變）
+  useEffect(() => {
+    encounterTick(Date.now());
+    const t = window.setInterval(() => encounterTick(Date.now()), 20_000);
+    return () => window.clearInterval(t);
+  }, [encounterTick]);
+  useEffect(() => {
+    encounterTick(Date.now());
+  }, [state, encounterTick]);
   const setGachaOpen = useAncestryStore((s) => s.setGachaOpen);
   useEffect(() => {
     if (!jadeToast) return;
@@ -466,6 +479,8 @@ export function InkPlayScreen({ state }: Props) {
 
       {gachaOpen && <InkGachaPanel state={state} onClose={() => setGachaOpen(false)} />}
 
+      {encounterOpen && <InkEncounterModal onLearn={learnManual} />}
+
       {offlineGain !== null && (
         <InkOfflineGainModal gain={offlineGain} onClose={clearOfflineGain} />
       )}
@@ -649,6 +664,8 @@ export function InkPlayScreen({ state }: Props) {
               }}
             />
           )}
+
+          {state.phase === 'playing' && c.alive && !showResult && <InkEncounterCard />}
 
           {/* 翻頁效果只套喺下面嘅提示，唔影響演武台 */}
           <div ref={flipRef}>
