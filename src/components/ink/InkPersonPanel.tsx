@@ -33,7 +33,7 @@ import { listWeaponMasteries } from '@core/life/weaponMastery';
 import { careerLabel, getCareer } from '@core/life/careers';
 import { formatFragmentProgress } from '@core/life/manualFragments';
 import { getMasterName } from '@core/life/bonds';
-import { getHeirName, listChildNames, previewInheritanceMoney } from '@core/life/family';
+import { familyGearCarry, getHeirName, listChildNames, previewInheritanceMoney } from '@core/life/family';
 import { buildGenealogy } from '@core/life/genealogy';
 import { achievementProgress, listAchievementStatus } from '@core/life/achievements';
 import { allTitles } from '@core/life/titles';
@@ -687,9 +687,10 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
             {listChildNames(state).length ? `（${listChildNames(state).join('、')}）` : ''}
             {getHeirName(state) ? ` · 嗣「${getHeirName(state)}」` : ''}
           </p>
-          {(c.childrenCount ?? 0) > 0 && (
-            <p className="ink-note">死後可繼族產約 {previewInheritanceMoney(state)} 兩</p>
-          )}
+          <p className="ink-note">
+            家族銀庫 {previewInheritanceMoney(state).toLocaleString('zh-Hant')} 兩、裝備 {familyGearCarry(state).length} 件 · 離世後全數傳後人
+            {(c.childrenCount ?? 0) > 0 ? '' : '（無子女由旁支接班）'}
+          </p>
           {c.loverId && (c.childrenCount ?? 0) === 0 && (
             <p className="ink-note">已有眷屬——可至修行「求子添丁」。</p>
           )}

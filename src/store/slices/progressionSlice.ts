@@ -7,8 +7,8 @@ import {
   resolvePendingEvent,
   startMonth,
 } from '@core/life/eventEngine';
-import { clearLifeSave, loadLifeSave } from '@core/life/saveIndexedDb';
-import { flushPersist, installPersistLifecycle } from '../persistSchedule';
+import { loadLifeSave } from '@core/life/saveIndexedDb';
+import { installPersistLifecycle } from '../persistSchedule';
 import {
   startHuashanBracket,
   dismissHuashanReport,
@@ -35,6 +35,11 @@ import { track } from '../../telemetry/events';
 import { sparStageReward } from '@core/life/sparDuel';
 import { addCultivationXp } from '@core/life/cultivation';
 import type { LifeStore } from '../lifeStore';
+
+/** 由新一世開局年譜抽出接班相關嘅句（前世、承祧／血脈、銀庫、裝備庫、祖蔭） */
+export function successionLines(lifeLog: string[]): string[] {
+  return lifeLog.filter((l) => /^前世「|承祧|血脈未斷|家族銀庫|家族裝備庫|^祖蔭：/.test(l));
+}
 
 export function createProgressionSlice(
   set: (partial: Partial<LifeStore>) => void,
@@ -71,6 +76,7 @@ export function createProgressionSlice(
   | 'attemptBreakthrough'
   | 'clearBreakthroughResult'
   | 'clearOfflineGain'
+  | 'clearSuccession'
 > {
   return {
     bootstrap: async () => {
@@ -107,25 +113,17 @@ export function createProgressionSlice(
         return;
       }
       const legacy = extractLegacy(prev);
-      if (!legacy.hadChildren) {
-        track('life_end_no_heir', { generation: legacy.generation });
-        flushPersist();
-        void clearLifeSave();
-        set({
-          state: null,
-          creating: true,
-          sealText: null,
-          flashLines: [],
-          lastResult: null,
-        });
-        return;
-      }
+      // 無子女都唔會斷：由旁支承祧（design/agreed-design-2026-10.md §1）
       track('life_reincarnate', {
         generation: legacy.generation,
         family: legacy.familyLegacy,
         teacher: legacy.teacherLegacy,
+        collateral: Boolean(legacy.collateral),
       });
       get().newLife({ legacy });
+      const born = get().state;
+      const lines = born ? successionLines(born.lifeLog) : [];
+      set({ succession: lines.length ? lines : null });
     },
 
     continueLife: async () => {
@@ -438,5 +436,6 @@ export function createProgressionSlice(
     clearBreakthroughResult: () => set({ breakthroughResult: null }),
 
     clearOfflineGain: () => set({ offlineGain: null }),
+    clearSuccession: () => set({ succession: null }),
   };
 }

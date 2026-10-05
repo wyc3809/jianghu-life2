@@ -1,9 +1,10 @@
-import type { LifeGameState, WuxiaAttribute } from '@interfaces/lifeEngine';
+import type { LifeGameState } from '@interfaces/lifeEngine';
 import { wuxiaAttributeKeys } from '@interfaces/lifeEngine';
-import { getHeirName, listChildNames, previewInheritanceMoney } from './family';
+import { familyGearCarry, getHeirName, listChildNames, previewInheritanceMoney } from './family';
 import { sealGenealogyForLegacy, writeGenealogyChronicle } from './genealogy';
 import { alignClanSurnames } from './clanNames';
 import { displayGearName } from './equipment';
+import { getGearDef } from '@data/equipment/catalog';
 
 /** 前世可帶入來世的墨跡（非付費、非碾壓） */
 export interface LegacyCarry {
@@ -25,6 +26,12 @@ export interface LegacyCarry {
   childrenNames?: string[];
   inheritedMoney?: number;
   hadChildren?: boolean;
+  /** 無子女：由族中旁支承祧（家族成果照傳） */
+  collateral?: boolean;
+  /** 家族裝備庫：前人所有裝備 id */
+  inheritedGear?: string[];
+  /** 前人穿戴配搭（後人照穿） */
+  inheritedEquipment?: { weapon: string | null; armor: string | null; accessory: string | null };
   /** 跨世族譜殘頁 */
   genealogyChronicle?: string[];
   /** 前世人生題眼 */
@@ -55,7 +62,9 @@ export function extractLegacy(state: LifeGameState): LegacyCarry {
   const childrenNames = listChildNames(state);
   const hadChildren = childrenNames.length > 0 || (c.childrenCount ?? 0) > 0;
   const heirName = hadChildren ? getHeirName(state) ?? childrenNames[0] : undefined;
-  const inheritedMoney = hadChildren || c.flags.family_legacy ? previewInheritanceMoney(state) : 0;
+  // 家族銀庫／裝備庫：全數傳後人，無嗣由旁支承接（design/agreed-design-2026-10.md §1）
+  const inheritedMoney = previewInheritanceMoney(state);
+  const inheritedGear = familyGearCarry(state);
   const genealogyChronicle = sealGenealogyForLegacy(state);
 
   return {
@@ -65,8 +74,8 @@ export function extractLegacy(state: LifeGameState): LegacyCarry {
     ancestorMartial: c.martial,
     ancestorReputation: c.reputation,
     ancestorWealthPeak: c.stats.wealthPeak,
-    // 有子女或已立族規 → 來世必帶族產線
-    familyLegacy: Boolean(c.flags.family_legacy) || hadChildren,
+    // 家族一定延續：有子女由子女接，冇就由旁支接
+    familyLegacy: true,
     teacherLegacy: Boolean(c.flags.legacy_teacher),
     birthplace: c.birthplace,
     friendNpcId,
@@ -75,8 +84,11 @@ export function extractLegacy(state: LifeGameState): LegacyCarry {
     titleHints: titleIds.slice(0, 3),
     heirName: heirName || undefined,
     childrenNames: childrenNames.length ? childrenNames : undefined,
-    inheritedMoney: inheritedMoney || undefined,
+    inheritedMoney,
     hadChildren,
+    collateral: !hadChildren,
+    inheritedGear: inheritedGear.length ? inheritedGear : undefined,
+    inheritedEquipment: c.equipment ? { ...c.equipment } : undefined,
     genealogyChronicle,
     lifeTheme:
       typeof c.flags.life_theme === 'string' ? String(c.flags.life_theme) : undefined,
@@ -103,48 +115,52 @@ export function applyLegacyToCharacter(state: LifeGameState, legacy: LegacyCarry
     lines.push(`祖輩拳腳殘影：武學＋${martialBonus}`);
   }
 
-  // 子女血脈／族產繼承（優先於舊 familyLegacy 薄利）
-  if (legacy.hadChildren || legacy.heirName || (legacy.inheritedMoney ?? 0) > 0) {
-    const coin =
-      legacy.inheritedMoney && legacy.inheritedMoney > 0
-        ? legacy.inheritedMoney
-        : Math.min(80, 25 + Math.floor(legacy.ancestorWealthPeak * 0.05));
+  // 家族接班：子女（血脈）或旁支（承祧）；銀庫、裝備庫全數承接
+  c.flags.born_with_family_legacy = true;
+  c.flags.family_legacy = true;
+  c.attributes.fuYuan = Math.min(100, c.attributes.fuYuan + 5);
+  if (legacy.heirName && !legacy.collateral) {
+    c.flags.legacy_heir_of = legacy.heirName;
+    // 族譜：你這一世被看作繼承人血脈；父母與本人同承先祖姓
+    if (c.gender === 'male') c.family.fatherName = legacy.ancestorName;
+    else c.family.motherName = legacy.ancestorName;
+    alignClanSurnames(state);
+    if (state.npcs.parent_father && c.family.fatherName) {
+      state.npcs.parent_father.name = c.family.fatherName;
+    }
+    if (state.npcs.parent_mother && c.family.motherName) {
+      state.npcs.parent_mother.name = c.family.motherName;
+    }
+    lines.push(`血脈未斷：前世立「${legacy.heirName}」為嗣，你承其家門。`);
+  } else {
+    // 無嗣：族中旁支承祧，同姓、家族成果照傳
+    alignClanSurnames(state);
+    c.flags.legacy_collateral = true;
+    lines.push(`前世「${legacy.ancestorName}」無嗣，族中旁支由你「${c.name}」承祧，家族成果一樣傳落嚟。`);
+  }
+  if (legacy.childrenNames?.length) {
+    c.flags.legacy_siblings_echo = legacy.childrenNames.join('、');
+    lines.push(`族譜殘頁上還有前世子女之名：${legacy.childrenNames.join('、')}。`);
+  }
+
+  const coin = Math.max(0, Math.floor(legacy.inheritedMoney ?? 0));
+  if (coin > 0) {
     c.money += coin;
     c.stats.wealthPeak = Math.max(c.stats.wealthPeak, c.money);
-    c.flags.born_with_family_legacy = true;
-    c.flags.family_legacy = true;
-    const key: WuxiaAttribute = 'fuYuan';
-    c.attributes[key] = Math.min(100, c.attributes[key] + 5);
-    if (legacy.heirName) {
-      c.flags.legacy_heir_of = legacy.heirName;
-      // 族譜：你這一世被看作繼承人血脈；父母與本人同承先祖姓
-      if (c.gender === 'male') c.family.fatherName = legacy.ancestorName;
-      else c.family.motherName = legacy.ancestorName;
-      alignClanSurnames(state);
-      if (state.npcs.parent_father && c.family.fatherName) {
-        state.npcs.parent_father.name = c.family.fatherName;
+    lines.push(`家族銀庫：前人積蓄 ${coin.toLocaleString('zh-Hant')} 兩全數承接。`);
+  }
+
+  const gear = (legacy.inheritedGear ?? []).filter((id) => getGearDef(id));
+  if (gear.length) {
+    c.gear = [...new Set([...(c.gear ?? []), ...gear])];
+    const eq = legacy.inheritedEquipment;
+    if (eq) {
+      for (const slot of ['weapon', 'armor', 'accessory'] as const) {
+        const id = eq[slot];
+        if (id && getGearDef(id)) c.equipment[slot] = id;
       }
-      if (state.npcs.parent_mother && c.family.motherName) {
-        state.npcs.parent_mother.name = c.family.motherName;
-      }
-      lines.push(
-        `血脈未斷：前世立「${legacy.heirName}」為嗣，你承其餘蔭，開局銀兩＋${coin}，福緣略厚。`,
-      );
-    } else {
-      lines.push(`族產入匣：開局銀兩＋${coin}，福緣略厚。`);
     }
-    if (legacy.childrenNames?.length) {
-      c.flags.legacy_siblings_echo = legacy.childrenNames.join('、');
-      lines.push(`族譜殘頁上還有前世子女之名：${legacy.childrenNames.join('、')}。`);
-    }
-  } else if (legacy.familyLegacy) {
-    const coin = Math.min(80, 25 + Math.floor(legacy.ancestorWealthPeak * 0.05));
-    c.money += coin;
-    c.stats.wealthPeak = Math.max(c.stats.wealthPeak, c.money);
-    c.flags.born_with_family_legacy = true;
-    const key: WuxiaAttribute = 'fuYuan';
-    c.attributes[key] = Math.min(100, c.attributes[key] + 4);
-    lines.push(`族規尚在，開局銀兩＋${coin}，福緣略厚。`);
+    lines.push(`家族裝備庫：承接 ${gear.length} 件裝備，照前人配搭穿戴。`);
   }
 
   if (legacy.teacherLegacy) {
@@ -176,7 +192,7 @@ export function applyLegacyToCharacter(state: LifeGameState, legacy: LegacyCarry
     lines.push(`枕邊似有舊怨低語——「${legacy.rivalHint}」三字未散。`);
   }
 
-  if (legacy.gearHint) {
+  if (legacy.gearHint && !(legacy.inheritedGear ?? []).length) {
     c.flags.born_with_gear_dream = displayGearName(String(legacy.gearHint));
     lines.push('你夢見一把舊兵刃靠牆，醒來掌心還有涼意。');
   }

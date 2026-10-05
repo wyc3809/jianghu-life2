@@ -5,7 +5,7 @@ import { getLifeStageLabel } from './stages';
 import { deathCauseOf } from './death';
 import { titleLabels } from './titles';
 import { achievementLabels } from './achievements';
-import { previewInheritanceMoney } from './family';
+import { familyGearCarry, previewInheritanceMoney } from './family';
 import { formatGenealogyText } from './genealogy';
 import { getLifeTheme, pickVarianceEpitaph, themeLabelOf } from './lifeVariance';
 import { dominantNature } from './nature';
@@ -95,19 +95,14 @@ export function buildLifeSummary(state: LifeGameState): string {
     lines.push(`　　【繼承人】${heir}`);
   }
 
-  const carryBits: string[] = [];
-  if (c.flags.family_legacy || (c.childrenCount ?? 0) > 0) carryBits.push('族規／血脈');
+  const carryBits: string[] = ['家族銀庫', '裝備庫', '秘笈收藏'];
   if (c.flags.legacy_teacher) carryBits.push('傳功');
   if (c.flags.legacy_friend) carryBits.push('故人');
-  if (carryBits.length) {
-    lines.push('', `　　【可傳後世】${carryBits.join('、')}`);
-  }
-  if ((c.childrenCount ?? 0) > 0 || c.flags.family_legacy) {
-    const coin = previewInheritanceMoney(state);
-    if (coin > 0) {
-      lines.push(`　　【來世可繼族產】約 ${coin} 兩（轉世時入匣）`);
-    }
-  }
+  lines.push('', `　　【可傳後世】${carryBits.join('、')}`);
+  if ((c.childrenCount ?? 0) <= 0) lines.push('　　【承祧】無嗣，由族中旁支接班');
+  lines.push(`　　【家族銀庫】${previewInheritanceMoney(state).toLocaleString('zh-Hant')} 兩（全數傳後人）`);
+  const gearN = familyGearCarry(state).length;
+  if (gearN > 0) lines.push(`　　【家族裝備庫】${gearN} 件（全數傳後人）`);
 
   lines.push('', ...formatGenealogyText(state).map((l) => (l.startsWith('【') ? `　　${l}` : `　${l}`)));
 

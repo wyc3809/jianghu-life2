@@ -48,6 +48,8 @@ import { InkPersonPanel, type PersonView } from './InkPersonPanel';
 import { InkEventPanel } from './InkEventPanel';
 import { InkCombatPanel } from './InkCombatPanel';
 import { InkLifeOrDeathConfirm } from './InkLifeOrDeathConfirm';
+import { InkSuccessionModal } from './InkSuccessionModal';
+import { familyGearCarry, getHeirName, previewInheritanceMoney } from '@core/life/family';
 import { needsLifeOrDeathConfirm } from '@core/life/combat';
 import { InkBossIntro } from './InkBossIntro';
 import { InkBreakthroughModal } from './InkBreakthroughModal';
@@ -107,6 +109,8 @@ export function InkPlayScreen({ state }: Props) {
   const clearBreakthroughResult = useLifeStore((s) => s.clearBreakthroughResult);
   const ackMoment = useLifeStore((s) => s.ackMoment);
   const offlineGain = useLifeStore((s) => s.offlineGain);
+  const succession = useLifeStore((s) => s.succession);
+  const clearSuccession = useLifeStore((s) => s.clearSuccession);
   const clearOfflineGain = useLifeStore((s) => s.clearOfflineGain);
   const [practiceView, setPracticeView] = useState<PracticeView>('main');
   const [personView, setPersonView] = useState<PersonView>('main');
@@ -176,6 +180,7 @@ export function InkPlayScreen({ state }: Props) {
   const pendingEvent = resolvePendingEvent(state);
   const sect = c.sectId ? state.sects[c.sectId] : null;
   const hasHeir = (c.childrenCount ?? 0) > 0;
+  const heirLabel = getHeirName(state) ? `子女「${getHeirName(state)}」` : '子女';
   const hpPct = Math.max(0, Math.min(100, (c.health / Math.max(1, c.maxHealth)) * 100));
   const qiPct = Math.max(0, Math.min(100, ((c.qi ?? 0) / Math.max(1, c.maxQi ?? 1)) * 100));
   const tab = state.tab ?? 'home';
@@ -421,6 +426,8 @@ export function InkPlayScreen({ state }: Props) {
         night={useNightWash}
       />
       {sealText && <InkSealStamp text={sealText} onDone={clearSeal} />}
+
+      {succession && <InkSuccessionModal lines={succession} onClose={clearSuccession} />}
 
       {offlineGain !== null && (
         <InkOfflineGainModal gain={offlineGain} onClose={clearOfflineGain} />
@@ -907,20 +914,13 @@ export function InkPlayScreen({ state }: Props) {
             </button>
           )}
           <button type="button" className="ink-btn ink-btn--primary" onClick={() => reincarnate()}>
-            {hasHeir ? '轉世再入江湖' : '重新選角'}
+            後人接班 · 再入江湖
           </button>
           <p className="ink-note ink-note--center">
-            {hasHeir ? (
-              <>
-                前世武學餘韻
-                {c.flags.family_legacy || c.flags.legacy_teacher
-                  ? `與${[c.flags.family_legacy ? '族規' : '', c.flags.legacy_teacher ? '傳功' : ''].filter(Boolean).join('、')}`
-                  : ''}
-                將淡淡帶入來世。
-              </>
-            ) : (
-              '這一世沒有子女，血脈不傳；祖蔭仍在，下一世照樣受用。'
-            )}
+            {hasHeir
+              ? `由${heirLabel}接班；`
+              : '前世無嗣，由族中旁支承祧；'}
+            家族銀庫 {previewInheritanceMoney(state).toLocaleString('zh-Hant')} 兩、裝備 {familyGearCarry(state).length} 件全數傳落去。
           </p>
         </section>
       )}

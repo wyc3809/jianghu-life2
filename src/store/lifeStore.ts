@@ -105,6 +105,9 @@ export interface LifeStore {
   /** 上次讀檔嘅離線收益彈窗資料（null＝冇要顯示） */
   offlineGain: OfflineGainInfo | null;
   clearOfflineGain: () => void;
+  /** 後人接班：開局一次過顯示承接咗乜（家族銀庫、裝備庫、承祧） */
+  succession: string[] | null;
+  clearSuccession: () => void;
 }
 
 async function save(state: LifeGameState, immediate = true) {
@@ -121,6 +124,7 @@ export const useLifeStore = create<LifeStore>()(
     lastResult: null,
     creating: false,
     offlineGain: null,
+    succession: null,
     breakthroughResult: null,
 
     ...createProgressionSlice(set, get, save),
