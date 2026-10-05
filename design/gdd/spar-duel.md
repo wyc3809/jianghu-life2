@@ -19,6 +19,8 @@
 - 換場景：背景墨暈淡入淡出、中間題字「入 · 地名＋主題」約 2.6 秒、俠客由左重新行入；跨場景過關嘅獎勵併入題字卡。左上角地名跟場景（千燈鎮場景照用角色所在地）。
 - 小兵倒下 → 下一個；首領倒下 → 過關（stage+1；有回血招式先回 35% 血），掉 6 個銅錢，入賬銀兩＋修為。
 - 主角演武血條見底 → 倒地 1.6 秒 → 退 `max(1, floor(stage/10))` 關、回滿血。
+- **場景氛圍**（`src/spar/ambience.ts`）：千燈鎮水光＋薄霧、山道落葉、竹林竹葉、雨夜客棧斜雨＋濺水＋偏暗、山門雲霧＋香煙、夜山流雲＋螢火；背景鏡頭慢慢推近拉遠（±2.2%）。粒子分前後兩層（角色後／角色前）。
+- **條帶變形骨架**（`src/spar/stripRig.ts`）：剪影切 40 條橫帶，三組阻尼彈簧——上身傾（lean）、衣擺（cloth，膝下最大）、頭髮斗笠（hair，頭頂一截）；腳底永遠唔郁。行路拖衣擺、蓄勢後仰、出招前傾、受擊後彈；兵器握點跟變形移動；揮擊爆發段留 5 格淡墨殘影。倒地時唔疊加變形。
 - 關數存喺 `character.flags.spar_stage`；每次命中仍經 `sparStrike()` +1 修為（同舊版一樣）。
 
 ## 4. Formulas
@@ -53,7 +55,7 @@ reward    = { silver: 2 + floor(stage/3), xp: 10 + stage × 4 }
 
 ## 7. Tuning Knobs
 
-`SPAR_SCENES`／`SPAR_SCENE_SPAN`（場景、主題陣容、每場景關數）、`SPAR_TIER_SCALE`、`SPAR_STAGE_GROWTH`、`SPAR_BOSS_HP_MUL`、`SPAR_BOSS_ATK_MUL`、`SPAR_STAGE_CLEAR_HEAL`（`core/life/sparDuel.ts`）；撲擊節奏 `LUNGE_DUR`／`LUNGE_HIT_AT`、敗退時長 `HERO_DOWN_DUR`（`src/spar/engine.ts`）。
+`SPAR_SCENES`／`SPAR_SCENE_SPAN`（場景、主題陣容、每場景關數）、`SPAR_TIER_SCALE`、`SPAR_STAGE_GROWTH`、`SPAR_BOSS_HP_MUL`、`SPAR_BOSS_ATK_MUL`、`SPAR_STAGE_CLEAR_HEAL`（`core/life/sparDuel.ts`）；氛圍配方 `AMBIENCE`（`src/spar/ambience.ts`）；骨架彈簧 `LEAN`／`CLOTH`／`HAIR`、位移上限 `RIG_LIMIT`（`src/spar/stripRig.ts`）、殘影 `AFTERIMAGE_LIFE`／`AFTERIMAGE_EVERY`；撲擊節奏 `LUNGE_DUR`／`LUNGE_HIT_AT`、敗退時長 `HERO_DOWN_DUR`（`src/spar/engine.ts`）。
 
 ## 8. Acceptance Criteria
 
