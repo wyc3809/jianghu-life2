@@ -25,6 +25,12 @@ export function InkOfflineGainModal({ gain, onClose }: Props) {
           修為
           <span className="ink-offline-modal-xp">＋{gain.xp.toLocaleString('zh-Hant')}</span>
         </p>
+        {(gain.silver ?? 0) > 0 && (
+          <p className="ink-offline-modal-reserve">
+            待收成銀兩
+            <span className="ink-offline-modal-reserve-num">＋{(gain.silver ?? 0).toLocaleString('zh-Hant')}</span>
+          </p>
+        )}
         {gain.reserveXp > 0 && (
           <p className="ink-offline-modal-reserve">
             其中入儲備

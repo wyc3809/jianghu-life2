@@ -8661,11 +8661,70 @@ html[data-ink-motion='reduce'] .ink-achv-name i {
   opacity: 0.45;
 }
 
+.ink-idle-row {
+  display: flex;
+  align-items: stretch;
+  border-top: 1px dashed var(--ink-faint);
+}
+
 .ink-idle {
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin: 0;
-  border-top: 1px dashed var(--ink-faint);
+}
+
+/* 收成：待收成銀兩（最多 48 小時嘅量） */
+.ink-harvest {
+  flex: none;
+  width: 84px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  border: none;
+  border-left: 1px dashed var(--ink-faint);
+  background: rgba(163, 58, 50, 0.08);
+  color: var(--cinnabar);
+  font-family: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ink-harvest-label {
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  padding-left: 0.3em;
+}
+
+.ink-harvest-num {
+  font-size: 0.82rem;
+  color: var(--ink, #1a1a1a);
+  font-variant-numeric: tabular-nums;
+}
+
+.ink-harvest-num small {
+  font-size: 0.68rem;
+  color: var(--ink-soft);
+}
+
+.ink-harvest.is-full {
+  background: var(--cinnabar);
+  color: #f6f1e6;
+}
+
+.ink-harvest.is-full .ink-harvest-num,
+.ink-harvest.is-full .ink-harvest-num small {
+  color: #f6f1e6;
+}
+
+.ink-harvest:disabled {
+  cursor: default;
+  background: transparent;
+  color: var(--ink-soft);
 }
 
 .ink-idle > div {

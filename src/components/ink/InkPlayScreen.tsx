@@ -109,6 +109,7 @@ export function InkPlayScreen({ state }: Props) {
   const tickCultivation = useLifeStore((s) => s.tickCultivation);
   const attemptBreakthrough = useLifeStore((s) => s.attemptBreakthrough);
   const startNewbieTrial = useLifeStore((s) => s.startNewbieTrial);
+  const harvestIdle = useLifeStore((s) => s.harvestIdle);
   const breakthroughResult = useLifeStore((s) => s.breakthroughResult);
   const clearBreakthroughResult = useLifeStore((s) => s.clearBreakthroughResult);
   const ackMoment = useLifeStore((s) => s.ackMoment);
@@ -620,6 +621,10 @@ export function InkPlayScreen({ state }: Props) {
             <InkHomeGoals
               state={state}
               busy={Boolean(combat)}
+              onHarvest={() => {
+                const got = harvestIdle();
+                if (got > 0) playInkWin();
+              }}
               onAction={(a) => {
                 if (a === 'trial') startNewbieTrial();
                 else if (a === 'equip') equipOwned(NEWBIE_TRIAL.rewardGearId);

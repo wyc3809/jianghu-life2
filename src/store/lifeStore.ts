@@ -30,6 +30,8 @@ export interface LastResult {
 /** 閉關所得（離線收益）彈窗資料 */
 export interface OfflineGainInfo {
   xp: number;
+  /** 離線期間累積入「待收成」嘅銀兩 */
+  silver?: number;
   /** 實際計咗幾多離線時間（ms，已按上限截斷） */
   countedMs: number;
   /** 離開時間長過上限，多出嚟嘅修持流走咗 */
@@ -110,6 +112,8 @@ export interface LifeStore {
   /** 後人接班：開局一次過顯示承接咗乜（家族銀庫、裝備庫、承祧） */
   succession: string[] | null;
   clearSuccession: () => void;
+  /** 掛機收成：待收成銀兩入袋，返回收咗幾多 */
+  harvestIdle: () => number;
 }
 
 async function save(state: LifeGameState, immediate = true) {

@@ -1,3 +1,4 @@
+import { accrueIdleSilver, harvestIdleSilver } from '@core/life/idleHarvest';
 import { produce } from 'immer';
 import { shiftMoment } from '@core/life/moments';
 import type { LifeGameState } from '@interfaces/lifeEngine';
@@ -77,6 +78,7 @@ export function createProgressionSlice(
   | 'clearBreakthroughResult'
   | 'clearOfflineGain'
   | 'clearSuccession'
+  | 'harvestIdle'
 > {
   return {
     bootstrap: async () => {
@@ -134,7 +136,9 @@ export function createProgressionSlice(
       track('life_resume', { age: state.character.age });
       const elapsedMs = Date.now() - loaded.savedAt;
       const offline = applyOfflineCultivation(state, elapsedMs);
-      if (offline.gainedXp > 0) {
+      // 掛機銀兩：同修為一樣最多計 48 小時，入「待收成」
+      const offlineSilver = accrueIdleSilver(state, offline.countedSeconds);
+      if (offline.gainedXp > 0 || offlineSilver >= 1) {
         track('cultivation_offline_gain', {
           gainedXp: Math.round(offline.gainedXp),
           countedSeconds: Math.round(offline.countedSeconds),
@@ -148,8 +152,9 @@ export function createProgressionSlice(
         flashLines: [],
         lastResult: null,
         offlineGain:
-          offline.gainedXp > 0
+          offline.gainedXp > 0 || offlineSilver >= 1
             ? {
+                silver: Math.floor(offlineSilver),
                 xp: Math.round(offline.gainedXp),
                 countedMs: Math.round(offline.countedSeconds * 1000),
                 timeCapped: offline.timeCapped,
@@ -370,6 +375,7 @@ export function createProgressionSlice(
       const next = produce(state, (draft) => {
         tickCultivationCore(draft, deltaSeconds);
         tickActionPoints(draft, deltaSeconds);
+        accrueIdleSilver(draft, deltaSeconds);
       });
       save(next, false);
       set({ state: next });
@@ -437,5 +443,17 @@ export function createProgressionSlice(
 
     clearOfflineGain: () => set({ offlineGain: null }),
     clearSuccession: () => set({ succession: null }),
+    harvestIdle: () => {
+      const { state } = get();
+      if (!state || state.phase !== 'playing' || !state.character.alive) return 0;
+      let got = 0;
+      const next = produce(state, (draft) => {
+        got = harvestIdleSilver(draft);
+      });
+      if (got <= 0) return 0;
+      save(next);
+      set({ state: next });
+      return got;
+    },
   };
 }
