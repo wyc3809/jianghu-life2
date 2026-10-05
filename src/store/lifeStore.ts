@@ -69,6 +69,8 @@ export interface LifeStore {
   ackMoment: () => void;
   practice: (actionId: PracticeActionId, opts?: { sectId?: string; artId?: string }) => void;
   combatMove: (moveId: string) => void;
+  /** 揀主修武學（招式／內功／身法各一門） */
+  setMainArt: (kind: import('@data/skills/catalog').SkillKind, skillId: string) => void;
   /** 新手試煉：開打（贏咗得有用裝備） */
   startNewbieTrial: () => void;
   combatSetInternalMode: (modeId: string | null) => void;

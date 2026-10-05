@@ -42,6 +42,7 @@ import {
   applyRecoveryEffects,
 } from './combatCore';
 import { recordDeath } from './death';
+import { schoolBonusTotal } from './schools';
 import { chooseFoeMove, inferFoeAiStyle } from './foeAi';
 import { combatOpeningLines, dispositionBlurb } from './combatPresentation';
 import {
@@ -86,6 +87,11 @@ export function buildPlayerFighter(state: LifeGameState): CombatFighter {
   const evasion = sumEvasionBonus(c.skills, c.skillRanks ?? {}) + c.attributes.danShi / 500;
   const maxHp = c.health;
   const maxQi = c.qi;
+  // 流派協同（主修＋裝備；只用喺回合制交手，唔影響演武台）
+  const sb = schoolBonusTotal(c);
+  const schoolSpecials = sb.stunChance > 0
+    ? [{ kind: 'stun_proc' as const, name: '制敵', description: '流派：點穴封脈', chance: sb.stunChance }]
+    : [];
   return {
     name: c.name,
     hp: maxHp,
@@ -95,12 +101,20 @@ export function buildPlayerFighter(state: LifeGameState): CombatFighter {
     // 手臂傷：出手按比例扣
     attack: Math.round(
       (12 + Math.floor(c.martial / 4) + gear.attack + gear.martialBonus + (passive.attack ?? 0) + titleBonus.attack) *
-        armAttackFactor(c),
+        armAttackFactor(c) *
+        (1 + sb.attackPct),
     ),
-    defense: 6 + Math.floor(c.attributes.genGu / 12) + gear.defense + (passive.defense ?? 0) + titleBonus.defense,
-    hitBonus: 0.05 + c.attributes.danShi / 400 + (passive.hitBonus ?? 0) + gearCombat.hitBonus + titleBonus.hitBonus,
+    defense: Math.round(
+      (6 + Math.floor(c.attributes.genGu / 12) + gear.defense + (passive.defense ?? 0) + titleBonus.defense) *
+        (1 + sb.defensePct),
+    ),
+    hitBonus:
+      0.05 + c.attributes.danShi / 400 + (passive.hitBonus ?? 0) + gearCombat.hitBonus + titleBonus.hitBonus + sb.hitBonus,
     // 腿腳傷：閃避扣減
-    evasion: Math.max(0, Math.min(0.45, evasion + gearCombat.evasion + titleBonus.evasion) - legEvasionPenalty(c)),
+    evasion: Math.max(
+      0,
+      Math.min(0.5, evasion + gearCombat.evasion + titleBonus.evasion + sb.evasion) - legEvasionPenalty(c),
+    ),
     // 戰鬥中不自動回內力；耗去的內力戰後亦保留，需打坐／歇息再復。
     qiRegen: 0,
     blind: 0,
@@ -109,12 +123,12 @@ export function buildPlayerFighter(state: LifeGameState): CombatFighter {
     bleedDamage: 0,
     bleedTurns: 0,
     defenseMod: 0,
-    reflect: Math.min(0.35, (passive.reflect ?? 0) + gearCombat.reflect),
+    reflect: Math.min(0.4, (passive.reflect ?? 0) + gearCombat.reflect + sb.reflect),
     chargeBonus: 0,
-    gearPierce: gearCombat.pierce,
-    gearLifesteal: gearCombat.lifesteal,
-    gearBleedChance: gearCombat.bleedChance,
-    gearSpecials,
+    gearPierce: gearCombat.pierce + sb.pierce,
+    gearLifesteal: gearCombat.lifesteal + sb.lifesteal,
+    gearBleedChance: gearCombat.bleedChance + sb.bleedChance,
+    gearSpecials: [...gearSpecials, ...schoolSpecials],
     stamina: c.stamina ?? c.maxStamina ?? 100,
     maxStamina: c.maxStamina ?? 120,
     martial: c.martial,

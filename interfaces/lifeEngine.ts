@@ -229,6 +229,8 @@ export interface LifeCharacter {
     armor: string | null;
     accessory: string | null;
   };
+  /** 主修：招式／內功／身法各一門（未揀＝預設第一門學識嘅，見 core/life/schools.ts） */
+  mainArts?: { external?: string; internal?: string; qinggong?: string };
   sectId: string | null;
   /** 門中地位 0外門–3執事 */
   sectStanding: number;
@@ -570,6 +572,9 @@ export const lifeCharacterSchema = z.object({
       accessory: z.string().nullable(),
     })
     .default({ weapon: 'old-sword', armor: 'plain-robe', accessory: null }),
+  mainArts: z
+    .object({ external: z.string().optional(), internal: z.string().optional(), qinggong: z.string().optional() })
+    .optional(),
   sectId: z.string().nullable(),
   sectStanding: z.number().default(0),
   loverId: z.string().nullable(),

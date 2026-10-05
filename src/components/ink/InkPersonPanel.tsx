@@ -1,3 +1,7 @@
+import { InkMainArts } from './InkMainArts';
+import { mainArts } from '@core/life/schools';
+import { SCHOOLS, schoolOfGear, schoolsOfSkill } from '@data/redesign/schools';
+import type { SkillKind } from '@data/skills/catalog';
 import { useEffect, useRef, useState } from 'react';
 import { inkCountTo, inkPopIn } from '../../ui/inkMotion';
 import type { LifeGameState } from '@interfaces/lifeEngine';
@@ -76,12 +80,23 @@ type Props = {
   onEquip: (id: string) => void;
   onEquipBest: () => void;
   onBreakthrough: () => void;
+  /** 揀主修（招式／內功／身法） */
+  onSetMainArt?: (kind: SkillKind, skillId: string) => void;
 };
 
 const pctText = (v: number) => `${(v * 100).toFixed(1).replace(/\.0$/, '')}%`;
 const numText = (v: number) => Math.round(v).toLocaleString('en-US');
 
-export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest, onBreakthrough }: Props) {
+export function InkPersonPanel({
+  state,
+  view,
+  onView,
+  busy,
+  onEquip,
+  onEquipBest,
+  onBreakthrough,
+  onSetMainArt,
+}: Props) {
   const [previewGearId, setPreviewGearId] = useState<string | null>(null);
   const [showStatsScroll, setShowStatsScroll] = useState(false);
   // anime.js：入頁時列表／格仔錯開落筆出場；戰力數字由 0 滾到現值
@@ -102,6 +117,7 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
     });
   }, [view]);
   const c = state.character;
+  const mainArtIds = Object.values(mainArts(c)).filter(Boolean) as string[];
   const nature = ensureNature(c);
   const dominant = dominantNature(c);
   const lover = c.loverId ? state.npcs[c.loverId] : null;
@@ -432,6 +448,7 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
       {view === 'skills' && (
         <>
           <h3>武學</h3>
+          <InkMainArts state={state} />
           {listWeaponMasteries(state).length > 0 && (
             <p className="ink-note">
               兵刃專精 ·{' '}
@@ -449,11 +466,14 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
                 const kind = def?.kind ?? 'external';
                 const stance = def?.move ? resolveMoveStance(def.move) : null;
                 const advancePct = skillAdvancePercent(c, id);
+                const isMain = mainArtIds.includes(id);
+                const schools = schoolsOfSkill(def);
                 return (
-                  <li key={id} className={`ink-skill-card ink-skill-card--${kind}`}>
+                  <li key={id} className={`ink-skill-card ink-skill-card--${kind}${isMain ? ' is-main' : ''}`}>
                     <div className="ink-skill-card-head">
                       <strong>{skillDisplay(c, id)}</strong>
                       <span className="ink-skill-badge">{skillKindLabel(kind)}</span>
+                      {isMain ? <span className="ink-main-badge">主修</span> : null}
                       {stance ? (
                         <span className={`ink-stance-seal ink-stance-seal--${stance}`}>
                           {MOVE_STANCE_LABEL[stance]}
@@ -469,6 +489,29 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
                       </p>
                     ) : null}
                     <p className="ink-skill-fx">{formatSkillEffects(id) || '尚無詳載'}</p>
+                    <div className="ink-skill-school-row">
+                      <span className="ink-main-slot-tags">
+                        {schools.length ? (
+                          schools.map((sid) => (
+                            <i key={sid} className={`ink-school-tag ink-school-tag--${sid}`}>
+                              {SCHOOLS.find((x) => x.id === sid)?.name}
+                            </i>
+                          ))
+                        ) : (
+                          <i className="ink-school-tag">無流派</i>
+                        )}
+                      </span>
+                      {!isMain && onSetMainArt && (
+                        <button
+                          type="button"
+                          className="ink-btn ink-btn--quiet ink-main-set"
+                          disabled={busy}
+                          onClick={() => onSetMainArt(kind, id)}
+                        >
+                          設為主修
+                        </button>
+                      )}
+                    </div>
                     {advancePct === null ? (
                       <p className="ink-note ink-skill-progress">{skillAdvanceHint(c, id)}</p>
                     ) : (
@@ -574,6 +617,14 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
                         {RARITY_SHORT[def.rarity]}
                       </span>
                       {equipped ? <span className="ink-gear-on-tag">披中</span> : null}
+                      {(() => {
+                        const sid = schoolOfGear(def);
+                        return sid ? (
+                          <i className={`ink-school-tag ink-school-tag--${sid}`}>
+                            {SCHOOLS.find((x) => x.id === sid)?.name}
+                          </i>
+                        ) : null;
+                      })()}
                     </div>
                     <p className="ink-gear-meta">
                       {gearTitleBits(def)} · {SLOT_LABEL[def.slot]}

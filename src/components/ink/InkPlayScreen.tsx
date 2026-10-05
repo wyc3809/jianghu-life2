@@ -110,6 +110,7 @@ export function InkPlayScreen({ state }: Props) {
   const attemptBreakthrough = useLifeStore((s) => s.attemptBreakthrough);
   const startNewbieTrial = useLifeStore((s) => s.startNewbieTrial);
   const harvestIdle = useLifeStore((s) => s.harvestIdle);
+  const setMainArtAction = useLifeStore((s) => s.setMainArt);
   const breakthroughResult = useLifeStore((s) => s.breakthroughResult);
   const clearBreakthroughResult = useLifeStore((s) => s.clearBreakthroughResult);
   const ackMoment = useLifeStore((s) => s.ackMoment);
@@ -701,6 +702,7 @@ export function InkPlayScreen({ state }: Props) {
           onView={setPersonView}
           busy={busy}
           onEquip={equipOwned}
+          onSetMainArt={setMainArtAction}
           onEquipBest={() => {
             practice('equip_best');
           }}

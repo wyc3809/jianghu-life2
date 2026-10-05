@@ -8748,3 +8748,155 @@ html[data-ink-motion='reduce'] .ink-achv-name i {
   color: var(--ink, #1a1a1a);
   font-variant-numeric: tabular-nums;
 }
+
+/* 主修＋流派（design/agreed-design-2026-10.md §3）：水墨底＋國風設色標籤 */
+.ink-main-arts {
+  margin: 4px 0 14px;
+  padding: 12px 12px 10px;
+  border: 1px solid var(--ink-faint);
+  background: rgba(255, 252, 245, 0.72);
+}
+
+.ink-main-arts-label {
+  margin: 0 0 8px;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+}
+
+.ink-main-slots {
+  margin: 0 0 10px;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 6px;
+}
+
+.ink-main-slot {
+  display: grid;
+  grid-template-columns: 2.6em 1fr auto;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  padding: 4px 8px;
+  border-left: 3px solid var(--ink, #1a1a1a);
+  background: rgba(26, 26, 26, 0.04);
+}
+
+.ink-main-slot.is-empty {
+  border-left-color: var(--ink-faint);
+  color: var(--ink-soft);
+}
+
+.ink-main-slot-kind {
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+}
+
+.ink-main-slot-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ink, #1a1a1a);
+}
+
+.ink-main-slot-tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: flex-end;
+}
+
+.ink-school-tag {
+  font-style: normal;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  padding: 1px 6px 1px 7px;
+  border: 1px solid currentColor;
+  color: var(--ink-soft);
+  background: rgba(255, 252, 245, 0.8);
+  white-space: nowrap;
+}
+
+.ink-school-tag--xueren { color: #a33a32; }
+.ink-school-tag--lianhuan { color: #2f6b8a; }
+.ink-school-tag--pojia { color: #6b4a1f; }
+.ink-school-tag--zhidi { color: #5b3f7a; }
+.ink-school-tag--jingang { color: #8a6a1c; }
+.ink-school-tag--qingling { color: #2f7a5a; }
+
+.ink-school-active {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 6px;
+}
+
+.ink-school-row {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.84rem;
+}
+
+.ink-school-seal {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  padding: 2px 7px 2px 9px;
+  border: 1.5px solid currentColor;
+}
+
+.ink-school-row.is-major .ink-school-seal {
+  color: #f6f1e6 !important;
+  border-color: transparent;
+  background: var(--cinnabar);
+}
+
+.ink-school-level {
+  font-weight: 700;
+  color: var(--cinnabar);
+  letter-spacing: 0.1em;
+}
+
+.ink-school-bonus {
+  color: var(--ink-mid);
+  line-height: 1.4;
+}
+
+.ink-school-near {
+  margin-top: 8px;
+}
+
+.ink-skill-card.is-main {
+  box-shadow: inset 3px 0 0 var(--cinnabar);
+}
+
+.ink-main-badge {
+  font-size: 0.72rem;
+  padding: 1px 6px;
+  background: var(--cinnabar);
+  color: #f6f1e6;
+  letter-spacing: 0.1em;
+}
+
+.ink-skill-school-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.ink-skill-school-row .ink-main-slot-tags {
+  justify-content: flex-start;
+}
+
+.ink-main-set {
+  flex: none;
+  min-height: 34px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+}
