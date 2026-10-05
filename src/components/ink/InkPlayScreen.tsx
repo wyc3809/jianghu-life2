@@ -14,8 +14,6 @@ import {
   playInkLose,
   playInkPageFlip,
   playInkBlade,
-  isInkAudioMuted,
-  toggleInkAudioMuted,
 } from '../../audio/inkAudio';
 import { InkSettingsPanel } from './InkSettingsPanel';
 import { InkLeaderboardPanel } from './InkLeaderboardPanel';
@@ -108,7 +106,6 @@ export function InkPlayScreen({ state }: Props) {
   const clearOfflineGain = useLifeStore((s) => s.clearOfflineGain);
   const [practiceView, setPracticeView] = useState<PracticeView>('main');
   const [personView, setPersonView] = useState<PersonView>('main');
-  const [audioMuted, setAudioMuted] = useState(() => isInkAudioMuted());
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [boardOpen, setBoardOpen] = useState(false);
   const resultTitleRef = useRef<HTMLHeadingElement | null>(null);
@@ -556,11 +553,8 @@ export function InkPlayScreen({ state }: Props) {
           setSettingsOpen(false);
           setBoardOpen(true);
         }}
-        audioMuted={audioMuted}
-        onToggleAudio={() => {
-          const next = toggleInkAudioMuted();
-          setAudioMuted(next);
-          track('audio_mute_toggle', { muted: next });
+        onAudioChange={(m) => {
+          track('audio_mute_toggle', { muted: !m.sfxOn && !m.musicOn });
         }}
       />
 

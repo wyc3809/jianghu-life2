@@ -8,14 +8,25 @@ import {
   signInWithEmail,
   type CloudIdentity,
 } from '../../cloud/cloud';
-import { flushCloudSync, restoreFromCloud, getCloudSyncStatus, subscribeCloudSyncStatus } from '../../cloud/sync';
+import {
+  flushCloudSync,
+  restoreFromCloud,
+  getCloudSyncStatus,
+  getCloudLastSyncedAt,
+  subscribeCloudSyncStatus,
+} from '../../cloud/sync';
 import { writeLocal } from '../../cloud/localBridge';
+import { getLastLocalSaveAt, subscribeLifeSaveStatus } from '@core/life/saveIndexedDb';
+import { formatSaveTime } from '../../ui/formatSaveTime';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 type Props = { onOpenBoard: () => void };
 
-/** 設定頁「雲端」區：身份狀態、綁定電郵、換機登入、由雲端載入、開排行榜 */
+/**
+ * 設定頁「帳戶 · 存檔」區：永遠顯示綁定狀態、最近存檔時間、同步結果
+ * （design/agreed-design-2026-10.md §6）；雲端有開通先出綁定電郵、換機登入、由雲端載入、排行榜。
+ */
 export function InkCloudSection({ onOpenBoard }: Props) {
   const [id, setId] = useState<CloudIdentity | null>(null);
   const [checking, setChecking] = useState(true);
@@ -23,6 +34,9 @@ export function InkCloudSection({ onOpenBoard }: Props) {
   const [msg, setMsg] = useState('');
   const [busy, setBusy] = useState(false);
   const syncStatus = useSyncExternalStore(subscribeCloudSyncStatus, getCloudSyncStatus, () => 'idle');
+  const lastSyncedAt = useSyncExternalStore(subscribeCloudSyncStatus, getCloudLastSyncedAt, () => 0);
+  const lastSavedAt = useSyncExternalStore(subscribeLifeSaveStatus, getLastLocalSaveAt, () => 0);
+  const configured = cloudConfigured();
 
   useEffect(() => {
     if (!cloudConfigured()) {
@@ -36,8 +50,6 @@ export function InkCloudSection({ onOpenBoard }: Props) {
         setChecking(false);
       }).catch(() => { setId(null); setChecking(false); });
   }, []);
-
-  if (!cloudConfigured()) return null;
 
   const run = async (fn: () => Promise<{ ok: boolean; message: string }>) => {
     if (!EMAIL_RE.test(email.trim())) {
@@ -53,34 +65,52 @@ export function InkCloudSection({ onOpenBoard }: Props) {
     } finally { setBusy(false); }
   };
 
-  const status = checking
-    ? '連接雲端中……'
-    : !id
-      ? '未連上雲端，進度照樣存喺本機。'
-      : id.email
-        ? `已綁定 ${id.email}`
-        : id.pendingEmail
-          ? `等緊確認 ${id.pendingEmail}`
-          : '匿名身份（綁定電郵先可以換機）';
+  const bindStatus = !configured
+    ? '未綁定 · 雲端服務未開通，進度只存喺本機'
+    : checking
+      ? '連接雲端中……'
+      : !id
+        ? '未綁定 · 未連上雲端，進度照樣存喺本機'
+        : id.email
+          ? `已綁定 ${id.email}`
+          : id.pendingEmail
+            ? `等緊確認 ${id.pendingEmail}`
+            : '未綁定 · 匿名身份（綁定電郵先可以換機）';
 
-  const backupStatus = {
-    idle: '等待下一次進度備份。',
-    pending: '進度等待上傳。',
-    uploading: '正在備份進度……',
-    synced: '最新進度已備份。',
-    retrying: '備份未成功，正在重試；本機進度照常保存。',
-  }[syncStatus];
+  const syncText = !configured
+    ? '未同步 · 雲端服務未開通'
+    : !id
+      ? '未同步 · 未連上雲端'
+      : {
+          idle: lastSyncedAt ? `已同步 · ${formatSaveTime(lastSyncedAt)}` : '等待下一次同步',
+          pending: '有新進度等待上傳',
+          uploading: '同步中……',
+          synced: `已同步 · ${formatSaveTime(lastSyncedAt)}`,
+          retrying: '同步失敗，正在重試；本機進度照常保存',
+        }[syncStatus];
 
   return (
-    <section className="ink-settings-block" aria-label="雲端">
-      <p className="ink-settings-label">雲端 · 排行榜</p>
-      <p className="ink-cloud-status" title={cloudLastError() || undefined}>
-        {status}
-      </p>
-      {id && <p className="ink-cloud-msg" role="status">{backupStatus}</p>}
-      <button type="button" className="ink-settings-toggle is-on" onClick={onOpenBoard}>
-        開江湖榜 · 江湖排名／修為境界／一生總結
-      </button>
+    <section className="ink-settings-block" aria-label="帳戶與存檔">
+      <p className="ink-settings-label">帳戶 · 存檔</p>
+      <dl className="ink-account-rows">
+        <div className="ink-account-row">
+          <dt>綁定狀態</dt>
+          <dd title={cloudLastError() || undefined}>{bindStatus}</dd>
+        </div>
+        <div className="ink-account-row">
+          <dt>最近存檔</dt>
+          <dd>{formatSaveTime(lastSavedAt)}</dd>
+        </div>
+        <div className="ink-account-row" role="status">
+          <dt>同步結果</dt>
+          <dd className={syncStatus === 'retrying' && configured && id ? 'is-warn' : undefined}>{syncText}</dd>
+        </div>
+      </dl>
+      {configured && (
+        <button type="button" className="ink-settings-toggle is-on" onClick={onOpenBoard}>
+          開江湖榜 · 江湖排名／修為境界／一生總結
+        </button>
+      )}
       {id && (
         <>
           <input

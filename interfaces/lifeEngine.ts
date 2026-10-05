@@ -259,6 +259,8 @@ export interface LifeCharacter {
     xp: number;
     /** 境界索引，對應 core/life/cultivation.ts 嘅 CULTIVATION_TIERS */
     tier: number;
+    /** 境界滿咗之後暫存嘅修為（有上限），突破後撥入新境界；舊存檔冇＝0 */
+    reserve?: number;
   };
 }
 
@@ -589,6 +591,7 @@ export const lifeCharacterSchema = z.object({
     .object({
       xp: z.number(),
       tier: z.number(),
+      reserve: z.number().min(0).optional(),
     })
     .default({ xp: 0, tier: 0 }),
 });

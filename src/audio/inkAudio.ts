@@ -8,10 +8,21 @@ import { haptic } from '../ui/haptics';
 
 const MUTE_KEY = 'ink_audio_muted';
 const AMBIENT_KEY = 'ink_ambient_enabled';
+const MIX_KEY = 'ink_audio_mix';
+
+/** 音樂／音效分開：開關＋音量 0–100（玩家確認，見 design/agreed-design-2026-10.md §5） */
+export interface AudioMix {
+  musicOn: boolean;
+  musicLevel: number;
+  sfxOn: boolean;
+  sfxLevel: number;
+}
+
+const DEFAULT_MIX: AudioMix = { musicOn: true, musicLevel: 80, sfxOn: true, sfxLevel: 80 };
 
 // ========== 全局狀態 ==========
 let ac: AudioContext | null = null;
-let muted = false;
+let mix: AudioMix = { ...DEFAULT_MIX };
 let ambientEnabled = true;
 
 // 混音台節點
@@ -20,21 +31,48 @@ let sfxBus: GainNode | null = null;
 let ambientBus: GainNode | null = null;
 let ambientNode: AudioBufferSourceNode | null = null;
 
-// 初始化靜音狀態
+const clampLevel = (v: unknown, d: number) =>
+  typeof v === 'number' && Number.isFinite(v) ? Math.max(0, Math.min(100, Math.round(v))) : d;
+
+// 初始化：讀混音設定；舊版「全靜音」轉做兩條都關
 try {
   if (typeof localStorage !== 'undefined') {
-    muted = localStorage.getItem(MUTE_KEY) === '1';
+    const raw = localStorage.getItem(MIX_KEY);
+    if (raw) {
+      const m = JSON.parse(raw) as Partial<AudioMix>;
+      mix = {
+        musicOn: m.musicOn !== false,
+        musicLevel: clampLevel(m.musicLevel, DEFAULT_MIX.musicLevel),
+        sfxOn: m.sfxOn !== false,
+        sfxLevel: clampLevel(m.sfxLevel, DEFAULT_MIX.sfxLevel),
+      };
+    } else if (localStorage.getItem(MUTE_KEY) === '1') {
+      mix = { ...DEFAULT_MIX, musicOn: false, sfxOn: false };
+    }
     ambientEnabled = localStorage.getItem(AMBIENT_KEY) !== '0';
   }
 } catch {
-  muted = false;
+  mix = { ...DEFAULT_MIX };
   ambientEnabled = true;
+}
+
+const sfxAudible = () => mix.sfxOn && mix.sfxLevel > 0;
+const musicAudible = () => mix.musicOn && mix.musicLevel > 0;
+
+/** 音效實際倍率（0–1），畀其他音源（例如高光演出）跟 */
+export function sfxGainFactor(): number {
+  return sfxAudible() ? mix.sfxLevel / 100 : 0;
+}
+
+function applyBusGains() {
+  if (sfxBus) sfxBus.gain.value = 0.9 * sfxGainFactor();
+  if (ambientBus) ambientBus.gain.value = 0.35 * (musicAudible() ? mix.musicLevel / 100 : 0);
 }
 
 // ========== 混音台初始化 ==========
 function getAC(): AudioContext | null {
   if (typeof window === 'undefined') return null;
-  if (muted) return null;
+  if (!sfxAudible() && !musicAudible()) return null;
   if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return null;
 
   try {
@@ -70,6 +108,7 @@ function initMixingConsole(audioCtx: AudioContext) {
   ambientBus = audioCtx.createGain();
   ambientBus.gain.value = 0.35;
   ambientBus.connect(masterLimiter);
+  applyBusGains();
 }
 
 // ========== 合成器 ==========
@@ -99,6 +138,7 @@ interface SynthOpts {
 }
 
 function synth(opts: SynthOpts) {
+  if (!sfxAudible()) return;
   const audioCtx = getAC();
   if (!audioCtx || !sfxBus) return;
 
@@ -176,26 +216,44 @@ function synth(opts: SynthOpts) {
 }
 
 // ========== 公開 API ==========
-export function isInkAudioMuted(): boolean { return muted; }
+/** 兩條都關（或者都調到 0）先算靜音 */
+export function isInkAudioMuted(): boolean { return !sfxAudible() && !musicAudible(); }
 export function isAmbientEnabled(): boolean { return ambientEnabled; }
 
+export function getAudioMix(): AudioMix { return { ...mix }; }
+
+/** 改混音設定（部份欄位），即時生效＋記住 */
+export function setAudioMix(next: Partial<AudioMix>): AudioMix {
+  mix = {
+    musicOn: next.musicOn ?? mix.musicOn,
+    musicLevel: clampLevel(next.musicLevel, mix.musicLevel),
+    sfxOn: next.sfxOn ?? mix.sfxOn,
+    sfxLevel: clampLevel(next.sfxLevel, mix.sfxLevel),
+  };
+  try {
+    localStorage.setItem(MIX_KEY, JSON.stringify(mix));
+    localStorage.removeItem(MUTE_KEY);
+  } catch {}
+  applyBusGains();
+  if (!musicAudible()) stopAmbient();
+  return { ...mix };
+}
+
+/** 舊介面：一鍵全開／全關（高光演出個靜音掣用） */
 export function setInkAudioMuted(next: boolean) {
-  muted = next;
-  try { localStorage.setItem(MUTE_KEY, next ? '1' : '0'); } catch {}
-  if (next) stopAmbient();
-  else if (ambientEnabled) startAmbient();
+  setAudioMix({ musicOn: !next, sfxOn: !next });
 }
 
 export function toggleInkAudioMuted(): boolean {
-  setInkAudioMuted(!muted);
-  return muted;
+  setInkAudioMuted(!isInkAudioMuted());
+  return isInkAudioMuted();
 }
 
 export function setAmbientEnabled(next: boolean) {
   ambientEnabled = next;
   try { localStorage.setItem(AMBIENT_KEY, next ? '1' : '0'); } catch {}
   if (!next) stopAmbient();
-  else if (!muted) startAmbient();
+  else if (musicAudible()) startAmbient();
 }
 
 // ===== UI 音效 =====
@@ -433,6 +491,7 @@ function createAmbientBuffer(audioCtx: AudioContext): AudioBuffer {
 }
 
 export function startAmbient() {
+  if (!musicAudible()) return;
   const audioCtx = getAC();
   if (!audioCtx || !ambientBus || ambientNode) return;
 

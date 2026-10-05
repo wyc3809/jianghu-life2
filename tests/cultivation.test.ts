@@ -13,7 +13,12 @@ import {
   isMaxCultivationTier,
   OFFLINE_CULTIVATION_CAP_MS,
   tickCultivation,
+  addCultivationXp,
+  cultivationReserve,
+  cultivationReserveCap,
+  releaseCultivationReserve,
 } from '../core/life/cultivation';
+import { TEST_CULTIVATION_RESERVE_RATIO } from '../data/redesign/testParams';
 import { createNewLife, migrateLifeState } from '../core/life/gameState';
 import { lifeGameStateSchema, type LifeGameState } from '../interfaces/lifeEngine';
 import { initRng } from '../core/random';
@@ -112,7 +117,7 @@ describe('cultivation: per-event grant (functional #5 — 事件普遍加修為)
 });
 
 describe('cultivation: spar strike grant (主畫面切磋演武)', () => {
-  it('grants exactly 1 xp per hit and stops at the tier cap', () => {
+  it('grants exactly 1 xp per hit; at the tier cap it fills the reserve, then stops', () => {
     initRng(50);
     const state = createNewLife(50);
     expect(grantSparCultivation(state)).toBe(1);
@@ -120,8 +125,13 @@ describe('cultivation: spar strike grant (主畫面切磋演武)', () => {
 
     const cap = currentCultivationTier(state).cap;
     state.character.cultivation.xp = cap;
-    expect(grantSparCultivation(state)).toBe(0);
+    expect(grantSparCultivation(state)).toBe(1);
     expect(state.character.cultivation.xp).toBe(cap);
+    expect(cultivationReserve(state)).toBe(1);
+
+    state.character.cultivation.reserve = cultivationReserveCap(state);
+    expect(grantSparCultivation(state)).toBe(0);
+    expect(cultivationReserve(state)).toBe(cultivationReserveCap(state));
   });
 
   it('is deterministic (no RNG) and does nothing when dead or not playing', () => {
@@ -352,5 +362,54 @@ describe('cultivation: old-save migration', () => {
     const roundTripped = JSON.parse(JSON.stringify(state)) as LifeGameState;
     const migrated = migrateLifeState(roundTripped);
     expect(migrated.character.cultivation).toEqual({ xp: 1234, tier: 2 });
+  });
+});
+
+describe('cultivation: reserve after the breakthrough threshold (agreed-design §4)', () => {
+  it('test_reserve_overflow_goes_to_reserve_then_is_lost', () => {
+    initRng(70);
+    const state = createNewLife(70);
+    const cap = currentCultivationTier(state).cap;
+    const rcap = cultivationReserveCap(state);
+    expect(rcap).toBe(Math.floor(cap * TEST_CULTIVATION_RESERVE_RATIO));
+    const g = addCultivationXp(state, cap + rcap + 50);
+    expect(g.toXp).toBe(cap);
+    expect(g.toReserve).toBe(rcap);
+    expect(g.lost).toBe(50);
+    expect(state.character.cultivation.xp).toBe(cap);
+    expect(cultivationReserve(state)).toBe(rcap);
+  });
+
+  it('test_reserve_released_into_next_tier_on_breakthrough_success', () => {
+    initRng(71);
+    const state = createNewLife(71);
+    state.character.cultivation = { xp: 0, tier: 1, reserve: 200 };
+    const released = releaseCultivationReserve(state);
+    expect(released).toBe(200);
+    expect(state.character.cultivation.xp).toBe(200);
+    expect(cultivationReserve(state)).toBe(0);
+  });
+
+  it('test_offline_reports_reserve_and_never_ages', () => {
+    initRng(72);
+    const state = createNewLife(72);
+    const age = state.character.age;
+    const month = state.month;
+    state.character.cultivation.xp = currentCultivationTier(state).cap;
+    const r = applyOfflineCultivation(state, 3_600_000);
+    expect(r.tierCapped).toBe(true);
+    expect(r.reserveGained).toBeGreaterThan(0);
+    expect(r.gainedXp).toBe(r.reserveGained);
+    expect(state.character.age).toBe(age);
+    expect(state.month).toBe(month);
+  });
+
+  it('test_old_save_without_reserve_migrates_and_validates', () => {
+    initRng(73);
+    const state = createNewLife(73);
+    delete (state.character.cultivation as { reserve?: number }).reserve;
+    const migrated = migrateLifeState(JSON.parse(JSON.stringify(state)));
+    expect(cultivationReserve(migrated)).toBe(0);
+    expect(lifeGameStateSchema.safeParse(migrated).success).toBe(true);
   });
 });

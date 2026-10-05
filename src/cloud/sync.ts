@@ -33,7 +33,11 @@ export type CloudSyncStatus = 'idle' | 'pending' | 'uploading' | 'synced' | 'ret
 let syncStatus: CloudSyncStatus = 'idle';
 const statusListeners = new Set<() => void>();
 
+let lastSyncedAt = 0;
+
 export function getCloudSyncStatus(): CloudSyncStatus { return syncStatus; }
+/** 最近一次成功上傳雲端嘅時間（ms epoch）；0＝未試過成功 */
+export function getCloudLastSyncedAt(): number { return lastSyncedAt; }
 export function subscribeCloudSyncStatus(listener: () => void): () => void {
   statusListeners.add(listener);
   return () => { statusListeners.delete(listener); };
@@ -89,6 +93,10 @@ async function uploadNow(): Promise<void> {
   await inFlight;
   inFlight = null;
   if (!succeeded && !pending) pending = payload;
+  if (succeeded) {
+    lastSyncedAt = Date.now();
+    for (const listener of statusListeners) listener();
+  }
   setCloudSyncStatus(!succeeded ? 'retrying' : pending ? 'pending' : 'synced');
   if (pending) scheduleUpload(flushRequested ? 0 : succeeded ? UPLOAD_INTERVAL_MS : 5_000);
   flushRequested = false;

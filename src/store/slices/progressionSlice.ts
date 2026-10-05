@@ -33,7 +33,7 @@ import {
 import { hasEnoughActionPoints, tickActionPoints } from '@core/life/actionPoints';
 import { track } from '../../telemetry/events';
 import { sparStageReward } from '@core/life/sparDuel';
-import { currentCultivationTier } from '@core/life/cultivation';
+import { addCultivationXp } from '@core/life/cultivation';
 import type { LifeStore } from '../lifeStore';
 
 export function createProgressionSlice(
@@ -156,6 +156,8 @@ export function createProgressionSlice(
                 countedMs: Math.round(offline.countedSeconds * 1000),
                 timeCapped: offline.timeCapped,
                 tierCapped: offline.tierCapped,
+                reserveXp: Math.round(offline.reserveGained),
+                reserveCapped: offline.reserveCapped,
               }
             : null,
       });
@@ -397,10 +399,8 @@ export function createProgressionSlice(
       const next = produce(state, (draft) => {
         const c = draft.character;
         c.money += reward.silver;
-        const cap = currentCultivationTier(draft).cap;
-        const before = c.cultivation.xp;
-        c.cultivation.xp = Number.isFinite(cap) ? Math.min(cap, before + reward.xp) : before + reward.xp;
-        xp = c.cultivation.xp - before;
+        const g = addCultivationXp(draft, reward.xp);
+        xp = g.toXp + g.toReserve;
         c.flags.spar_stage = clearedStage + 1;
       });
       save(next, false);

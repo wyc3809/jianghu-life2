@@ -34,8 +34,12 @@ export interface OfflineGainInfo {
   countedMs: number;
   /** 離開時間長過上限，多出嚟嘅修持流走咗 */
   timeCapped: boolean;
-  /** 境界瓶頂截斷：未突破前唔會再漲 */
+  /** 境界已滿：多出嘅修為入咗儲備 */
   tierCapped: boolean;
+  /** 其中入咗儲備嘅修為 */
+  reserveXp: number;
+  /** 儲備都滿咗，有修為流走 */
+  reserveCapped: boolean;
 }
 
 export interface LifeStore {

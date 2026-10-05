@@ -50,6 +50,8 @@ import {
   currentCultivationTier,
   CULTIVATION_TIERS,
   isCultivationCapped,
+  cultivationReserve,
+  cultivationReserveCap,
 } from '@core/life/cultivation';
 
 export type PersonView =
@@ -323,6 +325,15 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
                 >
                   <div className="ink-bar-fill ink-bar-fill--enter" style={{ width: `${pct}%` }} />
                 </div>
+                {Number.isFinite(tier.cap) && (
+                  <div className="ink-vitals-label ink-reserve-label">
+                    <span>儲備</span>
+                    <span>
+                      {Math.floor(cultivationReserve(state)).toLocaleString('zh-Hant')} /{' '}
+                      {cultivationReserveCap(state).toLocaleString('zh-Hant')}
+                    </span>
+                  </div>
+                )}
               </div>
 
               <h3 className="ink-subhead">速率拆解（修為/秒）</h3>
