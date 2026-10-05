@@ -29,46 +29,86 @@ function readAncestryRaw(): string | null {
   }
 }
 
-let pending: LifeGameState | null = null;
+export type CloudSyncStatus = 'idle' | 'pending' | 'uploading' | 'synced' | 'retrying';
+let syncStatus: CloudSyncStatus = 'idle';
+const statusListeners = new Set<() => void>();
+
+export function getCloudSyncStatus(): CloudSyncStatus { return syncStatus; }
+export function subscribeCloudSyncStatus(listener: () => void): () => void {
+  statusListeners.add(listener);
+  return () => { statusListeners.delete(listener); };
+}
+function setCloudSyncStatus(status: CloudSyncStatus): void {
+  if (syncStatus === status) return;
+  syncStatus = status;
+  for (const listener of statusListeners) listener();
+}
+
+let pending: CloudSavePayload | null = null;
 let timer: ReturnType<typeof setTimeout> | null = null;
+let inFlight: Promise<void> | null = null;
+let flushRequested = false;
+let restoring = false;
 let lastUploadAt = 0;
 const submittedLives = new Set<string>();
 
-async function uploadNow(state: LifeGameState): Promise<void> {
-  pending = null;
-  lastUploadAt = Date.now();
-  const payload: CloudSavePayload = { version: 1, savedAt: Date.now(), life: state, ancestry: readAncestryRaw() };
-  await uploadSave(payload);
-  if (state.character.alive && state.phase === 'playing') {
-    await submitLive(state);
-  }
-  if (state.phase === 'summary') {
-    const key = lifeKey(state);
-    if (!submittedLives.has(key) && (await submitLifeScore(state))) submittedLives.add(key);
-  }
-}
-
-/** 本機寫盤後叫：節流上傳 */
-export function queueCloudSync(state: LifeGameState): void {
-  if (!cloudConfigured()) return;
-  pending = state;
-  if (timer) return;
-  const wait = Math.max(0, UPLOAD_INTERVAL_MS - (Date.now() - lastUploadAt));
-  // 一世完結即刻上傳，唔等節流
-  const delay = state.phase === 'summary' ? 0 : wait;
+function scheduleUpload(delay: number): void {
+  if (timer || restoring) return;
   timer = setTimeout(() => {
     timer = null;
-    if (pending) void uploadNow(pending);
+    void uploadNow();
   }, delay);
 }
 
+async function uploadNow(): Promise<void> {
+  if (inFlight || restoring || !pending) return;
+  const payload = pending;
+  pending = null;
+  setCloudSyncStatus('uploading');
+  lastUploadAt = Date.now();
+  let succeeded = false;
+  inFlight = (async () => {
+    try {
+      succeeded = await uploadSave(payload);
+      if (!succeeded) return;
+      const state = payload.life;
+      if (state?.character.alive && state.phase === 'playing') succeeded = await submitLive(state);
+      if (state?.phase === 'summary') {
+        const key = lifeKey(state);
+        if (!submittedLives.has(key)) {
+          const scored = await submitLifeScore(state);
+          if (scored) submittedLives.add(key);
+          else succeeded = false;
+        }
+      }
+    } catch {
+      succeeded = false;
+      // 網絡例外同回傳 false 一樣：保留 snapshot 供重試。
+    }
+  })();
+  await inFlight;
+  inFlight = null;
+  if (!succeeded && !pending) pending = payload;
+  setCloudSyncStatus(!succeeded ? 'retrying' : pending ? 'pending' : 'synced');
+  if (pending) scheduleUpload(flushRequested ? 0 : succeeded ? UPLOAD_INTERVAL_MS : 5_000);
+  flushRequested = false;
+}
+
+/** Snapshot 喺排隊時固定，失敗保留，單一上傳避免舊進度最後蓋過新進度。 */
+export function queueCloudSync(state: LifeGameState | null): void {
+  if (!cloudConfigured()) return;
+  pending = { version: 1, savedAt: Date.now(), life: state, ancestry: readAncestryRaw() };
+  if (inFlight) return;
+  setCloudSyncStatus('pending');
+  if (state?.phase === 'summary' && timer) { clearTimeout(timer); timer = null; }
+  scheduleUpload(state?.phase === 'summary' ? 0 : Math.max(0, UPLOAD_INTERVAL_MS - (Date.now() - lastUploadAt)));
+}
+
 export function flushCloudSync(): void {
-  if (!cloudConfigured() || !pending) return;
-  if (timer) {
-    clearTimeout(timer);
-    timer = null;
-  }
-  void uploadNow(pending);
+  if (!cloudConfigured()) return;
+  if (timer) { clearTimeout(timer); timer = null; }
+  if (inFlight) { flushRequested = true; return; }
+  void uploadNow();
 }
 
 export interface BootResult {
@@ -85,27 +125,51 @@ export async function bootCloud(
   timeoutMs = 2500,
 ): Promise<BootResult> {
   if (!cloudConfigured()) return { restored: false };
+  let expired = false;
+  let writing = false;
+  let timeoutHandle: ReturnType<typeof setTimeout> | undefined;
   const work = (async (): Promise<BootResult> => {
+    const initialLocalAt = await readLocalSavedAt();
     const id = await ensureIdentity();
-    if (!id) return { restored: false };
-    const [row, localAt] = await Promise.all([downloadSave(), readLocalSavedAt()]);
-    if (!row?.payload) return { restored: false };
+    if (!id || expired) return { restored: false };
+    const row = await downloadSave();
+    if (!row?.payload || expired) return { restored: false };
+    const localAt = await readLocalSavedAt();
+    if (expired || localAt !== initialLocalAt) return { restored: false };
     const cloudAt = row.payload.savedAt ?? Date.parse(row.saved_at);
-    if (localAt != null && cloudAt <= localAt + NEWER_MARGIN_MS) return { restored: false };
+    if (!Number.isFinite(cloudAt) || (localAt != null && cloudAt <= localAt + NEWER_MARGIN_MS)) return { restored: false };
+    writing = true;
     await writeLocal(row.payload.life, row.payload.ancestry);
     lastUploadAt = Date.now();
     return { restored: true };
   })();
-  const timeout = new Promise<BootResult>((r) => setTimeout(() => r({ restored: false }), timeoutMs));
-  return Promise.race([work.catch(() => ({ restored: false })), timeout]);
+  const timeout = new Promise<BootResult>((resolve) => {
+    timeoutHandle = setTimeout(() => {
+      // 寫盤已開始就等完成；唔會放玩家入遊戲同時喺背景覆蓋。
+      if (writing) return;
+      expired = true;
+      resolve({ restored: false });
+    }, timeoutMs);
+  });
+  try { return await Promise.race([work.catch(() => ({ restored: false })), timeout]); }
+  finally { clearTimeout(timeoutHandle); }
 }
 
 /** 設定頁「由雲端載入」：唔理新舊，強制覆蓋本機 */
 export async function restoreFromCloud(
   writeLocal: (life: LifeGameState | null, ancestry: string | null) => Promise<void>,
 ): Promise<boolean> {
-  const row = await downloadSave();
-  if (!row?.payload) return false;
-  await writeLocal(row.payload.life, row.payload.ancestry);
-  return true;
+  restoring = true;
+  if (timer) { clearTimeout(timer); timer = null; }
+  try {
+    await inFlight;
+    const row = await downloadSave();
+    if (!row?.payload) return false;
+    await writeLocal(row.payload.life, row.payload.ancestry);
+    pending = null;
+    return true;
+  } finally {
+    restoring = false;
+    if (pending) scheduleUpload(UPLOAD_INTERVAL_MS);
+  }
 }

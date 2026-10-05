@@ -17,6 +17,7 @@ export function loadAncestry(): AncestryMeta {
 export function persistAncestry(meta: AncestryMeta) {
   try {
     localStorage.setItem(KEY, JSON.stringify(meta));
+    localStorage.setItem('jianghu_ancestry_saved_at_v1', String(Date.now()));
   } catch {
     /* 私隱模式：只留記憶體 */
   }

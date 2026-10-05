@@ -16,18 +16,35 @@ jobs:
       contents: read
       deployments: write
     steps:
+      - name: Check Cloudflare configuration
+        id: cloudflare
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -n "$CF_TOKEN" ] && [ -n "$CF_ACCOUNT" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Cloudflare deployment skipped: configure CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID. GitHub Pages deploys separately."
+          fi
       - uses: actions/checkout@v4
+        if: steps.cloudflare.outputs.configured == 'true'
       - uses: actions/setup-node@v4
+        if: steps.cloudflare.outputs.configured == 'true'
         with:
-          node-version: "20"
+          node-version: "24"
           cache: npm
       - run: npm ci
+        if: steps.cloudflare.outputs.configured == 'true'
       - run: npm run build
+        if: steps.cloudflare.outputs.configured == 'true'
         env:
           VITE_BASE: /
           VITE_SUPABASE_URL: ${{ vars.SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ vars.SUPABASE_ANON_KEY }}
       - name: Publish to Cloudflare Pages
+        if: steps.cloudflare.outputs.configured == 'true'
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}

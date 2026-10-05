@@ -1,6 +1,7 @@
 import { writeFileSync } from 'fs';
 import { ORDINARY_EVENTS } from './data/events/ordinary';
 import { EVENT_CATALOG } from './data/events/catalog';
+import { INJURY_CURE_EVENTS } from './data/events/injuryCures';
 import { SECRET_ART_EVENTS } from './data/events/secretArts';
 import { BOSS_ENCOUNTER_EVENTS } from './data/events/bossEncounters';
 import { PRACTICE_WANDER_EVENTS } from './data/events/practiceWander';
@@ -19,6 +20,7 @@ const groups: Array<[string, { id: string; title: string; body?: string; tags?: 
   ['江湖百事 jianghuExtra', JIANGHU_EXTRA_EVENTS],
   ['金庸橋段·奇遇', JINYONG_SPECIAL_EVENTS],
   ['金庸橋段·日常翻頁', JINYONG_ORDINARY_EVENTS],
+  ['醫傷', INJURY_CURE_EVENTS],
   ['秘傳奇遇 secretArts', SECRET_ART_EVENTS],
   ['修煉機緣 practiceWander', PRACTICE_WANDER_EVENTS],
   ['路遇 road', ROAD_ENCOUNTER_EVENTS],

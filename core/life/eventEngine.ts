@@ -153,6 +153,7 @@ export function rawCatalog(): GameEvent[] {
       ...PRACTICE_WANDER_EVENTS,
       ...PLAYABILITY_EVENTS,
       ...SECRET_ART_EVENTS,
+      ...INJURY_CURE_EVENTS,
       ...BOSS_ENCOUNTER_EVENTS,
       ...ENRICHED_CATALOG,
       ...RANDOM_PACK_EVENTS,

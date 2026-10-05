@@ -19,9 +19,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "24"
           cache: npm
       - run: npm ci
+      - run: npm test
+      - run: npm run audit:narrate
       - run: npm run build:pages
         env:
           # 雲端（Supabase）公開設定：Settings → Secrets and variables → Actions → Variables

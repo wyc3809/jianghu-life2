@@ -1,3 +1,4 @@
+import { InkSaveStatus } from './InkSaveStatus';
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { LifeGameState } from '@interfaces/lifeEngine';
@@ -544,6 +545,7 @@ export function InkPlayScreen({ state }: Props) {
           </div>
         </div>
       </header>
+      <InkSaveStatus />
 
       {boardOpen && <InkLeaderboardPanel onClose={() => setBoardOpen(false)} />}
 

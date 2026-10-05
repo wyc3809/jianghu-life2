@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 import {
   cloudConfigured,
   cloudLastError,
@@ -8,7 +8,7 @@ import {
   signInWithEmail,
   type CloudIdentity,
 } from '../../cloud/cloud';
-import { flushCloudSync, restoreFromCloud } from '../../cloud/sync';
+import { flushCloudSync, restoreFromCloud, getCloudSyncStatus, subscribeCloudSyncStatus } from '../../cloud/sync';
 import { writeLocal } from '../../cloud/localBridge';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -22,6 +22,7 @@ export function InkCloudSection({ onOpenBoard }: Props) {
   const [email, setEmail] = useState('');
   const [msg, setMsg] = useState('');
   const [busy, setBusy] = useState(false);
+  const syncStatus = useSyncExternalStore(subscribeCloudSyncStatus, getCloudSyncStatus, () => 'idle');
 
   useEffect(() => {
     if (!cloudConfigured()) {
@@ -33,7 +34,7 @@ export function InkCloudSection({ onOpenBoard }: Props) {
       .then((i) => {
         setId(i);
         setChecking(false);
-      });
+      }).catch(() => { setId(null); setChecking(false); });
   }, []);
 
   if (!cloudConfigured()) return null;
@@ -44,9 +45,12 @@ export function InkCloudSection({ onOpenBoard }: Props) {
       return;
     }
     setBusy(true);
-    const r = await fn();
-    setMsg(r.message);
-    setBusy(false);
+    try {
+      const r = await fn();
+      setMsg(r.message);
+    } catch {
+      setMsg('雲端連接失敗，請稍後再試。');
+    } finally { setBusy(false); }
   };
 
   const status = checking
@@ -54,10 +58,18 @@ export function InkCloudSection({ onOpenBoard }: Props) {
     : !id
       ? '未連上雲端，進度照樣存喺本機。'
       : id.email
-        ? `已綁定 ${id.email} · 存檔自動備份`
+        ? `已綁定 ${id.email}`
         : id.pendingEmail
-          ? `等緊確認 ${id.pendingEmail} · 存檔自動備份`
-          : '匿名身份 · 存檔自動備份（綁定電郵先可以換機）';
+          ? `等緊確認 ${id.pendingEmail}`
+          : '匿名身份（綁定電郵先可以換機）';
+
+  const backupStatus = {
+    idle: '等待下一次進度備份。',
+    pending: '進度等待上傳。',
+    uploading: '正在備份進度……',
+    synced: '最新進度已備份。',
+    retrying: '備份未成功，正在重試；本機進度照常保存。',
+  }[syncStatus];
 
   return (
     <section className="ink-settings-block" aria-label="雲端">
@@ -65,6 +77,7 @@ export function InkCloudSection({ onOpenBoard }: Props) {
       <p className="ink-cloud-status" title={cloudLastError() || undefined}>
         {status}
       </p>
+      {id && <p className="ink-cloud-msg" role="status">{backupStatus}</p>}
       <button type="button" className="ink-settings-toggle is-on" onClick={onOpenBoard}>
         開江湖榜 · 江湖排名／修為境界／一生總結
       </button>
@@ -108,10 +121,13 @@ export function InkCloudSection({ onOpenBoard }: Props) {
               onClick={async () => {
                 if (!window.confirm('用雲端存檔覆蓋本機進度？本機未上傳嘅進度會冇咗。')) return;
                 setBusy(true);
-                const ok = await restoreFromCloud(writeLocal);
-                setBusy(false);
-                if (ok) window.location.reload();
-                else setMsg('雲端暫時冇存檔。');
+                try {
+                  const ok = await restoreFromCloud(writeLocal);
+                  if (ok) window.location.reload();
+                  else setMsg('未能取得雲端存檔，請檢查連線再試。');
+                } catch {
+                  setMsg('雲端進度未能儲存到本機，請稍後再試。');
+                } finally { setBusy(false); }
               }}
             >
               由雲端載入

@@ -91,6 +91,8 @@ claude
 合併到 `main` 後由 GitHub Actions 自動部署 GitHub Pages（`npm run build:pages`，base `/jianghu-life2/`）。
 另有 Vercel／Netlify／Cloudflare 設定（`vercel.json`／`netlify.toml`／`.github/workflows/deploy-cloudflare.yml`）。
 
+雲端存檔及排行榜開通步驟見 [CLOUD-SETUP.md](docs/CLOUD-SETUP.md)。開發／CI 使用 Node.js 24；Pages 發布前亦會跑測試及敘事審核。Cloudflare 缺少憑證時會明確跳過部署。
+
 CI：`npm test` + `npm run audit:narrate`（禁詞／非 catalog 空洞模板）＋ build。
 
 ## 美術素材
