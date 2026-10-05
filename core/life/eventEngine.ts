@@ -19,6 +19,8 @@ import { EVENT_CATALOG } from '@data/events/catalog';
 import { SECRET_ART_EVENTS } from '@data/events/secretArts';
 import { BOSS_ENCOUNTER_EVENTS, getBossFightConfig } from '@data/events/bossEncounters';
 import { settleNewbie } from './goals';
+import { addJadePending } from './jadePending';
+import { JADE_PER_MONTH } from '@data/redesign/testParams';
 import { PRACTICE_WANDER_EVENTS } from '@data/events/practiceWander';
 import { PLAYABILITY_EVENTS } from '@data/events/playabilityPack';
 import { JIANGHU_EXTRA_EVENTS } from '@data/events/jianghuExtra100';
@@ -604,6 +606,7 @@ export function startMonth(state: LifeGameState): LifeGameState {
   const rng = getRng();
 
   settleNewbie(state);
+  addJadePending(state, JADE_PER_MONTH);
 
   // calendar
   state.month += 1;

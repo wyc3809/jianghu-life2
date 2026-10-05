@@ -231,6 +231,8 @@ export interface LifeCharacter {
   };
   /** 主修：招式／內功／身法各一門（未揀＝預設第一門學識嘅，見 core/life/schools.ts） */
   mainArts?: { external?: string; internal?: string; qinggong?: string };
+  /** 秘笈升階（帳戶家族收藏嘅鏡像，畀戰鬥計威力用；見 core/life/gacha.ts） */
+  manualStars?: Record<string, number>;
   sectId: string | null;
   /** 門中地位 0外門–3執事 */
   sectStanding: number;
@@ -575,6 +577,7 @@ export const lifeCharacterSchema = z.object({
   mainArts: z
     .object({ external: z.string().optional(), internal: z.string().optional(), qinggong: z.string().optional() })
     .optional(),
+  manualStars: z.record(z.string(), z.number()).optional(),
   sectId: z.string().nullable(),
   sectStanding: z.number().default(0),
   loverId: z.string().nullable(),

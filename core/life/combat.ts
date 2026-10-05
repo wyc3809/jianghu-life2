@@ -43,6 +43,7 @@ import {
 } from './combatCore';
 import { recordDeath } from './death';
 import { schoolBonusTotal } from './schools';
+import { MANUAL_STAR_BONUS } from '@data/redesign/testParams';
 import { chooseFoeMove, inferFoeAiStyle } from './foeAi';
 import { combatOpeningLines, dispositionBlurb } from './combatPresentation';
 import {
@@ -82,9 +83,9 @@ export function buildPlayerFighter(state: LifeGameState): CombatFighter {
   const gearSpecials = equippedDefs(c)
     .map((d) => d.special)
     .filter((s): s is NonNullable<typeof s> => Boolean(s));
-  const passive = sumInternalPassives(c.skills, c.skillRanks ?? {});
+  const passive = sumInternalPassives(c.skills, c.skillRanks ?? {}, c.manualStars);
   const titleBonus = titleBonusTotals(state);
-  const evasion = sumEvasionBonus(c.skills, c.skillRanks ?? {}) + c.attributes.danShi / 500;
+  const evasion = sumEvasionBonus(c.skills, c.skillRanks ?? {}, c.manualStars) + c.attributes.danShi / 500;
   const maxHp = c.health;
   const maxQi = c.qi;
   // 流派協同（主修＋裝備；只用喺回合制交手，唔影響演武台）
@@ -233,7 +234,11 @@ export function startCombat(
 }
 
 export function getPlayerMoves(state: LifeGameState): CombatMoveDef[] {
-  return listExternalMovesForSkills(state.character.skills);
+  const stars = state.character.manualStars ?? {};
+  return listExternalMovesForSkills(state.character.skills).map((m) => {
+    const sid = state.character.skills.find((id) => getSkillDef(id)?.move?.id === m.id);
+    return sid ? withManualStars(m, stars[sid]) : m;
+  });
 }
 
 export function getMoveCooldownRemaining(combat: PendingCombat, moveId: string): number {
@@ -283,9 +288,15 @@ function findMove(state: LifeGameState, moveId: string): CombatMoveDef | null {
   if (moveId === DESPERATE_SURRENDER_MOVE.id) return DESPERATE_SURRENDER_MOVE;
   for (const id of state.character.skills) {
     const def = getSkillDef(id);
-    if (def?.move?.id === moveId) return def.move;
+    if (def?.move?.id === moveId) return withManualStars(def.move, state.character.manualStars?.[id]);
   }
   return null;
+}
+
+/** 秘笈升階：每階招式威力＋MANUAL_STAR_BONUS（design/agreed-design-2026-10.md §3.2） */
+function withManualStars(move: CombatMoveDef, stars: number | undefined): CombatMoveDef {
+  if (!stars) return move;
+  return { ...move, power: move.power * (1 + MANUAL_STAR_BONUS * stars) };
 }
 
 function skillIdForMove(state: LifeGameState, moveId: string): string | null {

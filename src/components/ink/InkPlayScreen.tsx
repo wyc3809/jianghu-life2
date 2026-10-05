@@ -50,6 +50,7 @@ import { InkCombatPanel } from './InkCombatPanel';
 import { InkLifeOrDeathConfirm } from './InkLifeOrDeathConfirm';
 import { InkSuccessionModal } from './InkSuccessionModal';
 import { InkHomeGoals } from './InkHomeGoals';
+import { InkGachaPanel } from './InkGachaPanel';
 import { newbieActive } from '@core/life/goals';
 import { NEWBIE_TRIAL } from '@data/redesign/newbie';
 import { familyGearCarry, getHeirName, previewInheritanceMoney } from '@core/life/family';
@@ -119,6 +120,15 @@ export function InkPlayScreen({ state }: Props) {
   const milestoneToast = useAncestryStore((s) => s.milestoneToast);
   const checkMilestones = useAncestryStore((s) => s.checkMilestones);
   const clearMilestoneToast = useAncestryStore((s) => s.clearMilestoneToast);
+  const jadeToast = useAncestryStore((s) => s.jadeToast);
+  const clearJadeToast = useAncestryStore((s) => s.clearJadeToast);
+  const gachaOpen = useAncestryStore((s) => s.gachaOpen);
+  const setGachaOpen = useAncestryStore((s) => s.setGachaOpen);
+  useEffect(() => {
+    if (!jadeToast) return;
+    const t = window.setTimeout(clearJadeToast, 4200);
+    return () => window.clearTimeout(t);
+  }, [jadeToast, clearJadeToast]);
   // 家族里程碑：每次狀態變就檢查（純函數，已領過嘅唔會重複）
   useEffect(() => {
     checkMilestones();
@@ -449,6 +459,12 @@ export function InkPlayScreen({ state }: Props) {
       {succession && <InkSuccessionModal lines={succession} onClose={clearSuccession} />}
 
       {milestoneToast.length > 0 && <InkAchievementToast key={milestoneToast.join('|')} names={milestoneToast} seal="祖蔭" />}
+
+      {jadeToast > 0 && milestoneToast.length === 0 && (
+        <InkAchievementToast key={`jade-${jadeToast}`} names={[`免費玉石＋${jadeToast}`]} seal="玉石" />
+      )}
+
+      {gachaOpen && <InkGachaPanel state={state} onClose={() => setGachaOpen(false)} />}
 
       {offlineGain !== null && (
         <InkOfflineGainModal gain={offlineGain} onClose={clearOfflineGain} />

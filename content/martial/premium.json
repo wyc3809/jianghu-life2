@@ -1,0 +1,24 @@
+{
+  "notes": "珍本奇功（design/agreed-design-2026-10.md §3.1：約 20% 武學只能經付費抽卡或在線奇遇取得）。玩家揀「全新特製 19 門」（2026-10-05）。唔屬任何門派，免費玉石／門派／事件都攞唔到。數值屬測試參數：略高過同類最強免費武學，唔會碾壓。",
+  "skills": [
+    { "id": "pr_blood_lotus", "name": "血蓮千刃", "kind": "external", "weaponKind": "blade", "flavor": "刀落如蓮開，一瓣一道血痕。", "move": { "id": "mv_pr_blood_lotus", "name": "千刃血蓮", "qiCost": 60, "power": 1.95, "bleedChance": 0.5, "bleedDamage": 9, "bleedTurns": 3, "lifesteal": 0.12, "description": "刀如蓮開，血痕層疊。" } },
+    { "id": "pr_crimson_moon", "name": "赤月飲血劍", "kind": "external", "weaponKind": "sword", "flavor": "月色染紅之夜所創，劍飲敵血以養己身。", "move": { "id": "mv_pr_crimson_moon", "name": "赤月飲血", "qiCost": 56, "power": 1.85, "lifesteal": 0.22, "bleedChance": 0.25, "bleedDamage": 6, "bleedTurns": 2, "description": "劍光如赤月，傷敵養己。" } },
+    { "id": "pr_nine_chain", "name": "九連環掌", "kind": "external", "flavor": "掌影九重，一掌未盡一掌又來。", "move": { "id": "mv_pr_nine_chain", "name": "九重連環", "qiCost": 58, "power": 0.75, "multiHit": 4, "hitBonus": 0.08, "description": "掌影連綿，九重不斷。" } },
+    { "id": "pr_wind_thread", "name": "穿風引線劍", "kind": "external", "weaponKind": "sword", "flavor": "劍如引線穿風，一招三刺，快得看不清。", "move": { "id": "mv_pr_wind_thread", "name": "穿風三刺", "qiCost": 52, "power": 0.85, "multiHit": 3, "pierce": 0.1, "description": "一招三刺，快如穿線。" } },
+    { "id": "pr_mountain_split", "name": "裂嶽神拳", "kind": "external", "flavor": "傳說一拳裂開山嶽，專破天下硬功。", "move": { "id": "mv_pr_mountain_split", "name": "裂嶽一拳", "qiCost": 62, "power": 2.05, "pierce": 0.4, "defenseBreak": 5, "description": "拳勁透甲，硬功盡碎。" } },
+    { "id": "pr_heaven_spear", "name": "貫日神槍", "kind": "external", "weaponKind": "spear", "flavor": "一槍貫日，再堅之甲亦如紙。", "move": { "id": "mv_pr_heaven_spear", "name": "白虹貫日", "qiCost": 60, "power": 2.0, "pierce": 0.32, "hitBonus": 0.06, "description": "槍如白虹，直貫甲冑。" } },
+    { "id": "pr_soul_lock", "name": "鎖魂指", "kind": "external", "flavor": "一指封穴，對手魂魄如被鎖住。", "move": { "id": "mv_pr_soul_lock", "name": "鎖魂一指", "qiCost": 54, "power": 1.5, "stunChance": 0.38, "qiDrain": 18, "description": "指封要穴，敵難動彈。" } },
+    { "id": "pr_mist_blind", "name": "迷蹤散霧手", "kind": "external", "flavor": "掌帶迷霧，叫人目不能視、手不能出。", "move": { "id": "mv_pr_mist_blind", "name": "散霧迷蹤", "qiCost": 50, "power": 1.4, "applyBlind": 2, "stunChance": 0.2, "description": "霧掌迷眼，敵招落空。" } },
+    { "id": "pr_vajra_palm", "name": "金剛不壞掌", "kind": "external", "flavor": "掌出如山，回勁護體，越打越穩。", "move": { "id": "mv_pr_vajra_palm", "name": "金剛護體掌", "qiCost": 55, "power": 1.6, "healSelf": 18, "defenseBreak": 2, "description": "掌勁回流，護體療傷。" } },
+    { "id": "pr_floating_blade", "name": "飄絮刀", "kind": "external", "weaponKind": "blade", "flavor": "刀勢輕如飄絮，總從意想不到之處落下。", "move": { "id": "mv_pr_floating_blade", "name": "飄絮落刀", "qiCost": 48, "power": 1.7, "hitBonus": 0.15, "description": "刀輕如絮，防不勝防。" } },
+    { "id": "pr_star_fall", "name": "流星墜月", "kind": "external", "weaponKind": "hidden", "flavor": "暗器如流星墜月，散落一片，避無可避。", "move": { "id": "mv_pr_star_fall", "name": "流星墜月", "qiCost": 56, "power": 0.7, "multiHit": 4, "bleedChance": 0.3, "bleedDamage": 5, "bleedTurns": 2, "description": "星落如雨，處處見血。" } },
+    { "id": "pr_blood_sea", "name": "血海心經", "kind": "internal", "flavor": "以殺意養內息，攻勢愈戰愈烈。", "passive": { "attack": 12, "maxHp": 20, "qiRegen": 4 } },
+    { "id": "pr_thunder_heart", "name": "雷動心法", "kind": "internal", "flavor": "內息如雷鳴不絕，出招接連不斷。", "passive": { "qiRegen": 14, "maxQi": 35, "hitBonus": 0.05 } },
+    { "id": "pr_diamond_body", "name": "金剛不壞體", "kind": "internal", "flavor": "傳說中的護體神功，刀槍難入。", "passive": { "defense": 18, "maxHp": 60, "reflect": 0.12 } },
+    { "id": "pr_seal_meridian", "name": "封脈真經", "kind": "internal", "flavor": "內力深厚到可以隔空封人經脈。", "passive": { "maxQi": 60, "attack": 6, "qiRegen": 6 } },
+    { "id": "pr_void_breath", "name": "太虛吐納", "kind": "internal", "flavor": "吐納如太虛無形，身輕如無物。", "passive": { "evasionBonus": 0.06, "hitBonus": 0.06, "qiRegen": 8 } },
+    { "id": "pr_cloud_step", "name": "踏雲九霄", "kind": "qinggong", "flavor": "足踏雲端九霄，凡人目力難以追及。", "passive": { "evasionBonus": 0.12, "qiRegen": 3 } },
+    { "id": "pr_shadow_flash", "name": "鬼影閃", "kind": "qinggong", "flavor": "身形一閃即逝，出手時敵人還未見人。", "passive": { "evasionBonus": 0.08, "hitBonus": 0.08 } },
+    { "id": "pr_tide_step", "name": "觀潮步", "kind": "qinggong", "flavor": "步法如潮汐進退，內息隨之生生不息。", "passive": { "evasionBonus": 0.07, "qiRegen": 8, "hitBonus": 0.03 } }
+  ]
+}

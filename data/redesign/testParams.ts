@@ -26,3 +26,34 @@ export const TEST_CULTIVATION_RESERVE_RELEASE: 'instant' = 'instant';
  */
 export const TEST_IDLE_SILVER_BASE_PER_HOUR = 6;
 export const TEST_IDLE_SILVER_PER_STAGE_PER_HOUR = 0.5;
+
+/* ───────── 第 8 步：玉石・抽卡・心願保底・重複秘笈（design/agreed-design-2026-10.md §3.1、§3.2） ───────── */
+
+/** 每抽價錢（玉石）——玩家揀「每抽 60，40 抽保底」（2026-10-05） */
+export const GACHA_COST_PER_PULL = 60;
+/** 心願保底：連續幾多抽未出心願，下一抽必出——玩家揀 40 */
+export const GACHA_WISH_PITY = 40;
+/** 每抽直接出心願嘅機率（未到保底前）——測試參數 */
+export const GACHA_WISH_RATE = 0.025;
+/** 「珍本奇功」池：每抽出珍本（非心願）嘅機率，其餘出免費池武學——測試參數 */
+export const GACHA_PREMIUM_RATE = 0.175;
+
+/** 重複秘笈：升階上限——玩家揀最多 3 次 */
+export const MANUAL_MAX_STARS = 3;
+/** 每升一階：武學效果＋10%——玩家揀 */
+export const MANUAL_STAR_BONUS = 0.1;
+/** 一本重複秘笈轉幾多書頁——玩家揀 20 */
+export const PAGES_PER_DUPLICATE = 20;
+/** 幾多書頁換一門免費池武學——玩家揀 200（換唔到珍本奇功） */
+export const PAGES_PER_EXCHANGE = 200;
+
+/** 免費玉石來源（玩家揀晒四項；數量係測試參數） */
+export const JADE_PER_MONTH = 3;
+export const JADE_PER_SPAR_SCENE = 30; // 演武台每過 10 關
+export const JADE_PER_BREAKTHROUGH_BASE = 20; // ＋境界 × 5
+export const JADE_PER_BREAKTHROUGH_TIER = 5;
+export const JADE_PER_ACHIEVEMENT = 15; // 帳戶首次達成
+export const JADE_PER_MILESTONE = 60; // 家族里程碑（首次）
+
+/** 測試版：撳一下領嘅「付費玉石（測試額度）」——等於一次心願保底嘅量；唔係真錢 */
+export const TEST_PAID_JADE_GRANT = GACHA_COST_PER_PULL * GACHA_WISH_PITY;

@@ -1,4 +1,6 @@
 import { accrueIdleSilver, harvestIdleSilver } from '@core/life/idleHarvest';
+import { addJadePending } from '@core/life/jadePending';
+import { JADE_PER_SPAR_SCENE } from '@data/redesign/testParams';
 import { produce } from 'immer';
 import { shiftMoment } from '@core/life/moments';
 import type { LifeGameState } from '@interfaces/lifeEngine';
@@ -405,6 +407,11 @@ export function createProgressionSlice(
         c.money += reward.silver;
         const g = addCultivationXp(draft, reward.xp);
         xp = g.toXp + g.toReserve;
+        // 演武台每過 10 關（換場景）送免費玉石；每代各自計
+        if (clearedStage % 10 === 0 && Number(c.flags.spar_jade_stage ?? 0) < clearedStage) {
+          c.flags.spar_jade_stage = clearedStage;
+          addJadePending(draft, JADE_PER_SPAR_SCENE);
+        }
         c.flags.spar_stage = clearedStage + 1;
       });
       save(next, false);

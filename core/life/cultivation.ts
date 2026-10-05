@@ -6,7 +6,12 @@ import { gearTotals, raiseBaseMaxHp, raiseBaseMaxQi } from './equipment';
 import { gainJianghuPrestige } from './jianghuPrestige';
 import { headProgressFactor } from './injuryMath';
 import { pushChronicle } from './chronicle';
-import { TEST_CULTIVATION_RESERVE_RATIO } from '@data/redesign/testParams';
+import {
+  JADE_PER_BREAKTHROUGH_BASE,
+  JADE_PER_BREAKTHROUGH_TIER,
+  TEST_CULTIVATION_RESERVE_RATIO,
+} from '@data/redesign/testParams';
+import { addJadePending } from './jadePending';
 
 /**
  * 放置修為層：功法／內功／門派加成／裝備詞條全部換算做一個「修為/秒」速率，
@@ -322,6 +327,7 @@ export function attemptCultivationBreakthrough(state: LifeGameState): Breakthrou
     c.cultivation.tier = nextTier.level;
     c.cultivation.xp = 0;
     const reserveReleased = releaseCultivationReserve(state);
+    addJadePending(state, JADE_PER_BREAKTHROUGH_BASE + JADE_PER_BREAKTHROUGH_TIER * nextTier.level);
     const martialGain = 6 + nextTier.level * 2;
     c.martial += martialGain;
     const hpGain = 16 + nextTier.level * 5;

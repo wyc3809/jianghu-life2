@@ -266,7 +266,7 @@ export const ACHIEVEMENT_RULES: AchievementDef[] = [
   },
 ];
 
-function readAchievementIds(state: LifeGameState): string[] {
+export function readAchievementIds(state: LifeGameState): string[] {
   const raw = state.character.flags.achievements;
   if (typeof raw !== 'string' || !raw.trim()) return [];
   return raw

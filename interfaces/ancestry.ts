@@ -20,6 +20,19 @@ export interface AncestryMeta {
   familySlots: number;
   /** 已領過祖蔭嘅家族里程碑 id（首次先有，同一個只領一次）；舊資料冇＝空 */
   milestones?: string[];
+  /** 玉石：免費同付費（測試額度）分開記帳，跨世保留 */
+  jade?: { free: number; paidTest: number };
+  /** 抽卡：兩個卡池各自嘅心願同保底進度（換代保留） */
+  gacha?: {
+    pulls: number;
+    banners: Record<string, { wish?: string; sinceWish: number; total: number }>;
+  };
+  /** 家族秘笈收藏：stars＝升階數、copies＝未處理嘅重複本 */
+  manuals?: Record<string, { stars: number; copies: number }>;
+  /** 書頁（重複秘笈轉成） */
+  pages?: number;
+  /** 已領過玉石嘅成就 id（帳戶首次） */
+  jadeAchv?: string[];
 }
 
 export const ancestryMetaSchema = z.object({
@@ -33,4 +46,17 @@ export const ancestryMetaSchema = z.object({
   familyArts: z.array(z.string()),
   familySlots: z.number().int().min(1).max(2),
   milestones: z.array(z.string()).optional(),
+  jade: z.object({ free: z.number().min(0), paidTest: z.number().min(0) }).optional(),
+  gacha: z
+    .object({
+      pulls: z.number().int().min(0),
+      banners: z.record(
+        z.string(),
+        z.object({ wish: z.string().optional(), sinceWish: z.number().int().min(0), total: z.number().int().min(0) }),
+      ),
+    })
+    .optional(),
+  manuals: z.record(z.string(), z.object({ stars: z.number().int().min(0), copies: z.number().int().min(0) })).optional(),
+  pages: z.number().int().min(0).optional(),
+  jadeAchv: z.array(z.string()).optional(),
 });
