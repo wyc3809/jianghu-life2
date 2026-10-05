@@ -508,7 +508,7 @@ export function InkPlayScreen({ state }: Props) {
           )}
         </div>
         <div className="ink-status-metaline">
-          <span ref={moneyChipRef} className="ink-money-chip" aria-label={`銀両 ${Math.round(c.money ?? 0)}`}>
+          <span ref={moneyChipRef} className="ink-money-chip" aria-label={`銀兩 ${Math.round(c.money ?? 0)}`}>
             <img className="ink-label-img" src={`${import.meta.env.BASE_URL || '/'}ink/ui/label-yinliang.webp`} alt="" aria-hidden draggable={false} />
             <InkGlyphText text={moneyShown.toLocaleString('zh-Hant')} height={14} />
           </span>
