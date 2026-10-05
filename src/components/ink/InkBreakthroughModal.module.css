@@ -267,6 +267,12 @@
   animation: bkFade var(--motion-slow) var(--ease-ink) calc(var(--motion-ritual) + var(--motion-quick)) both;
 }
 
+.keep {
+  color: #f3ead6;
+  font-weight: 700;
+  font-size: 1.12em;
+}
+
 .ack {
   margin-top: 12px;
   padding: 9px 22px;

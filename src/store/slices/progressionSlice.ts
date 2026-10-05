@@ -1,3 +1,6 @@
+import { accrueIdleSilver, harvestIdleSilver } from '@core/life/idleHarvest';
+import { addJadePending } from '@core/life/jadePending';
+import { JADE_PER_SPAR_SCENE } from '@data/redesign/testParams';
 import { produce } from 'immer';
 import { shiftMoment } from '@core/life/moments';
 import type { LifeGameState } from '@interfaces/lifeEngine';
@@ -7,8 +10,8 @@ import {
   resolvePendingEvent,
   startMonth,
 } from '@core/life/eventEngine';
-import { clearLifeSave, loadLifeSave } from '@core/life/saveIndexedDb';
-import { flushPersist, installPersistLifecycle } from '../persistSchedule';
+import { loadLifeSave } from '@core/life/saveIndexedDb';
+import { installPersistLifecycle } from '../persistSchedule';
 import {
   startHuashanBracket,
   dismissHuashanReport,
@@ -33,8 +36,13 @@ import {
 import { hasEnoughActionPoints, tickActionPoints } from '@core/life/actionPoints';
 import { track } from '../../telemetry/events';
 import { sparStageReward } from '@core/life/sparDuel';
-import { currentCultivationTier } from '@core/life/cultivation';
+import { addCultivationXp } from '@core/life/cultivation';
 import type { LifeStore } from '../lifeStore';
+
+/** 由新一世開局年譜抽出接班相關嘅句（前世、承祧／血脈、銀庫、裝備庫、祖蔭） */
+export function successionLines(lifeLog: string[]): string[] {
+  return lifeLog.filter((l) => /^前世「|承祧|血脈未斷|家族銀庫|家族裝備庫|^祖蔭：/.test(l));
+}
 
 export function createProgressionSlice(
   set: (partial: Partial<LifeStore>) => void,
@@ -71,6 +79,8 @@ export function createProgressionSlice(
   | 'attemptBreakthrough'
   | 'clearBreakthroughResult'
   | 'clearOfflineGain'
+  | 'clearSuccession'
+  | 'harvestIdle'
 > {
   return {
     bootstrap: async () => {
@@ -107,25 +117,17 @@ export function createProgressionSlice(
         return;
       }
       const legacy = extractLegacy(prev);
-      if (!legacy.hadChildren) {
-        track('life_end_no_heir', { generation: legacy.generation });
-        flushPersist();
-        void clearLifeSave();
-        set({
-          state: null,
-          creating: true,
-          sealText: null,
-          flashLines: [],
-          lastResult: null,
-        });
-        return;
-      }
+      // 無子女都唔會斷：由旁支承祧（design/agreed-design-2026-10.md §1）
       track('life_reincarnate', {
         generation: legacy.generation,
         family: legacy.familyLegacy,
         teacher: legacy.teacherLegacy,
+        collateral: Boolean(legacy.collateral),
       });
       get().newLife({ legacy });
+      const born = get().state;
+      const lines = born ? successionLines(born.lifeLog) : [];
+      set({ succession: lines.length ? lines : null });
     },
 
     continueLife: async () => {
@@ -136,7 +138,9 @@ export function createProgressionSlice(
       track('life_resume', { age: state.character.age });
       const elapsedMs = Date.now() - loaded.savedAt;
       const offline = applyOfflineCultivation(state, elapsedMs);
-      if (offline.gainedXp > 0) {
+      // 掛機銀兩：同修為一樣最多計 48 小時，入「待收成」
+      const offlineSilver = accrueIdleSilver(state, offline.countedSeconds);
+      if (offline.gainedXp > 0 || offlineSilver >= 1) {
         track('cultivation_offline_gain', {
           gainedXp: Math.round(offline.gainedXp),
           countedSeconds: Math.round(offline.countedSeconds),
@@ -150,12 +154,15 @@ export function createProgressionSlice(
         flashLines: [],
         lastResult: null,
         offlineGain:
-          offline.gainedXp > 0
+          offline.gainedXp > 0 || offlineSilver >= 1
             ? {
+                silver: Math.floor(offlineSilver),
                 xp: Math.round(offline.gainedXp),
                 countedMs: Math.round(offline.countedSeconds * 1000),
                 timeCapped: offline.timeCapped,
                 tierCapped: offline.tierCapped,
+                reserveXp: Math.round(offline.reserveGained),
+                reserveCapped: offline.reserveCapped,
               }
             : null,
       });
@@ -370,6 +377,7 @@ export function createProgressionSlice(
       const next = produce(state, (draft) => {
         tickCultivationCore(draft, deltaSeconds);
         tickActionPoints(draft, deltaSeconds);
+        accrueIdleSilver(draft, deltaSeconds);
       });
       save(next, false);
       set({ state: next });
@@ -397,10 +405,13 @@ export function createProgressionSlice(
       const next = produce(state, (draft) => {
         const c = draft.character;
         c.money += reward.silver;
-        const cap = currentCultivationTier(draft).cap;
-        const before = c.cultivation.xp;
-        c.cultivation.xp = Number.isFinite(cap) ? Math.min(cap, before + reward.xp) : before + reward.xp;
-        xp = c.cultivation.xp - before;
+        const g = addCultivationXp(draft, reward.xp);
+        xp = g.toXp + g.toReserve;
+        // 演武台每過 10 關（換場景）送免費玉石；每代各自計
+        if (clearedStage % 10 === 0 && Number(c.flags.spar_jade_stage ?? 0) < clearedStage) {
+          c.flags.spar_jade_stage = clearedStage;
+          addJadePending(draft, JADE_PER_SPAR_SCENE);
+        }
         c.flags.spar_stage = clearedStage + 1;
       });
       save(next, false);
@@ -438,5 +449,18 @@ export function createProgressionSlice(
     clearBreakthroughResult: () => set({ breakthroughResult: null }),
 
     clearOfflineGain: () => set({ offlineGain: null }),
+    clearSuccession: () => set({ succession: null }),
+    harvestIdle: () => {
+      const { state } = get();
+      if (!state || state.phase !== 'playing' || !state.character.alive) return 0;
+      let got = 0;
+      const next = produce(state, (draft) => {
+        got = harvestIdleSilver(draft);
+      });
+      if (got <= 0) return 0;
+      save(next);
+      set({ state: next });
+      return got;
+    },
   };
 }

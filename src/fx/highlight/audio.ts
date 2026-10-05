@@ -1,8 +1,8 @@
 /**
  * 高光時刻音效：全部 Web Audio 即時合成，唔用音檔。
- * 第一次點擊先 init（瀏覽器自動播放政策）；靜音跟遊戲設定（isInkAudioMuted）。
+ * 第一次點擊先 init（瀏覽器自動播放政策）；音量跟遊戲設定嘅「音效」（sfxGainFactor）。
  */
-import { isInkAudioMuted } from '../../audio/inkAudio';
+import { sfxGainFactor } from '../../audio/inkAudio';
 import { haptic } from '../../ui/haptics';
 
 let ctx: AudioContext | null = null;
@@ -27,7 +27,9 @@ export function initHighlightAudio(): void {
 }
 
 function ok(): AudioContext | null {
-  if (!ctx || !master || isInkAudioMuted()) return null;
+  const f = sfxGainFactor();
+  if (!ctx || !master || f <= 0) return null;
+  master.gain.value = 0.7 * f;
   if (ctx.state === 'suspended') void ctx.resume();
   return ctx;
 }

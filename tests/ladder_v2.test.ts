@@ -37,13 +37,13 @@ describe('ladder v2: cultivation 15 tiers', () => {
     }
   });
 
-  it('test_cultivation_offline_counts_up_to_24_hours', () => {
-    expect(OFFLINE_CULTIVATION_CAP_MS).toBe(24 * 60 * 60 * 1000);
+  it('test_cultivation_offline_counts_up_to_48_hours', () => {
+    expect(OFFLINE_CULTIVATION_CAP_MS).toBe(48 * 60 * 60 * 1000);
     const state = fresh(12);
     state.character.cultivation = { xp: 0, tier: 13 };
-    const r = applyOfflineCultivation(state, 48 * 60 * 60 * 1000);
+    const r = applyOfflineCultivation(state, 49 * 60 * 60 * 1000);
     expect(r.timeCapped).toBe(true);
-    expect(r.countedSeconds).toBe(MAX_TIER_FILL_SECONDS);
+    expect(r.countedSeconds).toBe(48 * 60 * 60);
   });
 });
 

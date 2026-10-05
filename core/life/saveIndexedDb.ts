@@ -8,7 +8,20 @@ const LS_KEY = 'jianghu_life_v1_ls';
 let lastSavedAt = 0;
 let idbWrites: Promise<unknown> = Promise.resolve();
 let saveError: string | null = null;
+/** 最近一次成功存到本機（任一方式）嘅時間；0＝未有 */
+let lastOkAt = 0;
 const statusListeners = new Set<() => void>();
+
+/** 最近成功存檔時間（ms epoch），設定頁顯示用；未存過＝0 */
+export function getLastLocalSaveAt(): number {
+  return lastOkAt;
+}
+
+function markSavedOk(at: number): void {
+  if (at <= lastOkAt) return;
+  lastOkAt = at;
+  for (const listener of statusListeners) listener();
+}
 
 /** 本機兩種保存方式都失敗時，介面顯示提醒而唔會假裝已存檔。 */
 export function getLifeSaveError(): string | null {
@@ -138,7 +151,7 @@ export async function persistLife(state: LifeGameState): Promise<void> {
   idbWrites = write;
   let idbSaved = false;
   try { await write; idbSaved = true; } catch { /* localStorage may have succeeded */ }
-  if (localSaved || idbSaved) { setSaveError(null); return; }
+  if (localSaved || idbSaved) { setSaveError(null); markSavedOk(payload.savedAt); return; }
   const message = '進度暫時未能儲存，請保持此頁開啟，再試一次。';
   setSaveError(message);
   throw new Error(message);
@@ -149,12 +162,18 @@ export async function loadLifeSave(): Promise<LifePersistedSave | null> {
   try {
     const idb = await loadLifeFromIndexedDb();
     const newest = !idb ? local : !local || idb.savedAt >= local.savedAt ? idb : local;
-    if (newest) lastSavedAt = Math.max(lastSavedAt, newest.savedAt);
+    if (newest) {
+      lastSavedAt = Math.max(lastSavedAt, newest.savedAt);
+      markSavedOk(newest.savedAt);
+    }
     return newest;
   } catch {
     /* fall through */
   }
-  if (local) lastSavedAt = Math.max(lastSavedAt, local.savedAt);
+  if (local) {
+    lastSavedAt = Math.max(lastSavedAt, local.savedAt);
+    markSavedOk(local.savedAt);
+  }
   return local;
 }
 

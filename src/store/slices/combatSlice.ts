@@ -5,6 +5,8 @@ import {
   getPlayerMoves,
   resolveCombatDisposition,
   setCombatInternalMode,
+  confirmLifeOrDeath,
+  declineLifeOrDeath,
   type CombatFoeDisposition,
 } from '@core/life/combat';
 import { buildLifeSummary } from '@core/life/summary';
@@ -24,8 +26,46 @@ export function createCombatSlice(
   set: (partial: Partial<LifeStore>) => void,
   get: () => LifeStore,
   save: (state: LifeGameState, immediate?: boolean) => void,
-): Pick<LifeStore, 'combatMove' | 'combatSetInternalMode' | 'combatResolveFoe'> {
+): Pick<
+  LifeStore,
+  'combatMove' | 'combatSetInternalMode' | 'combatResolveFoe' | 'combatConfirmRisk' | 'combatDeclineRisk'
+> {
   return {
+    combatConfirmRisk: () => {
+      const { state } = get();
+      if (!state?.pendingCombat) return;
+      let logs: string[] = [];
+      const next = produce(state, (draft) => {
+        logs = confirmLifeOrDeath(draft);
+      });
+      if (!logs.length) return;
+      set({ state: next, flashLines: logs });
+      schedulePersist(next, { immediate: true });
+    },
+
+    combatDeclineRisk: () => {
+      const { state } = get();
+      if (!state?.pendingCombat) return;
+      const title = state.pendingCombat.title;
+      let logs: string[] = [];
+      const next = produce(state, (draft) => {
+        logs = declineLifeOrDeath(draft);
+      });
+      if (!logs.length) return;
+      set({
+        state: next,
+        sealText: '遁',
+        flashLines: [],
+        lastResult: {
+          title,
+          choiceText: '退避',
+          feedback: sanitizePlayerLine(logs[0] ?? '你暫且退避。'),
+          deltas: [],
+        },
+      });
+      schedulePersist(next, { immediate: true });
+    },
+
     combatMove: (moveId: string) => {
       const { state } = get();
       if (!state?.pendingCombat || state.pendingCombat.phase !== 'player') return;

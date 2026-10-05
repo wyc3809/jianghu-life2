@@ -174,11 +174,20 @@ export function getHeirName(state: LifeGameState): string | null {
   return kids[0] ?? null;
 }
 
-/** 掩卷／摘要用：預估來世可繼承銀兩 */
+/**
+ * 家族銀庫：角色離世時銀兩全數傳落後人（有冇子女都一樣，無嗣由旁支承接）。
+ * design/agreed-design-2026-10.md §1。
+ */
 export function previewInheritanceMoney(state: LifeGameState): number {
+  return Math.max(0, Math.floor(state.character.money ?? 0));
+}
+
+/** 家族裝備庫：所有持有＋穿戴中嘅裝備（去重），接班時全數傳落後人 */
+export function familyGearCarry(state: LifeGameState): string[] {
   const c = state.character;
-  if ((c.childrenCount ?? 0) <= 0 && !c.flags.family_legacy) return 0;
-  const fromPurse = Math.floor(c.money * 0.4);
-  const fromPeak = Math.floor((c.stats.wealthPeak ?? 0) * 0.08);
-  return Math.min(160, Math.max(15, fromPurse + fromPeak));
+  const eq = c.equipment ?? { weapon: null, armor: null, accessory: null };
+  const ids = [...(c.gear ?? []), eq.weapon, eq.armor, eq.accessory].filter(
+    (x): x is string => typeof x === 'string' && x.length > 0,
+  );
+  return [...new Set(ids)];
 }

@@ -1,5 +1,6 @@
 import type { WeaponKind } from '@data/equipment/catalog';
 import { MARTIAL_CATALOG_RAW } from '@data/content/packs';
+import PREMIUM_CATALOG_RAW from '@content/martial/premium.json';
 import { rankName } from '@core/life/martialRanks';
 
 export type SkillKind = 'external' | 'internal' | 'qinggong';
@@ -67,6 +68,8 @@ export interface SkillDef {
   weaponKind?: WeaponKind;
   move?: CombatMoveDef;
   passive?: InternalPassive;
+  /** 珍本奇功：只限付費抽卡或在線奇遇（content/martial/premium.json） */
+  premium?: boolean;
 }
 
 interface RawSkill {
@@ -105,6 +108,19 @@ function buildCatalog(): Record<string, SkillDef> {
       passive: raw.passive,
     };
     out[raw.id] = def;
+  }
+  // 珍本奇功：免費途徑（門派、事件、免費玉石）攞唔到
+  for (const raw of PREMIUM_CATALOG_RAW.skills as RawSkill[]) {
+    out[raw.id] = {
+      id: raw.id,
+      name: raw.name,
+      kind: raw.kind,
+      flavor: raw.flavor,
+      weaponKind: raw.weaponKind,
+      move: raw.move,
+      passive: raw.passive,
+      premium: true,
+    };
   }
   return out;
 }
@@ -420,13 +436,20 @@ export function listExternalMovesForSkills(skillIds: string[]): CombatMoveDef[] 
   return moves;
 }
 
-export function sumInternalPassives(skillIds: string[], ranks: Record<string, number>): InternalPassive {
+/** 秘笈升階每階加成（同 data/redesign/testParams.ts MANUAL_STAR_BONUS 一致） */
+const STAR_SCALE = 0.1;
+
+export function sumInternalPassives(
+  skillIds: string[],
+  ranks: Record<string, number>,
+  stars?: Record<string, number>,
+): InternalPassive {
   const out: InternalPassive = {};
   for (const id of skillIds) {
     const def = getSkillDef(id);
     if (!def || def.kind !== 'internal' || !def.passive) continue;
     const rank = ranks[id] ?? 0;
-    const scale = 1 + rank * 0.25;
+    const scale = (1 + rank * 0.25) * (1 + STAR_SCALE * (stars?.[id] ?? 0));
     const p = def.passive;
     out.attack = (out.attack ?? 0) + Math.round((p.attack ?? 0) * scale);
     out.defense = (out.defense ?? 0) + Math.round((p.defense ?? 0) * scale);
@@ -440,13 +463,17 @@ export function sumInternalPassives(skillIds: string[], ranks: Record<string, nu
 }
 
 /** 輕功被動：閃避等（與內功分開累加） */
-export function sumQinggongPassives(skillIds: string[], ranks: Record<string, number>): InternalPassive {
+export function sumQinggongPassives(
+  skillIds: string[],
+  ranks: Record<string, number>,
+  stars?: Record<string, number>,
+): InternalPassive {
   const out: InternalPassive = {};
   for (const id of skillIds) {
     const def = getSkillDef(id);
     if (!def || def.kind !== 'qinggong' || !def.passive) continue;
     const rank = ranks[id] ?? 0;
-    const scale = 1 + rank * 0.25;
+    const scale = (1 + rank * 0.25) * (1 + STAR_SCALE * (stars?.[id] ?? 0));
     const p = def.passive;
     out.evasionBonus = (out.evasionBonus ?? 0) + (p.evasionBonus ?? 0) * scale;
     out.qiRegen = (out.qiRegen ?? 0) + Math.round((p.qiRegen ?? 0) * scale);
@@ -455,14 +482,18 @@ export function sumQinggongPassives(skillIds: string[], ranks: Record<string, nu
   return out;
 }
 
-export function sumEvasionBonus(skillIds: string[], ranks: Record<string, number>): number {
-  const q = sumQinggongPassives(skillIds, ranks);
+export function sumEvasionBonus(
+  skillIds: string[],
+  ranks: Record<string, number>,
+  stars?: Record<string, number>,
+): number {
+  const q = sumQinggongPassives(skillIds, ranks, stars);
   let ev = q.evasionBonus ?? 0;
   for (const id of skillIds) {
     const def = getSkillDef(id);
     if (!def || def.kind !== 'internal' || !def.passive?.evasionBonus) continue;
     const rank = ranks[id] ?? 0;
-    const scale = 1 + rank * 0.25;
+    const scale = (1 + rank * 0.25) * (1 + STAR_SCALE * (stars?.[id] ?? 0));
     ev += def.passive.evasionBonus * scale;
   }
   return Math.min(0.42, ev);

@@ -30,12 +30,18 @@ export interface LastResult {
 /** 閉關所得（離線收益）彈窗資料 */
 export interface OfflineGainInfo {
   xp: number;
+  /** 離線期間累積入「待收成」嘅銀兩 */
+  silver?: number;
   /** 實際計咗幾多離線時間（ms，已按上限截斷） */
   countedMs: number;
   /** 離開時間長過上限，多出嚟嘅修持流走咗 */
   timeCapped: boolean;
-  /** 境界瓶頂截斷：未突破前唔會再漲 */
+  /** 境界已滿：多出嘅修為入咗儲備 */
   tierCapped: boolean;
+  /** 其中入咗儲備嘅修為 */
+  reserveXp: number;
+  /** 儲備都滿咗，有修為流走 */
+  reserveCapped: boolean;
 }
 
 export interface LifeStore {
@@ -63,8 +69,16 @@ export interface LifeStore {
   ackMoment: () => void;
   practice: (actionId: PracticeActionId, opts?: { sectId?: string; artId?: string }) => void;
   combatMove: (moveId: string) => void;
+  /** 揀主修武學（招式／內功／身法各一門） */
+  setMainArt: (kind: import('@data/skills/catalog').SkillKind, skillId: string) => void;
+  /** 新手試煉：開打（贏咗得有用裝備） */
+  startNewbieTrial: () => void;
   combatSetInternalMode: (modeId: string | null) => void;
   combatResolveFoe: (disposition: CombatFoeDisposition) => void;
+  /** 生死戰：玩家確認風險，應戰 */
+  combatConfirmRisk: () => void;
+  /** 生死戰：開打前退避 */
+  combatDeclineRisk: () => void;
   clearResult: () => void;
   setTab: (tab: NonNullable<LifeGameState['tab']>) => void;
   setDebugOpen: (open: boolean) => void;
@@ -97,6 +111,11 @@ export interface LifeStore {
   /** 上次讀檔嘅離線收益彈窗資料（null＝冇要顯示） */
   offlineGain: OfflineGainInfo | null;
   clearOfflineGain: () => void;
+  /** 後人接班：開局一次過顯示承接咗乜（家族銀庫、裝備庫、承祧） */
+  succession: string[] | null;
+  clearSuccession: () => void;
+  /** 掛機收成：待收成銀兩入袋，返回收咗幾多 */
+  harvestIdle: () => number;
 }
 
 async function save(state: LifeGameState, immediate = true) {
@@ -113,6 +132,7 @@ export const useLifeStore = create<LifeStore>()(
     lastResult: null,
     creating: false,
     offlineGain: null,
+    succession: null,
     breakthroughResult: null,
 
     ...createProgressionSlice(set, get, save),

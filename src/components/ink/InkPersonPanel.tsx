@@ -1,3 +1,8 @@
+import { InkMainArts } from './InkMainArts';
+import { useAncestryStore } from '../../store/ancestryStore';
+import { mainArts } from '@core/life/schools';
+import { SCHOOLS, schoolOfGear, schoolsOfSkill } from '@data/redesign/schools';
+import type { SkillKind } from '@data/skills/catalog';
 import { useEffect, useRef, useState } from 'react';
 import { inkCountTo, inkPopIn } from '../../ui/inkMotion';
 import type { LifeGameState } from '@interfaces/lifeEngine';
@@ -33,7 +38,7 @@ import { listWeaponMasteries } from '@core/life/weaponMastery';
 import { careerLabel, getCareer } from '@core/life/careers';
 import { formatFragmentProgress } from '@core/life/manualFragments';
 import { getMasterName } from '@core/life/bonds';
-import { getHeirName, listChildNames, previewInheritanceMoney } from '@core/life/family';
+import { familyGearCarry, getHeirName, listChildNames, previewInheritanceMoney } from '@core/life/family';
 import { buildGenealogy } from '@core/life/genealogy';
 import { achievementProgress, listAchievementStatus } from '@core/life/achievements';
 import { allTitles } from '@core/life/titles';
@@ -50,6 +55,9 @@ import {
   currentCultivationTier,
   CULTIVATION_TIERS,
   isCultivationCapped,
+  cultivationReserve,
+  cultivationReserveCap,
+  breakthroughChance,
 } from '@core/life/cultivation';
 
 export type PersonView =
@@ -73,12 +81,23 @@ type Props = {
   onEquip: (id: string) => void;
   onEquipBest: () => void;
   onBreakthrough: () => void;
+  /** 揀主修（招式／內功／身法） */
+  onSetMainArt?: (kind: SkillKind, skillId: string) => void;
 };
 
 const pctText = (v: number) => `${(v * 100).toFixed(1).replace(/\.0$/, '')}%`;
 const numText = (v: number) => Math.round(v).toLocaleString('en-US');
 
-export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest, onBreakthrough }: Props) {
+export function InkPersonPanel({
+  state,
+  view,
+  onView,
+  busy,
+  onEquip,
+  onEquipBest,
+  onBreakthrough,
+  onSetMainArt,
+}: Props) {
   const [previewGearId, setPreviewGearId] = useState<string | null>(null);
   const [showStatsScroll, setShowStatsScroll] = useState(false);
   // anime.js：入頁時列表／格仔錯開落筆出場；戰力數字由 0 滾到現值
@@ -99,6 +118,9 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
     });
   }, [view]);
   const c = state.character;
+  const mainArtIds = Object.values(mainArts(c)).filter(Boolean) as string[];
+  const jadeBal = useAncestryStore((st) => st.meta.jade);
+  const openGacha = useAncestryStore((st) => st.setGachaOpen);
   const nature = ensureNature(c);
   const dominant = dominantNature(c);
   const lover = c.loverId ? state.npcs[c.loverId] : null;
@@ -323,6 +345,15 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
                 >
                   <div className="ink-bar-fill ink-bar-fill--enter" style={{ width: `${pct}%` }} />
                 </div>
+                {Number.isFinite(tier.cap) && (
+                  <div className="ink-vitals-label ink-reserve-label">
+                    <span>儲備</span>
+                    <span>
+                      {Math.floor(cultivationReserve(state)).toLocaleString('zh-Hant')} /{' '}
+                      {cultivationReserveCap(state).toLocaleString('zh-Hant')}
+                    </span>
+                  </div>
+                )}
               </div>
 
               <h3 className="ink-subhead">速率拆解（修為/秒）</h3>
@@ -361,7 +392,9 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
               {capped && nextTier && (
                 <>
                   <p className="ink-note">
-                    修為已滿，需突破方可入「{nextTier.name}」之境。突破有走火入魔之險，失敗會令修為倒退並損傷氣血、內力。
+                    修為已滿，需突破方可入「{nextTier.name}」之境。成功率約{' '}
+                    <strong>{Math.round(breakthroughChance(state) * 100)}%</strong>
+                    （根骨、悟性越高越易）。失敗修為保留，只損氣血、內力，可再試。
                   </p>
                   <button
                     type="button"
@@ -418,6 +451,13 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
       {view === 'skills' && (
         <>
           <h3>武學</h3>
+          <button type="button" className="ink-gacha-entry" onClick={() => openGacha(true)}>
+            <span className="ink-gacha-entry-title">秘笈閣</span>
+            <span className="ink-gacha-entry-sub">
+              抽秘笈 · 家族收藏 · 玉石 {((jadeBal?.free ?? 0) + (jadeBal?.paidTest ?? 0)).toLocaleString('zh-Hant')}
+            </span>
+          </button>
+          <InkMainArts state={state} />
           {listWeaponMasteries(state).length > 0 && (
             <p className="ink-note">
               兵刃專精 ·{' '}
@@ -435,11 +475,14 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
                 const kind = def?.kind ?? 'external';
                 const stance = def?.move ? resolveMoveStance(def.move) : null;
                 const advancePct = skillAdvancePercent(c, id);
+                const isMain = mainArtIds.includes(id);
+                const schools = schoolsOfSkill(def);
                 return (
-                  <li key={id} className={`ink-skill-card ink-skill-card--${kind}`}>
+                  <li key={id} className={`ink-skill-card ink-skill-card--${kind}${isMain ? ' is-main' : ''}`}>
                     <div className="ink-skill-card-head">
                       <strong>{skillDisplay(c, id)}</strong>
                       <span className="ink-skill-badge">{skillKindLabel(kind)}</span>
+                      {isMain ? <span className="ink-main-badge">主修</span> : null}
                       {stance ? (
                         <span className={`ink-stance-seal ink-stance-seal--${stance}`}>
                           {MOVE_STANCE_LABEL[stance]}
@@ -455,6 +498,29 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
                       </p>
                     ) : null}
                     <p className="ink-skill-fx">{formatSkillEffects(id) || '尚無詳載'}</p>
+                    <div className="ink-skill-school-row">
+                      <span className="ink-main-slot-tags">
+                        {schools.length ? (
+                          schools.map((sid) => (
+                            <i key={sid} className={`ink-school-tag ink-school-tag--${sid}`}>
+                              {SCHOOLS.find((x) => x.id === sid)?.name}
+                            </i>
+                          ))
+                        ) : (
+                          <i className="ink-school-tag">無流派</i>
+                        )}
+                      </span>
+                      {!isMain && onSetMainArt && (
+                        <button
+                          type="button"
+                          className="ink-btn ink-btn--quiet ink-main-set"
+                          disabled={busy}
+                          onClick={() => onSetMainArt(kind, id)}
+                        >
+                          設為主修
+                        </button>
+                      )}
+                    </div>
                     {advancePct === null ? (
                       <p className="ink-note ink-skill-progress">{skillAdvanceHint(c, id)}</p>
                     ) : (
@@ -560,6 +626,14 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
                         {RARITY_SHORT[def.rarity]}
                       </span>
                       {equipped ? <span className="ink-gear-on-tag">披中</span> : null}
+                      {(() => {
+                        const sid = schoolOfGear(def);
+                        return sid ? (
+                          <i className={`ink-school-tag ink-school-tag--${sid}`}>
+                            {SCHOOLS.find((x) => x.id === sid)?.name}
+                          </i>
+                        ) : null;
+                      })()}
                     </div>
                     <p className="ink-gear-meta">
                       {gearTitleBits(def)} · {SLOT_LABEL[def.slot]}
@@ -673,9 +747,10 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
             {listChildNames(state).length ? `（${listChildNames(state).join('、')}）` : ''}
             {getHeirName(state) ? ` · 嗣「${getHeirName(state)}」` : ''}
           </p>
-          {(c.childrenCount ?? 0) > 0 && (
-            <p className="ink-note">死後可繼族產約 {previewInheritanceMoney(state)} 兩</p>
-          )}
+          <p className="ink-note">
+            家族銀庫 {previewInheritanceMoney(state).toLocaleString('zh-Hant')} 兩、裝備 {familyGearCarry(state).length} 件 · 離世後全數傳後人
+            {(c.childrenCount ?? 0) > 0 ? '' : '（無子女由旁支接班）'}
+          </p>
           {c.loverId && (c.childrenCount ?? 0) === 0 && (
             <p className="ink-note">已有眷屬——可至修行「求子添丁」。</p>
           )}

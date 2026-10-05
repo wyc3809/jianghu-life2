@@ -127,6 +127,8 @@ export function createNewLife(options: CreateLifeOptions | number = {}): LifeGam
       baseMaxQi: maxQi,
       legacy_generation: opts.legacy?.generation ?? 1,
       ...(opts.skipCoach || opts.legacy ? { coach_done: true } : {}),
+      // 新手流程（挑戰→得裝備→換裝→下個目標）只畀全新角色；接班後人同測試用 skipCoach 唔行
+      ...(opts.skipCoach || opts.legacy ? {} : { newbie_active: true }),
     },
     family: { fatherName, motherName, childrenNames: [] },
     stats: {
@@ -383,6 +385,9 @@ export function migrateLifeState(raw: LifeGameState): LifeGameState {
   if (!c.cultivation) c.cultivation = { xp: 0, tier: 0 };
   if (typeof c.cultivation.xp !== 'number' || !Number.isFinite(c.cultivation.xp)) c.cultivation.xp = 0;
   if (typeof c.cultivation.tier !== 'number' || !Number.isFinite(c.cultivation.tier)) c.cultivation.tier = 0;
+  if (c.cultivation.reserve !== undefined && !(Number.isFinite(c.cultivation.reserve) && c.cultivation.reserve >= 0)) {
+    c.cultivation.reserve = 0;
+  }
   migrateLadderV2(c);
   if (raw.month === undefined) raw.month = 1;
   if (!raw.world) raw.world = makeWorldState();

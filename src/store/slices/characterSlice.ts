@@ -2,14 +2,41 @@ import { produce } from 'immer';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { equipGear, resolveGearCompare as resolveGearCompareAction } from '@core/life/equipment';
 import { sanitizePlayerLine } from '@core/life/playerText';
+import { startNewbieTrial } from '@core/life/goals';
+import { setMainArt } from '@core/life/schools';
+import type { SkillKind } from '@data/skills/catalog';
 import type { LifeStore } from '../lifeStore';
 
 export function createCharacterSlice(
   set: (partial: Partial<LifeStore>) => void,
   get: () => LifeStore,
   save: (state: LifeGameState, immediate?: boolean) => void,
-): Pick<LifeStore, 'equipOwned' | 'resolveGearCompare'> {
+): Pick<LifeStore, 'equipOwned' | 'resolveGearCompare' | 'startNewbieTrial' | 'setMainArt'> {
   return {
+    setMainArt: (kind: SkillKind, skillId: string) => {
+      const { state } = get();
+      if (!state || state.phase !== 'playing' || state.pendingCombat) return;
+      let ok = false;
+      const next = produce(state, (draft) => {
+        ok = setMainArt(draft, kind, skillId);
+      });
+      if (!ok) return;
+      void save(next);
+      set({ state: next });
+    },
+
+    startNewbieTrial: () => {
+      const { state } = get();
+      if (!state || state.phase !== 'playing' || state.pendingCombat) return;
+      let logs: string[] = [];
+      const next = produce(state, (draft) => {
+        logs = startNewbieTrial(draft);
+      });
+      if (!logs.length) return;
+      void save(next);
+      set({ state: next, flashLines: [], lastResult: null });
+    },
+
     equipOwned: (gearId: string) => {
       const { state } = get();
       if (!state || state.phase !== 'playing' || !state.character.alive) return;

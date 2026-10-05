@@ -25,12 +25,26 @@ export function InkOfflineGainModal({ gain, onClose }: Props) {
           修為
           <span className="ink-offline-modal-xp">＋{gain.xp.toLocaleString('zh-Hant')}</span>
         </p>
+        {(gain.silver ?? 0) > 0 && (
+          <p className="ink-offline-modal-reserve">
+            待收成銀兩
+            <span className="ink-offline-modal-reserve-num">＋{(gain.silver ?? 0).toLocaleString('zh-Hant')}</span>
+          </p>
+        )}
+        {gain.reserveXp > 0 && (
+          <p className="ink-offline-modal-reserve">
+            其中入儲備
+            <span className="ink-offline-modal-reserve-num">＋{gain.reserveXp.toLocaleString('zh-Hant')}</span>
+          </p>
+        )}
         {gain.timeCapped && (
-          <p className="ink-offline-modal-note">離開太耐，超出上限嘅修持已白白流走。</p>
+          <p className="ink-offline-modal-note">離開超過四十八個時辰，之後嘅修持冇計入。</p>
         )}
         {gain.tierCapped && (
           <p className="ink-offline-modal-note ink-offline-modal-note--cap">
-            修為已至瓶頂——翻頁衝關，先可以繼續精進。
+            {gain.reserveCapped
+              ? '修為同儲備都已滿——先突破，積存嘅修為會撥入新境界。'
+              : '修為已至瓶頂，多出嘅存入儲備——突破後撥入新境界。'}
           </p>
         )}
         <button type="button" className="ink-offline-modal-btn" onClick={onClose} autoFocus>

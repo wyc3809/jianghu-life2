@@ -14,8 +14,6 @@ import {
   playInkLose,
   playInkPageFlip,
   playInkBlade,
-  isInkAudioMuted,
-  toggleInkAudioMuted,
 } from '../../audio/inkAudio';
 import { InkSettingsPanel } from './InkSettingsPanel';
 import { InkLeaderboardPanel } from './InkLeaderboardPanel';
@@ -49,6 +47,14 @@ import { InkSectFounderPanel } from './InkSectFounderPanel';
 import { InkPersonPanel, type PersonView } from './InkPersonPanel';
 import { InkEventPanel } from './InkEventPanel';
 import { InkCombatPanel } from './InkCombatPanel';
+import { InkLifeOrDeathConfirm } from './InkLifeOrDeathConfirm';
+import { InkSuccessionModal } from './InkSuccessionModal';
+import { InkHomeGoals } from './InkHomeGoals';
+import { InkGachaPanel } from './InkGachaPanel';
+import { newbieActive } from '@core/life/goals';
+import { NEWBIE_TRIAL } from '@data/redesign/newbie';
+import { familyGearCarry, getHeirName, previewInheritanceMoney } from '@core/life/family';
+import { needsLifeOrDeathConfirm } from '@core/life/combat';
 import { InkBossIntro } from './InkBossIntro';
 import { InkBreakthroughModal } from './InkBreakthroughModal';
 import { InkMomentFx } from './InkMomentFx';
@@ -80,6 +86,8 @@ export function InkPlayScreen({ state }: Props) {
   const reincarnate = useLifeStore((s) => s.reincarnate);
   const practice = useLifeStore((s) => s.practice);
   const combatMove = useLifeStore((s) => s.combatMove);
+  const combatConfirmRisk = useLifeStore((s) => s.combatConfirmRisk);
+  const combatDeclineRisk = useLifeStore((s) => s.combatDeclineRisk);
   const combatSetInternalMode = useLifeStore((s) => s.combatSetInternalMode);
   const combatResolveFoe = useLifeStore((s) => s.combatResolveFoe);
   const resolveGearCompare = useLifeStore((s) => s.resolveGearCompare);
@@ -101,14 +109,39 @@ export function InkPlayScreen({ state }: Props) {
   const clearSeal = useLifeStore((s) => s.clearSeal);
   const tickCultivation = useLifeStore((s) => s.tickCultivation);
   const attemptBreakthrough = useLifeStore((s) => s.attemptBreakthrough);
+  const startNewbieTrial = useLifeStore((s) => s.startNewbieTrial);
+  const harvestIdle = useLifeStore((s) => s.harvestIdle);
+  const setMainArtAction = useLifeStore((s) => s.setMainArt);
   const breakthroughResult = useLifeStore((s) => s.breakthroughResult);
   const clearBreakthroughResult = useLifeStore((s) => s.clearBreakthroughResult);
   const ackMoment = useLifeStore((s) => s.ackMoment);
   const offlineGain = useLifeStore((s) => s.offlineGain);
+  const succession = useLifeStore((s) => s.succession);
+  const milestoneToast = useAncestryStore((s) => s.milestoneToast);
+  const checkMilestones = useAncestryStore((s) => s.checkMilestones);
+  const clearMilestoneToast = useAncestryStore((s) => s.clearMilestoneToast);
+  const jadeToast = useAncestryStore((s) => s.jadeToast);
+  const clearJadeToast = useAncestryStore((s) => s.clearJadeToast);
+  const gachaOpen = useAncestryStore((s) => s.gachaOpen);
+  const setGachaOpen = useAncestryStore((s) => s.setGachaOpen);
+  useEffect(() => {
+    if (!jadeToast) return;
+    const t = window.setTimeout(clearJadeToast, 4200);
+    return () => window.clearTimeout(t);
+  }, [jadeToast, clearJadeToast]);
+  // 家族里程碑：每次狀態變就檢查（純函數，已領過嘅唔會重複）
+  useEffect(() => {
+    checkMilestones();
+  }, [state, checkMilestones]);
+  useEffect(() => {
+    if (!milestoneToast.length) return;
+    const t = window.setTimeout(clearMilestoneToast, 1400 * milestoneToast.length + 3200);
+    return () => window.clearTimeout(t);
+  }, [milestoneToast, clearMilestoneToast]);
+  const clearSuccession = useLifeStore((s) => s.clearSuccession);
   const clearOfflineGain = useLifeStore((s) => s.clearOfflineGain);
   const [practiceView, setPracticeView] = useState<PracticeView>('main');
   const [personView, setPersonView] = useState<PersonView>('main');
-  const [audioMuted, setAudioMuted] = useState(() => isInkAudioMuted());
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [boardOpen, setBoardOpen] = useState(false);
   const resultTitleRef = useRef<HTMLHeadingElement | null>(null);
@@ -175,6 +208,7 @@ export function InkPlayScreen({ state }: Props) {
   const pendingEvent = resolvePendingEvent(state);
   const sect = c.sectId ? state.sects[c.sectId] : null;
   const hasHeir = (c.childrenCount ?? 0) > 0;
+  const heirLabel = getHeirName(state) ? `子女「${getHeirName(state)}」` : '子女';
   const hpPct = Math.max(0, Math.min(100, (c.health / Math.max(1, c.maxHealth)) * 100));
   const qiPct = Math.max(0, Math.min(100, ((c.qi ?? 0) / Math.max(1, c.maxQi ?? 1)) * 100));
   const tab = state.tab ?? 'home';
@@ -347,7 +381,8 @@ export function InkPlayScreen({ state }: Props) {
     !showResult &&
     state.phase === 'playing' &&
     Boolean(coach) &&
-    !c.flags.coach_done;
+    !c.flags.coach_done &&
+    !newbieActive(state);
 
   const inkSeason = seasonToInk(month);
   const inkPlace = placeToInk(c.location);
@@ -420,6 +455,16 @@ export function InkPlayScreen({ state }: Props) {
         night={useNightWash}
       />
       {sealText && <InkSealStamp text={sealText} onDone={clearSeal} />}
+
+      {succession && <InkSuccessionModal lines={succession} onClose={clearSuccession} />}
+
+      {milestoneToast.length > 0 && <InkAchievementToast key={milestoneToast.join('|')} names={milestoneToast} seal="祖蔭" />}
+
+      {jadeToast > 0 && milestoneToast.length === 0 && (
+        <InkAchievementToast key={`jade-${jadeToast}`} names={[`免費玉石＋${jadeToast}`]} seal="玉石" />
+      )}
+
+      {gachaOpen && <InkGachaPanel state={state} onClose={() => setGachaOpen(false)} />}
 
       {offlineGain !== null && (
         <InkOfflineGainModal gain={offlineGain} onClose={clearOfflineGain} />
@@ -500,7 +545,7 @@ export function InkPlayScreen({ state }: Props) {
           )}
         </div>
         <div className="ink-status-metaline">
-          <span ref={moneyChipRef} className="ink-money-chip" aria-label={`銀両 ${Math.round(c.money ?? 0)}`}>
+          <span ref={moneyChipRef} className="ink-money-chip" aria-label={`銀兩 ${Math.round(c.money ?? 0)}`}>
             <img className="ink-label-img" src={`${import.meta.env.BASE_URL || '/'}ink/ui/label-yinliang.webp`} alt="" aria-hidden draggable={false} />
             <InkGlyphText text={moneyShown.toLocaleString('zh-Hant')} height={14} />
           </span>
@@ -556,11 +601,8 @@ export function InkPlayScreen({ state }: Props) {
           setSettingsOpen(false);
           setBoardOpen(true);
         }}
-        audioMuted={audioMuted}
-        onToggleAudio={() => {
-          const next = toggleInkAudioMuted();
-          setAudioMuted(next);
-          track('audio_mute_toggle', { muted: next });
+        onAudioChange={(m) => {
+          track('audio_mute_toggle', { muted: !m.sfxOn && !m.musicOn });
         }}
       />
 
@@ -591,6 +633,22 @@ export function InkPlayScreen({ state }: Props) {
               caption={{ date: `${seasonLabel(month)} · ${state.year}年${month}月`, home: c.location || '千燈鎮' }}
             />
           </div>
+
+          {state.phase === 'playing' && c.alive && !showResult && (
+            <InkHomeGoals
+              state={state}
+              busy={Boolean(combat)}
+              onHarvest={() => {
+                const got = harvestIdle();
+                if (got > 0) playInkWin();
+              }}
+              onAction={(a) => {
+                if (a === 'trial') startNewbieTrial();
+                else if (a === 'equip') equipOwned(NEWBIE_TRIAL.rewardGearId);
+                else if (a === 'breakthrough') attemptBreakthrough();
+              }}
+            />
+          )}
 
           {/* 翻頁效果只套喺下面嘅提示，唔影響演武台 */}
           <div ref={flipRef}>
@@ -660,6 +718,7 @@ export function InkPlayScreen({ state }: Props) {
           onView={setPersonView}
           busy={busy}
           onEquip={equipOwned}
+          onSetMainArt={setMainArtAction}
           onEquipBest={() => {
             practice('equip_best');
           }}
@@ -687,7 +746,11 @@ export function InkPlayScreen({ state }: Props) {
         />
       )}
 
-      {combat && state.phase === 'playing' && !showBossIntro && (
+      {combat && state.phase === 'playing' && !showBossIntro && needsLifeOrDeathConfirm(combat) && (
+        <InkLifeOrDeathConfirm combat={combat} onConfirm={combatConfirmRisk} onDecline={combatDeclineRisk} />
+      )}
+
+      {combat && state.phase === 'playing' && !showBossIntro && !needsLifeOrDeathConfirm(combat) && (
         <InkCombatPanel
           state={state}
           combat={combat}
@@ -905,20 +968,13 @@ export function InkPlayScreen({ state }: Props) {
             </button>
           )}
           <button type="button" className="ink-btn ink-btn--primary" onClick={() => reincarnate()}>
-            {hasHeir ? '轉世再入江湖' : '重新選角'}
+            後人接班 · 再入江湖
           </button>
           <p className="ink-note ink-note--center">
-            {hasHeir ? (
-              <>
-                前世武學餘韻
-                {c.flags.family_legacy || c.flags.legacy_teacher
-                  ? `與${[c.flags.family_legacy ? '族規' : '', c.flags.legacy_teacher ? '傳功' : ''].filter(Boolean).join('、')}`
-                  : ''}
-                將淡淡帶入來世。
-              </>
-            ) : (
-              '這一世沒有子女，血脈不傳；祖蔭仍在，下一世照樣受用。'
-            )}
+            {hasHeir
+              ? `由${heirLabel}接班；`
+              : '前世無嗣，由族中旁支承祧；'}
+            家族銀庫 {previewInheritanceMoney(state).toLocaleString('zh-Hant')} 兩、裝備 {familyGearCarry(state).length} 件全數傳落去。
           </p>
         </section>
       )}

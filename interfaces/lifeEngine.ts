@@ -229,6 +229,10 @@ export interface LifeCharacter {
     armor: string | null;
     accessory: string | null;
   };
+  /** 主修：招式／內功／身法各一門（未揀＝預設第一門學識嘅，見 core/life/schools.ts） */
+  mainArts?: { external?: string; internal?: string; qinggong?: string };
+  /** 秘笈升階（帳戶家族收藏嘅鏡像，畀戰鬥計威力用；見 core/life/gacha.ts） */
+  manualStars?: Record<string, number>;
   sectId: string | null;
   /** 門中地位 0外門–3執事 */
   sectStanding: number;
@@ -259,6 +263,8 @@ export interface LifeCharacter {
     xp: number;
     /** 境界索引，對應 core/life/cultivation.ts 嘅 CULTIVATION_TIERS */
     tier: number;
+    /** 境界滿咗之後暫存嘅修為（有上限），突破後撥入新境界；舊存檔冇＝0 */
+    reserve?: number;
   };
 }
 
@@ -495,6 +501,10 @@ export interface PendingCombat {
   foePower?: 'weak' | 'normal' | 'strong' | 'boss';
   /** 首領二階段是否已觸發 */
   bossPhase2?: boolean;
+  /** 明確標示嘅生死戰：輸咗會死；要玩家先確認風險先開打 */
+  lifeOrDeath?: boolean;
+  /** 玩家已確認生死風險 */
+  riskConfirmed?: boolean;
   /** 玩家最近出招 id 歷史（連招系統用，最多 3 招） */
   moveHistory?: string[];
   /** 最近一回合雙方架勢（虛／實／架），供架勢視覺化顯示 */
@@ -564,6 +574,10 @@ export const lifeCharacterSchema = z.object({
       accessory: z.string().nullable(),
     })
     .default({ weapon: 'old-sword', armor: 'plain-robe', accessory: null }),
+  mainArts: z
+    .object({ external: z.string().optional(), internal: z.string().optional(), qinggong: z.string().optional() })
+    .optional(),
+  manualStars: z.record(z.string(), z.number()).optional(),
   sectId: z.string().nullable(),
   sectStanding: z.number().default(0),
   loverId: z.string().nullable(),
@@ -589,6 +603,7 @@ export const lifeCharacterSchema = z.object({
     .object({
       xp: z.number(),
       tier: z.number(),
+      reserve: z.number().min(0).optional(),
     })
     .default({ xp: 0, tier: 0 }),
 });

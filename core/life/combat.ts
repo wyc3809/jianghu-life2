@@ -42,6 +42,8 @@ import {
   applyRecoveryEffects,
 } from './combatCore';
 import { recordDeath } from './death';
+import { schoolBonusTotal } from './schools';
+import { MANUAL_STAR_BONUS } from '@data/redesign/testParams';
 import { chooseFoeMove, inferFoeAiStyle } from './foeAi';
 import { combatOpeningLines, dispositionBlurb } from './combatPresentation';
 import {
@@ -81,11 +83,16 @@ export function buildPlayerFighter(state: LifeGameState): CombatFighter {
   const gearSpecials = equippedDefs(c)
     .map((d) => d.special)
     .filter((s): s is NonNullable<typeof s> => Boolean(s));
-  const passive = sumInternalPassives(c.skills, c.skillRanks ?? {});
+  const passive = sumInternalPassives(c.skills, c.skillRanks ?? {}, c.manualStars);
   const titleBonus = titleBonusTotals(state);
-  const evasion = sumEvasionBonus(c.skills, c.skillRanks ?? {}) + c.attributes.danShi / 500;
+  const evasion = sumEvasionBonus(c.skills, c.skillRanks ?? {}, c.manualStars) + c.attributes.danShi / 500;
   const maxHp = c.health;
   const maxQi = c.qi;
+  // 流派協同（主修＋裝備；只用喺回合制交手，唔影響演武台）
+  const sb = schoolBonusTotal(c);
+  const schoolSpecials = sb.stunChance > 0
+    ? [{ kind: 'stun_proc' as const, name: '制敵', description: '流派：點穴封脈', chance: sb.stunChance }]
+    : [];
   return {
     name: c.name,
     hp: maxHp,
@@ -95,12 +102,20 @@ export function buildPlayerFighter(state: LifeGameState): CombatFighter {
     // 手臂傷：出手按比例扣
     attack: Math.round(
       (12 + Math.floor(c.martial / 4) + gear.attack + gear.martialBonus + (passive.attack ?? 0) + titleBonus.attack) *
-        armAttackFactor(c),
+        armAttackFactor(c) *
+        (1 + sb.attackPct),
     ),
-    defense: 6 + Math.floor(c.attributes.genGu / 12) + gear.defense + (passive.defense ?? 0) + titleBonus.defense,
-    hitBonus: 0.05 + c.attributes.danShi / 400 + (passive.hitBonus ?? 0) + gearCombat.hitBonus + titleBonus.hitBonus,
+    defense: Math.round(
+      (6 + Math.floor(c.attributes.genGu / 12) + gear.defense + (passive.defense ?? 0) + titleBonus.defense) *
+        (1 + sb.defensePct),
+    ),
+    hitBonus:
+      0.05 + c.attributes.danShi / 400 + (passive.hitBonus ?? 0) + gearCombat.hitBonus + titleBonus.hitBonus + sb.hitBonus,
     // 腿腳傷：閃避扣減
-    evasion: Math.max(0, Math.min(0.45, evasion + gearCombat.evasion + titleBonus.evasion) - legEvasionPenalty(c)),
+    evasion: Math.max(
+      0,
+      Math.min(0.5, evasion + gearCombat.evasion + titleBonus.evasion + sb.evasion) - legEvasionPenalty(c),
+    ),
     // 戰鬥中不自動回內力；耗去的內力戰後亦保留，需打坐／歇息再復。
     qiRegen: 0,
     blind: 0,
@@ -109,12 +124,12 @@ export function buildPlayerFighter(state: LifeGameState): CombatFighter {
     bleedDamage: 0,
     bleedTurns: 0,
     defenseMod: 0,
-    reflect: Math.min(0.35, (passive.reflect ?? 0) + gearCombat.reflect),
+    reflect: Math.min(0.4, (passive.reflect ?? 0) + gearCombat.reflect + sb.reflect),
     chargeBonus: 0,
-    gearPierce: gearCombat.pierce,
-    gearLifesteal: gearCombat.lifesteal,
-    gearBleedChance: gearCombat.bleedChance,
-    gearSpecials,
+    gearPierce: gearCombat.pierce + sb.pierce,
+    gearLifesteal: gearCombat.lifesteal + sb.lifesteal,
+    gearBleedChance: gearCombat.bleedChance + sb.bleedChance,
+    gearSpecials: [...gearSpecials, ...schoolSpecials],
     stamina: c.stamina ?? c.maxStamina ?? 100,
     maxStamina: c.maxStamina ?? 120,
     martial: c.martial,
@@ -178,6 +193,8 @@ export function startCombat(
     rewardOnWin?: PendingCombat['rewardOnWin'];
     rewardOnLose?: PendingCombat['rewardOnLose'];
     eventId?: string;
+    /** 生死戰：開打前要玩家確認，輸咗會死 */
+    lifeOrDeath?: boolean;
   },
 ): string[] {
   syncRngFromState(state);
@@ -205,6 +222,7 @@ export function startCombat(
     eventId: opts.eventId,
     foePower,
     bossPhase2: false,
+    ...(opts.lifeOrDeath ? { lifeOrDeath: true, riskConfirmed: false } : {}),
   };
   combat.log = combatOpeningLines(combat, style);
   combat.player.hp = clamp(combat.player.hp, 1, combat.player.maxHp);
@@ -216,7 +234,11 @@ export function startCombat(
 }
 
 export function getPlayerMoves(state: LifeGameState): CombatMoveDef[] {
-  return listExternalMovesForSkills(state.character.skills);
+  const stars = state.character.manualStars ?? {};
+  return listExternalMovesForSkills(state.character.skills).map((m) => {
+    const sid = state.character.skills.find((id) => getSkillDef(id)?.move?.id === m.id);
+    return sid ? withManualStars(m, stars[sid]) : m;
+  });
 }
 
 export function getMoveCooldownRemaining(combat: PendingCombat, moveId: string): number {
@@ -266,9 +288,15 @@ function findMove(state: LifeGameState, moveId: string): CombatMoveDef | null {
   if (moveId === DESPERATE_SURRENDER_MOVE.id) return DESPERATE_SURRENDER_MOVE;
   for (const id of state.character.skills) {
     const def = getSkillDef(id);
-    if (def?.move?.id === moveId) return def.move;
+    if (def?.move?.id === moveId) return withManualStars(def.move, state.character.manualStars?.[id]);
   }
   return null;
+}
+
+/** 秘笈升階：每階招式威力＋MANUAL_STAR_BONUS（design/agreed-design-2026-10.md §3.2） */
+function withManualStars(move: CombatMoveDef, stars: number | undefined): CombatMoveDef {
+  if (!stars) return move;
+  return { ...move, power: move.power * (1 + MANUAL_STAR_BONUS * stars) };
 }
 
 function skillIdForMove(state: LifeGameState, moveId: string): string | null {
@@ -409,6 +437,8 @@ function finishCombatWin(state: LifeGameState, dispositionLabel?: CombatFoeDispo
   c.actionPoints = clamp(c.actionPoints - 8, 0, 100);
   c.stats.combats += 1;
   c.stats.combatsWon += 1;
+  if (combat.foePower === 'boss') c.flags.boss_wins = Number(c.flags.boss_wins ?? 0) + 1;
+  if (combat.eventId === 'newbie_trial') c.flags.newbie_trial_won = true;
   if (combat.usedDesperateBurn) {
     addCondition(state, 'internal');
     lines.push('絕地反擊燃盡真氣，戰後留下內傷。');
@@ -551,23 +581,18 @@ function finishCombat(state: LifeGameState, won: boolean): string[] {
     c.reputation += r.reputation;
     lines.push(`名望${r.reputation > 0 ? '＋' : ''}${r.reputation}`);
   }
-  if (c.health <= 0) {
-    // 一般交手輸咗唔應該直接送命——只有頭目戰先帶真死亡風險（仲要唔係必死）。
-    // 之前設計係「氣血歸零＝死」，等於幾乎每場路遇／師門比武輸咗都可能斷魂，
-    // 太易死；改成低機率倖存，普通交手一律留一口氣。
-    const isBossFight = combat.foePower === 'boss';
-    const fatal = isBossFight && rng.chance(0.3);
-    if (fatal) {
-      recordDeath(state, `敗於${combat.foe.name}，力竭倒地。`);
-      state.phase = 'summary';
-      state.summaryText = buildLifeSummary(state);
-      lines.push('你力竭倒地，江湖路斷。');
-    } else {
-      c.health = 1;
-      lines.push('你力竭倒地——僥倖留了一口氣，未至喪命。');
-    }
+  if (c.health <= 0 && combat.lifeOrDeath) {
+    // 只有明確標示、玩家確認過風險嘅生死戰先會送命（design/agreed-design-2026-10.md §2）
+    recordDeath(state, `敗於${combat.foe.name}，力竭倒地。`);
+    state.phase = 'summary';
+    state.summaryText = buildLifeSummary(state);
+    lines.push('生死一戰，你力竭倒地，江湖路斷。');
   } else {
+    // 普通戰敗（首領戰都係）：撤退受傷，唔會死
     c.health = Math.max(1, c.health);
+    lines.push(
+      c.health <= 1 ? '你力竭倒地，咬牙撤出戰圈——留得青山在。' : '你見勢不妙，撤出戰圈，回去養傷再戰。',
+    );
   }
 
   lines.push(...applyCombatOutcomeRank(state, false, combat.foePower));
@@ -607,6 +632,9 @@ export function setCombatInternalMode(state: LifeGameState, modeId: string | nul
 export function playerCombatTurn(state: LifeGameState, moveId: string): string[] {
   if (!state.pendingCombat || state.pendingCombat.phase !== 'player') {
     return ['此刻並無交手。'];
+  }
+  if (needsLifeOrDeathConfirm(state.pendingCombat)) {
+    return ['生死戰：先確認應戰，先可以出手。'];
   }
   syncRngFromState(state);
   const rng = getRng();
@@ -944,6 +972,33 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
   tickMoveCooldowns(combat);
   combat.phase = 'player';
   snapshotRng(state);
+  return lines;
+}
+
+/** 生死戰未確認風險前唔可以出手 */
+export function needsLifeOrDeathConfirm(combat: PendingCombat | null | undefined): boolean {
+  return Boolean(combat?.lifeOrDeath && !combat.riskConfirmed);
+}
+
+/** 玩家確認生死風險：之後先可以出手 */
+export function confirmLifeOrDeath(state: LifeGameState): string[] {
+  const combat = state.pendingCombat;
+  if (!combat || !needsLifeOrDeathConfirm(combat)) return [];
+  combat.riskConfirmed = true;
+  const line = '你按劍上前——此戰只論生死。';
+  combat.log.push(line);
+  return [line];
+}
+
+/** 玩家唔接生死戰：開打前退避，冇戰鬥、冇死亡風險 */
+export function declineLifeOrDeath(state: LifeGameState): string[] {
+  const combat = state.pendingCombat;
+  if (!combat || !needsLifeOrDeathConfirm(combat)) return [];
+  const lines = [`你掂量再三，未與${combat.foe.name}以命相搏，暫且退避。`];
+  combat.log.push(...lines);
+  combat.phase = 'ended';
+  state.pendingCombat = null;
+  pushChronicle(state, [`「${combat.title}」——退避`, ...lines]);
   return lines;
 }
 
