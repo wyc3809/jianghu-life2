@@ -95,7 +95,7 @@ export function InkBreakthroughModal({ result, onClose }: Props) {
                 <li className={styles.keep}>修為保留，一點唔扣</li>
                 {typeof result.hpLoss === 'number' && <li>氣血－{result.hpLoss}</li>}
                 {typeof result.qiLoss === 'number' && <li>內力－{result.qiLoss}</li>}
-                <li>落下內傷 · 養好傷、調整配搭可再試</li>
+                <li>調整配搭可以即刻再試</li>
                 {typeof result.chance === 'number' && (
                   <li>今次成功率約 {Math.round(result.chance * 100)}%（根骨、悟性越高越易）</li>
                 )}

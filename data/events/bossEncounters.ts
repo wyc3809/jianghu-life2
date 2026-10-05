@@ -7,7 +7,7 @@ export type BossFightConfig = {
   /**
    * 明確標示嘅重大生死戰：開打前玩家要確認風險，輸咗會死。
    * 冇標＝普通戰（首領都係），輸咗只會撤退受傷（design/agreed-design-2026-10.md §2）。
-   * 邊幾場係生死戰由玩家決定，未定之前全部唔標。
+   * 玩家決定（2026-10-05）：8 個首領全部係生死戰。
    */
   lifeOrDeath?: boolean;
   rewardOnWin: {
@@ -25,6 +25,7 @@ export const BOSS_FIGHT_CONFIG: Record<string, BossFightConfig> = {
   boss_scarlet_viper: {
     foeName: '赤練娘',
     foePower: 'boss',
+    lifeOrDeath: true,
     rewardOnWin: {
       money: 45,
       reputation: 12,
@@ -37,6 +38,7 @@ export const BOSS_FIGHT_CONFIG: Record<string, BossFightConfig> = {
   boss_iron_chariot: {
     foeName: '鐵甲車',
     foePower: 'boss',
+    lifeOrDeath: true,
     rewardOnWin: {
       money: 55,
       reputation: 10,
@@ -49,6 +51,7 @@ export const BOSS_FIGHT_CONFIG: Record<string, BossFightConfig> = {
   boss_wandering_monk: {
     foeName: '瘋癲僧',
     foePower: 'boss',
+    lifeOrDeath: true,
     rewardOnWin: {
       money: 38,
       reputation: 15,
@@ -61,6 +64,7 @@ export const BOSS_FIGHT_CONFIG: Record<string, BossFightConfig> = {
   boss_black_wind: {
     foeName: '黑風寨主',
     foePower: 'boss',
+    lifeOrDeath: true,
     rewardOnWin: {
       money: 50,
       reputation: 8,
@@ -73,6 +77,7 @@ export const BOSS_FIGHT_CONFIG: Record<string, BossFightConfig> = {
   boss_frost_blade: {
     foeName: '霜刀客',
     foePower: 'boss',
+    lifeOrDeath: true,
     rewardOnWin: {
       money: 48,
       reputation: 11,
@@ -85,6 +90,7 @@ export const BOSS_FIGHT_CONFIG: Record<string, BossFightConfig> = {
   boss_lute_ferry: {
     foeName: '琵琶舫主',
     foePower: 'boss',
+    lifeOrDeath: true,
     rewardOnWin: {
       money: 42,
       reputation: 14,
@@ -97,6 +103,7 @@ export const BOSS_FIGHT_CONFIG: Record<string, BossFightConfig> = {
   boss_sand_scorpion: {
     foeName: '沙蠍客',
     foePower: 'boss',
+    lifeOrDeath: true,
     rewardOnWin: {
       money: 44,
       reputation: 9,
@@ -109,6 +116,7 @@ export const BOSS_FIGHT_CONFIG: Record<string, BossFightConfig> = {
   boss_mirror_lake: {
     foeName: '鏡湖隱士',
     foePower: 'boss',
+    lifeOrDeath: true,
     rewardOnWin: {
       money: 40,
       reputation: 16,

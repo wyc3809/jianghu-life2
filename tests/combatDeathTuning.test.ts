@@ -8,6 +8,7 @@ import {
 } from '../core/life/combat';
 import { createNewLife } from '../core/life/gameState';
 import { initRng } from '../core/random';
+import { BOSS_FIGHT_CONFIG } from '../data/events/bossEncounters';
 
 describe('combat death tuning', () => {
   it('normal fight losses never kill — health floors at 1', () => {
@@ -68,5 +69,11 @@ describe('combat death tuning', () => {
     playerCombatTurn(state, 'basic_strike');
     expect(state.character.alive).toBe(false);
     expect(state.phase).toBe('summary');
+  });
+
+  it('test_all_eight_bosses_are_marked_life_or_death', () => {
+    const cfgs = Object.values(BOSS_FIGHT_CONFIG);
+    expect(cfgs.length).toBe(8);
+    expect(cfgs.every((c) => c.lifeOrDeath === true)).toBe(true);
   });
 });

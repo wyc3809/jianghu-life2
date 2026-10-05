@@ -287,6 +287,8 @@ describe('cultivation: breakthrough', () => {
         // 失敗保留修為（agreed-design §3）
         expect(state.character.cultivation.xp).toBe(currentCultivationTier(state).cap);
         expect(result.setback).toBe(0);
+        // 玩家決定：失敗只扣氣血內力，唔落內傷
+        expect(state.character.conditions.some((x) => x.id === 'internal')).toBe(false);
         expect(result.chance).toBeGreaterThan(0);
         expect(state.character.health).toBeLessThan(before.health);
         expect(state.character.qi).toBeLessThanOrEqual(before.qi);

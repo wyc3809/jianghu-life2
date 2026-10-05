@@ -4,7 +4,6 @@ import { syncRngFromState, snapshotRng } from './gameState';
 import { getSkillDef } from '@data/skills/catalog';
 import { gearTotals, raiseBaseMaxHp, raiseBaseMaxQi } from './equipment';
 import { gainJianghuPrestige } from './jianghuPrestige';
-import { addCondition } from './monthly';
 import { headProgressFactor } from './injuryMath';
 import { pushChronicle } from './chronicle';
 import { TEST_CULTIVATION_RESERVE_RATIO } from '@data/redesign/testParams';
@@ -354,16 +353,15 @@ export function attemptCultivationBreakthrough(state: LifeGameState): Breakthrou
     };
   }
 
-  // 失敗保留修為（design/agreed-design-2026-10.md §3）；氣血／內力損耗同內傷沿用現有代價（重試代價未定）
+  // 失敗保留修為（design/agreed-design-2026-10.md §3）；代價只扣氣血、內力，唔落內傷（玩家決定 2026-10-05）
   const hpLoss = Math.round(c.maxHealth * 0.12);
   const qiLoss = Math.round(c.maxQi * 0.18);
   c.health = Math.max(1, c.health - hpLoss);
   c.qi = Math.max(0, c.qi - qiLoss);
-  addCondition(state, 'internal');
   const setback = 0;
   lines.push(
     '閉關數月，行至緊要關頭卻氣息紊亂，未能破關。',
-    `修為保留，氣血－${hpLoss}，內力－${qiLoss}，落下內傷。養好傷、調整配搭可再試（今次成功率約 ${Math.round(chance * 100)}%）。`,
+    `修為保留，氣血－${hpLoss}，內力－${qiLoss}。調整配搭可再試（今次成功率約 ${Math.round(chance * 100)}%）。`,
   );
   pushChronicle(state, lines);
   snapshotRng(state);

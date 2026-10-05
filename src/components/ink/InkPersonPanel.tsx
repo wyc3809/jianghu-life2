@@ -375,7 +375,7 @@ export function InkPersonPanel({ state, view, onView, busy, onEquip, onEquipBest
                   <p className="ink-note">
                     修為已滿，需突破方可入「{nextTier.name}」之境。成功率約{' '}
                     <strong>{Math.round(breakthroughChance(state) * 100)}%</strong>
-                    （根骨、悟性越高越易）。失敗修為保留，只損氣血、內力並落下內傷，可再試。
+                    （根骨、悟性越高越易）。失敗修為保留，只損氣血、內力，可再試。
                   </p>
                   <button
                     type="button"
