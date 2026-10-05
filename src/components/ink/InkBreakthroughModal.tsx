@@ -20,7 +20,7 @@ export function InkBreakthroughModal({ result, onClose }: Props) {
   const still = useStillMode();
   const cls = (base: string, stillCls?: string) => stillClassName(base, stillCls, still);
   const ok = result.success;
-  const bigText = ok ? (result.newTierName ?? result.oldTierName) : '走火入魔';
+  const bigText = ok ? (result.newTierName ?? result.oldTierName) : '未能破關';
   const seal = sealUrlForText(ok ? '破' : '危');
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export function InkBreakthroughModal({ result, onClose }: Props) {
       className={`${styles.root} ${ok ? styles.rootSuccess : styles.rootFail}`}
       role="dialog"
       aria-modal="true"
-      aria-label={ok ? `突破關口：${result.oldTierName}進至${bigText}` : '走火入魔'}
+      aria-label={ok ? `突破關口：${result.oldTierName}進至${bigText}` : '突破未成，修為保留'}
       onClick={onClose}
     >
       <div className={styles.grain} aria-hidden />
@@ -86,12 +86,19 @@ export function InkBreakthroughModal({ result, onClose }: Props) {
               <>
                 {typeof result.martialGain === 'number' && <li>武學＋{result.martialGain}</li>}
                 <li>氣血上限、內力上限同步提升</li>
+                {!!result.reserveReleased && (
+                  <li>儲備修為撥入新境界＋{Math.floor(result.reserveReleased).toLocaleString('zh-Hant')}</li>
+                )}
               </>
             ) : (
               <>
+                <li className={styles.keep}>修為保留，一點唔扣</li>
                 {typeof result.hpLoss === 'number' && <li>氣血－{result.hpLoss}</li>}
                 {typeof result.qiLoss === 'number' && <li>內力－{result.qiLoss}</li>}
-                <li>落下內傷，需再修煉方可重闖此關</li>
+                <li>落下內傷 · 養好傷、調整配搭可再試</li>
+                {typeof result.chance === 'number' && (
+                  <li>今次成功率約 {Math.round(result.chance * 100)}%（根骨、悟性越高越易）</li>
+                )}
               </>
             )}
           </ul>

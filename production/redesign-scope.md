@@ -60,17 +60,21 @@
 
 | 步 | 內容 | 狀態 | 截圖 |
 |---|---|---|---|
-| 1 | 離線 48 小時＋修為儲備（A1、A2） | 已做，等確認 | `qa/evidence/redesign/step1-offline.png`、`step1-person.png` |
-| 2 | 音樂／音效分開＋設定頁帳戶存檔狀態（D1、D2） | 已做，等確認 | `qa/evidence/redesign/step2-settings.png` |
+| 1 | 離線 48 小時＋修為儲備（A1、A2） | 玩家已確認 | `qa/evidence/redesign/step1-offline.png`、`step1-person.png` |
+| 2 | 音樂／音效分開＋設定頁帳戶存檔狀態（D1、D2） | 玩家已確認 | `qa/evidence/redesign/step2-settings.png` |
+| 3 | 突破失敗保留修為；普通戰敗唔死；生死戰確認（A3、A4） | 已做，等確認 | `qa/evidence/redesign/step3-breakthrough.png`、`step3-boss-lose.png`、`step3-lod.png` |
 
 備註：
 - 第 1 步：銀兩／材料「離線繼續累積」現時遊戲未有離線銀兩收益，收益率屬未定，今步未加。
 - 第 1 步：演武台過關修為改經同一個入口（滿咗入儲備），演武台玩法、畫面、數值全部冇郁。
+- 第 3 步：「突破試煉」暫時仍係擲成功率（試煉形式／戰鬥演出未定，2D 全身戰鬥要先出方案圖）；失敗嘅氣血／內力損耗同內傷沿用舊有，重試代價未定。
+- 第 3 步：生死戰機制已做（`BossFightConfig.lifeOrDeath`），但遊戲內容**未有任何一場標生死戰**，邊幾場由玩家揀。退避冇代價。
+- 第 3 步：非戰鬥死亡（老死、事件內明寫嘅死亡）唔屬「戰敗」，今步冇改。
 - 第 2 步：配樂曲目未定，音樂聲道暫時冇聲源；雲端未開通時「帳戶 · 存檔」照樣顯示三項狀態。
 
 ## 5. 測試參數紀錄（`data/redesign/testParams.ts`）
 
 | 參數 | 測試值 | md 狀態 | 理由 |
 |---|---|---|---|
-| `TEST_CULTIVATION_RESERVE_RATIO` | 0.5（儲備上限＝境界上限 50%） | 儲備上限未確認 | 48 小時最多儲半境，突破後即見進度，唔會一次跳兩境 |
+| `TEST_CULTIVATION_RESERVE_RATIO` | 0.5（儲備上限＝境界上限 50%） | **玩家已確認 50%** | 48 小時最多儲半境，突破後即見進度，唔會一次跳兩境 |
 | `TEST_CULTIVATION_RESERVE_RELEASE` | `instant`（突破成功即撥入新境界） | 釋放方式未確認 | 最易理解，唔使額外操作 |

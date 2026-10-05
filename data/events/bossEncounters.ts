@@ -4,6 +4,12 @@ import { withRiskAndThree } from '@core/life/choiceEnrich';
 export type BossFightConfig = {
   foeName: string;
   foePower: 'boss';
+  /**
+   * 明確標示嘅重大生死戰：開打前玩家要確認風險，輸咗會死。
+   * 冇標＝普通戰（首領都係），輸咗只會撤退受傷（design/agreed-design-2026-10.md §2）。
+   * 邊幾場係生死戰由玩家決定，未定之前全部唔標。
+   */
+  lifeOrDeath?: boolean;
   rewardOnWin: {
     money?: number;
     reputation?: number;

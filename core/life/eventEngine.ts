@@ -372,6 +372,7 @@ export function applyChoice(
         { money: 8, reputation: 2, martial: 2 },
       rewardOnLose: { money: -5, reputation: -1 },
       eventId: event.id,
+      lifeOrDeath: bossCfg?.lifeOrDeath,
     });
     markEventComplete(state, event.id);
     grantEventCultivation(state);

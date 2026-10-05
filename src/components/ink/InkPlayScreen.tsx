@@ -47,6 +47,8 @@ import { InkSectFounderPanel } from './InkSectFounderPanel';
 import { InkPersonPanel, type PersonView } from './InkPersonPanel';
 import { InkEventPanel } from './InkEventPanel';
 import { InkCombatPanel } from './InkCombatPanel';
+import { InkLifeOrDeathConfirm } from './InkLifeOrDeathConfirm';
+import { needsLifeOrDeathConfirm } from '@core/life/combat';
 import { InkBossIntro } from './InkBossIntro';
 import { InkBreakthroughModal } from './InkBreakthroughModal';
 import { InkMomentFx } from './InkMomentFx';
@@ -78,6 +80,8 @@ export function InkPlayScreen({ state }: Props) {
   const reincarnate = useLifeStore((s) => s.reincarnate);
   const practice = useLifeStore((s) => s.practice);
   const combatMove = useLifeStore((s) => s.combatMove);
+  const combatConfirmRisk = useLifeStore((s) => s.combatConfirmRisk);
+  const combatDeclineRisk = useLifeStore((s) => s.combatDeclineRisk);
   const combatSetInternalMode = useLifeStore((s) => s.combatSetInternalMode);
   const combatResolveFoe = useLifeStore((s) => s.combatResolveFoe);
   const resolveGearCompare = useLifeStore((s) => s.resolveGearCompare);
@@ -681,7 +685,11 @@ export function InkPlayScreen({ state }: Props) {
         />
       )}
 
-      {combat && state.phase === 'playing' && !showBossIntro && (
+      {combat && state.phase === 'playing' && !showBossIntro && needsLifeOrDeathConfirm(combat) && (
+        <InkLifeOrDeathConfirm combat={combat} onConfirm={combatConfirmRisk} onDecline={combatDeclineRisk} />
+      )}
+
+      {combat && state.phase === 'playing' && !showBossIntro && !needsLifeOrDeathConfirm(combat) && (
         <InkCombatPanel
           state={state}
           combat={combat}

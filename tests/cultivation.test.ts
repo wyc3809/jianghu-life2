@@ -284,10 +284,13 @@ describe('cultivation: breakthrough', () => {
       if (!result.success && !sawFailure) {
         sawFailure = true;
         expect(state.character.cultivation.tier).toBe(before.tier);
-        expect(state.character.cultivation.xp).toBeLessThan(currentCultivationTier(state).cap);
+        // 失敗保留修為（agreed-design §3）
+        expect(state.character.cultivation.xp).toBe(currentCultivationTier(state).cap);
+        expect(result.setback).toBe(0);
+        expect(result.chance).toBeGreaterThan(0);
         expect(state.character.health).toBeLessThan(before.health);
         expect(state.character.qi).toBeLessThanOrEqual(before.qi);
-        expect(result.lines.join('')).toContain('走火入魔');
+        expect(result.lines.join('')).toContain('修為保留');
         expect(result.oldTierName).toBe(currentCultivationTier(state).name);
         expect(result.newTierName).toBeUndefined();
         expect(result.hpLoss).toBeGreaterThan(0);

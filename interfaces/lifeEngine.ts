@@ -497,6 +497,10 @@ export interface PendingCombat {
   foePower?: 'weak' | 'normal' | 'strong' | 'boss';
   /** 首領二階段是否已觸發 */
   bossPhase2?: boolean;
+  /** 明確標示嘅生死戰：輸咗會死；要玩家先確認風險先開打 */
+  lifeOrDeath?: boolean;
+  /** 玩家已確認生死風險 */
+  riskConfirmed?: boolean;
   /** 玩家最近出招 id 歷史（連招系統用，最多 3 招） */
   moveHistory?: string[];
   /** 最近一回合雙方架勢（虛／實／架），供架勢視覺化顯示 */

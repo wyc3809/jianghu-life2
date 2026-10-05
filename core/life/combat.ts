@@ -178,6 +178,8 @@ export function startCombat(
     rewardOnWin?: PendingCombat['rewardOnWin'];
     rewardOnLose?: PendingCombat['rewardOnLose'];
     eventId?: string;
+    /** 生死戰：開打前要玩家確認，輸咗會死 */
+    lifeOrDeath?: boolean;
   },
 ): string[] {
   syncRngFromState(state);
@@ -205,6 +207,7 @@ export function startCombat(
     eventId: opts.eventId,
     foePower,
     bossPhase2: false,
+    ...(opts.lifeOrDeath ? { lifeOrDeath: true, riskConfirmed: false } : {}),
   };
   combat.log = combatOpeningLines(combat, style);
   combat.player.hp = clamp(combat.player.hp, 1, combat.player.maxHp);
@@ -551,23 +554,18 @@ function finishCombat(state: LifeGameState, won: boolean): string[] {
     c.reputation += r.reputation;
     lines.push(`名望${r.reputation > 0 ? '＋' : ''}${r.reputation}`);
   }
-  if (c.health <= 0) {
-    // 一般交手輸咗唔應該直接送命——只有頭目戰先帶真死亡風險（仲要唔係必死）。
-    // 之前設計係「氣血歸零＝死」，等於幾乎每場路遇／師門比武輸咗都可能斷魂，
-    // 太易死；改成低機率倖存，普通交手一律留一口氣。
-    const isBossFight = combat.foePower === 'boss';
-    const fatal = isBossFight && rng.chance(0.3);
-    if (fatal) {
-      recordDeath(state, `敗於${combat.foe.name}，力竭倒地。`);
-      state.phase = 'summary';
-      state.summaryText = buildLifeSummary(state);
-      lines.push('你力竭倒地，江湖路斷。');
-    } else {
-      c.health = 1;
-      lines.push('你力竭倒地——僥倖留了一口氣，未至喪命。');
-    }
+  if (c.health <= 0 && combat.lifeOrDeath) {
+    // 只有明確標示、玩家確認過風險嘅生死戰先會送命（design/agreed-design-2026-10.md §2）
+    recordDeath(state, `敗於${combat.foe.name}，力竭倒地。`);
+    state.phase = 'summary';
+    state.summaryText = buildLifeSummary(state);
+    lines.push('生死一戰，你力竭倒地，江湖路斷。');
   } else {
+    // 普通戰敗（首領戰都係）：撤退受傷，唔會死
     c.health = Math.max(1, c.health);
+    lines.push(
+      c.health <= 1 ? '你力竭倒地，咬牙撤出戰圈——留得青山在。' : '你見勢不妙，撤出戰圈，回去養傷再戰。',
+    );
   }
 
   lines.push(...applyCombatOutcomeRank(state, false, combat.foePower));
@@ -607,6 +605,9 @@ export function setCombatInternalMode(state: LifeGameState, modeId: string | nul
 export function playerCombatTurn(state: LifeGameState, moveId: string): string[] {
   if (!state.pendingCombat || state.pendingCombat.phase !== 'player') {
     return ['此刻並無交手。'];
+  }
+  if (needsLifeOrDeathConfirm(state.pendingCombat)) {
+    return ['生死戰：先確認應戰，先可以出手。'];
   }
   syncRngFromState(state);
   const rng = getRng();
@@ -944,6 +945,33 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
   tickMoveCooldowns(combat);
   combat.phase = 'player';
   snapshotRng(state);
+  return lines;
+}
+
+/** 生死戰未確認風險前唔可以出手 */
+export function needsLifeOrDeathConfirm(combat: PendingCombat | null | undefined): boolean {
+  return Boolean(combat?.lifeOrDeath && !combat.riskConfirmed);
+}
+
+/** 玩家確認生死風險：之後先可以出手 */
+export function confirmLifeOrDeath(state: LifeGameState): string[] {
+  const combat = state.pendingCombat;
+  if (!combat || !needsLifeOrDeathConfirm(combat)) return [];
+  combat.riskConfirmed = true;
+  const line = '你按劍上前——此戰只論生死。';
+  combat.log.push(line);
+  return [line];
+}
+
+/** 玩家唔接生死戰：開打前退避，冇戰鬥、冇死亡風險 */
+export function declineLifeOrDeath(state: LifeGameState): string[] {
+  const combat = state.pendingCombat;
+  if (!combat || !needsLifeOrDeathConfirm(combat)) return [];
+  const lines = [`你掂量再三，未與${combat.foe.name}以命相搏，暫且退避。`];
+  combat.log.push(...lines);
+  combat.phase = 'ended';
+  state.pendingCombat = null;
+  pushChronicle(state, [`「${combat.title}」——退避`, ...lines]);
   return lines;
 }
 

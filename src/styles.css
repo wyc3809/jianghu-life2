@@ -8450,3 +8450,88 @@ html[data-ink-motion='reduce'] .ink-achv-name i {
   margin-left: 8px;
   text-decoration: underline;
 }
+
+/* 生死戰確認（design/agreed-design-2026-10.md §2） */
+.ink-lod-card {
+  text-align: center;
+  padding: 26px 20px 22px;
+  border-color: rgba(163, 58, 50, 0.45);
+}
+
+.ink-lod-seal {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 54px;
+  height: 54px;
+  transform: rotate(8deg);
+  opacity: 0.92;
+}
+
+.ink-lod-kicker {
+  margin: 0;
+  font-size: 0.9rem;
+  letter-spacing: 0.5em;
+  color: var(--cinnabar);
+  font-weight: 700;
+}
+
+.ink-lod-title {
+  margin: 8px 0 4px;
+  font-size: 1.5rem;
+  letter-spacing: 0.18em;
+  color: var(--ink, #1a1a1a);
+}
+
+.ink-lod-foe {
+  margin: 0 0 14px;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.1em;
+}
+
+.ink-lod-rules {
+  margin: 0 0 18px;
+  padding: 12px 14px;
+  list-style: none;
+  text-align: left;
+  border-top: 1px solid var(--ink-faint);
+  border-bottom: 1px solid var(--ink-faint);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--ink-mid);
+}
+
+.ink-lod-rules .is-danger {
+  color: var(--cinnabar);
+  font-weight: 700;
+  font-size: 0.98rem;
+}
+
+.ink-lod-actions {
+  display: grid;
+  gap: 10px;
+}
+
+.ink-lod-btn {
+  min-height: 48px;
+  border: 1px solid var(--ink, #1a1a1a);
+  background: transparent;
+  color: var(--ink, #1a1a1a);
+  font-family: inherit;
+  font-size: 1rem;
+  letter-spacing: 0.22em;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ink-lod-btn--fight {
+  border-color: var(--cinnabar);
+  background: var(--cinnabar);
+  color: #f6f1e6;
+  font-weight: 700;
+}

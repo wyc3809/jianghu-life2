@@ -263,8 +263,14 @@ const BREAKTHROUGH_BASE_CHANCE = 0.66;
 const BREAKTHROUGH_TIER_PENALTY = 0.035;
 /** 根骨／悟性合計每點加成 */
 const BREAKTHROUGH_ATTR_BONUS = 0.003;
-/** 失敗回退：現境界上限的 30% */
-const BREAKTHROUGH_SETBACK_RATIO = 0.3;
+
+/** 突破成功率（0.15–0.92）：境界越高越難，根骨＋悟性加成。純函數，畀介面事先顯示 */
+export function breakthroughChance(state: LifeGameState): number {
+  const c = state.character;
+  const tier = currentCultivationTier(state);
+  const attrBonus = (c.attributes.genGu + c.attributes.wuXing) * BREAKTHROUGH_ATTR_BONUS;
+  return Math.max(0.15, Math.min(0.92, BREAKTHROUGH_BASE_CHANCE - tier.level * BREAKTHROUGH_TIER_PENALTY + attrBonus));
+}
 
 export function canAttemptBreakthrough(state: LifeGameState): boolean {
   if (!state.character.alive || state.phase !== 'playing') return false;
@@ -289,6 +295,8 @@ export interface BreakthroughResult {
   setback?: number;
   /** 突破成功時由儲備撥入新境界嘅修為 */
   reserveReleased?: number;
+  /** 今次嘅成功率（失敗提示用） */
+  chance?: number;
 }
 
 /**
@@ -307,11 +315,7 @@ export function attemptCultivationBreakthrough(state: LifeGameState): Breakthrou
   const tier = currentCultivationTier(state);
   const nextTier = CULTIVATION_TIERS[tier.level + 1];
 
-  const attrBonus = (c.attributes.genGu + c.attributes.wuXing) * BREAKTHROUGH_ATTR_BONUS;
-  const chance = Math.max(
-    0.15,
-    Math.min(0.92, BREAKTHROUGH_BASE_CHANCE - tier.level * BREAKTHROUGH_TIER_PENALTY + attrBonus),
-  );
+  const chance = breakthroughChance(state);
   const success = rng.chance(chance);
   const lines: string[] = [];
 
@@ -350,18 +354,18 @@ export function attemptCultivationBreakthrough(state: LifeGameState): Breakthrou
     };
   }
 
-  const setback = Math.round((Number.isFinite(tier.cap) ? tier.cap : 0) * BREAKTHROUGH_SETBACK_RATIO);
-  c.cultivation.xp = Math.max(0, c.cultivation.xp - setback);
+  // 失敗保留修為（design/agreed-design-2026-10.md §3）；氣血／內力損耗同內傷沿用現有代價（重試代價未定）
   const hpLoss = Math.round(c.maxHealth * 0.12);
   const qiLoss = Math.round(c.maxQi * 0.18);
   c.health = Math.max(1, c.health - hpLoss);
   c.qi = Math.max(0, c.qi - qiLoss);
   addCondition(state, 'internal');
+  const setback = 0;
   lines.push(
-    '閉關數月，行至緊要關頭卻氣息紊亂——走火入魔！',
-    `修為倒退，氣血－${hpLoss}，內力－${qiLoss}，落下內傷，需再修煉方可重闖此關。`,
+    '閉關數月，行至緊要關頭卻氣息紊亂，未能破關。',
+    `修為保留，氣血－${hpLoss}，內力－${qiLoss}，落下內傷。養好傷、調整配搭可再試（今次成功率約 ${Math.round(chance * 100)}%）。`,
   );
   pushChronicle(state, lines);
   snapshotRng(state);
-  return { success: false, lines, oldTierName: tier.name, hpLoss, qiLoss, setback };
+  return { success: false, lines, oldTierName: tier.name, hpLoss, qiLoss, setback, chance };
 }

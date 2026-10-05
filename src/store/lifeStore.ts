@@ -69,6 +69,10 @@ export interface LifeStore {
   combatMove: (moveId: string) => void;
   combatSetInternalMode: (modeId: string | null) => void;
   combatResolveFoe: (disposition: CombatFoeDisposition) => void;
+  /** 生死戰：玩家確認風險，應戰 */
+  combatConfirmRisk: () => void;
+  /** 生死戰：開打前退避 */
+  combatDeclineRisk: () => void;
   clearResult: () => void;
   setTab: (tab: NonNullable<LifeGameState['tab']>) => void;
   setDebugOpen: (open: boolean) => void;
