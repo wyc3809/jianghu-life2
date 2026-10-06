@@ -163,3 +163,41 @@ export function breakthroughHighlight(state: LifeGameState, r: BreakthroughResul
     ],
   };
 }
+
+/**
+ * 秘笈閣抽卡 → 同「每月學武學」一樣嘅武學令演出（玩家要求兩者畫面一致）。
+ * 品階：心願＝5、珍本奇功＝4、新武學＝2、重複＝1。
+ */
+export function gachaHighlight(
+  results: { id: string; isNew: boolean; isWish: boolean; isPremium: boolean }[],
+  names: (id: string) => string,
+  blurbOf: (id: string) => string | undefined,
+  jade: { free: number; paidTest: number },
+): HighlightConfig | null {
+  if (!results.length) return null;
+  const gradeOf = (r: (typeof results)[number]): Grade =>
+    r.isWish ? 5 : r.isPremium ? 4 : r.isNew ? 2 : 1;
+  const top = results.reduce<Grade>((g, r) => (gradeOf(r) > g ? gradeOf(r) : g), 0 as Grade);
+  const wish = results.find((r) => r.isWish);
+  const premium = results.find((r) => r.isPremium);
+  const fresh = results.filter((r) => r.isNew).length;
+  return {
+    subject: 'token',
+    targetGrade: clampGrade(top),
+    revealTitle: wish ? '心願得償' : premium ? '珍本現世' : fresh ? '秘笈入藏' : '書頁盈篋',
+    seal: '武',
+    revealSub: wish
+      ? `${names(wish.id)} · 心願秘笈到手`
+      : `${results.length} 本秘笈 · 新得 ${fresh} 本`,
+    balances: { coin: { label: '免費玉石', value: jade.free }, gem: { label: '付費玉石', value: jade.paidTest } },
+    rewards: results.map((r, i) => ({
+      id: `gacha-${r.id}-${i}`,
+      icon: 'scroll' as const,
+      pattern: 'art' as const,
+      name: names(r.id),
+      grade: gradeOf(r),
+      isNew: r.isNew,
+      blurb: `${r.isWish ? '【心願】' : ''}${r.isPremium ? '【珍本奇功】' : ''}${blurbOf(r.id) ?? ''}${r.isNew ? '' : '（重複本：可升階或轉書頁）'}`,
+    })),
+  };
+}

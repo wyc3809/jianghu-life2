@@ -8902,35 +8902,10 @@ html[data-ink-motion='reduce'] .ink-achv-name i {
 }
 
 /* 秘笈閣：玉石・抽卡・心願保底・家族收藏（design/agreed-design-2026-10.md §3.1–3.2） */
-.ink-gacha-entry {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-  margin: 2px 0 12px;
-  padding: 10px 14px;
-  border: 1px solid #2f6b5a;
-  background: linear-gradient(100deg, rgba(47, 107, 90, 0.12), rgba(255, 252, 245, 0.7));
-  color: var(--ink, #1a1a1a);
-  font-family: inherit;
-  text-align: left;
-  cursor: pointer;
-}
-
-.ink-gacha-entry-title {
-  font-size: 1.02rem;
-  font-weight: 700;
-  letter-spacing: 0.3em;
-  color: #2f6b5a;
-}
-
-.ink-gacha-entry-sub {
-  font-size: 0.8rem;
+.ink-gacha-head-sub {
+  font-size: 0.78rem;
   color: var(--ink-soft);
-}
-
-.ink-gacha {
-  max-height: min(86dvh, 720px);
+  letter-spacing: 0.1em;
 }
 
 .ink-gacha-head {
@@ -9462,4 +9437,286 @@ button.ink-enc-strip {
 
 @media (prefers-reduced-motion: reduce) {
   .ink-enc-strip.is-offer { animation: none; }
+}
+
+/* ===== 商業手遊式版面：頂欄 HUD（頭像＋名號｜貨幣；第二行氣血內力疲勞）＋功能入口＋任務追蹤 =====
+   演武台（.ink-home-scene／InkSparStage）完全唔郁；只改佢上下嘅介面。 */
+.ink-hud {
+  padding: 2px 0 8px 0;
+}
+
+.ink-hud::before {
+  display: none;
+}
+
+.ink-hud-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ink-hud-avatar {
+  position: relative;
+  flex: none;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border: 2px solid #1a1a1a;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255, 252, 245, 0.95), rgba(232, 222, 202, 0.95) 70%),
+    var(--paper-bright);
+  box-shadow:
+    0 0 0 2px var(--paper-bright),
+    0 0 0 3px rgba(163, 58, 50, 0.55);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ink-hud-avatar-glyph {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 48px;
+  color: #1a1a1a;
+}
+
+.ink-hud-avatar-lv {
+  position: absolute;
+  left: 50%;
+  bottom: -7px;
+  transform: translateX(-50%);
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--cinnabar);
+  color: #f6f1e6;
+  font-size: 0.6rem;
+  line-height: 15px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.ink-hud .ink-identity {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.ink-hud .ink-name {
+  font-size: 1.25rem;
+  letter-spacing: 0.14em;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ink-hud .ink-status-kicker {
+  margin: 1px 0 0;
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+}
+
+.ink-hud .ink-meta {
+  margin-top: 1px;
+  font-size: 0.66rem;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ink-hud .ink-metaline-prestige b {
+  color: var(--cinnabar);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 右上貨幣：銀兩、玉石（撳去秘笈閣）、設定 */
+.ink-hud-wallet {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.ink-hud-wallet .ink-money-chip {
+  margin-top: 0;
+  min-width: 84px;
+  justify-content: space-between;
+}
+
+.ink-jade-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  min-width: 84px;
+  padding: 1px 9px 1px 2px;
+  border: 1px solid rgba(47, 107, 90, 0.45);
+  border-radius: 999px;
+  background: var(--paper-bright);
+  color: #1a1a1a;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ink-jade-chip i {
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #8fc7b3, #2f6b5a 75%);
+  color: #f6f1e6;
+  font-style: normal;
+  font-size: 0.62rem;
+}
+
+.ink-hud-wallet .ink-status-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.ink-hud-wallet .ink-icon-btn {
+  width: 30px;
+  height: 22px;
+  font-size: 0.66rem;
+}
+
+.ink-hud-wallet .ink-icon-btn--wide {
+  width: auto;
+  padding: 0 8px;
+  border: 1px solid var(--ink-faint);
+  border-radius: 999px;
+}
+
+/* 第二行：氣血｜內力｜疲勞度，一行過 */
+.ink-hud-bars {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.ink-hud-bars .ink-vitals-meters--bare {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px !important;
+  padding-left: 0 !important;
+}
+
+.ink-hud-bars .ink-ap-meter {
+  flex: none;
+  margin-top: 0;
+  padding-top: 10px;
+}
+
+/* 功能入口：圓鈕列（紅點＝有嘢做） */
+.ink-quick {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+  margin: 10px 0 0;
+  padding: 10px 4px 8px;
+  border: 1px solid var(--ink-faint);
+  background: rgba(255, 252, 245, 0.72);
+}
+
+.ink-quick-btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #1a1a1a;
+  font-family: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ink-quick-icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 2px solid #1a1a1a;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fffcf5, #e6dcc6 75%);
+  box-shadow: inset 0 -3px 0 rgba(26, 26, 26, 0.12);
+  font-size: 1.3rem;
+  font-weight: 700;
+  transition: transform 0.08s ease;
+}
+
+.ink-quick-btn:active .ink-quick-icon {
+  transform: scale(0.92);
+}
+
+.ink-quick-btn:first-child .ink-quick-icon {
+  background: radial-gradient(circle at 35% 30%, #fff4e8, #e9c9a8 75%);
+  border-color: var(--cinnabar);
+  color: var(--cinnabar);
+}
+
+.ink-quick-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  padding-left: 0.12em;
+  color: var(--ink-mid);
+}
+
+.ink-quick-btn.is-dim {
+  opacity: 0.45;
+}
+
+.ink-quick-badge {
+  position: absolute;
+  top: -2px;
+  left: calc(50% + 14px);
+  min-width: 10px;
+  height: 10px;
+  border: 2px solid var(--paper-bright);
+  border-radius: 999px;
+  background: #d8352a;
+}
+
+.ink-quick-badge.has-text {
+  height: 16px;
+  padding: 0 4px;
+  color: #fff;
+  font-style: normal;
+  font-size: 0.6rem;
+  line-height: 12px;
+}
+
+/* 任務追蹤：主線目標卡左邊加朱砂標，似手遊任務欄 */
+.ink-home-focus .ink-home-goals {
+  margin-top: 8px;
+}
+
+.ink-home-focus .ink-goal {
+  position: relative;
+  padding-left: 18px;
+}
+
+.ink-home-focus .ink-goal::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 5px;
+  background: var(--cinnabar);
 }

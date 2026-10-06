@@ -50,6 +50,7 @@ import { InkCombatPanel } from './InkCombatPanel';
 import { InkLifeOrDeathConfirm } from './InkLifeOrDeathConfirm';
 import { InkSuccessionModal } from './InkSuccessionModal';
 import { InkHomeGoals } from './InkHomeGoals';
+import { InkHomeQuick, type QuickTarget } from './InkHomeQuick';
 import { InkGachaPanel } from './InkGachaPanel';
 import { InkEncounterCard, InkEncounterModal } from './InkEncounter';
 import { newbieActive } from '@core/life/goals';
@@ -123,7 +124,6 @@ export function InkPlayScreen({ state }: Props) {
   const clearMilestoneToast = useAncestryStore((s) => s.clearMilestoneToast);
   const jadeToast = useAncestryStore((s) => s.jadeToast);
   const clearJadeToast = useAncestryStore((s) => s.clearJadeToast);
-  const gachaOpen = useAncestryStore((s) => s.gachaOpen);
   const encounterOpen = useAncestryStore((s) => s.encounterOpen);
   const encounterTick = useAncestryStore((s) => s.encounterTick);
   const learnManual = useAncestryStore((s) => s.learnManual);
@@ -136,7 +136,6 @@ export function InkPlayScreen({ state }: Props) {
   useEffect(() => {
     encounterTick(Date.now());
   }, [state, encounterTick]);
-  const setGachaOpen = useAncestryStore((s) => s.setGachaOpen);
   useEffect(() => {
     if (!jadeToast) return;
     const t = window.setTimeout(clearJadeToast, 4200);
@@ -308,6 +307,31 @@ export function InkPlayScreen({ state }: Props) {
   // 祖蔭：人生到總結就結算一次（角色 flag 防重複）
   const ancestryAward = useAncestryStore((s) => s.award);
   const ancestryPoints = useAncestryStore((s) => s.meta.points);
+  const jadeBal = useAncestryStore((s) => s.meta.jade);
+  const jadeTotal = (jadeBal?.free ?? 0) + (jadeBal?.paidTest ?? 0);
+  const setEncounterOpen = useAncestryStore((s) => s.setEncounterOpen);
+  const claimEncounter = useAncestryStore((s) => s.claimEncounter);
+  /** 跳去其他分頁再捲到指定區塊（江湖分頁嘅秘笈閣／論劍） */
+  const goTo = (t: 'jianghu' | 'person', selector?: string) => {
+    setTab(t);
+    if (selector) window.setTimeout(() => document.querySelector(selector)?.scrollIntoView({ block: 'start', behavior: 'smooth' }), 80);
+  };
+  const openGachaTab = () => goTo('jianghu', '#ink-gacha');
+  const openQuick = (q: QuickTarget) => {
+    if (q === 'gacha') openGachaTab();
+    else if (q === 'huashan') goTo('jianghu', '.ink-huashan-panel');
+    else if (q === 'skills') {
+      goTo('person');
+      setPersonView('skills');
+    } else if (q === 'shrine') setAncestryOpen(true);
+    else if (q === 'encounter') {
+      const e = useAncestryStore.getState().meta.encounter;
+      if (e?.offer) setEncounterOpen(true);
+      else if (e?.active) {
+        if (!claimEncounter()) document.querySelector('.ink-enc-strip')?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      }
+    }
+  };
   const awardCurrentLife = useAncestryStore((s) => s.awardCurrentLife);
   const ancestryOpen = useAncestryStore((s) => s.panelOpen);
   const setAncestryOpen = useAncestryStore((s) => s.setPanelOpen);
@@ -477,7 +501,6 @@ export function InkPlayScreen({ state }: Props) {
         <InkAchievementToast key={`jade-${jadeToast}`} names={[`免費玉石＋${jadeToast}`]} seal="玉石" />
       )}
 
-      {gachaOpen && <InkGachaPanel state={state} onClose={() => setGachaOpen(false)} />}
 
       {encounterOpen && <InkEncounterModal onLearn={learnManual} />}
 
@@ -485,12 +508,22 @@ export function InkPlayScreen({ state }: Props) {
         <InkOfflineGainModal gain={offlineGain} onClose={clearOfflineGain} />
       )}
 
-      <header className="ink-status ink-status--bare-top">
-        <div className="ink-status-row">
+      <header className="ink-status ink-status--bare-top ink-hud">
+        {/* 商業手遊式頂欄：頭像＋名號 | 貨幣；第二行氣血內力疲勞 */}
+        <div className="ink-hud-top">
+          <button
+            type="button"
+            className="ink-hud-avatar"
+            aria-label="人物"
+            onClick={() => {
+              setTab('person');
+              setPersonView('main');
+            }}
+          >
+            <span className="ink-hud-avatar-glyph">{c.name.slice(0, 1)}</span>
+            <span className="ink-hud-avatar-lv">{c.age}歲</span>
+          </button>
           <div className="ink-identity">
-            <p className="ink-status-kicker">
-              第{state.year}年 · {seasonLabel(month)}
-            </p>
             <h2 className="ink-name">
               {c.name}
               {woundLabel && !combat && (
@@ -511,13 +544,60 @@ export function InkPlayScreen({ state }: Props) {
                 </span>
               )}
             </h2>
-            <p className="ink-meta">
-              {c.age}歲
+            <p className="ink-status-kicker">
+              第{state.year}年 · {seasonLabel(month)}
               {c.location ? ` · ${c.location}` : ''}
+            </p>
+            <p className="ink-meta">
+              <span className="ink-metaline-prestige">
+                威望 <b ref={prestigeRef}>{prestigeShown}</b> · {prestigeTierLabel} · {rank >= JIANGHU_RANK_START ? '未列名' : `第${rank}位`}
+              </span>
               {sect ? ` · ${sect.name}` : ''}
               {nicknames.length ? ` · ${nicknames.join('·')}` : ''}
             </p>
           </div>
+          <div className="ink-hud-wallet">
+            <span ref={moneyChipRef} className="ink-money-chip" aria-label={`銀兩 ${Math.round(c.money ?? 0)}`}>
+              <img className="ink-label-img" src={`${import.meta.env.BASE_URL || '/'}ink/ui/label-yinliang.webp`} alt="" aria-hidden draggable={false} />
+              <InkGlyphText text={moneyShown.toLocaleString('zh-Hant')} height={14} />
+            </span>
+            <button
+              type="button"
+              className="ink-jade-chip"
+              aria-label={`玉石 ${jadeTotal}，去秘笈閣`}
+              onClick={() => openGachaTab()}
+            >
+              <i aria-hidden>玉</i>
+              {jadeTotal.toLocaleString('zh-Hant')}
+            </button>
+            <div className="ink-status-buttons">
+              <button
+                type="button"
+                className="ink-icon-btn ink-icon-btn--wide"
+                onClick={() => setSettingsOpen(true)}
+                title="設定"
+                aria-label="開啟設定"
+                aria-haspopup="dialog"
+                aria-expanded={settingsOpen}
+              >
+                設定
+              </button>
+              {import.meta.env.DEV && (
+                <button
+                  type="button"
+                  className="ink-icon-btn"
+                  onClick={() => {
+                    setDebugOpen(!debugOpen);
+                  }}
+                  title="除錯"
+                >
+                  墨
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="ink-hud-bars">
           {showVitalsBars && (
             <div className="ink-vitals-meters ink-vitals-meters--bare" aria-label="氣血內力">
               <div className="ink-meter">
@@ -558,12 +638,6 @@ export function InkPlayScreen({ state }: Props) {
               </div>
             </div>
           )}
-        </div>
-        <div className="ink-status-metaline">
-          <span ref={moneyChipRef} className="ink-money-chip" aria-label={`銀兩 ${Math.round(c.money ?? 0)}`}>
-            <img className="ink-label-img" src={`${import.meta.env.BASE_URL || '/'}ink/ui/label-yinliang.webp`} alt="" aria-hidden draggable={false} />
-            <InkGlyphText text={moneyShown.toLocaleString('zh-Hant')} height={14} />
-          </span>
           <div
             className="ink-ap-meter"
             role="meter"
@@ -574,34 +648,6 @@ export function InkPlayScreen({ state }: Props) {
           >
             <img className="ink-label-img ink-label-img--ap" src={`${import.meta.env.BASE_URL || '/'}ink/ui/label-pilao.webp`} alt="疲勞度" draggable={false} />
             <InkGlyphText text={`${Math.round(100 - (c.actionPoints ?? 0))}/100`} height={13} className="ink-ap-meter-value" />
-          </div>
-          <span className="ink-metaline-prestige">
-            威望 <b ref={prestigeRef}>{prestigeShown}</b> · {prestigeTierLabel} · {rank >= JIANGHU_RANK_START ? '未列名' : `第${rank}位`}
-          </span>
-          <div className="ink-status-buttons">
-            <button
-              type="button"
-              className="ink-icon-btn ink-icon-btn--wide"
-              onClick={() => setSettingsOpen(true)}
-              title="設定"
-              aria-label="開啟設定"
-              aria-haspopup="dialog"
-              aria-expanded={settingsOpen}
-            >
-              設定
-            </button>
-            {import.meta.env.DEV && (
-              <button
-                type="button"
-                className="ink-icon-btn"
-                onClick={() => {
-                  setDebugOpen(!debugOpen);
-                }}
-                title="除錯"
-              >
-                墨
-              </button>
-            )}
           </div>
         </div>
       </header>
@@ -649,6 +695,8 @@ export function InkPlayScreen({ state }: Props) {
             />
           </div>
 
+          {state.phase === 'playing' && c.alive && !showResult && <InkHomeQuick state={state} onOpen={openQuick} />}
+
           {state.phase === 'playing' && c.alive && !showResult && (
             <InkHomeGoals
               state={state}
@@ -689,6 +737,8 @@ export function InkPlayScreen({ state }: Props) {
           </div>
         </div>
       )}
+
+      {tab === 'jianghu' && !combat && !eventFocus && <InkGachaPanel state={state} />}
 
       {tab === 'jianghu' && !combat && !eventFocus && (
         <section key="jianghu" className="ink-panel ink-world-panel ink-tab-pane" aria-label="心性">

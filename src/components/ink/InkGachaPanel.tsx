@@ -1,5 +1,4 @@
-import { useMemo, useState } from 'react';
-import { createPortal } from 'react-dom';
+import { Suspense, useMemo, useState } from 'react';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getSkillDef, skillKindLabel, skillLabel } from '@data/skills/catalog';
 import {
@@ -13,16 +12,19 @@ import {
 import { BANNERS, FREE_POOL, bannerState, spendableJade, wishPool, type BannerId } from '@core/life/gacha';
 import { useAncestryStore } from '../../store/ancestryStore';
 import { playInkWin, playInkTap } from '../../audio/inkAudio';
+import { HighlightFxLazy, canUseWebGL, type HighlightConfig } from '../../fx/highlight';
+import { gachaHighlight } from '../../fx/highlight/fromGame';
 
-type Props = { state: LifeGameState; onClose: () => void };
+type Props = { state: LifeGameState };
 
 const BANNER_IDS: BannerId[] = ['jianghu', 'zhenben'];
 
 /**
  * 秘笈閣：玉石（免費／付費測試額度分開記帳）、兩個卡池、心願保底、
  * 家族秘笈收藏（升階／轉書頁／學習）、書頁兌換（design/agreed-design-2026-10.md §3.1、§3.2）。
+ * 放喺「江湖」分頁；抽卡結果用同每月學武學一樣嘅武學令演出（HighlightFx token）。
  */
-export function InkGachaPanel({ state, onClose }: Props) {
+export function InkGachaPanel({ state }: Props) {
   const meta = useAncestryStore((s) => s.meta);
   const lastPull = useAncestryStore((s) => s.lastPull);
   const gachaPull = useAncestryStore((s) => s.gachaPull);
@@ -35,6 +37,7 @@ export function InkGachaPanel({ state, onClose }: Props) {
   const [banner, setBanner] = useState<BannerId>('jianghu');
   const [view, setView] = useState<'draw' | 'shelf'>('draw');
   const [swap, setSwap] = useState('');
+  const [fx, setFx] = useState<HighlightConfig | null>(null);
 
   const jade = meta.jade ?? { free: 0, paidTest: 0 };
   const b = bannerState(structuredClone(meta), banner);
@@ -52,20 +55,20 @@ export function InkGachaPanel({ state, onClose }: Props) {
 
   const doPull = (n: number) => {
     const res = gachaPull(banner, n);
-    if (res) {
-      if (res.some((r) => r.isWish || r.isPremium)) playInkWin();
-      else playInkTap();
-    }
+    if (!res) return;
+    const cfg = canUseWebGL()
+      ? gachaHighlight(res, skillLabel, (id) => getSkillDef(id)?.flavor, useAncestryStore.getState().meta.jade ?? jade)
+      : null;
+    if (cfg) setFx(cfg);
+    else if (res.some((r) => r.isWish || r.isPremium)) playInkWin();
+    else playInkTap();
   };
 
-  return createPortal(
-    <div className="ink-modal" role="dialog" aria-modal="true" aria-label="秘笈閣" onClick={onClose}>
-      <div className="ink-modal-card ink-gacha" onClick={(e) => e.stopPropagation()}>
+  return (
+    <section id="ink-gacha" className="ink-panel ink-gacha ink-tab-pane" aria-label="秘笈閣">
         <header className="ink-gacha-head">
           <h3>秘笈閣</h3>
-          <button type="button" className="ink-icon-btn" onClick={onClose} aria-label="關閉">
-            收
-          </button>
+          <span className="ink-gacha-head-sub">抽秘笈 · 家族收藏</span>
         </header>
 
         <div className="ink-jade-row">
@@ -211,8 +214,11 @@ export function InkGachaPanel({ state, onClose }: Props) {
             )}
           </>
         )}
-      </div>
-    </div>,
-    document.body,
+      {fx && (
+        <Suspense fallback={null}>
+          <HighlightFxLazy config={fx} onDone={() => setFx(null)} />
+        </Suspense>
+      )}
+    </section>
   );
 }
