@@ -1,5 +1,4 @@
 import { InkMainArts } from './InkMainArts';
-import { useAncestryStore } from '../../store/ancestryStore';
 import { mainArts } from '@core/life/schools';
 import { SCHOOLS, schoolOfGear, schoolsOfSkill } from '@data/redesign/schools';
 import type { SkillKind } from '@data/skills/catalog';
@@ -119,8 +118,6 @@ export function InkPersonPanel({
   }, [view]);
   const c = state.character;
   const mainArtIds = Object.values(mainArts(c)).filter(Boolean) as string[];
-  const jadeBal = useAncestryStore((st) => st.meta.jade);
-  const openGacha = useAncestryStore((st) => st.setGachaOpen);
   const nature = ensureNature(c);
   const dominant = dominantNature(c);
   const lover = c.loverId ? state.npcs[c.loverId] : null;
@@ -451,12 +448,6 @@ export function InkPersonPanel({
       {view === 'skills' && (
         <>
           <h3>武學</h3>
-          <button type="button" className="ink-gacha-entry" onClick={() => openGacha(true)}>
-            <span className="ink-gacha-entry-title">秘笈閣</span>
-            <span className="ink-gacha-entry-sub">
-              抽秘笈 · 家族收藏 · 玉石 {((jadeBal?.free ?? 0) + (jadeBal?.paidTest ?? 0)).toLocaleString('zh-Hant')}
-            </span>
-          </button>
           <InkMainArts state={state} />
           {listWeaponMasteries(state).length > 0 && (
             <p className="ink-note">

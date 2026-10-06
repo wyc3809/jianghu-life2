@@ -71,8 +71,6 @@ interface AncestryStore {
   grantTestJade: () => void;
   /** 由家族收藏學一門秘笈（今世角色） */
   learnManual: (artId: string) => void;
-  gachaOpen: boolean;
-  setGachaOpen: (open: boolean) => void;
   /** 在線奇遇：定時叫（只喺開住遊戲時） */
   encounterTick: (now: number) => void;
   /** 奇遇彈窗開住（彈出／玩家撳返） */
@@ -145,8 +143,6 @@ export const useAncestryStore = create<AncestryStore>()((set, get) => ({
   jadeToast: 0,
   clearJadeToast: () => set({ jadeToast: 0 }),
   lastPull: null,
-  gachaOpen: false,
-  setGachaOpen: (open) => set({ gachaOpen: open, ...(open ? {} : { lastPull: null }) }),
   gachaPull: (banner, n) => {
     const next = structuredClone(get().meta);
     const res = pull(next, banner, n);
