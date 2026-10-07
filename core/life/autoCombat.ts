@@ -40,6 +40,7 @@ export function runAutoCombat(state: LifeGameState): AutoCombatResult | null {
     foeMaxHp: combat.foe.maxHp,
     startPlayerHp: combat.player.hp,
     startFoeHp: combat.foe.hp,
+    foeBoss: combat.foePower === 'boss',
     ...artInfo(state),
     rounds: [],
     lines: [],

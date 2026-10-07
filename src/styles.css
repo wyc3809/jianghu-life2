@@ -9773,196 +9773,63 @@ button.ink-enc-strip {
   cursor: pointer;
 }
 
-.ink-auto-side {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.78rem;
-}
-
-.ink-auto-side .ink-brush-bar {
-  height: 10px;
-}
-
-.ink-auto-name {
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  max-width: 6.5em;
+/* 打鬥場：直接用演武台引擎（同主畫面演武台一樣嘅剪影、墨濺、數字、頭頂血條） */
+.ink-auto-stage {
+  margin: 4px -14px 0;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  background: #efe7d7;
 }
 
-.ink-auto-hp {
-  font-variant-numeric: tabular-nums;
-  color: var(--ink-mid);
-}
-
-/* 打鬥場：敵上我下，命中嗰邊出筆觸＋傷害數字 */
-.ink-auto-arena {
-  position: relative;
-  height: 190px;
-  margin: 8px 0;
-  border: 1px solid var(--ink-faint);
-  background:
-    radial-gradient(ellipse at 50% 55%, rgba(26, 26, 26, 0.1), transparent 65%),
-    linear-gradient(180deg, #efe6d6, #f7f1e6 55%, #e9dfcc);
-  overflow: hidden;
-}
-
-.ink-auto-fighter {
-  position: absolute;
-  display: grid;
-  place-items: center;
-  width: 54px;
-  height: 54px;
-  border: 2px solid #1a1a1a;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #fffcf5, #e6dcc6 75%);
-  font-size: 1.4rem;
-  font-weight: 700;
-}
-
-.ink-auto-fighter.is-foe {
-  top: 18px;
-  right: 22%;
-  border-color: var(--cinnabar);
-  color: var(--cinnabar);
-}
-
-.ink-auto-fighter.is-player {
-  bottom: 18px;
-  left: 22%;
-}
-
-.ink-auto-arena.is-player .ink-auto-fighter.is-player,
-.ink-auto-arena.is-foe .ink-auto-fighter.is-foe {
-  animation: ink-auto-lunge 0.42s ease-out;
-}
-
-.ink-auto-arena.is-player .ink-auto-fighter.is-foe,
-.ink-auto-arena.is-foe .ink-auto-fighter.is-player {
-  animation: ink-auto-shake 0.38s ease-out;
-}
-
-@keyframes ink-auto-lunge {
-  40% {
-    transform: scale(1.12) translateY(-4px);
-  }
-}
-
-@keyframes ink-auto-shake {
-  20% {
-    transform: translateX(-6px);
-  }
-  45% {
-    transform: translateX(5px);
-  }
-  70% {
-    transform: translateX(-3px);
-  }
-}
-
-.ink-auto-hit {
+.ink-auto-callout {
   position: absolute;
   left: 0;
   right: 0;
+  top: 38px;
+  z-index: 4;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
   pointer-events: none;
 }
 
-.ink-auto-hit.is-player {
-  top: 12px;
-}
-
-.ink-auto-hit.is-foe {
-  bottom: 12px;
-}
-
-.ink-auto-slash {
-  position: absolute;
-  top: -6px;
-  width: 190px;
-  height: auto;
-  opacity: 0;
-  animation: ink-auto-slash 0.5s ease-out forwards;
-}
-
-.ink-auto-hit.is-foe .ink-auto-slash {
-  top: auto;
-  bottom: -6px;
-  transform: scaleX(-1);
-}
-
-@keyframes ink-auto-slash {
-  0% {
-    opacity: 0;
-    clip-path: inset(0 100% 0 0);
-  }
-  30% {
-    opacity: 0.9;
-  }
-  100% {
-    opacity: 0;
-    clip-path: inset(0 0 0 0);
-  }
-}
-
-.ink-auto-move {
-  position: relative;
-  margin-top: 64px;
-  padding: 2px 10px;
-  background: rgba(26, 26, 26, 0.82);
+.ink-auto-callout-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 10px 2px 4px;
+  background: rgba(20, 18, 14, 0.86);
   color: #f6f1e6;
-  font-size: 0.8rem;
-  letter-spacing: 0.1em;
-  animation: ink-auto-pop 0.3s ease-out;
+  white-space: nowrap;
+  animation: ink-auto-pop 0.28s ease-out;
 }
 
-.ink-auto-hit.is-foe .ink-auto-move {
-  margin-top: 0;
-  margin-bottom: 64px;
-  order: 2;
-  background: rgba(163, 58, 50, 0.9);
+.ink-auto-callout-inner i {
+  padding: 0 4px;
+  background: var(--cinnabar);
+  color: #f6f1e6;
+  font-style: normal;
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
 }
 
-.ink-auto-dmg {
-  position: relative;
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--cinnabar);
-  text-shadow: 0 2px 0 #fffaf0;
-  animation: ink-auto-float 0.6s ease-out forwards;
-}
-
-.ink-auto-hit.is-foe .ink-auto-dmg {
-  order: 1;
-  color: #1a1a1a;
-}
-
-.ink-auto-hit.is-miss .ink-auto-dmg {
+.ink-auto-callout-inner b {
   font-size: 1rem;
-  color: var(--ink-mid);
+  letter-spacing: 0.14em;
+}
+
+.ink-auto-callout-inner small {
+  font-size: 0.66rem;
+  color: #d9cbb2;
+}
+
+.ink-auto-callout-inner.is-foe {
+  background: rgba(163, 58, 50, 0.9);
+  padding-left: 10px;
 }
 
 @keyframes ink-auto-pop {
   from {
-    transform: scale(0.6);
+    transform: scale(0.6) translateY(6px);
     opacity: 0;
-  }
-}
-
-@keyframes ink-auto-float {
-  from {
-    transform: translateY(8px) scale(0.7);
-    opacity: 0;
-  }
-  35% {
-    transform: translateY(0) scale(1.15);
-    opacity: 1;
   }
 }
 
