@@ -15,7 +15,8 @@ import {
   syncCollectionVolumes,
 } from '../core/life/volumes';
 import { VOLUME_COUNT, artVolumeMoves, hasVolumes, volumeOfMoveId } from '../data/skills/volumes';
-import { getSkillDef } from '../data/skills/catalog';
+import { SKILL_DEFS, getSkillDef } from '../data/skills/catalog';
+import VOLUMES_JSON from '../content/martial/volumes.json';
 import { GACHA_COST_PER_PULL } from '../data/redesign/testParams';
 
 const ART = 'art_river_fist';
@@ -34,10 +35,22 @@ describe('外功七卷（data/skills/volumes.ts）', () => {
   it('test_external_art_has_seven_distinct_volumes_and_vol1_is_original_move', () => {
     const moves = artVolumeMoves(ART);
     expect(moves).toHaveLength(VOLUME_COUNT);
-    expect(moves[0]).toBe(getSkillDef(ART)!.move);
+    expect(moves[0]!.id).toBe(getSkillDef(ART)!.move!.id);
     expect(new Set(moves.map((m) => m.id)).size).toBe(VOLUME_COUNT);
     expect(new Set(moves.map((m) => m.name)).size).toBe(VOLUME_COUNT);
     expect(volumeOfMoveId(moves[4]!.id)).toEqual({ skillId: ART, vol: 5 });
+  });
+
+  it('test_every_external_art_has_seven_named_volumes_of_2_to_4_chars', () => {
+    const arts = Object.values(SKILL_DEFS).filter((d) => hasVolumes(d.id));
+    expect(arts.length).toBeGreaterThan(60);
+    for (const d of arts) {
+      const names = artVolumeMoves(d.id).map((m) => m.name);
+      expect((VOLUMES_JSON.volumes as Record<string, string[]>)[d.id], d.id).toHaveLength(VOLUME_COUNT);
+      for (const n of names) expect([...n].length, `${d.id} ${n}`).toBeGreaterThanOrEqual(2);
+      for (const n of names) expect([...n].length, `${d.id} ${n}`).toBeLessThanOrEqual(4);
+      expect(new Set(names).size, d.id).toBe(VOLUME_COUNT);
+    }
   });
 
   it('test_internal_arts_are_not_split', () => {

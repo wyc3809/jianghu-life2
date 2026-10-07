@@ -327,6 +327,8 @@ export interface CombatReplay {
   foeMaxHp: number;
   startPlayerHp: number;
   startFoeHp: number;
+  /** 敵人係首領（演出用大隻剪影） */
+  foeBoss?: boolean;
   /** 玩家主修外功（顯示七卷用） */
   artId?: string;
   /** 玩家已得嘅卷 */

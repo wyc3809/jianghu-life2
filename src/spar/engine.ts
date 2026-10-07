@@ -263,6 +263,13 @@ export interface SparCombatHooks {
   foeDefeated(): { coins: number };
   /** 敗退倒地動畫完：退一關、回血 */
   heroRecovered(): void;
+  /**
+   * 照劇本播（自動交手演出用，演武台唔傳）：而家輪唔輪到主角出手。
+   * 唔傳＝照舊射程內即出手。
+   */
+  heroMayAttack?(): boolean;
+  /** 照劇本播：而家輪唔輪到敵人出手（輪到就即刻撲擊，唔等計時）。唔傳＝照舊計時 */
+  foeMayAttack?(): boolean;
 }
 
 /** 血條等 DOM 浮層嘅錨點（css px） */
@@ -637,7 +644,7 @@ export class SparStage {
     } else if (dir.phase === 'strike' || (inRange && dir.phase === 'approach')) {
       // approach 入近戰已 requestWindup；strike 由 consumeWindup 開招
       this.attackCooldown -= dt;
-      if (dir.phase === 'approach' && this.attackCooldown <= 0 && inRange) {
+      if (dir.phase === 'approach' && this.attackCooldown <= 0 && inRange && (this.combat?.heroMayAttack?.() ?? true)) {
         this.director.requestWindup();
       }
     } else {
@@ -709,6 +716,11 @@ export class SparStage {
     const close = e.x - this.heroX <= this.duelGap() + this.enemyFront(e) + 24;
     if (e.lungeT === null) {
       if (!close) return;
+      if (this.combat?.foeMayAttack) {
+        // 照劇本：未輪到就企定；輪到就好快出手
+        if (!this.combat.foeMayAttack()) return;
+        e.atkTimer = Math.min(e.atkTimer, 0.18);
+      }
       e.atkTimer -= dt;
       if (e.atkTimer <= 0) {
         e.lungeT = 0;
