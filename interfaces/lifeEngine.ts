@@ -233,6 +233,8 @@ export interface LifeCharacter {
   mainArts?: { external?: string; internal?: string; qinggong?: string };
   /** 秘笈升階（帳戶家族收藏嘅鏡像，畀戰鬥計威力用；見 core/life/gacha.ts） */
   manualStars?: Record<string, number>;
+  /** 外功七卷：已得嘅卷號（1–7）；冇記錄＝只有卷一 */
+  volumes?: Record<string, number[]>;
   sectId: string | null;
   /** 門中地位 0外門–3執事 */
   sectStanding: number;
@@ -290,6 +292,9 @@ export interface ContestantBuild {
   gear: string[];
   equipment: LifeCharacter['equipment'];
   isPlayer?: boolean;
+  /** 外功七卷：自動比武用嘅外功同已得卷號 */
+  autoArt?: string;
+  autoVols?: number[];
 }
 
 export interface HuashanBracketMatch {
@@ -302,6 +307,34 @@ export interface HuashanBracketMatch {
   resolved: boolean;
 }
 
+/** 自動戰鬥演出：逐招紀錄（玩家方 vol＝外功第幾卷） */
+export interface CombatReplayHit {
+  side: 'player' | 'foe';
+  moveName: string;
+  vol?: number;
+  skillId?: string;
+  /** 今招造成嘅傷害（0＝落空／被架） */
+  damage: number;
+  playerHp: number;
+  foeHp: number;
+}
+
+export interface CombatReplay {
+  title: string;
+  playerName: string;
+  foeName: string;
+  playerMaxHp: number;
+  foeMaxHp: number;
+  startPlayerHp: number;
+  startFoeHp: number;
+  /** 玩家主修外功（顯示七卷用） */
+  artId?: string;
+  /** 玩家已得嘅卷 */
+  vols?: number[];
+  rounds: { round: number; hits: CombatReplayHit[] }[];
+  outcome: 'resolve' | 'won' | 'lost' | 'ended';
+}
+
 /** 單淘汰八強賽（P0：幽靈對手） */
 export interface HuashanBracketState {
   seasonKey: string;
@@ -312,6 +345,8 @@ export interface HuashanBracketState {
   status: 'active' | 'completed';
   placement?: number;
   lastDuelLog?: string[];
+  /** 最近一場（玩家）論劍嘅自動戰鬥演出 */
+  lastDuelReplay?: CombatReplay;
 }
 
 export const huashanBracketSchema = z
@@ -334,6 +369,7 @@ export const huashanBracketSchema = z
     status: z.enum(['active', 'completed']),
     placement: z.number().optional(),
     lastDuelLog: z.array(z.string()).optional(),
+    lastDuelReplay: z.any().optional(),
   })
   .optional();
 
@@ -514,6 +550,8 @@ export interface PendingCombat {
   usedDesperateBurn?: boolean;
   /** 敵方是否已跪地求饒（可選「廢武功」處置） */
   foeSurrendered?: boolean;
+  /** 敵人最近一招名（自動戰鬥演出用） */
+  lastFoeMoveName?: string;
 }
 
 export const lifeCharacterSchema = z.object({
@@ -578,6 +616,7 @@ export const lifeCharacterSchema = z.object({
     .object({ external: z.string().optional(), internal: z.string().optional(), qinggong: z.string().optional() })
     .optional(),
   manualStars: z.record(z.string(), z.number()).optional(),
+  volumes: z.record(z.string(), z.array(z.number())).optional(),
   sectId: z.string().nullable(),
   sectStanding: z.number().default(0),
   loverId: z.string().nullable(),

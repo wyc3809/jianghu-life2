@@ -7,6 +7,8 @@
 import type { AncestryMeta, EncounterState } from '@interfaces/ancestry';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { createRng } from '@core/random';
+import { VOLUME_COUNT, hasVolumes } from '@data/skills/volumes';
+import { addCollectionVolume, collectionVolumes } from './volumes';
 import {
   ENCOUNTERS,
   ENCOUNTER_FIRST_DELAY_MINUTES,
@@ -83,7 +85,17 @@ export function tickEncounter(meta: AncestryMeta, state: LifeGameState | null, n
       return 'none';
     }
     const before = e.active.progress;
-    if (state) {
+    if (state && route.trial === 'harvest') {
+      // 賺銀兩：身上銀兩每次增加都計（演武、收成、事件、交手…）；使錢唔扣；換代唔計遺產
+      const key = lifeKey(state);
+      const money = state.character.money ?? 0;
+      if (key !== e.active.base.lifeKey || e.active.lastMoney === undefined) {
+        e.active.base = { lifeKey: key, value: 0 };
+      } else if (money > e.active.lastMoney) {
+        e.active.progress = Math.min(route.target, e.active.progress + (money - e.active.lastMoney));
+      }
+      e.active.lastMoney = money;
+    } else if (state) {
       const key = lifeKey(state);
       const v = trialValue(state, route.trial);
       if (key !== e.active.base.lifeKey) {
@@ -128,6 +140,7 @@ export function chooseEncounterRoute(meta: AncestryMeta, state: LifeGameState, r
     carried: 0,
     base: { lifeKey: lifeKey(state), value: trialValue(state, route.trial) },
     progress: 0,
+    ...(route.trial === 'harvest' ? { lastMoney: state.character.money ?? 0 } : {}),
   };
   e.offer = undefined;
   return true;
@@ -151,11 +164,21 @@ export function claimEncounter(meta: AncestryMeta, now: number): string | null {
   meta.manuals ??= {};
   const fresh = tpl.rewards.filter((id) => !meta.manuals![id]);
   const pickFrom = fresh.length ? fresh : tpl.rewards;
-  const reward = pickFrom[createRng(0x1b873593 ^ ((e.seq + 3) * 31)).nextInt(0, pickFrom.length - 1)]!;
-  const owned = meta.manuals[reward];
-  if (owned) owned.copies += 1;
-  else meta.manuals[reward] = { stars: 0, copies: 0 };
-  e.last = { tpl: a.tpl, result: 'done', reward, at: now };
+  const rng = createRng(0x1b873593 ^ ((e.seq + 3) * 31));
+  const reward = pickFrom[rng.nextInt(0, pickFrom.length - 1)]!;
+  let vol: number | undefined;
+  if (hasVolumes(reward)) {
+    // 外功逐卷出：優先未有嘅卷
+    const have = new Set(meta.manuals[reward] ? collectionVolumes(meta, reward) : []);
+    const missing = Array.from({ length: VOLUME_COUNT }, (_, i) => i + 1).filter((v) => !have.has(v));
+    vol = missing.length ? missing[rng.nextInt(0, missing.length - 1)]! : rng.nextInt(1, VOLUME_COUNT);
+    addCollectionVolume(meta, reward, vol);
+  } else {
+    const owned = meta.manuals[reward];
+    if (owned) owned.copies += 1;
+    else meta.manuals[reward] = { stars: 0, copies: 0 };
+  }
+  e.last = { tpl: a.tpl, result: 'done', reward, ...(vol ? { vol } : {}), at: now };
   e.active = undefined;
   e.done += 1;
   scheduleNext(e, now);

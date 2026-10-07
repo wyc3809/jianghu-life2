@@ -1,4 +1,6 @@
+import { useEffect, useRef, useState } from 'react';
 import type { HuashanBracketState, LifeGameState } from '@interfaces/lifeEngine';
+import { InkAutoBattle } from './InkAutoBattle';
 import {
   bracketProgressLabel,
   buildBracketTree,
@@ -64,12 +66,20 @@ export function InkHuashanPanel({
   const gate = canEnterHuashan(state);
   const pending = bracket ? getPendingHuashanMatch(bracket) : null;
   const lastLog = bracket?.lastDuelLog;
+  const replay = bracket?.lastDuelReplay;
+  // 論劍自動比武：每打完一場即刻播演出；之後可以重播
+  const [watching, setWatching] = useState(false);
+  const seenReplay = useRef(replay);
+  useEffect(() => {
+    if (replay && replay !== seenReplay.current) setWatching(true);
+    seenReplay.current = replay;
+  }, [replay]);
 
   return (
     <section className="ink-panel ink-huashan-panel ink-tab-pane" aria-label="華山論劍">
       <h3>華山論劍</h3>
       <p className="ink-note">
-        每週一會，八強論劍。不即時交手，依雙方武功與招式推演勝負；其餘席位為江湖名手幻影。
+        每週一會，八強論劍。自動交手：雙方主修外功已得嘅卷逐招出手；其餘席位為江湖名手幻影。
       </p>
       <p className="ink-note ink-huashan-season">本期論劍：{huashanSeasonLabel(season)}</p>
 
@@ -113,9 +123,16 @@ export function InkHuashanPanel({
             </button>
           )}
 
+          {watching && replay && <InkAutoBattle replay={replay} onDone={() => setWatching(false)} />}
+
           {lastLog && lastLog.length > 0 && (
             <div className="ink-huashan-log">
               <h4 className="ink-subhead">交手紀要</h4>
+              {replay && (
+                <button type="button" className="ink-btn ink-btn--quiet" onClick={() => setWatching(true)}>
+                  重播上一場
+                </button>
+              )}
               <pre className="ink-epitaph-text ink-huashan-pre">{lastLog.join('\n')}</pre>
               <button
                 type="button"

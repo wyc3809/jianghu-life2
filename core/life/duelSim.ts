@@ -13,7 +13,8 @@ import { getGearDef } from '@data/equipment/catalog';
 import { gearTotals, ensureGear, sumGearCombatBonuses } from './equipment';
 import { rankPowerMult } from './martialRanks';
 import type { CombatFighterState, LifeCharacter, WuxiaAttribute } from '@interfaces/lifeEngine';
-import type { ContestantBuild } from '@interfaces/lifeEngine';
+import type { CombatReplay, CombatReplayHit, ContestantBuild } from '@interfaces/lifeEngine';
+import { artVolumeMoves, normalizeVolumes } from '@data/skills/volumes';
 import { clamp, tickStatus, resolveStrike as resolveStrikeCore } from './combatCore';
 import { weaponSynergyForLoadout } from './weaponMastery';
 
@@ -208,6 +209,64 @@ export interface ContestDuelResult {
   loserId: string;
   log: string[];
   draw: boolean;
+  /** 自動戰鬥演出（玩家視角；冇玩家嘅場就以 a 方做「玩家」） */
+  replay: CombatReplay;
+}
+
+/** 外功七卷：呢方每回合出嘅招（按卷序、內力夠先出） */
+function volumeChain(fighter: ContestFighter, loadout: ContestantBuild): { move: CombatMoveDef; vol: number }[] {
+  if (!loadout.autoArt || !loadout.skills.includes(loadout.autoArt)) return [];
+  const moves = artVolumeMoves(loadout.autoArt);
+  let qi = fighter.qi;
+  const out: { move: CombatMoveDef; vol: number }[] = [];
+  for (const vol of normalizeVolumes([1, ...(loadout.autoVols ?? [])])) {
+    const m = moves[vol - 1];
+    if (!m || qi < m.qiCost) continue;
+    qi -= m.qiCost;
+    out.push({ move: m, vol });
+  }
+  return out;
+}
+
+/** 有七卷就逐卷出；冇就照舊揀一招。返回逐招紀錄 */
+function executeAutoTurn(
+  attacker: ContestFighter,
+  defender: ContestFighter,
+  loadout: ContestantBuild,
+  moves: CombatMoveDef[],
+  rng: SeededRng,
+  side: 'player' | 'foe',
+  hp: () => { playerHp: number; foeHp: number },
+): { lines: string[]; hits: CombatReplayHit[] } {
+  const chain = volumeChain(attacker, loadout);
+  if (!chain.length) {
+    const before = defender.hp;
+    const lines = executeTurn(attacker, defender, loadout, moves, rng);
+    const name = /「(.+?)」/.exec(lines.find((l) => l.includes('「')) ?? '')?.[1] ?? '出手';
+    return { lines, hits: [{ side, moveName: name, damage: Math.max(0, Math.round(before - defender.hp)), ...hp() }] };
+  }
+  const lines: string[] = [...tickStatus(attacker)];
+  const hits: CombatReplayHit[] = [];
+  if (attacker.hp <= 0) return { lines, hits };
+  if (attacker.stun > 0) {
+    attacker.stun -= 1;
+    lines.push(`${attacker.name}穴道未暢，這一招使不出來。`);
+    return { lines, hits };
+  }
+  for (const { move, vol } of chain) {
+    if (defender.hp <= 0) break;
+    const before = defender.hp;
+    lines.push(...resolveStrike(attacker, defender, move, loadout, rng));
+    hits.push({
+      side,
+      moveName: move.name,
+      vol,
+      skillId: loadout.autoArt,
+      damage: Math.max(0, Math.round(before - defender.hp)),
+      ...hp(),
+    });
+  }
+  return { lines, hits };
 }
 
 /** 非即時自動比武：依雙方武功與數值推演，固定 seed 可重播 */
@@ -226,15 +285,39 @@ export function simulateContestDuel(opts: {
   const movesA = listExternalMovesForSkills(opts.a.skills);
   const movesB = listExternalMovesForSkills(opts.b.skills);
   const log: string[] = [`【${opts.title}】`, `${opts.a.name} 對 ${opts.b.name}，劍拔弩張。`];
+  // 演出用「玩家」方：玩家喺 b 就對調
+  const playerIsB = opts.aIsPlayer === false && Boolean(opts.b.isPlayer);
+  const pF = playerIsB ? bF : aF;
+  const fF = playerIsB ? aF : bF;
+  const pB = playerIsB ? opts.b : opts.a;
+  const hp = () => ({ playerHp: Math.max(0, Math.round(pF.hp)), foeHp: Math.max(0, Math.round(fF.hp)) });
+  const replay: CombatReplay = {
+    title: opts.title,
+    playerName: pF.name,
+    foeName: fF.name,
+    playerMaxHp: pF.maxHp,
+    foeMaxHp: fF.maxHp,
+    startPlayerHp: pF.hp,
+    startFoeHp: fF.hp,
+    ...(pB.autoArt ? { artId: pB.autoArt, vols: normalizeVolumes([1, ...(pB.autoVols ?? [])]) } : {}),
+    rounds: [],
+    outcome: 'ended',
+  };
+  const sideOf = (isA: boolean): 'player' | 'foe' => (isA !== playerIsB ? 'player' : 'foe');
 
   for (let turn = 1; turn <= maxTurns; turn += 1) {
+    const hits: CombatReplayHit[] = [];
     if (aF.hp > 0 && bF.hp > 0) {
-      log.push(...executeTurn(aF, bF, opts.a, movesA, rng));
+      const t = executeAutoTurn(aF, bF, opts.a, movesA, rng, sideOf(true), hp);
+      log.push(...t.lines);
+      hits.push(...t.hits);
     }
-    if (bF.hp <= 0 || aF.hp <= 0) break;
-    if (aF.hp > 0 && bF.hp > 0) {
-      log.push(...executeTurn(bF, aF, opts.b, movesB, rng));
+    if (bF.hp > 0 && aF.hp > 0) {
+      const t = executeAutoTurn(bF, aF, opts.b, movesB, rng, sideOf(false), hp);
+      log.push(...t.lines);
+      hits.push(...t.hits);
     }
+    replay.rounds.push({ round: turn, hits });
     if (bF.hp <= 0 || aF.hp <= 0) break;
   }
 
@@ -262,7 +345,9 @@ export function simulateContestDuel(opts: {
     log.push(`${opts.a.name}氣竭敗北。`);
   }
 
-  return { winnerId, loserId, log, draw };
+  const playerId = playerIsB ? opts.b.id : opts.a.id;
+  replay.outcome = winnerId === playerId ? 'won' : 'lost';
+  return { winnerId, loserId, log, draw, replay };
 }
 
 export function defaultAttributes(martial: number): Record<WuxiaAttribute, number> {

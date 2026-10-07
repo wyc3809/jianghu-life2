@@ -1,4 +1,6 @@
 import { InkMainArts } from './InkMainArts';
+import { VOLUME_COUNT, VOLUME_NUMERALS, artVolumeMoves, hasVolumes } from '@data/skills/volumes';
+import { ownedVolumes } from '@core/life/volumes';
 import { mainArts } from '@core/life/schools';
 import { SCHOOLS, schoolOfGear, schoolsOfSkill } from '@data/redesign/schools';
 import type { SkillKind } from '@data/skills/catalog';
@@ -486,6 +488,21 @@ export function InkPersonPanel({
                         {stance ? ` · ${MOVE_STANCE_LABEL[stance]}` : ''}
                         {def.move.qiCost > 0 ? ` · 耗內${def.move.qiCost}` : ' · 無耗'}
                         {def.move.power > 0 ? ` · 威×${def.move.power.toFixed(1)}` : ''}
+                      </p>
+                    ) : null}
+                    {hasVolumes(id) ? (
+                      <p className="ink-skill-vols" aria-label="七卷">
+                        {artVolumeMoves(id).map((m, i) => {
+                          const on = ownedVolumes(c, id).includes(i + 1);
+                          return (
+                            <i key={m.id} className={on ? 'is-on' : ''} title={on ? m.name : '未得'}>
+                              {VOLUME_NUMERALS[i]}
+                            </i>
+                          );
+                        })}
+                        <span>
+                          已得 {ownedVolumes(c, id).length}／{VOLUME_COUNT} 卷 · 自動交手每回合逐卷出招
+                        </span>
                       </p>
                     ) : null}
                     <p className="ink-skill-fx">{formatSkillEffects(id) || '尚無詳載'}</p>

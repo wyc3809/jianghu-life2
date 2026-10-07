@@ -35,8 +35,8 @@ export const GACHA_COST_PER_PULL = 60;
 export const GACHA_WISH_PITY = 40;
 /** 每抽直接出心願嘅機率（未到保底前）——測試參數 */
 export const GACHA_WISH_RATE = 0.025;
-/** 「珍本奇功」池：每抽出珍本（非心願）嘅機率，其餘出免費池武學——測試參數 */
-export const GACHA_PREMIUM_RATE = 0.175;
+/** 「珍本奇功」池：每抽出珍本（非心願）嘅機率，其餘出免費池武學——玩家要求高階更難抽（2026-10-07）：17.5% → 6% */
+export const GACHA_PREMIUM_RATE = 0.06;
 
 /** 重複秘笈：升階上限——玩家揀最多 3 次 */
 export const MANUAL_MAX_STARS = 3;

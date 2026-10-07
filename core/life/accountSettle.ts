@@ -4,7 +4,9 @@
  *   - 成就（帳戶首次）→ 免費玉石
  *   - 人生入面賺到嘅「待入帳玉石」（過月、突破、演武台每 10 關）→ 免費玉石
  *   - 秘笈升階（帳戶收藏）→ 鏡像去角色 manualStars，畀戰鬥用
+ *   - 外功七卷（帳戶收藏）→ 同步落角色 volumes
  */
+import { syncCollectionVolumes } from './volumes';
 import type { AncestryMeta } from '@interfaces/ancestry';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import type { FamilyMilestone } from '@data/ancestry/milestones';
@@ -40,11 +42,13 @@ export function settleLifeIntoAccount(meta: AncestryMeta, state: LifeGameState):
   const have = state.character.manualStars ?? {};
   const starsDiffer = JSON.stringify(want) !== JSON.stringify(have);
   if (starsDiffer) state.character.manualStars = want;
+  // 家族收藏嘅外功卷 → 同步落今世角色已學嘅外功
+  const volsChanged = syncCollectionVolumes(state.character, meta);
 
   return {
     milestones,
     jade,
     metaChanged: milestones.length > 0 || fresh.length > 0 || jade > 0,
-    lifeChanged: pending > 0 || starsDiffer,
+    lifeChanged: pending > 0 || starsDiffer || volsChanged,
   };
 }

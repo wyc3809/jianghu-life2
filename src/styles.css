@@ -9720,3 +9720,341 @@ button.ink-enc-strip {
   width: 5px;
   background: var(--cinnabar);
 }
+
+/* ===== 自動交手演出（外功七卷，逐招扣血出特效；玩家決定 2026-10-07） ===== */
+.ink-auto {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(20, 18, 14, 0.55);
+}
+
+.ink-auto-card {
+  width: min(400px, 100%);
+  max-height: 100%;
+  overflow: auto;
+  padding: 14px 14px 12px;
+  border: 1px solid rgba(26, 26, 26, 0.3);
+  background: var(--paper-bright);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+}
+
+.ink-auto-head {
+  position: relative;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.ink-auto-kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--cinnabar);
+}
+
+.ink-auto-head h3 {
+  margin: 2px 0 0;
+  font-size: 1.1rem;
+  letter-spacing: 0.18em;
+}
+
+.ink-auto-skip {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 3px 10px;
+  border: 1px solid var(--ink-faint);
+  background: transparent;
+  color: var(--ink-mid);
+  font-family: inherit;
+  font-size: 0.74rem;
+  cursor: pointer;
+}
+
+.ink-auto-side {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+}
+
+.ink-auto-side .ink-brush-bar {
+  height: 10px;
+}
+
+.ink-auto-name {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  max-width: 6.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ink-auto-hp {
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-mid);
+}
+
+/* 打鬥場：敵上我下，命中嗰邊出筆觸＋傷害數字 */
+.ink-auto-arena {
+  position: relative;
+  height: 190px;
+  margin: 8px 0;
+  border: 1px solid var(--ink-faint);
+  background:
+    radial-gradient(ellipse at 50% 55%, rgba(26, 26, 26, 0.1), transparent 65%),
+    linear-gradient(180deg, #efe6d6, #f7f1e6 55%, #e9dfcc);
+  overflow: hidden;
+}
+
+.ink-auto-fighter {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border: 2px solid #1a1a1a;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fffcf5, #e6dcc6 75%);
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.ink-auto-fighter.is-foe {
+  top: 18px;
+  right: 22%;
+  border-color: var(--cinnabar);
+  color: var(--cinnabar);
+}
+
+.ink-auto-fighter.is-player {
+  bottom: 18px;
+  left: 22%;
+}
+
+.ink-auto-arena.is-player .ink-auto-fighter.is-player,
+.ink-auto-arena.is-foe .ink-auto-fighter.is-foe {
+  animation: ink-auto-lunge 0.42s ease-out;
+}
+
+.ink-auto-arena.is-player .ink-auto-fighter.is-foe,
+.ink-auto-arena.is-foe .ink-auto-fighter.is-player {
+  animation: ink-auto-shake 0.38s ease-out;
+}
+
+@keyframes ink-auto-lunge {
+  40% {
+    transform: scale(1.12) translateY(-4px);
+  }
+}
+
+@keyframes ink-auto-shake {
+  20% {
+    transform: translateX(-6px);
+  }
+  45% {
+    transform: translateX(5px);
+  }
+  70% {
+    transform: translateX(-3px);
+  }
+}
+
+.ink-auto-hit {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+.ink-auto-hit.is-player {
+  top: 12px;
+}
+
+.ink-auto-hit.is-foe {
+  bottom: 12px;
+}
+
+.ink-auto-slash {
+  position: absolute;
+  top: -6px;
+  width: 190px;
+  height: auto;
+  opacity: 0;
+  animation: ink-auto-slash 0.5s ease-out forwards;
+}
+
+.ink-auto-hit.is-foe .ink-auto-slash {
+  top: auto;
+  bottom: -6px;
+  transform: scaleX(-1);
+}
+
+@keyframes ink-auto-slash {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+  }
+  30% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.ink-auto-move {
+  position: relative;
+  margin-top: 64px;
+  padding: 2px 10px;
+  background: rgba(26, 26, 26, 0.82);
+  color: #f6f1e6;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  animation: ink-auto-pop 0.3s ease-out;
+}
+
+.ink-auto-hit.is-foe .ink-auto-move {
+  margin-top: 0;
+  margin-bottom: 64px;
+  order: 2;
+  background: rgba(163, 58, 50, 0.9);
+}
+
+.ink-auto-dmg {
+  position: relative;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--cinnabar);
+  text-shadow: 0 2px 0 #fffaf0;
+  animation: ink-auto-float 0.6s ease-out forwards;
+}
+
+.ink-auto-hit.is-foe .ink-auto-dmg {
+  order: 1;
+  color: #1a1a1a;
+}
+
+.ink-auto-hit.is-miss .ink-auto-dmg {
+  font-size: 1rem;
+  color: var(--ink-mid);
+}
+
+@keyframes ink-auto-pop {
+  from {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+}
+
+@keyframes ink-auto-float {
+  from {
+    transform: translateY(8px) scale(0.7);
+    opacity: 0;
+  }
+  35% {
+    transform: translateY(0) scale(1.15);
+    opacity: 1;
+  }
+}
+
+/* 七卷：已得亮起、輪到嗰卷發光 */
+.ink-auto-vols {
+  margin-top: 10px;
+}
+
+.ink-auto-vols-title {
+  margin: 0 0 6px;
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-mid);
+}
+
+.ink-auto-vols ol {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ink-auto-vol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  min-height: 64px;
+  padding: 6px 2px;
+  border: 1px dashed rgba(26, 26, 26, 0.25);
+  color: var(--ink-soft);
+  text-align: center;
+  opacity: 0.6;
+}
+
+.ink-auto-vol b {
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+}
+
+.ink-auto-vol span {
+  font-size: 0.62rem;
+  line-height: 1.25;
+  word-break: break-all;
+}
+
+.ink-auto-vol.is-on {
+  border: 1px solid #1a1a1a;
+  background: #fffaf0;
+  color: #1a1a1a;
+  opacity: 1;
+}
+
+.ink-auto-vol.is-active {
+  border-color: var(--cinnabar);
+  background: var(--cinnabar);
+  color: #f6f1e6;
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(163, 58, 50, 0.35);
+  transition: transform 0.12s ease;
+}
+
+/* 人物 → 武學：外功七卷格 */
+.ink-skill-vols {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 3px;
+  margin: 4px 0;
+}
+
+.ink-skill-vols i {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1px dashed var(--ink-faint);
+  color: var(--ink-soft);
+  font-style: normal;
+  font-size: 0.66rem;
+}
+
+.ink-skill-vols i.is-on {
+  border: 1px solid #1a1a1a;
+  background: #1a1a1a;
+  color: #f6f1e6;
+}
+
+.ink-skill-vols span {
+  margin-left: 4px;
+  font-size: 0.7rem;
+  color: var(--ink-mid);
+}

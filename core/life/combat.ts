@@ -16,6 +16,8 @@ import {
   isRecoverySupportMove,
   effectiveMoveCooldown,
 } from '@data/skills/catalog';
+import { volumeMove, volumeOfMoveId } from '@data/skills/volumes';
+import { ownedVolumes } from './volumes';
 import { addCondition } from './monthly';
 import { applyCombatInjuries } from './injuries';
 import { armAttackFactor, legEvasionPenalty } from './injuryMath';
@@ -290,6 +292,12 @@ function findMove(state: LifeGameState, moveId: string): CombatMoveDef | null {
     const def = getSkillDef(id);
     if (def?.move?.id === moveId) return withManualStars(def.move, state.character.manualStars?.[id]);
   }
+  // 外功七卷：卷二至卷七（要已得呢卷）
+  const v = volumeOfMoveId(moveId);
+  if (v && ownedVolumes(state.character, v.skillId).includes(v.vol)) {
+    const m = volumeMove(v.skillId, v.vol);
+    if (m) return withManualStars(m, state.character.manualStars?.[v.skillId]);
+  }
   return null;
 }
 
@@ -304,7 +312,8 @@ function skillIdForMove(state: LifeGameState, moveId: string): string | null {
     const def = getSkillDef(id);
     if (def?.kind === 'external' && def.move?.id === moveId) return id;
   }
-  return null;
+  const v = volumeOfMoveId(moveId);
+  return v && state.character.skills.includes(v.skillId) ? v.skillId : null;
 }
 
 /** 持對應兵器時：威力／命中隨專精加深；錯兵略滯 */
@@ -459,7 +468,8 @@ function finishCombatWin(state: LifeGameState, dispositionLabel?: CombatFoeDispo
   // 擊暈：戰利略薄；殺死：略加銀錢；放走：銀錢略減但可能有後續報恩
   if (dispositionLabel === 'stun') {
     if (r.money) r.money = Math.max(1, Math.floor(r.money * 0.55));
-    if (r.gearId && rng.chance(0.45)) {
+    // 新手試煉嘅獎勵一定要到手（新手流程第 2 步靠佢換裝）
+    if (r.gearId && combat.eventId !== 'newbie_trial' && rng.chance(0.45)) {
       lines.push('對方昏倒時行囊散落不全，兵器未能穩穩入手。');
       delete r.gearId;
     }
@@ -629,7 +639,17 @@ export function setCombatInternalMode(state: LifeGameState, modeId: string | nul
 /**
  * 玩家回合：選招 → 與敵同期對勢（虛實架）→ 結算你我傷害
  */
-export function playerCombatTurn(state: LifeGameState, moveId: string): string[] {
+/** 自動戰鬥串招用：同一回合連出幾招，只有最後一招之後敵人先還手 */
+export interface TurnChainOpts {
+  /** 唔係本回合第一招：唔再結算回合開頭嘅狀態（流血、內功模式等） */
+  chained?: boolean;
+  /** 唔係本回合最後一招：出完招唔輪到敵人 */
+  skipEnemy?: boolean;
+  /** 自動戰鬥：七卷每回合各出一次，唔計招式冷卻 */
+  ignoreCooldown?: boolean;
+}
+
+export function playerCombatTurn(state: LifeGameState, moveId: string, chain: TurnChainOpts = {}): string[] {
   if (!state.pendingCombat || state.pendingCombat.phase !== 'player') {
     return ['此刻並無交手。'];
   }
@@ -641,10 +661,12 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
   const combat = state.pendingCombat;
   const lines: string[] = [];
 
-  lines.push(...tickStatus(combat.player));
-  const modeLines = tickInternalMode(combat.player, rng);
-  lines.push(...modeLines);
-  combat.log.push(...modeLines);
+  if (!chain.chained) {
+    lines.push(...tickStatus(combat.player));
+    const modeLines = tickInternalMode(combat.player, rng);
+    lines.push(...modeLines);
+    combat.log.push(...modeLines);
+  }
   if (combat.player.hp <= 0) {
     const reviveLines = tryGearRevive(combat.player);
     if (reviveLines.length) {
@@ -661,6 +683,7 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
   const bossEnragedPreview =
     combat.foePower === 'boss' && combat.foe.maxHp > 0 && combat.foe.hp / combat.foe.maxHp <= 0.45;
   const enemyMove = enemyChooseMove(combat, rng, Boolean(combat.bossPhase2 || bossEnragedPreview));
+  combat.lastFoeMoveName = enemyMove.name;
   const playerMovePreview = findMove(state, moveId) ?? BASIC_STRIKE;
   const playerStance = resolveMoveStance(playerMovePreview);
   const foeStance = resolveMoveStance(enemyMove);
@@ -673,14 +696,14 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
   lines.push(reveal);
   combat.log.push(reveal);
 
-  if (combat.player.stun > 0) {
+  if (combat.player.stun > 0 && !chain.chained) {
     combat.player.stun -= 1;
     lines.push('你穴道未暢，這一招使不出來。');
     combat.log.push(lines[lines.length - 1]!);
   } else {
-    tickRegen(combat.player);
+    if (!chain.chained) tickRegen(combat.player);
     const move = playerMovePreview;
-    const cdLeft = getMoveCooldownRemaining(combat, move.id);
+    const cdLeft = chain.ignoreCooldown ? 0 : getMoveCooldownRemaining(combat, move.id);
     if (cdLeft > 0) {
       const cdLine = `「${move.name}」尚在調息，還需 ${cdLeft} 回合。`;
       lines.push(cdLine);
@@ -866,7 +889,7 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
       strikeLines.push(...applyGearSpecialOnHit(combat.player, combat.foe, rng));
       lines.push(...strikeLines);
       combat.log.push(...strikeLines);
-      setMoveCooldown(combat, move);
+      if (!chain.ignoreCooldown) setMoveCooldown(combat, move);
     }
   }
 
@@ -895,6 +918,11 @@ export function playerCombatTurn(state: LifeGameState, moveId: string): string[]
     const end = finishCombat(state, true);
     snapshotRng(state);
     return [...lines, ...end];
+  }
+
+  if (chain.skipEnemy) {
+    snapshotRng(state);
+    return lines;
   }
 
   combat.phase = 'enemy';

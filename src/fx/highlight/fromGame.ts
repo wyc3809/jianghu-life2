@@ -2,6 +2,7 @@
  * 遊戲狀態 → 高光時刻設定（純展示映射，唔改遊戲狀態）。
  * 寶箱＝新裝備（品階＝裝備稀有度）；令牌＝學武學／升階；丹爐＝境界突破成功。
  */
+import { VOLUME_NUMERALS } from '@data/skills/volumes';
 import type { LifeGameState, LifeMoment } from '@interfaces/lifeEngine';
 import type { BreakthroughResult } from '@core/life/cultivation';
 import { getGearDef, rarityLabel, type GearDef, type GearRarity } from '@data/equipment/catalog';
@@ -169,7 +170,7 @@ export function breakthroughHighlight(state: LifeGameState, r: BreakthroughResul
  * 品階：心願＝5、珍本奇功＝4、新武學＝2、重複＝1。
  */
 export function gachaHighlight(
-  results: { id: string; isNew: boolean; isWish: boolean; isPremium: boolean }[],
+  results: { id: string; vol?: number; isNew: boolean; isWish: boolean; isPremium: boolean }[],
   names: (id: string) => string,
   blurbOf: (id: string) => string | undefined,
   jade: { free: number; paidTest: number },
@@ -188,16 +189,16 @@ export function gachaHighlight(
     seal: '武',
     revealSub: wish
       ? `${names(wish.id)} · 心願秘笈到手`
-      : `${results.length} 本秘笈 · 新得 ${fresh} 本`,
+      : `${results.length} 卷秘笈 · 新得 ${fresh} 卷`,
     balances: { coin: { label: '免費玉石', value: jade.free }, gem: { label: '付費玉石', value: jade.paidTest } },
     rewards: results.map((r, i) => ({
       id: `gacha-${r.id}-${i}`,
       icon: 'scroll' as const,
       pattern: 'art' as const,
-      name: names(r.id),
+      name: r.vol ? `${names(r.id)}·卷${VOLUME_NUMERALS[r.vol - 1]}` : names(r.id),
       grade: gradeOf(r),
       isNew: r.isNew,
-      blurb: `${r.isWish ? '【心願】' : ''}${r.isPremium ? '【珍本奇功】' : ''}${blurbOf(r.id) ?? ''}${r.isNew ? '' : '（重複本：可升階或轉書頁）'}`,
+      blurb: `${r.isWish ? '【心願】' : ''}${r.isPremium ? '【珍本奇功】' : ''}${blurbOf(r.id) ?? ''}${r.isNew ? '' : '（重複：可升階或轉書頁）'}`,
     })),
   };
 }

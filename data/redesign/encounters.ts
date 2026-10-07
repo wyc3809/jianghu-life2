@@ -1,7 +1,7 @@
 /**
  * 在線奇遇（design/agreed-design-2026-10.md §3.3）。
  * 玩家決定（2026-10-05）：每星期約 2–3 次、只喺在線時彈；揀咗第一個決定先開始計 1–3 日；
- * 考驗用遊戲內進度達成（尋人＝過月、收集＝收成銀兩、比試＝演武台過關／打贏交手）；
+ * 考驗用遊戲內進度達成（尋人＝過月、收集＝賺銀兩（任何來源嘅銀兩增加都計）、比試＝演武台過關／打贏交手）；
  * 過期乜都冇；離線時間照計。
  *
  * ⚠ 故事、路線、考驗目標、期限、獎勵範圍屬**測試參數**，玩家睇圖後可改。
@@ -19,7 +19,7 @@ export type TrialKind = 'months' | 'harvest' | 'stages' | 'wins';
 
 export const TRIAL_LABEL: Record<TrialKind, { verb: string; unit: string }> = {
   months: { verb: '過月', unit: '個月' },
-  harvest: { verb: '收成銀兩', unit: '兩' },
+  harvest: { verb: '賺銀兩', unit: '兩' },
   stages: { verb: '演武台再過', unit: '關' },
   wins: { verb: '交手打贏', unit: '場' },
 };

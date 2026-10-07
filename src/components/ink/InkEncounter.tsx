@@ -1,5 +1,6 @@
 import { createPortal } from 'react-dom';
 import { getSkillDef, skillKindLabel, skillLabel } from '@data/skills/catalog';
+import { volumeLabel } from '@data/skills/volumes';
 import { TRIAL_LABEL, ENCOUNTER_OFFER_HOURS } from '@data/redesign/encounters';
 import { encounterRoute, encounterTemplate, encounterTimeLeft, formatTimeLeft } from '@core/life/encounters';
 import { useAncestryStore } from '../../store/ancestryStore';
@@ -29,7 +30,9 @@ export function InkEncounterModal({ onLearn }: { onLearn: (id: string) => void }
       <div className="ink-modal ink-enc" role="dialog" aria-modal="true" aria-label="奇遇傳承" onClick={close}>
         <div className="ink-modal-card ink-enc-card is-reward" onClick={(ev) => ev.stopPropagation()}>
           <p className="ink-enc-kicker">奇遇 · 得傳承</p>
-          <h3 className="ink-enc-title">「{skillLabel(reward)}」</h3>
+          <h3 className="ink-enc-title">
+            「{meta.encounter?.last?.vol ? volumeLabel(reward, meta.encounter.last.vol) : skillLabel(reward)}」
+          </h3>
           <p className="ink-enc-meta">
             珍本奇功 · {def ? skillKindLabel(def.kind) : ''}
           </p>

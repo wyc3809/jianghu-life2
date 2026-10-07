@@ -72,6 +72,8 @@
 | 8 | 玉石（免費／付費測試分開）、兩個卡池、心願保底、重複秘笈升階／轉書頁、19 門珍本奇功（C3–C5） | 玩家已確認，EA0.53.0 已上線 | `qa/evidence/redesign/step8-entry.png`、`step8-gacha.png` |
 | 9 | 在線奇遇：每星期 2–3 次、揀咗先計 1–3 日、遊戲進度考驗、過期冇嘢、離線照計（C6） | 玩家已確認，EA0.54.0 上線 | `qa/evidence/redesign/step9-encounter.png` |
 | 10 | 主畫面商業手遊式版面（頭像／貨幣 HUD、功能入口紅點、任務追蹤樣式；演武台冇改）＋抽卡搬去江湖分頁、抽卡用武學令演出 | 玩家已確認，EA0.55.0 上線 | `qa/evidence/redesign/lay-home.png`、`lay-gacha-tab.png`、`lay-gacha-fx.png` |
+| 11 | 修正：新手試煉獎勵一定到手（舊存檔撳「換上」自動補返）；奇遇「收集」計任何賺到嘅銀兩；珍本奇功機率 17.5% → 6% | 玩家已確認，EA0.56.0 上線 | `qa/evidence/redesign/fix1-newbie.png`、`fix2-encounter.png` |
+| 12 | 外功七卷（一卷＝一招，抽卡／奇遇逐卷出）＋全部交手自動（逐招扣血出特效；生死戰照舊先確認；論劍都自動） | 玩家已確認，EA0.56.0 上線 | `qa/evidence/redesign/vol-auto.png`、`vol-person.png` |
 
 備註：
 - 第 1 步：銀兩／材料「離線繼續累積」現時遊戲未有離線銀兩收益，收益率屬未定，今步未加。
@@ -109,3 +111,17 @@
 | `TEST_IDLE_SILVER_BASE_PER_HOUR`＝6、`TEST_IDLE_SILVER_PER_STAGE_PER_HOUR`＝0.5 | 新角色約 6.5 兩／時，48 小時約 312 兩 | 掛機收益率未確認 | 開局身上約 100 兩、演武每關 2–5 兩；唔蓋過過月事件同演武收入 |
 | `SCHOOLS`（6 派小成／大成加成）同 `schoolsOfSkill`／`schoolOfGear` 歸派規則 | 見 `data/redesign/schools.ts` | 流派分類、加成、平衡數值未定 | 小成約一件好裝備嘅副詞條，大成約兩倍；按現有武學特性自動歸派，唔使改武學資料 |
 | `GACHA_WISH_RATE`＝2.5%、`GACHA_PREMIUM_RATE`＝17.5%；免費玉石：每月 3、演武每 10 關 30、突破 20＋5×境、成就 15、里程碑 60；`TEST_PAID_JADE_GRANT`＝2,400 | 見 `data/redesign/testParams.ts` | 概率、獎勵數量未定 | 一世約賺 2,000–3,000 免費玉石（約 30–50 抽）；保底 40 抽（2,400）約一世多少少可以拎到一門心願 |
+
+### 第 12 項測試參數（`data/skills/volumes.ts`、`core/life/autoCombat.ts`、`src/components/ink/InkAutoBattle.tsx`）
+
+| 參數 | 值 | 說明 |
+|------|----|------|
+| `VOLUME_POWER_MULT` | 1／0.9／0.95／1.0／1.08／1.16／1.32 | 卷一至卷七威力倍數 |
+| `VOLUME_QI_MULT` | 1／0.4／0.45／0.5／0.55／0.6／0.7 | 卷一至卷七內力倍數（太高第二回合起就出唔到招） |
+| 卷二至卷七招名 | 按武學類別自動配 | 例：長河拳 → 長河·翻江式 |
+| `AUTO_COMBAT_MAX_ROUNDS` | 40 | 自動交手最多回合 |
+| `AUTO_HIT_MS` | 620 ms | 每招演出時間 |
+| 論劍幻影對手卷數 | 1–5（按武學） | `core/life/huashan.ts` ghostVolumes |
+| 舊存檔 | 已學外功＝卷一；家族收藏舊記錄＝七卷齊 | 收藏嘅卷自動同步落今世角色 |
+| 自動戰鬥用邊門 | 主修外功（冇就第一門外功） | 冇外功就用基本攻擊 |
+
