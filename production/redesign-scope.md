@@ -74,7 +74,7 @@
 | 10 | 主畫面商業手遊式版面（頭像／貨幣 HUD、功能入口紅點、任務追蹤樣式；演武台冇改）＋抽卡搬去江湖分頁、抽卡用武學令演出 | 玩家已確認，EA0.55.0 上線 | `qa/evidence/redesign/lay-home.png`、`lay-gacha-tab.png`、`lay-gacha-fx.png` |
 | 11 | 修正：新手試煉獎勵一定到手（舊存檔撳「換上」自動補返）；奇遇「收集」計任何賺到嘅銀兩；珍本奇功機率 17.5% → 6% | 玩家已確認，EA0.56.0 上線 | `qa/evidence/redesign/fix1-newbie.png`、`fix2-encounter.png` |
 | 12 | 外功七卷（一卷＝一招，抽卡／奇遇逐卷出）＋全部交手自動（逐招扣血出特效；生死戰照舊先確認；論劍都自動） | 玩家已確認，EA0.56.0 上線 | `qa/evidence/redesign/vol-auto.png`、`vol-person.png` |
-| 13 | 自動交手改用演武台動畫（同一個引擎：剪影、墨濺、數字、頭頂血條；首領夜山、論劍山門、其餘山路）＋七卷各有 2–4 字招名（`content/martial/volumes.json`） | 等玩家睇圖確認 | `qa/evidence/redesign/vol-names-auto.png`、`vol-names-list.png` |
+| 13 | 自動交手改用演武台動畫（同一個引擎：剪影、墨濺、數字、頭頂血條；首領夜山、論劍山門、其餘山路）＋七卷各有 2–4 字招名（`content/martial/volumes.json`） | 玩家已確認，EA0.57.0 上線 | `qa/evidence/redesign/vol-names-auto.png`、`vol-names-list.png` |
 
 備註：
 - 第 1 步：銀兩／材料「離線繼續累積」現時遊戲未有離線銀兩收益，收益率屬未定，今步未加。
