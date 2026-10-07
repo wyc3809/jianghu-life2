@@ -28,7 +28,8 @@ export interface AncestryMeta {
     banners: Record<string, { wish?: string; sinceWish: number; total: number }>;
   };
   /** 家族秘笈收藏：stars＝升階數、copies＝未處理嘅重複本 */
-  manuals?: Record<string, { stars: number; copies: number }>;
+  /** 家族秘笈收藏；外功嘅 vols＝收咗邊幾卷（舊記錄冇 vols＝成套七卷） */
+  manuals?: Record<string, { stars: number; copies: number; vols?: number[] }>;
   /** 書頁（重複秘笈轉成） */
   pages?: number;
   /** 已領過玉石嘅成就 id（帳戶首次） */
@@ -55,9 +56,11 @@ export interface EncounterState {
     carried: number;
     base: { lifeKey: string; value: number };
     progress: number;
+    /** 「賺銀兩」考驗：上次見到嘅身上銀兩（只計增加） */
+    lastMoney?: number;
   };
   /** 最近一次結果（介面提示用） */
-  last?: { tpl: string; result: 'done' | 'expired'; reward?: string; at: number };
+  last?: { tpl: string; result: 'done' | 'expired'; reward?: string; vol?: number; at: number };
 }
 
 export const ancestryMetaSchema = z.object({
@@ -81,7 +84,7 @@ export const ancestryMetaSchema = z.object({
       ),
     })
     .optional(),
-  manuals: z.record(z.string(), z.object({ stars: z.number().int().min(0), copies: z.number().int().min(0) })).optional(),
+  manuals: z.record(z.string(), z.object({ stars: z.number().int().min(0), copies: z.number().int().min(0), vols: z.array(z.number().int()).optional() })).optional(),
   pages: z.number().int().min(0).optional(),
   jadeAchv: z.array(z.string()).optional(),
   encounter: z
@@ -100,6 +103,7 @@ export const ancestryMetaSchema = z.object({
           carried: z.number().min(0),
           base: z.object({ lifeKey: z.string(), value: z.number() }),
           progress: z.number().min(0),
+          lastMoney: z.number().optional(),
         })
         .optional(),
       last: z
@@ -107,6 +111,7 @@ export const ancestryMetaSchema = z.object({
           tpl: z.string(),
           result: z.enum(['done', 'expired']),
           reward: z.string().optional(),
+          vol: z.number().optional(),
           at: z.number(),
         })
         .optional(),

@@ -9,6 +9,8 @@ import {
   PAGES_PER_EXCHANGE,
   TEST_PAID_JADE_GRANT,
 } from '@data/redesign/testParams';
+import { VOLUME_COUNT, hasVolumes, volumeLabel } from '@data/skills/volumes';
+import { collectionVolumes } from '@core/life/volumes';
 import { BANNERS, FREE_POOL, bannerState, spendableJade, wishPool, type BannerId } from '@core/life/gacha';
 import { useAncestryStore } from '../../store/ancestryStore';
 import { playInkWin, playInkTap } from '../../audio/inkAudio';
@@ -142,7 +144,7 @@ export function InkGachaPanel({ state }: Props) {
               <ul className="ink-pull-results" aria-label="抽卡結果">
                 {lastPull.map((r, i) => (
                   <li key={`${r.id}-${i}`} className={`ink-pull-card${r.isPremium ? ' is-premium' : ''}${r.isWish ? ' is-wish' : ''}`} style={{ ['--i' as string]: i }}>
-                    <span className="ink-pull-name">{skillLabel(r.id)}</span>
+                    <span className="ink-pull-name">{r.vol ? volumeLabel(r.id, r.vol) : skillLabel(r.id)}</span>
                     <span className="ink-pull-kind">{skillKindLabel(getSkillDef(r.id)!.kind)}</span>
                     <span className="ink-pull-tags">
                       {r.isWish && <i className="t-wish">心願</i>}
@@ -159,7 +161,7 @@ export function InkGachaPanel({ state }: Props) {
         {view === 'shelf' && (
           <>
             <p className="ink-gacha-note">
-              重複本可以升階（每階效果＋10%，最多 {MANUAL_MAX_STARS} 階）或者轉書頁（每本 {PAGES_PER_DUPLICATE} 頁）。收藏跨代保留，每代都可以由收藏學返。
+              外功分七卷（一卷＝一招），每抽出一卷；重複卷可以升階（每階效果＋10%，最多 {MANUAL_MAX_STARS} 階）或者轉書頁（每卷 {PAGES_PER_DUPLICATE} 頁）。收藏跨代保留，每代都可以由收藏學返。
             </p>
             <div className="ink-pages">
               <span>
@@ -189,7 +191,8 @@ export function InkGachaPanel({ state }: Props) {
                         <span className="ink-shelf-name">{skillLabel(id)}</span>
                         <span className="ink-shelf-meta">
                           {def ? skillKindLabel(def.kind) : ''}
-                          {def?.premium ? ' · 珍本' : ''} · {'★'.repeat(e.stars)}
+                          {def?.premium ? ' · 珍本' : ''}
+                          {hasVolumes(id) ? ` · ${collectionVolumes(meta, id).length}／${VOLUME_COUNT} 卷` : ''} · {'★'.repeat(e.stars)}
                           {'☆'.repeat(MANUAL_MAX_STARS - e.stars)}
                           {e.copies > 0 ? ` · 重複 ${e.copies} 本` : ''}
                         </span>

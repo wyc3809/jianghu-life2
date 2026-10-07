@@ -47,6 +47,7 @@ import { InkSectFounderPanel } from './InkSectFounderPanel';
 import { InkPersonPanel, type PersonView } from './InkPersonPanel';
 import { InkEventPanel } from './InkEventPanel';
 import { InkCombatPanel } from './InkCombatPanel';
+import { InkAutoBattle } from './InkAutoBattle';
 import { InkLifeOrDeathConfirm } from './InkLifeOrDeathConfirm';
 import { InkSuccessionModal } from './InkSuccessionModal';
 import { InkHomeGoals } from './InkHomeGoals';
@@ -88,6 +89,9 @@ export function InkPlayScreen({ state }: Props) {
   const reincarnate = useLifeStore((s) => s.reincarnate);
   const practice = useLifeStore((s) => s.practice);
   const combatMove = useLifeStore((s) => s.combatMove);
+  const combatAuto = useLifeStore((s) => s.combatAuto);
+  const combatAutoCommit = useLifeStore((s) => s.combatAutoCommit);
+  const combatReplay = useLifeStore((s) => s.combatReplay);
   const combatConfirmRisk = useLifeStore((s) => s.combatConfirmRisk);
   const combatDeclineRisk = useLifeStore((s) => s.combatDeclineRisk);
   const combatSetInternalMode = useLifeStore((s) => s.combatSetInternalMode);
@@ -236,6 +240,13 @@ export function InkPlayScreen({ state }: Props) {
   const showBossIntro = Boolean(
     combat && combat.foePower === 'boss' && bossIntroShownFor !== combat.id,
   );
+
+  // 自動戰鬥：首領開場同生死確認之後，即刻計好成場再逐招演出
+  const autoReady =
+    Boolean(combat) && state.phase === 'playing' && !showBossIntro && combat?.phase === 'player' && !needsLifeOrDeathConfirm(combat);
+  useEffect(() => {
+    if (autoReady && !combatReplay) combatAuto();
+  }, [autoReady, combatReplay, combat?.id, combat?.turn, combatAuto]);
 
   const practiceLeft = state.practiceActionsLeft ?? 3;
   const busy = Boolean(state.pending) || Boolean(combat) || showResult || !c.alive;
@@ -817,7 +828,12 @@ export function InkPlayScreen({ state }: Props) {
         <InkLifeOrDeathConfirm combat={combat} onConfirm={combatConfirmRisk} onDecline={combatDeclineRisk} />
       )}
 
-      {combat && state.phase === 'playing' && !showBossIntro && !needsLifeOrDeathConfirm(combat) && (
+      {/* 全部交手自動（玩家決定 2026-10-07）：逐招演出，打完要處置敵人先出原本嘅處置畫面 */}
+      {combatReplay && (
+        <InkAutoBattle key={combat?.id ?? 'auto'} replay={combatReplay.replay} onDone={combatAutoCommit} reduceMotion={reduceMotion} />
+      )}
+
+      {combat && state.phase === 'playing' && !showBossIntro && !needsLifeOrDeathConfirm(combat) && combat.phase === 'resolve' && (
         <InkCombatPanel
           state={state}
           combat={combat}

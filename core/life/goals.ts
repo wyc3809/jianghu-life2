@@ -106,6 +106,20 @@ export function startNewbieTrial(state: LifeGameState): string[] {
   });
 }
 
+/**
+ * 新手試煉已贏但精鋼刀唔喺行囊（舊版擊暈會整走獎勵）：補返，等「換裝」一步做得到。
+ * 返回有冇補。
+ */
+export function ensureNewbieReward(state: LifeGameState): boolean {
+  const c = state.character;
+  if (!c.flags.newbie_trial_won) return false;
+  const id = NEWBIE_TRIAL.rewardGearId;
+  c.gear ??= [];
+  if (c.gear.includes(id)) return false;
+  c.gear.push(id);
+  return true;
+}
+
 /** 換好裝之後第一次過月：新手完成（之後目標標「當前目標」） */
 export function settleNewbie(state: LifeGameState): void {
   const c = state.character;

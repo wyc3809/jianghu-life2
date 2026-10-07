@@ -194,6 +194,7 @@ export const useAncestryStore = create<AncestryStore>()((set, get) => ({
     persistAncestry(next);
     set({ meta: next, encounterReward: id, encounterOpen: true });
     queueCloudSync(useLifeStore.getState().state);
+    get().checkMilestones(); // 新卷同步落角色
     return id;
   },
   learnManual: (id) => {
@@ -208,6 +209,6 @@ export const useAncestryStore = create<AncestryStore>()((set, get) => ({
     });
     useLifeStore.setState({ state: next });
     schedulePersist(next, { immediate: true });
-    get().checkMilestones();
+    get().checkMilestones(); // 連收藏嘅卷一齊同步
   },
 }));

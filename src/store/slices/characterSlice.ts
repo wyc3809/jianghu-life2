@@ -2,7 +2,8 @@ import { produce } from 'immer';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { equipGear, resolveGearCompare as resolveGearCompareAction } from '@core/life/equipment';
 import { sanitizePlayerLine } from '@core/life/playerText';
-import { startNewbieTrial } from '@core/life/goals';
+import { ensureNewbieReward, startNewbieTrial } from '@core/life/goals';
+import { NEWBIE_TRIAL } from '@data/redesign/newbie';
 import { setMainArt } from '@core/life/schools';
 import type { SkillKind } from '@data/skills/catalog';
 import type { LifeStore } from '../lifeStore';
@@ -43,6 +44,7 @@ export function createCharacterSlice(
       if (state.pendingCombat) return;
       let msg = '';
       const next = produce(state, (draft) => {
+        if (gearId === NEWBIE_TRIAL.rewardGearId) ensureNewbieReward(draft);
         msg = equipGear(draft, gearId);
       });
       void save(next);

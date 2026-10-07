@@ -11,6 +11,8 @@
  */
 import type { AncestryMeta } from '@interfaces/ancestry';
 import { getSkillDef, SKILL_DEFS } from '@data/skills/catalog';
+import { VOLUME_COUNT, hasVolumes } from '@data/skills/volumes';
+import { addCollectionVolume } from './volumes';
 import { createRng } from '@core/random';
 import {
   GACHA_COST_PER_PULL,
@@ -77,6 +79,8 @@ export function spendableJade(meta: AncestryMeta, banner: BannerId): number {
 
 export interface PullResult {
   id: string;
+  /** 外功：抽中第幾卷（1–7）；內功／輕功冇 */
+  vol?: number;
   isNew: boolean;
   isWish: boolean;
   isPremium: boolean;
@@ -112,6 +116,13 @@ export function pull(meta: AncestryMeta, banner: BannerId, n: number): PullResul
     const isWish = Boolean(wish) && id === wish;
     // 提前抽中心願：保底歸零；未中：累積
     b.sinceWish = isWish ? 0 : b.sinceWish + 1;
+    if (hasVolumes(id)) {
+      // 外功逐卷出：隨機一卷；已有呢卷＝重複本
+      const vol = rng.nextInt(1, VOLUME_COUNT);
+      const isNew = addCollectionVolume(meta, id, vol);
+      out.push({ id, vol, isNew, isWish, isPremium: isPremiumArt(id) });
+      continue;
+    }
     const owned = m.manuals[id];
     if (owned) owned.copies += 1;
     else m.manuals[id] = { stars: 0, copies: 0 };

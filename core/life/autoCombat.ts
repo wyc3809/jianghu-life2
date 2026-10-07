@@ -1,0 +1,105 @@
+/**
+ * 自動戰鬥（玩家決定 2026-10-07：全部交手都自動）。
+ * 每回合：主修外功已得嘅卷（一卷＝一招）按卷序逐招出，內力唔夠嗰招就跳過；
+ * 一招都出唔到就用基本攻擊。全部出完先到敵人還手一次。
+ * 生死戰要先確認（needsLifeOrDeathConfirm）先會開打；打完如果要處置敵人，照舊停喺 resolve 畀玩家揀。
+ * 返回逐招紀錄，畀介面逐招扣血、出特效。
+ */
+import type { CombatReplay, CombatReplayHit, LifeGameState } from '@interfaces/lifeEngine';
+import { BASIC_STRIKE } from '@data/skills/catalog';
+import { needsLifeOrDeathConfirm, playerCombatTurn } from './combat';
+import { autoBattleArt, autoBattleMoves, ownedVolumes } from './volumes';
+
+/** 自動戰鬥最多打幾多回合（防止無限拉鋸；到咗就照常由引擎判） */
+export const AUTO_COMBAT_MAX_ROUNDS = 40;
+
+export type AutoHit = CombatReplayHit;
+export type AutoRound = CombatReplay['rounds'][number];
+export interface AutoCombatResult extends CombatReplay {
+  /** 引擎原本嘅文字紀錄（結果頁用） */
+  lines: string[];
+}
+
+function artInfo(state: LifeGameState): { artId?: string; vols?: number[] } {
+  const art = autoBattleArt(state.character);
+  return art ? { artId: art, vols: ownedVolumes(state.character, art) } : {};
+}
+
+/**
+ * 由而家嘅交手一路自動打到完（或者到要玩家處置敵人）。
+ * 會直接改 state（喺 immer draft 入面叫）。
+ */
+export function runAutoCombat(state: LifeGameState): AutoCombatResult | null {
+  const combat = state.pendingCombat;
+  if (!combat || combat.phase !== 'player' || needsLifeOrDeathConfirm(combat)) return null;
+  const res: AutoCombatResult = {
+    title: combat.title,
+    playerName: combat.player.name,
+    foeName: combat.foe.name,
+    playerMaxHp: combat.player.maxHp,
+    foeMaxHp: combat.foe.maxHp,
+    startPlayerHp: combat.player.hp,
+    startFoeHp: combat.foe.hp,
+    ...artInfo(state),
+    rounds: [],
+    lines: [],
+    outcome: 'ended',
+  };
+
+  for (let round = 1; round <= AUTO_COMBAT_MAX_ROUNDS; round++) {
+    if (state.pendingCombat !== combat || combat.phase !== 'player') break;
+    const all = autoBattleMoves(state);
+    // 內力夠先出（按卷序，邊出邊扣）
+    let qi = combat.player.qi;
+    const usable = all.filter((m) => {
+      if (qi < m.move.qiCost) return false;
+      qi -= m.move.qiCost;
+      return true;
+    });
+    const plan = usable.length
+      ? usable
+      : [{ skillId: undefined as string | undefined, vol: undefined as number | undefined, move: BASIC_STRIKE }];
+    const hits: AutoHit[] = [];
+    for (let i = 0; i < plan.length; i++) {
+      const p = plan[i]!;
+      const last = i === plan.length - 1;
+      const foeBefore = combat.foe.hp;
+      const playerBefore = combat.player.hp;
+      const lines = playerCombatTurn(state, p.move.id, {
+        chained: i > 0,
+        skipEnemy: !last,
+        ignoreCooldown: true,
+      });
+      res.lines.push(...lines);
+      const enemyActed = last && combat.phase === 'player' && state.pendingCombat === combat;
+      // 敵人還手之前嘅氣血變化計落玩家呢招；還手造成嘅另計
+      const foeHpAfterPlayer = Math.max(0, combat.foe.hp);
+      hits.push({
+        side: 'player',
+        moveName: p.move.name,
+        vol: p.vol,
+        skillId: p.skillId,
+        damage: Math.max(0, Math.round(foeBefore - foeHpAfterPlayer)),
+        playerHp: enemyActed ? playerBefore : Math.max(0, combat.player.hp),
+        foeHp: foeHpAfterPlayer,
+      });
+      if (enemyActed || (last && combat.player.hp < playerBefore)) {
+        hits.push({
+          side: 'foe',
+          moveName: combat.lastFoeMoveName ?? '出手',
+          damage: Math.max(0, Math.round(playerBefore - combat.player.hp)),
+          playerHp: Math.max(0, combat.player.hp),
+          foeHp: Math.max(0, combat.foe.hp),
+        });
+      }
+      if (state.pendingCombat !== combat || combat.phase !== 'player') break;
+    }
+    res.rounds.push({ round, hits });
+  }
+
+  if (state.pendingCombat === combat && (combat.phase as string) === 'resolve') res.outcome = 'resolve';
+  else if (!state.pendingCombat) {
+    res.outcome = combat.foe.hp <= 0 ? 'won' : combat.player.hp <= 0 ? 'lost' : 'ended';
+  }
+  return res;
+}

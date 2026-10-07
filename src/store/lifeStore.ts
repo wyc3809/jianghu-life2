@@ -1,7 +1,7 @@
 import { queueCloudSync } from '../cloud/sync';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
-import type { LifeGameState } from '@interfaces/lifeEngine';
+import type { CombatReplay, LifeGameState } from '@interfaces/lifeEngine';
 import type { BreakthroughResult } from '@core/life/cultivation';
 import { fullCatalog } from '@core/life/eventEngine';
 import { subscribeEventOverrides } from '@core/life/eventOverrides';
@@ -69,6 +69,12 @@ export interface LifeStore {
   ackMoment: () => void;
   practice: (actionId: PracticeActionId, opts?: { sectId?: string; artId?: string }) => void;
   combatMove: (moveId: string) => void;
+  /** 自動戰鬥：計好成場（未套用），畀介面逐招演出 */
+  combatAuto: () => void;
+  /** 自動戰鬥演出完／跳過：套用結果 */
+  combatAutoCommit: () => void;
+  /** 自動戰鬥演出中：演出資料＋打完嘅狀態 */
+  combatReplay: { replay: CombatReplay; next: LifeGameState; logs: string[] } | null;
   /** 揀主修武學（招式／內功／身法各一門） */
   setMainArt: (kind: import('@data/skills/catalog').SkillKind, skillId: string) => void;
   /** 新手試煉：開打（贏咗得有用裝備） */
@@ -129,6 +135,7 @@ export const useLifeStore = create<LifeStore>()(
     bootstrapped: false,
     sealText: null,
     flashLines: [],
+    combatReplay: null,
     lastResult: null,
     creating: false,
     offlineGain: null,

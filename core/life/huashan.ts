@@ -4,6 +4,8 @@ import type {
   HuashanBracketState,
   LifeGameState,
 } from '@interfaces/lifeEngine';
+import { hasVolumes } from '@data/skills/volumes';
+import { autoBattleArt, ownedVolumes } from './volumes';
 import { wuxiaAttributeKeys } from '@interfaces/lifeEngine';
 import { getRng } from '@core/random';
 import { ensureGear } from './equipment';
@@ -134,7 +136,14 @@ export function snapshotContestantFromLife(state: LifeGameState): ContestantBuil
     gear: [...(c.gear ?? [])],
     equipment: { ...c.equipment },
     isPlayer: true,
+    ...autoLoadout(c),
   };
+}
+
+/** 外功七卷：論劍自動比武用主修外功同已得卷 */
+function autoLoadout(c: LifeGameState['character']): { autoArt?: string; autoVols?: number[] } {
+  const art = autoBattleArt(c);
+  return art ? { autoArt: art, autoVols: ownedVolumes(c, art) } : {};
 }
 
 function buildGhost(id: string, templateIndex: number, playerMartial: number, rng: ReturnType<typeof getRng>): ContestantBuild {
@@ -160,7 +169,16 @@ function buildGhost(id: string, templateIndex: number, playerMartial: number, rn
     skillRanks,
     gear: [...t.gear],
     equipment: { weapon: t.weapon, armor: t.armor, accessory: null },
+    ...ghostVolumes(t.skills, martial),
   };
+}
+
+/** 幽靈對手：第一門外功，按武學高低有 1–5 卷（測試參數） */
+function ghostVolumes(skills: string[], martial: number): { autoArt?: string; autoVols?: number[] } {
+  const art = skills.find((id) => hasVolumes(id));
+  if (!art) return {};
+  const n = Math.max(1, Math.min(5, 1 + Math.floor(martial / 30)));
+  return { autoArt: art, autoVols: Array.from({ length: n }, (_, i) => i + 1) };
 }
 
 function shuffleIds(ids: string[], rng: ReturnType<typeof getRng>): string[] {
@@ -441,6 +459,7 @@ export function runPlayerHuashanDuel(state: LifeGameState): string[] {
   match.log = result.log;
   match.resolved = true;
   bracket.lastDuelLog = result.log;
+  bracket.lastDuelReplay = result.replay;
   bracket.pendingMatchId = undefined;
 
   const lines = [...result.log];
@@ -474,7 +493,10 @@ export function runPlayerHuashanDuel(state: LifeGameState): string[] {
 }
 
 export function dismissHuashanReport(state: LifeGameState): void {
-  if (state.huashan) state.huashan.lastDuelLog = undefined;
+  if (state.huashan) {
+    state.huashan.lastDuelLog = undefined;
+    state.huashan.lastDuelReplay = undefined;
+  }
 }
 
 export function clearCompletedHuashan(state: LifeGameState): void {

@@ -56,7 +56,7 @@ describe('online encounters (agreed-design §3.3)', () => {
     // 用遊戲進度完成
     const route = encounterRoute(tpl, routeMonths.id)!;
     if (route.trial === 'months') s.character.stats.monthsLived += route.target;
-    if (route.trial === 'harvest') s.character.flags.harvest_total = route.target;
+    if (route.trial === 'harvest') s.character.money += route.target;
     if (route.trial === 'stages') s.character.flags.spar_stage = Number(s.character.flags.spar_stage ?? 1) + route.target;
     if (route.trial === 'wins') s.character.stats.combatsWon += route.target;
     expect(tickEncounter(m, s, tChoose + H)).toBe('completed');
@@ -75,6 +75,24 @@ describe('online encounters (agreed-design §3.3)', () => {
     expect(tickEncounter(m, s, T0 + H + 4 * 24 * H)).toBe('expired');
     expect(Object.keys(m.manuals ?? {})).toHaveLength(0);
     expect(m.encounter!.last?.result).toBe('expired');
+  });
+
+  it('test_silver_trial_counts_any_income_not_spending', () => {
+    const { s, m } = setup();
+    tickEncounter(m, s, T0 + ENCOUNTER_FIRST_DELAY_MINUTES * 60_000);
+    m.encounter!.offer!.tpl = 'enc_thunder_widow';
+    const route = encounterRoute('enc_thunder_widow', 'shelter')!;
+    expect(route.trial).toBe('harvest');
+    chooseEncounterRoute(m, s, 'shelter', T0 + H);
+    s.character.money += 50; // 演武台／事件賺到
+    tickEncounter(m, s, T0 + 2 * H);
+    expect(m.encounter!.active!.progress).toBe(50);
+    s.character.money -= 30; // 使錢唔扣進度
+    tickEncounter(m, s, T0 + 3 * H);
+    expect(m.encounter!.active!.progress).toBe(50);
+    s.character.money += 20;
+    tickEncounter(m, s, T0 + 4 * H);
+    expect(m.encounter!.active!.progress).toBe(70);
   });
 
   it('test_progress_carries_across_generations', () => {
