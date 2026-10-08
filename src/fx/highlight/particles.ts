@@ -54,6 +54,8 @@ export class ParticleSystem {
   private dpr = 1;
   /** 減少動態：粒子數量打折 */
   density = 1;
+  /** 同時存在嘅粒子上限（打鬥演出用 300；高光結算唔設限） */
+  max = Infinity;
 
   constructor(private canvas: HTMLCanvasElement) {
     this.ctx = canvas.getContext('2d')!;
@@ -76,6 +78,7 @@ export class ParticleSystem {
   }
 
   add(p: Partial<Particle> & Pick<Particle, 'x' | 'y' | 'color'>) {
+    if (this.list.length >= this.max) return;
     this.list.push({
       shape: 'spark',
       mode: 'free',

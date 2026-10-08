@@ -25,3 +25,11 @@
 
 - CSS 3D：放大加側翻會投影成鋪滿屏嘅平面，規格明確禁止。
 - 預渲染影片：唔可以按品階換色、唔可以互動。
+
+## 補充（2026-10-08）：打鬥演出 subject「duel」
+
+- 自動交手嘅高光級演出放喺 `src/fx/highlight/duel/`（仍然喺本 ADR 允許範圍 `src/fx/highlight/` 入面，唔使新 ADR）。
+- 同樣 `React.lazy`（`DuelFxLazy`），`prefetchHighlight()` 一齊預載；three／gsap 同高光共用一個 chunk，duel 自己嘅 chunk 約 10 KB gzip。
+- 只讀 `CombatReplay`，唔改戰鬥結果；冇 WebGL 或減少動態就用 `InkAutoBattle`（演武台 2D）。
+- 角色用現有剪影位圖（`public/ink/spar/sil/`），筆觸／墨霧／溶解用 shader，冇 SVG。
+

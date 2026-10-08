@@ -47,7 +47,7 @@ import { InkSectFounderPanel } from './InkSectFounderPanel';
 import { InkPersonPanel, type PersonView } from './InkPersonPanel';
 import { InkEventPanel } from './InkEventPanel';
 import { InkCombatPanel } from './InkCombatPanel';
-import { InkAutoBattle } from './InkAutoBattle';
+import { InkAutoBattleView } from './InkAutoBattleView';
 import { InkLifeOrDeathConfirm } from './InkLifeOrDeathConfirm';
 import { InkSuccessionModal } from './InkSuccessionModal';
 import { InkHomeGoals } from './InkHomeGoals';
@@ -830,7 +830,7 @@ export function InkPlayScreen({ state }: Props) {
 
       {/* 全部交手自動（玩家決定 2026-10-07）：逐招演出，打完要處置敵人先出原本嘅處置畫面 */}
       {combatReplay && (
-        <InkAutoBattle key={combat?.id ?? 'auto'} replay={combatReplay.replay} onDone={combatAutoCommit} reduceMotion={reduceMotion} />
+        <InkAutoBattleView key={combat?.id ?? 'auto'} replay={combatReplay.replay} onDone={combatAutoCommit} reduceMotion={reduceMotion} />
       )}
 
       {combat && state.phase === 'playing' && !showBossIntro && !needsLifeOrDeathConfirm(combat) && combat.phase === 'resolve' && (
