@@ -76,7 +76,7 @@
 | 12 | 外功七卷（一卷＝一招，抽卡／奇遇逐卷出）＋全部交手自動（逐招扣血出特效；生死戰照舊先確認；論劍都自動） | 玩家已確認，EA0.56.0 上線 | `qa/evidence/redesign/vol-auto.png`、`vol-person.png` |
 | 13 | 自動交手改用演武台動畫（同一個引擎：剪影、墨濺、數字、頭頂血條；首領夜山、論劍山門、其餘山路）＋七卷各有 2–4 字招名（`content/martial/volumes.json`） | 玩家已確認，EA0.57.0 上線 | `qa/evidence/redesign/vol-names-auto.png`、`vol-names-list.png` |
 | 14 | 高光級打鬥演出（`src/fx/highlight/duel/`，Three.js＋GSAP，lazy；冇 WebGL／減少動態退返演武台 2D）：開場、出招、暴擊、敵人還手、落空、終結；七卷筆觸表；跳過／加速 ×2 | 玩家已確認，EA0.58.0 上線 | `qa/evidence/redesign/duel-1.png`、`duel-2.png`、`duel-3.png` |
-| 15 | 自動交手人物比例縮細同演武台一樣；每回合輪一門外功（主修行先，之後按學識次序，輪完由頭；論劍一樣），七卷格跟住輪到嗰門 | 等玩家睇圖確認 | `qa/evidence/redesign/duel-rotate.png` |
+| 15 | 自動交手人物比例縮細同演武台一樣；每回合輪一門外功（主修行先，之後按學識次序，輪完由頭；論劍一樣），七卷格跟住輪到嗰門 | 玩家已確認，EA0.59.0 上線 | `qa/evidence/redesign/duel-rotate.png` |
 
 備註：
 - 第 1 步：銀兩／材料「離線繼續累積」現時遊戲未有離線銀兩收益，收益率屬未定，今步未加。
