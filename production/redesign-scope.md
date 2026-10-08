@@ -75,7 +75,7 @@
 | 11 | 修正：新手試煉獎勵一定到手（舊存檔撳「換上」自動補返）；奇遇「收集」計任何賺到嘅銀兩；珍本奇功機率 17.5% → 6% | 玩家已確認，EA0.56.0 上線 | `qa/evidence/redesign/fix1-newbie.png`、`fix2-encounter.png` |
 | 12 | 外功七卷（一卷＝一招，抽卡／奇遇逐卷出）＋全部交手自動（逐招扣血出特效；生死戰照舊先確認；論劍都自動） | 玩家已確認，EA0.56.0 上線 | `qa/evidence/redesign/vol-auto.png`、`vol-person.png` |
 | 13 | 自動交手改用演武台動畫（同一個引擎：剪影、墨濺、數字、頭頂血條；首領夜山、論劍山門、其餘山路）＋七卷各有 2–4 字招名（`content/martial/volumes.json`） | 玩家已確認，EA0.57.0 上線 | `qa/evidence/redesign/vol-names-auto.png`、`vol-names-list.png` |
-| 14 | 高光級打鬥演出（`src/fx/highlight/duel/`，Three.js＋GSAP，lazy；冇 WebGL／減少動態退返演武台 2D）：開場、出招、暴擊、敵人還手、落空、終結；七卷筆觸表；跳過／加速 ×2 | 等玩家睇圖確認 | `qa/evidence/redesign/duel-1.png`、`duel-2.png`、`duel-3.png` |
+| 14 | 高光級打鬥演出（`src/fx/highlight/duel/`，Three.js＋GSAP，lazy；冇 WebGL／減少動態退返演武台 2D）：開場、出招、暴擊、敵人還手、落空、終結；七卷筆觸表；跳過／加速 ×2 | 玩家已確認，EA0.58.0 上線 | `qa/evidence/redesign/duel-1.png`、`duel-2.png`、`duel-3.png` |
 
 備註：
 - 第 1 步：銀兩／材料「離線繼續累積」現時遊戲未有離線銀兩收益，收益率屬未定，今步未加。
