@@ -34,7 +34,6 @@ import { ensureNature, dominantNature, natureSummary } from '@core/life/nature';
 import { getLifeStageLabel } from '@core/life/stages';
 import { playerEvasionPercent } from '@core/life/jianghuHints';
 import { listKnownNpcLines } from '@core/life/npcCatalog';
-import { grudgeKindLabel, listGrudges } from '@core/life/grudgeBook';
 import { listWeaponMasteries } from '@core/life/weaponMastery';
 import { careerLabel, getCareer } from '@core/life/careers';
 import { formatFragmentProgress } from '@core/life/manualFragments';
@@ -130,7 +129,6 @@ export function InkPersonPanel({
   const gearStatTotals = gearTotals(c);
   const gearFxTotals = sumGearCombatBonuses(c);
   const genealogy = buildGenealogy(state);
-  const grudges = listGrudges(state);
   const known = listKnownNpcLines(state);
   const achProgress = achievementProgress(state);
   const nicknames = allTitles(state).map((t) => t.label);
@@ -184,12 +182,6 @@ export function InkPersonPanel({
           ? `眷屬 · 子女 ${c.childrenCount ?? 0}`
           : `故人 ${known.length} · 子女 ${c.childrenCount ?? 0}`,
         icon: 'motif-lantern',
-      },
-      {
-        id: 'grudges',
-        label: '恩怨簿',
-        hint: grudges.length ? `${grudges.length} 樁未了` : '尚無舊怨',
-        icon: 'motif-umbrella',
       },
       {
         id: 'achievements',
@@ -771,31 +763,6 @@ export function InkPersonPanel({
                 {line}
               </p>
             ))
-          )}
-        </>
-      )}
-
-      {view === 'grudges' && (
-        <>
-          <h3>恩怨簿</h3>
-          {grudges.length === 0 ? (
-            <p className="ink-note">尚無記入簿中的舊怨人情。</p>
-          ) : (
-            <ul className="ink-delta-board ink-playability-board">
-              {grudges.map((g) => (
-                <li
-                  key={g.id}
-                  className={`ink-delta-row ink-delta-row--${
-                    g.kind === 'favor' ? 'up' : g.kind === 'blood' ? 'down' : 'flat'
-                  }`}
-                >
-                  <span className="ink-delta-row-text">
-                    {grudgeKindLabel(g.kind)} · {g.name}
-                    （深{g.strength} · 餘{g.monthsLeft}月）
-                  </span>
-                </li>
-              ))}
-            </ul>
           )}
         </>
       )}

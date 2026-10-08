@@ -2,6 +2,8 @@ import { Suspense, useState } from 'react';
 import type { CombatReplay } from '@interfaces/lifeEngine';
 import { DuelFxLazy, canUseWebGL, prefersReducedMotion } from '../../fx/highlight';
 import { InkAutoBattle } from './InkAutoBattle';
+import { getGearDef } from '@data/equipment/catalog';
+import { useLifeStore } from '../../store/lifeStore';
 
 type Props = {
   replay: CombatReplay;
@@ -15,10 +17,15 @@ type Props = {
  */
 export function InkAutoBattleView({ replay, onDone, reduceMotion = false }: Props) {
   const [fallback, setFallback] = useState(() => reduceMotion || prefersReducedMotion() || !canUseWebGL());
+  // 兵器同演武台一樣：跟裝備欄
+  const weaponKind = useLifeStore((s) => {
+    const id = s.state?.character.equipment.weapon;
+    return id ? (getGearDef(id)?.weaponKind ?? null) : null;
+  });
   if (fallback) return <InkAutoBattle replay={replay} onDone={onDone} reduceMotion={reduceMotion} />;
   return (
     <Suspense fallback={null}>
-      <DuelFxLazy replay={replay} onDone={onDone} onFail={() => setFallback(true)} />
+      <DuelFxLazy replay={replay} weaponKind={weaponKind} onDone={onDone} onFail={() => setFallback(true)} />
     </Suspense>
   );
 }

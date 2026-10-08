@@ -1,7 +1,6 @@
 import type { LifeGameState, WorldState, StoryState, LifeCondition } from '@interfaces/lifeEngine';
 import { getRng } from '@core/random';
 import { tryMonthlyBirth } from './family';
-import { tickAftermath } from './aftermath';
 import { recordDeath } from './death';
 import { tickLifeArc } from './arcs';
 import { tickMonthlyEconomy } from './economy';
@@ -142,7 +141,6 @@ export function simulateMonthBody(state: LifeGameState): void {
   tickInjuries(state);
   simulateWorldMonth(state);
   tryMonthlyBirth(state);
-  tickAftermath(state);
   tickBonds(state);
   tickLifeArc(state);
   const monthBits = [

@@ -102,14 +102,25 @@ describe('抽卡／收藏逐卷出', () => {
 });
 
 describe('自動戰鬥（core/life/autoCombat.ts）', () => {
-  it('test_one_volume_means_one_player_move_per_round', () => {
+  it('test_one_volume_means_one_move_then_basic_strike_per_round', () => {
     const s = fightLife(7, []);
     const r = runAutoCombat(s)!;
     expect(r.rounds.length).toBeGreaterThan(0);
     for (const round of r.rounds) {
-      expect(round.hits.filter((h) => h.side === 'player').length).toBeLessThanOrEqual(1);
+      const mine = round.hits.filter((h) => h.side === 'player');
+      expect(mine.length).toBeLessThanOrEqual(2);
+      // 招式（有卷號）一定喺普攻（冇卷號）之前
+      const firstBasic = mine.findIndex((h) => !h.vol);
+      if (firstBasic >= 0) expect(mine.slice(firstBasic).every((h) => !h.vol)).toBe(true);
     }
     expect(['resolve', 'won', 'lost']).toContain(r.outcome);
+  });
+
+  it('test_two_moves_then_basic_strike_order', () => {
+    const r = runAutoCombat(fightLife(7, [2]))!;
+    const first = r.rounds[0]!.hits.filter((h) => h.side === 'player');
+    expect(first.map((h) => h.vol ?? 0)).toEqual([1, 2, 0]);
+    expect(first[2]!.moveName).toBe('普通攻擊');
   });
 
   it('test_more_volumes_hit_more_and_finish_faster', () => {

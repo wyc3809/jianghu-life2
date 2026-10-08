@@ -1,7 +1,6 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getRng } from '@core/random';
 import { syncRngFromState, snapshotRng } from './gameState';
-import { addCondition } from './monthly';
 import { raiseBaseMaxQi } from './equipment';
 import type { PackChoiceRaw, PackOutcomeOp } from './jianghuEventRepository';
 
@@ -200,7 +199,8 @@ function applyPackOutcome(
       const key = path || stringifyPackValue(value) || 'flag';
       c.flags[key] = true;
       state.worldFlags[key] = true;
-      return { log: '你將此事默記於心。', delta: '記下此事' };
+      // 只記旗標，唔再顯示「記下此事」（玩家要求 2026-10-09）
+      return {};
     }
     case 'create_memory': {
       const tag = stringifyPackValue(value);
@@ -225,7 +225,8 @@ function applyPackOutcome(
     case 'roll_event': {
       const id = stringifyPackValue(value) || 'followup';
       c.flags[`followup_${id}`] = true;
-      return { log: '後話已記下。', delta: '後續' };
+      // 只記旗標，唔再顯示「後續」（玩家要求 2026-10-09）
+      return {};
     }
     default:
       if (typeof outcome.note === 'string' && outcome.note) return { log: outcome.note };
@@ -233,56 +234,4 @@ function applyPackOutcome(
   }
 }
 
-/** 百人包抉擇後的命運餘波：常有得失，難以背出固定結果 */
-export function applyPackFortuneTwist(state: LifeGameState): string[] {
-  syncRngFromState(state);
-  const rng = getRng();
-  const c = state.character;
-  const roll = rng.nextFloat();
-  const logs: string[] = [];
-
-  if (roll < 0.34) {
-    const dmg = rng.nextInt(6, 14);
-    c.health = clamp(c.health - dmg, 0, c.maxHealth);
-    addCondition(state, 'bleeding');
-    logs.push(
-      `餘波未平：暗處又射出一枝短矢／飛石，擦傷你的脅下。你帶傷收場，衣襟滲血。`,
-      '氣血受損',
-      '傷勢',
-    );
-  } else if (roll < 0.55) {
-    const loss = rng.nextInt(4, 12);
-    c.money = Math.max(0, c.money - loss);
-    c.martial = Math.min(100, c.martial + 1);
-    logs.push(
-      `餘波索價：有人攔路「談和解」，你丟出錢袋才脫身；肩頭的疼痛卻讓你記住了對方步法。`,
-      `銀兩－${loss}`,
-      '武學＋1',
-    );
-  } else if (roll < 0.72) {
-    const gain = rng.nextInt(4, 11);
-    c.money += gain;
-    c.health = clamp(c.health - rng.nextInt(2, 5), 0, c.maxHealth);
-    logs.push(
-      `餘波裡竟撿回好處：牆根錢袋被人丟下，你撿起時膝蓋磕破——銀兩入手，皮肉也付了學費。`,
-      `銀兩＋${gain}`,
-      '氣血微損',
-    );
-  } else if (roll < 0.86) {
-    c.reputation += 1;
-    logs.push(
-      `餘波成了街談：茶攤把你今晚的處置添油加醋傳開，名望微升，也多了盯梢的眼睛。`,
-      '名望＋1',
-    );
-  } else {
-    logs.push('餘波只剩檐水聲。你把刀穗重新繫緊，確認袖裡物證還在，才繼續趕路。');
-  }
-
-  snapshotRng(state);
-  return logs;
-}
-
-/** @deprecated 使用 applyPackFortuneTwist */
-export function applyPackRiskTail(state: LifeGameState, _chance = 0.12): string[] {
-  return applyPackFortuneTwist(state);
-}
+// 「餘波」（事件後隨機得失）已按玩家要求刪除（2026-10-09）

@@ -13,7 +13,9 @@ import { VOLUME_COUNT, VOLUME_NUMERALS, artVolumeMoves, replayArtAt } from '@dat
 import { sealUrlForText } from '../../../ui/inkAssets';
 import { playInkBlade, playInkCrit, playInkDefeat, playInkHit, playInkMiss, playInkVictory } from '../../../audio/inkAudio';
 import { GRADES } from '../grades';
-import { DuelDirector, type DuelHit } from './director';
+import { DuelDirector, type DuelHit, type DuelWeapon } from './director';
+import { WEAPON_SPRITES } from '../../../spar/rig';
+import { HERO_ATK_FRAMES, HERO_SIL, HERO_WEAPON_GRIPS, WEAPON_SIL_LENGTH } from '../../../spar/silhouetteDraw';
 import { CRIT_FROM_VOL } from './strokes';
 import styles from './duel.module.css';
 
@@ -73,14 +75,35 @@ function Chars({ text }: { text: string }) {
   );
 }
 
+/** 裝備欄兵器 → 打鬥演出用兵器（同演武台 WEAPON_SPRITES／HERO_WEAPON_GRIPS 一致）；空手＝null */
+function duelWeapon(kind: string | null | undefined): DuelWeapon | null {
+  const def = kind ? WEAPON_SPRITES[kind] : undefined;
+  if (!kind || !def) return null;
+  return {
+    src: def.src,
+    w: def.w,
+    h: def.h,
+    grip: def.grip,
+    tip: def.tip,
+    length: WEAPON_SIL_LENGTH[kind] ?? 240,
+    grips: {
+      idle: HERO_WEAPON_GRIPS.idle!,
+      windup: HERO_WEAPON_GRIPS['atk-0']!,
+      strike: HERO_WEAPON_GRIPS['atk-1']!,
+    },
+  };
+}
+
 export interface DuelFxProps {
+  /** 裝備欄兵器種類（sword／blade／spear…）；null＝空手 */
+  weaponKind?: string | null;
   replay: CombatReplay;
   onDone: () => void;
   /** Three.js 素材載唔到：上層退返 2D 演出 */
   onFail?: () => void;
 }
 
-export default function DuelFx({ replay, onDone, onFail }: DuelFxProps) {
+export default function DuelFx({ replay, onDone, onFail, weaponKind = null }: DuelFxProps) {
   const hits = useMemo<DuelHit[]>(
     () => replay.rounds.flatMap((r) => r.hits.map((h) => ({ ...h, round: r.round }))),
     [replay],
@@ -127,9 +150,11 @@ export default function DuelFx({ replay, onDone, onFail }: DuelFxProps) {
       replay,
       hits,
       {
-        heroIdle: `${SIL}frames/hero-idle.webp`,
-        heroWindup: `${SIL}frames/hero-atk-0.webp`,
-        heroStrike: `${SIL}frames/hero-atk-peak.webp`,
+        // 同演武台一樣嘅剪影（已擦走畫死嘅刀）：待機、蓄勢（atk-0）、揮擊（atk-1）
+        heroIdle: HERO_SIL.idle.src,
+        heroWindup: HERO_ATK_FRAMES[0].src,
+        heroStrike: HERO_ATK_FRAMES[1].src,
+        weapon: duelWeapon(weaponKind),
         foe: `${SIL}enemy-${look}.webp`,
         splash: `${BASE}ink/spar/fx-splash.webp`,
       },

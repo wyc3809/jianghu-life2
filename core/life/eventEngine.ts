@@ -34,7 +34,7 @@ import { rollAdventureGear } from '@data/equipment/catalog';
 import { grantGear } from './equipment';
 import { withRiskAndThree, jitterEffectsForRoll } from './choiceEnrich';
 import { pickPackEvent, getPackChoice } from './jianghuEventRepository';
-import { resolvePackOutcomes, applyPackFortuneTwist } from './outcomeResolver';
+import { resolvePackOutcomes } from './outcomeResolver';
 import { isFleeChoice, startCombat, tryStartAftermathCombat } from './combat';
 import { applyChoiceNature } from './nature';
 import { grantEventCultivation } from './cultivation';
@@ -408,11 +408,6 @@ export function applyChoice(
     logs = [...resolved.logs];
     deltas = [...resolved.deltas];
     died = resolved.died;
-    const twistLogs = applyPackFortuneTwist(state);
-    if (twistLogs.length) {
-      logs.push(...twistLogs);
-      deltas.push('餘波');
-    }
     if (resolved.success) {
       const rng = getRng();
       if (rng.chance(0.22)) {
