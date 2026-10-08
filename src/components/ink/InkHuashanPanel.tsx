@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { HuashanBracketState, LifeGameState } from '@interfaces/lifeEngine';
-import { InkAutoBattle } from './InkAutoBattle';
+import { InkAutoBattleView } from './InkAutoBattleView';
 import {
   bracketProgressLabel,
   buildBracketTree,
@@ -123,7 +123,7 @@ export function InkHuashanPanel({
             </button>
           )}
 
-          {watching && replay && <InkAutoBattle replay={replay} onDone={() => setWatching(false)} />}
+          {watching && replay && <InkAutoBattleView replay={replay} onDone={() => setWatching(false)} />}
 
           {lastLog && lastLog.length > 0 && (
             <div className="ink-huashan-log">

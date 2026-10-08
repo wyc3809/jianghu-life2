@@ -1,0 +1,386 @@
+/* 高光級打鬥演出（DuelFx.tsx）——同高光時刻一樣：宣紙、墨暈、楷書題款、朱砂印 */
+
+.root {
+  --ink: #1c1a17;
+  --ink-mid: #4a453e;
+  --ink-wash: #8a857c;
+  --paper: #f3ebdc;
+  --paper-bright: #faf6ee;
+  --cinnabar: #a33a32;
+  --gold: #c29a45;
+  --bg-in: #f2efe6;
+  --bg-out: #a9b6c0;
+  --font: 'LXGW WenKai TC', 'Kaiti TC', 'STKaiti', 'KaiTi', 'Noto Serif TC', serif;
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  overflow: hidden;
+  color: var(--ink);
+  font-family: var(--font);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  background: radial-gradient(ellipse 80% 62% at 50% 46%, var(--bg-in) 0%, var(--bg-in) 34%, var(--bg-out) 100%);
+}
+
+/* 紙紋 */
+.root::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/ink/art/ui/paper-grain.webp') center / 420px auto;
+  opacity: 0.16;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.world {
+  position: absolute;
+  inset: 0;
+}
+
+/* 場景遠景：淡淡一幅，唔搶人物 */
+.backdrop {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 16%;
+  width: 100%;
+  height: 52%;
+  object-fit: cover;
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 22%, #000 70%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 22%, #000 70%, transparent);
+  pointer-events: none;
+}
+
+.gl,
+.fx {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.fx {
+  pointer-events: none;
+}
+
+/* 暴擊全屏墨暈 */
+.wash {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 46%, rgba(163, 58, 50, 0.1), rgba(28, 26, 23, 0.85) 75%);
+  mix-blend-mode: multiply;
+}
+
+/* 敗：全畫面褪灰 */
+.fade {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(120, 114, 104, 0.28);
+  -webkit-backdrop-filter: grayscale(1) brightness(0.94);
+  backdrop-filter: grayscale(1) brightness(0.94);
+}
+
+/* 傷害數字 */
+.numbers {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.numbers span {
+  position: absolute;
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 34px;
+  font-style: italic;
+  color: var(--ink);
+  -webkit-text-stroke: 1px var(--paper-bright);
+  text-shadow: 0 2px 0 var(--paper-bright), 0 0 10px rgba(250, 246, 238, 0.9);
+  white-space: nowrap;
+  will-change: transform, opacity;
+}
+
+.numbers span[data-kind='crit'] {
+  padding: 0 10px;
+  color: var(--paper-bright);
+  -webkit-text-stroke: 0;
+  text-shadow: none;
+  background: var(--cinnabar);
+  border: 2px solid var(--gold);
+  box-shadow: 0 4px 0 rgba(28, 26, 23, 0.35);
+}
+
+.numbers span[data-kind='hurt'] {
+  color: var(--cinnabar);
+  font-size: 28px;
+}
+
+.numbers span[data-kind='miss'] {
+  font-size: 22px;
+  font-style: normal;
+  letter-spacing: 0.2em;
+  color: var(--ink-mid);
+  -webkit-text-stroke: 0;
+  text-shadow: 0 0 6px var(--paper-bright), 0 0 2px var(--paper-bright);
+  opacity: 0.85;
+}
+
+/* 頂欄：回合、加速、跳過 */
+.top {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: max(12px, env(safe-area-inset-top)) 14px 0;
+  z-index: 3;
+}
+
+.round {
+  padding: 3px 12px;
+  border: 1px solid rgba(28, 26, 23, 0.25);
+  background: rgba(250, 246, 238, 0.82);
+  font-size: 14px;
+  letter-spacing: 0.18em;
+}
+
+.buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  padding: 5px 12px;
+  border: 1px solid rgba(28, 26, 23, 0.3);
+  background: rgba(250, 246, 238, 0.86);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.btn.on {
+  border-color: var(--cinnabar);
+  background: var(--cinnabar);
+  color: var(--paper-bright);
+}
+
+/* 血條（墨筆形狀用 brush-bar 位圖做遮罩） */
+.bar {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+  font-size: 14px;
+}
+
+.bar b {
+  letter-spacing: 0.12em;
+  max-width: 9em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bar i {
+  position: relative;
+  height: 12px;
+  background: rgba(28, 26, 23, 0.16);
+  -webkit-mask: url('/ink/art/ui/brush-bar.webp') center / 100% 100% no-repeat;
+  mask: url('/ink/art/ui/brush-bar.webp') center / 100% 100% no-repeat;
+}
+
+.bar i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  right: auto;
+  width: var(--fill, 100%);
+  background: var(--ink);
+  transition: width 0.35s ease-out;
+}
+
+.bar em {
+  font-style: normal;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-mid);
+}
+
+.foeBar {
+  top: calc(max(12px, env(safe-area-inset-top)) + 40px);
+}
+
+.foeBar i::after {
+  background: var(--cinnabar);
+}
+
+/* 開場題字、每招題字 */
+.title,
+.callout {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.title {
+  top: 15%;
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-shadow: 0 2px 0 var(--paper-bright);
+}
+
+.title span,
+.calloutInner span {
+  display: inline-block;
+}
+
+.callout {
+  top: 21%;
+}
+
+.calloutInner {
+  padding: 4px 16px;
+  background: rgba(28, 26, 23, 0.88);
+  color: var(--paper-bright);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.calloutInner.isFoe {
+  background: rgba(163, 58, 50, 0.9);
+  font-size: 18px;
+}
+
+/* 勝／敗印 */
+.seal {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  width: 150px;
+  height: 150px;
+  margin-left: -75px;
+  z-index: 4;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 10px rgba(28, 26, 23, 0.35));
+}
+
+.endNote {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 34%;
+  text-align: center;
+  font-size: 38px;
+  letter-spacing: 0.5em;
+  color: var(--ink-mid);
+  z-index: 4;
+}
+
+/* 底部：主角血條＋七卷格 */
+.bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 0 max(14px, env(safe-area-inset-bottom));
+  z-index: 2;
+}
+
+.heroBar {
+  position: relative;
+  left: auto;
+  right: auto;
+  margin: 0 16px 10px;
+}
+
+.vols {
+  margin: 0 12px;
+  padding: 8px 8px 10px;
+  border: 1px solid rgba(28, 26, 23, 0.2);
+  background: rgba(250, 246, 238, 0.86);
+}
+
+.vols p {
+  margin: 0 0 6px;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: var(--ink-mid);
+}
+
+.vols ol {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vols li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  min-height: 60px;
+  padding: 6px 2px;
+  border: 1px dashed rgba(28, 26, 23, 0.25);
+  color: var(--ink-wash);
+  text-align: center;
+  opacity: 0.6;
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.vols li b {
+  font-size: 13px;
+}
+
+.vols li span {
+  font-size: 11px;
+  line-height: 1.25;
+  word-break: break-all;
+}
+
+.vols li.on {
+  border: 1px solid var(--ink);
+  background: #fffaf0;
+  color: var(--ink);
+  opacity: 1;
+}
+
+/* 出緊嗰卷：朱砂底＋金光 */
+.vols li.active {
+  border-color: var(--gold);
+  background: var(--cinnabar);
+  color: var(--paper-bright);
+  transform: translateY(-5px);
+  box-shadow: 0 0 0 2px rgba(194, 154, 69, 0.55), 0 8px 18px rgba(163, 58, 50, 0.45);
+}
+
+.noArt {
+  margin: 0 16px;
+  font-size: 13px;
+  color: var(--ink-mid);
+}

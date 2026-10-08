@@ -75,6 +75,7 @@
 | 11 | 修正：新手試煉獎勵一定到手（舊存檔撳「換上」自動補返）；奇遇「收集」計任何賺到嘅銀兩；珍本奇功機率 17.5% → 6% | 玩家已確認，EA0.56.0 上線 | `qa/evidence/redesign/fix1-newbie.png`、`fix2-encounter.png` |
 | 12 | 外功七卷（一卷＝一招，抽卡／奇遇逐卷出）＋全部交手自動（逐招扣血出特效；生死戰照舊先確認；論劍都自動） | 玩家已確認，EA0.56.0 上線 | `qa/evidence/redesign/vol-auto.png`、`vol-person.png` |
 | 13 | 自動交手改用演武台動畫（同一個引擎：剪影、墨濺、數字、頭頂血條；首領夜山、論劍山門、其餘山路）＋七卷各有 2–4 字招名（`content/martial/volumes.json`） | 玩家已確認，EA0.57.0 上線 | `qa/evidence/redesign/vol-names-auto.png`、`vol-names-list.png` |
+| 14 | 高光級打鬥演出（`src/fx/highlight/duel/`，Three.js＋GSAP，lazy；冇 WebGL／減少動態退返演武台 2D）：開場、出招、暴擊、敵人還手、落空、終結；七卷筆觸表；跳過／加速 ×2 | 等玩家睇圖確認 | `qa/evidence/redesign/duel-1.png`、`duel-2.png`、`duel-3.png` |
 
 備註：
 - 第 1 步：銀兩／材料「離線繼續累積」現時遊戲未有離線銀兩收益，收益率屬未定，今步未加。
@@ -125,4 +126,22 @@
 | 論劍幻影對手卷數 | 1–5（按武學） | `core/life/huashan.ts` ghostVolumes |
 | 舊存檔 | 已學外功＝卷一；家族收藏舊記錄＝七卷齊 | 收藏嘅卷自動同步落今世角色 |
 | 自動戰鬥用邊門 | 主修外功（冇就第一門外功） | 冇外功就用基本攻擊 |
+
+### 第 14 項測試參數（`src/fx/highlight/duel/tuning.ts`、`strokes.ts`）
+
+| 參數 | 值 | 說明 |
+|------|----|------|
+| `openSec` | 1.2 s | 開場（墨霧入場、鏡頭推近、題字） |
+| `playerBeatSec` / `windupSec` / `slashSec` | 0.78 / 0.22 / 0.2 s | 玩家每招：蓄勢 → 揮擊 → 命中 → 收勢 |
+| `foeBeatSec` | 0.62 s | 敵人還手每招 |
+| `hitStopSec` / `critWashMax` | 0.12 s / 0.55 | 暴擊停頓、全屏墨暈 |
+| `shake` / `critShake` | 0.16 / 0.32 | 震屏（世界單位） |
+| `slowMoSec` / `slowMoScale` | 0.5 s / 0.35 | 終結一擊慢鏡 |
+| `dissolveSec` / `dissolveSparks` | 0.9 s / 90 | 敵人化墨散開 |
+| `endHoldSec` | 1.6 s | 落印後停留（撳畫面可以即走） |
+| `longFightHits` / `longFightScale` | 24 招 / ×1.6 | 長戰自動加速 |
+| `particleCap` / `hitSparks` | 300 / 26 | 粒子上限、每次命中墨點 |
+| 七卷筆觸 | 卷一淡墨直劈、卷二濃墨橫斬、卷三竹青交叉、卷四靛藍圓弧、卷五朱砂直刺、卷六紫檀雙旋、卷七金邊大弧 | `strokes.ts` VOLUME_STROKES；筆劃中心有宣紙白刀光 |
+| 暴擊 | 卷五以上命中 | 同 2D 演出一致 |
+| 場景 | 首領夜山、論劍山門、其餘山路 | 同 2D 演出一致 |
 
