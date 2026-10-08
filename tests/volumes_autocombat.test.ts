@@ -122,6 +122,18 @@ describe('自動戰鬥（core/life/autoCombat.ts）', () => {
     expect(all.vols).toHaveLength(VOLUME_COUNT);
   });
 
+  it('test_auto_combat_rotates_one_art_per_round', () => {
+    const s = fightLife(7, []);
+    const second = Object.values(SKILL_DEFS).find((d) => hasVolumes(d.id) && d.id !== ART && !d.premium)!.id;
+    s.character.skills.push(second);
+    const r = runAutoCombat(s)!;
+    expect(r.arts?.map((a) => a.id)).toEqual([ART, second]);
+    const artOf = (round: number) => r.rounds[round - 1]!.hits.find((h) => h.side === 'player')?.skillId;
+    expect(artOf(1)).toBe(ART);
+    if (r.rounds.length >= 2) expect(artOf(2)).toBe(second);
+    if (r.rounds.length >= 3) expect(artOf(3)).toBe(ART);
+  });
+
   it('test_auto_combat_is_deterministic', () => {
     const a = runAutoCombat(fightLife(9, [2, 4]))!;
     const b = runAutoCombat(fightLife(9, [2, 4]))!;

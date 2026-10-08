@@ -5,7 +5,7 @@ import type {
   LifeGameState,
 } from '@interfaces/lifeEngine';
 import { hasVolumes } from '@data/skills/volumes';
-import { autoBattleArt, ownedVolumes } from './volumes';
+import { autoBattleArt, autoBattleRotation, ownedVolumes } from './volumes';
 import { wuxiaAttributeKeys } from '@interfaces/lifeEngine';
 import { getRng } from '@core/random';
 import { ensureGear } from './equipment';
@@ -141,9 +141,14 @@ export function snapshotContestantFromLife(state: LifeGameState): ContestantBuil
 }
 
 /** 外功七卷：論劍自動比武用主修外功同已得卷 */
-function autoLoadout(c: LifeGameState['character']): { autoArt?: string; autoVols?: number[] } {
+function autoLoadout(c: LifeGameState['character']): Pick<ContestantBuild, 'autoArt' | 'autoVols' | 'autoArts'> {
   const art = autoBattleArt(c);
-  return art ? { autoArt: art, autoVols: ownedVolumes(c, art) } : {};
+  if (!art) return {};
+  return {
+    autoArt: art,
+    autoVols: ownedVolumes(c, art),
+    autoArts: autoBattleRotation(c).map((id) => ({ id, vols: ownedVolumes(c, id) })),
+  };
 }
 
 function buildGhost(id: string, templateIndex: number, playerMartial: number, rng: ReturnType<typeof getRng>): ContestantBuild {

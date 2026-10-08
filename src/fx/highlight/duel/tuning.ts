@@ -33,7 +33,7 @@ export const DUEL_TUNING = {
   /** 粒子上限 */
   particleCap: 300,
   /** 每次命中墨點數（暴擊 ×2） */
-  hitSparks: 26,
+  hitSparks: 16,
   /** 敵人化墨粒子數 */
-  dissolveSparks: 90,
+  dissolveSparks: 60,
 } as const;

@@ -8,7 +8,7 @@
 import type { CombatReplay, CombatReplayHit, LifeGameState } from '@interfaces/lifeEngine';
 import { BASIC_STRIKE } from '@data/skills/catalog';
 import { needsLifeOrDeathConfirm, playerCombatTurn } from './combat';
-import { autoBattleArt, autoBattleMoves, ownedVolumes } from './volumes';
+import { autoBattleArt, autoBattleMoves, autoBattleRotation, ownedVolumes } from './volumes';
 
 /** 自動戰鬥最多打幾多回合（防止無限拉鋸；到咗就照常由引擎判） */
 export const AUTO_COMBAT_MAX_ROUNDS = 40;
@@ -20,9 +20,15 @@ export interface AutoCombatResult extends CombatReplay {
   lines: string[];
 }
 
-function artInfo(state: LifeGameState): { artId?: string; vols?: number[] } {
-  const art = autoBattleArt(state.character);
-  return art ? { artId: art, vols: ownedVolumes(state.character, art) } : {};
+function artInfo(state: LifeGameState): Pick<CombatReplay, 'artId' | 'vols' | 'arts'> {
+  const c = state.character;
+  const art = autoBattleArt(c);
+  if (!art) return {};
+  return {
+    artId: art,
+    vols: ownedVolumes(c, art),
+    arts: autoBattleRotation(c).map((id) => ({ id, vols: ownedVolumes(c, id) })),
+  };
 }
 
 /**
@@ -49,7 +55,7 @@ export function runAutoCombat(state: LifeGameState): AutoCombatResult | null {
 
   for (let round = 1; round <= AUTO_COMBAT_MAX_ROUNDS; round++) {
     if (state.pendingCombat !== combat || combat.phase !== 'player') break;
-    const all = autoBattleMoves(state);
+    const all = autoBattleMoves(state, round);
     // 內力夠先出（按卷序，邊出邊扣）
     let qi = combat.player.qi;
     const usable = all.filter((m) => {

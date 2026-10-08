@@ -370,6 +370,27 @@
   opacity: 1;
 }
 
+/* 武學輪替：每回合輪一門，輪到嗰門發亮 */
+.rotation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.rotation span {
+  padding: 1px 8px;
+  border: 1px solid rgba(28, 26, 23, 0.2);
+  font-size: 12px;
+  color: var(--ink-wash);
+}
+
+.rotation span.on {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper-bright);
+}
+
 /* 出緊嗰卷：朱砂底＋金光 */
 .vols li.active {
   border-color: var(--gold);

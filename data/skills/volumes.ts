@@ -85,3 +85,25 @@ export function normalizeVolumes(vols: readonly number[] | undefined): number[] 
     (a, b) => a - b,
   );
 }
+
+/**
+ * 自動戰鬥演出用：而家（第 upto 招為止）輪到邊門外功、已得邊幾卷、輪替表。
+ * 冇輪替資料（舊紀錄）就用 artId／vols。
+ */
+export function replayArtAt(
+  replay: { artId?: string; vols?: number[]; arts?: { id: string; vols: number[] }[]; rounds: { hits: { side: string; skillId?: string }[] }[] },
+  upto: number,
+): { artId?: string; vols: number[]; rotation: { id: string; vols: number[] }[] } {
+  const rotation = replay.arts?.length ? replay.arts : replay.artId ? [{ id: replay.artId, vols: replay.vols ?? [1] }] : [];
+  let artId = rotation[0]?.id;
+  let k = 0;
+  for (const r of replay.rounds) {
+    for (const h of r.hits) {
+      if (k > upto) break;
+      if (h.side === 'player' && h.skillId) artId = h.skillId;
+      k += 1;
+    }
+  }
+  const vols = rotation.find((a) => a.id === artId)?.vols ?? replay.vols ?? [];
+  return { artId, vols, rotation };
+}

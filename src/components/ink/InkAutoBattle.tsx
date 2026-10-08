@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import type { CombatReplay, CombatReplayHit } from '@interfaces/lifeEngine';
 import { getSkillDef } from '@data/skills/catalog';
 import { getGearDef } from '@data/equipment/catalog';
-import { VOLUME_COUNT, VOLUME_NUMERALS, artVolumeMoves } from '@data/skills/volumes';
+import { VOLUME_COUNT, VOLUME_NUMERALS, artVolumeMoves, replayArtAt } from '@data/skills/volumes';
 import { SparStage, loadSparImage, loadSparImages, loadSparUiImages, type SparCombatHooks } from '../../spar/engine';
 import { ENEMY_POOL, SPAR_BACKGROUNDS, WEAPON_SPRITES, rigForSect } from '../../spar/rig';
 import { formatSparNumber } from '@core/life/sparDuel';
@@ -196,9 +196,11 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false }: Props) {
   const foeHp = h ? h.foeHp : replay.startFoeHp;
   const heroPct = (playerHp / Math.max(1, replay.playerMaxHp)) * 100;
   const foePct = (foeHp / Math.max(1, replay.foeMaxHp)) * 100;
-  const owned = new Set(replay.vols ?? []);
-  const moves = replay.artId ? artVolumeMoves(replay.artId) : [];
-  const artName = replay.artId ? getSkillDef(replay.artId)?.name : undefined;
+  // 每回合輪一門外功：七卷格跟住而家輪到嗰門
+  const artNow = replayArtAt(replay, cur ? cur.n - 1 : -1);
+  const owned = new Set(artNow.vols);
+  const moves = artNow.artId ? artVolumeMoves(artNow.artId) : [];
+  const artName = artNow.artId ? getSkillDef(artNow.artId)?.name : undefined;
 
   return createPortal(
     <div className="ink-auto" role="dialog" aria-modal="true" aria-label={`自動交手：${replay.title}`}>
@@ -247,8 +249,17 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false }: Props) {
           </div>
         </div>
 
-        {replay.artId ? (
+        {artNow.artId ? (
           <div className="ink-auto-vols" aria-label={`${artName} 七卷`}>
+            {artNow.rotation.length > 1 && (
+              <div className="ink-auto-rotation" aria-label="武學輪替">
+                {artNow.rotation.map((a) => (
+                  <span key={a.id} className={a.id === artNow.artId ? 'is-on' : ''}>
+                    {getSkillDef(a.id)?.name}
+                  </span>
+                ))}
+              </div>
+            )}
             <p className="ink-auto-vols-title">
               {artName} · 已得 {owned.size}／{VOLUME_COUNT} 卷
             </p>

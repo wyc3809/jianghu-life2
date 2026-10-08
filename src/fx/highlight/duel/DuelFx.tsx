@@ -9,7 +9,7 @@ import { createPortal } from 'react-dom';
 import gsap from 'gsap';
 import type { CombatReplay } from '@interfaces/lifeEngine';
 import { getSkillDef } from '@data/skills/catalog';
-import { VOLUME_COUNT, VOLUME_NUMERALS, artVolumeMoves } from '@data/skills/volumes';
+import { VOLUME_COUNT, VOLUME_NUMERALS, artVolumeMoves, replayArtAt } from '@data/skills/volumes';
 import { sealUrlForText } from '../../../ui/inkAssets';
 import { playInkBlade, playInkCrit, playInkDefeat, playInkHit, playInkMiss, playInkVictory } from '../../../audio/inkAudio';
 import { GRADES } from '../grades';
@@ -186,9 +186,11 @@ export default function DuelFx({ replay, onDone, onFail }: DuelFxProps) {
     gsap.fromTo(sealRef.current, { scale: 3.2, opacity: 0, rotation: -18 }, { scale: 1, opacity: 1, rotation: -6, duration: 0.42, ease: 'back.out(2.2)' });
   }, [finale]);
 
-  const owned = new Set(replay.vols ?? []);
-  const moves = replay.artId ? artVolumeMoves(replay.artId) : [];
-  const artName = replay.artId ? getSkillDef(replay.artId)?.name : undefined;
+  // 每回合輪一門外功：七卷格跟住而家輪到嗰門
+  const artNow = replayArtAt(replay, beat);
+  const owned = new Set(artNow.vols);
+  const moves = artNow.artId ? artVolumeMoves(artNow.artId) : [];
+  const artName = artNow.artId ? getSkillDef(artNow.artId)?.name : undefined;
   // 宣紙底：普通凡品紙色，首領泥金暈
   const grade = GRADES[replay.foeBoss ? 4 : 0];
   const sealSrc = finale === 'lose' ? sealUrlForText('敗') : sealUrlForText('勝');
@@ -273,8 +275,17 @@ export default function DuelFx({ replay, onDone, onFail }: DuelFxProps) {
             {Math.round(playerHp)}／{replay.playerMaxHp}
           </em>
         </div>
-        {replay.artId ? (
+        {artNow.artId ? (
           <div className={styles.vols} aria-label={`${artName} 七卷`}>
+            {artNow.rotation.length > 1 && (
+              <div className={styles.rotation} aria-label="武學輪替">
+                {artNow.rotation.map((a) => (
+                  <span key={a.id} className={a.id === artNow.artId ? styles.on : ''}>
+                    {getSkillDef(a.id)?.name}
+                  </span>
+                ))}
+              </div>
+            )}
             <p>
               {artName} · 已得 {owned.size}／{VOLUME_COUNT} 卷
             </p>

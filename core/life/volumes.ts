@@ -66,10 +66,26 @@ export function autoBattleArt(c: LifeCharacter): string | null {
   return c.skills.find((id) => hasVolumes(id)) ?? null;
 }
 
-/** 自動戰鬥每回合出嘅招（已得嘅卷，按卷序；秘笈升階照加） */
-export function autoBattleMoves(state: LifeGameState): { skillId: string; vol: number; move: CombatMoveDef }[] {
+/**
+ * 自動戰鬥輪替次序（玩家決定 2026-10-08：每回合輪一門武學）：
+ * 主修外功行先，之後按學識次序排其他有招嘅外功；輪完再由頭。
+ */
+export function autoBattleRotation(c: LifeCharacter): string[] {
+  const first = autoBattleArt(c);
+  if (!first) return [];
+  return [first, ...c.skills.filter((id) => id !== first && hasVolumes(id))];
+}
+
+/** 第 round 回合（由 1 起）輪到邊門外功 */
+export function autoBattleArtForRound(c: LifeCharacter, round: number): string | null {
+  const rot = autoBattleRotation(c);
+  return rot.length ? rot[(Math.max(1, round) - 1) % rot.length]! : null;
+}
+
+/** 自動戰鬥第 round 回合出嘅招（嗰門外功已得嘅卷，按卷序；秘笈升階照加） */
+export function autoBattleMoves(state: LifeGameState, round = 1): { skillId: string; vol: number; move: CombatMoveDef }[] {
   const c = state.character;
-  const art = autoBattleArt(c);
+  const art = autoBattleArtForRound(c, round);
   if (!art) return [];
   const stars = c.manualStars?.[art] ?? 0;
   const moves = artVolumeMoves(art);
