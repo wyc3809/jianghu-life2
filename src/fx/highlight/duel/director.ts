@@ -52,11 +52,14 @@ export interface DuelAssets {
 
 const INK = '#1C1A17';
 const CINNABAR = '#A33A32';
-const FIGHTER_H = 2.6;
+/** 人物比例同演武台一樣（玩家要求 2026-10-08）：身高約畫面闊度四分一，兩人相距約半個畫面 */
+const FIGHTER_H = 1.25;
+/** 筆觸、墨濺跟人物比例縮 */
+const FX_SCALE = 0.5;
 const ASPECT = 616 / 788;
-const HERO_X = -1.25;
-const FOE_X = 1.25;
-const GROUND_Y = -1.45;
+const HERO_X = -1.1;
+const FOE_X = 1.0;
+const GROUND_Y = -0.85;
 
 interface Fighter {
   mesh: THREE.Mesh;
@@ -148,9 +151,9 @@ export class DuelDirector {
     const back = mistMaterial(INK, 1.3);
     const ground = mistMaterial(INK, 4.1);
     const m1 = new THREE.Mesh(new THREE.PlaneGeometry(13, 5.5), back);
-    m1.position.set(0, 0.6, -2.5);
+    m1.position.set(0, 0.3, -2.5);
     const m2 = new THREE.Mesh(new THREE.PlaneGeometry(11, 2.2), ground);
-    m2.position.set(0, GROUND_Y + 0.15, 0.6);
+    m2.position.set(0, GROUND_Y + 0.1, 0.6);
     this.scene.add(m1, m2);
     this.mists = [back, ground];
 
@@ -244,7 +247,7 @@ export class DuelDirector {
     // 揮擊：衝前、筆觸畫出
     tl.call(() => this.setTex(hero, this.tex.heroStrike), [], strikeAt);
     tl.to(hero.mesh.scale, { x: 1, y: 1, duration: 0.12, ease: 'back.out(3)' }, strikeAt);
-    tl.to(hero.mesh.position, { x: foe.baseX - 1.35, duration: 0.12, ease: 'power3.in' }, strikeAt - 0.04);
+    tl.to(hero.mesh.position, { x: foe.baseX - 0.7, duration: 0.12, ease: 'power3.in' }, strikeAt - 0.04);
     if (killing) {
       // 終結一擊：慢鏡
       tl.call(() => this.setSlow(T.slowMoScale), [], strikeAt - 0.02);
@@ -254,7 +257,7 @@ export class DuelDirector {
     // 命中
     if (hit) {
       tl.call(() => this.impact(foe, h, s, crit, k), [], impactAt);
-      tl.to(foe.mesh.position, { x: foe.baseX + (crit ? 0.6 : 0.35), duration: 0.1, ease: 'power2.out' }, impactAt);
+      tl.to(foe.mesh.position, { x: foe.baseX + (crit ? 0.3 : 0.18), duration: 0.1, ease: 'power2.out' }, impactAt);
       tl.to(foe.mesh.rotation, { z: -0.12, duration: 0.1 }, impactAt);
       tl.to(foe.mat.uniforms.uTintAmt!, { value: 0.85, duration: 0.05 }, impactAt);
       tl.to(foe.mat.uniforms.uTintAmt!, { value: 0, duration: 0.3 }, impactAt + 0.08);
@@ -265,7 +268,7 @@ export class DuelDirector {
     } else {
       // 落空：敵人側身閃開
       tl.call(() => this.missText(foe, k), [], impactAt);
-      tl.to(foe.mesh.position, { x: foe.baseX + 0.5, y: GROUND_Y + foe.h / 2 + 0.12, duration: 0.12, ease: 'power2.out' }, impactAt - 0.06);
+      tl.to(foe.mesh.position, { x: foe.baseX + 0.25, y: GROUND_Y + foe.h / 2 + 0.06, duration: 0.12, ease: 'power2.out' }, impactAt - 0.06);
       tl.to(foe.mesh.position, { x: foe.baseX, y: GROUND_Y + foe.h / 2, duration: 0.26, ease: 'power2.inOut' }, impactAt + 0.12);
     }
     // 收勢
@@ -286,20 +289,20 @@ export class DuelDirector {
     const strikeAt = t + 0.14;
     const impactAt = strikeAt + 0.1;
     tl.call(() => this.cb.onBeat(k), [], t);
-    tl.to(foe.mesh.position, { x: hero.baseX + 1.4, duration: 0.16, ease: 'power3.in' }, t);
+    tl.to(foe.mesh.position, { x: hero.baseX + 0.72, duration: 0.16, ease: 'power3.in' }, t);
     tl.to(foe.mesh.rotation, { z: 0.08, duration: 0.16 }, t);
     tl.call(() => this.slash(FOE_STROKE, hero, !hit, true), [], strikeAt);
     if (hit) {
       tl.call(() => this.impact(hero, h, FOE_STROKE, false, k, true), [], impactAt);
       tl.to(hero.mesh.rotation, { z: 0.16, duration: 0.09, ease: 'power2.out' }, impactAt);
-      tl.to(hero.mesh.position, { x: hero.baseX - 0.3, duration: 0.09 }, impactAt);
+      tl.to(hero.mesh.position, { x: hero.baseX - 0.15, duration: 0.09 }, impactAt);
       tl.to(hero.mat.uniforms.uTintAmt!, { value: 0.9, duration: 0.05 }, impactAt);
       tl.to(hero.mat.uniforms.uTintAmt!, { value: 0, duration: 0.32 }, impactAt + 0.08);
       tl.to(hero.mesh.rotation, { z: 0, duration: 0.3, ease: 'power2.inOut' }, impactAt + 0.14);
       tl.to(hero.mesh.position, { x: hero.baseX, duration: 0.3 }, impactAt + 0.14);
     } else {
       tl.call(() => this.missText(hero, k), [], impactAt);
-      tl.to(hero.mesh.position, { x: hero.baseX - 0.45, y: GROUND_Y + hero.h / 2 + 0.1, duration: 0.12 }, impactAt - 0.05);
+      tl.to(hero.mesh.position, { x: hero.baseX - 0.22, y: GROUND_Y + hero.h / 2 + 0.05, duration: 0.12 }, impactAt - 0.05);
       tl.to(hero.mesh.position, { x: hero.baseX, y: GROUND_Y + hero.h / 2, duration: 0.24 }, impactAt + 0.12);
     }
     tl.to(foe.mesh.position, { x: foe.baseX, duration: 0.22, ease: 'power2.out' }, impactAt + 0.12);
@@ -326,14 +329,14 @@ export class DuelDirector {
 
   /** 蓄勢：墨點由四周吸入主角手位 */
   private gatherQi(f: Fighter, s: VolumeStroke) {
-    const p = this.toScreen(f.mesh.position.x + 0.45, f.mesh.position.y + f.h * 0.12);
-    this.particles.attract(p.x, p.y, 16, [INK, s.color], 110, 14);
+    const p = this.toScreen(f.mesh.position.x + 0.22, f.mesh.position.y + f.h * 0.12);
+    this.particles.attract(p.x, p.y, 10, [INK, s.color], 80, 10);
   }
 
   /** 揮擊筆觸：按卷別形狀，喺目標身上畫出再淡走 */
   private slash(s: VolumeStroke, target: Fighter, miss: boolean, mirror: boolean) {
     const paths = strokePaths(s, mirror);
-    const scale = mirror ? 0.75 : 1;
+    const scale = (mirror ? 0.75 : 1) * FX_SCALE;
     paths.forEach((path, i) => {
       const b: BrushMesh = brushMesh(path, s, (this.seed += 1.7));
       b.mesh.position.set(target.mesh.position.x, target.mesh.position.y + (miss ? target.h * 0.42 : 0.05), 0.4 + i * 0.01);
@@ -360,7 +363,7 @@ export class DuelDirector {
     // 墨濺（位圖）
     if (this.splashTex) {
       const mat = new THREE.MeshBasicMaterial({ map: this.splashTex, transparent: true, depthWrite: false, color: crit ? CINNABAR : '#ffffff' });
-      const m = new THREE.Mesh(new THREE.PlaneGeometry(1.6, 1.5), mat);
+      const m = new THREE.Mesh(new THREE.PlaneGeometry(1.6 * FX_SCALE, 1.5 * FX_SCALE), mat);
       m.position.set(f.mesh.position.x, f.mesh.position.y + f.h * 0.08, 0.5);
       m.rotation.z = Math.random() * Math.PI * 2;
       m.scale.setScalar(0.3);

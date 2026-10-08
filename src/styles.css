@@ -9925,3 +9925,25 @@ button.ink-enc-strip {
   font-size: 0.7rem;
   color: var(--ink-mid);
 }
+
+/* 自動交手（2D）：武學輪替 */
+.ink-auto-rotation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.ink-auto-rotation span {
+  padding: 1px 8px;
+  border: 1px solid var(--ink-faint);
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+}
+
+.ink-auto-rotation span.is-on {
+  border-color: #1a1a1a;
+  background: #1a1a1a;
+  color: #f6f1e6;
+}
+

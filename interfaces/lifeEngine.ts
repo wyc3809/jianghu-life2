@@ -295,6 +295,8 @@ export interface ContestantBuild {
   /** 外功七卷：自動比武用嘅外功同已得卷號 */
   autoArt?: string;
   autoVols?: number[];
+  /** 每回合輪一門：輪替次序同各自已得卷（冇就淨用 autoArt） */
+  autoArts?: { id: string; vols: number[] }[];
 }
 
 export interface HuashanBracketMatch {
@@ -333,6 +335,8 @@ export interface CombatReplay {
   artId?: string;
   /** 玩家已得嘅卷 */
   vols?: number[];
+  /** 自動戰鬥輪替嘅外功（每回合輪一門）同各自已得嘅卷 */
+  arts?: { id: string; vols: number[] }[];
   rounds: { round: number; hits: CombatReplayHit[] }[];
   outcome: 'resolve' | 'won' | 'lost' | 'ended';
 }

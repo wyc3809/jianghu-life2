@@ -214,16 +214,29 @@ export interface ContestDuelResult {
 }
 
 /** 外功七卷：呢方每回合出嘅招（按卷序、內力夠先出） */
-function volumeChain(fighter: ContestFighter, loadout: ContestantBuild): { move: CombatMoveDef; vol: number }[] {
-  if (!loadout.autoArt || !loadout.skills.includes(loadout.autoArt)) return [];
-  const moves = artVolumeMoves(loadout.autoArt);
+/** 第 turn 回合輪到邊門外功（每回合輪一門；冇輪替表就淨用 autoArt） */
+function artForTurn(loadout: ContestantBuild, turn: number): { id: string; vols: number[] } | null {
+  const rot = (loadout.autoArts ?? []).filter((a) => loadout.skills.includes(a.id));
+  if (rot.length) return rot[(Math.max(1, turn) - 1) % rot.length]!;
+  if (!loadout.autoArt || !loadout.skills.includes(loadout.autoArt)) return null;
+  return { id: loadout.autoArt, vols: loadout.autoVols ?? [] };
+}
+
+function volumeChain(
+  fighter: ContestFighter,
+  loadout: ContestantBuild,
+  turn: number,
+): { move: CombatMoveDef; vol: number; skillId: string }[] {
+  const art = artForTurn(loadout, turn);
+  if (!art) return [];
+  const moves = artVolumeMoves(art.id);
   let qi = fighter.qi;
-  const out: { move: CombatMoveDef; vol: number }[] = [];
-  for (const vol of normalizeVolumes([1, ...(loadout.autoVols ?? [])])) {
+  const out: { move: CombatMoveDef; vol: number; skillId: string }[] = [];
+  for (const vol of normalizeVolumes([1, ...art.vols])) {
     const m = moves[vol - 1];
     if (!m || qi < m.qiCost) continue;
     qi -= m.qiCost;
-    out.push({ move: m, vol });
+    out.push({ move: m, vol, skillId: art.id });
   }
   return out;
 }
@@ -237,8 +250,9 @@ function executeAutoTurn(
   rng: SeededRng,
   side: 'player' | 'foe',
   hp: () => { playerHp: number; foeHp: number },
+  turn: number,
 ): { lines: string[]; hits: CombatReplayHit[] } {
-  const chain = volumeChain(attacker, loadout);
+  const chain = volumeChain(attacker, loadout, turn);
   if (!chain.length) {
     const before = defender.hp;
     const lines = executeTurn(attacker, defender, loadout, moves, rng);
@@ -253,7 +267,7 @@ function executeAutoTurn(
     lines.push(`${attacker.name}穴道未暢，這一招使不出來。`);
     return { lines, hits };
   }
-  for (const { move, vol } of chain) {
+  for (const { move, vol, skillId } of chain) {
     if (defender.hp <= 0) break;
     const before = defender.hp;
     lines.push(...resolveStrike(attacker, defender, move, loadout, rng));
@@ -261,7 +275,7 @@ function executeAutoTurn(
       side,
       moveName: move.name,
       vol,
-      skillId: loadout.autoArt,
+      skillId,
       damage: Math.max(0, Math.round(before - defender.hp)),
       ...hp(),
     });
@@ -299,7 +313,13 @@ export function simulateContestDuel(opts: {
     foeMaxHp: fF.maxHp,
     startPlayerHp: pF.hp,
     startFoeHp: fF.hp,
-    ...(pB.autoArt ? { artId: pB.autoArt, vols: normalizeVolumes([1, ...(pB.autoVols ?? [])]) } : {}),
+    ...(pB.autoArt
+      ? {
+          artId: pB.autoArt,
+          vols: normalizeVolumes([1, ...(pB.autoVols ?? [])]),
+          arts: (pB.autoArts ?? []).map((a) => ({ id: a.id, vols: normalizeVolumes([1, ...a.vols]) })),
+        }
+      : {}),
     rounds: [],
     outcome: 'ended',
   };
@@ -308,12 +328,12 @@ export function simulateContestDuel(opts: {
   for (let turn = 1; turn <= maxTurns; turn += 1) {
     const hits: CombatReplayHit[] = [];
     if (aF.hp > 0 && bF.hp > 0) {
-      const t = executeAutoTurn(aF, bF, opts.a, movesA, rng, sideOf(true), hp);
+      const t = executeAutoTurn(aF, bF, opts.a, movesA, rng, sideOf(true), hp, turn);
       log.push(...t.lines);
       hits.push(...t.hits);
     }
     if (bF.hp > 0 && aF.hp > 0) {
-      const t = executeAutoTurn(bF, aF, opts.b, movesB, rng, sideOf(false), hp);
+      const t = executeAutoTurn(bF, aF, opts.b, movesB, rng, sideOf(false), hp, turn);
       log.push(...t.lines);
       hits.push(...t.hits);
     }
