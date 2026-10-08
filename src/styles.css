@@ -9954,3 +9954,571 @@ button.ink-enc-strip {
   color: #f6f1e6;
 }
 
+
+/* ===== 第 18 項：統一 UI icon（src/ui/inkIcons.ts，位圖 WebP） ===== */
+.ink-icon {
+  display: inline-block;
+  flex: none;
+  object-fit: contain;
+  vertical-align: middle;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.ink-hud-wallet .ink-money-chip,
+.ink-jade-chip {
+  min-height: 28px;
+  padding: 1px 10px 1px 1px;
+}
+
+.ink-wallet-icon {
+  filter: drop-shadow(0 1px 0 rgba(46, 38, 34, 0.25));
+}
+
+/* 貨幣增加：金色掃光（inkGlint 推 --glint 0→1） */
+.ink-glint {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* 高光帶墊喺 icon 同數字後面 */
+.ink-glint.is-glinting::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 30%, rgba(227, 196, 106, 0.85) 50%, transparent 70%);
+  transform: translateX(calc((var(--glint, 0) * 2.4 - 1.2) * 100%));
+}
+
+.ink-hud-wallet .ink-icon-btn--wide {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 0 8px 0 4px;
+}
+
+.ink-vitals-label span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.ink-ap-meter .ink-icon {
+  margin-right: -3px;
+}
+
+/* 快捷鈕：圖示本身就係按鈕，唔再要 CSS 圓圈 */
+.ink-quick-icon,
+.ink-quick-btn:first-child .ink-quick-icon {
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  filter: drop-shadow(0 2px 2px rgba(46, 38, 34, 0.22));
+}
+
+.ink-delta-chip {
+  align-items: center;
+}
+
+.ink-delta-chip .ink-icon {
+  margin: -2px 0 -2px -4px;
+}
+
+/* 底部導航：未揀中略淡，揀中全彩＋金光 */
+.ink-tabs .ink-tab-icon {
+  width: 42px;
+  height: 42px;
+  margin-bottom: -1px;
+  opacity: 0.9;
+  filter: saturate(0.75) drop-shadow(0 1px 1px rgba(46, 38, 34, 0.2));
+}
+
+.ink-tabs .ink-tab--active .ink-tab-icon {
+  filter: saturate(1.05) drop-shadow(0 0 6px rgba(227, 196, 106, 0.75));
+}
+
+/* 秘笈閣玉石：icon 喺左 */
+.ink-jade {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 6px;
+  align-items: center;
+}
+
+.ink-jade .ink-jade-icon {
+  grid-row: span 2;
+}
+
+/* ===== 第 19 項：秘笈閣直版（參考漢家江湖祈福：design/art/ref/gacha-ref-hanjia.webp） ===== */
+.ink-gacha--stage {
+  --stage-teal: #3f6670;
+  --stage-deep: #23383e;
+  --stage-gold: #e3c46a;
+  --stage-gold-dk: #b8913e;
+  --stage-paper: #efe6d6;
+  padding: 10px 10px 14px;
+}
+
+/* 頂欄 */
+.ink-gacha-top {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    'title wallet'
+    'tools tools';
+  align-items: center;
+  gap: 6px 8px;
+  margin-bottom: 8px;
+}
+
+.ink-gacha-title {
+  grid-area: title;
+  margin: 0;
+  padding: 2px 14px 2px 10px;
+  font-family: var(--font-title);
+  font-size: 1.35rem;
+  letter-spacing: 0.18em;
+  color: var(--stage-paper);
+  background: linear-gradient(90deg, var(--stage-deep), var(--stage-teal) 80%, transparent);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+}
+
+.ink-gacha-wallet {
+  grid-area: wallet;
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.ink-gacha-coin {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 3px;
+  padding: 2px 8px 2px 2px;
+  border: 1px solid rgba(74, 58, 50, 0.45);
+  border-radius: 14px;
+  background: rgba(246, 240, 228, 0.95);
+}
+
+.ink-gacha-coin .ink-icon {
+  grid-row: span 2;
+}
+
+.ink-gacha-coin b {
+  font-size: 0.9rem;
+  line-height: 1.05;
+  font-variant-numeric: tabular-nums;
+}
+
+.ink-gacha-coin small {
+  font-size: 0.56rem;
+  line-height: 1.1;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.ink-gacha-coin.is-paid {
+  padding-right: 26px;
+  border-color: rgba(184, 145, 62, 0.7);
+}
+
+.ink-gacha-plus {
+  position: absolute;
+  right: 2px;
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  margin-top: -11px;
+  border: 1px solid var(--stage-gold-dk);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff3c9, var(--stage-gold) 70%);
+  color: #4a3a32;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.ink-gacha-tools {
+  grid-area: tools;
+  display: flex;
+  gap: 14px;
+  padding-left: 4px;
+}
+
+.ink-gacha-tool {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--font-title);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fbf7ee;
+  -webkit-text-stroke: 2.5px var(--ink);
+  paint-order: stroke fill;
+  cursor: pointer;
+}
+
+.ink-gacha-tool .ink-icon {
+  filter: drop-shadow(0 1px 1px rgba(46, 38, 34, 0.3));
+  transition: transform 0.08s ease;
+}
+
+.ink-gacha-tool:active .ink-icon {
+  transform: scale(0.92);
+}
+
+.ink-gacha-tool.is-on span {
+  color: var(--stage-gold);
+}
+
+.ink-gacha-info {
+  margin-bottom: 8px;
+  padding: 8px 10px;
+  border: 1px solid rgba(74, 58, 50, 0.35);
+  background: rgba(246, 240, 228, 0.96);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.ink-gacha-info p {
+  margin: 0 0 4px;
+}
+
+.ink-gacha-info .ink-jade-grant {
+  width: 100%;
+  margin-top: 4px;
+}
+
+/* 卡池卡：橫排兩張，揀中嗰張放大＋金邊 */
+.ink-pool-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.ink-pool-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 6px;
+  min-height: 62px;
+  padding: 6px 8px 6px 4px;
+  border: 2px solid rgba(74, 58, 50, 0.35);
+  background: linear-gradient(135deg, #d9e2dc, #b9cbc4);
+  text-align: left;
+  font-family: inherit;
+  opacity: 0.78;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ink-pool-card .ink-icon {
+  grid-row: span 2;
+}
+
+.ink-pool-name {
+  font-family: var(--font-title);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--stage-deep);
+}
+
+.ink-pool-card small {
+  font-size: 0.62rem;
+  line-height: 1.25;
+  color: var(--ink-mid);
+}
+
+.ink-pool-card.is-premium {
+  background: linear-gradient(135deg, #f1e3c2, #dcc08a);
+}
+
+.ink-pool-card.is-premium .ink-pool-name {
+  color: #7a4a14;
+}
+
+.ink-pool-card.is-on {
+  opacity: 1;
+  border-color: var(--stage-gold);
+  box-shadow: 0 0 0 1px var(--stage-gold-dk), 0 4px 12px rgba(35, 56, 62, 0.35);
+  transform: translateY(-2px);
+}
+
+/* 掛軸舞台 */
+.ink-gacha-stage {
+  position: relative;
+  height: 340px;
+  overflow: hidden;
+  border: 2px solid #4a3a32;
+  background:
+    linear-gradient(180deg, #2c474e, #4d7a7c 48%, #1f3338),
+    url('/ink/ai/banners/banner-bamboo-practice.webp') center / cover;
+  background-blend-mode: multiply;
+  box-shadow: inset 0 0 40px rgba(20, 30, 32, 0.6);
+}
+
+.ink-gacha--stage.is-zhenben .ink-gacha-stage {
+  background:
+    linear-gradient(180deg, #4a3418, #9a7a3e 48%, #3a2812),
+    url('/ink/ai/banners/banner-sect-gate.webp') center / cover;
+  background-blend-mode: multiply;
+}
+
+.ink-hang-scrolls {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  padding: 0 10px;
+}
+
+/* 一幅掛軸：宣紙半透明，上下木軸 */
+.ink-hang {
+  position: relative;
+  margin-top: calc(14px + var(--i) % 2 * 22px);
+  height: calc(100% - 48px - var(--i) % 2 * 22px);
+  background: linear-gradient(180deg, rgba(239, 230, 214, 0.3), rgba(239, 230, 214, 0.16));
+  border-left: 1px solid rgba(239, 230, 214, 0.35);
+  border-right: 1px solid rgba(239, 230, 214, 0.35);
+  display: grid;
+  place-items: center;
+}
+
+.ink-hang::before,
+.ink-hang::after {
+  content: '';
+  position: absolute;
+  left: -6px;
+  right: -6px;
+  height: 7px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #e8dcc2, #b7a787);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+.ink-hang::before {
+  top: -4px;
+}
+
+.ink-hang::after {
+  bottom: -4px;
+  background: linear-gradient(180deg, #6b5546, #3a2c24);
+}
+
+.ink-hang img {
+  position: absolute;
+  bottom: 8%;
+  left: 50%;
+  width: 120%;
+  max-width: none;
+  transform: translateX(-50%) scaleX(calc(1 - var(--i) % 2 * 2));
+  opacity: 0.22;
+  filter: invert(0.9) sepia(0.4) hue-rotate(110deg);
+  pointer-events: none;
+}
+
+.ink-hang b {
+  position: relative;
+  font-family: var(--font-title);
+  font-size: 2rem;
+  color: rgba(239, 230, 214, 0.7);
+  text-shadow: 0 0 10px rgba(239, 230, 214, 0.5);
+}
+
+/* 直排大題字＋直排副題 */
+.ink-pool-calli {
+  position: absolute;
+  left: 14px;
+  top: 16px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-title);
+  font-size: 2.6rem;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  color: #f6f0e4;
+  text-shadow: 0 2px 3px rgba(20, 30, 32, 0.7), 0 0 18px rgba(246, 240, 228, 0.25);
+}
+
+.ink-pool-tagline {
+  position: absolute;
+  left: 70px;
+  top: 22px;
+  margin: 0;
+  padding: 8px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  line-height: 1.2;
+  font-size: 0.8rem;
+  color: #f6f0e4;
+  background: rgba(35, 56, 62, 0.7);
+  border-top: 2px solid var(--stage-gold);
+  border-bottom: 2px solid var(--stage-gold);
+}
+
+/* 心願面板：右上，暖金宣紙 */
+.ink-wish-card {
+  position: absolute;
+  right: 10px;
+  top: 14px;
+  width: 132px;
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: 6px 8px 8px;
+  border: 1px solid var(--stage-gold-dk);
+  background: linear-gradient(160deg, #f6e7c4, #e2c17e);
+  box-shadow: 0 4px 14px rgba(20, 30, 32, 0.45);
+  cursor: pointer;
+}
+
+.ink-wish-head {
+  font-family: var(--font-title);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #7a3a24;
+}
+
+.ink-wish-sil {
+  width: 64px;
+  height: 72px;
+  overflow: hidden;
+  border-radius: 50% 50% 8px 8px;
+  background: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.6), transparent 70%);
+}
+
+.ink-wish-sil img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.85;
+}
+
+.ink-wish-card.has-wish .ink-wish-sil img {
+  filter: drop-shadow(0 0 6px rgba(227, 196, 106, 0.9));
+}
+
+.ink-wish-name {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #4a3a32;
+}
+
+.ink-wish-name::after {
+  content: ' ▾';
+  color: #7a3a24;
+}
+
+.ink-wish-pity {
+  width: 100%;
+}
+
+.ink-wish-pity .ink-pity-text {
+  margin-top: 2px;
+  text-align: center;
+  font-size: 0.68rem;
+  color: #5a4232;
+}
+
+/* 原生下拉蓋住成張卡（撳卡就揀心願） */
+.ink-wish-card select {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.ink-pity-line {
+  margin: 6px 0 8px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--ink-mid);
+}
+
+.ink-pity-line em {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--cinnabar);
+}
+
+/* 大抽卡掣：書法字＋玉石價錢 */
+.ink-pull-row--stage {
+  gap: 10px;
+}
+
+.ink-pull-row--stage .ink-pull {
+  position: relative;
+  justify-content: center;
+  gap: 2px;
+  min-height: 74px;
+  border: 2px solid #4a3a32;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #4f7c86, #2f5560);
+  box-shadow: inset 0 0 0 2px rgba(239, 230, 214, 0.35), 0 3px 0 rgba(35, 56, 62, 0.6);
+  letter-spacing: 0;
+}
+
+.ink-pull-row--stage .ink-pull--ten {
+  border-color: var(--stage-gold-dk);
+  background: radial-gradient(ellipse at 50% 120%, #f0b45a 0%, #c0583e 45%, #8c2f26 100%);
+  box-shadow: inset 0 0 0 2px rgba(255, 232, 160, 0.55), 0 3px 0 rgba(90, 30, 24, 0.6), 0 0 16px rgba(227, 196, 106, 0.45);
+}
+
+.ink-pull-row--stage .ink-pull:active:not(:disabled) {
+  transform: translateY(2px) scale(0.98);
+}
+
+.ink-pull-calli {
+  font-family: var(--font-title);
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #fff8e6;
+  text-shadow: 0 0 1px #2e2622, 0 2px 2px rgba(46, 38, 34, 0.7);
+}
+
+.ink-pull-cost {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 0 10px 0 4px;
+  border-radius: 10px;
+  background: rgba(20, 24, 26, 0.45);
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #fbf3df;
+}
+
+.ink-gacha-back {
+  margin-bottom: 8px;
+}

@@ -17,7 +17,9 @@ import {
 } from '../../audio/inkAudio';
 import { InkSettingsPanel } from './InkSettingsPanel';
 import { InkLeaderboardPanel } from './InkLeaderboardPanel';
-import { inkHop, inkPageIn, inkPopIn, inkRevealChars } from '../../ui/inkMotion';
+import { inkGlint, inkHop, inkPageIn, inkPopIn, inkRevealChars } from '../../ui/inkMotion';
+import { InkIcon } from './InkIcon';
+import { deltaIconKey, type InkIconKey } from '../../ui/inkIcons';
 import { cloudConfigured } from '../../cloud/cloud';
 import { lifeScore } from '@core/life/leaderboardScore';
 import { InkGearCompareModal } from './InkGearCompareModal';
@@ -76,6 +78,14 @@ const RESULT_STORY_CLAMP_CHARS = 72;
 /** 長文自動捲動：開頭停一陣再開始，每秒捲幾多 px（測試參數） */
 const RESULT_STORY_SCROLL_DELAY_MS = 1200;
 const RESULT_STORY_SCROLL_PX_PER_SEC = 16;
+
+/** 底部導航 icon（第 18 項：統一 icon） */
+const TAB_ICONS: Record<'home' | 'person' | 'jianghu' | 'practice', InkIconKey> = {
+  home: 'house',
+  person: 'hat',
+  jianghu: 'banner',
+  practice: 'censer',
+};
 import { useRollingNumber } from '../../hooks/useRollingNumber';
 import { HighlightFxLazy, canUseWebGL, prefetchHighlight } from '../../fx/highlight';
 import { breakthroughHighlight, momentHighlight } from '../../fx/highlight/fromGame';
@@ -312,6 +322,7 @@ export function InkPlayScreen({ state }: Props) {
     if (combat || (dm <= 0 && dp <= 0)) return;
     // 喺數字滾動 effect 之前寫好延遲（同一輪 effect，順序按宣告）
     moneyDelay.current = dm > 0 ? flyInkDots(moneyChipRef.current, Math.ceil(dm / 10), 'gold') * 0.8 : 0;
+    if (dm > 0) inkGlint(moneyChipRef.current, moneyDelay.current);
     prestigeDelay.current = dp > 0 ? flyInkDots(prestigeRef.current, Math.ceil(dp / 20), 'cinnabar') * 0.8 : 0;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [moneyNow, prestigeNow]);
@@ -604,8 +615,8 @@ export function InkPlayScreen({ state }: Props) {
             </p>
           </div>
           <div className="ink-hud-wallet">
-            <span ref={moneyChipRef} className="ink-money-chip" aria-label={`銀兩 ${Math.round(c.money ?? 0)}`}>
-              <img className="ink-label-img" src={`${import.meta.env.BASE_URL || '/'}ink/ui/label-yinliang.webp`} alt="" aria-hidden draggable={false} />
+            <span ref={moneyChipRef} className="ink-money-chip ink-glint" aria-label={`銀兩 ${Math.round(c.money ?? 0)}`}>
+              <InkIcon name="silver" size={26} className="ink-wallet-icon" />
               <InkGlyphText text={moneyShown.toLocaleString('zh-Hant')} height={14} />
             </span>
             <button
@@ -614,7 +625,7 @@ export function InkPlayScreen({ state }: Props) {
               aria-label={`玉石 ${jadeTotal}，去秘笈閣`}
               onClick={() => openGachaTab()}
             >
-              <i aria-hidden>玉</i>
+              <InkIcon name="jade" size={26} className="ink-wallet-icon" />
               {jadeTotal.toLocaleString('zh-Hant')}
             </button>
             <div className="ink-status-buttons">
@@ -627,6 +638,7 @@ export function InkPlayScreen({ state }: Props) {
                 aria-haspopup="dialog"
                 aria-expanded={settingsOpen}
               >
+                <InkIcon name="fan" size={18} />
                 設定
               </button>
               {import.meta.env.DEV && (
@@ -649,7 +661,10 @@ export function InkPlayScreen({ state }: Props) {
             <div className="ink-vitals-meters ink-vitals-meters--bare" aria-label="氣血內力">
               <div className="ink-meter">
                 <div className="ink-vitals-label">
-                  <span>氣血</span>
+                  <span>
+                    <InkIcon name="blood" size={16} />
+                    氣血
+                  </span>
                   <span>
                     {Math.round(c.health)}/{c.maxHealth}
                   </span>
@@ -667,7 +682,10 @@ export function InkPlayScreen({ state }: Props) {
               </div>
               <div className="ink-meter">
                 <div className="ink-vitals-label">
-                  <span>內力</span>
+                  <span>
+                    <InkIcon name="qi" size={16} />
+                    內力
+                  </span>
                   <span>
                     {Math.round(c.qi ?? 0)}/{c.maxQi ?? 0}
                   </span>
@@ -693,6 +711,7 @@ export function InkPlayScreen({ state }: Props) {
             aria-valuemax={100}
             aria-valuenow={Math.round(100 - (c.actionPoints ?? 0))}
           >
+            <InkIcon name="tea" size={20} />
             <img className="ink-label-img ink-label-img--ap" src={`${import.meta.env.BASE_URL || '/'}ink/ui/label-pilao.webp`} alt="疲勞度" draggable={false} />
             <InkGlyphText text={`${Math.round(100 - (c.actionPoints ?? 0))}/100`} height={13} className="ink-ap-meter-value" />
           </div>
@@ -1003,6 +1022,7 @@ export function InkPlayScreen({ state }: Props) {
                           style={{ ['--i' as string]: i }}
                           title={chip.note}
                         >
+                          {deltaIconKey(chip.label) && <InkIcon name={deltaIconKey(chip.label)!} size={18} />}
                           <span className="ink-delta-chip-label">{chip.label}</span>
                           {chip.value && <span className="ink-delta-chip-value">{chip.value}</span>}
                           {chip.note && <span className="ink-delta-chip-note">{chip.note}</span>}
@@ -1114,13 +1134,7 @@ export function InkPlayScreen({ state }: Props) {
                 setTab(id);
               }}
             >
-              <img
-                className="ink-tab-icon"
-                src={`${import.meta.env.BASE_URL || '/'}ink/icons/tab-${id}-badge.webp`}
-                alt=""
-                aria-hidden
-                decoding="async"
-              />
+              <InkIcon name={TAB_ICONS[id]} size={44} className="ink-tab-icon" />
               <span className="ink-tab-label">{label}</span>
             </button>
           ))}
@@ -1151,13 +1165,7 @@ export function InkPlayScreen({ state }: Props) {
                 setTab(id);
               }}
             >
-              <img
-                className="ink-tab-icon"
-                src={`${import.meta.env.BASE_URL || '/'}ink/icons/tab-${id}-badge.webp`}
-                alt=""
-                aria-hidden
-                decoding="async"
-              />
+              <InkIcon name={TAB_ICONS[id]} size={44} className="ink-tab-icon" />
               <span className="ink-tab-label">{label}</span>
             </button>
           ))}
