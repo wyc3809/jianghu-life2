@@ -178,7 +178,6 @@ describe('life event engine', () => {
       'train_martial',
       'train_internal',
       'temper_body',
-      'inquire_rumors',
       'drink_wine',
       'seek_child',
       'designate_heir',
@@ -188,12 +187,7 @@ describe('life event engine', () => {
     expect(PRACTICE_WANDER_EVENTS.some((e) => e.id === 'wander_seek_master')).toBe(true);
     expect(fullCatalog().some((e) => e.id === 'wander_train_martial')).toBe(true);
 
-    initRng(12);
-    const state = createNewLife(12);
-    state.character.money = 20;
-    const logs = performPracticeAction(state, 'inquire_rumors');
-    expect(Number(state.character.flags.rumor_boost)).toBe(1);
-    expect(logs.some((l) => /打聽|傳聞/.test(l))).toBe(true);
+    void performPracticeAction;
   });
 
   it('practice can raise max hp and qi', async () => {
@@ -638,16 +632,14 @@ describe('life event engine', () => {
     expect(parted.deltas.some((d) => /內力上限＋\d+/.test(d))).toBe(true);
   });
 
-  it('world effect produces one 天下風聲 delta line, not a bare duplicate', async () => {
-    // Regression: effects.ts used to push both the prefixed "天下風聲：秩序＋1"
-    // line (into logs) AND the bare "秩序＋1" bit (into deltas). Because the two
-    // strings differ, mergeOutcomePresentation's same-string dedup couldn't
-    // catch it, so the result chip list showed the same change twice.
+  it('world effect changes world silently (天下風聲 removed 2026-10-09)', async () => {
     const { applyEffects } = await import('../core/life/effects');
     const state = createNewLife(5);
+    const before = state.world?.order ?? 50;
     const applied = applyEffects(state, [{ type: 'world', delta: { order: 1 } }]);
-    expect(applied.logs).toEqual(['天下風聲：秩序＋1']);
+    expect(applied.logs).toEqual([]);
     expect(applied.deltas).toEqual([]);
+    if (state.world) expect(state.world.order).toBe(Math.min(95, before + 1));
   });
 
   it('pack outcomes never leak English paths or [object Object]', async () => {

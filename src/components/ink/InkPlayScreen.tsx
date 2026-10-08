@@ -73,6 +73,9 @@ import { parseDelta, splitFeedback, type ResultNotice } from '../../ui/resultFor
 
 /** 經過超過幾多字就先摺起（約四行） */
 const RESULT_STORY_CLAMP_CHARS = 72;
+/** 長文自動捲動：開頭停一陣再開始，每秒捲幾多 px（測試參數） */
+const RESULT_STORY_SCROLL_DELAY_MS = 1200;
+const RESULT_STORY_SCROLL_PX_PER_SEC = 16;
 import { useRollingNumber } from '../../hooks/useRollingNumber';
 import { HighlightFxLazy, canUseWebGL, prefetchHighlight } from '../../fx/highlight';
 import { breakthroughHighlight, momentHighlight } from '../../fx/highlight/fromGame';
@@ -350,8 +353,8 @@ export function InkPlayScreen({ state }: Props) {
     if (state.phase === 'summary') awardCurrentLife();
   }, [state.phase, awardCurrentLife]);
 
-  // 結果彈窗：故事同系統訊息分開、長文先摺起
-  const [resultStoryOpen, setResultStoryOpen] = useState(false);
+  // 結果彈窗：故事同系統訊息分開；長文自動慢慢捲落去（玩家要求 2026-10-09，取代「展開全文」）
+  const resultStoryRef = useRef<HTMLDivElement | null>(null);
   const resultStory = useMemo(() => {
     const paras: { text: string; learn: boolean }[] = [];
     const notices: ResultNotice[] = [];
@@ -364,7 +367,40 @@ export function InkPlayScreen({ state }: Props) {
     const chars = paras.reduce((n, p) => n + p.text.length, 0);
     return { paras, notices, long: chars > RESULT_STORY_CLAMP_CHARS };
   }, [lastResult]);
-  useEffect(() => setResultStoryOpen(false), [lastResult]);
+  useEffect(() => {
+    const el = resultStoryRef.current;
+    if (!el || !resultStory.long) return;
+    el.scrollTop = 0;
+    let raf = 0;
+    let last = 0;
+    let pos = 0;
+    let stopped = false;
+    const stop = () => {
+      stopped = true;
+    };
+    // 玩家自己掂／捲就交返畀佢
+    el.addEventListener('pointerdown', stop);
+    el.addEventListener('wheel', stop, { passive: true });
+    el.addEventListener('touchstart', stop, { passive: true });
+    const step = (now: number) => {
+      if (stopped) return;
+      const dt = last ? (now - last) / 1000 : 0;
+      last = now;
+      pos += dt * RESULT_STORY_SCROLL_PX_PER_SEC;
+      el.scrollTop = pos;
+      if (pos < el.scrollHeight - el.clientHeight) raf = requestAnimationFrame(step);
+    };
+    const start = window.setTimeout(() => {
+      raf = requestAnimationFrame(step);
+    }, RESULT_STORY_SCROLL_DELAY_MS);
+    return () => {
+      window.clearTimeout(start);
+      cancelAnimationFrame(raf);
+      el.removeEventListener('pointerdown', stop);
+      el.removeEventListener('wheel', stop);
+      el.removeEventListener('touchstart', stop);
+    };
+  }, [lastResult, resultStory.long]);
   // 成就改做頂部動畫；其餘（威望、稱號）留喺結果頁做細籤
   const achievementNames = useMemo(
     () => resultStory.notices.filter((n) => n.label === '成就').map((n) => n.text),
@@ -923,7 +959,8 @@ export function InkPlayScreen({ state }: Props) {
                 </p>
               )}
               <div
-                className={`ink-result-story${resultStory.long && !resultStoryOpen ? ' ink-result-story--clamped' : ''}`}
+                ref={resultStoryRef}
+                className={`ink-result-story${resultStory.long ? ' ink-result-story--scroll' : ''}`}
               >
                 {resultStory.paras.map((para, i) => (
                   <p
@@ -934,16 +971,6 @@ export function InkPlayScreen({ state }: Props) {
                   </p>
                 ))}
               </div>
-              {resultStory.long && (
-                <button
-                  type="button"
-                  className="ink-result-more"
-                  aria-expanded={resultStoryOpen}
-                  onClick={() => setResultStoryOpen((v) => !v)}
-                >
-                  {resultStoryOpen ? '收起' : '展開全文'}
-                </button>
-              )}
               {resultNotices.length > 0 && (
                 <ul className="ink-result-notices" aria-label="江湖記事">
                   {resultNotices.map((n, i) => (

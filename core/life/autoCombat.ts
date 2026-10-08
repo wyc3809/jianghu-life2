@@ -1,7 +1,7 @@
 /**
  * 自動戰鬥（玩家決定 2026-10-07：全部交手都自動）。
- * 每回合：主修外功已得嘅卷（一卷＝一招）按卷序逐招出，內力唔夠嗰招就跳過；
- * 一招都出唔到就用基本攻擊。全部出完先到敵人還手一次。
+ * 每回合：輪到嗰門外功已得嘅卷（一卷＝一招）按卷序逐招出，內力唔夠嗰招就跳過；
+ * 招式出完再補一下普通攻擊。全部出完先到敵人還手一次。
  * 生死戰要先確認（needsLifeOrDeathConfirm）先會開打；打完如果要處置敵人，照舊停喺 resolve 畀玩家揀。
  * 返回逐招紀錄，畀介面逐招扣血、出特效。
  */
@@ -63,9 +63,9 @@ export function runAutoCombat(state: LifeGameState): AutoCombatResult | null {
       qi -= m.move.qiCost;
       return true;
     });
-    const plan = usable.length
-      ? usable
-      : [{ skillId: undefined as string | undefined, vol: undefined as number | undefined, move: BASIC_STRIKE }];
+    // 招式出完再補一下普通攻擊（玩家決定 2026-10-09：例如兩招＝a 招 → b 招 → 普攻）；冇招就淨係普攻
+    const basic = { skillId: undefined as string | undefined, vol: undefined as number | undefined, move: BASIC_STRIKE };
+    const plan = [...usable, basic];
     const hits: AutoHit[] = [];
     for (let i = 0; i < plan.length; i++) {
       const p = plan[i]!;

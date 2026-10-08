@@ -50,6 +50,31 @@ export interface DuelAssets {
   foe: string;
 }
 
+/**
+ * 主角手上兵器（同演武台一樣：剪影已擦走畫死嘅刀，按裝備欄掛返兵器上去）。
+ * grips：每格握點（剪影位圖像素，616×788）同方向（度，0＝向右，順時針正）。
+ */
+export interface DuelWeapon {
+  src: string;
+  /** 貼圖尺寸、握點、鋒尖（px） */
+  w: number;
+  h: number;
+  grip: { x: number; y: number };
+  tip: { x: number; y: number };
+  /** 握點到鋒尖長度（剪影設計單位，主角全高 788） */
+  length: number;
+  grips: { idle: GripDef; windup: GripDef; strike: GripDef };
+}
+export interface GripDef {
+  x: number;
+  y: number;
+  angle: number;
+}
+
+type HeroPose = 'idle' | 'windup' | 'strike';
+const SIL_W = 616;
+const SIL_H = 788;
+
 const INK = '#1C1A17';
 const CINNABAR = '#A33A32';
 /** 人物比例同演武台一樣（玩家要求 2026-10-08）：身高約畫面闊度四分一，兩人相距約半個畫面 */
@@ -75,6 +100,9 @@ export class DuelDirector {
   private cam = { z: 12.5, y: 0.55, shake: 0 };
   private particles: ParticleSystem;
   private hero!: Fighter;
+  /** 兵器：掛喺主角平面上，按姿勢換握點 */
+  private weapon: { pivot: THREE.Group; mat: THREE.ShaderMaterial; def: DuelWeapon } | null = null;
+  private weaponTex: THREE.Texture | null = null;
   private foe!: Fighter;
   private tex: Record<keyof DuelAssets, THREE.Texture> = {} as Record<keyof DuelAssets, THREE.Texture>;
   private mists: THREE.ShaderMaterial[] = [];
@@ -97,7 +125,7 @@ export class DuelDirector {
     private refs: DuelRefs,
     private replay: CombatReplay,
     private hits: DuelHit[],
-    private assets: DuelAssets & { splash: string },
+    private assets: DuelAssets & { splash: string; weapon?: DuelWeapon | null },
     private cb: DuelCallbacks,
   ) {
     this.renderer = new THREE.WebGLRenderer({ canvas: refs.gl, alpha: true, antialias: true, premultipliedAlpha: false });
@@ -136,6 +164,9 @@ export class DuelDirector {
       if (this.disposed) return;
       this.tex = { heroIdle, heroWindup, heroStrike, foe };
       this.splashTex = splash;
+      // 兵器圖載唔到就空手，唔影響演出
+      if (this.assets.weapon) this.weaponTex = await load(this.assets.weapon.src).catch(() => null);
+      if (this.disposed) return;
     } catch {
       if (!this.disposed) this.cb.onFail();
       return;
@@ -162,6 +193,39 @@ export class DuelDirector {
     this.foe = this.makeFighter(this.tex.foe, FOE_X, FIGHTER_H * (boss ? 1.25 : 1), false);
     this.hero.mat.uniforms.uDissolve!.value = 1;
     this.foe.mat.uniforms.uDissolve!.value = 1;
+    this.attachWeapon();
+  }
+
+  /** 兵器平面：握點對正呢格嘅手，沿兵器方向擺（座標換算同演武台 HERO_WEAPON_GRIPS 一致） */
+  private attachWeapon() {
+    const def = this.assets.weapon;
+    if (!def || !this.weaponTex) return;
+    const H = this.hero.h;
+    const worldLen = (def.length / SIL_H) * H;
+    const s = worldLen / Math.max(1, def.tip.y - def.grip.y); // 每 px 幾多世界單位
+    const mat = fighterMaterial(this.weaponTex, false);
+    mat.uniforms.uBleed!.value = 0.2;
+    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(def.w * s, def.h * s), mat);
+    // 握點喺 pivot 原點；貼圖「向下」＝由握點去鋒尖
+    mesh.position.set((def.w / 2 - def.grip.x) * s, -(def.h / 2 - def.grip.y) * s, 0);
+    const pivot = new THREE.Group();
+    pivot.add(mesh);
+    pivot.position.z = 0.01;
+    this.hero.mesh.add(pivot);
+    this.weapon = { pivot, mat, def };
+    this.setWeaponPose('idle');
+  }
+
+  private setWeaponPose(pose: HeroPose) {
+    const w = this.weapon;
+    if (!w) return;
+    const g = w.def.grips[pose];
+    const H = this.hero.h;
+    const W = H * ASPECT;
+    w.pivot.position.x = (g.x / SIL_W - 0.5) * W;
+    w.pivot.position.y = (0.5 - g.y / SIL_H) * H;
+    // 畫布角度（y 向下、順時針）→ Three（y 向上）：令貼圖 −y 軸指向兵器方向
+    w.pivot.rotation.z = Math.PI / 2 - (g.angle * Math.PI) / 180;
   }
 
   private makeFighter(tex: THREE.Texture, x: number, h: number, flip: boolean): Fighter {
@@ -315,6 +379,9 @@ export class DuelDirector {
 
   private setTex(f: Fighter, tex: THREE.Texture) {
     f.mat.uniforms.map!.value = tex;
+    if (f === this.hero) {
+      this.setWeaponPose(tex === this.tex.heroWindup ? 'windup' : tex === this.tex.heroStrike ? 'strike' : 'idle');
+    }
   }
 
   /** 世界座標 → 畫面 CSS 座標 */
@@ -475,6 +542,13 @@ export class DuelDirector {
     this.cam.shake = Math.max(0, sh - dt * 1.6);
     this.camera.position.set((Math.random() - 0.5) * sh, this.cam.y + (Math.random() - 0.5) * sh, this.cam.z);
     this.camera.lookAt(0, 0.1, 0);
+    // 兵器跟主角一齊受擊變紅、化墨
+    if (this.weapon) {
+      const hu = this.hero.mat.uniforms;
+      const wu = this.weapon.mat.uniforms;
+      wu.uTintAmt!.value = hu.uTintAmt!.value;
+      wu.uDissolve!.value = hu.uDissolve!.value;
+    }
     this.renderer.render(this.scene, this.camera);
     this.particles.step(dt * this.effectiveScale());
     this.particles.draw();
@@ -494,6 +568,7 @@ export class DuelDirector {
       mat?.dispose();
     });
     Object.values(this.tex).forEach((t) => t.dispose());
+    this.weaponTex?.dispose();
     this.splashTex?.dispose();
     this.renderer.dispose();
   }

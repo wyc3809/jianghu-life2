@@ -59,11 +59,8 @@ export function applyEffects(state: LifeGameState, effects: GameEffect[]): Effec
             state.world[key] = clamp((state.world[key] ?? 50) + v, 5, 95);
             bits.push(`${worldAttrLabels[key]}${v > 0 ? '＋' : '－'}${Math.abs(v)}`);
           }
-          if (bits.length) {
-            // 只推「天下風聲：…」一行；bits 唔再另推 deltas，否則 partitionStoryAndDeltas
-            // 會把呢行歸類做消長，再加返 bare bits，變成同一個變化顯示兩次。
-            logs.push(`天下風聲：${bits.join('、')}`);
-          }
+          // 天下大勢照改，但唔再顯示「天下風聲」（玩家要求 2026-10-09）
+          void bits;
         }
         break;
       }

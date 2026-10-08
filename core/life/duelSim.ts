@@ -280,6 +280,12 @@ function executeAutoTurn(
       ...hp(),
     });
   }
+  // 招式出完再補一下普通攻擊（同自動交手一致）
+  if (defender.hp > 0) {
+    const before = defender.hp;
+    lines.push(...resolveStrike(attacker, defender, BASIC_STRIKE, loadout, rng));
+    hits.push({ side, moveName: BASIC_STRIKE.name, damage: Math.max(0, Math.round(before - defender.hp)), ...hp() });
+  }
   return { lines, hits };
 }
 

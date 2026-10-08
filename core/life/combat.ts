@@ -28,7 +28,6 @@ import { titleBonusTotals } from './titles';
 import { applyLearnMartialArt, tryAdvanceSkill } from './flavor';
 import { syncAchievements } from './achievements';
 import { applyNatureDelta } from './nature';
-import { recordDispositionAftermath } from './aftermath';
 import type { NatureAttr } from '@interfaces/lifeEngine';
 import { syncRngFromState, snapshotRng } from './gameState';
 import { pushChronicle } from './chronicle';
@@ -406,9 +405,7 @@ export function resolveCombatDisposition(
     lines.push(`名望${rep > 0 ? '＋' : ''}${rep}`);
   }
 
-  // 舊怨／血債系列的最終一戰：恩怨到此為止，不再留後續
-  const chainEnd = typeof combat.eventId === 'string' && combat.eventId.startsWith('aftermath_');
-  lines.push(...recordDispositionAftermath(state, disposition, combat.foe.name, chainEnd));
+  // 恩怨簿／復仇排期已按玩家要求刪除（2026-10-09）：處置完就了結，唔再記仇
   lines.push(...finishCombatWin(state, disposition));
   snapshotRng(state);
   return lines;
