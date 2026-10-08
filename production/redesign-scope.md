@@ -77,8 +77,8 @@
 | 13 | 自動交手改用演武台動畫（同一個引擎：剪影、墨濺、數字、頭頂血條；首領夜山、論劍山門、其餘山路）＋七卷各有 2–4 字招名（`content/martial/volumes.json`） | 玩家已確認，EA0.57.0 上線 | `qa/evidence/redesign/vol-names-auto.png`、`vol-names-list.png` |
 | 14 | 高光級打鬥演出（`src/fx/highlight/duel/`，Three.js＋GSAP，lazy；冇 WebGL／減少動態退返演武台 2D）：開場、出招、暴擊、敵人還手、落空、終結；七卷筆觸表；跳過／加速 ×2 | 玩家已確認，EA0.58.0 上線 | `qa/evidence/redesign/duel-1.png`、`duel-2.png`、`duel-3.png` |
 | 15 | 自動交手人物比例縮細同演武台一樣；每回合輪一門外功（主修行先，之後按學識次序，輪完由頭；論劍一樣），七卷格跟住輪到嗰門 | 玩家已確認，EA0.59.0 上線 | `qa/evidence/redesign/duel-rotate.png` |
-| 16 | 自動交手：每回合招式出完補一下普通攻擊（例：a 招 → b 招 → 普攻 → 敵還手）；論劍一樣；3D 演出兵器跟裝備欄、用演武台同一套剪影同握點 | 等玩家睇圖確認 | `qa/evidence/redesign/duel-weapon.png` |
-| 17 | 結果頁：長文自動慢慢捲動（取代「展開全文」，掂一下就停）；刪除餘波（事件後隨機得失）、「記下此事／後續」標籤、天下風聲一行、恩怨簿同復仇排期、「打聽傳聞」修煉 | 等玩家睇圖確認 | `qa/evidence/redesign/result-trim.png` |
+| 16 | 自動交手：每回合招式出完補一下普通攻擊（例：a 招 → b 招 → 普攻 → 敵還手）；論劍一樣；3D 演出兵器跟裝備欄、用演武台同一套剪影同握點 | 玩家已確認，EA0.60.0 上線 | `qa/evidence/redesign/duel-weapon.png` |
+| 17 | 結果頁：長文自動慢慢捲動（取代「展開全文」，掂一下就停）；刪除餘波（事件後隨機得失）、「記下此事／後續」標籤、天下風聲一行、恩怨簿同復仇排期、「打聽傳聞」修煉 | 玩家已確認，EA0.60.0 上線 | `qa/evidence/redesign/result-trim.png` |
 
 備註：
 - 第 1 步：銀兩／材料「離線繼續累積」現時遊戲未有離線銀兩收益，收益率屬未定，今步未加。
