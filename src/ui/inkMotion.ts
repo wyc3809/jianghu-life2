@@ -176,3 +176,23 @@ export function inkTweenVar(
     onUpdate: () => el.style.setProperty(name, o.v.toFixed(2)),
   });
 }
+
+/**
+ * 貨幣增加：金色掃光由左掃到右（CSS 用 --glint 0→1 定位高光帶，見 `.ink-glint`）。
+ * 減少動態時唔播。
+ */
+export function inkGlint(target: El, delay = 0): JSAnimation | null {
+  const el = target as HTMLElement | null | undefined;
+  if (!el || motionReduced()) return null;
+  el.classList.add('is-glinting');
+  const o = { v: 0 };
+  el.style.setProperty('--glint', '0');
+  return animate(o, {
+    v: 1,
+    delay,
+    duration: INK_MS.slow,
+    ease: INK_EASE.soft,
+    onUpdate: () => el.style.setProperty('--glint', o.v.toFixed(3)),
+    onComplete: () => el.classList.remove('is-glinting'),
+  });
+}
