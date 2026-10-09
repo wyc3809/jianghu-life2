@@ -15,6 +15,8 @@
  * - 新敵人：加一個 EnemyDef（單圖 + 腳底錨點 + 眼部位置），喺 STAGE 揀用。
  */
 
+import { FOE_SPRITES, FOE_SPRITE_IDS } from '@data/foes/roster';
+
 /** 骨骼屬性：rot＝角度（度，順時針為正）、x/y＝du 位移、sy＝垂直縮放、alpha＝透明度 */
 export type SparBoneProp = 'rot' | 'x' | 'y' | 'sy' | 'alpha';
 export type SparEasing = 'linear' | 'in' | 'out' | 'inout' | 'expoin';
@@ -243,6 +245,8 @@ export const ENEMY_POOL: EnemyDef[] = [
   SPAR_E('tiemian', 615, 788, { x: -12, y: -520 }, 1.1), // 鐵面／影魁
   SPAR_E('gouke', 616, 788, { x: -20, y: -520 }), // 雙鉤客（刀客剪影）
   SPAR_E('chifa', 616, 788, { x: -10, y: -510 }, 1.15), // 赤髮（頭陀剪影）
+  // 第 20 項：敵人圖鑑專屬 AI 剪影（SpriteCook；data/foes/sprites.json），排喺基本 7 款後面
+  ...FOE_SPRITE_IDS.map((id) => SPAR_E(id, FOE_SPRITES[id]!.w, FOE_SPRITES[id]!.h, FOE_SPRITES[id]!.eye)),
 ];
 
 export const FX_SPLASH_SRC = `${SPAR_BASE}fx-splash.webp`;

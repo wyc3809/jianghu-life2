@@ -1,7 +1,7 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { gearTotals, sumGearCombatBonuses } from './equipment';
 import { getSkillDef } from '@data/skills/catalog';
-import { FOE_REGIONS, type FoeEntry, type FoeRegion } from '@data/foes/roster';
+import { FOE_BY_NAME, FOE_REGIONS, FOE_SPRITE_IDS, lookForFoeName, type FoeEntry, type FoeRegion } from '@data/foes/roster';
 import type { FoeTier, FoeTraitId } from '@data/foes/traits';
 import {
   newTraitState,
@@ -172,7 +172,20 @@ export interface SparScene {
   region: FoeRegion;
 }
 
-const lookIdx = (f: FoeEntry): number => SPAR_LOOK[f.look];
+/** 基本剪影款數（SPAR_LOOK）；專屬剪影排喺後面（src/spar/rig.ts ENEMY_POOL） */
+export const SPAR_BASE_LOOKS = 7;
+
+/** 敵人 → 敵池索引：有專屬 AI 剪影就用專屬，否則用基本款 */
+const lookIdx = (f: FoeEntry): number => {
+  const i = FOE_SPRITE_IDS.indexOf(f.id);
+  return i >= 0 ? SPAR_BASE_LOOKS + i : SPAR_LOOK[f.look];
+};
+
+/** 敵人名 → 敵池索引（自動戰鬥 2D 後備用；同演武台同一套） */
+export function sparLookForName(name: string): number {
+  const hit = FOE_BY_NAME.get(name);
+  return hit ? lookIdx(hit.entry) : SPAR_LOOK[lookForFoeName(name)];
+}
 
 export const SPAR_SCENES: readonly SparScene[] = FOE_REGIONS.map((region) => ({
   bg: region.bg,

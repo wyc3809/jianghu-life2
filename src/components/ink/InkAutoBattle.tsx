@@ -10,8 +10,8 @@ import { formatSparNumber } from '@core/life/sparDuel';
 import { InkBrushBar } from './InkBrush';
 import { useLifeStore } from '../../store/lifeStore';
 import { FOE_TRAITS } from '@data/foes/traits';
-import { FOE_BY_NAME, lookForFoeName } from '@data/foes/roster';
-import { SPAR_LOOK } from '@core/life/sparDuel';
+import { FOE_BY_NAME } from '@data/foes/roster';
+import { sparLookForName } from '@core/life/sparDuel';
 import { playInkDefeat, playInkMiss, playInkVictory } from '../../audio/inkAudio';
 
 const STAGE_HEIGHT = 230;
@@ -31,7 +31,7 @@ type Hit = CombatReplayHit & { round: number };
 /** 按敵人名揀剪影（首領用鐵面／赤髮大隻款），同一個名每次一樣 */
 /** 敵人剪影：圖鑑有就用圖鑑；否則按名字關鍵字（同演武台同一套） */
 function foeLook(name: string, _boss: boolean): number {
-  return SPAR_LOOK[lookForFoeName(name)];
+  return sparLookForName(name);
 }
 
 /** 場景：首領夜山、論劍山門、其餘山路 */
