@@ -5,6 +5,7 @@
  * 設計：design/gdd/foe-roster.md；出圖 prompt：design/art/FOE-ROSTER-PROMPTS.md
  */
 import type { FoeTier, FoeTraitId } from './traits';
+import FOE_SPRITES_JSON from './sprites.json';
 
 /** 剪影款式（同 src/spar/rig.ts ENEMY_POOL／core/life/sparDuel.ts SPAR_LOOK 對應） */
 export type FoeLook = 'shadow' | 'daoke' | 'nvcike' | 'toutuo' | 'tiemian' | 'gouke' | 'chifa';
@@ -193,4 +194,24 @@ export function lookForFoeName(name: string): FoeLook {
   if (hit) return hit.entry.look;
   for (const [re, key] of LOOK_KEYWORDS) if (re.test(name)) return key;
   return NAMED_FOE_LOOKS[hashName(name) % NAMED_FOE_LOOKS.length]!;
+}
+
+/**
+ * 有專屬 AI 剪影嘅敵人（scripts/art/gen_spritecook_foes.py 生成 data/foes/sprites.json）：
+ * 檔案 public/ink/spar/sil/enemy-<id>.webp；eye＝紅眼位置（相對腳底錨點，設計單位）。
+ */
+export interface FoeSpriteDef {
+  w: number;
+  h: number;
+  eye: { x: number; y: number };
+}
+export const FOE_SPRITES: Readonly<Record<string, FoeSpriteDef>> = FOE_SPRITES_JSON as Record<string, FoeSpriteDef>;
+/** 專屬剪影 id（固定排序：演武台敵池索引 = 基本剪影數 + 呢度嘅位置） */
+export const FOE_SPRITE_IDS: readonly string[] = Object.keys(FOE_SPRITES).sort();
+
+/** 敵人名 → 剪影檔 key：有專屬剪影就用 id，否則用基本剪影款式 */
+export function spriteKeyForFoeName(name: string): string {
+  const hit = FOE_BY_NAME.get(name);
+  if (hit && FOE_SPRITES[hit.entry.id]) return hit.entry.id;
+  return lookForFoeName(name);
 }

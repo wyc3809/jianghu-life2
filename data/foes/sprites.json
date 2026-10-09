@@ -1,0 +1,164 @@
+{
+  "bamboo_bloodguard": {
+    "w": 616,
+    "h": 788,
+    "eye": {
+      "x": -105,
+      "y": -607
+    },
+    "flip": false
+  },
+  "bamboo_bloodmaid": {
+    "w": 616,
+    "h": 788,
+    "eye": {
+      "x": -2,
+      "y": -681
+    },
+    "flip": false
+  },
+  "bamboo_boss": {
+    "w": 616,
+    "h": 788,
+    "eye": {
+      "x": -101,
+      "y": -681
+    },
+    "flip": false
+  },
+  "gate_boss": {
+    "w": 616,
+    "h": 788,
+    "eye": {
+      "x": -133,
+      "y": -680
+    },
+    "flip": false
+  },
+  "gate_ironbone": {
+    "w": 616,
+    "h": 788,
+    "eye": {
+      "x": -55,
+      "y": -681
+    },
+    "flip": false
+  },
+  "gate_vajra": {
+    "w": 616,
+    "h": 788,
+    "eye": {
+      "x": -36,
+      "y": -681
+    },
+    "flip": false
+  },
+  "inn_blades": {
+    "w": 616,
+    "h": 788,
+    "eye": {
+      "x": -35,
+      "y": -493
+    },
+    "flip": false
+  },
+  "inn_boss": {
+    "w": 616,
+    "h": 788,
+    "eye": {
+      "x": -17,
+      "y": -681
+    },
+    "flip": false
+  },
+  "inn_twin": {
+    "w": 616,
+    "h": 788,
+    "eye": {
+      "x": -22,
+      "y": -681
+    },
+    "flip": false
+  },
+  "peak_berserk": {
+    "w": 616,
+    "h": 788,
+    "eye": {
+      "x": 262,
+      "y": -664
+    },
+    "flip": false
+  },
+  "peak_boss": {
+    "w": 616,
+    "h": 788,
+    "eye": {
+      "x": -200,
+      "y": -681
+    },
+    "flip": false
+  },
+  "peak_vanguard": {
+    "w": 616,
+    "h": 788,
+    "eye": {
+      "x": 21,
+      "y": -523
+    },
+    "flip": false
+  },
+  "road_boss": {
+    "w": 616,
+    "h": 788,
+    "eye": {
+      "x": 56,
+      "y": -681
+    },
+    "flip": false
+  },
+  "road_brute": {
+    "w": 616,
+    "h": 788,
+    "eye": {
+      "x": 101,
+      "y": -681
+    },
+    "flip": false
+  },
+  "road_captain": {
+    "w": 616,
+    "h": 788,
+    "eye": {
+      "x": -103,
+      "y": -619
+    },
+    "flip": false
+  },
+  "town_boss": {
+    "w": 616,
+    "h": 788,
+    "eye": {
+      "x": 9,
+      "y": -681
+    },
+    "flip": false
+  },
+  "town_bruiser": {
+    "w": 616,
+    "h": 788,
+    "eye": {
+      "x": -71,
+      "y": -681
+    },
+    "flip": false
+  },
+  "town_guard": {
+    "w": 616,
+    "h": 788,
+    "eye": {
+      "x": 38,
+      "y": -681
+    },
+    "flip": false
+  }
+}

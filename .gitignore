@@ -29,3 +29,6 @@ Desktop.ini
 imports/*.zip
 imports/*.tar.gz
 __pycache__/
+
+# SpriteCook 原圖：PNG 暫存，入 git 嘅係轉好嘅 WebP
+assets/art-source/spritecook/raw/*.png

@@ -18,7 +18,7 @@ import { WEAPON_SPRITES } from '../../../spar/rig';
 import { HERO_ATK_FRAMES, HERO_SIL, HERO_WEAPON_GRIPS, WEAPON_SIL_LENGTH } from '../../../spar/silhouetteDraw';
 import { CRIT_FROM_VOL } from './strokes';
 import { FOE_TRAITS } from '@data/foes/traits';
-import { FOE_BY_NAME, lookForFoeName } from '@data/foes/roster';
+import { FOE_BY_NAME, spriteKeyForFoeName } from '@data/foes/roster';
 import styles from './duel.module.css';
 
 const BASE = import.meta.env.BASE_URL || '/';
@@ -41,7 +41,7 @@ function ensureFonts() {
 
 /** 敵人剪影：圖鑑有就用圖鑑，否則按名字關鍵字（同演武台同一套） */
 function foeLook(name: string): string {
-  return lookForFoeName(name);
+  return spriteKeyForFoeName(name);
 }
 
 function sceneOf(r: CombatReplay): string {
