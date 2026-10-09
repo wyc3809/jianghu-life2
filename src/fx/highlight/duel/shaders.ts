@@ -36,6 +36,10 @@ export function fighterMaterial(map: THREE.Texture, flip: boolean): THREE.Shader
       uniform vec3 uTint;
       uniform float uTintAmt;    // 受擊朱砂閃
       uniform float uBleed;      // 墨暈濃度
+      uniform vec3 uRim;         // 層級描邊色（精英金、首領朱砂）
+      uniform float uRimAmt;     // 0＝冇描邊
+      uniform vec3 uAccent;      // 衣帶點綴色
+      uniform float uAccentAmt;  // 0＝純墨
       varying vec2 vUv;
       ${NOISE}
       void main() {
@@ -53,13 +57,20 @@ export function fighterMaterial(map: THREE.Texture, flip: boolean): THREE.Shader
         float th = uDissolve * 1.15 - 0.05;
         float keep = smoothstep(th, th + 0.04, n);
         float rim = (1.0 - smoothstep(th + 0.04, th + 0.12, n)) * keep * step(0.001, uDissolve);
-        vec3 col = mix(uInk, uTint, uTintAmt);
+        // 衣帶：腰身一條點綴色（uv.y 由腳底計）
+        float band = smoothstep(0.24, 0.31, uv.y) * (1.0 - smoothstep(0.38, 0.46, uv.y));
+        vec3 col = mix(uInk, uAccent, band * uAccentAmt);
+        col = mix(col, uTint, uTintAmt);
         col = mix(col, uInk * 0.6, rim);
         float body = a * keep;
         float wash = halo * uBleed * (1.0 - uDissolve) * (1.0 - a);
-        float alpha = max(body, wash);
+        // 層級描邊：剪影外圍一圈實色
+        float outline = smoothstep(0.08, 0.4, halo) * (1.0 - a) * uRimAmt * (1.0 - uDissolve);
+        float alpha = max(max(body, wash), outline);
         if (alpha < 0.01) discard;
-        gl_FragColor = vec4(mix(col, uInk * 1.6, wash > body ? 0.4 : 0.0), alpha);
+        vec3 outCol = mix(col, uInk * 1.6, wash > body ? 0.4 : 0.0);
+        outCol = mix(outCol, uRim, outline > body ? 1.0 : 0.0);
+        gl_FragColor = vec4(outCol, alpha);
       }
     `,
     uniforms: {
@@ -70,6 +81,10 @@ export function fighterMaterial(map: THREE.Texture, flip: boolean): THREE.Shader
       uTint: { value: new THREE.Color('#A33A32') },
       uTintAmt: { value: 0 },
       uBleed: { value: 0.32 },
+      uRim: { value: new THREE.Color('#E3C46A') },
+      uRimAmt: { value: 0 },
+      uAccent: { value: new THREE.Color('#A33A32') },
+      uAccentAmt: { value: 0 },
     },
     transparent: true,
     depthWrite: false,

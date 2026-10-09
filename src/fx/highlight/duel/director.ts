@@ -14,6 +14,7 @@ import type { CombatReplay, CombatReplayHit } from '@interfaces/lifeEngine';
 import { ParticleSystem } from '../particles';
 import { DUEL_TUNING as T } from './tuning';
 import { CRIT_FROM_VOL, FOE_STROKE, strokeForVol, type VolumeStroke } from './strokes';
+import { FOE_TRAITS } from '@data/foes/traits';
 import { brushMesh, fighterMaterial, mistMaterial, strokePaths, type BrushMesh } from './shaders';
 
 export type DuelHit = CombatReplayHit & { round: number };
@@ -48,7 +49,23 @@ export interface DuelAssets {
   heroWindup: string;
   heroStrike: string;
   foe: string;
+  /** 第 20 項：衣帶點綴色 'r,g,b' */
+  foeAccent?: string;
 }
+
+/** 要載成貼圖嘅素材 key */
+type TexKey = 'heroIdle' | 'heroWindup' | 'heroStrike' | 'foe';
+
+/** 'r,g,b' → '#rrggbb' */
+function rgbHex(rgb: string): string {
+  return `#${rgb
+    .split(',')
+    .map((v) => Math.max(0, Math.min(255, Number(v))).toString(16).padStart(2, '0'))
+    .join('')}`;
+}
+/** 精英描邊金、首領描邊朱砂（同演武台一致） */
+const ELITE_RIM_HEX = '#E3C46A';
+const BOSS_RIM_HEX = '#D6402C';
 
 /**
  * 主角手上兵器（同演武台一樣：剪影已擦走畫死嘅刀，按裝備欄掛返兵器上去）。
@@ -104,8 +121,11 @@ export class DuelDirector {
   private weapon: { pivot: THREE.Group; mat: THREE.ShaderMaterial; def: DuelWeapon } | null = null;
   private weaponTex: THREE.Texture | null = null;
   private foe!: Fighter;
-  private tex: Record<keyof DuelAssets, THREE.Texture> = {} as Record<keyof DuelAssets, THREE.Texture>;
+  private tex: Record<TexKey, THREE.Texture> = {} as Record<TexKey, THREE.Texture>;
   private mists: THREE.ShaderMaterial[] = [];
+  /** 敵人特性光霧（精英淡、首領濃；蓄力時暴漲） */
+  private traitMist: THREE.ShaderMaterial | null = null;
+  private traitMistBase = 0;
   private splashTex: THREE.Texture | null = null;
   private tl: gsap.core.Timeline | null = null;
   private raf = 0;
@@ -193,7 +213,33 @@ export class DuelDirector {
     this.foe = this.makeFighter(this.tex.foe, FOE_X, FIGHTER_H * (boss ? 1.25 : 1), false);
     this.hero.mat.uniforms.uDissolve!.value = 1;
     this.foe.mat.uniforms.uDissolve!.value = 1;
+    this.dressFoe();
     this.attachWeapon();
+  }
+
+  /** 第 20 項敵人層級：精英金邊、首領朱砂邊；衣帶點綴色；特性光霧 */
+  private dressFoe() {
+    const r = this.replay;
+    const tier = r.foeTier ?? (r.foeBoss ? 'boss' : 'minion');
+    const u = this.foe.mat.uniforms;
+    if (tier !== 'minion') {
+      (u.uRim!.value as THREE.Color).set(tier === 'boss' ? BOSS_RIM_HEX : ELITE_RIM_HEX);
+      u.uRimAmt!.value = tier === 'boss' ? 1 : 0.85;
+    }
+    if (this.assets.foeAccent) {
+      (u.uAccent!.value as THREE.Color).set(rgbHex(this.assets.foeAccent));
+      u.uAccentAmt!.value = 0.85;
+    }
+    if (r.foeTrait && tier !== 'minion') {
+      const mat = mistMaterial(rgbHex(FOE_TRAITS[r.foeTrait].rgb), 2.7);
+      mat.uniforms.uAmt!.value = 0;
+      const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2.2, this.foe.h * 1.25), mat);
+      mesh.position.set(FOE_X, GROUND_Y + this.foe.h * 0.55, -0.15);
+      this.scene.add(mesh);
+      this.mists.push(mat);
+      this.traitMist = mat;
+      this.traitMistBase = tier === 'boss' ? 0.75 : 0.42;
+    }
   }
 
   /** 兵器平面：握點對正呢格嘅手，沿兵器方向擺（座標換算同演武台 HERO_WEAPON_GRIPS 一致） */
@@ -262,6 +308,7 @@ export class DuelDirector {
     tl.to(this.mists[1]!.uniforms.uAmt!, { value: 0.38, duration: 1.1, ease: 'power1.inOut' }, 0.1);
     tl.to(this.hero.mat.uniforms.uDissolve!, { value: 0, duration: 0.85, ease: 'power2.out' }, 0.1);
     tl.to(this.foe.mat.uniforms.uDissolve!, { value: 0, duration: 0.85, ease: 'power2.out' }, 0.25);
+    if (this.traitMist) tl.to(this.traitMist.uniforms.uAmt!, { value: this.traitMistBase, duration: 0.9 }, 0.5);
     tl.to(this.cam, { z: 10, duration: T.openSec, ease: 'power2.out' }, 0);
     tl.call(() => this.cb.onOpen(), [], 0.15);
 
@@ -321,6 +368,9 @@ export class DuelDirector {
     // 命中
     if (hit) {
       tl.call(() => this.impact(foe, h, s, crit, k), [], impactAt);
+      for (const f of h.traitFx ?? []) {
+        tl.call(() => this.traitSeal(f.kind === 'thorns' ? hero : foe, f.kind, f.value), [], impactAt + 0.05);
+      }
       tl.to(foe.mesh.position, { x: foe.baseX + (crit ? 0.3 : 0.18), duration: 0.1, ease: 'power2.out' }, impactAt);
       tl.to(foe.mesh.rotation, { z: -0.12, duration: 0.1 }, impactAt);
       tl.to(foe.mat.uniforms.uTintAmt!, { value: 0.85, duration: 0.05 }, impactAt);
@@ -346,10 +396,22 @@ export class DuelDirector {
   }
 
   /** 敵人還手：撲前、反方向細筆觸、主角後仰 */
-  private foeBeat(tl: gsap.core.Timeline, t: number, h: DuelHit, k: number, last: boolean): number {
+  private foeBeat(tl: gsap.core.Timeline, t0: number, h: DuelHit, k: number, last: boolean): number {
     const hit = h.damage > 0;
     const hero = this.hero;
     const foe = this.foe;
+    // 蓄力重擊：先原地蓄勢（特性光霧暴漲、身形鼓起、印「蓄」），再撲
+    const charged = Boolean(h.traitFx?.some((f) => f.kind === 'charge'));
+    const t = charged ? t0 + T.chargeSec : t0;
+    if (charged) {
+      tl.call(() => this.traitSeal(foe, 'charge'), [], t0);
+      if (this.traitMist) {
+        tl.to(this.traitMist.uniforms.uAmt!, { value: 1.6, duration: T.chargeSec * 0.8, ease: 'power2.in' }, t0);
+        tl.to(this.traitMist.uniforms.uAmt!, { value: this.traitMistBase, duration: 0.4 }, t + 0.2);
+      }
+      tl.fromTo(foe.mesh.scale, { x: 1, y: 1 }, { x: 1.1, y: 1.06, duration: T.chargeSec, ease: 'power2.in' }, t0);
+      tl.to(foe.mesh.scale, { x: 1, y: 1, duration: 0.14, ease: 'back.out(3)' }, t);
+    }
     const strikeAt = t + 0.14;
     const impactAt = strikeAt + 0.1;
     tl.call(() => this.cb.onBeat(k), [], t);
@@ -371,8 +433,17 @@ export class DuelDirector {
     }
     tl.to(foe.mesh.position, { x: foe.baseX, duration: 0.22, ease: 'power2.out' }, impactAt + 0.12);
     tl.to(foe.mesh.rotation, { z: 0, duration: 0.22 }, impactAt + 0.12);
+    // 其他特性：狂怒／噬血／連擊喺命中嗰下印出
+    for (const f of h.traitFx ?? []) {
+      if (f.kind === 'charge') continue;
+      if (f.kind === 'enrage') {
+        if (this.enrageShown) continue;
+        this.enrageShown = true;
+      }
+      tl.call(() => this.traitSeal(foe, f.kind, f.value), [], impactAt + 0.04);
+    }
     void last;
-    return t + T.foeBeatSec;
+    return t + T.foeBeatSec + (h.traitFx?.some((f) => f.kind === 'combo') ? 0.18 : 0);
   }
 
   // ------------------------------------------------------------ 特效 ---
@@ -451,16 +522,48 @@ export class DuelDirector {
     }
   }
 
+  private enrageShown = false;
+
+  /**
+   * 特性圓印（DOM＋GSAP）：特性色實心圓配單字，喺敵人（或者反震時喺主角）胸前彈出；
+   * 再配一圈特性色墨點。噬血加綠色回血數字、反震加主角紅色扣血數字。
+   */
+  private traitSeal(f: Fighter, kind: keyof typeof FOE_TRAITS, value = 0) {
+    const def = FOE_TRAITS[kind];
+    const hex = rgbHex(def.rgb);
+    const c = this.chest(f);
+    const at = { x: c.x + (f === this.foe ? 26 : -20), y: c.y - f.h * 34 };
+    const el = document.createElement('span');
+    el.dataset.kind = 'trait';
+    el.textContent = def.glyph;
+    el.style.left = `${at.x}px`;
+    el.style.top = `${at.y}px`;
+    el.style.setProperty('--trait', hex);
+    this.refs.numbers.appendChild(el);
+    gsap
+      .timeline({ onComplete: () => el.remove() })
+      .timeScale(this.effectiveScale())
+      .fromTo(el, { xPercent: -50, yPercent: -50, scale: 2.4, opacity: 0, rotation: -14 }, { scale: 1, opacity: 1, rotation: -4, duration: 0.24, ease: 'back.out(2.4)' })
+      .to(el, { y: -26, opacity: 0, duration: 0.5, ease: 'power1.in' }, 0.75);
+    this.particles.sparks(c.x, c.y, kind === 'charge' ? 28 : 18, [hex, INK], 10, 0.12);
+    if (kind === 'charge') {
+      this.particles.shockwave(c.x, c.y, 120, hex, 0.5);
+      this.cam.shake = Math.max(this.cam.shake, T.critShake);
+    }
+    if (kind === 'drain' && value > 0) this.number({ x: c.x + 30, y: c.y + 10 }, value, 'heal');
+    if (kind === 'thorns' && value > 0) this.number({ x: c.x - 10, y: c.y + 20 }, value, 'hurt');
+  }
+
   private missText(f: Fighter, _k: number) {
     const c = this.chest(f);
     this.number({ x: c.x, y: c.y - 30 }, 0, 'miss');
   }
 
   /** 傷害數字：DOM，GSAP 彈出飄走 */
-  private number(at: { x: number; y: number }, dmg: number, kind: 'hit' | 'crit' | 'hurt' | 'miss') {
+  private number(at: { x: number; y: number }, dmg: number, kind: 'hit' | 'crit' | 'hurt' | 'miss' | 'heal') {
     const el = document.createElement('span');
     el.dataset.kind = kind;
-    el.textContent = kind === 'miss' ? '落空' : `${kind === 'hurt' ? '－' : ''}${dmg}`;
+    el.textContent = kind === 'miss' ? '落空' : `${kind === 'hurt' ? '－' : kind === 'heal' ? '＋' : ''}${dmg}`;
     el.style.left = `${at.x}px`;
     el.style.top = `${at.y}px`;
     this.refs.numbers.appendChild(el);

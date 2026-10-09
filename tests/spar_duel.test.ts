@@ -4,6 +4,7 @@ import { initRng } from '../core/random';
 import {
   SparDuel,
   sparHeroStats,
+  sparEliteCount,
   sparMinionCount,
   sparSavedStage,
   sparStageFoes,
@@ -22,7 +23,7 @@ const HERO: SparHeroStats = { maxHp: 1000, atk: 100, critRate: 0.2, critMul: 2, 
 describe('spar duel (演武台對打)', () => {
   it('test_stage_has_minions_then_boss_and_grows', () => {
     const s1 = sparStageFoes(1);
-    expect(s1).toHaveLength(sparMinionCount(1) + 1);
+    expect(s1).toHaveLength(sparMinionCount(1) + sparEliteCount(1) + 1);
     expect(s1.at(-1)!.boss).toBe(true);
     expect(s1.slice(0, -1).every((f) => !f.boss)).toBe(true);
     expect(s1.at(-1)!.maxHp).toBeGreaterThan(s1[0]!.maxHp * 5);
@@ -174,13 +175,21 @@ describe('spar scenes & themes (場景／出場有規律)', () => {
     expect(sparSceneFor(61).place).toBe('千燈鎮');
   });
 
-  it('test_roster_follows_scene_theme_order_and_boss_last', async () => {
+  it('test_roster_follows_scene_theme_order_then_elites_then_boss', async () => {
     const { sparThemeFor } = await import('../core/life/sparDuel');
     for (const stage of [2, 23, 47]) {
       const theme = sparThemeFor(stage);
       const foes = sparStageFoes(stage);
-      foes.slice(0, -1).forEach((f, i) => {
+      const n = sparMinionCount(stage);
+      const ne = sparEliteCount(stage);
+      expect(foes).toHaveLength(n + ne + 1);
+      foes.slice(0, n).forEach((f, i) => {
         expect([f.look, f.name]).toEqual([...theme.minions[i % theme.minions.length]!]);
+        expect(f.tier).toBe('minion');
+      });
+      foes.slice(n, n + ne).forEach((f, i) => {
+        expect([f.look, f.name]).toEqual([...theme.elites[i % theme.elites.length]!]);
+        expect(f.tier).toBe('elite');
       });
       expect([foes.at(-1)!.look, foes.at(-1)!.name]).toEqual([...theme.boss]);
       expect(sparStageFoes(stage).map((f) => f.look)).toEqual(foes.map((f) => f.look));
@@ -227,7 +236,8 @@ describe('spar dead-foe recovery (卡喺 0 血)', () => {
 
   it('test_ensure_live_foe_clears_stage_when_boss_already_dead', () => {
     const d = new SparDuel({ ...HERO, atk: 1e9 }, 3, seq([0.9]));
-    for (let i = 0; i < sparMinionCount(3); i++) {
+    // 第 3 關：小兵 → 1 個精英 → 首領
+    for (let i = 0; i < sparMinionCount(3) + sparEliteCount(3); i++) {
       d.heroStrike();
       d.advance();
     }

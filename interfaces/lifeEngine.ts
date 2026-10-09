@@ -310,6 +310,14 @@ export interface HuashanBracketMatch {
 }
 
 /** 自動戰鬥演出：逐招紀錄（玩家方 vol＝外功第幾卷） */
+/** 敵人特性 id（同 data/foes/traits.ts FoeTraitId 一致） */
+export type CombatTraitId = 'guard' | 'charge' | 'drain' | 'combo' | 'thorns' | 'enrage';
+/** 一次特性觸發（演出彈字用） */
+export interface CombatTraitFx {
+  kind: CombatTraitId;
+  value: number;
+}
+
 export interface CombatReplayHit {
   side: 'player' | 'foe';
   moveName: string;
@@ -319,6 +327,8 @@ export interface CombatReplayHit {
   damage: number;
   playerHp: number;
   foeHp: number;
+  /** 今招觸發嘅敵人特性（鐵布衫、反震、蓄力、狂怒、噬血、連擊） */
+  traitFx?: CombatTraitFx[];
 }
 
 export interface CombatReplay {
@@ -331,6 +341,12 @@ export interface CombatReplay {
   startFoeHp: number;
   /** 敵人係首領（演出用大隻剪影） */
   foeBoss?: boolean;
+  /** 敵人層級（精英金邊、首領朱砂邊） */
+  foeTier?: 'minion' | 'elite' | 'boss';
+  /** 敵人特性（光環色、登場名牌） */
+  foeTrait?: CombatTraitId;
+  /** 敵人名號 */
+  foeTitle?: string;
   /** 玩家主修外功（顯示七卷用） */
   artId?: string;
   /** 玩家已得嘅卷 */
@@ -558,6 +574,16 @@ export interface PendingCombat {
   foeSurrendered?: boolean;
   /** 敵人最近一招名（自動戰鬥演出用） */
   lastFoeMoveName?: string;
+  /** 敵人層級（第 20 項敵人圖鑑：小兵／精英／首領） */
+  foeTier?: 'minion' | 'elite' | 'boss';
+  /** 敵人特性（data/foes/traits.ts；精英係首領特性弱化版） */
+  foeTrait?: CombatTraitId;
+  /** 敵人名號（圖鑑有先有） */
+  foeTitle?: string;
+  /** 敵人已出手次數（蓄力計數） */
+  foeTraitStrikes?: number;
+  /** 最近一次出手觸發嘅特性（自動戰鬥演出用；每次 playerCombatTurn 重設） */
+  lastTraitFx?: CombatTraitFx[];
 }
 
 export const lifeCharacterSchema = z.object({

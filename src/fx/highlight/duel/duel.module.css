@@ -405,3 +405,99 @@
   font-size: 13px;
   color: var(--ink-mid);
 }
+
+/* 第 20 項：敵人層級＋特性 */
+.tierBoss,
+.tierElite {
+  margin-right: 6px;
+  padding: 0 4px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  vertical-align: 2px;
+}
+
+.tierBoss {
+  background: var(--cinnabar);
+  color: var(--paper-bright);
+}
+
+.tierElite {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+.traitTag {
+  position: absolute;
+  right: 16px;
+  top: calc(max(12px, env(safe-area-inset-top)) + 66px);
+  z-index: 2;
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  column-gap: 5px;
+  max-width: 62%;
+  padding: 2px 9px 3px 2px;
+  border: 1px solid var(--trait);
+  border-radius: 12px;
+  background: rgba(28, 26, 23, 0.72);
+  color: var(--paper-bright);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}
+
+.traitTag i {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--trait);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.traitTag small {
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  opacity: 0.8;
+}
+
+.traitTag.isCharging {
+  animation: traitPulse 0.35s ease-in-out infinite alternate;
+}
+
+@keyframes traitPulse {
+  to {
+    transform: scale(1.08);
+    box-shadow: 0 0 14px var(--trait);
+  }
+}
+
+/* 特性圓印（director.traitSeal） */
+.numbers span[data-kind='trait'] {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--paper-bright);
+  background: var(--trait);
+  color: var(--paper-bright);
+  font-size: 26px;
+  font-style: normal;
+  -webkit-text-stroke: 0;
+  text-shadow: none;
+  box-shadow: 0 0 16px var(--trait), 0 3px 0 rgba(28, 26, 23, 0.35);
+}
+
+.numbers span[data-kind='heal'] {
+  color: #3d7a4f;
+  font-size: 26px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .traitTag.isCharging {
+    animation: none;
+  }
+}

@@ -13,6 +13,8 @@ export const DUEL_TUNING = {
   slashSec: 0.2,
   /** 敵人還手每招 */
   foeBeatSec: 0.62,
+  /** 第 20 項：首領／精英蓄力重擊前嘅蓄勢時間 */
+  chargeSec: 0.45,
   /** 暴擊 hit-stop */
   hitStopSec: 0.12,
   /** 暴擊全屏墨暈最深 */

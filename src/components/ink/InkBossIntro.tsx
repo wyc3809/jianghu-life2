@@ -6,6 +6,8 @@ import { InkBrushBar, clampPct } from './InkBrush';
 import { inkArtUrl } from '../../ui/inkAssets';
 import { bossSilhouetteUrl } from '../../ui/inkSilhouettes';
 import styles from './InkBossIntro.module.css';
+import { FOE_TRAITS } from '@data/foes/traits';
+import type { CombatTraitId } from '@interfaces/lifeEngine';
 
 type Particle = {
   x: number;
@@ -107,6 +109,10 @@ type Props = {
   foeName: string;
   hp: number;
   maxHp: number;
+  /** 名號（敵人圖鑑有先有） */
+  title?: string;
+  /** 首領特性（第 20 項）：印換成特性字、名下面寫特性 */
+  trait?: CombatTraitId;
   onDone: () => void;
 };
 
@@ -115,7 +121,8 @@ type Props = {
  * 移植自水墨武俠 UI 套件 index.html #scene-boss。
  * 觸發時機：進入首領交手前播一次（見 InkPlayScreen.tsx）。
  */
-export function InkBossIntro({ foeName, hp, maxHp, onDone }: Props) {
+export function InkBossIntro({ foeName, hp, maxHp, title, trait, onDone }: Props) {
+  const traitDef = trait ? FOE_TRAITS[trait] : null;
   const still = useStillMode();
   const skipJs = useSkipJsAnimation();
   const burstRef = useRef<HTMLCanvasElement>(null);
@@ -154,8 +161,23 @@ export function InkBossIntro({ foeName, hp, maxHp, onDone }: Props) {
           </div>
           <div className={styles.name}>
             <div className={cls(styles.kanji, styles.kanjiStill)}>{foeName}</div>
+            {(title || traitDef) && (
+              <div className={cls(styles.subtitle, styles.subtitleStill)}>
+                {title ? `「${title}」` : ''}
+                {traitDef && (
+                  <span className={styles.traitLine} style={{ ['--trait' as string]: `rgb(${traitDef.rgb})` }}>
+                    {traitDef.name} · {traitDef.blurb}
+                  </span>
+                )}
+              </div>
+            )}
           </div>
-          <div className={cls(styles.seal, styles.sealStill)}>凶</div>
+          <div
+            className={cls(styles.seal, styles.sealStill)}
+            style={traitDef ? { background: `rgb(${traitDef.rgb})` } : undefined}
+          >
+            {traitDef?.glyph ?? '凶'}
+          </div>
           <div className={cls(styles.bar, styles.barStill)}>
             <div className={styles.barLbl}>
               <span>氣 血</span>

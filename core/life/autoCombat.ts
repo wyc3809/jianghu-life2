@@ -47,6 +47,9 @@ export function runAutoCombat(state: LifeGameState): AutoCombatResult | null {
     startPlayerHp: combat.player.hp,
     startFoeHp: combat.foe.hp,
     foeBoss: combat.foePower === 'boss',
+    foeTier: combat.foeTier,
+    foeTrait: combat.foeTrait,
+    foeTitle: combat.foeTitle,
     ...artInfo(state),
     rounds: [],
     lines: [],
@@ -78,6 +81,13 @@ export function runAutoCombat(state: LifeGameState): AutoCombatResult | null {
         ignoreCooldown: true,
       });
       res.lines.push(...lines);
+      // 特性觸發分邊：鐵布衫／反震跟玩家呢招；蓄力／狂怒／噬血／連擊跟敵人還手
+      const fx = combat.lastTraitFx ?? [];
+      const onPlayer = fx.filter((f) => f.kind === 'guard' || f.kind === 'thorns');
+      const onFoe = fx.filter((f) => f.kind !== 'guard' && f.kind !== 'thorns');
+      // 反震係玩家自己呢招扣嘅血，唔好算落敵人還手
+      const reflected = onPlayer.filter((f) => f.kind === 'thorns').reduce((n, f) => n + f.value, 0);
+      const playerAfterOwn = playerBefore - reflected;
       const enemyActed = last && combat.phase === 'player' && state.pendingCombat === combat;
       // 敵人還手之前嘅氣血變化計落玩家呢招；還手造成嘅另計
       const foeHpAfterPlayer = Math.max(0, combat.foe.hp);
@@ -87,16 +97,18 @@ export function runAutoCombat(state: LifeGameState): AutoCombatResult | null {
         vol: p.vol,
         skillId: p.skillId,
         damage: Math.max(0, Math.round(foeBefore - foeHpAfterPlayer)),
-        playerHp: enemyActed ? playerBefore : Math.max(0, combat.player.hp),
+        playerHp: enemyActed ? playerAfterOwn : Math.max(0, combat.player.hp),
         foeHp: foeHpAfterPlayer,
+        ...(onPlayer.length ? { traitFx: onPlayer } : {}),
       });
-      if (enemyActed || (last && combat.player.hp < playerBefore)) {
+      if (enemyActed || (last && combat.player.hp < playerAfterOwn)) {
         hits.push({
           side: 'foe',
           moveName: combat.lastFoeMoveName ?? '出手',
-          damage: Math.max(0, Math.round(playerBefore - combat.player.hp)),
+          damage: Math.max(0, Math.round(playerAfterOwn - combat.player.hp)),
           playerHp: Math.max(0, combat.player.hp),
           foeHp: Math.max(0, combat.foe.hp),
+          ...(onFoe.length ? { traitFx: onFoe } : {}),
         });
       }
       if (state.pendingCombat !== combat || combat.phase !== 'player') break;
