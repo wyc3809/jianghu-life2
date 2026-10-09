@@ -231,3 +231,12 @@
 
 - 事件交手：圖鑑有個名就用圖鑑；冇就 `boss`＝首領、`strong`＝精英，按剪影借地區特性（實作選擇，可改）。
 - 美術：而家用現有 7 款剪影＋程式加衣帶色、描邊、光環。每隻敵人專屬剪影同四組動作要 AI 出圖（`design/art/FOE-ROSTER-PROMPTS.md`），要 `GEMINI_API_KEY`。
+
+### 第 20b 項：首領／精英專屬 AI 剪影（進行中，未發布）
+
+- 18 張（6 首領＋12 精英）用 SpriteCook 生成（`scripts/art/gen_spritecook_foes.py`，gpt-image-2 低質素，每張 2 credits，共 36 credits，用免費額度）。
+- 原圖 `assets/art-source/spritecook/raw/*.webp`；遊戲圖 `public/ink/spar/sil/enemy-<id>.webp`；清單 `data/foes/sprites.json`。
+- 演武台、自動戰鬥 2D 後備、3D duel 都用專屬剪影；小兵照用基本剪影。
+- 出招／受擊／倒地仍然係引擎程式動畫（未另出動作圖）。
+- 首領登場卡（`InkBossIntro`）仍然用舊 `art/sil/boss-*.webp`。
+- API key 只經環境變數 `SPRITECOOK_API_KEY`，唔入 repo。
