@@ -211,7 +211,7 @@
 | 掛軸數 | 4（高低錯開 22 px） | `STAGE_SILS` |
 | 舞台底圖 | 江湖＝`banner-bamboo-practice`、珍本＝`banner-sect-gate`（multiply 青／金漸層） | 可換 AI 圖 |
 
-### 第 20 項：敵人圖鑑＋首領特性（進行中，未發布）
+### 第 20 項：敵人圖鑑＋首領特性（玩家已確認，EA0.62.0 上線）
 
 玩家要求（2026-10-09）：演武台同自動戰鬥嘅敵人種類同風格要達到商業手遊水準；三步都做（圖鑑、美術、戰鬥特性）；每個首領一個特性，同區精英跟首領特性但弱化，視覺上要睇得出；演武台可以郁。
 設計：`design/gdd/foe-roster.md`；數據：`data/foes/{roster,traits}.ts`；計算：`core/life/foeTraits.ts`；測試：`tests/foe_traits.test.ts`。
