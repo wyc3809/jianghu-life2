@@ -423,3 +423,15 @@
   opacity: 1;
 }
 
+
+/* 第 20 項：首領特性一行 */
+.traitLine {
+  display: table;
+  margin: 6px auto 0;
+  letter-spacing: 0.12em;
+  color: #efe6cf;
+  border-left: 3px solid var(--trait);
+  padding-left: 8px;
+  font-size: clamp(12px, 1.8vh, 16px);
+  white-space: normal;
+}

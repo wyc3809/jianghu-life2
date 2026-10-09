@@ -875,6 +875,8 @@ export function InkPlayScreen({ state }: Props) {
           foeName={combat.foe.name}
           hp={combat.foe.hp}
           maxHp={combat.foe.maxHp}
+          title={combat.foeTitle}
+          trait={combat.foeTrait}
           onDone={() => setBossIntroShownFor(combat.id)}
         />
       )}

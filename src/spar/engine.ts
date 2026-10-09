@@ -41,10 +41,74 @@ import { AnimDirector, type DirectorSample } from './animDirector';
 import { StripRig, drawWarpedSprite } from './stripRig';
 import { SceneAmbience } from './ambience';
 import { formatSparNumber } from '@core/life/sparDuel';
+import { FOE_TRAITS } from '@data/foes/traits';
+import type { CombatTraitFx } from '@interfaces/lifeEngine';
 
 const DEG = Math.PI / 180;
 const INK = '22,19,15';
 const CINNABAR = '168,51,31';
+/** 精英描邊：金；首領描邊：朱砂（第 20 項敵人層級） */
+const ELITE_RIM = '227,196,106';
+const BOSS_RIM = '214,64,44';
+type FoeTierLite = 'minion' | 'elite' | 'boss';
+
+/**
+ * 敵人點綴色／描邊用嘅位圖快取（offscreen canvas，唔用 SVG）：
+ * - accent：剪影腰身一帶疊一層點綴色（衣帶），其餘仍係墨
+ * - rim：成個剪影塗單色，畫喺本體後面四向錯開＝描邊
+ */
+const tintCache = new WeakMap<object, Map<string, HTMLCanvasElement>>();
+
+function tintedSilhouette(img: CanvasImageSource, key: string, paint: (x: CanvasRenderingContext2D, w: number, h: number) => void): CanvasImageSource {
+  const w = (img as HTMLImageElement).naturalWidth || (img as HTMLCanvasElement).width || 0;
+  const h = (img as HTMLImageElement).naturalHeight || (img as HTMLCanvasElement).height || 0;
+  if (!w || !h || typeof document === 'undefined') return img;
+  let m = tintCache.get(img as object);
+  if (!m) {
+    m = new Map();
+    tintCache.set(img as object, m);
+  }
+  const hit = m.get(key);
+  if (hit) return hit;
+  try {
+    const c = document.createElement('canvas');
+    c.width = w;
+    c.height = h;
+    const x = c.getContext('2d');
+    if (!x) return img;
+    x.drawImage(img, 0, 0);
+    x.globalCompositeOperation = 'source-atop';
+    paint(x, w, h);
+    m.set(key, c);
+    return c;
+  } catch {
+    return img;
+  }
+}
+
+/** 衣帶點綴色：腰身一條色帶＋頭頂少少，剪影其餘保持墨色 */
+function accentSilhouette(img: CanvasImageSource, rgb: string): CanvasImageSource {
+  return tintedSilhouette(img, `accent:${rgb}`, (x, w, h) => {
+    const g = x.createLinearGradient(0, 0, 0, h);
+    g.addColorStop(0, `rgba(${rgb},0)`);
+    g.addColorStop(0.2, `rgba(${rgb},0.35)`);
+    g.addColorStop(0.3, `rgba(${rgb},0)`);
+    g.addColorStop(0.48, `rgba(${rgb},0)`);
+    g.addColorStop(0.58, `rgba(${rgb},0.7)`);
+    g.addColorStop(0.68, `rgba(${rgb},0.4)`);
+    g.addColorStop(0.82, `rgba(${rgb},0)`);
+    x.fillStyle = g;
+    x.fillRect(0, 0, w, h);
+  });
+}
+
+/** 單色剪影（描邊用） */
+function solidSilhouette(img: CanvasImageSource, rgb: string): CanvasImageSource {
+  return tintedSilhouette(img, `solid:${rgb}`, (x, w, h) => {
+    x.fillStyle = `rgb(${rgb})`;
+    x.fillRect(0, 0, w, h);
+  });
+}
 
 /**
  * 將彩色貼圖轉成「純黑影 + 淡宣紙描邊」並快取（特效用）。
@@ -186,9 +250,9 @@ function evalPose(bone: string, idleT: number, deltaClip: SparClip | null, delta
   return pose;
 }
 
-interface Particle { x: number; y: number; vx: number; vy: number; r: number; age: number; dur: number }
-type FloaterKind = 'xp' | 'dmg' | 'crit' | 'heal' | 'hurt';
-interface Floater { x: number; y: number; text: string; gain: number; age: number; dur: number; kind?: FloaterKind }
+interface Particle { x: number; y: number; vx: number; vy: number; r: number; age: number; dur: number; rgb?: string }
+type FloaterKind = 'xp' | 'dmg' | 'crit' | 'heal' | 'hurt' | 'trait';
+interface Floater { x: number; y: number; text: string; gain: number; age: number; dur: number; kind?: FloaterKind; rgb?: string }
 interface CoinFx { x: number; y: number; vx: number; vy: number; rot: number; vr: number; age: number; dur: number; groundY: number }
 interface TrailDot { x: number; y: number; age: number }
 interface SplashFx { x: number; y: number; rot: number; age: number; dur: number }
@@ -204,6 +268,10 @@ interface EnemyInst {
   speedMul: number; // 行路速度倍率（每隻唔同節奏）
   scaleMul: number; // 身形微調倍率
   boss: boolean; // 首領（身形大啲、出手快啲）
+  tier: FoeTierLite; // 小兵／精英（金邊）／首領（朱砂邊）
+  traitRgb: string | null; // 特性色（光環、觸發字）；小兵冇
+  accent: string | null; // 衣帶點綴色
+  enragedShown: boolean; // 狂怒字已彈過（只彈一次）
   hitT: number; // 受擊後退計時（大＝冇受擊）
   atkTimer: number; // 距離下一次出手
   lungeT: number | null; // 撲擊動作計時
@@ -254,11 +322,18 @@ export interface SparStageImages {
  */
 export interface SparCombatHooks {
   /** 主角劍鋒到肉 */
-  heroStrike(): { dmg: number; crit: boolean; heal: number; killed: boolean };
+  heroStrike(): { dmg: number; crit: boolean; heal: number; killed: boolean; fx?: CombatTraitFx[]; reflect?: number };
   /** 敵人撲擊到肉 */
-  foeStrike(): { dmg: number; heroDown: boolean };
-  /** 下一個出場敵人：係咪首領、用邊款剪影（ENEMY_POOL 索引，按關卡主題） */
-  nextFoe(): { boss: boolean; look?: number };
+  foeStrike(): { dmg: number; heroDown: boolean; fx?: CombatTraitFx[]; foeHeal?: number };
+  /**
+   * 下一個出場敵人：係咪首領、用邊款剪影（ENEMY_POOL 索引，按關卡主題）；
+   * tier／trait／accent 係第 20 項敵人圖鑑（精英金邊、首領朱砂邊、特性光環、衣帶色）
+   */
+  nextFoe(): { boss: boolean; look?: number; tier?: FoeTierLite; trait?: keyof typeof FOE_TRAITS; accent?: string };
+  /** 當前敵人下一擊係蓄力重擊（光環暴漲預告） */
+  foeCharging?(): boolean;
+  /** 當前敵人狂怒中（墨紅火焰） */
+  foeEnraged?(): boolean;
   /** 敵人倒地動畫完：換下一個（或過關）；回傳要彈幾多個銅錢 */
   foeDefeated(): { coins: number };
   /** 敗退倒地動畫完：退一關、回血 */
@@ -430,6 +505,8 @@ export class SparStage {
   private makeEnemy(x: number, state: EnemyState, defIdx?: number): EnemyInst {
     const next = this.combat?.nextFoe();
     const boss = next?.boss ?? false;
+    const tier: FoeTierLite = next?.tier ?? (boss ? 'boss' : 'minion');
+    const trait = tier !== 'minion' && next?.trait ? FOE_TRAITS[next.trait] : null;
     const pool = this.enemyPool;
     // 對打模式：剪影跟關卡主題（唔再亂抽）
     const idx = next?.look !== undefined ? next.look : defIdx ?? Math.floor(Math.random() * pool.length);
@@ -441,8 +518,12 @@ export class SparStage {
       stopJitter: 1,
       def: pool[idx % pool.length]!,
       speedMul: 1,
-      scaleMul: boss ? 1.3 : 0.94 + Math.random() * 0.1,
+      scaleMul: boss ? 1.3 : tier === 'elite' ? 1.12 : 0.94 + Math.random() * 0.1,
       boss,
+      tier,
+      traitRgb: trait?.rgb ?? null,
+      accent: next?.accent ?? null,
+      enragedShown: false,
       hitT: 9,
       atkTimer: 1.1 + Math.random() * 0.5,
       lungeT: null,
@@ -766,10 +847,59 @@ export class SparStage {
         this.particles.push({ x: g.heroX + 6, y: hy, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 40, r: 0.8 + Math.random() * 2, age: 0, dur: 0.45 });
       }
     }
+    if (r.fx?.length) this.showTraitFx(r.fx, e, 0, r.foeHeal ?? 0);
     if (r.heroDown) {
       this.heroDownT = 0;
       this.attackT = null;
       this.trail = [];
+    }
+  }
+
+  /**
+   * 敵人特性觸發演出（第 20 項）：特性色圓印＋單字、特性色墨點；
+   * 卸（鐵布衫）／噬（噬血）／蓄（蓄力）／連（分影）／怒（狂怒）喺敵人頭頂，震（反震）喺主角身上。
+   */
+  private showTraitFx(fx: CombatTraitFx[], e: EnemyInst, reflect: number, foeHeal: number) {
+    const g = this.geom();
+    const foeHead = g.groundY - SILHOUETTE_DESIGN_H * this.enemyKe(e) * 0.95;
+    const heroHead = g.groundY - SILHOUETTE_DESIGN_H * g.k * 0.95;
+    for (const f of fx) {
+      const def = FOE_TRAITS[f.kind];
+      if (f.kind === 'enrage') {
+        if (e.enragedShown) continue;
+        e.enragedShown = true;
+      }
+      const onHero = f.kind === 'thorns';
+      const x = onHero ? g.heroX : e.x - 8;
+      const y = onHero ? heroHead : foeHead;
+      this.floaters.push({ x, y, text: def.glyph, gain: 0, age: 0, dur: 1.05, kind: 'trait', rgb: def.rgb });
+      if (!this.quiet) {
+        const n = e.boss ? 16 : 10;
+        for (let i = 0; i < n; i++) {
+          const a = Math.random() * Math.PI * 2;
+          const sp = 40 + Math.random() * 120;
+          this.particles.push({
+            x,
+            y: y + 30,
+            vx: Math.cos(a) * sp,
+            vy: Math.sin(a) * sp - 30,
+            r: 1 + Math.random() * 2.4,
+            age: 0,
+            dur: 0.55 + Math.random() * 0.3,
+            rgb: def.rgb,
+          });
+        }
+        if (f.kind === 'charge') {
+          this.shake = Math.max(this.shake, e.boss ? 10 : 6);
+          this.hitStop = Math.max(this.hitStop, 0.1);
+        }
+      }
+    }
+    if (reflect > 0) {
+      this.floaters.push({ x: g.heroX + 10, y: g.groundY - SILHOUETTE_DESIGN_H * g.k * 0.58, text: `-${formatSparNumber(reflect)}`, gain: reflect, age: 0, dur: 0.95, kind: 'hurt' });
+    }
+    if (foeHeal > 0) {
+      this.floaters.push({ x: e.x + 14, y: foeHead + 26, text: `+${formatSparNumber(foeHeal)}`, gain: foeHeal, age: 0, dur: 0.95, kind: 'heal' });
     }
   }
 
@@ -878,6 +1008,7 @@ export class SparStage {
           this.shake = 9;
           this.hitStop = 0.13;
         }
+        if (r.fx?.length) this.showTraitFx(r.fx, target, r.reflect ?? 0, 0);
       }
     } else if (target && target.state !== 'dead') {
       target.state = 'dead';
@@ -1255,21 +1386,66 @@ export class SparStage {
     const enemyImg = this.images.enemies[idx] ?? this.images.enemies[0];
     if (!enemyImg) return;
 
+    // 第 20 項：精英／首領腳下光環用特性色；當前敵人蓄力中光環暴漲、狂怒中墨紅火焰
+    const isCurrent = this.enemies[0] === e && e.state !== 'dead';
+    const charging = isCurrent && e.tier !== 'minion' && (this.combat?.foeCharging?.() ?? false);
+    const enraged = isCurrent && e.tier !== 'minion' && (this.combat?.foeEnraged?.() ?? false);
+    const auraRgb = e.traitRgb ?? CINNABAR;
     if (e.state !== 'dead') {
       ctx.save();
       ctx.globalAlpha = Math.max(0, Math.min(1, pose.alpha)) * 0.9;
-      // 蓄勢時腳下紅光暴漲：預告要出手
+      // 蓄勢時腳下光暴漲：預告要出手
       const windup = e.lungeT !== null && e.lungeT < LUNGE_HIT_AT ? e.lungeT / LUNGE_HIT_AT : 0;
-      const pulse = (0.55 + 0.25 * Math.sin(e.bob * 2.6)) * (1 + windup * 1.6);
-      const aura = e.boss ? 1.6 : 1;
+      const pulse = (0.55 + 0.25 * Math.sin(e.bob * 2.6)) * (1 + windup * 1.6) * (charging ? 1.5 + 0.5 * Math.sin(e.bob * 9) : 1);
+      const aura = (e.boss ? 1.6 : e.tier === 'elite' ? 1.25 : 1) * (charging ? 1.35 : 1);
+      const strength = e.tier === 'elite' ? 0.75 : 1;
       const rg = ctx.createRadialGradient(footX, footY, 2, footX, footY, 58 * ke * aura);
-      rg.addColorStop(0, `rgba(${CINNABAR},${0.5 * pulse})`);
-      rg.addColorStop(0.45, `rgba(${CINNABAR},${0.16 * pulse})`);
-      rg.addColorStop(1, `rgba(${CINNABAR},0)`);
+      rg.addColorStop(0, `rgba(${auraRgb},${0.5 * pulse * strength})`);
+      rg.addColorStop(0.45, `rgba(${auraRgb},${0.16 * pulse * strength})`);
+      rg.addColorStop(1, `rgba(${auraRgb},0)`);
       ctx.fillStyle = rg;
       ctx.beginPath();
       ctx.ellipse(footX, footY, 54 * ke * aura, 15 * ke * aura, 0, 0, Math.PI * 2);
       ctx.fill();
+      // 特性光柱：精英淡、首領濃（一眼睇到「呢隻有特性」）
+      if (e.traitRgb && !this.quiet) {
+        const hgt = SILHOUETTE_DESIGN_H * ke * (e.boss ? 1.05 : 0.9);
+        const col = ctx.createLinearGradient(footX, footY, footX, footY - hgt);
+        const a0 = (e.boss ? 0.32 : 0.18) * (charging ? 1.8 : 1) * (0.8 + 0.2 * Math.sin(e.bob * 3.3));
+        col.addColorStop(0, `rgba(${e.traitRgb},${a0})`);
+        col.addColorStop(1, `rgba(${e.traitRgb},0)`);
+        ctx.fillStyle = col;
+        ctx.beginPath();
+        ctx.ellipse(footX, footY - hgt * 0.45, 30 * ke * aura, hgt * 0.55, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      // 蓄力：一圈圈向內收嘅特性色環
+      if (charging && !this.quiet) {
+        for (let i = 0; i < 2; i++) {
+          const ph = (this.idleT * 1.6 + i * 0.5) % 1;
+          ctx.strokeStyle = `rgba(${auraRgb},${0.7 * ph})`;
+          ctx.lineWidth = 2.2;
+          ctx.beginPath();
+          ctx.ellipse(footX, footY, 70 * ke * aura * (1.2 - ph), 20 * ke * aura * (1.2 - ph), 0, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+      }
+      // 狂怒：身後墨紅火舌
+      if (enraged && !this.quiet) {
+        const hgt = SILHOUETTE_DESIGN_H * ke;
+        for (let i = 0; i < 5; i++) {
+          const fx = footX + (i - 2) * 12 * ke * 3;
+          const flick = 0.75 + 0.25 * Math.sin(this.idleT * 11 + i * 1.7);
+          const fl = ctx.createLinearGradient(fx, footY, fx, footY - hgt * flick);
+          fl.addColorStop(0, 'rgba(122,31,26,0.55)');
+          fl.addColorStop(0.6, 'rgba(192,57,43,0.25)');
+          fl.addColorStop(1, 'rgba(192,57,43,0)');
+          ctx.fillStyle = fl;
+          ctx.beginPath();
+          ctx.ellipse(fx, footY - hgt * flick * 0.45, 12 * ke * 3, hgt * flick * 0.5, 0, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
       ctx.restore();
     }
 
@@ -1278,24 +1454,36 @@ export class SparStage {
     ctx.translate(footX, footY);
     ctx.rotate(pose.rot * DEG);
     ctx.scale(1, pose.sy);
-    // 素材本身望左，唔好再 flip（否則會變望右）；條帶變形做衣擺同傾身
-    drawWarpedSprite(
-      ctx,
-      enemyImg,
-      { k: ke, w: e.def.part.w, h: e.def.part.h, dx: e.def.part.dx, dy: e.def.part.dy },
-      (t) => e.rig.offsetAt(t),
-    );
+    const sprite = { k: ke, w: e.def.part.w, h: e.def.part.h, dx: e.def.part.dx, dy: e.def.part.dy };
+    // 精英金邊、首領朱砂邊：單色剪影四向錯開畫喺後面
+    if (e.tier !== 'minion' && e.state !== 'dead') {
+      const rim = solidSilhouette(enemyImg, e.boss ? BOSS_RIM : ELITE_RIM);
+      const off = (e.boss ? 2.6 : 2) * (0.85 + 0.15 * Math.sin(e.bob * 4));
+      const a = ctx.globalAlpha;
+      ctx.globalAlpha = a * (e.boss ? 0.95 : 0.85);
+      for (const [ox, oy] of [[-off, 0], [off, 0], [0, -off], [0, off]] as const) {
+        ctx.save();
+        ctx.translate(ox, oy);
+        drawWarpedSprite(ctx, rim, { ...sprite, strips: 20 }, (t) => e.rig.offsetAt(t));
+        ctx.restore();
+      }
+      ctx.globalAlpha = a;
+    }
+    // 素材本身望左，唔好再 flip（否則會變望右）；條帶變形做衣擺同傾身；衣帶疊點綴色
+    drawWarpedSprite(ctx, e.accent ? accentSilhouette(enemyImg, e.accent) : enemyImg, sprite, (t) => e.rig.offsetAt(t));
     if (e.state !== 'dead') {
-      const glow = 0.45 + 0.35 * Math.sin(e.bob * 3.1);
+      const glow = (0.45 + 0.35 * Math.sin(e.bob * 3.1)) * (enraged ? 1.5 : 1);
+      const eyeRgb = e.traitRgb && e.tier !== 'minion' ? e.traitRgb : CINNABAR;
       for (const eye of e.def.eyes) {
         const ex = eye.x * ke;
         const ey = eye.y * ke;
-        const grad = ctx.createRadialGradient(ex, ey, 0, ex, ey, 14 * ke);
-        grad.addColorStop(0, `rgba(${CINNABAR},${glow})`);
-        grad.addColorStop(1, `rgba(${CINNABAR},0)`);
+        const er = 14 * ke * (e.boss ? 1.3 : 1);
+        const grad = ctx.createRadialGradient(ex, ey, 0, ex, ey, er);
+        grad.addColorStop(0, `rgba(${eyeRgb},${Math.min(1, glow)})`);
+        grad.addColorStop(1, `rgba(${eyeRgb},0)`);
         ctx.fillStyle = grad;
         ctx.beginPath();
-        ctx.arc(ex, ey, 14 * ke, 0, Math.PI * 2);
+        ctx.arc(ex, ey, er, 0, Math.PI * 2);
         ctx.fill();
       }
     }
@@ -1380,7 +1568,7 @@ export class SparStage {
     const { ctx } = this;
     for (const pt of this.particles) {
       const p = pt.age / pt.dur;
-      ctx.fillStyle = `rgba(${INK},${0.75 * (1 - p)})`;
+      ctx.fillStyle = `rgba(${pt.rgb ?? INK},${(pt.rgb ? 0.9 : 0.75) * (1 - p)})`;
       ctx.beginPath();
       ctx.arc(pt.x, pt.y, pt.r * (1 - p * 0.5), 0, Math.PI * 2);
       ctx.fill();
@@ -1450,6 +1638,28 @@ export class SparStage {
   private drawCombatNumber(f: Floater, p: number, alpha: number) {
     const { ctx } = this;
     const k = this.cssH / 218;
+    if (f.kind === 'trait') {
+      // 特性圓印：特性色實心圓＋宣紙色單字，彈出再飄
+      const pop = p < 0.14 ? 0.4 + (p / 0.14) * 0.8 : p < 0.24 ? 1.2 - ((p - 0.14) / 0.1) * 0.2 : 1;
+      const r = 13 * k * pop;
+      const y = f.y - (1 - (1 - p) ** 2) * 18 * k;
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, alpha);
+      ctx.fillStyle = `rgb(${f.rgb ?? CINNABAR})`;
+      ctx.strokeStyle = 'rgba(246,240,228,0.95)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(f.x, y, r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+      ctx.font = NUM_FONT.replace('SIZE', String(Math.round(r * 1.25)));
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = '#fbf7ee';
+      ctx.fillText(f.text, f.x, y + r * 0.06);
+      ctx.restore();
+      return;
+    }
     const base = f.kind === 'crit' ? 30 : f.kind === 'heal' ? 19 : f.kind === 'hurt' ? 20 : 23;
     const pop = p < 0.12 ? 1.5 - (p / 0.12) * 0.5 : 1;
     const size = Math.round(base * k * pop);

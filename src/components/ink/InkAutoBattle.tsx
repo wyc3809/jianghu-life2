@@ -9,6 +9,9 @@ import { ENEMY_POOL, SPAR_BACKGROUNDS, WEAPON_SPRITES, rigForSect } from '../../
 import { formatSparNumber } from '@core/life/sparDuel';
 import { InkBrushBar } from './InkBrush';
 import { useLifeStore } from '../../store/lifeStore';
+import { FOE_TRAITS } from '@data/foes/traits';
+import { FOE_BY_NAME, lookForFoeName } from '@data/foes/roster';
+import { SPAR_LOOK } from '@core/life/sparDuel';
 import { playInkDefeat, playInkMiss, playInkVictory } from '../../audio/inkAudio';
 
 const STAGE_HEIGHT = 230;
@@ -26,11 +29,9 @@ type Props = {
 type Hit = CombatReplayHit & { round: number };
 
 /** 按敵人名揀剪影（首領用鐵面／赤髮大隻款），同一個名每次一樣 */
-function foeLook(name: string, boss: boolean): number {
-  let h = 0;
-  for (const ch of name) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
-  const pool = boss ? [4, 6] : [1, 2, 3, 5];
-  return pool[h % pool.length]!;
+/** 敵人剪影：圖鑑有就用圖鑑；否則按名字關鍵字（同演武台同一套） */
+function foeLook(name: string, _boss: boolean): number {
+  return SPAR_LOOK[lookForFoeName(name)];
 }
 
 /** 場景：首領夜山、論劍山門、其餘山路 */
@@ -81,6 +82,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false }: Props) {
     let endTimer: ReturnType<typeof setTimeout> | null = null;
     let i = 0;
     let ended = false;
+    let enraged = false;
     const end = (ms: number) => {
       if (ended) return;
       ended = true;
@@ -102,7 +104,9 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false }: Props) {
         show(h);
         const killed = h.foeHp <= 0;
         if (!killed && i >= hits.length) end(1200);
-        return { dmg: h.damage, crit: h.damage > 0 && (h.vol ?? 1) >= 5, heal: 0, killed };
+        const fx = h.traitFx ?? [];
+        const reflect = fx.filter((f) => f.kind === 'thorns').reduce((n, f) => n + f.value, 0);
+        return { dmg: h.damage, crit: h.damage > 0 && (h.vol ?? 1) >= 5, heal: 0, killed, fx, reflect };
       },
       foeStrike: () => {
         const h = hits[i];
@@ -111,9 +115,21 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false }: Props) {
         show(h);
         const heroDown = h.playerHp <= 0;
         if (!heroDown && i >= hits.length) end(1200);
-        return { dmg: h.damage, heroDown };
+        const fx = h.traitFx ?? [];
+        if (fx.some((f) => f.kind === 'enrage')) enraged = true;
+        const foeHeal = fx.filter((f) => f.kind === 'drain').reduce((n, f) => n + f.value, 0);
+        return { dmg: h.damage, heroDown, fx, foeHeal };
       },
-      nextFoe: () => ({ boss: Boolean(replay.foeBoss), look: foeLook(replay.foeName, Boolean(replay.foeBoss)) }),
+      nextFoe: () => ({
+        boss: Boolean(replay.foeBoss),
+        look: foeLook(replay.foeName, Boolean(replay.foeBoss)),
+        tier: replay.foeTier,
+        trait: replay.foeTrait,
+        accent: FOE_BY_NAME.get(replay.foeName)?.entry.accent ?? (replay.foeTrait ? FOE_TRAITS[replay.foeTrait].rgb : undefined),
+      }),
+      // 下一下敵人出手係蓄力重擊 → 光環暴漲預告
+      foeCharging: () => hits[i]?.side === 'foe' && Boolean(hits[i]?.traitFx?.some((f) => f.kind === 'charge')),
+      foeEnraged: () => enraged,
       foeDefeated: () => {
         end(700);
         return { coins: 6 };

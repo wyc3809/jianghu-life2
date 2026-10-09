@@ -10522,3 +10522,61 @@ button.ink-enc-strip {
 .ink-gacha-back {
   margin-bottom: 8px;
 }
+
+/* ===== 第 20 項：敵人層級＋特性（演武台名牌） ===== */
+.ink-spar-elite-name em {
+  background: #c29a45;
+  color: #2e2622;
+}
+
+.ink-spar-trait {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  width: max-content;
+  margin: 0 auto 3px;
+  padding: 0 7px 0 1px;
+  border: 1px solid var(--trait);
+  border-radius: 10px;
+  background: rgba(22, 19, 15, 0.62);
+  color: #fbf7ee;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.ink-spar-trait i {
+  display: inline-grid;
+  place-items: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--trait);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 0.6rem;
+}
+
+/* 蓄力預告：名牌跳動發光 */
+.ink-spar-trait.is-charging {
+  animation: inkSparTraitPulse 0.5s ease-in-out infinite alternate;
+}
+
+.ink-spar-trait.is-enraged {
+  border-color: #c0392b;
+  box-shadow: 0 0 8px rgba(192, 57, 43, 0.8);
+}
+
+@keyframes inkSparTraitPulse {
+  to {
+    transform: scale(1.12);
+    box-shadow: 0 0 10px var(--trait);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-spar-trait.is-charging {
+    animation: none;
+  }
+}

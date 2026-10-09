@@ -17,12 +17,12 @@ import { DuelDirector, type DuelHit, type DuelWeapon } from './director';
 import { WEAPON_SPRITES } from '../../../spar/rig';
 import { HERO_ATK_FRAMES, HERO_SIL, HERO_WEAPON_GRIPS, WEAPON_SIL_LENGTH } from '../../../spar/silhouetteDraw';
 import { CRIT_FROM_VOL } from './strokes';
+import { FOE_TRAITS } from '@data/foes/traits';
+import { FOE_BY_NAME, lookForFoeName } from '@data/foes/roster';
 import styles from './duel.module.css';
 
 const BASE = import.meta.env.BASE_URL || '/';
 const SIL = `${BASE}ink/spar/sil/`;
-const FOE_LOOKS = ['daoke', 'nvcike', 'toutuo', 'gouke'];
-const BOSS_LOOKS = ['tiemian', 'chifa'];
 const BACKDROPS: Record<string, string> = {
   gate: `${BASE}ink/ai/banners/banner-sect-gate.webp`,
   nightpeak: `${BASE}ink/ai/backdrops/backdrop-night-mountains.webp`,
@@ -39,11 +39,9 @@ function ensureFonts() {
   document.head.appendChild(l);
 }
 
-function foeLook(name: string, boss: boolean): string {
-  let h = 0;
-  for (const ch of name) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
-  const pool = boss ? BOSS_LOOKS : FOE_LOOKS;
-  return pool[h % pool.length]!;
+/** 敵人剪影：圖鑑有就用圖鑑，否則按名字關鍵字（同演武台同一套） */
+function foeLook(name: string): string {
+  return lookForFoeName(name);
 }
 
 function sceneOf(r: CombatReplay): string {
@@ -136,7 +134,7 @@ export default function DuelFx({ replay, onDone, onFail, weaponKind = null }: Du
   useEffect(ensureFonts, []);
 
   useLayoutEffect(() => {
-    const look = foeLook(replay.foeName, Boolean(replay.foeBoss));
+    const look = foeLook(replay.foeName);
     const d = new DuelDirector(
       {
         root: rootRef.current!,
@@ -156,6 +154,7 @@ export default function DuelFx({ replay, onDone, onFail, weaponKind = null }: Du
         heroStrike: HERO_ATK_FRAMES[1].src,
         weapon: duelWeapon(weaponKind),
         foe: `${SIL}enemy-${look}.webp`,
+        foeAccent: FOE_BY_NAME.get(replay.foeName)?.entry.accent ?? (replay.foeTrait ? FOE_TRAITS[replay.foeTrait].rgb : undefined),
         splash: `${BASE}ink/spar/fx-splash.webp`,
       },
       {
@@ -216,6 +215,8 @@ export default function DuelFx({ replay, onDone, onFail, weaponKind = null }: Du
   const owned = new Set(artNow.vols);
   const moves = artNow.artId ? artVolumeMoves(artNow.artId) : [];
   const artName = artNow.artId ? getSkillDef(artNow.artId)?.name : undefined;
+  const tier = replay.foeTier ?? (replay.foeBoss ? 'boss' : 'minion');
+  const trait = replay.foeTrait && tier !== 'minion' ? FOE_TRAITS[replay.foeTrait] : null;
   // 宣紙底：普通凡品紙色，首領泥金暈
   const grade = GRADES[replay.foeBoss ? 4 : 0];
   const sealSrc = finale === 'lose' ? sealUrlForText('敗') : sealUrlForText('勝');
@@ -269,12 +270,26 @@ export default function DuelFx({ replay, onDone, onFail, weaponKind = null }: Du
 
       {/* 血條：敵上我下 */}
       <div className={`${styles.bar} ${styles.foeBar}`}>
-        <b>{replay.foeBoss ? `首領・${replay.foeName}` : replay.foeName}</b>
+        <b>
+          {tier !== 'minion' && <span className={tier === 'boss' ? styles.tierBoss : styles.tierElite}>{tier === 'boss' ? '首領' : '精英'}</span>}
+          {replay.foeName}
+        </b>
         <i style={{ ['--fill' as string]: `${(foeHp / Math.max(1, replay.foeMaxHp)) * 100}%` }} />
         <em>
           {Math.round(foeHp)}／{replay.foeMaxHp}
         </em>
       </div>
+      {trait && (
+        <div
+          className={`${styles.traitTag}${cur?.side === 'foe' && cur.traitFx?.some((f) => f.kind === 'charge') ? ` ${styles.isCharging}` : ''}`}
+          style={{ ['--trait' as string]: `rgb(${trait.rgb})` }}
+        >
+          <i>{trait.glyph}</i>
+          {trait.name}
+          {tier === 'elite' ? '（弱化）' : ''}
+          <small>{trait.blurb}</small>
+        </div>
+      )}
 
       <div className={styles.title} ref={titleRef} aria-label={replay.title}>
         {opened && beat < 0 ? <Chars text={replay.title} /> : null}

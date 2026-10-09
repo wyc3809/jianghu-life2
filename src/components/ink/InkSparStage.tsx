@@ -27,6 +27,7 @@ import {
   type AnyWarriorRig,
 } from '../../spar/rig';
 import { getGearDef } from '@data/equipment/catalog';
+import { FOE_TRAITS } from '@data/foes/traits';
 import { useLifeStore } from '../../store/lifeStore';
 
 interface Props {
@@ -121,6 +122,8 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
         DUEL_CACHE.set(key, duel);
       }
       duelRef.current = duel;
+      // 截圖／測試用：DEV 先有
+      if (import.meta.env.DEV) (window as unknown as { __sparDuel?: SparDuel }).__sparDuel = duel;
     }
   }
 
@@ -187,7 +190,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
             return r;
           },
           foeStrike: () => {
-            if (duel.foeHp <= 0) return { dmg: 0, heroDown: false };
+            if (duel.foeHp <= 0) return { dmg: 0, heroDown: false, fx: [] };
             const r = duel.foeStrike();
             sync();
             return r;
@@ -195,8 +198,11 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
           nextFoe: () => {
             // 重新載入時可能接住一個已死嘅敵人：先結算換人，先決定出邊個
             settleDeadFoe();
-            return { boss: duel.foe?.boss ?? false, look: duel.foe?.look };
+            const f = duel.foe;
+            return { boss: f?.boss ?? false, look: f?.look, tier: f?.tier, trait: f?.trait, accent: f?.accent };
           },
+          foeCharging: () => duel.foeCharging,
+          foeEnraged: () => duel.foeEnraged,
           foeDefeated: () => ({ coins: settleDeadFoe() ? 6 : 0 }),
           heroRecovered: () => {
             duel.retreat();
@@ -438,7 +444,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
             </div>
           </div>
           <div
-            className={`ink-spar-bar ink-spar-bar--foe${snap.foe?.boss ? ' is-boss' : ''}`}
+            className={`ink-spar-bar ink-spar-bar--foe${snap.foe?.boss ? ' is-boss' : ''}${snap.foe?.tier === 'elite' ? ' is-elite' : ''}`}
             ref={foeBarRef}
             aria-label={snap.foe ? `${snap.foe.name} ${fmt(snap.foeHp)}` : undefined}
           >
@@ -446,6 +452,23 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
               <span className="ink-spar-boss-name" key={`${snap.stage}-${snap.foe.name}`}>
                 <em>首領</em>
                 <b ref={bossNameRef}>{snap.foe.name}</b>
+              </span>
+            )}
+            {snap.foe?.tier === 'elite' && (
+              <span className="ink-spar-boss-name ink-spar-elite-name" key={`${snap.stage}-${snap.minionsLeft}-${snap.foe.name}`}>
+                <em>精英</em>
+                <b>{snap.foe.name}</b>
+              </span>
+            )}
+            {snap.foe?.trait && (
+              <span
+                className={`ink-spar-trait${snap.foeCharging ? ' is-charging' : ''}${snap.foeEnraged ? ' is-enraged' : ''}`}
+                style={{ ['--trait' as string]: `rgb(${FOE_TRAITS[snap.foe.trait].rgb})` }}
+                title={FOE_TRAITS[snap.foe.trait].blurb}
+              >
+                <i>{FOE_TRAITS[snap.foe.trait].glyph}</i>
+                {FOE_TRAITS[snap.foe.trait].name}
+                {snap.foe.tier === 'elite' ? '·弱' : ''}
               </span>
             )}
             <div className="ink-spar-bar-inner" ref={foeInnerRef}>

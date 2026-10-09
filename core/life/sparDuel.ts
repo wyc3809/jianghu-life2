@@ -1,10 +1,22 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { gearTotals, sumGearCombatBonuses } from './equipment';
 import { getSkillDef } from '@data/skills/catalog';
+import { FOE_REGIONS, type FoeEntry, type FoeRegion } from '@data/foes/roster';
+import type { FoeTier, FoeTraitId } from '@data/foes/traits';
+import {
+  newTraitState,
+  traitAttackMult,
+  traitEnraged,
+  traitNextIsCharged,
+  traitOnFoeDealt,
+  traitOnFoeHit,
+  type FoeTraitState,
+  type TraitFx,
+} from './foeTraits';
 
 /**
  * 演武台對打（純邏輯、唔碰模擬 RNG）：
- * 每關＝幾個小兵＋一個長血條首領；雙方輪流出手，主角有暴擊同吸血。
+ * 每關＝幾個小兵＋精英（第 3 關起）＋一個長血條首領；首領／精英有特性（data/foes/traits.ts）；雙方輪流出手，主角有暴擊同吸血。
  * - 主角數值跟角色實力：武學、修為境界、氣血上限、兵器攻擊（越練越強，數字越跳越大）
  * - 演武血條同角色真氣血分開：打輸只係「演武敗退」退一關、回滿血再戰，唔會受傷
  * - 關卡越後敵人越強（每關 ×SPAR_STAGE_GROWTH），自然停喺「同自己實力相若」嗰關
@@ -116,6 +128,16 @@ export interface SparFoe {
   atk: number;
   /** 剪影款式：對應 src/spar/rig.ts ENEMY_POOL 嘅索引 */
   look: number;
+  /** 圖鑑 id（data/foes/roster.ts） */
+  id: string;
+  /** 名號（名牌細字） */
+  title: string;
+  /** 小兵／精英／首領 */
+  tier: FoeTier;
+  /** 特性（小兵冇；精英＝首領特性弱化版） */
+  trait?: FoeTraitId;
+  /** 點綴色 'r,g,b' */
+  accent: string;
 }
 
 /**
@@ -129,12 +151,16 @@ export interface SparTheme {
   name: string;
   /** 小兵按次序輪住出：[款式, 名] */
   minions: ReadonlyArray<readonly [number, string]>;
+  /** 精英按次序輪住出：[款式, 名] */
+  elites: ReadonlyArray<readonly [number, string]>;
   boss: readonly [number, string];
+  /** 本區首領特性（精英弱化版） */
+  trait: FoeTraitId;
 }
 
 /**
  * 演武場景：每 SPAR_SCENE_SPAN 關換一個場景（千燈鎮 → 山道 → 竹林 → 雨夜客棧 → 山門 → 夜山，之後循環、敵人更強）。
- * 一個場景一個敵人主題：同主題小兵按固定次序出，首領固定——出場有規律，唔再亂抽。
+ * 一個場景一個敵人主題（data/foes/roster.ts 敵人圖鑑）：小兵 → 精英 → 首領，出場有規律。
  * bg 對應 src/spar/rig.ts 嘅 SPAR_BACKGROUNDS key。
  */
 export interface SparScene {
@@ -143,86 +169,30 @@ export interface SparScene {
   /** 地名（換場題字、HUD） */
   place: string;
   theme: SparTheme;
+  region: FoeRegion;
 }
 
-export const SPAR_SCENES: readonly SparScene[] = [
-  {
-    bg: 'town',
-    place: '千燈鎮',
-    theme: {
-      name: '市井潑皮',
-      minions: [
-        [SPAR_LOOK.daoke, '市井潑皮'],
-        [SPAR_LOOK.gouke, '收數打手'],
-      ],
-      boss: [SPAR_LOOK.toutuo, '鎮上惡霸'],
-    },
+const lookIdx = (f: FoeEntry): number => SPAR_LOOK[f.look];
+
+export const SPAR_SCENES: readonly SparScene[] = FOE_REGIONS.map((region) => ({
+  bg: region.bg,
+  place: region.place,
+  region,
+  theme: {
+    name: region.theme,
+    minions: region.minions.map((f) => [lookIdx(f), f.name] as const),
+    elites: region.elites.map((f) => [lookIdx(f), f.name] as const),
+    boss: [lookIdx(region.boss), region.boss.name] as const,
+    trait: region.trait,
   },
-  {
-    bg: 'road',
-    place: '山道',
-    theme: {
-      name: '山道劫匪',
-      minions: [
-        [SPAR_LOOK.daoke, '攔路刀匪'],
-        [SPAR_LOOK.gouke, '雙鉤山賊'],
-      ],
-      boss: [SPAR_LOOK.chifa, '赤髮寨主'],
-    },
-  },
-  {
-    bg: 'bamboo',
-    place: '竹林',
-    theme: {
-      name: '影門殺陣',
-      minions: [
-        [SPAR_LOOK.shadow, '影門殺手'],
-        [SPAR_LOOK.nvcike, '影門女刺'],
-      ],
-      boss: [SPAR_LOOK.tiemian, '影門門主'],
-    },
-  },
-  {
-    bg: 'inn',
-    place: '雨夜客棧',
-    theme: {
-      name: '夜行刺客',
-      minions: [
-        [SPAR_LOOK.nvcike, '夜行女刺'],
-        [SPAR_LOOK.shadow, '影衛'],
-      ],
-      boss: [SPAR_LOOK.tiemian, '鐵面影魁'],
-    },
-  },
-  {
-    bg: 'gate',
-    place: '山門',
-    theme: {
-      name: '邪寺頭陀',
-      minions: [
-        [SPAR_LOOK.toutuo, '護寺頭陀'],
-        [SPAR_LOOK.shadow, '黑衣僧兵'],
-      ],
-      boss: [SPAR_LOOK.toutuo, '鬼面頭陀'],
-    },
-  },
-  {
-    bg: 'nightpeak',
-    place: '夜山',
-    theme: {
-      name: '黑風寨',
-      minions: [
-        [SPAR_LOOK.daoke, '黑風刀手'],
-        [SPAR_LOOK.toutuo, '黑風力士'],
-        [SPAR_LOOK.gouke, '黑風鉤客'],
-      ],
-      boss: [SPAR_LOOK.chifa, '黑風寨主'],
-    },
-  },
-];
+}));
 
 /** 每個場景（主題）連續幾多關 */
 export const SPAR_SCENE_SPAN = 10;
+
+/** 精英血量、攻擊倍率（相對小兵） */
+export const SPAR_ELITE_HP_MUL = 2.4;
+export const SPAR_ELITE_ATK_MUL = 1.35;
 
 export function sparSceneFor(stage: number): SparScene {
   const s = Math.max(1, Math.floor(stage));
@@ -237,27 +207,53 @@ export function sparMinionCount(stage: number): number {
   return Math.min(6, 3 + Math.floor((Math.max(1, stage) - 1) / 5));
 }
 
-/** 第 stage 關嘅敵人隊列（最後一個係首領）；數值 deterministic */
+/** 每關精英數：場景第 1–2 關冇、第 3–6 關一個、第 7 關起兩個 */
+export function sparEliteCount(stage: number): number {
+  const p = (Math.max(1, Math.floor(stage)) - 1) % SPAR_SCENE_SPAN;
+  return p < 2 ? 0 : p < 6 ? 1 : 2;
+}
+
+function foeOf(f: FoeEntry, trait: FoeTraitId, maxHp: number, atk: number): SparFoe {
+  return {
+    name: f.name,
+    boss: f.tier === 'boss',
+    maxHp,
+    atk,
+    look: lookIdx(f),
+    id: f.id,
+    title: f.title,
+    tier: f.tier,
+    trait: f.tier === 'minion' ? undefined : trait,
+    accent: f.accent,
+  };
+}
+
+/** 第 stage 關嘅敵人隊列：小兵 → 精英 → 首領（最後一個）；數值 deterministic */
 export function sparStageFoes(stage: number): SparFoe[] {
   const s = Math.max(1, Math.floor(stage));
   const g = SPAR_STAGE_GROWTH ** (s - 1);
   const minionHp = Math.round(140 * g);
   const minionAtk = Math.round(16 * g);
-  const theme = sparThemeFor(s);
+  const region = sparSceneFor(s).region;
   const foes: SparFoe[] = [];
   const n = sparMinionCount(s);
   for (let i = 0; i < n; i++) {
-    const [look, name] = theme.minions[i % theme.minions.length]!;
-    foes.push({ name, boss: false, maxHp: minionHp, atk: minionAtk, look });
+    foes.push(foeOf(region.minions[i % region.minions.length]!, region.trait, minionHp, minionAtk));
   }
-  const [bossLook, bossName] = theme.boss;
-  foes.push({
-    name: bossName,
-    boss: true,
-    maxHp: Math.round(minionHp * SPAR_BOSS_HP_MUL),
-    atk: Math.round(minionAtk * SPAR_BOSS_ATK_MUL),
-    look: bossLook,
-  });
+  const ne = sparEliteCount(s);
+  for (let i = 0; i < ne; i++) {
+    foes.push(
+      foeOf(
+        region.elites[i % region.elites.length]!,
+        region.trait,
+        Math.round(minionHp * SPAR_ELITE_HP_MUL),
+        Math.round(minionAtk * SPAR_ELITE_ATK_MUL),
+      ),
+    );
+  }
+  foes.push(
+    foeOf(region.boss, region.trait, Math.round(minionHp * SPAR_BOSS_HP_MUL), Math.round(minionAtk * SPAR_BOSS_ATK_MUL)),
+  );
   return foes;
 }
 
@@ -268,11 +264,19 @@ export interface SparHeroHit {
   killed: boolean;
   /** 打低嘅係首領（＝過關） */
   bossKilled: boolean;
+  /** 敵人特性觸發（鐵布衫卸力、金剛反震） */
+  fx: TraitFx[];
+  /** 反震：主角扣幾多血 */
+  reflect: number;
 }
 
 export interface SparFoeHit {
   dmg: number;
   heroDown: boolean;
+  /** 敵人特性觸發（蓄力、狂怒、噬血、連擊） */
+  fx: TraitFx[];
+  /** 噬血：敵人回幾多血 */
+  foeHeal: number;
 }
 
 export interface SparDuelSnapshot {
@@ -286,8 +290,12 @@ export interface SparDuelSnapshot {
   heroMaxHp: number;
   foe: SparFoe | null;
   foeHp: number;
-  /** 首領之前仲剩幾多個小兵（唔計當前） */
+  /** 首領之前仲剩幾多個小兵／精英（唔計當前） */
   minionsLeft: number;
+  /** 當前敵人：下一擊係蓄力重擊（預告） */
+  foeCharging: boolean;
+  /** 當前敵人：狂怒中 */
+  foeEnraged: boolean;
 }
 
 export type SparRand = () => number;
@@ -300,6 +308,7 @@ export class SparDuel {
   private queue: SparFoe[];
   private idx = 0;
   foeHp: number;
+  private traits: FoeTraitState;
 
   constructor(hero: SparHeroStats, stage = 1, private rand: SparRand = Math.random) {
     this.hero = hero;
@@ -307,10 +316,26 @@ export class SparDuel {
     this.heroHp = hero.maxHp;
     this.queue = sparStageFoes(this.stage);
     this.foeHp = this.queue[0]!.maxHp;
+    this.traits = this.traitsFor(this.queue[0]);
+  }
+
+  private traitsFor(foe: SparFoe | undefined): FoeTraitState {
+    return newTraitState(foe?.trait, foe?.tier ?? 'minion');
   }
 
   get foe(): SparFoe | null {
     return this.queue[this.idx] ?? null;
+  }
+
+  /** 當前敵人下一擊係咪蓄力重擊 */
+  get foeCharging(): boolean {
+    return traitNextIsCharged(this.traits);
+  }
+
+  /** 當前敵人係咪狂怒中 */
+  get foeEnraged(): boolean {
+    const foe = this.foe;
+    return !!foe && traitEnraged(this.traits, this.foeHp / Math.max(1, foe.maxHp));
   }
 
   /** 角色實力變咗（升境、換兵器）：按比例保留現有血量 */
@@ -333,32 +358,50 @@ export class SparDuel {
       foe,
       foeHp: this.foeHp,
       minionsLeft: Math.max(0, bossIdx - this.idx - (foe && !foe.boss ? 1 : 0)),
+      foeCharging: this.foeCharging,
+      foeEnraged: this.foeEnraged,
     };
   }
 
-  /** 主角一擊：±10% 浮動、暴擊、吸血 */
+  /** 主角一擊：±10% 浮動、暴擊、吸血；敵人特性（鐵布衫、反震）喺度生效 */
   heroStrike(): SparHeroHit {
     const foe = this.foe;
-    if (!foe || this.foeHp <= 0) return { dmg: 0, crit: false, heal: 0, killed: false, bossKilled: false };
+    if (!foe || this.foeHp <= 0) return { dmg: 0, crit: false, heal: 0, killed: false, bossKilled: false, fx: [], reflect: 0 };
     const crit = this.rand() < this.hero.critRate;
     const spread = 0.9 + this.rand() * 0.2;
-    const dmg = Math.max(1, Math.round(this.hero.atk * spread * (crit ? this.hero.critMul : 1)));
+    const raw = Math.max(1, Math.round(this.hero.atk * spread * (crit ? this.hero.critMul : 1)));
+    const t = traitOnFoeHit(this.traits, raw);
+    const dmg = t.dmg;
     this.foeHp = Math.max(0, this.foeHp - dmg);
     const room = this.hero.maxHp - this.heroHp;
     const heal = Math.min(room, Math.round(dmg * this.hero.lifesteal));
     this.heroHp += heal;
+    // 反震唔會震死主角（留一絲血，等敵人出手先分勝負）
+    const reflect = Math.min(t.reflect, Math.max(0, this.heroHp - 1));
+    this.heroHp -= reflect;
     const killed = this.foeHp <= 0;
-    return { dmg, crit, heal, killed, bossKilled: killed && foe.boss };
+    return { dmg, crit, heal, killed, bossKilled: killed && foe.boss, fx: t.fx, reflect };
   }
 
-  /** 敵人一擊：主角減傷後扣血 */
+  /** 敵人一擊：主角減傷後扣血；蓄力／狂怒加倍、噬血回血、分影多打一擊 */
   foeStrike(): SparFoeHit {
     const foe = this.foe;
-    if (!foe || this.foeHp <= 0 || this.heroHp <= 0) return { dmg: 0, heroDown: false };
+    if (!foe || this.foeHp <= 0 || this.heroHp <= 0) return { dmg: 0, heroDown: false, fx: [], foeHeal: 0 };
+    const atk = traitAttackMult(this.traits, this.foeHp / Math.max(1, foe.maxHp));
     const spread = 0.85 + this.rand() * 0.3;
-    const dmg = Math.max(1, Math.round(foe.atk * spread * (1 - this.hero.guard)));
+    let dmg = Math.max(1, Math.round(foe.atk * atk.mult * spread * (1 - this.hero.guard)));
+    const fx = [...atk.fx];
+    const after = traitOnFoeDealt(this.traits, dmg, this.rand);
+    fx.push(...after.fx);
+    if (after.followUp > 0) {
+      const extra = Math.max(1, Math.round(foe.atk * after.followUp * (1 - this.hero.guard)));
+      dmg += extra;
+      fx.push({ kind: 'combo', value: extra });
+    }
     this.heroHp = Math.max(0, this.heroHp - dmg);
-    return { dmg, heroDown: this.heroHp <= 0 };
+    const foeHeal = Math.min(after.heal, foe.maxHp - this.foeHp);
+    this.foeHp += foeHeal;
+    return { dmg, heroDown: this.heroHp <= 0, fx, foeHeal };
   }
 
   /** 當前敵人倒下後：換下一個；首領倒下就入下一關（回少少血） */
@@ -374,6 +417,7 @@ export class SparDuel {
       this.idx += 1;
     }
     this.foeHp = this.foe?.maxHp ?? 0;
+    this.traits = this.traitsFor(this.foe ?? undefined);
     return { stageCleared: wasBoss };
   }
 
@@ -395,6 +439,7 @@ export class SparDuel {
     this.idx = 0;
     this.foeHp = this.queue[0]!.maxHp;
     this.heroHp = this.hero.maxHp;
+    this.traits = this.traitsFor(this.queue[0]);
   }
 }
 

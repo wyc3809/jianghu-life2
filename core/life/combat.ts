@@ -46,6 +46,14 @@ import { recordDeath } from './death';
 import { schoolBonusTotal } from './schools';
 import { MANUAL_STAR_BONUS } from '@data/redesign/testParams';
 import { chooseFoeMove, inferFoeAiStyle } from './foeAi';
+import {
+  resolveFoeIdentity,
+  traitAttackMult,
+  traitOnFoeDealt,
+  traitOnFoeHit,
+  type FoeTraitState,
+} from './foeTraits';
+import { FOE_TRAITS } from '@data/foes/traits';
 import { combatOpeningLines, dispositionBlurb } from './combatPresentation';
 import {
   MOVE_STANCE_LABEL,
@@ -225,7 +233,21 @@ export function startCombat(
     bossPhase2: false,
     ...(opts.lifeOrDeath ? { lifeOrDeath: true, riskConfirmed: false } : {}),
   };
+  // 敵人圖鑑身份：精英／首領帶特性（data/foes/traits.ts）
+  const identity = resolveFoeIdentity(opts.foeName, foePower);
+  combat.foeTier = identity.tier;
+  if (identity.trait) {
+    combat.foeTrait = identity.trait;
+    combat.foeTraitStrikes = 0;
+  }
+  if (identity.entry) combat.foeTitle = identity.entry.title;
   combat.log = combatOpeningLines(combat, style);
+  if (combat.foeTrait) {
+    const def = FOE_TRAITS[combat.foeTrait];
+    combat.log.push(
+      `${combat.foe.name}身負「${def.name}」${combat.foeTier === 'elite' ? '（精英，功力稍遜）' : ''}——${def.blurb}。`,
+    );
+  }
   combat.player.hp = clamp(combat.player.hp, 1, combat.player.maxHp);
   combat.player.qi = clamp(combat.player.qi, 0, combat.player.maxQi);
   state.pendingCombat = combat;
@@ -646,6 +668,33 @@ export interface TurnChainOpts {
   ignoreCooldown?: boolean;
 }
 
+function foeTraitStateOf(combat: PendingCombatState): FoeTraitState {
+  return { trait: combat.foeTrait, tier: combat.foeTier ?? 'minion', strikes: combat.foeTraitStrikes ?? 0 };
+}
+
+/** 玩家打中敵人之後：鐵布衫卸力（退返部分傷害）、金剛反震（玩家扣血，唔會震死） */
+function applyFoeHitTraits(combat: PendingCombatState, foeHpBefore: number): string[] {
+  const dealt = Math.max(0, foeHpBefore - combat.foe.hp);
+  if (!combat.foeTrait || dealt <= 0) return [];
+  const t = traitOnFoeHit(foeTraitStateOf(combat), dealt);
+  const out: string[] = [];
+  for (const fx of t.fx) {
+    if (fx.kind === 'guard') {
+      combat.foe.hp = Math.min(combat.foe.maxHp, combat.foe.hp + fx.value);
+      out.push(`${combat.foe.name}運起鐵布衫，卸去 ${fx.value} 點。`);
+      combat.lastTraitFx!.push(fx);
+    } else if (fx.kind === 'thorns') {
+      const reflect = Math.min(fx.value, Math.max(0, combat.player.hp - 1));
+      if (reflect > 0) {
+        combat.player.hp -= reflect;
+        out.push(`${combat.foe.name}金剛反震，你被震傷 ${reflect} 點。`);
+        combat.lastTraitFx!.push({ kind: 'thorns', value: reflect });
+      }
+    }
+  }
+  return out;
+}
+
 export function playerCombatTurn(state: LifeGameState, moveId: string, chain: TurnChainOpts = {}): string[] {
   if (!state.pendingCombat || state.pendingCombat.phase !== 'player') {
     return ['此刻並無交手。'];
@@ -657,6 +706,7 @@ export function playerCombatTurn(state: LifeGameState, moveId: string, chain: Tu
   const rng = getRng();
   const combat = state.pendingCombat;
   const lines: string[] = [];
+  combat.lastTraitFx = [];
 
   if (!chain.chained) {
     lines.push(...tickStatus(combat.player));
@@ -732,7 +782,9 @@ export function playerCombatTurn(state: LifeGameState, moveId: string, chain: Tu
         const burnLine = '你燃盡真氣，拚死一擊！';
         lines.push(burnLine);
         combat.log.push(burnLine);
+        const foeHpBeforeBurn = combat.foe.hp;
         const burnLines = resolveStrike(combat.player, combat.foe, BASIC_STRIKE, rng, 2.5, 0, playerStanceMult);
+        burnLines.push(...applyFoeHitTraits(combat, foeHpBeforeBurn));
         lines.push(...burnLines);
         combat.log.push(...burnLines);
       }
@@ -861,6 +913,7 @@ export function playerCombatTurn(state: LifeGameState, moveId: string, chain: Tu
         };
       }
 
+      const foeHpBeforeStrike = combat.foe.hp;
       const strikeLines = resolveStrike(
         combat.player,
         combat.foe,
@@ -870,6 +923,7 @@ export function playerCombatTurn(state: LifeGameState, moveId: string, chain: Tu
         wpn.hit,
         comboStanceMult,
       );
+      strikeLines.push(...applyFoeHitTraits(combat, foeHpBeforeStrike));
       if (savedFoeEvasion !== null) combat.foe.evasion = savedFoeEvasion;
       if (combo) {
         const eff = combo.pattern.effect;
@@ -967,15 +1021,39 @@ export function playerCombatTurn(state: LifeGameState, moveId: string, chain: Tu
     const modeDefenseFactor = modeDamageTakenMult(combat.player.internalMode) / modeDefenseMult(combat.player.internalMode);
     const savedPlayerEvasion = combat.player.evasion;
     combat.player.evasion = Math.min(0.85, combat.player.evasion + modeEvasionBonus(combat.player.internalMode));
+    // 敵人特性：蓄力重擊／狂怒加倍；打中後噬血回血、分影多打一擊
+    const traitState = foeTraitStateOf(combat);
+    const atk = traitAttackMult(traitState, combat.foe.hp / Math.max(1, combat.foe.maxHp));
+    const playerHpBeforeFoe = combat.player.hp;
     const enemyLines = resolveStrike(
       combat.foe,
       combat.player,
       enemyMove,
       rng,
-      1,
+      atk.mult,
       0,
       foeStanceMult * modeDefenseFactor,
     );
+    if (atk.fx.some((f) => f.kind === 'charge')) enemyLines.unshift(`${combat.foe.name}蓄滿全力，一記重擊！`);
+    if (atk.fx.some((f) => f.kind === 'enrage')) enemyLines.unshift(`${combat.foe.name}狂性大發，出手更狠！`);
+    combat.lastTraitFx!.push(...atk.fx);
+    const dealt = Math.max(0, playerHpBeforeFoe - combat.player.hp);
+    const after = traitOnFoeDealt(traitState, dealt, () => rng.nextFloat());
+    if (after.heal > 0) {
+      const heal = Math.min(after.heal, combat.foe.maxHp - combat.foe.hp);
+      combat.foe.hp += heal;
+      enemyLines.push(`${combat.foe.name}噬血回氣，氣血＋${heal}。`);
+      combat.lastTraitFx!.push({ kind: 'drain', value: heal });
+    }
+    if (after.followUp > 0 && combat.player.hp > 0) {
+      const before2 = combat.player.hp;
+      enemyLines.push(`${combat.foe.name}身形一分，殘影再出一擊！`);
+      enemyLines.push(
+        ...resolveStrike(combat.foe, combat.player, enemyMove, rng, after.followUp, 0, foeStanceMult * modeDefenseFactor),
+      );
+      combat.lastTraitFx!.push({ kind: 'combo', value: Math.max(0, before2 - combat.player.hp) });
+    }
+    combat.foeTraitStrikes = traitState.strikes;
     combat.player.evasion = savedPlayerEvasion;
     combat.log.push(...enemyLines);
     lines.push(...enemyLines);
