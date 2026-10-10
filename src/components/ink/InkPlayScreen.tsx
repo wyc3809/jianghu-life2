@@ -491,6 +491,8 @@ export function InkPlayScreen({ state }: Props) {
   const sceneBits = [
     'scroll-shell',
     'scroll-shell--play',
+    // 美術方向 B（design/art/art-direction-b.md）：漆木古銅主題
+    'theme-b',
     'ink-enter',
     `ink-scene--${inkSeason}`,
     `ink-scene--${inkPlace}`,

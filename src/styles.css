@@ -10580,3 +10580,238 @@ button.ink-enc-strip {
     animation: none;
   }
 }
+
+/* ===== 美術方向 B：古風寫實（參考九陰真經；design/art/art-direction-b.md）=====
+   UI kit：public/ink/art/ui-b/（scripts/art/build_ui_b.py，位圖九宮格）。全部包喺 .theme-b，方便還原。 */
+.theme-b {
+  --b-lacquer: #1e1814;
+  --b-bronze: #b8913e;
+  --b-bronze-hi: #e3c46a;
+  --b-parchment: #e9dfc8;
+  --b-text: #efe6d0;
+  --b-text-dim: #b9ab90;
+  --b-title-font: 'Ma Shan Zheng', 'Kaiti TC', 'STKaiti', serif;
+  background:
+    radial-gradient(ellipse 120% 70% at 50% 0%, rgba(184, 145, 62, 0.12), transparent 60%),
+    linear-gradient(180deg, rgba(14, 11, 9, 0.55), rgba(14, 11, 9, 0.85)),
+    url('/ink/art/ui-b/wood-grain.webp') center / 256px auto,
+    #17120f;
+}
+
+/* 淺色字只用喺深底部件；紙面板、彈窗照用原本墨色 */
+.theme-b .ink-hud,
+.theme-b .ink-quick,
+.theme-b .ink-tabs {
+  color: var(--b-text);
+}
+
+/* 舊宣紙底層、暈染：B 主題唔用 */
+.theme-b .ink-backdrop,
+.theme-b .ink-ai-wash {
+  opacity: 0.12;
+  mix-blend-mode: screen;
+}
+
+/* 漆木面板（九宮格：角花完整喺 160px 切位入面） */
+.theme-b .ink-hud,
+.theme-b .ink-quick {
+  border: 20px solid transparent;
+  border-image: url('/ink/art/ui-b/panel.webp') 160 fill / 20px stretch;
+  background: none;
+  padding: 2px 4px;
+  margin-left: -4px;
+  margin-right: -4px;
+}
+
+.theme-b .ink-hud {
+  margin-top: 4px;
+}
+
+.theme-b .ink-hud-top,
+.theme-b .ink-hud-bars,
+.theme-b .ink-quick {
+  position: relative;
+}
+
+/* 頂欄文字 */
+.theme-b .ink-name {
+  font-family: var(--b-title-font);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: var(--b-bronze-hi);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.6);
+}
+
+.theme-b .ink-status-kicker {
+  color: #e08a6e;
+}
+
+.theme-b .ink-meta,
+.theme-b .ink-vitals-label,
+.theme-b .ink-vitals-label span {
+  color: var(--b-text-dim);
+}
+
+.theme-b .ink-meta b {
+  color: var(--b-bronze-hi);
+}
+
+.theme-b .ink-hud-avatar {
+  border-color: var(--b-bronze);
+  background: radial-gradient(circle at 40% 35%, #3a2e25, #15100c);
+  box-shadow: 0 0 0 2px rgba(184, 145, 62, 0.45), 0 3px 8px rgba(0, 0, 0, 0.6);
+}
+
+.theme-b .ink-hud-avatar-glyph {
+  font-family: var(--b-title-font);
+  color: var(--b-bronze-hi);
+}
+
+/* 錢包、設定：深底古銅邊 */
+.theme-b .ink-hud-wallet .ink-money-chip,
+.theme-b .ink-jade-chip,
+.theme-b .ink-hud-wallet .ink-icon-btn {
+  border: 1px solid var(--b-bronze);
+  background: linear-gradient(180deg, #2c231c, #15100c);
+  color: var(--b-text);
+  box-shadow: inset 0 1px 0 rgba(227, 196, 106, 0.25);
+}
+
+.theme-b .ink-glyph-text img {
+  filter: invert(0.92) sepia(0.35) brightness(1.1);
+}
+
+.theme-b .ink-ap-meter .ink-label-img {
+  filter: invert(0.92) sepia(0.35) brightness(1.1);
+}
+
+/* 演武台：古銅雲紋框 */
+.theme-b .ink-home-scene {
+  border: 18px solid transparent;
+  border-image: url('/ink/art/ui-b/panel.webp') 160 / 18px stretch;
+  background: #0f0c0a;
+  background-clip: padding-box;
+  box-shadow: none;
+  padding: 0;
+  margin: 6px -4px 0;
+}
+
+/* 快捷鈕：標籤淺字 */
+.theme-b .ink-quick-label {
+  color: var(--b-text);
+  font-family: var(--b-title-font);
+  font-size: 0.86rem;
+  letter-spacing: 0.06em;
+}
+
+.theme-b .ink-quick-icon {
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.7));
+}
+
+/* 當前目標：舊紙卷軸 */
+.theme-b .ink-home-goals {
+  border: 18px solid transparent;
+  border-width: 18px 10px;
+  border-image: url('/ink/art/ui-b/scroll.webp') 72 fill / 18px 10px stretch;
+  background: none;
+  margin: 8px -4px 12px;
+  color: #1c1a17;
+}
+
+.theme-b .ink-goal {
+  padding: 0 6px 8px;
+}
+
+.theme-b .ink-goal-kicker {
+  font-family: var(--b-title-font);
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+}
+
+.theme-b .ink-goal-title {
+  font-family: var(--b-title-font);
+  font-weight: 400;
+  font-size: 1.35rem;
+}
+
+/* 掛機數據：唔要虛線表格，改做古銅圓角牌 */
+.theme-b .ink-idle-row {
+  border-top: none;
+  gap: 6px;
+  padding: 0 4px 2px;
+}
+
+.theme-b .ink-idle {
+  gap: 6px;
+}
+
+.theme-b .ink-idle > div {
+  border: 1px solid rgba(184, 145, 62, 0.65) !important;
+  border-radius: 6px;
+  background: linear-gradient(180deg, rgba(255, 252, 240, 0.7), rgba(222, 206, 172, 0.7));
+  padding: 6px 2px;
+}
+
+.theme-b .ink-harvest {
+  border: 1px solid var(--b-bronze);
+  border-radius: 6px;
+  background: linear-gradient(180deg, #a8342a, #6a1d16);
+  color: #fbf3df;
+  box-shadow: inset 0 1px 0 rgba(255, 220, 160, 0.4);
+}
+
+.theme-b .ink-harvest-label {
+  font-family: var(--b-title-font);
+  font-size: 1.1rem;
+}
+
+/* 底部導航：漆木長條＋古銅頂線 */
+.theme-b .ink-tabs::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 74px;
+  background:
+    linear-gradient(180deg, var(--b-bronze) 0 2px, rgba(0, 0, 0, 0.5) 2px 4px, transparent 4px),
+    linear-gradient(180deg, rgba(30, 24, 20, 0.92), #120e0b),
+    url('/ink/art/ui-b/wood-grain.webp') center / 256px auto;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* 內力條：深底上用青綠 */
+.theme-b .ink-brush--ink {
+  --brush-color: #6f9aa0;
+}
+
+/* 中間「過一月」：漆木圓盤＋古銅邊 */
+.theme-b .ink-nav-center {
+  background: radial-gradient(circle at 50% 35%, #3a2e25, #15100c 72%);
+  box-shadow: 0 0 0 2px var(--b-bronze), 0 0 0 4px rgba(0, 0, 0, 0.6), 0 8px 18px rgba(0, 0, 0, 0.6);
+}
+
+.theme-b .ink-nav-center-action {
+  font-family: var(--b-title-font);
+  color: var(--b-bronze-hi);
+}
+
+.theme-b .ink-nav-center-tier {
+  color: var(--b-text-dim);
+}
+
+.theme-b .ink-quick {
+  margin-top: 6px;
+}
+
+.theme-b .ink-goal-title {
+  font-size: 1.15rem;
+}
+
+/* 修為浮牌：深底古銅 */
+.theme-b .ink-nav-center-xp {
+  border-color: var(--b-bronze);
+  background: linear-gradient(180deg, #2c231c, #15100c);
+  color: var(--b-bronze-hi);
+}

@@ -240,3 +240,14 @@
 - 出招／受擊／倒地仍然係引擎程式動畫（未另出動作圖）。
 - 首領登場卡（`InkBossIntro`）仍然用舊 `art/sil/boss-*.webp`。
 - API key 只經環境變數 `SPRITECOOK_API_KEY`，唔入 repo。
+
+### 第 21 項：美術方向 B（古風寫實）UI kit＋主畫面樣板（等玩家睇圖確認）
+
+- 權威文件：`design/art/art-direction-b.md`（參考《九陰真經 Online》）。
+- UI kit 全部程式畫位圖（`scripts/art/build_ui_b.py` → `public/ink/art/ui-b/`）：漆木古銅面板 `panel.webp`（九宮格 160）、舊紙卷軸 `scroll.webp`（72）、朱紅／青綠／木按鈕、牌匾、木紋底。
+- 樣式全部包喺 `.theme-b`（`InkPlayScreen` 根），拎走個 class 就還原。
+- 今次只改主畫面同共用 HUD、快捷欄、導航；人物、修煉、江湖分頁內容仍係舊紙面板，確認樣板後再轉。
+- 場景圖、AI UI 質感：等 `HF_TOKEN`（`scripts/art/gen_hf_art.py`）。立繪暫時唔做。
+- 截圖：`production/qa/evidence/redesign/boardB-home.png`、`boardB-tabs.png`（seed 42，完成新手，600 玉石，演武台第 1 關）。
+
+**測試參數**：九宮格 slice（面板 160／卷軸 72）、邊框闊（HUD 20px、演武台 18px）、舊水墨底層透明度 0.12。
