@@ -1,5 +1,7 @@
 # Art Bible — 江湖一生
 
+> **2026-10-10 起由 [`art-direction-b.md`](./art-direction-b.md)（古風寫實，參考九陰真經）取代；以下內容同新方向衝突時以新方向為準。**
+
 > **權威風格約束見 [`STYLE-BIBLE.md`](./STYLE-BIBLE.md)**  
 > 色彩／字階 token：[`tokens-colors.json`](./tokens-colors.json)、[`tokens-typography.json`](./tokens-typography.json)  
 > 素材索引：[`ASSET_INDEX.md`](./ASSET_INDEX.md)  
