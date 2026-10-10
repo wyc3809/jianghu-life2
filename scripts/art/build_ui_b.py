@@ -8,6 +8,8 @@
   btn-cinnabar.webp／btn-jade.webp／btn-wood.webp  漆面按鈕＋古銅邊（480×128，左右切 56）
   plaque.webp      標題牌（橫匾，640×128，左右切 96）
   wood-grain.webp  可平鋪漆木紋（256×256）
+  scroll-ink.webp  水墨版卷軸：宣紙＋墨色木軸＋朱紅軸頭（512×512，切 72）
+  panel-ink.webp   水墨版面板：宣紙底＋墨色雲紋角花＋墨細線（512×512，切 160）
 輸出：public/ink/art/ui-b/
 用法：python3 scripts/art/build_ui_b.py
 AI 生成嘅替換圖可以同名同尺寸放入。
@@ -37,6 +39,12 @@ JADE = np.array([63, 102, 112], np.float32)
 JADE_DK = np.array([28, 50, 58], np.float32)
 WOOD = np.array([90, 67, 52], np.float32)
 WOOD_DK = np.array([46, 34, 26], np.float32)
+# 水墨版（玩家 2026-10-10：方向 B 太深色，轉水墨風）
+RICE = np.array([247, 242, 230], np.float32)
+RICE_DK = np.array([228, 218, 196], np.float32)
+INK = np.array([40, 38, 36], np.float32)
+INK_DK = np.array([10, 10, 10], np.float32)
+INK_HI = np.array([120, 116, 108], np.float32)
 
 
 # ───────── 工具 ─────────
@@ -136,13 +144,21 @@ def corner_mask(size: int) -> Image.Image:
 
 # ───────── 面板 ─────────
 
-def build_panel() -> None:
+def build_panel(name: str = 'panel.webp', ink: bool = False) -> None:
     S = 512 * SS
-    g = grain(S, S, 3)
-    base = lerp(LACQUER, LACQUER_HI, g * 0.55)
-    # 暗角＋內凹
     yy, xx = np.mgrid[0:S, 0:S] / S
-    vig = np.clip(1 - ((xx - 0.5) ** 2 + (yy - 0.5) ** 2) * 1.6, 0.55, 1)
+    if ink:
+        # 宣紙：纖維雜訊＋邊緣微黃
+        n = noise(S, S, 14 * SS, 5) * 0.5 + noise(S, S, 2 * SS, 6) * 0.5
+        base = lerp(RICE, RICE_DK, n * 0.35)
+        vig = np.clip(1 - ((xx - 0.5) ** 2 + (yy - 0.5) ** 2) * 0.5, 0.88, 1)
+        line_c, corner_c = (INK, INK_DK, INK_HI), (INK, INK_DK, INK_HI)
+    else:
+        g = grain(S, S, 3)
+        base = lerp(LACQUER, LACQUER_HI, g * 0.55)
+        # 暗角＋內凹
+        vig = np.clip(1 - ((xx - 0.5) ** 2 + (yy - 0.5) ** 2) * 1.6, 0.55, 1)
+        line_c, corner_c = (BRONZE, BRONZE_DK, BRONZE_HI), (BRONZE, BRONZE_DK, BRONZE_HI)
     base = base * vig[..., None]
     body, dbody = mask((S, S))
     inset = 6 * SS
@@ -156,14 +172,14 @@ def build_panel() -> None:
     bot = np.clip(1 - (S - inset - yy * S) / bw, 0, 1)
     right = np.clip(1 - (S - inset - xx * S) / bw, 0, 1)
     bevel = np.maximum(top, left) * 0.5 - np.maximum(bot, right) * 0.6
-    base = np.clip(base + bevel[..., None] * 60, 0, 255)
+    base = np.clip(base + bevel[..., None] * (14 if ink else 60), 0, 255)
     layers = [(base, body_a)]
     # 金細線（兩條）
     for off, wdt in ((22 * SS, 2.2 * SS), (32 * SS, 1.2 * SS)):
         lm, dl = mask((S, S))
         dl.rounded_rectangle([off, off, S - off, S - off], radius=8 * SS, outline=255, width=int(wdt))
         la = arr(lm.filter(ImageFilter.GaussianBlur(0.6)))
-        layers.append((metal(la, BRONZE, BRONZE_DK, BRONZE_HI), la * 0.95))
+        layers.append((metal(la, *line_c), la * (0.8 if ink else 0.95)))
     # 四角角花
     cs = int(150 * SS)
     cm = corner_mask(cs)
@@ -183,20 +199,23 @@ def build_panel() -> None:
     # 角花陰影
     sh = arr(full.filter(ImageFilter.GaussianBlur(4 * SS)))
     sh = np.roll(np.roll(sh, 3 * SS, 0), 3 * SS, 1)
-    layers.append((np.zeros((S, S, 3)) + 5, sh * 0.6))
-    layers.append((metal(ca, BRONZE, BRONZE_DK, BRONZE_HI), ca))
-    save(compose(layers, (S, S)), 'panel.webp', (512, 512))
+    layers.append((np.zeros((S, S, 3)) + 5, sh * (0.18 if ink else 0.6)))
+    layers.append((metal(ca, *corner_c), ca))
+    save(compose(layers, (S, S)), name, (512, 512))
 
 
 # ───────── 卷軸（舊紙） ─────────
 
-def build_scroll() -> None:
+def build_scroll(name: str = 'scroll.webp', ink: bool = False) -> None:
     S = 512 * SS
     n = noise(S, S, 18 * SS, 9) * 0.6 + noise(S, S, 4 * SS, 10) * 0.4
-    base = lerp(PARCH, PARCH_DK, n * 0.55)
+    paper, paper_dk = (RICE, RICE_DK) if ink else (PARCH, PARCH_DK)
+    base = lerp(paper, paper_dk, n * (0.4 if ink else 0.55))
     yy, xx = np.mgrid[0:S, 0:S] / S
     edge = np.clip(np.minimum(np.minimum(xx, 1 - xx), np.minimum(yy, 1 - yy)) * 10, 0, 1)
-    base = lerp(PARCH_DK * 0.85, base, edge)
+    base = lerp(paper_dk * (0.95 if ink else 0.85), base, edge)
+    rod = (INK, INK_DK, INK_HI) if ink else (WOOD, WOOD_DK, np.array([160, 120, 90], np.float32))
+    cap = (np.array([150, 52, 40], np.float32), CINNABAR_DK, np.array([220, 120, 100], np.float32)) if ink else (BRONZE, BRONZE_DK, BRONZE_HI)
     body, d = mask((S, S))
     d.rectangle([8 * SS, 30 * SS, S - 8 * SS, S - 30 * SS], fill=255)
     layers = [(base, arr(body.filter(ImageFilter.GaussianBlur(1.5 * SS))))]
@@ -205,15 +224,15 @@ def build_scroll() -> None:
         rm, dr = mask((S, S))
         dr.rounded_rectangle([0, y0, S, y0 + 36 * SS], radius=18 * SS, fill=255)
         ra = arr(rm)
-        wood = metal(ra, WOOD, WOOD_DK, np.array([160, 120, 90], np.float32), light_dir=(0, -1))
+        wood = metal(ra, *rod, light_dir=(0, -1))
         layers.append((wood, ra))
         # 軸頭古銅
         for x0 in (0, S - 34 * SS):
             km, dk = mask((S, S))
             dk.rounded_rectangle([x0, y0 - 2 * SS, x0 + 34 * SS, y0 + 38 * SS], radius=10 * SS, fill=255)
             ka = arr(km)
-            layers.append((metal(ka, BRONZE, BRONZE_DK, BRONZE_HI), ka))
-    save(compose(layers, (S, S)), 'scroll.webp', (512, 512))
+            layers.append((metal(ka, *cap), ka))
+    save(compose(layers, (S, S)), name, (512, 512))
 
 
 # ───────── 按鈕 ─────────
@@ -300,7 +319,9 @@ def build_wood_tile() -> None:
 
 def main() -> None:
     build_panel()
+    build_panel('panel-ink.webp', ink=True)
     build_scroll()
+    build_scroll('scroll-ink.webp', ink=True)
     build_button('btn-cinnabar.webp', CINNABAR, CINNABAR_DK)
     build_button('btn-jade.webp', JADE, JADE_DK)
     build_button('btn-wood.webp', WOOD, WOOD_DK)

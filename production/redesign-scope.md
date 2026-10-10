@@ -243,6 +243,8 @@
 
 ### 第 21 項：美術方向 B（古風寫實）UI kit＋主畫面樣板（等玩家睇圖確認）
 
+- **玩家 2026-10-10：漆木深色版太深，改做水墨風。** 今版用宣紙面板 `panel-ink.webp`（墨色雲紋角花）、宣紙卷軸 `scroll-ink.webp`（墨軸朱紅頭），保留書法字；底色、導航返原本水墨。截圖：`boardC-home.png`。深色版位圖（`panel.webp` 等）留低做備用。
+
 - 權威文件：`design/art/art-direction-b.md`（參考《九陰真經 Online》）。
 - UI kit 全部程式畫位圖（`scripts/art/build_ui_b.py` → `public/ink/art/ui-b/`）：漆木古銅面板 `panel.webp`（九宮格 160）、舊紙卷軸 `scroll.webp`（72）、朱紅／青綠／木按鈕、牌匾、木紋底。
 - 樣式全部包喺 `.theme-b`（`InkPlayScreen` 根），拎走個 class 就還原。
