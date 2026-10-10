@@ -287,7 +287,7 @@ body::before {
   font-size: 0.92rem;
 }
 
-.scroll-shell > *:not(.ink-backdrop):not(.ink-seal-overlay):not(.ink-ai-wash):not(.ink-tabs):not(.ink-start-bg) {
+.scroll-shell > *:not(.ink-backdrop):not(.ink-seal-overlay):not(.ink-ai-wash):not(.ink-tabs):not(.ink-start-bg):not(.ink-ambient) {
   position: relative;
   z-index: 1;
 }
@@ -10581,133 +10581,28 @@ button.ink-enc-strip {
   }
 }
 
-/* ===== 美術方向 B（水墨版）：玩家 2026-10-10 話漆木太深色，改返宣紙底＋墨色雲紋框 =====
-   UI kit：public/ink/art/ui-b/（scripts/art/build_ui_b.py，位圖九宮格）。全部包喺 .theme-b，方便還原。 */
-.theme-b {
-  --b-ink: #1c1a17;
-  --b-ink-dim: #6b645a;
-  --b-cinnabar: #a8342a;
-  --b-title-font: 'Ma Shan Zheng', 'Kaiti TC', 'STKaiti', serif;
+/* ===== 環境特效（InkAmbientFx；玩家 2026-10-10：場景會動＋墨韻粒子）===== */
+.ink-ambient {
+  pointer-events: none;
 }
 
-/* 宣紙面板＋墨色雲紋角花（九宮格：角花完整喺 160px 切位入面） */
-.theme-b .ink-hud,
-.theme-b .ink-quick {
-  border: 20px solid transparent;
-  border-image: url('/ink/art/ui-b/panel-ink.webp') 160 fill / 20px stretch;
-  background: none;
-  box-shadow: 0 4px 14px rgba(28, 26, 23, 0.12);
-  padding: 2px 4px;
-  margin-left: -4px;
-  margin-right: -4px;
+/* 演武台上面：流雲＋季節粒子，同演武台畫面一樣大 */
+.ink-ambient--scene {
+  position: absolute;
+  inset: 5px;
+  width: calc(100% - 10px);
+  height: calc(100% - 10px);
+  z-index: 2;
 }
 
-.theme-b .ink-hud {
-  margin-top: 4px;
-}
-
-.theme-b .ink-quick {
-  margin-top: 6px;
-}
-
-.theme-b .ink-hud-top,
-.theme-b .ink-hud-bars,
-.theme-b .ink-quick {
-  position: relative;
-}
-
-/* 名：書法體 */
-.theme-b .ink-name {
-  font-family: var(--b-title-font);
-  font-weight: 400;
-  letter-spacing: 0.12em;
-  color: var(--b-ink);
-}
-
-.theme-b .ink-hud-avatar {
-  box-shadow: 0 0 0 2px rgba(28, 26, 23, 0.75), 0 0 0 5px rgba(28, 26, 23, 0.12);
-}
-
-.theme-b .ink-hud-avatar-glyph {
-  font-family: var(--b-title-font);
-}
-
-/* 演武台：墨色雲紋框 */
-.theme-b .ink-home-scene {
-  border: 18px solid transparent;
-  border-image: url('/ink/art/ui-b/panel-ink.webp') 160 / 18px stretch;
-  background-clip: padding-box;
-  box-shadow: 0 4px 14px rgba(28, 26, 23, 0.12);
-  padding: 0;
-  margin: 6px -4px 0;
-}
-
-/* 快捷鈕標籤：書法體 */
-.theme-b .ink-quick-label {
-  font-family: var(--b-title-font);
-  font-size: 0.9rem;
-  letter-spacing: 0.06em;
-  color: var(--b-ink);
-}
-
-/* 當前目標：卷軸 */
-.theme-b .ink-home-goals {
-  border: 18px solid transparent;
-  border-width: 18px 10px;
-  border-image: url('/ink/art/ui-b/scroll-ink.webp') 72 fill / 18px 10px stretch;
-  background: none;
-  margin: 8px -4px 12px;
-  color: var(--b-ink);
-}
-
-.theme-b .ink-goal {
-  padding: 0 6px 8px;
-}
-
-.theme-b .ink-goal-kicker {
-  font-family: var(--b-title-font);
-  font-size: 1rem;
-  letter-spacing: 0.1em;
-}
-
-.theme-b .ink-goal-title {
-  font-family: var(--b-title-font);
-  font-weight: 400;
-  font-size: 1.15rem;
-}
-
-/* 掛機數據：唔要虛線表格，改做墨邊圓角牌 */
-.theme-b .ink-idle-row {
-  border-top: none;
-  gap: 6px;
-  padding: 0 4px 2px;
-}
-
-.theme-b .ink-idle {
-  gap: 6px;
-}
-
-.theme-b .ink-idle > div {
-  border: 1px solid rgba(28, 26, 23, 0.35) !important;
-  border-radius: 6px;
-  background: rgba(255, 252, 244, 0.75);
-  padding: 6px 2px;
-}
-
-.theme-b .ink-harvest {
-  border: 1px solid #5e1a14;
-  border-radius: 6px;
-  background: linear-gradient(180deg, #b23c30, #7a221a);
-  color: #fbf3df;
-  box-shadow: inset 0 1px 0 rgba(255, 220, 180, 0.4);
-}
-
-.theme-b .ink-harvest-label {
-  font-family: var(--b-title-font);
-  font-size: 1.1rem;
-}
-
-/* 中間「過一月」：書法字 */
-.theme-b .ink-nav-center-action {
-  font-family: var(--b-title-font);
+/* 全畫面墨韻：跟住直版手機框，唔會畫出框外 */
+.ink-ambient--ink {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  width: min(100%, 420px);
+  height: 100%;
+  transform: translateX(-50%);
+  z-index: 45;
+  mix-blend-mode: multiply;
 }

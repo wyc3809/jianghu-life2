@@ -41,6 +41,7 @@ import {
 import { ensureNature, dominantNature, natureSummary } from '@core/life/nature';
 import { coachCopy, nextCoachStep } from '@core/life/tutorial';
 import { track } from '../../telemetry/events';
+import { InkAmbientFx } from './InkAmbientFx';
 import { seasonToInk, placeToInk, isInkNight, shouldReduceInkMotion } from './sceneVariants';
 import { InkScrollBackdrop, InkSealStamp, InkResultSeal, InkStaticSeal, InkAiWashLayer } from './InkDecor';
 import { inkAiUrl } from '../../ui/inkAiCatalog';
@@ -491,8 +492,6 @@ export function InkPlayScreen({ state }: Props) {
   const sceneBits = [
     'scroll-shell',
     'scroll-shell--play',
-    // 美術方向 B（design/art/art-direction-b.md）：漆木古銅主題
-    'theme-b',
     'ink-enter',
     `ink-scene--${inkSeason}`,
     `ink-scene--${inkPlace}`,
@@ -551,6 +550,8 @@ export function InkPlayScreen({ state }: Props) {
         omen={Boolean(state.pending?.kind === 'special')}
         night={useNightWash}
       />
+      {/* 墨韻：左右邊墨點、墨暈，點擊濺墨 */}
+      <InkAmbientFx mode="ink" paused={Boolean(combat)} />
       {sealText && <InkSealStamp text={sealText} onDone={clearSeal} />}
 
       {succession && <InkSuccessionModal lines={succession} onClose={clearSuccession} />}
@@ -761,6 +762,8 @@ export function InkPlayScreen({ state }: Props) {
               background="town"
               caption={{ date: `${seasonLabel(month)} · ${state.year}年${month}月`, home: c.location || '千燈鎮' }}
             />
+            {/* 場景會動：流雲＋季節粒子（疊喺演武台上面，唔郁演武台本身） */}
+            <InkAmbientFx mode="scene" season={inkSeason} paused={Boolean(combat || eventFocus)} />
           </div>
 
           {state.phase === 'playing' && c.alive && !showResult && <InkHomeQuick state={state} onOpen={openQuick} />}

@@ -241,15 +241,24 @@
 - 首領登場卡（`InkBossIntro`）仍然用舊 `art/sil/boss-*.webp`。
 - API key 只經環境變數 `SPRITECOOK_API_KEY`，唔入 repo。
 
-### 第 21 項：美術方向 B（古風寫實）UI kit＋主畫面樣板（等玩家睇圖確認）
+### 第 21 項：主畫面特效——場景會動＋墨韻粒子（等玩家睇圖確認）
 
-- **玩家 2026-10-10：漆木深色版太深，改做水墨風。** 今版用宣紙面板 `panel-ink.webp`（墨色雲紋角花）、宣紙卷軸 `scroll-ink.webp`（墨軸朱紅頭），保留書法字；底色、導航返原本水墨。截圖：`boardC-home.png`。深色版位圖（`panel.webp` 等）留低做備用。
+- **玩家 2026-10-10**：漆木深色版、宣紙墨框版都唔要，底色同框返原本水墨（EA0.63.0），改為加特效。揀咗「場景會動」同「墨韻粒子」。
+  方向 B 嘅 `.theme-b` 樣式已拎走；`public/ink/art/ui-b/`、`scripts/art/build_ui_b.py` 留低做備用，冇再用。
+- **場景會動**（`InkAmbientFx mode="scene"`，疊喺演武台上面，唔郁演武台本身）：兩層流雲＋季節粒子——春桃花瓣、夏雨絲、秋落葉、冬落雪，跟月份轉。
+  （原本建議夏天用螢火，但喺淺色水墨畫面睇唔到，改咗雨絲。）
+- **墨韻粒子**（`InkAmbientFx mode="ink"`，全畫面）：左右邊墨點慢慢飄升、偶爾墨暈開；點擊任何位置濺墨。交手時停。
+- 粒子全部係位圖（`scripts/art/build_ink_fx.py` → `public/ink/art/fx/`），唔用 SVG；邏輯喺 `src/fx/ambient/particles.ts`（seeded，`tests/ambient_fx.test.ts`）。
+- 系統設定「減少動態」時唔畫。
+- 截圖：`production/qa/evidence/redesign/boardD-home.png`、`boardD-seasons.png`、`ambient-fx.gif`（seed 42，完成新手，600 玉石，演武台第 1 關；四季只改月份）。
 
-- 權威文件：`design/art/art-direction-b.md`（參考《九陰真經 Online》）。
-- UI kit 全部程式畫位圖（`scripts/art/build_ui_b.py` → `public/ink/art/ui-b/`）：漆木古銅面板 `panel.webp`（九宮格 160）、舊紙卷軸 `scroll.webp`（72）、朱紅／青綠／木按鈕、牌匾、木紋底。
-- 樣式全部包喺 `.theme-b`（`InkPlayScreen` 根），拎走個 class 就還原。
-- 今次只改主畫面同共用 HUD、快捷欄、導航；人物、修煉、江湖分頁內容仍係舊紙面板，確認樣板後再轉。
-- 場景圖、AI UI 質感：等 `HF_TOKEN`（`scripts/art/gen_hf_art.py`）。立繪暫時唔做。
-- 截圖：`production/qa/evidence/redesign/boardB-home.png`、`boardB-tabs.png`（seed 42，完成新手，600 玉石，演武台第 1 關）。
-
-**測試參數**：九宮格 slice（面板 160／卷軸 72）、邊框闊（HUD 20px、演武台 18px）、舊水墨底層透明度 0.12。
+**測試參數**（`src/fx/ambient/tuning.ts`）：
+| 項目 | 數值 |
+|---|---|
+| 春花瓣 | 30 塊，14–26px |
+| 夏雨絲 | 80 條，每秒落 420–560px |
+| 秋落葉 | 20 塊，14–24px |
+| 冬雪 | 60 粒，6–14px |
+| 流雲 | 遠層每秒 7px、透明度 0.7；近層每秒 16px、透明度 0.45 |
+| 墨點 | 12 粒，只喺左右 7% 闊嘅邊；墨暈機會 25% |
+| 濺墨 | 34–46px，0.7 秒，5 粒飛墨；兩次相隔最少 90 毫秒 |
