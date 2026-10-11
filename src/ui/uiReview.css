@@ -1,0 +1,110 @@
+/* 第22項：兩個可操作主畫面樣板，明確開發入口先啟用。
+   不選取／改寫演武台、場景、引擎或遊戲數值。 */
+html[data-ui-review] {
+  --review-accent: #9b3a32;
+  --review-line: #c9bcaa;
+  --review-panel: #fbf7ee;
+}
+html[data-ui-review] .ink-hud .ink-name { letter-spacing: .08em; color: #262824; }
+html[data-ui-review] .ink-hud .ink-status-kicker { color: #8c3b34; }
+html[data-ui-review] .ink-hud .ink-meta { color: #62594f; }
+html[data-ui-review] .ink-hud-avatar { border-color: #42473f; box-shadow: 0 0 0 2px #fbf7ee, 0 0 0 3px #bb9980; }
+html[data-ui-review] .ink-hud-wallet .ink-money-chip,
+html[data-ui-review] .ink-jade-chip {
+  background: linear-gradient(#fffcf6, #eee6d8);
+  border-color: #c7b9a4;
+  box-shadow: inset 0 1px 0 #fff, 0 1px 2px #433c3010;
+  font-variant-numeric: tabular-nums;
+}
+html[data-ui-review] .ink-jade-chip { border-color: #95aca0; color: #2c5749; }
+html[data-ui-review] .ink-hud-wallet .ink-icon-btn { border-color: #cbbfad; color: #514a3e; background: #fcf8ee; }
+html[data-ui-review] .ink-quick {
+  border-color: transparent;
+  border-bottom-color: var(--review-line);
+  background: transparent;
+}
+html[data-ui-review] .ink-review-icon { display: inline-block; background-repeat: no-repeat; flex: none; }
+html[data-ui-review] .ink-quick-icon { filter: saturate(.72) drop-shadow(0 1px 1px #3b302622); }
+html[data-ui-review] .ink-quick-label { color: #3a3d35; letter-spacing: .04em; }
+html[data-ui-review] .ink-quick-btn.is-dim { opacity: .66; }
+html[data-ui-review] .ink-home-goals {
+  border-color: var(--review-line);
+  background: var(--review-panel);
+  box-shadow: 0 3px 12px #46362809;
+}
+html[data-ui-review] .ink-goal-kicker { font-size: .73rem; letter-spacing: .15em; color: var(--review-accent); }
+html[data-ui-review] .ink-goal-title { font-size: 1rem; letter-spacing: .03em; line-height: 1.55; }
+html[data-ui-review] .ink-goal-detail { font-size: .78rem; color: #71685b; }
+html[data-ui-review] .ink-goal-progress { font-size: .75rem; }
+html[data-ui-review] .ink-home-focus .ink-goal::before { width: 3px; background: var(--review-accent); }
+html[data-ui-review] .ink-idle-row {
+  padding: 10px 12px;
+  gap: 12px;
+  align-items: center;
+  border-top: 1px solid #d5cbbb;
+  background: linear-gradient(#f8f3e9, #f1eadc);
+}
+html[data-ui-review] .ink-idle { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px 10px; }
+html[data-ui-review] .ink-idle > div { padding: 0; text-align: left; border: 0; }
+html[data-ui-review] .ink-idle > div:last-child { grid-column: 1 / -1; display: flex; gap: 8px; align-items: baseline; }
+html[data-ui-review] .ink-idle dt { font-size: .68rem; letter-spacing: .02em; color: #746c60; }
+html[data-ui-review] .ink-idle dd { font-size: .82rem; font-weight: 600; white-space: nowrap; color: #3a4038; }
+html[data-ui-review] .ink-idle > div:last-child dd { font-size: .72rem; font-weight: 400; }
+html[data-ui-review] .ink-harvest {
+  width: 86px;
+  min-height: 58px;
+  padding: 7px;
+  border: 1px solid #84362e;
+  background: linear-gradient(#af4b3e, #923b34);
+  box-shadow: inset 0 0 0 2px #c0785b55, 0 2px 3px #46312720;
+  color: #fff5df;
+}
+html[data-ui-review] .ink-harvest-label { font-size: .95rem; letter-spacing: .1em; padding-left: .1em; }
+html[data-ui-review] .ink-harvest-num,
+html[data-ui-review] .ink-harvest-num small { font-size: .65rem; color: #f6e4cf; }
+html[data-ui-review] .ink-harvest:disabled { color: #887f71; border-color: #cbbfac; background: #e9e2d5; box-shadow: inset 0 1px 0 #f9f5ed; }
+html[data-ui-review] .ink-harvest:disabled .ink-harvest-num,
+html[data-ui-review] .ink-harvest:disabled .ink-harvest-num small { color: #887f71; }
+html[data-ui-review] .ink-goal-btn { border: 1px solid #81352d; background: #9b4237; letter-spacing: .1em; }
+html[data-ui-review] .ink-tabs { background: linear-gradient(transparent, #f8f3e9 35%); }
+html[data-ui-review] .ink-tabs .ink-tab-icon { filter: saturate(.7) drop-shadow(0 1px 1px #3a322620); }
+html[data-ui-review] .ink-tabs .ink-tab--active .ink-tab-icon { filter: saturate(.9) drop-shadow(0 1px 2px #8d755240); }
+html[data-ui-review] .ink-quick-btn.is-pressed .ink-review-icon { transform: scale(.92); }
+html[data-ui-review] .ink-harvest.is-pressed { transform: translateY(1px); background: #80352e; }
+html[data-ui-review] .ink-quick-btn:focus-visible,
+html[data-ui-review] .ink-harvest:focus-visible,
+html[data-ui-review] .ink-jade-chip:focus-visible { outline: 2px solid #507967; outline-offset: 3px; }
+/* B：同一功能與位置，設色／肖像／紙卷材質；沒有新增發光特效。 */
+html[data-ui-review='b'] { --review-line: #bca583; --review-panel: #faf2df; --review-accent: #8d382c; }
+html[data-ui-review='b'] .ink-hud-avatar {
+  background-image: var(--review-portrait);
+  background-position: center 40%;
+  background-size: cover;
+  border-color: #ad8650;
+  box-shadow: 0 0 0 2px #faf1df, 0 0 0 3px #b99862;
+}
+html[data-ui-review='b'] .ink-hud-avatar-glyph { color: transparent; }
+html[data-ui-review='b'] .ink-quick { background: linear-gradient(#fff9ed80, #ead9b740); border-bottom-color: #b99a68; }
+html[data-ui-review='b'] .ink-quick-icon { filter: saturate(1.02) drop-shadow(0 2px 2px #5b43272b); }
+html[data-ui-review='b'] .ink-home-goals {
+  border-color: #bca583;
+  background: linear-gradient(90deg, #ede1c8, #fbf5e9 4%, #fbf5e9 96%, #eadac1);
+  box-shadow: inset 0 0 0 3px #a1875220, 0 3px 8px #6a503112;
+}
+html[data-ui-review='b'] .ink-idle-row { background: #ece0c84a; border-color: #c8b18a; }
+html[data-ui-review='b'] .ink-harvest { border-color: #987342; box-shadow: inset 0 0 0 2px #dab78570, 0 2px 3px #63402430; }
+html[data-ui-review='b'] .ink-hud-wallet .ink-money-chip { border-color: #b69b73; background: linear-gradient(#fffbf0, #ebddc3); }
+html[data-ui-review='b'] .ink-tabs .ink-tab-icon { filter: saturate(1) drop-shadow(0 1px 2px #6b4a2f30); }
+@media (max-width: 340px) {
+  html[data-ui-review] .ink-idle-row { gap: 8px; padding: 9px; }
+  html[data-ui-review] .ink-idle dt { font-size: .64rem; }
+  html[data-ui-review] .ink-idle dd { font-size: .75rem; }
+  html[data-ui-review] .ink-harvest { width: 74px; }
+  html[data-ui-review] .ink-goal-title { font-size: .9rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-ui-review] .ink-quick-btn.is-pressed .ink-review-icon,
+  html[data-ui-review] .ink-harvest.is-pressed { transform: none; }
+}
+html[data-ink-motion='reduce'][data-ui-review] .ink-quick-btn.is-pressed .ink-review-icon,
+html[data-ink-motion='reduce'][data-ui-review] .ink-harvest.is-pressed { transform: none; }

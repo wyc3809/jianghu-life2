@@ -32,3 +32,6 @@ __pycache__/
 
 # SpriteCook 原圖：PNG 暫存，入 git 嘅係轉好嘅 WebP
 assets/art-source/spritecook/raw/*.png
+
+# UI樣板GIF嘅逐格暫存
+production/qa/evidence/redesign/ui-investor-review/frames/

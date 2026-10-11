@@ -2,6 +2,8 @@ import { StrictMode, Suspense, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import './styles.css';
+import './ui/uiReview.css';
+import { activeUiReview } from './ui/uiReview';
 import { installPressFeedback } from './ui/pressFeedback';
 import { bootCloud } from './cloud/sync';
 import { readLocalSavedAt, writeLocal } from './cloud/localBridge';
@@ -9,6 +11,12 @@ import { useAncestryStore } from './store/ancestryStore';
 import { loadAncestry } from './store/ancestryMeta';
 
 installPressFeedback();
+
+const uiReview = activeUiReview();
+if (uiReview) {
+  document.documentElement.dataset.uiReview = uiReview;
+  document.documentElement.style.setProperty('--review-portrait', `url(${import.meta.env.BASE_URL}ink/art/ui-review/portrait.webp)`);
+}
 
 // 高光時刻示範頁：?fx=highlight（按需載入，唔影響遊戲首屏）
 const HighlightDemo = lazy(() => import('./fx/highlight/HighlightDemo'));

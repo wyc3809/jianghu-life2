@@ -4,6 +4,8 @@ import { encounterRoute } from '@core/life/encounters';
 import { useAncestryStore } from '../../store/ancestryStore';
 import type { InkIconKey } from '../../ui/inkIcons';
 import { InkIcon } from './InkIcon';
+import { InkUiReviewIcon } from './InkUiReviewIcon';
+import { activeUiReview } from '../../ui/uiReview';
 
 export type QuickTarget = 'gacha' | 'encounter' | 'shrine' | 'huashan' | 'skills';
 
@@ -19,6 +21,7 @@ type Entry = { id: QuickTarget; icon: InkIconKey; label: string; badge?: string 
  * 只係捷徑：秘笈閣／論劍喺「江湖」分頁、武學喺「人物」分頁、祖祠開祖蔭面板。
  */
 export function InkHomeQuick({ state, onOpen }: Props) {
+  const Icon = activeUiReview() ? InkUiReviewIcon : InkIcon;
   const meta = useAncestryStore((s) => s.meta);
   const jade = (meta.jade?.free ?? 0) + (meta.jade?.paidTest ?? 0);
   const e = meta.encounter;
@@ -47,7 +50,7 @@ export function InkHomeQuick({ state, onOpen }: Props) {
           onClick={() => onOpen(x.id)}
           aria-label={x.label}
         >
-          <InkIcon name={x.icon} size={50} className="ink-quick-icon" />
+          <Icon name={x.icon} size={50} className="ink-quick-icon" />
           <span className="ink-quick-label">{x.label}</span>
           {x.badge && <i className={`ink-quick-badge${typeof x.badge === 'string' ? ' has-text' : ''}`}>{typeof x.badge === 'string' ? x.badge : ''}</i>}
         </button>

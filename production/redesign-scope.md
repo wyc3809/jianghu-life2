@@ -262,3 +262,15 @@
 | 流雲 | 遠層每秒 7px、透明度 0.7；近層每秒 16px、透明度 0.45 |
 | 墨點 | 12 粒，只喺左右 7% 闊嘅邊；墨暈機會 25% |
 | 濺墨 | 34–46px，0.7 秒，5 粒飛墨；兩次相隔最少 90 毫秒 |
+
+### 第 22 項提案：商業手遊 UI／UX 精修（未選方向、未實作）
+
+玩家 2026-10-11 要求：用AI生成UI素材，改善UI／UX至更接近商業工作室標準，並從1,000,000出資方角度評估是否可收貨。
+
+- 已完成：現行EA0.64.0主畫面實際截圖、官方UI／UX製作參考、A／B兩個AI概念、驗收及分頁落地提案。
+- 提案：`design/art/ui-commercial-review/README.md`；概念：`design/art/ui-commercial-review/concepts-a-b.png`。
+- 實際基線：`production/qa/evidence/redesign/ui-investor-review/01-current-home.png`，390×844／deviceScaleFactor 2，seed 42、600免費玉石。
+- 等玩家揀A或B，再落地一頁可操作样板；不能將概念圖當成已完成UI。演武台及經濟／存檔不改。
+- 未批准大規模重寫、未刪功能、未上線；動畫參數未定。所有建議驗收門檻仍待確認。
+
+第22項更新：玩家要求先做A／B畀佢睇。已實作兩款可操作主畫面樣板（只喺開發版 `?ui-preview=a`／`b`啟用），AI素材分開接入真實按鈕；原版／正式預設保持不變，等待玩家揀方向。570個測試、build及內容檢查通過；原版對比、手機尺寸、操作GIF及`validation.json`放 `production/qa/evidence/redesign/ui-investor-review/`。演武台位置／尺寸同原版一致；引擎、數值、存檔均無改。B頭像只係示意，其他頁面未全面更新，實體手機未驗證。
