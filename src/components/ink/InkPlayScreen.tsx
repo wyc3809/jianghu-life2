@@ -755,19 +755,6 @@ export function InkPlayScreen({ state }: Props) {
       {/* 演武台常駐（事件／交手時只係收埋）：過月唔再重新載入，關數、血量、敵陣接住打 */}
       {onHomeTab && (
         <div className="ink-home-focus" style={combat || eventFocus ? { display: 'none' } : undefined}>
-          {/* 演武台直接用地圖 banner 嘅鎮景長卷做背景，季節・地點名浮喺動畫入面，唔再分開兩張圖 */}
-          <div className="ink-home-scene">
-            <InkSparStage
-              reduceMotion={reduceMotion}
-              background="town"
-              caption={{ date: `${seasonLabel(month)} · ${state.year}年${month}月`, home: c.location || '千燈鎮' }}
-            />
-            {/* 場景會動：流雲＋季節粒子（疊喺演武台上面，唔郁演武台本身） */}
-            <InkAmbientFx mode="scene" season={inkSeason} paused={Boolean(combat || eventFocus)} />
-          </div>
-
-          {state.phase === 'playing' && c.alive && !showResult && <InkHomeQuick state={state} onOpen={openQuick} />}
-
           {state.phase === 'playing' && c.alive && !showResult && (
             <InkHomeGoals
               state={state}
@@ -783,6 +770,19 @@ export function InkPlayScreen({ state }: Props) {
               }}
             />
           )}
+
+          {/* 演武台直接用地圖 banner 嘅鎮景長卷做背景，季節・地點名浮喺動畫入面，唔再分開兩張圖 */}
+          <div className="ink-home-scene">
+            <InkSparStage
+              reduceMotion={reduceMotion}
+              background="town"
+              caption={{ date: `${seasonLabel(month)} · ${state.year}年${month}月`, home: c.location || '千燈鎮' }}
+            />
+            {/* 場景會動：流雲＋季節粒子（疊喺演武台上面，唔郁演武台本身） */}
+            <InkAmbientFx mode="scene" season={inkSeason} paused={Boolean(combat || eventFocus)} />
+          </div>
+
+          {state.phase === 'playing' && c.alive && !showResult && <InkHomeQuick state={state} onOpen={openQuick} />}
 
           {state.phase === 'playing' && c.alive && !showResult && <InkEncounterCard />}
 

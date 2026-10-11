@@ -16,7 +16,7 @@ type Props = {
 
 /**
  * 主畫面「當前目標」＋「掛機收益」（design/agreed-design-2026-10.md §5）。
- * 收益留喺主畫面；目標縮成底部任務欄，詳情可展開。
+ * 收益放喺演武台上方；目標係底部任務欄，詳情可展開。
  */
 export function InkHomeGoals({ state, onAction, onHarvest, busy }: Props) {
   const goal = currentGoal(state);
@@ -61,17 +61,17 @@ export function InkHomeGoals({ state, onAction, onHarvest, busy }: Props) {
       <div className="ink-idle-row">
         <dl className="ink-idle">
           <div>
-            <dt>掛機修為</dt>
+            <dt><InkIcon name="censer" size={18} />掛機修為</dt>
             <dd>＋{rate.toFixed(2)}／秒</dd>
           </div>
           <div>
-            <dt>掛機銀兩</dt>
+            <dt><InkIcon name="silver" size={18} />掛機銀兩</dt>
             <dd>＋{idleSilverPerHour(state).toFixed(1)}／時</dd>
           </div>
           <div>
-            <dt>演武每關</dt>
+            <dt><InkIcon name="swords" size={18} />演武每關</dt>
             <dd>
-              銀＋{reward.silver} · 修＋{reward.xp}
+              <span>銀＋{reward.silver}</span><span>修＋{reward.xp}</span>
             </dd>
           </div>
         </dl>

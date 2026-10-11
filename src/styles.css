@@ -10663,3 +10663,31 @@ button.ink-enc-strip {
 .ink-task-bar .ink-goal-progress .ink-brush-bar { flex: 1; width: auto; min-width: 0; }
 .ink-task-bar .ink-goal-btn { min-width: 44px; padding: 6px 8px; font-size: 13px; letter-spacing: .05em; background: rgba(163, 58, 50, .08); color: var(--cinnabar); border: 1px solid var(--ink-faint); }
 .scroll-shell--has-tabs:has(.ink-task-bar) { padding-bottom: calc(238px + env(safe-area-inset-bottom, 0px)); }
+
+/* 第22項：演武台上方嘅宣紙收益欄，圖示沿用同款菱形器物。 */
+.ink-home-focus .ink-home-goals { margin: 0 0 10px; }
+.ink-home-goals > .ink-idle-row {
+  align-items: center; padding: 5px 0; border-color: var(--ink-faint);
+  background: rgba(255, 252, 245, .55);
+}
+.ink-home-goals .ink-idle > div { padding: 3px 5px; }
+.ink-home-goals .ink-idle > div + div { border-left: 1px solid var(--ink-faint); }
+.ink-home-goals .ink-idle dt { display: flex; align-items: center; justify-content: center; gap: 3px; font-size: 10px; letter-spacing: 0; white-space: nowrap; }
+.ink-home-goals .ink-idle dd { font-size: 12px; line-height: 1.5; white-space: nowrap; margin-top: 2px; }
+.ink-home-goals .ink-idle dd > span { display: inline-block; }
+.ink-home-goals .ink-idle dd > span + span { margin-left: 5px; }
+.ink-home-goals .ink-harvest { width: 68px; min-height: 48px; align-self: stretch; border-left: 1px solid var(--ink-faint); background: rgba(163, 58, 50, .06); }
+.ink-home-goals .ink-harvest-label { font-size: 13px; letter-spacing: .1em; padding-left: .1em; }
+.ink-home-goals .ink-harvest-num { font-size: 11px; }
+.ink-home-goals .ink-harvest-num small { font-size: 10px; }
+.ink-home-goals .ink-harvest.is-full { background: var(--cinnabar); }
+.ink-home-goals .ink-harvest:disabled { background: transparent; }
+@media (max-width: 350px) {
+  .ink-home-goals .ink-idle > div { padding-inline: 3px; }
+  .ink-home-goals .ink-idle dt { gap: 1px; font-size: 9px; }
+  .ink-home-goals .ink-idle dt .ink-icon { width: 14px !important; height: 14px !important; }
+  .ink-home-goals .ink-idle dd { font-size: 11px; }
+  .ink-home-goals .ink-idle dd > span { display: block; line-height: 1.25; }
+  .ink-home-goals .ink-idle dd > span + span { margin-left: 0; }
+  .ink-home-goals .ink-harvest { width: 60px; }
+}
