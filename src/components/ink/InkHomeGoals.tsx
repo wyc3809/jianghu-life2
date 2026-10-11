@@ -3,6 +3,7 @@ import { currentGoal, type GoalAction } from '@core/life/goals';
 import { effectiveCultivationRate } from '@core/life/cultivation';
 import { sparSavedStage, sparStageReward } from '@core/life/sparDuel';
 import { InkBrushBar } from './InkBrush';
+import { InkIcon } from './InkIcon';
 import { idleSilverCap, idleSilverPending, idleSilverPerHour } from '@core/life/idleHarvest';
 
 type Props = {
@@ -15,7 +16,7 @@ type Props = {
 
 /**
  * 主畫面「當前目標」＋「掛機收益」（design/agreed-design-2026-10.md §5）。
- * 放喺演武台下面；演武台本身唔郁。
+ * 收益留喺主畫面；目標縮成底部任務欄，詳情可展開。
  */
 export function InkHomeGoals({ state, onAction, onHarvest, busy }: Props) {
   const goal = currentGoal(state);
@@ -27,27 +28,32 @@ export function InkHomeGoals({ state, onAction, onHarvest, busy }: Props) {
   const pct = goal.progress ? Math.min(100, (goal.progress.cur / Math.max(1, goal.progress.max)) * 100) : 0;
   return (
     <section className="ink-home-goals" aria-label="當前目標與掛機收益">
-      <div className="ink-goal">
-        <div className="ink-goal-text">
-          <p className="ink-goal-kicker">{goal.kicker}</p>
-          <p className="ink-goal-title">{goal.title}</p>
-          <p className="ink-goal-detail">{goal.detail}</p>
+      <div className="ink-goal ink-task-bar" aria-label="任務欄">
+        <div className="ink-task-main">
+          <details className="ink-task-details" key={goal.id}>
+            <summary aria-label={`任務詳情：${goal.title}`}>
+              <InkIcon name="scroll" size={44} label="任務" className="ink-task-icon" />
+              <span className="ink-task-heading">
+                <span className="ink-goal-kicker">{goal.kicker}</span>
+                <span className="ink-goal-title">{goal.title}</span>
+              </span>
+              <span className="ink-task-chevron" aria-hidden>⌃</span>
+            </summary>
+            <div className="ink-task-popover">
+              <p className="ink-task-full-title">{goal.title}</p>
+              <p className="ink-goal-detail">{goal.detail}</p>
+            </div>
+          </details>
           {goal.progress && (
             <div className="ink-goal-progress">
               <InkBrushBar pct={pct} tone="ink" />
-              <span>
-                {goal.progress.cur.toLocaleString('zh-Hant')} / {goal.progress.max.toLocaleString('zh-Hant')}
-              </span>
+              <span>{goal.progress.cur.toLocaleString('zh-Hant')} / {goal.progress.max.toLocaleString('zh-Hant')}</span>
             </div>
           )}
         </div>
         {goal.action && (
-          <button
-            type="button"
-            className="ink-goal-btn"
-            disabled={busy}
-            onClick={() => onAction(goal.action!)}
-          >
+          <button type="button" className="ink-goal-btn" disabled={busy}
+            onClick={() => onAction(goal.action!)}>
             {goal.actionLabel}
           </button>
         )}
