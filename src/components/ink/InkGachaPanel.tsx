@@ -90,8 +90,8 @@ export function InkGachaPanel({ state }: Props) {
           <h3 className="ink-gacha-title">秘笈閣</h3>
           <div className="ink-gacha-tools">
             <button type="button" className={`ink-gacha-tool${showInfo ? ' is-on' : ''}`} aria-expanded={showInfo} onClick={() => setShowInfo((v) => !v)}>
-              <InkIcon name="scroll" size={30} />
-              <span>卡池詳情</span>
+              <InkIcon name="scroll" size={64} label="卡池詳情" />
+              <span className="ink-visually-hidden">卡池詳情</span>
             </button>
             <button
               type="button"
@@ -99,8 +99,8 @@ export function InkGachaPanel({ state }: Props) {
               aria-pressed={view === 'shelf'}
               onClick={() => setView(view === 'shelf' ? 'draw' : 'shelf')}
             >
-              <InkIcon name="book" size={30} />
-              <span>家族收藏 {Object.keys(manuals).length}</span>
+              <InkIcon name="book" size={64} label="家族收藏" />
+              <span className="ink-visually-hidden">家族收藏</span><small>藏本 {Object.keys(manuals).length}</small>
             </button>
           </div>
           <div className="ink-gacha-wallet">
@@ -149,8 +149,8 @@ export function InkGachaPanel({ state }: Props) {
                   className={`ink-pool-card${banner === id ? ' is-on' : ''}${id === 'zhenben' ? ' is-premium' : ''}`}
                   onClick={() => setBanner(id)}
                 >
-                  <InkIcon name={id === 'zhenben' ? 'jade-paid' : 'scroll'} size={44} />
-                  <span className="ink-pool-name">{BANNERS[id].name}</span>
+                  <InkIcon name={id === 'zhenben' ? 'jade-paid' : 'scroll'} size={64} label={BANNERS[id].name} />
+                  <span className="ink-pool-name ink-visually-hidden">{BANNERS[id].name}</span>
                   <small>{BANNERS[id].blurb}</small>
                 </button>
               ))}

@@ -51,3 +51,13 @@ const DELTA_ICONS: Readonly<Record<string, InkIconKey>> = {
 export function deltaIconKey(label: string): InkIconKey | undefined {
   return DELTA_ICONS[label];
 }
+
+/** 舊列表題材對應統一器物 icon，避免將整張場景微縮成圖示。 */
+export function motifBadgeIconUrl(motif?: string): string {
+  const keys: Readonly<Record<string, InkIconKey>> = {
+    'motif-jade': 'jade', 'motif-sword': 'swords', 'motif-scroll': 'scroll',
+    'motif-mountain-gate': 'house', 'motif-lantern': 'tablet',
+    'motif-wine-banner': 'tea', 'motif-umbrella': 'hat',
+  };
+  return inkIconUrl(motif ? keys[motif] ?? 'censer' : 'censer', 64);
+}

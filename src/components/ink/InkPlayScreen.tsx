@@ -619,7 +619,7 @@ export function InkPlayScreen({ state }: Props) {
           </div>
           <div className="ink-hud-wallet">
             <span ref={moneyChipRef} className="ink-money-chip ink-glint" aria-label={`銀兩 ${Math.round(c.money ?? 0)}`}>
-              <InkIcon name="silver" size={26} className="ink-wallet-icon" />
+              <InkIcon name="silver" size={26} className="ink-wallet-icon" /><small className="ink-wallet-name">銀兩</small>
               <InkGlyphText text={moneyShown.toLocaleString('zh-Hant')} height={14} />
             </span>
             <button
@@ -628,7 +628,7 @@ export function InkPlayScreen({ state }: Props) {
               aria-label={`玉石 ${jadeTotal}，去秘笈閣`}
               onClick={() => openGachaTab()}
             >
-              <InkIcon name="jade" size={26} className="ink-wallet-icon" />
+              <InkIcon name="jade" size={26} className="ink-wallet-icon" /><small className="ink-wallet-name">玉石</small>
               {jadeTotal.toLocaleString('zh-Hant')}
             </button>
             <div className="ink-status-buttons">
@@ -1137,12 +1137,13 @@ export function InkPlayScreen({ state }: Props) {
               key={id}
               type="button"
               className={tab === id ? 'ink-tab ink-tab--active' : 'ink-tab'}
+              aria-label={label}
+              aria-current={tab === id ? 'page' : undefined}
               onClick={() => {
                 setTab(id);
               }}
             >
-              <InkIcon name={TAB_ICONS[id]} size={44} className="ink-tab-icon" />
-              <span className="ink-tab-label">{label}</span>
+              <InkIcon name={TAB_ICONS[id]} size={62} label={label} className="ink-tab-icon" />
             </button>
           ))}
           <InkCultivationHud
@@ -1168,12 +1169,13 @@ export function InkPlayScreen({ state }: Props) {
               key={id}
               type="button"
               className={tab === id ? 'ink-tab ink-tab--active' : 'ink-tab'}
+              aria-label={label}
+              aria-current={tab === id ? 'page' : undefined}
               onClick={() => {
                 setTab(id);
               }}
             >
-              <InkIcon name={TAB_ICONS[id]} size={44} className="ink-tab-icon" />
-              <span className="ink-tab-label">{label}</span>
+              <InkIcon name={TAB_ICONS[id]} size={62} label={label} className="ink-tab-icon" />
             </button>
           ))}
         </nav>

@@ -8,7 +8,8 @@ import { useEffect, useRef, useState } from 'react';
 import { inkCountTo, inkPopIn } from '../../ui/inkMotion';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import type { InkAiAssetId } from '../../ui/inkAiCatalog';
-import { motifIconUrl } from '../../ui/inkAssets';
+import { motifBadgeIconUrl } from '../../ui/inkIcons';
+import { InkBadge } from './InkBadge';
 import {
   natureKeys,
   natureLabels,
@@ -259,13 +260,7 @@ export function InkPersonPanel({
                 onView(row.id);
               }}
             >
-              <span className="ink-row-icon-frame" aria-hidden>
-                {row.icon ? (
-                  <img className="ink-row-icon" src={motifIconUrl(row.icon)} alt="" decoding="async" draggable={false} />
-                ) : (
-                  <span className="ink-row-dot" />
-                )}
-              </span>
+              <InkBadge src={motifBadgeIconUrl(row.icon)} label={row.label} size={64} className="ink-row-badge" />
               <span className="ink-bitlife-row-text">
                 <strong>{row.label}</strong>
                 <span>{row.hint}</span>

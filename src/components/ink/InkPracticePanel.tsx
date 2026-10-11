@@ -4,7 +4,8 @@ import { natureGateHint } from '@core/life/nature';
 import { describeSectProgress } from '@core/life/sectStanding';
 import { artProficiency, ART_MASTERY_THRESHOLD } from '@core/life/arts';
 import type { InkAiAssetId } from '../../ui/inkAiCatalog';
-import { motifIconUrl } from '../../ui/inkAssets';
+import { motifBadgeIconUrl } from '../../ui/inkIcons';
+import { InkBadge } from './InkBadge';
 
 export type PracticeView = 'main' | 'sect' | 'arts';
 
@@ -18,16 +19,8 @@ const PRACTICE_ICON: Partial<Record<PracticeActionId, InkAiAssetId>> = {
   equip_best: 'motif-sword',
 };
 
-function RowIcon({ icon }: { icon?: InkAiAssetId }) {
-  return (
-    <span className="ink-row-icon-frame" aria-hidden>
-      {icon ? (
-        <img className="ink-row-icon" src={motifIconUrl(icon)} alt="" decoding="async" draggable={false} />
-      ) : (
-        <span className="ink-row-dot" />
-      )}
-    </span>
-  );
+function RowIcon({ icon, label }: { icon?: InkAiAssetId; label: string }) {
+  return <InkBadge src={motifBadgeIconUrl(icon)} label={label} size={64} className="ink-row-badge" />;
 }
 
 type Props = {
@@ -60,7 +53,7 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
                 onView('sect');
               }}
             >
-              <RowIcon icon="motif-mountain-gate" />
+              <RowIcon icon="motif-mountain-gate" label="門派" />
               <span className="ink-practice-btn-text">
                 <strong>門派</strong>
                 <span>{sect ? `${sect.name} · 進入門中` : '尚未入派 · 擇門拜師'}</span>
@@ -74,7 +67,7 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
                 onView('arts');
               }}
             >
-              <RowIcon icon="motif-scroll" />
+              <RowIcon icon="motif-scroll" label="修習雅藝" />
               <span className="ink-practice-btn-text">
                 <strong>修習雅藝</strong>
                 <span>琴棋書畫、佛道邪學，各憑機緣</span>
@@ -90,7 +83,7 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
                   onPractice(act.id);
                 }}
               >
-                <RowIcon icon={PRACTICE_ICON[act.id]} />
+                <RowIcon icon={PRACTICE_ICON[act.id]} label={act.label} />
                 <span className="ink-practice-btn-text">
                   <strong>{act.label}</strong>
                   <span>{act.hint}</span>

@@ -35,3 +35,6 @@ assets/art-source/spritecook/raw/*.png
 
 # UI樣板GIF嘅逐格暫存
 production/qa/evidence/redesign/ui-investor-review/frames/
+
+# 菱形圖示驗收GIF逐格暫存
+production/qa/evidence/redesign/icon-badges/frames/
