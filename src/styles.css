@@ -287,7 +287,7 @@ body::before {
   font-size: 0.92rem;
 }
 
-.scroll-shell > *:not(.ink-backdrop):not(.ink-seal-overlay):not(.ink-ai-wash):not(.ink-tabs):not(.ink-start-bg) {
+.scroll-shell > *:not(.ink-backdrop):not(.ink-seal-overlay):not(.ink-ai-wash):not(.ink-tabs):not(.ink-start-bg):not(.ink-ambient) {
   position: relative;
   z-index: 1;
 }
@@ -10579,4 +10579,30 @@ button.ink-enc-strip {
   .ink-spar-trait.is-charging {
     animation: none;
   }
+}
+
+/* ===== 環境特效（InkAmbientFx；玩家 2026-10-10：場景會動＋墨韻粒子）===== */
+.ink-ambient {
+  pointer-events: none;
+}
+
+/* 演武台上面：流雲＋季節粒子，同演武台畫面一樣大 */
+.ink-ambient--scene {
+  position: absolute;
+  inset: 5px;
+  width: calc(100% - 10px);
+  height: calc(100% - 10px);
+  z-index: 2;
+}
+
+/* 全畫面墨韻：跟住直版手機框，唔會畫出框外 */
+.ink-ambient--ink {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  width: min(100%, 420px);
+  height: 100%;
+  transform: translateX(-50%);
+  z-index: 45;
+  mix-blend-mode: multiply;
 }

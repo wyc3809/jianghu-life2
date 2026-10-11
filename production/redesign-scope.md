@@ -240,3 +240,25 @@
 - 出招／受擊／倒地仍然係引擎程式動畫（未另出動作圖）。
 - 首領登場卡（`InkBossIntro`）仍然用舊 `art/sil/boss-*.webp`。
 - API key 只經環境變數 `SPRITECOOK_API_KEY`，唔入 repo。
+
+### 第 21 項：主畫面特效——場景會動＋墨韻粒子（玩家已確認，EA0.64.0 上線）
+
+- **玩家 2026-10-10**：漆木深色版、宣紙墨框版都唔要，底色同框返原本水墨（EA0.63.0），改為加特效。揀咗「場景會動」同「墨韻粒子」。
+  方向 B 嘅 `.theme-b` 樣式已拎走；`public/ink/art/ui-b/`、`scripts/art/build_ui_b.py` 留低做備用，冇再用。
+- **場景會動**（`InkAmbientFx mode="scene"`，疊喺演武台上面，唔郁演武台本身）：兩層流雲＋季節粒子——春桃花瓣、夏雨絲、秋落葉、冬落雪，跟月份轉。
+  （原本建議夏天用螢火，但喺淺色水墨畫面睇唔到，改咗雨絲。）
+- **墨韻粒子**（`InkAmbientFx mode="ink"`，全畫面）：左右邊墨點慢慢飄升、偶爾墨暈開；點擊任何位置濺墨。交手時停。
+- 粒子全部係位圖（`scripts/art/build_ink_fx.py` → `public/ink/art/fx/`），唔用 SVG；邏輯喺 `src/fx/ambient/particles.ts`（seeded，`tests/ambient_fx.test.ts`）。
+- 系統設定「減少動態」時唔畫。
+- 截圖：`production/qa/evidence/redesign/boardD-home.png`、`boardD-seasons.png`、`ambient-fx.gif`（seed 42，完成新手，600 玉石，演武台第 1 關；四季只改月份）。
+
+**測試參數**（`src/fx/ambient/tuning.ts`）：
+| 項目 | 數值 |
+|---|---|
+| 春花瓣 | 30 塊，14–26px |
+| 夏雨絲 | 80 條，每秒落 420–560px |
+| 秋落葉 | 20 塊，14–24px |
+| 冬雪 | 60 粒，6–14px |
+| 流雲 | 遠層每秒 7px、透明度 0.7；近層每秒 16px、透明度 0.45 |
+| 墨點 | 12 粒，只喺左右 7% 闊嘅邊；墨暈機會 25% |
+| 濺墨 | 34–46px，0.7 秒，5 粒飛墨；兩次相隔最少 90 毫秒 |
