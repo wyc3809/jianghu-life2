@@ -7,8 +7,9 @@ import {
   isCultivationCapped,
 } from '@core/life/cultivation';
 import { useStillMode, usePrefersReducedMotion } from '../../hooks/useStillMode';
-import { InkBrushRing } from './InkBrush';
-import { inkArtUrl } from '../../ui/inkAssets';
+import { InkBrushBar } from './InkBrush';
+import { InkBadge } from './InkBadge';
+import { inkIconUrl } from '../../ui/inkIcons';
 
 /** 墨跡粒子：修為入賬時由數字中心向外擴散 */
 type XpParticle = {
@@ -55,7 +56,7 @@ type Props = {
   exhausted?: boolean;
 };
 
-/** 分卷列中心大圓：修為環形進度（藍色、持續流轉）包住「過一月」按鈕；修為滿咗就變做「突破」按鈕 */
+/** 分卷列中心菱形牌章：保留修為進度及「過一月」／「突破」行為 */
 export function InkCultivationHud({ state, onAdvance, onBreakthrough, disabled, exhausted = false }: Props) {
   const committedXp = state.character.cultivation.xp;
   const rate = effectiveCultivationRate(state);
@@ -195,7 +196,7 @@ export function InkCultivationHud({ state, onAdvance, onBreakthrough, disabled, 
       </span>
       <button
         type="button"
-        className={`ink-nav-center${glow ? ' ink-nav-center--glow' : ''}${isBreakthroughReady ? ' ink-nav-center--capped' : ''}${blockedByExhaustion ? ' ink-nav-center--exhausted' : ''}`}
+        className={`ink-nav-center ink-nav-center--badge${glow ? ' ink-nav-center--glow' : ''}${isBreakthroughReady ? ' ink-nav-center--capped' : ''}${blockedByExhaustion ? ' ink-nav-center--exhausted' : ''}`}
         onClick={isBreakthroughReady ? onBreakthrough : onAdvance}
         disabled={isBreakthroughReady ? false : disabled}
         aria-label={
@@ -206,19 +207,12 @@ export function InkCultivationHud({ state, onAdvance, onBreakthrough, disabled, 
               : `翻過一頁．過一月（${tier.name}．${Math.floor(shownXp).toLocaleString('zh-Hant')}）`
         }
       >
-        <span className="ink-nav-center-inkring" aria-hidden>
-          <img className="inkring-a" src={inkArtUrl('art/ui/ink-halo-a.webp')} alt="" draggable={false} />
-          <img className="inkring-b" src={inkArtUrl('art/ui/ink-halo-b.webp')} alt="" draggable={false} />
-        </span>
-        {xpPop && <span className="ink-nav-center-ripple" aria-hidden />}
-        <InkBrushRing
-          className="ink-nav-center-ring"
-          pct={shownPct}
-          tone={isBreakthroughReady ? 'cinnabar' : 'blue'}
-          flow={!capped}
-        />
+        <InkBadge src={inkIconUrl(isBreakthroughReady ? 'censer' : 'scroll', 80)}
+          label={isBreakthroughReady ? '突破' : '過一月'} size={80}
+          tone={isBreakthroughReady ? 'red' : 'brown'} className="ink-month-badge" />
+        <InkBrushBar className="ink-month-progress" pct={shownPct}
+          tone={isBreakthroughReady ? 'cinnabar' : 'ink'} />
         <span className="ink-nav-center-tier">{blockedByExhaustion ? '氣力不繼' : tier.name}</span>
-        <span className="ink-nav-center-action">{isBreakthroughReady ? '突破' : '過一月'}</span>
       </button>
     </span>
   );

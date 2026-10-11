@@ -10691,3 +10691,19 @@ button.ink-enc-strip {
   .ink-home-goals .ink-idle dd > span + span { margin-left: 0; }
   .ink-home-goals .ink-harvest { width: 60px; }
 }
+
+/* 第22項：中央過月控制跟其他入口同款菱形牌章，保留境界及修為進度。 */
+.ink-nav-center.ink-nav-center--badge {
+  padding: 0; background: none; border-radius: 0; box-shadow: none;
+  gap: 0; overflow: visible;
+}
+.ink-nav-center--badge .ink-month-badge { position: absolute; inset: -2px 0 0; width: 100% !important; height: 100% !important; filter: drop-shadow(0 2px 2px #29221940); }
+.ink-month-badge .ink-badge-label { font-size: 20px; top: 46%; }
+.ink-nav-center--badge .ink-nav-center-tier { position: absolute; bottom: 9px; left: -6px; right: -6px; text-align: center; font-size: 9px; line-height: 1.4; letter-spacing: 0; color: var(--ink-mid); background: var(--paper-bright); padding: 0 2px; width: fit-content; max-width: calc(100% + 12px); margin: auto; }
+.ink-nav-center--badge .ink-month-progress { position: absolute; bottom: 1px; left: 14%; width: 72%; height: 4px; }
+.ink-nav-center--badge.ink-nav-center--capped .ink-nav-center-tier { color: var(--cinnabar); }
+.ink-nav-center--badge.ink-nav-center--glow .ink-month-badge { filter: drop-shadow(0 0 4px #a33a3260); }
+@media (prefers-reduced-motion: reduce) {
+  .ink-nav-center--badge:active:not(:disabled) { transform: none; }
+}
+html[data-ink-motion='reduce'] .ink-nav-center--badge:active:not(:disabled) { transform: none; }
