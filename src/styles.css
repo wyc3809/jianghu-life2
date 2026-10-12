@@ -10752,3 +10752,27 @@ html[data-ink-motion='reduce'] .ink-hud-avatar--badge:active .ink-hud-person-bad
   -webkit-text-stroke: 0;
   text-shadow: none;
 }
+
+/* 第22項：貨幣／設定共用欄位，角色三種數值共用標籤、進度條及數字列。 */
+.ink-hud-wallet { align-items: stretch; min-width: 100px; }
+.ink-hud-wallet .ink-money-chip,
+.ink-hud-wallet .ink-jade-chip,
+.ink-hud-wallet .ink-hud-settings {
+  display: grid; grid-template-columns: 26px 24px auto;
+  align-items: center; gap: 5px; width: 100%; min-height: 28px;
+  padding: 1px 8px 1px 2px; margin: 0; box-sizing: border-box;
+}
+.ink-hud-wallet .ink-wallet-name { text-align: left; }
+.ink-hud-wallet .ink-wallet-value { justify-self: end; }
+.ink-hud-wallet .ink-jade-chip { text-align: right; }
+.ink-hud-wallet .ink-status-buttons { width: 100%; }
+.ink-hud-wallet .ink-hud-settings { height: auto; }
+.ink-hud-meters { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; width: 100%; }
+.ink-hud-meters .ink-meter { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.ink-hud-meters .ink-vitals-label { justify-content: center; min-height: 18px; margin: 0; font-size: 11px; line-height: 1.2; }
+.ink-hud-meters .ink-meter-bar { height: 7px; margin: 0; width: 100%; }
+.ink-hud-meter-value { text-align: center; font-size: 11px; line-height: 1.4; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ink-hud-meters--compact { grid-template-columns: minmax(0, 1fr); max-width: calc((100% - 24px) / 3); margin-left: auto; }
+.ink-hud-wallet .ink-money-chip,
+.ink-hud-wallet .ink-jade-chip,
+.ink-hud-wallet .ink-hud-settings { justify-content: normal; justify-items: stretch; }

@@ -62,3 +62,6 @@ production/qa/evidence/redesign/spar-typography/frames/
 
 # 無描邊貨幣驗收GIF逐格暫存
 production/qa/evidence/redesign/wallet-no-outline/frames/
+
+# 頂欄對齊驗收GIF逐格暫存
+production/qa/evidence/redesign/hud-alignment/frames/

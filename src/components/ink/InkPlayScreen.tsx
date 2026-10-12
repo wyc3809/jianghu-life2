@@ -114,7 +114,6 @@ export function InkPlayScreen({ state }: Props) {
   const clearResult = useLifeStore((s) => s.clearResult);
   const lastResult = useLifeStore((s) => s.lastResult);
   const debugOpen = useLifeStore((s) => s.debugOpen);
-  const setDebugOpen = useLifeStore((s) => s.setDebugOpen);
   const setTab = useLifeStore((s) => s.setTab);
   const huashanStart = useLifeStore((s) => s.huashanStart);
   const huashanFight = useLifeStore((s) => s.huashanFight);
@@ -241,6 +240,7 @@ export function InkPlayScreen({ state }: Props) {
   const heirLabel = getHeirName(state) ? `子女「${getHeirName(state)}」` : '子女';
   const hpPct = Math.max(0, Math.min(100, (c.health / Math.max(1, c.maxHealth)) * 100));
   const qiPct = Math.max(0, Math.min(100, ((c.qi ?? 0) / Math.max(1, c.maxQi ?? 1)) * 100));
+  const fatigue = Math.max(0, Math.min(100, Math.round(100 - (c.actionPoints ?? 0))));
   const tab = state.tab ?? 'home';
   const useNightWash = isInkNight({
     title: pendingEvent?.title,
@@ -622,89 +622,38 @@ export function InkPlayScreen({ state }: Props) {
             <div className="ink-status-buttons">
               <button
                 type="button"
-                className="ink-icon-btn ink-icon-btn--wide"
+                className="ink-icon-btn ink-icon-btn--wide ink-hud-settings"
                 onClick={() => setSettingsOpen(true)}
                 title="設定"
                 aria-label="開啟設定"
                 aria-haspopup="dialog"
                 aria-expanded={settingsOpen}
               >
-                <InkIcon name="fan" size={18} />
-                設定
+                <InkIcon name="fan" size={26} />
+                <span className="ink-wallet-name">設定</span>
               </button>
-              {import.meta.env.DEV && (
-                <button
-                  type="button"
-                  className="ink-icon-btn"
-                  onClick={() => {
-                    setDebugOpen(!debugOpen);
-                  }}
-                  title="除錯"
-                >
-                  墨
-                </button>
-              )}
+
             </div>
           </div>
         </div>
         <div className="ink-hud-bars">
-          {showVitalsBars && (
-            <div className="ink-vitals-meters ink-vitals-meters--bare" aria-label="氣血內力">
-              <div className="ink-meter">
+          <div className={`ink-hud-meters${showVitalsBars ? '' : ' ink-hud-meters--compact'}`} aria-label="角色數值">
+            {([
+              { id: 'health', label: '氣血', icon: 'blood', value: Math.round(c.health), max: c.maxHealth, pct: hpPct, tone: 'cinnabar' },
+              { id: 'qi', label: '內力', icon: 'qi', value: Math.round(c.qi ?? 0), max: c.maxQi ?? 0, pct: qiPct, tone: 'ink' },
+              { id: 'fatigue', label: '疲勞度', icon: 'tea', value: fatigue, max: 100, pct: fatigue, tone: 'gold' },
+            ] as const).filter((_, i) => showVitalsBars || i === 2).map((meter) => (
+              <div className="ink-meter" key={meter.id}>
                 <div className="ink-vitals-label">
-                  <span>
-                    <InkIcon name="blood" size={16} />
-                    氣血
-                  </span>
-                  <span>
-                    {Math.round(c.health)}/{c.maxHealth}
-                  </span>
+                  <span><InkIcon name={meter.icon} size={16} />{meter.label}</span>
                 </div>
-                <div
-                  className="ink-meter-bar"
-                  role="meter"
-                  aria-valuemin={0}
-                  aria-valuemax={c.maxHealth}
-                  aria-valuenow={Math.round(c.health)}
-                  aria-label="氣血"
-                >
-                  <InkBrushBar pct={hpPct} tone="cinnabar" />
+                <div className="ink-meter-bar" role="meter" aria-label={meter.label}
+                  aria-valuemin={0} aria-valuemax={meter.max} aria-valuenow={meter.value}>
+                  <InkBrushBar pct={meter.pct} tone={meter.tone} />
                 </div>
+                <span className="ink-hud-meter-value">{meter.value}/{meter.max}</span>
               </div>
-              <div className="ink-meter">
-                <div className="ink-vitals-label">
-                  <span>
-                    <InkIcon name="qi" size={16} />
-                    內力
-                  </span>
-                  <span>
-                    {Math.round(c.qi ?? 0)}/{c.maxQi ?? 0}
-                  </span>
-                </div>
-                <div
-                  className="ink-meter-bar"
-                  role="meter"
-                  aria-valuemin={0}
-                  aria-valuemax={c.maxQi ?? 0}
-                  aria-valuenow={Math.round(c.qi ?? 0)}
-                  aria-label="內力"
-                >
-                  <InkBrushBar pct={qiPct} tone="ink" />
-                </div>
-              </div>
-            </div>
-          )}
-          <div
-            className="ink-ap-meter"
-            role="meter"
-            aria-label="疲勞度"
-            aria-valuemin={0}
-            aria-valuemax={100}
-            aria-valuenow={Math.round(100 - (c.actionPoints ?? 0))}
-          >
-            <InkIcon name="tea" size={20} />
-            <span className="ink-fatigue-label">疲勞度</span>
-            <span className="ink-ap-meter-value">{Math.round(100 - (c.actionPoints ?? 0))}/100</span>
+            ))}
           </div>
         </div>
       </header>
