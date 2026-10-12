@@ -601,8 +601,7 @@ export function InkPlayScreen({ state }: Props) {
               <span className="ink-metaline-prestige">
                 戰力 <b>{rating.toLocaleString('zh-Hant')}</b> · {ratingTier}
               </span>
-              {sect ? ` · ${sect.name}` : ''}
-              {nicknames.length ? ` · ${nicknames.join('·')}` : ''}
+              {(sect || nicknames.length > 0) && <span className="ink-hud-affiliation">{[sect?.name, ...nicknames].filter(Boolean).join(' · ')}</span>}
             </p>
           </div>
           <div className="ink-hud-wallet">
@@ -694,6 +693,7 @@ export function InkPlayScreen({ state }: Props) {
         <div className="ink-home-focus" style={combat || eventFocus ? { display: 'none' } : undefined}>
           {state.phase === 'playing' && c.alive && !showResult && (
             <InkHomeGoals
+              section="harvest"
               state={state}
               busy={Boolean(combat)}
               onHarvest={() => {
@@ -718,6 +718,23 @@ export function InkPlayScreen({ state }: Props) {
             {/* 場景會動：流雲＋季節粒子（疊喺演武台上面，唔郁演武台本身） */}
             <InkAmbientFx mode="scene" season={inkSeason} paused={Boolean(combat || eventFocus)} />
           </div>
+
+          {state.phase === 'playing' && c.alive && !showResult && (
+            <InkHomeGoals
+              section="task"
+              state={state}
+              busy={Boolean(combat)}
+              onHarvest={() => {
+                const got = harvestIdle();
+                if (got > 0) playInkWin();
+              }}
+              onAction={(a) => {
+                if (a === 'trial') startNewbieTrial();
+                else if (a === 'equip') equipOwned(NEWBIE_TRIAL.rewardGearId);
+                else if (a === 'breakthrough') attemptBreakthrough();
+              }}
+            />
+          )}
 
           {state.phase === 'playing' && c.alive && !showResult && <InkHomeQuick state={state} onOpen={openQuick} />}
 

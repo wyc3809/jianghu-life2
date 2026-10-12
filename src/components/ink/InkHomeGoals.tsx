@@ -12,13 +12,14 @@ type Props = {
   /** 撳「收成」 */
   onHarvest: () => void;
   busy?: boolean;
+  section?: 'task' | 'harvest';
 };
 
 /**
  * 主畫面「當前目標」＋「掛機收益」（design/agreed-design-2026-10.md §5）。
- * 收益放喺演武台上方；目標係底部任務欄，詳情可展開。
+ * 收益放喺演武台上方；目標喺演武台下方，詳情可展開。
  */
-export function InkHomeGoals({ state, onAction, onHarvest, busy }: Props) {
+export function InkHomeGoals({ state, onAction, onHarvest, busy, section }: Props) {
   const goal = currentGoal(state);
   const rate = effectiveCultivationRate(state);
   const stage = sparSavedStage(state);
@@ -28,7 +29,7 @@ export function InkHomeGoals({ state, onAction, onHarvest, busy }: Props) {
   const pct = goal.progress ? Math.min(100, (goal.progress.cur / Math.max(1, goal.progress.max)) * 100) : 0;
   return (
     <section className="ink-home-goals" aria-label="當前目標與掛機收益">
-      <div className="ink-goal ink-task-bar" aria-label="任務欄">
+      {section !== 'harvest' && <div className="ink-goal ink-task-bar" aria-label="任務欄">
         <div className="ink-task-main">
           <details className="ink-task-details" key={goal.id}>
             <summary aria-label={`任務詳情：${goal.title}`}>
@@ -57,8 +58,8 @@ export function InkHomeGoals({ state, onAction, onHarvest, busy }: Props) {
             {goal.actionLabel}
           </button>
         )}
-      </div>
-      <div className="ink-idle-row">
+      </div>}
+      {section !== 'task' && <div className="ink-idle-row">
         <dl className="ink-idle">
           <div>
             <dt><InkIcon name="censer" size={18} />掛機修為</dt>
@@ -88,7 +89,7 @@ export function InkHomeGoals({ state, onAction, onHarvest, busy }: Props) {
             <small>／{cap.toLocaleString('zh-Hant')}</small>
           </span>
         </button>
-      </div>
+      </div>}
     </section>
   );
 }
