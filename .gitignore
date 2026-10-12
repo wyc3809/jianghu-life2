@@ -59,3 +59,6 @@ production/qa/evidence/redesign/avatar-portrait/frames/
 
 # 演武字體驗收GIF逐格暫存
 production/qa/evidence/redesign/spar-typography/frames/
+
+# 無描邊貨幣驗收GIF逐格暫存
+production/qa/evidence/redesign/wallet-no-outline/frames/

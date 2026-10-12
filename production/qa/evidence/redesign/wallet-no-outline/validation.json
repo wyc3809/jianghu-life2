@@ -1,0 +1,47 @@
+{
+  "checks": [
+    {
+      "name": "320px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "390px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "420px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": ".ink-money-chip無可見外框或底色",
+      "passed": true
+    },
+    {
+      "name": ".ink-money-chip文字無描邊或陰影",
+      "passed": true
+    },
+    {
+      "name": ".ink-jade-chip無可見外框或底色",
+      "passed": true
+    },
+    {
+      "name": ".ink-jade-chip文字無描邊或陰影",
+      "passed": true
+    },
+    {
+      "name": "銀兩玉石餘額保留",
+      "passed": true
+    },
+    {
+      "name": "玉石入口仍然開秘笈閣",
+      "passed": true
+    },
+    {
+      "name": "貨幣圖示圖片載入成功",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "badRequests": [],
+  "samples": []
+}

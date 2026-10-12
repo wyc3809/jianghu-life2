@@ -10736,3 +10736,19 @@ html[data-ink-motion='reduce'] .ink-hud-avatar--badge:active .ink-hud-person-bad
 
 /* 無文字頭像：讓面部佔滿牌章中央，唔沿用器物圖示嘅飽和度濾鏡。 */
 .ink-hud-person-badge.ink-badge--compact .ink-badge-object { filter: drop-shadow(0 1px 1px #17151040); }
+
+/* 第22項：右上銀兩／玉石唔要外框或文字描邊，保留原本尺寸同操作範圍。 */
+.ink-hud-wallet .ink-money-chip,
+.ink-hud-wallet .ink-jade-chip {
+  border-color: transparent;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  -webkit-text-stroke: 0;
+  text-shadow: none;
+}
+.ink-hud-wallet .ink-wallet-name,
+.ink-hud-wallet .ink-wallet-value {
+  -webkit-text-stroke: 0;
+  text-shadow: none;
+}
