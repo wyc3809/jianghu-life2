@@ -368,6 +368,8 @@ export interface SparUiImages {
 
 export interface SparStageOptions {
   canvas: HTMLCanvasElement;
+  /** 跟外層介面相同嘅字體；Canvas字體唔會自動繼承CSS。 */
+  uiFontFamily?: string;
   images: SparStageImages;
   /** 劍鋒到肉嗰刻觸發；回傳實際入賬修為（>0 先彈字） */
   onStrike?: () => number;
@@ -391,6 +393,7 @@ const ATTACK_COOLDOWN = 0.18; // 收招後幾耐再出手（射程內有敵即�
 
 export class SparStage {
   private canvas: HTMLCanvasElement;
+  private uiFontFamily: string;
   private ctx: CanvasRenderingContext2D;
   private images: SparStageImages;
   private rig: AnyWarriorRig;
@@ -449,6 +452,7 @@ export class SparStage {
 
   constructor(opts: SparStageOptions) {
     this.canvas = opts.canvas;
+    this.uiFontFamily = opts.uiFontFamily ?? 'sans-serif';
     const ctx = opts.canvas.getContext('2d');
     if (!ctx) throw new Error('spar: no 2d context');
     this.ctx = ctx;
@@ -1586,43 +1590,15 @@ export class SparStage {
         this.drawCombatNumber(f, p, alpha);
         continue;
       }
-      // AI 水墨版：宣紙墨漬徽章＋朱砂書法字形（未載好就用文字 fallback）
-      if (ui?.splashPaper && ui.xiuwei && ui.glyphs['+']) {
-        const gh = 17; // 數字字形高（css px）
-        const lh = 15; // 「修為」高
-        const chars = `+${f.gain}`;
-        let w = 4; // 數字同修為之間嘅空隙
-        w += (ui.xiuwei.width / ui.xiuwei.height) * lh;
-        for (const c of chars) {
-          const g = ui.glyphs[c];
-          if (!g) continue;
-          w += (g.width / g.height) * gh + 1.5;
-        }
-        ctx.save();
-        ctx.globalAlpha = alpha * 0.94;
-        // 墨漬徽章（微微彈出）
-        const pop = p < 0.18 ? 0.7 + (p / 0.18) * 0.3 : 1;
-        const sp = ui.splashPaper;
-        const sh = Math.max(44, (gh + 26) * pop);
-        const sw = (sp.width / sp.height) * sh;
-        ctx.drawImage(sp, f.x - sw / 2, ty - sh / 2 - gh * 0.32, sw, sh);
-        // 朱砂字形由左至右排
-        let cx = f.x - w / 2;
-        for (const c of chars) {
-          const g = ui.glyphs[c];
-          if (!g) continue;
-          const gw = (g.width / g.height) * gh;
-          ctx.drawImage(g, cx, ty - gh * 0.82, gw, gh);
-          cx += gw + 1.5;
-        }
-        const lw = (ui.xiuwei.width / ui.xiuwei.height) * lh;
-        ctx.drawImage(ui.xiuwei, cx + 2.5, ty - lh * 0.72, lw, lh);
-        ctx.restore();
-        continue;
-      }
       ctx.save();
       ctx.globalAlpha = alpha;
-      ctx.font = `600 13px 'Kaiti TC', 'STKaiti', 'KaiTi', serif`;
+      ctx.font = `600 13px ${this.uiFontFamily}`;
+      // 保留墨漬底圖；修為字同數字一律用介面字體，唔用預畫書法字形。
+      if (ui?.splashPaper) {
+        const pop = p < 0.18 ? 0.7 + (p / 0.18) * 0.3 : 1;
+        const width = Math.max(54, ctx.measureText(f.text).width + 24) * pop;
+        ctx.drawImage(ui.splashPaper, f.x - width / 2, ty - 28, width, 44 * pop);
+      }
       ctx.textAlign = 'center';
       // 宣紙色光暈打底，朱砂字先唔會俾深色敵影食咗
       ctx.lineWidth = 3.5;
@@ -1652,7 +1628,7 @@ export class SparStage {
       ctx.arc(f.x, y, r, 0, Math.PI * 2);
       ctx.fill();
       ctx.stroke();
-      ctx.font = NUM_FONT.replace('SIZE', String(Math.round(r * 1.25)));
+      ctx.font = `800 ${Math.round(r * 1.25)}px ${this.uiFontFamily}`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillStyle = '#fbf7ee';
@@ -1679,14 +1655,14 @@ export class SparStage {
     ctx.textBaseline = 'alphabetic';
     ctx.lineJoin = 'round';
     if (f.kind === 'crit') {
-      ctx.font = NUM_FONT.replace('SIZE', String(Math.round(12 * k)));
+      ctx.font = `800 ${Math.round(12 * k)}px ${this.uiFontFamily}`;
       ctx.lineWidth = 3;
       ctx.strokeStyle = `rgba(${INK},0.9)`;
       ctx.strokeText('暴擊', f.x - size * 1.1, y - size * 0.62);
       ctx.fillStyle = `rgb(${CINNABAR})`;
       ctx.fillText('暴擊', f.x - size * 1.1, y - size * 0.62);
     }
-    ctx.font = NUM_FONT.replace('SIZE', String(size));
+    ctx.font = `800 ${size}px ${this.uiFontFamily}`;
     ctx.lineWidth = Math.max(3, size * 0.22);
     ctx.strokeStyle = `rgba(${INK},0.92)`;
     ctx.strokeText(f.text, f.x, y);
@@ -1715,7 +1691,6 @@ export class SparStage {
 }
 
 /** 對打數字字型：粗楷書斜體，白字墨邊（似參考圖嘅手寫大數） */
-const NUM_FONT = `italic 800 SIZEpx 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', serif`;
 
 /** 載入 AI 剪影位圖（俠客待機／揮擊＋敵人池）＋特效；角色可失敗用佔位，splash 必要 */
 export function loadSparImages(

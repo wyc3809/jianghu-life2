@@ -1,0 +1,82 @@
+{
+  "checks": [
+    {
+      "name": "320px銀兩玉石設定文字對齊",
+      "passed": true,
+      "labels": [
+        240,
+        240,
+        240
+      ]
+    },
+    {
+      "name": "320px三組標籤條及數字對齊",
+      "passed": true
+    },
+    {
+      "name": "320px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "390px銀兩玉石設定文字對齊",
+      "passed": true,
+      "labels": [
+        310,
+        310,
+        310
+      ]
+    },
+    {
+      "name": "390px三組標籤條及數字對齊",
+      "passed": true
+    },
+    {
+      "name": "390px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "420px銀兩玉石設定文字對齊",
+      "passed": true,
+      "labels": [
+        340,
+        340,
+        340
+      ]
+    },
+    {
+      "name": "420px三組標籤條及數字對齊",
+      "passed": true
+    },
+    {
+      "name": "420px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "已移除墨按鈕",
+      "passed": true
+    },
+    {
+      "name": "疲勞half進度條與數字一致",
+      "passed": true
+    },
+    {
+      "name": "疲勞full進度條與數字一致",
+      "passed": true
+    },
+    {
+      "name": "設定入口保留",
+      "passed": true
+    },
+    {
+      "name": "玉石入口保留",
+      "passed": true
+    },
+    {
+      "name": "江湖頁仍然顯示疲勞條",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "badRequests": [],
+  "samples": []
+}

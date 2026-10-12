@@ -10723,3 +10723,56 @@ html[data-ink-motion='reduce'] .ink-nav-center--badge:active:not(:disabled) { tr
 .scroll-shell--play .ink-nav-center-tier, .scroll-shell--play .ink-nav-center-xp { font-family: var(--game-ui-font); }
 /* 舊分頁曾各自指定楷體／等寬字；所有介面文字統一同一個字體 token。 */
 .scroll-shell--play * { font-family: var(--game-ui-font) !important; }
+
+/* 第22項：左上人物入口與其他功能圖示同款菱形牌章。 */
+.ink-hud-avatar.ink-hud-avatar--badge { width: 60px; height: 60px; border: none; border-radius: 0; background: none; box-shadow: none; }
+.ink-hud-person-badge { filter: drop-shadow(0 2px 1px #29241c33); }
+.ink-hud-avatar--badge .ink-hud-avatar-lv { bottom: -5px; z-index: 1; line-height: 14px; font-size: 9px; }
+.ink-hud-avatar--badge:active .ink-hud-person-badge { transform: scale(.94); }
+@media (prefers-reduced-motion: reduce) {
+  .ink-hud-avatar--badge:active .ink-hud-person-badge { transform: none; }
+}
+html[data-ink-motion='reduce'] .ink-hud-avatar--badge:active .ink-hud-person-badge { transform: none; }
+
+/* 無文字頭像：讓面部佔滿牌章中央，唔沿用器物圖示嘅飽和度濾鏡。 */
+.ink-hud-person-badge.ink-badge--compact .ink-badge-object { filter: drop-shadow(0 1px 1px #17151040); }
+
+/* 第22項：右上銀兩／玉石唔要外框或文字描邊，保留原本尺寸同操作範圍。 */
+.ink-hud-wallet .ink-money-chip,
+.ink-hud-wallet .ink-jade-chip {
+  border-color: transparent;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  -webkit-text-stroke: 0;
+  text-shadow: none;
+}
+.ink-hud-wallet .ink-wallet-name,
+.ink-hud-wallet .ink-wallet-value {
+  -webkit-text-stroke: 0;
+  text-shadow: none;
+}
+
+/* 第22項：貨幣／設定共用欄位，角色三種數值共用標籤、進度條及數字列。 */
+.ink-hud-wallet { align-items: stretch; min-width: 100px; }
+.ink-hud-wallet .ink-money-chip,
+.ink-hud-wallet .ink-jade-chip,
+.ink-hud-wallet .ink-hud-settings {
+  display: grid; grid-template-columns: 26px 24px auto;
+  align-items: center; gap: 5px; width: 100%; min-height: 28px;
+  padding: 1px 8px 1px 2px; margin: 0; box-sizing: border-box;
+}
+.ink-hud-wallet .ink-wallet-name { text-align: left; }
+.ink-hud-wallet .ink-wallet-value { justify-self: end; }
+.ink-hud-wallet .ink-jade-chip { text-align: right; }
+.ink-hud-wallet .ink-status-buttons { width: 100%; }
+.ink-hud-wallet .ink-hud-settings { height: auto; }
+.ink-hud-meters { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; width: 100%; }
+.ink-hud-meters .ink-meter { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.ink-hud-meters .ink-vitals-label { justify-content: center; min-height: 18px; margin: 0; font-size: 11px; line-height: 1.2; }
+.ink-hud-meters .ink-meter-bar { height: 7px; margin: 0; width: 100%; }
+.ink-hud-meter-value { text-align: center; font-size: 11px; line-height: 1.4; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ink-hud-meters--compact { grid-template-columns: minmax(0, 1fr); max-width: calc((100% - 24px) / 3); margin-left: auto; }
+.ink-hud-wallet .ink-money-chip,
+.ink-hud-wallet .ink-jade-chip,
+.ink-hud-wallet .ink-hud-settings { justify-content: normal; justify-items: stretch; }

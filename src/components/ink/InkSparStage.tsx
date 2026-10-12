@@ -271,6 +271,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
         if (cancelled) return;
         stage = new SparStage({
           canvas,
+          uiFontFamily: getComputedStyle(canvas).fontFamily,
           images,
           rig,
           enemies,

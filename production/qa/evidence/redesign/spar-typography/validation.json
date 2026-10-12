@@ -1,0 +1,2033 @@
+{
+  "checks": [
+    {
+      "name": "320px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "390px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "420px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "演武靜態文字與介面同一字體",
+      "passed": true
+    },
+    {
+      "name": "傷害暴擊修為浮字與介面同一字體",
+      "passed": true
+    },
+    {
+      "name": "對打文字已实际繪製",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "badRequests": [],
+  "samples": [],
+  "canvasTexts": [
+    {
+      "text": "50",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "50",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "50",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "50",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "50",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "50",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "50",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "50",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "50",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "50",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "50",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "50",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "50",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "50",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "50",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "50",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "50",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "50",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "50",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "50",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "50",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 26px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 21px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 31px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 31px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 31px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 29px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 27px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-14",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "47",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "31",
+      "font": "800 29px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 11px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "31",
+      "font": "800 29px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 11px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "31",
+      "font": "800 29px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 11px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "31",
+      "font": "800 29px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 11px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "31",
+      "font": "800 24px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 15px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "31",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 19px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "31",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 18px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "31",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "31",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "31",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "31",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "31",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "31",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "31",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "31",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "31",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "31",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "31",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "31",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "31",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "31",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "31",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 29px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 11px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 29px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 11px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 29px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 11px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 26px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 14px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 18px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 18px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 18px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 17px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 26px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 21px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "36",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 29px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 11px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 29px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 11px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 29px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 11px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 24px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 15px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 18px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 18px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 17px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "37",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 29px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 24px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 21px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 29px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 11px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 29px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 11px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 29px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 11px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 27px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 12px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 17px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 19px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 18px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-35",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "32",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 33px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 8px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 33px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 8px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 33px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 8px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 29px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 11px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 24px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 15px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 18px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 19px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 18px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 18px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 17px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 27px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 24px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "33",
+      "font": "800 23px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "-38",
+      "font": "800 20px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "暴擊",
+      "font": "800 12px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "66",
+      "font": "800 40px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 11px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "暴擊",
+      "font": "800 12px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "66",
+      "font": "800 40px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 11px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "暴擊",
+      "font": "800 12px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "66",
+      "font": "800 40px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 11px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "暴擊",
+      "font": "800 12px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "66",
+      "font": "800 40px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 11px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "暴擊",
+      "font": "800 12px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "66",
+      "font": "800 34px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 15px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "暴擊",
+      "font": "800 12px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "66",
+      "font": "800 32px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 17px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "暴擊",
+      "font": "800 12px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "66",
+      "font": "800 30px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 19px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "暴擊",
+      "font": "800 12px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "66",
+      "font": "800 30px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 18px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "暴擊",
+      "font": "800 12px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "66",
+      "font": "800 30px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 17px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "暴擊",
+      "font": "800 12px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "66",
+      "font": "800 30px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "暴擊",
+      "font": "800 12px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "66",
+      "font": "800 30px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    },
+    {
+      "text": "卸",
+      "font": "800 16px \"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    }
+  ]
+}

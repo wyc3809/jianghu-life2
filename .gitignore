@@ -50,3 +50,18 @@ production/qa/evidence/redesign/month-badge/frames/
 
 # EA0.65驗收逐格暫存
 production/qa/evidence/redesign/release-ea065/frames/
+
+# 人物牌章驗收GIF逐格暫存
+production/qa/evidence/redesign/avatar-badge/frames/
+
+# 無字水墨頭像驗收GIF逐格暫存
+production/qa/evidence/redesign/avatar-portrait/frames/
+
+# 演武字體驗收GIF逐格暫存
+production/qa/evidence/redesign/spar-typography/frames/
+
+# 無描邊貨幣驗收GIF逐格暫存
+production/qa/evidence/redesign/wallet-no-outline/frames/
+
+# 頂欄對齊驗收GIF逐格暫存
+production/qa/evidence/redesign/hud-alignment/frames/
