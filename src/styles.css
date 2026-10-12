@@ -10721,3 +10721,5 @@ html[data-ink-motion='reduce'] .ink-nav-center--badge:active:not(:disabled) { tr
 .scroll-shell--play { --font-body: var(--game-ui-font); --font-title: var(--game-ui-font); --font-display: var(--game-ui-font); }
 .scroll-shell--play .ink-hud span, .scroll-shell--play .ink-hud b,
 .scroll-shell--play .ink-nav-center-tier, .scroll-shell--play .ink-nav-center-xp { font-family: var(--game-ui-font); }
+/* 舊分頁曾各自指定楷體／等寬字；所有介面文字統一同一個字體 token。 */
+.scroll-shell--play * { font-family: var(--game-ui-font) !important; }
