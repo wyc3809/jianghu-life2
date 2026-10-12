@@ -1,0 +1,107 @@
+{
+  "checks": [
+    {
+      "name": "320x690人物資料完整",
+      "passed": true
+    },
+    {
+      "name": "320x690任務與快捷不重疊",
+      "passed": true
+    },
+    {
+      "name": "320x690五個入口可點",
+      "passed": true
+    },
+    {
+      "name": "320x690無横向溢出",
+      "passed": true
+    },
+    {
+      "name": "320x844人物資料完整",
+      "passed": true
+    },
+    {
+      "name": "320x844任務與快捷不重疊",
+      "passed": true
+    },
+    {
+      "name": "320x844五個入口可點",
+      "passed": true
+    },
+    {
+      "name": "320x844無横向溢出",
+      "passed": true
+    },
+    {
+      "name": "390x690人物資料完整",
+      "passed": true
+    },
+    {
+      "name": "390x690任務與快捷不重疊",
+      "passed": true
+    },
+    {
+      "name": "390x690五個入口可點",
+      "passed": true
+    },
+    {
+      "name": "390x690無横向溢出",
+      "passed": true
+    },
+    {
+      "name": "390x844人物資料完整",
+      "passed": true
+    },
+    {
+      "name": "390x844任務與快捷不重疊",
+      "passed": true
+    },
+    {
+      "name": "390x844五個入口可點",
+      "passed": true
+    },
+    {
+      "name": "390x844無横向溢出",
+      "passed": true
+    },
+    {
+      "name": "420x690人物資料完整",
+      "passed": true
+    },
+    {
+      "name": "420x690任務與快捷不重疊",
+      "passed": true
+    },
+    {
+      "name": "420x690五個入口可點",
+      "passed": true
+    },
+    {
+      "name": "420x690無横向溢出",
+      "passed": true
+    },
+    {
+      "name": "420x844人物資料完整",
+      "passed": true
+    },
+    {
+      "name": "420x844任務與快捷不重疊",
+      "passed": true
+    },
+    {
+      "name": "420x844五個入口可點",
+      "passed": true
+    },
+    {
+      "name": "420x844無横向溢出",
+      "passed": true
+    },
+    {
+      "name": "任務詳情可展開",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "badRequests": [],
+  "samples": []
+}
