@@ -1,0 +1,103 @@
+{
+  "checks": [
+    {
+      "name": "A演武台位置尺寸保持原版",
+      "passed": true,
+      "original": {
+        "x": 10,
+        "y": 169.40625,
+        "width": 370,
+        "height": 230
+      },
+      "actual": {
+        "x": 10,
+        "y": 169.40625,
+        "width": 370,
+        "height": 230
+      }
+    },
+    {
+      "name": "A 320px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "A 420px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "A實際收成增加銀兩並扣待收成",
+      "passed": true
+    },
+    {
+      "name": "A秘笈閣入口仍正常",
+      "passed": true
+    },
+    {
+      "name": "A設定入口仍正常",
+      "passed": true
+    },
+    {
+      "name": "A減少動態不縮放按壓圖示",
+      "passed": true
+    },
+    {
+      "name": "B演武台位置尺寸保持原版",
+      "passed": true,
+      "original": {
+        "x": 10,
+        "y": 169.40625,
+        "width": 370,
+        "height": 230
+      },
+      "actual": {
+        "x": 10,
+        "y": 169.40625,
+        "width": 370,
+        "height": 230
+      }
+    },
+    {
+      "name": "B 320px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "B 420px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "B實際收成增加銀兩並扣待收成",
+      "passed": true
+    },
+    {
+      "name": "B秘笈閣入口仍正常",
+      "passed": true
+    },
+    {
+      "name": "B設定入口仍正常",
+      "passed": true
+    },
+    {
+      "name": "B減少動態不縮放按壓圖示",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "badRequests": [],
+  "samples": [
+    {
+      "variant": "original",
+      "width": 390,
+      "file": "original-390.png"
+    },
+    {
+      "variant": "a",
+      "width": 390,
+      "file": "a-390.png"
+    },
+    {
+      "variant": "b",
+      "width": 390,
+      "file": "b-390.png"
+    }
+  ]
+}

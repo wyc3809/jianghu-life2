@@ -15,7 +15,7 @@ type Props = {
 type Entry = { id: QuickTarget; icon: InkIconKey; label: string; badge?: string | boolean; dim?: boolean };
 
 /**
- * 主畫面功能入口（商業手遊式圓鈕列，紅點＝有嘢做）。
+ * 主畫面功能入口（菱形器物牌章，紅點＝有嘢做）。
  * 只係捷徑：秘笈閣／論劍喺「江湖」分頁、武學喺「人物」分頁、祖祠開祖蔭面板。
  */
 export function InkHomeQuick({ state, onOpen }: Props) {
@@ -47,8 +47,7 @@ export function InkHomeQuick({ state, onOpen }: Props) {
           onClick={() => onOpen(x.id)}
           aria-label={x.label}
         >
-          <InkIcon name={x.icon} size={50} className="ink-quick-icon" />
-          <span className="ink-quick-label">{x.label}</span>
+          <InkIcon name={x.icon} size={66} label={x.label} className="ink-quick-icon" />
           {x.badge && <i className={`ink-quick-badge${typeof x.badge === 'string' ? ' has-text' : ''}`}>{typeof x.badge === 'string' ? x.badge : ''}</i>}
         </button>
       ))}

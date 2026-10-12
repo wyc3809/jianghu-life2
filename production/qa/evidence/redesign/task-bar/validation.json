@@ -1,0 +1,91 @@
+{
+  "checks": [
+    {
+      "name": "演武台位置及尺寸保持原版",
+      "passed": true,
+      "original": {
+        "x": 10,
+        "y": 169.40625,
+        "width": 370,
+        "height": 230
+      },
+      "actual": {
+        "x": 10,
+        "y": 169.40625,
+        "width": 370,
+        "height": 230
+      }
+    },
+    {
+      "name": "320px任務欄不遮住過月按鈕",
+      "passed": true
+    },
+    {
+      "name": "320px任務欄高度不超過80px",
+      "passed": true
+    },
+    {
+      "name": "320px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "320px詳情可展開",
+      "passed": true
+    },
+    {
+      "name": "390px任務欄不遮住過月按鈕",
+      "passed": true
+    },
+    {
+      "name": "390px任務欄高度不超過80px",
+      "passed": true
+    },
+    {
+      "name": "390px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "390px詳情可展開",
+      "passed": true
+    },
+    {
+      "name": "420px任務欄不遮住過月按鈕",
+      "passed": true
+    },
+    {
+      "name": "420px任務欄高度不超過80px",
+      "passed": true
+    },
+    {
+      "name": "420px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "420px詳情可展開",
+      "passed": true
+    },
+    {
+      "name": "切到人物唔顯示任務欄",
+      "passed": true
+    },
+    {
+      "name": "收成保留並增加128銀兩",
+      "passed": true
+    },
+    {
+      "name": "換裝任務按鈕仍然有效",
+      "passed": true
+    },
+    {
+      "name": "修為滿時保留突破按鈕",
+      "passed": true
+    },
+    {
+      "name": "圖片全部載入成功",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "badRequests": [],
+  "samples": []
+}

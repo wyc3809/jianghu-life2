@@ -57,3 +57,15 @@ export const JADE_PER_MILESTONE = 60; // 家族里程碑（首次）
 
 /** 測試版：撳一下領嘅「付費玉石（測試額度）」——等於一次心願保底嘅量；唔係真錢 */
 export const TEST_PAID_JADE_GRANT = GACHA_COST_PER_PULL * GACHA_WISH_PITY;
+
+/** 戰力階級門檻：首版測試參數，跟綜合實戰能力，唔跟威望。 */
+export const COMBAT_RATING_TIERS = [
+  { min: 0, label: '初窺門徑' }, { min: 500, label: '初出茅廬' },
+  { min: 1000, label: '略有小成' }, { min: 2000, label: '嶄露鋒芒' },
+  { min: 4000, label: '登堂入室' }, { min: 8000, label: '爐火純青' },
+  { min: 16000, label: '一代高手' }, { min: 32000, label: '宗師之境' },
+] as const;
+/** 演武難度增長：每關＋18%，原本16%；其他獎勵不變。 */
+export const SPAR_DIFFICULTY_GROWTH = 1.18;
+/** 綜合戰力顯示權重；首版測試參數，唔會反過來改戰鬥結果。 */
+export const COMBAT_RATING_WEIGHTS = { attack: 4, hpDivisor: 5, qiDivisor: 10, lifesteal: 2 } as const;

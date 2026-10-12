@@ -1,3 +1,6 @@
+import { combatRating, combatRatingTier } from '@core/life/combatRating';
+import { jianghuRank, jianghuRankTier, JIANGHU_RANK_START } from '@core/life/jianghuRank';
+import { jianghuPrestige } from '@core/life/jianghuPrestige';
 import { InkMainArts } from './InkMainArts';
 import { VOLUME_COUNT, VOLUME_NUMERALS, artVolumeMoves, hasVolumes } from '@data/skills/volumes';
 import { ownedVolumes } from '@core/life/volumes';
@@ -8,7 +11,8 @@ import { useEffect, useRef, useState } from 'react';
 import { inkCountTo, inkPopIn } from '../../ui/inkMotion';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import type { InkAiAssetId } from '../../ui/inkAiCatalog';
-import { motifIconUrl } from '../../ui/inkAssets';
+import { motifBadgeIconUrl } from '../../ui/inkIcons';
+import { InkBadge } from './InkBadge';
 import {
   natureKeys,
   natureLabels,
@@ -148,8 +152,12 @@ export function InkPersonPanel({
       {
         id: 'combat',
         label: '戰力',
-        hint: `攻擊 ${spar.stats.atk.toLocaleString('en-US')} · 暴擊 ${pctText(spar.stats.critRate)}`,
+        hint: `${combatRating(state).toLocaleString('zh-Hant')} · ${combatRatingTier(combatRating(state))}`,
         icon: 'motif-sword',
+      },
+      {
+        id: 'combat', label: '江湖排名', icon: 'motif-mountain-gate',
+        hint: jianghuRank(state) >= JIANGHU_RANK_START ? '未列名 · 江湖新丁' : `第${jianghuRank(state)}位 · ${jianghuRankTier(jianghuRank(state))}`,
       },
       {
         id: 'attrs',
@@ -251,7 +259,7 @@ export function InkPersonPanel({
         <div className="ink-bitlife-list" role="list">
           {rows.map((row) => (
             <button
-              key={row.id}
+              key={row.label}
               type="button"
               className="ink-bitlife-row"
               role="listitem"
@@ -259,13 +267,7 @@ export function InkPersonPanel({
                 onView(row.id);
               }}
             >
-              <span className="ink-row-icon-frame" aria-hidden>
-                {row.icon ? (
-                  <img className="ink-row-icon" src={motifIconUrl(row.icon)} alt="" decoding="async" draggable={false} />
-                ) : (
-                  <span className="ink-row-dot" />
-                )}
-              </span>
+              <InkBadge src={motifBadgeIconUrl(row.icon)} label={row.label} size={64} className="ink-row-badge" />
               <span className="ink-bitlife-row-text">
                 <strong>{row.label}</strong>
                 <span>{row.hint}</span>
@@ -769,7 +771,8 @@ export function InkPersonPanel({
 
       {view === 'combat' && (
         <>
-          <h3>戰力</h3>
+          <h3>戰力 {combatRating(state).toLocaleString('zh-Hant')} · {combatRatingTier(combatRating(state))}</h3>
+          <p className="ink-note">江湖排名：{jianghuRank(state) >= JIANGHU_RANK_START ? '未列名' : `第${jianghuRank(state)}位`} · 威望 {jianghuPrestige(state)}</p>
           <p className="ink-note">
             演武台對打用嘅數值，跟武學、修為境界、氣血上限同裝備計。演武現時去到第 {sparSavedStage(state)} 關。
           </p>
@@ -842,14 +845,14 @@ export function InkPersonPanel({
           <h3 className="ink-subhead">氣血拆解</h3>
           <ul className="ink-delta-board" aria-label="演武氣血拆解">
             <li className="ink-delta-row ink-delta-row--flat">
-              <span className="ink-delta-row-text">氣血上限 {numText(c.maxHealth)} × 12 ＋{numText(spar.hp.fromHealth)}</span>
+              <span className="ink-delta-row-text">角色氣血上限 {numText(c.maxHealth)} ＝ 演武氣血上限 {numText(spar.stats.maxHp)}</span>
             </li>
             <li className="ink-delta-row ink-delta-row--flat">
-              <span className="ink-delta-row-text">武學 {numText(spar.martial)} × 25 ＋{numText(spar.hp.fromMartial)}</span>
+              <span className="ink-delta-row-text">武學同境界提升攻擊，唔再額外放大演武氣血</span>
             </li>
             <li className="ink-delta-row ink-delta-row--flat">
               <strong className="ink-delta-row-text">
-                小計 {numText(spar.hp.fromHealth + spar.hp.fromMartial)} × 境界 {spar.scale.toFixed(2)} ＝ {numText(spar.stats.maxHp)}
+                戰力綜合攻擊、暴擊、氣血、減傷、內力及回復能力，唔計威望或排名
               </strong>
             </li>
           </ul>

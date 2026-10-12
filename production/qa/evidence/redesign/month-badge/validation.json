@@ -1,0 +1,87 @@
+{
+  "checks": [
+    {
+      "name": "演武台位置尺寸保持改前",
+      "passed": true,
+      "original": {
+        "x": 10,
+        "y": 251.40625,
+        "width": 370,
+        "height": 230
+      },
+      "actual": {
+        "x": 10,
+        "y": 251.40625,
+        "width": 370,
+        "height": 230
+      }
+    },
+    {
+      "name": "320px任務欄同過月按鈕不重疊",
+      "passed": true
+    },
+    {
+      "name": "320px過月觸控至少44px",
+      "passed": true
+    },
+    {
+      "name": "320px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "390px任務欄同過月按鈕不重疊",
+      "passed": true
+    },
+    {
+      "name": "390px過月觸控至少44px",
+      "passed": true
+    },
+    {
+      "name": "390px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "420px任務欄同過月按鈕不重疊",
+      "passed": true
+    },
+    {
+      "name": "420px過月觸控至少44px",
+      "passed": true
+    },
+    {
+      "name": "420px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "修為進度保留50%",
+      "passed": true
+    },
+    {
+      "name": "實際按鈕正常推進一個月",
+      "passed": true
+    },
+    {
+      "name": "過勞時保留停用及氣力不繼提示",
+      "passed": true
+    },
+    {
+      "name": "滿修為轉成朱砂突破牌章",
+      "passed": true
+    },
+    {
+      "name": "突破牌章執行原有突破行為",
+      "passed": true
+    },
+    {
+      "name": "減少動態時過月按鈕不縮放",
+      "passed": true
+    },
+    {
+      "name": "牌章圖片全部載入",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "badRequests": [],
+  "samples": []
+}

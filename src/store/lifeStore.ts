@@ -109,6 +109,8 @@ export interface LifeStore {
   sparStageClear: (clearedStage: number) => { silver: number; xp: number };
   /** 演武台：敗退後記低退返嘅關數 */
   sparSetStage: (stage: number) => void;
+  /** 演武對練氣血同步；唔會令角色死亡。 */
+  sparSyncHealth: (health: number) => void;
   /** 突破：修為滿咗先可以觸發 */
   attemptBreakthrough: () => void;
   /** 突破結果：驅動專屬彈窗＋升級動畫（null＝冇要顯示） */

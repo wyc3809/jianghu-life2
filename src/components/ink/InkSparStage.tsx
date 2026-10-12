@@ -54,7 +54,7 @@ function useHeroStatsKey() {
   return useLifeStore((s) => {
     const c = s.state?.character;
     if (!c) return '';
-    return [c.martial, c.maxHealth, c.cultivation?.tier ?? 0, c.equipment.weapon, c.equipment.armor, c.equipment.accessory].join('|');
+    return [c.martial, c.health, c.maxHealth, c.cultivation?.tier ?? 0, JSON.stringify(c.attributes), c.skills.join(','), c.equipment.weapon, c.equipment.armor, c.equipment.accessory].join('|');
   });
 }
 const NO_CONDITIONS: { id: string; name: string; monthsLeft: number; severity: number }[] = [];
@@ -121,6 +121,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
         DUEL_CACHE.clear();
         DUEL_CACHE.set(key, duel);
       }
+      duel.setHero(sparHeroStats(st), st.character.health);
       duelRef.current = duel;
       // 截圖／測試用：DEV 先有
       if (import.meta.env.DEV) (window as unknown as { __sparDuel?: SparDuel }).__sparDuel = duel;
@@ -132,7 +133,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
     const st = useLifeStore.getState().state;
     const duel = duelRef.current;
     if (!st || !duel) return;
-    duel.setHero(sparHeroStats(st));
+    duel.setHero(sparHeroStats(st), st.character.health);
     setSnap(duel.snapshot());
   }, [statsKey]);
 
@@ -165,7 +166,10 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
     const sparStrike = useLifeStore.getState().sparStrike;
     const duel = duelRef.current;
     const sync = () => {
-      if (duel) setSnap(duel.snapshot());
+      if (duel) {
+        useLifeStore.getState().sparSyncHealth(duel.heroHp);
+        setSnap(duel.snapshot());
+      }
     };
     let noteTimer: ReturnType<typeof setTimeout> | null = null;
     /** 敵人 0 血就換人；過咗關就入賬、出提示。回傳係咪過關 */
@@ -433,14 +437,14 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
               {snap.foe?.boss ? '首領之戰' : `餘敵 ${snap.minionsLeft + 1}`}
             </span>
           </div>
-          <div className="ink-spar-bar ink-spar-bar--hero" ref={heroBarRef} aria-label={`演武氣血 ${fmt(snap.heroHp)}`}>
+          <div className="ink-spar-bar ink-spar-bar--hero" ref={heroBarRef} aria-label={`演武氣血 ${snap.heroHp}/${snap.heroMaxHp}`}>
             <div className="ink-spar-bar-inner" ref={heroInnerRef}>
               {/* 殘血：扣血後白影慢慢追落 */}
               <span className="ink-spar-bar-ghost" ref={heroGhostRef}>
                 <InkBrushBar pct={100} tone="ink" />
               </span>
               <InkBrushBar pct={heroPct} tone="jade" className="ink-spar-bar-main" />
-              <span className="ink-spar-bar-num">{fmt(snap.heroHp)}</span>
+              <span className="ink-spar-bar-num">{snap.heroHp}/{snap.heroMaxHp}</span>
             </div>
           </div>
           <div

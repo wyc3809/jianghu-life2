@@ -23,10 +23,9 @@ import { deltaIconKey, type InkIconKey } from '../../ui/inkIcons';
 import { cloudConfigured } from '../../cloud/cloud';
 import { lifeScore } from '@core/life/leaderboardScore';
 import { InkGearCompareModal } from './InkGearCompareModal';
-import { InkGlyphText } from './InkGlyphText';
 import { titleTierColorClass, topTitle, topTitles } from '@core/life/titles';
-import { JIANGHU_RANK_START, jianghuRank } from '@core/life/jianghuRank';
-import { jianghuPrestige, jianghuPrestigeTier } from '@core/life/jianghuPrestige';
+import { combatRating, combatRatingTier } from '@core/life/combatRating';
+import { heroSilhouetteUrl } from '../../ui/inkSilhouettes';
 import { InkCultivationHud } from './InkCultivationHud';
 import { InkBrushBar } from './InkBrush';
 import { InkOfflineGainModal } from './InkOfflineGainModal';
@@ -304,31 +303,20 @@ export function InkPlayScreen({ state }: Props) {
     else window.setTimeout(prefetchHighlight, 3000);
   }, [state.phase]);
 
-  // 數字飛入：銀兩／威望增加時墨點飛入頂欄，飛到先滾數字
+  // 銀兩增加時墨點飛入，數字沿用同一套介面字體。
   const moneyChipRef = useRef<HTMLSpanElement>(null);
-  const prestigeRef = useRef<HTMLElement>(null);
   const moneyNow = Math.round(c.money ?? 0);
-  const prestigeNow = jianghuPrestige(state);
   const prevMoney = useRef(moneyNow);
-  const prevPrestige = useRef(prestigeNow);
   const moneyDelay = useRef(0);
-  const prestigeDelay = useRef(0);
   useEffect(() => {
     const dm = moneyNow - prevMoney.current;
-    const dp = prestigeNow - prevPrestige.current;
     prevMoney.current = moneyNow;
-    prevPrestige.current = prestigeNow;
     moneyDelay.current = 0;
-    prestigeDelay.current = 0;
-    if (combat || (dm <= 0 && dp <= 0)) return;
-    // 喺數字滾動 effect 之前寫好延遲（同一輪 effect，順序按宣告）
-    moneyDelay.current = dm > 0 ? flyInkDots(moneyChipRef.current, Math.ceil(dm / 10), 'gold') * 0.8 : 0;
-    if (dm > 0) inkGlint(moneyChipRef.current, moneyDelay.current);
-    prestigeDelay.current = dp > 0 ? flyInkDots(prestigeRef.current, Math.ceil(dp / 20), 'cinnabar') * 0.8 : 0;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [moneyNow, prestigeNow]);
+    if (combat || dm <= 0) return;
+    moneyDelay.current = flyInkDots(moneyChipRef.current, Math.ceil(dm / 10), 'gold') * 0.8;
+    inkGlint(moneyChipRef.current, moneyDelay.current);
+  }, [moneyNow, combat]);
   const moneyShown = useRollingNumber(moneyNow, { delayRef: moneyDelay });
-  const prestigeShown = useRollingNumber(prestigeNow, { delayRef: prestigeDelay });
 
   // 祖蔭：人生到總結就結算一次（角色 flag 防重複）
   const ancestryAward = useAncestryStore((s) => s.award);
@@ -486,9 +474,8 @@ export function InkPlayScreen({ state }: Props) {
   const leadTitle = topTitle(state);
   /** 頭銜已喺全名右邊顯示，呢度只補列第二、三名，避免重複 */
   const nicknames = topTitles(state).slice(1);
-  const rank = jianghuRank(state);
-  const prestige = jianghuPrestige(state);
-  const prestigeTierLabel = jianghuPrestigeTier(prestige);
+  const rating = combatRating(state);
+  const ratingTier = combatRatingTier(rating);
   const sceneBits = [
     'scroll-shell',
     'scroll-shell--play',
@@ -581,7 +568,7 @@ export function InkPlayScreen({ state }: Props) {
               setPersonView('main');
             }}
           >
-            <span className="ink-hud-avatar-glyph">{c.name.slice(0, 1)}</span>
+            <img className="ink-hud-avatar-portrait" src={heroSilhouetteUrl(c.sectId)} alt="" aria-hidden draggable={false} />
             <span className="ink-hud-avatar-lv">{c.age}歲</span>
           </button>
           <div className="ink-identity">
@@ -611,7 +598,7 @@ export function InkPlayScreen({ state }: Props) {
             </p>
             <p className="ink-meta">
               <span className="ink-metaline-prestige">
-                威望 <b ref={prestigeRef}>{prestigeShown}</b> · {prestigeTierLabel} · {rank >= JIANGHU_RANK_START ? '未列名' : `第${rank}位`}
+                戰力 <b>{rating.toLocaleString('zh-Hant')}</b> · {ratingTier}
               </span>
               {sect ? ` · ${sect.name}` : ''}
               {nicknames.length ? ` · ${nicknames.join('·')}` : ''}
@@ -619,8 +606,8 @@ export function InkPlayScreen({ state }: Props) {
           </div>
           <div className="ink-hud-wallet">
             <span ref={moneyChipRef} className="ink-money-chip ink-glint" aria-label={`銀兩 ${Math.round(c.money ?? 0)}`}>
-              <InkIcon name="silver" size={26} className="ink-wallet-icon" />
-              <InkGlyphText text={moneyShown.toLocaleString('zh-Hant')} height={14} />
+              <InkIcon name="silver" size={26} className="ink-wallet-icon" /><small className="ink-wallet-name">銀兩</small>
+              <span className="ink-wallet-value">{moneyShown.toLocaleString('zh-Hant')}</span>
             </span>
             <button
               type="button"
@@ -628,7 +615,7 @@ export function InkPlayScreen({ state }: Props) {
               aria-label={`玉石 ${jadeTotal}，去秘笈閣`}
               onClick={() => openGachaTab()}
             >
-              <InkIcon name="jade" size={26} className="ink-wallet-icon" />
+              <InkIcon name="jade" size={26} className="ink-wallet-icon" /><small className="ink-wallet-name">玉石</small>
               {jadeTotal.toLocaleString('zh-Hant')}
             </button>
             <div className="ink-status-buttons">
@@ -715,8 +702,8 @@ export function InkPlayScreen({ state }: Props) {
             aria-valuenow={Math.round(100 - (c.actionPoints ?? 0))}
           >
             <InkIcon name="tea" size={20} />
-            <img className="ink-label-img ink-label-img--ap" src={`${import.meta.env.BASE_URL || '/'}ink/ui/label-pilao.webp`} alt="疲勞度" draggable={false} />
-            <InkGlyphText text={`${Math.round(100 - (c.actionPoints ?? 0))}/100`} height={13} className="ink-ap-meter-value" />
+            <span className="ink-fatigue-label">疲勞度</span>
+            <span className="ink-ap-meter-value">{Math.round(100 - (c.actionPoints ?? 0))}/100</span>
           </div>
         </div>
       </header>
@@ -755,19 +742,6 @@ export function InkPlayScreen({ state }: Props) {
       {/* 演武台常駐（事件／交手時只係收埋）：過月唔再重新載入，關數、血量、敵陣接住打 */}
       {onHomeTab && (
         <div className="ink-home-focus" style={combat || eventFocus ? { display: 'none' } : undefined}>
-          {/* 演武台直接用地圖 banner 嘅鎮景長卷做背景，季節・地點名浮喺動畫入面，唔再分開兩張圖 */}
-          <div className="ink-home-scene">
-            <InkSparStage
-              reduceMotion={reduceMotion}
-              background="town"
-              caption={{ date: `${seasonLabel(month)} · ${state.year}年${month}月`, home: c.location || '千燈鎮' }}
-            />
-            {/* 場景會動：流雲＋季節粒子（疊喺演武台上面，唔郁演武台本身） */}
-            <InkAmbientFx mode="scene" season={inkSeason} paused={Boolean(combat || eventFocus)} />
-          </div>
-
-          {state.phase === 'playing' && c.alive && !showResult && <InkHomeQuick state={state} onOpen={openQuick} />}
-
           {state.phase === 'playing' && c.alive && !showResult && (
             <InkHomeGoals
               state={state}
@@ -783,6 +757,19 @@ export function InkPlayScreen({ state }: Props) {
               }}
             />
           )}
+
+          {/* 演武台直接用地圖 banner 嘅鎮景長卷做背景，季節・地點名浮喺動畫入面，唔再分開兩張圖 */}
+          <div className="ink-home-scene">
+            <InkSparStage
+              reduceMotion={reduceMotion}
+              background="town"
+              caption={{ date: `${seasonLabel(month)} · ${state.year}年${month}月`, home: c.location || '千燈鎮' }}
+            />
+            {/* 場景會動：流雲＋季節粒子（疊喺演武台上面，唔郁演武台本身） */}
+            <InkAmbientFx mode="scene" season={inkSeason} paused={Boolean(combat || eventFocus)} />
+          </div>
+
+          {state.phase === 'playing' && c.alive && !showResult && <InkHomeQuick state={state} onOpen={openQuick} />}
 
           {state.phase === 'playing' && c.alive && !showResult && <InkEncounterCard />}
 
@@ -1137,12 +1124,13 @@ export function InkPlayScreen({ state }: Props) {
               key={id}
               type="button"
               className={tab === id ? 'ink-tab ink-tab--active' : 'ink-tab'}
+              aria-label={label}
+              aria-current={tab === id ? 'page' : undefined}
               onClick={() => {
                 setTab(id);
               }}
             >
-              <InkIcon name={TAB_ICONS[id]} size={44} className="ink-tab-icon" />
-              <span className="ink-tab-label">{label}</span>
+              <InkIcon name={TAB_ICONS[id]} size={62} label={label} className="ink-tab-icon" />
             </button>
           ))}
           <InkCultivationHud
@@ -1168,12 +1156,13 @@ export function InkPlayScreen({ state }: Props) {
               key={id}
               type="button"
               className={tab === id ? 'ink-tab ink-tab--active' : 'ink-tab'}
+              aria-label={label}
+              aria-current={tab === id ? 'page' : undefined}
               onClick={() => {
                 setTab(id);
               }}
             >
-              <InkIcon name={TAB_ICONS[id]} size={44} className="ink-tab-icon" />
-              <span className="ink-tab-label">{label}</span>
+              <InkIcon name={TAB_ICONS[id]} size={62} label={label} className="ink-tab-icon" />
             </button>
           ))}
         </nav>

@@ -1,0 +1,123 @@
+{
+  "checks": [
+    {
+      "name": "演武台位置及尺寸保持原版",
+      "passed": true,
+      "original": {
+        "x": 10,
+        "y": 169.40625,
+        "width": 370,
+        "height": 230
+      },
+      "actual": {
+        "x": 10,
+        "y": 169.40625,
+        "width": 370,
+        "height": 230
+      }
+    },
+    {
+      "name": "home 320px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "person 320px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "practice 320px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "home 390px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "person 390px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "practice 390px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "home 420px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "person 420px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "practice 420px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "秘笈閣保留可讀名稱",
+      "passed": true
+    },
+    {
+      "name": "奇遇保留可讀名稱",
+      "passed": true
+    },
+    {
+      "name": "論劍保留可讀名稱",
+      "passed": true
+    },
+    {
+      "name": "武學保留可讀名稱",
+      "passed": true
+    },
+    {
+      "name": "祖祠保留可讀名稱",
+      "passed": true
+    },
+    {
+      "name": "gacha 320px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "gacha 420px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "秘笈閣捷徑正常",
+      "passed": true
+    },
+    {
+      "name": "設定入口正常",
+      "passed": true
+    },
+    {
+      "name": "實際收成增加128銀兩",
+      "passed": true
+    },
+    {
+      "name": "減少動態時牌章不縮放",
+      "passed": true
+    },
+    {
+      "name": "底部鎮居名稱可讀",
+      "passed": true
+    },
+    {
+      "name": "底部人物名稱可讀",
+      "passed": true
+    },
+    {
+      "name": "底部江湖名稱可讀",
+      "passed": true
+    },
+    {
+      "name": "底部修煉名稱可讀",
+      "passed": true
+    },
+    {
+      "name": "所有牌章圖片載入成功",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "badRequests": [],
+  "samples": []
+}

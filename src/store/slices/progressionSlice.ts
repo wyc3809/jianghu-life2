@@ -76,6 +76,7 @@ export function createProgressionSlice(
   | 'sparStrike'
   | 'sparStageClear'
   | 'sparSetStage'
+  | 'sparSyncHealth'
   | 'attemptBreakthrough'
   | 'clearBreakthroughResult'
   | 'clearOfflineGain'
@@ -418,6 +419,16 @@ export function createProgressionSlice(
       set({ state: next });
       track('spar_stage_clear', { stage: clearedStage });
       return { silver: reward.silver, xp };
+    },
+
+    sparSyncHealth: (health: number) => {
+      const { state } = get();
+      if (!state || state.phase !== 'playing' || !state.character.alive || state.pendingCombat || !Number.isFinite(health)) return;
+      const nextHealth = Math.max(1, Math.min(state.character.maxHealth, Math.round(health)));
+      if (nextHealth === state.character.health) return;
+      const next = produce(state, (draft) => { draft.character.health = nextHealth; });
+      save(next, false);
+      set({ state: next });
     },
 
     sparSetStage: (stage: number) => {
