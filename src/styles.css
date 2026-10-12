@@ -10723,3 +10723,14 @@ html[data-ink-motion='reduce'] .ink-nav-center--badge:active:not(:disabled) { tr
 .scroll-shell--play .ink-nav-center-tier, .scroll-shell--play .ink-nav-center-xp { font-family: var(--game-ui-font); }
 /* 舊分頁曾各自指定楷體／等寬字；所有介面文字統一同一個字體 token。 */
 .scroll-shell--play * { font-family: var(--game-ui-font) !important; }
+
+/* 第22項：左上人物入口與其他功能圖示同款菱形牌章。 */
+.ink-hud-avatar.ink-hud-avatar--badge { width: 60px; height: 60px; border: none; border-radius: 0; background: none; box-shadow: none; }
+.ink-hud-person-badge { filter: drop-shadow(0 2px 1px #29241c33); }
+.ink-hud-person-badge .ink-badge-label { font-size: 16px; }
+.ink-hud-avatar--badge .ink-hud-avatar-lv { bottom: -5px; z-index: 1; line-height: 14px; font-size: 9px; }
+.ink-hud-avatar--badge:active .ink-hud-person-badge { transform: scale(.94); }
+@media (prefers-reduced-motion: reduce) {
+  .ink-hud-avatar--badge:active .ink-hud-person-badge { transform: none; }
+}
+html[data-ink-motion='reduce'] .ink-hud-avatar--badge:active .ink-hud-person-badge { transform: none; }

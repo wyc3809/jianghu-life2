@@ -19,6 +19,7 @@ import { InkSettingsPanel } from './InkSettingsPanel';
 import { InkLeaderboardPanel } from './InkLeaderboardPanel';
 import { inkGlint, inkHop, inkPageIn, inkPopIn, inkRevealChars } from '../../ui/inkMotion';
 import { InkIcon } from './InkIcon';
+import { InkBadge } from './InkBadge';
 import { deltaIconKey, type InkIconKey } from '../../ui/inkIcons';
 import { cloudConfigured } from '../../cloud/cloud';
 import { lifeScore } from '@core/life/leaderboardScore';
@@ -561,14 +562,14 @@ export function InkPlayScreen({ state }: Props) {
         <div className="ink-hud-top">
           <button
             type="button"
-            className="ink-hud-avatar"
+            className="ink-hud-avatar ink-hud-avatar--badge"
             aria-label="人物"
             onClick={() => {
               setTab('person');
               setPersonView('main');
             }}
           >
-            <img className="ink-hud-avatar-portrait" src={heroSilhouetteUrl(c.sectId)} alt="" aria-hidden draggable={false} />
+            <InkBadge src={heroSilhouetteUrl(c.sectId)} label="人物" size={60} tone="slate" className="ink-hud-person-badge" />
             <span className="ink-hud-avatar-lv">{c.age}歲</span>
           </button>
           <div className="ink-identity">
