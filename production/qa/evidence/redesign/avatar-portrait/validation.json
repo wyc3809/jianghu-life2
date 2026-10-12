@@ -1,0 +1,51 @@
+{
+  "checks": [
+    {
+      "name": "320px人物入口至少44px",
+      "passed": true
+    },
+    {
+      "name": "320px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "390px人物入口至少44px",
+      "passed": true
+    },
+    {
+      "name": "390px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "420px人物入口至少44px",
+      "passed": true
+    },
+    {
+      "name": "420px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "頭像不顯示人物字樣並保留年齡",
+      "passed": true
+    },
+    {
+      "name": "人物牌章入口正常",
+      "passed": true
+    },
+    {
+      "name": "減少動態時不縮放",
+      "passed": true
+    },
+    {
+      "name": "頭像使用新面部位圖",
+      "passed": true
+    },
+    {
+      "name": "人物牌章圖片載入成功",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "badRequests": [],
+  "samples": []
+}

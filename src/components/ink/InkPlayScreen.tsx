@@ -26,7 +26,7 @@ import { lifeScore } from '@core/life/leaderboardScore';
 import { InkGearCompareModal } from './InkGearCompareModal';
 import { titleTierColorClass, topTitle, topTitles } from '@core/life/titles';
 import { combatRating, combatRatingTier } from '@core/life/combatRating';
-import { heroSilhouetteUrl } from '../../ui/inkSilhouettes';
+import { inkArtUrl } from '../../ui/inkAssets';
 import { InkCultivationHud } from './InkCultivationHud';
 import { InkBrushBar } from './InkBrush';
 import { InkOfflineGainModal } from './InkOfflineGainModal';
@@ -569,7 +569,7 @@ export function InkPlayScreen({ state }: Props) {
               setPersonView('main');
             }}
           >
-            <InkBadge src={heroSilhouetteUrl(c.sectId)} label="人物" size={60} tone="slate" className="ink-hud-person-badge" />
+            <InkBadge src={inkArtUrl('art/portraits/wanderer.webp')} size={60} tone="slate" className="ink-hud-person-badge" />
             <span className="ink-hud-avatar-lv">{c.age}歲</span>
           </button>
           <div className="ink-identity">

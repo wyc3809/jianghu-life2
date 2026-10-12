@@ -300,3 +300,5 @@
 驗收：574項Vitest、build、audit:narrate通過；390×844／DPR2、seed42／103銀兩／600玉石、320／390／420尺寸，人物入口、字體一致、真氣血、戰力、人物排名及詳細頁瀏覽器檢查通過。實際圖、對照及對打GIF：`production/qa/evidence/redesign/release-ea065/`。演武引擎動畫及獎勵未改；實體手機仍未驗證。字體環境冇文泉驛，對照板使用NotoSansCJK。發布狀態以GitHub CI／Pages及線上版本核對為準。
 
 第22項左上人物圖示補修（EA0.65.0後，待睇圖確認）：玩家要求左上icon與其他icon同款風格。已將圓形角色入口改為同一`InkBadge`灰墨菱形底牌、角色位圖、米白描邊「人物」，保留朱砂年齡提示及進人物頁操作；唔用姓名當圖示。60px觸控範圍、320／390／420無橫向溢出，減少動態時唔縮放；無遊戲數值、氣血、存檔或玩法改動。574項Vitest、build、audit:narrate及10項瀏覽器檢查通過。實際截圖、紅框頂欄對照及按壓GIF放`production/qa/evidence/redesign/avatar-badge/`；對照字體NotoSansCJK（環境冇文泉驛）。本次未上線，先交圖。
+
+第22項頭像更正（EA0.65.0後，待睇圖確認）：玩家指出唔需要「人物」文字，直接用同款藝術風格嘅頭像。已生成原創透明灰墨／灰青水墨面部頭像，取代全身剪影；沿用菱形底牌，移除可見「人物」字樣，保留年齡及進人物頁功能／無障礙名稱。屬通用頭像，未新增按性別、年齡、門派自動換面功能；遊戲數值、存檔及玩法不變。574項Vitest、build、audit:narrate及11項瀏覽器檢查通過，320／390／420無横向溢出。實際全頁圖、紅框頂欄對照及按壓GIF：`production/qa/evidence/redesign/avatar-portrait/`；對照字體NotoSansCJK（環境冇文泉驛）。原圖及生成方向留`design/art/ui-commercial-review/avatar-portrait/`，準備腳本只做WebP尺寸及格式轉換。本次未上線，先交圖。
