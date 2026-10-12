@@ -61,7 +61,6 @@ import { newbieActive } from '@core/life/goals';
 import { NEWBIE_TRIAL } from '@data/redesign/newbie';
 import { familyGearCarry, getHeirName, previewInheritanceMoney } from '@core/life/family';
 import { needsLifeOrDeathConfirm } from '@core/life/combat';
-import { InkBossIntro } from './InkBossIntro';
 import { InkBreakthroughModal } from './InkBreakthroughModal';
 import { InkMomentFx } from './InkMomentFx';
 import { InkPracticePanel, type PracticeView } from './InkPracticePanel';
@@ -181,8 +180,6 @@ export function InkPlayScreen({ state }: Props) {
   const reduceMotion = false;
   const [monthTurning, setMonthTurning] = useState(false);
   const [choicesReady, setChoicesReady] = useState(false);
-  /** Boss 動畫：記低已播過邊個 combat.id，避免同一場交手 re-render 時重播 */
-  const [bossIntroShownFor, setBossIntroShownFor] = useState<string | null>(null);
   /** 結果匣：先經過，點擊後再揭消長 */
   const [resultDeltasReady, setResultDeltasReady] = useState(false);
   const prevYearMonth = useRef<string | null>(null);
@@ -251,13 +248,9 @@ export function InkPlayScreen({ state }: Props) {
   });
   const showResult = Boolean(lastResult) && state.phase === 'playing' && !state.pendingCombat;
   const combat = state.pendingCombat ?? null;
-  const showBossIntro = Boolean(
-    combat && combat.foePower === 'boss' && bossIntroShownFor !== combat.id,
-  );
-
-  // 自動戰鬥：首領開場同生死確認之後，即刻計好成場再逐招演出
+  // 首領直接進入自動戰鬥；重大生死戰保留風險確認。
   const autoReady =
-    Boolean(combat) && state.phase === 'playing' && !showBossIntro && combat?.phase === 'player' && !needsLifeOrDeathConfirm(combat);
+    Boolean(combat) && state.phase === 'playing' && combat?.phase === 'player' && !needsLifeOrDeathConfirm(combat);
   useEffect(() => {
     if (autoReady && !combatReplay) combatAuto();
   }, [autoReady, combatReplay, combat?.id, combat?.turn, combatAuto]);
@@ -829,18 +822,7 @@ export function InkPlayScreen({ state }: Props) {
         />
       )}
 
-      {combat && state.phase === 'playing' && showBossIntro && (
-        <InkBossIntro
-          foeName={combat.foe.name}
-          hp={combat.foe.hp}
-          maxHp={combat.foe.maxHp}
-          title={combat.foeTitle}
-          trait={combat.foeTrait}
-          onDone={() => setBossIntroShownFor(combat.id)}
-        />
-      )}
-
-      {combat && state.phase === 'playing' && !showBossIntro && needsLifeOrDeathConfirm(combat) && (
+      {combat && state.phase === 'playing' && needsLifeOrDeathConfirm(combat) && (
         <InkLifeOrDeathConfirm combat={combat} onConfirm={combatConfirmRisk} onDecline={combatDeclineRisk} />
       )}
 
@@ -849,7 +831,7 @@ export function InkPlayScreen({ state }: Props) {
         <InkAutoBattleView key={combat?.id ?? 'auto'} replay={combatReplay.replay} onDone={combatAutoCommit} reduceMotion={reduceMotion} />
       )}
 
-      {combat && state.phase === 'playing' && !showBossIntro && !needsLifeOrDeathConfirm(combat) && combat.phase === 'resolve' && (
+      {combat && state.phase === 'playing' && !needsLifeOrDeathConfirm(combat) && combat.phase === 'resolve' && (
         <InkCombatPanel
           state={state}
           combat={combat}

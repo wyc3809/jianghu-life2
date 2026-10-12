@@ -19,7 +19,7 @@ import {
  * 演武台對打（純邏輯、唔碰模擬 RNG）：
  * 每關＝幾個小兵＋精英（第 3 關起）＋一個長血條首領；首領／精英有特性（data/foes/traits.ts）；雙方輪流出手，主角有暴擊同吸血。
  * - 主角數值跟角色實力：武學、修為境界、氣血上限、兵器攻擊（越練越強，數字越跳越大）
- * - 演武氣血同角色同步：敗退最低保留1點，休整退一關、回滿血再戰，唔會死亡
+ * - 演武氣血同角色同步：敗退最低保留1點，休整同一關重試、回滿血再戰，唔會死亡
  * - 關卡越後敵人越強（每關 ×SPAR_STAGE_GROWTH），自然停喺「同自己實力相若」嗰關
  *
  * RNG 由呼叫方注入（engine 用自己嘅 mulberry32），唔推進 getRng()，免得改咗人生事件嘅隨機序列。
@@ -447,9 +447,8 @@ export class SparDuel {
     return { stageCleared, clearedStage };
   }
 
-  /** 演武敗退：退一關（關數高就退多啲，約一成；最低第 1 關），回滿血 */
+  /** 演武敗退：同一關由第一個敵人重新開始，回滿血，唔派過關獎勵。 */
   retreat() {
-    this.stage = Math.max(1, this.stage - Math.max(1, Math.floor(this.stage / 10)));
     this.queue = sparStageFoes(this.stage);
     this.idx = 0;
     this.foeHp = this.queue[0]!.maxHp;

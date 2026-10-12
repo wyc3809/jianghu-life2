@@ -10787,3 +10787,29 @@ html[data-ink-motion='reduce'] .ink-hud-avatar--badge:active .ink-hud-person-bad
 .ink-hud .ink-name-title { display: block; margin-left: 0; }
 .ink-hud .ink-meta { white-space: normal; overflow: visible; overflow-wrap: anywhere; }
 .ink-hud .ink-metaline-prestige, .ink-hud-affiliation { display: block; }
+
+/* 固定任務欄：內容視窗喺任務 dock 上面結束，入口唔會捲入固定欄底。 */
+.scroll-shell--has-tabs:has(.ink-task-bar) {
+  max-height: calc(100% - 226px - env(safe-area-inset-bottom, 0px));
+  padding-bottom: 20px;
+}
+.ink-home-focus .ink-goal.ink-task-bar {
+  position: fixed; left: 50%; transform: translateX(-50%);
+  bottom: calc(144px + env(safe-area-inset-bottom, 0px));
+  width: calc(100% - 28px); max-width: 392px; z-index: 41;
+}
+.scroll-shell--combat:has(.ink-task-bar), .scroll-shell--event:has(.ink-task-bar) { max-height: 100%; }
+.ink-spar-slot { min-height: 218px; }
+.ink-spar-boss-screen {
+  position: fixed; inset: 0; z-index: 110; overflow-y: auto;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  padding: max(20px, env(safe-area-inset-top)) 14px max(20px, env(safe-area-inset-bottom));
+  background: var(--paper-bright); color: var(--ink); font-family: var(--game-ui-font);
+  gap: 24px;
+}
+.ink-spar-boss-screen .ink-spar-stage { width: 100%; max-width: 392px; border: 1px solid var(--ink-faint); }
+.ink-spar-boss-heading, .ink-spar-boss-footer { text-align: center; max-width: 392px; font-family: var(--game-ui-font); }
+.ink-spar-boss-heading small { color: var(--ink-mid); }
+.ink-spar-boss-heading h2 { margin: 6px 0; font-size: 26px; }
+.ink-spar-boss-heading p { color: var(--cinnabar); margin: 0; }
+.ink-spar-boss-footer { font-size: 12px; line-height: 1.7; color: var(--ink-mid); }

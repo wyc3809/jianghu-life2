@@ -1,0 +1,188 @@
+{
+  "catalog": {
+    "skillMoves": 66,
+    "qiCost": {
+      "min": 26,
+      "max": 67,
+      "count": 66
+    },
+    "power": {
+      "min": 0.7,
+      "max": 2.15,
+      "count": 66
+    },
+    "lifesteal": {
+      "min": 0,
+      "max": 0.28,
+      "count": 66
+    },
+    "gearCount": 70,
+    "gearAttack": {
+      "min": 0,
+      "max": 48,
+      "count": 70
+    },
+    "gearDefense": {
+      "min": 0,
+      "max": 36,
+      "count": 70
+    },
+    "gearHp": {
+      "min": 0,
+      "max": 100,
+      "count": 70
+    }
+  },
+  "fixture": "seed42；只計突破成長，唔係真實玩家遙測或完整勝率模擬",
+  "progression": [
+    {
+      "tier": 0,
+      "name": "引氣入體",
+      "hp": 325,
+      "qi": 234,
+      "stamina": 199,
+      "martial": 8,
+      "sparAttack": 49,
+      "eventAttack": 19,
+      "sparGuard": 0.024,
+      "rate": 1.23,
+      "fillHours": 0.13550135501355015,
+      "breakthroughChance": 0.92
+    },
+    {
+      "tier": 4,
+      "name": "大周天",
+      "hp": 439,
+      "qi": 374,
+      "stamina": 199,
+      "martial": 52,
+      "sparAttack": 362,
+      "eventAttack": 30,
+      "sparGuard": 0.024,
+      "rate": 2.1100000000000003,
+      "fillHours": 0.8557135334386518,
+      "breakthroughChance": 0.859
+    },
+    {
+      "tier": 8,
+      "name": "洗髓伐毛",
+      "hp": 633,
+      "qi": 610,
+      "stamina": 199,
+      "martial": 128,
+      "sparAttack": 2219,
+      "eventAttack": 50,
+      "sparGuard": 0.024,
+      "rate": 3.63,
+      "fillHours": 5.2035506580961135,
+      "breakthroughChance": 0.7190000000000001
+    },
+    {
+      "tier": 13,
+      "name": "破碎虛空",
+      "hp": 988,
+      "qi": 1040,
+      "stamina": 199,
+      "martial": 268,
+      "sparAttack": 17168,
+      "eventAttack": 87,
+      "sparGuard": 0.024,
+      "rate": 14.86111111111111,
+      "fillHours": 24,
+      "breakthroughChance": 0.544
+    },
+    {
+      "tier": 14,
+      "name": "武道通神",
+      "hp": 1074,
+      "qi": 1144,
+      "stamina": 199,
+      "martial": 302,
+      "sparAttack": 25315,
+      "eventAttack": 96,
+      "sparGuard": 0.024,
+      "rate": 7.109999999999999,
+      "fillHours": null,
+      "breakthroughChance": 0.509
+    }
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "bossHp": 980,
+      "bossAttack": 35,
+      "reward": {
+        "silver": 2,
+        "xp": 14
+      },
+      "silverPerHour": 6.5,
+      "silver48h": 312
+    },
+    {
+      "stage": 10,
+      "bossHp": 4347,
+      "bossAttack": 156,
+      "reward": {
+        "silver": 5,
+        "xp": 50
+      },
+      "silverPerHour": 11,
+      "silver48h": 528
+    },
+    {
+      "stage": 25,
+      "bossHp": 52045,
+      "bossAttack": 1870,
+      "reward": {
+        "silver": 10,
+        "xp": 110
+      },
+      "silverPerHour": 18.5,
+      "silver48h": 888
+    },
+    {
+      "stage": 40,
+      "bossHp": 623196,
+      "bossAttack": 22385,
+      "reward": {
+        "silver": 15,
+        "xp": 170
+      },
+      "silverPerHour": 26,
+      "silver48h": 1248
+    },
+    {
+      "stage": 60,
+      "bossHp": 17071215,
+      "bossAttack": 613171,
+      "reward": {
+        "silver": 22,
+        "xp": 250
+      },
+      "silverPerHour": 36,
+      "silver48h": 1728
+    }
+  ],
+  "gacha": {
+    "freeCount": 84,
+    "premiumCount": 19,
+    "premiumCatalogShare": 0.18446601941747573,
+    "cost": 60,
+    "pity": 40,
+    "maxCost": 2400,
+    "wishModelNote": "只計2.5%心願分支及40保底，未計隨機池自然抽中；唔係實測期望",
+    "upperWishPullsModel": 25.470702404484786,
+    "upperWishCostModel": 1528.2421442690872,
+    "monthsPerPullFromMonthlyJade": 20,
+    "monthsPerPityFromMonthlyJade": 800,
+    "breakthroughJadeThroughTier14": 805
+  },
+  "recovery": {
+    "fatigue100ToZeroMinutes": 10,
+    "eventCost": 5,
+    "secondsToRestoreOneEvent": 30,
+    "hpMonthlyMean": 8.5,
+    "qiMonthlyMean": 8,
+    "staminaMonthlyMean": 8
+  }
+}

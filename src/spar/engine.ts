@@ -613,7 +613,7 @@ export class SparStage {
     this.geom(); // 確保 heroX 已初始化
     this.heroHitT += dt;
 
-    // 對打：敗退倒地 → 退一關、回血、重新入場
+    // 對打：敗退倒地 → 同關重試、回血、重新入場
     if (this.heroDownT !== null) {
       this.heroDownT += dt;
       this.attackT = null;

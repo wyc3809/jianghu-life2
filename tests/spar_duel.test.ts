@@ -56,17 +56,32 @@ describe('spar duel (演武台對打)', () => {
     expect(d.stage).toBe(2);
   });
 
-  it('test_hero_down_retreats_one_stage_and_full_heals', () => {
+  it('test_hero_down_retries_same_stage_and_full_heals', () => {
     const d = new SparDuel({ ...HERO, maxHp: 10 }, 5, seq([0.99]));
     let down = false;
     for (let i = 0; i < 50 && !down; i++) down = d.foeStrike().heroDown;
     expect(down).toBe(true);
     d.retreat();
-    expect(d.stage).toBe(4);
+    expect(d.stage).toBe(5);
     expect(d.heroHp).toBe(10);
     const d1 = new SparDuel(HERO, 1);
     d1.retreat();
     expect(d1.stage).toBe(1);
+  });
+
+  it.each([1, 25, 100])('test_spar_retry_stage_%i_resets_entire_queue_without_clear', (stage) => {
+    const d = new SparDuel({ ...HERO, atk: 1e12 }, stage, seq([0.99]));
+    const first = d.foe!.name;
+    d.heroStrike();
+    d.advance();
+    d.heroHp = 1;
+    d.retreat();
+    expect(d.stage).toBe(stage);
+    expect(d.heroHp).toBe(HERO.maxHp);
+    expect(d.foe!.name).toBe(first);
+    expect(d.foeHp).toBe(d.foe!.maxHp);
+    expect(d.snapshot().minionsLeft).toBe(sparMinionCount(stage) + sparEliteCount(stage) - 1);
+    expect(d.ensureLiveFoe()).toBeNull();
   });
 
   it('test_minions_left_counts_down', () => {
