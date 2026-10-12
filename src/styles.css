@@ -10707,3 +10707,17 @@ button.ink-enc-strip {
   .ink-nav-center--badge:active:not(:disabled) { transform: none; }
 }
 html[data-ink-motion='reduce'] .ink-nav-center--badge:active:not(:disabled) { transform: none; }
+
+/* EA0.65：介面控制、資源及數字統一字體；角色圖示唔再使用姓氏。 */
+:root { --game-ui-font: 'Noto Sans CJK TC', 'Microsoft JhengHei', sans-serif; }
+.scroll-shell--play, .scroll-shell--play button, .scroll-shell--play input,
+.scroll-shell--play select, .scroll-shell--play .ink-icon-btn,
+.ink-hud .ink-jade-chip, .ink-hud .ink-meta, .ink-hud .ink-vitals-label,
+.ink-hud .ink-vitals-num, .ink-hud .ink-ap-meter, .ink-hud .ink-ap-meter-value,
+.ink-hud .ink-wallet-value, .ink-hud .ink-fatigue-label { font-family: var(--game-ui-font); }
+.ink-hud-avatar-portrait { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
+.ink-wallet-value, .ink-hud .ink-jade-chip, .ink-hud .ink-ap-meter-value { font-variant-numeric: tabular-nums; font-size: 14px; font-weight: 600; }
+.ink-hud .ink-fatigue-label { font-size: 11px; font-weight: 500; white-space: nowrap; }
+.scroll-shell--play { --font-body: var(--game-ui-font); --font-title: var(--game-ui-font); --font-display: var(--game-ui-font); }
+.scroll-shell--play .ink-hud span, .scroll-shell--play .ink-hud b,
+.scroll-shell--play .ink-nav-center-tier, .scroll-shell--play .ink-nav-center-xp { font-family: var(--game-ui-font); }

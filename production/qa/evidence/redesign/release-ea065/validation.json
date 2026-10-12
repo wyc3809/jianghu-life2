@@ -1,0 +1,43 @@
+{
+  "checks": [
+    {
+      "name": "320px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "390px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "420px無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "主頁不顯示威望排名並顯示戰力階級",
+      "passed": true
+    },
+    {
+      "name": "人物入口使用圖像並保留操作名稱",
+      "passed": true
+    },
+    {
+      "name": "銀兩玉石疲勞與設定字體相同",
+      "passed": true
+    },
+    {
+      "name": "演武當前血量及上限與實際角色一致",
+      "passed": true
+    },
+    {
+      "name": "排名已移入人物列表",
+      "passed": true
+    },
+    {
+      "name": "戰力詳細頁可用",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "badRequests": [],
+  "samples": []
+}

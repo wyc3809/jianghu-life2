@@ -1,3 +1,4 @@
+import { SPAR_DIFFICULTY_GROWTH } from '@data/redesign/testParams';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { gearTotals, sumGearCombatBonuses } from './equipment';
 import { getSkillDef } from '@data/skills/catalog';
@@ -18,7 +19,7 @@ import {
  * 演武台對打（純邏輯、唔碰模擬 RNG）：
  * 每關＝幾個小兵＋精英（第 3 關起）＋一個長血條首領；首領／精英有特性（data/foes/traits.ts）；雙方輪流出手，主角有暴擊同吸血。
  * - 主角數值跟角色實力：武學、修為境界、氣血上限、兵器攻擊（越練越強，數字越跳越大）
- * - 演武血條同角色真氣血分開：打輸只係「演武敗退」退一關、回滿血再戰，唔會受傷
+ * - 演武氣血同角色同步：敗退最低保留1點，休整退一關、回滿血再戰，唔會死亡
  * - 關卡越後敵人越強（每關 ×SPAR_STAGE_GROWTH），自然停喺「同自己實力相若」嗰關
  *
  * RNG 由呼叫方注入（engine 用自己嘅 mulberry32），唔推進 getRng()，免得改咗人生事件嘅隨機序列。
@@ -40,7 +41,7 @@ export interface SparHeroStats {
 
 /** 修為境界每升一境，演武數值 ×1.32（對應 15 境曲線，頂境約 ×48） */
 export const SPAR_TIER_SCALE = 1.32;
-export const SPAR_STAGE_GROWTH = 1.16;
+export const SPAR_STAGE_GROWTH = SPAR_DIFFICULTY_GROWTH;
 export const SPAR_BOSS_HP_MUL = 7;
 export const SPAR_BOSS_ATK_MUL = 2.2;
 /** 有回血武學先有：過關回血比例 */
@@ -76,7 +77,7 @@ export function sparHeroBreakdown(state: LifeGameState): SparHeroBreakdown {
   const tier = Math.max(0, Math.floor(c.cultivation?.tier ?? 0));
   const scale = SPAR_TIER_SCALE ** tier;
   const martial = Math.max(0, c.martial + gear.martialBonus);
-  const hp = { fromHealth: c.maxHealth * 12, fromMartial: martial * 25 };
+  const hp = { fromHealth: c.maxHealth, fromMartial: 0 };
   const atk = { base: 24, fromMartial: martial * 1.6, fromWeapon: gear.attack * 3 };
   const crit = {
     base: CRIT_BASE,
@@ -106,7 +107,7 @@ export function sparHeroBreakdown(state: LifeGameState): SparHeroBreakdown {
   const heal = { skillNames: healSkills, onClear: healSkills.length ? SPAR_STAGE_CLEAR_HEAL : 0 };
   const guard = { fromArmor: gear.defense * 0.012, cap: GUARD_CAP };
   const stats: SparHeroStats = {
-    maxHp: Math.round((hp.fromHealth + hp.fromMartial) * scale),
+    maxHp: Math.max(1, Math.round(c.maxHealth)),
     atk: Math.round((atk.base + atk.fromMartial + atk.fromWeapon) * scale),
     critRate: Math.min(CRIT_CAP, crit.base + crit.fromDanShi + crit.fromWuXing),
     critMul: 1.85,
@@ -352,10 +353,10 @@ export class SparDuel {
   }
 
   /** 角色實力變咗（升境、換兵器）：按比例保留現有血量 */
-  setHero(hero: SparHeroStats) {
+  setHero(hero: SparHeroStats, health?: number) {
     const ratio = this.hero.maxHp > 0 ? this.heroHp / this.hero.maxHp : 1;
     this.hero = hero;
-    this.heroHp = Math.max(1, Math.round(hero.maxHp * ratio));
+    this.heroHp = Math.min(hero.maxHp, Math.max(1, Math.round(health ?? hero.maxHp * ratio)));
   }
 
   snapshot(): SparDuelSnapshot {
@@ -411,10 +412,11 @@ export class SparDuel {
       dmg += extra;
       fx.push({ kind: 'combo', value: extra });
     }
-    this.heroHp = Math.max(0, this.heroHp - dmg);
+    const heroDown = this.heroHp - dmg <= 0;
+    this.heroHp = Math.max(1, this.heroHp - dmg);
     const foeHeal = Math.min(after.heal, foe.maxHp - this.foeHp);
     this.foeHp += foeHeal;
-    return { dmg, heroDown: this.heroHp <= 0, fx, foeHeal };
+    return { dmg, heroDown, fx, foeHeal };
   }
 
   /** 當前敵人倒下後：換下一個；首領倒下就入下一關（回少少血） */

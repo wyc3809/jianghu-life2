@@ -85,21 +85,32 @@ describe('spar duel (演武台對打)', () => {
     s.character.cultivation = { xp: 0, tier: 6 };
     const high = sparHeroStats(s);
     expect(high.atk).toBeGreaterThan(low.atk * 4);
-    expect(high.maxHp).toBeGreaterThan(low.maxHp * 4);
+    expect(high.maxHp).toBe(s.character.maxHealth);
+    expect(high.maxHp).toBe(low.maxHp);
   });
 
-  it('test_fresh_hero_can_clear_stage_one', () => {
+  it('test_fresh_hero_must_train_before_clearing_harder_stage_one', () => {
     initRng(4);
     const s = createNewLife(4);
     const d = new SparDuel(sparHeroStats(s), 1, seq([0.37, 0.61, 0.12, 0.88, 0.45]));
-    // 主角出手 1.2 秒一次，敵人 1.6 秒一次 → 每 4 擊對 3 擊
     let cleared = false;
-    for (let round = 0; round < 400 && !cleared; round++) {
+    let down = false;
+    for (let round = 0; round < 400 && !cleared && !down; round++) {
       for (let k = 0; k < 4 && !cleared; k++) {
         const h = d.heroStrike();
         if (h.killed) cleared = d.advance().stageCleared;
       }
-      for (let k = 0; k < 3; k++) expect(d.foeStrike().heroDown).toBe(false);
+      for (let k = 0; k < 3 && !down; k++) down = d.foeStrike().heroDown;
+    }
+    expect(down).toBe(true);
+    expect(cleared).toBe(false);
+    s.character.cultivation.tier = 6;
+    const trained = new SparDuel(sparHeroStats(s), 1, seq([0.37, 0.61, 0.12, 0.88, 0.45]));
+    for (let round = 0; round < 400 && !cleared; round++) {
+      for (let k = 0; k < 4 && !cleared; k++) {
+        if (trained.heroStrike().killed) cleared = trained.advance().stageCleared;
+      }
+      for (let k = 0; k < 3; k++) expect(trained.foeStrike().heroDown).toBe(false);
     }
     expect(cleared).toBe(true);
   });
@@ -122,7 +133,7 @@ describe('spar hero breakdown (戰力頁)', () => {
     s.character.cultivation = { xp: 0, tier: 3 };
     const b = sparHeroBreakdown(s);
     expect(b.stats.atk).toBe(Math.round((b.atk.base + b.atk.fromMartial + b.atk.fromWeapon) * b.scale));
-    expect(b.stats.maxHp).toBe(Math.round((b.hp.fromHealth + b.hp.fromMartial) * b.scale));
+    expect(b.stats.maxHp).toBe(s.character.maxHealth);
     expect(b.stats.critRate).toBeCloseTo(Math.min(b.crit.cap, b.crit.base + b.crit.fromDanShi + b.crit.fromWuXing), 9);
     expect(b.stats).toEqual(sparHeroStats(s));
   });
