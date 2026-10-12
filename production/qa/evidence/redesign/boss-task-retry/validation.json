@@ -1,0 +1,103 @@
+{
+  "checks": [
+    {
+      "name": "320x690任務固定",
+      "passed": true
+    },
+    {
+      "name": "320x690內容視窗預留任務空間",
+      "passed": true
+    },
+    {
+      "name": "320x690五個捷徑可點",
+      "passed": true
+    },
+    {
+      "name": "320x844任務固定",
+      "passed": true
+    },
+    {
+      "name": "320x844內容視窗預留任務空間",
+      "passed": true
+    },
+    {
+      "name": "320x844五個捷徑可點",
+      "passed": true
+    },
+    {
+      "name": "390x690任務固定",
+      "passed": true
+    },
+    {
+      "name": "390x690內容視窗預留任務空間",
+      "passed": true
+    },
+    {
+      "name": "390x690五個捷徑可點",
+      "passed": true
+    },
+    {
+      "name": "390x844任務固定",
+      "passed": true
+    },
+    {
+      "name": "390x844內容視窗預留任務空間",
+      "passed": true
+    },
+    {
+      "name": "390x844五個捷徑可點",
+      "passed": true
+    },
+    {
+      "name": "420x690任務固定",
+      "passed": true
+    },
+    {
+      "name": "420x690內容視窗預留任務空間",
+      "passed": true
+    },
+    {
+      "name": "420x690五個捷徑可點",
+      "passed": true
+    },
+    {
+      "name": "420x844任務固定",
+      "passed": true
+    },
+    {
+      "name": "420x844內容視窗預留任務空間",
+      "passed": true
+    },
+    {
+      "name": "420x844五個捷徑可點",
+      "passed": true
+    },
+    {
+      "name": "演武首領自動進獨立畫面",
+      "passed": true
+    },
+    {
+      "name": "首領戰沿用同一Canvas無重建",
+      "passed": true
+    },
+    {
+      "name": "演武首領結束返回主頁且只過一關",
+      "passed": true
+    },
+    {
+      "name": "實際演武倒地動畫後仍係25關並重置敵陣",
+      "passed": true
+    },
+    {
+      "name": "江湖首領直接計算自動戰無開場攔截",
+      "passed": true
+    },
+    {
+      "name": "生死風險未确认唔會自動開打",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "badRequests": [],
+  "samples": []
+}

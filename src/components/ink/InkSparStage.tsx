@@ -1,7 +1,7 @@
 /**
  * 切磋演武台：主畫面千燈鎮之下嘅主動畫（長血條對打版）。
  * 每關＝幾個小兵＋一個長血條首領；俠客同敵人你一刀我一刀，彈傷害／暴擊／吸血數字，
- * 首領倒下過關掉銅錢（銀兩＋修為）；主角演武血條打光就敗退一關、回滿血再戰（唔傷真氣血）。
+ * 首領倒下過關掉銅錢（銀兩＋修為）；主角演武血條打光就同關重試、回滿血再戰（氣血同人物同步）。
  * 數值同關卡由 core/life/sparDuel.ts 話事；引擎淨係播動畫，血條係 DOM 浮層（墨筆血條）。
  * 每擊中一次仍經 store.sparStrike() 加修為，底部大圓圈嘅修為數字會自己滾動。
  *
@@ -12,7 +12,8 @@
  * 換敵人：傳另一個 EnemyDef 池入 enemies prop（每款＝單圖＋腳底錨點＋眼位）。
  */
 
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 import { SparStage, loadSparImages, loadSparImage, loadSparUiImages, type SparCombatHooks } from '../../spar/engine';
 import { SparDuel, formatSparNumber, sparHeroStats, sparSavedStage, type SparDuelSnapshot } from '@core/life/sparDuel';
 import { InkBrushBar } from './InkBrush';
@@ -85,6 +86,9 @@ function useBarMotion(
 }
 
 export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL, background = SPAR_DEFAULT_BACKGROUND, overlay, caption }: Props) {
+  const [portalHost] = useState(() => document.createElement('div'));
+  const slotRef = useRef<HTMLDivElement | null>(null);
+  const homeVisible = useLifeStore(s => (s.state?.tab ?? 'home') === 'home' && s.state?.phase === 'playing' && s.state.character.alive && !s.state.pending && !s.state.pendingCombat && !s.lastResult);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const stageRef = useRef<SparStage | null>(null);
@@ -211,7 +215,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
           heroRecovered: () => {
             duel.retreat();
             useLifeStore.getState().sparSetStage(duel.stage);
-            setClearNote(`演武敗退　退守第 ${duel.stage} 關`);
+            setClearNote(`演武敗退　第 ${duel.stage} 關重新挑戰`);
             if (noteTimer) clearTimeout(noteTimer);
             noteTimer = setTimeout(() => setClearNote(null), 2000);
             sync();
@@ -416,9 +420,40 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
     if (leftLabel) inkHop(leftRef.current);
   }, [leftLabel]);
 
+  const bossBattle = Boolean(snap?.foe?.boss && homeVisible && !failed);
+  useLayoutEffect(() => {
+    portalHost.className = bossBattle ? 'ink-spar-boss-screen' : 'ink-spar-inline-host';
+    if (bossBattle) {
+      portalHost.setAttribute('role', 'dialog');
+      portalHost.setAttribute('aria-modal', 'true');
+      portalHost.setAttribute('aria-label', '演武首領自動戰鬥');
+    } else {
+      portalHost.removeAttribute('role');
+      portalHost.removeAttribute('aria-modal');
+      portalHost.removeAttribute('aria-label');
+    }
+    (bossBattle ? document.body : slotRef.current)?.appendChild(portalHost);
+    const shell = slotRef.current?.closest('.scroll-shell');
+    const wasInert = shell?.hasAttribute('inert');
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    if (bossBattle) {
+      shell?.setAttribute('inert', '');
+      portalHost.tabIndex = -1;
+      portalHost.focus({ preventScroll: true });
+    }
+    return () => {
+      if (bossBattle && !wasInert) shell?.removeAttribute('inert');
+      if (bossBattle && previousFocus?.isConnected) previousFocus.focus({ preventScroll: true });
+      portalHost.remove();
+    };
+  }, [bossBattle, portalHost]);
+
   if (failed) return null; // 素材載入唔到就靜靜哋隱藏，唔好阻住遊戲
 
   return (
+    <div ref={slotRef} className="ink-spar-slot">
+      {createPortal(<>
+      {bossBattle && <header className="ink-spar-boss-heading"><small>演武台 · 第 {snap?.stage} 關</small><h2>{snap?.foe?.name}</h2><p>首領戰 · 自動交手</p></header>}
     <div className="ink-spar-stage" ref={wrapRef} aria-label="切磋演武">
       <canvas ref={canvasRef} style={{ width: '100%', height: STAGE_HEIGHT, display: 'block' }} />
       {overlay}
@@ -509,6 +544,9 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
           ))}
         </div>
       )}
+    </div>
+    {bossBattle && <footer className="ink-spar-boss-footer">勝出進入下一關；落敗同一關重新挑戰。<br />戰鬥結束後自動返回演武台。</footer>}
+    </>, portalHost)}
     </div>
   );
 }
