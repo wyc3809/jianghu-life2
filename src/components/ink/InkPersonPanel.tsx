@@ -37,7 +37,6 @@ import { formatSkillEffects, getSkillDef, skillKindLabel } from '@data/skills/ca
 import { ensureNature, dominantNature, natureSummary } from '@core/life/nature';
 import { getLifeStageLabel } from '@core/life/stages';
 import { playerEvasionPercent } from '@core/life/jianghuHints';
-import { listKnownNpcLines } from '@core/life/npcCatalog';
 import { listWeaponMasteries } from '@core/life/weaponMastery';
 import { careerLabel, getCareer } from '@core/life/careers';
 import { formatFragmentProgress } from '@core/life/manualFragments';
@@ -133,7 +132,6 @@ export function InkPersonPanel({
   const gearStatTotals = gearTotals(c);
   const gearFxTotals = sumGearCombatBonuses(c);
   const genealogy = buildGenealogy(state);
-  const known = listKnownNpcLines(state);
   const achProgress = achievementProgress(state);
   const nicknames = allTitles(state).map((t) => t.label);
   const progress = calculateProgress(state);
@@ -188,7 +186,7 @@ export function InkPersonPanel({
         label: '人際',
         hint: lover
           ? `眷屬 · 子女 ${c.childrenCount ?? 0}`
-          : `故人 ${known.length} · 子女 ${c.childrenCount ?? 0}`,
+          : `尚未有眷屬 · 子女 ${c.childrenCount ?? 0}`,
         icon: 'motif-lantern',
       },
       {
@@ -756,16 +754,7 @@ export function InkPersonPanel({
           {c.loverId && (c.childrenCount ?? 0) === 0 && (
             <p className="ink-note">已有眷屬——可至修行「求子添丁」。</p>
           )}
-          <h3 className="ink-subhead">鎮中故人</h3>
-          {known.length === 0 ? (
-            <p className="ink-note">尚未結識江湖人物。</p>
-          ) : (
-            known.map((line) => (
-              <p key={line} className="ink-note">
-                {line}
-              </p>
-            ))
-          )}
+
         </>
       )}
 
