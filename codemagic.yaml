@@ -35,7 +35,7 @@ workflows:
             latest="$(app-store-connect get-latest-testflight-build-number "$APP_STORE_APP_ID")"
             export IOS_BUILD_NUMBER="$((latest + 1))"
           else
-            export IOS_BUILD_NUMBER="$BUILD_NUMBER"
+            export IOS_BUILD_NUMBER="$((BUILD_NUMBER + 1))"
           fi
           node scripts/ios/configure.mjs
       - name: 套用Apple簽名
