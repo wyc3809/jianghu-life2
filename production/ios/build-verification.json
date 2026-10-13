@@ -1,0 +1,21 @@
+{
+  "gameVersion": "EA0.69.0",
+  "bundleId": "com.wyc3809.jianghulife2",
+  "appleVersion": "1.0",
+  "build": "1",
+  "minimumIOS": "15.0",
+  "architecture": "ARM64",
+  "platform": "iPhoneOS",
+  "xcodeArchiveVerified": true,
+  "appleDistributionSigned": false,
+  "testFlightUploaded": false,
+  "githubRun": 38425210588,
+  "commit": "72f983a63780f2543e2b15ba6e01ff3e72a34148",
+  "archiveBytes": 17944501,
+  "archiveSHA256": "746f812aee7dad7b1c30fb022f470e304f446204868603ea5790b197819e9ed1",
+  "sourceZipBytes": 21036948,
+  "sourceZipSHA256": "cefbca1f3b5c1ce30d3e0578b4eef0eb52df5ac5c0c7c29886a91b11bbf7ca87",
+  "updatedProjectZipBytes": 21037781,
+  "updatedProjectZipSHA256": "06af63821df0b3f56823b031258c7c6567f1263d5a39b84f19276b1a12f4685b",
+  "postBuildConfigChange": "Codemagic新App build從1開始；native App source／資源沿用已成功Mac編譯版本"
+}

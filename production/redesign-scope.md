@@ -320,3 +320,7 @@
 第22項／手機固定欄相容性補修（EA0.68.0後，未上線）：玩家實機截圖見任務與底部分頁消失、大塊空白。將任務欄及底部導航移到body portal，唔再放喺縮短嘅overflow捲動容器；主頁用明確has-task狀態預留內容高度，事件／交手／分頁按原條件收起任務，演武首領全屏時隱藏外部固定欄。數值／經濟、演武關數與首領規則不改。新增Chromium及WebKit尺寸、分頁、詳情、點擊與祖先裁切／錨點驗證。普通桌面WebKit未完全重現玩家實機消失，裁切測試屬模擬，唔當實機已驗收；截圖證據 fixed-dock-ios，先交玩家睇圖。
 
 第22項／EA0.69.0發布確認：玩家講「上線」，發布body portal固定任務／底部導航相容性修正。另明確批准取消人際關係嘅「相識的人」：移除人物人際页鎮中故人名單及人物入口故人數目，保留伴侶、子女、嗣子、家族銀庫／裝備傳承、求子提示。旧存檔NPC資料與故事人物依賴保留，唔清空玩家既有家人或事件資料。往後策略轉向聯機、幫會／門派爭鬥屬方向記錄，本次未新增聯機功能。玩家已確認，EA0.69.0 上線；平衡報告建議未套用。
+
+iOS／TestFlight打包（EA0.69.0內容）：玩家要求上線TestFlight，再要求「打包」。現有React遊戲新增Capacitor8.5.3／SwiftPM原生iOS15工程，隨包本地web資源，直版；候選Bundle ID com.wyc3809.jianghulife2，待確認是否配對既有Apple App。提供工程ZIP、本機包內容檢查、GitHub Mac未簽名Archive工作流、Codemagic已簽名IPA／TestFlight配置，原生App icon沿用江湖一生牌章風格。Apple會員／App Store Connect與簽名整合待玩家提供服務側設定，未聲稱已產生簽名IPA或已上TestFlight；Mac編譯結果另記production/ios。網頁正式EA0.69.0不改，平衡建議仍未套用。
+
+iOS打包驗證更新：GitHub Mac Xcode Run38425210588成功Archive；下載後核對iPhoneOS／ARM64、iOS15、版本1.0／build1及本地web資源。未簽名Archive18MB、工程ZIP21MB，production/ios/build-verification.json記低SHA256。Apple帳戶問題未有答案，未取得簽名／App Store Connect整合；未上TestFlight。

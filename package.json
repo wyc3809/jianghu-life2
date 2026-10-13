@@ -16,9 +16,15 @@
     "format:check": "prettier --check .",
     "audit:narrate": "node scripts/auditNarrate.mjs --fail",
     "docs:events": "vite-node scripts/dumpEvents.mts && vite-node scripts/buildEventsPage.mts",
-    "audit:events": "vite-node scripts/auditEventDraws.mts"
+    "audit:events": "vite-node scripts/auditEventDraws.mts",
+    "ios:sync": "npm run build:mobile && cap sync ios",
+    "ios:open": "cap open ios",
+    "ios:verify": "node scripts/ios/verify-package.mjs",
+    "ios:package": "npm run ios:sync && npm run ios:verify && python scripts/ios/package_source.py"
   },
   "dependencies": {
+    "@capacitor/core": "8.5.3",
+    "@capacitor/ios": "8.5.3",
     "@supabase/supabase-js": "^2.117.2",
     "animejs": "^4.5.0",
     "gsap": "^3.15.0",
@@ -30,6 +36,7 @@
     "zustand": "^5.0.14"
   },
   "devDependencies": {
+    "@capacitor/cli": "8.5.3",
     "@types/node": "^26.1.2",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
