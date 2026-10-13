@@ -1,3 +1,4 @@
+import { Capacitor } from '@capacitor/core';
 import { StrictMode, Suspense, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
@@ -21,6 +22,9 @@ if (uiReview) {
 // 高光時刻示範頁：?fx=highlight（按需載入，唔影響遊戲首屏）
 const HighlightDemo = lazy(() => import('./fx/highlight/HighlightDemo'));
 const isFxDemo = new URLSearchParams(window.location.search).get('fx') === 'highlight';
+
+// 原生iPhone先保留瀏海／狀態列安全區，網頁排版沿用原本設定。
+if (Capacitor.getPlatform() === 'ios') document.documentElement.classList.add('native-ios');
 
 // 雲端：開機揾身份，雲端存檔較新就先寫返本機（最多等 2.5 秒）
 const boot = isFxDemo ? Promise.resolve({ restored: false }) : bootCloud(readLocalSavedAt, writeLocal);

@@ -10818,3 +10818,6 @@ html[data-ink-motion='reduce'] .ink-hud-avatar--badge:active .ink-hud-person-bad
 .ink-bottom-dock, .ink-bottom-dock *, .ink-task-dock, .ink-task-dock * { font-family: var(--game-ui-font) !important; }
 body:has(.ink-spar-boss-screen) .ink-bottom-dock,
 body:has(.ink-spar-boss-screen) .ink-task-dock { visibility: hidden; }
+
+/* 原生iPhone啟用；固定欄本身已處理底部安全區。 */
+html.native-ios #root { padding-top: max(12px, env(safe-area-inset-top, 0px)); }

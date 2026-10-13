@@ -65,3 +65,12 @@ production/qa/evidence/redesign/wallet-no-outline/frames/
 
 # 頂欄對齊驗收GIF逐格暫存
 production/qa/evidence/redesign/hud-alignment/frames/
+
+# iOS編譯及簽名材料
+artifacts/
+*.p12
+*.p8
+*.mobileprovision
+*.xcarchive/
+*.ipa
+ios/App/App.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
