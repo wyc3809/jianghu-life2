@@ -1,0 +1,38 @@
+{
+  "mode": "after",
+  "checks": [
+    {
+      "name": "故人名單與相識描述已移除",
+      "passed": true
+    },
+    {
+      "name": "伴侶保留",
+      "passed": true
+    },
+    {
+      "name": "兩名子女與嗣子保留",
+      "passed": true
+    },
+    {
+      "name": "家族傳承保留",
+      "passed": true
+    },
+    {
+      "name": "舊NPC及伴侶資料未清空",
+      "passed": true
+    },
+    {
+      "name": "人際入口唔再顯示故人數量",
+      "passed": true
+    },
+    {
+      "name": "冇伴侶嘅入口仍無故人數量",
+      "passed": true
+    },
+    {
+      "name": "冇伴侶仍顯示子女",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

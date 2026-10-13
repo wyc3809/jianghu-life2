@@ -1,0 +1,144 @@
+{
+  "engine": "webkit",
+  "mode": "before",
+  "checks": [
+    {
+      "name": "320x690固定欄不在捲動容器內",
+      "passed": false
+    },
+    {
+      "name": "320x690底部四個分頁可點",
+      "passed": true
+    },
+    {
+      "name": "320x690任務可見及可點",
+      "passed": true
+    },
+    {
+      "name": "320x690五個捷徑可點",
+      "passed": true
+    },
+    {
+      "name": "320x690內容不遮固定欄",
+      "passed": true
+    },
+    {
+      "name": "320x844固定欄不在捲動容器內",
+      "passed": false
+    },
+    {
+      "name": "320x844底部四個分頁可點",
+      "passed": true
+    },
+    {
+      "name": "320x844任務可見及可點",
+      "passed": true
+    },
+    {
+      "name": "320x844五個捷徑可點",
+      "passed": true
+    },
+    {
+      "name": "320x844內容不遮固定欄",
+      "passed": true
+    },
+    {
+      "name": "390x690固定欄不在捲動容器內",
+      "passed": false
+    },
+    {
+      "name": "390x690底部四個分頁可點",
+      "passed": true
+    },
+    {
+      "name": "390x690任務可見及可點",
+      "passed": true
+    },
+    {
+      "name": "390x690五個捷徑可點",
+      "passed": true
+    },
+    {
+      "name": "390x690內容不遮固定欄",
+      "passed": true
+    },
+    {
+      "name": "390x844固定欄不在捲動容器內",
+      "passed": false
+    },
+    {
+      "name": "390x844底部四個分頁可點",
+      "passed": true
+    },
+    {
+      "name": "390x844任務可見及可點",
+      "passed": true
+    },
+    {
+      "name": "390x844五個捷徑可點",
+      "passed": true
+    },
+    {
+      "name": "390x844內容不遮固定欄",
+      "passed": true
+    },
+    {
+      "name": "420x690固定欄不在捲動容器內",
+      "passed": false
+    },
+    {
+      "name": "420x690底部四個分頁可點",
+      "passed": true
+    },
+    {
+      "name": "420x690任務可見及可點",
+      "passed": true
+    },
+    {
+      "name": "420x690五個捷徑可點",
+      "passed": true
+    },
+    {
+      "name": "420x690內容不遮固定欄",
+      "passed": true
+    },
+    {
+      "name": "420x844固定欄不在捲動容器內",
+      "passed": false
+    },
+    {
+      "name": "420x844底部四個分頁可點",
+      "passed": true
+    },
+    {
+      "name": "420x844任務可見及可點",
+      "passed": true
+    },
+    {
+      "name": "420x844五個捷徑可點",
+      "passed": true
+    },
+    {
+      "name": "420x844內容不遮固定欄",
+      "passed": true
+    },
+    {
+      "name": "模擬祖先裁切時導航仍可點",
+      "passed": true
+    },
+    {
+      "name": "模擬祖先裁切時任務仍可點",
+      "passed": true
+    },
+    {
+      "name": "祖先裁切時導航仍錨定視窗底",
+      "passed": false
+    },
+    {
+      "name": "祖先裁切時任務仍錨定底bar上方",
+      "passed": false
+    }
+  ],
+  "errors": [],
+  "samples": []
+}

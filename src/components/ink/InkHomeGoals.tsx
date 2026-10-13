@@ -1,3 +1,4 @@
+import { createPortal } from 'react-dom';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { currentGoal, type GoalAction } from '@core/life/goals';
 import { effectiveCultivationRate } from '@core/life/cultivation';
@@ -27,7 +28,7 @@ export function InkHomeGoals({ state, onAction, onHarvest, busy, section }: Prop
   const pending = Math.floor(idleSilverPending(state));
   const cap = idleSilverCap(state);
   const pct = goal.progress ? Math.min(100, (goal.progress.cur / Math.max(1, goal.progress.max)) * 100) : 0;
-  return (
+  const content = (
     <section className="ink-home-goals" aria-label="當前目標與掛機收益">
       {section !== 'harvest' && <div className="ink-goal ink-task-bar" aria-label="任務欄">
         <div className="ink-task-main">
@@ -92,4 +93,7 @@ export function InkHomeGoals({ state, onAction, onHarvest, busy, section }: Prop
       </div>}
     </section>
   );
+  return section === 'task'
+    ? createPortal(<div className="ink-home-focus ink-task-dock">{content}</div>, document.body)
+    : content;
 }

@@ -482,6 +482,7 @@ export function InkPlayScreen({ state }: Props) {
     eventFocus ? 'scroll-shell--event' : '',
     /* 底部分卷導航顯示時：預留空間（條件同下方 <nav className="ink-tabs"> 一致） */
     !combat && !eventFocus ? 'scroll-shell--has-tabs' : '',
+    onHomeTab && state.phase === 'playing' && c.alive && !showResult && !combat && !eventFocus ? 'scroll-shell--has-task' : '',
     monthTurning ? 'ink-month-turn' : '',
   ]
     .filter(Boolean)
@@ -712,7 +713,7 @@ export function InkPlayScreen({ state }: Props) {
             <InkAmbientFx mode="scene" season={inkSeason} paused={Boolean(combat || eventFocus)} />
           </div>
 
-          {state.phase === 'playing' && c.alive && !showResult && (
+          {state.phase === 'playing' && c.alive && !showResult && !combat && !eventFocus && (
             <InkHomeGoals
               section="task"
               state={state}
@@ -1061,8 +1062,8 @@ export function InkPlayScreen({ state }: Props) {
 
       </div>
 
-      {!combat && !eventFocus && (
-        <nav className="ink-tabs" aria-label="分卷" ref={navRef}>
+      {!combat && !eventFocus && createPortal(
+        <nav className="ink-tabs ink-bottom-dock" aria-label="分卷" ref={navRef}>
           {(
             [
               ['home', '鎮居'],
@@ -1114,7 +1115,8 @@ export function InkPlayScreen({ state }: Props) {
               <InkIcon name={TAB_ICONS[id]} size={62} label={label} className="ink-tab-icon" />
             </button>
           ))}
-        </nav>
+        </nav>,
+        document.body,
       )}
 
       {debugOpen && <LifeDebugPanel state={state} />}
