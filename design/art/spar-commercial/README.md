@@ -30,4 +30,4 @@
 - 步行及倒地係四幀位圖配時間控制；揮擊保留原有動作幀，重做刀光／命中／殘影配合，唔宣稱全套30fps逐幀角色動畫已完成。
 - 手機瀏覽器模擬及WebKit驗證唔等於實體iPhone／低階Android性能驗收；商業品質最後仍需玩家睇動畫及真機評估。
 
-證據：`production/qa/evidence/redesign/spar-commercial/`。版本保留EA0.69.0，待玩家睇图之後講「上線」再編正式版本。
+證據：`production/qa/evidence/redesign/spar-commercial/`。玩家已睇圖並講「上線」，發布版本EA0.70.0；實際部署結果以線上核對為準。
