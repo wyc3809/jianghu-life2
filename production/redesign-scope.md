@@ -333,7 +333,7 @@
 
 真實改前後、四季、步行／倒地GIF及Chromium／WebKit、首領／同關重試／固定欄證據：`production/qa/evidence/redesign/spar-commercial/`。手機瀏覽器模擬唔等於實機性能驗收。玩家已睇四季截圖及動畫預覽並講「上線」，玩家已確認，EA0.70.0 上線；正式發布結果以GitHub Pages部署及線上版本／素材核對為準。本次係網頁版本發布，iOS打包PR #115及舊封裝包冇自動更新。
 
-### 第 24 項：數值平衡同殘留功能清理（2026-10-14，等玩家睇圖確認）
+### 第 24 項：數值平衡同殘留功能清理（2026-10-14，玩家已確認，EA0.71.0 上線）
 
 玩家指示（2026-10-14）：「江湖戰鬥開場要係滿血，入新一關都會係滿血；耐力應該係內力；殘留功能取消；演武台難度曲線修正，但係要維持主角血量唔可以亂加。」
 
@@ -367,4 +367,4 @@
 - 冇用嘅素材：`ui-review/`、`ui-b/`、書法數字圖 `g-*`／`r-*`／`label-*`；演武台唔再下載 13 張冇用嘅書法數字圖。
 - 高光示範頁 `?fx=highlight` 只限開發版。
 
-**驗證**：589 項 Vitest（新增 `tests/spar_curve.test.ts`、`tests/combat_full_hp.test.ts`）、build、audit:narrate 通過。截圖（390×844、DPR 2、seed 42）：`production/qa/evidence/redesign/balance-71/`。未上線，等玩家睇圖確認。
+**驗證**：589 項 Vitest（新增 `tests/spar_curve.test.ts`、`tests/combat_full_hp.test.ts`）、build、audit:narrate 通過。截圖（390×844、DPR 2、seed 42）：`production/qa/evidence/redesign/balance-71/`。玩家睇圖後講「上線」，EA0.71.0 上線。回血武學改「每擊倒回 12%」屬實作選擇，玩家冇反對。
