@@ -1,0 +1,113 @@
+{
+  "controlledVisualFixture": true,
+  "combatValuesEdited": false,
+  "fallSprite": "/ink/spar/sil/enemy-daoke.webp",
+  "reduced": {
+    "quiet": true,
+    "ground": 184.21,
+    "expected": 184.21
+  },
+  "sample": [
+    {
+      "src": "/ink/spar/sil/enemy-shadow.webp",
+      "frames": 4
+    },
+    {
+      "src": "/ink/spar/sil/enemy-daoke.webp",
+      "frames": 4
+    },
+    {
+      "src": "/ink/spar/sil/enemy-nvcike.webp",
+      "frames": 4
+    },
+    {
+      "src": "/ink/spar/sil/enemy-toutuo.webp",
+      "frames": 4
+    },
+    {
+      "src": "/ink/spar/sil/enemy-tiemian.webp",
+      "frames": 4
+    },
+    {
+      "src": "/ink/spar/sil/enemy-gouke.webp",
+      "frames": 4
+    },
+    {
+      "src": "/ink/spar/sil/enemy-chifa.webp",
+      "frames": 4
+    },
+    {
+      "src": "/ink/spar/sil/enemy-bamboo_bloodguard.webp",
+      "frames": 4
+    },
+    {
+      "src": "/ink/spar/sil/enemy-bamboo_bloodmaid.webp",
+      "frames": 4
+    },
+    {
+      "src": "/ink/spar/sil/enemy-bamboo_boss.webp",
+      "frames": 4
+    },
+    {
+      "src": "/ink/spar/sil/enemy-gate_boss.webp",
+      "frames": 4
+    },
+    {
+      "src": "/ink/spar/sil/enemy-gate_ironbone.webp",
+      "frames": 4
+    },
+    {
+      "src": "/ink/spar/sil/enemy-gate_vajra.webp",
+      "frames": 4
+    },
+    {
+      "src": "/ink/spar/sil/enemy-inn_blades.webp",
+      "frames": 4
+    },
+    {
+      "src": "/ink/spar/sil/enemy-inn_boss.webp",
+      "frames": 4
+    },
+    {
+      "src": "/ink/spar/sil/enemy-inn_twin.webp",
+      "frames": 4
+    },
+    {
+      "src": "/ink/spar/sil/enemy-peak_berserk.webp",
+      "frames": 4
+    },
+    {
+      "src": "/ink/spar/sil/enemy-peak_boss.webp",
+      "frames": 4
+    },
+    {
+      "src": "/ink/spar/sil/enemy-peak_vanguard.webp",
+      "frames": 4
+    },
+    {
+      "src": "/ink/spar/sil/enemy-road_boss.webp",
+      "frames": 4
+    },
+    {
+      "src": "/ink/spar/sil/enemy-road_brute.webp",
+      "frames": 4
+    },
+    {
+      "src": "/ink/spar/sil/enemy-road_captain.webp",
+      "frames": 4
+    },
+    {
+      "src": "/ink/spar/sil/enemy-town_boss.webp",
+      "frames": 4
+    },
+    {
+      "src": "/ink/spar/sil/enemy-town_bruiser.webp",
+      "frames": 4
+    },
+    {
+      "src": "/ink/spar/sil/enemy-town_guard.webp",
+      "frames": 4
+    }
+  ],
+  "errors": []
+}

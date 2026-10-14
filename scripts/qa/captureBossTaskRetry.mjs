@@ -2,7 +2,7 @@
 import { chromium } from '/opt/codex/cua_node/lib/node_modules/playwright/index.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
-const out=path.resolve('production/qa/evidence/redesign/boss-task-retry');
+const out=path.resolve(process.env.QA_OUT || 'production/qa/evidence/redesign/boss-task-retry');
 fs.mkdirSync(`${out}/frames`,{recursive:true});
 const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
 const report={checks:[],errors:[],badRequests:[],samples:[]};

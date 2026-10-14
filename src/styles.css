@@ -4872,7 +4872,7 @@ html[data-ink-motion='reduce'] .ink-combat-fx-layer {
 }
 
 .ink-spar-caption span {
-  color: var(--ink-wash);
+  color: #414642;
   font-size: 0.65rem;
   font-weight: var(--fw-ui);
   letter-spacing: 0.18em;

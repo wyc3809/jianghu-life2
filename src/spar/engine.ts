@@ -40,6 +40,8 @@ import {
 import { AnimDirector, type DirectorSample } from './animDirector';
 import { StripRig, drawWarpedSprite } from './stripRig';
 import { SceneAmbience } from './ambience';
+import { advanceGait, gaitFrame, collapseSample, crossedGroundContact, SPAR_PRESENTATION, loadFoeCollapse, loadSparArt, type SparArtImages, type SparSeason } from './presentation';
+import { createRng, spawnSeasonParticle, stepParticles, particleAlpha, type Particle as WeatherParticle } from '../fx/ambient/particles';
 import { formatSparNumber } from '@core/life/sparDuel';
 import { FOE_TRAITS } from '@data/foes/traits';
 import type { CombatTraitFx } from '@interfaces/lifeEngine';
@@ -91,11 +93,11 @@ function accentSilhouette(img: CanvasImageSource, rgb: string): CanvasImageSourc
   return tintedSilhouette(img, `accent:${rgb}`, (x, w, h) => {
     const g = x.createLinearGradient(0, 0, 0, h);
     g.addColorStop(0, `rgba(${rgb},0)`);
-    g.addColorStop(0.2, `rgba(${rgb},0.35)`);
+    g.addColorStop(0.2, `rgba(${rgb},0.12)`);
     g.addColorStop(0.3, `rgba(${rgb},0)`);
     g.addColorStop(0.48, `rgba(${rgb},0)`);
-    g.addColorStop(0.58, `rgba(${rgb},0.7)`);
-    g.addColorStop(0.68, `rgba(${rgb},0.4)`);
+    g.addColorStop(0.58, `rgba(${rgb},0.3)`);
+    g.addColorStop(0.68, `rgba(${rgb},0.15)`);
     g.addColorStop(0.82, `rgba(${rgb},0)`);
     x.fillStyle = g;
     x.fillRect(0, 0, w, h);
@@ -254,7 +256,6 @@ interface Particle { x: number; y: number; vx: number; vy: number; r: number; ag
 type FloaterKind = 'xp' | 'dmg' | 'crit' | 'heal' | 'hurt' | 'trait';
 interface Floater { x: number; y: number; text: string; gain: number; age: number; dur: number; kind?: FloaterKind; rgb?: string }
 interface CoinFx { x: number; y: number; vx: number; vy: number; rot: number; vr: number; age: number; dur: number; groundY: number }
-interface TrailDot { x: number; y: number; age: number }
 interface SplashFx { x: number; y: number; rot: number; age: number; dur: number }
 
 type EnemyState = 'spawn' | 'walk' | 'hold' | 'dead';
@@ -291,6 +292,7 @@ interface Afterimage {
 }
 
 export interface SparStageImages {
+  art?: SparArtImages;
   /** AI 剪影：俠客待機全身 */
   heroIdle: HTMLImageElement;
   /** AI 剪影：俠客揮擊全身 */
@@ -431,8 +433,15 @@ export class SparStage {
   private directorSample: DirectorSample | null = null;
   private walkT = 0;
   private heroFade = 1;
-  private dust: { x: number; y: number; age: number; dur: number; vx: number }[] = [];
-  private footClock = 0;
+  private dust: { x: number; y: number; age: number; dur: number; vx: number; landing?: boolean }[] = [];
+  private art: SparArtImages | null = null;
+  private season: SparSeason = 'spring';
+  private previousSeason: SparSeason | null = null;
+  private seasonFade = 1;
+  private weather: WeatherParticle[] = [];
+  private visualRng = createRng(23);
+  private weatherRng = createRng(29);
+  private heroMoving = false;
 
   private idleT = 0;
   private attackT: number | null = null;
@@ -446,9 +455,7 @@ export class SparStage {
   private flash = 0;
   private particles: Particle[] = [];
   private floaters: Floater[] = [];
-  private trail: TrailDot[] = [];
   private splashes: SplashFx[] = [];
-  private prevTip: { x: number; y: number } | null = null;
 
   constructor(opts: SparStageOptions) {
     this.canvas = opts.canvas;
@@ -463,6 +470,29 @@ export class SparStage {
     this.combat = opts.combat;
     this.weaponDef = opts.weapon ?? null;
     this.bgImg = opts.images.background ?? null;
+    this.art = opts.images.art ?? null;
+  }
+
+  /** AI四季／動作位圖；只影響演出，結算仍用原戰鬥鈎。 */
+  setArt(art: SparArtImages) {
+    this.art = art;
+    for (const enemy of this.enemies) this.prepareCollapse(enemy.def.part.src);
+  }
+
+  setSeason(season: SparSeason) {
+    if (this.season === season) return;
+    this.previousSeason = this.season;
+    this.season = season;
+    this.seasonFade = 0;
+    this.weather = [];
+  }
+
+  private prepareCollapse(src: string) {
+    if (!this.art || this.art.deaths.has(src)) return;
+    const art = this.art;
+    void loadFoeCollapse(src).then(frames => art.deaths.set(src, frames)).catch(() => {
+      // 缺圖仍保留同一敵人，用原位圖貼地收身；唔令戰鬥中斷。
+    });
   }
 
   /** 切換場景背景（0.6s 淡入淡出）；null＝冇背景；opacity 調淡背景令角色突出 */
@@ -513,23 +543,24 @@ export class SparStage {
     const trait = tier !== 'minion' && next?.trait ? FOE_TRAITS[next.trait] : null;
     const pool = this.enemyPool;
     // 對打模式：剪影跟關卡主題（唔再亂抽）
-    const idx = next?.look !== undefined ? next.look : defIdx ?? Math.floor(Math.random() * pool.length);
+    const idx = next?.look !== undefined ? next.look : defIdx ?? Math.floor(this.visualRng() * pool.length);
+    this.prepareCollapse(pool[idx % pool.length]!.part.src);
     return {
       x,
       state,
       t: state === 'hold' ? 9 : 0,
-      bob: Math.random() * 6,
+      bob: this.visualRng() * 6,
       stopJitter: 1,
       def: pool[idx % pool.length]!,
       speedMul: 1,
-      scaleMul: boss ? 1.3 : tier === 'elite' ? 1.12 : 0.94 + Math.random() * 0.1,
+      scaleMul: boss ? 1.3 : tier === 'elite' ? 1.12 : 0.94 + this.visualRng() * 0.1,
       boss,
       tier,
       traitRgb: trait?.rgb ?? null,
       accent: next?.accent ?? null,
       enragedShown: false,
       hitT: 9,
-      atkTimer: 1.1 + Math.random() * 0.5,
+      atkTimer: 1.1 + this.visualRng() * 0.5,
       lungeT: null,
       lungeHit: false,
       rig: new StripRig(),
@@ -547,7 +578,7 @@ export class SparStage {
     this.heroDownT = null;
     this.heroHitT = 9;
     // 一打一個：每次淨補一個
-    this.enemies = [this.makeEnemy(this.cssW * 0.72 + Math.random() * 16, 'spawn')];
+    this.enemies = [this.makeEnemy(this.cssW * 0.72 + this.visualRng() * 16, 'spawn')];
   }
 
   /** 換場景：俠客由左邊重新行入（背景由 setBackground 淡入淡出） */
@@ -610,11 +641,13 @@ export class SparStage {
     this.flash = Math.max(0, this.flash - dt * 6);
     if (this.bgFade < 1) this.bgFade = Math.min(1, this.bgFade + dt / 0.6);
 
+    this.heroMoving = false;
     this.geom(); // 確保 heroX 已初始化
     this.heroHitT += dt;
 
     // 對打：敗退倒地 → 同關重試、回血、重新入場
     if (this.heroDownT !== null) {
+      if (!this.quiet && crossedGroundContact(this.heroDownT, this.heroDownT + dt)) this.dust.push({ x: this.heroX - 9, y: this.geom().groundY, age: 0, dur: .45, vx: 0, landing: true });
       this.heroDownT += dt;
       this.attackT = null;
       for (const e of this.enemies) e.bob += dt;
@@ -634,7 +667,6 @@ export class SparStage {
     if (this.director.consumeWindupReady() && this.attackT === null) {
       this.attackT = 0;
       this.firedStrike = false;
-      this.trail = [];
     }
     const dir = this.director.update(dt);
     this.directorSample = dir;
@@ -654,6 +686,7 @@ export class SparStage {
       } else if (e.state === 'walk') {
         e.state = 'hold'; // 永不向俠客行
       } else if (e.state === 'dead') {
+        if (!this.quiet && crossedGroundContact(e.t, e.t + dt)) this.dust.push({ x: e.x + 7, y: this.geom().groundY, age: 0, dur: .45, vx: 0, landing: true });
         e.t += dt;
       }
     }
@@ -669,30 +702,23 @@ export class SparStage {
       this.enemies = [this.makeEnemy(this.foeSpotX(), 'spawn')];
     }
 
-    // 俠客行過去
+    // 先限制實際位移，再推腳步；站定唔踏步、唔噴塵。
     const striking = this.attackT !== null;
     const moving = !this.laneResetting && dir.phase !== 'reset' && walkSpeed > 1;
-    if (moving) {
-      this.heroX += walkSpeed * dt * (striking ? 0.55 : 1);
-      this.walkT += dt * (striking ? 0.4 : 1);
-      // A：腳步揚塵
-      this.footClock += dt;
-      if (!this.quiet && this.footClock > 0.22 && dir.phase === 'approach') {
-        this.footClock = 0;
-        this.dust.push({
-          x: this.heroX - 8,
-          y: this.geom().groundY - 2,
-          age: 0,
-          dur: 0.45,
-          vx: -20 - Math.random() * 30,
-        });
-      }
-    }
-
-    // 對打：唔好穿過敵人（企喺射程內你一刀我一刀）
+    const previousX = this.heroX;
+    const previousGait = this.walkT;
+    if (moving) this.heroX += walkSpeed * dt * (striking ? .55 : 1);
     if (this.combat) {
-      const foe = this.enemies.find((e) => e.state !== 'dead') ?? null;
+      const foe = this.enemies.find(e => e.state !== 'dead') ?? null;
       this.heroX = Math.min(this.heroX, this.heroStopX(foe));
+    }
+    const distance = Math.max(0, this.heroX - previousX);
+    this.heroMoving = distance > .01 && !striking;
+    if (this.heroMoving) {
+      this.walkT = advanceGait(this.walkT, distance, this.cssH);
+      if (!this.quiet && Math.floor(previousGait * 2) !== Math.floor(this.walkT * 2)) {
+        this.dust.push({ x: this.heroX - 3, y: this.geom().groundY, age: 0, dur: .32, vx: -8 });
+      }
     }
 
     // 行過右緣、或單挑清場後 → 重置再出下一個（對打模式由上面自己補敵）
@@ -761,7 +787,13 @@ export class SparStage {
 
   /** 特效老化（停格／倒地時都要繼續） */
   private ageFx(dt: number) {
-    this.ambience.update(dt);
+    if (!this.art) this.ambience.update(dt);
+    this.seasonFade = Math.min(1, this.seasonFade + dt / SPAR_PRESENTATION.sceneFade);
+    if (this.art && !this.quiet && this.cssW > 0) {
+      this.weather = stepParticles(this.weather, dt, this.cssW, this.cssH);
+      const count = this.season === 'summer' ? 22 : this.season === 'winter' ? 16 : 8;
+      while (this.weather.length < count) this.weather.push(spawnSeasonParticle(this.season, this.cssW, this.cssH * .83, this.weatherRng, true));
+    }
     this.bgT += dt;
     const age = <T extends { age: number; dur: number }>(arr: T[], dtv: number) => {
       for (const it of arr) it.age += dtv;
@@ -777,10 +809,6 @@ export class SparStage {
     this.splashes = age(this.splashes, dt);
     this.dust = age(this.dust, dt);
     for (const d of this.dust) d.x += d.vx * dt;
-    this.trail = age(
-      this.trail.map((d) => ({ ...d, dur: 0.32 })),
-      dt,
-    );
     this.coins = age(this.coins, dt);
     for (const c of this.coins) {
       c.vy += 620 * dt;
@@ -820,7 +848,7 @@ export class SparStage {
     }
     if (e.lungeT >= LUNGE_DUR) {
       e.lungeT = null;
-      e.atkTimer = (e.boss ? 1.15 : 1.6) + Math.random() * 0.5;
+      e.atkTimer = (e.boss ? 1.15 : 1.6) + this.visualRng() * 0.5;
     }
   }
 
@@ -834,7 +862,7 @@ export class SparStage {
     this.heroRig.kick(e.boss ? -460 : -320);
     this.shake = Math.max(this.shake, this.quiet ? 0 : e.boss ? 5 : 3);
     this.floaters.push({
-      x: g.heroX + (Math.random() - 0.5) * 22,
+      x: g.heroX + (this.visualRng() - 0.5) * 22,
       y: g.groundY - SILHOUETTE_DESIGN_H * g.k * 0.58,
       text: `-${formatSparNumber(r.dmg)}`,
       gain: r.dmg,
@@ -844,18 +872,17 @@ export class SparStage {
     });
     if (!this.quiet) {
       const hy = g.groundY - SILHOUETTE_DESIGN_H * g.k * 0.55;
-      this.splashes.push({ x: g.heroX + 6, y: hy, rot: Math.random() * Math.PI * 2, age: 0, dur: e.boss ? 0.45 : 0.32 });
+      this.splashes.push({ x: g.heroX + 6, y: hy, rot: this.visualRng() * Math.PI * 2, age: 0, dur: e.boss ? 0.45 : 0.32 });
       for (let i = 0; i < (e.boss ? 10 : 6); i++) {
-        const a = Math.PI + (Math.random() - 0.5) * 1.6;
-        const sp = 50 + Math.random() * 110;
-        this.particles.push({ x: g.heroX + 6, y: hy, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 40, r: 0.8 + Math.random() * 2, age: 0, dur: 0.45 });
+        const a = Math.PI + (this.visualRng() - 0.5) * 1.6;
+        const sp = 50 + this.visualRng() * 110;
+        this.particles.push({ x: g.heroX + 6, y: hy, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 40, r: 0.8 + this.visualRng() * 2, age: 0, dur: 0.45 });
       }
     }
     if (r.fx?.length) this.showTraitFx(r.fx, e, 0, r.foeHeal ?? 0);
     if (r.heroDown) {
       this.heroDownT = 0;
       this.attackT = null;
-      this.trail = [];
     }
   }
 
@@ -880,16 +907,16 @@ export class SparStage {
       if (!this.quiet) {
         const n = e.boss ? 16 : 10;
         for (let i = 0; i < n; i++) {
-          const a = Math.random() * Math.PI * 2;
-          const sp = 40 + Math.random() * 120;
+          const a = this.visualRng() * Math.PI * 2;
+          const sp = 40 + this.visualRng() * 120;
           this.particles.push({
             x,
             y: y + 30,
             vx: Math.cos(a) * sp,
             vy: Math.sin(a) * sp - 30,
-            r: 1 + Math.random() * 2.4,
+            r: 1 + this.visualRng() * 2.4,
             age: 0,
-            dur: 0.55 + Math.random() * 0.3,
+            dur: 0.55 + this.visualRng() * 0.3,
             rgb: def.rgb,
           });
         }
@@ -914,14 +941,14 @@ export class SparStage {
     const x0 = this.foeSpotX();
     for (let i = 0; i < n; i++) {
       this.coins.push({
-        x: x0 + (Math.random() - 0.5) * 20,
+        x: x0 + (this.visualRng() - 0.5) * 20,
         y: g.groundY - 60 * (this.cssH / 218),
-        vx: -40 - Math.random() * 120,
-        vy: -170 - Math.random() * 130,
-        rot: Math.random() * 6,
-        vr: (Math.random() - 0.5) * 14,
+        vx: -40 - this.visualRng() * 120,
+        vy: -170 - this.visualRng() * 130,
+        rot: this.visualRng() * 6,
+        vr: (this.visualRng() - 0.5) * 14,
         age: 0,
-        dur: 1.8 + Math.random() * 0.4,
+        dur: 1.8 + this.visualRng() * 0.4,
         groundY: g.groundY - 6,
       });
     }
@@ -989,8 +1016,8 @@ export class SparStage {
         }
         const headY = g.groundY - SILHOUETTE_DESIGN_H * this.enemyKe(target) * 0.6;
         this.floaters.push({
-          x: target.x + (Math.random() - 0.5) * 34,
-          y: headY - Math.random() * 14,
+          x: target.x + (this.visualRng() - 0.5) * 34,
+          y: headY - this.visualRng() * 14,
           text: formatSparNumber(r.dmg),
           gain: r.dmg,
           age: 0,
@@ -999,7 +1026,7 @@ export class SparStage {
         });
         if (r.heal > 0) {
           this.floaters.push({
-            x: g.heroX - 14 + (Math.random() - 0.5) * 16,
+            x: g.heroX - 14 + (this.visualRng() - 0.5) * 16,
             y: g.groundY - SILHOUETTE_DESIGN_H * g.k * 0.78,
             text: `+${formatSparNumber(r.heal)}`,
             gain: r.heal,
@@ -1025,18 +1052,18 @@ export class SparStage {
       const shown = Math.abs(gained - Math.round(gained)) < 1e-6 ? Math.round(gained) : Number(gained.toFixed(1));
       this.floaters.push({ x: ix, y: iy - 14, text: `+${shown} 修為`, gain: shown, age: 0, dur: 1.15 });
     }
-    this.splashes.push({ x: ix, y: iy, rot: Math.random() * Math.PI * 2, age: 0, dur: 0.5 });
+    this.splashes.push({ x: ix, y: iy, rot: this.visualRng() * Math.PI * 2, age: 0, dur: 0.5 });
     for (let i = 0; i < 14; i++) {
-      const a = Math.random() * Math.PI * 2;
-      const sp = 40 + Math.random() * 130;
+      const a = this.visualRng() * Math.PI * 2;
+      const sp = 40 + this.visualRng() * 130;
       this.particles.push({
         x: ix,
         y: iy,
         vx: Math.cos(a) * sp + 60, // 墨點順住劍勢向右飛
         vy: Math.sin(a) * sp - 30,
-        r: 0.8 + Math.random() * 2.6,
+        r: 0.8 + this.visualRng() * 2.6,
         age: 0,
-        dur: 0.5 + Math.random() * 0.35,
+        dur: 0.5 + this.visualRng() * 0.35,
       });
     }
   }
@@ -1050,7 +1077,7 @@ export class SparStage {
     if (this.heroX <= 0) this.heroX = this.cssW * 0.20;
     return {
       k,
-      groundY: h * 0.92,
+      groundY: h * (this.art ? SPAR_PRESENTATION.ground : 0.92),
       heroX: this.heroX,
     };
   }
@@ -1072,11 +1099,11 @@ export class SparStage {
     ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
     ctx.clearRect(0, 0, this.cssW, this.cssH);
     if (this.shake > 0) {
-      ctx.translate((Math.random() - 0.5) * this.shake, (Math.random() - 0.5) * this.shake);
+      ctx.translate((this.visualRng() - 0.5) * this.shake, (this.visualRng() - 0.5) * this.shake);
     }
 
     this.drawBackground();
-    this.ambience.draw(ctx, 'back');
+    if (!this.art && !this.quiet) this.ambience.draw(ctx, 'back');
 
     // 地面淡墨影
     this.shadow(g.heroX, g.groundY, 60 * g.k);
@@ -1088,20 +1115,10 @@ export class SparStage {
 
     // 敵影先畫（喺俠客身後）
     for (const e of this.enemies) this.drawEnemy(g, e);
-    const tip = this.drawWarrior(g);
-    this.ambience.draw(ctx, 'front');
+    this.drawWarrior(g);
+    if (this.art) this.drawWeather();
+    else if (!this.quiet) this.ambience.draw(ctx, 'front');
 
-    // 武器鋒拖墨：攻擊爆發段先記錄
-    const attacking = this.attackT !== null && this.attackT > 0.16 && this.attackT < 0.46;
-    if (attacking && tip) {
-      if (this.prevTip) {
-        const moved = Math.hypot(tip.x - this.prevTip.x, tip.y - this.prevTip.y);
-        if (moved > 1.2) this.trail.push({ x: tip.x, y: tip.y, age: 0 });
-      }
-      this.prevTip = tip;
-    } else {
-      this.prevTip = null;
-    }
     this.drawTrail();
     this.drawSplashes();
     this.drawParticles();
@@ -1132,6 +1149,22 @@ export class SparStage {
       ctx.drawImage(img, dx, dy, dw, dh);
       ctx.restore();
     };
+    if (this.art) {
+      // 畫面比例獨立適配，地面錨點固定；唔對前景做呼吸縮放。
+      const drawSeason = (season: SparSeason, alpha: number) => {
+        ctx.save(); ctx.globalAlpha = alpha;
+        ctx.drawImage(this.art!.seasons[season], 0, 0, this.cssW, this.cssH); ctx.restore();
+      };
+      if (this.previousSeason && this.seasonFade < 1) drawSeason(this.previousSeason, 1);
+      drawSeason(this.season, this.seasonFade);
+      if (!this.quiet) {
+        ctx.save(); ctx.globalAlpha = .16;
+        const shift = Math.sin(this.bgT * .15) * this.cssW * .055;
+        ctx.drawImage(this.art.mist, -this.cssW * .15 + shift, this.cssH * .27, this.cssW * 1.3, this.cssH * .3);
+        ctx.restore();
+      }
+      return;
+    }
     if (this.bgPrev && this.bgFade < 1) drawOne(this.bgPrev, 1 - this.bgFade);
     if (this.bgImg) drawOne(this.bgImg, this.bgFade);
     if (this.bgFade >= 1) this.bgPrev = null;
@@ -1160,12 +1193,8 @@ export class SparStage {
 
   private enemyPose(e: EnemyInst): Pose {
     if (e.state === 'dead') {
-      const pose = evalPose('enemy', this.idleT, SPAR_CLIPS['enemy-death'], e.t);
-      if (!this.combat) return pose;
-      // 對打：中最後一刀向後飛、打轉（首領飛得遠啲）
-      const p = Math.min(1, e.t / SPAR_CLIPS['enemy-death'].dur);
-      const fly = e.boss ? 420 : 300;
-      return { ...pose, x: pose.x + fly * (1 - (1 - p) ** 2), rot: pose.rot + 30 * p };
+      const sample = collapseSample(e.t, SPAR_CLIPS['enemy-death'].dur);
+      return { ...REST, x: 100 * sample.recoil, y: 0, rot: 0, sy: 1, alpha: sample.alpha };
     }
     if (e.state === 'spawn') {
       if (!this.combat) return evalPose('enemy', this.idleT, SPAR_CLIPS['enemy-spawn'], e.t);
@@ -1173,11 +1202,11 @@ export class SparStage {
       const p = Math.min(1, e.t / this.spawnDur());
       const ease = 1 - (1 - p) ** 3;
       const steps = e.boss ? 2 : 3;
-      const hop = Math.abs(Math.sin(p * Math.PI * steps)) * (e.boss ? 14 : 26) * (1 - p);
+
       return {
         ...REST,
         x: 760 * (1 - ease),
-        y: -hop,
+        y: 0,
         rot: -4 * Math.sin(p * Math.PI * steps * 2) * (1 - p),
         sy: p > 0.85 ? 1 - 0.08 * Math.sin(((p - 0.85) / 0.15) * Math.PI) : 1,
         alpha: Math.min(1, p * 3),
@@ -1219,16 +1248,19 @@ export class SparStage {
         sy += 0.06 * (1 - p);
       }
     }
-    return { ...REST, x, y: bobY, rot, sy, alpha };
+    return { ...REST, x, y: this.art ? 0 : bobY, rot, sy, alpha };
   }
 
   private shadow(x: number, y: number, rx: number) {
     const { ctx } = this;
     ctx.save();
-    ctx.fillStyle = `rgba(${INK},0.22)`;
-    ctx.beginPath();
-    ctx.ellipse(x, y, rx, rx * 0.16, 0, 0, Math.PI * 2);
-    ctx.fill();
+    if (this.art) {
+      ctx.globalAlpha *= .52;
+      ctx.drawImage(this.art.shadow, x - Math.max(9, rx * 2), y - 3, Math.max(18, rx * 4), 7);
+    } else {
+      ctx.fillStyle = `rgba(${INK},0.22)`;
+      ctx.beginPath(); ctx.ellipse(x, y, rx, rx * .16, 0, 0, Math.PI * 2); ctx.fill();
+    }
     ctx.restore();
   }
 
@@ -1249,7 +1281,14 @@ export class SparStage {
       const downP = this.heroDownT !== null ? Math.min(1, this.heroDownT / 0.7) : 0;
       const downFade = this.heroDownT !== null ? Math.max(0, 1 - Math.max(0, this.heroDownT - 0.9) / 0.6) : 1;
       const fx = g.heroX + body.x * g.k - 9 * flinch * flinch - 18 * downP;
-      const fy = g.groundY + body.y * g.k + crouch;
+      const fy = this.art ? g.groundY : g.groundY + body.y * g.k + crouch;
+      if (this.art && this.heroDownT !== null) {
+        const sample = collapseSample(this.heroDownT, .9);
+        const img = this.art.heroDown[sample.frame]!;
+        ctx.save(); ctx.globalAlpha *= downFade;
+        ctx.drawImage(img, g.heroX - 450 * g.k - 10 * sample.recoil, g.groundY - 788 * g.k, 900 * g.k, 800 * g.k);
+        ctx.restore(); return null;
+      }
       const src = this.weaponDef?.src ?? '';
       const weaponKind = !this.weaponDef
         ? weaponFromKind(null)
@@ -1268,7 +1307,7 @@ export class SparStage {
                     : weaponFromKind('sword');
 
       const striking = this.attackT !== null;
-      const sy = Number.isFinite(body.sy) && body.sy > 0.2 ? body.sy : 1;
+      const sy = (Number.isFinite(body.sy) && body.sy > 0.2 ? body.sy : 1) - (this.art ? crouch / (788 * g.k) : 0);
 
       // A：揀全身幀（行路／揮擊／待機）——永遠先畫，確保主角可見
       let heroImg: CanvasImageSource = this.images.heroIdle;
@@ -1283,7 +1322,12 @@ export class SparStage {
         heroImg = this.images.heroAttack;
         part = HERO_SIL.attack;
         frameKey = 'attack';
-      } else if (this.images.heroWalk && this.images.heroWalk.length >= 4 && (this.directorSample?.walkMul ?? 1) > 0.15) {
+      } else if (this.art && this.heroMoving) {
+        const fi = gaitFrame(this.walkT);
+        heroImg = this.art.walk[fi]!;
+        part = { w: 900, h: 800, dx: -450, dy: -788 };
+        frameKey = 'generated-walk';
+      } else if (!this.art && this.images.heroWalk && this.images.heroWalk.length >= 4 && (this.directorSample?.walkMul ?? 1) > 0.15) {
         const fi = walkFrameIndex(this.walkT);
         heroImg = this.images.heroWalk[fi] ?? this.images.heroIdle;
         part = HERO_WALK_FRAMES[fi] ?? HERO_SIL.idle;
@@ -1329,7 +1373,7 @@ export class SparStage {
       // 兵器剪影：掛喺呢格握點，沿該格揮擊方向；空手唔畫（拖墨用拳風距離）
       void arm;
       void head;
-      const gripDef = HERO_WEAPON_GRIPS[frameKey] ?? HERO_WEAPON_GRIPS.idle!;
+      const gripDef = frameKey === 'generated-walk' ? { x: 495, y: 490, angle: 38 } : HERO_WEAPON_GRIPS[frameKey] ?? HERO_WEAPON_GRIPS.idle!;
       // 握點跟住條帶變形一齊郁，兵器唔會同手分家
       const gx = (gripDef.x + HERO_SIL.idle.dx + this.heroRig.offsetAt(gripDef.y / SILHOUETTE_DESIGN_H)) * g.k;
       const gy = (gripDef.y + HERO_SIL.idle.dy) * g.k;
@@ -1390,65 +1434,39 @@ export class SparStage {
     const enemyImg = this.images.enemies[idx] ?? this.images.enemies[0];
     if (!enemyImg) return;
 
-    // 第 20 項：精英／首領腳下光環用特性色；當前敵人蓄力中光環暴漲、狂怒中墨紅火焰
-    const isCurrent = this.enemies[0] === e && e.state !== 'dead';
+    if (e.state === 'dead') {
+      const sample = collapseSample(e.t, SPAR_CLIPS['enemy-death'].dur);
+      const frames = this.art?.deaths.get(e.def.part.src);
+      ctx.save(); ctx.globalAlpha = pose.alpha;
+      if (frames) {
+        // 圖集邊缘有少量上一格兵器碎影；倒地格只顯示接地姿勢嘅範圍。
+        // 呢度係矩形裁切位圖，唔以path補畫角色。
+        const postureHeight = [1, .95, .72, .55][sample.frame]! * SILHOUETTE_DESIGN_H * ke;
+        ctx.beginPath(); ctx.rect(footX - 900 * ke, g.groundY - postureHeight, 1800 * ke, postureHeight + 12 * ke); ctx.clip();
+        ctx.drawImage(frames[sample.frame]!, footX - 900 * ke, g.groundY - 788 * ke, 1800 * ke, 800 * ke);
+      } else {
+        // 素材未到時仍用原造型；貼地半蹲，唔飛起打轉。
+        const flatten = Math.max(.22, 1 - sample.recoil * .78);
+        ctx.translate(footX, g.groundY); ctx.scale(1, flatten);
+        drawSilhouetteSprite(ctx, enemyImg, { k: ke, ...e.def.part });
+      }
+      ctx.restore(); return;
+    }
+
+    // 特性／蓄勢提示用AI位圖，保留原有特性語意，唔畫粗線圈／火舌。
+    const isCurrent = this.enemies[0] === e;
     const charging = isCurrent && e.tier !== 'minion' && (this.combat?.foeCharging?.() ?? false);
     const enraged = isCurrent && e.tier !== 'minion' && (this.combat?.foeEnraged?.() ?? false);
-    const auraRgb = e.traitRgb ?? CINNABAR;
-    if (e.state !== 'dead') {
-      ctx.save();
-      ctx.globalAlpha = Math.max(0, Math.min(1, pose.alpha)) * 0.9;
-      // 蓄勢時腳下光暴漲：預告要出手
-      const windup = e.lungeT !== null && e.lungeT < LUNGE_HIT_AT ? e.lungeT / LUNGE_HIT_AT : 0;
-      const pulse = (0.55 + 0.25 * Math.sin(e.bob * 2.6)) * (1 + windup * 1.6) * (charging ? 1.5 + 0.5 * Math.sin(e.bob * 9) : 1);
-      const aura = (e.boss ? 1.6 : e.tier === 'elite' ? 1.25 : 1) * (charging ? 1.35 : 1);
-      const strength = e.tier === 'elite' ? 0.75 : 1;
-      const rg = ctx.createRadialGradient(footX, footY, 2, footX, footY, 58 * ke * aura);
-      rg.addColorStop(0, `rgba(${auraRgb},${0.5 * pulse * strength})`);
-      rg.addColorStop(0.45, `rgba(${auraRgb},${0.16 * pulse * strength})`);
-      rg.addColorStop(1, `rgba(${auraRgb},0)`);
-      ctx.fillStyle = rg;
-      ctx.beginPath();
-      ctx.ellipse(footX, footY, 54 * ke * aura, 15 * ke * aura, 0, 0, Math.PI * 2);
-      ctx.fill();
-      // 特性光柱：精英淡、首領濃（一眼睇到「呢隻有特性」）
-      if (e.traitRgb && !this.quiet) {
-        const hgt = SILHOUETTE_DESIGN_H * ke * (e.boss ? 1.05 : 0.9);
-        const col = ctx.createLinearGradient(footX, footY, footX, footY - hgt);
-        const a0 = (e.boss ? 0.32 : 0.18) * (charging ? 1.8 : 1) * (0.8 + 0.2 * Math.sin(e.bob * 3.3));
-        col.addColorStop(0, `rgba(${e.traitRgb},${a0})`);
-        col.addColorStop(1, `rgba(${e.traitRgb},0)`);
-        ctx.fillStyle = col;
-        ctx.beginPath();
-        ctx.ellipse(footX, footY - hgt * 0.45, 30 * ke * aura, hgt * 0.55, 0, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      // 蓄力：一圈圈向內收嘅特性色環
-      if (charging && !this.quiet) {
-        for (let i = 0; i < 2; i++) {
-          const ph = (this.idleT * 1.6 + i * 0.5) % 1;
-          ctx.strokeStyle = `rgba(${auraRgb},${0.7 * ph})`;
-          ctx.lineWidth = 2.2;
-          ctx.beginPath();
-          ctx.ellipse(footX, footY, 70 * ke * aura * (1.2 - ph), 20 * ke * aura * (1.2 - ph), 0, 0, Math.PI * 2);
-          ctx.stroke();
-        }
-      }
-      // 狂怒：身後墨紅火舌
-      if (enraged && !this.quiet) {
-        const hgt = SILHOUETTE_DESIGN_H * ke;
-        for (let i = 0; i < 5; i++) {
-          const fx = footX + (i - 2) * 12 * ke * 3;
-          const flick = 0.75 + 0.25 * Math.sin(this.idleT * 11 + i * 1.7);
-          const fl = ctx.createLinearGradient(fx, footY, fx, footY - hgt * flick);
-          fl.addColorStop(0, 'rgba(122,31,26,0.55)');
-          fl.addColorStop(0.6, 'rgba(192,57,43,0.25)');
-          fl.addColorStop(1, 'rgba(192,57,43,0)');
-          ctx.fillStyle = fl;
-          ctx.beginPath();
-          ctx.ellipse(fx, footY - hgt * flick * 0.45, 12 * ke * 3, hgt * flick * 0.5, 0, 0, Math.PI * 2);
-          ctx.fill();
-        }
+    if (this.art && e.tier !== 'minion') {
+      const radius = (e.boss ? 30 : 21) * this.cssH / 218;
+      ctx.save(); ctx.globalAlpha = charging ? .75 : .34;
+      const shadow = solidSilhouette(this.art.shadow, e.traitRgb ?? CINNABAR);
+      ctx.drawImage(shadow, footX - radius, footY - 4, radius * 2, 10);
+      if (!this.quiet && (charging || enraged)) {
+        ctx.globalAlpha = .3 + .12 * Math.sin(this.bgT * 5);
+        const size = 42 * this.cssH / 218;
+        const plume = solidSilhouette(this.art.landing, e.traitRgb ?? CINNABAR);
+        ctx.drawImage(plume, footX - size / 2, footY - size * .8, size, size);
       }
       ctx.restore();
     }
@@ -1460,11 +1478,11 @@ export class SparStage {
     ctx.scale(1, pose.sy);
     const sprite = { k: ke, w: e.def.part.w, h: e.def.part.h, dx: e.def.part.dx, dy: e.def.part.dy };
     // 精英金邊、首領朱砂邊：單色剪影四向錯開畫喺後面
-    if (e.tier !== 'minion' && e.state !== 'dead') {
+    if (e.tier !== 'minion') {
       const rim = solidSilhouette(enemyImg, e.boss ? BOSS_RIM : ELITE_RIM);
-      const off = (e.boss ? 2.6 : 2) * (0.85 + 0.15 * Math.sin(e.bob * 4));
+      const off = (e.boss ? 1.1 : .8) * (0.85 + 0.15 * Math.sin(e.bob * 4));
       const a = ctx.globalAlpha;
-      ctx.globalAlpha = a * (e.boss ? 0.95 : 0.85);
+      ctx.globalAlpha = a * (e.boss ? .72 : .6);
       for (const [ox, oy] of [[-off, 0], [off, 0], [0, -off], [0, off]] as const) {
         ctx.save();
         ctx.translate(ox, oy);
@@ -1475,20 +1493,12 @@ export class SparStage {
     }
     // 素材本身望左，唔好再 flip（否則會變望右）；條帶變形做衣擺同傾身；衣帶疊點綴色
     drawWarpedSprite(ctx, e.accent ? accentSilhouette(enemyImg, e.accent) : enemyImg, sprite, (t) => e.rig.offsetAt(t));
-    if (e.state !== 'dead') {
-      const glow = (0.45 + 0.35 * Math.sin(e.bob * 3.1)) * (enraged ? 1.5 : 1);
-      const eyeRgb = e.traitRgb && e.tier !== 'minion' ? e.traitRgb : CINNABAR;
+    // 微細眼神高光用位圖，唔以圓形光暈搶走造型。
+    if (this.art && !this.quiet) {
       for (const eye of e.def.eyes) {
-        const ex = eye.x * ke;
-        const ey = eye.y * ke;
-        const er = 14 * ke * (e.boss ? 1.3 : 1);
-        const grad = ctx.createRadialGradient(ex, ey, 0, ex, ey, er);
-        grad.addColorStop(0, `rgba(${eyeRgb},${Math.min(1, glow)})`);
-        grad.addColorStop(1, `rgba(${eyeRgb},0)`);
-        ctx.fillStyle = grad;
-        ctx.beginPath();
-        ctx.arc(ex, ey, er, 0, Math.PI * 2);
-        ctx.fill();
+        const size = Math.max(1.1, 13 * ke);
+        ctx.globalAlpha *= .5;
+        ctx.drawImage(this.art.impact, eye.x * ke - size / 2, eye.y * ke - size / 2, size, size);
       }
     }
     ctx.restore();
@@ -1499,84 +1509,65 @@ export class SparStage {
    * 最新一段加宣紙白刃高光——快揮嗰陣就好似一彎墨虹掃過，唔再係一串圓點。
    */
   private drawDust(g: ReturnType<SparStage['geom']>) {
-    if (this.quiet) return;
+    if (this.quiet || !this.art) return;
     const { ctx } = this;
     for (const d of this.dust) {
       const p = d.age / d.dur;
-      ctx.fillStyle = `rgba(${INK},${0.28 * (1 - p)})`;
-      ctx.beginPath();
-      ctx.ellipse(d.x, g.groundY - 1, 10 * (1 + p), 3.2 * (1 - p * 0.5), 0, 0, Math.PI * 2);
-      ctx.fill();
+      const size = (d.landing ? 48 : 23) * (1 + p * .45) * this.cssH / 218;
+      ctx.save(); ctx.globalAlpha = (1 - p) * (d.landing ? .65 : .36);
+      ctx.drawImage(d.landing ? this.art.landing : this.art.dust, d.x - size / 2, g.groundY - size * .75, size, size * .8);
+      ctx.restore();
     }
   }
 
   private drawTrail() {
-    const { ctx } = this;
-    const pts = this.trail;
-    if (pts.length < 2) return;
-    for (let i = 1; i < pts.length; i++) {
-      const a = pts[i - 1]!;
-      const b = pts[i]!;
-      const pa = a.age / 0.26;
-      const pb = b.age / 0.26;
-      if (pa >= 1) continue;
-      const wa = 8 * (1 - pa) + 0.6;
-      const wb = 8 * (1 - pb) + 0.6;
-      const dx = b.x - a.x;
-      const dy = b.y - a.y;
-      const len = Math.hypot(dx, dy) || 1;
-      const nx = -dy / len;
-      const ny = dx / len;
-      ctx.fillStyle = `rgba(${INK},${0.4 * (1 - pa)})`;
-      ctx.beginPath();
-      ctx.moveTo(a.x + nx * wa, a.y + ny * wa);
-      ctx.lineTo(b.x + nx * wb, b.y + ny * wb);
-      ctx.lineTo(b.x - nx * wb, b.y - ny * wb);
-      ctx.lineTo(a.x - nx * wa, a.y - ny * wa);
-      ctx.closePath();
-      ctx.fill();
-    }
-    // 白刃高光：最新 0.09s 嘅鋒口
-    ctx.strokeStyle = 'rgba(250,246,238,0.85)';
-    ctx.lineWidth = 1.6;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-    ctx.beginPath();
-    let started = false;
-    for (const d of pts) {
-      if (d.age > 0.09) continue;
-      if (!started) {
-        ctx.moveTo(d.x, d.y);
-        started = true;
-      } else ctx.lineTo(d.x, d.y);
-    }
-    if (started) ctx.stroke();
+    if (this.quiet || !this.art || this.attackT === null) return;
+    const p = (this.attackT - .19) / .27;
+    if (p < 0 || p > 1) return;
+    const g = this.geom(), size = 74 * this.cssH / 218;
+    this.ctx.save(); this.ctx.globalAlpha = Math.sin(p * Math.PI) * .8;
+    this.ctx.translate(g.heroX + 19, g.groundY - 28); this.ctx.rotate(-.35 + p * .55);
+    this.ctx.drawImage(this.art.slash, -size * .5, -size * .65, size, size);
+    this.ctx.restore();
   }
 
   private drawSplashes() {
+    if (this.quiet) return;
     const { ctx } = this;
     for (const s of this.splashes) {
       const p = s.age / s.dur;
-      const scale = (0.45 + p * 0.6) * (this.cssH / 218);
-      const size = 225 * scale;
-      ctx.save();
-      ctx.globalAlpha = Math.pow(1 - p, 1.4) * 0.9;
-      ctx.translate(s.x, s.y);
-      ctx.rotate(s.rot);
-      ctx.drawImage(toInkSilhouette(this.images.splash), -size / 2, -size / 2, size, size * (this.images.splash.height / this.images.splash.width));
+      const size = (this.art ? 46 : 100) * (.75 + Math.min(p * 4, 1) * .3) * this.cssH / 218;
+      ctx.save(); ctx.globalAlpha = Math.pow(1 - p, 2) * .85;
+      ctx.translate(s.x, s.y); ctx.rotate(s.rot * .15);
+      ctx.drawImage(this.art?.impact ?? this.images.splash, -size / 2, -size / 2, size, size);
       ctx.restore();
     }
   }
 
   private drawParticles() {
+    if (this.quiet || !this.art) return;
     const { ctx } = this;
     for (const pt of this.particles) {
-      const p = pt.age / pt.dur;
-      ctx.fillStyle = `rgba(${pt.rgb ?? INK},${(pt.rgb ? 0.9 : 0.75) * (1 - p)})`;
-      ctx.beginPath();
-      ctx.arc(pt.x, pt.y, pt.r * (1 - p * 0.5), 0, Math.PI * 2);
-      ctx.fill();
+      const p = pt.age / pt.dur, size = Math.max(2, pt.r * 3);
+      ctx.save(); ctx.globalAlpha = .45 * (1 - p);
+      ctx.drawImage(this.art.impact, pt.x - size / 2, pt.y - size / 2, size, size);
+      ctx.restore();
     }
+  }
+
+  private drawWeather() {
+    if (this.quiet || !this.art) return;
+    const { ctx } = this;
+    // 地面之前只播位圖天氣；避免花／雪落穿石台。
+    ctx.save(); ctx.beginPath(); ctx.rect(0, 0, this.cssW, this.cssH * .84); ctx.clip();
+    for (const p of this.weather) {
+      const size = this.season === 'summer' ? p.size * .7 : p.size * .45;
+      ctx.save(); ctx.globalAlpha = particleAlpha(p, .2) * (this.season === 'winter' ? .55 : .7);
+      ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+      ctx.drawImage(this.art.weather[this.season], -size / 2, -size / 2, size, size);
+      ctx.restore();
+    }
+    ctx.restore();
   }
 
   private drawFloaters() {
@@ -1624,10 +1615,8 @@ export class SparStage {
       ctx.fillStyle = `rgb(${f.rgb ?? CINNABAR})`;
       ctx.strokeStyle = 'rgba(246,240,228,0.95)';
       ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.arc(f.x, y, r, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.stroke();
+      const stamp = this.art?.impact ?? this.images.ui?.splashPaper;
+      if (stamp) ctx.drawImage(solidSilhouette(stamp, f.rgb ?? CINNABAR), f.x - r, y - r, r * 2, r * 2);
       ctx.font = `800 ${Math.round(r * 1.25)}px ${this.uiFontFamily}`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
@@ -1636,8 +1625,8 @@ export class SparStage {
       ctx.restore();
       return;
     }
-    const base = f.kind === 'crit' ? 30 : f.kind === 'heal' ? 19 : f.kind === 'hurt' ? 20 : 23;
-    const pop = p < 0.12 ? 1.5 - (p / 0.12) * 0.5 : 1;
+    const base = f.kind === 'crit' ? 22 : f.kind === 'heal' ? 14 : f.kind === 'hurt' ? 16 : 17;
+    const pop = p < 0.12 ? 1.15 - (p / 0.12) * 0.15 : 1;
     const size = Math.round(base * k * pop);
     const rise = f.kind === 'crit' ? 22 : 30;
     const y = f.y - (1 - (1 - p) ** 2) * rise * k;
@@ -1645,9 +1634,9 @@ export class SparStage {
       f.kind === 'crit'
         ? '#f6d36b'
         : f.kind === 'heal'
-          ? '#9ee06a'
+          ? '#b3d0bc'
           : f.kind === 'hurt'
-            ? '#f08a70'
+            ? '#d29c8e'
             : '#fbf7ee';
     ctx.save();
     ctx.globalAlpha = Math.max(0, alpha);
@@ -1690,7 +1679,7 @@ export class SparStage {
   }
 }
 
-/** 對打數字字型：粗楷書斜體，白字墨邊（似參考圖嘅手寫大數） */
+/** 對打浮字沿用統一UI字體，淡色字配墨邊。 */
 
 /** 載入 AI 剪影位圖（俠客待機／揮擊＋敵人池）＋特效；角色可失敗用佔位，splash 必要 */
 export function loadSparImages(
@@ -1731,7 +1720,7 @@ export function loadSparImages(
     loadOptional(HERO_LAYERS.arm.src),
     ...enemies.map((d) => loadOptional(d.part.src)),
     loadRequired(splashSrc ?? `${import.meta.env.BASE_URL || '/'}ink/spar/fx-splash.webp`),
-  ]).then((loaded) => {
+  ]).then(async (loaded) => {
     let i = 0;
     const heroIdle = loaded[i++]!;
     const heroAttack = loaded[i++]!;
@@ -1745,6 +1734,7 @@ export function loadSparImages(
     const enemyImgs = loaded.slice(i, i + enemies.length) as HTMLImageElement[];
     i += enemies.length;
     const splash = loaded[i++]!;
+    const art = await loadSparArt().catch(() => undefined);
     return {
       heroIdle,
       heroAttack,
@@ -1755,6 +1745,7 @@ export function loadSparImages(
       layerArm,
       enemies: enemyImgs,
       splash,
+      art,
     };
   });
 }
