@@ -96,6 +96,8 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false }: Props) {
     };
     const combat: SparCombatHooks = {
       heroMayAttack: () => !ended && hits[i]?.side === 'player',
+      // 第 25 項：今回合用邊套外功就播嗰套專屬動畫
+      nextArt: () => (hits[i]?.side === 'player' ? (hits[i]?.skillId ?? null) : null),
       foeMayAttack: () => !ended && hits[i]?.side === 'foe',
       heroStrike: () => {
         const h = hits[i];

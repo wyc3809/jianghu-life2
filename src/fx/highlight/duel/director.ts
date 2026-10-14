@@ -16,6 +16,10 @@ import { DUEL_TUNING as T } from './tuning';
 import { CRIT_FROM_VOL, FOE_STROKE, strokeForVol, type VolumeStroke } from './strokes';
 import { FOE_TRAITS } from '@data/foes/traits';
 import { brushMesh, fighterMaterial, mistMaterial, strokePaths, type BrushMesh } from './shaders';
+import { ChoreoRun, splitDamage, type ArtChoreo, type ArtSpriteKey, type ChoreoEvent } from '../../art/choreo';
+import { choreoForArt } from '../../art/recipes';
+import { ART_SPRITE_KEYS, ArtFxLayer, loadArtSprites, makeAnchors, type FxAnchors } from '../../art/fxLayer';
+import { createRng } from '@core/random';
 
 export type DuelHit = CombatReplayHit & { round: number };
 
@@ -138,6 +142,17 @@ export class DuelDirector {
   private slow = 1;
   private freezeTimer: ReturnType<typeof setTimeout> | null = null;
   private seed = 1;
+
+  // 第 25 項：外功專屬動畫（src/fx/art/）
+  private artRun: ChoreoRun | null = null;
+  private artBeat: { h: DuelHit; k: number; parts: number[]; last: boolean } | null = null;
+  private artRng = createRng(41);
+  private artFx = new ArtFxLayer(() => this.artRng.nextFloat());
+  private artSprites: Partial<Record<ArtSpriteKey, HTMLImageElement>> = {};
+  private artCtx: CanvasRenderingContext2D | null = null;
+  private artFlash = 0;
+  private darken = 0;
+  private darkenHold = 0;
   /** 開發用：截圖時放慢成場（window.__duel.debugSlow(0.2)） */
   private debugMul = 1;
 
@@ -152,6 +167,10 @@ export class DuelDirector {
     this.renderer.setClearColor(0x000000, 0);
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     this.particles = new ParticleSystem(refs.fx);
+    this.artCtx = refs.fx.getContext('2d');
+    void loadArtSprites(ART_SPRITE_KEYS).then((sp) => {
+      this.artSprites = sp;
+    });
     this.particles.max = T.particleCap;
     if (hits.length > T.longFightHits) this.baseScale = T.longFightScale;
     this.tick = this.tick.bind(this);
@@ -341,6 +360,8 @@ export class DuelDirector {
 
   /** 玩家一招：蓄勢 → 揮擊（筆觸）→ 命中／落空 → 收勢；回傳下一個 beat 開始時間 */
   private playerBeat(tl: gsap.core.Timeline, t: number, h: DuelHit, k: number, last: boolean): number {
+    const choreo = choreoForArt(h.skillId);
+    if (choreo) return this.playerArtBeat(tl, t, h, k, last, choreo);
     const s = strokeForVol(h.vol);
     const hit = h.damage > 0;
     const crit = hit && (h.vol ?? 1) >= CRIT_FROM_VOL;
@@ -393,6 +414,146 @@ export class DuelDirector {
     if (crit) end += T.hitStopSec;
     if (killing) end += T.slowMoSec;
     return end;
+  }
+
+  /**
+   * 第 25 項：外功專屬動畫。編排（src/fx/art/recipes.ts）用 GSAP 推時間，
+   * 所以加速 ×2、停格、慢鏡都跟；傷害按編排分段彈數字，加埋＝replay 嘅傷害。
+   */
+  private playerArtBeat(tl: gsap.core.Timeline, t: number, h: DuelHit, k: number, last: boolean, c: ArtChoreo): number {
+    const run = new ChoreoRun(c);
+    const proxy = { t: 0 };
+    tl.call(
+      () => {
+        this.cb.onBeat(k);
+        run.t = 0;
+        proxy.t = 0;
+        this.artRun = run;
+        this.artBeat = { h, k, parts: splitDamage(h.damage, run.shares()), last };
+      },
+      [],
+      t,
+    );
+    tl.to(
+      proxy,
+      {
+        t: c.dur,
+        duration: c.dur,
+        ease: 'none',
+        onUpdate: () => {
+          if (this.artRun !== run) return;
+          for (const ev of run.advance(proxy.t - run.t)) this.artEvent(ev);
+          this.applyArtPose();
+        },
+      },
+      t,
+    );
+    tl.call(() => this.endArt(run), [], t + c.dur);
+    return t + c.dur + 0.15;
+  }
+
+  /** 主角到敵人面前嘅距離（世界單位）：編排 g＝1 就貼到敵人身前 */
+  private artGap(): number {
+    return Math.max(0, this.foe.baseX - 0.7 - this.hero.baseX);
+  }
+
+  private applyArtPose() {
+    const run = this.artRun;
+    if (!run) return;
+    const hero = this.hero;
+    const foe = this.foe;
+    const hs = run.hero();
+    hero.mesh.position.x = hero.baseX + hs.x * hero.h + hs.g * this.artGap();
+    hero.mesh.position.y = GROUND_Y + hero.h / 2 + hs.y * hero.h;
+    hero.mesh.rotation.z = (-hs.rot * Math.PI) / 180;
+    hero.mesh.scale.set(hs.sx, hs.sy, 1);
+    hero.mat.uniforms.uDissolve!.value = 1 - Math.max(0, Math.min(1, hs.alpha));
+    const tex = hs.pose === 'windup' ? this.tex.heroWindup : hs.pose === 'strike' ? this.tex.heroStrike : this.tex.heroIdle;
+    if (hero.mat.uniforms.map!.value !== tex) this.setTex(hero, tex);
+    const fs = run.foe();
+    foe.mesh.position.x = foe.baseX + fs.x * foe.h;
+    foe.mesh.position.y = GROUND_Y + foe.h / 2 + fs.y * foe.h;
+    foe.mesh.rotation.z = (-fs.rot * Math.PI) / 180;
+    foe.mesh.scale.y = fs.sy;
+  }
+
+  private endArt(run: ChoreoRun) {
+    if (this.artRun !== run) return;
+    this.artRun = null;
+    this.artBeat = null;
+    const hero = this.hero;
+    hero.mesh.position.set(hero.baseX, GROUND_Y + hero.h / 2, 0);
+    hero.mesh.rotation.z = 0;
+    hero.mesh.scale.set(1, 1, 1);
+    hero.mat.uniforms.uDissolve!.value = 0;
+    this.setTex(hero, this.tex.heroIdle);
+    const foe = this.foe;
+    // 終結一擊：敵人留喺原位等化墨
+    foe.mesh.position.set(foe.baseX, GROUND_Y + foe.h / 2, 0);
+    foe.mesh.rotation.z = 0;
+    foe.mesh.scale.y = 1;
+  }
+
+  /** 特效錨點：3D 人物位置投影去畫面（css px） */
+  private artAnchors(): FxAnchors {
+    const hero = this.hero;
+    const foe = this.foe;
+    const g0 = this.toScreen(0, GROUND_Y);
+    const g1 = this.toScreen(0, GROUND_Y + hero.h);
+    const unitH = Math.abs(g0.y - g1.y);
+    const hf = this.toScreen(hero.mesh.position.x, hero.mesh.position.y - hero.h / 2);
+    const ff = this.toScreen(foe.mesh.position.x, foe.mesh.position.y - foe.h / 2);
+    return makeAnchors({ unitH, heroFootX: hf.x, heroFootY: hf.y, foeFootX: ff.x, foeFootY: ff.y, foeScale: foe.h / hero.h, skyMinY: 12 });
+  }
+
+  private artEvent(ev: ChoreoEvent) {
+    switch (ev.kind) {
+      case 'fx':
+        this.artFx.spawn(ev.fx, this.artAnchors());
+        break;
+      case 'afterimage':
+        break; // 3D 用化墨同位移表達，唔畫殘影
+      case 'screen':
+        if (ev.effect === 'shake') this.cam.shake = Math.max(this.cam.shake, ev.amount * 0.025);
+        else if (ev.effect === 'flash') this.artFlash = Math.max(this.artFlash, ev.amount);
+        else if (ev.effect === 'darken') {
+          this.darken = Math.max(this.darken, ev.amount);
+          this.darkenHold = ev.dur ?? 0.4;
+        } else if (ev.effect === 'hitstop') this.freeze(ev.amount);
+        else if (ev.effect === 'slow') {
+          this.setSlow(ev.amount);
+          setTimeout(() => this.setSlow(1), ((ev.dur ?? 0.2) * 1000) / (this.baseScale * this.debugMul));
+        }
+        break;
+      case 'hit':
+        this.artHit(ev);
+        break;
+    }
+  }
+
+  private artHit(ev: Extract<ChoreoEvent, { kind: 'hit' }>) {
+    const run = this.artRun;
+    const beat = this.artBeat;
+    if (!run || !beat) return;
+    const info = run.hitInfo(ev);
+    const { h, k } = beat;
+    const foe = this.foe;
+    if (info.first) {
+      this.cb.onImpact(k);
+      for (const f of h.traitFx ?? []) this.traitSeal(f.kind === 'thorns' ? this.hero : foe, f.kind, f.value);
+      if (h.damage <= 0) {
+        this.missText(foe, k);
+        return;
+      }
+    }
+    if (h.damage <= 0) return;
+    const part = beat.parts[info.index] ?? 0;
+    const crit = info.last && (h.vol ?? 1) >= CRIT_FROM_VOL;
+    const c = this.chest(foe);
+    if (part > 0) this.number({ x: c.x + (info.index - 1) * 14, y: c.y - info.index * 10 }, part, crit ? 'crit' : 'hit');
+    this.particles.sparks(c.x, c.y, ev.heavy ? T.hitSparks * 1.4 : T.hitSparks * 0.7, [INK, '#5A4E46'], ev.heavy ? 12 : 9, 0.22);
+    gsap.fromTo(foe.mat.uniforms.uTintAmt!, { value: 0.85 }, { value: 0, duration: 0.3 });
+    if (ev.heavy) this.cam.shake = Math.max(this.cam.shake, T.critShake);
   }
 
   /** 敵人還手：撲前、反方向細筆觸、主角後仰 */
@@ -655,7 +816,30 @@ export class DuelDirector {
     this.renderer.render(this.scene, this.camera);
     this.particles.step(dt * this.effectiveScale());
     this.particles.draw();
+    this.drawArt(dt * this.effectiveScale());
     this.raf = requestAnimationFrame(this.tick);
+  }
+
+  /** 外功特效、天色轉暗、白光：畫喺粒子層上面 */
+  private drawArt(dt: number) {
+    const ctx = this.artCtx;
+    if (!ctx) return;
+    this.artFlash = Math.max(0, this.artFlash - dt * 5);
+    this.darkenHold = Math.max(0, this.darkenHold - dt);
+    if (this.darkenHold <= 0) this.darken = Math.max(0, this.darken - dt * 1.6);
+    if (!this.artFx.count && this.darken <= 0.01 && this.artFlash <= 0.01) return;
+    const a = this.artAnchors();
+    this.artFx.step(dt, a);
+    if (this.darken > 0.01) {
+      ctx.fillStyle = `rgba(18, 20, 28, ${this.darken * 0.75})`;
+      ctx.fillRect(0, 0, this.cssW, this.cssH);
+    }
+    this.artFx.draw(ctx, this.artSprites, a, 'back');
+    this.artFx.draw(ctx, this.artSprites, a, 'front');
+    if (this.artFlash > 0.01) {
+      ctx.fillStyle = `rgba(255, 252, 240, ${this.artFlash * 0.55})`;
+      ctx.fillRect(0, 0, this.cssW, this.cssH);
+    }
   }
 
   dispose() {
