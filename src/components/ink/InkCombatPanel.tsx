@@ -32,7 +32,6 @@ import {
   isCombatActionMove,
   REST_HEAL_MOVE,
   REST_QI_MOVE,
-  REST_STAMINA_MOVE,
   GUARD_STANCE,
   CHARGE_STANCE,
   FLEE_MOVE,
@@ -646,11 +645,9 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
                             ? '遁'
                             : mv.id === REST_QI_MOVE.id
                               ? '息'
-                              : mv.id === REST_STAMINA_MOVE.id
-                                ? '神'
-                                : mv.id === REST_HEAL_MOVE.id
-                                  ? '血'
-                                  : '調';
+                              : mv.id === REST_HEAL_MOVE.id
+                                ? '血'
+                                : '調';
                     const stance = resolveMoveStance(mv);
                     const actionHint =
                       mv.id === GUARD_STANCE.id
@@ -661,11 +658,9 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
                             ? '虛 · 伺機離場'
                             : mv.id === REST_QI_MOVE.id
                               ? `虛 · 回內${mv.qiSelf ?? 0}${mv.cooldown ? ` · CD${mv.cooldown}` : ''}`
-                              : mv.id === REST_STAMINA_MOVE.id
-                                ? `虛 · 回體${mv.staminaSelf ?? 0}${mv.cooldown ? ` · CD${mv.cooldown}` : ''}`
-                                : mv.id === REST_HEAL_MOVE.id
-                                  ? `架 · 回血${mv.healSelf ?? 0}${mv.cooldown ? ` · CD${mv.cooldown}` : ''}`
-                                  : mv.description;
+                              : mv.id === REST_HEAL_MOVE.id
+                                ? `架 · 回血${mv.healSelf ?? 0}${mv.cooldown ? ` · CD${mv.cooldown}` : ''}`
+                                : mv.description;
                     const strokeSrc =
                       mv.id === GUARD_STANCE.id
                         ? strokeUrl('guard')

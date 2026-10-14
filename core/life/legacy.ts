@@ -50,8 +50,7 @@ export function extractLegacy(state: LifeGameState): LegacyCarry {
   const rival =
     Object.values(state.npcs ?? {})
       .filter((n) => (n.affinity ?? 0) <= -25)
-      .sort((a, b) => (a.affinity ?? 0) - (b.affinity ?? 0))[0]?.name ??
-    (c.flags.aftermath_blood_foe ? String(c.flags.aftermath_blood_foe) : undefined);
+      .sort((a, b) => (a.affinity ?? 0) - (b.affinity ?? 0))[0]?.name;
   const equipped =
     c.equipment?.weapon || c.equipment?.armor || c.equipment?.accessory || undefined;
   const titleIds =

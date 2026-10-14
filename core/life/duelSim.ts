@@ -34,8 +34,6 @@ function fakeCharacter(loadout: ContestantBuild): LifeCharacter {
     martial: loadout.martial,
     qi: loadout.maxQi,
     maxQi: loadout.maxQi,
-    stamina: 100,
-    maxStamina: 100,
     actionPoints: 100,
     birthplace: '',
     location: '',

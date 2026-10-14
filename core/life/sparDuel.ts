@@ -1,4 +1,11 @@
-import { SPAR_DIFFICULTY_GROWTH } from '@data/redesign/testParams';
+import {
+  SPAR_BOSS_ATK_MUL,
+  SPAR_BOSS_HP_MUL,
+  SPAR_FOE_ATK_GROWTH,
+  SPAR_FOE_HP_GROWTH,
+  SPAR_KILL_HEAL,
+} from '@data/redesign/testParams';
+import { createRng } from '../random';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { gearTotals, sumGearCombatBonuses } from './equipment';
 import { getSkillDef } from '@data/skills/catalog';
@@ -20,9 +27,10 @@ import {
  * 每關＝幾個小兵＋精英（第 3 關起）＋一個長血條首領；首領／精英有特性（data/foes/traits.ts）；雙方輪流出手，主角有暴擊同吸血。
  * - 主角數值跟角色實力：武學、修為境界、氣血上限、兵器攻擊（越練越強，數字越跳越大）
  * - 演武氣血同角色同步：敗退最低保留1點，休整同一關重試、回滿血再戰，唔會死亡
- * - 關卡越後敵人越強（每關 ×SPAR_STAGE_GROWTH），自然停喺「同自己實力相若」嗰關
+ * - 關卡越後敵人越強：血量每關 ×SPAR_FOE_HP_GROWTH、攻擊每關 ×SPAR_FOE_ATK_GROWTH，自然停喺「同自己實力相若」嗰關
+ * - 過關（打低首領）回滿血；有回血武學每打低一個小兵／精英回少少
  *
- * RNG 由呼叫方注入（engine 用自己嘅 mulberry32），唔推進 getRng()，免得改咗人生事件嘅隨機序列。
+ * RNG：預設用獨立 seeded RNG（sparRand），唔推進 getRng()，免得改咗人生事件嘅隨機序列；同一存檔同一關結果可重現。
  */
 
 export interface SparHeroStats {
@@ -33,19 +41,16 @@ export interface SparHeroStats {
   critMul: number;
   /** 每擊吸血比例（傷害 ×）；冇吸血武學／裝備就係 0 */
   lifesteal: number;
-  /** 過關回血比例（maxHp ×）；冇回血武學就係 0 */
-  clearHeal: number;
+  /** 每打低一個小兵／精英回血比例（maxHp ×）；冇回血武學就係 0 */
+  killHeal: number;
   /** 減傷比例 0..0.6 */
   guard: number;
 }
 
 /** 修為境界每升一境，演武數值 ×1.32（對應 15 境曲線，頂境約 ×48） */
 export const SPAR_TIER_SCALE = 1.32;
-export const SPAR_STAGE_GROWTH = SPAR_DIFFICULTY_GROWTH;
-export const SPAR_BOSS_HP_MUL = 7;
-export const SPAR_BOSS_ATK_MUL = 2.2;
+export { SPAR_BOSS_ATK_MUL, SPAR_BOSS_HP_MUL, SPAR_FOE_ATK_GROWTH, SPAR_FOE_HP_GROWTH, SPAR_KILL_HEAL };
 /** 有回血武學先有：過關回血比例 */
-export const SPAR_STAGE_CLEAR_HEAL = 0.35;
 
 /** 戰力頁用：每項數值由邊度嚟（未乘境界倍率嘅分項＋倍率） */
 export interface SparHeroBreakdown {
@@ -57,8 +62,8 @@ export interface SparHeroBreakdown {
   atk: { base: number; fromMartial: number; fromWeapon: number };
   crit: { base: number; fromDanShi: number; fromWuXing: number; cap: number };
   lifesteal: { fromSkills: number; fromGear: number; cap: number; skillNames: string[] };
-  /** 回血武學（有先會過關回血） */
-  heal: { skillNames: string[]; onClear: number };
+  /** 回血武學（有先會擊倒回血） */
+  heal: { skillNames: string[]; onKill: number };
   guard: { fromArmor: number; cap: number };
   /** 武學（含裝備武學加成） */
   martial: number;
@@ -104,7 +109,7 @@ export function sparHeroBreakdown(state: LifeGameState): SparHeroBreakdown {
     cap: LIFESTEAL_CAP,
     skillNames: stealSkills,
   };
-  const heal = { skillNames: healSkills, onClear: healSkills.length ? SPAR_STAGE_CLEAR_HEAL : 0 };
+  const heal = { skillNames: healSkills, onKill: healSkills.length ? SPAR_KILL_HEAL : 0 };
   const guard = { fromArmor: gear.defense * 0.012, cap: GUARD_CAP };
   const stats: SparHeroStats = {
     maxHp: Math.max(1, Math.round(c.maxHealth)),
@@ -112,7 +117,7 @@ export function sparHeroBreakdown(state: LifeGameState): SparHeroBreakdown {
     critRate: Math.min(CRIT_CAP, crit.base + crit.fromDanShi + crit.fromWuXing),
     critMul: 1.85,
     lifesteal: Math.min(LIFESTEAL_CAP, lifesteal.fromSkills + lifesteal.fromGear),
-    clearHeal: heal.onClear,
+    killHeal: heal.onKill,
     guard: Math.min(GUARD_CAP, guard.fromArmor),
   };
   return { stats, tier, scale, hp, atk, crit, lifesteal, heal, guard, martial, gearAttack: gear.attack, gearDefense: gear.defense };
@@ -245,9 +250,9 @@ function foeOf(f: FoeEntry, trait: FoeTraitId, maxHp: number, atk: number): Spar
 /** 第 stage 關嘅敵人隊列：小兵 → 精英 → 首領（最後一個）；數值 deterministic */
 export function sparStageFoes(stage: number): SparFoe[] {
   const s = Math.max(1, Math.floor(stage));
-  const g = SPAR_STAGE_GROWTH ** (s - 1);
-  const minionHp = Math.round(140 * g);
-  const minionAtk = Math.round(16 * g);
+  // 血量跟主角攻擊、攻擊跟主角氣血，兩條曲線分開（data/redesign/testParams.ts）
+  const minionHp = Math.round(140 * SPAR_FOE_HP_GROWTH ** (s - 1));
+  const minionAtk = Math.round(16 * SPAR_FOE_ATK_GROWTH ** (s - 1));
   const region = sparSceneFor(s).region;
   const foes: SparFoe[] = [];
   const n = sparMinionCount(s);
@@ -314,6 +319,12 @@ export interface SparDuelSnapshot {
 
 export type SparRand = () => number;
 
+/** 演武專用 seeded RNG：同一角色（seed）同一關開打，暴擊、浮動、特性結果一樣；唔掂人生事件 RNG */
+export function sparRand(seed: number, stage: number): SparRand {
+  const rng = createRng(((seed >>> 0) ^ Math.imul(Math.max(1, Math.floor(stage)), 0x9e3779b1)) >>> 0);
+  return () => rng.nextFloat();
+}
+
 /** 一場演武嘅狀態機；engine 每次劍鋒到肉叫 heroStrike()、敵人出手叫 foeStrike() */
 export class SparDuel {
   stage: number;
@@ -324,7 +335,7 @@ export class SparDuel {
   foeHp: number;
   private traits: FoeTraitState;
 
-  constructor(hero: SparHeroStats, stage = 1, private rand: SparRand = Math.random) {
+  constructor(hero: SparHeroStats, stage = 1, private rand: SparRand = sparRand(0, stage)) {
     this.hero = hero;
     this.stage = Math.max(1, Math.floor(stage));
     this.heroHp = hero.maxHp;
@@ -424,12 +435,14 @@ export class SparDuel {
     if (this.foeHp > 0) return { stageCleared: false };
     const wasBoss = this.foe?.boss ?? false;
     if (wasBoss) {
+      // 入新一關一律滿血（玩家 2026-10-14）
       this.stage += 1;
       this.queue = sparStageFoes(this.stage);
       this.idx = 0;
-      this.heroHp = Math.min(this.hero.maxHp, this.heroHp + Math.round(this.hero.maxHp * this.hero.clearHeal));
+      this.heroHp = this.hero.maxHp;
     } else {
       this.idx += 1;
+      this.heroHp = Math.min(this.hero.maxHp, this.heroHp + Math.round(this.hero.maxHp * this.hero.killHeal));
     }
     this.foeHp = this.foe?.maxHp ?? 0;
     this.traits = this.traitsFor(this.foe ?? undefined);

@@ -35,7 +35,7 @@ import { grantGear } from './equipment';
 import { withRiskAndThree, jitterEffectsForRoll } from './choiceEnrich';
 import { pickPackEvent, getPackChoice } from './jianghuEventRepository';
 import { resolvePackOutcomes } from './outcomeResolver';
-import { isFleeChoice, startCombat, tryStartAftermathCombat } from './combat';
+import { isFleeChoice, startCombat } from './combat';
 import { applyChoiceNature } from './nature';
 import { grantEventCultivation } from './cultivation';
 import { ROAD_ENCOUNTER_EVENTS } from '@data/events/roadEncounters';
@@ -58,11 +58,6 @@ import {
   subscribeEventOverrides,
 } from './eventOverrides';
 import { getChoiceResultNarrate } from './resultNarrate';
-import {
-  buildTravelOfferEvent,
-  finalizeTravelFromFlags,
-  isTravelOfferReady,
-} from './rumorTravel';
 import { applyBondSideEffects, pickBondEvent } from './bonds';
 import { rollRandomFragment } from './manualFragments';
 import {
@@ -211,8 +206,7 @@ export function resolvePendingEvent(state: LifeGameState): GameEvent | null {
   if (!state.pending) return null;
   const id = state.pending.eventId;
   let raw: GameEvent | null = null;
-  if (id === 'play_travel_offer') raw = buildTravelOfferEvent(state);
-  else if (id === 'play_master_fork' || id === 'play_lover_fork') {
+  if (id === 'play_master_fork' || id === 'play_lover_fork') {
     const cached = state.character.flags._pending_bond_json;
     if (typeof cached === 'string' && cached) {
       try {
@@ -479,11 +473,7 @@ export function applyChoice(
     deltas.push(...pathLines);
   }
 
-  // 可玩性副作用：擇路／殘譜／絆線
-  if (state.character.flags._travel_apply) {
-    const travelLines = finalizeTravelFromFlags(state);
-    if (travelLines.length) logs.push(...travelLines);
-  }
+  // 可玩性副作用：殘譜／絆線
   if (state.character.flags._roll_fragment) {
     delete state.character.flags._roll_fragment;
     const fragLines = rollRandomFragment(state);
@@ -495,10 +485,6 @@ export function applyChoice(
   if (tags.includes('bond') || tags.includes('master') || tags.includes('romance')) {
     logs = applyBondSideEffects(state, logs);
     delete state.character.flags._pending_bond_json;
-  }
-  if (event.id === 'play_travel_offer') {
-    delete state.character.flags.travel_offer_consumed;
-    delete state.character.flags.travel_offer_json;
   }
 
   // 故人短弧：相見／結緣落拍；絕交斷緣；改日只延遲
@@ -632,13 +618,6 @@ export function startMonth(state: LifeGameState): LifeGameState {
     return state;
   }
 
-  // 戰後餘波交手優先於新事件
-  const aftermathLogs = tryStartAftermathCombat(state);
-  if (state.pendingCombat) {
-    if (aftermathLogs.length) pushChronicle(state, aftermathLogs);
-    snapshotRng(state);
-    return state;
-  }
 
   let event: GameEvent | null = null;
   let kind: 'ordinary' | 'special' | 'story' = 'ordinary';
@@ -649,16 +628,6 @@ export function startMonth(state: LifeGameState): LifeGameState {
     if (legacyEv) {
       event = legacyEv;
       kind = 'story';
-    }
-  }
-
-  // 傳聞擇路：打聽後優先掛動態指路
-  if (!event && isTravelOfferReady(state)) {
-    const travelEv = buildTravelOfferEvent(state);
-    if (travelEv) {
-      event = travelEv;
-      kind = 'ordinary';
-      state.character.flags.travel_offer_consumed = true;
     }
   }
 
@@ -681,11 +650,9 @@ export function startMonth(state: LifeGameState): LifeGameState {
     }
   }
 
-  // 首領／傳聞：優先於路遇；機率適中，配合線性戰鬥難度
+  // 首領：優先於路遇；機率適中，配合線性戰鬥難度
   if (!event && shouldTriggerBossCheck(state)) {
-    const rumorBoostEarly = Math.max(0, Math.min(3, Number(state.character.flags.rumor_boost ?? 0)));
-    const bossChance = 0.38 + rumorBoostEarly * 0.1;
-    if (rng.chance(bossChance)) {
+    if (rng.chance(0.38)) {
       event = pickBossEvent(state);
       if (event) kind = 'special';
     }
@@ -701,17 +668,13 @@ export function startMonth(state: LifeGameState): LifeGameState {
     state.combatEncounterCountdown = rng.nextInt(6, 12);
   }
 
-  const rumorBoost = Math.max(0, Math.min(3, Number(state.character.flags.rumor_boost ?? 0)));
-  // 月中額外首領機率（倒數未到亦可偶發）
-  const bossChance = 0.04 + rumorBoost * 0.03;
-  const secretExtraChance = rumorBoost > 0 ? 0.025 + rumorBoost * 0.02 : 0;
-
+  // 月中額外首領機率（倒數未到亦可偶發）；「打聽傳聞」加成已隨功能刪除（2026-10-14）
   if (!event) {
-    if (rng.chance(bossChance)) {
+    if (rng.chance(0.04)) {
       event = pickBossEvent(state);
       if (event) kind = 'special';
     }
-    if (!event && (shouldTriggerSpecial(state) || (secretExtraChance > 0 && rng.chance(secretExtraChance)))) {
+    if (!event && shouldTriggerSpecial(state)) {
       // 秘傳／金庸奇遇池唔可以永遠俾 100 條 pack 池搶晒——各半機率邊個先揀，揀唔到先 fallback 去對方
       const pickPack = (): GameEvent | null => {
         const packPick = pickPackEvent(state);
@@ -732,7 +695,6 @@ export function startMonth(state: LifeGameState): LifeGameState {
 
   // 靜月：無大事時約兩成月份只寫一行淡墨，唔硬塞機緣
   if (!event && rng.chance(0.22)) {
-    if (rumorBoost > 0) state.character.flags.rumor_boost = rumorBoost - 1;
     pushChronicle(state, [quietMonthLine(state.year, state.month, seasonLabel(state.month))]);
     snapshotRng(state);
     return state;
@@ -759,10 +721,6 @@ export function startMonth(state: LifeGameState): LifeGameState {
     ).filter((e) => !(e.tags ?? []).includes('pack') && !(e.tags ?? []).includes('arc'));
     event = weightedPick(state, pool);
     kind = 'ordinary';
-  }
-
-  if (rumorBoost > 0) {
-    state.character.flags.rumor_boost = rumorBoost - 1;
   }
 
   if (event) {

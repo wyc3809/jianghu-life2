@@ -12,7 +12,6 @@ import { ensureGear } from './equipment';
 import { pushChronicle } from './chronicle';
 import { snapshotRng, syncRngFromState } from './gameState';
 import { defaultAttributes, simulateContestDuel } from './duelSim';
-import { topGrudgeNames } from './grudgeBook';
 import { getMasterName } from './bonds';
 import { syncAchievements } from './achievements';
 import { recordHuashanPlacement, applyHuashanPlacementRank } from './jianghuRank';
@@ -373,9 +372,8 @@ export function startHuashanBracket(state: LifeGameState): string[] {
     contestants[id] = buildGhost(id, i, player.martial, rng);
   }
 
-  // 鬼影人格化：恩怨／師門／前世宿敵／眷屬相關名號覆寫 1～3 席
+  // 鬼影人格化：師門／前世宿敵／眷屬相關名號覆寫 1～3 席
   const personalNames: string[] = [];
-  for (const n of topGrudgeNames(state, 2)) personalNames.push(`${n}（舊怨）`);
   const master = getMasterName(state);
   if (master && !state.character.flags.master_severed) {
     personalNames.push(`${master}座下代打`);

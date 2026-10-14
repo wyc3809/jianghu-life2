@@ -18,7 +18,7 @@ function seq(values: number[]) {
   return () => values[i++ % values.length]!;
 }
 
-const HERO: SparHeroStats = { maxHp: 1000, atk: 100, critRate: 0.2, critMul: 2, lifesteal: 0.1, clearHeal: 0.35, guard: 0 };
+const HERO: SparHeroStats = { maxHp: 1000, atk: 100, critRate: 0.2, critMul: 2, lifesteal: 0.1, killHeal: 0.12, guard: 0 };
 
 describe('spar duel (演武台對打)', () => {
   it('test_stage_has_minions_then_boss_and_grows', () => {
@@ -26,7 +26,7 @@ describe('spar duel (演武台對打)', () => {
     expect(s1).toHaveLength(sparMinionCount(1) + sparEliteCount(1) + 1);
     expect(s1.at(-1)!.boss).toBe(true);
     expect(s1.slice(0, -1).every((f) => !f.boss)).toBe(true);
-    expect(s1.at(-1)!.maxHp).toBeGreaterThan(s1[0]!.maxHp * 5);
+    expect(s1.at(-1)!.maxHp).toBeGreaterThan(s1[0]!.maxHp * 3);
     expect(sparStageFoes(10)[0]!.maxHp).toBeGreaterThan(s1[0]!.maxHp * 3);
   });
 
@@ -155,14 +155,14 @@ describe('spar hero breakdown (戰力頁)', () => {
 });
 
 describe('spar heal rules (無回血技唔會自動回血)', () => {
-  it('test_no_heal_skill_means_no_lifesteal_and_no_clear_heal', () => {
+  it('test_no_heal_skill_means_no_lifesteal_and_no_kill_heal', () => {
     initRng(7);
     const s = createNewLife(7);
     s.character.skills = ['art_river_fist'];
     s.character.equipment = { weapon: null, armor: null, accessory: null };
     const st = sparHeroStats(s);
     expect(st.lifesteal).toBe(0);
-    expect(st.clearHeal).toBe(0);
+    expect(st.killHeal).toBe(0);
     const d = new SparDuel({ ...st, atk: 1e6 }, 1, seq([0.9]));
     d.heroHp = 10;
     const h = d.heroStrike();
@@ -170,22 +170,29 @@ describe('spar heal rules (無回血技唔會自動回血)', () => {
     expect(d.heroHp).toBe(10);
   });
 
-  it('test_stage_clear_heals_only_with_heal_skill', () => {
-    const noHeal = new SparDuel({ ...HERO, atk: 1e9, clearHeal: 0, lifesteal: 0 }, 1, seq([0.9]));
+  it('test_spar_new_stage_always_full_hp', () => {
+    // 玩家 2026-10-14：入新一關一律滿血，唔使回血武學
+    const d = new SparDuel({ ...HERO, atk: 1e9, killHeal: 0, lifesteal: 0 }, 1, seq([0.9]));
+    for (let i = 0; i < 10 && d.stage === 1; i++) {
+      d.heroStrike();
+      if (d.foe?.boss) d.heroHp = 100;
+      d.advance();
+    }
+    expect(d.stage).toBe(2);
+    expect(d.heroHp).toBe(1000);
+  });
+
+  it('test_spar_kill_heal_only_with_heal_skill', () => {
+    const noHeal = new SparDuel({ ...HERO, atk: 1e9, killHeal: 0, lifesteal: 0 }, 1, seq([0.9]));
     noHeal.heroHp = 100;
-    for (let i = 0; i < 10 && noHeal.stage === 1; i++) {
-      noHeal.heroStrike();
-      noHeal.advance();
-    }
-    expect(noHeal.stage).toBe(2);
+    noHeal.heroStrike();
+    noHeal.advance();
     expect(noHeal.heroHp).toBe(100);
-    const withHeal = new SparDuel({ ...HERO, atk: 1e9, clearHeal: 0.35, lifesteal: 0 }, 1, seq([0.9]));
+    const withHeal = new SparDuel({ ...HERO, atk: 1e9, killHeal: 0.12, lifesteal: 0 }, 1, seq([0.9]));
     withHeal.heroHp = 100;
-    for (let i = 0; i < 10 && withHeal.stage === 1; i++) {
-      withHeal.heroStrike();
-      withHeal.advance();
-    }
-    expect(withHeal.heroHp).toBe(450);
+    withHeal.heroStrike();
+    withHeal.advance();
+    expect(withHeal.heroHp).toBe(220);
   });
 });
 

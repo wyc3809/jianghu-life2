@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
 import { isInkNight, seasonToInk, sceneClassNames, placeToInk } from '../src/components/ink/sceneVariants';
-import { TRAVEL_DESTINATIONS } from '../core/life/rumorTravel';
 import type { LifeGameState } from '../interfaces/lifeEngine';
 
 function bareState(partial?: Partial<LifeGameState>): LifeGameState {
@@ -76,11 +75,10 @@ describe('sceneVariants paper atmosphere', () => {
     expect(placeToInk('溪畔')).toBe('river');
   });
 
-  it('places every real travel destination into a non-default scene bucket where the name implies one', () => {
-    // 除咗邊城夜市（真係市集，落 town 啱），其餘 5 個目的地依家都唔會再落入預設 town
-    const nonTown = TRAVEL_DESTINATIONS.filter((d) => d.name !== '邊城夜市');
-    for (const dest of nonTown) {
-      expect(placeToInk(dest.name)).not.toBe('town');
+  it('places former travel destinations (old saves) into a non-default scene bucket', () => {
+    // 「打聽傳聞」擇路已刪（2026-10-14），但舊存檔嘅所在地可能仲係呢啲地名
+    for (const name of ['古劍塚', '鏢局碼頭', '夜宴山莊', '藥谷溪畔', '廢寺殘垣']) {
+      expect(placeToInk(name)).not.toBe('town');
     }
   });
 });

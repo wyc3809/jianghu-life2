@@ -71,7 +71,7 @@ interface LifeInjury {
 | 頭部 | 修煉／領悟進度 −10% | −25% | −40% | `tryAdvanceSkill` 進度、修為增長 |
 | 軀幹 | 氣血上限 −5% | −15% | −25% | `maxHealth` 衍生值 |
 | 手臂 | 出手 −8% | −20% | −35% | 戰鬥攻擊 |
-| 腿腳 | 閃避 −3%、每月精力 −4 | −6%、−10 | −12%、−16 | 戰鬥閃避、`stamina` |
+| 腿腳 | 閃避 −3%、每月內力 −4 | −6%、−10 | −12%、−16 | 戰鬥閃避、`qi`（體力 2026-10-14 已併入內力） |
 
 所有數值喺 `data/injuries/tuning.ts`（資料驅動），核心只讀表。
 
@@ -105,7 +105,7 @@ interface LifeInjury {
   maxHealth'= maxHealth× (1 − TORSO_PENALTY[tier])      TORSO = { .05, .15, .25 }
   progress' = progress × (1 − HEAD_PENALTY[tier])       HEAD  = { .10, .25, .40 }
   evasion'  = evasion − LEG_EVASION[tier]               LEG_EVASION = { .03, .06, .12 }（戰鬥閃避 0–0.45，下限 0）
-  每月 stamina −= LEG_STAMINA[tier]                      LEG_STAMINA = { 4, 10, 16 }
+  每月 qi −= LEG_QI_DRAIN[tier]                          LEG_QI_DRAIN = { 4, 10, 16 }
 
 時間：LIGHT_MONTHS = 3，HEAVY_MONTHS = 8，HEAL_MONTHS = 2
 ```

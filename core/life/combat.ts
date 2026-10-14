@@ -4,7 +4,6 @@ import {
   CHARGE_STANCE,
   FLEE_MOVE,
   REST_QI_MOVE,
-  REST_STAMINA_MOVE,
   REST_HEAL_MOVE,
   DESPERATE_BURN_MOVE,
   DESPERATE_SURRENDER_MOVE,
@@ -95,8 +94,8 @@ export function buildPlayerFighter(state: LifeGameState): CombatFighter {
   const passive = sumInternalPassives(c.skills, c.skillRanks ?? {}, c.manualStars);
   const titleBonus = titleBonusTotals(state);
   const evasion = sumEvasionBonus(c.skills, c.skillRanks ?? {}, c.manualStars) + c.attributes.danShi / 500;
-  const maxHp = c.health;
-  const maxQi = c.qi;
+  // 江湖交手開場一律滿血（玩家 2026-10-14）：上限連內功被動；內力照用角色現有
+  const maxHp = c.maxHealth + (passive.maxHp ?? 0);
   // 流派協同（主修＋裝備；只用喺回合制交手，唔影響演武台）
   const sb = schoolBonusTotal(c);
   const schoolSpecials = sb.stunChance > 0
@@ -105,8 +104,8 @@ export function buildPlayerFighter(state: LifeGameState): CombatFighter {
   return {
     name: c.name,
     hp: maxHp,
-    maxHp: c.maxHealth + (passive.maxHp ?? 0),
-    qi: maxQi,
+    maxHp,
+    qi: c.qi,
     maxQi: c.maxQi + (passive.maxQi ?? 0),
     // 手臂傷：出手按比例扣
     attack: Math.round(
@@ -139,8 +138,6 @@ export function buildPlayerFighter(state: LifeGameState): CombatFighter {
     gearLifesteal: gearCombat.lifesteal + sb.lifesteal,
     gearBleedChance: gearCombat.bleedChance + sb.bleedChance,
     gearSpecials: [...gearSpecials, ...schoolSpecials],
-    stamina: c.stamina ?? c.maxStamina ?? 100,
-    maxStamina: c.maxStamina ?? 120,
     martial: c.martial,
   };
 }
@@ -294,9 +291,6 @@ function syncPlayerVitalsToCharacter(state: LifeGameState, combat: PendingCombat
   const hpRatio = combat.player.hp / Math.max(1, combat.player.maxHp);
   c.health = clamp(Math.round(c.maxHealth * Math.min(1, hpRatio)), 0, c.maxHealth);
   c.qi = clamp(Math.round(combat.player.qi), 0, c.maxQi);
-  if (combat.player.stamina !== undefined) {
-    c.stamina = clamp(Math.round(combat.player.stamina), 0, c.maxStamina);
-  }
 }
 
 function findMove(state: LifeGameState, moveId: string): CombatMoveDef | null {
@@ -305,7 +299,6 @@ function findMove(state: LifeGameState, moveId: string): CombatMoveDef | null {
   if (moveId === CHARGE_STANCE.id) return CHARGE_STANCE;
   if (moveId === FLEE_MOVE.id) return FLEE_MOVE;
   if (moveId === REST_QI_MOVE.id) return REST_QI_MOVE;
-  if (moveId === REST_STAMINA_MOVE.id) return REST_STAMINA_MOVE;
   if (moveId === REST_HEAL_MOVE.id) return REST_HEAL_MOVE;
   if (moveId === DESPERATE_BURN_MOVE.id) return DESPERATE_BURN_MOVE;
   if (moveId === DESPERATE_SURRENDER_MOVE.id) return DESPERATE_SURRENDER_MOVE;
@@ -405,6 +398,8 @@ export function resolveCombatDisposition(
     dispositionBlurb(disposition, combat.foe.name),
     DISPOSITION_NARRATE[disposition],
   ];
+  // 擊暈不取命：計數俾「點穴手」成就／「手軟」稱號（舊旗標名保留，舊存檔照計）
+  if (disposition === 'stun') c.flags.aftermath_stun_soft = Number(c.flags.aftermath_stun_soft ?? 0) + 1;
 
   // 俠心過重仍選殺：額外損俠
   if (disposition === 'kill' && (c.nature?.xia ?? 0) >= 35) {
@@ -459,9 +454,6 @@ function finishCombatWin(state: LifeGameState, dispositionLabel?: CombatFoeDispo
   c.health = clamp(Math.round(c.maxHealth * Math.min(1, hpRatio)), 0, c.maxHealth);
   // 戰後不回滿內力：沿用交手結束時剩餘內力
   c.qi = clamp(Math.round(combat.player.qi), 0, c.maxQi);
-  if (combat.player.stamina !== undefined) {
-    c.stamina = clamp(Math.round(combat.player.stamina), 0, c.maxStamina);
-  }
   c.actionPoints = clamp(c.actionPoints - 8, 0, 100);
   c.stats.combats += 1;
   c.stats.combatsWon += 1;
@@ -583,9 +575,6 @@ function finishCombat(state: LifeGameState, won: boolean): string[] {
   c.health = clamp(Math.round(c.maxHealth * Math.min(1, hpRatio)), 0, c.maxHealth);
   // 戰敗同樣不回滿內力
   c.qi = clamp(Math.round(combat.player.qi), 0, c.maxQi);
-  if (combat.player.stamina !== undefined) {
-    c.stamina = clamp(Math.round(combat.player.stamina), 0, c.maxStamina);
-  }
   c.actionPoints = clamp(c.actionPoints - 14, 0, 100);
   c.stats.combats += 1;
   if (combat.usedDesperateBurn) {
@@ -1110,35 +1099,3 @@ export function isFleeChoice(choiceId: string, text: string): boolean {
   return /avoid|flee|leave|delay|watch|run|逃|避|離開|離去|觀望|改日|抽身|退去|不戰|繞道|自顧/.test(s);
 }
 
-/** 由 startMonth 呼叫：處理放走／血債引發的延遲交手 */
-export function tryStartAftermathCombat(state: LifeGameState): string[] {
-  if (state.pending || state.pendingCombat || !state.character.alive) return [];
-  const c = state.character;
-  const revenge = c.flags['pending_revenge_foe'];
-  if (typeof revenge === 'string' && revenge) {
-    delete c.flags['pending_revenge_foe'];
-    return startCombat(state, {
-      source: 'event',
-      title: '舊怨重燃',
-      foeName: revenge,
-      foePower: 'normal',
-      rewardOnWin: { money: 15, martial: 2, reputation: 2 },
-      rewardOnLose: { money: -8, reputation: -2 },
-      eventId: 'aftermath_revenge',
-    });
-  }
-  const blood = c.flags['pending_blood_foe'];
-  if (typeof blood === 'string' && blood) {
-    delete c.flags['pending_blood_foe'];
-    return startCombat(state, {
-      source: 'event',
-      title: '血債討還',
-      foeName: `${blood}舊部`,
-      foePower: 'strong',
-      rewardOnWin: { money: 20, martial: 3 },
-      rewardOnLose: { money: -12, reputation: -4 },
-      eventId: 'aftermath_blood',
-    });
-  }
-  return [];
-}

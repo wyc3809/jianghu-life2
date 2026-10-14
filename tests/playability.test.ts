@@ -1,7 +1,5 @@
 import { describe, expect, it } from 'vitest';
 import { createNewLife } from '../core/life/gameState';
-import { upsertGrudge, listGrudges, recordGrudgeFromDisposition } from '../core/life/grudgeBook';
-import { rollTravelOffer, applyTravelChoice, listTravelOffer } from '../core/life/rumorTravel';
 import { gainWeaponMastery, getWeaponMastery, weaponSynergyBoost } from '../core/life/weaponMastery';
 import { setCareer, careerMonthlyIncome } from '../core/life/careers';
 import { grantFragment, formatFragmentProgress, MANUAL_RECIPES } from '../core/life/manualFragments';
@@ -11,24 +9,6 @@ import { startHuashanBracket, canEnterHuashan } from '../core/life/huashan';
 import { tickMonthlyEconomy } from '../core/life/economy';
 
 describe('playability pack 1–8', () => {
-  it('grudge book records disposition', () => {
-    const state = createNewLife({ seed: 42, skipCoach: true });
-    recordGrudgeFromDisposition(state, 'kill', '黑衣人');
-    const book = listGrudges(state);
-    expect(book.some((g) => g.name === '黑衣人' && g.kind === 'blood')).toBe(true);
-  });
-
-  it('rumor travel offer and apply change location', () => {
-    const state = createNewLife({ seed: 7, skipCoach: true });
-    const offer = rollTravelOffer(state);
-    expect(offer.length).toBeGreaterThanOrEqual(2);
-    expect(listTravelOffer(state).length).toBe(offer.length);
-    const lines = applyTravelChoice(state, offer[0]!.id);
-    expect(lines.join('')).toMatch(offer[0]!.name);
-    expect(state.character.location).toBe(offer[0]!.name);
-    expect(state.character.flags.travel_region).toBe(offer[0]!.region);
-  });
-
   it('weapon mastery deepens match bonus', () => {
     const state = createNewLife({ seed: 11, skipCoach: true });
     state.character.skills.push('art_moon_sword');
@@ -91,15 +71,12 @@ describe('playability pack 1–8', () => {
     expect(PLAYABILITY_EVENTS.some((e) => e.id === 'play_fragment_peddler')).toBe(true);
   });
 
-  it('huashan ghosts can take personal names from grudges', () => {
+  it('huashan bracket still opens without grudge book', () => {
     const state = createNewLife({ seed: 13, skipCoach: true });
     state.character.age = 20;
     state.character.martial = 20;
-    upsertGrudge(state, { name: '血影客', kind: 'blood', strength: 4, monthsLeft: 6 });
-    const gate = canEnterHuashan(state);
-    expect(gate.ok).toBe(true);
+    expect(canEnterHuashan(state).ok).toBe(true);
     startHuashanBracket(state);
-    const names = Object.values(state.huashan?.contestants ?? {}).map((c) => c.name);
-    expect(names.some((n) => n.includes('血影客'))).toBe(true);
+    expect(Object.keys(state.huashan?.contestants ?? {}).length).toBeGreaterThan(0);
   });
 });

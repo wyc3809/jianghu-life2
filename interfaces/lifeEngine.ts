@@ -204,8 +204,6 @@ export interface LifeCharacter {
   martial: number;
   qi: number;
   maxQi: number;
-  stamina: number;
-  maxStamina: number;
   /** 行動力：處理事件／勞動會耗損，隨時間回復；耗盡前會擋住新的事件抉擇 */
   actionPoints: number;
   birthplace: string;
@@ -521,9 +519,6 @@ export interface CombatFighterState {
   gearSpecials?: CombatGearSpecial[];
   /** 復活型特效（如金絲軟甲）本場戰鬥已用過 */
   usedGearRevive?: boolean;
-  /** 玩家體力（僅 isPlayer 時同步至角色） */
-  stamina?: number;
-  maxStamina?: number;
   /** 內功運轉模式 id（龜息／虎嘯／鶴翔／蛇盤），null／缺省＝未運轉 */
   internalMode?: string | null;
   /** 蛇盤模式疊毒層數 */
@@ -598,8 +593,6 @@ export const lifeCharacterSchema = z.object({
   martial: z.number(),
   qi: z.number().default(80),
   maxQi: z.number().default(120),
-  stamina: z.number().default(100),
-  maxStamina: z.number().default(120),
   actionPoints: z.number().default(100),
   birthplace: z.string().default('千燈鎮'),
   location: z.string().default('千燈鎮'),

@@ -16,7 +16,7 @@ import { initRng } from '../core/random';
 import { startCombat } from '../core/life/combat';
 import { runAutoCombat } from '../core/life/autoCombat';
 
-const HERO: SparHeroStats = { maxHp: 1000, atk: 100, critRate: 0, critMul: 2, lifesteal: 0, clearHeal: 0, guard: 0 };
+const HERO: SparHeroStats = { maxHp: 1000, atk: 100, critRate: 0, critMul: 2, lifesteal: 0, killHeal: 0, guard: 0 };
 const seq = (values: number[]) => {
   let i = 0;
   return () => values[i++ % values.length]!;

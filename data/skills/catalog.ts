@@ -20,8 +20,6 @@ export interface CombatMoveDef {
   healSelf?: number;
   /** 回復自身內力（純調息或命中後） */
   qiSelf?: number;
-  /** 回復自身體力（純調息或命中後） */
-  staminaSelf?: number;
   /** 再次使用前的回合冷卻（0 或缺省＝無） */
   cooldown?: number;
   applyBlind?: number;
@@ -155,17 +153,6 @@ export const REST_QI_MOVE: CombatMoveDef = {
   description: '盤膝運功（虛），緩緩回復內力。',
 };
 
-export const REST_STAMINA_MOVE: CombatMoveDef = {
-  id: 'sys_rest_stamina',
-  name: '養神',
-  qiCost: 0,
-  power: 0,
-  stance: 'xu',
-  staminaSelf: 22,
-  cooldown: 2,
-  description: '收攝心神（虛），回復體力以便久戰。',
-};
-
 export const REST_HEAL_MOVE: CombatMoveDef = {
   id: 'sys_rest_heal',
   name: '止血',
@@ -222,7 +209,6 @@ export const SYSTEM_MOVES: CombatMoveDef[] = [
   CHARGE_STANCE,
   FLEE_MOVE,
   REST_QI_MOVE,
-  REST_STAMINA_MOVE,
   REST_HEAL_MOVE,
 ];
 
@@ -352,7 +338,6 @@ export function formatCombatMoveEffectBits(m: CombatMoveDef): string[] {
   if (m.lifesteal) fx.push(`吸血${Math.round(m.lifesteal * 100)}%`);
   if (m.healSelf) fx.push(`回血${m.healSelf}`);
   if (m.qiSelf) fx.push(`回內${m.qiSelf}`);
-  if (m.staminaSelf) fx.push(`回體${m.staminaSelf}`);
   const cd = effectiveMoveCooldown(m);
   if (cd > 0) fx.push(`CD${cd}回合`);
   if (m.applyBlind) fx.push('迷目');
@@ -372,7 +357,6 @@ export function combatMoveRole(m: CombatMoveDef): CombatMoveRole {
   if (m.id === CHARGE_STANCE.id) return '蓄';
   if (m.id === FLEE_MOVE.id) return '遁';
   if (
-    (m.staminaSelf ?? 0) > 0 ||
     (m.qiSelf ?? 0) > 0 ||
     ((m.healSelf ?? 0) > 0 && (m.power ?? 0) <= 0)
   ) {
@@ -417,7 +401,7 @@ export function isRecoverySupportMove(m: CombatMoveDef): boolean {
   if (m.id === GUARD_STANCE.id || m.id === CHARGE_STANCE.id || m.id === FLEE_MOVE.id) return false;
   return (
     (m.power ?? 0) <= 0 &&
-    ((m.healSelf ?? 0) > 0 || (m.qiSelf ?? 0) > 0 || (m.staminaSelf ?? 0) > 0)
+    ((m.healSelf ?? 0) > 0 || (m.qiSelf ?? 0) > 0)
   );
 }
 
