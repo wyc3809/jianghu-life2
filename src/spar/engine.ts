@@ -38,6 +38,9 @@ import {
   weaponFromKind,
 } from './silhouetteDraw';
 import { AnimDirector, type DirectorSample } from './animDirector';
+import { ChoreoRun, offsetPx, splitDamage, type ArtSpriteKey, type ChoreoEvent, type ChoreoSample } from '../fx/art/choreo';
+import { choreoForArt } from '../fx/art/recipes';
+import { ART_SPRITE_KEYS, ArtFxLayer, loadArtSprites, makeAnchors, type FxAnchors } from '../fx/art/fxLayer';
 import { StripRig, drawWarpedSprite } from './stripRig';
 import { SceneAmbience } from './ambience';
 import { advanceGait, gaitFrame, collapseSample, crossedGroundContact, SPAR_PRESENTATION, loadFoeCollapse, loadSparArt, type SparArtImages, type SparSeason } from './presentation';
@@ -347,6 +350,11 @@ export interface SparCombatHooks {
   heroMayAttack?(): boolean;
   /** 照劇本播：而家輪唔輪到敵人出手（輪到就即刻撲擊，唔等計時）。唔傳＝照舊計時 */
   foeMayAttack?(): boolean;
+  /**
+   * 第 25 項：下一招用邊套外功（skill id）。有招式編排（src/fx/art/recipes.ts）就播嗰套專屬動畫；
+   * 冇就照舊揮擊。只影響演出，傷害照 heroStrike 結算。
+   */
+  nextArt?(): string | null | undefined;
 }
 
 /** 血條等 DOM 浮層嘅錨點（css px） */
@@ -449,6 +457,21 @@ export class SparStage {
   private hitStop = 0;
   private shake = 0;
   private flash = 0;
+
+  // 第 25 項：外功專屬動畫（src/fx/art/）
+  private artRun: ChoreoRun | null = null;
+  private artTarget: EnemyInst | null = null;
+  private artResult: ReturnType<SparCombatHooks['heroStrike']> | null = null;
+  private artDamage: number[] = [];
+  private artFx = new ArtFxLayer(() => this.artRng());
+  private artRng = createRng(37);
+  private artSprites: Partial<Record<ArtSpriteKey, HTMLImageElement>> = {};
+  private artAfterimage = false;
+  private darken = 0;
+  private darkenHold = 0;
+  private slowAmt = 1;
+  private slowLeft = 0;
+  private artFlash = 0;
   private particles: Particle[] = [];
   private floaters: Floater[] = [];
   private splashes: SplashFx[] = [];
@@ -467,6 +490,12 @@ export class SparStage {
     this.weaponDef = opts.weapon ?? null;
     this.bgImg = opts.images.background ?? null;
     this.art = opts.images.art ?? null;
+    this.artFx.sizeMul = 1.5;
+    if (typeof Image !== 'undefined') {
+      void loadArtSprites(ART_SPRITE_KEYS).then((sp) => {
+        this.artSprites = sp;
+      });
+    }
   }
 
   /** AI四季／動作位圖；只影響演出，結算仍用原戰鬥鈎。 */
@@ -626,7 +655,14 @@ export class SparStage {
 
   /** 推進一幀；dt 以秒計 */
   update(rawDt: number) {
-    const dt = Math.min(rawDt, 0.05);
+    let dt = Math.min(rawDt, 0.05);
+    // 外功慢鏡（穿雲槍貫穿嗰刻）
+    if (this.slowLeft > 0) {
+      this.slowLeft -= dt;
+      dt *= this.slowAmt;
+    }
+    this.darkenHold = Math.max(0, this.darkenHold - dt);
+    if (this.darkenHold <= 0) this.darken = Math.max(0, this.darken - dt * 1.6);
     if (this.hitStop > 0) {
       this.hitStop -= dt * (this.quiet ? 3 : 1);
       if (!this.quiet) return; // 打擊停格：時間凍結，淨係渲染（減少動態唔凍）
@@ -635,6 +671,7 @@ export class SparStage {
     this.idleT = (this.idleT + dt * 1.35) % SPAR_CLIPS.idle.dur; // 向右行時節奏略快，似行路
     this.shake = Math.max(0, this.shake - dt * 22);
     this.flash = Math.max(0, this.flash - dt * 6);
+    this.artFlash = Math.max(0, this.artFlash - dt * 5);
     if (this.bgFade < 1) this.bgFade = Math.min(1, this.bgFade + dt / 0.6);
 
     this.heroMoving = false;
@@ -646,6 +683,7 @@ export class SparStage {
       if (!this.quiet && crossedGroundContact(this.heroDownT, this.heroDownT + dt)) this.dust.push({ x: this.heroX - 9, y: this.geom().groundY, age: 0, dur: .45, vx: 0, landing: true });
       this.heroDownT += dt;
       this.attackT = null;
+      this.endArt();
       for (const e of this.enemies) e.bob += dt;
       if (this.heroDownT >= HERO_DOWN_DUR) {
         this.combat?.heroRecovered();
@@ -663,6 +701,7 @@ export class SparStage {
     if (this.director.consumeWindupReady() && this.attackT === null) {
       this.attackT = 0;
       this.firedStrike = false;
+      this.startArt();
     }
     const dir = this.director.update(dt);
     this.directorSample = dir;
@@ -736,7 +775,9 @@ export class SparStage {
 
     // 攻擊排程：導演 strike 階段播 clip；否則射程內備招
     const inRange = this.nearestInRange();
-    if (this.attackT !== null) {
+    if (this.attackT !== null && this.artRun) {
+      this.updateArt(dt);
+    } else if (this.attackT !== null) {
       const clip = this.attackClipNow();
       const prev = this.attackT;
       this.attackT += dt;
@@ -783,6 +824,7 @@ export class SparStage {
 
   /** 特效老化（停格／倒地時都要繼續） */
   private ageFx(dt: number) {
+    if (this.artFx.count) this.artFx.step(dt, this.artAnchors());
     if (!this.art) this.ambience.update(dt);
     this.seasonFade = Math.min(1, this.seasonFade + dt / SPAR_PRESENTATION.sceneFade);
     if (this.art && !this.quiet && this.cssW > 0) {
@@ -829,6 +871,9 @@ export class SparStage {
         // 照劇本：未輪到就企定；輪到就好快出手
         if (!this.combat.foeMayAttack()) return;
         e.atkTimer = Math.min(e.atkTimer, 0.18);
+      } else if (this.artRun && this.artRun.t > SPAR_CLIPS.attack.dur) {
+        // 外功動畫長過原本揮擊：多出嗰段敵人唔計時，演武難度（出手比例）唔變
+        return;
       }
       e.atkTimer -= dt;
       if (e.atkTimer <= 0) {
@@ -963,6 +1008,178 @@ export class SparStage {
 
   private aliveEnemy(e: EnemyInst) {
     return e.state !== 'dead';
+  }
+
+  // ───────── 第 25 項：外功專屬動畫 ─────────
+
+  /** 開招：問外面今招用邊套外功，有編排就播專屬動畫 */
+  private startArt() {
+    this.endArt();
+    if (!this.combat) return;
+    const choreo = choreoForArt(this.combat.nextArt?.() ?? null);
+    if (!choreo) return;
+    this.artRun = new ChoreoRun(choreo);
+    this.artTarget = this.nearestInRange();
+  }
+
+  private endArt() {
+    this.artRun = null;
+    this.artTarget = null;
+    this.artResult = null;
+    this.artDamage = [];
+    this.artAfterimage = false;
+  }
+
+  private updateArt(dt: number) {
+    const run = this.artRun!;
+    this.attackT = (this.attackT ?? 0) + dt;
+    for (const ev of run.advance(dt)) this.artEvent(ev);
+    if (run.done) {
+      this.endArt();
+      this.attackT = null;
+      this.attackCooldown = ATTACK_COOLDOWN;
+      this.director.notifyStrikeDone();
+    }
+  }
+
+  private artEvent(ev: ChoreoEvent) {
+    switch (ev.kind) {
+      case 'fx':
+        this.artFx.spawn(ev.fx, this.artAnchors(), this.quiet);
+        break;
+      case 'afterimage':
+        this.artAfterimage = ev.on && !this.quiet;
+        break;
+      case 'screen':
+        if (this.quiet) break;
+        if (ev.effect === 'shake') this.shake = Math.max(this.shake, ev.amount);
+        else if (ev.effect === 'flash') this.artFlash = Math.max(this.artFlash, ev.amount);
+        else if (ev.effect === 'darken') {
+          this.darken = Math.max(this.darken, ev.amount);
+          this.darkenHold = ev.dur ?? 0.4;
+        } else if (ev.effect === 'hitstop') this.hitStop = Math.max(this.hitStop, ev.amount);
+        else if (ev.effect === 'slow') {
+          this.slowAmt = ev.amount;
+          this.slowLeft = ev.dur ?? 0.2;
+        }
+        break;
+      case 'hit':
+        this.artHit(ev);
+        break;
+    }
+  }
+
+  /** 一段命中：第一段先結算（heroStrike 一次），之後按 share 分開彈數字；最後一段先倒地 */
+  private artHit(ev: Extract<ChoreoEvent, { kind: 'hit' }>) {
+    const run = this.artRun;
+    if (!run || !this.combat) return;
+    const info = run.hitInfo(ev);
+    let target = this.artTarget;
+    if (!target || !this.aliveEnemy(target)) {
+      target = this.enemies.find((e) => this.aliveEnemy(e)) ?? null;
+      this.artTarget = target;
+    }
+    if (!target) return;
+    const g = this.geom();
+    if (!this.artResult) {
+      const r = this.combat.heroStrike();
+      this.artResult = r;
+      this.artDamage = splitDamage(r.dmg, run.shares());
+      if (r.dmg > 0 || r.killed) {
+        this.onStrike?.();
+        if (r.heal > 0) {
+          this.floaters.push({
+            x: g.heroX - 14,
+            y: g.groundY - SILHOUETTE_DESIGN_H * g.k * 0.78,
+            text: `+${formatSparNumber(r.heal)}`,
+            gain: r.heal,
+            age: 0,
+            dur: 0.95,
+            kind: 'heal',
+          });
+        }
+        if (r.fx?.length) this.showTraitFx(r.fx, target, r.reflect ?? 0, 0);
+      }
+    }
+    const r = this.artResult;
+    if (r.dmg <= 0 && !r.killed) return; // 落空：冇數字
+    const part = this.artDamage[info.index] ?? 0;
+    this.heroRig.kick(300);
+    target.rig.kick(ev.heavy ? 560 : 360);
+    const foeOff = this.artFoeOffset(target);
+    const headY = g.groundY - foeOff.dy - SILHOUETTE_DESIGN_H * this.enemyKe(target) * 0.6;
+    if (part > 0) {
+      this.floaters.push({
+        x: target.x + foeOff.dx + (this.visualRng() - 0.5) * 30,
+        y: headY - info.index * 12,
+        text: formatSparNumber(part),
+        gain: part,
+        age: 0,
+        dur: ev.heavy || r.crit ? 1.15 : 0.9,
+        kind: r.crit && info.last ? 'crit' : 'dmg',
+      });
+    }
+    if (!this.quiet) {
+      const ix = target.x + foeOff.dx - 10;
+      const iy = headY + 14;
+      for (let i = 0; i < (ev.heavy ? 12 : 6); i++) {
+        const a = this.visualRng() * Math.PI * 2;
+        const sp = 40 + this.visualRng() * 110;
+        this.particles.push({ x: ix, y: iy, vx: Math.cos(a) * sp + 40, vy: Math.sin(a) * sp - 30, r: 0.8 + this.visualRng() * 2.2, age: 0, dur: 0.4 + this.visualRng() * 0.3 });
+      }
+      if (ev.heavy) this.shake = Math.max(this.shake, 6);
+    }
+    if (info.last && r.killed) {
+      target.state = 'dead';
+      target.t = 0;
+      target.lungeT = null;
+      this.pendingDefeat = true;
+    } else {
+      target.hitT = 0;
+    }
+  }
+
+  /** 主角到敵人身前嘅距離（css px）：編排 g＝1 就係貼到敵人面前 */
+  private artGap(): number {
+    const g = this.geom();
+    const foe = this.artTarget ?? this.enemies.find((e) => this.aliveEnemy(e)) ?? null;
+    if (!foe) return 0;
+    return Math.max(0, foe.x - g.heroX - 0.3 * SILHOUETTE_DESIGN_H * g.k);
+  }
+
+  private artHeroSample(): ChoreoSample | null {
+    return this.artRun ? this.artRun.hero() : null;
+  }
+
+  private artHeroOffset(): { dx: number; dy: number } {
+    const s = this.artHeroSample();
+    if (!s) return { dx: 0, dy: 0 };
+    return offsetPx(s, SILHOUETTE_DESIGN_H * this.geom().k, this.artGap());
+  }
+
+  /** 被打嗰個敵人嘅位移（被推後、拋起） */
+  private artFoeOffset(e: EnemyInst): { dx: number; dy: number; rot: number; sy: number } {
+    if (!this.artRun || e !== this.artTarget || e.state === 'dead') return { dx: 0, dy: 0, rot: 0, sy: 1 };
+    const s = this.artRun.foe();
+    const H = SILHOUETTE_DESIGN_H * this.geom().k;
+    return { dx: s.x * H, dy: s.y * H, rot: s.rot, sy: s.sy };
+  }
+
+  private artAnchors(): FxAnchors {
+    const g = this.geom();
+    const H = SILHOUETTE_DESIGN_H * g.k;
+    const foe = this.artTarget && this.artTarget.state !== 'dead' ? this.artTarget : this.enemies.find((e) => e.state !== 'dead') ?? null;
+    const ho = this.artHeroOffset();
+    const fo = foe ? this.artFoeOffset(foe) : { dx: 0, dy: 0 };
+    return makeAnchors({
+      unitH: H,
+      heroFootX: g.heroX + ho.dx,
+      heroFootY: g.groundY - ho.dy,
+      foeFootX: foe ? foe.x + fo.dx : g.heroX + H,
+      foeFootY: g.groundY - fo.dy,
+      foeScale: foe ? this.enemyKe(foe) / g.k : 1,
+      skyMinY: 8,
+    });
   }
 
   private nearestInRange(): EnemyInst | null {
@@ -1100,9 +1317,17 @@ export class SparStage {
 
     this.drawBackground();
     if (!this.art && !this.quiet) this.ambience.draw(ctx, 'back');
+    // 外功：天色轉暗（聽雨、驚雷、棋局）
+    if (this.darken > 0.01) {
+      ctx.fillStyle = `rgba(18, 20, 28, ${this.darken})`;
+      ctx.fillRect(0, 0, this.cssW, this.cssH);
+    }
+    const artAnchors = this.artFx.count ? this.artAnchors() : null;
+    if (artAnchors) this.artFx.draw(ctx, this.artSprites, artAnchors, 'back');
 
-    // 地面淡墨影
-    this.shadow(g.heroX, g.groundY, 60 * g.k);
+    // 地面淡墨影（跳起時影留喺地、細啲）
+    const heroOff = this.artHeroOffset();
+    this.shadow(g.heroX + heroOff.dx, g.groundY, 60 * g.k * Math.max(0.45, 1 - heroOff.dy / (SILHOUETTE_DESIGN_H * g.k * 2)));
     for (const e of this.enemies) {
       if (this.enemyAlpha(e) > 0.01) this.shadow(e.x, g.groundY, 68 * this.enemyKe(e));
     }
@@ -1116,11 +1341,17 @@ export class SparStage {
     else if (!this.quiet) this.ambience.draw(ctx, 'front');
 
     this.drawTrail();
+    if (artAnchors) this.artFx.draw(ctx, this.artSprites, artAnchors, 'front');
     this.drawSplashes();
     this.drawParticles();
     this.drawCoins();
     this.drawFloaters();
 
+    // 外功白光（驚雷劈落、聽雨刺破）
+    if (this.artFlash > 0.01) {
+      ctx.fillStyle = `rgba(255, 252, 240, ${this.artFlash * 0.55})`;
+      ctx.fillRect(0, 0, this.cssW, this.cssH);
+    }
     // 敵影受擊白閃：全台微微提亮一瞬（極輕）
     if (this.flash > 0.5) {
       ctx.fillStyle = `rgba(240,233,216,${(this.flash - 0.5) * 0.12})`;
@@ -1276,8 +1507,11 @@ export class SparStage {
       const flinch = this.heroHitT < 0.22 ? 1 - this.heroHitT / 0.22 : 0;
       const downP = this.heroDownT !== null ? Math.min(1, this.heroDownT / 0.7) : 0;
       const downFade = this.heroDownT !== null ? Math.max(0, 1 - Math.max(0, this.heroDownT - 0.9) / 0.6) : 1;
-      const fx = g.heroX + body.x * g.k - 9 * flinch * flinch - 18 * downP;
-      const fy = this.art ? g.groundY : g.groundY + body.y * g.k + crouch;
+      // 第 25 項：外功編排位移（衝前、跳起、穿過敵人、後跳）
+      const artS = this.heroDownT === null ? this.artHeroSample() : null;
+      const artOff = artS ? this.artHeroOffset() : { dx: 0, dy: 0 };
+      const fx = g.heroX + body.x * g.k - 9 * flinch * flinch - 18 * downP + artOff.dx;
+      const fy = (this.art ? g.groundY : g.groundY + body.y * g.k + crouch) - artOff.dy;
       if (this.art && this.heroDownT !== null) {
         const sample = collapseSample(this.heroDownT, .9);
         const img = this.art.heroDown[sample.frame]!;
@@ -1330,10 +1564,45 @@ export class SparStage {
         frameKey = this.images.heroWalk[fi] ? `walk-${fi}` : 'idle';
       }
 
+      // 外功編排：姿勢由編排話事（蓄勢／揮擊／行路／待機）
+      if (artS) {
+        if (artS.pose === 'windup' && this.images.heroAtk?.[0]) {
+          heroImg = this.images.heroAtk[0];
+          part = HERO_ATK_FRAMES[0]!;
+          frameKey = 'atk-0';
+        } else if (artS.pose === 'strike' && this.images.heroAtk?.[2]) {
+          heroImg = this.images.heroAtk[2];
+          part = HERO_ATK_FRAMES[2]!;
+          frameKey = 'atk-2';
+        } else if (artS.pose === 'walk' && this.art) {
+          const fi = gaitFrame(this.walkT + (this.artRun?.t ?? 0) * 2.4);
+          heroImg = this.art.walk[fi]!;
+          part = { w: 900, h: 800, dx: -450, dy: -788 };
+          frameKey = 'generated-walk';
+        } else if (artS.pose === 'idle') {
+          heroImg = this.images.heroIdle;
+          part = HERO_SIL.idle;
+          frameKey = 'idle';
+        }
+      }
+      const artRot = artS ? artS.rot * DEG : 0;
+      const artSx = artS ? artS.sx : 1;
+      const artAlpha = artS ? artS.alpha : 1;
+      const bodyH = SILHOUETTE_DESIGN_H * g.k;
+
       const rot = (body.rot - 6 * flinch - 78 * (1 - (1 - downP) ** 3)) * DEG;
 
+      // 外功殘影（閃現、衝刺、迴旋）
+      if (artS && this.artAfterimage) {
+        this.afterClock += 1 / 60;
+        if (this.afterClock >= AFTERIMAGE_EVERY) {
+          this.afterClock = 0;
+          this.afterimages.push({ img: heroImg, part, x: fx, y: fy, rot: rot + artRot, sy, age: 0 });
+          if (this.afterimages.length > 6) this.afterimages.shift();
+        }
+      }
       // 揮擊殘影：出招爆發段每隔少少記一格，淡灰墨影跟喺身後
-      if (striking && at > 0.12 && at < 0.52 && !this.quiet) {
+      if (!artS && striking && at > 0.12 && at < 0.52 && !this.quiet) {
         this.afterClock += 1 / 60;
         if (this.afterClock >= AFTERIMAGE_EVERY) {
           this.afterClock = 0;
@@ -1352,8 +1621,15 @@ export class SparStage {
       }
 
       ctx.save();
-      ctx.globalAlpha *= fade * downFade;
+      ctx.globalAlpha *= fade * downFade * artAlpha;
       ctx.translate(fx, fy);
+      if (artS) {
+        // 外功：以身體中心轉（迴旋、空翻），橫向拉長（衝刺）
+        ctx.translate(0, -bodyH * 0.5);
+        ctx.rotate(artRot);
+        ctx.scale(artSx, 1);
+        ctx.translate(0, bodyH * 0.5);
+      }
       ctx.rotate(rot);
       ctx.scale(1, sy);
       // 條帶變形：上身傾、衣擺擺、頭髮飄（腳底固定）
@@ -1424,8 +1700,11 @@ export class SparStage {
     if (pose.alpha <= 0.01) return;
     const { ctx } = this;
     const ke = this.enemyKe(e);
-    const footX = e.x + pose.x * ke;
-    const footY = g.groundY + pose.y * ke;
+    const artOff = this.artFoeOffset(e);
+    const footX = e.x + pose.x * ke + artOff.dx;
+    const footY = g.groundY + pose.y * ke - artOff.dy;
+    pose.rot += artOff.rot;
+    pose.sy *= artOff.sy;
     const idx = Math.max(0, this.enemyPool.indexOf(e.def));
     const enemyImg = this.images.enemies[idx] ?? this.images.enemies[0];
     if (!enemyImg) return;
@@ -1517,7 +1796,7 @@ export class SparStage {
   }
 
   private drawTrail() {
-    if (this.quiet || !this.art || this.attackT === null) return;
+    if (this.quiet || !this.art || this.attackT === null || this.artRun) return;
     const p = (this.attackT - .19) / .27;
     if (p < 0 || p > 1) return;
     const g = this.geom(), size = 74 * this.cssH / 218;

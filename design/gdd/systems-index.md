@@ -14,6 +14,7 @@
 | Ancestral merit (祖蔭) | `core/life/ancestry.ts` · `design/gdd/ancestral-merit.md` | active |
 | Spar duel (演武台對打) | `core/life/sparDuel.ts` · `design/gdd/spar-duel.md` | active |
 | Foe roster & boss traits (敵人圖鑑／首領特性) | `data/foes/*` · `core/life/foeTraits.ts` · `design/gdd/foe-roster.md` | active |
+| External art animations (外功專屬動畫) | `src/fx/art/*` · `design/gdd/art-animations.md` | active |
 | Ink scene variants | `src/components/ink/sceneVariants.ts` | season + place |
 | Legacy / death / coach | `legacy.ts` / `death.ts` / `tutorial.ts` | stable |
 | Story chapters | — | **cancelled** |

@@ -15,6 +15,7 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { SparStage, loadSparImages, loadSparImage, loadSparUiImages, type SparCombatHooks } from '../../spar/engine';
+import { sparArtAt } from '../../spar/artCycle';
 import { SparDuel, formatSparNumber, sparHeroStats, sparRand, sparSavedStage, type SparDuelSnapshot } from '@core/life/sparDuel';
 import { InkBrushBar } from './InkBrush';
 import { inkHop, inkPopIn, inkRevealChars, inkShake, inkTweenVar } from '../../ui/inkMotion';
@@ -180,6 +181,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
       }
     };
     let noteTimer: ReturnType<typeof setTimeout> | null = null;
+    let artTurn = 0;
     /** 敵人 0 血就換人；過咗關就入賬、出提示。回傳係咪過關 */
     const settleDeadFoe = (): boolean => {
       if (!duel) return false;
@@ -212,6 +214,11 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
             settleDeadFoe();
             const f = duel.foe;
             return { boss: f?.boss ?? false, look: f?.look, tier: f?.tier, trait: f?.trait, accent: f?.accent };
+          },
+          // 第 25 項：輪住用已學外功，每套播自己嘅專屬動畫
+          nextArt: () => {
+            const st = useLifeStore.getState().state;
+            return st ? sparArtAt(st.character, artTurn++) : null;
           },
           foeCharging: () => duel.foeCharging,
           foeEnraged: () => duel.foeEnraged,
