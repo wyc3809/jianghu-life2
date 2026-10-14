@@ -1,0 +1,666 @@
+{
+  "version": "EA0.70.0",
+  "url": "https://wyc3809.github.io/jianghu-life2/?verify=EA0.70.0",
+  "script": "/jianghu-life2/assets/index-CerZIRQS.js",
+  "bundleStatus": 200,
+  "bundleVersionConfirmed": true,
+  "assets": [
+    {
+      "name": "ink/spar/commercial/enemy-inn_boss-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-road_boss-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-road_brute-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-road_boss-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-bamboo_boss-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-inn_twin-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-gate_vajra-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-nvcike-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-inn_boss-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-peak_boss-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-town_boss-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-chifa-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-bamboo_bloodmaid-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-peak_berserk-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-gouke-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-chifa-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-bamboo_bloodguard-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-gate_vajra-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-road_captain-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/hero-walk-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-toutuo-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-road_captain-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-road_boss-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-inn_boss-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-peak_vanguard-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-gouke-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-town_guard-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-shadow-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-bamboo_bloodguard-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-chifa-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-inn_boss-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-gate_boss-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/shadow.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-town_bruiser-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-town_guard-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-bamboo_bloodguard-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-inn_blades-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-daoke-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-tiemian-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-gate_vajra-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/season-summer.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-town_bruiser-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-peak_vanguard-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/land-dust.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/hero-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-gate_vajra-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-road_boss-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-tiemian-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-toutuo-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-peak_boss-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/season-spring.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-gate_boss-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-road_brute-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/season-winter.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-toutuo-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-gate_ironbone-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/hero-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-shadow-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-daoke-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/rain.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-town_boss-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-inn_blades-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-shadow-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/hero-walk-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-town_bruiser-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/hero-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-bamboo_bloodmaid-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-tiemian-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/step-dust.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-peak_vanguard-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-toutuo-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/petal.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/leaf.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-town_boss-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-peak_vanguard-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-peak_berserk-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-gouke-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-bamboo_boss-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-inn_twin-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/mist.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-nvcike-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-gate_ironbone-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-peak_boss-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-inn_twin-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/impact.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-road_brute-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-town_guard-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-inn_blades-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/hero-walk-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-shadow-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/hero-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-inn_blades-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-bamboo_boss-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-tiemian-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-bamboo_boss-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-bamboo_bloodguard-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-peak_berserk-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-road_captain-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-gouke-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-bamboo_bloodmaid-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-nvcike-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-bamboo_bloodmaid-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-nvcike-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-daoke-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-road_brute-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-inn_twin-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-chifa-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-town_guard-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/snow.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/hero-walk-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-gate_ironbone-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-gate_boss-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-peak_boss-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-town_boss-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/slash.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-daoke-down-0.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-gate_ironbone-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-gate_boss-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-peak_berserk-down-2.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/season-autumn.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-road_captain-down-3.webp",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "name": "ink/spar/commercial/enemy-town_bruiser-down-1.webp",
+      "status": 200,
+      "hashMatched": true
+    }
+  ],
+  "scenes": [
+    {
+      "season": "spring",
+      "month": 3,
+      "fixture": "seed42-local-save",
+      "canvasDrawn": true,
+      "currentSeasonAssetLoaded": true,
+      "fixedDockPresent": true,
+      "taskDockPresent": true
+    },
+    {
+      "season": "summer",
+      "month": 6,
+      "fixture": "seed42-local-save",
+      "canvasDrawn": true,
+      "currentSeasonAssetLoaded": true,
+      "fixedDockPresent": true,
+      "taskDockPresent": true
+    },
+    {
+      "season": "autumn",
+      "month": 9,
+      "fixture": "seed42-local-save",
+      "canvasDrawn": true,
+      "currentSeasonAssetLoaded": true,
+      "fixedDockPresent": true,
+      "taskDockPresent": true
+    },
+    {
+      "season": "winter",
+      "month": 12,
+      "fixture": "seed42-local-save",
+      "canvasDrawn": true,
+      "currentSeasonAssetLoaded": true,
+      "fixedDockPresent": true,
+      "taskDockPresent": true
+    }
+  ],
+  "errors": [],
+  "passed": true,
+  "mainCommit": "3ca1a2990490692f9774940251510200e0e05ba6",
+  "pullRequest": "https://github.com/wyc3809/jianghu-life2/pull/116",
+  "githubCi": "https://github.com/wyc3809/jianghu-life2/actions/runs/38540601754",
+  "deployPages": "https://github.com/wyc3809/jianghu-life2/actions/runs/38540601695",
+  "pagesBuildDeployment": "https://github.com/wyc3809/jianghu-life2/actions/runs/38540715776",
+  "unitTests": 583,
+  "realDeviceVerified": false
+}
