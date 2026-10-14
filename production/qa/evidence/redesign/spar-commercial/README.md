@@ -24,3 +24,9 @@ npm run audit:narrate
 ```
 
 WebKit環境用本機補裝動態庫；該環境變數只跳過Playwright主機依賴預檢，冇跳過遊戲檢查。實體iPhone未驗證。對照板用NotoSansCJK；臨時frames唔入git。
+
+## 最終檢查結果
+
+583項Vitest／79個測試檔、build、Pages base build、內容audit hard-fail0全部通過。Chromium11項、WebKit11項、戰鬥／UI回歸24項全部通過，頁面錯誤及失敗請求0；受控Canvas實際載入25款四幀倒地，地面錨點一致。Pages正式base下122個WebP全部HTTP200，詳見`validation-summary.json`／`pages-paths.json`。GIF係截幀預覽；倒地片段2倍慢播，原0.62秒結算時序不變。
+
+正式base預覽：`npm run build:pages`後，用`VITE_BASE=/jianghu-life2/ npm run preview -- --port 5185`再跑`node scripts/qa/captureSparPages.mjs`。

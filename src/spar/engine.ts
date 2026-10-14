@@ -1439,7 +1439,7 @@ export class SparStage {
       const frames = this.art?.deaths.get(e.def.part.src);
       ctx.save(); ctx.globalAlpha = pose.alpha;
       if (frames) {
-        // 圖集邊缘有少量上一格兵器碎影；倒地格只顯示接地姿勢嘅範圍。
+        // 圖集邊緣有少量上一格兵器碎影；倒地格只顯示接地姿勢嘅範圍。
         // 呢度係矩形裁切位圖，唔以path補畫角色。
         const postureHeight = [1, .95, .72, .55][sample.frame]! * SILHOUETTE_DESIGN_H * ke;
         ctx.beginPath(); ctx.rect(footX - 900 * ke, g.groundY - postureHeight, 1800 * ke, postureHeight + 12 * ke); ctx.clip();

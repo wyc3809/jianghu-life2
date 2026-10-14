@@ -1,0 +1,526 @@
+{
+  "status": "preview_not_published",
+  "version": "EA0.69.0",
+  "unitTests": 583,
+  "testFiles": 79,
+  "build": true,
+  "pagesBuild": true,
+  "narrateHardFail": 0,
+  "browserReports": {
+    "chromium": {
+      "checks": 11,
+      "passed": true,
+      "pageErrors": [],
+      "badRequests": []
+    },
+    "webkit": {
+      "checks": 11,
+      "passed": true,
+      "pageErrors": [],
+      "badRequests": []
+    },
+    "regression": {
+      "checks": 24,
+      "passed": true,
+      "pageErrors": [],
+      "badRequests": []
+    }
+  },
+  "foesLoaded": 25,
+  "motionPageErrors": [],
+  "groundAnchorVerified": true,
+  "pagesAssets": 122,
+  "pagesPathsPassed": true,
+  "realDeviceVerified": false,
+  "newSvgAssets": 0,
+  "assets": {
+    "ink/spar/commercial/enemy-inn_boss-down-3.webp": {
+      "bytes": 16872,
+      "sha256": "93897c5785a7b770019caa7ef8b9b1b3c4362b71b4551df01df23b31f3e8da49"
+    },
+    "ink/spar/commercial/enemy-road_boss-down-2.webp": {
+      "bytes": 22772,
+      "sha256": "3117e9994e705d1b0eb978ea63f41b7427f7aee21720e172f226cb0652229909"
+    },
+    "ink/spar/commercial/enemy-road_brute-down-2.webp": {
+      "bytes": 12990,
+      "sha256": "8bb43ae065373eaece5490bc5772e3f1fb67ca7d2e0ad5f6389a89b4efd16630"
+    },
+    "ink/spar/commercial/enemy-road_boss-down-3.webp": {
+      "bytes": 16318,
+      "sha256": "d3cff9b6ff61b331fdb0232a638ae4fada48ad72ecd6017f469eb041f8f9d6e2"
+    },
+    "ink/spar/commercial/enemy-bamboo_boss-down-3.webp": {
+      "bytes": 14060,
+      "sha256": "c73162d4d599d83133e9a37a952e97e11850fec34a2569198edbc1460e571783"
+    },
+    "ink/spar/commercial/enemy-inn_twin-down-1.webp": {
+      "bytes": 24184,
+      "sha256": "ee0f4480dcc78f03d47ec45d2a38555d6eb43698436a76219553f2595cf16c3e"
+    },
+    "ink/spar/commercial/enemy-gate_vajra-down-0.webp": {
+      "bytes": 20752,
+      "sha256": "2b5ee9b24cfb05523b51ed70f1dfaf0555b4d9cf35920b66022a4a21b2db642b"
+    },
+    "ink/spar/commercial/enemy-nvcike-down-0.webp": {
+      "bytes": 22194,
+      "sha256": "1a1da7993d2445b9b6769417f09a5ab5c3c5a0249ba535bbd45e07f1c6933f31"
+    },
+    "ink/spar/commercial/enemy-inn_boss-down-0.webp": {
+      "bytes": 25094,
+      "sha256": "0405fc04595bb7fa30c56a4e0d65e00a71160ee71bec8c9c395e89e3cb628b71"
+    },
+    "ink/spar/commercial/enemy-peak_boss-down-1.webp": {
+      "bytes": 21654,
+      "sha256": "855e86d0a77166af6613f68bd3727c8de422d81513bcabde3cabd0d46a3310b1"
+    },
+    "ink/spar/commercial/enemy-town_boss-down-3.webp": {
+      "bytes": 13892,
+      "sha256": "d3607014c4621a1713c9014f88ac13a0bb8b24895c7ffbc5bfe722a6ed89bc3d"
+    },
+    "ink/spar/commercial/enemy-chifa-down-1.webp": {
+      "bytes": 17374,
+      "sha256": "eb3a0f552c717ef98f45753e914bb67a83cda660edbf7a81378a699bdcc78c0d"
+    },
+    "ink/spar/commercial/enemy-bamboo_bloodmaid-down-1.webp": {
+      "bytes": 21258,
+      "sha256": "c69a957117385cb59c54ce25b3d29b488a814d4ae0776227a8e2d2f8da97b52d"
+    },
+    "ink/spar/commercial/enemy-peak_berserk-down-0.webp": {
+      "bytes": 21518,
+      "sha256": "e72d74251eb702c1808d04a70792a6b474ba1cf25590ad7d6effc5c26109c4a3"
+    },
+    "ink/spar/commercial/enemy-gouke-down-0.webp": {
+      "bytes": 29694,
+      "sha256": "9764e1927f0b8d9cba73434aa23f3df70e9b6a97fe110a2baf98c29930eff52f"
+    },
+    "ink/spar/commercial/enemy-chifa-down-0.webp": {
+      "bytes": 23862,
+      "sha256": "a76186872299585319b33be8793a9a2a2999edaa94099e0d30003b48256f4662"
+    },
+    "ink/spar/commercial/enemy-bamboo_bloodguard-down-3.webp": {
+      "bytes": 19382,
+      "sha256": "431d5c990e8312cf2c8899f647208f5aee4287586e110b9a70b4f9d05a04a7c1"
+    },
+    "ink/spar/commercial/enemy-gate_vajra-down-1.webp": {
+      "bytes": 19522,
+      "sha256": "70c3933cce65743c4d756cdfc5261abbf0b80a0393fc490c7a6655d7d8bef626"
+    },
+    "ink/spar/commercial/enemy-road_captain-down-2.webp": {
+      "bytes": 19214,
+      "sha256": "904f17880d94e53d3490ab3759d163909d76deb8c0cfcea46c843918cb38cd19"
+    },
+    "ink/spar/commercial/hero-walk-1.webp": {
+      "bytes": 91772,
+      "sha256": "c30cc39dcc833f75d4a9186b17de4176eea4c20ee605424fcb503d7924de1a26"
+    },
+    "ink/spar/commercial/enemy-toutuo-down-1.webp": {
+      "bytes": 17520,
+      "sha256": "c3fe295b3365c3f7d0ced7c1aef59821e51a0e7ee8e717e67edb0609e96fa2f8"
+    },
+    "ink/spar/commercial/enemy-road_captain-down-1.webp": {
+      "bytes": 23252,
+      "sha256": "51c4d718de43f89e6f0892d6f1b426bd161b35a473b9909e4961acd0c3cfc507"
+    },
+    "ink/spar/commercial/enemy-road_boss-down-0.webp": {
+      "bytes": 27458,
+      "sha256": "feefc9978a75df126f8e71dead8dcbc7e6fd06b9545eff5065bba59a0bfab07a"
+    },
+    "ink/spar/commercial/enemy-inn_boss-down-1.webp": {
+      "bytes": 25246,
+      "sha256": "1d0602ceba749864674cf1041436b39103f7248adc68cee976d34bfde66328e6"
+    },
+    "ink/spar/commercial/enemy-peak_vanguard-down-3.webp": {
+      "bytes": 20948,
+      "sha256": "764f42b9a727d7960b227554d68e32c03bc6b03a83e28744f442ecd085510605"
+    },
+    "ink/spar/commercial/enemy-gouke-down-2.webp": {
+      "bytes": 19096,
+      "sha256": "b05bfe61aaf8073ea598f0909ab702ba1e8d3dfa89c7f473603d46918b82d529"
+    },
+    "ink/spar/commercial/enemy-town_guard-down-1.webp": {
+      "bytes": 21154,
+      "sha256": "3cc8c05bf44bf1ecfe9bf1cdac243842271ef5d40a5af07bd49251e4d830d6e7"
+    },
+    "ink/spar/commercial/enemy-shadow-down-2.webp": {
+      "bytes": 13688,
+      "sha256": "2b6246229d87c947fdeb7bb6a2ac1681718ebe2011775ac63b557461cb5da3b1"
+    },
+    "ink/spar/commercial/enemy-bamboo_bloodguard-down-2.webp": {
+      "bytes": 21410,
+      "sha256": "9305979efb50508f49e0f13dc7e1897b924a068eb166bc7aa36e5d050d22f981"
+    },
+    "ink/spar/commercial/enemy-chifa-down-3.webp": {
+      "bytes": 10924,
+      "sha256": "e17de149738274bd46db43c1ece07256ca89049268c9c47a39499df643c15614"
+    },
+    "ink/spar/commercial/enemy-inn_boss-down-2.webp": {
+      "bytes": 21564,
+      "sha256": "8b4c41ef438a2a9f047b11312b9217042c9c527258de19c1cdc81536f66ef17c"
+    },
+    "ink/spar/commercial/enemy-gate_boss-down-3.webp": {
+      "bytes": 15994,
+      "sha256": "8b09f6f4874ddd3b59e1c445eddecb9ab3a0c75eb16f3a157b51857be92125b8"
+    },
+    "ink/spar/commercial/shadow.webp": {
+      "bytes": 16714,
+      "sha256": "48e36f75c6a910455e0942a89e81cbde8a20b097a47c0ccecde68b5a0fb43cfc"
+    },
+    "ink/spar/commercial/enemy-town_bruiser-down-3.webp": {
+      "bytes": 16144,
+      "sha256": "ef8865ea28e616e81181e006754592447b7da82aaf7071e34944d352135f4e62"
+    },
+    "ink/spar/commercial/enemy-town_guard-down-0.webp": {
+      "bytes": 19394,
+      "sha256": "92ce859feab1175d45d2e15438bbd5efb4aa4f3346f18f62eff24a4fa515b7bc"
+    },
+    "ink/spar/commercial/enemy-bamboo_bloodguard-down-1.webp": {
+      "bytes": 26534,
+      "sha256": "04754d01c9eb60ab2c6c7cb153f979f28788c346b2b22bf0124d094a620eeb10"
+    },
+    "ink/spar/commercial/enemy-inn_blades-down-0.webp": {
+      "bytes": 26040,
+      "sha256": "b4bfa631476d572619c6da81473afeebec30167d835e18a89a00b48cd5ae8c22"
+    },
+    "ink/spar/commercial/enemy-daoke-down-2.webp": {
+      "bytes": 20974,
+      "sha256": "ac7abee6c1faebb732ab902eeee24dd199553e641898b22ce96c1fea1fae8c69"
+    },
+    "ink/spar/commercial/enemy-tiemian-down-0.webp": {
+      "bytes": 20572,
+      "sha256": "ef1cd98a2220c89befc1640f223d15cc7c85bb1803ee5cff80213d243d9ab89f"
+    },
+    "ink/spar/commercial/enemy-gate_vajra-down-3.webp": {
+      "bytes": 13100,
+      "sha256": "b3f7b5d7bed6fc988862f9fb2442c3a6d18e1cdf92fb36790162574008a79ef5"
+    },
+    "ink/spar/commercial/season-summer.webp": {
+      "bytes": 141200,
+      "sha256": "74788b77fefdd9c2c2041d66161d05de2ef46630fdaeb5977d8b91f32ea0d12a"
+    },
+    "ink/spar/commercial/enemy-town_bruiser-down-0.webp": {
+      "bytes": 22104,
+      "sha256": "6cb8d52c52f240c44d7b02f6450d26d6601d42ff07f3fff9192a9bdc7d305769"
+    },
+    "ink/spar/commercial/enemy-peak_vanguard-down-2.webp": {
+      "bytes": 25474,
+      "sha256": "8faae433d06c18e8e385483c359706bb32e831ffa9e7936faa8114d6dfc6d21a"
+    },
+    "ink/spar/commercial/land-dust.webp": {
+      "bytes": 65880,
+      "sha256": "0560707452aa6fa99137888156b067471efce0ad917587e8bc9a9f88501e7a5f"
+    },
+    "ink/spar/commercial/hero-down-1.webp": {
+      "bytes": 59562,
+      "sha256": "7ca8cf5acb2c55f957b051d14799b2892bfcea6922ac2ecbd5143e616bde1410"
+    },
+    "ink/spar/commercial/enemy-gate_vajra-down-2.webp": {
+      "bytes": 16544,
+      "sha256": "e6e38a56e8df5ee6520971ac43d0a98cc66094fab59a68d13a24dae3b0267a13"
+    },
+    "ink/spar/commercial/enemy-road_boss-down-1.webp": {
+      "bytes": 27656,
+      "sha256": "0ceecbd40639f183d2b6bf2063709673fe3afff2c922e397cd305f962675ae09"
+    },
+    "ink/spar/commercial/enemy-tiemian-down-1.webp": {
+      "bytes": 14752,
+      "sha256": "c044a984ffef90d2fb7969b506d7f8c4eb67d1a1e3589a854c3b1b2339ea9374"
+    },
+    "ink/spar/commercial/enemy-toutuo-down-0.webp": {
+      "bytes": 19108,
+      "sha256": "1d813e4052bb0db3930193fa0d4f634f5261c4e5ad353f221abef9cfcc78a24d"
+    },
+    "ink/spar/commercial/enemy-peak_boss-down-2.webp": {
+      "bytes": 16054,
+      "sha256": "1a2c6c88b4fcbbb4a582847914e110c8341b0f03cc7c2154aa4b5e290c52dd91"
+    },
+    "ink/spar/commercial/season-spring.webp": {
+      "bytes": 153996,
+      "sha256": "20a045a1d95218662c9a7dc9d571f26e13bcf41cf98070974a5c65c10589a20d"
+    },
+    "ink/spar/commercial/enemy-gate_boss-down-1.webp": {
+      "bytes": 22446,
+      "sha256": "42b9ffaa4a0a9e19f84cd8fef558461dee4fefb55bc2fff3ba898885806916b8"
+    },
+    "ink/spar/commercial/enemy-road_brute-down-3.webp": {
+      "bytes": 9614,
+      "sha256": "a4770a27d88db9ce887866cfb1f704de1f0f026d691831bfc774202d6618936f"
+    },
+    "ink/spar/commercial/season-winter.webp": {
+      "bytes": 139708,
+      "sha256": "8afb7e453a5b2601e0629a7bbf459f580592e296a0394973d4df9c098aeebbb0"
+    },
+    "ink/spar/commercial/enemy-toutuo-down-3.webp": {
+      "bytes": 12030,
+      "sha256": "eb4a5124f6171f79d1e241696f45fe325d6cb25a9d9fade14ff6ab0817d139af"
+    },
+    "ink/spar/commercial/enemy-gate_ironbone-down-1.webp": {
+      "bytes": 20814,
+      "sha256": "7ecd3ce45c63774b6038b1b71263c960fb26618b66e8f68ab554aaa7a3594342"
+    },
+    "ink/spar/commercial/hero-down-3.webp": {
+      "bytes": 37564,
+      "sha256": "f2025d7e537690ee459351d31b70867fe4db4fddbbdb1719ae4e6c403e2e20fb"
+    },
+    "ink/spar/commercial/enemy-shadow-down-1.webp": {
+      "bytes": 14024,
+      "sha256": "6781fd47160a656462bb2aed5a9aff26f215b60a9383b3da823ec581b53ff734"
+    },
+    "ink/spar/commercial/enemy-daoke-down-3.webp": {
+      "bytes": 13358,
+      "sha256": "1ea8103fdafdd14d33e074defc90c70c7c6a076a169cac6d10a1156cce971938"
+    },
+    "ink/spar/commercial/rain.webp": {
+      "bytes": 50138,
+      "sha256": "34ce3241d8343e0968269c60b4335cc862a58363f20a410813be058a617fe0a0"
+    },
+    "ink/spar/commercial/enemy-town_boss-down-1.webp": {
+      "bytes": 18778,
+      "sha256": "2cfb8a23400532f3e4bf4a183e47e77458fb28fdaef90eaef73aa2800aa2ec7c"
+    },
+    "ink/spar/commercial/enemy-inn_blades-down-3.webp": {
+      "bytes": 16298,
+      "sha256": "5c9c049ffa2fe946d5052357a80b25f57b0d95b4705233af57f588506646265c"
+    },
+    "ink/spar/commercial/enemy-shadow-down-0.webp": {
+      "bytes": 16024,
+      "sha256": "c6436514b56e27e943627d50774305950281f33272a2a2e75d231d5d773e8df0"
+    },
+    "ink/spar/commercial/hero-walk-0.webp": {
+      "bytes": 95604,
+      "sha256": "a66a3fa4948d0b9f344daf9fbafbe4adf5cef08867882aa0d16f5378b415c0a7"
+    },
+    "ink/spar/commercial/enemy-town_bruiser-down-2.webp": {
+      "bytes": 18780,
+      "sha256": "24951f7de012d3fa89b7ddd444d161f4ec0fb26c4ae467f0764d22b286cb755b"
+    },
+    "ink/spar/commercial/hero-down-0.webp": {
+      "bytes": 81730,
+      "sha256": "b6811d773c88eb2c9618b14d338888dc13570504d6f7ab24f20ddb5093884047"
+    },
+    "ink/spar/commercial/enemy-bamboo_bloodmaid-down-2.webp": {
+      "bytes": 18874,
+      "sha256": "c5e872cf26f68c6f2af8a6940b509feb2cac9f2f1046a14e6934adb11108c898"
+    },
+    "ink/spar/commercial/enemy-tiemian-down-3.webp": {
+      "bytes": 10346,
+      "sha256": "4a77bf549b6743aebe89c8497caf9288f26e799656616deafeab3b59bf6d725f"
+    },
+    "ink/spar/commercial/step-dust.webp": {
+      "bytes": 45008,
+      "sha256": "38f05936850ccdcfe03b61d180a59a5ac9565df032f97ffa7eb9ed7c1b1d4638"
+    },
+    "ink/spar/commercial/enemy-peak_vanguard-down-1.webp": {
+      "bytes": 28376,
+      "sha256": "45ae88847dfa4beb21142a95afc6cc5f61017df83004045875f8f68799825c23"
+    },
+    "ink/spar/commercial/enemy-toutuo-down-2.webp": {
+      "bytes": 14238,
+      "sha256": "6de5ec5b3ea4e0a9f6d45646e44b2991d0040b8b9d4dd1b007d5bc4a60bd535b"
+    },
+    "ink/spar/commercial/petal.webp": {
+      "bytes": 21060,
+      "sha256": "82203bf4ac7c968a5338c90e21a1b0f59dfc4cd5b5d1611d2f2bc827f0e96142"
+    },
+    "ink/spar/commercial/leaf.webp": {
+      "bytes": 30550,
+      "sha256": "cee34004a3b58f2d4660dd68d3c53d8bf298adc6897dfc1da21af7f2344c355f"
+    },
+    "ink/spar/commercial/enemy-town_boss-down-0.webp": {
+      "bytes": 19786,
+      "sha256": "1f0ba180aadeaa05bbb6f6bae993d131d322455aad13c405e9ba0b3d969afad4"
+    },
+    "ink/spar/commercial/enemy-peak_vanguard-down-0.webp": {
+      "bytes": 28608,
+      "sha256": "1c20002c747ff6d26fe078304288916d7a33b3b6368398309e6c9bc4151471a4"
+    },
+    "ink/spar/commercial/enemy-peak_berserk-down-1.webp": {
+      "bytes": 20606,
+      "sha256": "24222819e4d6761e5f5deffcb3e24c7c68f6a52133e9e78185fbd6b5e1bf118a"
+    },
+    "ink/spar/commercial/enemy-gouke-down-1.webp": {
+      "bytes": 24190,
+      "sha256": "e9ada0aefa4b96e9da4885565b93166e7689ce2a78d7e71aca77940031a79abd"
+    },
+    "ink/spar/commercial/enemy-bamboo_boss-down-1.webp": {
+      "bytes": 19076,
+      "sha256": "98e80782ccc72dbabdd189d9ef7ff25ec4dd3b48dbe19ecf78ee01296adfdd89"
+    },
+    "ink/spar/commercial/enemy-inn_twin-down-0.webp": {
+      "bytes": 20738,
+      "sha256": "8f771d7adc34efb478c8f43d61d45df050439992cf1f2b7f92bf467eaaad2454"
+    },
+    "ink/spar/commercial/mist.webp": {
+      "bytes": 53430,
+      "sha256": "84e1cf0554bd2f5281cd9ae095ff476c24fa8fcf075e96ae17d1ae5e748ef23d"
+    },
+    "ink/spar/commercial/enemy-nvcike-down-1.webp": {
+      "bytes": 20044,
+      "sha256": "7ad0dbc9fe968ce35511b2aa90ea0bd3ce6977a112885e0f1ae7a2e57d29c2bc"
+    },
+    "ink/spar/commercial/enemy-gate_ironbone-down-0.webp": {
+      "bytes": 24538,
+      "sha256": "60a2b2645d7a6d5f62b3763b2dfc482207993da9864b0ec66663af89eaea71fa"
+    },
+    "ink/spar/commercial/enemy-peak_boss-down-0.webp": {
+      "bytes": 21330,
+      "sha256": "d8798b11c1b2700dca19b1a6b17041fc037737e606d5698a2d0f589aaeeb936d"
+    },
+    "ink/spar/commercial/enemy-inn_twin-down-2.webp": {
+      "bytes": 17966,
+      "sha256": "c4caaee8243f10097c6415e43bcd83f3395b754e0a93168f9d3516ebf39835cb"
+    },
+    "ink/spar/commercial/impact.webp": {
+      "bytes": 53044,
+      "sha256": "210f5a3e7d042c2520131ab4e493593957cade500c7e124d50165956b6e611c6"
+    },
+    "ink/spar/commercial/enemy-road_brute-down-0.webp": {
+      "bytes": 17306,
+      "sha256": "ebfb9d8718825e4add16439b3242ae8dade80494047877f12e4a35383184da36"
+    },
+    "ink/spar/commercial/enemy-town_guard-down-3.webp": {
+      "bytes": 14500,
+      "sha256": "7a870b89b2e439a33db4bb129a052c13ecc8617fcc3811eeddec410f32872daf"
+    },
+    "ink/spar/commercial/enemy-inn_blades-down-2.webp": {
+      "bytes": 22398,
+      "sha256": "4dbb15ddb8eed91c710dd589641072640b00d480a2351852faa9c3b5022ff55a"
+    },
+    "ink/spar/commercial/hero-walk-3.webp": {
+      "bytes": 93938,
+      "sha256": "473fff76b55aecf7aef9964f0f846a0faa033f349a4a0024217c32a405732f73"
+    },
+    "ink/spar/commercial/enemy-shadow-down-3.webp": {
+      "bytes": 8984,
+      "sha256": "6580178696ce726c19a6059175bad004681019e14f77089e4d770bd484d96f73"
+    },
+    "ink/spar/commercial/hero-down-2.webp": {
+      "bytes": 49308,
+      "sha256": "caf1602f6ef3df9e5996365a600e3f0899fcb10d9f8896bf325490bb8131ffe2"
+    },
+    "ink/spar/commercial/enemy-inn_blades-down-1.webp": {
+      "bytes": 25664,
+      "sha256": "3095daffd6b13f3a99e306913abd1a76628d4c396b97b411cf937b099c23f056"
+    },
+    "ink/spar/commercial/enemy-bamboo_boss-down-2.webp": {
+      "bytes": 17010,
+      "sha256": "0f56f11fbcf98637dbc42011d125f0028688998d7b41b3fd29fd9ba188cfdbbe"
+    },
+    "ink/spar/commercial/enemy-tiemian-down-2.webp": {
+      "bytes": 12660,
+      "sha256": "5ce413238daae30aee27bbba616aacf0258cc942f9c29322c63f98fe77290a61"
+    },
+    "ink/spar/commercial/enemy-bamboo_boss-down-0.webp": {
+      "bytes": 22374,
+      "sha256": "bc38e48bf4d4bfcde265f3a29f971595573da61a9901ce47205143bef0c6f6b9"
+    },
+    "ink/spar/commercial/enemy-bamboo_bloodguard-down-0.webp": {
+      "bytes": 29938,
+      "sha256": "c830ca2731e66b534203b2774206c3f50d9253a73a8ebbbf33587e3306cc990a"
+    },
+    "ink/spar/commercial/enemy-peak_berserk-down-3.webp": {
+      "bytes": 11584,
+      "sha256": "8a34339e5aa8b068d98c3facd32766799538a41d183a36c70c33ea83a73e2841"
+    },
+    "ink/spar/commercial/enemy-road_captain-down-0.webp": {
+      "bytes": 24468,
+      "sha256": "101f0c763925aa78ff6608fc064aa89eb2682a436339aa8bf0a83572bf34f600"
+    },
+    "ink/spar/commercial/enemy-gouke-down-3.webp": {
+      "bytes": 15992,
+      "sha256": "33241c4e980e545384fdad6e4d369f516114b6a99f54fbd98fc3574c09d6d250"
+    },
+    "ink/spar/commercial/enemy-bamboo_bloodmaid-down-0.webp": {
+      "bytes": 24448,
+      "sha256": "ca210f4c3447ab4b3787265a77110305ab7c5ea358b206ab51de600c45940840"
+    },
+    "ink/spar/commercial/enemy-nvcike-down-2.webp": {
+      "bytes": 17856,
+      "sha256": "34f94055fae6cfc9728dbf3a0b29e8098155d823265bc25fb70e21ef6b63ca1e"
+    },
+    "ink/spar/commercial/enemy-bamboo_bloodmaid-down-3.webp": {
+      "bytes": 14660,
+      "sha256": "d523702ff45afb4f21b61282e084653e8803df74e619e983a77a457e5505cf36"
+    },
+    "ink/spar/commercial/enemy-nvcike-down-3.webp": {
+      "bytes": 13492,
+      "sha256": "c04364caf9f79ff31d63c59aea6cca01a97f71717e467980a505b5bab1b3cf8c"
+    },
+    "ink/spar/commercial/enemy-daoke-down-1.webp": {
+      "bytes": 21582,
+      "sha256": "f501c8f309d84e75cb8e80f8e7f8b2381c2266434ccc02257698735845e72590"
+    },
+    "ink/spar/commercial/enemy-road_brute-down-1.webp": {
+      "bytes": 15576,
+      "sha256": "411d8c0e0bcb546df0ece62f0bdcd0819bc66593c7c8e44d71e9abdea00113fb"
+    },
+    "ink/spar/commercial/enemy-inn_twin-down-3.webp": {
+      "bytes": 16928,
+      "sha256": "752229d48a3cbf6dfe81269b7c84860e42746bb2be5d3fcf84b29050ce851285"
+    },
+    "ink/spar/commercial/enemy-chifa-down-2.webp": {
+      "bytes": 14642,
+      "sha256": "fe518a11f39127662cec8f780264bb2d8a8eea8758368b68814349325bc573b5"
+    },
+    "ink/spar/commercial/enemy-town_guard-down-2.webp": {
+      "bytes": 17058,
+      "sha256": "c1a93b51d02e2cb84df1245a583962fe7a6e616f41e6a771f66eba949a9e2dd2"
+    },
+    "ink/spar/commercial/snow.webp": {
+      "bytes": 38070,
+      "sha256": "029d5fe6e94b6b2812b5ab28f6b558cfebd73de7e6caf62eafa6c7980f955090"
+    },
+    "ink/spar/commercial/hero-walk-2.webp": {
+      "bytes": 95754,
+      "sha256": "9dbf3e334cfa44ecd34b44613536ae55840b863bef508385aa5e0d41df14e025"
+    },
+    "ink/spar/commercial/enemy-gate_ironbone-down-3.webp": {
+      "bytes": 15780,
+      "sha256": "62844735014576d4bc38a19fc674c3094ed9b572ce5edeafa907c2405659b194"
+    },
+    "ink/spar/commercial/enemy-gate_boss-down-0.webp": {
+      "bytes": 24314,
+      "sha256": "1329607c2efe8d4ae7a3e6edc924392a8559b7bf576acf639f60b9d55e3f58da"
+    },
+    "ink/spar/commercial/enemy-peak_boss-down-3.webp": {
+      "bytes": 13198,
+      "sha256": "ff98181858de4339969c69f0781fc0b8c7a4ddc9576cde96a170f31efa99dc1d"
+    },
+    "ink/spar/commercial/enemy-town_boss-down-2.webp": {
+      "bytes": 15674,
+      "sha256": "df1825029bad9c357b3dc009d8f40420944f67a0745df90a66b9c36dc4b3cdc4"
+    },
+    "ink/spar/commercial/slash.webp": {
+      "bytes": 57802,
+      "sha256": "57e04b71c2f86e6c443e1ef83fb576f120abf36fc5657f12431b14643b229019"
+    },
+    "ink/spar/commercial/enemy-daoke-down-0.webp": {
+      "bytes": 22708,
+      "sha256": "c8f0714984563cdc57acc4d815d7a558d0e0c8552fbf301cdfbc74eda4614aac"
+    },
+    "ink/spar/commercial/enemy-gate_ironbone-down-2.webp": {
+      "bytes": 18564,
+      "sha256": "01411f761f16b0f7aab270122d9158890043855821212a86b83174c6a083ebc8"
+    },
+    "ink/spar/commercial/enemy-gate_boss-down-2.webp": {
+      "bytes": 20942,
+      "sha256": "8d55326b1be1f0054f60abc9b2e55c73a16154a9fa63a8340b0e1e61b5d93a52"
+    },
+    "ink/spar/commercial/enemy-peak_berserk-down-2.webp": {
+      "bytes": 18530,
+      "sha256": "1fb3cd99ee31b857c8107675b9111c594941967cd7c986511090187f7eed6845"
+    },
+    "ink/spar/commercial/season-autumn.webp": {
+      "bytes": 152096,
+      "sha256": "cace2734e8f884276ab79d4f8e05b32d34d66c5a4fa1a4559331fc53106a9563"
+    },
+    "ink/spar/commercial/enemy-road_captain-down-3.webp": {
+      "bytes": 15264,
+      "sha256": "8ef7fde84731c4a293cc83ff564ac6259ef5a9ef130656ff3ab2035ed7e6722f"
+    },
+    "ink/spar/commercial/enemy-town_bruiser-down-1.webp": {
+      "bytes": 23140,
+      "sha256": "9d77b6c57c5f6eeaf0ce6cb98202b1958e8270764fa5dc721954ee49f220f746"
+    }
+  }
+}

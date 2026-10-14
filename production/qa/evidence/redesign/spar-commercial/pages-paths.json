@@ -1,0 +1,617 @@
+{
+  "url": "http://127.0.0.1:5185/jianghu-life2/",
+  "assets": [
+    {
+      "name": "enemy-bamboo_bloodguard-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-bamboo_bloodguard-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-bamboo_bloodguard-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-bamboo_bloodguard-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-bamboo_bloodmaid-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-bamboo_bloodmaid-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-bamboo_bloodmaid-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-bamboo_bloodmaid-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-bamboo_boss-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-bamboo_boss-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-bamboo_boss-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-bamboo_boss-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-chifa-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-chifa-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-chifa-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-chifa-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-daoke-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-daoke-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-daoke-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-daoke-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-gate_boss-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-gate_boss-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-gate_boss-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-gate_boss-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-gate_ironbone-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-gate_ironbone-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-gate_ironbone-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-gate_ironbone-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-gate_vajra-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-gate_vajra-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-gate_vajra-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-gate_vajra-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-gouke-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-gouke-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-gouke-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-gouke-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-inn_blades-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-inn_blades-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-inn_blades-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-inn_blades-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-inn_boss-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-inn_boss-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-inn_boss-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-inn_boss-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-inn_twin-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-inn_twin-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-inn_twin-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-inn_twin-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-nvcike-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-nvcike-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-nvcike-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-nvcike-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-peak_berserk-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-peak_berserk-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-peak_berserk-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-peak_berserk-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-peak_boss-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-peak_boss-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-peak_boss-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-peak_boss-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-peak_vanguard-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-peak_vanguard-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-peak_vanguard-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-peak_vanguard-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-road_boss-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-road_boss-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-road_boss-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-road_boss-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-road_brute-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-road_brute-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-road_brute-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-road_brute-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-road_captain-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-road_captain-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-road_captain-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-road_captain-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-shadow-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-shadow-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-shadow-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-shadow-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-tiemian-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-tiemian-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-tiemian-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-tiemian-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-toutuo-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-toutuo-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-toutuo-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-toutuo-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-town_boss-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-town_boss-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-town_boss-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-town_boss-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-town_bruiser-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-town_bruiser-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-town_bruiser-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-town_bruiser-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-town_guard-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-town_guard-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-town_guard-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "enemy-town_guard-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "hero-down-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "hero-down-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "hero-down-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "hero-down-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "hero-walk-0.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "hero-walk-1.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "hero-walk-2.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "hero-walk-3.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "impact.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "land-dust.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "leaf.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "mist.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "petal.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "rain.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "season-autumn.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "season-spring.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "season-summer.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "season-winter.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "shadow.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "slash.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "snow.webp",
+      "status": 200,
+      "image": true
+    },
+    {
+      "name": "step-dust.webp",
+      "status": 200,
+      "image": true
+    }
+  ],
+  "errors": [],
+  "passed": true
+}
