@@ -133,7 +133,6 @@ export function createEventSlice(
       const label =
         PRACTICE_ACTIONS.find((a) => a.id === actionId)?.label ??
         ({
-          inquire_rumors: '打聽傳聞',
           join_sect: '拜入門派',
           sect_duty: '門派差事',
           sect_ask_elder: '請教長老',

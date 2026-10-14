@@ -17,7 +17,6 @@ import { startCombat } from './combat';
 import { getSkillDef } from '@data/skills/catalog';
 import { teachSectArtForStanding, tryGainSectStanding } from './sectStanding';
 import { meetsNatureGate, natureGateHint } from './nature';
-import { rollTravelOffer } from './rumorTravel';
 import { ensureMasterBond } from './bonds';
 import { rollRandomFragment } from './manualFragments';
 import { designateHeir, listChildNames, seekChild } from './family';
@@ -29,7 +28,6 @@ export type PracticeActionId =
   | 'temper_body'
   | 'forge'
   | 'seek_master'
-  | 'inquire_rumors'
   | 'drink_wine'
   | 'study_art'
   | 'heal'
@@ -158,26 +156,6 @@ export function applyPracticeOutcome(
       c.actionPoints = clamp(c.actionPoints - rng.nextInt(6, 14), 0, 100);
       logs.push('你以藥浴與樁功淬體，筋骨隱隱發沉，像是又厚了一層。');
       logs.push(`氣血上限＋${up}`);
-      break;
-    }
-    case 'inquire_rumors': {
-      const cur = Math.max(0, Number(c.flags.rumor_boost ?? 0));
-      if (cur >= 3) {
-        logs.push('傳聞已聽得夠多，再問也只是舊話翻新。你換了個話題，只當聽書散心。');
-        break;
-      }
-      const paid = c.money >= 4;
-      if (paid) c.money -= 4;
-      c.flags.rumor_boost = cur + 1;
-      const offer = rollTravelOffer(state);
-      logs.push(
-        paid
-          ? `你在茶棚酒肆間花了 4 兩打聽風聲。往後翻頁，遇首領與奇遇的機緣略增（傳聞層數 ${cur + 1}）。`
-          : `你空口打聽，也聽得幾句江湖碎語。往後翻頁，遇首領與奇遇的機緣略增（傳聞層數 ${cur + 1}）。`,
-      );
-      if (offer.length) {
-        logs.push(`耳聞去向：${offer.map((d) => d.name).join('、')}——翻過一頁或可擇路而行。`);
-      }
       break;
     }
     case 'join_sect': {

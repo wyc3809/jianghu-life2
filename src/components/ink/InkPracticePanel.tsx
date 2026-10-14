@@ -12,7 +12,6 @@ export type PracticeView = 'main' | 'sect' | 'arts';
 const PRACTICE_ICON: Partial<Record<PracticeActionId, InkAiAssetId>> = {
   train_martial: 'motif-sword',
   train_internal: 'motif-scroll',
-  inquire_rumors: 'motif-umbrella',
   drink_wine: 'motif-wine-banner',
   seek_child: 'motif-lantern',
   designate_heir: 'motif-jade',

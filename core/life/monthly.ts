@@ -80,14 +80,13 @@ export function tickConditions(state: LifeGameState): void {
       c.health -= 3;
       c.qi -= 4;
     }
-    if (cond.id === 'fracture' || cond.id === 'limp') c.stamina -= 8;
+    if (cond.id === 'fracture' || cond.id === 'limp') c.qi -= 8;
     const left = cond.monthsLeft - 1;
     if (left > 0) next.push({ ...cond, monthsLeft: left });
   }
   c.conditions = next;
   c.health = clamp(c.health, 0, c.maxHealth);
   c.qi = clamp(c.qi, 0, c.maxQi);
-  c.stamina = clamp(c.stamina, 0, c.maxStamina);
 }
 
 const RUMOR_LINES: { flag: string; text: string }[] = [
@@ -136,7 +135,6 @@ export function simulateMonthBody(state: LifeGameState): void {
   const actionPointsHit = c.actionPoints < 10 ? 4 : c.actionPoints < 20 ? 2 : 0;
   c.health = clamp(c.health + rng.nextInt(5, 12) - actionPointsHit, 0, c.maxHealth);
   c.qi = clamp(c.qi + rng.nextInt(4, 12), 0, c.maxQi);
-  c.stamina = clamp(c.stamina + rng.nextInt(4, 12), 0, c.maxStamina);
   tickConditions(state);
   tickInjuries(state);
   simulateWorldMonth(state);

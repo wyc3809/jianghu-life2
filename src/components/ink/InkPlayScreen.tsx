@@ -244,7 +244,7 @@ export function InkPlayScreen({ state }: Props) {
     body: pendingEvent?.body,
     tags: pendingEvent?.tags,
     pendingKind: state.pending?.kind,
-    omen: Boolean(state.pending?.kind === 'special' || c.flags.rumor_boost),
+    omen: state.pending?.kind === 'special',
   });
   const showResult = Boolean(lastResult) && state.phase === 'playing' && !state.pendingCombat;
   const combat = state.pendingCombat ?? null;
@@ -477,7 +477,7 @@ export function InkPlayScreen({ state }: Props) {
     `ink-scene--${inkSeason}`,
     `ink-scene--${inkPlace}`,
     useNightWash ? 'ink-scene--night' : '',
-    state.pending?.kind === 'special' || c.flags.rumor_boost ? 'ink-scene--omen' : '',
+    state.pending?.kind === 'special' ? 'ink-scene--omen' : '',
     combat ? 'scroll-shell--combat' : '',
     eventFocus ? 'scroll-shell--event' : '',
     /* 底部分卷導航顯示時：預留空間（條件同下方 <nav className="ink-tabs"> 一致） */

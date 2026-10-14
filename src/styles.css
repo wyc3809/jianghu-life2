@@ -5781,35 +5781,6 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   font-variant-numeric: tabular-nums;
 }
 
-/* AI 水墨書法 label（銀両／疲勞度） */
-.ink-label-img {
-  height: 13px;
-  width: auto;
-  margin-left: 4px;
-  object-fit: contain;
-  user-select: none;
-}
-
-.ink-ap-meter .ink-label-img--ap {
-  margin-left: 0;
-  height: 12px;
-}
-
-/* 水墨字形數字：逐字圖片砌出 */
-.ink-glyph-text {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 1px;
-  line-height: 1;
-}
-
-.ink-glyph-text img {
-  width: auto;
-  object-fit: contain;
-  user-select: none;
-  vertical-align: baseline;
-}
-
 .ink-ap-meter {
   display: flex;
   align-items: center;

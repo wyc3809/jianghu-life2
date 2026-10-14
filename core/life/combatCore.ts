@@ -125,11 +125,6 @@ export function applyRecoveryEffects(
     fighter.hp = clamp(fighter.hp + heal, 0, fighter.maxHp);
     lines.push(`${fighter.name}順勢止血，氣血回復 ${heal}。`);
   }
-  if (move.staminaSelf && fighter.stamina !== undefined && fighter.maxStamina !== undefined) {
-    const gain = Math.round(move.staminaSelf * scale);
-    fighter.stamina = clamp(fighter.stamina + gain, 0, fighter.maxStamina);
-    lines.push(`${fighter.name}養神片刻，體力回復 ${gain}。`);
-  }
   return lines;
 }
 
@@ -153,16 +148,6 @@ export function applyOnHitEffects(
     const gain = Math.round(move.qiSelf * (0.9 + powerMult * 0.1));
     attacker.qi = clamp(attacker.qi + gain, 0, attacker.maxQi);
     lines.push(`${attacker.name}借勢回息，內力回復 ${gain}。`);
-  }
-  if (
-    move.staminaSelf &&
-    (move.power ?? 0) > 0 &&
-    attacker.stamina !== undefined &&
-    attacker.maxStamina !== undefined
-  ) {
-    const gain = Math.round(move.staminaSelf * (0.9 + powerMult * 0.1));
-    attacker.stamina = clamp(attacker.stamina + gain, 0, attacker.maxStamina);
-    lines.push(`${attacker.name}身法一緩，體力回復 ${gain}。`);
   }
   if (move.applyBlind) {
     defender.blind = Math.max(defender.blind, move.applyBlind);

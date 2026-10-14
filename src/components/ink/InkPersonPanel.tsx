@@ -70,7 +70,6 @@ export type PersonView =
   | 'gear'
   | 'genealogy'
   | 'people'
-  | 'grudges'
   | 'roots'
   | 'achievements'
   | 'cultivation'
@@ -431,7 +430,7 @@ export function InkPersonPanel({
           </div>
           <p className="ink-note">{natureSummary(c)}</p>
           <p className="ink-note">
-            體力 {Math.round(c.stamina ?? 0)}/{c.maxStamina ?? 0} · 閃避約 {playerEvasionPercent(state)}%
+            閃避約 {playerEvasionPercent(state)}%
           </p>
           <p className="ink-note">
             籍貫 · {c.birthplace || '千燈鎮'} · 所在 {c.location || '千燈鎮'}
@@ -861,12 +860,12 @@ export function InkPersonPanel({
                   : '未學吸血招式、裝備亦冇吸血詞條 → 唔會吸血'}
               </span>
             </li>
-            <li className={`ink-delta-row ${spar.stats.clearHeal > 0 ? 'ink-delta-row--up' : 'ink-delta-row--flat'}`}>
+            <li className={`ink-delta-row ${spar.stats.killHeal > 0 ? 'ink-delta-row--up' : 'ink-delta-row--flat'}`}>
               <span className="ink-delta-row-text">
-                過關回血：
-                {spar.stats.clearHeal > 0
-                  ? `${pctText(spar.stats.clearHeal)}（${spar.heal.skillNames.join('、')}）`
-                  : '未學回血招式 → 唔會自動回血（敗退重來先回滿）'}
+                擊倒回血：
+                {spar.stats.killHeal > 0
+                  ? `每打低一個敵人回 ${pctText(spar.stats.killHeal)}（${spar.heal.skillNames.join('、')}）；過關一律回滿`
+                  : '未學回血招式 → 關內唔回血；過關一律回滿'}
               </span>
             </li>
             <li className="ink-delta-row ink-delta-row--flat">

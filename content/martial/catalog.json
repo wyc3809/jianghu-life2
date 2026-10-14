@@ -52,7 +52,7 @@
         "qiCost": 29,
         "power": 1.15,
         "hitBonus": 0.12,
-        "staminaSelf": 10,
+        "qiSelf": 10,
         "cooldown": 2,
         "description": "步法欺近，一踏即中，借勢回神。"
       }

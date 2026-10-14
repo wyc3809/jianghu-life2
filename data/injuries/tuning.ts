@@ -56,5 +56,5 @@ export const TORSO_PENALTY: TierTable = { light: 0.05, heavy: 0.15, crippled: 0.
 export const ARM_PENALTY: TierTable = { light: 0.08, heavy: 0.2, crippled: 0.35 };
 /** 腿腳：閃避扣減（絕對值，戰鬥閃避 0–0.45） */
 export const LEG_EVASION: TierTable = { light: 0.03, heavy: 0.06, crippled: 0.12 };
-/** 腿腳：每月精力扣減 */
-export const LEG_STAMINA: TierTable = { light: 4, heavy: 10, crippled: 16 };
+/** 腿腳：每月內力扣減（體力已併入內力） */
+export const LEG_QI_DRAIN: TierTable = { light: 4, heavy: 10, crippled: 16 };

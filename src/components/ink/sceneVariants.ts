@@ -44,9 +44,7 @@ export function sceneClassNames(
 ): string {
   const season = seasonToInk(state.month ?? 1);
   const place = placeToInk(state.character.location);
-  const omen = Boolean(
-    state.pending && (state.pending.kind === 'special' || state.character.flags.rumor_boost),
-  );
+  const omen = state.pending?.kind === 'special';
   const night = isInkNight({
     title: opts?.eventTitle,
     body: opts?.eventBody,

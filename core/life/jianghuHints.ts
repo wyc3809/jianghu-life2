@@ -35,15 +35,6 @@ export function jianghuHints(state: LifeGameState): string[] {
   if (f.rumor_boss_sand) hints.push('西行沙道有人揚沙劫武，人稱沙蠍客。');
   if (f.rumor_boss_mirror) hints.push('鏡湖夜有孤燈，隱士以息會友。');
 
-  const boost = Number(f.rumor_boost ?? 0);
-  if (boost > 0) {
-    hints.push(
-      boost >= 3
-        ? '你連日打聽風聲，江湖上已有人留意你的腳步——翻頁時較易逢奇人異事。'
-        : '你近日多問風聲，路遇稍稠，奇緣或近。',
-    );
-  }
-
   if (state.world?.lastWorldShift) {
     hints.push(state.world.lastWorldShift);
   }

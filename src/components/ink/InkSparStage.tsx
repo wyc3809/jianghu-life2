@@ -15,7 +15,7 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { SparStage, loadSparImages, loadSparImage, loadSparUiImages, type SparCombatHooks } from '../../spar/engine';
-import { SparDuel, formatSparNumber, sparHeroStats, sparSavedStage, type SparDuelSnapshot } from '@core/life/sparDuel';
+import { SparDuel, formatSparNumber, sparHeroStats, sparRand, sparSavedStage, type SparDuelSnapshot } from '@core/life/sparDuel';
 import { InkBrushBar } from './InkBrush';
 import { inkHop, inkPopIn, inkRevealChars, inkShake, inkTweenVar } from '../../ui/inkMotion';
 import {
@@ -125,7 +125,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
       const key = `${st.seed}:${String(st.character.flags.legacy_generation ?? 1)}:${st.character.name}`;
       let duel = DUEL_CACHE.get(key);
       if (!duel) {
-        duel = new SparDuel(sparHeroStats(st), sparSavedStage(st));
+        duel = new SparDuel(sparHeroStats(st), sparSavedStage(st), sparRand(st.seed, sparSavedStage(st)));
         DUEL_CACHE.clear();
         DUEL_CACHE.set(key, duel);
       }

@@ -720,7 +720,7 @@ describe('life event engine', () => {
       getPlayerMoves,
       getMoveCooldownRemaining,
     } = await import('../core/life/combat');
-    const { REST_HEAL_MOVE, REST_QI_MOVE, REST_STAMINA_MOVE } = await import('../data/skills/catalog');
+    const { REST_HEAL_MOVE, REST_QI_MOVE } = await import('../data/skills/catalog');
     initRng(88);
     const state = createNewLife(88);
     startCombat(state, {
@@ -732,7 +732,8 @@ describe('life event engine', () => {
     });
     const moves = getPlayerMoves(state);
     expect(moves.some((m) => m.id === REST_QI_MOVE.id)).toBe(true);
-    expect(moves.some((m) => m.id === REST_STAMINA_MOVE.id)).toBe(true);
+    // 體力已併入內力：冇「養神」回體力招
+    expect(moves.some((m) => m.id === 'sys_rest_stamina')).toBe(false);
     expect(moves.some((m) => m.id === REST_HEAL_MOVE.id)).toBe(true);
 
     const combat = state.pendingCombat!;
@@ -746,16 +747,6 @@ describe('life event engine', () => {
 
     playerCombatTurn(state, 'basic_strike');
     expect(getMoveCooldownRemaining(state.pendingCombat!, REST_QI_MOVE.id)).toBe(0);
-
-    const staBefore = combat.player.stamina ?? state.character.stamina ?? 0;
-    if (staBefore > 0) {
-      state.pendingCombat!.player.stamina = Math.max(0, staBefore - 25);
-    }
-    playerCombatTurn(state, REST_STAMINA_MOVE.id);
-    expect(state.pendingCombat!.player.stamina ?? 0).toBeGreaterThan(
-      Math.max(0, staBefore - 25),
-    );
-    expect(getMoveCooldownRemaining(state.pendingCombat!, REST_STAMINA_MOVE.id)).toBe(2);
 
     const healMove = moves.find((m) => m.healSelf && (m.cooldown ?? 0) > 0 && m.power > 0);
     if (healMove) {
@@ -832,7 +823,6 @@ describe('life event engine', () => {
             (m.lifesteal ?? 0) > 0 ||
             (m.healSelf ?? 0) > 0 ||
             (m.qiSelf ?? 0) > 0 ||
-            (m.staminaSelf ?? 0) > 0 ||
             (m.applyBlind ?? 0) > 0 ||
             (m.defenseBreak ?? 0) > 0 ||
             (m.hitBonus ?? 0) > 0 ||

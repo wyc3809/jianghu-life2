@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest';
 import { SparStage } from '../src/spar/engine';
 
-it('test_spar_all_floating_text_uses_ui_font_even_with_bitmap_glyphs_loaded', () => {
+it('test_spar_all_floating_text_uses_ui_font', () => {
   const family = 'Noto Sans CJK TC, sans-serif';
   const labels: { text: string; font: string }[] = [];
   const bitmaps: unknown[] = [];
@@ -16,7 +16,7 @@ it('test_spar_all_floating_text_uses_ui_font_even_with_bitmap_glyphs_loaded', ()
     canvas: { getContext: () => ctx } as unknown as HTMLCanvasElement,
     uiFontFamily: family,
     images: { heroIdle: paper, heroAttack: paper, enemies: [], splash: paper,
-      ui: { splashPaper: paper, xiuwei: {} as HTMLImageElement, glyphs: { '+': {} as HTMLImageElement } } },
+      ui: { splashPaper: paper } },
   });
   const view = stage as unknown as { floaters: unknown[]; drawFloaters(): void };
   view.floaters = ['xp', 'crit', 'hurt', 'heal', 'trait'].map(kind => ({

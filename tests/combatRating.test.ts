@@ -30,7 +30,9 @@ describe('戰力及演武氣血改版', () => {
       s.character.cultivation.tier = tier;
       expect(sparHeroStats(s).maxHp).toBe(s.character.maxHealth);
     }
-    expect(sparStageFoes(10)[0]!.atk).toBeGreaterThan(Math.round(16 * 1.16 ** 9));
+    // 2026-10-14：血量同攻擊分兩條曲線；攻擊跟主角氣血自然成長，唔再同血量一齊 ×1.18
+    expect(sparStageFoes(10)[0]!.maxHp).toBe(Math.round(140 * 1.18 ** 9));
+    expect(sparStageFoes(10)[0]!.atk).toBe(Math.round(16 * 1.032 ** 9));
   });
 });
 

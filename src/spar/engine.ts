@@ -358,14 +358,10 @@ export interface SparAnchors {
   foeBoss: boolean;
 }
 
-/** 修為浮字用嘅水墨素材：宣紙墨漬徽章＋朱砂書法字形 */
+/** 修為浮字用嘅水墨素材：宣紙墨漬徽章（字用 UI 字體） */
 export interface SparUiImages {
-  /** 朱砂「修為」 */
-  xiuwei: HTMLImageElement | null;
   /** 宣紙色墨漬徽章底 */
   splashPaper: HTMLImageElement | null;
-  /** 朱砂字形：'+' '.' '0'-'9' */
-  glyphs: Record<string, HTMLImageElement>;
 }
 
 export interface SparStageOptions {
@@ -1759,18 +1755,7 @@ export function loadSparUiImages(): Promise<SparUiImages> {
       img.onerror = () => resolve(null);
       img.src = src;
     });
-  const keys = ['+', '.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-  const file = (k: string) => (k === '+' ? 'r-plus.webp' : k === '.' ? 'r-dot.webp' : `r-${k}.webp`);
-  return Promise.all([tryLoad(`${base}r-xiuwei.webp`), tryLoad(`${base}splash-paper.webp`), ...keys.map((k) => tryLoad(`${base}${file(k)}`))]).then(
-    ([xiuwei, splashPaper, ...gs]) => {
-      const glyphs: Record<string, HTMLImageElement> = {};
-      keys.forEach((k, i) => {
-        const g = gs[i];
-        if (g) glyphs[k] = g;
-      });
-      return { xiuwei: xiuwei ?? null, splashPaper: splashPaper ?? null, glyphs };
-    },
-  );
+  return tryLoad(`${base}splash-paper.webp`).then((splashPaper) => ({ splashPaper: splashPaper ?? null }));
 }
 
 /** 載入單張素材（武器／背景通用） */

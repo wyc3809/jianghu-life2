@@ -84,7 +84,6 @@ export function createNewLife(options: CreateLifeOptions | number = {}): LifeGam
   const attrs = createAttributes(rng);
   const maxHealth = 180 + Math.floor(attrs.genGu * 2.2);
   const maxQi = 140 + Math.floor(attrs.wuXing * 2);
-  const maxStamina = 120 + Math.floor(attrs.genGu * 1.2);
 
   const character: LifeCharacter = {
     name,
@@ -98,8 +97,6 @@ export function createNewLife(options: CreateLifeOptions | number = {}): LifeGam
     martial: 8,
     qi: maxQi,
     maxQi,
-    stamina: maxStamina,
-    maxStamina,
     actionPoints: 100,
     birthplace,
     location: birthplace,
@@ -160,13 +157,10 @@ export function createNewLife(options: CreateLifeOptions | number = {}): LifeGam
     // 少時加成後重算氣血／內力上限
     const newMaxHp = 180 + Math.floor(attrs.genGu * 2.2);
     const newMaxQi = 140 + Math.floor(attrs.wuXing * 2);
-    const newMaxSta = 120 + Math.floor(attrs.genGu * 1.2);
     character.maxHealth = newMaxHp;
     character.health = newMaxHp;
     character.maxQi = newMaxQi;
     character.qi = newMaxQi;
-    character.maxStamina = newMaxSta;
-    character.stamina = newMaxSta;
     character.flags.baseMaxHp = newMaxHp;
     character.flags.baseMaxQi = newMaxQi;
   }
@@ -347,8 +341,23 @@ export function migrateLifeState(raw: LifeGameState): LifeGameState {
   const c = raw.character;
   if (c.qi === undefined) c.qi = 80;
   if (c.maxQi === undefined) c.maxQi = 120;
-  if (c.stamina === undefined) c.stamina = 100;
-  if (c.maxStamina === undefined) c.maxStamina = 120;
+  // 體力（耐力）已併入內力（2026-10-14）：舊存檔欄位清走
+  delete (c as unknown as { stamina?: number }).stamina;
+  delete (c as unknown as { maxStamina?: number }).maxStamina;
+  // 已刪功能（恩怨簿復仇、打聽傳聞擇路）殘留旗標：清走，免得舊存檔突然彈戰鬥／事件
+  for (const k of [
+    'pending_revenge_foe',
+    'pending_blood_foe',
+    'grudge_book_json',
+    'aftermath_blood_foe',
+    'rumor_boost',
+    'travel_offer_json',
+    'travel_offer_consumed',
+    '_travel_apply',
+  ]) {
+    delete c.flags[k];
+  }
+  if (raw.pending?.eventId === 'play_travel_offer') raw.pending = null;
   if (c.actionPoints === undefined) {
     // 舊存檔嘅「疲勞」（高＝攰）已改做「行動力」（高＝仲有力），方向倒轉承接
     const legacyFatigue = (c as unknown as { fatigue?: number }).fatigue;

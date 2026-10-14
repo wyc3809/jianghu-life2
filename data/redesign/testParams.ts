@@ -65,7 +65,19 @@ export const COMBAT_RATING_TIERS = [
   { min: 4000, label: '登堂入室' }, { min: 8000, label: '爐火純青' },
   { min: 16000, label: '一代高手' }, { min: 32000, label: '宗師之境' },
 ] as const;
-/** 演武難度增長：每關＋18%，原本16%；其他獎勵不變。 */
-export const SPAR_DIFFICULTY_GROWTH = 1.18;
+/**
+ * 演武難度曲線（玩家 2026-10-14：修正撞牆，但主角氣血唔可以亂加）。
+ * 舊版敵人血同攻擊一齊每關 ×1.18，主角氣血幾乎唔升 → 第 20 幾關一擊倒地。
+ * 新版分開兩條：
+ * - 血量每關 ×1.18：同主角攻擊（境界 ×1.32＋武學成長）對齊，過唔過關睇攻擊。
+ * - 攻擊每關 ×1.032：約等於主角氣血跟境界自然成長（境界 0→14 約 ×3.3，約 38 關），一擊唔會打走大半血。
+ */
+export const SPAR_FOE_HP_GROWTH = 1.18;
+export const SPAR_FOE_ATK_GROWTH = 1.032;
+/** 首領血量、攻擊倍率（相對小兵）；舊版 7／2.2，新角色打唔過第 1 關首領 */
+export const SPAR_BOSS_HP_MUL = 4;
+export const SPAR_BOSS_ATK_MUL = 2.2;
+/** 有回血武學：每打低一個小兵／精英回幾多氣血（過關已經回滿，取代舊「過關回 35%」） */
+export const SPAR_KILL_HEAL = 0.12;
 /** 綜合戰力顯示權重；首版測試參數，唔會反過來改戰鬥結果。 */
 export const COMBAT_RATING_WEIGHTS = { attack: 4, hpDivisor: 5, qiDivisor: 10, lifesteal: 2 } as const;

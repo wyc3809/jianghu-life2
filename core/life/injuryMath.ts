@@ -3,7 +3,7 @@
  * 獨立成檔，避免 equipment.ts ↔ injuries.ts 循環引用。
  */
 import type { InjuryPart, LifeCharacter, LifeInjury } from '@interfaces/lifeEngine';
-import { ARM_PENALTY, HEAD_PENALTY, LEG_EVASION, LEG_STAMINA, TORSO_PENALTY } from '@data/injuries/tuning';
+import { ARM_PENALTY, HEAD_PENALTY, LEG_EVASION, LEG_QI_DRAIN, TORSO_PENALTY } from '@data/injuries/tuning';
 
 /** 角色某部位嘅傷（每部位最多一條） */
 export function injuryAt(c: Pick<LifeCharacter, 'injuries'>, part: InjuryPart): LifeInjury | undefined {
@@ -34,10 +34,10 @@ export function legEvasionPenalty(c: Pick<LifeCharacter, 'injuries'>): number {
   return inj ? LEG_EVASION[inj.tier] : 0;
 }
 
-/** 腿腳傷：每月精力扣減 */
-export function legStaminaDrain(c: Pick<LifeCharacter, 'injuries'>): number {
+/** 腿腳傷：每月內力扣減 */
+export function legQiDrain(c: Pick<LifeCharacter, 'injuries'>): number {
   const inj = injuryAt(c, 'leg');
-  return inj ? LEG_STAMINA[inj.tier] : 0;
+  return inj ? LEG_QI_DRAIN[inj.tier] : 0;
 }
 
 /** 傷勢對能力嘅一句說明（人物欄用） */
@@ -51,6 +51,6 @@ export function injuryEffectText(inj: LifeInjury): string {
     case 'arm':
       return `出手 −${pct(ARM_PENALTY[inj.tier])}`;
     case 'leg':
-      return `閃避 −${pct(LEG_EVASION[inj.tier])}・每月精力 −${LEG_STAMINA[inj.tier]}`;
+      return `閃避 −${pct(LEG_EVASION[inj.tier])}・每月內力 −${LEG_QI_DRAIN[inj.tier]}`;
   }
 }

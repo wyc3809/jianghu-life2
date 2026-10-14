@@ -20,7 +20,7 @@ import {
   WIN_INJURY_HP_RATIO,
 } from '@data/injuries/tuning';
 import { recomputeCapBonuses } from './equipment';
-import { injuryAt, legStaminaDrain } from './injuryMath';
+import { injuryAt, legQiDrain } from './injuryMath';
 import { pushMoment } from './moments';
 
 export interface AddInjuryOptions {
@@ -103,12 +103,12 @@ export function addInjury(
   return line;
 }
 
-/** 每月：腿傷耗精力；輕傷倒數至消失，重傷倒數至轉輕傷；傷殘不變 */
+/** 每月：腿傷耗內力；輕傷倒數至消失，重傷倒數至轉輕傷；傷殘不變 */
 export function tickInjuries(state: LifeGameState): void {
   const c = state.character;
   if (!c.injuries?.length) return;
-  const drain = legStaminaDrain(c);
-  if (drain) c.stamina = Math.max(0, c.stamina - drain);
+  const drain = legQiDrain(c);
+  if (drain) c.qi = Math.max(0, c.qi - drain);
   const torsoBefore = injuryAt(c, 'torso')?.tier;
   c.injuries = decay(c.injuries, 1);
   if (injuryAt(c, 'torso')?.tier !== torsoBefore) recomputeCapBonuses(c);

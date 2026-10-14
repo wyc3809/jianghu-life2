@@ -40,7 +40,6 @@
       "name": "引氣入體",
       "hp": 325,
       "qi": 234,
-      "stamina": 199,
       "martial": 8,
       "sparAttack": 49,
       "eventAttack": 19,
@@ -54,7 +53,6 @@
       "name": "大周天",
       "hp": 439,
       "qi": 374,
-      "stamina": 199,
       "martial": 52,
       "sparAttack": 362,
       "eventAttack": 30,
@@ -68,7 +66,6 @@
       "name": "洗髓伐毛",
       "hp": 633,
       "qi": 610,
-      "stamina": 199,
       "martial": 128,
       "sparAttack": 2219,
       "eventAttack": 50,
@@ -82,7 +79,6 @@
       "name": "破碎虛空",
       "hp": 988,
       "qi": 1040,
-      "stamina": 199,
       "martial": 268,
       "sparAttack": 17168,
       "eventAttack": 87,
@@ -96,7 +92,6 @@
       "name": "武道通神",
       "hp": 1074,
       "qi": 1144,
-      "stamina": 199,
       "martial": 302,
       "sparAttack": 25315,
       "eventAttack": 96,
@@ -109,7 +104,7 @@
   "stages": [
     {
       "stage": 1,
-      "bossHp": 980,
+      "bossHp": 560,
       "bossAttack": 35,
       "reward": {
         "silver": 2,
@@ -120,8 +115,8 @@
     },
     {
       "stage": 10,
-      "bossHp": 4347,
-      "bossAttack": 156,
+      "bossHp": 2484,
+      "bossAttack": 46,
       "reward": {
         "silver": 5,
         "xp": 50
@@ -131,8 +126,8 @@
     },
     {
       "stage": 25,
-      "bossHp": 52045,
-      "bossAttack": 1870,
+      "bossHp": 29740,
+      "bossAttack": 75,
       "reward": {
         "silver": 10,
         "xp": 110
@@ -142,8 +137,8 @@
     },
     {
       "stage": 40,
-      "bossHp": 623196,
-      "bossAttack": 22385,
+      "bossHp": 356112,
+      "bossAttack": 121,
       "reward": {
         "silver": 15,
         "xp": 170
@@ -153,8 +148,8 @@
     },
     {
       "stage": 60,
-      "bossHp": 17071215,
-      "bossAttack": 613171,
+      "bossHp": 9754980,
+      "bossAttack": 227,
       "reward": {
         "silver": 22,
         "xp": 250
@@ -182,7 +177,6 @@
     "eventCost": 5,
     "secondsToRestoreOneEvent": 30,
     "hpMonthlyMean": 8.5,
-    "qiMonthlyMean": 8,
-    "staminaMonthlyMean": 8
+    "qiMonthlyMean": 8
   }
 }
