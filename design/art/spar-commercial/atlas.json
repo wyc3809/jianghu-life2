@@ -1,0 +1,100 @@
+[
+  {
+    "source": "enemies-0.webp",
+    "characters": [
+      "shadow",
+      "daoke",
+      "nvcike",
+      "toutuo"
+    ],
+    "rowCuts": [
+      0,
+      339,
+      584,
+      822,
+      1086
+    ]
+  },
+  {
+    "source": "enemies-1.webp",
+    "characters": [
+      "tiemian",
+      "gouke",
+      "chifa",
+      "bamboo_bloodguard"
+    ],
+    "rowCuts": [
+      0,
+      304,
+      553,
+      825,
+      1086
+    ]
+  },
+  {
+    "source": "enemies-2.webp",
+    "characters": [
+      "bamboo_bloodmaid",
+      "bamboo_boss",
+      "gate_boss",
+      "gate_ironbone"
+    ],
+    "rowCuts": [
+      0,
+      312,
+      580,
+      866,
+      1122
+    ]
+  },
+  {
+    "source": "enemies-3.webp",
+    "characters": [
+      "gate_vajra",
+      "inn_blades",
+      "inn_boss",
+      "inn_twin"
+    ],
+    "rowCuts": [
+      0,
+      290,
+      527,
+      788,
+      1025
+    ]
+  },
+  {
+    "source": "enemies-4.webp",
+    "characters": [
+      "peak_berserk",
+      "peak_boss",
+      "peak_vanguard",
+      "road_boss"
+    ],
+    "rowCuts": [
+      0,
+      331,
+      650,
+      877,
+      1122
+    ]
+  },
+  {
+    "source": "enemies-5.webp",
+    "characters": [
+      "road_brute",
+      "road_captain",
+      "town_boss",
+      "town_bruiser",
+      "town_guard"
+    ],
+    "rowCuts": [
+      0,
+      305,
+      518,
+      743,
+      954,
+      1145
+    ]
+  }
+]

@@ -30,8 +30,10 @@ import {
 import { getGearDef } from '@data/equipment/catalog';
 import { FOE_TRAITS } from '@data/foes/traits';
 import { useLifeStore } from '../../store/lifeStore';
+import { type SparSeason } from '../../spar/presentation';
 
 interface Props {
+  season?: SparSeason;
   reduceMotion?: boolean;
   skin?: AnyWarriorRig;
   /** 出敵池：每次入場隨機抽一款 */
@@ -85,7 +87,9 @@ function useBarMotion(
   }, [pct, resetKey, innerRef, ghostRef]);
 }
 
-export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL, background = SPAR_DEFAULT_BACKGROUND, overlay, caption }: Props) {
+export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL, background = SPAR_DEFAULT_BACKGROUND, overlay, caption, season = 'spring' }: Props) {
+  const seasonRef = useRef(season);
+  seasonRef.current = season;
   const [portalHost] = useState(() => document.createElement('div'));
   const slotRef = useRef<HTMLDivElement | null>(null);
   const homeVisible = useLifeStore(s => (s.state?.tab ?? 'home') === 'home' && s.state?.phase === 'playing' && s.state.character.alive && !s.state.pending && !s.state.pendingCombat && !s.lastResult);
@@ -284,6 +288,8 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
         });
         sync();
         stageRef.current = stage;
+        if (import.meta.env.DEV) (window as unknown as { __sparStage?: SparStage }).__sparStage = stage;
+        stage.setSeason(seasonRef.current);
         const rect = wrap.getBoundingClientRect();
         stage.resize(rect.width, STAGE_HEIGHT, Math.min(window.devicePixelRatio || 1, 2.5));
         // 掛上開局嗰刻嘅武器
@@ -335,6 +341,10 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
       cancelled = true;
       if (noteTimer) clearTimeout(noteTimer);
       stageRef.current = null;
+      if (import.meta.env.DEV) {
+        const qa = window as unknown as { __sparStage?: SparStage };
+        if (qa.__sparStage === stage) delete qa.__sparStage;
+      }
       stopLoop();
       ro.disconnect();
       io.disconnect();
@@ -356,6 +366,9 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
       .catch(() => { /* 載唔到保持現狀 */ });
     return () => { cancelled = true; };
   }, [weaponKind]);
+
+  // 換季只切美術，唔重建Canvas／敵陣。
+  useEffect(() => { stageRef.current?.setSeason(season); }, [season]);
 
   // 換場景 → 背景墨暈淡入淡出＋地名題字＋俠客由左行入
   useEffect(() => {

@@ -1,0 +1,50 @@
+{
+  "checks": [
+    {
+      "name": "spring主頁任務／底欄保留",
+      "passed": true
+    },
+    {
+      "name": "summer主頁任務／底欄保留",
+      "passed": true
+    },
+    {
+      "name": "autumn主頁任務／底欄保留",
+      "passed": true
+    },
+    {
+      "name": "winter主頁任務／底欄保留",
+      "passed": true
+    },
+    {
+      "name": "320x690無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "320x844無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "390x690無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "390x844無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "420x690無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "420x844無橫向溢出",
+      "passed": true
+    },
+    {
+      "name": "生成素材全部載入",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "badRequests": []
+}

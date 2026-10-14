@@ -27,5 +27,6 @@ it('test_spar_all_floating_text_uses_ui_font_even_with_bitmap_glyphs_loaded', ()
   expect(labels.map(x => x.text)).toContain('暴擊');
   expect(labels).toHaveLength(6);
   expect(labels.every(x => x.font.includes(family) && !x.font.includes('italic'))).toBe(true);
-  expect(bitmaps).toEqual([paper]);
+  // 修為底同特性墨印可用位圖，文字仍然全部經同一UI字體。
+  expect(bitmaps).toEqual([paper, paper]);
 });

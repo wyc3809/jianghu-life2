@@ -706,11 +706,11 @@ export function InkPlayScreen({ state }: Props) {
           <div className="ink-home-scene">
             <InkSparStage
               reduceMotion={reduceMotion}
+              season={inkSeason}
               background="town"
               caption={{ date: `${seasonLabel(month)} · ${state.year}年${month}月`, home: c.location || '千燈鎮' }}
             />
-            {/* 場景會動：流雲＋季節粒子（疊喺演武台上面，唔郁演武台本身） */}
-            <InkAmbientFx mode="scene" season={inkSeason} paused={Boolean(combat || eventFocus)} />
+            {/* 四季／地面位圖由演武Canvas繪製，全屏首領戰亦保持同一畫面。 */}
           </div>
 
           {state.phase === 'playing' && c.alive && !showResult && !combat && !eventFocus && (
