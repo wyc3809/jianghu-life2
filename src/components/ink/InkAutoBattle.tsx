@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import type { CombatReplay, CombatReplayHit } from '@interfaces/lifeEngine';
 import { getSkillDef } from '@data/skills/catalog';
@@ -12,6 +12,9 @@ import { useLifeStore } from '../../store/lifeStore';
 import { FOE_TRAITS } from '@data/foes/traits';
 import { FOE_BY_NAME } from '@data/foes/roster';
 import { sparLookForName } from '@core/life/sparDuel';
+import { InkUnifiedBattleFrame } from './InkUnifiedBattleFrame';
+import { InkBattleArts } from './InkBattleArts';
+import type { SparSeason } from '../../spar/presentation';
 import { playInkDefeat, playInkMiss, playInkVictory } from '../../audio/inkAudio';
 
 const STAGE_HEIGHT = 230;
@@ -20,6 +23,11 @@ const COIN_SRC = `${import.meta.env.BASE_URL || '/'}ink/spar/fx-coin.webp`;
 export const AUTO_BATTLE_MAX_MS = 45_000;
 
 type Props = {
+  /** 第26項原型開關，正式入口預設仍維持原畫面。 */
+  unified?: boolean;
+  season?: SparSeason;
+  notice?: ReactNode;
+  battleBackdropSrc?: string;
   replay: CombatReplay;
   /** 演完（或者撳跳過） */
   onDone: () => void;
@@ -47,11 +55,13 @@ function sceneOf(replay: CombatReplay): string {
  * 出招次序同傷害照自動戰鬥紀錄（core/life/autoCombat.ts）逐招播。
  * 下面主修外功七卷：已得嘅卷亮起，輪到嗰卷發紅；頭頂彈「卷幾・招名」。
  */
-export function InkAutoBattle({ replay, onDone, reduceMotion = false }: Props) {
+export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = false, season = 'spring', notice, battleBackdropSrc }: Props) {
   const hits = useMemo<Hit[]>(
     () => replay.rounds.flatMap((r) => r.hits.map((h) => ({ ...h, round: r.round }))),
     [replay],
   );
+  const [fast, setFast] = useState(false);
+  const speedRef = useRef(1);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const heroBarRef = useRef<HTMLDivElement | null>(null);
@@ -65,6 +75,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false }: Props) {
   const finish = () => {
     if (doneRef.current) return;
     doneRef.current = true;
+    if (unified && hits.length) setCur({ hit: hits[hits.length - 1]!, n: hits.length });
     onDoneRef.current();
   };
 
@@ -140,7 +151,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false }: Props) {
     };
 
     const placeBars = () => {
-      if (!stage) return;
+      if (!stage || unified) return;
       const a = stage.getAnchors();
       const w = wrap.clientWidth;
       const hb = heroBarRef.current;
@@ -159,10 +170,15 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false }: Props) {
       }
     };
     const frame = (now: number) => {
-      if (!stage || cancelled) return;
-      const dt = last ? Math.min(0.05, (now - last) / 1000) : 0;
+      if (!stage || cancelled || doneRef.current) return;
+      // 全屏喺低幀率裝置亦追返播放時間；更新仍分小步，唔跳過命中。
+      const dt = last ? Math.min(unified ? 0.15 : 0.05, (now - last) / 1000) : 0;
       last = now;
-      stage.update(dt);
+      // 兩倍播放推相同小步，唔因dt夾值令加速冇效或改命中結算。
+      if (unified) {
+        let budget = dt * speedRef.current;
+        while (budget > 1e-9) { const step = Math.min(1 / 60, budget); stage.update(step); budget -= step; }
+      } else stage.update(dt);
       stage.render();
       placeBars();
       raf = requestAnimationFrame(frame);
@@ -173,10 +189,12 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false }: Props) {
       .then(async (images) => {
         images.ui = await loadSparUiImages();
         images.coin = await loadSparImage(COIN_SRC).catch(() => null);
+        const battleBackdrop = unified && battleBackdropSrc ? await loadSparImage(battleBackdropSrc).catch(() => null) : null;
         if (cancelled) return;
-        stage = new SparStage({ canvas, images, rig, enemies: ENEMY_POOL, combat });
+        stage = new SparStage({ canvas, images, rig, enemies: ENEMY_POOL, combat, uiFontFamily: unified ? getComputedStyle(canvas).fontFamily : undefined, presentation: unified ? 'battle' : 'stage', battleBackdrop });
+        if (unified) stage.setSeason(season);
         const rect = wrap.getBoundingClientRect();
-        stage.resize(rect.width, STAGE_HEIGHT, Math.min(window.devicePixelRatio || 1, 2.5));
+        stage.resize(rect.width, unified ? rect.height : STAGE_HEIGHT, Math.min(window.devicePixelRatio || 1, 2.5));
         const kind = weaponId ? getGearDef(weaponId)?.weaponKind : undefined;
         const wdef = kind ? WEAPON_SPRITES[kind] : null;
         if (wdef) loadSparImage(wdef.src).then((img) => { if (!cancelled) stage?.setWeapon(wdef, img); }).catch(() => {});
@@ -192,16 +210,23 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false }: Props) {
       .catch(() => {
         if (!cancelled) setFailed(true);
       });
+    const observer = new ResizeObserver(() => {
+      if (!stage) return;
+      const rect = wrap.getBoundingClientRect();
+      stage.resize(rect.width, unified ? rect.height : STAGE_HEIGHT, Math.min(window.devicePixelRatio || 1, 2.5));
+    });
+    if (unified) observer.observe(wrap);
     const cap = setTimeout(finish, AUTO_BATTLE_MAX_MS);
     return () => {
       cancelled = true;
       if (raf) cancelAnimationFrame(raf);
       if (endTimer) clearTimeout(endTimer);
       clearTimeout(cap);
+      observer.disconnect();
     };
     // 一場演出一個引擎：replay 變先重開
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [replay]);
+  }, [replay, unified, season, battleBackdropSrc]);
 
   // 素材載唔到：唔好卡住，直接當播完
   useEffect(() => {
@@ -219,6 +244,19 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false }: Props) {
   const owned = new Set(artNow.vols);
   const moves = artNow.artId ? artVolumeMoves(artNow.artId) : [];
   const artName = artNow.artId ? getSkillDef(artNow.artId)?.name : undefined;
+
+  if (unified) return createPortal(<InkUnifiedBattleFrame
+    title={replay.title} round={h?.round ?? 1} fast={fast}
+    onSpeed={() => { const next = !fast; setFast(next); speedRef.current = next ? 2 : 1; }}
+    onSkip={finish} notice={notice}
+    hero={{ name: replay.playerName, hp: playerHp, maxHp: replay.playerMaxHp }}
+    foe={{ name: replay.foeName, hp: foeHp, maxHp: replay.foeMaxHp }} boss={replay.foeBoss}
+    scene={<div className="ink-unified-canvas-host" ref={wrapRef}><canvas ref={canvasRef} /></div>}
+    callout={h ? <span key={cur!.n} className={h.side === 'foe' ? 'is-foe' : ''}>
+      {h.side === 'player' && h.vol && <i>卷{VOLUME_NUMERALS[h.vol - 1]} ·</i>}{h.moveName}{h.damage <= 0 ? ' · 落空' : ''}
+    </span> : <span>{replay.title}</span>}
+    skills={<InkBattleArts artId={artNow.artId} volumes={artNow.vols} rotation={artNow.rotation} activeVolume={h?.side === 'player' ? h.vol : undefined} />}
+  />, document.body);
 
   return createPortal(
     <div className="ink-auto" role="dialog" aria-modal="true" aria-label={`自動交手：${replay.title}`}>

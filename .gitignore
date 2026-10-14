@@ -68,3 +68,6 @@ production/qa/evidence/redesign/hud-alignment/frames/
 
 # 第23項動畫驗收暫存幀
 production/qa/evidence/redesign/spar-commercial/**/frames/
+
+# 第26項實際原型播放GIF暫存
+production/qa/evidence/redesign/unified-battle/frames/

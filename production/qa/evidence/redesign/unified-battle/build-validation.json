@@ -1,0 +1,11 @@
+{
+  "base": "/jianghu-life2/",
+  "productionShowsNormalEntry": true,
+  "productionNoPrototypeDialog": true,
+  "fixtureChunkExcluded": true,
+  "pageErrors": [],
+  "failedRequests": [],
+  "vitest": 605,
+  "build": "build:pages passed",
+  "narrateHardFail": 0
+}

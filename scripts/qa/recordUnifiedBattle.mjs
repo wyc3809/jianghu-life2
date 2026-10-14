@@ -1,0 +1,7 @@
+import {chromium} from '/opt/codex/cua_node/lib/node_modules/playwright/index.mjs';import fs from 'node:fs';
+const out=process.cwd()+'/production/qa/evidence/redesign/unified-battle';const b=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox']});const c=await b.newContext({viewport:{width:390,height:844},deviceScaleFactor:2});const p=await c.newPage();
+for(const kind of ['spar','event','event-boss']){await p.goto(`http://127.0.0.1:5177/?battle-preview=unified&kind=${kind}`,{waitUntil:'networkidle'});await p.locator('.ink-unified-volumes .is-active').first().waitFor();await p.waitForTimeout(180);await p.screenshot({path:out+`/chromium-${kind}.png`});}
+await c.close();const gc=await b.newContext({viewport:{width:390,height:844},deviceScaleFactor:1});const gp=await gc.newPage();await gp.goto('http://127.0.0.1:5177/?battle-preview=unified&kind=event-boss',{waitUntil:'networkidle'});await gp.getByRole('button',{name:'加速 ×2',exact:true}).click();
+fs.mkdirSync(out+'/frames/gif',{recursive:true});const times=[];
+for(let i=0;i<90;i++){times.push(performance.now());await gp.screenshot({path:out+`/frames/gif/${String(i).padStart(3,'0')}.png`});if(await gp.getByRole('button',{name:'重播呢場'}).isVisible())break;await gp.waitForTimeout(120)}
+fs.writeFileSync(out+'/frames/gif/times.json',JSON.stringify(times));console.log('GIF frames',times.length);await b.close();
