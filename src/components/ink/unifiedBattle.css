@@ -1,4 +1,4 @@
-/* 第26項原型：第二張圖嘅敵上我下、七卷欄，配演武台位圖場景。 */
+/* 第26項原型：雙方血條放頂部比較，底部七卷欄配演武台位圖場景。 */
 .ink-unified-battle {
   position: fixed;
   inset: 0;
@@ -46,6 +46,8 @@
 .ink-unified-controls button.is-fast { color: #faf6ee; background: #a33a32; border-color: #a33a32; }
 .ink-unified-controls button:focus-visible { outline: 2px solid #a33a32; outline-offset: 2px; }
 .ink-unified-hp { display: grid; grid-template-columns: minmax(0, max-content) minmax(32px, 1fr) max-content; align-items: center; gap: 8px; font-size: 13px; }
+.ink-unified-vitals { display: grid; grid-template-columns: minmax(0, max-content) minmax(32px, 1fr) max-content; gap: 10px 8px; }
+.ink-unified-vitals .ink-unified-hp { grid-column: 1 / -1; grid-template-columns: subgrid; }
 .ink-unified-hp > b { font-weight: 600; letter-spacing: .08em; max-width: 7em; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .ink-unified-hp small { display: block; font-size: 9px; font-weight: 600; line-height: 1.2; color: #a33a32; letter-spacing: .16em; }
 .ink-unified-hp .ink-brush-bar { width: 100%; height: 12px; }
@@ -66,7 +68,6 @@
 .ink-unified-notice p { margin: 0; font-size: 13px; }
 .ink-unified-notice button { padding: 10px 20px; font: inherit; color: #faf6ee; background: #a33a32; border: 1px solid #7b312c; }
 .ink-unified-footer { flex: none; z-index: 2; padding: 10px 12px max(14px, env(safe-area-inset-bottom)); }
-.ink-unified-footer .ink-unified-hp { margin: 0 3px 10px; }
 .ink-unified-art { padding: 9px 8px; border: 1px solid rgba(28,26,23,.17); background: rgba(250,246,238,.92); }
 .ink-unified-art-title { margin: 0 0 7px; font-size: 12px; color: #625a50; }
 .ink-unified-art-rotation { display: flex; flex-wrap: wrap; gap: 4px 9px; margin-bottom: 7px; font-size: 11px; color: #918778; }

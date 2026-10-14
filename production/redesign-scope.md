@@ -401,3 +401,5 @@
 - 支援減少動態，保留可讀血條、出招欄及跳過；手機320／390／420闊、690／844高、DPR2，Chromium／WebKit驗證。瀏覽器模擬唔等於實機性能驗收。
 
 美術出處同準備規格：`design/art/unified-battle/README.md`。實際原型、改前後紅框對照、播放GIF及驗證報告：`production/qa/evidence/redesign/unified-battle/`。605項Vitest、Pages build、audit:narrate hard-fail0通過；唔升版本，正式版維持EA0.72.0。156項手機瀏覽器檢查通過，詳情見browser-qa.json；Pages路徑正式構建入口及原型排除檢查見build-validation.json。未發布。
+
+第26項血條比較補修（原型v2，未上線）：玩家要求敵人同自己嘅血條都放頂部。已將自身黑墨氣血移到敵人紅墨氣血下方，同一比較欄內共用欄寬，兩條筆觸起點／終點及血量數字對齊；底部只留武功輪替＋七卷。呢項取代原型v1嘅敵上我下排版，其他暫定方案及正式入口未變。605項Vitest、Pages build、narrate hard-fail0通過；192項手機尺寸／兩種瀏覽器檢查通過，新截圖GIF：`production/qa/evidence/redesign/unified-battle-top-health/`。本次只交原型，未升版本／未發布。

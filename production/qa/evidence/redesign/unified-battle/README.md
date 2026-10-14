@@ -1,5 +1,7 @@
 # 統一戰鬥原型實際驗收
 
+呢個目錄保留v1（commit 16cf2a1）敵上我下排版；玩家其後要求雙方氣血放頂部，最新v2證據見`../unified-battle-top-health/README.md`。
+
 先睇圖，未發布；正式版EA0.72.0。固定seed42、黃問天、三套外功。原型唔寫正式存檔／獎勵；演武首領由第2關隔離checkpoint戰報播放，唔係正式演武即時流程。
 
 - `chromium-spar.png`：演武首領原型，秋季直向石庭。

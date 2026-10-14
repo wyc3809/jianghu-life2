@@ -46,7 +46,10 @@ export function InkUnifiedBattleFrame({ title, round, fast, onSpeed, onSkip, her
             <button type="button" onClick={onSkip}>跳過 ›</button>
           </div>
         </div>
-        <HealthRow vitals={foe} enemy boss={boss} />
+        <div className="ink-unified-vitals" aria-label="雙方氣血比較">
+          <HealthRow vitals={foe} enemy boss={boss} />
+          <HealthRow vitals={hero} />
+        </div>
         <p className="ink-unified-context">{title}</p>
       </header>
       <div className="ink-unified-scene">
@@ -55,7 +58,6 @@ export function InkUnifiedBattleFrame({ title, round, fast, onSpeed, onSkip, her
         {notice && <div className="ink-unified-notice">{notice}</div>}
       </div>
       <footer className="ink-unified-footer">
-        <HealthRow vitals={hero} />
         {skills}
       </footer>
     </div>

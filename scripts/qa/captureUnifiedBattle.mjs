@@ -1,6 +1,6 @@
 import {chromium,webkit} from '/opt/codex/cua_node/lib/node_modules/playwright/index.mjs';
 import fs from 'node:fs';
-const out=process.cwd()+'/production/qa/evidence/redesign/unified-battle';
+const out=process.cwd()+'/'+(process.env.QA_EVIDENCE_DIR || 'production/qa/evidence/redesign/unified-battle');
 fs.mkdirSync(out+'/frames',{recursive:true});
 const report={checks:[],errors:[],requests:[]};
 function assert(ok,name){report.checks.push({name,pass:!!ok});fs.writeFileSync(out+'/browser-qa.json',JSON.stringify(report,null,2));if(!ok)throw Error(name)}
@@ -10,18 +10,23 @@ for(const [browserName,type] of [['chromium',chromium],['webkit',webkit]]){
   const ctx=await browser.newContext({viewport:{width,height},deviceScaleFactor:2});const page=await ctx.newPage();
   page.on('pageerror',e=>report.errors.push(browserName+':'+e.message));page.on('response',r=>{if(r.status()>=400)report.requests.push(r.url()+':'+r.status())});
   await page.goto(`http://127.0.0.1:5177/?battle-preview=unified&kind=${kind}`,{waitUntil:'networkidle'});
+  await page.locator('.ink-unified-paper').waitFor();
   await page.waitForTimeout(700);
   const layout=await page.evaluate(()=>{
     const root=document.querySelector('.ink-unified-paper'); const r=root.getBoundingClientRect();
     const header=document.querySelector('.ink-unified-header').getBoundingClientRect(),footer=document.querySelector('.ink-unified-footer').getBoundingClientRect();
     const volumes=[...document.querySelectorAll('.ink-unified-volumes li')].map(el=>el.getBoundingClientRect());
     const canvas=document.querySelector('canvas');
+    const bars=[...document.querySelectorAll('.ink-unified-hp .ink-brush-bar')].map(el=>el.getBoundingClientRect());
+    const group=document.querySelector('.ink-unified-vitals');
+    const aligned=!!group&&group.querySelectorAll('.ink-unified-hp').length===2&&!document.querySelector('.ink-unified-footer .ink-unified-hp')&&bars.length===2&&Math.abs(bars[0].left-bars[1].left)<.1&&Math.abs(bars[0].width-bars[1].width)<.1&&bars.every(bar=>bar.top>=header.top&&bar.bottom<=header.bottom);
     const rows=[...document.querySelectorAll('.ink-unified-hp')].map(el=>({label:el.getAttribute('aria-label'),pct:Number(el.querySelector('.ink-brush-bar').style.getPropertyValue('--pct'))}));
     return {fits:header.top>=0&&footer.bottom<=innerHeight+.1&&footer.top>header.bottom&&r.width<=innerWidth&&document.documentElement.scrollWidth<=innerWidth,
-     cards:volumes.length===7&&volumes.every(v=>v.left>=0&&v.right<=innerWidth+.1),canvas:canvas.width>0&&canvas.height>0,rows};
+     cards:volumes.length===7&&volumes.every(v=>v.left>=0&&v.right<=innerWidth+.1),canvas:canvas.width>0&&canvas.height>0,aligned,rows};
   });
   const tag=`${browserName}-${kind}-${width}x${height}`;
   assert(layout.fits&&layout.cards&&layout.canvas,tag+' visible-no-overlap');
+  assert(layout.aligned,tag+' both-hp-aligned-in-header');
   assert(layout.rows.every(v=>{const [a,b]=v.label.match(/(\d+)\/(\d+)$/).slice(1).map(Number);return Math.abs(v.pct-a/b*100)<.0001}),tag+' hp-ratio');
   await page.getByRole('button',{name:'加速 ×2',exact:true}).click();assert(await page.getByRole('button',{name:'加速 ×2',exact:true}).getAttribute('aria-pressed')==='true',tag+' speed-toggle');
   await page.getByRole('button',{name:'跳過 ›',exact:true}).click();await page.getByRole('button',{name:'重播呢場'}).waitFor();

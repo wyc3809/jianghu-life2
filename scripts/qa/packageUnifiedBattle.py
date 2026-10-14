@@ -1,10 +1,11 @@
 """第26項只整理真實截圖／播放GIF，唔製作遊戲美術。"""
 from pathlib import Path
 import json
+import os
 from PIL import Image, ImageDraw, ImageFont
 
 root=Path(__file__).resolve().parents[2]
-p=root/'production/qa/evidence/redesign/unified-battle'
+p=root/os.environ.get('QA_EVIDENCE_DIR','production/qa/evidence/redesign/unified-battle')
 font='/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc'
 f=ImageFont.truetype(font,19)
 small=ImageFont.truetype(font,14)
@@ -20,7 +21,7 @@ def board(items,name,red=False):
         shot=Image.open(p/file).convert('RGB').resize((390,844),Image.Resampling.LANCZOS)
         image.paste(shot,(x,94))
         if red and 'chromium-' in file:
-            for box in [(12,10,378,125),(12,660,378,831)]:
+            for box in [(12,10,378,175),(12,660,378,831)]:
                 draw.rectangle((x+box[0],94+box[1],x+box[2],94+box[3]),outline='#b43b31',width=2)
     image.save(p/name)
 
