@@ -15,7 +15,7 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { SparStage, loadSparImages, loadSparImage, loadSparUiImages, type SparCombatHooks } from '../../spar/engine';
-import { sparArtAt } from '../../spar/artCycle';
+import { sparArtAt, sparArtOrder } from '../../spar/artCycle';
 import { SparDuel, formatSparNumber, sparHeroStats, sparRand, sparSavedStage, type SparDuelSnapshot } from '@core/life/sparDuel';
 import { InkBrushBar } from './InkBrush';
 import { inkHop, inkPopIn, inkRevealChars, inkShake, inkTweenVar } from '../../ui/inkMotion';
@@ -32,6 +32,12 @@ import { getGearDef } from '@data/equipment/catalog';
 import { FOE_TRAITS } from '@data/foes/traits';
 import { useLifeStore } from '../../store/lifeStore';
 import { type SparSeason } from '../../spar/presentation';
+import { InkUnifiedBattleFrame } from './InkUnifiedBattleFrame';
+import { InkBattleEntrance } from './InkBattleEntrance';
+import { InkBattleArts } from './InkBattleArts';
+import { ownedVolumes } from '@core/life/volumes';
+import { getSkillDef } from '@data/skills/catalog';
+import { motionReduced } from '../../ui/inkMotion';
 
 interface Props {
   season?: SparSeason;
@@ -92,8 +98,10 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
   const seasonRef = useRef(season);
   seasonRef.current = season;
   const [portalHost] = useState(() => document.createElement('div'));
+  const [sceneHost] = useState(() => document.createElement('div'));
+  const sceneSlotRef = useRef<HTMLDivElement | null>(null);
   const slotRef = useRef<HTMLDivElement | null>(null);
-  const homeVisible = useLifeStore(s => (s.state?.tab ?? 'home') === 'home' && s.state?.phase === 'playing' && s.state.character.alive && !s.state.pending && !s.state.pendingCombat && !s.lastResult);
+  const homeVisible = useLifeStore(s => (s.state?.tab ?? 'home') === 'home' && s.state?.phase === 'playing' && s.state.character.alive && !s.state.pending && !s.state.pendingCombat && !s.lastResult && !s.combatReplay);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const stageRef = useRef<SparStage | null>(null);
@@ -102,6 +110,24 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
   // 對打狀態（純邏輯）＋血條浮層
   const duelRef = useRef<SparDuel | null>(null);
   const [snap, setSnap] = useState<SparDuelSnapshot | null>(null);
+  const bossBattle = Boolean(snap?.foe?.boss && homeVisible && !failed);
+  const bossKey = bossBattle ? `${snap!.stage}:${snap!.foe!.name}` : '';
+  const bossRef = useRef(bossBattle); bossRef.current = bossBattle;
+  const bossKeyRef = useRef(bossKey); bossKeyRef.current = bossKey;
+  const homeRef = useRef(homeVisible); homeRef.current = homeVisible;
+  const enteredKeyRef = useRef('');
+  const [enteredKey, setEnteredKey] = useState('');
+  const [backdropKey, setBackdropKey] = useState('');
+  const [stageReady, setStageReady] = useState(false);
+  const [fast, setFast] = useState(false);
+  const speedRef = useRef(1);
+  const skipRef = useRef(false);
+  const [bossRound, setBossRound] = useState(0);
+  const [activeArt, setActiveArt] = useState<string | null>(null);
+  const [callout, setCallout] = useState('首領之戰');
+  const character = useLifeStore(s => s.state?.character);
+  const displayedArt = activeArt ?? (character ? sparArtAt(character, 0) : null);
+  const entering = bossBattle && enteredKey !== bossKey;
   const [clearNote, setClearNote] = useState<string | null>(null);
   const heroBarRef = useRef<HTMLDivElement | null>(null);
   const heroInnerRef = useRef<HTMLDivElement | null>(null);
@@ -199,13 +225,16 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
       ? {
           heroStrike: () => {
             settleDeadFoe();
+            const wasBoss = Boolean(duel.foe?.boss);
             const r = duel.heroStrike();
+            if (wasBoss) setBossRound(n => n + 1);
             sync();
             return r;
           },
           foeStrike: () => {
             if (duel.foeHp <= 0) return { dmg: 0, heroDown: false, fx: [] };
             const r = duel.foeStrike();
+            if (duel.foe?.boss) setCallout(`${duel.foe.name} · 還擊`);
             sync();
             return r;
           },
@@ -218,7 +247,10 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
           // 第 25 項：輪住用已學外功，每套播自己嘅專屬動畫
           nextArt: () => {
             const st = useLifeStore.getState().state;
-            return st ? sparArtAt(st.character, artTurn++) : null;
+            const art = st ? sparArtAt(st.character, artTurn++) : null;
+            setActiveArt(art);
+            if (duel.foe?.boss) setCallout(art ? getSkillDef(art)?.name ?? '出招' : '基本攻擊');
+            return art;
           },
           foeCharging: () => duel.foeCharging,
           foeEnraged: () => duel.foeEnraged,
@@ -236,7 +268,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
 
     /** 血條跟住頭頂行（直接改 style，唔觸發 React 重繪） */
     const placeBars = () => {
-      if (!stage) return;
+      if (!stage || bossRef.current) return;
       const a = stage.getAnchors();
       const w = wrap.clientWidth;
       // 主角血條向左伸、敵人血條向右伸，上下錯開，唔會疊埋
@@ -261,7 +293,23 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
       if (!stage) return;
       const dt = last ? (now - last) / 1000 : 0;
       last = now;
-      stage.update(dt);
+      if (!homeRef.current) {
+        if (running) raf = requestAnimationFrame(frame);
+        return;
+      }
+      const liveKey = duel?.foe?.boss ? `${duel.stage}:${duel.foe.name}` : '';
+      // 同一即時對戰等揭幕先繼續；其他頁面／事件期間唔喺背後派演武獎勵。
+      if (homeRef.current && (!liveKey || enteredKeyRef.current === liveKey)) {
+        if (liveKey) {
+          let budget = skipRef.current ? 12 : Math.min(.15, dt) * speedRef.current;
+          while (budget > 1e-9) {
+            const step = Math.min(1 / 60, budget);
+            stage.update(step); budget -= step;
+            // 跳過只加速同一引擎；過關／敗退即停，唔打埋下一關。
+            if (!duel?.foe?.boss || `${duel.stage}:${duel.foe.name}` !== liveKey) break;
+          }
+        } else stage.update(dt);
+      }
       stage.render();
       placeBars();
       if (running) raf = requestAnimationFrame(frame);
@@ -295,10 +343,11 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
         });
         sync();
         stageRef.current = stage;
+        setStageReady(true);
         if (import.meta.env.DEV) (window as unknown as { __sparStage?: SparStage }).__sparStage = stage;
         stage.setSeason(seasonRef.current);
         const rect = wrap.getBoundingClientRect();
-        stage.resize(rect.width, STAGE_HEIGHT, Math.min(window.devicePixelRatio || 1, 2.5));
+        stage.resize(rect.width, bossRef.current ? rect.height : STAGE_HEIGHT, Math.min(window.devicePixelRatio || 1, 2.5));
         // 掛上開局嗰刻嘅武器
         const kind = (() => {
           const st = useLifeStore.getState().state;
@@ -332,7 +381,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
     const ro = new ResizeObserver(() => {
       if (!stage) return;
       const rect = wrap.getBoundingClientRect();
-      stage.resize(rect.width, STAGE_HEIGHT, Math.min(window.devicePixelRatio || 1, 2.5));
+      stage.resize(rect.width, bossRef.current ? rect.height : STAGE_HEIGHT, Math.min(window.devicePixelRatio || 1, 2.5));
       if (reduceMotion) stage.render();
     });
     ro.observe(wrap);
@@ -440,13 +489,10 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
     if (leftLabel) inkHop(leftRef.current);
   }, [leftLabel]);
 
-  const bossBattle = Boolean(snap?.foe?.boss && homeVisible && !failed);
   useLayoutEffect(() => {
-    portalHost.className = bossBattle ? 'ink-spar-boss-screen' : 'ink-spar-inline-host';
+    portalHost.className = bossBattle ? 'ink-spar-boss-screen ink-spar-boss-screen--unified' : 'ink-spar-inline-host';
     if (bossBattle) {
-      portalHost.setAttribute('role', 'dialog');
-      portalHost.setAttribute('aria-modal', 'true');
-      portalHost.setAttribute('aria-label', '演武首領自動戰鬥');
+      // 真正嘅dialog同標籤由共用框架提供。
     } else {
       portalHost.removeAttribute('role');
       portalHost.removeAttribute('aria-modal');
@@ -468,22 +514,60 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
     };
   }, [bossBattle, portalHost]);
 
+  useLayoutEffect(() => {
+    sceneSlotRef.current?.appendChild(sceneHost);
+    const stage = stageRef.current;
+    if (stage) {
+      stage.setPresentation(bossBattle ? 'battle' : 'stage');
+      const rect = wrapRef.current?.getBoundingClientRect();
+      if (rect) stage.resize(rect.width, bossBattle ? rect.height : STAGE_HEIGHT, Math.min(window.devicePixelRatio || 1, 2.5));
+      stage.render();
+    }
+    if (!bossBattle) { enteredKeyRef.current = ''; setEnteredKey(''); }
+    setFast(false); speedRef.current = 1; skipRef.current = false;
+    setBossRound(0); setCallout('首領之戰');
+    if (!bossBattle || !stage) return;
+    let cancelled = false;
+    void loadSparImage(`${import.meta.env.BASE_URL || '/'}ink/art/battle-preview/${season}.webp`).catch(() => null).then(image => {
+      if (cancelled) return;
+      stage.setPresentation('battle', image); stage.render(); setBackdropKey(bossKey);
+    });
+    return () => { cancelled = true; };
+  }, [bossKey, bossBattle, stageReady, season, sceneHost]);
+
   if (failed) return null; // 素材載入唔到就靜靜哋隱藏，唔好阻住遊戲
 
   return (
     <div ref={slotRef} className="ink-spar-slot">
       {createPortal(<>
-      {bossBattle && <header className="ink-spar-boss-heading"><small>演武台 · 第 {snap?.stage} 關</small><h2>{snap?.foe?.name}</h2><p>首領戰 · 自動交手</p></header>}
-    <div className="ink-spar-stage" ref={wrapRef} aria-label="切磋演武">
-      <canvas ref={canvasRef} style={{ width: '100%', height: STAGE_HEIGHT, display: 'block' }} />
-      {overlay}
-      {caption && (
+      {bossBattle && snap?.foe ? <InkUnifiedBattleFrame
+        trait={snap.foe.trait ? <span title={FOE_TRAITS[snap.foe.trait].blurb} aria-label={`${FOE_TRAITS[snap.foe.trait].name}：${FOE_TRAITS[snap.foe.trait].blurb}`}>
+          {FOE_TRAITS[snap.foe.trait].glyph} · {FOE_TRAITS[snap.foe.trait].name}{snap.foeCharging ? ' · 蓄力' : ''}{snap.foeEnraged ? ' · 狂怒' : ''}
+        </span> : undefined}
+        title={`演武台 · 第 ${snap.stage} 關 · ${snap.place}`} round={Math.max(1, bossRound)} fast={fast}
+        hero={{ name: character?.name ?? '俠客', hp: snap.heroHp, maxHp: snap.heroMaxHp }}
+        foe={{ name: snap.foe.name, hp: snap.foeHp, maxHp: snap.foe.maxHp }} boss
+        onSpeed={() => { const next = !fast; setFast(next); speedRef.current = next ? 2 : 1; }}
+        onSkip={() => { skipRef.current = true; }} entering={entering}
+        entrance={entering ? <InkBattleEntrance key={bossKey} ready={stageReady && backdropKey === bossKey}
+          reduceMotion={reduceMotion || motionReduced()} onEntered={() => {
+            if (bossKeyRef.current === bossKey) { enteredKeyRef.current = bossKey; setEnteredKey(bossKey); }
+          }} /> : undefined}
+        scene={<div className="ink-unified-canvas-host" ref={sceneSlotRef} />}
+        callout={<span>{callout}</span>}
+        skills={<InkBattleArts artId={displayedArt ?? undefined} volumes={character && displayedArt ? ownedVolumes(character, displayedArt) : []}
+          rotation={character ? sparArtOrder(character).map(id => ({ id, vols: ownedVolumes(character, id) })) : []} />}
+      /> : <div ref={sceneSlotRef} />}
+      {createPortal(<div className={bossBattle ? 'ink-spar-battle-canvas' : 'ink-spar-stage'} ref={wrapRef} aria-label="切磋演武">
+      <canvas ref={canvasRef} style={{ width: '100%', height: bossBattle ? '100%' : STAGE_HEIGHT, display: 'block' }} />
+      {!bossBattle && overlay}
+      {!bossBattle && caption && (
         <p className="ink-spar-caption">
           <span>{caption.date}</span>
           <strong>{snap && snap.sceneBg !== 'town' ? snap.place : caption.home}</strong>
         </p>
       )}
-      {snap && (
+      {!bossBattle && snap && (
         <>
           <div className="ink-spar-hud" aria-live="polite">
             <span className="ink-spar-hud-stage">
@@ -555,7 +639,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
           )}
         </>
       )}
-      {conditions.length > 0 && (
+      {!bossBattle && conditions.length > 0 && (
         <div className="ink-spar-conditions" aria-label="狀態">
           {conditions.map((cond) => (
             <span key={cond.id} className="ink-spar-condition-chip">
@@ -564,8 +648,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
           ))}
         </div>
       )}
-    </div>
-    {bossBattle && <footer className="ink-spar-boss-footer">勝出進入下一關；落敗同一關重新挑戰。<br />戰鬥結束後自動返回演武台。</footer>}
+    </div>, sceneHost)}
     </>, portalHost)}
     </div>
   );

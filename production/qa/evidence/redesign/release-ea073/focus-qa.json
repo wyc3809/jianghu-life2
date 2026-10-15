@@ -1,0 +1,54 @@
+{
+  "checks": [
+    {
+      "name": "chromium-spar-win-background-inert",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-focus-inside-modal",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-background-restored",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-background-inert",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-focus-inside-modal",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-background-restored",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-background-inert",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-focus-inside-modal",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-background-restored",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-background-inert",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-focus-inside-modal",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-background-restored",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "failedAssets": []
+}

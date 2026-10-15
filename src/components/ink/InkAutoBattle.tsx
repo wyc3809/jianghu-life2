@@ -258,6 +258,9 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
   const artName = artNow.artId ? getSkillDef(artNow.artId)?.name : undefined;
 
   if (unified) return createPortal(<InkUnifiedBattleFrame
+    trait={replay.foeTrait ? <span title={FOE_TRAITS[replay.foeTrait].blurb} aria-label={`${FOE_TRAITS[replay.foeTrait].name}：${FOE_TRAITS[replay.foeTrait].blurb}`}>
+      {FOE_TRAITS[replay.foeTrait].glyph} · {FOE_TRAITS[replay.foeTrait].name}{replay.foeTier === 'elite' ? ' · 弱化' : ''}
+    </span> : undefined}
     entering={!entered}
     entrance={!entered ? <InkBattleEntrance ready={sceneReady} reduceMotion={reduceMotion} onEntered={() => { enteredRef.current = true; setEntered(true); }} /> : undefined}
     title={replay.title} round={h?.round ?? 1} fast={fast}

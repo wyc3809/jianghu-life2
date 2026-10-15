@@ -1,5 +1,5 @@
 /** 第26項：第二張參考嘅全屏戰鬥排版，俾演武台引擎放入同一個畫面。 */
-import type { ReactNode } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 import { InkBrushBar, clampPct } from './InkBrush';
 import './unifiedBattle.css';
 
@@ -24,6 +24,7 @@ type Props = {
   notice?: ReactNode;
   entrance?: ReactNode;
   entering?: boolean;
+  trait?: ReactNode;
 };
 
 function HealthRow({ vitals, enemy, boss }: { vitals: BattleVitals; enemy?: boolean; boss?: boolean }) {
@@ -37,8 +38,20 @@ function HealthRow({ vitals, enemy, boss }: { vitals: BattleVitals; enemy?: bool
 }
 
 /** 相同血條／操作框架；戰鬥數字由呼叫方供應，唔喺UI計傷害。 */
-export function InkUnifiedBattleFrame({ title, round, fast, onSpeed, onSkip, hero, foe, boss, scene, callout, skills, notice, entrance, entering = false }: Props) {
-  return <section className={`ink-unified-battle${entering ? ' is-entering' : ''}`} role="dialog" aria-modal="true" aria-busy={entering} aria-label={`自動交手：${title}`}>
+export function InkUnifiedBattleFrame({ title, round, fast, onSpeed, onSkip, hero, foe, boss, scene, callout, skills, notice, entrance, entering = false, trait }: Props) {
+  const rootRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const shell = document.querySelector('.scroll-shell');
+    const wasInert = shell?.hasAttribute('inert');
+    const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    shell?.setAttribute('inert', '');
+    rootRef.current?.focus({ preventScroll: true });
+    return () => {
+      if (!wasInert) shell?.removeAttribute('inert');
+      if (previous?.isConnected) previous.focus({ preventScroll: true });
+    };
+  }, []);
+  return <section ref={rootRef} tabIndex={-1} className={`ink-unified-battle${entering ? ' is-entering' : ''}`} role="dialog" aria-modal="true" aria-busy={entering} aria-label={`自動交手：${title}`}>
     <div className="ink-unified-paper">
       <header className="ink-unified-header">
         <div className="ink-unified-controls">
@@ -53,6 +66,7 @@ export function InkUnifiedBattleFrame({ title, round, fast, onSpeed, onSkip, her
           <HealthRow vitals={hero} />
         </div>
         <p className="ink-unified-context">{title}</p>
+        {trait && <div className="ink-unified-trait">{trait}</div>}
       </header>
       <div className="ink-unified-scene">
         {scene}

@@ -403,8 +403,8 @@ const AFTERIMAGE_EVERY = 0.035;
 const ATTACK_COOLDOWN = 0.18; // 收招後幾耐再出手（射程內有敵即出手）
 
 export class SparStage {
-  private readonly battleBackdrop: HTMLImageElement | null;
-  private readonly presentation: 'stage' | 'battle';
+  private battleBackdrop: HTMLImageElement | null;
+  private presentation: 'stage' | 'battle';
   private canvas: HTMLCanvasElement;
   private uiFontFamily: string;
   private ctx: CanvasRenderingContext2D;
@@ -510,6 +510,12 @@ export class SparStage {
   /** 全屏只改視覺比例；預設演武台所有座標倍率維持原有。 */
   private get motionHeight(): number {
     return this.presentation === 'battle' ? battleMotionHeight(this.cssW) : this.cssH;
+  }
+
+  /** 同一Canvas喺主頁同全屏之間換攝影機，唔重開角色／敵人／攻擊。 */
+  setPresentation(mode: 'stage' | 'battle', backdrop: HTMLImageElement | null = null) {
+    this.presentation = mode;
+    this.battleBackdrop = backdrop;
   }
 
   /** AI四季／動作位圖；只影響演出，結算仍用原戰鬥鈎。 */

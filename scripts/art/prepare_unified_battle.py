@@ -3,7 +3,7 @@ from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
-for season in ('autumn', 'spring'):
+for season in ('autumn', 'spring', 'summer', 'winter'):
     image = Image.open(ROOT / f'design/art/unified-battle/source/{season}.webp').convert('RGB')
     image.thumbnail((1000, 1400), Image.Resampling.LANCZOS)
     target = ROOT / f'public/ink/art/battle-preview/{season}.webp'

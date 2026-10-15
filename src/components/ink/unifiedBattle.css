@@ -55,6 +55,7 @@
 .ink-unified-hp .ink-brush-bar { width: 100%; height: 12px; }
 .ink-unified-hp > span { font-size: 12px; font-variant-numeric: tabular-nums; color: #655f56; white-space: nowrap; }
 .ink-unified-context { margin: 7px 0 5px; font-size: 11px; color: #7a7266; text-align: center; letter-spacing: .14em; }
+.ink-unified-trait { margin: 0 0 5px; font-size: 11px; color: #805a2c; text-align: center; }
 .ink-unified-scene { position: relative; z-index: 1; flex: 1; min-height: 160px; overflow: hidden; }
 .ink-unified-scene::before, .ink-unified-scene::after { content: ''; position: absolute; left: 0; right: 0; z-index: 1; pointer-events: none; }
 .ink-unified-scene::before { top: 0; height: 42px; background: linear-gradient(#f3ede2, rgba(243,237,226,0)); }
@@ -92,3 +93,7 @@ body:has(.ink-unified-battle) .ink-task-dock { visibility: hidden; }
 @media(prefers-reduced-motion: reduce) {
   .ink-unified-battle .ink-brush-bar__fill { transition: none; }
 }
+/* 同一個實時Canvas喺主頁／首領全屏之間搬動，唔重建對戰。 */
+.ink-spar-boss-screen--unified { padding: 0; }
+.ink-unified-canvas-host > div, .ink-spar-battle-canvas { width: 100%; height: 100%; }
+.ink-spar-battle-canvas { position: relative; overflow: hidden; }
