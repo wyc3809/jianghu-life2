@@ -22,6 +22,8 @@ type Props = {
   callout?: ReactNode;
   skills?: ReactNode;
   notice?: ReactNode;
+  entrance?: ReactNode;
+  entering?: boolean;
 };
 
 function HealthRow({ vitals, enemy, boss }: { vitals: BattleVitals; enemy?: boolean; boss?: boolean }) {
@@ -35,15 +37,15 @@ function HealthRow({ vitals, enemy, boss }: { vitals: BattleVitals; enemy?: bool
 }
 
 /** 相同血條／操作框架；戰鬥數字由呼叫方供應，唔喺UI計傷害。 */
-export function InkUnifiedBattleFrame({ title, round, fast, onSpeed, onSkip, hero, foe, boss, scene, callout, skills, notice }: Props) {
-  return <section className="ink-unified-battle" role="dialog" aria-modal="true" aria-label={`自動交手：${title}`}>
+export function InkUnifiedBattleFrame({ title, round, fast, onSpeed, onSkip, hero, foe, boss, scene, callout, skills, notice, entrance, entering = false }: Props) {
+  return <section className={`ink-unified-battle${entering ? ' is-entering' : ''}`} role="dialog" aria-modal="true" aria-busy={entering} aria-label={`自動交手：${title}`}>
     <div className="ink-unified-paper">
       <header className="ink-unified-header">
         <div className="ink-unified-controls">
           <span className="ink-unified-round">第 {round} 回合</span>
           <div>
-            <button type="button" className={fast ? 'is-fast' : ''} aria-pressed={fast} onClick={onSpeed}>加速 ×2</button>
-            <button type="button" onClick={onSkip}>跳過 ›</button>
+            <button type="button" disabled={entering} className={fast ? 'is-fast' : ''} aria-pressed={fast} onClick={onSpeed}>加速 ×2</button>
+            <button type="button" disabled={entering} onClick={onSkip}>跳過 ›</button>
           </div>
         </div>
         <div className="ink-unified-vitals" aria-label="雙方氣血比較">
@@ -61,5 +63,6 @@ export function InkUnifiedBattleFrame({ title, round, fast, onSpeed, onSkip, her
         {skills}
       </footer>
     </div>
+    {entrance}
   </section>;
 }

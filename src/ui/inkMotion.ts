@@ -196,3 +196,22 @@ export function inkGlint(target: El, delay = 0): JSAnimation | null {
     onComplete: () => el.classList.remove('is-glinting'),
   });
 }
+
+/** 第26項B：全屏宣紙淡入，再用位圖墨暈揭幕；減少動態只作140ms淡入。 */
+export function inkBattleReveal(target: HTMLElement, draw: (progress: number) => void, onComplete: () => void, reduced = false): () => void {
+  const quiet = reduced || motionReduced();
+  const state = { progress: 0 };
+  target.style.opacity = quiet ? '1' : '0';
+  draw(0);
+  const animation = animate(state, {
+    progress: 1,
+    duration: quiet ? 140 : 720,
+    ease: 'linear',
+    onUpdate: () => {
+      target.style.opacity = quiet ? '1' : String(Math.min(1, state.progress / .25));
+      draw(state.progress);
+    },
+    onComplete,
+  });
+  return () => animation.cancel();
+}

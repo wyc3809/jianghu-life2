@@ -403,3 +403,5 @@
 美術出處同準備規格：`design/art/unified-battle/README.md`。實際原型、改前後紅框對照、播放GIF及驗證報告：`production/qa/evidence/redesign/unified-battle/`。605項Vitest、Pages build、audit:narrate hard-fail0通過；唔升版本，正式版維持EA0.72.0。156項手機瀏覽器檢查通過，詳情見browser-qa.json；Pages路徑正式構建入口及原型排除檢查見build-validation.json。未發布。
 
 第26項血條比較補修（原型v2，未上線）：玩家要求敵人同自己嘅血條都放頂部。已將自身黑墨氣血移到敵人紅墨氣血下方，同一比較欄內共用欄寬，兩條筆觸起點／終點及血量數字對齊；底部只留武功輪替＋七卷。呢項取代原型v1嘅敵上我下排版，其他暫定方案及正式入口未變。605項Vitest、Pages build、narrate hard-fail0通過；192項手機尺寸／兩種瀏覽器檢查通過，新截圖GIF：`production/qa/evidence/redesign/unified-battle-top-health/`。本次只交原型，未升版本／未發布。
+
+第26項B轉場原型（未上線）：玩家先要求討論全屏淡入，再揀B「墨暈揭幕」。已做180ms全屏宣紙淡入＋540ms中央生成墨暈揭幕，總720ms；上方雙方血條、戰場同底部武功一齊露出。揭幕期間不更新演武引擎／戰報，血量保持開場值，按鈕暫停操作，揭幕完才開始第一擊，唔改正式戰鬥數值。減少動態用140ms快速淡入，不載墨暈；缺圖快速淡入、過久4秒後備，取消轉場清理動畫／observer／timer。墨暈只用生成RGBA位圖，anime.js共用動效工具推進，Canvas只作位圖遮罩合成；墨池最大3.2倍螢幕對角線、擴散曲線1.35屬原型美術參數。605項Vitest、Pages build、narrate hard-fail0通過。198項轉場瀏覽器檢查及紙底四角不透明回歸檢查通過；Chrome逐格、WebKit正常播放（WebKit虛擬時鐘擷取會崩潰）。真實動圖、逐段畫面及兩種瀏覽器驗證：`production/qa/evidence/redesign/battle-ink-entrance/`。玩家揀B係確認原型方向，未授權發布，正式版仍EA0.72.0。

@@ -20,6 +20,8 @@
   background: #f3ede2;
   min-height: 0;
 }
+.ink-unified-battle.is-entering { opacity: 0; }
+.ink-battle-entrance { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 8; background: transparent; touch-action: none; }
 .ink-unified-paper::before { content: ''; position: absolute; inset: 0; background: url('/ink/art/ui/paper-grain.webp') center / 420px auto; opacity: .045; pointer-events: none; mix-blend-mode: multiply; }
 .ink-unified-header {
   flex: none;

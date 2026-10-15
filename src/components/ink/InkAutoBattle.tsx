@@ -14,6 +14,7 @@ import { FOE_BY_NAME } from '@data/foes/roster';
 import { sparLookForName } from '@core/life/sparDuel';
 import { InkUnifiedBattleFrame } from './InkUnifiedBattleFrame';
 import { InkBattleArts } from './InkBattleArts';
+import { InkBattleEntrance } from './InkBattleEntrance';
 import type { SparSeason } from '../../spar/presentation';
 import { playInkDefeat, playInkMiss, playInkVictory } from '../../audio/inkAudio';
 
@@ -61,6 +62,9 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
     [replay],
   );
   const [fast, setFast] = useState(false);
+  const [sceneReady, setSceneReady] = useState(false);
+  const [entered, setEntered] = useState(!unified);
+  const enteredRef = useRef(!unified);
   const speedRef = useRef(1);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const wrapRef = useRef<HTMLDivElement | null>(null);
@@ -75,6 +79,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
   const finish = () => {
     if (doneRef.current) return;
     doneRef.current = true;
+    if (unified) setSceneReady(true);
     if (unified && hits.length) setCur({ hit: hits[hits.length - 1]!, n: hits.length });
     onDoneRef.current();
   };
@@ -171,6 +176,12 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
     };
     const frame = (now: number) => {
       if (!stage || cancelled || doneRef.current) return;
+      if (unified && !enteredRef.current) {
+        last = now;
+        stage.render();
+        raf = requestAnimationFrame(frame);
+        return;
+      }
       // 全屏喺低幀率裝置亦追返播放時間；更新仍分小步，唔跳過命中。
       const dt = last ? Math.min(unified ? 0.15 : 0.05, (now - last) / 1000) : 0;
       last = now;
@@ -204,11 +215,12 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
         if (bg) loadSparImage(bg.src).then((img) => { if (!cancelled) stage?.setBackground(img, bg.opacity ?? 1); }).catch(() => {});
         stage.setQuiet(reduceMotion);
         stage.settleIntro();
+        if (unified) { stage.render(); setSceneReady(true); }
         if (!hits.length) end(800);
         raf = requestAnimationFrame(frame);
       })
       .catch(() => {
-        if (!cancelled) setFailed(true);
+        if (!cancelled) { setFailed(true); if (unified) setSceneReady(true); }
       });
     const observer = new ResizeObserver(() => {
       if (!stage) return;
@@ -246,6 +258,8 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
   const artName = artNow.artId ? getSkillDef(artNow.artId)?.name : undefined;
 
   if (unified) return createPortal(<InkUnifiedBattleFrame
+    entering={!entered}
+    entrance={!entered ? <InkBattleEntrance ready={sceneReady} reduceMotion={reduceMotion} onEntered={() => { enteredRef.current = true; setEntered(true); }} /> : undefined}
     title={replay.title} round={h?.round ?? 1} fast={fast}
     onSpeed={() => { const next = !fast; setFast(next); speedRef.current = next ? 2 : 1; }}
     onSkip={finish} notice={notice}
