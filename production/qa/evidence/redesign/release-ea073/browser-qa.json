@@ -1,0 +1,598 @@
+{
+  "checks": [
+    {
+      "name": "chromium-spar-win-320x690 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-320x690 same-live-duel-and-hp-after-entrance",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-320x690 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-320x690 win-once-return-same-canvas-full-health",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-320x690 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-320x690 no-early-commit",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-320x690 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-320x690 commits-real-result-once",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-320x690 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-320x690 no-early-commit",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-320x690 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-320x690 commits-real-result-once",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-320x844 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-320x844 same-live-duel-and-hp-after-entrance",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-320x844 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-320x844 win-once-return-same-canvas-full-health",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-320x844 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-320x844 no-early-commit",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-320x844 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-320x844 commits-real-result-once",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-320x844 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-320x844 no-early-commit",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-320x844 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-320x844 commits-real-result-once",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-390x690 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-390x690 same-live-duel-and-hp-after-entrance",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-390x690 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-390x690 win-once-return-same-canvas-full-health",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-390x690 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-390x690 no-early-commit",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-390x690 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-390x690 commits-real-result-once",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-390x690 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-390x690 no-early-commit",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-390x690 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-390x690 commits-real-result-once",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-390x844 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-390x844 same-live-duel-and-hp-after-entrance",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-390x844 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-390x844 win-once-return-same-canvas-full-health",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-390x844 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-390x844 no-early-commit",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-390x844 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-390x844 commits-real-result-once",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-390x844 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-390x844 no-early-commit",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-390x844 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-390x844 commits-real-result-once",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-420x690 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-420x690 same-live-duel-and-hp-after-entrance",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-420x690 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-420x690 win-once-return-same-canvas-full-health",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-420x690 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-420x690 no-early-commit",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-420x690 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-420x690 commits-real-result-once",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-420x690 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-420x690 no-early-commit",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-420x690 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-420x690 commits-real-result-once",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-420x844 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-420x844 same-live-duel-and-hp-after-entrance",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-420x844 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-win-420x844 win-once-return-same-canvas-full-health",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-420x844 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-420x844 no-early-commit",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-420x844 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-420x844 commits-real-result-once",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-420x844 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-420x844 no-early-commit",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-420x844 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-420x844 commits-real-result-once",
+      "pass": true
+    },
+    {
+      "name": "chromium-loss-retries-same-stage-without-reward",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-320x690 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-320x690 same-live-duel-and-hp-after-entrance",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-320x690 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-320x690 win-once-return-same-canvas-full-health",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-320x690 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-320x690 no-early-commit",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-320x690 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-320x690 commits-real-result-once",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-320x690 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-320x690 no-early-commit",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-320x690 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-320x690 commits-real-result-once",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-320x844 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-320x844 same-live-duel-and-hp-after-entrance",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-320x844 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-320x844 win-once-return-same-canvas-full-health",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-320x844 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-320x844 no-early-commit",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-320x844 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-320x844 commits-real-result-once",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-320x844 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-320x844 no-early-commit",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-320x844 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-320x844 commits-real-result-once",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-390x690 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-390x690 same-live-duel-and-hp-after-entrance",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-390x690 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-390x690 win-once-return-same-canvas-full-health",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-390x690 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-390x690 no-early-commit",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-390x690 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-390x690 commits-real-result-once",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-390x690 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-390x690 no-early-commit",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-390x690 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-390x690 commits-real-result-once",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-390x844 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-390x844 same-live-duel-and-hp-after-entrance",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-390x844 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-390x844 win-once-return-same-canvas-full-health",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-390x844 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-390x844 no-early-commit",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-390x844 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-390x844 commits-real-result-once",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-390x844 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-390x844 no-early-commit",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-390x844 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-390x844 commits-real-result-once",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-420x690 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-420x690 same-live-duel-and-hp-after-entrance",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-420x690 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-420x690 win-once-return-same-canvas-full-health",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-420x690 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-420x690 no-early-commit",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-420x690 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-420x690 commits-real-result-once",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-420x690 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-420x690 no-early-commit",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-420x690 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-420x690 commits-real-result-once",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-420x844 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-420x844 same-live-duel-and-hp-after-entrance",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-420x844 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-win-420x844 win-once-return-same-canvas-full-health",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-420x844 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-420x844 no-early-commit",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-420x844 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-420x844 commits-real-result-once",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-420x844 header-bars-and-skills-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-420x844 no-early-commit",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-420x844 speed-toggle",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-420x844 commits-real-result-once",
+      "pass": true
+    },
+    {
+      "name": "webkit-loss-retries-same-stage-without-reward",
+      "pass": true
+    },
+    {
+      "name": "no-page-errors",
+      "pass": true
+    },
+    {
+      "name": "all-release-assets-load",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "failedAssets": []
+}

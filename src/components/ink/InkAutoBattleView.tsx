@@ -1,31 +1,16 @@
-import { Suspense, useState } from 'react';
 import type { CombatReplay } from '@interfaces/lifeEngine';
-import { DuelFxLazy, canUseWebGL, prefersReducedMotion } from '../../fx/highlight';
 import { InkAutoBattle } from './InkAutoBattle';
-import { getGearDef } from '@data/equipment/catalog';
 import { useLifeStore } from '../../store/lifeStore';
+import { seasonToInk } from './sceneVariants';
+import { motionReduced } from '../../ui/inkMotion';
 
-type Props = {
-  replay: CombatReplay;
-  onDone: () => void;
-  reduceMotion?: boolean;
-};
+type Props = { replay: CombatReplay; onDone: () => void; reduceMotion?: boolean };
 
-/**
- * 自動交手演出入口：有 WebGL 又冇揀減少動態 → 高光級打鬥演出（src/fx/highlight/duel，Three.js＋GSAP）；
- * 否則（或者 3D 素材載唔到）→ 演武台 2D 演出（InkAutoBattle）。
- */
+/** 江湖普通／首領／論劍重播統一用演武2D、頂部雙方血條同墨暈揭幕。 */
 export function InkAutoBattleView({ replay, onDone, reduceMotion = false }: Props) {
-  const [fallback, setFallback] = useState(() => reduceMotion || prefersReducedMotion() || !canUseWebGL());
-  // 兵器同演武台一樣：跟裝備欄
-  const weaponKind = useLifeStore((s) => {
-    const id = s.state?.character.equipment.weapon;
-    return id ? (getGearDef(id)?.weaponKind ?? null) : null;
-  });
-  if (fallback) return <InkAutoBattle replay={replay} onDone={onDone} reduceMotion={reduceMotion} />;
-  return (
-    <Suspense fallback={null}>
-      <DuelFxLazy replay={replay} weaponKind={weaponKind} onDone={onDone} onFail={() => setFallback(true)} />
-    </Suspense>
-  );
+  const month = useLifeStore(s => s.state?.month ?? 1);
+  const season = seasonToInk(month);
+  return <InkAutoBattle replay={replay} onDone={onDone} unified season={season}
+    reduceMotion={reduceMotion || motionReduced()}
+    battleBackdropSrc={`${import.meta.env.BASE_URL || '/'}ink/art/battle-preview/${season}.webp`} />;
 }

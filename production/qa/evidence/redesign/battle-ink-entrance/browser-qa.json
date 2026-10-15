@@ -1,0 +1,802 @@
+{
+  "checks": [
+    {
+      "name": "chromium-spar-320x690 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-320x690 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-320x690 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-320x690 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-320x690 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-320x690 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-320x690 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-320x690 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-320x690 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-320x690 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-320x690 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-320x690 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-320x690 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-320x690 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-320x690 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-320x844 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-320x844 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-320x844 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-320x844 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-320x844 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-320x844 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-320x844 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-320x844 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-320x844 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-320x844 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-320x844 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-320x844 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-320x844 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-320x844 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-320x844 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-390x690 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-390x690 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-390x690 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-390x690 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-390x690 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-390x690 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-390x690 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-390x690 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-390x690 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-390x690 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-390x690 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-390x690 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-390x690 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-390x690 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-390x690 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-390x844 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-390x844 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-390x844 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-390x844 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-390x844 first-strike-after-reveal",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-390x844 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-390x844 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-390x844 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-390x844 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-390x844 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-390x844 first-strike-after-reveal",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-390x844 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-390x844 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-390x844 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-390x844 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-390x844 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-390x844 first-strike-after-reveal",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-390x844 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-420x690 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-420x690 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-420x690 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-420x690 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-420x690 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-420x690 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-420x690 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-420x690 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-420x690 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-420x690 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-420x690 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-420x690 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-420x690 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-420x690 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-420x690 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-420x844 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-420x844 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-420x844 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-420x844 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "chromium-spar-420x844 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-420x844 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-420x844 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-420x844 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-420x844 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-420x844 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-420x844 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-420x844 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-420x844 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-420x844 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-boss-420x844 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "chromium-reduced-no-hidden-strike",
+      "pass": true
+    },
+    {
+      "name": "chromium-reduced-quick-fade-finishes",
+      "pass": true
+    },
+    {
+      "name": "chromium-reduced-does-not-load-ink-mask",
+      "pass": true
+    },
+    {
+      "name": "chromium-missing-mask-no-hidden-strike",
+      "pass": true
+    },
+    {
+      "name": "chromium-missing-mask-quick-fade-finishes",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-320x690 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-320x690 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-320x690 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-320x690 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-320x690 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-320x690 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-320x690 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-320x690 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-320x690 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-320x690 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-320x690 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-320x690 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-320x690 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-320x690 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-320x690 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-320x844 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-320x844 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-320x844 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-320x844 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-320x844 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-320x844 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-320x844 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-320x844 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-320x844 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-320x844 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-320x844 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-320x844 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-320x844 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-320x844 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-320x844 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-390x690 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-390x690 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-390x690 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-390x690 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-390x690 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-390x690 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-390x690 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-390x690 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-390x690 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-390x690 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-390x690 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-390x690 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-390x690 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-390x690 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-390x690 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-390x844 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-390x844 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-390x844 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-390x844 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-390x844 first-strike-after-reveal",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-390x844 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-390x844 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-390x844 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-390x844 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-390x844 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-390x844 first-strike-after-reveal",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-390x844 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-390x844 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-390x844 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-390x844 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-390x844 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-390x844 first-strike-after-reveal",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-390x844 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-420x690 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-420x690 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-420x690 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-420x690 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-420x690 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-420x690 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-420x690 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-420x690 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-420x690 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-420x690 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-420x690 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-420x690 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-420x690 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-420x690 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-420x690 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-420x844 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-420x844 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-420x844 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-420x844 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "webkit-spar-420x844 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-420x844 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-420x844 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-420x844 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-420x844 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-420x844 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-420x844 blocks-controls-during-reveal",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-420x844 no-strike-under-veil",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-420x844 covers-full-viewport",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-420x844 reveal-completes-and-unlocks",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-boss-420x844 skip-still-finishes",
+      "pass": true
+    },
+    {
+      "name": "webkit-reduced-no-hidden-strike",
+      "pass": true
+    },
+    {
+      "name": "webkit-reduced-quick-fade-finishes",
+      "pass": true
+    },
+    {
+      "name": "webkit-reduced-does-not-load-ink-mask",
+      "pass": true
+    },
+    {
+      "name": "webkit-missing-mask-no-hidden-strike",
+      "pass": true
+    },
+    {
+      "name": "webkit-missing-mask-quick-fade-finishes",
+      "pass": true
+    },
+    {
+      "name": "no-page-errors",
+      "pass": true
+    },
+    {
+      "name": "all-normal-assets-load",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "failedAssets": [],
+  "timing": {
+    "chromium": "controlled-clock",
+    "webkit": "normal-playback"
+  }
+}

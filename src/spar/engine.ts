@@ -44,6 +44,7 @@ import { ART_SPRITE_KEYS, ArtFxLayer, loadArtSprites, makeAnchors, type FxAnchor
 import { StripRig, drawWarpedSprite } from './stripRig';
 import { SceneAmbience } from './ambience';
 import { advanceGait, gaitFrame, collapseSample, crossedGroundContact, SPAR_PRESENTATION, loadFoeCollapse, loadSparArt, type SparArtImages, type SparSeason } from './presentation';
+import { BATTLE_CAMERA, BATTLE_PORTRAIT_GROUND, battleMotionHeight, fitBattleBackdrop } from './battleViewport';
 import { createRng, spawnSeasonParticle, stepParticles, particleAlpha, type Particle as WeatherParticle } from '../fx/ambient/particles';
 import { formatSparNumber } from '@core/life/sparDuel';
 import { FOE_TRAITS } from '@data/foes/traits';
@@ -373,6 +374,10 @@ export interface SparUiImages {
 }
 
 export interface SparStageOptions {
+  /** 第26項獨立原型嘅直向AI場景；唔替換主頁四季素材。 */
+  battleBackdrop?: HTMLImageElement | null;
+  /** 第26項原型：battle用全屏攝影機；默認stage沿用原演武畫面。 */
+  presentation?: 'stage' | 'battle';
   canvas: HTMLCanvasElement;
   /** 跟外層介面相同嘅字體；Canvas字體唔會自動繼承CSS。 */
   uiFontFamily?: string;
@@ -398,6 +403,8 @@ const AFTERIMAGE_EVERY = 0.035;
 const ATTACK_COOLDOWN = 0.18; // 收招後幾耐再出手（射程內有敵即出手）
 
 export class SparStage {
+  private battleBackdrop: HTMLImageElement | null;
+  private presentation: 'stage' | 'battle';
   private canvas: HTMLCanvasElement;
   private uiFontFamily: string;
   private ctx: CanvasRenderingContext2D;
@@ -477,6 +484,8 @@ export class SparStage {
   private splashes: SplashFx[] = [];
 
   constructor(opts: SparStageOptions) {
+    this.battleBackdrop = opts.battleBackdrop ?? null;
+    this.presentation = opts.presentation ?? 'stage';
     this.canvas = opts.canvas;
     this.uiFontFamily = opts.uiFontFamily ?? 'sans-serif';
     const ctx = opts.canvas.getContext('2d');
@@ -496,6 +505,17 @@ export class SparStage {
         this.artSprites = sp;
       });
     }
+  }
+
+  /** 全屏只改視覺比例；預設演武台所有座標倍率維持原有。 */
+  private get motionHeight(): number {
+    return this.presentation === 'battle' ? battleMotionHeight(this.cssW) : this.cssH;
+  }
+
+  /** 同一Canvas喺主頁同全屏之間換攝影機，唔重開角色／敵人／攻擊。 */
+  setPresentation(mode: 'stage' | 'battle', backdrop: HTMLImageElement | null = null) {
+    this.presentation = mode;
+    this.battleBackdrop = backdrop;
   }
 
   /** AI四季／動作位圖；只影響演出，結算仍用原戰鬥鈎。 */
@@ -697,8 +717,8 @@ export class SparStage {
     // B：導演節奏
     const inMelee = !!this.nearestInRange();
     this.director.notifyMelee(inMelee);
-    if (inMelee && this.attackT === null) this.director.requestWindup();
-    if (this.director.consumeWindupReady() && this.attackT === null) {
+    if (inMelee && this.attackT === null && (this.presentation !== 'battle' || (this.combat?.heroMayAttack?.() ?? true))) this.director.requestWindup();
+    if ((this.presentation !== 'battle' || (this.combat?.heroMayAttack?.() ?? true)) && this.director.consumeWindupReady() && this.attackT === null) {
       this.attackT = 0;
       this.firedStrike = false;
       this.startArt();
@@ -708,7 +728,7 @@ export class SparStage {
     this.heroFade = Math.max(0.35, dir.fadeIn);
 
     // 俠客向右行速：導演倍率 × 基礎速
-    const walkSpeed = (this.quiet ? 85 : 130) * (this.cssH / 218) * dir.walkMul;
+    const walkSpeed = (this.quiet ? 85 : 130) * (this.motionHeight / 218) * dir.walkMul;
 
     // 敵人：望左企定，畫面 x 唔郁；淨處理出生／死亡
     for (const e of this.enemies) {
@@ -750,7 +770,7 @@ export class SparStage {
     const distance = Math.max(0, this.heroX - previousX);
     this.heroMoving = distance > .01 && !striking;
     if (this.heroMoving) {
-      this.walkT = advanceGait(this.walkT, distance, this.cssH);
+      this.walkT = advanceGait(this.walkT, distance, this.motionHeight);
       if (!this.quiet && Math.floor(previousGait * 2) !== Math.floor(this.walkT * 2)) {
         this.dust.push({ x: this.heroX - 3, y: this.geom().groundY, age: 0, dur: .32, vx: -8 });
       }
@@ -983,7 +1003,7 @@ export class SparStage {
     for (let i = 0; i < n; i++) {
       this.coins.push({
         x: x0 + (this.visualRng() - 0.5) * 20,
-        y: g.groundY - 60 * (this.cssH / 218),
+        y: g.groundY - 60 * (this.motionHeight / 218),
         vx: -40 - this.visualRng() * 120,
         vy: -170 - this.visualRng() * 130,
         rot: this.visualRng() * 6,
@@ -1285,12 +1305,12 @@ export class SparStage {
   private geom() {
     const h = this.cssH;
     // 身形約佔舞台高度 1/4，同山水比例更協調（舊 0.82 太大）
-    const k = (h * 0.26) / SILHOUETTE_DESIGN_H;
+    const k = (this.motionHeight * 0.26) / SILHOUETTE_DESIGN_H;
     // 首次／重設：俠客由左邊起步
     if (this.heroX <= 0) this.heroX = this.cssW * 0.20;
     return {
       k,
-      groundY: h * (this.art ? SPAR_PRESENTATION.ground : 0.92),
+      groundY: h * (this.presentation === 'battle' ? BATTLE_CAMERA.ground : this.art ? SPAR_PRESENTATION.ground : 0.92),
       heroX: this.heroX,
     };
   }
@@ -1380,7 +1400,13 @@ export class SparStage {
       // 畫面比例獨立適配，地面錨點固定；唔對前景做呼吸縮放。
       const drawSeason = (season: SparSeason, alpha: number) => {
         ctx.save(); ctx.globalAlpha = alpha;
-        ctx.drawImage(this.art!.seasons[season], 0, 0, this.cssW, this.cssH); ctx.restore();
+        const image = this.presentation === 'battle' && this.battleBackdrop ? this.battleBackdrop : this.art!.seasons[season];
+        if (this.presentation === 'battle') {
+          const rect = fitBattleBackdrop(this.cssW, this.cssH, image.naturalWidth, image.naturalHeight,
+            this.battleBackdrop ? BATTLE_PORTRAIT_GROUND : SPAR_PRESENTATION.ground);
+          ctx.drawImage(image, rect.x, rect.y, rect.width, rect.height);
+        } else ctx.drawImage(image, 0, 0, this.cssW, this.cssH);
+        ctx.restore();
       };
       if (this.previousSeason && this.seasonFade < 1) drawSeason(this.previousSeason, 1);
       drawSeason(this.season, this.seasonFade);
@@ -1733,13 +1759,13 @@ export class SparStage {
     const charging = isCurrent && e.tier !== 'minion' && (this.combat?.foeCharging?.() ?? false);
     const enraged = isCurrent && e.tier !== 'minion' && (this.combat?.foeEnraged?.() ?? false);
     if (this.art && e.tier !== 'minion') {
-      const radius = (e.boss ? 30 : 21) * this.cssH / 218;
+      const radius = (e.boss ? 30 : 21) * this.motionHeight / 218;
       ctx.save(); ctx.globalAlpha = charging ? .75 : .34;
       const shadow = solidSilhouette(this.art.shadow, e.traitRgb ?? CINNABAR);
       ctx.drawImage(shadow, footX - radius, footY - 4, radius * 2, 10);
       if (!this.quiet && (charging || enraged)) {
         ctx.globalAlpha = .3 + .12 * Math.sin(this.bgT * 5);
-        const size = 42 * this.cssH / 218;
+        const size = 42 * this.motionHeight / 218;
         const plume = solidSilhouette(this.art.landing, e.traitRgb ?? CINNABAR);
         ctx.drawImage(plume, footX - size / 2, footY - size * .8, size, size);
       }
@@ -1788,7 +1814,7 @@ export class SparStage {
     const { ctx } = this;
     for (const d of this.dust) {
       const p = d.age / d.dur;
-      const size = (d.landing ? 48 : 23) * (1 + p * .45) * this.cssH / 218;
+      const size = (d.landing ? 48 : 23) * (1 + p * .45) * this.motionHeight / 218;
       ctx.save(); ctx.globalAlpha = (1 - p) * (d.landing ? .65 : .36);
       ctx.drawImage(d.landing ? this.art.landing : this.art.dust, d.x - size / 2, g.groundY - size * .75, size, size * .8);
       ctx.restore();
@@ -1799,7 +1825,7 @@ export class SparStage {
     if (this.quiet || !this.art || this.attackT === null || this.artRun) return;
     const p = (this.attackT - .19) / .27;
     if (p < 0 || p > 1) return;
-    const g = this.geom(), size = 74 * this.cssH / 218;
+    const g = this.geom(), size = 74 * this.motionHeight / 218;
     this.ctx.save(); this.ctx.globalAlpha = Math.sin(p * Math.PI) * .8;
     this.ctx.translate(g.heroX + 19, g.groundY - 28); this.ctx.rotate(-.35 + p * .55);
     this.ctx.drawImage(this.art.slash, -size * .5, -size * .65, size, size);
@@ -1811,7 +1837,7 @@ export class SparStage {
     const { ctx } = this;
     for (const s of this.splashes) {
       const p = s.age / s.dur;
-      const size = (this.art ? 46 : 100) * (.75 + Math.min(p * 4, 1) * .3) * this.cssH / 218;
+      const size = (this.art ? 46 : 100) * (.75 + Math.min(p * 4, 1) * .3) * this.motionHeight / 218;
       ctx.save(); ctx.globalAlpha = Math.pow(1 - p, 2) * .85;
       ctx.translate(s.x, s.y); ctx.rotate(s.rot * .15);
       ctx.drawImage(this.art?.impact ?? this.images.splash, -size / 2, -size / 2, size, size);
@@ -1834,7 +1860,7 @@ export class SparStage {
     if (this.quiet || !this.art) return;
     const { ctx } = this;
     // 地面之前只播位圖天氣；避免花／雪落穿石台。
-    ctx.save(); ctx.beginPath(); ctx.rect(0, 0, this.cssW, this.cssH * .84); ctx.clip();
+    ctx.save(); ctx.beginPath(); ctx.rect(0, 0, this.cssW, this.presentation === 'battle' ? this.geom().groundY : this.cssH * .84); ctx.clip();
     for (const p of this.weather) {
       const size = this.season === 'summer' ? p.size * .7 : p.size * .45;
       ctx.save(); ctx.globalAlpha = particleAlpha(p, .2) * (this.season === 'winter' ? .55 : .7);
@@ -1879,7 +1905,7 @@ export class SparStage {
   /** 傷害／暴擊／回血／受傷數字：彈出放大再縮返、向上飄 */
   private drawCombatNumber(f: Floater, p: number, alpha: number) {
     const { ctx } = this;
-    const k = this.cssH / 218;
+    const k = this.motionHeight / 218;
     if (f.kind === 'trait') {
       // 特性圓印：特性色實心圓＋宣紙色單字，彈出再飄
       const pop = p < 0.14 ? 0.4 + (p / 0.14) * 0.8 : p < 0.24 ? 1.2 - ((p - 0.14) / 0.1) * 0.2 : 1;
@@ -1940,7 +1966,7 @@ export class SparStage {
     const img = this.images.coin;
     if (!img || !this.coins.length) return;
     const { ctx } = this;
-    const size = 18 * (this.cssH / 218);
+    const size = 18 * (this.motionHeight / 218);
     for (const c of this.coins) {
       const p = c.age / c.dur;
       ctx.save();
