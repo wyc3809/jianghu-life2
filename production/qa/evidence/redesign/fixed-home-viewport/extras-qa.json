@@ -1,0 +1,669 @@
+{
+  "checks": [
+    {
+      "name": "chromium-offer-fits",
+      "pass": true
+    },
+    {
+      "name": "chromium-active-fits",
+      "pass": true
+    },
+    {
+      "name": "chromium-coach-flash-coach-visible",
+      "pass": true
+    },
+    {
+      "name": "chromium-coach-flash-fits",
+      "pass": true
+    },
+    {
+      "name": "chromium-combined-coach-visible",
+      "pass": true
+    },
+    {
+      "name": "chromium-combined-fits",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-choices-visible",
+      "pass": true
+    },
+    {
+      "name": "chromium-event-fixed-shell",
+      "pass": true
+    },
+    {
+      "name": "webkit-offer-fits",
+      "pass": true
+    },
+    {
+      "name": "webkit-active-fits",
+      "pass": true
+    },
+    {
+      "name": "webkit-coach-flash-coach-visible",
+      "pass": true
+    },
+    {
+      "name": "webkit-coach-flash-fits",
+      "pass": true
+    },
+    {
+      "name": "webkit-combined-coach-visible",
+      "pass": true
+    },
+    {
+      "name": "webkit-combined-fits",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-choices-visible",
+      "pass": true
+    },
+    {
+      "name": "webkit-event-fixed-shell",
+      "pass": true
+    },
+    {
+      "name": "no-extras-errors",
+      "pass": true
+    }
+  ],
+  "layouts": [
+    {
+      "tag": "chromium-offer",
+      "width": 320,
+      "height": 568,
+      "shell": {
+        "top": 0,
+        "bottom": 568,
+        "left": 0,
+        "right": 320,
+        "height": 568
+      },
+      "hud": {
+        "top": 6,
+        "bottom": 137.1875,
+        "left": 14,
+        "right": 306,
+        "height": 131.1875
+      },
+      "harvest": {
+        "top": 141.1875,
+        "bottom": 199.984375,
+        "left": 14,
+        "right": 306,
+        "height": 58.796875
+      },
+      "scene": {
+        "top": 202.984375,
+        "bottom": 317,
+        "left": 10,
+        "right": 310,
+        "height": 114.015625
+      },
+      "canvas": {
+        "top": 207.984375,
+        "bottom": 312,
+        "left": 15,
+        "right": 305,
+        "height": 104.015625,
+        "backing": 208,
+        "dpr": 2
+      },
+      "extras": [
+        {
+          "top": 371,
+          "bottom": 403,
+          "height": 32
+        }
+      ],
+      "quick": {
+        "top": 320,
+        "bottom": 368,
+        "left": 14,
+        "right": 306,
+        "height": 48
+      },
+      "task": {
+        "top": 411,
+        "bottom": 467,
+        "left": 14,
+        "right": 306,
+        "height": 56
+      },
+      "nav": {
+        "top": 473,
+        "bottom": 568,
+        "left": 0,
+        "right": 320,
+        "height": 95
+      },
+      "outerOverflow": false,
+      "overflow": "hidden",
+      "controlsHit": true
+    },
+    {
+      "tag": "chromium-active",
+      "width": 320,
+      "height": 568,
+      "shell": {
+        "top": 0,
+        "bottom": 568,
+        "left": 0,
+        "right": 320,
+        "height": 568
+      },
+      "hud": {
+        "top": 6,
+        "bottom": 137.1875,
+        "left": 14,
+        "right": 306,
+        "height": 131.1875
+      },
+      "harvest": {
+        "top": 141.1875,
+        "bottom": 199.984375,
+        "left": 14,
+        "right": 306,
+        "height": 58.796875
+      },
+      "scene": {
+        "top": 202.984375,
+        "bottom": 313.3125,
+        "left": 10,
+        "right": 310,
+        "height": 110.328125
+      },
+      "canvas": {
+        "top": 207.984375,
+        "bottom": 308.3125,
+        "left": 15,
+        "right": 305,
+        "height": 100.328125,
+        "backing": 201,
+        "dpr": 2
+      },
+      "extras": [
+        {
+          "top": 367.3125,
+          "bottom": 403,
+          "height": 35.6875
+        }
+      ],
+      "quick": {
+        "top": 316.3125,
+        "bottom": 364.3125,
+        "left": 14,
+        "right": 306,
+        "height": 48
+      },
+      "task": {
+        "top": 411,
+        "bottom": 467,
+        "left": 14,
+        "right": 306,
+        "height": 56
+      },
+      "nav": {
+        "top": 473,
+        "bottom": 568,
+        "left": 0,
+        "right": 320,
+        "height": 95
+      },
+      "outerOverflow": false,
+      "overflow": "hidden",
+      "controlsHit": true
+    },
+    {
+      "tag": "chromium-coach-flash",
+      "width": 320,
+      "height": 568,
+      "shell": {
+        "top": 0,
+        "bottom": 568,
+        "left": 0,
+        "right": 320,
+        "height": 568
+      },
+      "hud": {
+        "top": 6,
+        "bottom": 137.1875,
+        "left": 14,
+        "right": 306,
+        "height": 131.1875
+      },
+      "harvest": {
+        "top": 141.1875,
+        "bottom": 199.984375,
+        "left": 14,
+        "right": 306,
+        "height": 58.796875
+      },
+      "scene": {
+        "top": 202.984375,
+        "bottom": 292.984375,
+        "left": 10,
+        "right": 310,
+        "height": 90
+      },
+      "canvas": {
+        "top": 207.984375,
+        "bottom": 287.984375,
+        "left": 15,
+        "right": 305,
+        "height": 80,
+        "backing": 160,
+        "dpr": 2
+      },
+      "extras": [
+        {
+          "top": 346.984375,
+          "bottom": 403,
+          "height": 56.015625
+        }
+      ],
+      "quick": {
+        "top": 295.984375,
+        "bottom": 343.984375,
+        "left": 14,
+        "right": 306,
+        "height": 48
+      },
+      "task": {
+        "top": 411,
+        "bottom": 467,
+        "left": 14,
+        "right": 306,
+        "height": 56
+      },
+      "nav": {
+        "top": 473,
+        "bottom": 568,
+        "left": 0,
+        "right": 320,
+        "height": 95
+      },
+      "outerOverflow": false,
+      "overflow": "hidden",
+      "controlsHit": true
+    },
+    {
+      "tag": "chromium-combined",
+      "width": 320,
+      "height": 568,
+      "shell": {
+        "top": 0,
+        "bottom": 568,
+        "left": 0,
+        "right": 320,
+        "height": 568
+      },
+      "hud": {
+        "top": 6,
+        "bottom": 137.1875,
+        "left": 14,
+        "right": 306,
+        "height": 131.1875
+      },
+      "harvest": {
+        "top": 141.1875,
+        "bottom": 199.984375,
+        "left": 14,
+        "right": 306,
+        "height": 58.796875
+      },
+      "scene": {
+        "top": 202.984375,
+        "bottom": 292.984375,
+        "left": 10,
+        "right": 310,
+        "height": 90
+      },
+      "canvas": {
+        "top": 207.984375,
+        "bottom": 287.984375,
+        "left": 15,
+        "right": 305,
+        "height": 80,
+        "backing": 160,
+        "dpr": 2
+      },
+      "extras": [
+        {
+          "top": 346.984375,
+          "bottom": 378.984375,
+          "height": 32
+        },
+        {
+          "top": 381.984375,
+          "bottom": 405.984375,
+          "height": 24
+        }
+      ],
+      "quick": {
+        "top": 295.984375,
+        "bottom": 343.984375,
+        "left": 14,
+        "right": 306,
+        "height": 48
+      },
+      "task": {
+        "top": 411,
+        "bottom": 467,
+        "left": 14,
+        "right": 306,
+        "height": 56
+      },
+      "nav": {
+        "top": 473,
+        "bottom": 568,
+        "left": 0,
+        "right": 320,
+        "height": 95
+      },
+      "outerOverflow": false,
+      "overflow": "hidden",
+      "controlsHit": true
+    },
+    {
+      "tag": "webkit-offer",
+      "width": 320,
+      "height": 568,
+      "shell": {
+        "top": 0,
+        "bottom": 568,
+        "left": 0,
+        "right": 320,
+        "height": 568
+      },
+      "hud": {
+        "top": 6,
+        "bottom": 136,
+        "left": 14,
+        "right": 306,
+        "height": 130
+      },
+      "harvest": {
+        "top": 140,
+        "bottom": 197,
+        "left": 14,
+        "right": 306,
+        "height": 57
+      },
+      "scene": {
+        "top": 200,
+        "bottom": 317,
+        "left": 10,
+        "right": 310,
+        "height": 117
+      },
+      "canvas": {
+        "top": 205,
+        "bottom": 312,
+        "left": 15,
+        "right": 305,
+        "height": 107,
+        "backing": 214,
+        "dpr": 2
+      },
+      "extras": [
+        {
+          "top": 371,
+          "bottom": 403,
+          "height": 32
+        }
+      ],
+      "quick": {
+        "top": 320,
+        "bottom": 368,
+        "left": 14,
+        "right": 306,
+        "height": 48
+      },
+      "task": {
+        "top": 411,
+        "bottom": 467,
+        "left": 14,
+        "right": 306,
+        "height": 56
+      },
+      "nav": {
+        "top": 473,
+        "bottom": 568,
+        "left": 0,
+        "right": 320,
+        "height": 95
+      },
+      "outerOverflow": false,
+      "overflow": "hidden",
+      "controlsHit": true
+    },
+    {
+      "tag": "webkit-active",
+      "width": 320,
+      "height": 568,
+      "shell": {
+        "top": 0,
+        "bottom": 568,
+        "left": 0,
+        "right": 320,
+        "height": 568
+      },
+      "hud": {
+        "top": 6,
+        "bottom": 136,
+        "left": 14,
+        "right": 306,
+        "height": 130
+      },
+      "harvest": {
+        "top": 140,
+        "bottom": 197,
+        "left": 14,
+        "right": 306,
+        "height": 57
+      },
+      "scene": {
+        "top": 200,
+        "bottom": 314,
+        "left": 10,
+        "right": 310,
+        "height": 114
+      },
+      "canvas": {
+        "top": 205,
+        "bottom": 309,
+        "left": 15,
+        "right": 305,
+        "height": 104,
+        "backing": 208,
+        "dpr": 2
+      },
+      "extras": [
+        {
+          "top": 368,
+          "bottom": 403,
+          "height": 35
+        }
+      ],
+      "quick": {
+        "top": 317,
+        "bottom": 365,
+        "left": 14,
+        "right": 306,
+        "height": 48
+      },
+      "task": {
+        "top": 411,
+        "bottom": 467,
+        "left": 14,
+        "right": 306,
+        "height": 56
+      },
+      "nav": {
+        "top": 473,
+        "bottom": 568,
+        "left": 0,
+        "right": 320,
+        "height": 95
+      },
+      "outerOverflow": false,
+      "overflow": "hidden",
+      "controlsHit": true
+    },
+    {
+      "tag": "webkit-coach-flash",
+      "width": 320,
+      "height": 568,
+      "shell": {
+        "top": 0,
+        "bottom": 568,
+        "left": 0,
+        "right": 320,
+        "height": 568
+      },
+      "hud": {
+        "top": 6,
+        "bottom": 136,
+        "left": 14,
+        "right": 306,
+        "height": 130
+      },
+      "harvest": {
+        "top": 140,
+        "bottom": 197,
+        "left": 14,
+        "right": 306,
+        "height": 57
+      },
+      "scene": {
+        "top": 200,
+        "bottom": 290,
+        "left": 10,
+        "right": 310,
+        "height": 90
+      },
+      "canvas": {
+        "top": 205,
+        "bottom": 285,
+        "left": 15,
+        "right": 305,
+        "height": 80,
+        "backing": 160,
+        "dpr": 2
+      },
+      "extras": [
+        {
+          "top": 344,
+          "bottom": 403,
+          "height": 59
+        }
+      ],
+      "quick": {
+        "top": 293,
+        "bottom": 341,
+        "left": 14,
+        "right": 306,
+        "height": 48
+      },
+      "task": {
+        "top": 411,
+        "bottom": 467,
+        "left": 14,
+        "right": 306,
+        "height": 56
+      },
+      "nav": {
+        "top": 473,
+        "bottom": 568,
+        "left": 0,
+        "right": 320,
+        "height": 95
+      },
+      "outerOverflow": false,
+      "overflow": "hidden",
+      "controlsHit": true
+    },
+    {
+      "tag": "webkit-combined",
+      "width": 320,
+      "height": 568,
+      "shell": {
+        "top": 0,
+        "bottom": 568,
+        "left": 0,
+        "right": 320,
+        "height": 568
+      },
+      "hud": {
+        "top": 6,
+        "bottom": 136,
+        "left": 14,
+        "right": 306,
+        "height": 130
+      },
+      "harvest": {
+        "top": 140,
+        "bottom": 197,
+        "left": 14,
+        "right": 306,
+        "height": 57
+      },
+      "scene": {
+        "top": 200,
+        "bottom": 290,
+        "left": 10,
+        "right": 310,
+        "height": 90
+      },
+      "canvas": {
+        "top": 205,
+        "bottom": 285,
+        "left": 15,
+        "right": 305,
+        "height": 80,
+        "backing": 160,
+        "dpr": 2
+      },
+      "extras": [
+        {
+          "top": 344,
+          "bottom": 376,
+          "height": 32
+        },
+        {
+          "top": 379,
+          "bottom": 403,
+          "height": 24
+        }
+      ],
+      "quick": {
+        "top": 293,
+        "bottom": 341,
+        "left": 14,
+        "right": 306,
+        "height": 48
+      },
+      "task": {
+        "top": 411,
+        "bottom": 467,
+        "left": 14,
+        "right": 306,
+        "height": 56
+      },
+      "nav": {
+        "top": 473,
+        "bottom": 568,
+        "left": 0,
+        "right": 320,
+        "height": 95
+      },
+      "outerOverflow": false,
+      "overflow": "hidden",
+      "controlsHit": true
+    }
+  ],
+  "errors": []
+}

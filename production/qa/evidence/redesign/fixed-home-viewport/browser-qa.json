@@ -1,0 +1,1391 @@
+{
+  "checks": [
+    {
+      "name": "chromium-320x568 no-outer-scroll",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x568 all-main-sections-separated",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x568 complete-canvas-resized-not-clipped",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x568 all-shortcuts-and-navigation-clickable",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x568 main-page-does-not-move",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x568 task-details-open-above",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x568 toolbar-resize-refits",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x568 resize-keeps-live-engine",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x568 人物-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x568 江湖-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x568 修煉-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x568 return-home-refits",
+      "pass": true
+    },
+    {
+      "name": "chromium-375x600 no-outer-scroll",
+      "pass": true
+    },
+    {
+      "name": "chromium-375x600 all-main-sections-separated",
+      "pass": true
+    },
+    {
+      "name": "chromium-375x600 complete-canvas-resized-not-clipped",
+      "pass": true
+    },
+    {
+      "name": "chromium-375x600 all-shortcuts-and-navigation-clickable",
+      "pass": true
+    },
+    {
+      "name": "chromium-375x600 main-page-does-not-move",
+      "pass": true
+    },
+    {
+      "name": "chromium-375x600 task-details-open-above",
+      "pass": true
+    },
+    {
+      "name": "chromium-375x600 toolbar-resize-refits",
+      "pass": true
+    },
+    {
+      "name": "chromium-375x600 resize-keeps-live-engine",
+      "pass": true
+    },
+    {
+      "name": "chromium-375x600 人物-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "chromium-375x600 江湖-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "chromium-375x600 修煉-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "chromium-375x600 return-home-refits",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x690 no-outer-scroll",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x690 all-main-sections-separated",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x690 complete-canvas-resized-not-clipped",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x690 all-shortcuts-and-navigation-clickable",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x690 main-page-does-not-move",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x690 task-details-open-above",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x690 toolbar-resize-refits",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x690 resize-keeps-live-engine",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x690 人物-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x690 江湖-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x690 修煉-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x690 return-home-refits",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 no-outer-scroll",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 all-main-sections-separated",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 complete-canvas-resized-not-clipped",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 all-shortcuts-and-navigation-clickable",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 main-page-does-not-move",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 task-details-open-above",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 toolbar-resize-refits",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 resize-keeps-live-engine",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 人物-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 江湖-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 修煉-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 return-home-refits",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x740 no-outer-scroll",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x740 all-main-sections-separated",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x740 complete-canvas-resized-not-clipped",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x740 all-shortcuts-and-navigation-clickable",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x740 main-page-does-not-move",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x740 task-details-open-above",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x740 toolbar-resize-refits",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x740 resize-keeps-live-engine",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x740 人物-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x740 江湖-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x740 修煉-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x740 return-home-refits",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x896 no-outer-scroll",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x896 all-main-sections-separated",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x896 complete-canvas-resized-not-clipped",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x896 all-shortcuts-and-navigation-clickable",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x896 main-page-does-not-move",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x896 task-details-open-above",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x896 toolbar-resize-refits",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x896 resize-keeps-live-engine",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x896 人物-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x896 江湖-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x896 修煉-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x896 return-home-refits",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x568 no-outer-scroll",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x568 all-main-sections-separated",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x568 complete-canvas-resized-not-clipped",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x568 all-shortcuts-and-navigation-clickable",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x568 main-page-does-not-move",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x568 task-details-open-above",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x568 toolbar-resize-refits",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x568 resize-keeps-live-engine",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x568 人物-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x568 江湖-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x568 修煉-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x568 return-home-refits",
+      "pass": true
+    },
+    {
+      "name": "webkit-375x600 no-outer-scroll",
+      "pass": true
+    },
+    {
+      "name": "webkit-375x600 all-main-sections-separated",
+      "pass": true
+    },
+    {
+      "name": "webkit-375x600 complete-canvas-resized-not-clipped",
+      "pass": true
+    },
+    {
+      "name": "webkit-375x600 all-shortcuts-and-navigation-clickable",
+      "pass": true
+    },
+    {
+      "name": "webkit-375x600 main-page-does-not-move",
+      "pass": true
+    },
+    {
+      "name": "webkit-375x600 task-details-open-above",
+      "pass": true
+    },
+    {
+      "name": "webkit-375x600 toolbar-resize-refits",
+      "pass": true
+    },
+    {
+      "name": "webkit-375x600 resize-keeps-live-engine",
+      "pass": true
+    },
+    {
+      "name": "webkit-375x600 人物-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "webkit-375x600 江湖-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "webkit-375x600 修煉-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "webkit-375x600 return-home-refits",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x690 no-outer-scroll",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x690 all-main-sections-separated",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x690 complete-canvas-resized-not-clipped",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x690 all-shortcuts-and-navigation-clickable",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x690 main-page-does-not-move",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x690 task-details-open-above",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x690 toolbar-resize-refits",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x690 resize-keeps-live-engine",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x690 人物-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x690 江湖-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x690 修煉-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x690 return-home-refits",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 no-outer-scroll",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 all-main-sections-separated",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 complete-canvas-resized-not-clipped",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 all-shortcuts-and-navigation-clickable",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 main-page-does-not-move",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 task-details-open-above",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 toolbar-resize-refits",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 resize-keeps-live-engine",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 人物-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 江湖-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 修煉-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 return-home-refits",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x740 no-outer-scroll",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x740 all-main-sections-separated",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x740 complete-canvas-resized-not-clipped",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x740 all-shortcuts-and-navigation-clickable",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x740 main-page-does-not-move",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x740 task-details-open-above",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x740 toolbar-resize-refits",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x740 resize-keeps-live-engine",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x740 人物-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x740 江湖-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x740 修煉-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x740 return-home-refits",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x896 no-outer-scroll",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x896 all-main-sections-separated",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x896 complete-canvas-resized-not-clipped",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x896 all-shortcuts-and-navigation-clickable",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x896 main-page-does-not-move",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x896 task-details-open-above",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x896 toolbar-resize-refits",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x896 resize-keeps-live-engine",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x896 人物-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x896 江湖-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x896 修煉-fixed-shell-readable-content",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x896 return-home-refits",
+      "pass": true
+    },
+    {
+      "name": "no-page-errors",
+      "pass": true
+    }
+  ],
+  "layouts": [
+    {
+      "tag": "chromium-320x568",
+      "width": 320,
+      "height": 568,
+      "shell": {
+        "top": 0,
+        "bottom": 568,
+        "left": 0,
+        "right": 320,
+        "height": 568
+      },
+      "hud": {
+        "top": 6,
+        "bottom": 137.1875,
+        "left": 14,
+        "right": 306,
+        "height": 131.1875
+      },
+      "harvest": {
+        "top": 141.1875,
+        "bottom": 199.984375,
+        "left": 14,
+        "right": 306,
+        "height": 58.796875
+      },
+      "scene": {
+        "top": 202.984375,
+        "bottom": 352,
+        "left": 10,
+        "right": 310,
+        "height": 149.015625
+      },
+      "canvas": {
+        "top": 207.984375,
+        "bottom": 347,
+        "left": 15,
+        "right": 305,
+        "height": 139.015625,
+        "backing": 278,
+        "dpr": 2
+      },
+      "extras": [],
+      "quick": {
+        "top": 355,
+        "bottom": 403,
+        "left": 14,
+        "right": 306,
+        "height": 48
+      },
+      "task": {
+        "top": 411,
+        "bottom": 467,
+        "left": 14,
+        "right": 306,
+        "height": 56
+      },
+      "nav": {
+        "top": 473,
+        "bottom": 568,
+        "left": 0,
+        "right": 320,
+        "height": 95
+      },
+      "outerOverflow": false,
+      "overflow": "hidden",
+      "controlsHit": true
+    },
+    {
+      "tag": "chromium-375x600",
+      "width": 375,
+      "height": 600,
+      "shell": {
+        "top": 0,
+        "bottom": 600,
+        "left": 0,
+        "right": 375,
+        "height": 600
+      },
+      "hud": {
+        "top": 6,
+        "bottom": 137.1875,
+        "left": 14,
+        "right": 361,
+        "height": 131.1875
+      },
+      "harvest": {
+        "top": 141.1875,
+        "bottom": 197.1875,
+        "left": 14,
+        "right": 361,
+        "height": 56
+      },
+      "scene": {
+        "top": 200.1875,
+        "bottom": 384,
+        "left": 10,
+        "right": 365,
+        "height": 183.8125
+      },
+      "canvas": {
+        "top": 205.1875,
+        "bottom": 379,
+        "left": 15,
+        "right": 360,
+        "height": 173.8125,
+        "backing": 348,
+        "dpr": 2
+      },
+      "extras": [],
+      "quick": {
+        "top": 387,
+        "bottom": 435,
+        "left": 14,
+        "right": 361,
+        "height": 48
+      },
+      "task": {
+        "top": 443,
+        "bottom": 499,
+        "left": 14,
+        "right": 361,
+        "height": 56
+      },
+      "nav": {
+        "top": 505,
+        "bottom": 600,
+        "left": 0,
+        "right": 375,
+        "height": 95
+      },
+      "outerOverflow": false,
+      "overflow": "hidden",
+      "controlsHit": true
+    },
+    {
+      "tag": "chromium-390x690",
+      "width": 390,
+      "height": 690,
+      "shell": {
+        "top": 0,
+        "bottom": 690,
+        "left": 0,
+        "right": 390,
+        "height": 690
+      },
+      "hud": {
+        "top": 12,
+        "bottom": 166.390625,
+        "left": 14,
+        "right": 376,
+        "height": 154.390625
+      },
+      "harvest": {
+        "top": 174.390625,
+        "bottom": 230.390625,
+        "left": 14,
+        "right": 376,
+        "height": 56
+      },
+      "scene": {
+        "top": 236.390625,
+        "bottom": 440,
+        "left": 10,
+        "right": 380,
+        "height": 203.609375
+      },
+      "canvas": {
+        "top": 241.390625,
+        "bottom": 435,
+        "left": 15,
+        "right": 375,
+        "height": 193.609375,
+        "backing": 387,
+        "dpr": 2
+      },
+      "extras": [],
+      "quick": {
+        "top": 446,
+        "bottom": 508,
+        "left": 14,
+        "right": 376,
+        "height": 62
+      },
+      "task": {
+        "top": 516,
+        "bottom": 574,
+        "left": 14,
+        "right": 376,
+        "height": 58
+      },
+      "nav": {
+        "top": 580,
+        "bottom": 690,
+        "left": 0,
+        "right": 390,
+        "height": 110
+      },
+      "outerOverflow": false,
+      "overflow": "hidden",
+      "controlsHit": true
+    },
+    {
+      "tag": "chromium-390x844",
+      "width": 390,
+      "height": 844,
+      "shell": {
+        "top": 0,
+        "bottom": 844,
+        "left": 0,
+        "right": 390,
+        "height": 844
+      },
+      "hud": {
+        "top": 12,
+        "bottom": 166.390625,
+        "left": 14,
+        "right": 376,
+        "height": 154.390625
+      },
+      "harvest": {
+        "top": 174.390625,
+        "bottom": 230.390625,
+        "left": 14,
+        "right": 376,
+        "height": 56
+      },
+      "scene": {
+        "top": 236.390625,
+        "bottom": 594,
+        "left": 10,
+        "right": 380,
+        "height": 357.609375
+      },
+      "canvas": {
+        "top": 241.390625,
+        "bottom": 589,
+        "left": 15,
+        "right": 375,
+        "height": 347.609375,
+        "backing": 695,
+        "dpr": 2
+      },
+      "extras": [],
+      "quick": {
+        "top": 600,
+        "bottom": 662,
+        "left": 14,
+        "right": 376,
+        "height": 62
+      },
+      "task": {
+        "top": 670,
+        "bottom": 728,
+        "left": 14,
+        "right": 376,
+        "height": 58
+      },
+      "nav": {
+        "top": 734,
+        "bottom": 844,
+        "left": 0,
+        "right": 390,
+        "height": 110
+      },
+      "outerOverflow": false,
+      "overflow": "hidden",
+      "controlsHit": true
+    },
+    {
+      "tag": "chromium-420x740",
+      "width": 420,
+      "height": 740,
+      "shell": {
+        "top": 0,
+        "bottom": 740,
+        "left": 0,
+        "right": 420,
+        "height": 740
+      },
+      "hud": {
+        "top": 12,
+        "bottom": 166.390625,
+        "left": 14,
+        "right": 406,
+        "height": 154.390625
+      },
+      "harvest": {
+        "top": 174.390625,
+        "bottom": 230.390625,
+        "left": 14,
+        "right": 406,
+        "height": 56
+      },
+      "scene": {
+        "top": 236.390625,
+        "bottom": 490,
+        "left": 10,
+        "right": 410,
+        "height": 253.609375
+      },
+      "canvas": {
+        "top": 241.390625,
+        "bottom": 485,
+        "left": 15,
+        "right": 405,
+        "height": 243.609375,
+        "backing": 487,
+        "dpr": 2
+      },
+      "extras": [],
+      "quick": {
+        "top": 496,
+        "bottom": 558,
+        "left": 14,
+        "right": 406,
+        "height": 62
+      },
+      "task": {
+        "top": 566,
+        "bottom": 624,
+        "left": 14,
+        "right": 406,
+        "height": 58
+      },
+      "nav": {
+        "top": 630,
+        "bottom": 740,
+        "left": 0,
+        "right": 420,
+        "height": 110
+      },
+      "outerOverflow": false,
+      "overflow": "hidden",
+      "controlsHit": true
+    },
+    {
+      "tag": "chromium-420x896",
+      "width": 420,
+      "height": 896,
+      "shell": {
+        "top": 0,
+        "bottom": 896,
+        "left": 0,
+        "right": 420,
+        "height": 896
+      },
+      "hud": {
+        "top": 12,
+        "bottom": 166.390625,
+        "left": 14,
+        "right": 406,
+        "height": 154.390625
+      },
+      "harvest": {
+        "top": 174.390625,
+        "bottom": 230.390625,
+        "left": 14,
+        "right": 406,
+        "height": 56
+      },
+      "scene": {
+        "top": 236.390625,
+        "bottom": 596.390625,
+        "left": 10,
+        "right": 410,
+        "height": 360
+      },
+      "canvas": {
+        "top": 241.390625,
+        "bottom": 591.390625,
+        "left": 15,
+        "right": 405,
+        "height": 350,
+        "backing": 700,
+        "dpr": 2
+      },
+      "extras": [],
+      "quick": {
+        "top": 602.390625,
+        "bottom": 664.390625,
+        "left": 14,
+        "right": 406,
+        "height": 62
+      },
+      "task": {
+        "top": 722,
+        "bottom": 780,
+        "left": 14,
+        "right": 406,
+        "height": 58
+      },
+      "nav": {
+        "top": 786,
+        "bottom": 896,
+        "left": 0,
+        "right": 420,
+        "height": 110
+      },
+      "outerOverflow": false,
+      "overflow": "hidden",
+      "controlsHit": true
+    },
+    {
+      "tag": "webkit-320x568",
+      "width": 320,
+      "height": 568,
+      "shell": {
+        "top": 0,
+        "bottom": 568,
+        "left": 0,
+        "right": 320,
+        "height": 568
+      },
+      "hud": {
+        "top": 6,
+        "bottom": 136,
+        "left": 14,
+        "right": 306,
+        "height": 130
+      },
+      "harvest": {
+        "top": 140,
+        "bottom": 197,
+        "left": 14,
+        "right": 306,
+        "height": 57
+      },
+      "scene": {
+        "top": 200,
+        "bottom": 352,
+        "left": 10,
+        "right": 310,
+        "height": 152
+      },
+      "canvas": {
+        "top": 205,
+        "bottom": 347,
+        "left": 15,
+        "right": 305,
+        "height": 142,
+        "backing": 284,
+        "dpr": 2
+      },
+      "extras": [],
+      "quick": {
+        "top": 355,
+        "bottom": 403,
+        "left": 14,
+        "right": 306,
+        "height": 48
+      },
+      "task": {
+        "top": 411,
+        "bottom": 467,
+        "left": 14,
+        "right": 306,
+        "height": 56
+      },
+      "nav": {
+        "top": 473,
+        "bottom": 568,
+        "left": 0,
+        "right": 320,
+        "height": 95
+      },
+      "outerOverflow": false,
+      "overflow": "hidden",
+      "controlsHit": true
+    },
+    {
+      "tag": "webkit-375x600",
+      "width": 375,
+      "height": 600,
+      "shell": {
+        "top": 0,
+        "bottom": 600,
+        "left": 0,
+        "right": 375,
+        "height": 600
+      },
+      "hud": {
+        "top": 6,
+        "bottom": 136,
+        "left": 14,
+        "right": 361,
+        "height": 130
+      },
+      "harvest": {
+        "top": 140,
+        "bottom": 196,
+        "left": 14,
+        "right": 361,
+        "height": 56
+      },
+      "scene": {
+        "top": 199,
+        "bottom": 384,
+        "left": 10,
+        "right": 365,
+        "height": 185
+      },
+      "canvas": {
+        "top": 204,
+        "bottom": 379,
+        "left": 15,
+        "right": 360,
+        "height": 175,
+        "backing": 350,
+        "dpr": 2
+      },
+      "extras": [],
+      "quick": {
+        "top": 387,
+        "bottom": 435,
+        "left": 14,
+        "right": 361,
+        "height": 48
+      },
+      "task": {
+        "top": 443,
+        "bottom": 499,
+        "left": 14,
+        "right": 361,
+        "height": 56
+      },
+      "nav": {
+        "top": 505,
+        "bottom": 600,
+        "left": 0,
+        "right": 375,
+        "height": 95
+      },
+      "outerOverflow": false,
+      "overflow": "hidden",
+      "controlsHit": true
+    },
+    {
+      "tag": "webkit-390x690",
+      "width": 390,
+      "height": 690,
+      "shell": {
+        "top": 0,
+        "bottom": 690,
+        "left": 0,
+        "right": 390,
+        "height": 690
+      },
+      "hud": {
+        "top": 12,
+        "bottom": 166,
+        "left": 14,
+        "right": 376,
+        "height": 154
+      },
+      "harvest": {
+        "top": 174,
+        "bottom": 230,
+        "left": 14,
+        "right": 376,
+        "height": 56
+      },
+      "scene": {
+        "top": 236,
+        "bottom": 440,
+        "left": 10,
+        "right": 380,
+        "height": 204
+      },
+      "canvas": {
+        "top": 241,
+        "bottom": 435,
+        "left": 15,
+        "right": 375,
+        "height": 194,
+        "backing": 388,
+        "dpr": 2
+      },
+      "extras": [],
+      "quick": {
+        "top": 446,
+        "bottom": 508,
+        "left": 14,
+        "right": 376,
+        "height": 62
+      },
+      "task": {
+        "top": 516,
+        "bottom": 574,
+        "left": 14,
+        "right": 376,
+        "height": 58
+      },
+      "nav": {
+        "top": 580,
+        "bottom": 690,
+        "left": 0,
+        "right": 390,
+        "height": 110
+      },
+      "outerOverflow": false,
+      "overflow": "hidden",
+      "controlsHit": true
+    },
+    {
+      "tag": "webkit-390x844",
+      "width": 390,
+      "height": 844,
+      "shell": {
+        "top": 0,
+        "bottom": 843.984375,
+        "left": 0,
+        "right": 390,
+        "height": 843.984375
+      },
+      "hud": {
+        "top": 12,
+        "bottom": 166,
+        "left": 14,
+        "right": 376,
+        "height": 154
+      },
+      "harvest": {
+        "top": 174,
+        "bottom": 230,
+        "left": 14,
+        "right": 376,
+        "height": 56
+      },
+      "scene": {
+        "top": 236,
+        "bottom": 593.984375,
+        "left": 10,
+        "right": 380,
+        "height": 357.984375
+      },
+      "canvas": {
+        "top": 241,
+        "bottom": 588.984375,
+        "left": 15,
+        "right": 375,
+        "height": 347.984375,
+        "backing": 696,
+        "dpr": 2
+      },
+      "extras": [],
+      "quick": {
+        "top": 599.984375,
+        "bottom": 661.984375,
+        "left": 14,
+        "right": 376,
+        "height": 62
+      },
+      "task": {
+        "top": 670,
+        "bottom": 728,
+        "left": 14,
+        "right": 376,
+        "height": 58
+      },
+      "nav": {
+        "top": 734,
+        "bottom": 844,
+        "left": 0,
+        "right": 390,
+        "height": 110
+      },
+      "outerOverflow": false,
+      "overflow": "hidden",
+      "controlsHit": true
+    },
+    {
+      "tag": "webkit-420x740",
+      "width": 420,
+      "height": 740,
+      "shell": {
+        "top": 0,
+        "bottom": 740,
+        "left": 0,
+        "right": 420,
+        "height": 740
+      },
+      "hud": {
+        "top": 12,
+        "bottom": 166,
+        "left": 14,
+        "right": 406,
+        "height": 154
+      },
+      "harvest": {
+        "top": 174,
+        "bottom": 230,
+        "left": 14,
+        "right": 406,
+        "height": 56
+      },
+      "scene": {
+        "top": 236,
+        "bottom": 490,
+        "left": 10,
+        "right": 410,
+        "height": 254
+      },
+      "canvas": {
+        "top": 241,
+        "bottom": 485,
+        "left": 15,
+        "right": 405,
+        "height": 244,
+        "backing": 488,
+        "dpr": 2
+      },
+      "extras": [],
+      "quick": {
+        "top": 496,
+        "bottom": 558,
+        "left": 14,
+        "right": 406,
+        "height": 62
+      },
+      "task": {
+        "top": 566,
+        "bottom": 624,
+        "left": 14,
+        "right": 406,
+        "height": 58
+      },
+      "nav": {
+        "top": 630,
+        "bottom": 740,
+        "left": 0,
+        "right": 420,
+        "height": 110
+      },
+      "outerOverflow": false,
+      "overflow": "hidden",
+      "controlsHit": true
+    },
+    {
+      "tag": "webkit-420x896",
+      "width": 420,
+      "height": 896,
+      "shell": {
+        "top": 0,
+        "bottom": 896,
+        "left": 0,
+        "right": 420,
+        "height": 896
+      },
+      "hud": {
+        "top": 12,
+        "bottom": 166,
+        "left": 14,
+        "right": 406,
+        "height": 154
+      },
+      "harvest": {
+        "top": 174,
+        "bottom": 230,
+        "left": 14,
+        "right": 406,
+        "height": 56
+      },
+      "scene": {
+        "top": 236,
+        "bottom": 596,
+        "left": 10,
+        "right": 410,
+        "height": 360
+      },
+      "canvas": {
+        "top": 241,
+        "bottom": 591,
+        "left": 15,
+        "right": 405,
+        "height": 350,
+        "backing": 700,
+        "dpr": 2
+      },
+      "extras": [],
+      "quick": {
+        "top": 602,
+        "bottom": 664,
+        "left": 14,
+        "right": 406,
+        "height": 62
+      },
+      "task": {
+        "top": 722,
+        "bottom": 780,
+        "left": 14,
+        "right": 406,
+        "height": 58
+      },
+      "nav": {
+        "top": 786,
+        "bottom": 896,
+        "left": 0,
+        "right": 420,
+        "height": 110
+      },
+      "outerOverflow": false,
+      "overflow": "hidden",
+      "controlsHit": true
+    }
+  ],
+  "errors": []
+}

@@ -10789,3 +10789,148 @@ html[data-ink-motion='reduce'] .ink-hud-avatar--badge:active .ink-hud-person-bad
 .ink-bottom-dock, .ink-bottom-dock *, .ink-task-dock, .ink-task-dock * { font-family: var(--game-ui-font) !important; }
 body:has(.ink-spar-boss-screen) .ink-bottom-dock,
 body:has(.ink-spar-boss-screen) .ink-task-dock { visibility: hidden; }
+
+/* 第27項：一屏主頁，任務貼住導航；Safari 工具列收放跟 100dvh 重排。 */
+.scroll-shell--play {
+  overflow: hidden;
+  overscroll-behavior: none;
+  gap: 8px;
+}
+.scroll-shell--play.scroll-shell--has-tabs {
+  padding-bottom: calc(var(--ink-dock-height, 112px) + 6px);
+}
+.scroll-shell--play.scroll-shell--has-task {
+  max-height: 100%;
+  padding-bottom: calc(var(--ink-dock-height, 112px) + var(--ink-task-height, 64px) + 14px);
+}
+.scroll-shell--play > .ink-status { flex: none; }
+.scroll-shell--play .ink-play-body {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.scroll-shell--home .ink-play-body { overflow: visible; }
+.scroll-shell--home .ink-play-body > .ink-home-focus {
+  flex: 1 1 0;
+  min-height: 0;
+  gap: 6px;
+}
+.scroll-shell--home .ink-home-focus > .ink-home-goals {
+  flex: none;
+  margin: 0;
+}
+.scroll-shell--home .ink-home-scene {
+  flex: 1 1 0;
+  min-height: 90px;
+  max-height: 360px;
+  padding: 4px;
+}
+/* 同一Canvas跟可用空間重排，唔用 overflow 裁走角色／地面。 */
+.scroll-shell--home .ink-home-scene .ink-spar-slot,
+.scroll-shell--home .ink-home-scene .ink-spar-inline-host,
+.scroll-shell--home .ink-home-scene .ink-spar-inline-slot,
+.scroll-shell--home .ink-home-scene .ink-spar-scene-host,
+.scroll-shell--home .ink-home-scene .ink-spar-stage {
+  height: 100%;
+  min-height: 0;
+}
+.scroll-shell--home .ink-quick {
+  flex: none;
+  margin: 0;
+  padding: 4px 2px 2px;
+}
+.scroll-shell--home .ink-quick-icon.ink-badge,
+.scroll-shell--home .ink-quick-btn:first-child .ink-quick-icon.ink-badge {
+  width: 54px !important;
+  height: 54px !important;
+}
+.scroll-shell--home .ink-quick-icon .ink-badge-label { font-size: 15px; }
+.scroll-shell--home .ink-home-focus > .ink-enc-strip {
+  flex: none;
+  margin: 0;
+  padding: 4px 6px;
+  min-height: 32px;
+  gap: 5px;
+}
+.scroll-shell--home button.ink-enc-strip {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+}
+.scroll-shell--home .ink-enc-strip-title {
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.scroll-shell--home .ink-enc-strip-kicker { font-size: 10px; letter-spacing: 0; }
+.scroll-shell--home .ink-enc-strip-time { font-size: 10px; white-space: nowrap; }
+.scroll-shell--home .ink-enc-strip-main {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 2px 5px;
+}
+.scroll-shell--home .ink-enc-strip-bar { grid-column: 1 / -1; grid-row: 2; }
+.scroll-shell--home .ink-home-focus > div:last-child:empty { display: none; }
+/* 新手提示／過月訊息只喺自己嘅閱讀區展開，唔推走主頁固定欄。 */
+.scroll-shell--home .ink-home-focus > div:last-child:not(:empty) {
+  flex: 0 1 auto;
+  min-height: 24px;
+  max-height: 72px;
+  overflow-y: auto;
+}
+.scroll-shell--home .ink-hud-bars { margin-top: 6px; }
+.scroll-shell--home .ink-hud { padding-bottom: 2px; }
+.scroll-shell--home .ink-home-goals .ink-idle > div { padding-block: 1px; }
+.scroll-shell--home .ink-home-goals .ink-harvest { min-height: 44px; }
+.scroll-shell--event .ink-play-body,
+.scroll-shell--combat .ink-play-body { overflow: hidden; }
+
+.ink-tabs.ink-bottom-dock {
+  padding-top: 24px;
+  padding-bottom: max(8px, env(safe-area-inset-bottom, 0px));
+}
+/* 修為標籤納入導航高度，唔再喺任務同導航之間額外佔一層。 */
+.ink-bottom-dock .ink-nav-center-xp {
+  top: -24px;
+  bottom: auto;
+  padding: 1px 8px;
+  font-size: 10px;
+  line-height: 17px;
+  box-shadow: none;
+}
+.ink-task-dock .ink-goal.ink-task-bar {
+  bottom: calc(var(--ink-dock-height, 112px) + 6px);
+  min-height: 58px;
+  padding-block: 4px;
+}
+.ink-task-dock .ink-task-bar .ink-goal-progress { margin: 2px 0 0; }
+
+@media (max-height: 620px) {
+  .scroll-shell--home { padding-top: max(6px, env(safe-area-inset-top, 0px)); gap: 4px; }
+  .scroll-shell--home .ink-hud-wallet .ink-money-chip,
+  .scroll-shell--home .ink-hud-wallet .ink-jade-chip,
+  .scroll-shell--home .ink-hud-wallet .ink-hud-settings { min-height: 23px; padding-block: 0; }
+  .scroll-shell--home .ink-hud-wallet .ink-badge { width: 22px !important; height: 22px !important; }
+  .scroll-shell--home .ink-hud-bars { margin-top: 3px; }
+  .scroll-shell--home .ink-hud-meters .ink-meter { gap: 1px; }
+  .scroll-shell--home .ink-hud .ink-name-title { display: inline; font-size: 10px; margin-left: 4px; }
+  .scroll-shell--home .ink-hud-affiliation { display: inline; }
+  .scroll-shell--home .ink-hud .ink-meta { font-size: 10px; line-height: 1.2; }
+  .scroll-shell--home .ink-play-body > .ink-home-focus { gap: 3px; }
+  .scroll-shell--home .ink-quick { padding-block: 1px; }
+  .scroll-shell--home .ink-quick-icon.ink-badge,
+  .scroll-shell--home .ink-quick-btn:first-child .ink-quick-icon.ink-badge { width: 44px !important; height: 44px !important; }
+  .scroll-shell--home .ink-quick-icon .ink-badge-label { font-size: 13px; }
+  .ink-tabs.ink-bottom-dock { grid-template-columns: 1fr 1fr 64px 1fr 1fr; padding-inline: 12px; padding-top: 21px; }
+  .ink-bottom-dock .ink-nav-center { max-width: 64px; }
+  .ink-bottom-dock .ink-tab-icon.ink-badge { width: 50px; height: 50px; }
+  .ink-bottom-dock .ink-nav-center-xp { top: -21px; }
+  .ink-task-dock .ink-goal.ink-task-bar { min-height: 54px; }
+  .ink-task-dock .ink-task-icon { width: 36px !important; height: 36px !important; }
+  .ink-task-dock .ink-task-bar .ink-goal-title { font-size: 12px; }
+}
