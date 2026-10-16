@@ -1,0 +1,265 @@
+{
+  "checks": [
+    {
+      "name": "chromium-320 equip-inside-reveal-without-leaving",
+      "pass": true
+    },
+    {
+      "name": "reveal-equipped-status",
+      "pass": true
+    },
+    {
+      "name": "reveal-equip-button-visible",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 all-ten-results-have-equip",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 external learns-equips-keeps-original-and-volumes",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 external no-extra-cost-or-collection-change",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 external equipped-status-prevents-repeat",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 internal learns-equips-keeps-original-and-volumes",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 internal no-extra-cost-or-collection-change",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 internal equipped-status-prevents-repeat",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 qinggong learns-equips-keeps-original-and-volumes",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 qinggong no-extra-cost-or-collection-change",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 qinggong equipped-status-prevents-repeat",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 replace-same-kind-on-results",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 narrow-buttons-fit-and-touch-targets",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 equipped-state-persisted",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 equip-inside-reveal-without-leaving",
+      "pass": true
+    },
+    {
+      "name": "reveal-equipped-status",
+      "pass": true
+    },
+    {
+      "name": "reveal-equip-button-visible",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 all-ten-results-have-equip",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 external learns-equips-keeps-original-and-volumes",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 external no-extra-cost-or-collection-change",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 external equipped-status-prevents-repeat",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 internal learns-equips-keeps-original-and-volumes",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 internal no-extra-cost-or-collection-change",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 internal equipped-status-prevents-repeat",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 qinggong learns-equips-keeps-original-and-volumes",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 qinggong no-extra-cost-or-collection-change",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 qinggong equipped-status-prevents-repeat",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 replace-same-kind-on-results",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 narrow-buttons-fit-and-touch-targets",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 equipped-state-persisted",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 equip-inside-reveal-without-leaving",
+      "pass": true
+    },
+    {
+      "name": "reveal-equipped-status",
+      "pass": true
+    },
+    {
+      "name": "reveal-equip-button-visible",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 all-ten-results-have-equip",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 external learns-equips-keeps-original-and-volumes",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 external no-extra-cost-or-collection-change",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 external equipped-status-prevents-repeat",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 internal learns-equips-keeps-original-and-volumes",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 internal no-extra-cost-or-collection-change",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 internal equipped-status-prevents-repeat",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 qinggong learns-equips-keeps-original-and-volumes",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 qinggong no-extra-cost-or-collection-change",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 qinggong equipped-status-prevents-repeat",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 replace-same-kind-on-results",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 narrow-buttons-fit-and-touch-targets",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 equipped-state-persisted",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 equip-inside-reveal-without-leaving",
+      "pass": true
+    },
+    {
+      "name": "reveal-equipped-status",
+      "pass": true
+    },
+    {
+      "name": "reveal-equip-button-visible",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 all-ten-results-have-equip",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 external learns-equips-keeps-original-and-volumes",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 external no-extra-cost-or-collection-change",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 external equipped-status-prevents-repeat",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 internal learns-equips-keeps-original-and-volumes",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 internal no-extra-cost-or-collection-change",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 internal equipped-status-prevents-repeat",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 qinggong learns-equips-keeps-original-and-volumes",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 qinggong no-extra-cost-or-collection-change",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 qinggong equipped-status-prevents-repeat",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 replace-same-kind-on-results",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 narrow-buttons-fit-and-touch-targets",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 equipped-state-persisted",
+      "pass": true
+    },
+    {
+      "name": "no-page-errors",
+      "pass": true
+    }
+  ],
+  "errors": []
+}

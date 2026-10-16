@@ -1,0 +1,17 @@
+{
+  "checks": [
+    {
+      "name": "chromium-390 equip-inside-reveal-without-leaving",
+      "pass": true
+    },
+    {
+      "name": "reveal-equipped-status",
+      "pass": true
+    },
+    {
+      "name": "reveal-equip-button-visible",
+      "pass": true
+    }
+  ],
+  "errors": []
+}

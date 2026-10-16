@@ -10934,3 +10934,12 @@ body:has(.ink-spar-boss-screen) .ink-task-dock { visibility: hidden; }
   .ink-task-dock .ink-task-icon { width: 36px !important; height: 36px !important; }
   .ink-task-dock .ink-task-bar .ink-goal-title { font-size: 12px; }
 }
+
+/* 第28項：抽卡結果原地學習＋裝備，唔再逐層入收藏／人物。 */
+.ink-pull-card { min-width: 0; }
+.ink-pull-equip { align-self: end; display: grid; gap: 4px; margin-top: 5px; min-width: 0; }
+.ink-pull-replaces { font-size: 10px; line-height: 1.5; color: var(--ink-mid); overflow-wrap: anywhere; }
+.ink-pull-equip-btn { min-height: 44px; width: 100%; padding: 6px; font-size: 13px; letter-spacing: .03em; }
+.ink-pull-equip-btn:disabled { opacity: .6; }
+.ink-pull-equip--reveal { flex: 1; margin: 0; font-family: var(--game-ui-font); }
+.ink-pull-equip-btn:not(:disabled) { border: 1px solid var(--cinnabar); color: var(--cinnabar); background: var(--paper-bright); }

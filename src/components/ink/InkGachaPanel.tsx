@@ -11,8 +11,10 @@ import {
 } from '@data/redesign/testParams';
 import { VOLUME_COUNT, hasVolumes, volumeLabel } from '@data/skills/volumes';
 import { collectionVolumes } from '@core/life/volumes';
+import { MAIN_ART_LABEL, mainArts } from '@core/life/schools';
 import { BANNERS, FREE_POOL, bannerState, spendableJade, wishPool, type BannerId } from '@core/life/gacha';
 import { useAncestryStore } from '../../store/ancestryStore';
+import { useLifeStore } from '../../store/lifeStore';
 import { playInkWin, playInkTap } from '../../audio/inkAudio';
 import { HighlightFxLazy, canUseWebGL, type HighlightConfig } from '../../fx/highlight';
 import { InkIcon } from './InkIcon';
@@ -52,6 +54,7 @@ export function InkGachaPanel({ state }: Props) {
   const exchange = useAncestryStore((s) => s.exchangePages);
   const grantTest = useAncestryStore((s) => s.grantTestJade);
   const learn = useAncestryStore((s) => s.learnManual);
+  const combatBusy = useLifeStore((s) => Boolean(s.state?.pendingCombat || s.combatReplay));
   const [banner, setBanner] = useState<BannerId>('jianghu');
   const [view, setView] = useState<'draw' | 'shelf'>('draw');
   const [swap, setSwap] = useState('');
@@ -71,6 +74,36 @@ export function InkGachaPanel({ state }: Props) {
   );
   const swapOptions = FREE_POOL.filter((id) => !manuals[id]);
   const known = new Set(state.character.skills);
+  const equippedArts = mainArts(state.character);
+  const canEquip = state.phase === 'playing' && state.character.alive && !combatBusy;
+
+  // 留喺抽卡結果：先由收藏學習，再換對應主修；原有武學照保留。
+  const equipResult = (id: string) => {
+    const life = useLifeStore.getState();
+    const def = getSkillDef(id);
+    if (!def || !life.state || life.state.phase !== 'playing' || !life.state.character.alive || life.state.pendingCombat || life.combatReplay) return;
+    learn(id);
+    if (useLifeStore.getState().state?.character.skills.includes(id)) {
+      useLifeStore.getState().setMainArt(def.kind, id);
+      playInkTap();
+    }
+  };
+
+  const equipControl = (id: string, ready = true, className = '') => {
+    const def = getSkillDef(id);
+    if (!def) return null;
+    const current = equippedArts[def.kind];
+    const equipped = current === id;
+    const label = equipped ? '已裝備' : known.has(id) ? '立即裝備' : '即學即裝';
+    return <div className={`ink-pull-equip ${className}`}>
+      <span className="ink-pull-replaces">
+        {equipped ? `目前${MAIN_ART_LABEL[def.kind]}主修` : current ? `替換：${skillLabel(current)}` : `裝備至${MAIN_ART_LABEL[def.kind]}`}
+      </span>
+      <button type="button" className="ink-btn ink-btn--quiet ink-pull-equip-btn"
+        disabled={!canEquip || !ready || equipped || !manuals[id]}
+        aria-label={`${label}：${skillLabel(id)}`} onClick={() => equipResult(id)}>{label}</button>
+    </div>;
+  };
 
   const doPull = (n: number) => {
     const res = gachaPull(banner, n);
@@ -236,6 +269,7 @@ export function InkGachaPanel({ state }: Props) {
                       {r.isPremium && <i className="t-premium">珍本</i>}
                       <i className={r.isNew ? 't-new' : 't-dup'}>{r.isNew ? '新' : '重複'}</i>
                     </span>
+                    {equipControl(r.id)}
                   </li>
                 ))}
               </ul>
@@ -307,7 +341,10 @@ export function InkGachaPanel({ state }: Props) {
         )}
       {fx && (
         <Suspense fallback={null}>
-          <HighlightFxLazy config={fx} onDone={() => setFx(null)} />
+          <HighlightFxLazy config={fx} onDone={() => setFx(null)} renderRewardAction={(card, ready) => {
+            const result = lastPull?.[fx.rewards.findIndex((reward) => reward.id === card.id)];
+            return result ? equipControl(result.id, ready, 'ink-pull-equip--reveal') : null;
+          }} />
         </Suspense>
       )}
     </section>
