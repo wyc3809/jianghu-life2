@@ -3,11 +3,11 @@ import { jianghuRank, jianghuRankTier, JIANGHU_RANK_START } from '@core/life/jia
 import { jianghuPrestige } from '@core/life/jianghuPrestige';
 import { InkMainArts } from './InkMainArts';
 import { VOLUME_COUNT, VOLUME_NUMERALS, artVolumeMoves, hasVolumes } from '@data/skills/volumes';
-import { ownedVolumes } from '@core/life/volumes';
-import { mainArts } from '@core/life/schools';
+import { ownedVolumes, collectionVolumes } from '@core/life/volumes';
+import { equippedMartialArts } from '@core/life/martialLoadout';
+import { useAncestryStore } from '../../store/ancestryStore';
 import { SCHOOLS, schoolOfGear, primarySchoolOfSkill, type SchoolId } from '@data/redesign/schools';
 import { InkSchoolTabs, InkSkillSchools } from './InkSchoolTabs';
-import type { SkillKind } from '@data/skills/catalog';
 import { useEffect, useRef, useState } from 'react';
 import { inkCountTo, inkPopIn } from '../../ui/inkMotion';
 import type { LifeGameState } from '@interfaces/lifeEngine';
@@ -84,8 +84,9 @@ type Props = {
   onEquip: (id: string) => void;
   onEquipBest: () => void;
   onBreakthrough: () => void;
-  /** 揀主修（招式／內功／身法） */
-  onSetMainArt?: (kind: SkillKind, skillId: string) => void;
+  requestedArt?: string | null;
+  onRequestHandled?: () => void;
+  onSetMartialSlot: (slot: number, id: string | null) => boolean;
 };
 
 const pctText = (v: number) => `${(v * 100).toFixed(1).replace(/\.0$/, '')}%`;
@@ -99,11 +100,35 @@ export function InkPersonPanel({
   onEquip,
   onEquipBest,
   onBreakthrough,
-  onSetMainArt,
+  requestedArt,
+  onRequestHandled,
+  onSetMartialSlot,
 }: Props) {
   const [previewGearId, setPreviewGearId] = useState<string | null>(null);
   const [showStatsScroll, setShowStatsScroll] = useState(false);
   const [skillSchool, setSkillSchool] = useState<SchoolId | 'all'>('all');
+  const [selectedArt, setSelectedArt] = useState<string | null>(requestedArt ?? null);
+  const [equipNotice, setEquipNotice] = useState('');
+  const collection = useAncestryStore(s => s.meta);
+  const manuals = collection.manuals;
+  useEffect(() => {
+    if (!requestedArt) return;
+    setSelectedArt(requestedArt); setSkillSchool('all'); setEquipNotice('');
+    const body = paneRef.current?.closest<HTMLElement>('.ink-play-body');
+    const loadout = paneRef.current?.querySelector('.ink-loadout');
+    if (body && loadout) body.scrollTop += loadout.getBoundingClientRect().top - body.getBoundingClientRect().top;
+    onRequestHandled?.();
+  }, [requestedArt, onRequestHandled]);
+  const selectArt = (id: string) => {
+    setSelectedArt(id); setEquipNotice('');
+    paneRef.current?.querySelector('.ink-loadout')?.scrollIntoView({ block: 'start' });
+  };
+  const equipArt = (slot: number, id: string | null) => {
+    if (onSetMartialSlot(slot, id)) {
+      setEquipNotice(id ? `已裝備「${getSkillDef(id)?.name ?? id}」至欄位${slot + 1}。` : `已卸下欄位${slot + 1}的武學。`);
+      setSelectedArt(null);
+    } else setEquipNotice('未能調整裝備，請在戰鬥結束後重試。');
+  };
   // anime.js：入頁時列表／格仔錯開落筆出場；戰力數字由 0 滾到現值
   const paneRef = useRef<HTMLElement | null>(null);
   useEffect(() => {
@@ -122,7 +147,8 @@ export function InkPersonPanel({
     });
   }, [view]);
   const c = state.character;
-  const mainArtIds = Object.values(mainArts(c)).filter(Boolean) as string[];
+  const mainArtIds = equippedMartialArts(c);
+  const availableArts = [...new Set([...c.skills, ...Object.keys(manuals ?? {})])].filter(id => getSkillDef(id));
   const nature = ensureNature(c);
   const dominant = dominantNature(c);
   const lover = c.loverId ? state.npcs[c.loverId] : null;
@@ -443,9 +469,10 @@ export function InkPersonPanel({
       {view === 'skills' && (
         <>
           <h3>武學</h3>
-          <InkMainArts state={state} />
-          <InkSchoolTabs value={skillSchool} onChange={setSkillSchool} allowAll label="已學武學流派分類" />
-          {skillSchool !== 'all' && !c.skills.some(id => primarySchoolOfSkill(getSkillDef(id)) === skillSchool) && <p className="ink-note">暫未學識呢個流派嘅武學。</p>}
+          <InkMainArts state={state} selected={selectedArt} busy={busy} onEquip={equipArt} onCancel={() => setSelectedArt(null)} />
+          {equipNotice && <p className="ink-note ink-loadout-notice" role="status">{equipNotice}</p>}
+          <InkSchoolTabs value={skillSchool} onChange={setSkillSchool} allowAll label="武學流派分類" />
+          {skillSchool !== 'all' && !availableArts.some(id => primarySchoolOfSkill(getSkillDef(id)) === skillSchool) && <p className="ink-note">此流派尚無可用武學。</p>}
           {listWeaponMasteries(state).length > 0 && (
             <p className="ink-note">
               兵刃專精 ·{' '}
@@ -454,11 +481,11 @@ export function InkPersonPanel({
                 .join(' · ')}
             </p>
           )}
-          {c.skills.length === 0 ? (
+          {availableArts.length === 0 ? (
             <p className="ink-note">尚未習武。</p>
           ) : (
             <ul className="ink-skill-cards">
-              {c.skills.filter(id => skillSchool === 'all' || primarySchoolOfSkill(getSkillDef(id)) === skillSchool).map((id) => {
+              {availableArts.filter(id => skillSchool === 'all' || primarySchoolOfSkill(getSkillDef(id)) === skillSchool).map((id) => {
                 const def = getSkillDef(id);
                 const kind = def?.kind ?? 'external';
                 const stance = def?.move ? resolveMoveStance(def.move) : null;
@@ -469,7 +496,7 @@ export function InkPersonPanel({
                     <div className="ink-skill-card-head">
                       <strong>{skillDisplay(c, id)}</strong>
                       <span className="ink-skill-badge">{skillKindLabel(kind)}</span>
-                      {isMain ? <span className="ink-main-badge">主修</span> : null}
+                      {isMain ? <span className="ink-main-badge">已裝備</span> : !c.skills.includes(id) ? <span className="ink-main-badge">收藏 · 待習得</span> : null}
                       {stance ? (
                         <span className={`ink-stance-seal ink-stance-seal--${stance}`}>
                           {MOVE_STANCE_LABEL[stance]}
@@ -487,7 +514,7 @@ export function InkPersonPanel({
                     {hasVolumes(id) ? (
                       <p className="ink-skill-vols" aria-label="七卷">
                         {artVolumeMoves(id).map((m, i) => {
-                          const on = ownedVolumes(c, id).includes(i + 1);
+                          const on = (c.skills.includes(id) ? ownedVolumes(c, id) : collectionVolumes(collection, id)).includes(i + 1);
                           return (
                             <i key={m.id} className={on ? 'is-on' : ''} title={on ? m.name : '未得'}>
                               {VOLUME_NUMERALS[i]}
@@ -495,7 +522,7 @@ export function InkPersonPanel({
                           );
                         })}
                         <span>
-                          已得 {ownedVolumes(c, id).length}／{VOLUME_COUNT} 卷 · 自動交手每回合逐卷出招
+                          已得 {(c.skills.includes(id) ? ownedVolumes(c, id) : collectionVolumes(collection, id)).length}／{VOLUME_COUNT} 卷 · 裝備後可於自動交手逐卷出招
                         </span>
                       </p>
                     ) : null}
@@ -504,14 +531,15 @@ export function InkPersonPanel({
                       <span className="ink-main-slot-tags">
                         <InkSkillSchools id={id} related />
                       </span>
-                      {!isMain && onSetMainArt && (
+                      {!isMain && (
                         <button
                           type="button"
                           className="ink-btn ink-btn--quiet ink-main-set"
                           disabled={busy}
-                          onClick={() => onSetMainArt(kind, id)}
+                          aria-label={`選擇裝備：${getSkillDef(id)?.name ?? id}`}
+                          onClick={() => selectArt(id)}
                         >
-                          設為主修
+                          選擇裝備
                         </button>
                       )}
                     </div>
@@ -757,7 +785,7 @@ export function InkPersonPanel({
           <h3>戰力 {combatRating(state).toLocaleString('zh-Hant')} · {combatRatingTier(combatRating(state))}</h3>
           <p className="ink-note">江湖排名：{jianghuRank(state) >= JIANGHU_RANK_START ? '未列名' : `第${jianghuRank(state)}位`} · 威望 {jianghuPrestige(state)}</p>
           <p className="ink-note">
-            演武台對打用嘅數值，跟武學、修為境界、氣血上限同裝備計。演武現時去到第 {sparSavedStage(state)} 關。
+            演武台實戰數值，由已裝備武學、修為境界、氣血上限及裝備計算。目前進度為第 {sparSavedStage(state)} 關。
           </p>
 
           <h3 className="ink-subhead">總覽</h3>
@@ -831,11 +859,11 @@ export function InkPersonPanel({
               <span className="ink-delta-row-text">角色氣血上限 {numText(c.maxHealth)} ＝ 演武氣血上限 {numText(spar.stats.maxHp)}</span>
             </li>
             <li className="ink-delta-row ink-delta-row--flat">
-              <span className="ink-delta-row-text">武學同境界提升攻擊，唔再額外放大演武氣血</span>
+              <span className="ink-delta-row-text">武學及境界提升攻擊，演武氣血與角色氣血上限一致</span>
             </li>
             <li className="ink-delta-row ink-delta-row--flat">
               <strong className="ink-delta-row-text">
-                戰力綜合攻擊、暴擊、氣血、減傷、內力及回復能力，唔計威望或排名
+                戰力綜合攻擊、暴擊、氣血、減傷、內力及回復能力，不計威望或排名
               </strong>
             </li>
           </ul>
@@ -852,15 +880,15 @@ export function InkPersonPanel({
                 吸血：
                 {spar.stats.lifesteal > 0
                   ? `武學 ${pctText(spar.lifesteal.fromSkills)}${spar.lifesteal.skillNames.length ? `（${spar.lifesteal.skillNames.join('、')}）` : ''} ＋ 裝備 ${pctText(spar.lifesteal.fromGear)}（上限 ${pctText(spar.lifesteal.cap)}）`
-                  : '未學吸血招式、裝備亦冇吸血詞條 → 唔會吸血'}
+                  : '未裝備吸血武學或吸血詞條，不會產生吸血效果'}
               </span>
             </li>
             <li className={`ink-delta-row ${spar.stats.killHeal > 0 ? 'ink-delta-row--up' : 'ink-delta-row--flat'}`}>
               <span className="ink-delta-row-text">
                 擊倒回血：
                 {spar.stats.killHeal > 0
-                  ? `每打低一個敵人回 ${pctText(spar.stats.killHeal)}（${spar.heal.skillNames.join('、')}）；過關一律回滿`
-                  : '未學回血招式 → 關內唔回血；過關一律回滿'}
+                  ? `每擊倒一名敵人回復 ${pctText(spar.stats.killHeal)}（${spar.heal.skillNames.join('、')}）；過關一律回滿`
+                  : '未裝備回血武學，關內不會回復氣血；過關時回復至上限'}
               </span>
             </li>
             <li className="ink-delta-row ink-delta-row--flat">

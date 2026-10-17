@@ -64,7 +64,7 @@ export const BASIC_INTERNAL_MODE_ID = 'basic';
 export const BASIC_INTERNAL_MODE: InternalModeDef = {
   id: BASIC_INTERNAL_MODE_ID,
   name: '基本內功',
-  description: '尚未習得專精內功心法，僅得基礎吐納打底，運轉並無特別效果。',
+  description: '尚未裝備專精內功心法，基本運轉並無特別效果。',
   qiCostPerTurn: 0,
   effects: {},
 };

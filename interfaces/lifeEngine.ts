@@ -1,3 +1,4 @@
+import { MARTIAL_LOADOUT_LIMIT } from '@data/redesign/testParams';
 import { z } from 'zod';
 
 /** 根骨、悟性、福緣、魅力、膽識 */
@@ -229,6 +230,8 @@ export interface LifeCharacter {
   };
   /** 主修：招式／內功／身法各一門（未揀＝預設第一門學識嘅，見 core/life/schools.ts） */
   mainArts?: { external?: string; internal?: string; qinggong?: string };
+  /** 五格實戰武學；缺欄位嘅舊存檔由原主修遷移。 */
+  equippedArts?: (string | null)[];
   /** 秘笈升階（帳戶家族收藏嘅鏡像，畀戰鬥計威力用；見 core/life/gacha.ts） */
   manualStars?: Record<string, number>;
   /** 外功七卷：已得嘅卷號（1–7）；冇記錄＝只有卷一 */
@@ -640,6 +643,7 @@ export const lifeCharacterSchema = z.object({
   mainArts: z
     .object({ external: z.string().optional(), internal: z.string().optional(), qinggong: z.string().optional() })
     .optional(),
+  equippedArts: z.array(z.string().nullable()).max(MARTIAL_LOADOUT_LIMIT).optional(),
   manualStars: z.record(z.string(), z.number()).optional(),
   volumes: z.record(z.string(), z.array(z.number())).optional(),
   sectId: z.string().nullable(),

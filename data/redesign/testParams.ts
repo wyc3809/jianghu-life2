@@ -85,3 +85,6 @@ export const COMBAT_RATING_WEIGHTS = { attack: 4, hpDivisor: 5, qiDivisor: 10, l
 /** 第28項A：小冊容量（試作可調）；尾冊補同派配套，唔令任何舊武學消失。 */
 export const SCHOOL_GACHA_POOL_MIN = 6;
 export const SCHOOL_GACHA_POOL_MAX = 8;
+
+/** 玩家確認：最多同時裝備五門，類型／流派自由配搭。 */
+export const MARTIAL_LOADOUT_LIMIT = 5;

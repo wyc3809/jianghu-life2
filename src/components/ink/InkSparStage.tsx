@@ -64,7 +64,7 @@ function useHeroStatsKey() {
   return useLifeStore((s) => {
     const c = s.state?.character;
     if (!c) return '';
-    return [c.martial, c.health, c.maxHealth, c.cultivation?.tier ?? 0, JSON.stringify(c.attributes), c.skills.join(','), c.equipment.weapon, c.equipment.armor, c.equipment.accessory].join('|');
+    return [c.martial, c.health, c.maxHealth, c.cultivation?.tier ?? 0, JSON.stringify(c.attributes), c.skills.join(','), JSON.stringify(c.equippedArts), c.equipment.weapon, c.equipment.armor, c.equipment.accessory].join('|');
   });
 }
 const NO_CONDITIONS: { id: string; name: string; monthsLeft: number; severity: number }[] = [];

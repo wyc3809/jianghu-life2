@@ -11074,3 +11074,23 @@ body:has(.ink-spar-boss-screen) .ink-task-dock { visibility: hidden; }
   color: var(--cinnabar) !important;
   background: transparent;
 }
+
+/* 五格自由武學裝備：沿用冊頁位圖框，欄位唔按流派或類型分組。 */
+.ink-loadout-heading { display: flex; justify-content: space-between; align-items: center; margin: 4px 0 8px; }
+.ink-loadout-heading > strong { font-size: 1.1rem; letter-spacing: .12em; }
+.ink-loadout-heading > span { color: var(--ink-soft); font-size: .85rem; }
+.scroll-shell--play .ink-loadout .ink-main-arts-label { line-height: 1.8; letter-spacing: .02em; }
+.scroll-shell--play .ink-loadout-slot { grid-template-columns: 18px minmax(0,1fr) auto; padding: 10px 8px; gap: 6px; min-height: 68px; }
+.ink-loadout-slot-info { min-width: 0; display: grid; gap: 4px; }
+.scroll-shell--play .ink-loadout-slot-info > strong { font-size: 16px; line-height: 1.4; overflow-wrap: anywhere; }
+.ink-loadout-slot-info > small { font-size: 11px; line-height: 1.5; color: var(--ink-soft); overflow-wrap: anywhere; }
+.ink-loadout-slot-actions .ink-btn { min-width: 46px; min-height: 44px; padding: 6px; font-size: 13px; }
+.ink-loadout-selection { border-left: 3px solid var(--ink-red); padding: 8px 10px; margin-bottom: 10px; background: rgba(156,55,43,.06); }
+.ink-loadout-selection > strong { font-size: 18px; }
+.ink-loadout-selection > p { margin: 5px 0; font-size: 13px; line-height: 1.7; }
+.ink-loadout-selection > .ink-btn { min-height: 44px; }
+.ink-loadout-synergy > summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-size: 13px; color: var(--ink-soft); }
+.ink-loadout-notice { padding: 10px; border-left: 3px solid var(--ink-red); }
+.ink-loadout-selection { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 4px 8px; }
+.ink-loadout-selection > p { grid-column: 1 / -1; grid-row: 2; }
+.ink-loadout-selection > .ink-btn { grid-column: 2; grid-row: 1; font-size: 12px; padding: 6px; }
