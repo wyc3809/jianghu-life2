@@ -478,3 +478,15 @@
 - 字款、字級、字距同題簽大小屬本次美術原型，等玩家睇實際畫面後定方向。來源、授權、固定版本SHA256同重建腳本：`design/art/wuxia-typography/`、`scripts/art/build_game_title_font.py`。
 
 改前772203a／改後390×844、DPR2、seed42真實截圖同紅框：`production/qa/evidence/redesign/wuxia-typography/`。615項Vitest、Pages build、narrate hard-fail0通過；355項兩瀏覽器手機矩陣、37項字體真正載入／故意失敗後備及資源字體檢查通過，WebGL十連即裝回歸61項亦通過，兩瀏覽器合共453項檢查、無pageerror，結果見同目錄報告。本機Pages構建字體路徑、內容及授權3項檢查通過。手機矩陣用減少動態／無WebGL後備，另測真正WebGL；未當iPhone實機或正常動態性能驗收，未發布網頁／TestFlight。
+
+
+### 第28項冊頁藝術框原型（2026-10-17，已實作，待玩家睇圖，未上線）
+
+玩家問「框框都可以用一啲比較有藝術感嘅框？」。沿用六派楷筆字，先做六派選擇、武學卡、收藏／抽卡結果同人物主修框，交真實手機原型。未升版本，正式版仍EA0.73.0。
+
+- 新作生成式原畫：淺紙邊、淡竹綁冊角位、短筆墨線，正常淡墨、選中朱砂、珍本淡金、大區塊卷冊框。唔重用玩家拒絕嘅雲紋／深漆木古銅框。
+- 原圖1254×1254四格，保留來源PNG；腳本只裁切、等比縮放、轉WebP，四張512×512合共約310KiB。位圖九宮格固定角位、延展邊沿；中央保留DOM真文字，無SVG／程式重畫框。來源及重建：`design/art/wuxia-frames/`、`scripts/art/prepare_wuxia_frames.py`。
+- 六派維持三列；收藏／人物嘅「全部」獨立上方44px細欄，避免四列迫長字。裝飾層唔攔截操作，保留鍵盤焦點；缺圖仍用暖紙底／朱砂字辨認選中。
+- 冇改武學效果、分類／兼修、卡池／玉石／保底、存檔、演武台或主頁固定布局。畫框密度及大小屬本次美術原型，等玩家睇圖決定。
+
+實際c4744b3改前／改後、390×844、DPR2、seed42紅框同選派區：`production/qa/evidence/redesign/wuxia-art-frames/`。615項Vitest、Pages build、narrate hard-fail0通過；355項手機矩陣、49項藝術框／實際解碼／缺圖後備／點擊及鍵盤／珍本框檢查、61項真正WebGL十連即裝回歸，共465項、無pageerror。另核對本機Pages構建四種框base路徑及來源hash。手機矩陣用減少動態／無WebGL後備，另測真正WebGL；未當iPhone實機或正常動態性能已驗收。未發布網頁／TestFlight，先交圖。

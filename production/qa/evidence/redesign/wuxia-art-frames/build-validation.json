@@ -1,0 +1,34 @@
+{
+  "checks": [
+    {
+      "name": "frame-neutral.webp Pages-base-HTTP200-and-source-hash",
+      "pass": true,
+      "url": "http://127.0.0.1:5180/jianghu-life2/ink/art/wuxia-frames/frame-neutral.webp",
+      "bytes": 80410,
+      "contentType": "image/webp"
+    },
+    {
+      "name": "frame-panel.webp Pages-base-HTTP200-and-source-hash",
+      "pass": true,
+      "url": "http://127.0.0.1:5180/jianghu-life2/ink/art/wuxia-frames/frame-panel.webp",
+      "bytes": 78546,
+      "contentType": "image/webp"
+    },
+    {
+      "name": "frame-rare.webp Pages-base-HTTP200-and-source-hash",
+      "pass": true,
+      "url": "http://127.0.0.1:5180/jianghu-life2/ink/art/wuxia-frames/frame-rare.webp",
+      "bytes": 80626,
+      "contentType": "image/webp"
+    },
+    {
+      "name": "frame-selected.webp Pages-base-HTTP200-and-source-hash",
+      "pass": true,
+      "url": "http://127.0.0.1:5180/jianghu-life2/ink/art/wuxia-frames/frame-selected.webp",
+      "bytes": 78010,
+      "contentType": "image/webp"
+    }
+  ],
+  "published": false,
+  "server": "local-Pages-build-preview"
+}

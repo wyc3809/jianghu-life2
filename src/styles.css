@@ -11004,3 +11004,73 @@ body:has(.ink-spar-boss-screen) .ink-task-dock { visibility: hidden; }
 .scroll-shell--play :is(.ink-main-slot-name, .ink-skill-card-head > strong) { font-size: 18px; line-height: 1.5; }
 .scroll-shell--play :is(.ink-shelf-name, .ink-pull-name) { font-size: 16px; line-height: 1.5; }
 .ink-pull-context { font-size: 11px; line-height: 1.6; color: var(--ink-mid); margin: 10px 0 0; }
+
+/* 第28項藝術框原型：生成式位圖九宮格，角位固定、邊沿延展，中央保留真文字。 */
+:root {
+  --wuxia-frame-neutral: url('/ink/art/wuxia-frames/frame-neutral.webp');
+  --wuxia-frame-selected: url('/ink/art/wuxia-frames/frame-selected.webp');
+  --wuxia-frame-panel: url('/ink/art/wuxia-frames/frame-panel.webp');
+  --wuxia-frame-rare: url('/ink/art/wuxia-frames/frame-rare.webp');
+}
+.scroll-shell--play :is(.ink-school-tabs button, .ink-school-pool,
+  .ink-school-pool-preview li, .ink-main-arts, .ink-main-slot,
+  .ink-skill-card, .ink-shelf-row, .ink-pull-card, .ink-school-tag, .ink-school-seal) {
+  --wuxia-frame: var(--wuxia-frame-neutral);
+  --wuxia-frame-width: 14px;
+  position: relative;
+  isolation: isolate;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.scroll-shell--play :is(.ink-school-tabs button, .ink-school-pool,
+  .ink-school-pool-preview li, .ink-main-arts, .ink-main-slot,
+  .ink-skill-card, .ink-shelf-row, .ink-pull-card, .ink-school-tag, .ink-school-seal)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border: var(--wuxia-frame-width) solid transparent;
+  border-image-source: var(--wuxia-frame);
+  border-image-slice: 128;
+  border-image-width: 1;
+  border-image-repeat: stretch;
+  background: url('/ink/art/ui/paper-grain.webp') repeat, rgba(250, 246, 238, 0.9);
+  background-blend-mode: soft-light;
+  background-clip: padding-box;
+}
+.scroll-shell--play .ink-school-tabs { gap: 6px; }
+.scroll-shell--play .ink-school-tabs button { min-height: 90px; padding: 8px 4px; }
+.scroll-shell--play .ink-school-tabs button[aria-pressed='true'] { --wuxia-frame: var(--wuxia-frame-selected); }
+.scroll-shell--play .ink-school-tabs button[aria-pressed='true'] strong { color: var(--cinnabar); }
+.scroll-shell--play .ink-school-tabs button[aria-pressed='true']::before { background-color: #f7e8d6; }
+.scroll-shell--play .ink-school-tabs button:focus-visible { outline: 2px solid var(--cinnabar); outline-offset: 2px; }
+.scroll-shell--play .ink-school-tabs.has-all { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.scroll-shell--play .ink-school-tabs.has-all strong { font-size: clamp(12px, 3.85vw, 15px); }
+.scroll-shell--play .ink-school-tabs.has-all > button:first-child {
+  grid-column: 1 / -1;
+  min-height: 44px;
+  flex-direction: row;
+  gap: 8px;
+}
+.scroll-shell--play :is(.ink-school-pool, .ink-main-arts) {
+  --wuxia-frame: var(--wuxia-frame-panel);
+  --wuxia-frame-width: 18px;
+  padding: 16px 14px;
+}
+.scroll-shell--play .ink-school-pool-preview li { padding: 16px 13px; gap: 4px; }
+.scroll-shell--play .ink-main-slot { padding: 14px 10px; gap: 6px 8px; }
+.scroll-shell--play .ink-main-slot.is-empty::before { opacity: 0.6; }
+.scroll-shell--play :is(.ink-skill-card, .ink-shelf-row, .ink-pull-card) { padding: 16px 14px; }
+.scroll-shell--play :is(.ink-school-pool-preview li.is-premium, .ink-shelf-row.is-premium, .ink-pull-card.is-premium) {
+  --wuxia-frame: var(--wuxia-frame-rare);
+}
+.scroll-shell--play .ink-pull-card.is-wish { --wuxia-frame: var(--wuxia-frame-selected); }
+.scroll-shell--play .ink-school-tag { --wuxia-frame-width: 6px; padding: 2px 8px; }
+.scroll-shell--play .ink-school-seal { --wuxia-frame-width: 8px; padding: 5px 9px; }
+.scroll-shell--play .ink-school-row.is-major .ink-school-seal {
+  --wuxia-frame: var(--wuxia-frame-selected);
+  color: var(--cinnabar) !important;
+  background: transparent;
+}

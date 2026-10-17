@@ -1,0 +1,75 @@
+{
+  "source": "frame-atlas.png",
+  "sourceSize": [
+    1254,
+    1254
+  ],
+  "sourceSha256": "641f031bc8417dd080f683eae56b6008d538ae3a8f88c1bf884deb3e50e23735",
+  "preparation": "只做2×2裁切、512px等比縮放、WebP編碼；無重畫或改色",
+  "frames": [
+    {
+      "name": "neutral",
+      "crop": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "slice": 128,
+      "bytes": 80410,
+      "sha256": "ac3d2d674b6e5c7cadebf5877e39f0998f41fc52ac35af9cb93cbbb530917bf0"
+    },
+    {
+      "name": "selected",
+      "crop": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "slice": 128,
+      "bytes": 78010,
+      "sha256": "3863020df9cf11a916afb6a384c98aa796e940ece186d15268a16305c28e6011"
+    },
+    {
+      "name": "panel",
+      "crop": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "slice": 128,
+      "bytes": 78546,
+      "sha256": "dcb4154065aa3e367970a88894ca0a6f88a00c567c0e33e982a81e2e2447cdfa"
+    },
+    {
+      "name": "rare",
+      "crop": [
+        627,
+        627,
+        1254,
+        1254
+      ],
+      "size": [
+        512,
+        512
+      ],
+      "slice": 128,
+      "bytes": 80626,
+      "sha256": "939219c32ab966fc6e8a945638a1e51d713b32bbf64cde116411cef78c6244d0"
+    }
+  ]
+}

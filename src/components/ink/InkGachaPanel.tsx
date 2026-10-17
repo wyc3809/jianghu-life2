@@ -219,7 +219,7 @@ export function InkGachaPanel({ state }: Props) {
               <details className="ink-school-pool-preview" key={pool.id}>
                 <summary>本冊可得武學 · 查看 {pool.arts.length} 門</summary>
                 <ul aria-label="本冊可得武學">
-                  {pool.arts.map(id => <li key={id}>
+                  {pool.arts.map(id => <li key={id} className={getSkillDef(id)?.premium ? 'is-premium' : undefined}>
                     <strong>{skillLabel(id)}</strong><small>{skillKindLabel(getSkillDef(id)!.kind)}{getSkillDef(id)?.premium ? ' · 珍本' : ''}{primarySchoolOfSkill(getSkillDef(id)) !== pool.school ? ' · 兼修配套' : ''}</small>
                     <InkSkillSchools id={id} />
                   </li>)}

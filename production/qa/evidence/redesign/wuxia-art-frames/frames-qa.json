@@ -1,0 +1,303 @@
+{
+  "checks": [
+    {
+      "name": "chromium-loaded four-WebP-assets-decode-or-fail-as-requested",
+      "pass": true
+    },
+    {
+      "name": "chromium-loaded selected-raster-nine-slice-and-no-pointer-interception",
+      "pass": true
+    },
+    {
+      "name": "chromium-loaded actual-button-hit-target-not-covered",
+      "pass": true
+    },
+    {
+      "name": "chromium-loaded light-paper-fill-not-opaque-gray-grain",
+      "pass": true
+    },
+    {
+      "name": "chromium-loaded keyboard-focus-visible",
+      "pass": true
+    },
+    {
+      "name": "chromium-loaded keyboard-select-updates-real-pool-and-art-state",
+      "pass": true
+    },
+    {
+      "name": "chromium-loaded selected-school-is-real-saved-choice",
+      "pass": true
+    },
+    {
+      "name": "chromium-loaded selection-stays-visible-with-images-blocked",
+      "pass": true
+    },
+    {
+      "name": "chromium-loaded rare-card-styling-matches-real-premium-list",
+      "pass": true
+    },
+    {
+      "name": "chromium-loaded rare-manual-uses-gold-raster-frame",
+      "pass": true
+    },
+    {
+      "name": "chromium-loaded 390-labels-and-touch-target-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-loaded 320-labels-and-touch-target-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-blocked four-WebP-assets-decode-or-fail-as-requested",
+      "pass": true
+    },
+    {
+      "name": "chromium-blocked selected-raster-nine-slice-and-no-pointer-interception",
+      "pass": true
+    },
+    {
+      "name": "chromium-blocked actual-button-hit-target-not-covered",
+      "pass": true
+    },
+    {
+      "name": "chromium-blocked light-paper-fill-not-opaque-gray-grain",
+      "pass": true
+    },
+    {
+      "name": "chromium-blocked keyboard-focus-visible",
+      "pass": true
+    },
+    {
+      "name": "chromium-blocked keyboard-select-updates-real-pool-and-art-state",
+      "pass": true
+    },
+    {
+      "name": "chromium-blocked selected-school-is-real-saved-choice",
+      "pass": true
+    },
+    {
+      "name": "chromium-blocked selection-stays-visible-with-images-blocked",
+      "pass": true
+    },
+    {
+      "name": "chromium-blocked rare-card-styling-matches-real-premium-list",
+      "pass": true
+    },
+    {
+      "name": "chromium-blocked rare-manual-uses-gold-raster-frame",
+      "pass": true
+    },
+    {
+      "name": "chromium-blocked 390-labels-and-touch-target-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-blocked 320-labels-and-touch-target-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-loaded four-WebP-assets-decode-or-fail-as-requested",
+      "pass": true
+    },
+    {
+      "name": "webkit-loaded selected-raster-nine-slice-and-no-pointer-interception",
+      "pass": true
+    },
+    {
+      "name": "webkit-loaded actual-button-hit-target-not-covered",
+      "pass": true
+    },
+    {
+      "name": "webkit-loaded light-paper-fill-not-opaque-gray-grain",
+      "pass": true
+    },
+    {
+      "name": "webkit-loaded keyboard-focus-visible",
+      "pass": true
+    },
+    {
+      "name": "webkit-loaded keyboard-select-updates-real-pool-and-art-state",
+      "pass": true
+    },
+    {
+      "name": "webkit-loaded selected-school-is-real-saved-choice",
+      "pass": true
+    },
+    {
+      "name": "webkit-loaded selection-stays-visible-with-images-blocked",
+      "pass": true
+    },
+    {
+      "name": "webkit-loaded rare-card-styling-matches-real-premium-list",
+      "pass": true
+    },
+    {
+      "name": "webkit-loaded rare-manual-uses-gold-raster-frame",
+      "pass": true
+    },
+    {
+      "name": "webkit-loaded 390-labels-and-touch-target-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-loaded 320-labels-and-touch-target-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-blocked four-WebP-assets-decode-or-fail-as-requested",
+      "pass": true
+    },
+    {
+      "name": "webkit-blocked selected-raster-nine-slice-and-no-pointer-interception",
+      "pass": true
+    },
+    {
+      "name": "webkit-blocked actual-button-hit-target-not-covered",
+      "pass": true
+    },
+    {
+      "name": "webkit-blocked light-paper-fill-not-opaque-gray-grain",
+      "pass": true
+    },
+    {
+      "name": "webkit-blocked keyboard-focus-visible",
+      "pass": true
+    },
+    {
+      "name": "webkit-blocked keyboard-select-updates-real-pool-and-art-state",
+      "pass": true
+    },
+    {
+      "name": "webkit-blocked selected-school-is-real-saved-choice",
+      "pass": true
+    },
+    {
+      "name": "webkit-blocked selection-stays-visible-with-images-blocked",
+      "pass": true
+    },
+    {
+      "name": "webkit-blocked rare-card-styling-matches-real-premium-list",
+      "pass": true
+    },
+    {
+      "name": "webkit-blocked rare-manual-uses-gold-raster-frame",
+      "pass": true
+    },
+    {
+      "name": "webkit-blocked 390-labels-and-touch-target-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-blocked 320-labels-and-touch-target-fit",
+      "pass": true
+    },
+    {
+      "name": "no-page-errors",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "assets": [
+    {
+      "tag": "chromium-loaded",
+      "decoded": [
+        {
+          "name": "neutral",
+          "loaded": true,
+          "width": 512,
+          "height": 512
+        },
+        {
+          "name": "selected",
+          "loaded": true,
+          "width": 512,
+          "height": 512
+        },
+        {
+          "name": "panel",
+          "loaded": true,
+          "width": 512,
+          "height": 512
+        },
+        {
+          "name": "rare",
+          "loaded": true,
+          "width": 512,
+          "height": 512
+        }
+      ]
+    },
+    {
+      "tag": "chromium-blocked",
+      "decoded": [
+        {
+          "name": "neutral",
+          "loaded": false
+        },
+        {
+          "name": "selected",
+          "loaded": false
+        },
+        {
+          "name": "panel",
+          "loaded": false
+        },
+        {
+          "name": "rare",
+          "loaded": false
+        }
+      ]
+    },
+    {
+      "tag": "webkit-loaded",
+      "decoded": [
+        {
+          "name": "neutral",
+          "loaded": true,
+          "width": 512,
+          "height": 512
+        },
+        {
+          "name": "selected",
+          "loaded": true,
+          "width": 512,
+          "height": 512
+        },
+        {
+          "name": "panel",
+          "loaded": true,
+          "width": 512,
+          "height": 512
+        },
+        {
+          "name": "rare",
+          "loaded": true,
+          "width": 512,
+          "height": 512
+        }
+      ]
+    },
+    {
+      "tag": "webkit-blocked",
+      "decoded": [
+        {
+          "name": "neutral",
+          "loaded": false
+        },
+        {
+          "name": "selected",
+          "loaded": false
+        },
+        {
+          "name": "panel",
+          "loaded": false
+        },
+        {
+          "name": "rare",
+          "loaded": false
+        }
+      ]
+    }
+  ]
+}
