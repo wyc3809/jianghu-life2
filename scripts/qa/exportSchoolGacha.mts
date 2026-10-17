@@ -8,11 +8,13 @@ import { MARTIAL_CATALOG_RAW } from '../../data/content/packs';
 const names = Object.fromEntries(SCHOOLS.map(s => [s.id, s.name]));
 const rows = Object.values(SKILL_DEFS).map(def => ({ id: def.id, name: def.name, kind: def.kind,
   school: primarySchoolOfSkill(def), affinities: schoolsOfSkill(def), premium: !!def.premium }));
-fs.writeFileSync('production/qa/evidence/redesign/school-gacha/catalog.json', JSON.stringify({ arts: rows, pools: SCHOOL_GACHA_POOLS }, null, 2));
+const evidence = process.env.QA_EVIDENCE_DIR ?? 'production/qa/evidence/redesign/school-gacha';
+fs.mkdirSync(evidence, { recursive: true });
+fs.writeFileSync(`${evidence}/catalog.json`, JSON.stringify({ arts: rows, pools: SCHOOL_GACHA_POOLS }, null, 2));
 const lines = ['# 現有武學流派對照（第28項A，待玩家睇圖）', '',
  '玩家已選A流派定向小卡池，並要求現有武學分流派。共103門真正武學：84門江湖、19門珍本；舊資料另有10筆名稱對照，唔重複當新武學。', '',
  '每門一個主流派，原有兼修適性保留。分類唔等於門派，仍可自由混搭；篩選按主流派，卡池會清楚列出兼修配套。', '',
- '天刀開山、羅漢拳以前冇分類，現分別歸破甲、金剛，亦納入原本同派主修協同計數；加成數值、招式威力、耗內、主角氣血冇改。每冊6–8門係可調試作容量，未升版本／未上線。', '',
+ '天刀開山、羅漢拳以前冇分類，現分別歸摧鋒破陣、不動金剛，亦納入原本同派主修協同計數；加成數值、招式威力、耗內、主角氣血冇改。每冊6–8門係可調試作容量，未升版本／未上線。', '',
  '每抽60玉石、40抽心願保底、非心願珍本判定6%沿用；江湖冊唔出珍本，付費珍本冊出本派珍本或列明嘅江湖配套。換流派／小冊不清保底抽數，舊心願若不在新冊需重選；舊存檔第一次按舊心願選返相容冊。', '',
  'A方案收窄咗出貨名單，每門實際中選率會因本冊門數而提高；唔係所有單門概率不變。保留嘅係價格、保底、原有額外心願判定及非心願珍本判定；冇改成混合材料池。', ''];
 for (const school of SCHOOLS) {

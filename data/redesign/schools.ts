@@ -33,6 +33,8 @@ export interface SchoolBonus {
 export interface SchoolDef {
   id: SchoolId;
   name: string;
+  /** 畫面用嘅易明打法定位，唔代表每門武學都有全部效果。 */
+  focus: string;
   /** 一句講清楚呢派點打 */
   blurb: string;
   /** 小成（2 門） */
@@ -44,43 +46,49 @@ export interface SchoolDef {
 export const SCHOOLS: SchoolDef[] = [
   {
     id: 'xueren',
-    name: '血刃',
-    blurb: '見血封喉，以傷養傷',
+    name: '修羅血戰道',
+    focus: '出血・汲血',
+    blurb: '傷敵續命，攻勢不息',
     minor: { bleedChance: 0.08, lifesteal: 0.04 },
     major: { bleedChance: 0.16, lifesteal: 0.08 },
   },
   {
     id: 'lianhuan',
-    name: '連環',
-    blurb: '招招相連，快過對手',
+    name: '長河疊浪',
+    focus: '連擊・命中',
+    blurb: '前招未盡，後勢已至',
     minor: { hitBonus: 0.05, attackPct: 0.05 },
     major: { hitBonus: 0.1, attackPct: 0.12 },
   },
   {
     id: 'pojia',
-    name: '破甲',
-    blurb: '專破硬殼，首領剋星',
+    name: '摧鋒破陣',
+    focus: '穿防・破甲',
+    blurb: '勁透堅甲，一擊破勢',
     minor: { pierce: 0.1 },
     major: { pierce: 0.2, attackPct: 0.05 },
   },
   {
     id: 'zhidi',
-    name: '制敵',
-    blurb: '點穴封脈，叫敵出不得手',
+    name: '鎖脈擒龍',
+    focus: '暈眩・耗內',
+    blurb: '截其內息，奪其先機',
     minor: { stunChance: 0.08 },
     major: { stunChance: 0.15, hitBonus: 0.05 },
   },
   {
     id: 'jingang',
-    name: '金剛',
-    blurb: '銅皮鐵骨，以守為攻',
+    name: '不動金剛',
+    focus: '防守・反傷',
+    blurb: '守身如嶽，借勢還勁',
     minor: { defensePct: 0.15, reflect: 0.05 },
     major: { defensePct: 0.3, reflect: 0.1 },
   },
   {
     id: 'qingling',
-    name: '輕靈',
-    blurb: '身似飄絮，避實擊虛',
+    name: '逍遙遊',
+    focus: '身法・閃避',
+    blurb: '身隨意轉，避實擊虛',
     minor: { evasion: 0.05 },
     major: { evasion: 0.1, hitBonus: 0.05 },
   },

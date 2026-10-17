@@ -1,0 +1,1378 @@
+{
+  "checks": [
+    {
+      "name": "chromium-320x690 legacy-free-wish-routed-to-correct-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 legacy-premium-wish-kept",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 legacy-pity-kept",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 full-school-names-and-focus-fit-touch-buttons",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 confirmed-six-full-names",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 修羅血戰道 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 修羅血戰道 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 修羅血戰道 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 修羅血戰道 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 長河疊浪 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 長河疊浪 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 長河疊浪 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 長河疊浪 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 摧鋒破陣 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 摧鋒破陣 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 摧鋒破陣 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 摧鋒破陣 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 鎖脈擒龍 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 鎖脈擒龍 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 鎖脈擒龍 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 鎖脈擒龍 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 不動金剛 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 不動金剛 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 不動金剛 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 不動金剛 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 逍遙遊 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 逍遙遊 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 逍遙遊 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 逍遙遊 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 修羅血戰道 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 修羅血戰道 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 修羅血戰道 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 長河疊浪 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 長河疊浪 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 長河疊浪 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 摧鋒破陣 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 摧鋒破陣 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 摧鋒破陣 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 鎖脈擒龍 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 鎖脈擒龍 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 鎖脈擒龍 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 不動金剛 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 不動金剛 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 不動金剛 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 逍遙遊 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 逍遙遊 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 逍遙遊 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 old-pity-draws-wish-and-spends-only-paid",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 real-pull-quick-equip-still-works",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 previous-results-keep-correct-source-after-switch",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 all-existing-collection-sorted-by-primary",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 collection-long-name-buttons-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 person-skills-filter-matches-classification",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 person-long-name-buttons-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 multi-affinity-main-and-synergy-long-labels-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 all-five-internal-affinities-preserved",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 fixed-frame-and-no-horizontal-overflow",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 legacy-free-wish-routed-to-correct-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 legacy-premium-wish-kept",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 legacy-pity-kept",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 full-school-names-and-focus-fit-touch-buttons",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 confirmed-six-full-names",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 修羅血戰道 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 修羅血戰道 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 修羅血戰道 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 修羅血戰道 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 長河疊浪 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 長河疊浪 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 長河疊浪 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 長河疊浪 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 摧鋒破陣 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 摧鋒破陣 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 摧鋒破陣 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 摧鋒破陣 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 鎖脈擒龍 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 鎖脈擒龍 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 鎖脈擒龍 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 鎖脈擒龍 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 不動金剛 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 不動金剛 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 不動金剛 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 不動金剛 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 逍遙遊 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 逍遙遊 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 逍遙遊 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 逍遙遊 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 修羅血戰道 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 修羅血戰道 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 修羅血戰道 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 長河疊浪 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 長河疊浪 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 長河疊浪 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 摧鋒破陣 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 摧鋒破陣 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 摧鋒破陣 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 鎖脈擒龍 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 鎖脈擒龍 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 鎖脈擒龍 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 不動金剛 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 不動金剛 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 不動金剛 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 逍遙遊 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 逍遙遊 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 逍遙遊 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 old-pity-draws-wish-and-spends-only-paid",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 real-pull-quick-equip-still-works",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 previous-results-keep-correct-source-after-switch",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 all-existing-collection-sorted-by-primary",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 collection-long-name-buttons-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 person-skills-filter-matches-classification",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 person-long-name-buttons-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 multi-affinity-main-and-synergy-long-labels-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 all-five-internal-affinities-preserved",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 fixed-frame-and-no-horizontal-overflow",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 legacy-free-wish-routed-to-correct-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 legacy-premium-wish-kept",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 legacy-pity-kept",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 full-school-names-and-focus-fit-touch-buttons",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 confirmed-six-full-names",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 修羅血戰道 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 修羅血戰道 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 修羅血戰道 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 修羅血戰道 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 長河疊浪 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 長河疊浪 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 長河疊浪 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 長河疊浪 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 摧鋒破陣 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 摧鋒破陣 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 摧鋒破陣 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 摧鋒破陣 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 鎖脈擒龍 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 鎖脈擒龍 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 鎖脈擒龍 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 鎖脈擒龍 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 不動金剛 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 不動金剛 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 不動金剛 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 不動金剛 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 逍遙遊 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 逍遙遊 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 逍遙遊 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 逍遙遊 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 修羅血戰道 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 修羅血戰道 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 修羅血戰道 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 長河疊浪 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 長河疊浪 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 長河疊浪 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 摧鋒破陣 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 摧鋒破陣 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 摧鋒破陣 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 鎖脈擒龍 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 鎖脈擒龍 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 鎖脈擒龍 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 不動金剛 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 不動金剛 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 不動金剛 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 逍遙遊 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 逍遙遊 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 逍遙遊 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 old-pity-draws-wish-and-spends-only-paid",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 real-pull-quick-equip-still-works",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 previous-results-keep-correct-source-after-switch",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 all-existing-collection-sorted-by-primary",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 collection-long-name-buttons-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 person-skills-filter-matches-classification",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 person-long-name-buttons-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 multi-affinity-main-and-synergy-long-labels-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 all-five-internal-affinities-preserved",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 fixed-frame-and-no-horizontal-overflow",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 legacy-free-wish-routed-to-correct-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 legacy-premium-wish-kept",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 legacy-pity-kept",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 full-school-names-and-focus-fit-touch-buttons",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 confirmed-six-full-names",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 修羅血戰道 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 修羅血戰道 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 修羅血戰道 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 修羅血戰道 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 長河疊浪 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 長河疊浪 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 長河疊浪 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 長河疊浪 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 摧鋒破陣 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 摧鋒破陣 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 摧鋒破陣 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 摧鋒破陣 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 鎖脈擒龍 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 鎖脈擒龍 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 鎖脈擒龍 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 鎖脈擒龍 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 不動金剛 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 不動金剛 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 不動金剛 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 不動金剛 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 逍遙遊 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 逍遙遊 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 逍遙遊 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 逍遙遊 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 修羅血戰道 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 修羅血戰道 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 修羅血戰道 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 長河疊浪 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 長河疊浪 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 長河疊浪 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 摧鋒破陣 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 摧鋒破陣 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 摧鋒破陣 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 鎖脈擒龍 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 鎖脈擒龍 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 鎖脈擒龍 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 不動金剛 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 不動金剛 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 不動金剛 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 逍遙遊 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 逍遙遊 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 逍遙遊 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 old-pity-draws-wish-and-spends-only-paid",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 real-pull-quick-equip-still-works",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 previous-results-keep-correct-source-after-switch",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 all-existing-collection-sorted-by-primary",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 collection-long-name-buttons-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 person-skills-filter-matches-classification",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 person-long-name-buttons-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 multi-affinity-main-and-synergy-long-labels-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 all-five-internal-affinities-preserved",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 fixed-frame-and-no-horizontal-overflow",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 legacy-free-wish-routed-to-correct-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 legacy-premium-wish-kept",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 legacy-pity-kept",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 full-school-names-and-focus-fit-touch-buttons",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 confirmed-six-full-names",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 修羅血戰道 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 修羅血戰道 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 修羅血戰道 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 修羅血戰道 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 長河疊浪 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 長河疊浪 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 長河疊浪 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 長河疊浪 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 摧鋒破陣 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 摧鋒破陣 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 摧鋒破陣 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 摧鋒破陣 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 鎖脈擒龍 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 鎖脈擒龍 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 鎖脈擒龍 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 鎖脈擒龍 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 不動金剛 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 不動金剛 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 不動金剛 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 不動金剛 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 逍遙遊 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 逍遙遊 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 逍遙遊 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 逍遙遊 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 修羅血戰道 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 修羅血戰道 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 修羅血戰道 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 長河疊浪 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 長河疊浪 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 長河疊浪 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 摧鋒破陣 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 摧鋒破陣 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 摧鋒破陣 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 鎖脈擒龍 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 鎖脈擒龍 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 鎖脈擒龍 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 不動金剛 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 不動金剛 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 不動金剛 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 逍遙遊 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 逍遙遊 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 逍遙遊 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 old-pity-draws-wish-and-spends-only-paid",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 real-pull-quick-equip-still-works",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 previous-results-keep-correct-source-after-switch",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 all-existing-collection-sorted-by-primary",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 collection-long-name-buttons-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 person-skills-filter-matches-classification",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 person-long-name-buttons-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 multi-affinity-main-and-synergy-long-labels-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 all-five-internal-affinities-preserved",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 fixed-frame-and-no-horizontal-overflow",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 legacy-free-wish-routed-to-correct-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 legacy-premium-wish-kept",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 legacy-pity-kept",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 full-school-names-and-focus-fit-touch-buttons",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 confirmed-six-full-names",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 修羅血戰道 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 修羅血戰道 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 修羅血戰道 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 修羅血戰道 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 長河疊浪 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 長河疊浪 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 長河疊浪 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 長河疊浪 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 摧鋒破陣 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 摧鋒破陣 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 摧鋒破陣 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 摧鋒破陣 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 鎖脈擒龍 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 鎖脈擒龍 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 鎖脈擒龍 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 鎖脈擒龍 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 不動金剛 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 不動金剛 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 不動金剛 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 不動金剛 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 逍遙遊 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 逍遙遊 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 逍遙遊 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 逍遙遊 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 修羅血戰道 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 修羅血戰道 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 修羅血戰道 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 長河疊浪 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 長河疊浪 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 長河疊浪 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 摧鋒破陣 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 摧鋒破陣 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 摧鋒破陣 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 鎖脈擒龍 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 鎖脈擒龍 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 鎖脈擒龍 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 不動金剛 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 不動金剛 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 不動金剛 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 逍遙遊 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 逍遙遊 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 逍遙遊 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 old-pity-draws-wish-and-spends-only-paid",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 real-pull-quick-equip-still-works",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 previous-results-keep-correct-source-after-switch",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 all-existing-collection-sorted-by-primary",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 collection-long-name-buttons-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 person-skills-filter-matches-classification",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 person-long-name-buttons-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 multi-affinity-main-and-synergy-long-labels-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 all-five-internal-affinities-preserved",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 fixed-frame-and-no-horizontal-overflow",
+      "pass": true
+    },
+    {
+      "name": "no-page-errors",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "layouts": []
+}

@@ -21,7 +21,7 @@ export function InkSchoolTabs({ value, onChange, allowAll, counts, label = '流�
     {allowAll && <button type="button" aria-pressed={value === 'all'} onClick={() => onChange('all')}>全部</button>}
     {SCHOOLS.map(school => <button type="button" key={school.id} className={`ink-school-choice ink-school-tag--${school.id}`}
       aria-label={`選${school.name}流派`} aria-pressed={value === school.id} onClick={() => onChange(school.id)}>
-      <InkIcon name={ICONS[school.id]} size={20} /><span>{school.name}</span>{counts?.[school.id] !== undefined && <small>{counts[school.id]}</small>}
+      <InkIcon name={ICONS[school.id]} size={20} /><strong>{school.name}</strong><small className="ink-school-focus">{school.focus}</small>{counts?.[school.id] !== undefined && <small>{counts[school.id]}</small>}
     </button>)}
   </div>;
 }

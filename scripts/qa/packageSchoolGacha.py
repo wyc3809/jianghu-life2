@@ -11,7 +11,8 @@ board = Image.new('RGB', (840, 938), '#f6f1e6')
 d = ImageDraw.Draw(board)
 d.text((16, 9), '流派定向卡池・現有武學分類', font=f, fill='#28241e')
 d.text((16, 39), '103門武學・六派・21本小冊・每冊6–8門（seed42，390×844）', font=s, fill='#6b5f50')
-for x, path, title in [(14, 'before.png', '改前：大池抽取'), (426, 'chromium-jianghu-連環.png', '改後：揀流派、揀小冊、預覽本冊名單')]:
+current = 'chromium-jianghu-長河疊浪.png' if (p / 'chromium-jianghu-長河疊浪.png').exists() else 'chromium-jianghu-連環.png'
+for x, path, title in [(14, 'before.png', '改前：大池抽取'), (426, current, '改後：揀流派、揀小冊、預覽本冊名單')]:
     d.text((x, 66), title, font=s, fill='#a33a32')
     im = Image.open(p / path).convert('RGB').resize((390, 844), Image.Resampling.LANCZOS)
     board.paste(im, (x, 88))

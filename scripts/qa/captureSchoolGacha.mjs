@@ -1,7 +1,7 @@
 // 真實六派選冊／舊心願保底／抽卡與分類。此矩陣測無WebGL後備，3D另用即裝回歸。
 import {chromium,webkit} from '/opt/codex/cua_node/lib/node_modules/playwright/index.mjs';
 import fs from 'node:fs';
-const out='production/qa/evidence/redesign/school-gacha';fs.mkdirSync(out,{recursive:true});
+const out=process.env.QA_EVIDENCE_DIR??'production/qa/evidence/redesign/school-gacha';fs.mkdirSync(out,{recursive:true});
 const previous=process.env.QA_BROWSER&&fs.existsSync(out+'/browser-qa.json')?JSON.parse(fs.readFileSync(out+'/browser-qa.json','utf8')):null;
 const report={checks:previous?previous.checks.filter(c=>!c.name.startsWith(process.env.QA_BROWSER)):[],errors:[],layouts:[]};
 function check(pass,name){report.checks.push({name,pass:!!pass});fs.writeFileSync(out+'/browser-qa.json',JSON.stringify(report,null,2));if(!pass)throw Error(name);}
@@ -40,6 +40,11 @@ for(const[name,type]of[['chromium',chromium],['webkit',webkit]])for(const[width,
   check(await page.getByLabel('心願',{exact:true}).inputValue()==='pr_tide_step',tag+' legacy-premium-wish-kept');
   check(await page.evaluate(()=>window.qaAncestryStore.getState().meta.gacha.banners.zhenben.sinceWish===39),tag+' legacy-pity-kept');
   const groups=await page.evaluate(()=>window.qaSchools.map(s=>s.name));
+  const labelsFit=()=>page.locator('.ink-school-tabs').evaluateAll(tabs=>tabs.every(tab=>[...tab.querySelectorAll('button')].every(button=>{
+   const r=button.getBoundingClientRect();return r.height>=44&&r.width>=44&&button.scrollWidth<=button.clientWidth&&[...button.querySelectorAll('strong,small')].every(label=>{const t=label.getBoundingClientRect();return t.left>=r.left&&t.right<=r.right&&t.top>=r.top&&t.bottom<=r.bottom&&label.scrollWidth<=label.clientWidth});
+  })));
+  check(await labelsFit(),tag+' full-school-names-and-focus-fit-touch-buttons');
+  check(await page.evaluate(()=>window.qaSchools.map(s=>s.name).join('、')==='修羅血戰道、長河疊浪、摧鋒破陣、鎖脈擒龍、不動金剛、逍遙遊'),tag+' confirmed-six-full-names');
   for(const banner of ['jianghu','zhenben']){
    await page.getByRole('tab',{name:banner==='jianghu'?/江湖秘笈/:/珍本奇功/}).click();
    for(const school of groups){
@@ -54,7 +59,7 @@ for(const[name,type]of[['chromium',chromium],['webkit',webkit]])for(const[width,
      check(await page.evaluate(banner=>window.qaPool(window.qaAncestryStore.getState().meta,banner).id,banner)===values.at(-1),tag+' '+school+' select-another-book');
      await page.locator('.ink-school-pool-preview summary').click();
     }
-    if(width===390&&((banner==='jianghu'&&school==='連環')||(banner==='zhenben'&&school==='輕靈'))){await page.locator('.ink-school-pool').scrollIntoViewIfNeeded();await page.waitForTimeout(1200);await page.screenshot({path:`${out}/${name}-${banner}-${school}.png`});await page.locator('.ink-school-pool').screenshot({path:`${out}/${name}-${banner}-pool.png`});}
+    if(width===390&&((banner==='jianghu'&&school===groups[1])||(banner==='zhenben'&&school===groups[5]))){await page.locator('.ink-school-pool').scrollIntoViewIfNeeded();await page.waitForTimeout(1200);await page.screenshot({path:`${out}/${name}-${banner}-${school}.png`});await page.locator('.ink-school-pool').screenshot({path:`${out}/${name}-${banner}-pool.png`});}
    }
   }
   // 39/40舊保底實際抽一次，仍喺本冊，免費／付費分開扣。
@@ -68,14 +73,22 @@ for(const[name,type]of[['chromium',chromium],['webkit',webkit]])for(const[width,
   await page.getByRole('tab',{name:/江湖秘笈/}).click();
   check((await page.getByLabel('抽取結果來源').innerText()).includes('珍本奇功')&&(await page.getByLabel('抽取結果來源').innerText()).includes('目前已切換小冊'),tag+' previous-results-keep-correct-source-after-switch');
   await page.getByRole('button',{name:/家族收藏/}).click();
-  const collection=page.getByRole('group',{name:'收藏流派分類'});await collection.getByRole('button',{name:'選輕靈流派',exact:true}).click();
+  const collection=page.getByRole('group',{name:'收藏流派分類'});await collection.getByRole('button',{name:`選${groups[5]}流派`,exact:true}).click();
   check(await page.locator('.ink-shelf > li').count()===18,tag+' all-existing-collection-sorted-by-primary');
+  check(await labelsFit(),tag+' collection-long-name-buttons-fit');
   if(width===390){await collection.scrollIntoViewIfNeeded();await page.waitForTimeout(1200);await page.screenshot({path:`${out}/${name}-collection.png`});}
   await page.getByRole('navigation',{name:'分卷'}).getByRole('button',{name:'鎮居',exact:true}).click();
   await page.getByRole('navigation',{name:'功能入口'}).getByRole('button',{name:'武學',exact:true}).click();
-  const learned=page.getByRole('group',{name:'已學武學流派分類'});await learned.getByRole('button',{name:'選破甲流派',exact:true}).click();
+  const learned=page.getByRole('group',{name:'已學武學流派分類'});await learned.getByRole('button',{name:`選${groups[2]}流派`,exact:true}).click();
   check(await page.locator('.ink-skill-cards > li').count()===await page.evaluate(()=>window.qaLifeStore.getState().state.character.skills.filter(id=>window.qaPrimary(window.qaDefs(id))==='pojia').length),tag+' person-skills-filter-matches-classification');
+  check(await labelsFit(),tag+' person-long-name-buttons-fit');
   if(width===390){await learned.scrollIntoViewIfNeeded();await page.waitForTimeout(1200);await page.screenshot({path:`${out}/${name}-person.png`});}
+  // 多適性主修fixture：檢查五種兼修長名稱、流派小成／大成都唔撐爆手機。
+  await page.evaluate(()=>{const store=window.qaLifeStore,s=structuredClone(store.getState().state),c=s.character;const ids=['mj_soul_drain','wg_root_severed_creed','qg_canopy_void'];c.skills=[...new Set([...c.skills,...ids])];for(const id of ids)c.skillRanks[id]=1;c.mainArts={external:ids[0],internal:ids[1],qinggong:ids[2]};store.setState({state:s});});
+  await page.locator('.ink-main-arts').scrollIntoViewIfNeeded();
+  check(await page.locator('.ink-main-arts').evaluate(el=>[el,...el.querySelectorAll('.ink-main-slot,.ink-main-slot-tags,.ink-school-row')].every(e=>e.scrollWidth<=e.clientWidth)),tag+' multi-affinity-main-and-synergy-long-labels-fit');
+  check(await page.locator('.ink-main-slot').nth(1).locator('.ink-school-tag').count()===5,tag+' all-five-internal-affinities-preserved');
+  if(width===390){await page.waitForTimeout(1200);await page.screenshot({path:`${out}/${name}-main-arts.png`});}
   check(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth&&document.querySelector('.scroll-shell').scrollTop===0),tag+' fixed-frame-and-no-horizontal-overflow');
   await context.close();console.log('passed',tag);
  }finally{await browser.close();}
