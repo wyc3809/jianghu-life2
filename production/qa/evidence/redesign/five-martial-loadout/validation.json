@@ -1,0 +1,26 @@
+{
+  "status": "prototype-not-deployed",
+  "baseline": "604a986",
+  "seed": 42,
+  "vitest": {
+    "files": 86,
+    "passed": 626
+  },
+  "build": "tsc + VITE_BASE=/jianghu-life2/ vite build passed",
+  "narrateHardFail": 0,
+  "browserChecks": {
+    "realWebGLAndManualSlots": 105,
+    "schoolPoolsAndClassification": 367,
+    "pageErrors": 0
+  },
+  "screenshots": {
+    "viewport": [
+      390,
+      844
+    ],
+    "deviceScaleFactor": 2
+  },
+  "limitations": [
+    "Chromium/WebKit mobile emulation; not physical iPhone or TestFlight validation"
+  ]
+}

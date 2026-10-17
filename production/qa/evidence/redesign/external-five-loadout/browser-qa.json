@@ -1,0 +1,426 @@
+{
+  "checks": [
+    {
+      "name": "chromium-320 deterministic-draw-has-three-types",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 written-action-available-in-real-reveal",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 external redirect-does-not-learn-or-equip",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 external selected-art-carried-to-person",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 five-visible-slots",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 external selected-art-visible-after-redirect",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 external explicit-slot-equips-and-keeps-originals",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 external no-extra-cost-or-collection-change",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 internal redirect-does-not-learn-or-equip",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 internal selected-art-carried-to-person",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 five-visible-slots",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 internal selected-art-visible-after-redirect",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 internal explicit-slot-equips-and-keeps-originals",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 internal no-extra-cost-or-collection-change",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 qinggong redirect-does-not-learn-or-equip",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 qinggong selected-art-carried-to-person",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 five-visible-slots",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 qinggong selected-art-visible-after-redirect",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 qinggong explicit-slot-equips-and-keeps-originals",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 qinggong no-extra-cost-or-collection-change",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 five-external-plus-independent-internal-and-qinggong",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 slots-fit-mobile-width",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 slot-touch-targets",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 unload-keeps-empty-slot",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 five-slot-state-persisted",
+      "pass": true
+    },
+    {
+      "name": "chromium-320 no-colloquial-auto-equip-copy",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 deterministic-draw-has-three-types",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 written-action-available-in-real-reveal",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 external redirect-does-not-learn-or-equip",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 external selected-art-carried-to-person",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 five-visible-slots",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 external selected-art-visible-after-redirect",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 external explicit-slot-equips-and-keeps-originals",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 external no-extra-cost-or-collection-change",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 internal redirect-does-not-learn-or-equip",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 internal selected-art-carried-to-person",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 five-visible-slots",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 internal selected-art-visible-after-redirect",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 internal explicit-slot-equips-and-keeps-originals",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 internal no-extra-cost-or-collection-change",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 qinggong redirect-does-not-learn-or-equip",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 qinggong selected-art-carried-to-person",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 five-visible-slots",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 qinggong selected-art-visible-after-redirect",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 qinggong explicit-slot-equips-and-keeps-originals",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 qinggong no-extra-cost-or-collection-change",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 five-external-plus-independent-internal-and-qinggong",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 slots-fit-mobile-width",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 slot-touch-targets",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 unload-keeps-empty-slot",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 five-slot-state-persisted",
+      "pass": true
+    },
+    {
+      "name": "chromium-390 no-colloquial-auto-equip-copy",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 deterministic-draw-has-three-types",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 written-action-available-in-real-reveal",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 external redirect-does-not-learn-or-equip",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 external selected-art-carried-to-person",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 five-visible-slots",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 external selected-art-visible-after-redirect",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 external explicit-slot-equips-and-keeps-originals",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 external no-extra-cost-or-collection-change",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 internal redirect-does-not-learn-or-equip",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 internal selected-art-carried-to-person",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 five-visible-slots",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 internal selected-art-visible-after-redirect",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 internal explicit-slot-equips-and-keeps-originals",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 internal no-extra-cost-or-collection-change",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 qinggong redirect-does-not-learn-or-equip",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 qinggong selected-art-carried-to-person",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 five-visible-slots",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 qinggong selected-art-visible-after-redirect",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 qinggong explicit-slot-equips-and-keeps-originals",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 qinggong no-extra-cost-or-collection-change",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 five-external-plus-independent-internal-and-qinggong",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 slots-fit-mobile-width",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 slot-touch-targets",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 unload-keeps-empty-slot",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 five-slot-state-persisted",
+      "pass": true
+    },
+    {
+      "name": "webkit-320 no-colloquial-auto-equip-copy",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 deterministic-draw-has-three-types",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 written-action-available-in-real-reveal",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 external redirect-does-not-learn-or-equip",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 external selected-art-carried-to-person",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 five-visible-slots",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 external selected-art-visible-after-redirect",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 external explicit-slot-equips-and-keeps-originals",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 external no-extra-cost-or-collection-change",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 internal redirect-does-not-learn-or-equip",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 internal selected-art-carried-to-person",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 five-visible-slots",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 internal selected-art-visible-after-redirect",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 internal explicit-slot-equips-and-keeps-originals",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 internal no-extra-cost-or-collection-change",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 qinggong redirect-does-not-learn-or-equip",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 qinggong selected-art-carried-to-person",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 five-visible-slots",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 qinggong selected-art-visible-after-redirect",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 qinggong explicit-slot-equips-and-keeps-originals",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 qinggong no-extra-cost-or-collection-change",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 five-external-plus-independent-internal-and-qinggong",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 slots-fit-mobile-width",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 slot-touch-targets",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 unload-keeps-empty-slot",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 five-slot-state-persisted",
+      "pass": true
+    },
+    {
+      "name": "webkit-390 no-colloquial-auto-equip-copy",
+      "pass": true
+    },
+    {
+      "name": "no-page-errors",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "seed": 42
+}

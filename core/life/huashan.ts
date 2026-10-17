@@ -1,3 +1,4 @@
+import { equippedMartialArts } from './martialLoadout';
 import type {
   ContestantBuild,
   HuashanBracketMatch,
@@ -130,7 +131,7 @@ export function snapshotContestantFromLife(state: LifeGameState): ContestantBuil
     maxHealth: c.maxHealth,
     maxQi: c.maxQi ?? 120,
     attributes: attrs,
-    skills: [...c.skills],
+    skills: equippedMartialArts(c),
     skillRanks: { ...(c.skillRanks ?? {}) },
     gear: [...(c.gear ?? [])],
     equipment: { ...c.equipment },

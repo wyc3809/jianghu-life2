@@ -75,7 +75,9 @@ export interface LifeStore {
   combatAutoCommit: () => void;
   /** 自動戰鬥演出中：演出資料＋打完嘅狀態 */
   combatReplay: { replay: CombatReplay; next: LifeGameState; logs: string[] } | null;
-  /** 揀主修武學（招式／內功／身法各一門） */
+  /** 五格外功＋獨立內功及身法；指定欄位先替換，收藏武學可同時習得。 */
+  setMartialSlot: (slot: number, skillId: string | null) => boolean;
+  /** 舊入口兼容，人物介面改用五格裝備。 */
   setMainArt: (kind: import('@data/skills/catalog').SkillKind, skillId: string) => void;
   /** 新手試煉：開打（贏咗得有用裝備） */
   startNewbieTrial: () => void;

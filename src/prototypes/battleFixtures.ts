@@ -21,6 +21,7 @@ export function makeBattlePreview(kind: BattlePreviewKind): CombatReplay {
     c.skills = ['art_river_fist', 'art_rain_sword', 'art_thunder_blade'];
     c.skillRanks = Object.fromEntries(c.skills.map(id => [id, 1]));
     c.mainArts = { external: 'art_river_fist' };
+    c.equippedArts = [...c.skills];
     c.volumes = { art_river_fist: [1, 6], art_rain_sword: [1, 3], art_thunder_blade: [1, 2] };
     if (kind !== 'spar') {
       startCombat(state, { source: 'event', title: kind === 'event-boss' ? '江湖首領 · 黑風寨' : '鏢旗告急',
