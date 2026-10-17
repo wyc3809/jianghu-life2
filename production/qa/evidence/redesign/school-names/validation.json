@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "published": false,
+  "liveVersion": "EA0.73.0",
+  "beforeCommit": "18420e1",
+  "schools": [
+    "修羅血戰道",
+    "長河疊浪",
+    "摧鋒破陣",
+    "鎖脈擒龍",
+    "不動金剛",
+    "逍遙遊"
+  ],
+  "vitest": {
+    "files": 85,
+    "passed": 615
+  },
+  "browserChecks": {
+    "main": 343,
+    "actualWebGLQuickEquip": 61,
+    "total": 404
+  },
+  "pagesBuild": "passed",
+  "narrateHardFail": 0,
+  "limitations": [
+    "Chromium／WebKit手機尺寸模擬，未做iPhone實機驗收",
+    "主UI矩陣用減少動態及無WebGL後備；另外測試真正WebGL揭曉",
+    "未發布網頁或TestFlight"
+  ]
+}

@@ -347,7 +347,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
         if (import.meta.env.DEV) (window as unknown as { __sparStage?: SparStage }).__sparStage = stage;
         stage.setSeason(seasonRef.current);
         const rect = wrap.getBoundingClientRect();
-        stage.resize(rect.width, bossRef.current ? rect.height : STAGE_HEIGHT, Math.min(window.devicePixelRatio || 1, 2.5));
+        stage.resize(rect.width, rect.height || STAGE_HEIGHT, Math.min(window.devicePixelRatio || 1, 2.5));
         // 掛上開局嗰刻嘅武器
         const kind = (() => {
           const st = useLifeStore.getState().state;
@@ -381,7 +381,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
     const ro = new ResizeObserver(() => {
       if (!stage) return;
       const rect = wrap.getBoundingClientRect();
-      stage.resize(rect.width, bossRef.current ? rect.height : STAGE_HEIGHT, Math.min(window.devicePixelRatio || 1, 2.5));
+      stage.resize(rect.width, rect.height || STAGE_HEIGHT, Math.min(window.devicePixelRatio || 1, 2.5));
       if (reduceMotion) stage.render();
     });
     ro.observe(wrap);
@@ -515,12 +515,13 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
   }, [bossBattle, portalHost]);
 
   useLayoutEffect(() => {
+    sceneHost.className = 'ink-spar-scene-host';
     sceneSlotRef.current?.appendChild(sceneHost);
     const stage = stageRef.current;
     if (stage) {
       stage.setPresentation(bossBattle ? 'battle' : 'stage');
       const rect = wrapRef.current?.getBoundingClientRect();
-      if (rect) stage.resize(rect.width, bossBattle ? rect.height : STAGE_HEIGHT, Math.min(window.devicePixelRatio || 1, 2.5));
+      if (rect) stage.resize(rect.width, rect.height || STAGE_HEIGHT, Math.min(window.devicePixelRatio || 1, 2.5));
       stage.render();
     }
     if (!bossBattle) { enteredKeyRef.current = ''; setEnteredKey(''); }
@@ -557,9 +558,9 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
         callout={<span>{callout}</span>}
         skills={<InkBattleArts artId={displayedArt ?? undefined} volumes={character && displayedArt ? ownedVolumes(character, displayedArt) : []}
           rotation={character ? sparArtOrder(character).map(id => ({ id, vols: ownedVolumes(character, id) })) : []} />}
-      /> : <div ref={sceneSlotRef} />}
+      /> : <div className="ink-spar-inline-slot" ref={sceneSlotRef} />}
       {createPortal(<div className={bossBattle ? 'ink-spar-battle-canvas' : 'ink-spar-stage'} ref={wrapRef} aria-label="切磋演武">
-      <canvas ref={canvasRef} style={{ width: '100%', height: bossBattle ? '100%' : STAGE_HEIGHT, display: 'block' }} />
+      <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
       {!bossBattle && overlay}
       {!bossBattle && caption && (
         <p className="ink-spar-caption">

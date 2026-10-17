@@ -820,3 +820,26 @@
 .root[data-reduce] .card::after {
   animation: none;
 }
+
+/* 抽卡所選武學可喺揭曉原地裝備；其他演出沿用原領取按鈕。 */
+.claimActions {
+  display: flex;
+  align-items: end;
+  gap: 10px;
+  width: min(360px, 100%);
+}
+.claimActions .claim { flex: none; width: 94px; min-width: 82px; height: 44px; padding-inline: 8px; font-size: 18px; letter-spacing: .2em; text-indent: .2em; }
+
+/* 十連用兩行五張，騰出所選武學詳情同即裝操作；唔推到螢幕外。 */
+.root[data-quick-action] .reveal { gap: 8px; }
+.root[data-quick-action] .cards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); width: min(400px, 100%); gap: 6px; }
+.root[data-quick-action] .card { width: 100%; min-width: 0; border-width: 3px; padding: 3px 1px 2px; }
+.root[data-quick-action] .card .art { width: 100% !important; height: auto !important; aspect-ratio: 1; }
+.root[data-quick-action] .card .art canvas { width: 100%; height: 100%; }
+.root[data-quick-action] .cardName { font-size: 10px; }
+.root[data-quick-action] .newBadge { font-size: 10px; }
+.root[data-quick-action] .panel { gap: 8px; padding: 10px 12px; }
+.root[data-quick-action] .panel .art { width: 56px !important; height: 56px !important; }
+.root[data-quick-action] .panel .art canvas { width: 100%; height: 100%; }
+.root[data-quick-action] .panelName { font-size: 18px; }
+.root[data-quick-action] .blurb { font-size: 12px; }

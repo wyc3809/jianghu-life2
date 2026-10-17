@@ -1,3 +1,12 @@
+/* 固定武學題字：繁中字形子集隨構建打包；授權隨遊戲附於 ink/fonts/。 */
+@font-face {
+  font-family: 'Jianghu Wuxia Titles';
+  src: url('./assets/fonts/wuxia-titles.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
 :root {
   /* —— 動態語言（design/ux/motion-language.md）——
      時長四檔：快＝按後回應、常＝面板／文字入場、慢＝落印／暈開、儀式＝翻月／突破／首領。
@@ -49,6 +58,7 @@
   --font-display: 'Ma Shan Zheng', 'Noto Serif TC', 'Songti TC', serif;
   --font-title: 'Noto Serif TC', 'Songti TC', 'STSong', 'SimSun', serif;
   --font-body: 'Noto Serif TC', 'Songti TC', 'STSong', 'SimSun', serif;
+  --font-wuxia-title: 'Jianghu Wuxia Titles', var(--game-ui-font, sans-serif);
   --fs-body: 1rem;
   --fs-caption: 0.82rem;
   --fs-label: 0.8rem;
@@ -8752,7 +8762,7 @@ html[data-ink-motion='reduce'] .ink-achv-name i {
 
 .ink-main-slot {
   display: grid;
-  grid-template-columns: 2.6em 1fr auto;
+  grid-template-columns: 2.6em minmax(0, 1fr);
   align-items: center;
   gap: 8px;
   min-height: 34px;
@@ -8783,7 +8793,10 @@ html[data-ink-motion='reduce'] .ink-achv-name i {
   flex-wrap: wrap;
   gap: 4px;
   justify-content: flex-end;
+  min-width: 0;
 }
+
+.ink-main-slot > .ink-main-slot-tags { grid-column: 2; justify-content: flex-start; }
 
 .ink-school-tag {
   font-style: normal;
@@ -8813,7 +8826,7 @@ html[data-ink-motion='reduce'] .ink-achv-name i {
 
 .ink-school-row {
   display: grid;
-  grid-template-columns: auto auto 1fr;
+  grid-template-columns: auto auto minmax(0, 1fr);
   align-items: center;
   gap: 8px;
   font-size: 0.84rem;
@@ -8862,6 +8875,7 @@ html[data-ink-motion='reduce'] .ink-achv-name i {
 
 .ink-skill-school-row {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
@@ -10789,3 +10803,274 @@ html[data-ink-motion='reduce'] .ink-hud-avatar--badge:active .ink-hud-person-bad
 .ink-bottom-dock, .ink-bottom-dock *, .ink-task-dock, .ink-task-dock * { font-family: var(--game-ui-font) !important; }
 body:has(.ink-spar-boss-screen) .ink-bottom-dock,
 body:has(.ink-spar-boss-screen) .ink-task-dock { visibility: hidden; }
+
+/* 第27項：一屏主頁，任務貼住導航；Safari 工具列收放跟 100dvh 重排。 */
+.scroll-shell--play {
+  overflow: hidden;
+  overscroll-behavior: none;
+  gap: 8px;
+}
+.scroll-shell--play.scroll-shell--has-tabs {
+  padding-bottom: calc(var(--ink-dock-height, 112px) + 6px);
+}
+.scroll-shell--play.scroll-shell--has-task {
+  max-height: 100%;
+  padding-bottom: calc(var(--ink-dock-height, 112px) + var(--ink-task-height, 64px) + 14px);
+}
+.scroll-shell--play > .ink-status { flex: none; }
+.scroll-shell--play .ink-play-body {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.scroll-shell--home .ink-play-body { overflow: visible; }
+.scroll-shell--home .ink-play-body > .ink-home-focus {
+  flex: 1 1 0;
+  min-height: 0;
+  gap: 6px;
+}
+.scroll-shell--home .ink-home-focus > .ink-home-goals {
+  flex: none;
+  margin: 0;
+}
+.scroll-shell--home .ink-home-scene {
+  flex: 1 1 0;
+  min-height: 90px;
+  max-height: 360px;
+  padding: 4px;
+}
+/* 同一Canvas跟可用空間重排，唔用 overflow 裁走角色／地面。 */
+.scroll-shell--home .ink-home-scene .ink-spar-slot,
+.scroll-shell--home .ink-home-scene .ink-spar-inline-host,
+.scroll-shell--home .ink-home-scene .ink-spar-inline-slot,
+.scroll-shell--home .ink-home-scene .ink-spar-scene-host,
+.scroll-shell--home .ink-home-scene .ink-spar-stage {
+  height: 100%;
+  min-height: 0;
+}
+.scroll-shell--home .ink-quick {
+  flex: none;
+  margin: 0;
+  padding: 4px 2px 2px;
+}
+.scroll-shell--home .ink-quick-icon.ink-badge,
+.scroll-shell--home .ink-quick-btn:first-child .ink-quick-icon.ink-badge {
+  width: 54px !important;
+  height: 54px !important;
+}
+.scroll-shell--home .ink-quick-icon .ink-badge-label { font-size: 15px; }
+.scroll-shell--home .ink-home-focus > .ink-enc-strip {
+  flex: none;
+  margin: 0;
+  padding: 4px 6px;
+  min-height: 32px;
+  gap: 5px;
+}
+.scroll-shell--home button.ink-enc-strip {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+}
+.scroll-shell--home .ink-enc-strip-title {
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.scroll-shell--home .ink-enc-strip-kicker { font-size: 10px; letter-spacing: 0; }
+.scroll-shell--home .ink-enc-strip-time { font-size: 10px; white-space: nowrap; }
+.scroll-shell--home .ink-enc-strip-main {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 2px 5px;
+}
+.scroll-shell--home .ink-enc-strip-bar { grid-column: 1 / -1; grid-row: 2; }
+.scroll-shell--home .ink-home-focus > div:last-child:empty { display: none; }
+/* 新手提示／過月訊息只喺自己嘅閱讀區展開，唔推走主頁固定欄。 */
+.scroll-shell--home .ink-home-focus > div:last-child:not(:empty) {
+  flex: 0 1 auto;
+  min-height: 24px;
+  max-height: 72px;
+  overflow-y: auto;
+}
+.scroll-shell--home .ink-hud-bars { margin-top: 6px; }
+.scroll-shell--home .ink-hud { padding-bottom: 2px; }
+.scroll-shell--home .ink-home-goals .ink-idle > div { padding-block: 1px; }
+.scroll-shell--home .ink-home-goals .ink-harvest { min-height: 44px; }
+.scroll-shell--event .ink-play-body,
+.scroll-shell--combat .ink-play-body { overflow: hidden; }
+
+.ink-tabs.ink-bottom-dock {
+  padding-top: 24px;
+  padding-bottom: max(8px, env(safe-area-inset-bottom, 0px));
+}
+/* 修為標籤納入導航高度，唔再喺任務同導航之間額外佔一層。 */
+.ink-bottom-dock .ink-nav-center-xp {
+  top: -24px;
+  bottom: auto;
+  padding: 1px 8px;
+  font-size: 10px;
+  line-height: 17px;
+  box-shadow: none;
+}
+.ink-task-dock .ink-goal.ink-task-bar {
+  bottom: calc(var(--ink-dock-height, 112px) + 6px);
+  min-height: 58px;
+  padding-block: 4px;
+}
+.ink-task-dock .ink-task-bar .ink-goal-progress { margin: 2px 0 0; }
+
+@media (max-height: 620px) {
+  .scroll-shell--home { padding-top: max(6px, env(safe-area-inset-top, 0px)); gap: 4px; }
+  .scroll-shell--home .ink-hud-wallet .ink-money-chip,
+  .scroll-shell--home .ink-hud-wallet .ink-jade-chip,
+  .scroll-shell--home .ink-hud-wallet .ink-hud-settings { min-height: 23px; padding-block: 0; }
+  .scroll-shell--home .ink-hud-wallet .ink-badge { width: 22px !important; height: 22px !important; }
+  .scroll-shell--home .ink-hud-bars { margin-top: 3px; }
+  .scroll-shell--home .ink-hud-meters .ink-meter { gap: 1px; }
+  .scroll-shell--home .ink-hud .ink-name-title { display: inline; font-size: 10px; margin-left: 4px; }
+  .scroll-shell--home .ink-hud-affiliation { display: inline; }
+  .scroll-shell--home .ink-hud .ink-meta { font-size: 10px; line-height: 1.2; }
+  .scroll-shell--home .ink-play-body > .ink-home-focus { gap: 3px; }
+  .scroll-shell--home .ink-quick { padding-block: 1px; }
+  .scroll-shell--home .ink-quick-icon.ink-badge,
+  .scroll-shell--home .ink-quick-btn:first-child .ink-quick-icon.ink-badge { width: 44px !important; height: 44px !important; }
+  .scroll-shell--home .ink-quick-icon .ink-badge-label { font-size: 13px; }
+  .ink-tabs.ink-bottom-dock { grid-template-columns: 1fr 1fr 64px 1fr 1fr; padding-inline: 12px; padding-top: 21px; }
+  .ink-bottom-dock .ink-nav-center { max-width: 64px; }
+  .ink-bottom-dock .ink-tab-icon.ink-badge { width: 50px; height: 50px; }
+  .ink-bottom-dock .ink-nav-center-xp { top: -21px; }
+  .ink-task-dock .ink-goal.ink-task-bar { min-height: 54px; }
+  .ink-task-dock .ink-task-icon { width: 36px !important; height: 36px !important; }
+  .ink-task-dock .ink-task-bar .ink-goal-title { font-size: 12px; }
+}
+
+/* 第28項：抽卡結果原地學習＋裝備，唔再逐層入收藏／人物。 */
+.ink-pull-card { min-width: 0; }
+.ink-pull-equip { align-self: end; display: grid; gap: 4px; margin-top: 5px; min-width: 0; }
+.ink-pull-replaces { font-size: 10px; line-height: 1.5; color: var(--ink-mid); overflow-wrap: anywhere; }
+.ink-pull-equip-btn { min-height: 44px; width: 100%; padding: 6px; font-size: 13px; letter-spacing: .03em; }
+.ink-pull-equip-btn:disabled { opacity: .6; }
+.ink-pull-equip--reveal { flex: 1; margin: 0; font-family: var(--game-ui-font); }
+.ink-pull-equip-btn:not(:disabled) { border: 1px solid var(--cinnabar); color: var(--cinnabar); background: var(--paper-bright); }
+
+/* 第28項A：六派小卡池，收藏／人物用同一分類。 */
+.ink-school-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; margin: 9px 0; }
+.ink-school-tabs button { min-width: 0; min-height: 78px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; padding: 5px 3px; border: 1px solid var(--ink-faint); background: var(--paper-bright); font: inherit; font-size: 12px; cursor: pointer; }
+.ink-school-tabs strong { max-width: 100%; font-weight: 600; font-size: 11px; line-height: 1.5; overflow-wrap: anywhere; }
+.ink-school-tabs .ink-school-focus { max-width: 100%; font-size: 9px; line-height: 1.5; color: var(--ink-mid); overflow-wrap: anywhere; }
+.ink-school-tabs button[aria-pressed='true'] { border-color: var(--cinnabar); box-shadow: inset 0 -2px var(--cinnabar); font-weight: 700; }
+.ink-school-tabs small { color: var(--ink-mid); font-size: 10px; }
+.ink-school-pool { margin: 10px 0; padding: 7px 9px; border: 1px solid var(--ink-faint); background: var(--paper-bright); }
+.ink-school-pool-heading { display: flex; align-items: center; flex-wrap: wrap; gap: 5px 8px; font-size: 13px; }
+.ink-school-pool-heading > span { color: var(--ink-mid); font-size: 11px; }
+.ink-school-pool-heading select { margin-left: auto; max-width: 100%; min-height: 36px; background: var(--paper-bright); border: 1px solid var(--ink-faint); color: var(--ink); font: inherit; font-size: 11px; }
+.ink-school-pool-blurb, .ink-school-pool-hint { margin: 5px 0; font-size: 11px; line-height: 1.6; color: var(--ink-mid); }
+.ink-school-pool-hint { font-size: 10px; }
+.ink-school-pool-preview summary { cursor: pointer; padding: 7px 0; font-size: 12px; }
+.ink-school-pool-preview ul { margin: 3px 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; }
+.ink-school-pool-preview li { padding: 6px; border: 1px solid var(--ink-faint); min-width: 0; display: flex; flex-direction: column; align-items: start; gap: 3px; font-size: 11px; overflow-wrap: anywhere; }
+.ink-school-pool-preview small { color: var(--ink-mid); font-size: 10px; }
+.ink-skill-schools { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 3px; }
+.ink-skill-schools .ink-school-tag { font-size: 10px; padding: 0 4px; letter-spacing: 0; }
+.ink-skill-schools .is-primary { font-weight: 700; background: var(--paper-bright); }
+.ink-pull-card .ink-skill-schools { align-self: start; }
+.ink-school-tabs.has-all { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+/* 第28項：武學／流派題簽用同一繁中楷筆字，說明、資源及數字仍讀統一UI字。 */
+.scroll-shell--play :is(.ink-school-tabs strong, .ink-school-pool-heading > strong,
+  .ink-school-pool-preview li > strong, .ink-school-tag, .ink-school-seal, .ink-school-level,
+  .ink-main-slot-name, .ink-skill-card-head > strong, .ink-shelf-name, .ink-pull-name,
+  .ink-gacha-head h3, .ink-pool-calli, .ink-pool-calli span, .ink-wish-head, .ink-wish-name) {
+  font-family: var(--font-wuxia-title) !important;
+  font-weight: 700;
+  font-synthesis: none;
+  letter-spacing: 0.035em;
+}
+.scroll-shell--play .ink-school-tabs strong {
+  font-size: clamp(12px, 3.85vw, 15px);
+  line-height: 1.4;
+  text-shadow: 0 1px 0 #fff9;
+}
+.scroll-shell--play .ink-school-tabs.has-all strong { font-size: clamp(11px, 3.5vw, 14px); }
+.scroll-shell--play .ink-school-pool-heading > strong { font-size: 19px; line-height: 1.5; }
+.scroll-shell--play .ink-school-pool-preview li > strong { font-size: 16px; line-height: 1.5; }
+.scroll-shell--play .ink-school-tag { font-size: 12px; line-height: 1.65; letter-spacing: 0; }
+.scroll-shell--play .ink-school-seal { font-size: 16px; letter-spacing: 0.04em; }
+.scroll-shell--play :is(.ink-main-slot-name, .ink-skill-card-head > strong) { font-size: 18px; line-height: 1.5; }
+.scroll-shell--play :is(.ink-shelf-name, .ink-pull-name) { font-size: 16px; line-height: 1.5; }
+.ink-pull-context { font-size: 11px; line-height: 1.6; color: var(--ink-mid); margin: 10px 0 0; }
+
+/* 第28項藝術框原型：生成式位圖九宮格，角位固定、邊沿延展，中央保留真文字。 */
+:root {
+  --wuxia-frame-neutral: url('/ink/art/wuxia-frames/frame-neutral.webp');
+  --wuxia-frame-selected: url('/ink/art/wuxia-frames/frame-selected.webp');
+  --wuxia-frame-panel: url('/ink/art/wuxia-frames/frame-panel.webp');
+  --wuxia-frame-rare: url('/ink/art/wuxia-frames/frame-rare.webp');
+}
+.scroll-shell--play :is(.ink-school-tabs button, .ink-school-pool,
+  .ink-school-pool-preview li, .ink-main-arts, .ink-main-slot,
+  .ink-skill-card, .ink-shelf-row, .ink-pull-card, .ink-school-tag, .ink-school-seal) {
+  --wuxia-frame: var(--wuxia-frame-neutral);
+  --wuxia-frame-width: 14px;
+  position: relative;
+  isolation: isolate;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.scroll-shell--play :is(.ink-school-tabs button, .ink-school-pool,
+  .ink-school-pool-preview li, .ink-main-arts, .ink-main-slot,
+  .ink-skill-card, .ink-shelf-row, .ink-pull-card, .ink-school-tag, .ink-school-seal)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border: var(--wuxia-frame-width) solid transparent;
+  border-image-source: var(--wuxia-frame);
+  border-image-slice: 128;
+  border-image-width: 1;
+  border-image-repeat: stretch;
+  background: url('/ink/art/ui/paper-grain.webp') repeat, rgba(250, 246, 238, 0.9);
+  background-blend-mode: soft-light;
+  background-clip: padding-box;
+}
+.scroll-shell--play .ink-school-tabs { gap: 6px; }
+.scroll-shell--play .ink-school-tabs button { min-height: 90px; padding: 8px 4px; }
+.scroll-shell--play .ink-school-tabs button[aria-pressed='true'] { --wuxia-frame: var(--wuxia-frame-selected); }
+.scroll-shell--play .ink-school-tabs button[aria-pressed='true'] strong { color: var(--cinnabar); }
+.scroll-shell--play .ink-school-tabs button[aria-pressed='true']::before { background-color: #f7e8d6; }
+.scroll-shell--play .ink-school-tabs button:focus-visible { outline: 2px solid var(--cinnabar); outline-offset: 2px; }
+.scroll-shell--play .ink-school-tabs.has-all { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.scroll-shell--play .ink-school-tabs.has-all strong { font-size: clamp(12px, 3.85vw, 15px); }
+.scroll-shell--play .ink-school-tabs.has-all > button:first-child {
+  grid-column: 1 / -1;
+  min-height: 44px;
+  flex-direction: row;
+  gap: 8px;
+}
+.scroll-shell--play :is(.ink-school-pool, .ink-main-arts) {
+  --wuxia-frame: var(--wuxia-frame-panel);
+  --wuxia-frame-width: 18px;
+  padding: 16px 14px;
+}
+.scroll-shell--play .ink-school-pool-preview li { padding: 16px 13px; gap: 4px; }
+.scroll-shell--play .ink-main-slot { padding: 14px 10px; gap: 6px 8px; }
+.scroll-shell--play .ink-main-slot.is-empty::before { opacity: 0.6; }
+.scroll-shell--play :is(.ink-skill-card, .ink-shelf-row, .ink-pull-card) { padding: 16px 14px; }
+.scroll-shell--play :is(.ink-school-pool-preview li.is-premium, .ink-shelf-row.is-premium, .ink-pull-card.is-premium) {
+  --wuxia-frame: var(--wuxia-frame-rare);
+}
+.scroll-shell--play .ink-pull-card.is-wish { --wuxia-frame: var(--wuxia-frame-selected); }
+.scroll-shell--play .ink-school-tag { --wuxia-frame-width: 6px; padding: 2px 8px; }
+.scroll-shell--play .ink-school-seal { --wuxia-frame-width: 8px; padding: 5px 9px; }
+.scroll-shell--play .ink-school-row.is-major .ink-school-seal {
+  --wuxia-frame: var(--wuxia-frame-selected);
+  color: var(--cinnabar) !important;
+  background: transparent;
+}

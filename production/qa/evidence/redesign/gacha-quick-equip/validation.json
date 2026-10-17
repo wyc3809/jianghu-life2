@@ -1,0 +1,10 @@
+{
+  "tests": 606,
+  "testFiles": 84,
+  "browserChecks": 65,
+  "pagesBuild": true,
+  "narrateHardFail": 0,
+  "published": false,
+  "ratesChanged": false,
+  "checkedAt": "2026-10-16T23:53:49.292465+00:00"
+}

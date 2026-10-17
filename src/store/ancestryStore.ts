@@ -26,11 +26,13 @@ import {
   pull,
   pulpManual,
   setWish,
+  selectSchoolGachaPool,
   upgradeManual,
   type BannerId,
   type PullResult,
 } from '@core/life/gacha';
 import { getSkillDef } from '@data/skills/catalog';
+import { activeSchoolGachaPool } from '@core/life/schoolGachaPools';
 import {
   chooseEncounterRoute,
   claimEncounter,
@@ -63,7 +65,9 @@ interface AncestryStore {
   /** 抽卡；返回結果（玉石唔夠＝null） */
   gachaPull: (banner: BannerId, n: number) => PullResult[] | null;
   lastPull: PullResult[] | null;
+  lastPullSource: { banner: BannerId; poolId: string } | null;
   setWish: (banner: BannerId, artId: string) => void;
+  selectSchoolPool: (banner: BannerId, poolId: string) => void;
   upgradeManual: (artId: string) => void;
   pulpManual: (artId: string) => void;
   exchangePages: (artId: string) => void;
@@ -143,17 +147,19 @@ export const useAncestryStore = create<AncestryStore>()((set, get) => ({
   jadeToast: 0,
   clearJadeToast: () => set({ jadeToast: 0 }),
   lastPull: null,
+  lastPullSource: null,
   gachaPull: (banner, n) => {
     const next = structuredClone(get().meta);
     const res = pull(next, banner, n);
     if (!res) return null;
     persistAncestry(next);
-    set({ meta: next, lastPull: res });
+    set({ meta: next, lastPull: res, lastPullSource: { banner, poolId: activeSchoolGachaPool(next, banner).id } });
     queueCloudSync(useLifeStore.getState().state);
     get().checkMilestones(); // 即刻將升階鏡像去角色
     return res;
   },
   setWish: (banner, id) => mutate(get, set, (m) => setWish(m, banner, id)),
+  selectSchoolPool: (banner, id) => mutate(get, set, (m) => selectSchoolGachaPool(m, banner, id)),
   upgradeManual: (id) => {
     mutate(get, set, (m) => upgradeManual(m, id));
     get().checkMilestones();

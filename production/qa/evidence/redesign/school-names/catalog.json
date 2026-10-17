@@ -1,0 +1,1665 @@
+{
+  "arts": [
+    {
+      "id": "基礎吐納",
+      "name": "基礎吐納",
+      "kind": "internal",
+      "school": "lianhuan",
+      "affinities": [
+        "zhidi",
+        "lianhuan"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_river_fist",
+      "name": "長河拳",
+      "kind": "external",
+      "school": "pojia",
+      "affinities": [
+        "pojia"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_stone_palm",
+      "name": "裂石殘掌",
+      "kind": "external",
+      "school": "pojia",
+      "affinities": [
+        "pojia"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_bridge_step",
+      "name": "斷橋步",
+      "kind": "external",
+      "school": "qingling",
+      "affinities": [
+        "qingling"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_tomb_sword",
+      "name": "無銘劍意",
+      "kind": "external",
+      "school": "pojia",
+      "affinities": [
+        "pojia"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_lake_breath",
+      "name": "寒湖吐納",
+      "kind": "internal",
+      "school": "jingang",
+      "affinities": [
+        "jingang",
+        "zhidi",
+        "lianhuan"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_rain_sword",
+      "name": "聽雨劍意",
+      "kind": "external",
+      "school": "lianhuan",
+      "affinities": [
+        "lianhuan"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_nine_shadow",
+      "name": "九影迷踪步",
+      "kind": "external",
+      "school": "zhidi",
+      "affinities": [
+        "zhidi"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_cold_palm",
+      "name": "寒霜掌",
+      "kind": "external",
+      "school": "zhidi",
+      "affinities": [
+        "zhidi"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_iron_body",
+      "name": "鐵布衫",
+      "kind": "internal",
+      "school": "jingang",
+      "affinities": [
+        "jingang"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_moon_sword",
+      "name": "弄月劍法",
+      "kind": "external",
+      "school": "pojia",
+      "affinities": [
+        "pojia"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_void_breath",
+      "name": "空冥吐納",
+      "kind": "internal",
+      "school": "lianhuan",
+      "affinities": [
+        "xueren",
+        "pojia",
+        "zhidi",
+        "lianhuan"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_silk_hand",
+      "name": "柔絲手",
+      "kind": "external",
+      "school": "xueren",
+      "affinities": [
+        "xueren",
+        "jingang"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_thunder_blade",
+      "name": "驚雷刀",
+      "kind": "external",
+      "school": "xueren",
+      "affinities": [
+        "xueren"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_wind_chase",
+      "name": "追風腿",
+      "kind": "external",
+      "school": "lianhuan",
+      "affinities": [
+        "lianhuan"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_hook_silk",
+      "name": "鐵線鉤法",
+      "kind": "external",
+      "school": "pojia",
+      "affinities": [
+        "pojia"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_meteor_palm",
+      "name": "流星掌",
+      "kind": "external",
+      "school": "zhidi",
+      "affinities": [
+        "zhidi"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_tiger_breath",
+      "name": "虎嘯內勁",
+      "kind": "internal",
+      "school": "xueren",
+      "affinities": [
+        "xueren",
+        "pojia",
+        "jingang",
+        "lianhuan"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_spring_well",
+      "name": "涌泉訣",
+      "kind": "internal",
+      "school": "lianhuan",
+      "affinities": [
+        "jingang",
+        "zhidi",
+        "lianhuan"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_shadow_needle",
+      "name": "無影針訣",
+      "kind": "external",
+      "school": "xueren",
+      "affinities": [
+        "xueren",
+        "pojia"
+      ],
+      "premium": false
+    },
+    {
+      "id": "qg_snow_track",
+      "name": "踏雪無痕",
+      "kind": "qinggong",
+      "school": "qingling",
+      "affinities": [
+        "qingling"
+      ],
+      "premium": false
+    },
+    {
+      "id": "qg_swallow_turn",
+      "name": "燕子三轉",
+      "kind": "qinggong",
+      "school": "lianhuan",
+      "affinities": [
+        "lianhuan",
+        "qingling"
+      ],
+      "premium": false
+    },
+    {
+      "id": "qg_feiyan",
+      "name": "飛燕功",
+      "kind": "qinggong",
+      "school": "qingling",
+      "affinities": [
+        "qingling"
+      ],
+      "premium": false
+    },
+    {
+      "id": "qg_canopy_void",
+      "name": "凌虛步",
+      "kind": "qinggong",
+      "school": "qingling",
+      "affinities": [
+        "qingling",
+        "lianhuan",
+        "pojia"
+      ],
+      "premium": false
+    },
+    {
+      "id": "qg_broken_bridge",
+      "name": "斷橋步",
+      "kind": "qinggong",
+      "school": "qingling",
+      "affinities": [
+        "qingling",
+        "lianhuan",
+        "pojia"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_spear_cloud",
+      "name": "穿雲槍",
+      "kind": "external",
+      "school": "pojia",
+      "affinities": [
+        "pojia"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_staff_iron",
+      "name": "鐵杖訣",
+      "kind": "external",
+      "school": "zhidi",
+      "affinities": [
+        "pojia",
+        "zhidi"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_whip_silk",
+      "name": "柔絲鞭法",
+      "kind": "external",
+      "school": "zhidi",
+      "affinities": [
+        "zhidi"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_bow_star",
+      "name": "逐星箭意",
+      "kind": "external",
+      "school": "pojia",
+      "affinities": [
+        "pojia"
+      ],
+      "premium": false
+    },
+    {
+      "id": "qg_reed_drift",
+      "name": "蘆花身法",
+      "kind": "qinggong",
+      "school": "lianhuan",
+      "affinities": [
+        "lianhuan",
+        "qingling"
+      ],
+      "premium": false
+    },
+    {
+      "id": "qg_wall_cat",
+      "name": "壁虎遊牆",
+      "kind": "qinggong",
+      "school": "qingling",
+      "affinities": [
+        "qingling"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_sand_palm",
+      "name": "流沙掌",
+      "kind": "external",
+      "school": "zhidi",
+      "affinities": [
+        "zhidi"
+      ],
+      "premium": false
+    },
+    {
+      "id": "jy_ash_manual",
+      "name": "灰中拳",
+      "kind": "external",
+      "school": "zhidi",
+      "affinities": [
+        "zhidi"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_mirror_breath",
+      "name": "澄心鏡息",
+      "kind": "internal",
+      "school": "jingang",
+      "affinities": [
+        "jingang",
+        "zhidi",
+        "lianhuan"
+      ],
+      "premium": false
+    },
+    {
+      "id": "qg_lotus_steps",
+      "name": "踏蓮步",
+      "kind": "qinggong",
+      "school": "qingling",
+      "affinities": [
+        "qingling",
+        "lianhuan",
+        "pojia"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_heavy_halberd",
+      "name": "開山戟意",
+      "kind": "external",
+      "school": "pojia",
+      "affinities": [
+        "pojia",
+        "zhidi"
+      ],
+      "premium": false
+    },
+    {
+      "id": "qy_cloud_sword",
+      "name": "青雲初劍",
+      "kind": "external",
+      "school": "pojia",
+      "affinities": [
+        "pojia"
+      ],
+      "premium": false
+    },
+    {
+      "id": "qy_mist_step",
+      "name": "雲中步",
+      "kind": "external",
+      "school": "lianhuan",
+      "affinities": [
+        "lianhuan",
+        "zhidi"
+      ],
+      "premium": false
+    },
+    {
+      "id": "qy_piercing_needle",
+      "name": "破雲刺",
+      "kind": "external",
+      "school": "pojia",
+      "affinities": [
+        "pojia",
+        "zhidi"
+      ],
+      "premium": false
+    },
+    {
+      "id": "qy_sky_intent",
+      "name": "青冥劍意",
+      "kind": "external",
+      "school": "lianhuan",
+      "affinities": [
+        "lianhuan",
+        "pojia"
+      ],
+      "premium": false
+    },
+    {
+      "id": "td_open_blade",
+      "name": "天刀開山",
+      "kind": "external",
+      "school": "pojia",
+      "affinities": [
+        "pojia"
+      ],
+      "premium": false
+    },
+    {
+      "id": "td_wind_slash",
+      "name": "裂風斬",
+      "kind": "external",
+      "school": "xueren",
+      "affinities": [
+        "xueren"
+      ],
+      "premium": false
+    },
+    {
+      "id": "td_thunder_combo",
+      "name": "雷鳴連刀",
+      "kind": "external",
+      "school": "lianhuan",
+      "affinities": [
+        "xueren",
+        "lianhuan"
+      ],
+      "premium": false
+    },
+    {
+      "id": "td_no_return",
+      "name": "天刀無回",
+      "kind": "external",
+      "school": "xueren",
+      "affinities": [
+        "xueren",
+        "pojia"
+      ],
+      "premium": false
+    },
+    {
+      "id": "em_soft_palm",
+      "name": "峨嵋柔掌",
+      "kind": "external",
+      "school": "jingang",
+      "affinities": [
+        "jingang"
+      ],
+      "premium": false
+    },
+    {
+      "id": "em_silk_wrap",
+      "name": "繞指柔",
+      "kind": "external",
+      "school": "zhidi",
+      "affinities": [
+        "pojia",
+        "zhidi"
+      ],
+      "premium": false
+    },
+    {
+      "id": "em_golden_palm",
+      "name": "金頂綿掌",
+      "kind": "external",
+      "school": "xueren",
+      "affinities": [
+        "xueren",
+        "jingang"
+      ],
+      "premium": false
+    },
+    {
+      "id": "em_heart_breath",
+      "name": "峨嵋心法",
+      "kind": "internal",
+      "school": "jingang",
+      "affinities": [
+        "jingang",
+        "zhidi",
+        "lianhuan"
+      ],
+      "premium": false
+    },
+    {
+      "id": "sl_luohan_fist",
+      "name": "羅漢拳",
+      "kind": "external",
+      "school": "jingang",
+      "affinities": [
+        "jingang"
+      ],
+      "premium": false
+    },
+    {
+      "id": "sl_weituo",
+      "name": "韋陀杖意",
+      "kind": "external",
+      "school": "zhidi",
+      "affinities": [
+        "zhidi"
+      ],
+      "premium": false
+    },
+    {
+      "id": "sl_iron_shirt",
+      "name": "鐵布衫功",
+      "kind": "internal",
+      "school": "jingang",
+      "affinities": [
+        "jingang"
+      ],
+      "premium": false
+    },
+    {
+      "id": "sl_yijin",
+      "name": "易筋吐納",
+      "kind": "internal",
+      "school": "jingang",
+      "affinities": [
+        "xueren",
+        "pojia",
+        "jingang",
+        "zhidi",
+        "lianhuan"
+      ],
+      "premium": false
+    },
+    {
+      "id": "wd_sword_form",
+      "name": "武當劍式",
+      "kind": "external",
+      "school": "pojia",
+      "affinities": [
+        "pojia"
+      ],
+      "premium": false
+    },
+    {
+      "id": "wd_tai_push",
+      "name": "太極推手",
+      "kind": "external",
+      "school": "jingang",
+      "affinities": [
+        "pojia",
+        "zhidi",
+        "jingang"
+      ],
+      "premium": false
+    },
+    {
+      "id": "wd_pure_yang",
+      "name": "純陽吐納",
+      "kind": "internal",
+      "school": "lianhuan",
+      "affinities": [
+        "xueren",
+        "pojia",
+        "zhidi",
+        "lianhuan"
+      ],
+      "premium": false
+    },
+    {
+      "id": "wd_wuji_sword",
+      "name": "無極劍意",
+      "kind": "external",
+      "school": "lianhuan",
+      "affinities": [
+        "lianhuan",
+        "pojia",
+        "zhidi"
+      ],
+      "premium": false
+    },
+    {
+      "id": "tm_flying_needle",
+      "name": "唐門飛針",
+      "kind": "external",
+      "school": "xueren",
+      "affinities": [
+        "xueren",
+        "lianhuan"
+      ],
+      "premium": false
+    },
+    {
+      "id": "tm_shadow_step",
+      "name": "影步",
+      "kind": "qinggong",
+      "school": "qingling",
+      "affinities": [
+        "qingling",
+        "lianhuan",
+        "pojia"
+      ],
+      "premium": false
+    },
+    {
+      "id": "tm_poison_dart",
+      "name": "淬毒鏢",
+      "kind": "external",
+      "school": "xueren",
+      "affinities": [
+        "xueren",
+        "pojia",
+        "zhidi"
+      ],
+      "premium": false
+    },
+    {
+      "id": "tm_thousand_mech",
+      "name": "千機手",
+      "kind": "external",
+      "school": "lianhuan",
+      "affinities": [
+        "xueren",
+        "lianhuan",
+        "pojia",
+        "zhidi"
+      ],
+      "premium": false
+    },
+    {
+      "id": "mj_blood_palm",
+      "name": "血影掌",
+      "kind": "external",
+      "school": "xueren",
+      "affinities": [
+        "xueren"
+      ],
+      "premium": false
+    },
+    {
+      "id": "mj_devil_breath",
+      "name": "魔息吐納",
+      "kind": "internal",
+      "school": "xueren",
+      "affinities": [
+        "xueren",
+        "pojia",
+        "jingang",
+        "zhidi",
+        "lianhuan"
+      ],
+      "premium": false
+    },
+    {
+      "id": "mj_soul_drain",
+      "name": "吸脈指",
+      "kind": "external",
+      "school": "xueren",
+      "affinities": [
+        "xueren",
+        "pojia",
+        "zhidi"
+      ],
+      "premium": false
+    },
+    {
+      "id": "mj_asura_slash",
+      "name": "修羅斬",
+      "kind": "external",
+      "school": "xueren",
+      "affinities": [
+        "xueren",
+        "pojia",
+        "zhidi"
+      ],
+      "premium": false
+    },
+    {
+      "id": "hs_pine_sword",
+      "name": "松風劍",
+      "kind": "external",
+      "school": "pojia",
+      "affinities": [
+        "pojia"
+      ],
+      "premium": false
+    },
+    {
+      "id": "hs_cloud_step",
+      "name": "雲臺步",
+      "kind": "external",
+      "school": "lianhuan",
+      "affinities": [
+        "lianhuan",
+        "pojia"
+      ],
+      "premium": false
+    },
+    {
+      "id": "hs_split_peak",
+      "name": "劈岳劍",
+      "kind": "external",
+      "school": "pojia",
+      "affinities": [
+        "pojia",
+        "zhidi"
+      ],
+      "premium": false
+    },
+    {
+      "id": "hs_yue_breath",
+      "name": "華嶽吐納",
+      "kind": "internal",
+      "school": "pojia",
+      "affinities": [
+        "xueren",
+        "pojia",
+        "jingang",
+        "zhidi",
+        "lianhuan"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_drunken_fist",
+      "name": "醉八仙拳",
+      "kind": "external",
+      "school": "qingling",
+      "affinities": [
+        "qingling"
+      ],
+      "premium": false
+    },
+    {
+      "id": "th_finger_flick",
+      "name": "彈指神通",
+      "kind": "external",
+      "school": "pojia",
+      "affinities": [
+        "pojia"
+      ],
+      "premium": false
+    },
+    {
+      "id": "th_flute_sword",
+      "name": "玉簫劍法",
+      "kind": "external",
+      "school": "lianhuan",
+      "affinities": [
+        "lianhuan"
+      ],
+      "premium": false
+    },
+    {
+      "id": "th_falling_petals",
+      "name": "落英神劍掌",
+      "kind": "external",
+      "school": "lianhuan",
+      "affinities": [
+        "lianhuan",
+        "zhidi"
+      ],
+      "premium": false
+    },
+    {
+      "id": "th_qimen_array",
+      "name": "奇門一氣",
+      "kind": "internal",
+      "school": "qingling",
+      "affinities": [
+        "lianhuan",
+        "qingling"
+      ],
+      "premium": false
+    },
+    {
+      "id": "wg_embroidery_needle",
+      "name": "繡花奪命針",
+      "kind": "external",
+      "school": "xueren",
+      "affinities": [
+        "xueren"
+      ],
+      "premium": false
+    },
+    {
+      "id": "wg_silent_step",
+      "name": "無聲遁跡",
+      "kind": "qinggong",
+      "school": "qingling",
+      "affinities": [
+        "lianhuan",
+        "qingling"
+      ],
+      "premium": false
+    },
+    {
+      "id": "wg_yin_soft_palm",
+      "name": "陰柔化勁掌",
+      "kind": "external",
+      "school": "xueren",
+      "affinities": [
+        "xueren",
+        "pojia"
+      ],
+      "premium": false
+    },
+    {
+      "id": "wg_root_severed_creed",
+      "name": "忘根訣",
+      "kind": "internal",
+      "school": "xueren",
+      "affinities": [
+        "xueren",
+        "pojia",
+        "jingang",
+        "zhidi",
+        "lianhuan"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_guqin_song",
+      "name": "廣陵絕響",
+      "kind": "internal",
+      "school": "lianhuan",
+      "affinities": [
+        "jingang",
+        "lianhuan"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_weiqi_trap",
+      "name": "珍瓏棋局",
+      "kind": "external",
+      "school": "pojia",
+      "affinities": [
+        "pojia"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_poetry_sword",
+      "name": "詩劍風流",
+      "kind": "external",
+      "school": "qingling",
+      "affinities": [
+        "qingling"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_ink_illusion",
+      "name": "潑墨迷蹤",
+      "kind": "qinggong",
+      "school": "qingling",
+      "affinities": [
+        "qingling",
+        "lianhuan",
+        "pojia"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_buddha_heart",
+      "name": "金剛不壞",
+      "kind": "internal",
+      "school": "jingang",
+      "affinities": [
+        "jingang"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_dao_breath",
+      "name": "太乙玄清",
+      "kind": "internal",
+      "school": "zhidi",
+      "affinities": [
+        "zhidi",
+        "lianhuan"
+      ],
+      "premium": false
+    },
+    {
+      "id": "art_heretic_scripture",
+      "name": "天魔邪功",
+      "kind": "external",
+      "school": "xueren",
+      "affinities": [
+        "xueren",
+        "pojia"
+      ],
+      "premium": false
+    },
+    {
+      "id": "pr_blood_lotus",
+      "name": "血蓮千刃",
+      "kind": "external",
+      "school": "xueren",
+      "affinities": [
+        "xueren"
+      ],
+      "premium": true
+    },
+    {
+      "id": "pr_crimson_moon",
+      "name": "赤月飲血劍",
+      "kind": "external",
+      "school": "xueren",
+      "affinities": [
+        "xueren"
+      ],
+      "premium": true
+    },
+    {
+      "id": "pr_nine_chain",
+      "name": "九連環掌",
+      "kind": "external",
+      "school": "lianhuan",
+      "affinities": [
+        "lianhuan"
+      ],
+      "premium": true
+    },
+    {
+      "id": "pr_wind_thread",
+      "name": "穿風引線劍",
+      "kind": "external",
+      "school": "lianhuan",
+      "affinities": [
+        "lianhuan",
+        "pojia"
+      ],
+      "premium": true
+    },
+    {
+      "id": "pr_mountain_split",
+      "name": "裂嶽神拳",
+      "kind": "external",
+      "school": "pojia",
+      "affinities": [
+        "pojia"
+      ],
+      "premium": true
+    },
+    {
+      "id": "pr_heaven_spear",
+      "name": "貫日神槍",
+      "kind": "external",
+      "school": "pojia",
+      "affinities": [
+        "pojia"
+      ],
+      "premium": true
+    },
+    {
+      "id": "pr_soul_lock",
+      "name": "鎖魂指",
+      "kind": "external",
+      "school": "zhidi",
+      "affinities": [
+        "zhidi"
+      ],
+      "premium": true
+    },
+    {
+      "id": "pr_mist_blind",
+      "name": "迷蹤散霧手",
+      "kind": "external",
+      "school": "zhidi",
+      "affinities": [
+        "zhidi"
+      ],
+      "premium": true
+    },
+    {
+      "id": "pr_vajra_palm",
+      "name": "金剛不壞掌",
+      "kind": "external",
+      "school": "jingang",
+      "affinities": [
+        "pojia",
+        "jingang"
+      ],
+      "premium": true
+    },
+    {
+      "id": "pr_floating_blade",
+      "name": "飄絮刀",
+      "kind": "external",
+      "school": "qingling",
+      "affinities": [
+        "qingling"
+      ],
+      "premium": true
+    },
+    {
+      "id": "pr_star_fall",
+      "name": "流星墜月",
+      "kind": "external",
+      "school": "lianhuan",
+      "affinities": [
+        "xueren",
+        "lianhuan"
+      ],
+      "premium": true
+    },
+    {
+      "id": "pr_blood_sea",
+      "name": "血海心經",
+      "kind": "internal",
+      "school": "xueren",
+      "affinities": [
+        "xueren",
+        "pojia",
+        "jingang",
+        "lianhuan"
+      ],
+      "premium": true
+    },
+    {
+      "id": "pr_thunder_heart",
+      "name": "雷動心法",
+      "kind": "internal",
+      "school": "lianhuan",
+      "affinities": [
+        "zhidi",
+        "lianhuan"
+      ],
+      "premium": true
+    },
+    {
+      "id": "pr_diamond_body",
+      "name": "金剛不壞體",
+      "kind": "internal",
+      "school": "jingang",
+      "affinities": [
+        "jingang"
+      ],
+      "premium": true
+    },
+    {
+      "id": "pr_seal_meridian",
+      "name": "封脈真經",
+      "kind": "internal",
+      "school": "zhidi",
+      "affinities": [
+        "xueren",
+        "pojia",
+        "zhidi",
+        "lianhuan"
+      ],
+      "premium": true
+    },
+    {
+      "id": "pr_void_breath",
+      "name": "太虛吐納",
+      "kind": "internal",
+      "school": "qingling",
+      "affinities": [
+        "lianhuan",
+        "qingling"
+      ],
+      "premium": true
+    },
+    {
+      "id": "pr_cloud_step",
+      "name": "踏雲九霄",
+      "kind": "qinggong",
+      "school": "qingling",
+      "affinities": [
+        "lianhuan",
+        "qingling"
+      ],
+      "premium": true
+    },
+    {
+      "id": "pr_shadow_flash",
+      "name": "鬼影閃",
+      "kind": "qinggong",
+      "school": "qingling",
+      "affinities": [
+        "qingling",
+        "lianhuan",
+        "pojia"
+      ],
+      "premium": true
+    },
+    {
+      "id": "pr_tide_step",
+      "name": "觀潮步",
+      "kind": "qinggong",
+      "school": "qingling",
+      "affinities": [
+        "lianhuan",
+        "qingling",
+        "pojia"
+      ],
+      "premium": true
+    }
+  ],
+  "pools": [
+    {
+      "id": "jianghu-xueren-1",
+      "banner": "jianghu",
+      "school": "xueren",
+      "part": 1,
+      "free": [
+        "art_tiger_breath",
+        "art_silk_hand",
+        "art_thunder_blade",
+        "art_shadow_needle",
+        "td_wind_slash",
+        "td_no_return",
+        "em_golden_palm",
+        "tm_flying_needle"
+      ],
+      "premium": [],
+      "arts": [
+        "art_tiger_breath",
+        "art_silk_hand",
+        "art_thunder_blade",
+        "art_shadow_needle",
+        "td_wind_slash",
+        "td_no_return",
+        "em_golden_palm",
+        "tm_flying_needle"
+      ]
+    },
+    {
+      "id": "jianghu-xueren-2",
+      "banner": "jianghu",
+      "school": "xueren",
+      "part": 2,
+      "free": [
+        "art_tiger_breath",
+        "tm_poison_dart",
+        "mj_blood_palm",
+        "mj_devil_breath",
+        "mj_soul_drain",
+        "mj_asura_slash",
+        "wg_embroidery_needle",
+        "wg_yin_soft_palm"
+      ],
+      "premium": [],
+      "arts": [
+        "art_tiger_breath",
+        "tm_poison_dart",
+        "mj_blood_palm",
+        "mj_devil_breath",
+        "mj_soul_drain",
+        "mj_asura_slash",
+        "wg_embroidery_needle",
+        "wg_yin_soft_palm"
+      ]
+    },
+    {
+      "id": "jianghu-xueren-3",
+      "banner": "jianghu",
+      "school": "xueren",
+      "part": 3,
+      "free": [
+        "art_tiger_breath",
+        "wg_root_severed_creed",
+        "art_heretic_scripture",
+        "art_silk_hand",
+        "art_thunder_blade",
+        "art_shadow_needle"
+      ],
+      "premium": [],
+      "arts": [
+        "art_tiger_breath",
+        "wg_root_severed_creed",
+        "art_heretic_scripture",
+        "art_silk_hand",
+        "art_thunder_blade",
+        "art_shadow_needle"
+      ]
+    },
+    {
+      "id": "zhenben-xueren-1",
+      "banner": "zhenben",
+      "school": "xueren",
+      "part": 1,
+      "free": [
+        "art_tiger_breath",
+        "art_silk_hand",
+        "art_thunder_blade"
+      ],
+      "premium": [
+        "pr_blood_lotus",
+        "pr_crimson_moon",
+        "pr_blood_sea"
+      ],
+      "arts": [
+        "pr_blood_lotus",
+        "pr_crimson_moon",
+        "pr_blood_sea",
+        "art_tiger_breath",
+        "art_silk_hand",
+        "art_thunder_blade"
+      ]
+    },
+    {
+      "id": "jianghu-lianhuan-1",
+      "banner": "jianghu",
+      "school": "lianhuan",
+      "part": 1,
+      "free": [
+        "基礎吐納",
+        "qg_swallow_turn",
+        "art_rain_sword",
+        "art_void_breath",
+        "art_wind_chase",
+        "art_spring_well",
+        "qg_reed_drift",
+        "qy_mist_step"
+      ],
+      "premium": [],
+      "arts": [
+        "基礎吐納",
+        "qg_swallow_turn",
+        "art_rain_sword",
+        "art_void_breath",
+        "art_wind_chase",
+        "art_spring_well",
+        "qg_reed_drift",
+        "qy_mist_step"
+      ]
+    },
+    {
+      "id": "jianghu-lianhuan-2",
+      "banner": "jianghu",
+      "school": "lianhuan",
+      "part": 2,
+      "free": [
+        "基礎吐納",
+        "qg_swallow_turn",
+        "qy_sky_intent",
+        "td_thunder_combo",
+        "wd_pure_yang",
+        "wd_wuji_sword",
+        "tm_thousand_mech",
+        "hs_cloud_step"
+      ],
+      "premium": [],
+      "arts": [
+        "基礎吐納",
+        "qg_swallow_turn",
+        "qy_sky_intent",
+        "td_thunder_combo",
+        "wd_pure_yang",
+        "wd_wuji_sword",
+        "tm_thousand_mech",
+        "hs_cloud_step"
+      ]
+    },
+    {
+      "id": "jianghu-lianhuan-3",
+      "banner": "jianghu",
+      "school": "lianhuan",
+      "part": 3,
+      "free": [
+        "基礎吐納",
+        "qg_swallow_turn",
+        "th_flute_sword",
+        "th_falling_petals",
+        "art_guqin_song",
+        "art_rain_sword"
+      ],
+      "premium": [],
+      "arts": [
+        "基礎吐納",
+        "qg_swallow_turn",
+        "th_flute_sword",
+        "th_falling_petals",
+        "art_guqin_song",
+        "art_rain_sword"
+      ]
+    },
+    {
+      "id": "zhenben-lianhuan-1",
+      "banner": "zhenben",
+      "school": "lianhuan",
+      "part": 1,
+      "free": [
+        "基礎吐納",
+        "qg_swallow_turn",
+        "art_rain_sword"
+      ],
+      "premium": [
+        "pr_nine_chain",
+        "pr_wind_thread",
+        "pr_star_fall",
+        "pr_thunder_heart"
+      ],
+      "arts": [
+        "pr_nine_chain",
+        "pr_wind_thread",
+        "pr_star_fall",
+        "pr_thunder_heart",
+        "基礎吐納",
+        "qg_swallow_turn",
+        "art_rain_sword"
+      ]
+    },
+    {
+      "id": "jianghu-pojia-1",
+      "banner": "jianghu",
+      "school": "pojia",
+      "part": 1,
+      "free": [
+        "hs_yue_breath",
+        "qg_canopy_void",
+        "art_river_fist",
+        "art_stone_palm",
+        "art_tomb_sword",
+        "art_moon_sword",
+        "art_hook_silk",
+        "art_spear_cloud"
+      ],
+      "premium": [],
+      "arts": [
+        "hs_yue_breath",
+        "qg_canopy_void",
+        "art_river_fist",
+        "art_stone_palm",
+        "art_tomb_sword",
+        "art_moon_sword",
+        "art_hook_silk",
+        "art_spear_cloud"
+      ]
+    },
+    {
+      "id": "jianghu-pojia-2",
+      "banner": "jianghu",
+      "school": "pojia",
+      "part": 2,
+      "free": [
+        "hs_yue_breath",
+        "qg_canopy_void",
+        "art_bow_star",
+        "art_heavy_halberd",
+        "qy_cloud_sword",
+        "qy_piercing_needle",
+        "td_open_blade",
+        "wd_sword_form"
+      ],
+      "premium": [],
+      "arts": [
+        "hs_yue_breath",
+        "qg_canopy_void",
+        "art_bow_star",
+        "art_heavy_halberd",
+        "qy_cloud_sword",
+        "qy_piercing_needle",
+        "td_open_blade",
+        "wd_sword_form"
+      ]
+    },
+    {
+      "id": "jianghu-pojia-3",
+      "banner": "jianghu",
+      "school": "pojia",
+      "part": 3,
+      "free": [
+        "hs_yue_breath",
+        "qg_canopy_void",
+        "hs_pine_sword",
+        "hs_split_peak",
+        "th_finger_flick",
+        "art_weiqi_trap"
+      ],
+      "premium": [],
+      "arts": [
+        "hs_yue_breath",
+        "qg_canopy_void",
+        "hs_pine_sword",
+        "hs_split_peak",
+        "th_finger_flick",
+        "art_weiqi_trap"
+      ]
+    },
+    {
+      "id": "zhenben-pojia-1",
+      "banner": "zhenben",
+      "school": "pojia",
+      "part": 1,
+      "free": [
+        "hs_yue_breath",
+        "qg_canopy_void",
+        "art_river_fist",
+        "art_stone_palm"
+      ],
+      "premium": [
+        "pr_mountain_split",
+        "pr_heaven_spear"
+      ],
+      "arts": [
+        "pr_mountain_split",
+        "pr_heaven_spear",
+        "hs_yue_breath",
+        "qg_canopy_void",
+        "art_river_fist",
+        "art_stone_palm"
+      ]
+    },
+    {
+      "id": "jianghu-zhidi-1",
+      "banner": "jianghu",
+      "school": "zhidi",
+      "part": 1,
+      "free": [
+        "art_dao_breath",
+        "art_nine_shadow",
+        "art_cold_palm",
+        "art_meteor_palm",
+        "art_staff_iron",
+        "art_whip_silk",
+        "art_sand_palm",
+        "jy_ash_manual"
+      ],
+      "premium": [],
+      "arts": [
+        "art_dao_breath",
+        "art_nine_shadow",
+        "art_cold_palm",
+        "art_meteor_palm",
+        "art_staff_iron",
+        "art_whip_silk",
+        "art_sand_palm",
+        "jy_ash_manual"
+      ]
+    },
+    {
+      "id": "jianghu-zhidi-2",
+      "banner": "jianghu",
+      "school": "zhidi",
+      "part": 2,
+      "free": [
+        "art_dao_breath",
+        "em_silk_wrap",
+        "sl_weituo",
+        "art_nine_shadow",
+        "art_cold_palm",
+        "art_meteor_palm"
+      ],
+      "premium": [],
+      "arts": [
+        "art_dao_breath",
+        "em_silk_wrap",
+        "sl_weituo",
+        "art_nine_shadow",
+        "art_cold_palm",
+        "art_meteor_palm"
+      ]
+    },
+    {
+      "id": "zhenben-zhidi-1",
+      "banner": "zhenben",
+      "school": "zhidi",
+      "part": 1,
+      "free": [
+        "art_dao_breath",
+        "art_nine_shadow",
+        "art_cold_palm"
+      ],
+      "premium": [
+        "pr_soul_lock",
+        "pr_mist_blind",
+        "pr_seal_meridian"
+      ],
+      "arts": [
+        "pr_soul_lock",
+        "pr_mist_blind",
+        "pr_seal_meridian",
+        "art_dao_breath",
+        "art_nine_shadow",
+        "art_cold_palm"
+      ]
+    },
+    {
+      "id": "jianghu-jingang-1",
+      "banner": "jianghu",
+      "school": "jingang",
+      "part": 1,
+      "free": [
+        "art_lake_breath",
+        "art_iron_body",
+        "art_mirror_breath",
+        "em_soft_palm",
+        "em_heart_breath",
+        "sl_luohan_fist",
+        "sl_iron_shirt",
+        "sl_yijin"
+      ],
+      "premium": [],
+      "arts": [
+        "art_lake_breath",
+        "art_iron_body",
+        "art_mirror_breath",
+        "em_soft_palm",
+        "em_heart_breath",
+        "sl_luohan_fist",
+        "sl_iron_shirt",
+        "sl_yijin"
+      ]
+    },
+    {
+      "id": "jianghu-jingang-2",
+      "banner": "jianghu",
+      "school": "jingang",
+      "part": 2,
+      "free": [
+        "art_lake_breath",
+        "wd_tai_push",
+        "art_buddha_heart",
+        "art_iron_body",
+        "art_mirror_breath",
+        "em_soft_palm"
+      ],
+      "premium": [],
+      "arts": [
+        "art_lake_breath",
+        "wd_tai_push",
+        "art_buddha_heart",
+        "art_iron_body",
+        "art_mirror_breath",
+        "em_soft_palm"
+      ]
+    },
+    {
+      "id": "zhenben-jingang-1",
+      "banner": "zhenben",
+      "school": "jingang",
+      "part": 1,
+      "free": [
+        "art_lake_breath",
+        "art_iron_body",
+        "art_mirror_breath",
+        "em_soft_palm"
+      ],
+      "premium": [
+        "pr_vajra_palm",
+        "pr_diamond_body"
+      ],
+      "arts": [
+        "pr_vajra_palm",
+        "pr_diamond_body",
+        "art_lake_breath",
+        "art_iron_body",
+        "art_mirror_breath",
+        "em_soft_palm"
+      ]
+    },
+    {
+      "id": "jianghu-qingling-1",
+      "banner": "jianghu",
+      "school": "qingling",
+      "part": 1,
+      "free": [
+        "th_qimen_array",
+        "qg_snow_track",
+        "art_bridge_step",
+        "qg_feiyan",
+        "qg_canopy_void",
+        "qg_broken_bridge",
+        "qg_wall_cat",
+        "qg_lotus_steps"
+      ],
+      "premium": [],
+      "arts": [
+        "th_qimen_array",
+        "qg_snow_track",
+        "art_bridge_step",
+        "qg_feiyan",
+        "qg_canopy_void",
+        "qg_broken_bridge",
+        "qg_wall_cat",
+        "qg_lotus_steps"
+      ]
+    },
+    {
+      "id": "jianghu-qingling-2",
+      "banner": "jianghu",
+      "school": "qingling",
+      "part": 2,
+      "free": [
+        "th_qimen_array",
+        "qg_snow_track",
+        "tm_shadow_step",
+        "art_drunken_fist",
+        "wg_silent_step",
+        "art_poetry_sword",
+        "art_ink_illusion"
+      ],
+      "premium": [],
+      "arts": [
+        "th_qimen_array",
+        "qg_snow_track",
+        "tm_shadow_step",
+        "art_drunken_fist",
+        "wg_silent_step",
+        "art_poetry_sword",
+        "art_ink_illusion"
+      ]
+    },
+    {
+      "id": "zhenben-qingling-1",
+      "banner": "zhenben",
+      "school": "qingling",
+      "part": 1,
+      "free": [
+        "th_qimen_array",
+        "qg_snow_track",
+        "art_bridge_step"
+      ],
+      "premium": [
+        "pr_floating_blade",
+        "pr_void_breath",
+        "pr_cloud_step",
+        "pr_shadow_flash",
+        "pr_tide_step"
+      ],
+      "arts": [
+        "pr_floating_blade",
+        "pr_void_breath",
+        "pr_cloud_step",
+        "pr_shadow_flash",
+        "pr_tide_step",
+        "th_qimen_array",
+        "qg_snow_track",
+        "art_bridge_step"
+      ]
+    }
+  ]
+}

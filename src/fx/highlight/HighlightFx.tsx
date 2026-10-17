@@ -4,7 +4,7 @@
  * 呢個檔案負責 DOM 圖層、HUD、標題、獎勵卡、資訊面板同領取飛幣；3D 同粒子交畀 Director。
  * 以 React.lazy 按需載入（Three.js／GSAP 唔入首屏）。
  */
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import gsap from 'gsap';
 import { Director, type Phase } from './director';
@@ -36,6 +36,8 @@ const SUBJECT_NAME: Record<HighlightSubject, string> = { chest: '寶箱', token:
 export interface HighlightFxProps {
   config: HighlightConfig;
   onDone: () => void;
+  /** 揭曉所選獎勵嘅即時操作；準備好先可以操作，唔改獎勵結算。 */
+  renderRewardAction?: (card: RewardCard, ready: boolean) => ReactNode;
   /** 示範頁：模式切換 */
   modes?: { value: HighlightSubject; label: string }[];
   onMode?: (m: HighlightSubject) => void;
@@ -95,7 +97,7 @@ function Title({ text, gradeKey }: { text: string; gradeKey: string }) {
   );
 }
 
-export default function HighlightFx({ config, onDone, modes, onMode }: HighlightFxProps) {
+export default function HighlightFx({ config, onDone, renderRewardAction, modes, onMode }: HighlightFxProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const worldRef = useRef<HTMLDivElement>(null);
   const glRef = useRef<HTMLCanvasElement>(null);
@@ -378,6 +380,7 @@ export default function HighlightFx({ config, onDone, modes, onMode }: Highlight
       ref={rootRef}
       className={styles.root}
       data-phase={phase}
+      data-quick-action={renderRewardAction ? '1' : undefined}
       data-top={topGrade ? '1' : undefined}
       data-reduce={reduce ? '1' : undefined}
       role="dialog"
@@ -533,9 +536,14 @@ export default function HighlightFx({ config, onDone, modes, onMode }: Highlight
               </button>
             ))}
           </div>
-          <button type="button" className={styles.claim} disabled={phase !== 'settle'} onClick={claim}>
-            領取
-          </button>
+          {renderRewardAction && panelCard ? (
+            <div className={styles.claimActions}>
+              {renderRewardAction(panelCard, phase === 'settle')}
+              <button type="button" className={styles.claim} disabled={phase !== 'settle'} onClick={claim}>領取</button>
+            </div>
+          ) : (
+            <button type="button" className={styles.claim} disabled={phase !== 'settle'} onClick={claim}>領取</button>
+          )}
         </div>
       )}
     </div>,

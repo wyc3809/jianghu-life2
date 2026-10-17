@@ -38,6 +38,12 @@ export function InkHomeGoals({ state, onAction, onHarvest, busy, section }: Prop
               <span className="ink-task-heading">
                 <span className="ink-goal-kicker">{goal.kicker}</span>
                 <span className="ink-goal-title">{goal.title}</span>
+                {goal.progress && (
+                  <span className="ink-goal-progress">
+                    <InkBrushBar pct={pct} tone="ink" />
+                    <span>{goal.progress.cur.toLocaleString('zh-Hant')} / {goal.progress.max.toLocaleString('zh-Hant')}</span>
+                  </span>
+                )}
               </span>
               <span className="ink-task-chevron" aria-hidden>⌃</span>
             </summary>
@@ -46,12 +52,6 @@ export function InkHomeGoals({ state, onAction, onHarvest, busy, section }: Prop
               <p className="ink-goal-detail">{goal.detail}</p>
             </div>
           </details>
-          {goal.progress && (
-            <div className="ink-goal-progress">
-              <InkBrushBar pct={pct} tone="ink" />
-              <span>{goal.progress.cur.toLocaleString('zh-Hant')} / {goal.progress.max.toLocaleString('zh-Hant')}</span>
-            </div>
-          )}
         </div>
         {goal.action && (
           <button type="button" className="ink-goal-btn" disabled={busy}

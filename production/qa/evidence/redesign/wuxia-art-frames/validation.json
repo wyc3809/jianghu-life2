@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "published": false,
+  "liveVersion": "EA0.73.0",
+  "beforeCommit": "c4744b3",
+  "vitest": {
+    "files": 85,
+    "passed": 615
+  },
+  "browserChecks": {
+    "main": 355,
+    "artAndFallback": 49,
+    "quickEquip": 61,
+    "total": 465
+  },
+  "pagesAssetChecks": 4,
+  "pagesBuild": "passed",
+  "narrateHardFail": 0,
+  "frames": {
+    "count": 4,
+    "size": [
+      512,
+      512
+    ],
+    "totalBytes": 317592,
+    "sourceAtlasSha256": "641f031bc8417dd080f683eae56b6008d538ae3a8f88c1bf884deb3e50e23735"
+  },
+  "limitations": [
+    "桌面Chromium／WebKit手機尺寸模擬，未做iPhone實機驗收",
+    "主矩陣用減少動態／無WebGL後備，另測真正WebGL即裝",
+    "未發布網頁或TestFlight"
+  ]
+}

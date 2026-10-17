@@ -11,12 +11,17 @@ import {
 } from '@data/redesign/testParams';
 import { VOLUME_COUNT, hasVolumes, volumeLabel } from '@data/skills/volumes';
 import { collectionVolumes } from '@core/life/volumes';
+import { MAIN_ART_LABEL, mainArts } from '@core/life/schools';
+import { activeSchoolGachaPool, schoolGachaPools } from '@core/life/schoolGachaPools';
+import { primarySchoolOfSkill, SCHOOLS, type SchoolId } from '@data/redesign/schools';
 import { BANNERS, FREE_POOL, bannerState, spendableJade, wishPool, type BannerId } from '@core/life/gacha';
 import { useAncestryStore } from '../../store/ancestryStore';
+import { useLifeStore } from '../../store/lifeStore';
 import { playInkWin, playInkTap } from '../../audio/inkAudio';
 import { HighlightFxLazy, canUseWebGL, type HighlightConfig } from '../../fx/highlight';
 import { InkIcon } from './InkIcon';
 import { gachaHighlight } from '../../fx/highlight/fromGame';
+import { InkSchoolTabs, InkSkillSchools } from './InkSchoolTabs';
 
 type Props = { state: LifeGameState };
 
@@ -45,21 +50,29 @@ function VerticalText({ text }: { text: string }) {
 export function InkGachaPanel({ state }: Props) {
   const meta = useAncestryStore((s) => s.meta);
   const lastPull = useAncestryStore((s) => s.lastPull);
+  const lastPullSource = useAncestryStore((s) => s.lastPullSource);
   const gachaPull = useAncestryStore((s) => s.gachaPull);
   const setWish = useAncestryStore((s) => s.setWish);
+  const selectPool = useAncestryStore((s) => s.selectSchoolPool);
   const upgrade = useAncestryStore((s) => s.upgradeManual);
   const pulp = useAncestryStore((s) => s.pulpManual);
   const exchange = useAncestryStore((s) => s.exchangePages);
   const grantTest = useAncestryStore((s) => s.grantTestJade);
   const learn = useAncestryStore((s) => s.learnManual);
+  const combatBusy = useLifeStore((s) => Boolean(s.state?.pendingCombat || s.combatReplay));
   const [banner, setBanner] = useState<BannerId>('jianghu');
   const [view, setView] = useState<'draw' | 'shelf'>('draw');
   const [swap, setSwap] = useState('');
   const [fx, setFx] = useState<HighlightConfig | null>(null);
   const [showInfo, setShowInfo] = useState(false);
+  const [shelfSchool, setShelfSchool] = useState<SchoolId | 'all'>('all');
 
   const jade = meta.jade ?? { free: 0, paidTest: 0 };
   const b = bannerState(structuredClone(meta), banner);
+  const pool = activeSchoolGachaPool(meta, banner);
+  const school = SCHOOLS.find(school => school.id === pool.school)!;
+  const schoolPacks = schoolGachaPools(banner, pool.school);
+  const resultPool = lastPullSource ? schoolGachaPools(lastPullSource.banner).find(p => p.id === lastPullSource.poolId) : undefined;
   const canPay = (n: number) => spendableJade(meta, banner) >= GACHA_COST_PER_PULL * n;
   const manuals = meta.manuals ?? {};
   const shelf = useMemo(
@@ -70,13 +83,47 @@ export function InkGachaPanel({ state }: Props) {
     [manuals],
   );
   const swapOptions = FREE_POOL.filter((id) => !manuals[id]);
+  const visibleShelf = shelf.filter(([id]) => shelfSchool === 'all' || primarySchoolOfSkill(getSkillDef(id)) === shelfSchool);
   const known = new Set(state.character.skills);
+  const equippedArts = mainArts(state.character);
+  const canEquip = state.phase === 'playing' && state.character.alive && !combatBusy;
+
+  // 留喺抽卡結果：先由收藏學習，再換對應主修；原有武學照保留。
+  const equipResult = (id: string) => {
+    const life = useLifeStore.getState();
+    const def = getSkillDef(id);
+    if (!def || !life.state || life.state.phase !== 'playing' || !life.state.character.alive || life.state.pendingCombat || life.combatReplay) return;
+    learn(id);
+    if (useLifeStore.getState().state?.character.skills.includes(id)) {
+      useLifeStore.getState().setMainArt(def.kind, id);
+      playInkTap();
+    }
+  };
+
+  const equipControl = (id: string, ready = true, className = '') => {
+    const def = getSkillDef(id);
+    if (!def) return null;
+    const current = equippedArts[def.kind];
+    const equipped = current === id;
+    const label = equipped ? '已裝備' : known.has(id) ? '立即裝備' : '即學即裝';
+    return <div className={`ink-pull-equip ${className}`}>
+      <span className="ink-pull-replaces">
+        {equipped ? `目前${MAIN_ART_LABEL[def.kind]}主修` : current ? `替換：${skillLabel(current)}` : `裝備至${MAIN_ART_LABEL[def.kind]}`}
+      </span>
+      <button type="button" className="ink-btn ink-btn--quiet ink-pull-equip-btn"
+        disabled={!canEquip || !ready || equipped || !manuals[id]}
+        aria-label={`${label}：${skillLabel(id)}`} onClick={() => equipResult(id)}>{label}</button>
+    </div>;
+  };
 
   const doPull = (n: number) => {
     const res = gachaPull(banner, n);
     if (!res) return;
     const cfg = canUseWebGL()
-      ? gachaHighlight(res, skillLabel, (id) => getSkillDef(id)?.flavor, useAncestryStore.getState().meta.jade ?? jade)
+      ? gachaHighlight(res, skillLabel, (id) => {
+        const def = getSkillDef(id), flow = SCHOOLS.find(s => s.id === primarySchoolOfSkill(def));
+        return `${flow?.name ?? ''} · ${def?.flavor ?? ''}`;
+      }, useAncestryStore.getState().meta.jade ?? jade)
       : null;
     if (cfg) setFx(cfg);
     else if (res.some((r) => r.isWish || r.isPremium)) playInkWin();
@@ -130,6 +177,7 @@ export function InkGachaPanel({ state }: Props) {
             <p>
               每抽 {GACHA_COST_PER_PULL} 玉石；揀咗心願之後 {GACHA_WISH_PITY} 抽內必出心願。外功分七卷，每抽出一卷。
             </p>
+            <p>先揀流派同小冊，本冊只出預覽名單；換冊保留保底，心願唔在新冊就重新揀。原有收藏全部保留。</p>
             <p className="ink-gacha-test-note">測試版：唔收真錢；付費玉石只係模擬額度，同日後正式購買分開記帳。</p>
             <button type="button" className="ink-jade-grant" onClick={grantTest}>
               領測試額度＋{TEST_PAID_JADE_GRANT.toLocaleString('zh-Hant')}
@@ -156,6 +204,30 @@ export function InkGachaPanel({ state }: Props) {
               ))}
             </div>
 
+            <section className="ink-school-pool" aria-label="流派定向小卡池">
+              <InkSchoolTabs value={pool.school} label="抽卡流派" onChange={id => {
+                if (id !== 'all' && id !== pool.school) selectPool(banner, schoolGachaPools(banner, id)[0]!.id);
+              }} />
+              <div className="ink-school-pool-heading">
+                <strong>{school.name} · 第{pool.part}冊</strong>
+                <span>本冊 {pool.arts.length} 門</span>
+                {schoolPacks.length > 1 && <select aria-label="揀流派小冊" value={pool.id} onChange={e => selectPool(banner, e.target.value)}>
+                  {schoolPacks.map(pack => <option key={pack.id} value={pack.id}>第{pack.part}冊 · {pack.arts.length}門</option>)}
+                </select>}
+              </div>
+              <p className="ink-school-pool-blurb">{school.blurb}。適配內功、身法會列作配套；可以自由跨派混搭。</p>
+              <details className="ink-school-pool-preview" key={pool.id}>
+                <summary>本冊可得武學 · 查看 {pool.arts.length} 門</summary>
+                <ul aria-label="本冊可得武學">
+                  {pool.arts.map(id => <li key={id} className={getSkillDef(id)?.premium ? 'is-premium' : undefined}>
+                    <strong>{skillLabel(id)}</strong><small>{skillKindLabel(getSkillDef(id)!.kind)}{getSkillDef(id)?.premium ? ' · 珍本' : ''}{primarySchoolOfSkill(getSkillDef(id)) !== pool.school ? ' · 兼修配套' : ''}</small>
+                    <InkSkillSchools id={id} />
+                  </li>)}
+                </ul>
+              </details>
+              <p className="ink-school-pool-hint">換流派／小冊保底照計；心願如不在新冊，需重新選擇。</p>
+            </section>
+
             <div className="ink-gacha-stage">
               <div className="ink-hang-scrolls" aria-hidden>
                 {STAGE_SILS.map((sil, i) => (
@@ -169,7 +241,7 @@ export function InkGachaPanel({ state }: Props) {
                 <VerticalText text={BANNERS[banner].name} />
               </h4>
               <p className="ink-pool-tagline">
-                <VerticalText text={BANNERS[banner].blurb.split(' · ')[1] ?? BANNERS[banner].blurb} />
+                <VerticalText text={`${school.name}流派・本冊${pool.arts.length}門`} />
               </p>
 
               <label className={`ink-wish-card${b.wish ? ' has-wish' : ''}`}>
@@ -188,7 +260,7 @@ export function InkGachaPanel({ state }: Props) {
                   <option value="" disabled>
                     揀一門心願武學
                   </option>
-                  {wishPool(banner).map((id) => (
+                  {wishPool(banner, meta).map((id) => (
                     <option key={id} value={id}>
                       {skillLabel(id)}（{skillKindLabel(getSkillDef(id)!.kind)}）
                     </option>
@@ -226,19 +298,27 @@ export function InkGachaPanel({ state }: Props) {
             {banner === 'jianghu' && <p className="ink-gacha-note">先扣免費玉石，唔夠先扣付費；呢個池唔會出珍本奇功。</p>}
 
             {lastPull && lastPull.length > 0 && (
+              <>
+              <p className="ink-pull-context" aria-label="抽取結果來源">
+                上次抽取：{resultPool ? `${SCHOOLS.find(s => s.id === resultPool.school)?.name} · ${BANNERS[resultPool.banner].name} 第${resultPool.part}冊` : '秘笈入藏'}
+                {resultPool && resultPool.id !== pool.id ? '（目前已切換小冊）' : ''}
+              </p>
               <ul className="ink-pull-results" aria-label="抽卡結果">
                 {lastPull.map((r, i) => (
                   <li key={`${r.id}-${i}`} className={`ink-pull-card${r.isPremium ? ' is-premium' : ''}${r.isWish ? ' is-wish' : ''}`} style={{ ['--i' as string]: i }}>
                     <span className="ink-pull-name">{r.vol ? volumeLabel(r.id, r.vol) : skillLabel(r.id)}</span>
                     <span className="ink-pull-kind">{skillKindLabel(getSkillDef(r.id)!.kind)}</span>
+                    <InkSkillSchools id={r.id} />
                     <span className="ink-pull-tags">
                       {r.isWish && <i className="t-wish">心願</i>}
                       {r.isPremium && <i className="t-premium">珍本</i>}
                       <i className={r.isNew ? 't-new' : 't-dup'}>{r.isNew ? '新' : '重複'}</i>
                     </span>
+                    {equipControl(r.id)}
                   </li>
                 ))}
               </ul>
+              </>
             )}
           </>
         )}
@@ -267,16 +347,18 @@ export function InkGachaPanel({ state }: Props) {
                 兌換
               </button>
             </div>
+            <InkSchoolTabs value={shelfSchool} onChange={setShelfSchool} allowAll label="收藏流派分類" />
             {shelf.length === 0 ? (
               <p className="ink-note">收藏仲係空嘅——去「抽秘笈」試吓。</p>
             ) : (
               <ul className="ink-shelf">
-                {shelf.map(([id, e]) => {
+                {visibleShelf.map(([id, e]) => {
                   const def = getSkillDef(id);
                   return (
                     <li key={id} className={`ink-shelf-row${def?.premium ? ' is-premium' : ''}`}>
                       <div className="ink-shelf-main">
                         <span className="ink-shelf-name">{skillLabel(id)}</span>
+                        <InkSkillSchools id={id} />
                         <span className="ink-shelf-meta">
                           {def ? skillKindLabel(def.kind) : ''}
                           {def?.premium ? ' · 珍本' : ''}
@@ -303,11 +385,15 @@ export function InkGachaPanel({ state }: Props) {
                 })}
               </ul>
             )}
+            {shelf.length > 0 && visibleShelf.length === 0 && <p className="ink-note">呢個流派暫時未有藏本，可以返去抽對應流派。</p>}
           </>
         )}
       {fx && (
         <Suspense fallback={null}>
-          <HighlightFxLazy config={fx} onDone={() => setFx(null)} />
+          <HighlightFxLazy config={fx} onDone={() => setFx(null)} renderRewardAction={(card, ready) => {
+            const result = lastPull?.[fx.rewards.findIndex((reward) => reward.id === card.id)];
+            return result ? equipControl(result.id, ready, 'ink-pull-equip--reveal') : null;
+          }} />
         </Suspense>
       )}
     </section>

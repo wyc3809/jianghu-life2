@@ -1,0 +1,18 @@
+{
+  "vitest": {
+    "files": 84,
+    "tests": 606,
+    "passed": true
+  },
+  "pagesBuild": true,
+  "narrateHardFail": 0,
+  "published": false,
+  "checkedAt": "2026-10-16T17:44:43.558955+00:00",
+  "browserChecks": {
+    "layout": 145,
+    "extraStates": 17,
+    "battleRegression": 148,
+    "total": 310,
+    "allPassed": true
+  }
+}

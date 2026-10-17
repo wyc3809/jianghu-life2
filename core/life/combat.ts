@@ -43,6 +43,7 @@ import {
 } from './combatCore';
 import { recordDeath } from './death';
 import { schoolBonusTotal } from './schools';
+import { SCHOOLS } from '@data/redesign/schools';
 import { MANUAL_STAR_BONUS } from '@data/redesign/testParams';
 import { chooseFoeMove, inferFoeAiStyle } from './foeAi';
 import {
@@ -99,7 +100,7 @@ export function buildPlayerFighter(state: LifeGameState): CombatFighter {
   // 流派協同（主修＋裝備；只用喺回合制交手，唔影響演武台）
   const sb = schoolBonusTotal(c);
   const schoolSpecials = sb.stunChance > 0
-    ? [{ kind: 'stun_proc' as const, name: '制敵', description: '流派：點穴封脈', chance: sb.stunChance }]
+    ? [{ kind: 'stun_proc' as const, name: SCHOOLS.find(school => school.id === 'zhidi')!.name, description: '流派：點穴封脈', chance: sb.stunChance }]
     : [];
   return {
     name: c.name,

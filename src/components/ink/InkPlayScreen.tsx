@@ -1,5 +1,5 @@
 import { InkSaveStatus } from './InkSaveStatus';
-import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { natureKeys, natureLabels } from '@interfaces/lifeEngine';
@@ -470,6 +470,27 @@ export function InkPlayScreen({ state }: Props) {
   const nicknames = topTitles(state).slice(1);
   const rating = combatRating(state);
   const ratingTier = combatRatingTier(rating);
+  const hasTask = onHomeTab && state.phase === 'playing' && c.alive && !showResult && !combat && !eventFocus;
+
+  // Portal 固定欄用實際高度預留位置；字體／安全區改變都唔遮住主頁。
+  useLayoutEffect(() => {
+    const root = document.documentElement;
+    const nav = navRef.current;
+    const task = hasTask ? document.querySelector('.ink-task-dock .ink-task-bar') : null;
+    const measure = () => {
+      root.style.setProperty('--ink-dock-height', `${nav?.getBoundingClientRect().height ?? 0}px`);
+      root.style.setProperty('--ink-task-height', `${task?.getBoundingClientRect().height ?? 0}px`);
+    };
+    const observer = new ResizeObserver(measure);
+    if (nav) observer.observe(nav);
+    if (task) observer.observe(task);
+    measure();
+    return () => {
+      observer.disconnect();
+      root.style.removeProperty('--ink-dock-height');
+      root.style.removeProperty('--ink-task-height');
+    };
+  }, [hasTask, combat, eventFocus]);
   const sceneBits = [
     'scroll-shell',
     'scroll-shell--play',
@@ -482,7 +503,8 @@ export function InkPlayScreen({ state }: Props) {
     eventFocus ? 'scroll-shell--event' : '',
     /* 底部分卷導航顯示時：預留空間（條件同下方 <nav className="ink-tabs"> 一致） */
     !combat && !eventFocus ? 'scroll-shell--has-tabs' : '',
-    onHomeTab && state.phase === 'playing' && c.alive && !showResult && !combat && !eventFocus ? 'scroll-shell--has-task' : '',
+    onHomeTab && !combat && !eventFocus ? 'scroll-shell--home' : '',
+    hasTask ? 'scroll-shell--has-task' : '',
     monthTurning ? 'ink-month-turn' : '',
   ]
     .filter(Boolean)

@@ -14,6 +14,7 @@ import { getSkillDef, SKILL_DEFS } from '@data/skills/catalog';
 import { VOLUME_COUNT, hasVolumes } from '@data/skills/volumes';
 import { addCollectionVolume } from './volumes';
 import { createRng } from '@core/random';
+import { activeSchoolGachaPool, schoolGachaPools, schoolPoolForArt } from './schoolGachaPools';
 import {
   GACHA_COST_PER_PULL,
   GACHA_PREMIUM_RATE,
@@ -45,8 +46,12 @@ export function isPremiumArt(id: string): boolean {
   return Boolean(getSkillDef(id)?.premium);
 }
 
-/** 心願可揀嘅範圍 */
-export function wishPool(banner: BannerId): string[] {
+/** 傳入帳戶時只列本冊心願；冇帳戶嘅舊呼叫保留全池合法性查詢。 */
+export function wishPool(banner: BannerId, meta?: AncestryMeta): string[] {
+  if (meta) {
+    const pool = activeSchoolGachaPool(meta, banner);
+    return banner === 'zhenben' ? pool.premium : pool.free;
+  }
   return banner === 'zhenben' ? PREMIUM_POOL : FREE_POOL;
 }
 
@@ -67,7 +72,23 @@ export function bannerState(meta: AncestryMeta, banner: BannerId): { wish?: stri
 /** 揀心願（要喺呢個池範圍入面）；保底進度保留 */
 export function setWish(meta: AncestryMeta, banner: BannerId, artId: string): boolean {
   if (!wishPool(banner).includes(artId)) return false;
+  if (!wishPool(banner, meta).includes(artId)) {
+    const pool = schoolPoolForArt(banner, artId);
+    if (!pool || !selectSchoolGachaPool(meta, banner, pool.id)) return false;
+  }
   bannerState(meta, banner).wish = artId;
+  return true;
+}
+
+/** 換流派／小冊只換出貨範圍；心願不在新冊就待重選，保底抽數照保留。 */
+export function selectSchoolGachaPool(meta: AncestryMeta, banner: BannerId, poolId: string): boolean {
+  const pool = schoolGachaPools(banner).find(pool => pool.id === poolId);
+  if (!pool) return false;
+  const m = ensure(meta);
+  m.gacha.selection ??= {};
+  m.gacha.selection[banner] = pool.id;
+  const b = bannerState(meta, banner);
+  if (b.wish && !(banner === 'zhenben' ? pool.premium : pool.free).includes(b.wish)) delete b.wish;
   return true;
 }
 
@@ -99,19 +120,22 @@ export function pull(meta: AncestryMeta, banner: BannerId, n: number): PullResul
     m.jade.paidTest -= cost - fromFree;
   }
   const b = bannerState(meta, banner);
+  const pool = activeSchoolGachaPool(meta, banner);
+  m.gacha.selection ??= {};
+  m.gacha.selection[banner] = pool.id;
   const out: PullResult[] = [];
   for (let i = 0; i < n; i++) {
     const rng = createRng(0x9e3779b1 ^ (m.gacha.pulls + 1) * 2654435761);
     m.gacha.pulls += 1;
     b.total += 1;
     let id: string;
-    const wish = b.wish && wishPool(banner).includes(b.wish) ? b.wish : undefined;
+    const wish = b.wish && wishPool(banner, meta).includes(b.wish) ? b.wish : undefined;
     if (wish && (b.sinceWish + 1 >= GACHA_WISH_PITY || rng.chance(GACHA_WISH_RATE))) {
       id = wish;
     } else if (banner === 'zhenben' && rng.chance(GACHA_PREMIUM_RATE)) {
-      id = rng.pick(PREMIUM_POOL);
+      id = rng.pick(pool.premium);
     } else {
-      id = rng.pick(FREE_POOL);
+      id = rng.pick(pool.free);
     }
     const isWish = Boolean(wish) && id === wish;
     // 提前抽中心願：保底歸零；未中：累積
