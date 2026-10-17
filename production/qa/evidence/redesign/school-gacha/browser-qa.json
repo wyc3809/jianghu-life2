@@ -1,0 +1,1234 @@
+{
+  "checks": [
+    {
+      "name": "chromium-320x690 legacy-free-wish-routed-to-correct-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 legacy-premium-wish-kept",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 legacy-pity-kept",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 血刃 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 血刃 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 血刃 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 血刃 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 連環 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 連環 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 連環 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 連環 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 破甲 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 破甲 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 破甲 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 破甲 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 制敵 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 制敵 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 制敵 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 制敵 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 金剛 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 金剛 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 金剛 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 金剛 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 輕靈 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 輕靈 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 jianghu 輕靈 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 輕靈 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 血刃 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 血刃 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 血刃 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 連環 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 連環 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 連環 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 破甲 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 破甲 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 破甲 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 制敵 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 制敵 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 制敵 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 金剛 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 金剛 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 金剛 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 輕靈 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 輕靈 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 zhenben 輕靈 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 old-pity-draws-wish-and-spends-only-paid",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 real-pull-quick-equip-still-works",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 previous-results-keep-correct-source-after-switch",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 all-existing-collection-sorted-by-primary",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 person-skills-filter-matches-classification",
+      "pass": true
+    },
+    {
+      "name": "chromium-320x690 fixed-frame-and-no-horizontal-overflow",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 legacy-free-wish-routed-to-correct-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 legacy-premium-wish-kept",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 legacy-pity-kept",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 血刃 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 血刃 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 血刃 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 血刃 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 連環 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 連環 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 連環 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 連環 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 破甲 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 破甲 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 破甲 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 破甲 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 制敵 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 制敵 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 制敵 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 制敵 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 金剛 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 金剛 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 金剛 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 金剛 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 輕靈 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 輕靈 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 jianghu 輕靈 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 輕靈 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 血刃 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 血刃 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 血刃 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 連環 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 連環 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 連環 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 破甲 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 破甲 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 破甲 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 制敵 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 制敵 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 制敵 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 金剛 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 金剛 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 金剛 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 輕靈 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 輕靈 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 zhenben 輕靈 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 old-pity-draws-wish-and-spends-only-paid",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 real-pull-quick-equip-still-works",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 previous-results-keep-correct-source-after-switch",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 all-existing-collection-sorted-by-primary",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 person-skills-filter-matches-classification",
+      "pass": true
+    },
+    {
+      "name": "chromium-390x844 fixed-frame-and-no-horizontal-overflow",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 legacy-free-wish-routed-to-correct-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 legacy-premium-wish-kept",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 legacy-pity-kept",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 血刃 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 血刃 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 血刃 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 血刃 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 連環 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 連環 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 連環 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 連環 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 破甲 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 破甲 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 破甲 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 破甲 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 制敵 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 制敵 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 制敵 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 制敵 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 金剛 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 金剛 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 金剛 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 金剛 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 輕靈 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 輕靈 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 jianghu 輕靈 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 輕靈 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 血刃 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 血刃 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 血刃 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 連環 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 連環 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 連環 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 破甲 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 破甲 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 破甲 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 制敵 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 制敵 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 制敵 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 金剛 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 金剛 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 金剛 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 輕靈 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 輕靈 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 zhenben 輕靈 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 old-pity-draws-wish-and-spends-only-paid",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 real-pull-quick-equip-still-works",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 previous-results-keep-correct-source-after-switch",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 all-existing-collection-sorted-by-primary",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 person-skills-filter-matches-classification",
+      "pass": true
+    },
+    {
+      "name": "chromium-420x844 fixed-frame-and-no-horizontal-overflow",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 legacy-free-wish-routed-to-correct-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 legacy-premium-wish-kept",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 legacy-pity-kept",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 血刃 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 血刃 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 血刃 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 血刃 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 連環 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 連環 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 連環 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 連環 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 破甲 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 破甲 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 破甲 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 破甲 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 制敵 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 制敵 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 制敵 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 制敵 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 金剛 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 金剛 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 金剛 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 金剛 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 輕靈 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 輕靈 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 jianghu 輕靈 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 輕靈 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 血刃 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 血刃 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 血刃 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 連環 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 連環 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 連環 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 破甲 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 破甲 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 破甲 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 制敵 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 制敵 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 制敵 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 金剛 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 金剛 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 金剛 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 輕靈 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 輕靈 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 zhenben 輕靈 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 old-pity-draws-wish-and-spends-only-paid",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 real-pull-quick-equip-still-works",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 previous-results-keep-correct-source-after-switch",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 all-existing-collection-sorted-by-primary",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 person-skills-filter-matches-classification",
+      "pass": true
+    },
+    {
+      "name": "webkit-320x690 fixed-frame-and-no-horizontal-overflow",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 legacy-free-wish-routed-to-correct-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 legacy-premium-wish-kept",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 legacy-pity-kept",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 血刃 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 血刃 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 血刃 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 血刃 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 連環 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 連環 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 連環 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 連環 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 破甲 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 破甲 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 破甲 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 破甲 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 制敵 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 制敵 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 制敵 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 制敵 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 金剛 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 金剛 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 金剛 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 金剛 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 輕靈 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 輕靈 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 jianghu 輕靈 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 輕靈 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 血刃 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 血刃 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 血刃 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 連環 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 連環 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 連環 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 破甲 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 破甲 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 破甲 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 制敵 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 制敵 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 制敵 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 金剛 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 金剛 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 金剛 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 輕靈 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 輕靈 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 zhenben 輕靈 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 old-pity-draws-wish-and-spends-only-paid",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 real-pull-quick-equip-still-works",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 previous-results-keep-correct-source-after-switch",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 all-existing-collection-sorted-by-primary",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 person-skills-filter-matches-classification",
+      "pass": true
+    },
+    {
+      "name": "webkit-390x844 fixed-frame-and-no-horizontal-overflow",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 legacy-free-wish-routed-to-correct-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 legacy-premium-wish-kept",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 legacy-pity-kept",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 血刃 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 血刃 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 血刃 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 血刃 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 連環 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 連環 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 連環 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 連環 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 破甲 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 破甲 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 破甲 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 破甲 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 制敵 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 制敵 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 制敵 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 制敵 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 金剛 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 金剛 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 金剛 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 金剛 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 輕靈 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 輕靈 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 jianghu 輕靈 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 輕靈 select-another-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 血刃 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 血刃 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 血刃 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 連環 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 連環 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 連環 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 破甲 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 破甲 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 破甲 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 制敵 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 制敵 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 制敵 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 金剛 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 金剛 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 金剛 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 輕靈 preview-6-to-8",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 輕靈 wishlist-matches-book",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 zhenben 輕靈 switch-keeps-pity",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 old-pity-draws-wish-and-spends-only-paid",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 real-pull-quick-equip-still-works",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 previous-results-keep-correct-source-after-switch",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 all-existing-collection-sorted-by-primary",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 person-skills-filter-matches-classification",
+      "pass": true
+    },
+    {
+      "name": "webkit-420x844 fixed-frame-and-no-horizontal-overflow",
+      "pass": true
+    },
+    {
+      "name": "no-page-errors",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "layouts": []
+}

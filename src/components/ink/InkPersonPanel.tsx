@@ -5,7 +5,8 @@ import { InkMainArts } from './InkMainArts';
 import { VOLUME_COUNT, VOLUME_NUMERALS, artVolumeMoves, hasVolumes } from '@data/skills/volumes';
 import { ownedVolumes } from '@core/life/volumes';
 import { mainArts } from '@core/life/schools';
-import { SCHOOLS, schoolOfGear, schoolsOfSkill } from '@data/redesign/schools';
+import { SCHOOLS, schoolOfGear, primarySchoolOfSkill, type SchoolId } from '@data/redesign/schools';
+import { InkSchoolTabs, InkSkillSchools } from './InkSchoolTabs';
 import type { SkillKind } from '@data/skills/catalog';
 import { useEffect, useRef, useState } from 'react';
 import { inkCountTo, inkPopIn } from '../../ui/inkMotion';
@@ -102,6 +103,7 @@ export function InkPersonPanel({
 }: Props) {
   const [previewGearId, setPreviewGearId] = useState<string | null>(null);
   const [showStatsScroll, setShowStatsScroll] = useState(false);
+  const [skillSchool, setSkillSchool] = useState<SchoolId | 'all'>('all');
   // anime.js：入頁時列表／格仔錯開落筆出場；戰力數字由 0 滾到現值
   const paneRef = useRef<HTMLElement | null>(null);
   useEffect(() => {
@@ -442,6 +444,8 @@ export function InkPersonPanel({
         <>
           <h3>武學</h3>
           <InkMainArts state={state} />
+          <InkSchoolTabs value={skillSchool} onChange={setSkillSchool} allowAll label="已學武學流派分類" />
+          {skillSchool !== 'all' && !c.skills.some(id => primarySchoolOfSkill(getSkillDef(id)) === skillSchool) && <p className="ink-note">暫未學識呢個流派嘅武學。</p>}
           {listWeaponMasteries(state).length > 0 && (
             <p className="ink-note">
               兵刃專精 ·{' '}
@@ -454,13 +458,12 @@ export function InkPersonPanel({
             <p className="ink-note">尚未習武。</p>
           ) : (
             <ul className="ink-skill-cards">
-              {c.skills.map((id) => {
+              {c.skills.filter(id => skillSchool === 'all' || primarySchoolOfSkill(getSkillDef(id)) === skillSchool).map((id) => {
                 const def = getSkillDef(id);
                 const kind = def?.kind ?? 'external';
                 const stance = def?.move ? resolveMoveStance(def.move) : null;
                 const advancePct = skillAdvancePercent(c, id);
                 const isMain = mainArtIds.includes(id);
-                const schools = schoolsOfSkill(def);
                 return (
                   <li key={id} className={`ink-skill-card ink-skill-card--${kind}${isMain ? ' is-main' : ''}`}>
                     <div className="ink-skill-card-head">
@@ -499,15 +502,7 @@ export function InkPersonPanel({
                     <p className="ink-skill-fx">{formatSkillEffects(id) || '尚無詳載'}</p>
                     <div className="ink-skill-school-row">
                       <span className="ink-main-slot-tags">
-                        {schools.length ? (
-                          schools.map((sid) => (
-                            <i key={sid} className={`ink-school-tag ink-school-tag--${sid}`}>
-                              {SCHOOLS.find((x) => x.id === sid)?.name}
-                            </i>
-                          ))
-                        ) : (
-                          <i className="ink-school-tag">無流派</i>
-                        )}
+                        <InkSkillSchools id={id} related />
                       </span>
                       {!isMain && onSetMainArt && (
                         <button

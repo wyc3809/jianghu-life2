@@ -277,9 +277,14 @@ export function skillLabel(id: string): string {
   return '無名功法';
 }
 
+/** 舊技能名對應嘅正式武學ID；唔改角色／收藏入面原有嘅記錄。 */
+export function canonicalSkillId(id: string): string {
+  return LEGACY_SKILL_ALIASES[id]?.target ?? id;
+}
+
 export function getSkillDef(id: string): SkillDef | undefined {
   const alias = LEGACY_SKILL_ALIASES[id];
-  const resolved = alias?.target ?? id;
+  const resolved = canonicalSkillId(id);
   const def = SKILL_DEFS[resolved];
   if (!def) return undefined;
   if (alias?.name) return { ...def, id, name: alias.name };

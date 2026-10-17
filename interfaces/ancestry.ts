@@ -26,6 +26,8 @@ export interface AncestryMeta {
   gacha?: {
     pulls: number;
     banners: Record<string, { wish?: string; sinceWish: number; total: number }>;
+    /** 各類卡池目前所選流派小冊；冇值嘅舊存檔按舊心願揀返相容小冊。 */
+    selection?: Partial<Record<'jianghu' | 'zhenben', string>>;
   };
   /** 家族秘笈收藏：stars＝升階數、copies＝未處理嘅重複本 */
   /** 家族秘笈收藏；外功嘅 vols＝收咗邊幾卷（舊記錄冇 vols＝成套七卷） */
@@ -78,6 +80,7 @@ export const ancestryMetaSchema = z.object({
   gacha: z
     .object({
       pulls: z.number().int().min(0),
+      selection: z.object({ jianghu: z.string().optional(), zhenben: z.string().optional() }).optional(),
       banners: z.record(
         z.string(),
         z.object({ wish: z.string().optional(), sinceWish: z.number().int().min(0), total: z.number().int().min(0) }),

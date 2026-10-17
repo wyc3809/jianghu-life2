@@ -8,7 +8,9 @@
  *   加成只用喺回合制交手（其他戰鬥），**唔影響演武台**。
  */
 import type { SkillDef } from '@data/skills/catalog';
+import { canonicalSkillId } from '@data/skills/catalog';
 import type { GearDef } from '@data/equipment/catalog';
+import { MARTIAL_PRIMARY_SCHOOL } from './martialSchools';
 
 export type SchoolId = 'xueren' | 'lianhuan' | 'pojia' | 'zhidi' | 'jingang' | 'qingling';
 
@@ -84,7 +86,12 @@ export const SCHOOLS: SchoolDef[] = [
   },
 ];
 
-/** 武學歸派（可屬多派）：按招式／被動特性 */
+/** 明確主流派；舊名經 getSkillDef 解回真正武學後亦用同一分類。 */
+export function primarySchoolOfSkill(def: SkillDef | undefined): SchoolId | undefined {
+  return def ? MARTIAL_PRIMARY_SCHOOL[canonicalSkillId(def.id)] : undefined;
+}
+
+/** 武學歸派（可屬多派）：保留原有特性適性，補齊兩門以前未分類嘅武學。 */
 export function schoolsOfSkill(def: SkillDef | undefined): SchoolId[] {
   if (!def) return [];
   const out = new Set<SchoolId>();
@@ -111,6 +118,8 @@ export function schoolsOfSkill(def: SkillDef | undefined): SchoolId[] {
       if (def.kind === 'qinggong') out.add('pojia');
     }
   }
+  const primary = primarySchoolOfSkill(def);
+  if (!out.size && primary) out.add(primary);
   return [...out];
 }
 

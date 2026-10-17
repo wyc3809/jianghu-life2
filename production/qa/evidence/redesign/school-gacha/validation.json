@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "published": false,
+  "liveVersion": "EA0.73.0",
+  "vitest": {
+    "files": 85,
+    "passed": 615
+  },
+  "browserChecks": {
+    "main": 307,
+    "actualWebGLQuickEquip": 61,
+    "total": 368
+  },
+  "pagesBuild": "passed",
+  "narrateHardFail": 0,
+  "canonicalArts": 103,
+  "freeArts": 84,
+  "premiumArts": 19,
+  "legacyAliases": 10,
+  "booklets": 21,
+  "bookletArtRange": [
+    6,
+    8
+  ],
+  "limitations": [
+    "桌面手機尺寸模擬，未做iPhone實機驗收",
+    "主UI矩陣用減少動態／無WebGL後備；即裝回歸另用真正WebGL",
+    "未發布網頁或TestFlight"
+  ]
+}

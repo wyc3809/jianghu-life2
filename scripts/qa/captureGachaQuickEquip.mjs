@@ -1,7 +1,7 @@
 // 真實抽卡與收藏／主修 store：結果原地裝備，不額外扣玉石或刪舊武學。
 import {chromium,webkit} from '/opt/codex/cua_node/lib/node_modules/playwright/index.mjs';
 import fs from 'node:fs';
-const out='production/qa/evidence/redesign/gacha-quick-equip';fs.mkdirSync(out,{recursive:true});
+const out=process.env.QA_EVIDENCE_DIR ?? 'production/qa/evidence/redesign/gacha-quick-equip';fs.mkdirSync(out,{recursive:true});
 const report={checks:[],errors:[]};
 function check(pass,name){report.checks.push({name,pass:!!pass});fs.writeFileSync(out+'/browser-qa.json',JSON.stringify(report,null,2));if(!pass)throw Error(name);}
 async function seed(page,port='5177'){
@@ -11,10 +11,10 @@ async function seed(page,port='5177'){
   const{useLifeStore:s}=await import(app.match(/from ["']([^"']*store\/lifeStore\.ts[^"']*)["']/)[1]);
   const{useAncestryStore:a}=await import(main.match(/from ["']([^"']*store\/ancestryStore\.ts[^"']*)["']/)[1]);
   const{createNewLife}=await import('/core/life/gameState.ts');const{emptyAncestry}=await import('/core/life/ancestry.ts');
-  const{FREE_POOL,pull}=await import('/core/life/gacha.ts');const{getSkillDef}=await import('/data/skills/catalog.ts');
+  const{FREE_POOL,pull}=await import('/core/life/gacha.ts');const{schoolGachaPools}=await import('/core/life/schoolGachaPools.ts');const{getSkillDef}=await import('/data/skills/catalog.ts');
   const meta=emptyAncestry();meta.jade={free:6000,paidTest:0};
   let preview;
-  for(let i=0;i<30;i++){meta.gacha={pulls:i*10,banners:{}};preview=pull(structuredClone(meta),'jianghu',10);if(new Set(preview.map(r=>getSkillDef(r.id).kind)).size===3)break;}
+  for(let i=0;i<30;i++){meta.gacha={pulls:i*10,banners:{},selection:{jianghu:schoolGachaPools('jianghu','qingling')[0].id}};preview=pull(structuredClone(meta),'jianghu',10);if(new Set(preview.map(r=>getSkillDef(r.id).kind)).size===3)break;}
   const state=createNewLife({seed:42,name:'黃青雲',skipCoach:true});state.phase='playing';state.pending=null;state.tab='jianghu';state.character.flags.newbie_done=true;state.character.flags.coach_done=true;
   const kinds=['external','internal','qinggong'];const original=kinds.map(kind=>FREE_POOL.find(id=>getSkillDef(id).kind===kind&&!preview.some(r=>r.id===id)));
   state.character.skills=original;state.character.mainArts=Object.fromEntries(kinds.map((kind,i)=>[kind,original[i]]));state.character.skillRanks=Object.fromEntries(original.map(id=>[id,1]));

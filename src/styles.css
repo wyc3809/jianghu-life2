@@ -10943,3 +10943,25 @@ body:has(.ink-spar-boss-screen) .ink-task-dock { visibility: hidden; }
 .ink-pull-equip-btn:disabled { opacity: .6; }
 .ink-pull-equip--reveal { flex: 1; margin: 0; font-family: var(--game-ui-font); }
 .ink-pull-equip-btn:not(:disabled) { border: 1px solid var(--cinnabar); color: var(--cinnabar); background: var(--paper-bright); }
+
+/* 第28項A：六派小卡池，收藏／人物用同一分類。 */
+.ink-school-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; margin: 9px 0; }
+.ink-school-tabs button { min-width: 0; min-height: 44px; display: flex; align-items: center; justify-content: center; gap: 3px; padding: 4px; border: 1px solid var(--ink-faint); background: var(--paper-bright); font: inherit; font-size: 12px; cursor: pointer; }
+.ink-school-tabs button[aria-pressed='true'] { border-color: var(--cinnabar); box-shadow: inset 0 -2px var(--cinnabar); font-weight: 700; }
+.ink-school-tabs small { color: var(--ink-mid); font-size: 10px; }
+.ink-school-pool { margin: 10px 0; padding: 7px 9px; border: 1px solid var(--ink-faint); background: var(--paper-bright); }
+.ink-school-pool-heading { display: flex; align-items: center; flex-wrap: wrap; gap: 5px 8px; font-size: 13px; }
+.ink-school-pool-heading > span { color: var(--ink-mid); font-size: 11px; }
+.ink-school-pool-heading select { margin-left: auto; max-width: 100%; min-height: 36px; background: var(--paper-bright); border: 1px solid var(--ink-faint); color: var(--ink); font: inherit; font-size: 11px; }
+.ink-school-pool-blurb, .ink-school-pool-hint { margin: 5px 0; font-size: 11px; line-height: 1.6; color: var(--ink-mid); }
+.ink-school-pool-hint { font-size: 10px; }
+.ink-school-pool-preview summary { cursor: pointer; padding: 7px 0; font-size: 12px; }
+.ink-school-pool-preview ul { margin: 3px 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; }
+.ink-school-pool-preview li { padding: 6px; border: 1px solid var(--ink-faint); min-width: 0; display: flex; flex-direction: column; align-items: start; gap: 3px; font-size: 11px; overflow-wrap: anywhere; }
+.ink-school-pool-preview small { color: var(--ink-mid); font-size: 10px; }
+.ink-skill-schools { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 3px; }
+.ink-skill-schools .ink-school-tag { font-size: 10px; padding: 0 4px; letter-spacing: 0; }
+.ink-skill-schools .is-primary { font-weight: 700; background: var(--paper-bright); }
+.ink-pull-card .ink-skill-schools { align-self: start; }
+.ink-school-tabs.has-all { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.ink-pull-context { font-size: 11px; line-height: 1.6; color: var(--ink-mid); margin: 10px 0 0; }

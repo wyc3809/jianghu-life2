@@ -81,3 +81,7 @@ export const SPAR_BOSS_ATK_MUL = 2.2;
 export const SPAR_KILL_HEAL = 0.12;
 /** 綜合戰力顯示權重；首版測試參數，唔會反過來改戰鬥結果。 */
 export const COMBAT_RATING_WEIGHTS = { attack: 4, hpDivisor: 5, qiDivisor: 10, lifesteal: 2 } as const;
+
+/** 第28項A：小冊容量（試作可調）；尾冊補同派配套，唔令任何舊武學消失。 */
+export const SCHOOL_GACHA_POOL_MIN = 6;
+export const SCHOOL_GACHA_POOL_MAX = 8;
