@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { createNewLife, migrateLifeState } from '../core/life/gameState';
-import { equippedMartialArts, martialSlots, setMartialSlot } from '../core/life/martialLoadout';
+import { equippedMartialArts, martialSlots, setMartialSlot, supportMartialSlots, INTERNAL_ART_SLOT, QINGGONG_ART_SLOT } from '../core/life/martialLoadout';
 import { buildPlayerFighter, getPlayerMoves, getPlayerInternalModeOptions, setCombatInternalMode, playerCombatTurn, startCombat } from '../core/life/combat';
 import { autoBattleRotation } from '../core/life/volumes';
 import { snapshotContestantFromLife } from '../core/life/huashan';
@@ -14,12 +14,13 @@ import { useLifeStore } from '../src/store/lifeStore';
 import { useAncestryStore } from '../src/store/ancestryStore';
 import { emptyAncestry } from '../core/life/ancestry';
 
-const arts = ['art_river_fist', 'art_stone_palm', 'art_rain_sword', 'art_iron_body', 'qg_broken_bridge'];
+const arts = ['art_river_fist', 'art_stone_palm', 'art_rain_sword', 'art_thunder_blade', 'art_moon_sword'];
 function life() {
   const s = createNewLife({ seed: 42, skipCoach: true });
   s.phase = 'playing'; s.pending = null;
-  s.character.skills = [...arts, 'art_thunder_blade'];
+  s.character.skills = [...arts, 'art_bridge_step', 'art_iron_body', 'qg_broken_bridge'];
   s.character.equippedArts = [null, null, null, null, null];
+  s.character.supportArts = { internal: null, qinggong: null };
   return s;
 }
 
@@ -30,16 +31,25 @@ describe('五格自由武學', () => {
     expect(new Set(arts.map(id => primarySchoolOfSkill(getSkillDef(id)))).size).toBeGreaterThan(1);
     expect(arts.filter(id => getSkillDef(id)?.kind === 'external').length).toBeGreaterThan(1);
     expect(equippedMartialArts(s.character)).toEqual(arts);
-    expect(setMartialSlot(s, 5, 'art_thunder_blade')).toBe(false);
+    expect(setMartialSlot(s, 5, 'art_bridge_step')).toBe(false);
+    expect(setMartialSlot(s, 7, 'art_bridge_step')).toBe(false);
     expect(equippedMartialArts(s.character)).toEqual(arts);
   });
-  it('test_loadout_all_five_same_type_is_allowed_without_school_gate', () => {
+  it('test_loadout_five_external_plus_independent_internal_and_qinggong', () => {
     const s = life();
-    const internals = Object.values(SKILL_DEFS).filter(d => d.kind === 'internal').slice(0, 5).map(d => d.id);
-    s.character.skills = internals;
-    internals.forEach((id, slot) => expect(setMartialSlot(s, slot, id)).toBe(true));
-    expect(equippedMartialArts(s.character)).toEqual(internals);
-    expect(autoBattleRotation(s.character)).toEqual([]);
+    arts.forEach((id, slot) => expect(setMartialSlot(s, slot, id)).toBe(true));
+    expect(setMartialSlot(s, INTERNAL_ART_SLOT, 'art_iron_body')).toBe(true);
+    expect(setMartialSlot(s, QINGGONG_ART_SLOT, 'qg_broken_bridge')).toBe(true);
+    expect(martialSlots(s.character)).toEqual(arts);
+    expect(equippedMartialArts(s.character)).toHaveLength(7);
+    expect(autoBattleRotation(s.character)).toEqual(arts);
+    expect(setMartialSlot(s, 0, 'art_iron_body')).toBe(false);
+    expect(setMartialSlot(s, INTERNAL_ART_SLOT, 'qg_broken_bridge')).toBe(false);
+    expect(setMartialSlot(s, QINGGONG_ART_SLOT, arts[0]!)).toBe(false);
+    expect(martialSlots(s.character)).toEqual(arts);
+    setMartialSlot(s, INTERNAL_ART_SLOT, null);
+    expect(martialSlots(s.character)).toEqual(arts);
+    expect(supportMartialSlots(s.character)).toEqual({ internal: null, qinggong: 'qg_broken_bridge' });
   });
   it('test_loadout_duplicate_unknown_and_invalid_slot_leave_state_unchanged', () => {
     const s = life(); setMartialSlot(s, 0, arts[0]!);
@@ -58,11 +68,12 @@ describe('五格自由武學', () => {
     expect(s.character.volumes[arts[0]!]).toEqual([1, 3, 7]);
   });
   it('test_loadout_old_save_preserves_explicit_mains_then_fills_only_five_and_roundtrips', () => {
-    const s = life(); delete s.character.equippedArts;
+    const s = life(); delete s.character.equippedArts; delete s.character.supportArts;
     s.character.mainArts = { external: 'art_rain_sword', internal: 'art_iron_body', qinggong: 'qg_broken_bridge' };
     const originalSkills = [...s.character.skills];
     const migrated = migrateLifeState(lifeGameStateSchema.parse(JSON.parse(JSON.stringify(s))) as LifeGameState);
-    expect(equippedMartialArts(migrated.character)).toEqual(['art_rain_sword', 'art_iron_body', 'qg_broken_bridge', 'art_river_fist', 'art_stone_palm']);
+    expect(martialSlots(migrated.character)).toEqual(['art_rain_sword', 'art_river_fist', 'art_stone_palm', 'art_thunder_blade', 'art_moon_sword']);
+    expect(supportMartialSlots(migrated.character)).toEqual({ internal: 'art_iron_body', qinggong: 'qg_broken_bridge' });
     expect(migrated.character.skills).toEqual(originalSkills);
     setMartialSlot(migrated, 2, null);
     const restored = migrateLifeState(lifeGameStateSchema.parse(JSON.parse(JSON.stringify(migrated))) as LifeGameState);
@@ -70,11 +81,28 @@ describe('五格自由武學', () => {
     expect(martialSlots(restored.character)[2]).toBe(null);
   });
   it('test_loadout_old_default_mains_survive_when_inner_art_was_learned_late', () => {
-    const s = life(); delete s.character.equippedArts;
+    const s = life(); delete s.character.equippedArts; delete s.character.supportArts;
     s.character.skills = ['art_river_fist', 'art_stone_palm', 'art_rain_sword', 'art_thunder_blade', 'art_moon_sword', 'art_iron_body', 'qg_broken_bridge'];
     const migrated = migrateLifeState(s);
-    expect(equippedMartialArts(migrated.character).slice(0, 3)).toEqual(['art_river_fist', 'art_iron_body', 'qg_broken_bridge']);
-    expect(equippedMartialArts(migrated.character)).toHaveLength(5);
+    expect(martialSlots(migrated.character)).toHaveLength(5);
+    expect(martialSlots(migrated.character).every(id => getSkillDef(id!)?.kind === 'external')).toBe(true);
+    expect(supportMartialSlots(migrated.character)).toEqual({ internal: 'art_iron_body', qinggong: 'qg_broken_bridge' });
+    expect(equippedMartialArts(migrated.character)).toHaveLength(7);
+  });
+  it('test_loadout_mixed_prototype_save_moves_support_arts_out_without_losing_data', () => {
+    const s = life(); delete s.character.supportArts;
+    s.character.equippedArts = ['art_river_fist', 'art_iron_body', 'qg_broken_bridge', 'art_stone_palm', null];
+    s.character.skillRanks.art_iron_body = 3;
+    const migrated = migrateLifeState(s);
+    expect(martialSlots(migrated.character)).toEqual(['art_river_fist', 'art_stone_palm', null, null, null]);
+    expect(supportMartialSlots(migrated.character)).toEqual({ internal: 'art_iron_body', qinggong: 'qg_broken_bridge' });
+    expect(migrated.character.skillRanks.art_iron_body).toBe(3);
+    const restored = migrateLifeState(lifeGameStateSchema.parse(JSON.parse(JSON.stringify(migrated))) as LifeGameState);
+    expect(restored.character.equippedArts).toEqual(migrated.character.equippedArts);
+    expect(restored.character.supportArts).toEqual(migrated.character.supportArts);
+    setMartialSlot(restored, INTERNAL_ART_SLOT, null);
+    const unloaded = migrateLifeState(lifeGameStateSchema.parse(JSON.parse(JSON.stringify(restored))) as LifeGameState);
+    expect(supportMartialSlots(unloaded.character).internal).toBe(null);
   });
   it('test_loadout_normalizes_duplicate_legacy_aliases_and_never_refills_empty_slots', () => {
     const s = life(); s.character.skills.push('skill_sword_basic', 'art_moon_sword');
@@ -90,15 +118,15 @@ describe('五格自由武學', () => {
     const before = buildPlayerFighter(s);
     expect(getPlayerMoves(s)).toEqual([BASIC_STRIKE, ...SYSTEM_MOVES]);
     expect(getPlayerInternalModeOptions(s)[0]?.id).toBe('basic');
-    setMartialSlot(s, 0, 'art_iron_body');
+    setMartialSlot(s, INTERNAL_ART_SLOT, 'art_iron_body');
     expect(buildPlayerFighter(s).defense).toBeGreaterThan(before.defense);
     expect(getPlayerInternalModeOptions(s)[0]?.name).toBe('鐵布衫');
     setMartialSlot(s, 1, 'art_stone_palm'); setMartialSlot(s, 2, 'art_river_fist');
     expect(getPlayerMoves(s).filter(m => m.id !== BASIC_STRIKE.id && !SYSTEM_MOVES.some(sys => sys.id === m.id)).map(m => m.id)).toEqual(['art_stone_palm', 'art_river_fist'].map(id => getSkillDef(id)!.move!.id));
     expect(autoBattleRotation(s.character)).toEqual(['art_stone_palm', 'art_river_fist']);
     expect(sparArtOrder(s.character)).toEqual(['art_stone_palm', 'art_river_fist']);
-    expect(snapshotContestantFromLife(s).skills).toEqual(['art_iron_body', 'art_stone_palm', 'art_river_fist']);
-    setMartialSlot(s, 0, null);
+    expect(snapshotContestantFromLife(s).skills).toEqual(['art_stone_palm', 'art_river_fist', 'art_iron_body']);
+    setMartialSlot(s, INTERNAL_ART_SLOT, null);
     expect(buildPlayerFighter(s).defense).toBe(before.defense);
   });
   it('test_loadout_unequipped_seven_volume_move_cannot_bypass_selection', () => {

@@ -1,23 +1,42 @@
-/** 五門實戰武學：欄位自由配搭，流派同武學類型都唔係裝備門檻。 */
+/** 五門外功＋內功／身法各一門；全部都可以跨流派裝備。 */
 import type { LifeCharacter, LifeGameState } from '@interfaces/lifeEngine';
 import { canonicalSkillId, getSkillDef } from '@data/skills/catalog';
 import { MARTIAL_LOADOUT_LIMIT } from '@data/redesign/testParams';
 
-/** 正規化五格；舊存檔保留原主修，剩餘欄位按原已學次序補入，唔改收藏。 */
+export const INTERNAL_ART_SLOT = MARTIAL_LOADOUT_LIMIT;
+export const QINGGONG_ART_SLOT = MARTIAL_LOADOUT_LIMIT + 1;
+export type SupportArts = { internal: string | null; qinggong: string | null };
+
+/** 內功同身法唔佔外功五格；兼容舊三主修及上一版混合五格原型。 */
+export function supportMartialSlots(c: LifeCharacter): SupportArts {
+  const out: SupportArts = { internal: null, qinggong: null };
+  for (const kind of ['internal', 'qinggong'] as const) {
+    let id: string | null | undefined;
+    if (c.supportArts !== undefined) id = c.supportArts[kind];
+    else if (c.equippedArts !== undefined) id = c.equippedArts.find(id => id && getSkillDef(id)?.kind === kind);
+    else {
+      const main = c.mainArts?.[kind];
+      id = main && c.skills.includes(main) && getSkillDef(main)?.kind === kind
+        ? main : c.skills.find(id => getSkillDef(id)?.kind === kind);
+    }
+    out[kind] = id && c.skills.includes(id) && getSkillDef(id)?.kind === kind ? id : null;
+  }
+  return out;
+}
+
+/** 外功五格；混合五格原型遷移時抽出外功，保留已學同支援武學。 */
 export function martialSlots(c: LifeCharacter): (string | null)[] {
   const legacy = c.equippedArts === undefined;
+  const mixed = c.supportArts === undefined && c.equippedArts?.some(id => id && getSkillDef(id)?.kind !== 'external');
+  const main = c.mainArts?.external;
   const source = legacy
-    ? [...(['external', 'internal', 'qinggong'] as const).map(kind => {
-        const picked = c.mainArts?.[kind];
-        return picked && c.skills.includes(picked) && getSkillDef(picked)?.kind === kind
-          ? picked : c.skills.find(id => getSkillDef(id)?.kind === kind);
-      }), ...c.skills]
-    : c.equippedArts!;
+    ? [main && c.skills.includes(main) && getSkillDef(main)?.kind === 'external' ? main : undefined, ...c.skills]
+    : mixed ? c.equippedArts!.filter(id => id && getSkillDef(id)?.kind === 'external') : c.equippedArts!;
   const slots: (string | null)[] = [];
   const seen = new Set<string>();
   for (const id of source) {
     const key = id ? canonicalSkillId(id) : '';
-    const valid = Boolean(id && getSkillDef(id) && c.skills.includes(id) && !seen.has(key));
+    const valid = Boolean(id && getSkillDef(id)?.kind === 'external' && c.skills.includes(id) && !seen.has(key));
     if (valid) { slots.push(id!); seen.add(key); }
     else if (!legacy) slots.push(null);
     if (slots.length === MARTIAL_LOADOUT_LIMIT) break;
@@ -25,22 +44,28 @@ export function martialSlots(c: LifeCharacter): (string | null)[] {
   return [...slots, ...Array<string | null>(MARTIAL_LOADOUT_LIMIT - slots.length).fill(null)];
 }
 
-/** 只有裝備中嘅武學參與出招、被動同流派協同，排列依欄位次序。 */
+/** 實戰讀取五格外功，加獨立內功及身法，唔計未裝備收藏。 */
 export function equippedMartialArts(c: LifeCharacter): string[] {
-  return martialSlots(c).filter((id): id is string => id !== null);
+  const support = supportMartialSlots(c);
+  return [...martialSlots(c), support.internal, support.qinggong].filter((id): id is string => id !== null);
 }
 
-/** 指定一格裝備或卸下；唔自動擠走其他欄位、唔接受未學或重複武學。 */
+/** 0–4為外功，5為內功，6為身法；由玩家指定欄位，唔自動替換。 */
 export function setMartialSlot(state: LifeGameState, slot: number, id: string | null): boolean {
-  if (!Number.isInteger(slot) || slot < 0 || slot >= MARTIAL_LOADOUT_LIMIT) return false;
+  if (!Number.isInteger(slot) || slot < 0 || slot > QINGGONG_ART_SLOT) return false;
   const c = state.character;
   const slots = martialSlots(c);
-  if (slots[slot] === id) return false;
+  const support = supportMartialSlots(c);
+  const kind = slot === INTERNAL_ART_SLOT ? 'internal' : slot === QINGGONG_ART_SLOT ? 'qinggong' : 'external';
+  const current = kind === 'external' ? slots[slot] : support[kind];
+  if (current === id) return false;
   if (id !== null) {
-    if (!getSkillDef(id) || !c.skills.includes(id)) return false;
-    if (slots.some((old, i) => i !== slot && old && canonicalSkillId(old) === canonicalSkillId(id))) return false;
+    if (getSkillDef(id)?.kind !== kind || !c.skills.includes(id)) return false;
+    if (kind === 'external' && slots.some((old, i) => i !== slot && old && canonicalSkillId(old) === canonicalSkillId(id))) return false;
   }
-  slots[slot] = id;
+  if (kind === 'external') slots[slot] = id;
+  else support[kind] = id;
   c.equippedArts = slots;
+  c.supportArts = support;
   return true;
 }

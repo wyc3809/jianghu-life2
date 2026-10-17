@@ -86,5 +86,5 @@ export const COMBAT_RATING_WEIGHTS = { attack: 4, hpDivisor: 5, qiDivisor: 10, l
 export const SCHOOL_GACHA_POOL_MIN = 6;
 export const SCHOOL_GACHA_POOL_MAX = 8;
 
-/** 玩家確認：最多同時裝備五門，類型／流派自由配搭。 */
+/** 玩家確認：最多五門外功，流派自由配搭；內功及身法各一門獨立計算。 */
 export const MARTIAL_LOADOUT_LIMIT = 5;

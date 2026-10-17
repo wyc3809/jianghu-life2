@@ -1,0 +1,30 @@
+{
+  "status": "prototype-not-deployed",
+  "correctionBaseline": "731f03f",
+  "seed": 42,
+  "vitest": {
+    "files": 86,
+    "passed": 627
+  },
+  "build": "tsc + Pages base Vite build passed",
+  "narrateHardFail": 0,
+  "browserChecks": {
+    "realWebGLAndExternalSupportSlots": 105,
+    "schoolPoolsAndClassification": 367,
+    "pageErrors": 0
+  },
+  "loadout": {
+    "external": 5,
+    "internal": 1,
+    "qinggong": 1,
+    "crossSchool": true
+  },
+  "screenshots": {
+    "viewport": [
+      390,
+      844
+    ],
+    "deviceScaleFactor": 2
+  },
+  "limitation": "Chromium/WebKit mobile emulation; not physical iPhone or TestFlight"
+}

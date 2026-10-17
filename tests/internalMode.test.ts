@@ -194,7 +194,7 @@ describe('internalMode: integrated into combat', () => {
     initRng(4);
     const state = createNewLife(4);
     state.character.skills.push('art_tiger_breath');
-    state.character.equippedArts = ['art_tiger_breath'];
+    state.character.supportArts = { internal: 'art_tiger_breath', qinggong: null };
     startCombat(state, { source: 'event', title: '試', foeName: '木樁', foePower: 'weak' });
     const turnBefore = state.pendingCombat!.turn;
 
@@ -220,7 +220,7 @@ describe('internalMode: integrated into combat', () => {
     ]);
 
     state.character.skills.push('art_iron_body');
-    state.character.equippedArts = ['art_iron_body'];
+    state.character.supportArts = { internal: 'art_iron_body', qinggong: null };
     const options = getPlayerInternalModeOptions(state);
     expect(options).toEqual([expect.objectContaining({ id: 'guixi', name: '鐵布衫' })]);
 
@@ -234,7 +234,7 @@ describe('internalMode: integrated into combat', () => {
     initRng(5);
     const state = createNewLife(5);
     state.character.skills.push('art_tiger_breath');
-    state.character.equippedArts = ['art_tiger_breath'];
+    state.character.supportArts = { internal: 'art_tiger_breath', qinggong: null };
     state.character.martial = 200;
     state.character.maxHealth = 500;
     state.character.health = 500;

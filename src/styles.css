@@ -11094,3 +11094,7 @@ body:has(.ink-spar-boss-screen) .ink-task-dock { visibility: hidden; }
 .ink-loadout-selection { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 4px 8px; }
 .ink-loadout-selection > p { grid-column: 1 / -1; grid-row: 2; }
 .ink-loadout-selection > .ink-btn { grid-column: 2; grid-row: 1; font-size: 12px; padding: 6px; }
+/* 內功及身法獨立於外功五格，標籤保留完整兩字。 */
+.scroll-shell--play .ink-loadout-support .ink-loadout-slot { grid-template-columns: 2.2em minmax(0,1fr) auto; }
+.ink-loadout-support > .ink-loadout-heading { flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+.ink-loadout-support > .ink-loadout-heading > span { font-size: 11px; }

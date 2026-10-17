@@ -1,4 +1,4 @@
-import { martialSlots } from './martialLoadout';
+import { martialSlots, supportMartialSlots } from './martialLoadout';
 import type { LifeCharacter, LifeGameState, WuxiaAttribute } from '@interfaces/lifeEngine';
 import { wuxiaAttributeKeys } from '@interfaces/lifeEngine';
 import { initRng, getRng, getRngState } from '@core/random';
@@ -105,7 +105,8 @@ export function createNewLife(options: CreateLifeOptions | number = {}): LifeGam
     attributes: attrs,
     nature: defaultNature(),
     skills: ['基礎吐納', 'art_river_fist'],
-    equippedArts: ['art_river_fist', '基礎吐納', null, null, null],
+    equippedArts: ['art_river_fist', null, null, null, null],
+    supportArts: { internal: '基礎吐納', qinggong: null },
     skillRanks: { 基礎吐納: 0, art_river_fist: 0 },
     skillProgress: { 基礎吐納: 0, art_river_fist: 0 },
     skillAdvanceNeed: {
@@ -371,7 +372,9 @@ export function migrateLifeState(raw: LifeGameState): LifeGameState {
   migrateInjuries(c);
   if (!c.gear) c.gear = ['old-sword', 'plain-robe'];
   if (!c.equipment) c.equipment = { weapon: 'old-sword', armor: 'plain-robe', accessory: null };
+  const supportArts = supportMartialSlots(c);
   c.equippedArts = martialSlots(c);
+  c.supportArts = supportArts;
   if (!c.skillRanks) c.skillRanks = {};
   if (!c.skillProgress) c.skillProgress = {};
   if (!c.skillAdvanceNeed) c.skillAdvanceNeed = {};

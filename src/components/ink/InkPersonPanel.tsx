@@ -4,7 +4,7 @@ import { jianghuPrestige } from '@core/life/jianghuPrestige';
 import { InkMainArts } from './InkMainArts';
 import { VOLUME_COUNT, VOLUME_NUMERALS, artVolumeMoves, hasVolumes } from '@data/skills/volumes';
 import { ownedVolumes, collectionVolumes } from '@core/life/volumes';
-import { equippedMartialArts } from '@core/life/martialLoadout';
+import { equippedMartialArts, INTERNAL_ART_SLOT, QINGGONG_ART_SLOT } from '@core/life/martialLoadout';
 import { useAncestryStore } from '../../store/ancestryStore';
 import { SCHOOLS, schoolOfGear, primarySchoolOfSkill, type SchoolId } from '@data/redesign/schools';
 import { InkSchoolTabs, InkSkillSchools } from './InkSchoolTabs';
@@ -125,7 +125,8 @@ export function InkPersonPanel({
   };
   const equipArt = (slot: number, id: string | null) => {
     if (onSetMartialSlot(slot, id)) {
-      setEquipNotice(id ? `已裝備「${getSkillDef(id)?.name ?? id}」至欄位${slot + 1}。` : `已卸下欄位${slot + 1}的武學。`);
+      const label = slot === INTERNAL_ART_SLOT ? '內功欄位' : slot === QINGGONG_ART_SLOT ? '身法欄位' : `外功欄位${slot + 1}`;
+      setEquipNotice(id ? `已裝備「${getSkillDef(id)?.name ?? id}」至${label}。` : `已卸下${label}的武學。`);
       setSelectedArt(null);
     } else setEquipNotice('未能調整裝備，請在戰鬥結束後重試。');
   };
@@ -469,8 +470,8 @@ export function InkPersonPanel({
       {view === 'skills' && (
         <>
           <h3>武學</h3>
-          <InkMainArts state={state} selected={selectedArt} busy={busy} onEquip={equipArt} onCancel={() => setSelectedArt(null)} />
           {equipNotice && <p className="ink-note ink-loadout-notice" role="status">{equipNotice}</p>}
+          <InkMainArts state={state} selected={selectedArt} busy={busy} onEquip={equipArt} onCancel={() => setSelectedArt(null)} />
           <InkSchoolTabs value={skillSchool} onChange={setSkillSchool} allowAll label="武學流派分類" />
           {skillSchool !== 'all' && !availableArts.some(id => primarySchoolOfSkill(getSkillDef(id)) === skillSchool) && <p className="ink-note">此流派尚無可用武學。</p>}
           {listWeaponMasteries(state).length > 0 && (

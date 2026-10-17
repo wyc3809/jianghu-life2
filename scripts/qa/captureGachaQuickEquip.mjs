@@ -1,7 +1,7 @@
-// 真實十連揭曉→人物武學→指定五格裝備；保留原有學習／收藏，唔額外收費。
+// 真實十連揭曉→人物武學→指定五格外功及獨立內功身法裝備；保留原有學習／收藏，唔額外收費。
 import {chromium,webkit} from '/opt/codex/cua_node/lib/node_modules/playwright/index.mjs';
 import fs from 'node:fs';
-const out=process.env.QA_EVIDENCE_DIR ?? 'production/qa/evidence/redesign/five-martial-loadout';fs.mkdirSync(out,{recursive:true});
+const out=process.env.QA_EVIDENCE_DIR ?? 'production/qa/evidence/redesign/external-five-loadout';fs.mkdirSync(out,{recursive:true});
 const report={checks:[],errors:[],seed:42};
 function check(pass,name){report.checks.push({name,pass:!!pass});fs.writeFileSync(out+'/browser-qa.json',JSON.stringify(report,null,2));if(!pass)throw Error(name);}
 async function seed(page){
@@ -16,8 +16,10 @@ async function seed(page){
   let preview;
   for(let i=0;i<30;i++){meta.gacha={pulls:i*10,banners:{},selection:{jianghu:schoolGachaPools('jianghu','qingling')[0].id}};preview=pull(structuredClone(meta),'jianghu',10);if(new Set(preview.map(r=>getSkillDef(r.id).kind)).size===3)break;}
   const state=createNewLife({seed:42,name:'黃青雲',skipCoach:true});state.phase='playing';state.pending=null;state.tab='jianghu';state.character.flags.newbie_done=true;state.character.flags.coach_done=true;
-  const kinds=['external','internal','qinggong'];const original=kinds.map(kind=>FREE_POOL.find(id=>getSkillDef(id).kind===kind&&!preview.some(r=>r.id===id)));
-  state.character.skills=original;state.character.equippedArts=[...original,null,null];state.character.skillRanks=Object.fromEntries(original.map(id=>[id,1]));
+  const kinds=['external','internal','qinggong'];const ext=FREE_POOL.filter(id=>getSkillDef(id).kind==='external'&&!preview.some(r=>r.id===id)).slice(0,5);
+  const internal=FREE_POOL.find(id=>getSkillDef(id).kind==='internal'&&!preview.some(r=>r.id===id)),qinggong=FREE_POOL.find(id=>getSkillDef(id).kind==='qinggong'&&!preview.some(r=>r.id===id));
+  const original=[...ext,internal,qinggong];
+  state.character.skills=original;state.character.equippedArts=ext;state.character.supportArts={internal,qinggong};state.character.skillRanks=Object.fromEntries(original.map(id=>[id,1]));
   a.setState({meta,lastPull:null,jadeToast:0,milestoneToast:[],encounterOpen:false});s.setState({state,lastResult:null,combatReplay:null,flashLines:[],sealText:null});
   window.qaLifeStore=s;window.qaAncestryStore=a;window.qaDefs=getSkillDef;window.qaOldArts=original;
  });
@@ -50,23 +52,23 @@ for(const[name,type]of[['chromium',chromium],['webkit',webkit]])for(const[width,
    await page.getByRole('region',{name:'武學裝備'}).waitFor();
    check(await page.evaluate(id=>{const s=window.qaLifeStore.getState().state;return s.tab==='person'&&!s.character.skills.includes(id)&&!s.character.equippedArts.includes(id)},r.id),tag+' '+r.kind+' redirect-does-not-learn-or-equip');
    check((await page.locator('.ink-loadout-selection').innerText()).includes(r.name),tag+' '+r.kind+' selected-art-carried-to-person');
-   check(await page.locator('.ink-loadout-slot').count()===5,tag+' five-visible-slots');
+   check(await page.locator('.ink-loadout-external .ink-loadout-slot').count()===5&&await page.locator('.ink-loadout-support .ink-loadout-slot').count()===2,tag+' five-visible-slots');
    check(await page.locator('.ink-loadout-selection').evaluate(el=>{const r=el.getBoundingClientRect(),b=el.closest('.ink-play-body').getBoundingClientRect();return r.top>=b.top&&r.bottom<=b.bottom}),tag+' '+r.kind+' selected-art-visible-after-redirect');
    if(width===390&&i===0)await page.screenshot({path:`${out}/${name}-choose-slot.png`});
-   const slot=i===0?3:i===1?4:1;const verb=i===2?'替換':'裝備';
-   await page.getByRole('button',{name:`${verb}${r.name}至欄位${slot+1}`,exact:true}).click();
-   const got=await page.evaluate(({r,slot})=>{const s=window.qaLifeStore.getState().state,a=window.qaAncestryStore.getState();return{equipped:s.character.equippedArts[slot]===r.id,learned:s.character.skills.filter(id=>id===r.id).length===1,oldKept:window.qaOldArts.every(id=>s.character.skills.includes(id)),volumes:r.vol?s.character.volumes[r.id].includes(r.vol):true,jade:a.meta.jade,pulls:a.meta.gacha.pulls,manuals:a.meta.manuals}}, {r,slot});
+   const slot=i===0?0:i===1?5:6;const target=i===0?'欄位1':i===1?'內功欄位':'身法欄位';const verb='替換';
+   await page.getByRole('button',{name:`${verb}${r.name}至${target}`,exact:true}).click();
+   const got=await page.evaluate(({r,slot})=>{const s=window.qaLifeStore.getState().state,a=window.qaAncestryStore.getState();return{equipped:(r.kind==='external'?s.character.equippedArts[slot]:s.character.supportArts[r.kind])===r.id,learned:s.character.skills.filter(id=>id===r.id).length===1,oldKept:window.qaOldArts.every(id=>s.character.skills.includes(id)),volumes:r.vol?s.character.volumes[r.id].includes(r.vol):true,jade:a.meta.jade,pulls:a.meta.gacha.pulls,manuals:a.meta.manuals}}, {r,slot});
    check(got.equipped&&got.learned&&got.oldKept&&got.volumes,tag+' '+r.kind+' explicit-slot-equips-and-keeps-originals');
    check(JSON.stringify(got.jade)===JSON.stringify(baseline.jade)&&got.pulls===baseline.pulls&&JSON.stringify(got.manuals)===JSON.stringify(baseline.manuals),tag+' '+r.kind+' no-extra-cost-or-collection-change');
   }
-  check(await page.evaluate(()=>window.qaLifeStore.getState().state.character.equippedArts.filter(Boolean).length===5),tag+' five-filled-with-mixed-types-and-schools');
+  check(await page.evaluate(()=>{const c=window.qaLifeStore.getState().state.character;return c.equippedArts.filter(Boolean).length===5&&c.equippedArts.every(id=>window.qaDefs(id)?.kind==='external')&&window.qaDefs(c.supportArts.internal)?.kind==='internal'&&window.qaDefs(c.supportArts.qinggong)?.kind==='qinggong'}),tag+' five-external-plus-independent-internal-and-qinggong');
   check(await page.locator('.ink-loadout-slot').evaluateAll(es=>es.every(e=>{const r=e.getBoundingClientRect();return r.left>=0&&r.right<=innerWidth&&e.scrollWidth<=e.clientWidth})),tag+' slots-fit-mobile-width');
   check(await page.locator('.ink-loadout-slot button').evaluateAll(es=>es.every(e=>{const r=e.getBoundingClientRect();return r.height>=44&&r.width>=44})),tag+' slot-touch-targets');
-  if(width===390){await page.locator('.ink-loadout').evaluate(el=>el.scrollIntoView({block:'start'}));await page.screenshot({path:`${out}/${name}-five-equipped.png`});}
+  if(width===390){await page.locator('.ink-loadout').evaluate(el=>el.scrollIntoView({block:'start'}));await page.screenshot({path:`${out}/${name}-five-equipped.png`});await page.locator('.ink-loadout-support').evaluate(el=>el.scrollIntoView({block:'start'}));await page.screenshot({path:`${out}/${name}-independent-support.png`});}
   await page.getByRole('button',{name:new RegExp('^卸下欄位4：')}).click();
   check(await page.evaluate(()=>window.qaLifeStore.getState().state.character.equippedArts[3]===null),tag+' unload-keeps-empty-slot');
   await page.waitForTimeout(500);
-  check(await page.evaluate(async()=>{const{loadLifeSave}=await import('/core/life/saveIndexedDb.ts');const saved=await loadLifeSave();return JSON.stringify(saved.state.character.equippedArts)===JSON.stringify(window.qaLifeStore.getState().state.character.equippedArts)}),tag+' five-slot-state-persisted');
+  check(await page.evaluate(async()=>{const{loadLifeSave}=await import('/core/life/saveIndexedDb.ts');const saved=await loadLifeSave();return JSON.stringify([saved.state.character.equippedArts,saved.state.character.supportArts])===JSON.stringify([window.qaLifeStore.getState().state.character.equippedArts,window.qaLifeStore.getState().state.character.supportArts])}),tag+' five-slot-state-persisted');
   check(!await page.getByText('即學即裝',{exact:true}).count(),tag+' no-colloquial-auto-equip-copy');
   await context.close();console.log('passed',tag);
  }finally{await browser.close();}

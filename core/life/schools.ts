@@ -1,7 +1,7 @@
-import { equippedMartialArts, setMartialSlot, martialSlots } from './martialLoadout';
+import { equippedMartialArts, setMartialSlot, martialSlots, INTERNAL_ART_SLOT, QINGGONG_ART_SLOT } from './martialLoadout';
 /**
- * 五格武學＋流派協同（design/agreed-design-2026-10.md §3；規則同數值見 data/redesign/schools.ts）。
- * 五門自由配搭；流派協同係額外獎勵，唔係裝備條件。
+ * 五格外功＋獨立內功身法及流派協同（design/agreed-design-2026-10.md §3；規則同數值見 data/redesign/schools.ts）。
+ * 五門外功自由配搭，內功／身法各一門；流派協同係額外獎勵，唔係裝備條件。
  * 已裝備武學＋穿戴裝備嘅流派計數：2＝小成、3＝大成。純函數、唔用 RNG。
  */
 import type { LifeCharacter, LifeGameState } from '@interfaces/lifeEngine';
@@ -48,6 +48,10 @@ export function mainArts(c: LifeCharacter): MainArts {
 export function setMainArt(state: LifeGameState, kind: SkillKind, skillId: string): boolean {
   const c = state.character;
   if (getSkillDef(skillId)?.kind !== kind || !c.skills.includes(skillId)) return false;
+  if (kind !== 'external') {
+    if (mainArts(c)[kind] === skillId) return true;
+    return setMartialSlot(state, kind === 'internal' ? INTERNAL_ART_SLOT : QINGGONG_ART_SLOT, skillId);
+  }
   const slots = martialSlots(c);
   if (slots.includes(skillId)) return true;
   const previous = slots.findIndex(id => id && getSkillDef(id)?.kind === kind);
