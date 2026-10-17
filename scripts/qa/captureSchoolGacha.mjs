@@ -3,7 +3,7 @@ import {chromium,webkit} from '/opt/codex/cua_node/lib/node_modules/playwright/i
 import fs from 'node:fs';
 const out=process.env.QA_EVIDENCE_DIR??'production/qa/evidence/redesign/school-gacha';fs.mkdirSync(out,{recursive:true});
 const previous=process.env.QA_BROWSER&&fs.existsSync(out+'/browser-qa.json')?JSON.parse(fs.readFileSync(out+'/browser-qa.json','utf8')):null;
-const report={checks:previous?previous.checks.filter(c=>!c.name.startsWith(process.env.QA_BROWSER)):[],errors:[],layouts:[]};
+const report={checks:previous?previous.checks.filter(c=>!c.name.startsWith(process.env.QA_BROWSER)&&c.name!=='no-page-errors'):[],errors:[],layouts:[]};
 function check(pass,name){report.checks.push({name,pass:!!pass});fs.writeFileSync(out+'/browser-qa.json',JSON.stringify(report,null,2));if(!pass)throw Error(name);}
 async function seed(page){
  await page.goto('http://127.0.0.1:5177/',{waitUntil:'networkidle'});
@@ -24,7 +24,7 @@ async function seed(page){
   a.setState({meta:m,lastPull:null,jadeToast:0,milestoneToast:[],encounterOpen:false});s.setState({state:st,lastResult:null,combatReplay:null,flashLines:[],sealText:null});
   window.qaLifeStore=s;window.qaAncestryStore=a;window.qaPool=activeSchoolGachaPool;window.qaPrimary=primarySchoolOfSkill;window.qaDefs=getSkillDef;window.qaSchools=SCHOOLS;
  });
- await page.getByRole('group',{name:'抽卡流派'}).waitFor();await page.waitForTimeout(250);
+ await page.getByRole('group',{name:'抽卡流派'}).waitFor();await page.evaluate(()=>document.fonts.ready);await page.waitForTimeout(250);
  await page.evaluate(()=>{window.qaAncestryStore.getState().clearJadeToast();window.qaAncestryStore.getState().clearMilestoneToast();});
 }
 for(const[name,type]of[['chromium',chromium],['webkit',webkit]])for(const[width,height]of[[320,690],[390,844],[420,844]]){
@@ -44,6 +44,10 @@ for(const[name,type]of[['chromium',chromium],['webkit',webkit]])for(const[width,
    const r=button.getBoundingClientRect();return r.height>=44&&r.width>=44&&button.scrollWidth<=button.clientWidth&&[...button.querySelectorAll('strong,small')].every(label=>{const t=label.getBoundingClientRect();return t.left>=r.left&&t.right<=r.right&&t.top>=r.top&&t.bottom<=r.bottom&&label.scrollWidth<=label.clientWidth});
   })));
   check(await labelsFit(),tag+' full-school-names-and-focus-fit-touch-buttons');
+  if(process.env.QA_TITLE_FONT==='1'){
+   check(await page.evaluate(()=>document.fonts.check('700 16px "Jianghu Wuxia Titles"','修羅血戰道長河疊浪摧鋒破陣鎖脈擒龍不動金剛逍遙遊')&&getComputedStyle(document.querySelector('.ink-school-tabs strong')).fontFamily.includes('Jianghu Wuxia Titles')),tag+' bundled-traditional-title-font-loaded');
+   check(await page.locator('.ink-school-focus').first().evaluate(el=>!getComputedStyle(el).fontFamily.includes('Jianghu Wuxia Titles')),tag+' focus-and-instructions-keep-readable-ui-font');
+  }
   check(await page.evaluate(()=>window.qaSchools.map(s=>s.name).join('、')==='修羅血戰道、長河疊浪、摧鋒破陣、鎖脈擒龍、不動金剛、逍遙遊'),tag+' confirmed-six-full-names');
   for(const banner of ['jianghu','zhenben']){
    await page.getByRole('tab',{name:banner==='jianghu'?/江湖秘笈/:/珍本奇功/}).click();

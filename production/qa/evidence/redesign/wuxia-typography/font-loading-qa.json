@@ -1,0 +1,253 @@
+{
+  "checks": [
+    {
+      "name": "chromium-loaded actual-font-state",
+      "pass": true
+    },
+    {
+      "name": "chromium-loaded new-title-font-only-from-game-origin",
+      "pass": true
+    },
+    {
+      "name": "chromium-loaded rendered-title-characters-covered",
+      "pass": true
+    },
+    {
+      "name": "chromium-loaded wallet-keeps-clear-numbers-without-outline",
+      "pass": true
+    },
+    {
+      "name": "chromium-loaded focus-keeps-ui-font",
+      "pass": true
+    },
+    {
+      "name": "chromium-loaded 390-full-names-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-loaded 390-no-horizontal-overflow",
+      "pass": true
+    },
+    {
+      "name": "chromium-loaded 320-full-names-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-loaded 320-no-horizontal-overflow",
+      "pass": true
+    },
+    {
+      "name": "chromium-blocked actual-font-state",
+      "pass": true
+    },
+    {
+      "name": "chromium-blocked new-title-font-only-from-game-origin",
+      "pass": true
+    },
+    {
+      "name": "chromium-blocked rendered-title-characters-covered",
+      "pass": true
+    },
+    {
+      "name": "chromium-blocked wallet-keeps-clear-numbers-without-outline",
+      "pass": true
+    },
+    {
+      "name": "chromium-blocked focus-keeps-ui-font",
+      "pass": true
+    },
+    {
+      "name": "chromium-blocked 390-full-names-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-blocked 390-no-horizontal-overflow",
+      "pass": true
+    },
+    {
+      "name": "chromium-blocked 320-full-names-fit",
+      "pass": true
+    },
+    {
+      "name": "chromium-blocked 320-no-horizontal-overflow",
+      "pass": true
+    },
+    {
+      "name": "webkit-loaded actual-font-state",
+      "pass": true
+    },
+    {
+      "name": "webkit-loaded new-title-font-only-from-game-origin",
+      "pass": true
+    },
+    {
+      "name": "webkit-loaded rendered-title-characters-covered",
+      "pass": true
+    },
+    {
+      "name": "webkit-loaded wallet-keeps-clear-numbers-without-outline",
+      "pass": true
+    },
+    {
+      "name": "webkit-loaded focus-keeps-ui-font",
+      "pass": true
+    },
+    {
+      "name": "webkit-loaded 390-full-names-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-loaded 390-no-horizontal-overflow",
+      "pass": true
+    },
+    {
+      "name": "webkit-loaded 320-full-names-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-loaded 320-no-horizontal-overflow",
+      "pass": true
+    },
+    {
+      "name": "webkit-blocked actual-font-state",
+      "pass": true
+    },
+    {
+      "name": "webkit-blocked new-title-font-only-from-game-origin",
+      "pass": true
+    },
+    {
+      "name": "webkit-blocked rendered-title-characters-covered",
+      "pass": true
+    },
+    {
+      "name": "webkit-blocked wallet-keeps-clear-numbers-without-outline",
+      "pass": true
+    },
+    {
+      "name": "webkit-blocked focus-keeps-ui-font",
+      "pass": true
+    },
+    {
+      "name": "webkit-blocked 390-full-names-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-blocked 390-no-horizontal-overflow",
+      "pass": true
+    },
+    {
+      "name": "webkit-blocked 320-full-names-fit",
+      "pass": true
+    },
+    {
+      "name": "webkit-blocked 320-no-horizontal-overflow",
+      "pass": true
+    },
+    {
+      "name": "no-page-errors",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "fontRequests": [
+    {
+      "tag": "chromium-loaded",
+      "titleUrls": [
+        "http://127.0.0.1:5177/src/assets/fonts/wuxia-titles.woff2"
+      ],
+      "otherFontUrls": [
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BtnAOSA.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnJsUnN3PrBufRbmGqUtcg4pzRPk5AEpzv6YzI9aTbOhf6M.122.woff2",
+        "https://fonts.gstatic.com/s/mashanzheng/v18/NaPecZTRCLxvwo41b4gvzkXaRMGEFoZJFdX0wQ5Xo5Hr21L9zCcRFhbSe5Nk0pIMuUkHEA.116.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnJsUnN3PrBufRbmGqUtcg4pzRPk5AEpzv6YzI9aTbOhf6M.123.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnJsUnN3PrBufRbmGqUtcg4pzRPk5AEpzv6YzI9aTbOhf6M.118.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnJsUnN3PrBufRbmGqUtcg4pzRPk5AEpzv6YzI9aTbOhf6M.115.woff2",
+        "https://fonts.gstatic.com/s/mashanzheng/v18/NaPecZTRCLxvwo41b4gvzkXaRMGEFoZJFdX0wQ5Xo5Hr21L9zCcRFhbSe5Nk0pIMuUkHEA.119.woff2",
+        "https://fonts.gstatic.com/s/mashanzheng/v18/NaPecZTRCLxvwo41b4gvzkXaRMGEFoZJFdX0wQ5Xo5Hr21L9zCcRFhbSe5Nk0pIMuUkHEA.118.woff2",
+        "https://fonts.gstatic.com/s/mashanzheng/v18/NaPecZTRCLxvwo41b4gvzkXaRMGEFoZJFdX0wQ5Xo5Hr21L9zCcRFhbSe5Nk0pIMuUkHEA.114.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnJsUnN3PrBufRbmGqUtcg4pzRPk5AEpzv6YzI9aTbOhf6M.121.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnJsUnN3PrBufRbmGqUtcg4pzRPk5AEpzv6YzI9aTbOhf6M.120.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnJsUnN3PrBufRbmGqUtcg4pzRPk5AEpzv6YzI9aTbOhf6M.119.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnJsUnN3PrBufRbmGqUtcg4pzRPk5AEpzv6YzI9aTbOhf6M.117.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnJsUnN3PrBufRbmGqUtcg4pzRPk5AEpzv6YzI9aTbOhf6M.116.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnJsUnN3PrBufRbmGqUtcg4pzRPk5AEpzv6YzI9aTbOhf6M.111.woff2"
+      ],
+      "fontState": "loaded"
+    },
+    {
+      "tag": "chromium-blocked",
+      "titleUrls": [
+        "http://127.0.0.1:5177/src/assets/fonts/wuxia-titles.woff2"
+      ],
+      "otherFontUrls": [
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BtnAOSA.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnJsUnN3PrBufRbmGqUtcg4pzRPk5AEpzv6YzI9aTbOhf6M.122.woff2",
+        "https://fonts.gstatic.com/s/mashanzheng/v18/NaPecZTRCLxvwo41b4gvzkXaRMGEFoZJFdX0wQ5Xo5Hr21L9zCcRFhbSe5Nk0pIMuUkHEA.116.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnJsUnN3PrBufRbmGqUtcg4pzRPk5AEpzv6YzI9aTbOhf6M.123.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnJsUnN3PrBufRbmGqUtcg4pzRPk5AEpzv6YzI9aTbOhf6M.118.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnJsUnN3PrBufRbmGqUtcg4pzRPk5AEpzv6YzI9aTbOhf6M.115.woff2",
+        "https://fonts.gstatic.com/s/mashanzheng/v18/NaPecZTRCLxvwo41b4gvzkXaRMGEFoZJFdX0wQ5Xo5Hr21L9zCcRFhbSe5Nk0pIMuUkHEA.119.woff2",
+        "https://fonts.gstatic.com/s/mashanzheng/v18/NaPecZTRCLxvwo41b4gvzkXaRMGEFoZJFdX0wQ5Xo5Hr21L9zCcRFhbSe5Nk0pIMuUkHEA.118.woff2",
+        "https://fonts.gstatic.com/s/mashanzheng/v18/NaPecZTRCLxvwo41b4gvzkXaRMGEFoZJFdX0wQ5Xo5Hr21L9zCcRFhbSe5Nk0pIMuUkHEA.114.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnJsUnN3PrBufRbmGqUtcg4pzRPk5AEpzv6YzI9aTbOhf6M.121.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnJsUnN3PrBufRbmGqUtcg4pzRPk5AEpzv6YzI9aTbOhf6M.120.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnJsUnN3PrBufRbmGqUtcg4pzRPk5AEpzv6YzI9aTbOhf6M.119.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnJsUnN3PrBufRbmGqUtcg4pzRPk5AEpzv6YzI9aTbOhf6M.117.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnJsUnN3PrBufRbmGqUtcg4pzRPk5AEpzv6YzI9aTbOhf6M.116.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnJsUnN3PrBufRbmGqUtcg4pzRPk5AEpzv6YzI9aTbOhf6M.111.woff2"
+      ],
+      "fontState": "error"
+    },
+    {
+      "tag": "webkit-loaded",
+      "titleUrls": [
+        "http://127.0.0.1:5177/src/assets/fonts/wuxia-titles.woff2"
+      ],
+      "otherFontUrls": [
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BtnAOSFNuQsI.woff2",
+        "https://fonts.gstatic.com/s/mashanzheng/v18/NaPecZTRCLxvwo41b4gvzkXadMPmDaZRbrw.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnIET3FsCN0FAgvgEq4qZwtrwBrhpwcyws-Z2oxkXLqzDtbj3psk.122.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnIET3FsCN0FAgvgEq4qZwtrwBrhpwcyws-Z2oxkXLqzDtbj3psk.115.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnIET3FsCN0FAgvgEq4qZwtrwBrhpwcyws-Z2oxkXLqzDtbj3psk.118.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnIET3FsCN0FAgvgEq4qZwtrwBrhpwcyws-Z2oxkXLqzDtbj3psk.123.woff2",
+        "https://fonts.gstatic.com/s/mashanzheng/v18/NaPecZTRCLxvwo41b4gvzkXaRMHsCoRTJKKTqxFXqIji1hn3wSpSEA3eSpJy0awdsFt2Zfc6SSE.116.woff2",
+        "https://fonts.gstatic.com/s/mashanzheng/v18/NaPecZTRCLxvwo41b4gvzkXaRMHsCoRTJKKTqxFXqIji1hn3wSpSEA3eSpJy0awdsFt2Zfc6SSE.114.woff2",
+        "https://fonts.gstatic.com/s/mashanzheng/v18/NaPecZTRCLxvwo41b4gvzkXaRMHsCoRTJKKTqxFXqIji1hn3wSpSEA3eSpJy0awdsFt2Zfc6SSE.119.woff2",
+        "https://fonts.gstatic.com/s/mashanzheng/v18/NaPecZTRCLxvwo41b4gvzkXaRMHsCoRTJKKTqxFXqIji1hn3wSpSEA3eSpJy0awdsFt2Zfc6SSE.118.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnIET3FsCN0FAgvgEq4qZwtrwBrhpwcyws-Z2oxkXLqzDtbj3psk.119.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnIET3FsCN0FAgvgEq4qZwtrwBrhpwcyws-Z2oxkXLqzDtbj3psk.121.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnIET3FsCN0FAgvgEq4qZwtrwBrhpwcyws-Z2oxkXLqzDtbj3psk.120.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnIET3FsCN0FAgvgEq4qZwtrwBrhpwcyws-Z2oxkXLqzDtbj3psk.117.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnIET3FsCN0FAgvgEq4qZwtrwBrhpwcyws-Z2oxkXLqzDtbj3psk.116.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnIET3FsCN0FAgvgEq4qZwtrwBrhpwcyws-Z2oxkXLqzDtbj3psk.111.woff2"
+      ],
+      "fontState": "loaded"
+    },
+    {
+      "tag": "webkit-blocked",
+      "titleUrls": [
+        "http://127.0.0.1:5177/src/assets/fonts/wuxia-titles.woff2"
+      ],
+      "otherFontUrls": [
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BtnAOSFNuQsI.woff2",
+        "https://fonts.gstatic.com/s/mashanzheng/v18/NaPecZTRCLxvwo41b4gvzkXadMPmDaZRbrw.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnIET3FsCN0FAgvgEq4qZwtrwBrhpwcyws-Z2oxkXLqzDtbj3psk.122.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnIET3FsCN0FAgvgEq4qZwtrwBrhpwcyws-Z2oxkXLqzDtbj3psk.115.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnIET3FsCN0FAgvgEq4qZwtrwBrhpwcyws-Z2oxkXLqzDtbj3psk.118.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnIET3FsCN0FAgvgEq4qZwtrwBrhpwcyws-Z2oxkXLqzDtbj3psk.123.woff2",
+        "https://fonts.gstatic.com/s/mashanzheng/v18/NaPecZTRCLxvwo41b4gvzkXaRMHsCoRTJKKTqxFXqIji1hn3wSpSEA3eSpJy0awdsFt2Zfc6SSE.116.woff2",
+        "https://fonts.gstatic.com/s/mashanzheng/v18/NaPecZTRCLxvwo41b4gvzkXaRMHsCoRTJKKTqxFXqIji1hn3wSpSEA3eSpJy0awdsFt2Zfc6SSE.114.woff2",
+        "https://fonts.gstatic.com/s/mashanzheng/v18/NaPecZTRCLxvwo41b4gvzkXaRMHsCoRTJKKTqxFXqIji1hn3wSpSEA3eSpJy0awdsFt2Zfc6SSE.119.woff2",
+        "https://fonts.gstatic.com/s/mashanzheng/v18/NaPecZTRCLxvwo41b4gvzkXaRMHsCoRTJKKTqxFXqIji1hn3wSpSEA3eSpJy0awdsFt2Zfc6SSE.118.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnIET3FsCN0FAgvgEq4qZwtrwBrhpwcyws-Z2oxkXLqzDtbj3psk.119.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnIET3FsCN0FAgvgEq4qZwtrwBrhpwcyws-Z2oxkXLqzDtbj3psk.121.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnIET3FsCN0FAgvgEq4qZwtrwBrhpwcyws-Z2oxkXLqzDtbj3psk.120.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnIET3FsCN0FAgvgEq4qZwtrwBrhpwcyws-Z2oxkXLqzDtbj3psk.117.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnIET3FsCN0FAgvgEq4qZwtrwBrhpwcyws-Z2oxkXLqzDtbj3psk.116.woff2",
+        "https://fonts.gstatic.com/s/notoseriftc/v37/XLYgIZb5bJNDGYxLBibeHZ0BhnIET3FsCN0FAgvgEq4qZwtrwBrhpwcyws-Z2oxkXLqzDtbj3psk.111.woff2"
+      ],
+      "fontState": "error"
+    }
+  ]
+}

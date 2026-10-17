@@ -18,7 +18,9 @@ type Props = {
 /** 六派用同款器物位圖＋文字；全部只用喺武學列表，抽卡一定先選一派。 */
 export function InkSchoolTabs({ value, onChange, allowAll, counts, label = '流派分類' }: Props) {
   return <div className={`ink-school-tabs${allowAll ? ' has-all' : ''}`} role="group" aria-label={label}>
-    {allowAll && <button type="button" aria-pressed={value === 'all'} onClick={() => onChange('all')}>全部</button>}
+    {allowAll && <button type="button" aria-label="全部" aria-pressed={value === 'all'} onClick={() => onChange('all')}>
+      <InkIcon name="scroll" size={20} /><strong>全部</strong><small className="ink-school-focus">六派總覽</small>
+    </button>}
     {SCHOOLS.map(school => <button type="button" key={school.id} className={`ink-school-choice ink-school-tag--${school.id}`}
       aria-label={`選${school.name}流派`} aria-pressed={value === school.id} onClick={() => onChange(school.id)}>
       <InkIcon name={ICONS[school.id]} size={20} /><strong>{school.name}</strong><small className="ink-school-focus">{school.focus}</small>{counts?.[school.id] !== undefined && <small>{counts[school.id]}</small>}

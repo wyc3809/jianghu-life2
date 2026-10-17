@@ -1,3 +1,12 @@
+/* 固定武學題字：繁中字形子集隨構建打包；授權隨遊戲附於 ink/fonts/。 */
+@font-face {
+  font-family: 'Jianghu Wuxia Titles';
+  src: url('./assets/fonts/wuxia-titles.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
 :root {
   /* —— 動態語言（design/ux/motion-language.md）——
      時長四檔：快＝按後回應、常＝面板／文字入場、慢＝落印／暈開、儀式＝翻月／突破／首領。
@@ -49,6 +58,7 @@
   --font-display: 'Ma Shan Zheng', 'Noto Serif TC', 'Songti TC', serif;
   --font-title: 'Noto Serif TC', 'Songti TC', 'STSong', 'SimSun', serif;
   --font-body: 'Noto Serif TC', 'Songti TC', 'STSong', 'SimSun', serif;
+  --font-wuxia-title: 'Jianghu Wuxia Titles', var(--game-ui-font, sans-serif);
   --fs-body: 1rem;
   --fs-caption: 0.82rem;
   --fs-label: 0.8rem;
@@ -10970,4 +10980,27 @@ body:has(.ink-spar-boss-screen) .ink-task-dock { visibility: hidden; }
 .ink-skill-schools .is-primary { font-weight: 700; background: var(--paper-bright); }
 .ink-pull-card .ink-skill-schools { align-self: start; }
 .ink-school-tabs.has-all { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+/* 第28項：武學／流派題簽用同一繁中楷筆字，說明、資源及數字仍讀統一UI字。 */
+.scroll-shell--play :is(.ink-school-tabs strong, .ink-school-pool-heading > strong,
+  .ink-school-pool-preview li > strong, .ink-school-tag, .ink-school-seal, .ink-school-level,
+  .ink-main-slot-name, .ink-skill-card-head > strong, .ink-shelf-name, .ink-pull-name,
+  .ink-gacha-head h3, .ink-pool-calli, .ink-pool-calli span, .ink-wish-head, .ink-wish-name) {
+  font-family: var(--font-wuxia-title) !important;
+  font-weight: 700;
+  font-synthesis: none;
+  letter-spacing: 0.035em;
+}
+.scroll-shell--play .ink-school-tabs strong {
+  font-size: clamp(12px, 3.85vw, 15px);
+  line-height: 1.4;
+  text-shadow: 0 1px 0 #fff9;
+}
+.scroll-shell--play .ink-school-tabs.has-all strong { font-size: clamp(11px, 3.5vw, 14px); }
+.scroll-shell--play .ink-school-pool-heading > strong { font-size: 19px; line-height: 1.5; }
+.scroll-shell--play .ink-school-pool-preview li > strong { font-size: 16px; line-height: 1.5; }
+.scroll-shell--play .ink-school-tag { font-size: 12px; line-height: 1.65; letter-spacing: 0; }
+.scroll-shell--play .ink-school-seal { font-size: 16px; letter-spacing: 0.04em; }
+.scroll-shell--play :is(.ink-main-slot-name, .ink-skill-card-head > strong) { font-size: 18px; line-height: 1.5; }
+.scroll-shell--play :is(.ink-shelf-name, .ink-pull-name) { font-size: 16px; line-height: 1.5; }
 .ink-pull-context { font-size: 11px; line-height: 1.6; color: var(--ink-mid); margin: 10px 0 0; }

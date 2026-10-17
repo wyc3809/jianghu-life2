@@ -1,0 +1,25 @@
+{
+  "checks": [
+    {
+      "name": "Pages-base-prefixed-hashed-font-HTTP200",
+      "pass": true
+    },
+    {
+      "name": "served-font-equals-reviewed-local-font",
+      "pass": true
+    },
+    {
+      "name": "OFL-license-shipped-with-build",
+      "pass": true
+    }
+  ],
+  "fonts": [
+    {
+      "url": "http://127.0.0.1:5180/jianghu-life2/assets/wuxia-titles-DuK567Iq.woff2",
+      "bytes": 210120,
+      "contentType": "font/woff2"
+    }
+  ],
+  "published": false,
+  "server": "local-Vite-Pages-preview"
+}

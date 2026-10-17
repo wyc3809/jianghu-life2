@@ -466,3 +466,15 @@
 - 命名理念及103門對照：`production/流派神髓與命名提案.md`、`production/武學流派對照.md`。今次名稱已確認，唔再當待定測試參數；畫面仍需玩家睇圖。
 
 證據：`production/qa/evidence/redesign/school-names/`，改前引用18420e1實際渲染截圖，改後用同一seed42、390×844、DPR2。615項Vitest、Pages build、narrate hard-fail0通過；手機矩陣343項（六派完整名、細字、觸控、三頁分類、多適性主修／小成／大成、舊心願及保底）通過。另跑真正WebGL揭曉即裝回歸61項通過，兩組合共404項、無pageerror，結果見同目錄 `equip-regression/browser-qa.json`。主UI矩陣用減少動態／無WebGL後備；屬Chromium／WebKit手機尺寸模擬，未當iPhone實機或TestFlight已驗收。未升版本、未部署，正式版仍EA0.73.0。
+
+
+### 第28項字體藝術風格原型（2026-10-17，已實作，待玩家睇圖，未上線）
+
+玩家問藝術風格可唔可以遊戲化，再補充係「字體藝術風格」。先交武學／六派範圍嘅實際UI字體原型，保留現行淺色水墨；未升版本，正式版仍EA0.73.0。
+
+- 六派、武學名、秘笈題簽、心願武學、收藏／抽卡結果同人物主修標籤用同一繁中楷筆題字，字級按12–19px分層；「全部」補同款卷軸位圖＋題字，六派名稱仍係已確認嗰六個。
+- 神髓、說明、定位、銀兩／玉石／氣血數字同玩家姓名沿用統一UI字，貨幣無描邊。未改演武台Canvas文字／動畫、數值、卡池、保底、存檔或玩法。
+- 馬善政缺多個繁體字，今次選用LXGW WenKai TC Bold，654個預定字形全部具備；依OFL製作自託管WOFF2子集，約205KiB，改名Jianghu Wuxia Titles，隨構建帶hash，完整授權隨遊戲分發。新題字唔靠外部Google Fonts，舊入口其他外部字款未移除；字體暫未載到用swap後備，唔留空白。
+- 字款、字級、字距同題簽大小屬本次美術原型，等玩家睇實際畫面後定方向。來源、授權、固定版本SHA256同重建腳本：`design/art/wuxia-typography/`、`scripts/art/build_game_title_font.py`。
+
+改前772203a／改後390×844、DPR2、seed42真實截圖同紅框：`production/qa/evidence/redesign/wuxia-typography/`。615項Vitest、Pages build、narrate hard-fail0通過；355項兩瀏覽器手機矩陣、37項字體真正載入／故意失敗後備及資源字體檢查通過，WebGL十連即裝回歸61項亦通過，兩瀏覽器合共453項檢查、無pageerror，結果見同目錄報告。本機Pages構建字體路徑、內容及授權3項檢查通過。手機矩陣用減少動態／無WebGL後備，另測真正WebGL；未當iPhone實機或正常動態性能驗收，未發布網頁／TestFlight。

@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "published": false,
+  "liveVersion": "EA0.73.0",
+  "beforeCommit": "772203a",
+  "vitest": {
+    "files": 85,
+    "passed": 615
+  },
+  "browserChecks": {
+    "main": 355,
+    "fontLoading": 37,
+    "quickEquip": 61,
+    "total": 453
+  },
+  "pagesAssetChecks": 3,
+  "pagesBuild": "passed",
+  "narrateHardFail": 0,
+  "font": {
+    "family": "Jianghu Wuxia Titles",
+    "bytes": 210120,
+    "coveredCharacters": 654,
+    "canonicalMartialNamesCovered": 103,
+    "sha256": "518578c3a574da5509a387698156a74223ee438d18285bdd535ed8d2a1c7ab4c",
+    "license": "OFL-1.1"
+  },
+  "limitations": [
+    "桌面Chromium／WebKit手機尺寸模擬，未做iPhone實機驗收",
+    "主UI矩陣用減少動態／無WebGL後備，另測真正WebGL即裝",
+    "未發布網頁或TestFlight"
+  ]
+}
