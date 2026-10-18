@@ -1,0 +1,52 @@
+import {chromium} from '/opt/codex/cua_node/lib/node_modules/playwright/index.mjs';
+import fs from 'node:fs';
+const base=process.env.QA_BASE_URL??'http://127.0.0.1:5180/jianghu-life2/';
+const out=process.env.QA_EVIDENCE_DIR??'production/qa/evidence/redesign/release-ea075/local';fs.mkdirSync(out,{recursive:true});
+const report={base,version:'EA0.75.0',mode:'ordinary-production-ui-no-fixture-or-dev-import',checks:[],errors:[]};
+function check(pass,name){report.checks.push({name,pass:!!pass});fs.writeFileSync(out+'/browser.json',JSON.stringify(report,null,2));if(!pass)throw Error(name);}
+const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox']});
+try{
+ const context=await browser.newContext({viewport:{width:390,height:844},deviceScaleFactor:2,isMobile:true,hasTouch:true,reducedMotion:'reduce'});const page=await context.newPage();page.setDefaultTimeout(30000);page.on('pageerror',e=>report.errors.push(e.message));
+ await page.goto(base,{waitUntil:'networkidle'});
+ check(!await page.getByRole('button',{name:'定種子 · 除錯',exact:true}).count(),'production-has-no-dev-controls');
+ await page.getByRole('button',{name:'開卷',exact:true}).click();await page.getByLabel('姓名',{exact:true}).fill('驗證少俠');await page.getByRole('button',{name:'翻開少時',exact:true}).click();
+ for(let i=0;i<3;i++)await page.getByRole('region',{name:'少時往事'}).locator('button.ink-choice').first().click();
+ await page.getByRole('button',{name:'落筆開卷',exact:true}).click();await page.locator('.scroll-shell--play').waitFor();
+ check((await page.locator('.ink-hud').innerText()).includes('驗證少俠'),'created-isolated-character-through-real-ui');
+ await page.screenshot({path:out+'/home.png'});
+ const nav=page.getByRole('navigation',{name:'分卷'});
+ async function openArts(){await nav.getByRole('button',{name:'人物',exact:true}).click();if(await page.locator('.ink-bitlife-row').filter({hasText:'已習'}).count())await page.locator('.ink-bitlife-row').filter({hasText:'已習'}).click();await page.getByRole('region',{name:'武學裝備'}).waitFor();}
+ await openArts();
+ check(await page.locator('.ink-loadout-external .ink-loadout-slot').count()===5,'five-external-slots');
+ check(await page.locator('.ink-loadout-support .ink-loadout-slot').count()===2,'two-independent-support-slots');
+ check((await page.locator('.ink-main-arts-label').innerText()).includes('外功最多五門；內功及身法各一門'),'correct-configuration-copy');
+ const beforeNames=await page.locator('.ink-loadout .ink-main-slot-name').allTextContents();
+ await page.locator('.ink-loadout').evaluate(el=>el.scrollIntoView({block:'start'}));await page.screenshot({path:out+'/person-before.png'});
+ await nav.getByRole('button',{name:'江湖',exact:true}).click();await page.getByRole('group',{name:'抽卡流派'}).waitFor();
+ check(await page.getByRole('group',{name:'抽卡流派'}).getByRole('button').count()===6,'six-school-pools-present');
+ await page.locator('.ink-gacha-plus').click();await page.getByRole('button',{name:/抽一次/}).click();
+ const dialog=page.getByRole('dialog',{name:/武學令：/});
+ await dialog.waitFor();await dialog.getByRole('button',{name:'跳過 ›',exact:true}).click();
+ const quick=dialog.locator('button[aria-label^="馬上裝備："]');await quick.waitFor();
+ await page.waitForFunction(()=>{const b=document.querySelector('[role="dialog"] button[aria-label^="馬上裝備："]');return b&&!b.disabled},null,{timeout:60000});
+ const target=(await quick.getAttribute('aria-label')).replace('馬上裝備：','');report.target=target;
+ check(await quick.innerText()==='馬上裝備','written-quick-action-label');
+ await quick.click();await dialog.waitFor({state:'detached'});await page.getByRole('region',{name:'武學裝備'}).waitFor();
+ check((await page.locator('.ink-loadout-selection').innerText()).includes(target),'result-navigates-to-person-with-target');
+ check(JSON.stringify(await page.locator('.ink-loadout .ink-main-slot-name').allTextContents())===JSON.stringify(beforeNames),'navigation-does-not-auto-equip');
+ check(await page.locator('.ink-loadout-selection').evaluate(el=>{const r=el.getBoundingClientRect(),b=el.closest('.ink-play-body').getBoundingClientRect();return r.top>=b.top&&r.bottom<=b.bottom}),'target-selection-visible-after-navigation');
+ await page.screenshot({path:out+'/choose-slot.png'});
+ let action=page.getByRole('button',{name:new RegExp('^裝備'+target+'至')}).first();if(!await action.count())action=page.getByRole('button',{name:new RegExp('^替換'+target+'至')}).first();
+ report.action=await action.getAttribute('aria-label');await action.click();await page.locator('.ink-loadout-selection').waitFor({state:'detached'});
+ check((await page.locator('.ink-loadout .ink-main-slot-name').allTextContents()).includes(target),'explicit-slot-action-equips-target');
+ check(await page.locator('.ink-loadout-external .ink-loadout-slot').count()===5&&await page.locator('.ink-loadout-support .ink-loadout-slot').count()===2,'equipping-keeps-five-external-plus-two-support-layout');
+ check(await page.locator('.ink-loadout-slot').evaluateAll(es=>es.every(el=>el.scrollWidth<=el.clientWidth&&el.getBoundingClientRect().right<=innerWidth)),'equipped-layout-fits-mobile-width');
+ const afterNames=await page.locator('.ink-loadout .ink-main-slot-name').allTextContents();
+ await page.locator('.ink-loadout').evaluate(el=>el.scrollIntoView({block:'start'}));await page.screenshot({path:out+'/person-equipped.png'});
+ await page.reload({waitUntil:'networkidle'});const resume=page.getByRole('button',{name:/續寫前緣/});if(await resume.count())await resume.click();await page.locator('.scroll-shell--play').waitFor();const offline=page.getByRole('dialog',{name:'閉關所得'});if(await offline.count())await offline.getByRole('button').click();await openArts();
+ check(JSON.stringify(await page.locator('.ink-loadout .ink-main-slot-name').allTextContents())===JSON.stringify(afterNames),'equipped-state-survives-browser-reload');
+ check(await page.locator('.ink-loadout-slot button').evaluateAll(es=>es.every(el=>{const r=el.getBoundingClientRect();return r.width>=44&&r.height>=44})),'equipment-controls-have-touch-targets');
+ check(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'no-horizontal-page-overflow');
+ check(!report.errors.length,'no-page-errors');
+ await context.close();console.log('Passed',report.checks.length);
+}catch(e){report.failure=String(e);fs.writeFileSync(out+'/browser.json',JSON.stringify(report,null,2));throw e;}finally{await browser.close();}
