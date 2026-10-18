@@ -129,7 +129,7 @@ export function InkPlayScreen({ state }: Props) {
   const attemptBreakthrough = useLifeStore((s) => s.attemptBreakthrough);
   const startNewbieTrial = useLifeStore((s) => s.startNewbieTrial);
   const harvestIdle = useLifeStore((s) => s.harvestIdle);
-  const setMainArtAction = useLifeStore((s) => s.setMainArt);
+  const setMartialSlotAction = useLifeStore((s) => s.setMartialSlot);
   const breakthroughResult = useLifeStore((s) => s.breakthroughResult);
   const clearBreakthroughResult = useLifeStore((s) => s.clearBreakthroughResult);
   const ackMoment = useLifeStore((s) => s.ackMoment);
@@ -170,6 +170,7 @@ export function InkPlayScreen({ state }: Props) {
   const clearOfflineGain = useLifeStore((s) => s.clearOfflineGain);
   const [practiceView, setPracticeView] = useState<PracticeView>('main');
   const [personView, setPersonView] = useState<PersonView>('main');
+  const [requestedArt, setRequestedArt] = useState<string | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [boardOpen, setBoardOpen] = useState(false);
   const resultTitleRef = useRef<HTMLHeadingElement | null>(null);
@@ -779,7 +780,9 @@ export function InkPlayScreen({ state }: Props) {
         </div>
       )}
 
-      {tab === 'jianghu' && !combat && !eventFocus && <InkGachaPanel state={state} />}
+      {tab === 'jianghu' && !combat && !eventFocus && <InkGachaPanel state={state} onEquipRequest={id => {
+        setRequestedArt(id); setTab('person'); setPersonView('skills');
+      }} />}
 
       {tab === 'jianghu' && !combat && !eventFocus && (
         <section key="jianghu" className="ink-panel ink-world-panel ink-tab-pane" aria-label="心性">
@@ -826,7 +829,9 @@ export function InkPlayScreen({ state }: Props) {
           onView={setPersonView}
           busy={busy}
           onEquip={equipOwned}
-          onSetMainArt={setMainArtAction}
+          requestedArt={requestedArt}
+          onRequestHandled={() => setRequestedArt(null)}
+          onSetMartialSlot={setMartialSlotAction}
           onEquipBest={() => {
             practice('equip_best');
           }}

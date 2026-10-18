@@ -1,3 +1,4 @@
+import { equippedMartialArts } from './martialLoadout';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { natureLabels } from '@interfaces/lifeEngine';
 import { sumEvasionBonus } from '@data/skills/catalog';
@@ -59,6 +60,6 @@ export function jianghuHints(state: LifeGameState): string[] {
 
 export function playerEvasionPercent(state: LifeGameState): number {
   const c = state.character;
-  const ev = sumEvasionBonus(c.skills, c.skillRanks ?? {}) + c.attributes.danShi / 500;
+  const ev = sumEvasionBonus(equippedMartialArts(c), c.skillRanks ?? {}) + c.attributes.danShi / 500;
   return Math.round(Math.min(0.45, ev) * 100);
 }

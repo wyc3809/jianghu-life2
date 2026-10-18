@@ -11,7 +11,7 @@ import {
 } from '@data/redesign/testParams';
 import { VOLUME_COUNT, hasVolumes, volumeLabel } from '@data/skills/volumes';
 import { collectionVolumes } from '@core/life/volumes';
-import { MAIN_ART_LABEL, mainArts } from '@core/life/schools';
+import { equippedMartialArts } from '@core/life/martialLoadout';
 import { activeSchoolGachaPool, schoolGachaPools } from '@core/life/schoolGachaPools';
 import { primarySchoolOfSkill, SCHOOLS, type SchoolId } from '@data/redesign/schools';
 import { BANNERS, FREE_POOL, bannerState, spendableJade, wishPool, type BannerId } from '@core/life/gacha';
@@ -23,7 +23,7 @@ import { InkIcon } from './InkIcon';
 import { gachaHighlight } from '../../fx/highlight/fromGame';
 import { InkSchoolTabs, InkSkillSchools } from './InkSchoolTabs';
 
-type Props = { state: LifeGameState };
+type Props = { state: LifeGameState; onEquipRequest: (id: string) => void };
 
 const BANNER_IDS: BannerId[] = ['jianghu', 'zhenben'];
 /** 掛軸舞台入面嘅未知人影（用演武台剪影，淡墨） */
@@ -47,7 +47,7 @@ function VerticalText({ text }: { text: string }) {
  * 家族秘笈收藏（升階／轉書頁／學習）、書頁兌換（design/agreed-design-2026-10.md §3.1、§3.2）。
  * 放喺「江湖」分頁；抽卡結果用同每月學武學一樣嘅武學令演出（HighlightFx token）。
  */
-export function InkGachaPanel({ state }: Props) {
+export function InkGachaPanel({ state, onEquipRequest }: Props) {
   const meta = useAncestryStore((s) => s.meta);
   const lastPull = useAncestryStore((s) => s.lastPull);
   const lastPullSource = useAncestryStore((s) => s.lastPullSource);
@@ -85,34 +85,18 @@ export function InkGachaPanel({ state }: Props) {
   const swapOptions = FREE_POOL.filter((id) => !manuals[id]);
   const visibleShelf = shelf.filter(([id]) => shelfSchool === 'all' || primarySchoolOfSkill(getSkillDef(id)) === shelfSchool);
   const known = new Set(state.character.skills);
-  const equippedArts = mainArts(state.character);
+  const equippedArts = equippedMartialArts(state.character);
   const canEquip = state.phase === 'playing' && state.character.alive && !combatBusy;
 
-  // 留喺抽卡結果：先由收藏學習，再換對應主修；原有武學照保留。
-  const equipResult = (id: string) => {
-    const life = useLifeStore.getState();
-    const def = getSkillDef(id);
-    if (!def || !life.state || life.state.phase !== 'playing' || !life.state.character.alive || life.state.pendingCombat || life.combatReplay) return;
-    learn(id);
-    if (useLifeStore.getState().state?.character.skills.includes(id)) {
-      useLifeStore.getState().setMainArt(def.kind, id);
-      playInkTap();
-    }
-  };
-
+  // 結果只導向人物武學頁；玩家指定欄位之後先學習及裝備。
   const equipControl = (id: string, ready = true, className = '') => {
-    const def = getSkillDef(id);
-    if (!def) return null;
-    const current = equippedArts[def.kind];
-    const equipped = current === id;
-    const label = equipped ? '已裝備' : known.has(id) ? '立即裝備' : '即學即裝';
+    if (!getSkillDef(id)) return null;
+    const equipped = equippedArts.includes(id);
     return <div className={`ink-pull-equip ${className}`}>
-      <span className="ink-pull-replaces">
-        {equipped ? `目前${MAIN_ART_LABEL[def.kind]}主修` : current ? `替換：${skillLabel(current)}` : `裝備至${MAIN_ART_LABEL[def.kind]}`}
-      </span>
+      <span className="ink-pull-replaces">{equipped ? '已裝備，可前往調整' : '前往人物頁選擇裝備欄位'}</span>
       <button type="button" className="ink-btn ink-btn--quiet ink-pull-equip-btn"
-        disabled={!canEquip || !ready || equipped || !manuals[id]}
-        aria-label={`${label}：${skillLabel(id)}`} onClick={() => equipResult(id)}>{label}</button>
+        disabled={!canEquip || !ready || !manuals[id]}
+        aria-label={`馬上裝備：${skillLabel(id)}`} onClick={() => { setFx(null); onEquipRequest(id); playInkTap(); }}>馬上裝備</button>
     </div>;
   };
 
@@ -175,10 +159,10 @@ export function InkGachaPanel({ state }: Props) {
               </p>
             ))}
             <p>
-              每抽 {GACHA_COST_PER_PULL} 玉石；揀咗心願之後 {GACHA_WISH_PITY} 抽內必出心願。外功分七卷，每抽出一卷。
+              每抽 {GACHA_COST_PER_PULL} 玉石；設定心願後 {GACHA_WISH_PITY} 抽內必出心願。外功分七卷，每抽出一卷。
             </p>
-            <p>先揀流派同小冊，本冊只出預覽名單；換冊保留保底，心願唔在新冊就重新揀。原有收藏全部保留。</p>
-            <p className="ink-gacha-test-note">測試版：唔收真錢；付費玉石只係模擬額度，同日後正式購買分開記帳。</p>
+            <p>先選擇流派與小冊，本冊僅產出預覽名單中的武學；更換小冊保留保底進度，心願不在新冊時須重新設定。原有收藏全部保留。</p>
+            <p className="ink-gacha-test-note">測試版不收取真實款項；付費玉石為模擬額度，與日後正式購買分開記帳。</p>
             <button type="button" className="ink-jade-grant" onClick={grantTest}>
               領測試額度＋{TEST_PAID_JADE_GRANT.toLocaleString('zh-Hant')}
             </button>
@@ -211,7 +195,7 @@ export function InkGachaPanel({ state }: Props) {
               <div className="ink-school-pool-heading">
                 <strong>{school.name} · 第{pool.part}冊</strong>
                 <span>本冊 {pool.arts.length} 門</span>
-                {schoolPacks.length > 1 && <select aria-label="揀流派小冊" value={pool.id} onChange={e => selectPool(banner, e.target.value)}>
+                {schoolPacks.length > 1 && <select aria-label="選擇流派小冊" value={pool.id} onChange={e => selectPool(banner, e.target.value)}>
                   {schoolPacks.map(pack => <option key={pack.id} value={pack.id}>第{pack.part}冊 · {pack.arts.length}門</option>)}
                 </select>}
               </div>
@@ -258,7 +242,7 @@ export function InkGachaPanel({ state }: Props) {
                 </span>
                 <select aria-label="心願" value={b.wish ?? ''} onChange={(e) => setWish(banner, e.target.value)}>
                   <option value="" disabled>
-                    揀一門心願武學
+                    選擇一門心願武學
                   </option>
                   {wishPool(banner, meta).map((id) => (
                     <option key={id} value={id}>
@@ -275,7 +259,7 @@ export function InkGachaPanel({ state }: Props) {
                   此池再抽 <em>{GACHA_WISH_PITY - b.sinceWish}</em> 次必出心願
                 </>
               ) : (
-                '未揀心願（揀咗先開始計保底）'
+                '尚未設定心願（設定後開始累計保底）'
               )}
             </p>
 
@@ -295,7 +279,7 @@ export function InkGachaPanel({ state }: Props) {
                 </span>
               </button>
             </div>
-            {banner === 'jianghu' && <p className="ink-gacha-note">先扣免費玉石，唔夠先扣付費；呢個池唔會出珍本奇功。</p>}
+            {banner === 'jianghu' && <p className="ink-gacha-note">優先扣除免費玉石，不足時扣除付費玉石；此卡池不產出珍本奇功。</p>}
 
             {lastPull && lastPull.length > 0 && (
               <>
@@ -335,8 +319,8 @@ export function InkGachaPanel({ state }: Props) {
               <span>
                 書頁 <b>{(meta.pages ?? 0).toLocaleString('zh-Hant')}</b>／{PAGES_PER_EXCHANGE}
               </span>
-              <select value={swap} onChange={(e) => setSwap(e.target.value)} aria-label="揀兌換武學">
-                <option value="">揀一門江湖武學兌換</option>
+              <select value={swap} onChange={(e) => setSwap(e.target.value)} aria-label="選擇兌換武學">
+                <option value="">選擇一門江湖武學兌換</option>
                 {swapOptions.map((id) => (
                   <option key={id} value={id}>
                     {skillLabel(id)}
@@ -349,7 +333,7 @@ export function InkGachaPanel({ state }: Props) {
             </div>
             <InkSchoolTabs value={shelfSchool} onChange={setShelfSchool} allowAll label="收藏流派分類" />
             {shelf.length === 0 ? (
-              <p className="ink-note">收藏仲係空嘅——去「抽秘笈」試吓。</p>
+              <p className="ink-note">尚無收藏，可前往「抽秘笈」獲取武學。</p>
             ) : (
               <ul className="ink-shelf">
                 {visibleShelf.map(([id, e]) => {
@@ -370,7 +354,7 @@ export function InkGachaPanel({ state }: Props) {
                       <div className="ink-shelf-actions">
                         {!known.has(id) && (
                           <button type="button" className="ink-btn ink-btn--primary" onClick={() => learn(id)}>
-                            學
+                            學習
                           </button>
                         )}
                         <button type="button" className="ink-btn ink-btn--quiet" disabled={e.copies < 1 || e.stars >= MANUAL_MAX_STARS} onClick={() => upgrade(id)}>
@@ -385,7 +369,7 @@ export function InkGachaPanel({ state }: Props) {
                 })}
               </ul>
             )}
-            {shelf.length > 0 && visibleShelf.length === 0 && <p className="ink-note">呢個流派暫時未有藏本，可以返去抽對應流派。</p>}
+            {shelf.length > 0 && visibleShelf.length === 0 && <p className="ink-note">此流派尚無藏本，可前往對應流派卡池獲取。</p>}
           </>
         )}
       {fx && (

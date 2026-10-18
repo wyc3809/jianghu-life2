@@ -1,3 +1,4 @@
+import { equippedMartialArts } from './martialLoadout';
 import {
   SPAR_BOSS_ATK_MUL,
   SPAR_BOSS_HP_MUL,
@@ -94,7 +95,7 @@ export function sparHeroBreakdown(state: LifeGameState): SparHeroBreakdown {
   const stealSkills: string[] = [];
   const healSkills: string[] = [];
   let fromSkills = 0;
-  for (const id of c.skills) {
+  for (const id of equippedMartialArts(c)) {
     const mv = getSkillDef(id)?.move;
     if (!mv) continue;
     if ((mv.lifesteal ?? 0) > 0) {

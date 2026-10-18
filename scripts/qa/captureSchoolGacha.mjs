@@ -18,7 +18,7 @@ async function seed(page){
   const{primarySchoolOfSkill,SCHOOLS}=await import('/data/redesign/schools.ts');
   const st=createNewLife({seed:42,name:'黃青雲',skipCoach:true});st.phase='playing';st.pending=null;st.tab='jianghu';
   const c=st.character;c.flags.newbie_done=true;c.flags.coach_done=true;
-  c.skills=Object.values(MARTIAL_SCHOOL_GROUPS).map(ids=>ids[0]);c.mainArts={};c.skillRanks=Object.fromEntries(c.skills.map(id=>[id,1]));
+  c.skills=Object.values(MARTIAL_SCHOOL_GROUPS).map(ids=>ids[0]);c.mainArts={};c.equippedArts=c.skills.filter(id=>getSkillDef(id)?.kind==='external').slice(0,5);c.supportArts={internal:c.skills.find(id=>getSkillDef(id)?.kind==='internal')??null,qinggong:c.skills.find(id=>getSkillDef(id)?.kind==='qinggong')??null};c.skillRanks=Object.fromEntries(c.skills.map(id=>[id,1]));
   const m=emptyAncestry();m.jade={free:6000,paidTest:6000};m.gacha={pulls:40,banners:{jianghu:{wish:'art_river_fist',sinceWish:12,total:12},zhenben:{wish:'pr_tide_step',sinceWish:39,total:39}}};
   m.manuals=Object.fromEntries(Object.keys(SKILL_DEFS).map(id=>[id,{stars:0,copies:0,vols:getSkillDef(id).kind==='external'?[1]:undefined}]));
   a.setState({meta:m,lastPull:null,jadeToast:0,milestoneToast:[],encounterOpen:false});s.setState({state:st,lastResult:null,combatReplay:null,flashLines:[],sealText:null});
@@ -58,8 +58,8 @@ for(const[name,type]of[['chromium',chromium],['webkit',webkit]])for(const[width,
     check(await page.getByRole('list',{name:'本冊可得武學'}).locator('li').count()===data.pool.arts.length&&data.pool.arts.length>=6&&data.pool.arts.length<=8,tag+' '+banner+' '+school+' preview-6-to-8');
     check(JSON.stringify(data.options)===JSON.stringify(banner==='zhenben'?data.pool.premium:data.pool.free),tag+' '+banner+' '+school+' wishlist-matches-book');
     check(data.pity===(banner==='jianghu'?12:39),tag+' '+banner+' '+school+' switch-keeps-pity');
-    if(banner==='jianghu'&&await page.getByLabel('揀流派小冊').count()){
-     const select=page.getByLabel('揀流派小冊');const values=await select.locator('option').evaluateAll(es=>es.map(e=>e.value));await select.selectOption(values.at(-1));
+    if(banner==='jianghu'&&await page.getByLabel('選擇流派小冊').count()){
+     const select=page.getByLabel('選擇流派小冊');const values=await select.locator('option').evaluateAll(es=>es.map(e=>e.value));await select.selectOption(values.at(-1));
      check(await page.evaluate(banner=>window.qaPool(window.qaAncestryStore.getState().meta,banner).id,banner)===values.at(-1),tag+' '+school+' select-another-book');
      await page.locator('.ink-school-pool-preview summary').click();
     }
@@ -72,8 +72,13 @@ for(const[name,type]of[['chromium',chromium],['webkit',webkit]])for(const[width,
   const before=await page.evaluate(()=>structuredClone(window.qaAncestryStore.getState().meta.jade));
   await page.getByRole('button',{name:/抽一次/}).click();await page.locator('.ink-pull-results li').waitFor();
   check(await page.evaluate(({wish,before})=>{const a=window.qaAncestryStore.getState();return a.lastPull.length===1&&a.lastPull[0].id===wish&&a.meta.jade.free===before.free&&a.meta.jade.paidTest===before.paidTest-60&&a.meta.gacha.banners.zhenben.sinceWish===0},{wish,before}),tag+' old-pity-draws-wish-and-spends-only-paid');
-  await page.locator('.ink-pull-results').getByRole('button',{name:/即學即裝/}).click();
-  check(await page.evaluate(wish=>{const s=window.qaLifeStore.getState().state;return s.character.skills.includes(wish)&&s.character.mainArts[window.qaDefs(wish).kind]===wish&&s.tab==='jianghu'},wish),tag+' real-pull-quick-equip-still-works');
+  await page.locator('.ink-pull-results').getByRole('button',{name:/馬上裝備/}).click();
+  check(await page.evaluate(wish=>{const s=window.qaLifeStore.getState().state;return !s.character.skills.includes(wish)&&s.tab==='person'},wish),tag+' real-pull-redirect-does-not-auto-equip');
+  const kind=await page.evaluate(wish=>window.qaDefs(wish).kind,wish);
+  const target=kind==='external'?page.locator('.ink-loadout-external .ink-loadout-slot').nth(4):page.locator('.ink-loadout-support .ink-loadout-slot').nth(kind==='internal'?0:1);
+  await target.getByRole('button',{name:/^(替換|裝備)/}).click();
+  check(await page.evaluate(wish=>{const s=window.qaLifeStore.getState().state;return s.character.skills.includes(wish)&&(window.qaDefs(wish).kind==='external'?s.character.equippedArts[4]:s.character.supportArts[window.qaDefs(wish).kind])===wish},wish),tag+' real-pull-manual-slot-equips');
+  await page.getByRole('navigation',{name:'分卷'}).getByRole('button',{name:'江湖',exact:true}).click();
   await page.getByRole('tab',{name:/江湖秘笈/}).click();
   check((await page.getByLabel('抽取結果來源').innerText()).includes('珍本奇功')&&(await page.getByLabel('抽取結果來源').innerText()).includes('目前已切換小冊'),tag+' previous-results-keep-correct-source-after-switch');
   await page.getByRole('button',{name:/家族收藏/}).click();
@@ -83,15 +88,18 @@ for(const[name,type]of[['chromium',chromium],['webkit',webkit]])for(const[width,
   if(width===390){await collection.scrollIntoViewIfNeeded();await page.waitForTimeout(1200);await page.screenshot({path:`${out}/${name}-collection.png`});}
   await page.getByRole('navigation',{name:'分卷'}).getByRole('button',{name:'鎮居',exact:true}).click();
   await page.getByRole('navigation',{name:'功能入口'}).getByRole('button',{name:'武學',exact:true}).click();
-  const learned=page.getByRole('group',{name:'已學武學流派分類'});await learned.getByRole('button',{name:`選${groups[2]}流派`,exact:true}).click();
-  check(await page.locator('.ink-skill-cards > li').count()===await page.evaluate(()=>window.qaLifeStore.getState().state.character.skills.filter(id=>window.qaPrimary(window.qaDefs(id))==='pojia').length),tag+' person-skills-filter-matches-classification');
+  const learned=page.getByRole('group',{name:'武學流派分類'});await learned.getByRole('button',{name:`選${groups[2]}流派`,exact:true}).click();
+  check(await page.locator('.ink-skill-cards > li').count()===await page.evaluate(()=>[...new Set([...window.qaLifeStore.getState().state.character.skills,...Object.keys(window.qaAncestryStore.getState().meta.manuals)])].filter(id=>window.qaPrimary(window.qaDefs(id))==='pojia').length),tag+' person-skills-filter-matches-classification');
   check(await labelsFit(),tag+' person-long-name-buttons-fit');
   if(width===390){await learned.scrollIntoViewIfNeeded();await page.waitForTimeout(1200);await page.screenshot({path:`${out}/${name}-person.png`});}
   // 多適性主修fixture：檢查五種兼修長名稱、流派小成／大成都唔撐爆手機。
-  await page.evaluate(()=>{const store=window.qaLifeStore,s=structuredClone(store.getState().state),c=s.character;const ids=['mj_soul_drain','wg_root_severed_creed','qg_canopy_void'];c.skills=[...new Set([...c.skills,...ids])];for(const id of ids)c.skillRanks[id]=1;c.mainArts={external:ids[0],internal:ids[1],qinggong:ids[2]};store.setState({state:s});});
+  await page.evaluate(()=>{const store=window.qaLifeStore,s=structuredClone(store.getState().state),c=s.character;const ids=['mj_soul_drain','wg_root_severed_creed','qg_canopy_void'];c.skills=[...new Set([...c.skills,...ids])];for(const id of ids)c.skillRanks[id]=1;c.equippedArts=[ids[0],null,null,null,null];c.supportArts={internal:ids[1],qinggong:ids[2]};store.setState({state:s});});
   await page.locator('.ink-main-arts').scrollIntoViewIfNeeded();
   check(await page.locator('.ink-main-arts').evaluate(el=>[el,...el.querySelectorAll('.ink-main-slot,.ink-main-slot-tags,.ink-school-row')].every(e=>e.scrollWidth<=e.clientWidth)),tag+' multi-affinity-main-and-synergy-long-labels-fit');
-  check(await page.locator('.ink-main-slot').nth(1).locator('.ink-school-tag').count()===5,tag+' all-five-internal-affinities-preserved');
+  check(await page.locator('.ink-loadout-external .ink-loadout-slot').count()===5,tag+' five-free-slots-preserved');
+  await learned.getByRole('button',{name:'全部',exact:true}).click();
+  const internalName=await page.evaluate(()=>window.qaDefs('wg_root_severed_creed').name);
+  check(await page.locator('.ink-skill-card').filter({has:page.locator('strong',{hasText:internalName})}).locator('.ink-school-tag').count()===5,tag+' all-five-internal-affinities-preserved');
   if(width===390){await page.waitForTimeout(1200);await page.screenshot({path:`${out}/${name}-main-arts.png`});}
   check(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth&&document.querySelector('.scroll-shell').scrollTop===0),tag+' fixed-frame-and-no-horizontal-overflow');
   await context.close();console.log('passed',tag);

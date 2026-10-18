@@ -1,0 +1,78 @@
+{
+  "base": "http://127.0.0.1:5180/jianghu-life2/",
+  "version": "EA0.75.0",
+  "mode": "ordinary-production-ui-no-fixture-or-dev-import",
+  "checks": [
+    {
+      "name": "production-has-no-dev-controls",
+      "pass": true
+    },
+    {
+      "name": "created-isolated-character-through-real-ui",
+      "pass": true
+    },
+    {
+      "name": "five-external-slots",
+      "pass": true
+    },
+    {
+      "name": "two-independent-support-slots",
+      "pass": true
+    },
+    {
+      "name": "correct-configuration-copy",
+      "pass": true
+    },
+    {
+      "name": "six-school-pools-present",
+      "pass": true
+    },
+    {
+      "name": "written-quick-action-label",
+      "pass": true
+    },
+    {
+      "name": "result-navigates-to-person-with-target",
+      "pass": true
+    },
+    {
+      "name": "navigation-does-not-auto-equip",
+      "pass": true
+    },
+    {
+      "name": "target-selection-visible-after-navigation",
+      "pass": true
+    },
+    {
+      "name": "explicit-slot-action-equips-target",
+      "pass": true
+    },
+    {
+      "name": "equipping-keeps-five-external-plus-two-support-layout",
+      "pass": true
+    },
+    {
+      "name": "equipped-layout-fits-mobile-width",
+      "pass": true
+    },
+    {
+      "name": "equipped-state-survives-browser-reload",
+      "pass": true
+    },
+    {
+      "name": "equipment-controls-have-touch-targets",
+      "pass": true
+    },
+    {
+      "name": "no-horizontal-page-overflow",
+      "pass": true
+    },
+    {
+      "name": "no-page-errors",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "target": "唐門飛針",
+  "action": "裝備唐門飛針至欄位2"
+}

@@ -137,6 +137,7 @@ describe('自動戰鬥（core/life/autoCombat.ts）', () => {
     const s = fightLife(7, []);
     const second = Object.values(SKILL_DEFS).find((d) => hasVolumes(d.id) && d.id !== ART && !d.premium)!.id;
     s.character.skills.push(second);
+    s.character.equippedArts = [ART, second];
     const r = runAutoCombat(s)!;
     expect(r.arts?.map((a) => a.id)).toEqual([ART, second]);
     const artOf = (round: number) => r.rounds[round - 1]!.hits.find((h) => h.side === 'player')?.skillId;

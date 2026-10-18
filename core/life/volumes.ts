@@ -7,7 +7,7 @@ import type { AncestryMeta } from '@interfaces/ancestry';
 import { getSkillDef, type CombatMoveDef } from '@data/skills/catalog';
 import { VOLUME_COUNT, artVolumeMoves, hasVolumes, normalizeVolumes } from '@data/skills/volumes';
 import { MANUAL_STAR_BONUS } from '@data/redesign/testParams';
-import { mainArts } from './schools';
+import { equippedMartialArts } from './martialLoadout';
 
 const ALL_VOLUMES = Array.from({ length: VOLUME_COUNT }, (_, i) => i + 1);
 
@@ -59,21 +59,19 @@ export function syncCollectionVolumes(c: LifeCharacter, meta: AncestryMeta): boo
   return changed;
 }
 
-/** 自動戰鬥用邊門外功：主修外功，冇就第一門有招嘅外功 */
+/** 自動戰鬥用邊門外功：欄位次序第一門已裝備外功 */
 export function autoBattleArt(c: LifeCharacter): string | null {
-  const main = mainArts(c).external;
-  if (main && hasVolumes(main) && c.skills.includes(main)) return main;
-  return c.skills.find((id) => hasVolumes(id)) ?? null;
+  return equippedMartialArts(c).find(id => hasVolumes(id)) ?? null;
 }
 
 /**
  * 自動戰鬥輪替次序（玩家決定 2026-10-08：每回合輪一門武學）：
- * 主修外功行先，之後按學識次序排其他有招嘅外功；輪完再由頭。
+ * 只輪替已裝備外功，按欄位次序排列；輪完再由頭。
  */
 export function autoBattleRotation(c: LifeCharacter): string[] {
   const first = autoBattleArt(c);
   if (!first) return [];
-  return [first, ...c.skills.filter((id) => id !== first && hasVolumes(id))];
+  return [first, ...equippedMartialArts(c).filter((id) => id !== first && hasVolumes(id))];
 }
 
 /** 第 round 回合（由 1 起）輪到邊門外功 */

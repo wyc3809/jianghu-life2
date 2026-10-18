@@ -1,0 +1,17 @@
+{
+  "version": "EA0.75.0",
+  "vitestPassed": 627,
+  "vitestFiles": 86,
+  "pagesBuild": "passed incl tsc",
+  "narrateHardFail": 0,
+  "bundle": "index-Pv2OZV0B.js",
+  "bundleMarkers": [
+    "EA0.75.0",
+    "外功最多五門；內功及身法各一門",
+    "supportArts",
+    "馬上裝備"
+  ],
+  "base": "/jianghu-life2/",
+  "prototypeBrowserChecks": 472,
+  "ordinaryProductionBuildUiChecks": 17
+}

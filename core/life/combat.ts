@@ -1,3 +1,4 @@
+import { equippedMartialArts } from './martialLoadout';
 import {
   BASIC_STRIKE,
   GUARD_STANCE,
@@ -92,9 +93,9 @@ export function buildPlayerFighter(state: LifeGameState): CombatFighter {
   const gearSpecials = equippedDefs(c)
     .map((d) => d.special)
     .filter((s): s is NonNullable<typeof s> => Boolean(s));
-  const passive = sumInternalPassives(c.skills, c.skillRanks ?? {}, c.manualStars);
+  const passive = sumInternalPassives(equippedMartialArts(c), c.skillRanks ?? {}, c.manualStars);
   const titleBonus = titleBonusTotals(state);
-  const evasion = sumEvasionBonus(c.skills, c.skillRanks ?? {}, c.manualStars) + c.attributes.danShi / 500;
+  const evasion = sumEvasionBonus(equippedMartialArts(c), c.skillRanks ?? {}, c.manualStars) + c.attributes.danShi / 500;
   // 江湖交手開場一律滿血（玩家 2026-10-14）：上限連內功被動；內力照用角色現有
   const maxHp = c.maxHealth + (passive.maxHp ?? 0);
   // 流派協同（主修＋裝備；只用喺回合制交手，唔影響演武台）
@@ -256,7 +257,7 @@ export function startCombat(
 
 export function getPlayerMoves(state: LifeGameState): CombatMoveDef[] {
   const stars = state.character.manualStars ?? {};
-  return listExternalMovesForSkills(state.character.skills).map((m) => {
+  return listExternalMovesForSkills(equippedMartialArts(state.character)).map((m) => {
     const sid = state.character.skills.find((id) => getSkillDef(id)?.move?.id === m.id);
     return sid ? withManualStars(m, stars[sid]) : m;
   });
@@ -303,13 +304,13 @@ function findMove(state: LifeGameState, moveId: string): CombatMoveDef | null {
   if (moveId === REST_HEAL_MOVE.id) return REST_HEAL_MOVE;
   if (moveId === DESPERATE_BURN_MOVE.id) return DESPERATE_BURN_MOVE;
   if (moveId === DESPERATE_SURRENDER_MOVE.id) return DESPERATE_SURRENDER_MOVE;
-  for (const id of state.character.skills) {
+  for (const id of equippedMartialArts(state.character)) {
     const def = getSkillDef(id);
     if (def?.move?.id === moveId) return withManualStars(def.move, state.character.manualStars?.[id]);
   }
   // 外功七卷：卷二至卷七（要已得呢卷）
   const v = volumeOfMoveId(moveId);
-  if (v && ownedVolumes(state.character, v.skillId).includes(v.vol)) {
+  if (v && equippedMartialArts(state.character).includes(v.skillId) && ownedVolumes(state.character, v.skillId).includes(v.vol)) {
     const m = volumeMove(v.skillId, v.vol);
     if (m) return withManualStars(m, state.character.manualStars?.[v.skillId]);
   }
@@ -323,12 +324,12 @@ function withManualStars(move: CombatMoveDef, stars: number | undefined): Combat
 }
 
 function skillIdForMove(state: LifeGameState, moveId: string): string | null {
-  for (const id of state.character.skills) {
+  for (const id of equippedMartialArts(state.character)) {
     const def = getSkillDef(id);
     if (def?.kind === 'external' && def.move?.id === moveId) return id;
   }
   const v = volumeOfMoveId(moveId);
-  return v && state.character.skills.includes(v.skillId) ? v.skillId : null;
+  return v && equippedMartialArts(state.character).includes(v.skillId) ? v.skillId : null;
 }
 
 /** 持對應兵器時：威力／命中隨專精加深；錯兵略滯 */
@@ -623,9 +624,9 @@ function finishCombat(state: LifeGameState, won: boolean): string[] {
   return lines;
 }
 
-/** 按角色實際習得嘅內功武學，解析出戰鬥中可運轉嘅內功選項（顯示真實功法名） */
+/** 按角色實際裝備嘅內功武學，解析出戰鬥中可運轉嘅內功選項（顯示真實功法名） */
 export function getPlayerInternalModeOptions(state: LifeGameState): InternalModeDef[] {
-  return resolveInternalModeOptions(state.character.skills);
+  return resolveInternalModeOptions(equippedMartialArts(state.character));
 }
 
 /** 切換內功運轉模式：唔消耗行動，可喺自己回合開始前任意切換（傳 null 即卸除） */
@@ -635,10 +636,11 @@ export function setCombatInternalMode(state: LifeGameState, modeId: string | nul
   if (modeId === combat.player.internalMode) return [];
   const mode = getInternalMode(modeId);
   if (modeId && !mode) return ['未知內功心法。'];
+  if (modeId && !getPlayerInternalModeOptions(state).some(option => option.id === modeId)) return ['請先裝備對應的內功武學。'];
   combat.player.internalMode = modeId;
   combat.player.venomStacks = 0;
   const displayName = mode
-    ? (resolveInternalModeOptions(state.character.skills).find((m) => m.id === modeId)?.name ?? mode.name)
+    ? (resolveInternalModeOptions(equippedMartialArts(state.character)).find((m) => m.id === modeId)?.name ?? mode.name)
     : null;
   const line = mode ? `你運起「${displayName}」心法。` : '你卸下內功運轉，恢復尋常。';
   combat.log.push(line);

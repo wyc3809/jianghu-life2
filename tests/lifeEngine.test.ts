@@ -282,6 +282,7 @@ describe('life event engine', () => {
     initRng(2);
     const state = createNewLife(2);
     learnMartialArt(state, 'art_moon_sword', '弄月劍法');
+    state.character.equippedArts = ['art_moon_sword'];
     state.character.equipment.weapon = 'old-sword'; // sword
     startCombat(state, { source: 'spar', title: '試', foeName: '木人', foePower: 'weak' });
     const logs = playerCombatTurn(state, 'mv_moon_sword');

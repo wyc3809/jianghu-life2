@@ -1,7 +1,8 @@
+import { equippedMartialArts, setMartialSlot, martialSlots, INTERNAL_ART_SLOT, QINGGONG_ART_SLOT } from './martialLoadout';
 /**
- * 三主修＋流派協同（design/agreed-design-2026-10.md §3；規則同數值見 data/redesign/schools.ts）。
- * 招式（external）／內功（internal）／身法（qinggong）各主修一門；
- * 主修武學＋穿戴裝備嘅流派計數：2＝小成、3＝大成。純函數、唔用 RNG。
+ * 五格外功＋獨立內功身法及流派協同（design/agreed-design-2026-10.md §3；規則同數值見 data/redesign/schools.ts）。
+ * 五門外功自由配搭，內功／身法各一門；流派協同係額外獎勵，唔係裝備條件。
+ * 已裝備武學＋穿戴裝備嘅流派計數：2＝小成、3＝大成。純函數、唔用 RNG。
  */
 import type { LifeCharacter, LifeGameState } from '@interfaces/lifeEngine';
 import { getSkillDef, type SkillKind } from '@data/skills/catalog';
@@ -25,12 +26,16 @@ export function learnedArtsOfKind(c: LifeCharacter, kind: SkillKind): string[] {
   return c.skills.filter((id) => getSkillDef(id)?.kind === kind);
 }
 
-/**
- * 而家嘅主修：玩家揀過就用揀嗰門；未揀（或已唔識）就預設第一門學識嘅，
- * 咁舊存檔／新角色一開始都有主修，唔會因為冇揀而蝕。
- */
+/** 舊三類主修查詢兼容：新裝備欄回傳每類第一門，冇該類就留空。 */
 export function mainArts(c: LifeCharacter): MainArts {
   const out: MainArts = {};
+  if (c.equippedArts !== undefined) {
+    for (const id of equippedMartialArts(c)) {
+      const kind = getSkillDef(id)!.kind;
+      out[kind] ??= id;
+    }
+    return out;
+  }
   for (const kind of MAIN_ART_KINDS) {
     const picked = c.mainArts?.[kind];
     const learned = learnedArtsOfKind(c, kind);
@@ -43,15 +48,23 @@ export function mainArts(c: LifeCharacter): MainArts {
 export function setMainArt(state: LifeGameState, kind: SkillKind, skillId: string): boolean {
   const c = state.character;
   if (getSkillDef(skillId)?.kind !== kind || !c.skills.includes(skillId)) return false;
-  c.mainArts = { ...(c.mainArts ?? {}), [kind]: skillId };
-  return true;
+  if (kind !== 'external') {
+    if (mainArts(c)[kind] === skillId) return true;
+    return setMartialSlot(state, kind === 'internal' ? INTERNAL_ART_SLOT : QINGGONG_ART_SLOT, skillId);
+  }
+  const slots = martialSlots(c);
+  if (slots.includes(skillId)) return true;
+  const previous = slots.findIndex(id => id && getSkillDef(id)?.kind === kind);
+  const slot = previous >= 0 ? previous : slots.indexOf(null);
+  if (slot < 0) return false;
+  return setMartialSlot(state, slot, skillId);
 }
 
 export interface SchoolTally {
   school: SchoolDef;
   /** 計咗幾多門（武學＋裝備） */
   count: number;
-  /** 邊啲主修武學 id 計入 */
+  /** 邊啲已裝備武學 id 計入 */
   arts: string[];
   /** 邊件裝備 id 計入 */
   gear: string | null;
@@ -60,10 +73,10 @@ export interface SchoolTally {
 
 /** 每個流派而家計到幾多門（由多到少） */
 export function schoolTally(c: LifeCharacter): SchoolTally[] {
-  const mains = mainArts(c);
+  const mains = equippedMartialArts(c);
   const eq = c.equipment ?? { weapon: null, armor: null, accessory: null };
   const rows = SCHOOLS.map((school) => {
-    const arts = MAIN_ART_KINDS.map((k) => mains[k]).filter(
+    const arts = mains.filter(
       (id): id is string => Boolean(id) && schoolsOfSkill(getSkillDef(id!)).includes(school.id),
     );
     const gear =
