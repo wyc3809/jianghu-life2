@@ -47,6 +47,11 @@ import { advanceGait, gaitFrame, collapseSample, crossedGroundContact, SPAR_PRES
 import { BATTLE_CAMERA, BATTLE_PORTRAIT_GROUND, battleMotionHeight, fitBattleBackdrop } from './battleViewport';
 import { createRng, spawnSeasonParticle, stepParticles, particleAlpha, type Particle as WeatherParticle } from '../fx/ambient/particles';
 import { formatSparNumber } from '@core/life/sparDuel';
+import { martialPoseFor, sampleMartialPose, type MartialAsset } from '../fx/art/martialPoses';
+import { canonicalSkillId } from '@data/skills/catalog';
+import { martialFallbackImage } from '../fx/art/martialFallback';
+import poseAnchors from '../fx/art/poseAnchors.json';
+import { playInkBlade, playInkHit, playInkTap, playInkSeal } from '../audio/inkAudio';
 import { FOE_TRAITS } from '@data/foes/traits';
 import type { CombatTraitFx } from '@interfaces/lifeEngine';
 
@@ -467,9 +472,18 @@ export class SparStage {
 
   // 第 25 項：外功專屬動畫（src/fx/art/）
   private artRun: ChoreoRun | null = null;
+  private martialAssets = new Map<string, MartialAsset>();
+  private martialId: string | null = null;
+  private poseResult: ReturnType<SparCombatHooks['heroStrike']> | null = null;
+  private supportIds: readonly string[] = [];
+  private supportPose: { id: string; t: number } | null = null;
+  private poseInspection: { id: string; t: number; result: ReturnType<SparCombatHooks['heroStrike']> | null } | null = null;
+  private reviewEffectsOff = false;
+  private reviewMonochrome = false;
   private artTarget: EnemyInst | null = null;
   private artResult: ReturnType<SparCombatHooks['heroStrike']> | null = null;
   private artDamage: number[] = [];
+  private pendingContactFx: Extract<ChoreoEvent, { kind: 'fx' }>[] = [];
   private artFx = new ArtFxLayer(() => this.artRng());
   private artRng = createRng(37);
   private artSprites: Partial<Record<ArtSpriteKey, HTMLImageElement>> = {};
@@ -502,7 +516,7 @@ export class SparStage {
     this.artFx.sizeMul = 1.5;
     if (typeof Image !== 'undefined') {
       void loadArtSprites(ART_SPRITE_KEYS).then((sp) => {
-        this.artSprites = sp;
+        this.artSprites = { ...sp, ...this.artSprites };
       });
     }
   }
@@ -510,6 +524,33 @@ export class SparStage {
   /** 全屏只改視覺比例；預設演武台所有座標倍率維持原有。 */
   private get motionHeight(): number {
     return this.presentation === 'battle' ? battleMotionHeight(this.cssW) : this.cssH;
+  }
+
+  /** 當前裝備嘅代表動作素材；唔改裝備、屬性、導演或結算時間。 */
+  setMartialAssets(assets: Map<string, MartialAsset>, supportIds: readonly string[] = []) {
+    this.martialAssets = assets;
+    this.supportIds = supportIds.map(canonicalSkillId);
+  }
+
+  /** 每招只覆寫自己嘅效果，唔因另一門珍本載入次序而串圖。 */
+  private artSpriteImages(): Partial<Record<ArtSpriteKey, HTMLImageElement>> {
+    const effects = this.martialId ? this.martialAssets.get(this.martialId)?.effects : null;
+    return effects ? { ...this.artSprites, ...effects } : this.artSprites;
+  }
+
+  /** 開發驗收逐格檢視；依然用產品人物呈現器，唔執行戰鬥或派獎。 */
+  inspectMartialPose(id: string | null, t = 0, result: ReturnType<SparCombatHooks['heroStrike']> | null = null) {
+    this.poseInspection = id ? { id, t, result } : null;
+  }
+
+  /** 驗收只關畫面層，唔改時計／命中／視覺事件。 */
+  setMartialReview(effectsOff: boolean, monochrome = false) {
+    this.reviewEffectsOff = effectsOff; this.reviewMonochrome = monochrome;
+  }
+
+  /** 離開畫面釋放舞台持有嘅圖集同演出狀態。 */
+  releaseMartialAssets() {
+    this.martialAssets.clear(); this.supportIds = []; this.supportPose = null; this.poseInspection = null;
   }
 
   /** 同一Canvas喺主頁同全屏之間換攝影機，唔重開角色／敵人／攻擊。 */
@@ -844,6 +885,10 @@ export class SparStage {
 
   /** 特效老化（停格／倒地時都要繼續） */
   private ageFx(dt: number) {
+    if (this.supportPose) {
+      this.supportPose.t += dt;
+      if (this.supportPose.t >= 1.1) this.supportPose = null;
+    }
     if (this.artFx.count) this.artFx.step(dt, this.artAnchors());
     if (!this.art) this.ambience.update(dt);
     this.seasonFade = Math.min(1, this.seasonFade + dt / SPAR_PRESENTATION.sceneFade);
@@ -917,6 +962,9 @@ export class SparStage {
   private foeHits(e: EnemyInst) {
     if (!this.combat || this.heroDownT !== null) return;
     const r = this.combat.foeStrike();
+    // 只跟真正受擊／落空做運氣或閃步，唔製造護盾、閃避或新攻擊。
+    const support = this.supportIds.find(id => martialPoseFor(id)?.family === (r.dmg > 0 ? 'internal' : 'step'));
+    if (support && !r.heroDown) this.supportPose = { id: support, t: 0 };
     if (r.dmg <= 0) return;
     const g = this.geom();
     this.heroHitT = 0;
@@ -1036,7 +1084,10 @@ export class SparStage {
   private startArt() {
     this.endArt();
     if (!this.combat) return;
-    const choreo = choreoForArt(this.combat.nextArt?.() ?? null);
+    const id = this.combat.nextArt?.();
+    this.martialId = id ? canonicalSkillId(id) : null;
+    this.poseResult = null;
+    const choreo = choreoForArt(this.martialId);
     if (!choreo) return;
     this.artRun = new ChoreoRun(choreo);
     this.artTarget = this.nearestInRange();
@@ -1047,6 +1098,7 @@ export class SparStage {
     this.artTarget = null;
     this.artResult = null;
     this.artDamage = [];
+    this.pendingContactFx = [];
     this.artAfterimage = false;
   }
 
@@ -1065,6 +1117,12 @@ export class SparStage {
   private artEvent(ev: ChoreoEvent) {
     switch (ev.kind) {
       case 'fx':
+        // 投射／蓄勢可在結果前出現，受傷爆點一定等真正命中先畫。
+        if ((ev.fx.at === 'foe' || ev.fx.at === 'foeTop' || ev.fx.at === 'foeGround')
+          && !['board', 'stone-black', 'stone-white', 'cloud-ring'].includes(ev.fx.sprite)) {
+          if (!this.artResult) { this.pendingContactFx.push(ev); break; }
+          if (this.artResult.dmg <= 0) break;
+        }
         this.artFx.spawn(ev.fx, this.artAnchors(), this.quiet);
         break;
       case 'afterimage':
@@ -1105,6 +1163,8 @@ export class SparStage {
       const r = this.combat.heroStrike();
       this.artResult = r;
       this.artDamage = splitDamage(r.dmg, run.shares());
+      if (r.dmg > 0) for (const pending of this.pendingContactFx) this.artFx.spawn(pending.fx, this.artAnchors(), this.quiet);
+      this.pendingContactFx = [];
       if (r.dmg > 0 || r.killed) {
         this.onStrike?.();
         if (r.heal > 0) {
@@ -1124,6 +1184,7 @@ export class SparStage {
     const r = this.artResult;
     if (r.dmg <= 0 && !r.killed) return; // 落空：冇數字
     const part = this.artDamage[info.index] ?? 0;
+    if (part > 0) this.martialContactSound(r.crit && info.last);
     this.heroRig.kick(300);
     target.rig.kick(ev.heavy ? 560 : 360);
     const foeOff = this.artFoeOffset(target);
@@ -1179,7 +1240,7 @@ export class SparStage {
 
   /** 被打嗰個敵人嘅位移（被推後、拋起） */
   private artFoeOffset(e: EnemyInst): { dx: number; dy: number; rot: number; sy: number } {
-    if (!this.artRun || e !== this.artTarget || e.state === 'dead') return { dx: 0, dy: 0, rot: 0, sy: 1 };
+    if (!this.artRun || e !== this.artTarget || e.state === 'dead' || !this.artResult || this.artResult.dmg <= 0) return { dx: 0, dy: 0, rot: 0, sy: 1 };
     const s = this.artRun.foe();
     const H = SILHOUETTE_DESIGN_H * this.geom().k;
     return { dx: s.x * H, dy: s.y * H, rot: s.rot, sy: s.sy };
@@ -1191,7 +1252,7 @@ export class SparStage {
     const foe = this.artTarget && this.artTarget.state !== 'dead' ? this.artTarget : this.enemies.find((e) => e.state !== 'dead') ?? null;
     const ho = this.artHeroOffset();
     const fo = foe ? this.artFoeOffset(foe) : { dx: 0, dy: 0 };
-    return makeAnchors({
+    const anchors = makeAnchors({
       unitH: H,
       heroFootX: g.heroX + ho.dx,
       heroFootY: g.groundY - ho.dy,
@@ -1200,6 +1261,25 @@ export class SparStage {
       foeScale: foe ? this.enemyKe(foe) / g.k : 1,
       skyMinY: 8,
     });
+    const def = martialPoseFor(this.martialId);
+    if (def && this.artRun) {
+      const contact = this.artRun.c.events.find(e => e.kind === 'hit')?.t ?? .36;
+      const frame = sampleMartialPose(def, this.artRun.t, this.artRun.c.dur, contact, this.artResult, this.quiet) % 8;
+      const point = (poseAnchors as Record<string, number[][]>)[def.id]?.[frame];
+      if (point) anchors.heroHand = { x: g.heroX + ho.dx + (point[0]! - 256) * H / 218,
+        y: g.groundY - ho.dy + (point[1]! - 328) * H / 218 };
+    }
+    return anchors;
+  }
+
+  /** 真正接觸先發聲，沿用全域靜音、混音及 limiter。 */
+  private martialContactSound(critical = false) {
+    const def = martialPoseFor(this.martialId);
+    if (!def || !this.martialAssets.has(def.id) || this.quiet) return;
+    if (def.family === 'sword' || def.family === 'blade' || def.family === 'spear') playInkBlade();
+    else if (def.family === 'needle') playInkTap();
+    else if (def.family === 'weiqi') playInkSeal();
+    else if (critical || def.family === 'fist' || def.family === 'palm' || def.family === 'kick') playInkHit();
   }
 
   private nearestInRange(): EnemyInst | null {
@@ -1235,7 +1315,17 @@ export class SparStage {
     if (this.combat) {
       if (target && target.state !== 'dead') {
         const r = this.combat.heroStrike();
+        this.poseResult = r;
         if (r.dmg <= 0 && !r.killed) return; // 冇嘢好打（保險：唔好彈「0」）
+        this.martialContactSound(r.crit);
+        const identity = martialPoseFor(this.martialId);
+        if (identity && this.martialAssets.has(identity.id)) {
+          this.artTarget = target;
+          this.artFx.spawn({ sprite: identity.id === 'pr_mountain_split' ? 'crack' : identity.family === 'sword' ? 'streak' : 'qi',
+            at: identity.id === 'pr_mountain_split' ? 'foeGround' : 'foe', size: identity.premium ? .85 : .45,
+            life: identity.premium ? .42 : .22, alpha: .72, layer: 'back' }, this.artAnchors(), this.quiet);
+          if (identity.premium && (r.crit || r.killed) && !this.quiet) this.artFx.spawn({ sprite: 'spark', at: 'foe', size: .7, life: .25, alpha: .6 }, this.artAnchors());
+        }
         this.onStrike?.();
         this.heroRig.kick(340);
         target.rig.kick(r.crit ? 560 : 380);
@@ -1331,19 +1421,20 @@ export class SparStage {
     const g = this.geom();
     ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
     ctx.clearRect(0, 0, this.cssW, this.cssH);
-    if (this.shake > 0) {
+    if (this.shake > 0 && !this.reviewEffectsOff) {
       ctx.translate((this.visualRng() - 0.5) * this.shake, (this.visualRng() - 0.5) * this.shake);
     }
 
     this.drawBackground();
     if (!this.art && !this.quiet) this.ambience.draw(ctx, 'back');
     // 外功：天色轉暗（聽雨、驚雷、棋局）
-    if (this.darken > 0.01) {
+    if (this.darken > 0.01 && !this.reviewEffectsOff) {
       ctx.fillStyle = `rgba(18, 20, 28, ${this.darken})`;
       ctx.fillRect(0, 0, this.cssW, this.cssH);
     }
-    const artAnchors = this.artFx.count ? this.artAnchors() : null;
-    if (artAnchors) this.artFx.draw(ctx, this.artSprites, artAnchors, 'back');
+    const artAnchors = this.artFx.count && !this.reviewEffectsOff ? this.artAnchors() : null;
+    const artSprites = artAnchors ? this.artSpriteImages() : this.artSprites;
+    if (artAnchors) this.artFx.draw(ctx, artSprites, artAnchors, 'back');
 
     // 地面淡墨影（跳起時影留喺地、細啲）
     const heroOff = this.artHeroOffset();
@@ -1356,19 +1447,21 @@ export class SparStage {
 
     // 敵影先畫（喺俠客身後）
     for (const e of this.enemies) this.drawEnemy(g, e);
+    ctx.save();
+    if (this.reviewMonochrome) ctx.filter = 'brightness(0)';
     this.drawWarrior(g);
+    ctx.restore();
     if (this.art) this.drawWeather();
     else if (!this.quiet) this.ambience.draw(ctx, 'front');
 
-    this.drawTrail();
-    if (artAnchors) this.artFx.draw(ctx, this.artSprites, artAnchors, 'front');
-    this.drawSplashes();
-    this.drawParticles();
+    if (!this.reviewEffectsOff) this.drawTrail();
+    if (artAnchors) this.artFx.draw(ctx, artSprites, artAnchors, 'front');
+    if (!this.reviewEffectsOff) { this.drawSplashes(); this.drawParticles(); }
     this.drawCoins();
     this.drawFloaters();
 
     // 外功白光（驚雷劈落、聽雨刺破）
-    if (this.artFlash > 0.01) {
+    if (this.artFlash > 0.01 && !this.reviewEffectsOff) {
       ctx.fillStyle = `rgba(255, 252, 240, ${this.artFlash * 0.55})`;
       ctx.fillRect(0, 0, this.cssW, this.cssH);
     }
@@ -1517,8 +1610,58 @@ export class SparStage {
     ctx.restore();
   }
 
+  /** 圖集已畫好手形／持武：呢一層完全唔疊裝備武器或舊劍影。 */
+  private drawMartialWarrior(g: ReturnType<SparStage['geom']>): boolean {
+    const inspection = this.poseInspection;
+    const attacking = this.attackT !== null;
+    const id = inspection?.id ?? (attacking ? this.martialId : this.supportPose?.id);
+    const def = martialPoseFor(id);
+    if (!def) return false;
+    const staticImage = martialFallbackImage(def.family);
+    const asset = (id ? this.martialAssets.get(id) : null) ?? (staticImage ? { atlas: staticImage, guard: true } : null);
+    // 首次解碼最多空一格，亦唔用錯誤嘅整張劍影作佔位。
+    if (!asset) return true;
+    const run = this.artRun;
+    const support = !inspection && !attacking;
+    const c = choreoForArt(id);
+    const duration = support || (inspection && (def.family === 'internal' || def.family === 'step')) ? 1.1 : c?.dur ?? this.attackClipNow().dur;
+    const t = inspection?.t ?? (support ? this.supportPose!.t : run?.t ?? this.attackT ?? 0);
+    const contact = c?.events.find(e => e.kind === 'hit')?.t ?? (support ? .42 : .36);
+    const result = inspection?.result ?? this.artResult ?? this.poseResult;
+    const variant = !asset.guard && !this.quiet && t > contact && result && result.dmg > 0
+      ? result.killed && def.killRecovery ? asset.variants?.kill : result.crit && def.critRecovery ? asset.variants?.crit : null : null;
+    let frame = asset.guard ? 0 : sampleMartialPose(def, t, duration, contact, variant ? result : null, this.quiet);
+    const atlas = variant ?? (frame >= 8 ? asset.variants?.detail : null) ?? asset.atlas;
+    frame %= 8;
+    const off = inspection || support ? { dx: 0, dy: 0 } : this.artHeroOffset();
+    const H = SILHOUETTE_DESIGN_H * g.k;
+    const p = Math.max(0, Math.min(1, t / duration));
+    if (def.family === 'step') {
+      off.dx += H * (def.premium ? .22 : .13) * Math.sin(p * Math.PI * 2);
+      if (def.premium) off.dy += H * .65 * Math.sin(p * Math.PI);
+    } else if (def.id === 'pr_mountain_split') {
+      off.dy += H * .3 * Math.max(0, Math.sin(p * Math.PI * 2));
+    }
+    const unit = SILHOUETTE_DESIGN_H * g.k / 218;
+    const ctx = this.ctx;
+    ctx.save();
+    ctx.translate(g.heroX + off.dx, g.groundY - off.dy);
+    // 素材本身有轉胯、手腳同衣擺，唔再用條帶變形扭曲手形同兵器。
+    const pose = !this.quiet && !inspection && !support ? this.artHeroSample() : null;
+    if (pose) {
+      ctx.globalAlpha *= pose.alpha;
+      // 大幅翻轉只適用舊平面剪影；新素材已畫出踢腿／轉身姿勢。
+      ctx.rotate(Math.max(-12, Math.min(12, pose.rot)) * DEG);
+    }
+    if (asset.guard) ctx.drawImage(atlas, -256 * unit, -328 * unit, 512 * unit, 352 * unit);
+    else ctx.drawImage(atlas, frame * 512, 0, 512, 352, -256 * unit, -328 * unit, 512 * unit, 352 * unit);
+    ctx.restore();
+    return true;
+  }
+
   private drawWarrior(g: ReturnType<SparStage['geom']>): { x: number; y: number } | null {
     const { ctx } = this;
+    if (this.heroDownT === null && this.drawMartialWarrior(g)) return null;
     try {
       const attack = this.attackT !== null ? this.attackClipNow() : null;
       const at = this.attackT ?? 0;
@@ -1822,7 +1965,7 @@ export class SparStage {
   }
 
   private drawTrail() {
-    if (this.quiet || !this.art || this.attackT === null || this.artRun) return;
+    if (this.quiet || !this.art || this.attackT === null || this.artRun || (this.martialId && this.martialAssets.has(this.martialId))) return;
     const p = (this.attackT - .19) / .27;
     if (p < 0 || p > 1) return;
     const g = this.geom(), size = 74 * this.motionHeight / 218;

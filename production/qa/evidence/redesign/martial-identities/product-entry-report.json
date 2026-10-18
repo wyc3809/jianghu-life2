@@ -1,0 +1,87 @@
+{
+  "cases": [
+    {
+      "kind": "home",
+      "assets": [
+        "art_rain_sword",
+        "art_river_fist",
+        "art_stone_palm",
+        "art_wind_chase",
+        "pr_mountain_split",
+        "art_iron_body",
+        "pr_cloud_step"
+      ],
+      "weapon": "/ink/spar/weapon-sword.webp",
+      "presentation": "stage",
+      "externalSlots": 5,
+      "supports": {
+        "internal": "art_iron_body",
+        "qinggong": "pr_cloud_step"
+      },
+      "overflow": false,
+      "canvas": 780
+    },
+    {
+      "kind": "spar-boss",
+      "assets": [
+        "art_rain_sword",
+        "art_river_fist",
+        "art_stone_palm",
+        "art_wind_chase",
+        "pr_mountain_split",
+        "art_iron_body",
+        "pr_cloud_step"
+      ],
+      "weapon": "/ink/spar/weapon-sword.webp",
+      "presentation": "battle",
+      "externalSlots": 5,
+      "supports": {
+        "internal": "art_iron_body",
+        "qinggong": "pr_cloud_step"
+      },
+      "overflow": false,
+      "canvas": 780
+    },
+    {
+      "kind": "event",
+      "assets": [
+        "art_rain_sword",
+        "art_river_fist",
+        "art_stone_palm",
+        "art_wind_chase",
+        "art_iron_body",
+        "pr_cloud_step"
+      ],
+      "weapon": "/ink/spar/weapon-sword.webp",
+      "presentation": "battle",
+      "externalSlots": 5,
+      "supports": {
+        "internal": "art_iron_body",
+        "qinggong": "pr_cloud_step"
+      },
+      "overflow": false,
+      "canvas": 300
+    },
+    {
+      "kind": "event-boss",
+      "assets": [
+        "art_rain_sword",
+        "art_river_fist",
+        "art_stone_palm",
+        "art_wind_chase",
+        "art_iron_body",
+        "pr_cloud_step"
+      ],
+      "weapon": "/ink/spar/weapon-sword.webp",
+      "presentation": "battle",
+      "externalSlots": 5,
+      "supports": {
+        "internal": "art_iron_body",
+        "qinggong": "pr_cloud_step"
+      },
+      "overflow": false,
+      "canvas": 300
+    }
+  ],
+  "errors": []
+}

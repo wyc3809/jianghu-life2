@@ -1,0 +1,8 @@
+file:///workspace/jianghu-life2-current/scripts/qa/recordMartialWeaponRotation.mjs:22
+if(seen.map(x=>x.id).slice(0,5).join('|')!==required.join('|'))throw Error('未錄齊完整切換 '+JSON.stringify(seen));
+                                                                     ^
+
+Error: 未錄齊完整切換 [{"frame":5,"id":"art_rain_sword"},{"frame":179,"id":"art_river_fist"}]
+    at file:///workspace/jianghu-life2-current/scripts/qa/recordMartialWeaponRotation.mjs:22:70
+
+Node.js v24.19.0

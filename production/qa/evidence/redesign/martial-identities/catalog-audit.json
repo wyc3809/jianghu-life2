@@ -1,0 +1,3355 @@
+{
+  "summary": {
+    "canonical": 103,
+    "external": 66,
+    "internal": 23,
+    "qinggong": 14,
+    "common": 84,
+    "premium": 19,
+    "prototypes": 15,
+    "productionAccepted": 0,
+    "notProduced": 88,
+    "aliases": 10
+  },
+  "aliases": [
+    {
+      "id": "skill_sword_basic",
+      "canonical": "art_moon_sword"
+    },
+    {
+      "id": "skill_breath",
+      "canonical": "基礎吐納"
+    },
+    {
+      "id": "skill_palm",
+      "canonical": "sl_luohan_fist"
+    },
+    {
+      "id": "skill_hermit",
+      "canonical": "qg_broken_bridge"
+    },
+    {
+      "id": "skill_internal",
+      "canonical": "art_void_breath"
+    },
+    {
+      "id": "sect_art_sect_qingyun",
+      "canonical": "qy_cloud_sword"
+    },
+    {
+      "id": "sect_art_sect_tiandao",
+      "canonical": "td_open_blade"
+    },
+    {
+      "id": "sect_art_sect_emei",
+      "canonical": "em_soft_palm"
+    },
+    {
+      "id": "sect_art_sect_shaolin",
+      "canonical": "sl_luohan_fist"
+    },
+    {
+      "id": "sect_art_sect_wudang",
+      "canonical": "wd_sword_form"
+    }
+  ],
+  "cards": [
+    {
+      "id": "基礎吐納",
+      "name": "基礎吐納",
+      "kind": "internal",
+      "rarity": "一般",
+      "source": {
+        "flavor": "凡人皆可習的吐納法門，穩固丹田，徐徐生息。",
+        "weaponKind": null,
+        "passive": {
+          "maxQi": 10,
+          "qiRegen": 4
+        }
+      },
+      "family": "internal",
+      "opening": "平掌收至丹田",
+      "action": "平掌收至丹田，直立微沉再舒展",
+      "rhythm": "慢吸慢吐",
+      "signature": "丹田細息",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_lake_breath",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_river_fist",
+      "name": "長河拳",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "拳勢如長河東去，一往無前，適合初入江湖者立身。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_river_fist",
+          "name": "長河崩拳",
+          "qiCost": 41,
+          "power": 1.5,
+          "description": "拳勢如河，一往無前。",
+          "pierce": 0.08,
+          "cooldown": 1
+        }
+      },
+      "family": "fist",
+      "opening": "收拳轉胯逐步推進",
+      "action": "收拳轉胯逐步推進，三記長距離崩拳由小至大",
+      "rhythm": "短短長",
+      "signature": "長河三浪",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
+      "closestPeer": "sl_luohan_fist",
+      "coverage": "代表原型待玩家動態確認",
+      "animationId": "art_river_fist",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_river_fist.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_river_fist",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "variants": [
+        "主招"
+      ],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_stone_palm",
+      "name": "裂石殘掌",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "掌力沉猛，專破硬架，江湖散修常以此立威。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_stone_palm",
+          "name": "裂石掌",
+          "qiCost": 43,
+          "power": 1.55,
+          "description": "掌力沉猛，專破硬架。",
+          "pierce": 0.2,
+          "defenseBreak": 3
+        }
+      },
+      "family": "palm",
+      "opening": "開掌沉腰後抬掌",
+      "action": "開掌沉腰後抬掌，躍起將掌心壓向地面",
+      "rhythm": "蓄、躍、重落",
+      "signature": "石縫向前延伸",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
+      "closestPeer": "art_cold_palm",
+      "coverage": "代表原型待玩家動態確認",
+      "animationId": "art_stone_palm",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_stone_palm.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_stone_palm",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "variants": [
+        "主招"
+      ],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_bridge_step",
+      "name": "斷橋步",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "步法欺近、踏隙而入，擅打近身。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_bridge_step",
+          "name": "斷橋踏",
+          "qiCost": 29,
+          "power": 1.15,
+          "hitBonus": 0.12,
+          "qiSelf": 10,
+          "cooldown": 2,
+          "description": "步法欺近，一踏即中，借勢回神。"
+        }
+      },
+      "family": "step",
+      "opening": "側身探步後踏隙欺近",
+      "action": "側身探步後踏隙欺近，以肩身迫入近距離",
+      "rhythm": "探、停、進",
+      "signature": "橋面斷痕",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_nine_shadow",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_tomb_sword",
+      "name": "無銘劍意",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "無名古塚所傳劍意，專取破綻，如影隨形。",
+        "weaponKind": "sword",
+        "move": {
+          "id": "mv_tomb_sword",
+          "name": "無銘一刺",
+          "qiCost": 53,
+          "power": 1.7,
+          "hitBonus": 0.05,
+          "pierce": 0.35,
+          "description": "劍意無形，專取破綻。"
+        }
+      },
+      "family": "sword",
+      "opening": "劍尖低藏",
+      "action": "劍尖低藏，側步挑開破綻後斜刺回身",
+      "rhythm": "靜、挑、刺",
+      "signature": "古塚冷塵",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_rain_sword",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_lake_breath",
+      "name": "寒湖吐納",
+      "kind": "internal",
+      "rarity": "一般",
+      "source": {
+        "flavor": "湖心寒氣入體，內息清冷，護體愈堅。",
+        "weaponKind": null,
+        "passive": {
+          "maxQi": 25,
+          "qiRegen": 8,
+          "defense": 4
+        }
+      },
+      "family": "internal",
+      "opening": "兩掌由腹向兩側平展",
+      "action": "兩掌由腹向兩側平展，肩胸凝定",
+      "rhythm": "長吐短停",
+      "signature": "寒湖同心波",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "基礎吐納",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_rain_sword",
+      "name": "聽雨劍意",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "劍如細雨連點，令人難以招架。",
+        "weaponKind": "sword",
+        "move": {
+          "id": "mv_rain_sword",
+          "name": "聽雨連刺",
+          "qiCost": 44,
+          "power": 0.75,
+          "hitBonus": 0.08,
+          "multiHit": 3,
+          "description": "劍如細雨，連點不絕。"
+        }
+      },
+      "family": "sword",
+      "opening": "直劍守中靜候",
+      "action": "直劍守中靜候，短促收腕後連續三刺",
+      "rhythm": "靜、點點點、歸靜",
+      "signature": "雨珠在劍尖破開",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
+      "closestPeer": "pr_wind_thread",
+      "coverage": "代表原型待玩家動態確認",
+      "animationId": "art_rain_sword",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_rain_sword.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_rain_sword",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "variants": [
+        "主招"
+      ],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_nine_shadow",
+      "name": "九影迷踪步",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "身形化影，敵眸難追，擅亂敵視線。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_nine_shadow",
+          "name": "九影閃擊",
+          "qiCost": 34,
+          "power": 1.2,
+          "hitBonus": 0.18,
+          "applyBlind": 0.15,
+          "description": "身形一晃，敵眸難追。"
+        }
+      },
+      "family": "step",
+      "opening": "低身交叉步穿行左右再欺近",
+      "action": "低身交叉步穿行左右再欺近，肩線連換方向",
+      "rhythm": "左右左急停",
+      "signature": "九道交錯殘跡",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_bridge_step",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_cold_palm",
+      "name": "寒霜掌",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "掌風帶寒，傷人內息，逼敵難以連續發招。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_cold_palm",
+          "name": "寒霜掌",
+          "qiCost": 48,
+          "power": 1.45,
+          "qiDrain": 14,
+          "description": "掌風帶寒，傷人內息。"
+        }
+      },
+      "family": "palm",
+      "opening": "豎掌護胸",
+      "action": "豎掌護胸，退半步後平推封住中線",
+      "rhythm": "退、緩送、凝定",
+      "signature": "霜枝沿掌路凝結",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_stone_palm",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_iron_body",
+      "name": "鐵布衫",
+      "kind": "internal",
+      "rarity": "一般",
+      "source": {
+        "flavor": "外壯皮肉，抗打耐磨，江湖硬功入門。",
+        "weaponKind": null,
+        "passive": {
+          "defense": 12,
+          "maxHp": 40,
+          "reflect": 0.08
+        }
+      },
+      "family": "internal",
+      "opening": "馬步收拳於腰",
+      "action": "馬步收拳於腰，前臂交叉受力再展胸沉掌",
+      "rhythm": "沉、架、放",
+      "signature": "雙道墨色護身氣息",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
+      "closestPeer": "pr_diamond_body",
+      "coverage": "代表原型待玩家動態確認",
+      "animationId": "art_iron_body",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_iron_body.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_iron_body",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "variants": [
+        "主招"
+      ],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_moon_sword",
+      "name": "弄月劍法",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "劍光如月弧，取敵側脅。",
+        "weaponKind": "sword",
+        "move": {
+          "id": "mv_moon_sword",
+          "name": "弄月一劍",
+          "qiCost": 36,
+          "power": 1.4,
+          "hitBonus": 0.06,
+          "pierce": 0.12,
+          "description": "劍光如月，弧線取敵。"
+        }
+      },
+      "family": "sword",
+      "opening": "劍藏側腰",
+      "action": "劍藏側腰，斜步轉身以弧線削向側脅",
+      "rhythm": "藏、弧削、挽回",
+      "signature": "偏月弧痕",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_tomb_sword",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_void_breath",
+      "name": "空冥吐納",
+      "kind": "internal",
+      "rarity": "一般",
+      "source": {
+        "flavor": "空冥之息，氣海悠長，攻守皆得增益。",
+        "weaponKind": null,
+        "passive": {
+          "maxQi": 35,
+          "qiRegen": 10,
+          "attack": 3
+        }
+      },
+      "family": "internal",
+      "opening": "鬆肩垂肘環抱氣海",
+      "action": "鬆肩垂肘環抱氣海，緩慢展掌",
+      "rhythm": "低緩連續",
+      "signature": "空冥薄霧",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "基礎吐納",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_silk_hand",
+      "name": "柔絲手",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "借力卸力，順勢回氣，以柔化剛。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_silk_hand",
+          "name": "柔絲鎖脈",
+          "qiCost": 31,
+          "power": 1.1,
+          "hitBonus": 0.1,
+          "healSelf": 8,
+          "lifesteal": 0.15,
+          "cooldown": 2,
+          "description": "借力卸力，順勢回氣。"
+        }
+      },
+      "family": "palm",
+      "opening": "雙手鬆圓搭接",
+      "action": "雙手鬆圓搭接，隨來勢轉腕引開再回送",
+      "rhythm": "接、引、送",
+      "signature": "柔絲雙環",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_stone_palm",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_thunder_blade",
+      "name": "驚雷刀",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "刀出如雷，勢不可擋，代價是內息消耗偏高。",
+        "weaponKind": "blade",
+        "move": {
+          "id": "mv_thunder_blade",
+          "name": "驚雷一刀",
+          "qiCost": 58,
+          "power": 1.85,
+          "bleedChance": 0.35,
+          "bleedDamage": 6,
+          "bleedTurns": 2,
+          "description": "刀出如雷，勢不可擋。"
+        }
+      },
+      "family": "blade",
+      "opening": "雙手提厚刃過頂",
+      "action": "雙手提厚刃過頂，蹬地前壓後重劈",
+      "rhythm": "長蓄、重落、拖刃收",
+      "signature": "雷紋沿刃路落下",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
+      "closestPeer": "td_thunder_combo",
+      "coverage": "代表原型待玩家動態確認",
+      "animationId": "art_thunder_blade",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_thunder_blade.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_thunder_blade",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "variants": [
+        "主招"
+      ],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_wind_chase",
+      "name": "追風腿",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "江湖散修腿法，快如追風，專打下盤破綻。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_wind_chase",
+          "name": "追風三連",
+          "qiCost": 38,
+          "power": 1.35,
+          "hitBonus": 0.1,
+          "multiHit": 2,
+          "description": "腿影連環，逼敵退守。"
+        }
+      },
+      "family": "kick",
+      "opening": "後足支撐提膝",
+      "action": "後足支撐提膝，伸腿側踢後收膝轉身再踢",
+      "rhythm": "挑、轉、落",
+      "signature": "踢腿風弧",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
+      "closestPeer": "art_bridge_step",
+      "coverage": "代表原型待玩家動態確認",
+      "animationId": "art_wind_chase",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_wind_chase.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_wind_chase",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "variants": [
+        "主招"
+      ],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_hook_silk",
+      "name": "鐵線鉤法",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "鉤走偏鋒，專鎖兵刃，非門派嫡傳亦可自修。",
+        "weaponKind": "blade",
+        "move": {
+          "id": "mv_hook_silk",
+          "name": "鐵線鎖刃",
+          "qiCost": 43,
+          "power": 1.42,
+          "pierce": 0.15,
+          "defenseBreak": 4,
+          "description": "鉤尖一繞，敵刃難發。"
+        }
+      },
+      "family": "hook",
+      "opening": "鉤刃偏架",
+      "action": "鉤刃偏架，腕翻牽鎖後側腰拉回",
+      "rhythm": "鉤、纏、拉",
+      "signature": "鐵線鉤軌",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_thunder_blade",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_meteor_palm",
+      "name": "流星掌",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "掌勢連綿如流星墜地，江湖賭坊常見此路數。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_meteor_palm",
+          "name": "流星墜",
+          "qiCost": 46,
+          "power": 1.5,
+          "stunChance": 0.22,
+          "description": "掌風壓頂，令人氣短。"
+        }
+      },
+      "family": "palm",
+      "opening": "抬肘換掌逐次下壓",
+      "action": "抬肘換掌逐次下壓，前腳隨掌墜進",
+      "rhythm": "連落、末掌停",
+      "signature": "流星墜痕",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_stone_palm",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_tiger_breath",
+      "name": "虎嘯內勁",
+      "kind": "internal",
+      "rarity": "一般",
+      "source": {
+        "flavor": "以聲催氣，內勁沉雄，非名門亦可自悟殘篇。",
+        "weaponKind": null,
+        "passive": {
+          "attack": 5,
+          "maxHp": 30,
+          "qiRegen": 6
+        }
+      },
+      "family": "internal",
+      "opening": "闊胸收腹握拳腰側",
+      "action": "闊胸收腹握拳腰側，抬胸後吐息",
+      "rhythm": "深吸沉吐",
+      "signature": "虎嘯氣紋",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "基礎吐納",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_spring_well",
+      "name": "涌泉訣",
+      "kind": "internal",
+      "rarity": "一般",
+      "source": {
+        "flavor": "氣海如泉，內息不竭，行走江湖的保命底氣。",
+        "weaponKind": null,
+        "passive": {
+          "maxQi": 40,
+          "qiRegen": 12,
+          "defense": 3
+        }
+      },
+      "family": "internal",
+      "opening": "掌心交疊於腹",
+      "action": "掌心交疊於腹，屈膝後徐徐提掌",
+      "rhythm": "下沉上湧",
+      "signature": "泉眼細紋",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "基礎吐納",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_shadow_needle",
+      "name": "無影針訣",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "暗器與指勁合一，非奇遇難得全本。",
+        "weaponKind": "hidden",
+        "move": {
+          "id": "mv_shadow_needle",
+          "name": "無影一針",
+          "qiCost": 34,
+          "power": 1.25,
+          "hitBonus": 0.14,
+          "pierce": 0.25,
+          "bleedChance": 0.3,
+          "bleedDamage": 5,
+          "bleedTurns": 2,
+          "description": "針出無聲，血線難察。"
+        }
+      },
+      "family": "needle",
+      "opening": "指尖藏針於袖",
+      "action": "指尖藏針於袖，縮肘後貼身直彈",
+      "rhythm": "藏、彈、即收",
+      "signature": "幾近無痕針線",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "tm_flying_needle",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "qg_snow_track",
+      "name": "踏雪無痕",
+      "kind": "qinggong",
+      "rarity": "一般",
+      "source": {
+        "flavor": "足尖點地，不留痕跡，身法輕靈。",
+        "weaponKind": null,
+        "passive": {
+          "evasionBonus": 0.06
+        }
+      },
+      "family": "step",
+      "opening": "足尖輕點交替提踵",
+      "action": "足尖輕點交替提踵，保持身體中線",
+      "rhythm": "輕點連移",
+      "signature": "踏雪消痕",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_bridge_step",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "qg_swallow_turn",
+      "name": "燕子三轉",
+      "kind": "qinggong",
+      "rarity": "一般",
+      "source": {
+        "flavor": "身如燕返，危機中往往能錯開半寸致命一擊。",
+        "weaponKind": null,
+        "passive": {
+          "evasionBonus": 0.08,
+          "qiRegen": 2
+        }
+      },
+      "family": "step",
+      "opening": "單足側立後連換朝向",
+      "action": "單足側立後連換朝向，肩腰先轉腳跟隨",
+      "rhythm": "轉轉折返",
+      "signature": "燕尾三折",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_bridge_step",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "qg_feiyan",
+      "name": "飛燕功",
+      "kind": "qinggong",
+      "rarity": "一般",
+      "source": {
+        "flavor": "縱躍如飛，江湖逃命第一等身法。",
+        "weaponKind": null,
+        "passive": {
+          "evasionBonus": 0.07
+        }
+      },
+      "family": "step",
+      "opening": "低蹬前膝高提",
+      "action": "低蹬前膝高提，雙臂平衡長距離落步",
+      "rhythm": "蹬飛落",
+      "signature": "飛燕掠風",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_bridge_step",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "qg_canopy_void",
+      "name": "凌虛步",
+      "kind": "qinggong",
+      "rarity": "一般",
+      "source": {
+        "flavor": "步法近乎凌虛，傳聞只授有德之人。",
+        "weaponKind": null,
+        "passive": {
+          "evasionBonus": 0.12,
+          "hitBonus": 0.03
+        }
+      },
+      "family": "step",
+      "opening": "挺身腳尖連點",
+      "action": "挺身腳尖連點，提步後輕輕收足",
+      "rhythm": "點起懸落",
+      "signature": "凌虛細霧",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_bridge_step",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "qg_broken_bridge",
+      "name": "斷橋步",
+      "kind": "qinggong",
+      "rarity": "一般",
+      "source": {
+        "flavor": "雨夜橋上所得身法，專長閃避欺近。",
+        "weaponKind": null,
+        "passive": {
+          "evasionBonus": 0.05,
+          "hitBonus": 0.04
+        }
+      },
+      "family": "step",
+      "opening": "窄步鬆架",
+      "action": "窄步鬆架，後移重心再交叉錯步避讓",
+      "rhythm": "探、錯、收",
+      "signature": "斷橋灰塵錯痕",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
+      "closestPeer": "pr_cloud_step",
+      "coverage": "代表原型待玩家動態確認",
+      "animationId": "qg_broken_bridge",
+      "assets": {
+        "atlas": "public/ink/art/martial/qg_broken_bridge.webp",
+        "anchors": "public/ink/art/martial/anchors.json#qg_broken_bridge",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "variants": [
+        "主招"
+      ],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_spear_cloud",
+      "name": "穿雲槍",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "槍尖破空，江湖槍法散篇，持槍則勢倍。",
+        "weaponKind": "spear",
+        "move": {
+          "id": "mv_spear_cloud",
+          "name": "穿雲一刺",
+          "qiCost": 41,
+          "power": 1.48,
+          "pierce": 0.18,
+          "hitBonus": 0.05,
+          "description": "槍出如電，專取中宮。"
+        }
+      },
+      "family": "spear",
+      "opening": "雙手分握長槍",
+      "action": "雙手分握長槍，後抽槍桿後蹬地平刺",
+      "rhythm": "收、沉、爆刺",
+      "signature": "槍尖破雲錐",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
+      "closestPeer": "pr_heaven_spear",
+      "coverage": "代表原型待玩家動態確認",
+      "animationId": "art_spear_cloud",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_spear_cloud.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_spear_cloud",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "variants": [
+        "主招"
+      ],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_staff_iron",
+      "name": "鐵杖訣",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "杖走大開大闔，持杖則守中有攻。",
+        "weaponKind": "staff",
+        "move": {
+          "id": "mv_staff_iron",
+          "name": "鐵杖橫掃",
+          "qiCost": 36,
+          "power": 1.32,
+          "defenseBreak": 3,
+          "stunChance": 0.18,
+          "description": "杖影橫掃，敵勢一滯。"
+        }
+      },
+      "family": "staff",
+      "opening": "雙手守中持杖",
+      "action": "雙手守中持杖，橫掃開架後回杖護身",
+      "rhythm": "掃、頓、回架",
+      "signature": "厚重杖風",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "sl_weituo",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_whip_silk",
+      "name": "柔絲鞭法",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "鞭影如絲，遠近皆宜，持鞭方見真章。",
+        "weaponKind": "whip",
+        "move": {
+          "id": "mv_whip_silk",
+          "name": "柔絲鎖喉",
+          "qiCost": 38,
+          "power": 1.28,
+          "hitBonus": 0.12,
+          "applyBlind": 0.1,
+          "description": "鞭梢點穴，視線一花。"
+        }
+      },
+      "family": "whip",
+      "opening": "鞭握腰側",
+      "action": "鞭握腰側，肩腕依次帶動鞭梢繞出再捲回",
+      "rhythm": "放、梢響、收",
+      "signature": "柔絲鞭環",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_staff_iron",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_bow_star",
+      "name": "逐星箭意",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "以弓意入拳腳亦可，持弓則箭意更準。",
+        "weaponKind": "bow",
+        "move": {
+          "id": "mv_bow_star",
+          "name": "逐星一矢",
+          "qiCost": 34,
+          "power": 1.4,
+          "hitBonus": 0.16,
+          "pierce": 0.12,
+          "description": "箭意貫中，遠點取敵。"
+        }
+      },
+      "family": "bow",
+      "opening": "前臂持弓後手引弦",
+      "action": "前臂持弓後手引弦，穩住肩線後鬆指",
+      "rhythm": "引、定、放",
+      "signature": "逐星箭尾",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "tm_poison_dart",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "qg_reed_drift",
+      "name": "蘆花身法",
+      "kind": "qinggong",
+      "rarity": "一般",
+      "source": {
+        "flavor": "身似蘆花，隨風錯步，報恩或奇遇可傳。",
+        "weaponKind": null,
+        "passive": {
+          "evasionBonus": 0.07,
+          "qiRegen": 1
+        }
+      },
+      "family": "step",
+      "opening": "側腰鬆肩",
+      "action": "側腰鬆肩，重心左右換足如隨風",
+      "rhythm": "緩擺錯步",
+      "signature": "蘆花低飄",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_bridge_step",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "qg_wall_cat",
+      "name": "壁虎遊牆",
+      "kind": "qinggong",
+      "rarity": "一般",
+      "source": {
+        "flavor": "貼壁如蠅，危牆亦可借力。",
+        "weaponKind": null,
+        "passive": {
+          "evasionBonus": 0.09
+        }
+      },
+      "family": "step",
+      "opening": "縮身屈膝手足交替借力",
+      "action": "縮身屈膝手足交替借力，沿窄面換步",
+      "rhythm": "貼攀轉落",
+      "signature": "壁面踏痕",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_bridge_step",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_sand_palm",
+      "name": "流沙掌",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "掌力如沙掩人耳目，沙漠散修所傳。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_sand_palm",
+          "name": "流沙掩目",
+          "qiCost": 36,
+          "power": 1.22,
+          "applyBlind": 0.18,
+          "hitBonus": 0.08,
+          "description": "掌風揚沙，迷敵耳目。"
+        }
+      },
+      "family": "palm",
+      "opening": "掌心低藏",
+      "action": "掌心低藏，前手遮掩視線後反掌平抹",
+      "rhythm": "遮、抹、撤",
+      "signature": "流沙散幕",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_stone_palm",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "jy_ash_manual",
+      "name": "灰中拳",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "火場焦譜悟出嘅拳路——拳勁藏於灰燼，中者如墜煙塵。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_ash_fist",
+          "name": "灰飛煙滅",
+          "qiCost": 30,
+          "power": 1.28,
+          "hitBonus": 0.1,
+          "applyBlind": 0.22,
+          "description": "拳影裹灰，迷眼封喉。"
+        }
+      },
+      "family": "fist",
+      "opening": "低垂拳背誘近",
+      "action": "低垂拳背誘近，扭腰以反手崩拳送出",
+      "rhythm": "緩藏、急崩",
+      "signature": "灰燼拳痕",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_river_fist",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_mirror_breath",
+      "name": "澄心鏡息",
+      "kind": "internal",
+      "rarity": "一般",
+      "source": {
+        "flavor": "湖心澄息，內力清朗，攻防皆穩。",
+        "weaponKind": null,
+        "passive": {
+          "maxQi": 28,
+          "defense": 5,
+          "qiRegen": 7
+        }
+      },
+      "family": "internal",
+      "opening": "雙掌相對平移至胸",
+      "action": "雙掌相對平移至胸，肩肘維持對稱",
+      "rhythm": "舒展澄定",
+      "signature": "鏡面清波",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "基礎吐納",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "qg_lotus_steps",
+      "name": "踏蓮步",
+      "kind": "qinggong",
+      "rarity": "一般",
+      "source": {
+        "flavor": "步步生蓮，水岸亦可借力閃避。",
+        "weaponKind": null,
+        "passive": {
+          "evasionBonus": 0.08,
+          "hitBonus": 0.02
+        }
+      },
+      "family": "step",
+      "opening": "腳尖先落再展腳掌",
+      "action": "腳尖先落再展腳掌，雙足沿弧線換位",
+      "rhythm": "點展換",
+      "signature": "踏蓮水紋",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_bridge_step",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_heavy_halberd",
+      "name": "開山戟意",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "戟走開山勢，持長兵則勢不可擋。",
+        "weaponKind": "spear",
+        "move": {
+          "id": "mv_heavy_halberd",
+          "name": "開山一戟",
+          "qiCost": 53,
+          "power": 1.75,
+          "pierce": 0.22,
+          "stunChance": 0.2,
+          "description": "長兵砸落，敵勢一窒。"
+        }
+      },
+      "family": "halberd",
+      "opening": "長戟斜扛肩側",
+      "action": "長戟斜扛肩側，轉胯帶戟刃由上向外砍開",
+      "rhythm": "扛、開、回桿",
+      "signature": "開山戟裂風",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_spear_cloud",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "qy_cloud_sword",
+      "name": "青雲初劍",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "青雲外門劍式：劍勢清正，先求穩準，再求快。",
+        "weaponKind": "sword",
+        "move": {
+          "id": "mv_qy_cloud",
+          "name": "青雲初劍",
+          "qiCost": 30,
+          "power": 1.28,
+          "hitBonus": 0.06,
+          "pierce": 0.1,
+          "description": "劍勢清正，點破敵招破綻。"
+        }
+      },
+      "family": "sword",
+      "opening": "正身中平劍",
+      "action": "正身中平劍，前進直刺後原路收劍",
+      "rhythm": "穩定一進一收",
+      "signature": "青雲筆鋒",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_tomb_sword",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "qy_mist_step",
+      "name": "雲中步",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "內門身法：人在雲中，步影迷離，連點取穴。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_qy_mist",
+          "name": "雲中連點",
+          "qiCost": 38,
+          "power": 0.7,
+          "hitBonus": 0.14,
+          "multiHit": 2,
+          "applyBlind": 0.12,
+          "description": "步影迷離，連點敵身要害。"
+        }
+      },
+      "family": "finger",
+      "opening": "縮肩入側隙",
+      "action": "縮肩入側隙，以步帶雙指連點穴位",
+      "rhythm": "錯步、雙點",
+      "signature": "雲中虛步痕",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "em_silk_wrap",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "qy_piercing_needle",
+      "name": "破雲刺",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "真傳劍刺：如針破雲，專透硬防，兼擾內息。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_qy_pierce",
+          "name": "破雲刺",
+          "qiCost": 43,
+          "power": 1.35,
+          "hitBonus": 0.08,
+          "pierce": 0.4,
+          "qiDrain": 12,
+          "description": "一刺透防，寒意侵脈。"
+        }
+      },
+      "family": "sword",
+      "opening": "細劍點線貼胸蓄勢",
+      "action": "細劍點線貼胸蓄勢，身體沿同一線穿刺",
+      "rhythm": "收窄、急穿",
+      "signature": "一線破雲",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_tomb_sword",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "qy_sky_intent",
+      "name": "青冥劍意",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "護法絕學：劍意化作連綿青冥，又快又透。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_qy_sky",
+          "name": "青冥三刺",
+          "qiCost": 53,
+          "power": 0.85,
+          "hitBonus": 0.1,
+          "multiHit": 3,
+          "pierce": 0.25,
+          "description": "三刺連綿，如青冥覆頂。"
+        }
+      },
+      "family": "sword",
+      "opening": "高劍架轉腕相接",
+      "action": "高劍架轉腕相接，前後腳連換令刺勢不斷",
+      "rhythm": "密刺無長停",
+      "signature": "青冥層疊劍痕",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_tomb_sword",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "td_open_blade",
+      "name": "天刀開山",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "外門開山刀：大開大闔，以勢壓人。",
+        "weaponKind": "blade",
+        "move": {
+          "id": "mv_td_open",
+          "name": "開山一刀",
+          "qiCost": 30,
+          "power": 1.42,
+          "description": "刀勢開山，剛猛直取。"
+        }
+      },
+      "family": "blade",
+      "opening": "寬步持刀於肩後",
+      "action": "寬步持刀於肩後，以肩腰帶動大幅斜斬",
+      "rhythm": "開架、斬、沉刀",
+      "signature": "山勢刀風",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_thunder_blade",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "td_wind_slash",
+      "name": "裂風斬",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "內門刀法：刀風割膚，傷口難收。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_td_wind",
+          "name": "裂風斬",
+          "qiCost": 38,
+          "power": 1.38,
+          "bleedChance": 0.55,
+          "bleedDamage": 7,
+          "bleedTurns": 3,
+          "description": "刀風過處，血線難止。"
+        }
+      },
+      "family": "blade",
+      "opening": "刀鋒平架腰際",
+      "action": "刀鋒平架腰際，滑步橫割後回刃護肋",
+      "rhythm": "滑、橫割、收",
+      "signature": "裂風薄刃",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_thunder_blade",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "td_thunder_combo",
+      "name": "雷鳴連刀",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "真傳連刀：如雷三響，勢不可擋。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_td_thunder",
+          "name": "雷鳴三斬",
+          "qiCost": 48,
+          "power": 0.8,
+          "multiHit": 3,
+          "bleedChance": 0.25,
+          "bleedDamage": 5,
+          "bleedTurns": 2,
+          "description": "三刀如雷，連綿不絕。"
+        }
+      },
+      "family": "blade",
+      "opening": "刀背靠肩先壓步",
+      "action": "刀背靠肩先壓步，交替三斬逐次縮短間隔",
+      "rhythm": "斬、斬斬",
+      "signature": "雷鳴三折刃路",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_thunder_blade",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "td_no_return",
+      "name": "天刀無回",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "護法殺着：全力一刀，傷敵亦耗己力。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_td_noreturn",
+          "name": "無回一刀",
+          "qiCost": 67,
+          "power": 2.15,
+          "pierce": 0.15,
+          "bleedChance": 0.4,
+          "bleedDamage": 8,
+          "bleedTurns": 2,
+          "description": "全力一刀，勢無回頭。"
+        }
+      },
+      "family": "blade",
+      "opening": "重心完全後蓄",
+      "action": "重心完全後蓄，全身送前完成單次長斬",
+      "rhythm": "長蓄、單爆、低收",
+      "signature": "無回斷墨",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_thunder_blade",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "em_soft_palm",
+      "name": "峨嵋柔掌",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "外門柔掌：卸力回春，打中亦可調息。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_em_soft",
+          "name": "柔掌回春",
+          "qiCost": 26,
+          "power": 1.12,
+          "hitBonus": 0.08,
+          "healSelf": 10,
+          "cooldown": 2,
+          "description": "柔勁入體，順勢調息。"
+        }
+      },
+      "family": "palm",
+      "opening": "雙掌柔架",
+      "action": "雙掌柔架，轉腰接勢後前掌平送",
+      "rhythm": "卸、送、回圓",
+      "signature": "柔掌回春細息",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_stone_palm",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "em_silk_wrap",
+      "name": "繞指柔",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "內門鎖脈：纏絲之力，令敵招滯、防卸。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_em_silk",
+          "name": "繞指鎖脈",
+          "qiCost": 34,
+          "power": 1.05,
+          "hitBonus": 0.12,
+          "applyBlind": 0.18,
+          "defenseBreak": 5,
+          "description": "纏絲鎖脈，敵招滯澀。"
+        }
+      },
+      "family": "finger",
+      "opening": "指掌相纏沿對手前臂繞入",
+      "action": "指掌相纏沿對手前臂繞入，以小幅腕轉點脈",
+      "rhythm": "纏、鎖、鬆",
+      "signature": "繞指纏絲",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "qy_mist_step",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "em_golden_palm",
+      "name": "金頂綿掌",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "真傳綿掌：打中吸血回氣，越戰越穩。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_em_golden",
+          "name": "金頂綿掌",
+          "qiCost": 41,
+          "power": 1.3,
+          "healSelf": 6,
+          "lifesteal": 0.28,
+          "cooldown": 3,
+          "description": "綿掌入骨，化傷為養。"
+        }
+      },
+      "family": "palm",
+      "opening": "掌心向上托起再翻送",
+      "action": "掌心向上托起再翻送，身形保持穩定中正",
+      "rhythm": "托、翻、送",
+      "signature": "金頂柔雲",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_stone_palm",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "em_heart_breath",
+      "name": "峨嵋心法",
+      "kind": "internal",
+      "rarity": "一般",
+      "source": {
+        "flavor": "護法心法：柔中藏剛，護體命中兼得。",
+        "weaponKind": null,
+        "passive": {
+          "defense": 8,
+          "qiRegen": 7,
+          "hitBonus": 0.06,
+          "maxQi": 20
+        }
+      },
+      "family": "internal",
+      "opening": "圓掌守心轉掌至腹",
+      "action": "圓掌守心轉掌至腹，前後肘緩沉",
+      "rhythm": "圓轉穩息",
+      "signature": "峨嵋柔氣環",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "基礎吐納",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "sl_luohan_fist",
+      "name": "羅漢拳",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "外門羅漢：架勢沉穩，拳拳到肉。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_sl_luohan",
+          "name": "羅漢崩拳",
+          "qiCost": 30,
+          "power": 1.36,
+          "description": "架勢沉穩，拳拳到肉。"
+        }
+      },
+      "family": "fist",
+      "opening": "低馬步交臂護胸",
+      "action": "低馬步交臂護胸，近身短拳交替發力",
+      "rhythm": "沉架、短短、收架",
+      "signature": "羅漢短勁墨震",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
+      "closestPeer": "art_river_fist",
+      "coverage": "代表原型待玩家動態確認",
+      "animationId": "sl_luohan_fist",
+      "assets": {
+        "atlas": "public/ink/art/martial/sl_luohan_fist.webp",
+        "anchors": "public/ink/art/martial/anchors.json#sl_luohan_fist",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "variants": [
+        "主招"
+      ],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "sl_weituo",
+      "name": "韋陀杖意",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "內門杖意：點穴定身，令敵一瞬失措。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_sl_weituo",
+          "name": "韋陀點穴",
+          "qiCost": 38,
+          "power": 1.25,
+          "stunChance": 0.28,
+          "description": "杖意點穴，敵身一滯。"
+        }
+      },
+      "family": "staff",
+      "opening": "直杖護身",
+      "action": "直杖護身，前手導杖點穴後回抽杖根",
+      "rhythm": "架、點、抽",
+      "signature": "韋陀杖頭短印",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_staff_iron",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "sl_iron_shirt",
+      "name": "鐵布衫功",
+      "kind": "internal",
+      "rarity": "一般",
+      "source": {
+        "flavor": "真傳硬功：皮肉如鐵，反震來招。",
+        "weaponKind": null,
+        "passive": {
+          "defense": 14,
+          "maxHp": 50,
+          "reflect": 0.12
+        }
+      },
+      "family": "internal",
+      "opening": "闊步肘臂貼肋",
+      "action": "闊步肘臂貼肋，肩背受力後展開",
+      "rhythm": "受震歸定",
+      "signature": "鐵衣反震紋",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "基礎吐納",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "sl_yijin",
+      "name": "易筋吐納",
+      "kind": "internal",
+      "rarity": "一般",
+      "source": {
+        "flavor": "護法吐納：筋骨重塑，攻防氣海皆厚。",
+        "weaponKind": null,
+        "passive": {
+          "attack": 5,
+          "defense": 10,
+          "maxQi": 30,
+          "maxHp": 25,
+          "qiRegen": 5
+        }
+      },
+      "family": "internal",
+      "opening": "舒指引臂抬升",
+      "action": "舒指引臂抬升，背脊逐節伸展再沉肩",
+      "rhythm": "展筋落息",
+      "signature": "筋骨清勁",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "基礎吐納",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "wd_sword_form",
+      "name": "武當劍式",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "外門劍式：圓轉流暢，以靜制動。",
+        "weaponKind": "sword",
+        "move": {
+          "id": "mv_wd_sword",
+          "name": "武當圓劍",
+          "qiCost": 30,
+          "power": 1.22,
+          "hitBonus": 0.07,
+          "pierce": 0.1,
+          "description": "劍走圓弧，以靜制動。"
+        }
+      },
+      "family": "sword",
+      "opening": "圓形劍架起手",
+      "action": "圓形劍架起手，腳步繞側配合腕花送刺",
+      "rhythm": "圓轉、刺、回圓",
+      "signature": "武當圓劍痕",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_tomb_sword",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "wd_tai_push",
+      "name": "太極推手",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "內門推手：四兩撥千斤，卸力回春兼破防。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_wd_push",
+          "name": "太極推手",
+          "qiCost": 31,
+          "power": 1.08,
+          "healSelf": 12,
+          "defenseBreak": 4,
+          "applyBlind": 0.1,
+          "cooldown": 2,
+          "description": "卸力推手，敵勢自潰。"
+        }
+      },
+      "family": "palm",
+      "opening": "前後掌相抱",
+      "action": "前後掌相抱，以腰帶臂引開後雙掌緩推",
+      "rhythm": "接、引、推",
+      "signature": "太極雙向流痕",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_stone_palm",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "wd_pure_yang",
+      "name": "純陽吐納",
+      "kind": "internal",
+      "rarity": "一般",
+      "source": {
+        "flavor": "真傳吐納：氣機悠長，越打越有後勁。",
+        "weaponKind": null,
+        "passive": {
+          "maxQi": 40,
+          "qiRegen": 12,
+          "attack": 2
+        }
+      },
+      "family": "internal",
+      "opening": "雙掌相對氣海",
+      "action": "雙掌相對氣海，隨吐息抬胸展肩",
+      "rhythm": "悠長平穩",
+      "signature": "純陽暖息",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "基礎吐納",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "wd_wuji_sword",
+      "name": "無極劍意",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "護法劍意：連綿無極，透防耗氣。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_wd_wuji",
+          "name": "無極連刺",
+          "qiCost": 50,
+          "power": 0.78,
+          "multiHit": 3,
+          "pierce": 0.22,
+          "qiDrain": 10,
+          "description": "劍意無極，連刺耗脈。"
+        }
+      },
+      "family": "sword",
+      "opening": "劍鋒立於中線",
+      "action": "劍鋒立於中線，連續轉腕接刺後退劍守中",
+      "rhythm": "循環不斷",
+      "signature": "無極相接劍環",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_tomb_sword",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "tm_flying_needle",
+      "name": "唐門飛針",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "外門暗器：細針如雨，先求連發見血。",
+        "weaponKind": "hidden",
+        "move": {
+          "id": "mv_tm_needle",
+          "name": "飛針如雨",
+          "qiCost": 32,
+          "power": 0.72,
+          "hitBonus": 0.1,
+          "multiHit": 3,
+          "bleedChance": 0.28,
+          "bleedDamage": 6,
+          "bleedTurns": 2,
+          "description": "細針連發，專取見血。"
+        }
+      },
+      "family": "needle",
+      "opening": "袖底夾針",
+      "action": "袖底夾針，手腕短促前彈並左右手接續",
+      "rhythm": "三次細密彈指",
+      "signature": "細針分路抵達",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
+      "closestPeer": "wg_embroidery_needle",
+      "coverage": "代表原型待玩家動態確認",
+      "animationId": "tm_flying_needle",
+      "assets": {
+        "atlas": "public/ink/art/martial/tm_flying_needle.webp",
+        "anchors": "public/ink/art/martial/anchors.json#tm_flying_needle",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "variants": [
+        "主招"
+      ],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "tm_shadow_step",
+      "name": "影步",
+      "kind": "qinggong",
+      "rarity": "一般",
+      "source": {
+        "flavor": "內門身法：步入陰影，閃避與準頭俱增。",
+        "weaponKind": null,
+        "passive": {
+          "evasionBonus": 0.1,
+          "hitBonus": 0.05
+        }
+      },
+      "family": "step",
+      "opening": "壓低肩線側足入暗",
+      "action": "壓低肩線側足入暗，短距離換位再挺身",
+      "rhythm": "隱錯現",
+      "signature": "影步折痕",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_bridge_step",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "tm_poison_dart",
+      "name": "淬毒鏢",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "真傳暗器：鏢尖帶毒，透防擾脈。",
+        "weaponKind": "hidden",
+        "move": {
+          "id": "mv_tm_poison",
+          "name": "淬毒一鏢",
+          "qiCost": 44,
+          "power": 1.32,
+          "hitBonus": 0.08,
+          "pierce": 0.28,
+          "qiDrain": 10,
+          "bleedChance": 0.4,
+          "bleedDamage": 8,
+          "bleedTurns": 3,
+          "description": "毒鏢破空，脈息皆滯。"
+        }
+      },
+      "family": "dart",
+      "opening": "拈鏢於肩側",
+      "action": "拈鏢於肩側，肘帶腕拋出後指尖順勢下收",
+      "rhythm": "蓄鏢、拋、收",
+      "signature": "毒鏢尾霧",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "pr_star_fall",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "tm_thousand_mech",
+      "name": "千機手",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "護法奇門：機關連射，可眩敵半息。",
+        "weaponKind": "hidden",
+        "move": {
+          "id": "mv_tm_mech",
+          "name": "千機連射",
+          "qiCost": 52,
+          "power": 0.7,
+          "hitBonus": 0.12,
+          "multiHit": 4,
+          "pierce": 0.15,
+          "stunChance": 0.22,
+          "bleedChance": 0.25,
+          "bleedDamage": 5,
+          "bleedTurns": 2,
+          "description": "機關齊發，敵勢一窒。"
+        }
+      },
+      "family": "mechanism",
+      "opening": "袖口朝前交替抬臂",
+      "action": "袖口朝前交替抬臂，以短促指扣逐次放射",
+      "rhythm": "扣、扣扣、合袖",
+      "signature": "千機連射星點",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_shadow_needle",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "mj_blood_palm",
+      "name": "血影掌",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "外門魔掌：掌勁帶血煞，傷敵自補。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_mj_palm",
+          "name": "血影一掌",
+          "qiCost": 34,
+          "power": 1.35,
+          "lifesteal": 0.22,
+          "description": "掌帶血煞，傷敵補己。"
+        }
+      },
+      "family": "palm",
+      "opening": "掌根低蓄",
+      "action": "掌根低蓄，向前拍送後掌心翻回胸前",
+      "rhythm": "拍、回帶",
+      "signature": "血影回捲掌霧",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_stone_palm",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "mj_devil_breath",
+      "name": "魔息吐納",
+      "kind": "internal",
+      "rarity": "一般",
+      "source": {
+        "flavor": "內門吐納：魔息入體，攻勢更烈，亦能反震。",
+        "weaponKind": null,
+        "passive": {
+          "attack": 8,
+          "maxQi": 20,
+          "qiRegen": 4,
+          "reflect": 0.08
+        }
+      },
+      "family": "internal",
+      "opening": "拳背貼腹俯身聚氣",
+      "action": "拳背貼腹俯身聚氣，抬胸再吐息",
+      "rhythm": "壓聚吐",
+      "signature": "魔息逆旋",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "基礎吐納",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "mj_soul_drain",
+      "name": "吸脈指",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "真傳魔指：透防抽脈，敵氣為我用。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_mj_drain",
+          "name": "吸脈一指",
+          "qiCost": 46,
+          "power": 1.25,
+          "pierce": 0.3,
+          "qiDrain": 18,
+          "lifesteal": 0.12,
+          "description": "一指抽脈，敵息歸我。"
+        }
+      },
+      "family": "finger",
+      "opening": "兩指內扣",
+      "action": "兩指內扣，貼近後直探經脈再彎指收回",
+      "rhythm": "探、扣、抽",
+      "signature": "吸脈回流細線",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "qy_mist_step",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "mj_asura_slash",
+      "name": "修羅斬",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "護法魔刀：一斬定生死，流血兼吸血。",
+        "weaponKind": "blade",
+        "move": {
+          "id": "mv_mj_asura",
+          "name": "修羅一斬",
+          "qiCost": 55,
+          "power": 1.7,
+          "pierce": 0.18,
+          "lifesteal": 0.28,
+          "bleedChance": 0.45,
+          "bleedDamage": 10,
+          "bleedTurns": 3,
+          "stunChance": 0.15,
+          "description": "修羅刀意，血火齊吞。"
+        }
+      },
+      "family": "blade",
+      "opening": "反握刀架守低位",
+      "action": "反握刀架守低位，轉腰向上斜斬再沉刃",
+      "rhythm": "低、逆斬、收",
+      "signature": "修羅朱砂刃痕",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_thunder_blade",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "hs_pine_sword",
+      "name": "松風劍",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "外門劍式：松風入劍，穩準清剛。",
+        "weaponKind": "sword",
+        "move": {
+          "id": "mv_hs_pine",
+          "name": "松風一刺",
+          "qiCost": 30,
+          "power": 1.3,
+          "hitBonus": 0.08,
+          "pierce": 0.12,
+          "description": "劍帶松風，點破敵招。"
+        }
+      },
+      "family": "sword",
+      "opening": "高腕直劍",
+      "action": "高腕直劍，挺身送出乾淨直刺再收肩",
+      "rhythm": "穩、刺、回",
+      "signature": "松風劍葉",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_tomb_sword",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "hs_cloud_step",
+      "name": "雲臺步",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "內門身法劍：步上雲臺，連刺取隙。",
+        "weaponKind": "sword",
+        "move": {
+          "id": "mv_hs_cloud",
+          "name": "雲臺連刺",
+          "qiCost": 38,
+          "power": 0.75,
+          "hitBonus": 0.12,
+          "multiHit": 2,
+          "pierce": 0.1,
+          "description": "步影如雲，連刺取隙。"
+        }
+      },
+      "family": "sword",
+      "opening": "持劍交叉踏高步",
+      "action": "持劍交叉踏高步，換足同時連刺兩側隙",
+      "rhythm": "踏、連刺、落步",
+      "signature": "雲臺階式劍痕",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_tomb_sword",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "hs_split_peak",
+      "name": "劈岳劍",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "真傳劍勢：一劍劈岳，破防震敵。",
+        "weaponKind": "sword",
+        "move": {
+          "id": "mv_hs_peak",
+          "name": "劈岳一劍",
+          "qiCost": 48,
+          "power": 1.55,
+          "hitBonus": 0.06,
+          "pierce": 0.22,
+          "defenseBreak": 5,
+          "stunChance": 0.18,
+          "description": "劍勢如岳，敵防一潰。"
+        }
+      },
+      "family": "sword",
+      "opening": "劍舉過肩後沿脊線壓落",
+      "action": "劍舉過肩後沿脊線壓落，以前足承重停住",
+      "rhythm": "舉、劈、定",
+      "signature": "劈岳縱向墨裂",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_tomb_sword",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "hs_yue_breath",
+      "name": "華嶽吐納",
+      "kind": "internal",
+      "rarity": "一般",
+      "source": {
+        "flavor": "護法吐納：氣接華嶽，劍勢與氣海同厚。",
+        "weaponKind": null,
+        "passive": {
+          "attack": 4,
+          "maxQi": 35,
+          "qiRegen": 8,
+          "hitBonus": 0.04,
+          "defense": 4
+        }
+      },
+      "family": "internal",
+      "opening": "掌勢如承山",
+      "action": "掌勢如承山，挺背後合掌於腹",
+      "rhythm": "托立合",
+      "signature": "華嶽厚息",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "基礎吐納",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_drunken_fist",
+      "name": "醉八仙拳",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "步履踉蹌卻招招難測，醉裡藏鋒，唯嗜酒者方能悟得。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_drunk_fist",
+          "name": "醉步連環",
+          "qiCost": 30,
+          "power": 1.3,
+          "hitBonus": 0.06,
+          "description": "身形東倒西歪，招式虛實難辨。"
+        }
+      },
+      "family": "fist",
+      "opening": "腰身搖晃佯失平衡",
+      "action": "腰身搖晃佯失平衡，反向扭腰以肘拳補入",
+      "rhythm": "晃、頓、反打",
+      "signature": "酒霧錯位拳印",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_river_fist",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "th_finger_flick",
+      "name": "彈指神通",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "外門手法：指風彈石，隔空點穴，出手看似隨意，實則精準。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_th_finger",
+          "name": "彈指一點",
+          "qiCost": 28,
+          "power": 1.2,
+          "hitBonus": 0.1,
+          "pierce": 0.08,
+          "description": "指風如彈，隔空點中破綻。"
+        }
+      },
+      "family": "finger",
+      "opening": "拇指扣中指於胸前",
+      "action": "拇指扣中指於胸前，鬆腕彈出小石後收指",
+      "rhythm": "靜、彈、垂",
+      "signature": "彈石一點風",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "qy_mist_step",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "th_flute_sword",
+      "name": "玉簫劍法",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "內門劍式：以簫作劍，劍意隨樂音流轉，虛實難分。",
+        "weaponKind": "sword",
+        "move": {
+          "id": "mv_th_flute",
+          "name": "玉簫三疊",
+          "qiCost": 38,
+          "power": 1.32,
+          "hitBonus": 0.08,
+          "multiHit": 2,
+          "description": "簫聲三疊，劍隨聲轉，連刺不絕。"
+        }
+      },
+      "family": "flute",
+      "opening": "玉簫橫架胸前",
+      "action": "玉簫橫架胸前，以腕帶簫身點刺後橫收",
+      "rhythm": "橫、點、滑收",
+      "signature": "簫音節點",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_tomb_sword",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "th_falling_petals",
+      "name": "落英神劍掌",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "真傳絕學：掌風如落英繽紛，看似柔美，觸之即傷。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_th_petals",
+          "name": "落英繽紛",
+          "qiCost": 48,
+          "power": 1.1,
+          "multiHit": 3,
+          "applyBlind": 1,
+          "description": "掌風化作漫天落花，敵目為之一眩。"
+        }
+      },
+      "family": "palm",
+      "opening": "掌心交替向外翻花",
+      "action": "掌心交替向外翻花，側步中連送開掌",
+      "rhythm": "翻、送、換掌",
+      "signature": "落英掌瓣",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_stone_palm",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "th_qimen_array",
+      "name": "奇門一氣",
+      "kind": "internal",
+      "rarity": "一般",
+      "source": {
+        "flavor": "護法心法：奇門五行融入吐納，進退如踏八卦，敵難測方位。",
+        "weaponKind": null,
+        "passive": {
+          "evasionBonus": 0.1,
+          "hitBonus": 0.05,
+          "qiRegen": 6
+        }
+      },
+      "family": "internal",
+      "opening": "雙掌依身側五位轉動",
+      "action": "雙掌依身側五位轉動，腳下換向再歸中",
+      "rhythm": "五向循環",
+      "signature": "奇門息位",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "基礎吐納",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "wg_embroidery_needle",
+      "name": "繡花奪命針",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "外門手法：一縷銀針藏於袖底，繡花般的手勢，扎中即見血。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_wg_needle",
+          "name": "銀針暗刺",
+          "qiCost": 26,
+          "power": 1.05,
+          "bleedChance": 0.5,
+          "bleedDamage": 3,
+          "bleedTurns": 3,
+          "description": "一針暗刺，血珠隨即滲出。"
+        }
+      },
+      "family": "needle",
+      "opening": "垂袖遮手",
+      "action": "垂袖遮手，以繡線般小幅拈指牽放細針",
+      "rhythm": "拈、牽、放",
+      "signature": "繡花銀針細路",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_shadow_needle",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "wg_silent_step",
+      "name": "無聲遁跡",
+      "kind": "qinggong",
+      "rarity": "一般",
+      "source": {
+        "flavor": "內門輕功：來去不聞聲響，門中人稱「影子」。",
+        "weaponKind": null,
+        "passive": {
+          "evasionBonus": 0.09,
+          "qiRegen": 3
+        }
+      },
+      "family": "step",
+      "opening": "腳掌外沿先落",
+      "action": "腳掌外沿先落，屈膝吸力再換窄步",
+      "rhythm": "低緩不頓",
+      "signature": "無聲足跡",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_bridge_step",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "wg_yin_soft_palm",
+      "name": "陰柔化勁掌",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "真傳絕學：捨剛從柔，卸敵之力，反噬其身。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_wg_yin_palm",
+          "name": "化勁反噬",
+          "qiCost": 44,
+          "power": 1.15,
+          "defenseBreak": 6,
+          "lifesteal": 0.14,
+          "description": "以柔卸剛，敵力反噬其身。"
+        }
+      },
+      "family": "palm",
+      "opening": "鬆掌受壓後沿腕轉向",
+      "action": "鬆掌受壓後沿腕轉向，以反掌將來力卸還",
+      "rhythm": "受、柔化、還",
+      "signature": "陰柔反向絲紋",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_stone_palm",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "wg_root_severed_creed",
+      "name": "忘根訣",
+      "kind": "internal",
+      "rarity": "一般",
+      "source": {
+        "flavor": "護法心法：斷絕塵根，一念不生，內力反而暴長。",
+        "weaponKind": null,
+        "passive": {
+          "attack": 6,
+          "defense": 5,
+          "maxQi": 25,
+          "qiRegen": 5
+        }
+      },
+      "family": "internal",
+      "opening": "兩掌合於胸前",
+      "action": "兩掌合於胸前，沉肩向下分掌",
+      "rhythm": "靜定再放",
+      "signature": "忘根寂息",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "基礎吐納",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_guqin_song",
+      "name": "廣陵絕響",
+      "kind": "internal",
+      "rarity": "一般",
+      "source": {
+        "flavor": "古琴一曲，靜心凝神，唯浸淫琴道多年者能悟其中真意。",
+        "weaponKind": null,
+        "passive": {
+          "qiRegen": 6,
+          "hitBonus": 0.03,
+          "reflect": 0.04
+        }
+      },
+      "family": "internal",
+      "opening": "雙手作撫弦指勢",
+      "action": "雙手作撫弦指勢，左右指尖輪替後平息",
+      "rhythm": "勾挑息",
+      "signature": "廣陵弦音紋",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "基礎吐納",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_weiqi_trap",
+      "name": "珍瓏棋局",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "圍棋算路化入招式，步步為營，逼敵入局。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_weiqi_trap",
+          "name": "落子成局",
+          "qiCost": 34,
+          "power": 1.1,
+          "defenseBreak": 5,
+          "hitBonus": 0.07,
+          "description": "招式如落子布局，一步步逼死敵方退路。"
+        }
+      },
+      "family": "weiqi",
+      "opening": "袖中拈棋",
+      "action": "袖中拈棋，退半步後前後手先後落子",
+      "rhythm": "思、落、再落、合袖",
+      "signature": "珍瓏黑白落子",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
+      "closestPeer": "th_finger_flick",
+      "coverage": "代表原型待玩家動態確認",
+      "animationId": "art_weiqi_trap",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_weiqi_trap.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_weiqi_trap",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "variants": [
+        "主招"
+      ],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_poetry_sword",
+      "name": "詩劍風流",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "詩書滿腹，出劍帶三分書卷氣，卻招招見血。",
+        "weaponKind": "sword",
+        "move": {
+          "id": "mv_poetry_sword",
+          "name": "一劍成詩",
+          "qiCost": 36,
+          "power": 1.24,
+          "hitBonus": 0.09,
+          "description": "劍出如詩成句，一氣呵成。"
+        }
+      },
+      "family": "sword",
+      "opening": "劍勢先抑後揚",
+      "action": "劍勢先抑後揚，提腕如書寫長短筆勢",
+      "rhythm": "頓、長劃、收鋒",
+      "signature": "詩劍行書飛白",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_tomb_sword",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_ink_illusion",
+      "name": "潑墨迷蹤",
+      "kind": "qinggong",
+      "rarity": "一般",
+      "source": {
+        "flavor": "丹青浸淫日久，身形恍若潑墨，虛實莫辨。",
+        "weaponKind": null,
+        "passive": {
+          "evasionBonus": 0.07,
+          "hitBonus": 0.02
+        }
+      },
+      "family": "step",
+      "opening": "斜側閃開",
+      "action": "斜側閃開，雙足沿寬窄相間曲線移位",
+      "rhythm": "潑斷轉",
+      "signature": "潑墨虛實影",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_bridge_step",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_buddha_heart",
+      "name": "金剛不壞",
+      "kind": "internal",
+      "rarity": "一般",
+      "source": {
+        "flavor": "禮佛日久，心境澄明，體魄亦隨之堅實。",
+        "weaponKind": null,
+        "passive": {
+          "defense": 8,
+          "maxHp": 24
+        }
+      },
+      "family": "internal",
+      "opening": "合掌凝神",
+      "action": "合掌凝神，前臂緩分護胸再回掌",
+      "rhythm": "合開歸",
+      "signature": "佛心墨暈",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "基礎吐納",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_dao_breath",
+      "name": "太乙玄清",
+      "kind": "internal",
+      "rarity": "一般",
+      "source": {
+        "flavor": "道法自然，吐納玄清，內息綿長不絕。",
+        "weaponKind": null,
+        "passive": {
+          "maxQi": 30,
+          "qiRegen": 8
+        }
+      },
+      "family": "internal",
+      "opening": "掌心一上一下交替轉動",
+      "action": "掌心一上一下交替轉動，脊背自然伸縮",
+      "rhythm": "陰陽相續",
+      "signature": "太乙遊氣",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "基礎吐納",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "art_heretic_scripture",
+      "name": "天魔邪功",
+      "kind": "external",
+      "rarity": "一般",
+      "source": {
+        "flavor": "旁門邪學，以血氣煉功，招式狠辣不留餘地，唯心性夠狠者敢學。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_heretic",
+          "name": "天魔一擊",
+          "qiCost": 42,
+          "power": 1.4,
+          "pierce": 0.15,
+          "lifesteal": 0.08,
+          "description": "邪功一擊，狠辣不留餘地。"
+        }
+      },
+      "family": "fist",
+      "opening": "俯身藏拳後貼身狠打",
+      "action": "俯身藏拳後貼身狠打，反肘收身而非持兵器",
+      "rhythm": "急近、狠打、抽身",
+      "signature": "天魔血氣殘痕",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_river_fist",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "pr_blood_lotus",
+      "name": "血蓮千刃",
+      "kind": "external",
+      "rarity": "珍本",
+      "source": {
+        "flavor": "刀落如蓮開，一瓣一道血痕。",
+        "weaponKind": "blade",
+        "move": {
+          "id": "mv_pr_blood_lotus",
+          "name": "千刃血蓮",
+          "qiCost": 60,
+          "power": 1.95,
+          "bleedChance": 0.5,
+          "bleedDamage": 9,
+          "bleedTurns": 3,
+          "lifesteal": 0.12,
+          "description": "刀如蓮開，血痕層疊。"
+        }
+      },
+      "family": "blade",
+      "opening": "低刀向外翻刃",
+      "action": "低刀向外翻刃，交叉換足完成瓣狀連斬",
+      "rhythm": "展、層斬、合",
+      "signature": "血蓮千刃瓣",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_thunder_blade",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "pr_crimson_moon",
+      "name": "赤月飲血劍",
+      "kind": "external",
+      "rarity": "珍本",
+      "source": {
+        "flavor": "月色染紅之夜所創，劍飲敵血以養己身。",
+        "weaponKind": "sword",
+        "move": {
+          "id": "mv_pr_crimson_moon",
+          "name": "赤月飲血",
+          "qiCost": 56,
+          "power": 1.85,
+          "lifesteal": 0.22,
+          "bleedChance": 0.25,
+          "bleedDamage": 6,
+          "bleedTurns": 2,
+          "description": "劍光如赤月，傷敵養己。"
+        }
+      },
+      "family": "sword",
+      "opening": "劍身貼臂藏鋒",
+      "action": "劍身貼臂藏鋒，回身月弧挑刺後帶劍收腰",
+      "rhythm": "藏、弧刺、回飲",
+      "signature": "赤月回流劍影",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_tomb_sword",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "pr_nine_chain",
+      "name": "九連環掌",
+      "kind": "external",
+      "rarity": "珍本",
+      "source": {
+        "flavor": "掌影九重，一掌未盡一掌又來。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_pr_nine_chain",
+          "name": "九重連環",
+          "qiCost": 58,
+          "power": 0.75,
+          "multiHit": 4,
+          "hitBonus": 0.08,
+          "description": "掌影連綿，九重不斷。"
+        }
+      },
+      "family": "palm",
+      "opening": "交臂開掌接續換手",
+      "action": "交臂開掌接續換手，九重掌勢由腰向前傳遞",
+      "rhythm": "密接層推",
+      "signature": "九環相扣掌紋",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_stone_palm",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "pr_wind_thread",
+      "name": "穿風引線劍",
+      "kind": "external",
+      "rarity": "珍本",
+      "source": {
+        "flavor": "劍如引線穿風，一招三刺，快得看不清。",
+        "weaponKind": "sword",
+        "move": {
+          "id": "mv_pr_wind_thread",
+          "name": "穿風三刺",
+          "qiCost": 52,
+          "power": 0.85,
+          "multiHit": 3,
+          "pierce": 0.1,
+          "description": "一招三刺，快如穿線。"
+        }
+      },
+      "family": "sword",
+      "opening": "低交叉步盤劍",
+      "action": "低交叉步盤劍，側身弧進後轉足引出三刺",
+      "rhythm": "繞、刺刺刺、盤收",
+      "signature": "穿風三股引線",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
+      "closestPeer": "art_rain_sword",
+      "coverage": "代表原型待玩家動態確認",
+      "animationId": "pr_wind_thread",
+      "assets": {
+        "atlas": "public/ink/art/martial/pr_wind_thread.webp",
+        "anchors": "public/ink/art/martial/anchors.json#pr_wind_thread",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 24,
+      "variants": [
+        "主招",
+        "真實暴擊後專屬收勢",
+        "真實擊倒後專屬收勢"
+      ],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "pr_mountain_split",
+      "name": "裂嶽神拳",
+      "kind": "external",
+      "rarity": "珍本",
+      "source": {
+        "flavor": "傳說一拳裂開山嶽，專破天下硬功。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_pr_mountain_split",
+          "name": "裂嶽一拳",
+          "qiCost": 62,
+          "power": 2.05,
+          "pierce": 0.4,
+          "defenseBreak": 5,
+          "description": "拳勁透甲，硬功盡碎。"
+        }
+      },
+      "family": "fist",
+      "opening": "深蹲縮拳聚力",
+      "action": "深蹲縮拳聚力，蹬起升拳後轉肩重落",
+      "rhythm": "長蓄、升、墜、沉收",
+      "signature": "山嶽斷面碎岩",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
+      "closestPeer": "sl_luohan_fist",
+      "coverage": "代表原型待玩家動態確認",
+      "animationId": "pr_mountain_split",
+      "assets": {
+        "atlas": "public/ink/art/martial/pr_mountain_split.webp",
+        "anchors": "public/ink/art/martial/anchors.json#pr_mountain_split",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 24,
+      "variants": [
+        "主招",
+        "真實暴擊後專屬收勢",
+        "真實擊倒後專屬收勢"
+      ],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "pr_heaven_spear",
+      "name": "貫日神槍",
+      "kind": "external",
+      "rarity": "珍本",
+      "source": {
+        "flavor": "一槍貫日，再堅之甲亦如紙。",
+        "weaponKind": "spear",
+        "move": {
+          "id": "mv_pr_heaven_spear",
+          "name": "白虹貫日",
+          "qiCost": 60,
+          "power": 2,
+          "pierce": 0.32,
+          "hitBonus": 0.06,
+          "description": "槍如白虹，直貫甲冑。"
+        }
+      },
+      "family": "spear",
+      "opening": "槍尾沉地後雙手托起",
+      "action": "槍尾沉地後雙手托起，以背腰帶槍尖長距離貫刺",
+      "rhythm": "沉、托、貫",
+      "signature": "貫日槍鋒細芒",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_spear_cloud",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "pr_soul_lock",
+      "name": "鎖魂指",
+      "kind": "external",
+      "rarity": "珍本",
+      "source": {
+        "flavor": "一指封穴，對手魂魄如被鎖住。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_pr_soul_lock",
+          "name": "鎖魂一指",
+          "qiCost": 54,
+          "power": 1.5,
+          "stunChance": 0.38,
+          "qiDrain": 18,
+          "description": "指封要穴，敵難動彈。"
+        }
+      },
+      "family": "finger",
+      "opening": "雙指夾緊護胸",
+      "action": "雙指夾緊護胸，點出後保持短暫定勢再收指",
+      "rhythm": "定、點、定、鬆",
+      "signature": "鎖魂穴位封紋",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "qy_mist_step",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "pr_mist_blind",
+      "name": "迷蹤散霧手",
+      "kind": "external",
+      "rarity": "珍本",
+      "source": {
+        "flavor": "掌帶迷霧，叫人目不能視、手不能出。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_pr_mist_blind",
+          "name": "散霧迷蹤",
+          "qiCost": 50,
+          "power": 1.4,
+          "applyBlind": 2,
+          "stunChance": 0.2,
+          "description": "霧掌迷眼，敵招落空。"
+        }
+      },
+      "family": "palm",
+      "opening": "雙掌交錯遮掩後側身反推",
+      "action": "雙掌交錯遮掩後側身反推，手路虛實互換",
+      "rhythm": "遮、換、推",
+      "signature": "迷霧掌中散開",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_stone_palm",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "pr_vajra_palm",
+      "name": "金剛不壞掌",
+      "kind": "external",
+      "rarity": "珍本",
+      "source": {
+        "flavor": "掌出如山，回勁護體，越打越穩。",
+        "weaponKind": null,
+        "move": {
+          "id": "mv_pr_vajra_palm",
+          "name": "金剛護體掌",
+          "qiCost": 55,
+          "power": 1.6,
+          "healSelf": 18,
+          "defenseBreak": 2,
+          "description": "掌勁回流，護體療傷。"
+        }
+      },
+      "family": "palm",
+      "opening": "闊步直掌護胸",
+      "action": "闊步直掌護胸，背脊挺立送掌後圓收雙臂",
+      "rhythm": "沉、山推、回護",
+      "signature": "金剛山紋掌勁",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_stone_palm",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "pr_floating_blade",
+      "name": "飄絮刀",
+      "kind": "external",
+      "rarity": "珍本",
+      "source": {
+        "flavor": "刀勢輕如飄絮，總從意想不到之處落下。",
+        "weaponKind": "blade",
+        "move": {
+          "id": "mv_pr_floating_blade",
+          "name": "飄絮落刀",
+          "qiCost": 48,
+          "power": 1.7,
+          "hitBonus": 0.15,
+          "description": "刀輕如絮，防不勝防。"
+        }
+      },
+      "family": "blade",
+      "opening": "鬆腕垂刀以曲步繞側",
+      "action": "鬆腕垂刀以曲步繞側，刀刃沿意外斜角輕落",
+      "rhythm": "飄、折、落",
+      "signature": "飄絮細碎刃尾",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_thunder_blade",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "pr_star_fall",
+      "name": "流星墜月",
+      "kind": "external",
+      "rarity": "珍本",
+      "source": {
+        "flavor": "暗器如流星墜月，散落一片，避無可避。",
+        "weaponKind": "hidden",
+        "move": {
+          "id": "mv_pr_star_fall",
+          "name": "流星墜月",
+          "qiCost": 56,
+          "power": 0.7,
+          "multiHit": 4,
+          "bleedChance": 0.3,
+          "bleedDamage": 5,
+          "bleedTurns": 2,
+          "description": "星落如雨，處處見血。"
+        }
+      },
+      "family": "dart",
+      "opening": "雙手先高後低交替撒出暗器",
+      "action": "雙手先高後低交替撒出暗器，身體隨手轉側",
+      "rhythm": "高撒、低撒、回袖",
+      "signature": "流星墜月散點",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "tm_poison_dart",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "pr_blood_sea",
+      "name": "血海心經",
+      "kind": "internal",
+      "rarity": "珍本",
+      "source": {
+        "flavor": "以殺意養內息，攻勢愈戰愈烈。",
+        "weaponKind": null,
+        "passive": {
+          "attack": 12,
+          "maxHp": 20,
+          "qiRegen": 4
+        }
+      },
+      "family": "internal",
+      "opening": "掌根貼腹聚息",
+      "action": "掌根貼腹聚息，翻掌擴胸再收息",
+      "rhythm": "聚擴收潮",
+      "signature": "血海潮紋",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "基礎吐納",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "pr_thunder_heart",
+      "name": "雷動心法",
+      "kind": "internal",
+      "rarity": "珍本",
+      "source": {
+        "flavor": "內息如雷鳴不絕，出招接連不斷。",
+        "weaponKind": null,
+        "passive": {
+          "qiRegen": 14,
+          "maxQi": 35,
+          "hitBonus": 0.05
+        }
+      },
+      "family": "internal",
+      "opening": "交掌貼胸連續短吐",
+      "action": "交掌貼胸連續短吐，肘肩隨息微震",
+      "rhythm": "短短長吐",
+      "signature": "雷動脈紋",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "基礎吐納",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "pr_diamond_body",
+      "name": "金剛不壞體",
+      "kind": "internal",
+      "rarity": "珍本",
+      "source": {
+        "flavor": "傳說中的護體神功，刀槍難入。",
+        "weaponKind": null,
+        "passive": {
+          "defense": 18,
+          "maxHp": 60,
+          "reflect": 0.12
+        }
+      },
+      "family": "internal",
+      "opening": "結印沉身",
+      "action": "結印沉身，旋掌至胸後展前臂成圓架，再慢壓收息",
+      "rhythm": "印、展、圓、壓",
+      "signature": "金剛多層細氣紋",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
+      "closestPeer": "art_iron_body",
+      "coverage": "代表原型待玩家動態確認",
+      "animationId": "pr_diamond_body",
+      "assets": {
+        "atlas": "public/ink/art/martial/pr_diamond_body.webp",
+        "anchors": "public/ink/art/martial/anchors.json#pr_diamond_body",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 16,
+      "variants": [
+        "主招"
+      ],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "pr_seal_meridian",
+      "name": "封脈真經",
+      "kind": "internal",
+      "rarity": "珍本",
+      "source": {
+        "flavor": "內力深厚到可以隔空封人經脈。",
+        "weaponKind": null,
+        "passive": {
+          "maxQi": 60,
+          "attack": 6,
+          "qiRegen": 6
+        }
+      },
+      "family": "internal",
+      "opening": "平掌於腹逐指閉合",
+      "action": "平掌於腹逐指閉合，雙手展開至胸",
+      "rhythm": "逐指收整體放",
+      "signature": "封脈息點",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "基礎吐納",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "pr_void_breath",
+      "name": "太虛吐納",
+      "kind": "internal",
+      "rarity": "珍本",
+      "source": {
+        "flavor": "吐納如太虛無形，身輕如無物。",
+        "weaponKind": null,
+        "passive": {
+          "evasionBonus": 0.06,
+          "hitBonus": 0.06,
+          "qiRegen": 8
+        }
+      },
+      "family": "internal",
+      "opening": "屈膝吸氣後舒身",
+      "action": "屈膝吸氣後舒身，實抱轉為虛托",
+      "rhythm": "沉輕起虛收",
+      "signature": "太虛薄息",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "基礎吐納",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "pr_cloud_step",
+      "name": "踏雲九霄",
+      "kind": "qinggong",
+      "rarity": "珍本",
+      "source": {
+        "flavor": "足踏雲端九霄，凡人目力難以追及。",
+        "weaponKind": null,
+        "passive": {
+          "evasionBonus": 0.12,
+          "qiRegen": 3
+        }
+      },
+      "family": "step",
+      "opening": "單足高立",
+      "action": "單足高立，深屈膝後提膝騰起，交腿換向再單足輕落",
+      "rhythm": "蓄、騰、轉、落",
+      "signature": "九霄上揚雲跡",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
+      "closestPeer": "qg_broken_bridge",
+      "coverage": "代表原型待玩家動態確認",
+      "animationId": "pr_cloud_step",
+      "assets": {
+        "atlas": "public/ink/art/martial/pr_cloud_step.webp",
+        "anchors": "public/ink/art/martial/anchors.json#pr_cloud_step",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 16,
+      "variants": [
+        "主招"
+      ],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "pr_shadow_flash",
+      "name": "鬼影閃",
+      "kind": "qinggong",
+      "rarity": "珍本",
+      "source": {
+        "flavor": "身形一閃即逝，出手時敵人還未見人。",
+        "weaponKind": null,
+        "passive": {
+          "evasionBonus": 0.08,
+          "hitBonus": 0.08
+        }
+      },
+      "family": "step",
+      "opening": "極低縮身後反向換足",
+      "action": "極低縮身後反向換足，軀幹先隱再現",
+      "rhythm": "壓閃反閃",
+      "signature": "鬼影斷痕",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_bridge_step",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    },
+    {
+      "id": "pr_tide_step",
+      "name": "觀潮步",
+      "kind": "qinggong",
+      "rarity": "珍本",
+      "source": {
+        "flavor": "步法如潮汐進退，內息隨之生生不息。",
+        "weaponKind": null,
+        "passive": {
+          "evasionBonus": 0.07,
+          "qiRegen": 8,
+          "hitBonus": 0.03
+        }
+      },
+      "family": "step",
+      "opening": "前足探出後後足拖回",
+      "action": "前足探出後後足拖回，重心前後循環",
+      "rhythm": "進緩回再進",
+      "signature": "觀潮回波",
+      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "closestPeer": "art_bridge_step",
+      "coverage": "設計草案／未製作素材",
+      "animationId": null,
+      "assets": null,
+      "frameCount": 0,
+      "variants": [],
+      "acceptance": "未驗收，唔視為商業完成品"
+    }
+  ]
+}

@@ -5,6 +5,7 @@
  * 冇編排嘅外功照用演武台原本揮擊。
  */
 import type { ArtChoreo, ChoreoEvent, FxSpawn } from './choreo';
+import { canonicalSkillId } from '@data/skills/catalog';
 
 const fx = (t: number, spawn: FxSpawn): ChoreoEvent => ({ t, kind: 'fx', fx: spawn });
 const hit = (t: number, share: number, heavy = false): ChoreoEvent => ({ t, kind: 'hit', share, heavy });
@@ -358,5 +359,5 @@ const BY_ART = new Map(ART_CHOREOS.map((c) => [c.artId, c]));
 
 /** 外功 id → 招式編排；未有就 null（照用原本揮擊） */
 export function choreoForArt(artId: string | null | undefined): ArtChoreo | null {
-  return artId ? (BY_ART.get(artId) ?? null) : null;
+  return artId ? (BY_ART.get(canonicalSkillId(artId)) ?? null) : null;
 }

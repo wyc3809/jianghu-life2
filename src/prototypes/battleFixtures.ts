@@ -48,7 +48,7 @@ export function makeBattlePreview(kind: BattlePreviewKind): CombatReplay {
       const volume = ownedVolumes(c, art)[0]!;
       const hit = duel.heroStrike();
       const hits: CombatReplay['rounds'][number]['hits'] = [{ side: 'player', skillId: art, vol: volume,
-        moveName: artVolumeMoves(art)[volume - 1]!.name, damage: hit.dmg, playerHp: duel.heroHp, foeHp: duel.foeHp, traitFx: hit.fx }];
+        moveName: artVolumeMoves(art)[volume - 1]!.name, damage: hit.dmg, crit: hit.crit, playerHp: duel.heroHp, foeHp: duel.foeHp, traitFx: hit.fx }];
       replay.rounds.push({ round, hits });
       if (hit.killed) { replay.outcome = 'won'; break; }
       const reply = duel.foeStrike();

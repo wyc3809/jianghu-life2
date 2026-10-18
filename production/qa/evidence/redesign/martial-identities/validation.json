@@ -1,0 +1,21 @@
+{
+  "vitest": {
+    "files": 87,
+    "tests": 636,
+    "failed": 0
+  },
+  "build": {
+    "typescript": true,
+    "vite": true,
+    "knownWarning": "原有大chunk警告仍在"
+  },
+  "narrate": {
+    "hardFail": 0
+  },
+  "released": false,
+  "version": "EA0.75.0",
+  "prototypeArts": 15,
+  "canonicalArts": 103,
+  "acceptedByPlayer": 0,
+  "extraRegression": "多武學共存時特效唔受載入次序影響"
+}

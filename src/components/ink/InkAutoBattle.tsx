@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import type { CombatReplay, CombatReplayHit } from '@interfaces/lifeEngine';
-import { getSkillDef } from '@data/skills/catalog';
+import { canonicalSkillId, getSkillDef } from '@data/skills/catalog';
 import { getGearDef } from '@data/equipment/catalog';
 import { VOLUME_COUNT, VOLUME_NUMERALS, artVolumeMoves, replayArtAt } from '@data/skills/volumes';
 import { SparStage, loadSparImage, loadSparImages, loadSparUiImages, type SparCombatHooks } from '../../spar/engine';
@@ -17,6 +17,8 @@ import { InkBattleArts } from './InkBattleArts';
 import { InkBattleEntrance } from './InkBattleEntrance';
 import type { SparSeason } from '../../spar/presentation';
 import { playInkDefeat, playInkMiss, playInkVictory } from '../../audio/inkAudio';
+import { loadMartialAssets } from '../../fx/art/martialPoses';
+import { equippedMartialArts } from '@core/life/martialLoadout';
 
 const STAGE_HEIGHT = 230;
 const COIN_SRC = `${import.meta.env.BASE_URL || '/'}ink/spar/fx-coin.webp`;
@@ -24,6 +26,9 @@ const COIN_SRC = `${import.meta.env.BASE_URL || '/'}ink/spar/fx-coin.webp`;
 export const AUTO_BATTLE_MAX_MS = 45_000;
 
 type Props = {
+  /** 只限 DEV 驗收；正式入口永遠唔傳，唔寫存檔。 */
+  review?: { speed: number; effectsOff: boolean; monochrome: boolean; legacy: boolean;
+    supports?: string[]; onStage?: (stage: SparStage) => void; inspect?: { id: string; t: number } };
   /** 第26項原型開關，正式入口預設仍維持原畫面。 */
   unified?: boolean;
   season?: SparSeason;
@@ -56,7 +61,9 @@ function sceneOf(replay: CombatReplay): string {
  * 出招次序同傷害照自動戰鬥紀錄（core/life/autoCombat.ts）逐招播。
  * 下面主修外功七卷：已得嘅卷亮起，輪到嗰卷發紅；頭頂彈「卷幾・招名」。
  */
-export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = false, season = 'spring', notice, battleBackdropSrc }: Props) {
+export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = false, season = 'spring', notice, battleBackdropSrc, review }: Props) {
+  const reviewRef = useRef(import.meta.env.DEV ? review : undefined);
+  reviewRef.current = import.meta.env.DEV ? review : undefined;
   const hits = useMemo<Hit[]>(
     () => replay.rounds.flatMap((r) => r.hits.map((h) => ({ ...h, round: r.round }))),
     [replay],
@@ -124,7 +131,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
         if (!killed && i >= hits.length) end(1200);
         const fx = h.traitFx ?? [];
         const reflect = fx.filter((f) => f.kind === 'thorns').reduce((n, f) => n + f.value, 0);
-        return { dmg: h.damage, crit: h.damage > 0 && (h.vol ?? 1) >= 5, heal: 0, killed, fx, reflect };
+        return { dmg: h.damage, crit: h.damage > 0 && h.crit === true, heal: 0, killed, fx, reflect };
       },
       foeStrike: () => {
         const h = hits[i];
@@ -176,6 +183,13 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
     };
     const frame = (now: number) => {
       if (!stage || cancelled || doneRef.current) return;
+      const qa = reviewRef.current;
+      if (qa) stage.setMartialReview(qa.effectsOff, qa.monochrome);
+      if (qa?.inspect) {
+        stage.inspectMartialPose(qa.inspect.id, qa.inspect.t);
+        stage.render(); last = now; raf = requestAnimationFrame(frame); return;
+      }
+      stage.inspectMartialPose(null);
       if (unified && !enteredRef.current) {
         last = now;
         stage.render();
@@ -187,7 +201,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
       last = now;
       // 兩倍播放推相同小步，唔因dt夾值令加速冇效或改命中結算。
       if (unified) {
-        let budget = dt * speedRef.current;
+        let budget = dt * (qa?.speed ?? speedRef.current);
         while (budget > 1e-9) { const step = Math.min(1 / 60, budget); stage.update(step); budget -= step; }
       } else stage.update(dt);
       stage.render();
@@ -201,8 +215,15 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
         images.ui = await loadSparUiImages();
         images.coin = await loadSparImage(COIN_SRC).catch(() => null);
         const battleBackdrop = unified && battleBackdropSrc ? await loadSparImage(battleBackdropSrc).catch(() => null) : null;
+        const character = useLifeStore.getState().state?.character;
+        const supports = reviewRef.current?.supports ?? (character ? equippedMartialArts(character).filter(id => getSkillDef(id)?.kind !== 'external') : []);
+        const requested = [...hits.flatMap(h => h.skillId ? [canonicalSkillId(h.skillId)] : []), ...supports];
+        const martialAssets = await loadMartialAssets(reviewRef.current?.legacy ? [] : requested);
         if (cancelled) return;
         stage = new SparStage({ canvas, images, rig, enemies: ENEMY_POOL, combat, uiFontFamily: unified ? getComputedStyle(canvas).fontFamily : undefined, presentation: unified ? 'battle' : 'stage', battleBackdrop });
+        stage.setMartialAssets(martialAssets, supports);
+        reviewRef.current?.onStage?.(stage);
+        if (import.meta.env.DEV) (window as unknown as { __martialBattleStage?: SparStage }).__martialBattleStage = stage;
         if (unified) stage.setSeason(season);
         const rect = wrap.getBoundingClientRect();
         stage.resize(rect.width, unified ? rect.height : STAGE_HEIGHT, Math.min(window.devicePixelRatio || 1, 2.5));
@@ -228,13 +249,18 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
       stage.resize(rect.width, unified ? rect.height : STAGE_HEIGHT, Math.min(window.devicePixelRatio || 1, 2.5));
     });
     if (unified) observer.observe(wrap);
-    const cap = setTimeout(finish, AUTO_BATTLE_MAX_MS);
+    const cap = setTimeout(finish, reviewRef.current ? 10 * 60_000 : AUTO_BATTLE_MAX_MS);
     return () => {
       cancelled = true;
       if (raf) cancelAnimationFrame(raf);
       if (endTimer) clearTimeout(endTimer);
       clearTimeout(cap);
       observer.disconnect();
+      stage?.releaseMartialAssets();
+      if (import.meta.env.DEV) {
+        const qa = window as unknown as { __martialBattleStage?: SparStage };
+        if (qa.__martialBattleStage === stage) delete qa.__martialBattleStage;
+      }
     };
     // 一場演出一個引擎：replay 變先重開
     // eslint-disable-next-line react-hooks/exhaustive-deps
