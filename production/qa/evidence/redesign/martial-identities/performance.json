@@ -135,5 +135,7 @@
       ],
       "physicalGPUOrImagePeakMeasured": false
     }
-  ]
+  ],
+  "runtimeBaselineCommit": "690b803",
+  "note": "圖集初版單門裝備抽樣；後續只隔離多門特效查圖。唔代表真機或最新全情境性能通過。"
 }

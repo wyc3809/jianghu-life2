@@ -530,7 +530,12 @@ export class SparStage {
   setMartialAssets(assets: Map<string, MartialAsset>, supportIds: readonly string[] = []) {
     this.martialAssets = assets;
     this.supportIds = supportIds.map(canonicalSkillId);
-    for (const asset of assets.values()) Object.assign(this.artSprites, asset.effects);
+  }
+
+  /** 每招只覆寫自己嘅效果，唔因另一門珍本載入次序而串圖。 */
+  private artSpriteImages(): Partial<Record<ArtSpriteKey, HTMLImageElement>> {
+    const effects = this.martialId ? this.martialAssets.get(this.martialId)?.effects : null;
+    return effects ? { ...this.artSprites, ...effects } : this.artSprites;
   }
 
   /** 開發驗收逐格檢視；依然用產品人物呈現器，唔執行戰鬥或派獎。 */
@@ -1428,7 +1433,8 @@ export class SparStage {
       ctx.fillRect(0, 0, this.cssW, this.cssH);
     }
     const artAnchors = this.artFx.count && !this.reviewEffectsOff ? this.artAnchors() : null;
-    if (artAnchors) this.artFx.draw(ctx, this.artSprites, artAnchors, 'back');
+    const artSprites = artAnchors ? this.artSpriteImages() : this.artSprites;
+    if (artAnchors) this.artFx.draw(ctx, artSprites, artAnchors, 'back');
 
     // 地面淡墨影（跳起時影留喺地、細啲）
     const heroOff = this.artHeroOffset();
@@ -1449,7 +1455,7 @@ export class SparStage {
     else if (!this.quiet) this.ambience.draw(ctx, 'front');
 
     if (!this.reviewEffectsOff) this.drawTrail();
-    if (artAnchors) this.artFx.draw(ctx, this.artSprites, artAnchors, 'front');
+    if (artAnchors) this.artFx.draw(ctx, artSprites, artAnchors, 'front');
     if (!this.reviewEffectsOff) { this.drawSplashes(); this.drawParticles(); }
     this.drawCoins();
     this.drawFloaters();

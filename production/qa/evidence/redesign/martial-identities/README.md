@@ -14,7 +14,7 @@
 
 無標籤影片係同一產品 `SparStage` 呈現器嘅肢體時間線檢視，裁去文字、血條、數字及敵人，唔係另一套動畫播放器。呢啲檢視冇結算攻擊；真正戰鬥見正常合輯及單門 `.mp4`。
 
-主頁持劍、切劍→拳→掌→腿→劍嘅核對片：`art_river_fist-rotation.mp4`。原型全段採用裝備劍作待機，空手招式期間唔疊劍，結束恢復；冇改角色裝備屬性。
+持劍、切劍→拳→掌→腿→劍嘅核對片（真正演武逐招輪替戰報）：`art_river_fist-rotation.mp4`。完整10秒已記錄劍／拳／掌／腿／再回劍五次出招，見 `weapon-rotation-report.json`。原型全段採用裝備劍作待機，空手招式期間唔疊劍，結束恢復；冇改角色裝備屬性。
 
 ## 珍本及支援武學
 
@@ -24,11 +24,11 @@
 
 ## 驗證及範圍
 
-- 635項Vitest／87檔、TypeScript＋Vite build、narrate hard-fail0；記錄見 `validation.json`。
+- 636項Vitest／87檔、TypeScript＋Vite build、narrate hard-fail0；記錄見 `validation.json`。
 - 真正主頁、演武首領、江湖普通、江湖首領4入口：`product-entry-report.json`，全部同一產品引擎，新圖集只載入已裝備／涉及武學，五外功及獨立支援欄保留。隔離browser context並阻擋雲端寫入。
 - Chromium／WebKit，320、390、420寬、844高、DPR2、減少動態共6情境，無橫向溢出；另全部武學網絡素材404仍用嵌入正確掌法靜態姿勢，見 `browser-report.json`。頁面錯誤0。
 - 基準截圖由真正 `8de47b2` 原版呈現器取得，只加DEV驗收入口、獨立核心戰報及控制舞台作固定步進，冇改原版角色素材／動作呈現。見 `baseline.json`。
-- 錄影固定步進24fps／盲辨30fps，影片播放時間係遊戲時間；截圖工具花幾耐唔當裝置FPS。音色沿用既有音效及混音limiter，本次影片無錄音，唔宣稱已完成主觀聲音驗收。
+- 一般錄影固定步進24fps、完整持武切換片12fps、盲辨30fps，影片播放時間係遊戲時間；截圖工具花幾耐唔當裝置FPS。音色沿用既有音效及混音limiter，本次影片無錄音，唔宣稱已完成主觀聲音驗收。
 - 原型圖集開關前後逐幀結算次數／敵方行動一致；別稱、稀有度、空手不畫裝備劍、低動態、Miss不彈傷害、傷害守恆及核心RNG隔離有測試。
 
 呢次唔代表已跑完全103門、全部敵人、全部中斷／正反方向／連續輪替驗收。冇iPhone真機，未量到真機圖形記憶體峰值，唔宣稱穩定60fps或達到商業完成品。
@@ -39,7 +39,7 @@
 2. `npx vite-node scripts/qa/exportMartialIdentity.mts`
 3. 開Vite於5188：`?martial-preview=1` 有選門、正常／慢速、同色／關特效、肢體檢視。呢頁只限DEV，唔入正式包。
 4. `node scripts/qa/recordMartialIdentities.mjs`、`node scripts/qa/recordMartialReviewExtras.mjs`、`python scripts/qa/packageMartialReview.py`。
-5. `node scripts/qa/checkMartialProductEntries.mjs`。
+5. `node scripts/qa/checkMartialProductEntries.mjs`；完整持武切換另用 `node scripts/qa/recordMartialWeaponRotation.mjs`。
 
 本環境WebKit缺 `libGLESv2`，以Debian官方 `libgles2_1.6.0-1_amd64.deb` 解包到 `/tmp/martial-webkit/runtime/`，用 `LD_LIBRARY_PATH=/tmp/martial-webkit/runtime/usr/lib/x86_64-linux-gnu`。明確啟動原本已安裝嘅同一WebKit執行檔；系統ldconfig唔會列出user-space函式庫，實際瀏覽器有啟動及執行全部檢查，冇skip測試。
 
@@ -60,3 +60,5 @@
 | pr_wind_thread | 2131ms | 16.8ms | 17.00MiB |
 
 每門180幀樣本。長河拳呢次桌面樣本有掉幀，未達穩定60fps，唔挑好結果冒充通過。JS heap取樣及新圖RGBA估算都唔係整個瀏覽器／GPU記憶體峰值，詳見 `performance.json`；iPhone真機仍待量測。
+
+補核對：江湖每回合先打一門七卷，敵人會先進處置，唔適合用同一場錄齊五次切換；完整持武片改用真演武逐招輪替戰報，唔改核心玩法。另發現多武學共存時共用qi效果可能串圖，已改為當前武學獨立覆寫，唔受珍本內功載入次序影響。

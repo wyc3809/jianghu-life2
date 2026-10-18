@@ -82,8 +82,8 @@
   },
   {
     "file": "art_river_fist-rotation.mp4",
-    "bytes": 264276,
-    "sha256": "07aadb14cec1d3964ac00959c700a671f8d1bccb7822ab610a2fee7a659a2230",
+    "bytes": 710321,
+    "sha256": "e0dd4497cc5c26aba8a638cec6dd929e6bfacd8e42e244c7b1bbf2f44ff567b5",
     "media": {
       "programs": [],
       "stream_groups": [],
@@ -91,21 +91,21 @@
         {
           "width": 390,
           "height": 844,
-          "r_frame_rate": "24/1",
+          "r_frame_rate": "12/1",
           "side_data_list": [
             {}
           ]
         }
       ],
       "format": {
-        "duration": "3.000000"
+        "duration": "10.000000"
       }
     }
   },
   {
     "file": "art_river_fist-rotation.png",
-    "bytes": 1031354,
-    "sha256": "ad8dd42819089f0b8238fe011d7efc97d8ceea4f3a64874214bc16cc5dc3ec2e"
+    "bytes": 987967,
+    "sha256": "69f45f4ed951d5e6f44bcad4d71e8fb08475e6093446ff1947e8b0e0b90b4f23"
   },
   {
     "file": "art_river_fist-slow.mp4",

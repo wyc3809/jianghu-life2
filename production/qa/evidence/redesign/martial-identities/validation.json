@@ -1,7 +1,7 @@
 {
   "vitest": {
     "files": 87,
-    "tests": 635,
+    "tests": 636,
     "failed": 0
   },
   "build": {
@@ -16,5 +16,6 @@
   "version": "EA0.75.0",
   "prototypeArts": 15,
   "canonicalArts": 103,
-  "acceptedByPlayer": 0
+  "acceptedByPlayer": 0,
+  "extraRegression": "多武學共存時特效唔受載入次序影響"
 }

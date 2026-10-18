@@ -557,6 +557,6 @@
 
 證據：`production/qa/evidence/redesign/martial-identities/`，有原版 `8de47b2` 改前／改後紅框、11外功正常合輯、15門單片、四分一慢速、無標籤同色四組比較、持劍切拳掌腿再回劍、真暴擊／真擊倒後收勢檢視。支援片及收勢片屬同一呈現器姿勢檢視，唔重複結算。
 
-635項Vitest／87檔、TypeScript＋Vite build、narrate hard-fail0通過；四個真正入口通過；Chromium／WebKit三手機寬度低動態及全素材404後備共7情境通過，pageerror0。歷史熱更新、背景輪詢逾時、WebKit缺函式庫及錯用處置情境嘅失敗嘗試有保留，未當通過。
+636項Vitest／87檔、TypeScript＋Vite build、narrate hard-fail0通過；四個真正入口通過；Chromium／WebKit三手機寬度低動態及全素材404後備共7情境通過，pageerror0。歷史熱更新、背景輪詢逾時、WebKit缺函式庫及錯用處置情境嘅失敗嘗試有保留，未當通過。
 
 原型仍有8格銜接、手形／腳步／服飾及接觸候選精修工作。桌面模擬180幀樣本p95：長河拳33.3ms、兩珍本16.8ms；未達成全情境穩定60fps，唔以此當iPhone真機性能或商業成品質素通過。88門未製作，玩家正式動畫驗收0門；保持EA0.75.0，未部署網頁／TestFlight。

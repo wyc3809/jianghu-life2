@@ -85,6 +85,21 @@ describe('武學實體姿勢與核心隔離', () => {
     const raw = e.stage as unknown as { floaters: { kind: string }[] };
     expect(raw.floaters.filter(f => f.kind === 'dmg' || f.kind === 'crit')).toHaveLength(0);
   });
+  it('test_martial_poses_other_rare_art_never_changes_active_effects_by_load_order', () => {
+    const e = engine('sl_luohan_fist', true);
+    const ordinary = { marker: '羅漢短勁' } as unknown as HTMLImageElement;
+    const rare = { marker: '金剛運氣' } as unknown as HTMLImageElement;
+    const raw = e.stage as unknown as { martialId: string; artSpriteImages(): { qi: HTMLImageElement } };
+    for (const reverse of [false, true]) {
+      const entries: [string, { atlas: HTMLImageElement; guard: boolean; effects: { qi: HTMLImageElement } }][] = [
+        ['sl_luohan_fist', { atlas: e.atlas, guard: false, effects: { qi: ordinary } }],
+        ['pr_diamond_body', { atlas: e.atlas, guard: false, effects: { qi: rare } }],
+      ];
+      e.stage.setMartialAssets(new Map(reverse ? entries.reverse() : entries));
+      raw.martialId = 'sl_luohan_fist'; expect(raw.artSpriteImages().qi).toBe(ordinary);
+      raw.martialId = 'pr_diamond_body'; expect(raw.artSpriteImages().qi).toBe(rare);
+    }
+  });
   it('test_martial_poses_replay_is_deterministic_and_volumes_do_not_invent_crit', () => {
     const first = makeMartialReplay(['art_river_fist']);
     expect(makeMartialReplay(['art_river_fist'])).toEqual(first);
