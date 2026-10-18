@@ -1,0 +1,100 @@
+完成全量動態 art_river_fist 4
+完成全量動態 art_stone_palm 5
+完成全量動態 art_bridge_step 6
+完成全量動態 art_lake_breath 7
+完成全量動態 art_tomb_sword 8
+完成全量動態 art_rain_sword 9
+完成全量動態 art_cold_palm 10
+完成全量動態 art_nine_shadow 11
+完成全量動態 art_iron_body 12
+完成全量動態 art_void_breath 13
+完成全量動態 art_moon_sword 14
+完成全量動態 art_silk_hand 15
+完成全量動態 art_wind_chase 16
+完成全量動態 art_thunder_blade 17
+完成全量動態 art_hook_silk 18
+完成全量動態 art_tiger_breath 19
+完成全量動態 art_meteor_palm 20
+完成全量動態 art_spring_well 21
+完成全量動態 qg_snow_track 22
+完成全量動態 art_shadow_needle 23
+完成全量動態 qg_swallow_turn 24
+完成全量動態 qg_canopy_void 25
+完成全量動態 qg_feiyan 26
+完成全量動態 qg_broken_bridge 27
+完成全量動態 art_staff_iron 28
+完成全量動態 art_spear_cloud 29
+完成全量動態 art_whip_silk 30
+完成全量動態 qg_reed_drift 31
+完成全量動態 art_sand_palm 32
+完成全量動態 qg_wall_cat 33
+失敗 art_mirror_breath Error: page.screenshot: Target page, context or browser has been closed
+Call log:
+[2m  - taking page screenshot[22m
+[2m  - waiting for fonts to load...[22m
+[2m  - fonts loaded[22m
+
+失敗 qg_lotus_steps Error: page.screenshot: Target page, context or browser has been closed
+Call log:
+[2m  - taking page screenshot[22m
+[2m  - waiting for fonts to load...[22m
+[2m  - fonts loaded[22m
+
+失敗 jy_ash_manual Error: page.screenshot: Target page, context or browser has been closed
+Call log:
+[2m  - taking page screenshot[22m
+[2m  - waiting for fonts to load...[22m
+[2m  - fonts loaded[22m
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+browserContext.newPage: Target page, context or browser has been closed
+Browser logs:
+
+<launching> /usr/bin/chromium --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --no-sandbox --disable-background-timer-throttling --disable-renderer-backgrounding --user-data-dir=/tmp/playwright_chromiumdev_profile-EjOkyc --remote-debugging-pipe --no-startup-window
+<launched> pid=1930
+[pid=1930][err] [1930:1958:1018/080652.952255:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[pid=1930][err] [1930:1958:1018/080652.956921:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=1930][err] [1930:1958:1018/080652.956972:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[pid=1930][err] [1930:1958:1018/080652.956988:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[pid=1930][err] [1930:1958:1018/080652.956995:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=1930][err] [1930:1958:1018/080653.007284:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=1930][err] [1930:1930:1018/080653.025515:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type:
+[pid=1930][err] [1930:1930:1018/080653.025580:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type:
+[pid=1930][err] [1930:1958:1018/080653.025606:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=1930][err] [1930:1958:1018/080653.025618:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=1930][err] [1930:1930:1018/080653.044148:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type:
+[pid=1930][err] [1930:1930:1018/080653.046389:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type:
+[pid=1930][err] [1930:1958:1018/080653.046397:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[pid=1930][err] [1930:1958:1018/080653.046412:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+[pid=1930][err] [1930:1930:1018/080653.046419:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type:
+[pid=1930][err] [1930:1958:1018/080653.046450:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=1930][err] [1930:1930:1018/080653.049284:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.Properties.GetAll: object_path= /org/freedesktop/UPower/devices/DisplayDevice: unknown error type:
+[pid=1930][err] [1930:1930:1018/080653.049327:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type:
+[pid=1930][err] [1930:1958:1018/080653.049468:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=1930][err] [1930:1930:1018/080653.052033:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type:
+[pid=1930][err] [1930:1958:1018/080653.052076:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[pid=1930][err] [1930:1930:1018/080653.052994:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type:
+[pid=1930][err] [1972:1985:1018/080654.992439:ERROR:components/viz/service/display/display.cc:271] Frame latency is negative: -0.209 ms
+[pid=1930][err] [1930:1961:1018/080657.698583:ERROR:google_apis/gcm/engine/connection_handler_impl.cc:404] Received message of invalid type 84
+[pid=1930][err] [1930:1961:1018/080657.698611:ERROR:google_apis/gcm/engine/connection_factory_impl.cc:484] ConnectionHandler failed with net error: -4
+[pid=1930][err] [1930:1961:1018/080658.129252:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+[pid=1930][err] [1930:1961:1018/080658.147688:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: PHONE_REGISTRATION_ERROR
+[pid=1930][err] [1930:1961:1018/080658.188210:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: PHONE_REGISTRATION_ERROR
+[pid=1930][err] [1930:1961:1018/080724.289476:ERROR:google_apis/gcm/engine/connection_handler_impl.cc:404] Received message of invalid type 84
+[pid=1930][err] [1930:1961:1018/080724.289553:ERROR:google_apis/gcm/engine/connection_factory_impl.cc:484] ConnectionHandler failed with net error: -4
+[pid=1930][err] [1930:1961:1018/080724.431873:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+[pid=1930][err] [1930:1961:1018/080809.058130:ERROR:google_apis/gcm/engine/connection_handler_impl.cc:404] Received message of invalid type 84
+[pid=1930][err] [1930:1961:1018/080809.058157:ERROR:google_apis/gcm/engine/connection_factory_impl.cc:484] ConnectionHandler failed with net error: -4
+[pid=1930][err] [1930:1961:1018/080821.794026:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+[pid=1930][err] [1930:1930:1018/080856.751624:ERROR:chrome/browser/ui/views/user_education/impl/browser_user_education_interface_impl.cc:186] Attempting to show IPH IPH_ExtensionsZeroStatePromo before browser initialization complete; IPH will not be shown.
+[pid=1930][err] [1930:1961:1018/080952.036318:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+[pid=1930][err] [1930:1961:1018/080954.410709:ERROR:google_apis/gcm/engine/connection_handler_impl.cc:404] Received message of invalid type 84
+[pid=1930][err] [1930:1961:1018/080954.410740:ERROR:google_apis/gcm/engine/connection_factory_impl.cc:484] ConnectionHandler failed with net error: -4
+[pid=1930] <gracefully close start>
+    at /workspace/jianghu-life2-current/scripts/qa/recordMartialFullCatalog.mjs:16:114
+    at async file:///workspace/jianghu-life2-current/scripts/qa/recordMartialFullCatalog.mjs:14:1
+
+Node.js v24.19.0

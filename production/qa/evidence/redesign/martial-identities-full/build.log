@@ -1,0 +1,37 @@
+
+> jianghu-engine@0.75.0-ea build:pages
+> VITE_BASE=/jianghu-life2/ npm run build
+
+
+> jianghu-engine@0.75.0-ea build
+> tsc --noEmit && vite build
+
+vite v6.4.3 building for production...
+transforming...
+✓ 469 modules transformed.
+rendering chunks...
+[plugin vite:reporter]
+(!) /workspace/jianghu-life2-current/core/life/gameState.ts is dynamically imported by /workspace/jianghu-life2-current/src/cloud/localBridge.ts but also statically imported by /workspace/jianghu-life2-current/core/life/actions.ts, /workspace/jianghu-life2-current/core/life/bonds.ts, /workspace/jianghu-life2-current/core/life/combat.ts, /workspace/jianghu-life2-current/core/life/cultivation.ts, /workspace/jianghu-life2-current/core/life/eventEngine.ts, /workspace/jianghu-life2-current/core/life/family.ts, /workspace/jianghu-life2-current/core/life/foundedSect.ts, /workspace/jianghu-life2-current/core/life/huashan.ts, /workspace/jianghu-life2-current/core/life/jianghuEventRepository.ts, /workspace/jianghu-life2-current/core/life/manualFragments.ts, /workspace/jianghu-life2-current/core/life/outcomeResolver.ts, /workspace/jianghu-life2-current/core/life/saveIndexedDb.ts, /workspace/jianghu-life2-current/src/store/slices/progressionSlice.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter]
+(!) /workspace/jianghu-life2-current/core/life/saveIndexedDb.ts is dynamically imported by /workspace/jianghu-life2-current/src/cloud/localBridge.ts, /workspace/jianghu-life2-current/src/cloud/localBridge.ts, /workspace/jianghu-life2-current/src/cloud/localBridge.ts, /workspace/jianghu-life2-current/src/components/ink/InkStartScreen.tsx but also statically imported by /workspace/jianghu-life2-current/src/components/ink/InkCloudSection.tsx, /workspace/jianghu-life2-current/src/components/ink/InkSaveStatus.tsx, /workspace/jianghu-life2-current/src/store/lifeStore.ts, /workspace/jianghu-life2-current/src/store/persistSchedule.ts, /workspace/jianghu-life2-current/src/store/slices/progressionSlice.ts, dynamic import will not move module into another chunk.
+
+computing gzip size...
+dist/index.html                              1.27 kB │ gzip:   0.59 kB
+dist/assets/wuxia-titles-DuK567Iq.woff2    210.12 kB
+dist/assets/DuelFx-C-t2mby_.css              8.17 kB │ gzip:   2.43 kB
+dist/assets/HighlightFx-D8LC3u0A.css        14.97 kB │ gzip:   3.93 kB
+dist/assets/index-CR43FBA_.css             212.59 kB │ gzip:  40.40 kB
+dist/assets/HighlightDemo-B7T5Dyss.js        2.80 kB │ gzip:   1.51 kB
+dist/assets/DuelFx-C_SWAUGC.js              34.59 kB │ gzip:  13.01 kB
+dist/assets/HighlightFx-CVscTGa6.js         49.95 kB │ gzip:  18.54 kB
+dist/assets/index-D5bMjAqh.js              227.81 kB │ gzip:  59.26 kB
+dist/assets/vendor-BW_UMXlD.js             279.13 kB │ gzip:  84.43 kB
+dist/assets/particles-CLpPwSSE.js          637.77 kB │ gzip: 173.42 kB
+dist/assets/index-ZwDZjSrn.js            1,627.07 kB │ gzip: 540.29 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 5.20s

@@ -40,7 +40,7 @@ export function makeMartialReplay(ids: string[], source: 'event' | 'spar' | 'wea
       }
       return replay;
     }
-    startCombat(state, { source: 'event', title: '武學動畫驗收 · 原型', foeName: '黑衣刀客', foePower: source === 'weak' ? 'weak' : 'strong', lifeOrDeath: false });
+    startCombat(state, { source: 'event', title: '武學動畫驗收 · 動畫驗收', foeName: '黑衣刀客', foePower: source === 'weak' ? 'weak' : 'strong', lifeOrDeath: false });
     const replay = runAutoCombat(state);
     if (!replay) throw new Error('未有真實戰報');
     return replay;
@@ -72,7 +72,7 @@ export default function MartialIdentityPreview() {
     raf = requestAnimationFrame(tick); return () => cancelAnimationFrame(raf);
   }, [inspection, speed, support]);
   const ready = async (stage: SparStage) => {
-    // 正式裝備仍係產品自己讀；呢度只喺獨立原型掛劍驗證空手招式唔帶劍。
+    // 正式裝備仍係產品自己讀；呢度只喺獨立動畫驗收掛劍驗證空手招式唔帶劍。
     const def = WEAPON_SPRITES.sword;
     if (def) stage.setWeapon(def, await loadSparImage(def.src));
     (window as unknown as { __martialQa?: unknown }).__martialQa = { stage, replay, id, seed: 42 };
@@ -85,7 +85,7 @@ export default function MartialIdentityPreview() {
         inspect: inspection ? { id, t: time } : undefined }} onDone={() => { if (!clean) setFinished(true); }}
       notice={finished ? <><h2>演出結束</h2><button onClick={() => { setAttempt(n => n + 1); setFinished(false); }}>重新播放</button></> : undefined} />
     {!clean && <aside style={{ position: 'fixed', zIndex: 99999, bottom: 0, left: 0, right: 0, padding: '8px 12px', background: '#faf5e8', borderTop: '1px solid #9c7154', fontSize: 13 }}>
-      <label>代表原型 <select value={id} onChange={e => { setId(e.target.value); setInspection(getSkillDef(e.target.value)?.kind !== 'external'); setFinished(false); }}>
+      <label>武學動畫 <select value={id} onChange={e => { setId(e.target.value); setInspection(getSkillDef(e.target.value)?.kind !== 'external'); setFinished(false); }}>
         {MARTIAL_POSES.map(d => <option key={d.id} value={d.id}>{getSkillDef(d.id)?.name} · {d.premium ? '珍本' : '一般'}</option>)}
       </select></label>{' '}
       <label>速度 <select value={speed} onChange={e => setSpeed(Number(e.target.value))}><option value={1}>正常</option><option value={.25}>四分一慢速</option></select></label>

@@ -1,0 +1,37 @@
+{
+  "seed": 42,
+  "dpr": 2,
+  "recordingFps": 12,
+  "frames": 120,
+  "gameSeconds": 10,
+  "sequence": [
+    {
+      "frame": 5,
+      "id": "art_rain_sword"
+    },
+    {
+      "frame": 28,
+      "id": "art_river_fist"
+    },
+    {
+      "frame": 49,
+      "id": "art_stone_palm"
+    },
+    {
+      "frame": 72,
+      "id": "art_wind_chase"
+    },
+    {
+      "frame": 97,
+      "id": "art_rain_sword"
+    }
+  ],
+  "required": [
+    "art_rain_sword",
+    "art_river_fist",
+    "art_stone_palm",
+    "art_wind_chase",
+    "art_rain_sword"
+  ],
+  "errors": []
+}

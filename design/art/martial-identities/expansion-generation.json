@@ -1,0 +1,1255 @@
+[
+  {
+    "sheet": "expansion-01",
+    "arts": [
+      "基礎吐納",
+      "art_bridge_step",
+      "art_tomb_sword"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 基礎吐納 (基礎吐納). EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Authentic spirit: 平掌收至丹田，直立微沉再舒展；慢吸慢吐. Eight exact poses: 1 palms flat at lower abdomen; 2 knees soften upright; 3 palms draw inward; 4 chest rises slowly; 5 palms descend outward; 6 chest releases breath; 7 shoulders settle; 8 flat palms abdomen.\n\nROWS 3-4: 斷橋步 (art_bridge_step). EMPTY HANDS. Footwork with actively changing legs and weight, NO sword, no scabbard, NO attack except shoulder pressure for explicitly external footwork. Authentic spirit: 側身探步後踏隙欺近，以肩身迫入近距離；探、停、進. Eight exact poses: 1 side-on shoulder guard; 2 toe probes gap; 3 hips pause behind heel; 4 cross foot slips inside; 5 shoulder drives forward without punching; 6 hips follow shoulder; 7 rear foot collects; 8 side-on shoulder guard.\n\nROWS 5-6: 無銘劍意 (art_tomb_sword). Exactly ONE narrow straight Chinese JIAN sword held correctly. Authentic spirit: 劍尖低藏，側步挑開破綻後斜刺回身；靜、挑、刺. Eight exact poses: 1 low hidden jian; 2 left foot slides aside; 3 wrist lifts point; 4 rising parry; 5 diagonal narrow thrust; 6 torso pivots away; 7 jian folds beside ribs; 8 low hidden jian.\n"
+  },
+  {
+    "sheet": "expansion-02",
+    "arts": [
+      "art_lake_breath",
+      "art_nine_shadow",
+      "art_cold_palm"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 寒湖吐納 (art_lake_breath). EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Authentic spirit: 兩掌由腹向兩側平展，肩胸凝定；長吐短停. Eight exact poses: 1 two palms together belly; 2 elbows drift sideways; 3 palms spread level; 4 chest held absolutely calm; 5 hands reach wide lake horizon; 6 palms gather slowly; 7 shoulders settle low; 8 palms together belly.\n\nROWS 3-4: 九影迷踪步 (art_nine_shadow). EMPTY HANDS. Footwork with actively changing legs and weight, NO sword, no scabbard, NO attack except shoulder pressure for explicitly external footwork. Authentic spirit: 低身交叉步穿行左右再欺近，肩線連換方向；左右左急停. Eight exact poses: 1 very low crossed feet; 2 lean left arms compact; 3 uncross into right step; 4 shoulder cuts forward; 5 cross again opposite foot; 6 sharp low side step; 7 torso brakes tall; 8 low crossed feet.\n\nROWS 5-6: 寒霜掌 (art_cold_palm). EMPTY OPEN PALMS ONLY, visibly open fingers, no sword or scabbard. Authentic spirit: 豎掌護胸，退半步後平推封住中線；退、緩送、凝定. Eight exact poses: 1 vertical open palm at chest; 2 rear foot recedes; 3 open palm chambers slowly; 4 front elbow extends; 5 long level open palm push; 6 palm held upright still; 7 elbow draws inward; 8 vertical palm guard.\n"
+  },
+  {
+    "sheet": "expansion-03",
+    "arts": [
+      "art_moon_sword",
+      "art_void_breath",
+      "art_silk_hand"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 弄月劍法 (art_moon_sword). Exactly ONE narrow straight Chinese JIAN sword held correctly. Authentic spirit: 劍藏側腰，斜步轉身以弧線削向側脅；藏、弧削、挽回. Eight exact poses: 1 jian hidden along hip; 2 low diagonal step; 3 waist turns blade sideways; 4 horizontal crescent slice; 5 blade rises along arc; 6 elbow wraps inward; 7 toe collects and wrist folds; 8 jian beside hip.\n\nROWS 3-4: 空冥吐納 (art_void_breath). EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Authentic spirit: 鬆肩垂肘環抱氣海，緩慢展掌；低緩連續. Eight exact poses: 1 loose elbows hugging lower belly; 2 shoulders descend; 3 hands round empty space; 4 palms float apart gradually; 5 torso gently opens; 6 wrists sink slack; 7 hands gather around lower belly; 8 loose rounded arms.\n\nROWS 5-6: 柔絲手 (art_silk_hand). EMPTY OPEN PALMS ONLY, visibly open fingers, no sword or scabbard. Authentic spirit: 雙手鬆圓搭接，隨來勢轉腕引開再回送；接、引、送. Eight exact poses: 1 two loose circular open hands; 2 left palm meets forward; 3 waist turns inward; 4 right wrist draws across torso; 5 left palm follows outward; 6 soft open-hand return push; 7 arms round at waist; 8 loose circular guard.\n"
+  },
+  {
+    "sheet": "expansion-04",
+    "arts": [
+      "art_hook_silk",
+      "art_meteor_palm",
+      "art_tiger_breath"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 鐵線鉤法 (art_hook_silk). Exactly ONE short hook-bladed weapon with hooked tip, no straight sword. Authentic spirit: 鉤刃偏架，腕翻牽鎖後側腰拉回；鉤、纏、拉. Eight exact poses: 1 single hooked steel blade angled up; 2 elbow bends close; 3 wrist flips hook outward; 4 step across hook catches; 5 hips pull hooked blade backward; 6 hook coils near waist; 7 elbow returns outward; 8 hook angled guard.\n\nROWS 3-4: 流星掌 (art_meteor_palm). EMPTY OPEN PALMS ONLY, visibly open fingers, no sword or scabbard. Authentic spirit: 抬肘換掌逐次下壓，前腳隨掌墜進；連落、末掌停. Eight exact poses: 1 high open palm above shoulder; 2 front heel lifts; 3 first palm drops diagonally; 4 opposite elbow rises; 5 second palm drives downward; 6 deep final open palm press; 7 palms lift slowly; 8 high open palm guard.\n\nROWS 5-6: 虎嘯內勁 (art_tiger_breath). EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Authentic spirit: 闊胸收腹握拳腰側，抬胸後吐息；深吸沉吐. Eight exact poses: 1 fists by waist broad chest; 2 abdomen contracts; 3 elbows draw back; 4 sternum lifts strongly; 5 jaw and chest release long breath; 6 fists descend firm; 7 shoulders loosen; 8 broad chest fists waist.\n"
+  },
+  {
+    "sheet": "expansion-05",
+    "arts": [
+      "art_spring_well",
+      "art_shadow_needle",
+      "qg_snow_track"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 涌泉訣 (art_spring_well). EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Authentic spirit: 掌心交疊於腹，屈膝後徐徐提掌；下沉上湧. Eight exact poses: 1 overlapped palms abdomen; 2 knees sink deep; 3 hands press low; 4 palms rise from below belly; 5 torso rises with palms; 6 palms hover chest; 7 hands settle downward; 8 overlapped palms abdomen.\n\nROWS 3-4: 無影針訣 (art_shadow_needle). ONLY tiny throwing needles in pinched fingers, NO long blade or sword. Authentic spirit: 指尖藏針於袖，縮肘後貼身直彈；藏、彈、即收. Eight exact poses: 1 both hands hidden in long sleeves; 2 elbow folds tightly; 3 fingers pinch tiny needle at chest; 4 body leans close; 5 short straight finger flick; 6 wrist immediately hides in sleeve; 7 shoulders withdraw; 8 sleeved quiet guard.\n\nROWS 5-6: 踏雪無痕 (qg_snow_track). EMPTY HANDS. Footwork with actively changing legs and weight, NO sword, no scabbard, NO attack except shoulder pressure for explicitly external footwork. Authentic spirit: 足尖輕點交替提踵，保持身體中線；輕點連移. Eight exact poses: 1 toes narrow quiet stance; 2 left heel lifts; 3 right toe touches forward; 4 left toe trades lightly; 5 both heels barely raised; 6 right foot collects; 7 weight transfers quietly; 8 narrow toes quiet.\n"
+  },
+  {
+    "sheet": "expansion-06",
+    "arts": [
+      "qg_swallow_turn",
+      "qg_feiyan",
+      "qg_canopy_void"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 燕子三轉 (qg_swallow_turn). EMPTY HANDS. Footwork with actively changing legs and weight, NO sword, no scabbard, NO attack except shoulder pressure for explicitly external footwork. Authentic spirit: 單足側立後連換朝向，肩腰先轉腳跟隨；轉轉折返. Eight exact poses: 1 single foot side-on; 2 shoulders rotate first; 3 heel follows turning; 4 opposite foot redirects; 5 waist turns second corner; 6 feet cross turning back; 7 shoulders face right; 8 single foot collected.\n\nROWS 3-4: 飛燕功 (qg_feiyan). EMPTY HANDS. Footwork with actively changing legs and weight, NO sword, no scabbard, NO attack except shoulder pressure for explicitly external footwork. Authentic spirit: 低蹬前膝高提，雙臂平衡長距離落步；蹬飛落. Eight exact poses: 1 low forward knee bend; 2 rear ankle drives; 3 front knee rises high; 4 long flat flying stride; 5 arms spread balance; 6 front foot extends down; 7 soft long landing; 8 low ready stance.\n\nROWS 5-6: 凌虛步 (qg_canopy_void). EMPTY HANDS. Footwork with actively changing legs and weight, NO sword, no scabbard, NO attack except shoulder pressure for explicitly external footwork. Authentic spirit: 挺身腳尖連點，提步後輕輕收足；點起懸落. Eight exact poses: 1 tall toe-standing pose; 2 left toe lightly taps; 3 right toe rises; 4 front knee floats high; 5 body seems light suspended; 6 foot gently lowers; 7 rear foot collects delicately; 8 tall toe stand.\n"
+  },
+  {
+    "sheet": "expansion-07",
+    "arts": [
+      "art_staff_iron",
+      "art_whip_silk",
+      "art_bow_star"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 鐵杖訣 (art_staff_iron). Exactly ONE thick blunt wooden STAFF held with two hands, NO sharp spear tip. Authentic spirit: 雙手守中持杖，橫掃開架後回杖護身；掃、頓、回架. Eight exact poses: 1 thick blunt staff two hands vertical; 2 rear hand lowers staff; 3 wide step twists waist; 4 horizontal broad staff sweep; 5 staff brakes at far hip; 6 opposite end circles back; 7 staff rises to chest; 8 two handed blunt staff guard.\n\nROWS 3-4: 柔絲鞭法 (art_whip_silk). Exactly ONE flexible cord WHIP, smooth continuous held cord, no sword. Authentic spirit: 鞭握腰側，肩腕依次帶動鞭梢繞出再捲回；放、梢響、收. Eight exact poses: 1 one soft whip coiled beside waist; 2 shoulder turns back; 3 wrist lifts loop; 4 arm unfolds whip forward; 5 whip tip bends over in long curve; 6 elbow draws whip loop back; 7 coil folds alongside hip; 8 whip collected guard.\n\nROWS 5-6: 逐星箭意 (art_bow_star). Exactly ONE recurved BOW and arrow, correct hands draw and release string, no sword. Authentic spirit: 前臂持弓後手引弦，穩住肩線後鬆指；引、定、放. Eight exact poses: 1 small recurved bow down left hand; 2 bow arm raises; 3 rear hand hooks string; 4 elbow draws full string; 5 stable full-draw stance; 6 fingers release arrow; 7 bow arm slowly lowers; 8 bow lowered relaxed.\n"
+  },
+  {
+    "sheet": "expansion-08",
+    "arts": [
+      "qg_reed_drift",
+      "qg_wall_cat",
+      "art_sand_palm"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 蘆花身法 (qg_reed_drift). EMPTY HANDS. Footwork with actively changing legs and weight, NO sword, no scabbard, NO attack except shoulder pressure for explicitly external footwork. Authentic spirit: 側腰鬆肩，重心左右換足如隨風；緩擺錯步. Eight exact poses: 1 side waist slack arms; 2 weight rolls left foot; 3 torso bends softly opposite; 4 right foot crosses sideways; 5 weight rolls right foot; 6 torso bends reed-like; 7 left foot gathers; 8 slack side waist.\n\nROWS 3-4: 壁虎遊牆 (qg_wall_cat). EMPTY HANDS. Footwork with actively changing legs and weight, NO sword, no scabbard, NO attack except shoulder pressure for explicitly external footwork. Authentic spirit: 縮身屈膝手足交替借力，沿窄面換步；貼攀轉落. Eight exact poses: 1 compact crouch empty hands; 2 one knee lifts beside body; 3 one hand reaches high balance; 4 foot presses imaginary narrow wall; 5 other hand and foot alternate; 6 torso turns out of close crouch; 7 soft compact landing; 8 compact crouch.\n\nROWS 5-6: 流沙掌 (art_sand_palm). EMPTY OPEN PALMS ONLY, visibly open fingers, no sword or scabbard. Authentic spirit: 掌心低藏，前手遮掩視線後反掌平抹；遮、抹、撤. Eight exact poses: 1 open palms concealed low; 2 left arm screens face; 3 side step to flank; 4 right palm turns flat; 5 low sweeping open palm across waist; 6 hand brushes outward; 7 body withdraws behind sleeve; 8 low concealed palms.\n"
+  },
+  {
+    "sheet": "expansion-09",
+    "arts": [
+      "jy_ash_manual",
+      "art_mirror_breath",
+      "qg_lotus_steps"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 灰中拳 (jy_ash_manual). EMPTY CLOSED FISTS AND ELBOWS ONLY. No sword, staff or scabbard. Authentic spirit: 低垂拳背誘近，扭腰以反手崩拳送出；緩藏、急崩. Eight exact poses: 1 loose fist hanging down; 2 torso droops inviting close; 3 rear hip coils opposite; 4 elbow rises backward; 5 backfist snaps forward; 6 hips unwind low; 7 hanging fist lowers; 8 loose hanging guard.\n\nROWS 3-4: 澄心鏡息 (art_mirror_breath). EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Authentic spirit: 雙掌相對平移至胸，肩肘維持對稱；舒展澄定. Eight exact poses: 1 symmetrical palms facing each other; 2 palms glide sideways; 3 elbows open equally; 4 palms rise to chest mirror; 5 shoulders held evenly; 6 hands lower symmetrically; 7 spine straight still; 8 symmetrical palms quiet.\n\nROWS 5-6: 踏蓮步 (qg_lotus_steps). EMPTY HANDS. Footwork with actively changing legs and weight, NO sword, no scabbard, NO attack except shoulder pressure for explicitly external footwork. Authentic spirit: 腳尖先落再展腳掌，雙足沿弧線換位；點展換. Eight exact poses: 1 toe pointed ahead; 2 toe touches then opens foot; 3 sole spreads receiving weight; 4 other foot draws curve; 5 second toe touches curve; 6 sole opens gently; 7 feet gather on arc; 8 pointed toe guard.\n"
+  },
+  {
+    "sheet": "expansion-10",
+    "arts": [
+      "art_heavy_halberd",
+      "qy_cloud_sword",
+      "qy_mist_step"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 開山戟意 (art_heavy_halberd). Exactly ONE long crescent-bladed HALBERD with pole and crescent head, two hands. Authentic spirit: 長戟斜扛肩側，轉胯帶戟刃由上向外砍開；扛、開、回桿. Eight exact poses: 1 one long crescent halberd across shoulder; 2 rear knee sinks; 3 hips rotate large crescent head up; 4 diagonal halberd chop; 5 wide low halberd follow-through; 6 shaft retracts across body; 7 head lifts behind shoulder; 8 halberd shoulder guard.\n\nROWS 3-4: 青雲初劍 (qy_cloud_sword). Exactly ONE narrow straight Chinese JIAN sword held correctly. Authentic spirit: 正身中平劍，前進直刺後原路收劍；穩定一進一收. Eight exact poses: 1 upright middle jian guard; 2 rear heel anchors; 3 front foot advances; 4 clean middle straight thrust; 5 blade held level extended; 6 arm retracts on same line; 7 front foot collects; 8 upright middle guard.\n\nROWS 5-6: 雲中步 (qy_mist_step). EMPTY HANDS with precisely extended TWO FINGERS or tiny pebble for finger-flick, no sword or long object. Authentic spirit: 縮肩入側隙，以步帶雙指連點穴位；錯步、雙點. Eight exact poses: 1 two empty extended fingers near chest; 2 shoulder shrinks sideways; 3 cross foot sneaks inside; 4 first two-finger forward point; 5 wrist retracts compact; 6 second lower two-finger point; 7 torso slips back; 8 two-finger quiet guard.\n"
+  },
+  {
+    "sheet": "expansion-11",
+    "arts": [
+      "qy_piercing_needle",
+      "qy_sky_intent",
+      "td_open_blade"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 破雲刺 (qy_piercing_needle). Exactly ONE narrow straight Chinese JIAN sword held correctly. Authentic spirit: 細劍點線貼胸蓄勢，身體沿同一線穿刺；收窄、急穿. Eight exact poses: 1 thin straight jian close to sternum; 2 shoulders narrow; 3 rear foot coils inline; 4 torso shoots along narrow line; 5 long fine jian thrust; 6 elbow draws straight back; 7 hips recede inline; 8 fine jian close chest.\n\nROWS 3-4: 青冥劍意 (qy_sky_intent). Exactly ONE narrow straight Chinese JIAN sword held correctly. Authentic spirit: 高劍架轉腕相接，前後腳連換令刺勢不斷；密刺無長停. Eight exact poses: 1 high jian wrist guard; 2 rotate wrist inward; 3 front foot changes; 4 first high straight thrust; 5 rear foot exchanges forward; 6 second middle straight thrust; 7 wrist circles above shoulder; 8 high continuous guard.\n\nROWS 5-6: 天刀開山 (td_open_blade). Exactly ONE curved Chinese DAO sabre held correctly. Authentic spirit: 寬步持刀於肩後，以肩腰帶動大幅斜斬；開架、斬、沉刀. Eight exact poses: 1 broad curved dao behind shoulder; 2 wide stance opens; 3 waist coils away; 4 large diagonal dao cut; 5 deep front knee follows blade; 6 dao sinks to front hip; 7 weight returns back foot; 8 broad dao shoulder guard.\n"
+  },
+  {
+    "sheet": "expansion-12",
+    "arts": [
+      "td_wind_slash",
+      "td_thunder_combo",
+      "td_no_return"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 裂風斬 (td_wind_slash). Exactly ONE curved Chinese DAO sabre held correctly. Authentic spirit: 刀鋒平架腰際，滑步橫割後回刃護肋；滑、橫割、收. Eight exact poses: 1 curved dao horizontal at waist; 2 flat sliding step; 3 shoulder turns level; 4 thin horizontal waist cut; 5 blade extends sideways; 6 dao reverses beside ribs; 7 foot draws under hips; 8 horizontal waist guard.\n\nROWS 3-4: 雷鳴連刀 (td_thunder_combo). Exactly ONE curved Chinese DAO sabre held correctly. Authentic spirit: 刀背靠肩先壓步，交替三斬逐次縮短間隔；斬、斬斬. Eight exact poses: 1 heavy dao spine near shoulder; 2 forward pressing step; 3 first descending slash; 4 second opposite diagonal slash; 5 third compact cross slash; 6 wide grounded stop; 7 dao lifts to shoulder; 8 compact dao shoulder guard.\n\nROWS 5-6: 天刀無回 (td_no_return). Exactly ONE curved Chinese DAO sabre held correctly. Authentic spirit: 重心完全後蓄，全身送前完成單次長斬；長蓄、單爆、低收. Eight exact poses: 1 dao drawn fully behind back hip; 2 deep rear weighted crouch; 3 entire spine stretches back; 4 one long explosive full-body slash; 5 deep forward finish blade low; 6 brief still low finish; 7 blade slowly retracts; 8 rear weighted dao guard.\n"
+  },
+  {
+    "sheet": "expansion-13",
+    "arts": [
+      "em_soft_palm",
+      "em_silk_wrap",
+      "em_golden_palm"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 峨嵋柔掌 (em_soft_palm). EMPTY OPEN PALMS ONLY, visibly open fingers, no sword or scabbard. Authentic spirit: 雙掌柔架，轉腰接勢後前掌平送；卸、送、回圓. Eight exact poses: 1 soft rounded open palm guard; 2 hips yield backward; 3 near palm redirects aside; 4 waist turns gently; 5 front open palm sends level; 6 palm curls softly inward; 7 hands complete round; 8 soft round palm guard.\n\nROWS 3-4: 繞指柔 (em_silk_wrap). EMPTY HANDS with precisely extended TWO FINGERS or tiny pebble for finger-flick, no sword or long object. Authentic spirit: 指掌相纏沿對手前臂繞入，以小幅腕轉點脈；纏、鎖、鬆. Eight exact poses: 1 empty curved fingers near forearm; 2 left fingers circle wrist; 3 right wrist threads inward; 4 small close finger lock; 5 elbow lowers tight; 6 finger point slips through; 7 both wrists release; 8 curved finger guard.\n\nROWS 5-6: 金頂綿掌 (em_golden_palm). EMPTY OPEN PALMS ONLY, visibly open fingers, no sword or scabbard. Authentic spirit: 掌心向上托起再翻送，身形保持穩定中正；托、翻、送. Eight exact poses: 1 one upturned open palm; 2 supporting palm beneath elbow; 3 upper palm lifts high; 4 wrist flips forward; 5 upright level palm push; 6 torso stays tall palms float; 7 hands descend softly; 8 upturned palm guard.\n"
+  },
+  {
+    "sheet": "expansion-14",
+    "arts": [
+      "em_heart_breath",
+      "sl_weituo",
+      "sl_iron_shirt"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 峨嵋心法 (em_heart_breath). EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Authentic spirit: 圓掌守心轉掌至腹，前後肘緩沉；圓轉穩息. Eight exact poses: 1 round palms covering heart; 2 left wrist rotates inward; 3 right palm follows round; 4 hands descend to belly; 5 front elbow settles; 6 rear elbow settles; 7 hands rise round chest; 8 round palms heart.\n\nROWS 3-4: 韋陀杖意 (sl_weituo). Exactly ONE thick blunt wooden STAFF held with two hands, NO sharp spear tip. Authentic spirit: 直杖護身，前手導杖點穴後回抽杖根；架、點、抽. Eight exact poses: 1 blunt staff upright before torso; 2 front hand guides staff down; 3 rear hand slides shaft back; 4 short staff tip jab; 5 front knee braces vertical torso; 6 staff butt pulls sharply rearward; 7 shaft rises straight; 8 upright staff guard.\n\nROWS 5-6: 鐵布衫功 (sl_iron_shirt). EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Authentic spirit: 闊步肘臂貼肋，肩背受力後展開；受震歸定. Eight exact poses: 1 wide stance elbows tight ribs; 2 back braces forward; 3 shoulders absorb inward; 4 forearms close firmly; 5 chest opens back; 6 elbows spread beside ribs; 7 waist settles rooted; 8 elbows tight ribs.\n"
+  },
+  {
+    "sheet": "expansion-15",
+    "arts": [
+      "sl_yijin",
+      "wd_sword_form",
+      "wd_tai_push"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 易筋吐納 (sl_yijin). EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Authentic spirit: 舒指引臂抬升，背脊逐節伸展再沉肩；展筋落息. Eight exact poses: 1 loose spread fingers low; 2 arms lift stretching; 3 spine lengthens upwards; 4 fingers extend over shoulder; 5 arms reach broad side stretch; 6 shoulders sink slowly; 7 fingers relax and descend; 8 loose fingers low.\n\nROWS 3-4: 武當劍式 (wd_sword_form). Exactly ONE narrow straight Chinese JIAN sword held correctly. Authentic spirit: 圓形劍架起手，腳步繞側配合腕花送刺；圓轉、刺、回圓. Eight exact poses: 1 jian curved round guard; 2 foot circles outward; 3 wrist turns sword flower; 4 sideways circular step; 5 sword thrust follows circle; 6 blade turns over wrist; 7 toe completes circle; 8 rounded jian guard.\n\nROWS 5-6: 太極推手 (wd_tai_push). EMPTY OPEN PALMS ONLY, visibly open fingers, no sword or scabbard. Authentic spirit: 前後掌相抱，以腰帶臂引開後雙掌緩推；接、引、推. Eight exact poses: 1 two open palms embrace round space; 2 rear knee yields; 3 waist turns palms left; 4 palms redirect across chest; 5 both palms slowly push forward; 6 hips settle behind palms; 7 hands close round again; 8 embracing round guard.\n"
+  },
+  {
+    "sheet": "expansion-16",
+    "arts": [
+      "wd_pure_yang",
+      "wd_wuji_sword",
+      "tm_shadow_step"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 純陽吐納 (wd_pure_yang). EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Authentic spirit: 雙掌相對氣海，隨吐息抬胸展肩；悠長平穩. Eight exact poses: 1 palms facing lower belly; 2 elbows lift slowly; 3 chest expands calmly; 4 shoulders widen softly; 5 palms turn warm outward; 6 long exhale elbows lower; 7 spine relaxes upright; 8 palms facing lower belly.\n\nROWS 3-4: 無極劍意 (wd_wuji_sword). Exactly ONE narrow straight Chinese JIAN sword held correctly. Authentic spirit: 劍鋒立於中線，連續轉腕接刺後退劍守中；循環不斷. Eight exact poses: 1 upright jian at middle line; 2 wrist rotates inward; 3 blade spirals to thrust; 4 continuous narrow forward thrust; 5 wrist rotates outward; 6 second flowing thrust; 7 foot retreats sword centered; 8 upright jian middle guard.\n\nROWS 5-6: 影步 (tm_shadow_step). EMPTY HANDS. Footwork with actively changing legs and weight, NO sword, no scabbard, NO attack except shoulder pressure for explicitly external footwork. Authentic spirit: 壓低肩線側足入暗，短距離換位再挺身；隱錯現. Eight exact poses: 1 low shoulders sideways feet; 2 front foot enters dark side; 3 body compresses narrow; 4 rear foot swaps sharply; 5 torso emerges upright; 6 shoulders turn opposite; 7 feet stop close; 8 low side-foot guard.\n"
+  },
+  {
+    "sheet": "expansion-17",
+    "arts": [
+      "tm_poison_dart",
+      "tm_thousand_mech",
+      "mj_blood_palm"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 淬毒鏢 (tm_poison_dart). ONLY tiny throwing darts held in fingers, NO sword. Authentic spirit: 拈鏢於肩側，肘帶腕拋出後指尖順勢下收；蓄鏢、拋、收. Eight exact poses: 1 one small triangular dart by shoulder; 2 rear elbow coils; 3 hips twist slightly back; 4 elbow unfolds forward; 5 wrist throws tiny triangular dart; 6 fingers follow downward; 7 sleeve returns near shoulder; 8 small dart guard.\n\nROWS 3-4: 千機手 (tm_thousand_mech). Small physical SLEEVE WRIST-CROSSBOW mechanisms and finger trigger, NO sword. Authentic spirit: 袖口朝前交替抬臂，以短促指扣逐次放射；扣、扣扣、合袖. Eight exact poses: 1 compact wrist crossbow sleeve mechanisms; 2 right sleeve aims forward; 3 right index finger triggers; 4 left sleeve aims lower; 5 left finger triggers; 6 alternating wrists recover; 7 both sleeves fold across chest; 8 compact hidden wrist devices.\n\nROWS 5-6: 血影掌 (mj_blood_palm). EMPTY OPEN PALMS ONLY, visibly open fingers, no sword or scabbard. Authentic spirit: 掌根低蓄，向前拍送後掌心翻回胸前；拍、回帶. Eight exact poses: 1 open palm low beside waist; 2 palm heel draws backward; 3 back arches forward; 4 heavy straight palm slap; 5 palm turns inward near target; 6 elbow hooks back to chest; 7 hips withdraw; 8 open palm low guard.\n"
+  },
+  {
+    "sheet": "expansion-18",
+    "arts": [
+      "mj_devil_breath",
+      "mj_soul_drain",
+      "mj_asura_slash"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 魔息吐納 (mj_devil_breath). EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Authentic spirit: 拳背貼腹俯身聚氣，抬胸再吐息；壓聚吐. Eight exact poses: 1 fist backs against abdomen; 2 body folds inward; 3 elbows press belly; 4 chest rises against compressed fists; 5 arms unfold with forceful exhale; 6 shoulders roll inward; 7 fists return to belly; 8 fists against abdomen.\n\nROWS 3-4: 吸脈指 (mj_soul_drain). EMPTY HANDS with precisely extended TWO FINGERS or tiny pebble for finger-flick, no sword or long object. Authentic spirit: 兩指內扣，貼近後直探經脈再彎指收回；探、扣、抽. Eight exact poses: 1 two curved empty fingers by chest; 2 lean into close space; 3 fingers straighten forward; 4 two fingers probe narrow line; 5 fingers curl inward; 6 elbow pulls along line; 7 torso retreats compact; 8 curved finger guard.\n\nROWS 5-6: 修羅斬 (mj_asura_slash). Exactly ONE curved Chinese DAO sabre held correctly. Authentic spirit: 反握刀架守低位，轉腰向上斜斬再沉刃；低、逆斬、收. Eight exact poses: 1 one reversed curved dao held low; 2 crouched sideways coil; 3 hip twists upward; 4 reverse-grip rising diagonal slash; 5 blade passes above shoulder; 6 shoulder turns dao down; 7 blade folds close low; 8 reverse dao low guard.\n"
+  },
+  {
+    "sheet": "expansion-19",
+    "arts": [
+      "hs_pine_sword",
+      "hs_cloud_step",
+      "hs_split_peak"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 松風劍 (hs_pine_sword). Exactly ONE narrow straight Chinese JIAN sword held correctly. Authentic spirit: 高腕直劍，挺身送出乾淨直刺再收肩；穩、刺、回. Eight exact poses: 1 straight jian wrist held high; 2 spine straightens; 3 rear heel drives; 4 clean high level jian thrust; 5 torso remains erect; 6 elbow folds inward; 7 shoulders relax back; 8 high wrist jian guard.\n\nROWS 3-4: 雲臺步 (hs_cloud_step). Exactly ONE narrow straight Chinese JIAN sword held correctly. Authentic spirit: 持劍交叉踏高步，換足同時連刺兩側隙；踏、連刺、落步. Eight exact poses: 1 straight jian crossed high-step guard; 2 front knee lifts; 3 sword coils across chest; 4 first thrust with high step; 5 feet exchange elevated; 6 second sideways opening thrust; 7 front foot settles; 8 crossed jian step guard.\n\nROWS 5-6: 劈岳劍 (hs_split_peak). Exactly ONE narrow straight Chinese JIAN sword held correctly. Authentic spirit: 劍舉過肩後沿脊線壓落，以前足承重停住；舉、劈、定. Eight exact poses: 1 jian raised behind shoulder; 2 front knee lifts slightly; 3 two hands support sword high; 4 straight vertical sword cut; 5 front knee receives weight; 6 blade stops low down center; 7 shoulder lifts sword back; 8 raised jian guard.\n"
+  },
+  {
+    "sheet": "expansion-20",
+    "arts": [
+      "hs_yue_breath",
+      "art_drunken_fist",
+      "th_finger_flick"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 華嶽吐納 (hs_yue_breath). EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Authentic spirit: 掌勢如承山，挺背後合掌於腹；托立合. Eight exact poses: 1 palms supporting broad imaginary weight; 2 spine stands tall; 3 palms lift mountain-like; 4 elbows hold firm beside shoulders; 5 palms turn inward; 6 hands join abdomen; 7 knees root down; 8 mountain support palms.\n\nROWS 3-4: 醉八仙拳 (art_drunken_fist). EMPTY CLOSED FISTS AND ELBOWS ONLY. No sword, staff or scabbard. Authentic spirit: 腰身搖晃佯失平衡，反向扭腰以肘拳補入；晃、頓、反打. Eight exact poses: 1 loose unarmed staggering stance; 2 waist sways forward; 3 body tilts apparently unbalanced; 4 reverse hip snap; 5 elbow strikes from unexpected angle; 6 short fist follows elbow; 7 waist rolls back loose; 8 staggering open guard.\n\nROWS 5-6: 彈指神通 (th_finger_flick). EMPTY HANDS with precisely extended TWO FINGERS or tiny pebble for finger-flick, no sword or long object. Authentic spirit: 拇指扣中指於胸前，鬆腕彈出小石後收指；靜、彈、垂. Eight exact poses: 1 thumb holds middle finger at chest; 2 still relaxed shoulders; 3 wrist bends slightly back; 4 middle finger snaps tiny pebble; 5 wrist follows minimal forward; 6 fingers relax downward; 7 arm falls near waist; 8 finger flick quiet stance.\n"
+  },
+  {
+    "sheet": "expansion-21",
+    "arts": [
+      "th_flute_sword",
+      "th_falling_petals",
+      "th_qimen_array"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 玉簫劍法 (th_flute_sword). Exactly ONE short cylindrical JADE FLUTE with finger holes, NOT a sword. Authentic spirit: 玉簫橫架胸前，以腕帶簫身點刺後橫收；橫、點、滑收. Eight exact poses: 1 ONE short jade flute horizontal chest; 2 wrist rotates flute end forward; 3 side waist twists; 4 precise short flute tip jab; 5 elbow stable flute extended; 6 flute glides back horizontal; 7 fingers adjust flute grip; 8 jade flute chest guard.\n\nROWS 3-4: 落英神劍掌 (th_falling_petals). EMPTY OPEN PALMS ONLY, visibly open fingers, no sword or scabbard. Authentic spirit: 掌心交替向外翻花，側步中連送開掌；翻、送、換掌. Eight exact poses: 1 two open palms turned outward; 2 first palm curls flower-like; 3 side step and first open palm; 4 other hand rotates flower-like; 5 second open palm outward; 6 palms cross softly; 7 both wrists open downward; 8 flower palm open guard.\n\nROWS 5-6: 奇門一氣 (th_qimen_array). EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Authentic spirit: 雙掌依身側五位轉動，腳下換向再歸中；五向循環. Eight exact poses: 1 open palms centered; 2 left palm turns left side; 3 right palm turns right side; 4 front foot angles outward; 5 hands shift through upper then lower positions; 6 rear foot aligns forward; 7 palms circle back middle; 8 centered open palms.\n"
+  },
+  {
+    "sheet": "expansion-22",
+    "arts": [
+      "wg_embroidery_needle",
+      "wg_silent_step",
+      "wg_yin_soft_palm"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 繡花奪命針 (wg_embroidery_needle). ONLY tiny throwing needles in pinched fingers, NO long blade or sword. Authentic spirit: 垂袖遮手，以繡線般小幅拈指牽放細針；拈、牽、放. Eight exact poses: 1 sleeves low tiny needle pinched; 2 hand emerges delicately; 3 fingers draw fine thread-like motion; 4 small needle pinch pull; 5 fingers release needle precisely; 6 wrist retracts as sewing; 7 hand hides in sleeve; 8 low sleeved needle guard.\n\nROWS 3-4: 無聲遁跡 (wg_silent_step). EMPTY HANDS. Footwork with actively changing legs and weight, NO sword, no scabbard, NO attack except shoulder pressure for explicitly external footwork. Authentic spirit: 腳掌外沿先落，屈膝吸力再換窄步；低緩不頓. Eight exact poses: 1 outer edge lead foot; 2 knees absorb deeply; 3 whole foot rolls flat; 4 rear foot glides close; 5 outer edge new foot touches; 6 knees soften without bounce; 7 feet close narrow; 8 outer edge foot stance.\n\nROWS 5-6: 陰柔化勁掌 (wg_yin_soft_palm). EMPTY OPEN PALMS ONLY, visibly open fingers, no sword or scabbard. Authentic spirit: 鬆掌受壓後沿腕轉向，以反掌將來力卸還；受、柔化、還. Eight exact poses: 1 relaxed open palm forward; 2 palm yields under pressure; 3 wrist folds inward; 4 waist redirects opposite side; 5 back of open palm returns gently; 6 elbow sinks and rolls; 7 hand relaxes at chest; 8 relaxed open palm guard.\n"
+  },
+  {
+    "sheet": "expansion-23",
+    "arts": [
+      "wg_root_severed_creed",
+      "art_guqin_song",
+      "art_poetry_sword"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 忘根訣 (wg_root_severed_creed). EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Authentic spirit: 兩掌合於胸前，沉肩向下分掌；靜定再放. Eight exact poses: 1 joined palms before chest; 2 head inclines still; 3 shoulders sink; 4 joined hands lower; 5 palms split downward symmetrically; 6 wrists relax; 7 hands gather slowly; 8 joined palms chest.\n\nROWS 3-4: 廣陵絕響 (art_guqin_song). EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Authentic spirit: 雙手作撫弦指勢，左右指尖輪替後平息；勾挑息. Eight exact poses: 1 both hands in empty zither finger posture; 2 left fingers press low; 3 right fingers curl pluck; 4 right index lifts pick; 5 left wrist slides level; 6 opposite finger plucks; 7 both hands settle still; 8 zither fingers quiet.\n\nROWS 5-6: 詩劍風流 (art_poetry_sword). Exactly ONE narrow straight Chinese JIAN sword held correctly. Authentic spirit: 劍勢先抑後揚，提腕如書寫長短筆勢；頓、長劃、收鋒. Eight exact poses: 1 jian tip paused downward; 2 wrist checks short stroke; 3 shoulder lifts long stroke; 4 long sweeping calligraphic cut; 5 wrist makes smaller hooked stroke; 6 blade pauses then withdraws; 7 tip settles with body; 8 jian calligraphy quiet guard.\n"
+  },
+  {
+    "sheet": "expansion-24",
+    "arts": [
+      "art_ink_illusion",
+      "art_buddha_heart",
+      "art_dao_breath"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 潑墨迷蹤 (art_ink_illusion). EMPTY HANDS. Footwork with actively changing legs and weight, NO sword, no scabbard, NO attack except shoulder pressure for explicitly external footwork. Authentic spirit: 斜側閃開，雙足沿寬窄相間曲線移位；潑斷轉. Eight exact poses: 1 diagonal loose stance; 2 wide step left; 3 narrow crossing right; 4 torso cuts sharp diagonal; 5 wide opposite side step; 6 waist swivels back; 7 feet gather abrupt stop; 8 diagonal loose stance.\n\nROWS 3-4: 金剛不壞 (art_buddha_heart). EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Authentic spirit: 合掌凝神，前臂緩分護胸再回掌；合開歸. Eight exact poses: 1 joined prayer palms; 2 breath steadies chest; 3 forearms separate slowly; 4 palms spread protecting chest; 5 hands pause gently; 6 wrists turn inward; 7 palms join again; 8 prayer palm still.\n\nROWS 5-6: 太乙玄清 (art_dao_breath). EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Authentic spirit: 掌心一上一下交替轉動，脊背自然伸縮；陰陽相續. Eight exact poses: 1 one palm up one palm down; 2 upper palm circles outward; 3 lower palm rises inward; 4 palms exchange vertically; 5 spine stretches gently; 6 hands circle opposite; 7 palms return unequal levels; 8 one up one down.\n"
+  },
+  {
+    "sheet": "expansion-25",
+    "arts": [
+      "art_heretic_scripture",
+      "pr_blood_lotus",
+      "pr_crimson_moon"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 天魔邪功 (art_heretic_scripture). EMPTY CLOSED FISTS AND ELBOWS ONLY. No sword, staff or scabbard. Authentic spirit: 俯身藏拳後貼身狠打，反肘收身而非持兵器；急近、狠打、抽身. Eight exact poses: 1 EMPTY fists hidden leaning low; 2 torso darts close; 3 near elbow drives compact; 4 short vicious body punch; 5 opposite elbow pulls backward; 6 fist retracts beside ribs; 7 whole body recoils away; 8 hidden low fists.\n\nROWS 3-4: 血蓮千刃 (pr_blood_lotus). Exactly ONE curved Chinese DAO sabre held correctly. Authentic spirit: 低刀向外翻刃，交叉換足完成瓣狀連斬；展、層斬、合. Eight exact poses: 1 curved dao held low outward; 2 reverse wrist opens blade; 3 cross foot and first petal slash; 4 second crossing diagonal slash; 5 waist spins compact third slash; 6 deep final flower-closing cut; 7 dao folds with crossed arms; 8 low outward dao guard.\n\nROWS 5-6: 赤月飲血劍 (pr_crimson_moon). Exactly ONE narrow straight Chinese JIAN sword held correctly. Authentic spirit: 劍身貼臂藏鋒，回身月弧挑刺後帶劍收腰；藏、弧刺、回飲. Eight exact poses: 1 straight jian concealed along arm; 2 body turns away hiding point; 3 wrist lifts crescent arc; 4 turning crescent upward thrust; 5 blade curves around shoulder; 6 jian draws inward to waist; 7 torso settles behind blade; 8 hidden arm jian guard.\n"
+  },
+  {
+    "sheet": "expansion-26",
+    "arts": [
+      "pr_nine_chain",
+      "pr_heaven_spear",
+      "pr_soul_lock"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 九連環掌 (pr_nine_chain). EMPTY OPEN PALMS ONLY, visibly open fingers, no sword or scabbard. Authentic spirit: 交臂開掌接續換手，九重掌勢由腰向前傳遞；密接層推. Eight exact poses: 1 crossed open arms near waist; 2 first palm expands forward; 3 opposite palm follows underneath; 4 left palm rises upper line; 5 right palm threads middle line; 6 both arms pass successive open palms; 7 palms circle back chained; 8 crossed open arms guard.\n\nROWS 3-4: 貫日神槍 (pr_heaven_spear). Exactly ONE long SPEAR with small pointed head, two hands far apart on shaft. Authentic spirit: 槍尾沉地後雙手托起，以背腰帶槍尖長距離貫刺；沉、托、貫. Eight exact poses: 1 single long spear butt beside ground; 2 knees sink hands slide apart; 3 torso raises spear tip; 4 back and waist drive long thrust; 5 full extended two-handed spear; 6 rear knee follows beneath shaft; 7 spear retracts and lowers butt; 8 rooted spear guard.\n\nROWS 5-6: 鎖魂指 (pr_soul_lock). EMPTY HANDS with precisely extended TWO FINGERS or tiny pebble for finger-flick, no sword or long object. Authentic spirit: 雙指夾緊護胸，點出後保持短暫定勢再收指；定、點、定、鬆. Eight exact poses: 1 two tight fingers chest guard; 2 feet stop absolutely still; 3 elbow coils backward; 4 sharp two finger acupoint thrust; 5 fingers hold exact extended point; 6 wrist loosens slightly; 7 elbow slowly returns; 8 tight two finger guard.\n"
+  },
+  {
+    "sheet": "expansion-27",
+    "arts": [
+      "pr_mist_blind",
+      "pr_vajra_palm",
+      "pr_floating_blade"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 迷蹤散霧手 (pr_mist_blind). EMPTY OPEN PALMS ONLY, visibly open fingers, no sword or scabbard. Authentic spirit: 雙掌交錯遮掩後側身反推，手路虛實互換；遮、換、推. Eight exact poses: 1 two open palms crossing face; 2 left palm screens high; 3 right shoulder slips sideways; 4 hands exchange hidden positions; 5 reverse open palm pushes through; 6 rear foot pivots away; 7 palms cross again; 8 screening palms guard.\n\nROWS 3-4: 金剛不壞掌 (pr_vajra_palm). EMPTY OPEN PALMS ONLY, visibly open fingers, no sword or scabbard. Authentic spirit: 闊步直掌護胸，背脊挺立送掌後圓收雙臂；沉、山推、回護. Eight exact poses: 1 wide stance vertical open palm; 2 back straightens rooted; 3 shoulder and elbow gather; 4 mountain-like strong palm push; 5 whole torso follows stable palm; 6 arms round returning to chest; 7 knees settle open palms; 8 wide vertical palm guard.\n\nROWS 5-6: 飄絮刀 (pr_floating_blade). Exactly ONE curved Chinese DAO sabre held correctly. Authentic spirit: 鬆腕垂刀以曲步繞側，刀刃沿意外斜角輕落；飄、折、落. Eight exact poses: 1 loose curved dao hanging down; 2 curved side step and low wrist; 3 blade drifts up unexpectedly; 4 body turns into oblique light cut; 5 wrist changes slant abruptly; 6 dao falls softly in new angle; 7 feet collect blade hanging; 8 loose hanging dao guard.\n"
+  },
+  {
+    "sheet": "expansion-28",
+    "arts": [
+      "pr_star_fall",
+      "pr_blood_sea",
+      "pr_thunder_heart"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 流星墜月 (pr_star_fall). ONLY tiny throwing darts held in fingers, NO sword. Authentic spirit: 雙手先高後低交替撒出暗器，身體隨手轉側；高撒、低撒、回袖. Eight exact poses: 1 tiny star darts in both hands; 2 right hand rises overhead; 3 body turns to side; 4 high scattering throw; 5 left hand sweeps low scattering; 6 both sleeves fold across waist; 7 torso returns side-on; 8 two-handed tiny darts guard.\n\nROWS 3-4: 血海心經 (pr_blood_sea). EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Authentic spirit: 掌根貼腹聚息，翻掌擴胸再收息；聚擴收潮. Eight exact poses: 1 palm heels against belly; 2 hands compress inward; 3 palms turn outward; 4 chest and arms expand tide-like; 5 wide palms reach broad; 6 elbows fold as tide retreats; 7 palms gather to belly; 8 palm heels belly.\n\nROWS 5-6: 雷動心法 (pr_thunder_heart). EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Authentic spirit: 交掌貼胸連續短吐，肘肩隨息微震；短短長吐. Eight exact poses: 1 cross palms chest; 2 first short chest exhale; 3 elbows pulse inward; 4 second short chest exhale; 5 shoulders settle then long open breath; 6 arms spread and slow; 7 palms cross chest; 8 crossed palms quiet.\n"
+  },
+  {
+    "sheet": "expansion-29",
+    "arts": [
+      "pr_seal_meridian",
+      "pr_void_breath",
+      "pr_shadow_flash"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 封脈真經 (pr_seal_meridian). EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Authentic spirit: 平掌於腹逐指閉合，雙手展開至胸；逐指收整體放. Eight exact poses: 1 flat palms lower belly; 2 little fingers close first; 3 ring and middle fingers close; 4 index fingers close; 5 thumbs close into quiet seal; 6 hands open rising chest; 7 all fingers extend slowly; 8 flat palms lower belly.\n\nROWS 3-4: 太虛吐納 (pr_void_breath). EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Authentic spirit: 屈膝吸氣後舒身，實抱轉為虛托；沉輕起虛收. Eight exact poses: 1 deep knees palms cupping; 2 hands gather breath; 3 body straightens lightly; 4 arms float from full cup to loose cradle; 5 palms turn almost weightless; 6 body settles gently; 7 hands close empty space; 8 light cupped palms.\n\nROWS 5-6: 鬼影閃 (pr_shadow_flash). EMPTY HANDS. Footwork with actively changing legs and weight, NO sword, no scabbard, NO attack except shoulder pressure for explicitly external footwork. Authentic spirit: 極低縮身後反向換足，軀幹先隱再現；壓閃反閃. Eight exact poses: 1 extreme low compressed stance; 2 hips sink almost floor; 3 reverse foot switches behind; 4 torso twists opposite; 5 long low lateral escape; 6 body unfolds suddenly; 7 one foot brakes low; 8 compressed low guard.\n"
+  },
+  {
+    "sheet": "expansion-30",
+    "arts": [
+      "pr_tide_step",
+      "pr_tide_step",
+      "pr_tide_step"
+    ],
+    "role": "base",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: 觀潮步 (pr_tide_step). EMPTY HANDS. Footwork with actively changing legs and weight, NO sword, no scabbard, NO attack except shoulder pressure for explicitly external footwork. Authentic spirit: 前足探出後後足拖回，重心前後循環；進緩回再進. Eight exact poses: 1 forward foot probing; 2 weight advances gently; 3 back foot drags toward front; 4 hips retreat with long rear step; 5 front foot gathers backward; 6 weight advances second wave; 7 feet soften together; 8 probing forward foot.\n\nROWS 3-4: 觀潮步 (pr_tide_step). EMPTY HANDS. Footwork with actively changing legs and weight, NO sword, no scabbard, NO attack except shoulder pressure for explicitly external footwork. Authentic spirit: 前足探出後後足拖回，重心前後循環；進緩回再進. Eight exact poses: 1 forward foot probing; 2 weight advances gently; 3 back foot drags toward front; 4 hips retreat with long rear step; 5 front foot gathers backward; 6 weight advances second wave; 7 feet soften together; 8 probing forward foot.\n\nROWS 5-6: 觀潮步 (pr_tide_step). EMPTY HANDS. Footwork with actively changing legs and weight, NO sword, no scabbard, NO attack except shoulder pressure for explicitly external footwork. Authentic spirit: 前足探出後後足拖回，重心前後循環；進緩回再進. Eight exact poses: 1 forward foot probing; 2 weight advances gently; 3 back foot drags toward front; 4 hips retreat with long rear step; 5 front foot gathers backward; 6 weight advances second wave; 7 feet soften together; 8 probing forward foot.\n"
+  },
+  {
+    "sheet": "expansion-rare-01",
+    "arts": [
+      "pr_blood_lotus-crit",
+      "pr_blood_lotus-kill",
+      "pr_crimson_moon-crit"
+    ],
+    "role": "variant",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: PREMIUM 血蓮千刃 crit. Exactly ONE curved Chinese DAO sabre held correctly. Signature choreography: 低刀向外翻刃，交叉換足完成瓣狀連斬；展、層斬、合. Reference main poses (do NOT merely duplicate): curved dao held low outward; reverse wrist opens blade; cross foot and first petal slash; second crossing diagonal slash; waist spins compact third slash; deep final flower-closing cut; dao folds with crossed arms; low outward dao guard. REAL CRITICAL HIT RECOVERY: eight NEW body poses after contact: compressed follow-through, stronger torso twist, reverse wrist or elbow fold, opposite-leg bracing, shoulder settling, weapon or hand gathering, deliberate deep exhale, confident final guard. Do NOT repeat main attack or create an extra strike. Keep weapon identity correct.\n\nROWS 3-4: PREMIUM 血蓮千刃 kill. Exactly ONE curved Chinese DAO sabre held correctly. Signature choreography: 低刀向外翻刃，交叉換足完成瓣狀連斬；展、層斬、合. Reference main poses (do NOT merely duplicate): curved dao held low outward; reverse wrist opens blade; cross foot and first petal slash; second crossing diagonal slash; waist spins compact third slash; deep final flower-closing cut; dao folds with crossed arms; low outward dao guard. REAL FINISH RECOVERY: eight NEW body poses after defeating opponent: full low follow-through, stable held finish, body rises slowly, hand or correct weapon sweeps safely inward, rear foot steps close, sleeve shakes and settles, eyes calmly forward, dignified final guard. NO extra attack, NO new enemy, no gore.\n\nROWS 5-6: PREMIUM 赤月飲血劍 crit. Exactly ONE narrow straight Chinese JIAN sword held correctly. Signature choreography: 劍身貼臂藏鋒，回身月弧挑刺後帶劍收腰；藏、弧刺、回飲. Reference main poses (do NOT merely duplicate): straight jian concealed along arm; body turns away hiding point; wrist lifts crescent arc; turning crescent upward thrust; blade curves around shoulder; jian draws inward to waist; torso settles behind blade; hidden arm jian guard. REAL CRITICAL HIT RECOVERY: eight NEW body poses after contact: compressed follow-through, stronger torso twist, reverse wrist or elbow fold, opposite-leg bracing, shoulder settling, weapon or hand gathering, deliberate deep exhale, confident final guard. Do NOT repeat main attack or create an extra strike. Keep weapon identity correct.\n"
+  },
+  {
+    "sheet": "expansion-rare-02",
+    "arts": [
+      "pr_crimson_moon-kill",
+      "pr_nine_chain-crit",
+      "pr_nine_chain-kill"
+    ],
+    "role": "variant",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: PREMIUM 赤月飲血劍 kill. Exactly ONE narrow straight Chinese JIAN sword held correctly. Signature choreography: 劍身貼臂藏鋒，回身月弧挑刺後帶劍收腰；藏、弧刺、回飲. Reference main poses (do NOT merely duplicate): straight jian concealed along arm; body turns away hiding point; wrist lifts crescent arc; turning crescent upward thrust; blade curves around shoulder; jian draws inward to waist; torso settles behind blade; hidden arm jian guard. REAL FINISH RECOVERY: eight NEW body poses after defeating opponent: full low follow-through, stable held finish, body rises slowly, hand or correct weapon sweeps safely inward, rear foot steps close, sleeve shakes and settles, eyes calmly forward, dignified final guard. NO extra attack, NO new enemy, no gore.\n\nROWS 3-4: PREMIUM 九連環掌 crit. EMPTY OPEN PALMS ONLY, visibly open fingers, no sword or scabbard. Signature choreography: 交臂開掌接續換手，九重掌勢由腰向前傳遞；密接層推. Reference main poses (do NOT merely duplicate): crossed open arms near waist; first palm expands forward; opposite palm follows underneath; left palm rises upper line; right palm threads middle line; both arms pass successive open palms; palms circle back chained; crossed open arms guard. REAL CRITICAL HIT RECOVERY: eight NEW body poses after contact: compressed follow-through, stronger torso twist, reverse wrist or elbow fold, opposite-leg bracing, shoulder settling, weapon or hand gathering, deliberate deep exhale, confident final guard. Do NOT repeat main attack or create an extra strike. Keep weapon identity correct.\n\nROWS 5-6: PREMIUM 九連環掌 kill. EMPTY OPEN PALMS ONLY, visibly open fingers, no sword or scabbard. Signature choreography: 交臂開掌接續換手，九重掌勢由腰向前傳遞；密接層推. Reference main poses (do NOT merely duplicate): crossed open arms near waist; first palm expands forward; opposite palm follows underneath; left palm rises upper line; right palm threads middle line; both arms pass successive open palms; palms circle back chained; crossed open arms guard. REAL FINISH RECOVERY: eight NEW body poses after defeating opponent: full low follow-through, stable held finish, body rises slowly, hand or correct weapon sweeps safely inward, rear foot steps close, sleeve shakes and settles, eyes calmly forward, dignified final guard. NO extra attack, NO new enemy, no gore.\n"
+  },
+  {
+    "sheet": "expansion-rare-03",
+    "arts": [
+      "pr_heaven_spear-crit",
+      "pr_heaven_spear-kill",
+      "pr_soul_lock-crit"
+    ],
+    "role": "variant",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: PREMIUM 貫日神槍 crit. Exactly ONE long SPEAR with small pointed head, two hands far apart on shaft. Signature choreography: 槍尾沉地後雙手托起，以背腰帶槍尖長距離貫刺；沉、托、貫. Reference main poses (do NOT merely duplicate): single long spear butt beside ground; knees sink hands slide apart; torso raises spear tip; back and waist drive long thrust; full extended two-handed spear; rear knee follows beneath shaft; spear retracts and lowers butt; rooted spear guard. REAL CRITICAL HIT RECOVERY: eight NEW body poses after contact: compressed follow-through, stronger torso twist, reverse wrist or elbow fold, opposite-leg bracing, shoulder settling, weapon or hand gathering, deliberate deep exhale, confident final guard. Do NOT repeat main attack or create an extra strike. Keep weapon identity correct.\n\nROWS 3-4: PREMIUM 貫日神槍 kill. Exactly ONE long SPEAR with small pointed head, two hands far apart on shaft. Signature choreography: 槍尾沉地後雙手托起，以背腰帶槍尖長距離貫刺；沉、托、貫. Reference main poses (do NOT merely duplicate): single long spear butt beside ground; knees sink hands slide apart; torso raises spear tip; back and waist drive long thrust; full extended two-handed spear; rear knee follows beneath shaft; spear retracts and lowers butt; rooted spear guard. REAL FINISH RECOVERY: eight NEW body poses after defeating opponent: full low follow-through, stable held finish, body rises slowly, hand or correct weapon sweeps safely inward, rear foot steps close, sleeve shakes and settles, eyes calmly forward, dignified final guard. NO extra attack, NO new enemy, no gore.\n\nROWS 5-6: PREMIUM 鎖魂指 crit. EMPTY HANDS with precisely extended TWO FINGERS or tiny pebble for finger-flick, no sword or long object. Signature choreography: 雙指夾緊護胸，點出後保持短暫定勢再收指；定、點、定、鬆. Reference main poses (do NOT merely duplicate): two tight fingers chest guard; feet stop absolutely still; elbow coils backward; sharp two finger acupoint thrust; fingers hold exact extended point; wrist loosens slightly; elbow slowly returns; tight two finger guard. REAL CRITICAL HIT RECOVERY: eight NEW body poses after contact: compressed follow-through, stronger torso twist, reverse wrist or elbow fold, opposite-leg bracing, shoulder settling, weapon or hand gathering, deliberate deep exhale, confident final guard. Do NOT repeat main attack or create an extra strike. Keep weapon identity correct.\n"
+  },
+  {
+    "sheet": "expansion-rare-04",
+    "arts": [
+      "pr_soul_lock-kill",
+      "pr_mist_blind-crit",
+      "pr_mist_blind-kill"
+    ],
+    "role": "variant",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: PREMIUM 鎖魂指 kill. EMPTY HANDS with precisely extended TWO FINGERS or tiny pebble for finger-flick, no sword or long object. Signature choreography: 雙指夾緊護胸，點出後保持短暫定勢再收指；定、點、定、鬆. Reference main poses (do NOT merely duplicate): two tight fingers chest guard; feet stop absolutely still; elbow coils backward; sharp two finger acupoint thrust; fingers hold exact extended point; wrist loosens slightly; elbow slowly returns; tight two finger guard. REAL FINISH RECOVERY: eight NEW body poses after defeating opponent: full low follow-through, stable held finish, body rises slowly, hand or correct weapon sweeps safely inward, rear foot steps close, sleeve shakes and settles, eyes calmly forward, dignified final guard. NO extra attack, NO new enemy, no gore.\n\nROWS 3-4: PREMIUM 迷蹤散霧手 crit. EMPTY OPEN PALMS ONLY, visibly open fingers, no sword or scabbard. Signature choreography: 雙掌交錯遮掩後側身反推，手路虛實互換；遮、換、推. Reference main poses (do NOT merely duplicate): two open palms crossing face; left palm screens high; right shoulder slips sideways; hands exchange hidden positions; reverse open palm pushes through; rear foot pivots away; palms cross again; screening palms guard. REAL CRITICAL HIT RECOVERY: eight NEW body poses after contact: compressed follow-through, stronger torso twist, reverse wrist or elbow fold, opposite-leg bracing, shoulder settling, weapon or hand gathering, deliberate deep exhale, confident final guard. Do NOT repeat main attack or create an extra strike. Keep weapon identity correct.\n\nROWS 5-6: PREMIUM 迷蹤散霧手 kill. EMPTY OPEN PALMS ONLY, visibly open fingers, no sword or scabbard. Signature choreography: 雙掌交錯遮掩後側身反推，手路虛實互換；遮、換、推. Reference main poses (do NOT merely duplicate): two open palms crossing face; left palm screens high; right shoulder slips sideways; hands exchange hidden positions; reverse open palm pushes through; rear foot pivots away; palms cross again; screening palms guard. REAL FINISH RECOVERY: eight NEW body poses after defeating opponent: full low follow-through, stable held finish, body rises slowly, hand or correct weapon sweeps safely inward, rear foot steps close, sleeve shakes and settles, eyes calmly forward, dignified final guard. NO extra attack, NO new enemy, no gore.\n"
+  },
+  {
+    "sheet": "expansion-rare-05",
+    "arts": [
+      "pr_vajra_palm-crit",
+      "pr_vajra_palm-kill",
+      "pr_floating_blade-crit"
+    ],
+    "role": "variant",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: PREMIUM 金剛不壞掌 crit. EMPTY OPEN PALMS ONLY, visibly open fingers, no sword or scabbard. Signature choreography: 闊步直掌護胸，背脊挺立送掌後圓收雙臂；沉、山推、回護. Reference main poses (do NOT merely duplicate): wide stance vertical open palm; back straightens rooted; shoulder and elbow gather; mountain-like strong palm push; whole torso follows stable palm; arms round returning to chest; knees settle open palms; wide vertical palm guard. REAL CRITICAL HIT RECOVERY: eight NEW body poses after contact: compressed follow-through, stronger torso twist, reverse wrist or elbow fold, opposite-leg bracing, shoulder settling, weapon or hand gathering, deliberate deep exhale, confident final guard. Do NOT repeat main attack or create an extra strike. Keep weapon identity correct.\n\nROWS 3-4: PREMIUM 金剛不壞掌 kill. EMPTY OPEN PALMS ONLY, visibly open fingers, no sword or scabbard. Signature choreography: 闊步直掌護胸，背脊挺立送掌後圓收雙臂；沉、山推、回護. Reference main poses (do NOT merely duplicate): wide stance vertical open palm; back straightens rooted; shoulder and elbow gather; mountain-like strong palm push; whole torso follows stable palm; arms round returning to chest; knees settle open palms; wide vertical palm guard. REAL FINISH RECOVERY: eight NEW body poses after defeating opponent: full low follow-through, stable held finish, body rises slowly, hand or correct weapon sweeps safely inward, rear foot steps close, sleeve shakes and settles, eyes calmly forward, dignified final guard. NO extra attack, NO new enemy, no gore.\n\nROWS 5-6: PREMIUM 飄絮刀 crit. Exactly ONE curved Chinese DAO sabre held correctly. Signature choreography: 鬆腕垂刀以曲步繞側，刀刃沿意外斜角輕落；飄、折、落. Reference main poses (do NOT merely duplicate): loose curved dao hanging down; curved side step and low wrist; blade drifts up unexpectedly; body turns into oblique light cut; wrist changes slant abruptly; dao falls softly in new angle; feet collect blade hanging; loose hanging dao guard. REAL CRITICAL HIT RECOVERY: eight NEW body poses after contact: compressed follow-through, stronger torso twist, reverse wrist or elbow fold, opposite-leg bracing, shoulder settling, weapon or hand gathering, deliberate deep exhale, confident final guard. Do NOT repeat main attack or create an extra strike. Keep weapon identity correct.\n"
+  },
+  {
+    "sheet": "expansion-rare-06",
+    "arts": [
+      "pr_floating_blade-kill",
+      "pr_star_fall-crit",
+      "pr_star_fall-kill"
+    ],
+    "role": "variant",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: PREMIUM 飄絮刀 kill. Exactly ONE curved Chinese DAO sabre held correctly. Signature choreography: 鬆腕垂刀以曲步繞側，刀刃沿意外斜角輕落；飄、折、落. Reference main poses (do NOT merely duplicate): loose curved dao hanging down; curved side step and low wrist; blade drifts up unexpectedly; body turns into oblique light cut; wrist changes slant abruptly; dao falls softly in new angle; feet collect blade hanging; loose hanging dao guard. REAL FINISH RECOVERY: eight NEW body poses after defeating opponent: full low follow-through, stable held finish, body rises slowly, hand or correct weapon sweeps safely inward, rear foot steps close, sleeve shakes and settles, eyes calmly forward, dignified final guard. NO extra attack, NO new enemy, no gore.\n\nROWS 3-4: PREMIUM 流星墜月 crit. ONLY tiny throwing darts held in fingers, NO sword. Signature choreography: 雙手先高後低交替撒出暗器，身體隨手轉側；高撒、低撒、回袖. Reference main poses (do NOT merely duplicate): tiny star darts in both hands; right hand rises overhead; body turns to side; high scattering throw; left hand sweeps low scattering; both sleeves fold across waist; torso returns side-on; two-handed tiny darts guard. REAL CRITICAL HIT RECOVERY: eight NEW body poses after contact: compressed follow-through, stronger torso twist, reverse wrist or elbow fold, opposite-leg bracing, shoulder settling, weapon or hand gathering, deliberate deep exhale, confident final guard. Do NOT repeat main attack or create an extra strike. Keep weapon identity correct.\n\nROWS 5-6: PREMIUM 流星墜月 kill. ONLY tiny throwing darts held in fingers, NO sword. Signature choreography: 雙手先高後低交替撒出暗器，身體隨手轉側；高撒、低撒、回袖. Reference main poses (do NOT merely duplicate): tiny star darts in both hands; right hand rises overhead; body turns to side; high scattering throw; left hand sweeps low scattering; both sleeves fold across waist; torso returns side-on; two-handed tiny darts guard. REAL FINISH RECOVERY: eight NEW body poses after defeating opponent: full low follow-through, stable held finish, body rises slowly, hand or correct weapon sweeps safely inward, rear foot steps close, sleeve shakes and settles, eyes calmly forward, dignified final guard. NO extra attack, NO new enemy, no gore.\n"
+  },
+  {
+    "sheet": "expansion-rare-07",
+    "arts": [
+      "pr_blood_sea-detail",
+      "pr_thunder_heart-detail",
+      "pr_seal_meridian-detail"
+    ],
+    "role": "variant",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: PREMIUM 血海心經 detail. EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Signature choreography: 掌根貼腹聚息，翻掌擴胸再收息；聚擴收潮. Reference main poses (do NOT merely duplicate): palm heels against belly; hands compress inward; palms turn outward; chest and arms expand tide-like; wide palms reach broad; elbows fold as tide retreats; palms gather to belly; palm heels belly. EIGHT extra in-between body poses enriching the breathing/evasion sequence. Elaborate finger seals or foot transfers per art, cloth and torso transitions. NOT an attack and NO shield. Show transitions BETWEEN base poses, not duplicated base guard.\n\nROWS 3-4: PREMIUM 雷動心法 detail. EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Signature choreography: 交掌貼胸連續短吐，肘肩隨息微震；短短長吐. Reference main poses (do NOT merely duplicate): cross palms chest; first short chest exhale; elbows pulse inward; second short chest exhale; shoulders settle then long open breath; arms spread and slow; palms cross chest; crossed palms quiet. EIGHT extra in-between body poses enriching the breathing/evasion sequence. Elaborate finger seals or foot transfers per art, cloth and torso transitions. NOT an attack and NO shield. Show transitions BETWEEN base poses, not duplicated base guard.\n\nROWS 5-6: PREMIUM 封脈真經 detail. EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Signature choreography: 平掌於腹逐指閉合，雙手展開至胸；逐指收整體放. Reference main poses (do NOT merely duplicate): flat palms lower belly; little fingers close first; ring and middle fingers close; index fingers close; thumbs close into quiet seal; hands open rising chest; all fingers extend slowly; flat palms lower belly. EIGHT extra in-between body poses enriching the breathing/evasion sequence. Elaborate finger seals or foot transfers per art, cloth and torso transitions. NOT an attack and NO shield. Show transitions BETWEEN base poses, not duplicated base guard.\n"
+  },
+  {
+    "sheet": "expansion-rare-08",
+    "arts": [
+      "pr_void_breath-detail",
+      "pr_shadow_flash-detail",
+      "pr_tide_step-detail"
+    ],
+    "role": "variant",
+    "prompt": "Create an ORIGINAL production 2D wuxia animation SPRITE ATLAS. Match the attached CHARACTER IDENTITY: adult martial artist side profile facing RIGHT, broad conical straw hat, flowing charcoal-black tattered robe/scarf, desaturated detailed hand-painted Chinese ink with warm-grey fabric highlights. Anatomically correct adult, no chibi. TRANSPARENT GAME ASSET. Exactly FOUR equal columns SIX equal rows, 24 separated full-body actors in a 1024x1536 portrait canvas. Each 8-pose sequence spans two rows, left to right. Same uniform body scale in a sequence, generous empty alpha margins. Every foot, hat, limb and correct weapon FULLY inside its cell, no overlaps with neighbor cells. All eight poses visibly different, strong sequential body choreography. No text, digits, grid lines, watermark, fake checkerboard, scenery, shadows outside actor, external VFX, extra limbs or duplicate weapons. On every unarmed move: EMPTY HANDS, NO SWORD, NO SCABBARD, NO BLADE, no sword-like trail. Keep supplied exact held weapon ONLY for weapon arts. Keep long polearms modestly scaled uniformly so complete shaft and tip fit. IMPORTANT clean transparent alpha background, the reference dark backing is NOT a background to copy.\n\nROWS 1-2: PREMIUM 太虛吐納 detail. EMPTY HANDS. Breathing/receiving pose ONLY, NEVER attack or point a sword, no shield object. Signature choreography: 屈膝吸氣後舒身，實抱轉為虛托；沉輕起虛收. Reference main poses (do NOT merely duplicate): deep knees palms cupping; hands gather breath; body straightens lightly; arms float from full cup to loose cradle; palms turn almost weightless; body settles gently; hands close empty space; light cupped palms. EIGHT extra in-between body poses enriching the breathing/evasion sequence. Elaborate finger seals or foot transfers per art, cloth and torso transitions. NOT an attack and NO shield. Show transitions BETWEEN base poses, not duplicated base guard.\n\nROWS 3-4: PREMIUM 鬼影閃 detail. EMPTY HANDS. Footwork with actively changing legs and weight, NO sword, no scabbard, NO attack except shoulder pressure for explicitly external footwork. Signature choreography: 極低縮身後反向換足，軀幹先隱再現；壓閃反閃. Reference main poses (do NOT merely duplicate): extreme low compressed stance; hips sink almost floor; reverse foot switches behind; torso twists opposite; long low lateral escape; body unfolds suddenly; one foot brakes low; compressed low guard. EIGHT extra in-between body poses enriching the breathing/evasion sequence. Elaborate finger seals or foot transfers per art, cloth and torso transitions. NOT an attack and NO shield. Show transitions BETWEEN base poses, not duplicated base guard.\n\nROWS 5-6: PREMIUM 觀潮步 detail. EMPTY HANDS. Footwork with actively changing legs and weight, NO sword, no scabbard, NO attack except shoulder pressure for explicitly external footwork. Signature choreography: 前足探出後後足拖回，重心前後循環；進緩回再進. Reference main poses (do NOT merely duplicate): forward foot probing; weight advances gently; back foot drags toward front; hips retreat with long rear step; front foot gathers backward; weight advances second wave; feet soften together; probing forward foot. EIGHT extra in-between body poses enriching the breathing/evasion sequence. Elaborate finger seals or foot transfers per art, cloth and torso transitions. NOT an attack and NO shield. Show transitions BETWEEN base poses, not duplicated base guard.\n"
+  },
+  {
+    "sheet": "expansion-fx-01",
+    "effects": [
+      {
+        "id": "基礎吐納",
+        "layer": "signature",
+        "description": "基礎吐納: 丹田細息. 平掌收至丹田，直立微沉再舒展；慢吸慢吐. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_river_fist",
+        "layer": "signature",
+        "description": "長河拳: 長河三浪. 收拳轉胯逐步推進，三記長距離崩拳由小至大；短短長. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_stone_palm",
+        "layer": "signature",
+        "description": "裂石殘掌: 石縫向前延伸. 開掌沉腰後抬掌，躍起將掌心壓向地面；蓄、躍、重落. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_bridge_step",
+        "layer": "signature",
+        "description": "斷橋步: 橋面斷痕. 側身探步後踏隙欺近，以肩身迫入近距離；探、停、進. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_tomb_sword",
+        "layer": "signature",
+        "description": "無銘劍意: 古塚冷塵. 劍尖低藏，側步挑開破綻後斜刺回身；靜、挑、刺. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_lake_breath",
+        "layer": "signature",
+        "description": "寒湖吐納: 寒湖同心波. 兩掌由腹向兩側平展，肩胸凝定；長吐短停. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_rain_sword",
+        "layer": "signature",
+        "description": "聽雨劍意: 雨珠在劍尖破開. 直劍守中靜候，短促收腕後連續三刺；靜、點點點、歸靜. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_nine_shadow",
+        "layer": "signature",
+        "description": "九影迷踪步: 九道交錯殘跡. 低身交叉步穿行左右再欺近，肩線連換方向；左右左急停. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_cold_palm",
+        "layer": "signature",
+        "description": "寒霜掌: 霜枝沿掌路凝結. 豎掌護胸，退半步後平推封住中線；退、緩送、凝定. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_iron_body",
+        "layer": "signature",
+        "description": "鐵布衫: 雙道墨色護身氣息. 馬步收拳於腰，前臂交叉受力再展胸沉掌；沉、架、放. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_moon_sword",
+        "layer": "signature",
+        "description": "弄月劍法: 偏月弧痕. 劍藏側腰，斜步轉身以弧線削向側脅；藏、弧削、挽回. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_void_breath",
+        "layer": "signature",
+        "description": "空冥吐納: 空冥薄霧. 鬆肩垂肘環抱氣海，緩慢展掌；低緩連續. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_silk_hand",
+        "layer": "signature",
+        "description": "柔絲手: 柔絲雙環. 雙手鬆圓搭接，隨來勢轉腕引開再回送；接、引、送. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_thunder_blade",
+        "layer": "signature",
+        "description": "驚雷刀: 雷紋沿刃路落下. 雙手提厚刃過頂，蹬地前壓後重劈；長蓄、重落、拖刃收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_wind_chase",
+        "layer": "signature",
+        "description": "追風腿: 踢腿風弧. 後足支撐提膝，伸腿側踢後收膝轉身再踢；挑、轉、落. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_hook_silk",
+        "layer": "signature",
+        "description": "鐵線鉤法: 鐵線鉤軌. 鉤刃偏架，腕翻牽鎖後側腰拉回；鉤、纏、拉. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      }
+    ],
+    "role": "effects",
+    "prompt": "ORIGINAL premium Chinese ink wuxia game EFFECT SPRITES only, clean TRANSPARENT background. Exactly FOUR columns FOUR rows, 16 equally spaced isolated effects, each fully inside own cell with big clear margins. 1024x1024. No characters, people, letters, numbers, grid, borders, checkerboard or scenery. Fine sophisticated handpainted traditional ink with restrained cinnabar/pale gold accents, intricate fading ink fibres. No neon, sci-fi, screen-filling flash, flat geometric icon. These are cropped layered 2D animation materials, NOT a UI screenshot. Every cell unique.\nCELL 1 row1 col1: 基礎吐納: 丹田細息. 平掌收至丹田，直立微沉再舒展；慢吸慢吐. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 2 row1 col2: 長河拳: 長河三浪. 收拳轉胯逐步推進，三記長距離崩拳由小至大；短短長. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 3 row1 col3: 裂石殘掌: 石縫向前延伸. 開掌沉腰後抬掌，躍起將掌心壓向地面；蓄、躍、重落. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 4 row1 col4: 斷橋步: 橋面斷痕. 側身探步後踏隙欺近，以肩身迫入近距離；探、停、進. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 5 row2 col1: 無銘劍意: 古塚冷塵. 劍尖低藏，側步挑開破綻後斜刺回身；靜、挑、刺. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 6 row2 col2: 寒湖吐納: 寒湖同心波. 兩掌由腹向兩側平展，肩胸凝定；長吐短停. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 7 row2 col3: 聽雨劍意: 雨珠在劍尖破開. 直劍守中靜候，短促收腕後連續三刺；靜、點點點、歸靜. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 8 row2 col4: 九影迷踪步: 九道交錯殘跡. 低身交叉步穿行左右再欺近，肩線連換方向；左右左急停. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 9 row3 col1: 寒霜掌: 霜枝沿掌路凝結. 豎掌護胸，退半步後平推封住中線；退、緩送、凝定. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 10 row3 col2: 鐵布衫: 雙道墨色護身氣息. 馬步收拳於腰，前臂交叉受力再展胸沉掌；沉、架、放. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 11 row3 col3: 弄月劍法: 偏月弧痕. 劍藏側腰，斜步轉身以弧線削向側脅；藏、弧削、挽回. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 12 row3 col4: 空冥吐納: 空冥薄霧. 鬆肩垂肘環抱氣海，緩慢展掌；低緩連續. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 13 row4 col1: 柔絲手: 柔絲雙環. 雙手鬆圓搭接，隨來勢轉腕引開再回送；接、引、送. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 14 row4 col2: 驚雷刀: 雷紋沿刃路落下. 雙手提厚刃過頂，蹬地前壓後重劈；長蓄、重落、拖刃收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 15 row4 col3: 追風腿: 踢腿風弧. 後足支撐提膝，伸腿側踢後收膝轉身再踢；挑、轉、落. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 16 row4 col4: 鐵線鉤法: 鐵線鉤軌. 鉤刃偏架，腕翻牽鎖後側腰拉回；鉤、纏、拉. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\n"
+  },
+  {
+    "sheet": "expansion-fx-02",
+    "effects": [
+      {
+        "id": "art_meteor_palm",
+        "layer": "signature",
+        "description": "流星掌: 流星墜痕. 抬肘換掌逐次下壓，前腳隨掌墜進；連落、末掌停. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_tiger_breath",
+        "layer": "signature",
+        "description": "虎嘯內勁: 虎嘯氣紋. 闊胸收腹握拳腰側，抬胸後吐息；深吸沉吐. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_spring_well",
+        "layer": "signature",
+        "description": "涌泉訣: 泉眼細紋. 掌心交疊於腹，屈膝後徐徐提掌；下沉上湧. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_shadow_needle",
+        "layer": "signature",
+        "description": "無影針訣: 幾近無痕針線. 指尖藏針於袖，縮肘後貼身直彈；藏、彈、即收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "qg_snow_track",
+        "layer": "signature",
+        "description": "踏雪無痕: 踏雪消痕. 足尖輕點交替提踵，保持身體中線；輕點連移. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "qg_swallow_turn",
+        "layer": "signature",
+        "description": "燕子三轉: 燕尾三折. 單足側立後連換朝向，肩腰先轉腳跟隨；轉轉折返. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "qg_feiyan",
+        "layer": "signature",
+        "description": "飛燕功: 飛燕掠風. 低蹬前膝高提，雙臂平衡長距離落步；蹬飛落. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "qg_canopy_void",
+        "layer": "signature",
+        "description": "凌虛步: 凌虛細霧. 挺身腳尖連點，提步後輕輕收足；點起懸落. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "qg_broken_bridge",
+        "layer": "signature",
+        "description": "斷橋步: 斷橋灰塵錯痕. 窄步鬆架，後移重心再交叉錯步避讓；探、錯、收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_spear_cloud",
+        "layer": "signature",
+        "description": "穿雲槍: 槍尖破雲錐. 雙手分握長槍，後抽槍桿後蹬地平刺；收、沉、爆刺. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_staff_iron",
+        "layer": "signature",
+        "description": "鐵杖訣: 厚重杖風. 雙手守中持杖，橫掃開架後回杖護身；掃、頓、回架. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_whip_silk",
+        "layer": "signature",
+        "description": "柔絲鞭法: 柔絲鞭環. 鞭握腰側，肩腕依次帶動鞭梢繞出再捲回；放、梢響、收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_bow_star",
+        "layer": "signature",
+        "description": "逐星箭意: 逐星箭尾. 前臂持弓後手引弦，穩住肩線後鬆指；引、定、放. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "qg_reed_drift",
+        "layer": "signature",
+        "description": "蘆花身法: 蘆花低飄. 側腰鬆肩，重心左右換足如隨風；緩擺錯步. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "qg_wall_cat",
+        "layer": "signature",
+        "description": "壁虎遊牆: 壁面踏痕. 縮身屈膝手足交替借力，沿窄面換步；貼攀轉落. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_sand_palm",
+        "layer": "signature",
+        "description": "流沙掌: 流沙散幕. 掌心低藏，前手遮掩視線後反掌平抹；遮、抹、撤. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      }
+    ],
+    "role": "effects",
+    "prompt": "ORIGINAL premium Chinese ink wuxia game EFFECT SPRITES only, clean TRANSPARENT background. Exactly FOUR columns FOUR rows, 16 equally spaced isolated effects, each fully inside own cell with big clear margins. 1024x1024. No characters, people, letters, numbers, grid, borders, checkerboard or scenery. Fine sophisticated handpainted traditional ink with restrained cinnabar/pale gold accents, intricate fading ink fibres. No neon, sci-fi, screen-filling flash, flat geometric icon. These are cropped layered 2D animation materials, NOT a UI screenshot. Every cell unique.\nCELL 1 row1 col1: 流星掌: 流星墜痕. 抬肘換掌逐次下壓，前腳隨掌墜進；連落、末掌停. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 2 row1 col2: 虎嘯內勁: 虎嘯氣紋. 闊胸收腹握拳腰側，抬胸後吐息；深吸沉吐. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 3 row1 col3: 涌泉訣: 泉眼細紋. 掌心交疊於腹，屈膝後徐徐提掌；下沉上湧. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 4 row1 col4: 無影針訣: 幾近無痕針線. 指尖藏針於袖，縮肘後貼身直彈；藏、彈、即收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 5 row2 col1: 踏雪無痕: 踏雪消痕. 足尖輕點交替提踵，保持身體中線；輕點連移. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 6 row2 col2: 燕子三轉: 燕尾三折. 單足側立後連換朝向，肩腰先轉腳跟隨；轉轉折返. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 7 row2 col3: 飛燕功: 飛燕掠風. 低蹬前膝高提，雙臂平衡長距離落步；蹬飛落. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 8 row2 col4: 凌虛步: 凌虛細霧. 挺身腳尖連點，提步後輕輕收足；點起懸落. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 9 row3 col1: 斷橋步: 斷橋灰塵錯痕. 窄步鬆架，後移重心再交叉錯步避讓；探、錯、收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 10 row3 col2: 穿雲槍: 槍尖破雲錐. 雙手分握長槍，後抽槍桿後蹬地平刺；收、沉、爆刺. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 11 row3 col3: 鐵杖訣: 厚重杖風. 雙手守中持杖，橫掃開架後回杖護身；掃、頓、回架. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 12 row3 col4: 柔絲鞭法: 柔絲鞭環. 鞭握腰側，肩腕依次帶動鞭梢繞出再捲回；放、梢響、收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 13 row4 col1: 逐星箭意: 逐星箭尾. 前臂持弓後手引弦，穩住肩線後鬆指；引、定、放. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 14 row4 col2: 蘆花身法: 蘆花低飄. 側腰鬆肩，重心左右換足如隨風；緩擺錯步. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 15 row4 col3: 壁虎遊牆: 壁面踏痕. 縮身屈膝手足交替借力，沿窄面換步；貼攀轉落. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 16 row4 col4: 流沙掌: 流沙散幕. 掌心低藏，前手遮掩視線後反掌平抹；遮、抹、撤. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\n"
+  },
+  {
+    "sheet": "expansion-fx-03",
+    "effects": [
+      {
+        "id": "jy_ash_manual",
+        "layer": "signature",
+        "description": "灰中拳: 灰燼拳痕. 低垂拳背誘近，扭腰以反手崩拳送出；緩藏、急崩. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_mirror_breath",
+        "layer": "signature",
+        "description": "澄心鏡息: 鏡面清波. 雙掌相對平移至胸，肩肘維持對稱；舒展澄定. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "qg_lotus_steps",
+        "layer": "signature",
+        "description": "踏蓮步: 踏蓮水紋. 腳尖先落再展腳掌，雙足沿弧線換位；點展換. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_heavy_halberd",
+        "layer": "signature",
+        "description": "開山戟意: 開山戟裂風. 長戟斜扛肩側，轉胯帶戟刃由上向外砍開；扛、開、回桿. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "qy_cloud_sword",
+        "layer": "signature",
+        "description": "青雲初劍: 青雲筆鋒. 正身中平劍，前進直刺後原路收劍；穩定一進一收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "qy_mist_step",
+        "layer": "signature",
+        "description": "雲中步: 雲中虛步痕. 縮肩入側隙，以步帶雙指連點穴位；錯步、雙點. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "qy_piercing_needle",
+        "layer": "signature",
+        "description": "破雲刺: 一線破雲. 細劍點線貼胸蓄勢，身體沿同一線穿刺；收窄、急穿. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "qy_sky_intent",
+        "layer": "signature",
+        "description": "青冥劍意: 青冥層疊劍痕. 高劍架轉腕相接，前後腳連換令刺勢不斷；密刺無長停. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "td_open_blade",
+        "layer": "signature",
+        "description": "天刀開山: 山勢刀風. 寬步持刀於肩後，以肩腰帶動大幅斜斬；開架、斬、沉刀. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "td_wind_slash",
+        "layer": "signature",
+        "description": "裂風斬: 裂風薄刃. 刀鋒平架腰際，滑步橫割後回刃護肋；滑、橫割、收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "td_thunder_combo",
+        "layer": "signature",
+        "description": "雷鳴連刀: 雷鳴三折刃路. 刀背靠肩先壓步，交替三斬逐次縮短間隔；斬、斬斬. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "td_no_return",
+        "layer": "signature",
+        "description": "天刀無回: 無回斷墨. 重心完全後蓄，全身送前完成單次長斬；長蓄、單爆、低收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "em_soft_palm",
+        "layer": "signature",
+        "description": "峨嵋柔掌: 柔掌回春細息. 雙掌柔架，轉腰接勢後前掌平送；卸、送、回圓. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "em_silk_wrap",
+        "layer": "signature",
+        "description": "繞指柔: 繞指纏絲. 指掌相纏沿對手前臂繞入，以小幅腕轉點脈；纏、鎖、鬆. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "em_golden_palm",
+        "layer": "signature",
+        "description": "金頂綿掌: 金頂柔雲. 掌心向上托起再翻送，身形保持穩定中正；托、翻、送. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "em_heart_breath",
+        "layer": "signature",
+        "description": "峨嵋心法: 峨嵋柔氣環. 圓掌守心轉掌至腹，前後肘緩沉；圓轉穩息. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      }
+    ],
+    "role": "effects",
+    "prompt": "ORIGINAL premium Chinese ink wuxia game EFFECT SPRITES only, clean TRANSPARENT background. Exactly FOUR columns FOUR rows, 16 equally spaced isolated effects, each fully inside own cell with big clear margins. 1024x1024. No characters, people, letters, numbers, grid, borders, checkerboard or scenery. Fine sophisticated handpainted traditional ink with restrained cinnabar/pale gold accents, intricate fading ink fibres. No neon, sci-fi, screen-filling flash, flat geometric icon. These are cropped layered 2D animation materials, NOT a UI screenshot. Every cell unique.\nCELL 1 row1 col1: 灰中拳: 灰燼拳痕. 低垂拳背誘近，扭腰以反手崩拳送出；緩藏、急崩. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 2 row1 col2: 澄心鏡息: 鏡面清波. 雙掌相對平移至胸，肩肘維持對稱；舒展澄定. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 3 row1 col3: 踏蓮步: 踏蓮水紋. 腳尖先落再展腳掌，雙足沿弧線換位；點展換. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 4 row1 col4: 開山戟意: 開山戟裂風. 長戟斜扛肩側，轉胯帶戟刃由上向外砍開；扛、開、回桿. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 5 row2 col1: 青雲初劍: 青雲筆鋒. 正身中平劍，前進直刺後原路收劍；穩定一進一收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 6 row2 col2: 雲中步: 雲中虛步痕. 縮肩入側隙，以步帶雙指連點穴位；錯步、雙點. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 7 row2 col3: 破雲刺: 一線破雲. 細劍點線貼胸蓄勢，身體沿同一線穿刺；收窄、急穿. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 8 row2 col4: 青冥劍意: 青冥層疊劍痕. 高劍架轉腕相接，前後腳連換令刺勢不斷；密刺無長停. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 9 row3 col1: 天刀開山: 山勢刀風. 寬步持刀於肩後，以肩腰帶動大幅斜斬；開架、斬、沉刀. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 10 row3 col2: 裂風斬: 裂風薄刃. 刀鋒平架腰際，滑步橫割後回刃護肋；滑、橫割、收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 11 row3 col3: 雷鳴連刀: 雷鳴三折刃路. 刀背靠肩先壓步，交替三斬逐次縮短間隔；斬、斬斬. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 12 row3 col4: 天刀無回: 無回斷墨. 重心完全後蓄，全身送前完成單次長斬；長蓄、單爆、低收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 13 row4 col1: 峨嵋柔掌: 柔掌回春細息. 雙掌柔架，轉腰接勢後前掌平送；卸、送、回圓. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 14 row4 col2: 繞指柔: 繞指纏絲. 指掌相纏沿對手前臂繞入，以小幅腕轉點脈；纏、鎖、鬆. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 15 row4 col3: 金頂綿掌: 金頂柔雲. 掌心向上托起再翻送，身形保持穩定中正；托、翻、送. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 16 row4 col4: 峨嵋心法: 峨嵋柔氣環. 圓掌守心轉掌至腹，前後肘緩沉；圓轉穩息. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\n"
+  },
+  {
+    "sheet": "expansion-fx-04",
+    "effects": [
+      {
+        "id": "sl_luohan_fist",
+        "layer": "signature",
+        "description": "羅漢拳: 羅漢短勁墨震. 低馬步交臂護胸，近身短拳交替發力；沉架、短短、收架. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "sl_weituo",
+        "layer": "signature",
+        "description": "韋陀杖意: 韋陀杖頭短印. 直杖護身，前手導杖點穴後回抽杖根；架、點、抽. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "sl_iron_shirt",
+        "layer": "signature",
+        "description": "鐵布衫功: 鐵衣反震紋. 闊步肘臂貼肋，肩背受力後展開；受震歸定. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "sl_yijin",
+        "layer": "signature",
+        "description": "易筋吐納: 筋骨清勁. 舒指引臂抬升，背脊逐節伸展再沉肩；展筋落息. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "wd_sword_form",
+        "layer": "signature",
+        "description": "武當劍式: 武當圓劍痕. 圓形劍架起手，腳步繞側配合腕花送刺；圓轉、刺、回圓. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "wd_tai_push",
+        "layer": "signature",
+        "description": "太極推手: 太極雙向流痕. 前後掌相抱，以腰帶臂引開後雙掌緩推；接、引、推. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "wd_pure_yang",
+        "layer": "signature",
+        "description": "純陽吐納: 純陽暖息. 雙掌相對氣海，隨吐息抬胸展肩；悠長平穩. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "wd_wuji_sword",
+        "layer": "signature",
+        "description": "無極劍意: 無極相接劍環. 劍鋒立於中線，連續轉腕接刺後退劍守中；循環不斷. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "tm_flying_needle",
+        "layer": "signature",
+        "description": "唐門飛針: 細針分路抵達. 袖底夾針，手腕短促前彈並左右手接續；三次細密彈指. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "tm_shadow_step",
+        "layer": "signature",
+        "description": "影步: 影步折痕. 壓低肩線側足入暗，短距離換位再挺身；隱錯現. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "tm_poison_dart",
+        "layer": "signature",
+        "description": "淬毒鏢: 毒鏢尾霧. 拈鏢於肩側，肘帶腕拋出後指尖順勢下收；蓄鏢、拋、收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "tm_thousand_mech",
+        "layer": "signature",
+        "description": "千機手: 千機連射星點. 袖口朝前交替抬臂，以短促指扣逐次放射；扣、扣扣、合袖. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "mj_blood_palm",
+        "layer": "signature",
+        "description": "血影掌: 血影回捲掌霧. 掌根低蓄，向前拍送後掌心翻回胸前；拍、回帶. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "mj_devil_breath",
+        "layer": "signature",
+        "description": "魔息吐納: 魔息逆旋. 拳背貼腹俯身聚氣，抬胸再吐息；壓聚吐. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "mj_soul_drain",
+        "layer": "signature",
+        "description": "吸脈指: 吸脈回流細線. 兩指內扣，貼近後直探經脈再彎指收回；探、扣、抽. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "mj_asura_slash",
+        "layer": "signature",
+        "description": "修羅斬: 修羅朱砂刃痕. 反握刀架守低位，轉腰向上斜斬再沉刃；低、逆斬、收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      }
+    ],
+    "role": "effects",
+    "prompt": "ORIGINAL premium Chinese ink wuxia game EFFECT SPRITES only, clean TRANSPARENT background. Exactly FOUR columns FOUR rows, 16 equally spaced isolated effects, each fully inside own cell with big clear margins. 1024x1024. No characters, people, letters, numbers, grid, borders, checkerboard or scenery. Fine sophisticated handpainted traditional ink with restrained cinnabar/pale gold accents, intricate fading ink fibres. No neon, sci-fi, screen-filling flash, flat geometric icon. These are cropped layered 2D animation materials, NOT a UI screenshot. Every cell unique.\nCELL 1 row1 col1: 羅漢拳: 羅漢短勁墨震. 低馬步交臂護胸，近身短拳交替發力；沉架、短短、收架. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 2 row1 col2: 韋陀杖意: 韋陀杖頭短印. 直杖護身，前手導杖點穴後回抽杖根；架、點、抽. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 3 row1 col3: 鐵布衫功: 鐵衣反震紋. 闊步肘臂貼肋，肩背受力後展開；受震歸定. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 4 row1 col4: 易筋吐納: 筋骨清勁. 舒指引臂抬升，背脊逐節伸展再沉肩；展筋落息. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 5 row2 col1: 武當劍式: 武當圓劍痕. 圓形劍架起手，腳步繞側配合腕花送刺；圓轉、刺、回圓. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 6 row2 col2: 太極推手: 太極雙向流痕. 前後掌相抱，以腰帶臂引開後雙掌緩推；接、引、推. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 7 row2 col3: 純陽吐納: 純陽暖息. 雙掌相對氣海，隨吐息抬胸展肩；悠長平穩. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 8 row2 col4: 無極劍意: 無極相接劍環. 劍鋒立於中線，連續轉腕接刺後退劍守中；循環不斷. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 9 row3 col1: 唐門飛針: 細針分路抵達. 袖底夾針，手腕短促前彈並左右手接續；三次細密彈指. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 10 row3 col2: 影步: 影步折痕. 壓低肩線側足入暗，短距離換位再挺身；隱錯現. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 11 row3 col3: 淬毒鏢: 毒鏢尾霧. 拈鏢於肩側，肘帶腕拋出後指尖順勢下收；蓄鏢、拋、收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 12 row3 col4: 千機手: 千機連射星點. 袖口朝前交替抬臂，以短促指扣逐次放射；扣、扣扣、合袖. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 13 row4 col1: 血影掌: 血影回捲掌霧. 掌根低蓄，向前拍送後掌心翻回胸前；拍、回帶. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 14 row4 col2: 魔息吐納: 魔息逆旋. 拳背貼腹俯身聚氣，抬胸再吐息；壓聚吐. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 15 row4 col3: 吸脈指: 吸脈回流細線. 兩指內扣，貼近後直探經脈再彎指收回；探、扣、抽. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 16 row4 col4: 修羅斬: 修羅朱砂刃痕. 反握刀架守低位，轉腰向上斜斬再沉刃；低、逆斬、收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\n"
+  },
+  {
+    "sheet": "expansion-fx-05",
+    "effects": [
+      {
+        "id": "hs_pine_sword",
+        "layer": "signature",
+        "description": "松風劍: 松風劍葉. 高腕直劍，挺身送出乾淨直刺再收肩；穩、刺、回. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "hs_cloud_step",
+        "layer": "signature",
+        "description": "雲臺步: 雲臺階式劍痕. 持劍交叉踏高步，換足同時連刺兩側隙；踏、連刺、落步. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "hs_split_peak",
+        "layer": "signature",
+        "description": "劈岳劍: 劈岳縱向墨裂. 劍舉過肩後沿脊線壓落，以前足承重停住；舉、劈、定. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "hs_yue_breath",
+        "layer": "signature",
+        "description": "華嶽吐納: 華嶽厚息. 掌勢如承山，挺背後合掌於腹；托立合. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_drunken_fist",
+        "layer": "signature",
+        "description": "醉八仙拳: 酒霧錯位拳印. 腰身搖晃佯失平衡，反向扭腰以肘拳補入；晃、頓、反打. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "th_finger_flick",
+        "layer": "signature",
+        "description": "彈指神通: 彈石一點風. 拇指扣中指於胸前，鬆腕彈出小石後收指；靜、彈、垂. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "th_flute_sword",
+        "layer": "signature",
+        "description": "玉簫劍法: 簫音節點. 玉簫橫架胸前，以腕帶簫身點刺後橫收；橫、點、滑收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "th_falling_petals",
+        "layer": "signature",
+        "description": "落英神劍掌: 落英掌瓣. 掌心交替向外翻花，側步中連送開掌；翻、送、換掌. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "th_qimen_array",
+        "layer": "signature",
+        "description": "奇門一氣: 奇門息位. 雙掌依身側五位轉動，腳下換向再歸中；五向循環. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "wg_embroidery_needle",
+        "layer": "signature",
+        "description": "繡花奪命針: 繡花銀針細路. 垂袖遮手，以繡線般小幅拈指牽放細針；拈、牽、放. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "wg_silent_step",
+        "layer": "signature",
+        "description": "無聲遁跡: 無聲足跡. 腳掌外沿先落，屈膝吸力再換窄步；低緩不頓. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "wg_yin_soft_palm",
+        "layer": "signature",
+        "description": "陰柔化勁掌: 陰柔反向絲紋. 鬆掌受壓後沿腕轉向，以反掌將來力卸還；受、柔化、還. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "wg_root_severed_creed",
+        "layer": "signature",
+        "description": "忘根訣: 忘根寂息. 兩掌合於胸前，沉肩向下分掌；靜定再放. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_guqin_song",
+        "layer": "signature",
+        "description": "廣陵絕響: 廣陵弦音紋. 雙手作撫弦指勢，左右指尖輪替後平息；勾挑息. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_weiqi_trap",
+        "layer": "signature",
+        "description": "珍瓏棋局: 珍瓏黑白落子. 袖中拈棋，退半步後前後手先後落子；思、落、再落、合袖. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_poetry_sword",
+        "layer": "signature",
+        "description": "詩劍風流: 詩劍行書飛白. 劍勢先抑後揚，提腕如書寫長短筆勢；頓、長劃、收鋒. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      }
+    ],
+    "role": "effects",
+    "prompt": "ORIGINAL premium Chinese ink wuxia game EFFECT SPRITES only, clean TRANSPARENT background. Exactly FOUR columns FOUR rows, 16 equally spaced isolated effects, each fully inside own cell with big clear margins. 1024x1024. No characters, people, letters, numbers, grid, borders, checkerboard or scenery. Fine sophisticated handpainted traditional ink with restrained cinnabar/pale gold accents, intricate fading ink fibres. No neon, sci-fi, screen-filling flash, flat geometric icon. These are cropped layered 2D animation materials, NOT a UI screenshot. Every cell unique.\nCELL 1 row1 col1: 松風劍: 松風劍葉. 高腕直劍，挺身送出乾淨直刺再收肩；穩、刺、回. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 2 row1 col2: 雲臺步: 雲臺階式劍痕. 持劍交叉踏高步，換足同時連刺兩側隙；踏、連刺、落步. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 3 row1 col3: 劈岳劍: 劈岳縱向墨裂. 劍舉過肩後沿脊線壓落，以前足承重停住；舉、劈、定. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 4 row1 col4: 華嶽吐納: 華嶽厚息. 掌勢如承山，挺背後合掌於腹；托立合. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 5 row2 col1: 醉八仙拳: 酒霧錯位拳印. 腰身搖晃佯失平衡，反向扭腰以肘拳補入；晃、頓、反打. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 6 row2 col2: 彈指神通: 彈石一點風. 拇指扣中指於胸前，鬆腕彈出小石後收指；靜、彈、垂. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 7 row2 col3: 玉簫劍法: 簫音節點. 玉簫橫架胸前，以腕帶簫身點刺後橫收；橫、點、滑收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 8 row2 col4: 落英神劍掌: 落英掌瓣. 掌心交替向外翻花，側步中連送開掌；翻、送、換掌. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 9 row3 col1: 奇門一氣: 奇門息位. 雙掌依身側五位轉動，腳下換向再歸中；五向循環. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 10 row3 col2: 繡花奪命針: 繡花銀針細路. 垂袖遮手，以繡線般小幅拈指牽放細針；拈、牽、放. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 11 row3 col3: 無聲遁跡: 無聲足跡. 腳掌外沿先落，屈膝吸力再換窄步；低緩不頓. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 12 row3 col4: 陰柔化勁掌: 陰柔反向絲紋. 鬆掌受壓後沿腕轉向，以反掌將來力卸還；受、柔化、還. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 13 row4 col1: 忘根訣: 忘根寂息. 兩掌合於胸前，沉肩向下分掌；靜定再放. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 14 row4 col2: 廣陵絕響: 廣陵弦音紋. 雙手作撫弦指勢，左右指尖輪替後平息；勾挑息. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 15 row4 col3: 珍瓏棋局: 珍瓏黑白落子. 袖中拈棋，退半步後前後手先後落子；思、落、再落、合袖. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 16 row4 col4: 詩劍風流: 詩劍行書飛白. 劍勢先抑後揚，提腕如書寫長短筆勢；頓、長劃、收鋒. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\n"
+  },
+  {
+    "sheet": "expansion-fx-06",
+    "effects": [
+      {
+        "id": "art_ink_illusion",
+        "layer": "signature",
+        "description": "潑墨迷蹤: 潑墨虛實影. 斜側閃開，雙足沿寬窄相間曲線移位；潑斷轉. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_buddha_heart",
+        "layer": "signature",
+        "description": "金剛不壞: 佛心墨暈. 合掌凝神，前臂緩分護胸再回掌；合開歸. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_dao_breath",
+        "layer": "signature",
+        "description": "太乙玄清: 太乙遊氣. 掌心一上一下交替轉動，脊背自然伸縮；陰陽相續. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "art_heretic_scripture",
+        "layer": "signature",
+        "description": "天魔邪功: 天魔血氣殘痕. 俯身藏拳後貼身狠打，反肘收身而非持兵器；急近、狠打、抽身. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "pr_blood_lotus",
+        "layer": "signature",
+        "description": "血蓮千刃: 血蓮千刃瓣. 低刀向外翻刃，交叉換足完成瓣狀連斬；展、層斬、合. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "pr_blood_lotus",
+        "layer": "detail",
+        "description": "血蓮千刃: 血蓮千刃瓣, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade."
+      },
+      {
+        "id": "pr_blood_lotus",
+        "layer": "finish",
+        "description": "血蓮千刃: 血蓮千刃瓣, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack."
+      },
+      {
+        "id": "pr_crimson_moon",
+        "layer": "signature",
+        "description": "赤月飲血劍: 赤月回流劍影. 劍身貼臂藏鋒，回身月弧挑刺後帶劍收腰；藏、弧刺、回飲. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "pr_crimson_moon",
+        "layer": "detail",
+        "description": "赤月飲血劍: 赤月回流劍影, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade."
+      },
+      {
+        "id": "pr_crimson_moon",
+        "layer": "finish",
+        "description": "赤月飲血劍: 赤月回流劍影, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack."
+      },
+      {
+        "id": "pr_nine_chain",
+        "layer": "signature",
+        "description": "九連環掌: 九環相扣掌紋. 交臂開掌接續換手，九重掌勢由腰向前傳遞；密接層推. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "pr_nine_chain",
+        "layer": "detail",
+        "description": "九連環掌: 九環相扣掌紋, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade."
+      },
+      {
+        "id": "pr_nine_chain",
+        "layer": "finish",
+        "description": "九連環掌: 九環相扣掌紋, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack."
+      },
+      {
+        "id": "pr_wind_thread",
+        "layer": "signature",
+        "description": "穿風引線劍: 穿風三股引線. 低交叉步盤劍，側身弧進後轉足引出三刺；繞、刺刺刺、盤收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "pr_wind_thread",
+        "layer": "detail",
+        "description": "穿風引線劍: 穿風三股引線, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade."
+      },
+      {
+        "id": "pr_wind_thread",
+        "layer": "finish",
+        "description": "穿風引線劍: 穿風三股引線, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack."
+      }
+    ],
+    "role": "effects",
+    "prompt": "ORIGINAL premium Chinese ink wuxia game EFFECT SPRITES only, clean TRANSPARENT background. Exactly FOUR columns FOUR rows, 16 equally spaced isolated effects, each fully inside own cell with big clear margins. 1024x1024. No characters, people, letters, numbers, grid, borders, checkerboard or scenery. Fine sophisticated handpainted traditional ink with restrained cinnabar/pale gold accents, intricate fading ink fibres. No neon, sci-fi, screen-filling flash, flat geometric icon. These are cropped layered 2D animation materials, NOT a UI screenshot. Every cell unique.\nCELL 1 row1 col1: 潑墨迷蹤: 潑墨虛實影. 斜側閃開，雙足沿寬窄相間曲線移位；潑斷轉. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 2 row1 col2: 金剛不壞: 佛心墨暈. 合掌凝神，前臂緩分護胸再回掌；合開歸. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 3 row1 col3: 太乙玄清: 太乙遊氣. 掌心一上一下交替轉動，脊背自然伸縮；陰陽相續. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 4 row1 col4: 天魔邪功: 天魔血氣殘痕. 俯身藏拳後貼身狠打，反肘收身而非持兵器；急近、狠打、抽身. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 5 row2 col1: 血蓮千刃: 血蓮千刃瓣. 低刀向外翻刃，交叉換足完成瓣狀連斬；展、層斬、合. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 6 row2 col2: 血蓮千刃: 血蓮千刃瓣, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade.\nCELL 7 row2 col3: 血蓮千刃: 血蓮千刃瓣, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack.\nCELL 8 row2 col4: 赤月飲血劍: 赤月回流劍影. 劍身貼臂藏鋒，回身月弧挑刺後帶劍收腰；藏、弧刺、回飲. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 9 row3 col1: 赤月飲血劍: 赤月回流劍影, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade.\nCELL 10 row3 col2: 赤月飲血劍: 赤月回流劍影, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack.\nCELL 11 row3 col3: 九連環掌: 九環相扣掌紋. 交臂開掌接續換手，九重掌勢由腰向前傳遞；密接層推. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 12 row3 col4: 九連環掌: 九環相扣掌紋, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade.\nCELL 13 row4 col1: 九連環掌: 九環相扣掌紋, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack.\nCELL 14 row4 col2: 穿風引線劍: 穿風三股引線. 低交叉步盤劍，側身弧進後轉足引出三刺；繞、刺刺刺、盤收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 15 row4 col3: 穿風引線劍: 穿風三股引線, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade.\nCELL 16 row4 col4: 穿風引線劍: 穿風三股引線, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack.\n"
+  },
+  {
+    "sheet": "expansion-fx-07",
+    "effects": [
+      {
+        "id": "pr_mountain_split",
+        "layer": "signature",
+        "description": "裂嶽神拳: 山嶽斷面碎岩. 深蹲縮拳聚力，蹬起升拳後轉肩重落；長蓄、升、墜、沉收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "pr_mountain_split",
+        "layer": "detail",
+        "description": "裂嶽神拳: 山嶽斷面碎岩, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade."
+      },
+      {
+        "id": "pr_mountain_split",
+        "layer": "finish",
+        "description": "裂嶽神拳: 山嶽斷面碎岩, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack."
+      },
+      {
+        "id": "pr_heaven_spear",
+        "layer": "signature",
+        "description": "貫日神槍: 貫日槍鋒細芒. 槍尾沉地後雙手托起，以背腰帶槍尖長距離貫刺；沉、托、貫. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "pr_heaven_spear",
+        "layer": "detail",
+        "description": "貫日神槍: 貫日槍鋒細芒, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade."
+      },
+      {
+        "id": "pr_heaven_spear",
+        "layer": "finish",
+        "description": "貫日神槍: 貫日槍鋒細芒, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack."
+      },
+      {
+        "id": "pr_soul_lock",
+        "layer": "signature",
+        "description": "鎖魂指: 鎖魂穴位封紋. 雙指夾緊護胸，點出後保持短暫定勢再收指；定、點、定、鬆. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "pr_soul_lock",
+        "layer": "detail",
+        "description": "鎖魂指: 鎖魂穴位封紋, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade."
+      },
+      {
+        "id": "pr_soul_lock",
+        "layer": "finish",
+        "description": "鎖魂指: 鎖魂穴位封紋, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack."
+      },
+      {
+        "id": "pr_mist_blind",
+        "layer": "signature",
+        "description": "迷蹤散霧手: 迷霧掌中散開. 雙掌交錯遮掩後側身反推，手路虛實互換；遮、換、推. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "pr_mist_blind",
+        "layer": "detail",
+        "description": "迷蹤散霧手: 迷霧掌中散開, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade."
+      },
+      {
+        "id": "pr_mist_blind",
+        "layer": "finish",
+        "description": "迷蹤散霧手: 迷霧掌中散開, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack."
+      },
+      {
+        "id": "pr_vajra_palm",
+        "layer": "signature",
+        "description": "金剛不壞掌: 金剛山紋掌勁. 闊步直掌護胸，背脊挺立送掌後圓收雙臂；沉、山推、回護. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "pr_vajra_palm",
+        "layer": "detail",
+        "description": "金剛不壞掌: 金剛山紋掌勁, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade."
+      },
+      {
+        "id": "pr_vajra_palm",
+        "layer": "finish",
+        "description": "金剛不壞掌: 金剛山紋掌勁, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack."
+      },
+      {
+        "id": "pr_floating_blade",
+        "layer": "signature",
+        "description": "飄絮刀: 飄絮細碎刃尾. 鬆腕垂刀以曲步繞側，刀刃沿意外斜角輕落；飄、折、落. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      }
+    ],
+    "role": "effects",
+    "prompt": "ORIGINAL premium Chinese ink wuxia game EFFECT SPRITES only, clean TRANSPARENT background. Exactly FOUR columns FOUR rows, 16 equally spaced isolated effects, each fully inside own cell with big clear margins. 1024x1024. No characters, people, letters, numbers, grid, borders, checkerboard or scenery. Fine sophisticated handpainted traditional ink with restrained cinnabar/pale gold accents, intricate fading ink fibres. No neon, sci-fi, screen-filling flash, flat geometric icon. These are cropped layered 2D animation materials, NOT a UI screenshot. Every cell unique.\nCELL 1 row1 col1: 裂嶽神拳: 山嶽斷面碎岩. 深蹲縮拳聚力，蹬起升拳後轉肩重落；長蓄、升、墜、沉收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 2 row1 col2: 裂嶽神拳: 山嶽斷面碎岩, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade.\nCELL 3 row1 col3: 裂嶽神拳: 山嶽斷面碎岩, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack.\nCELL 4 row1 col4: 貫日神槍: 貫日槍鋒細芒. 槍尾沉地後雙手托起，以背腰帶槍尖長距離貫刺；沉、托、貫. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 5 row2 col1: 貫日神槍: 貫日槍鋒細芒, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade.\nCELL 6 row2 col2: 貫日神槍: 貫日槍鋒細芒, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack.\nCELL 7 row2 col3: 鎖魂指: 鎖魂穴位封紋. 雙指夾緊護胸，點出後保持短暫定勢再收指；定、點、定、鬆. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 8 row2 col4: 鎖魂指: 鎖魂穴位封紋, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade.\nCELL 9 row3 col1: 鎖魂指: 鎖魂穴位封紋, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack.\nCELL 10 row3 col2: 迷蹤散霧手: 迷霧掌中散開. 雙掌交錯遮掩後側身反推，手路虛實互換；遮、換、推. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 11 row3 col3: 迷蹤散霧手: 迷霧掌中散開, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade.\nCELL 12 row3 col4: 迷蹤散霧手: 迷霧掌中散開, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack.\nCELL 13 row4 col1: 金剛不壞掌: 金剛山紋掌勁. 闊步直掌護胸，背脊挺立送掌後圓收雙臂；沉、山推、回護. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 14 row4 col2: 金剛不壞掌: 金剛山紋掌勁, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade.\nCELL 15 row4 col3: 金剛不壞掌: 金剛山紋掌勁, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack.\nCELL 16 row4 col4: 飄絮刀: 飄絮細碎刃尾. 鬆腕垂刀以曲步繞側，刀刃沿意外斜角輕落；飄、折、落. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\n"
+  },
+  {
+    "sheet": "expansion-fx-08",
+    "effects": [
+      {
+        "id": "pr_floating_blade",
+        "layer": "detail",
+        "description": "飄絮刀: 飄絮細碎刃尾, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade."
+      },
+      {
+        "id": "pr_floating_blade",
+        "layer": "finish",
+        "description": "飄絮刀: 飄絮細碎刃尾, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack."
+      },
+      {
+        "id": "pr_star_fall",
+        "layer": "signature",
+        "description": "流星墜月: 流星墜月散點. 雙手先高後低交替撒出暗器，身體隨手轉側；高撒、低撒、回袖. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "pr_star_fall",
+        "layer": "detail",
+        "description": "流星墜月: 流星墜月散點, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade."
+      },
+      {
+        "id": "pr_star_fall",
+        "layer": "finish",
+        "description": "流星墜月: 流星墜月散點, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack."
+      },
+      {
+        "id": "pr_blood_sea",
+        "layer": "signature",
+        "description": "血海心經: 血海潮紋. 掌根貼腹聚息，翻掌擴胸再收息；聚擴收潮. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "pr_blood_sea",
+        "layer": "detail",
+        "description": "血海心經: 血海潮紋, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade."
+      },
+      {
+        "id": "pr_blood_sea",
+        "layer": "finish",
+        "description": "血海心經: 血海潮紋, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack."
+      },
+      {
+        "id": "pr_thunder_heart",
+        "layer": "signature",
+        "description": "雷動心法: 雷動脈紋. 交掌貼胸連續短吐，肘肩隨息微震；短短長吐. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "pr_thunder_heart",
+        "layer": "detail",
+        "description": "雷動心法: 雷動脈紋, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade."
+      },
+      {
+        "id": "pr_thunder_heart",
+        "layer": "finish",
+        "description": "雷動心法: 雷動脈紋, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack."
+      },
+      {
+        "id": "pr_diamond_body",
+        "layer": "signature",
+        "description": "金剛不壞體: 金剛多層細氣紋. 結印沉身，旋掌至胸後展前臂成圓架，再慢壓收息；印、展、圓、壓. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "pr_diamond_body",
+        "layer": "detail",
+        "description": "金剛不壞體: 金剛多層細氣紋, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade."
+      },
+      {
+        "id": "pr_diamond_body",
+        "layer": "finish",
+        "description": "金剛不壞體: 金剛多層細氣紋, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack."
+      },
+      {
+        "id": "pr_seal_meridian",
+        "layer": "signature",
+        "description": "封脈真經: 封脈息點. 平掌於腹逐指閉合，雙手展開至胸；逐指收整體放. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "pr_seal_meridian",
+        "layer": "detail",
+        "description": "封脈真經: 封脈息點, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade."
+      }
+    ],
+    "role": "effects",
+    "prompt": "ORIGINAL premium Chinese ink wuxia game EFFECT SPRITES only, clean TRANSPARENT background. Exactly FOUR columns FOUR rows, 16 equally spaced isolated effects, each fully inside own cell with big clear margins. 1024x1024. No characters, people, letters, numbers, grid, borders, checkerboard or scenery. Fine sophisticated handpainted traditional ink with restrained cinnabar/pale gold accents, intricate fading ink fibres. No neon, sci-fi, screen-filling flash, flat geometric icon. These are cropped layered 2D animation materials, NOT a UI screenshot. Every cell unique.\nCELL 1 row1 col1: 飄絮刀: 飄絮細碎刃尾, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade.\nCELL 2 row1 col2: 飄絮刀: 飄絮細碎刃尾, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack.\nCELL 3 row1 col3: 流星墜月: 流星墜月散點. 雙手先高後低交替撒出暗器，身體隨手轉側；高撒、低撒、回袖. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 4 row1 col4: 流星墜月: 流星墜月散點, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade.\nCELL 5 row2 col1: 流星墜月: 流星墜月散點, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack.\nCELL 6 row2 col2: 血海心經: 血海潮紋. 掌根貼腹聚息，翻掌擴胸再收息；聚擴收潮. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 7 row2 col3: 血海心經: 血海潮紋, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade.\nCELL 8 row2 col4: 血海心經: 血海潮紋, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack.\nCELL 9 row3 col1: 雷動心法: 雷動脈紋. 交掌貼胸連續短吐，肘肩隨息微震；短短長吐. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 10 row3 col2: 雷動心法: 雷動脈紋, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade.\nCELL 11 row3 col3: 雷動心法: 雷動脈紋, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack.\nCELL 12 row3 col4: 金剛不壞體: 金剛多層細氣紋. 結印沉身，旋掌至胸後展前臂成圓架，再慢壓收息；印、展、圓、壓. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 13 row4 col1: 金剛不壞體: 金剛多層細氣紋, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade.\nCELL 14 row4 col2: 金剛不壞體: 金剛多層細氣紋, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack.\nCELL 15 row4 col3: 封脈真經: 封脈息點. 平掌於腹逐指閉合，雙手展開至胸；逐指收整體放. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 16 row4 col4: 封脈真經: 封脈息點, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade.\n"
+  },
+  {
+    "sheet": "expansion-fx-09",
+    "effects": [
+      {
+        "id": "pr_seal_meridian",
+        "layer": "finish",
+        "description": "封脈真經: 封脈息點, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack."
+      },
+      {
+        "id": "pr_void_breath",
+        "layer": "signature",
+        "description": "太虛吐納: 太虛薄息. 屈膝吸氣後舒身，實抱轉為虛托；沉輕起虛收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "pr_void_breath",
+        "layer": "detail",
+        "description": "太虛吐納: 太虛薄息, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade."
+      },
+      {
+        "id": "pr_void_breath",
+        "layer": "finish",
+        "description": "太虛吐納: 太虛薄息, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack."
+      },
+      {
+        "id": "pr_cloud_step",
+        "layer": "signature",
+        "description": "踏雲九霄: 九霄上揚雲跡. 單足高立，深屈膝後提膝騰起，交腿換向再單足輕落；蓄、騰、轉、落. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "pr_cloud_step",
+        "layer": "detail",
+        "description": "踏雲九霄: 九霄上揚雲跡, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade."
+      },
+      {
+        "id": "pr_cloud_step",
+        "layer": "finish",
+        "description": "踏雲九霄: 九霄上揚雲跡, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack."
+      },
+      {
+        "id": "pr_shadow_flash",
+        "layer": "signature",
+        "description": "鬼影閃: 鬼影斷痕. 極低縮身後反向換足，軀幹先隱再現；壓閃反閃. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "pr_shadow_flash",
+        "layer": "detail",
+        "description": "鬼影閃: 鬼影斷痕, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade."
+      },
+      {
+        "id": "pr_shadow_flash",
+        "layer": "finish",
+        "description": "鬼影閃: 鬼影斷痕, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack."
+      },
+      {
+        "id": "pr_tide_step",
+        "layer": "signature",
+        "description": "觀潮步: 觀潮回波. 前足探出後後足拖回，重心前後循環；進緩回再進. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts."
+      },
+      {
+        "id": "pr_tide_step",
+        "layer": "detail",
+        "description": "觀潮步: 觀潮回波, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade."
+      },
+      {
+        "id": "pr_tide_step",
+        "layer": "finish",
+        "description": "觀潮步: 觀潮回波, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack."
+      },
+      {
+        "id": "pr_tide_step",
+        "layer": "finish",
+        "description": "觀潮步: 觀潮回波, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack."
+      },
+      {
+        "id": "pr_tide_step",
+        "layer": "finish",
+        "description": "觀潮步: 觀潮回波, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack."
+      },
+      {
+        "id": "pr_tide_step",
+        "layer": "finish",
+        "description": "觀潮步: 觀潮回波, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack."
+      }
+    ],
+    "role": "effects",
+    "prompt": "ORIGINAL premium Chinese ink wuxia game EFFECT SPRITES only, clean TRANSPARENT background. Exactly FOUR columns FOUR rows, 16 equally spaced isolated effects, each fully inside own cell with big clear margins. 1024x1024. No characters, people, letters, numbers, grid, borders, checkerboard or scenery. Fine sophisticated handpainted traditional ink with restrained cinnabar/pale gold accents, intricate fading ink fibres. No neon, sci-fi, screen-filling flash, flat geometric icon. These are cropped layered 2D animation materials, NOT a UI screenshot. Every cell unique.\nCELL 1 row1 col1: 封脈真經: 封脈息點, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack.\nCELL 2 row1 col2: 太虛吐納: 太虛薄息. 屈膝吸氣後舒身，實抱轉為虛托；沉輕起虛收. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 3 row1 col3: 太虛吐納: 太虛薄息, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade.\nCELL 4 row1 col4: 太虛吐納: 太虛薄息, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack.\nCELL 5 row2 col1: 踏雲九霄: 九霄上揚雲跡. 單足高立，深屈膝後提膝騰起，交腿換向再單足輕落；蓄、騰、轉、落. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 6 row2 col2: 踏雲九霄: 九霄上揚雲跡, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade.\nCELL 7 row2 col3: 踏雲九霄: 九霄上揚雲跡, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack.\nCELL 8 row2 col4: 鬼影閃: 鬼影斷痕. 極低縮身後反向換足，軀幹先隱再現；壓閃反閃. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 9 row3 col1: 鬼影閃: 鬼影斷痕, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade.\nCELL 10 row3 col2: 鬼影閃: 鬼影斷痕, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack.\nCELL 11 row3 col3: 觀潮步: 觀潮回波. 前足探出後後足拖回，重心前後循環；進緩回再進. ONLY this named material/motif, no characters, NO weapon-shaped energy on unarmed arts.\nCELL 12 row3 col4: 觀潮步: 觀潮回波, delicate detailed secondary fragments/threads/calligraphic echoes matching this motif, DISTINCT from main shape, no characters, no giant shield or unrelated blade.\nCELL 13 row4 col1: 觀潮步: 觀潮回波, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack.\nCELL 14 row4 col2: 觀潮步: 觀潮回波, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack.\nCELL 15 row4 col3: 觀潮步: 觀潮回波, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack.\nCELL 16 row4 col4: 觀潮步: 觀潮回波, premium finishing impact/receding aftermath, broader but fine detailed layered material, no characters, no physical weapon, no fake shield. For internal/qinggong only breathing/footstep air, NO attack.\n"
+  },
+  {
+    "sheet": "repair-art_nine_shadow",
+    "arts": [
+      "art_nine_shadow"
+    ],
+    "role": "base",
+    "rows": 2,
+    "cols": 4,
+    "prompt": "Create an original production 2D wuxia game sprite sheet, TRANSPARENT background, LANDSCAPE 1536x1024. Match attached character: adult in conical straw hat, charcoal ink tattered robe and scarf, detailed handpainted Chinese ink, side profile facing RIGHT. Exactly EIGHT figures: FOUR columns and TWO rows. Each complete full-body actor must fit entirely inside its own cell, huge empty margins; no overlapping actors or cut weapons. No text, numerals, grid, extra limbs, backgrounds or external effects. EMPTY HANDS. No sword, scabbard or blade.\nThis sheet is ONE martial art ONLY: art_nine_shadow. 低身交叉步穿行左右再欺近，肩線連換方向；左右左急停. Eight poses LEFT TO RIGHT across top row then bottom row:\nCELL1: very low crossed feet\nCELL2: lean left arms compact\nCELL3: uncross into right step\nCELL4: shoulder cuts forward\nCELL5: cross again opposite foot\nCELL6: sharp low side step\nCELL7: torso brakes tall\nCELL8: low crossed feet\nExactly EIGHT different body poses, 4x2, all eight present, not six, and no extra sequence."
+  },
+  {
+    "sheet": "repair-art_sand_palm",
+    "arts": [
+      "art_sand_palm"
+    ],
+    "role": "base",
+    "rows": 2,
+    "cols": 4,
+    "prompt": "Create an original production 2D wuxia game sprite sheet, TRANSPARENT background, LANDSCAPE 1536x1024. Match attached character: adult in conical straw hat, charcoal ink tattered robe and scarf, detailed handpainted Chinese ink, side profile facing RIGHT. Exactly EIGHT figures: FOUR columns and TWO rows. Each complete full-body actor must fit entirely inside its own cell, huge empty margins; no overlapping actors or cut weapons. No text, numerals, grid, extra limbs, backgrounds or external effects. EMPTY HANDS. No sword, scabbard or blade.\nThis sheet is ONE martial art ONLY: art_sand_palm. 掌心低藏，前手遮掩視線後反掌平抹；遮、抹、撤. Eight poses LEFT TO RIGHT across top row then bottom row:\nCELL1: open palms concealed low\nCELL2: left arm screens face\nCELL3: side step to flank\nCELL4: right palm turns flat\nCELL5: low sweeping open palm across waist\nCELL6: hand brushes outward\nCELL7: body withdraws behind sleeve\nCELL8: low concealed palms\nExactly EIGHT different body poses, 4x2, all eight present, not six, and no extra sequence."
+  },
+  {
+    "sheet": "repair-hs_yue_breath",
+    "arts": [
+      "hs_yue_breath"
+    ],
+    "role": "base",
+    "rows": 2,
+    "cols": 4,
+    "prompt": "Create an original production 2D wuxia game sprite sheet, TRANSPARENT background, LANDSCAPE 1536x1024. Match attached character: adult in conical straw hat, charcoal ink tattered robe and scarf, detailed handpainted Chinese ink, side profile facing RIGHT. Exactly EIGHT figures: FOUR columns and TWO rows. Each complete full-body actor must fit entirely inside its own cell, huge empty margins; no overlapping actors or cut weapons. No text, numerals, grid, extra limbs, backgrounds or external effects. EMPTY HANDS. No sword, scabbard or blade.\nThis sheet is ONE martial art ONLY: hs_yue_breath. 掌勢如承山，挺背後合掌於腹；托立合. Eight poses LEFT TO RIGHT across top row then bottom row:\nCELL1: palms supporting broad imaginary weight\nCELL2: spine stands tall\nCELL3: palms lift mountain-like\nCELL4: elbows hold firm beside shoulders\nCELL5: palms turn inward\nCELL6: hands join abdomen\nCELL7: knees root down\nCELL8: mountain support palms\nExactly EIGHT different body poses, 4x2, all eight present, not six, and no extra sequence."
+  },
+  {
+    "sheet": "repair-th_finger_flick",
+    "arts": [
+      "th_finger_flick"
+    ],
+    "role": "base",
+    "rows": 2,
+    "cols": 4,
+    "prompt": "Create an original production 2D wuxia game sprite sheet, TRANSPARENT background, LANDSCAPE 1536x1024. Match attached character: adult in conical straw hat, charcoal ink tattered robe and scarf, detailed handpainted Chinese ink, side profile facing RIGHT. Exactly EIGHT figures: FOUR columns and TWO rows. Each complete full-body actor must fit entirely inside its own cell, huge empty margins; no overlapping actors or cut weapons. No text, numerals, grid, extra limbs, backgrounds or external effects. EMPTY HANDS. No sword, scabbard or blade.\nThis sheet is ONE martial art ONLY: th_finger_flick. 拇指扣中指於胸前，鬆腕彈出小石後收指；靜、彈、垂. Eight poses LEFT TO RIGHT across top row then bottom row:\nCELL1: thumb holds middle finger at chest\nCELL2: still relaxed shoulders\nCELL3: wrist bends slightly back\nCELL4: middle finger snaps tiny pebble\nCELL5: wrist follows minimal forward\nCELL6: fingers relax downward\nCELL7: arm falls near waist\nCELL8: finger flick quiet stance\nExactly EIGHT different body poses, 4x2, all eight present, not six, and no extra sequence."
+  },
+  {
+    "sheet": "repair-art_heavy_halberd",
+    "arts": [
+      "art_heavy_halberd"
+    ],
+    "role": "base",
+    "rows": 2,
+    "cols": 4,
+    "prompt": "Create an original production 2D wuxia game sprite sheet, TRANSPARENT background, LANDSCAPE 1536x1024. Match attached character: adult in conical straw hat, charcoal ink tattered robe and scarf, detailed handpainted Chinese ink, side profile facing RIGHT. Exactly EIGHT figures: FOUR columns and TWO rows. Each complete full-body actor must fit entirely inside its own cell, huge empty margins; no overlapping actors or cut weapons. No text, numerals, grid, extra limbs, backgrounds or external effects. Exactly one long Chinese halberd, a shaft with large crescent metal head. All shaft and head inside frame, both hands grip correctly.\nThis sheet is ONE martial art ONLY: art_heavy_halberd. 長戟斜扛肩側，轉胯帶戟刃由上向外砍開；扛、開、回桿. Eight poses LEFT TO RIGHT across top row then bottom row:\nCELL1: one long crescent halberd across shoulder\nCELL2: rear knee sinks\nCELL3: hips rotate large crescent head up\nCELL4: diagonal halberd chop\nCELL5: wide low halberd follow-through\nCELL6: shaft retracts across body\nCELL7: head lifts behind shoulder\nCELL8: halberd shoulder guard\nExactly EIGHT different body poses, 4x2, all eight present, not six, and no extra sequence."
+  },
+  {
+    "sheet": "repair-pr_vajra_palm",
+    "arts": [
+      "pr_vajra_palm"
+    ],
+    "role": "base",
+    "rows": 2,
+    "cols": 4,
+    "prompt": "ORIGINAL production wuxia game eight-pose character sprite sheet, clean TRANSPARENT background, landscape 1536x1024. Exactly FOUR columns TWO rows, EIGHT full adult figures total. Same conical straw hat charcoal tattered robe character as reference, facing RIGHT, handpainted detailed Chinese ink. This art is VAJRA OPEN PALM. Every hand is EMPTY and OPEN, visible fingers. ABSOLUTELY NO SWORD, SCABBARD, KNIFE, STAFF OR WEAPON IN ANY CELL. No text, VFX, extra limbs, scenery or cropped body. Every pose complete with generous cell margins. Eight sequential poses: 1 wide stance vertical open palm; 2 back straightens rooted; 3 shoulder and elbow gather; 4 mountain-like strong palm push; 5 whole torso follows stable palm; 6 arms round returning to chest; 7 knees settle open palms; 8 wide vertical palm guard. Strong upright mountain-pushing palm shape, rooted wide legs, return arms rounded. ONLY OPEN EMPTY PALMS in all eight cells."
+  },
+  {
+    "sheet": "repair-pr_blood_lotus-kill",
+    "arts": [
+      "pr_blood_lotus-kill"
+    ],
+    "role": "variant",
+    "rows": 2,
+    "cols": 4,
+    "prompt": "ORIGINAL production wuxia animation sprite sheet TRANSPARENT background, landscape1536x1024. Exactly EIGHT full figures arranged FOUR columns TWO rows, no extras or missing figures. Match attached adult conical straw hat, charcoal tattered robe, detailed handpainted Chinese ink, RIGHT facing profile. ONE curved DAO SABRE. No duplicated weapon, full tips and feet inside cell, generous margins. No text, grid, VFX, background or extra limbs. This is PREMIUM pr_blood_lotus-kill post-impact RECOVERY ONLY, NOT eight new attacks. Eight distinct sequential body poses:\nCELL1: low finishing sabre held outward\nCELL2: deep still grounded finish\nCELL3: shoulders rise slowly blade low\nCELL4: wrist folds dao inward\nCELL5: rear foot collects under body\nCELL6: sleeve and dao settle beside waist\nCELL7: head calmly looks right\nCELL8: dignified low sabre guard. All eight contain the same exact correct weapon."
+  },
+  {
+    "sheet": "repair-pr_crimson_moon-crit",
+    "arts": [
+      "pr_crimson_moon-crit"
+    ],
+    "role": "variant",
+    "rows": 2,
+    "cols": 4,
+    "prompt": "ORIGINAL production wuxia animation sprite sheet TRANSPARENT background, landscape1536x1024. Exactly EIGHT full figures arranged FOUR columns TWO rows, no extras or missing figures. Match attached adult conical straw hat, charcoal tattered robe, detailed handpainted Chinese ink, RIGHT facing profile. ONE straight narrow JIAN SWORD. No duplicated weapon, full tips and feet inside cell, generous margins. No text, grid, VFX, background or extra limbs. This is PREMIUM pr_crimson_moon-crit post-impact RECOVERY ONLY, NOT eight new attacks. Eight distinct sequential body poses:\nCELL1: long crescent thrust followthrough\nCELL2: torso twists sharply around extended jian\nCELL3: opposite knee braces deep\nCELL4: elbow folds jian beside ribs\nCELL5: wrist rolls blade safe inward\nCELL6: rear heel settles into stance\nCELL7: shoulders draw calm tall\nCELL8: confident hidden-arm sword guard. All eight contain the same exact correct weapon."
+  },
+  {
+    "sheet": "repair-pr_blood_lotus-crit",
+    "arts": [
+      "pr_blood_lotus-crit"
+    ],
+    "role": "variant",
+    "rows": 2,
+    "cols": 4,
+    "prompt": "ORIGINAL production wuxia game transparent sprite sheet LANDSCAPE1536x1024, EXACTLY EIGHT single full-body figures in FOUR columns TWO rows. Only ONE actor PER cell, NEVER two bodies connected by sword. Adult conical hat charcoal torn robe side profile facing RIGHT, same detailed ink character as reference. ONE curved Chinese DAO sabre per actor. Huge transparent margins, entire actor and blade inside each cell, no overlapping, no grid, text, VFX, scenery or extra limbs. This is BLOOD LOTUS premium CRITICAL RECOVERY, not eight attacks. Eight distinct poses:1 deep diagonal dao follow-through with crossed feet;2 torso rotates back drawing sabre close;3 front knee straightens blade beside low hip;4 opposite shoulder folds with blade near ribs;5 rear foot collects and elbow rests inward;6 wrist safely rolls curved blade down;7 robe settles and head lifts;8 confident low sabre guard. Eight INDIVIDUAL actors, no pair in any cell. IMPORTANT each complete actor AND sabre only60% of cell width, leave20% clear margin on both sides."
+  }
+]

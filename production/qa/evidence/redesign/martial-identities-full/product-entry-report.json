@@ -1,0 +1,103 @@
+{
+  "cases": [
+    {
+      "kind": "home",
+      "controls": null,
+      "assets": [
+        "art_bow_star",
+        "art_staff_iron",
+        "art_whip_silk",
+        "pr_blood_lotus",
+        "pr_vajra_palm",
+        "pr_thunder_heart",
+        "pr_tide_step"
+      ],
+      "weapon": "/ink/spar/weapon-sword.webp",
+      "presentation": "stage",
+      "externalSlots": 5,
+      "supports": {
+        "internal": "pr_thunder_heart",
+        "qinggong": "pr_tide_step"
+      },
+      "overflow": false,
+      "canvas": 780
+    },
+    {
+      "kind": "spar-boss",
+      "controls": null,
+      "assets": [
+        "art_bow_star",
+        "art_staff_iron",
+        "art_whip_silk",
+        "pr_blood_lotus",
+        "pr_vajra_palm",
+        "pr_thunder_heart",
+        "pr_tide_step"
+      ],
+      "weapon": "/ink/spar/weapon-sword.webp",
+      "presentation": "battle",
+      "externalSlots": 5,
+      "supports": {
+        "internal": "pr_thunder_heart",
+        "qinggong": "pr_tide_step"
+      },
+      "overflow": false,
+      "canvas": 780
+    },
+    {
+      "kind": "event",
+      "controls": {
+        "speedToggle": true,
+        "skip": true,
+        "assetsReleased": true,
+        "effectsReleased": true
+      },
+      "assets": [
+        "art_bow_star",
+        "art_staff_iron",
+        "art_whip_silk",
+        "pr_blood_lotus",
+        "pr_vajra_palm",
+        "pr_thunder_heart",
+        "pr_tide_step"
+      ],
+      "weapon": "/ink/spar/weapon-sword.webp",
+      "presentation": "battle",
+      "externalSlots": 5,
+      "supports": {
+        "internal": "pr_thunder_heart",
+        "qinggong": "pr_tide_step"
+      },
+      "overflow": false,
+      "canvas": 300
+    },
+    {
+      "kind": "event-boss",
+      "controls": {
+        "speedToggle": true,
+        "skip": true,
+        "assetsReleased": true,
+        "effectsReleased": true
+      },
+      "assets": [
+        "art_bow_star",
+        "art_staff_iron",
+        "art_whip_silk",
+        "pr_blood_lotus",
+        "pr_vajra_palm",
+        "pr_thunder_heart",
+        "pr_tide_step"
+      ],
+      "weapon": "/ink/spar/weapon-sword.webp",
+      "presentation": "battle",
+      "externalSlots": 5,
+      "supports": {
+        "internal": "pr_thunder_heart",
+        "qinggong": "pr_tide_step"
+      },
+      "overflow": false,
+      "canvas": 300
+    }
+  ],
+  "errors": []
+}

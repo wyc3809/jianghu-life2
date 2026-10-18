@@ -1,0 +1,31 @@
+{
+  "tests": {
+    "passed": 645,
+    "files": 88
+  },
+  "build": "Pages子路徑通過",
+  "narrateHardFail": 0,
+  "catalog": {
+    "canonical": 103,
+    "external": 66,
+    "internal": 23,
+    "qinggong": 14,
+    "premium": 19,
+    "atlases": 133,
+    "frames": 1064,
+    "identityEffects": 141
+  },
+  "browser": {
+    "allArtDynamic": 103,
+    "rareTrueOutcomes": 22,
+    "fallbackCases": 38,
+    "productEntries": 4,
+    "staticRequests": 846,
+    "errors": 0
+  },
+  "media": 469,
+  "renderRevision": "珍本主效果1.6H／暴擊2H／擊倒2.2H，接觸格40ms",
+  "deployed": false,
+  "realIphoneValidated": false,
+  "scope": "玩家確認首批方向後全量接入；全目錄美術待玩家確認。"
+}

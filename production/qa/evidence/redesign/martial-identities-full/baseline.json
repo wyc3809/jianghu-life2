@@ -1,0 +1,20 @@
+{
+  "commit": "43d6b7709311881c8b60b6b62372a4621ca33c03",
+  "seed": 42,
+  "viewport": [
+    390,
+    844
+  ],
+  "dpr": 2,
+  "frame": 16,
+  "id": "pr_vajra_palm",
+  "result": {
+    "dmg": 85,
+    "crit": true,
+    "heal": 0,
+    "killed": false,
+    "fx": [],
+    "reflect": 0
+  },
+  "assets": []
+}
