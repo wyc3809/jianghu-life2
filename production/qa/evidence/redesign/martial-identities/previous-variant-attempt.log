@@ -1,0 +1,18 @@
+盲辨錄影 art_river_fist
+盲辨錄影 sl_luohan_fist
+盲辨錄影 pr_mountain_split
+盲辨錄影 art_rain_sword
+盲辨錄影 pr_wind_thread
+盲辨錄影 art_iron_body
+盲辨錄影 pr_diamond_body
+盲辨錄影 qg_broken_bridge
+盲辨錄影 pr_cloud_step
+真實結果收勢 pr_mountain_split crit
+file:///workspace/jianghu-life2-current/scripts/qa/recordMartialReviewExtras.mjs:30
+ if(!state.result||(outcome==='crit'?!state.result.crit:!state.result.killed))throw Error('未取得真正核心結果 '+id+' '+outcome);
+                                                                                    ^
+
+Error: 未取得真正核心結果 pr_mountain_split kill
+    at file:///workspace/jianghu-life2-current/scripts/qa/recordMartialReviewExtras.mjs:30:85
+
+Node.js v24.19.0

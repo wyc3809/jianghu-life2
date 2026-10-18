@@ -1,0 +1,108 @@
+[
+  {
+    "id": "pr_mountain_split",
+    "outcome": "crit",
+    "kind": "真實核心結果後，以同一呈現器慢速檢視收勢；唔重複結算",
+    "steps": 51,
+    "result": {
+      "dmg": 85,
+      "crit": true,
+      "heal": 0,
+      "killed": false,
+      "fx": [],
+      "reflect": 0
+    },
+    "art": "pr_mountain_split",
+    "inspectionCamera": "真結果後凍結時計，主角置左檢視收勢；唔增加移動或攻擊",
+    "volume": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "id": "pr_mountain_split",
+    "outcome": "kill",
+    "kind": "真實核心結果後，以同一呈現器慢速檢視收勢；唔重複結算",
+    "steps": 1269,
+    "result": {
+      "dmg": 64,
+      "crit": true,
+      "heal": 0,
+      "killed": true,
+      "fx": [
+        {
+          "kind": "guard",
+          "value": 27
+        }
+      ],
+      "reflect": 0
+    },
+    "art": "pr_mountain_split",
+    "inspectionCamera": "真結果後凍結時計，主角置左檢視收勢；唔增加移動或攻擊",
+    "volume": [
+      1,
+      1
+    ]
+  },
+  {
+    "id": "pr_wind_thread",
+    "outcome": "crit",
+    "kind": "真實核心結果後，以同一呈現器慢速檢視收勢；唔重複結算",
+    "steps": 51,
+    "result": {
+      "dmg": 85,
+      "crit": true,
+      "heal": 0,
+      "killed": false,
+      "fx": [],
+      "reflect": 0
+    },
+    "art": "pr_wind_thread",
+    "inspectionCamera": "真結果後凍結時計，主角置左檢視收勢；唔增加移動或攻擊",
+    "volume": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "id": "pr_wind_thread",
+    "outcome": "kill",
+    "kind": "真實核心結果後，以同一呈現器慢速檢視收勢；唔重複結算",
+    "steps": 1267,
+    "result": {
+      "dmg": 64,
+      "crit": true,
+      "heal": 0,
+      "killed": true,
+      "fx": [
+        {
+          "kind": "guard",
+          "value": 27
+        }
+      ],
+      "reflect": 0
+    },
+    "art": "pr_wind_thread",
+    "inspectionCamera": "真結果後凍結時計，主角置左檢視收勢；唔增加移動或攻擊",
+    "volume": [
+      1,
+      1
+    ]
+  }
+]

@@ -1,0 +1,28 @@
+錄影完成 pr_mountain_split
+錄影完成 art_river_fist
+錄影完成 sl_luohan_fist
+錄影完成 tm_flying_needle
+錄影完成 art_stone_palm
+錄影完成 art_wind_chase
+錄影完成 art_thunder_blade
+錄影完成 art_rain_sword
+錄影完成 pr_wind_thread
+錄影完成 art_iron_body
+錄影完成 art_spear_cloud
+錄影完成 art_weiqi_trap
+錄影完成 pr_cloud_step
+錄影完成 pr_diamond_body
+錄影完成 qg_broken_bridge
+錄影完成 art_river_fist -slow
+錄影完成 art_river_fist -rotation
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+page.waitForFunction: Timeout 30000ms exceeded.
+    at record (/workspace/jianghu-life2-current/scripts/qa/recordMartialIdentities.mjs:25:14)
+    at async file:///workspace/jianghu-life2-current/scripts/qa/recordMartialIdentities.mjs:60:107 {
+  name: 'TimeoutError'
+}
+
+Node.js v24.19.0

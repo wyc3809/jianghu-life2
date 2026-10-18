@@ -325,6 +325,8 @@ export interface CombatReplayHit {
   moveName: string;
   vol?: number;
   skillId?: string;
+  /** 只記核心明確提供嘅暴擊；缺省唔以卷數推測。 */
+  crit?: boolean;
   /** 今招造成嘅傷害（0＝落空／被架） */
   damage: number;
   playerHp: number;

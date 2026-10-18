@@ -38,6 +38,8 @@ import { InkBattleArts } from './InkBattleArts';
 import { ownedVolumes } from '@core/life/volumes';
 import { getSkillDef } from '@data/skills/catalog';
 import { motionReduced } from '../../ui/inkMotion';
+import { equippedMartialArts } from '@core/life/martialLoadout';
+import { loadMartialAssets } from '../../fx/art/martialPoses';
 
 interface Props {
   season?: SparSeason;
@@ -182,6 +184,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
     if (!id) return null;
     return getGearDef(id)?.weaponKind ?? null;
   });
+  const martialIdsKey = useLifeStore(s => s.state ? equippedMartialArts(s.state.character).join('|') : '');
 
   // 身上狀態（流血不止之類）——顯示喺演武台左上角浮層
   const conditions = useLifeStore((s) => s.state?.character.conditions ?? NO_CONDITIONS);
@@ -331,6 +334,9 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
       .then(async (images) => {
         images.ui = await loadSparUiImages();
         images.coin = await loadSparImage(COIN_SRC).catch(() => null);
+        const character = useLifeStore.getState().state?.character;
+        const arts = character ? equippedMartialArts(character) : [];
+        const martialAssets = await loadMartialAssets(arts);
         if (cancelled) return;
         stage = new SparStage({
           canvas,
@@ -341,6 +347,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
           onStrike: () => sparStrike(),
           combat,
         });
+        stage.setMartialAssets(martialAssets, arts.filter(id => getSkillDef(id)?.kind !== 'external'));
         sync();
         stageRef.current = stage;
         setStageReady(true);
@@ -395,6 +402,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
 
     return () => {
       cancelled = true;
+      stage?.releaseMartialAssets();
       if (noteTimer) clearTimeout(noteTimer);
       stageRef.current = null;
       if (import.meta.env.DEV) {
@@ -406,6 +414,18 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
       io.disconnect();
     };
   }, [reduceMotion, rig, enemies]);
+
+  // 換裝備 → 換武器貼圖
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    let cancelled = false;
+    const ids = martialIdsKey.split('|').filter(Boolean);
+    void loadMartialAssets(ids).then(assets => {
+      if (!cancelled) stage.setMartialAssets(assets, ids.filter(id => getSkillDef(id)?.kind !== 'external'));
+    });
+    return () => { cancelled = true; };
+  }, [martialIdsKey, stageReady]);
 
   // 換裝備 → 換武器貼圖
   useEffect(() => {

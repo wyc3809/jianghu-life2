@@ -1,0 +1,139 @@
+{
+  "scope": "Linux桌面Chromium，390×844 DPR2模擬；唔係iPhone真機，唔代表真機60fps或峰值圖形記憶體",
+  "cases": [
+    {
+      "id": "art_river_fist",
+      "readyMs": 2449,
+      "frames": 180,
+      "medianMs": 16.699999999999818,
+      "p95Ms": 33.30000000000018,
+      "maxMs": 50,
+      "jsHeapSampledPeakBytes": 44151834,
+      "estimatedNewRasterRGBABytes": 7077888,
+      "resourceLoads": [
+        {
+          "name": "art_river_fist.webp",
+          "bytes": 173694,
+          "transfer": 173994
+        },
+        {
+          "name": "fx-wave.webp",
+          "bytes": 32834,
+          "transfer": 33134
+        },
+        {
+          "name": "fx-wave-big.webp",
+          "bytes": 39310,
+          "transfer": 39610
+        },
+        {
+          "name": "fx-qi.webp",
+          "bytes": 41522,
+          "transfer": 41822
+        },
+        {
+          "name": "fx-crack.webp",
+          "bytes": 29272,
+          "transfer": 29572
+        },
+        {
+          "name": "fx-spark.webp",
+          "bytes": 49648,
+          "transfer": 49948
+        }
+      ],
+      "physicalGPUOrImagePeakMeasured": false
+    },
+    {
+      "id": "pr_mountain_split",
+      "readyMs": 2215,
+      "frames": 180,
+      "medianMs": 16.699999999999818,
+      "p95Ms": 16.799999999999727,
+      "maxMs": 33.30000000000018,
+      "jsHeapSampledPeakBytes": 47162106,
+      "estimatedNewRasterRGBABytes": 18612224,
+      "resourceLoads": [
+        {
+          "name": "pr_mountain_split.webp",
+          "bytes": 163620,
+          "transfer": 163920
+        },
+        {
+          "name": "pr_mountain_split-crit.webp",
+          "bytes": 216594,
+          "transfer": 216894
+        },
+        {
+          "name": "pr_mountain_split-kill.webp",
+          "bytes": 207274,
+          "transfer": 207574
+        },
+        {
+          "name": "fx-wave.webp",
+          "bytes": 32834,
+          "transfer": 33134
+        },
+        {
+          "name": "fx-wave-big.webp",
+          "bytes": 39310,
+          "transfer": 39610
+        },
+        {
+          "name": "fx-qi.webp",
+          "bytes": 41522,
+          "transfer": 41822
+        },
+        {
+          "name": "fx-crack.webp",
+          "bytes": 29272,
+          "transfer": 29572
+        },
+        {
+          "name": "fx-spark.webp",
+          "bytes": 49648,
+          "transfer": 49948
+        }
+      ],
+      "physicalGPUOrImagePeakMeasured": false
+    },
+    {
+      "id": "pr_wind_thread",
+      "readyMs": 2131,
+      "frames": 180,
+      "medianMs": 16.699999999999818,
+      "p95Ms": 16.800000000000182,
+      "maxMs": 33.40000000000009,
+      "jsHeapSampledPeakBytes": 47265514,
+      "estimatedNewRasterRGBABytes": 17825792,
+      "resourceLoads": [
+        {
+          "name": "pr_wind_thread.webp",
+          "bytes": 205076,
+          "transfer": 205376
+        },
+        {
+          "name": "pr_wind_thread-crit.webp",
+          "bytes": 203616,
+          "transfer": 203916
+        },
+        {
+          "name": "pr_wind_thread-kill.webp",
+          "bytes": 200044,
+          "transfer": 200344
+        },
+        {
+          "name": "fx-rain.webp",
+          "bytes": 34924,
+          "transfer": 35224
+        },
+        {
+          "name": "fx-streak.webp",
+          "bytes": 43372,
+          "transfer": 43672
+        }
+      ],
+      "physicalGPUOrImagePeakMeasured": false
+    }
+  ]
+}

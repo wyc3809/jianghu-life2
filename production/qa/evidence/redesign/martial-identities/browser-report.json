@@ -1,0 +1,97 @@
+{
+  "seed": 42,
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "dpr": 2,
+  "timing": "產品引擎固定步進24fps錄影；唔係裝置性能量測",
+  "resumedAfterCapture": true,
+  "previousAttempts": [
+    "開發熱更新曾中斷第一輪錄影；未當通過。",
+    "完成15門正常、慢速及切換片後，單一墨色情境30秒未出現舞台；該次未當通過。隔離開發依賴快取後重跑。"
+  ],
+  "cases": [
+    {
+      "engine": "chromium",
+      "width": 320,
+      "check": {
+        "overflow": false,
+        "quiet": true,
+        "assets": [
+          "art_stone_palm"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "engine": "chromium",
+      "width": 390,
+      "check": {
+        "overflow": false,
+        "quiet": true,
+        "assets": [
+          "art_stone_palm"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "engine": "chromium",
+      "width": 420,
+      "check": {
+        "overflow": false,
+        "quiet": true,
+        "assets": [
+          "art_stone_palm"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "engine": "webkit",
+      "width": 320,
+      "check": {
+        "overflow": false,
+        "quiet": true,
+        "assets": [
+          "art_stone_palm"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "engine": "webkit",
+      "width": 390,
+      "check": {
+        "overflow": false,
+        "quiet": true,
+        "assets": [
+          "art_stone_palm"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "engine": "webkit",
+      "width": 420,
+      "check": {
+        "overflow": false,
+        "quiet": true,
+        "assets": [
+          "art_stone_palm"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "case": "全部武學網絡素材404",
+      "fallback": {
+        "guard": true,
+        "embedded": true,
+        "family": "palm"
+      }
+    }
+  ],
+  "errors": []
+}
