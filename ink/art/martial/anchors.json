@@ -1,0 +1,3845 @@
+{
+  "art_river_fist": {
+    "sheet": "fists",
+    "sourceSha256": "71fff53b7a9a76c1bd5b593d4cce53b9e807337fca9185c5a26f4ac94bf9e29f",
+    "frameWidth": 512,
+    "frameHeight": 352,
+    "frameCount": 8,
+    "foot": [
+      256,
+      328
+    ],
+    "bodyHeight": 218,
+    "bytes": 173694,
+    "frames": [
+      {
+        "sourceRect": [
+          28,
+          9,
+          207,
+          251
+        ],
+        "sourceFoot": [
+          121.5,
+          246
+        ],
+        "scale": 1.01395,
+        "offset": [
+          133,
+          79
+        ],
+        "contact": [
+          324.64,
+          146.93
+        ]
+      },
+      {
+        "sourceRect": [
+          276,
+          56,
+          224,
+          203
+        ],
+        "sourceFoot": [
+          109.5,
+          199
+        ],
+        "scale": 1.01395,
+        "offset": [
+          145,
+          126
+        ],
+        "contact": [
+          361.99,
+          187.85
+        ]
+      },
+      {
+        "sourceRect": [
+          521,
+          52,
+          287,
+          208
+        ],
+        "sourceFoot": [
+          128.5,
+          204
+        ],
+        "scale": 1.01395,
+        "offset": [
+          126,
+          121
+        ],
+        "contact": [
+          407.88,
+          176.77
+        ]
+      },
+      {
+        "sourceRect": [
+          806,
+          36,
+          198,
+          224
+        ],
+        "sourceFoot": [
+          105.5,
+          220
+        ],
+        "scale": 1.01395,
+        "offset": [
+          149,
+          105
+        ],
+        "contact": [
+          333.54,
+          257.09
+        ]
+      },
+      {
+        "sourceRect": [
+          13,
+          287,
+          302,
+          226
+        ],
+        "sourceFoot": [
+          133.0,
+          222
+        ],
+        "scale": 1.01395,
+        "offset": [
+          121,
+          103
+        ],
+        "contact": [
+          417.07,
+          157.75
+        ]
+      },
+      {
+        "sourceRect": [
+          276,
+          323,
+          312,
+          193
+        ],
+        "sourceFoot": [
+          135.0,
+          189
+        ],
+        "scale": 1.01395,
+        "offset": [
+          119,
+          136
+        ],
+        "contact": [
+          426.23,
+          183.66
+        ]
+      },
+      {
+        "sourceRect": [
+          540,
+          297,
+          219,
+          219
+        ],
+        "sourceFoot": [
+          134.0,
+          215
+        ],
+        "scale": 1.01395,
+        "offset": [
+          120,
+          110
+        ],
+        "contact": [
+          321.78,
+          256.01
+        ]
+      },
+      {
+        "sourceRect": [
+          787,
+          264,
+          213,
+          252
+        ],
+        "sourceFoot": [
+          129.0,
+          248
+        ],
+        "scale": 1.01395,
+        "offset": [
+          125,
+          77
+        ],
+        "contact": [
+          316.64,
+          143.92
+        ]
+      }
+    ]
+  },
+  "sl_luohan_fist": {
+    "sheet": "fists",
+    "sourceSha256": "71fff53b7a9a76c1bd5b593d4cce53b9e807337fca9185c5a26f4ac94bf9e29f",
+    "frameWidth": 512,
+    "frameHeight": 352,
+    "frameCount": 8,
+    "foot": [
+      256,
+      328
+    ],
+    "bodyHeight": 218,
+    "bytes": 164166,
+    "frames": [
+      {
+        "sourceRect": [
+          15,
+          559,
+          243,
+          215
+        ],
+        "sourceFoot": [
+          128.0,
+          211
+        ],
+        "scale": 1.06341,
+        "offset": [
+          120,
+          104
+        ],
+        "contact": [
+          336.94,
+          263.51
+        ]
+      },
+      {
+        "sourceRect": [
+          273,
+          555,
+          242,
+          218
+        ],
+        "sourceFoot": [
+          124.0,
+          214
+        ],
+        "scale": 1.06341,
+        "offset": [
+          124,
+          100
+        ],
+        "contact": [
+          343.06,
+          262.7
+        ]
+      },
+      {
+        "sourceRect": [
+          534,
+          575,
+          231,
+          198
+        ],
+        "sourceFoot": [
+          120.0,
+          194
+        ],
+        "scale": 1.06341,
+        "offset": [
+          128,
+          122
+        ],
+        "contact": [
+          338.38,
+          198.57
+        ]
+      },
+      {
+        "sourceRect": [
+          773,
+          575,
+          230,
+          198
+        ],
+        "sourceFoot": [
+          120.0,
+          193
+        ],
+        "scale": 1.06341,
+        "offset": [
+          128,
+          123
+        ],
+        "contact": [
+          364.08,
+          191.06
+        ]
+      },
+      {
+        "sourceRect": [
+          15,
+          805,
+          243,
+          210
+        ],
+        "sourceFoot": [
+          125.56,
+          206
+        ],
+        "scale": 1.06341,
+        "offset": [
+          122,
+          109
+        ],
+        "contact": [
+          354.89,
+          196.2
+        ]
+      },
+      {
+        "sourceRect": [
+          275,
+          814,
+          242,
+          201
+        ],
+        "sourceFoot": [
+          125.5,
+          197
+        ],
+        "scale": 1.06341,
+        "offset": [
+          123,
+          119
+        ],
+        "contact": [
+          355.89,
+          186.0
+        ]
+      },
+      {
+        "sourceRect": [
+          526,
+          810,
+          236,
+          204
+        ],
+        "sourceFoot": [
+          119.0,
+          200
+        ],
+        "scale": 1.06341,
+        "offset": [
+          129,
+          115
+        ],
+        "contact": [
+          341.68,
+          264.94
+        ]
+      },
+      {
+        "sourceRect": [
+          778,
+          806,
+          239,
+          209
+        ],
+        "sourceFoot": [
+          120.5,
+          205
+        ],
+        "scale": 1.06341,
+        "offset": [
+          128,
+          110
+        ],
+        "contact": [
+          341.75,
+          263.13
+        ]
+      }
+    ]
+  },
+  "pr_mountain_split": {
+    "sheet": "fists",
+    "sourceSha256": "71fff53b7a9a76c1bd5b593d4cce53b9e807337fca9185c5a26f4ac94bf9e29f",
+    "frameWidth": 512,
+    "frameHeight": 352,
+    "frameCount": 8,
+    "foot": [
+      256,
+      328
+    ],
+    "bodyHeight": 218,
+    "bytes": 163620,
+    "frames": [
+      {
+        "sourceRect": [
+          14,
+          1033,
+          240,
+          243
+        ],
+        "sourceFoot": [
+          128.5,
+          239
+        ],
+        "scale": 1.0283,
+        "offset": [
+          124,
+          82
+        ],
+        "contact": [
+          336.86,
+          140.61
+        ]
+      },
+      {
+        "sourceRect": [
+          265,
+          1105,
+          239,
+          171
+        ],
+        "sourceFoot": [
+          129.5,
+          167
+        ],
+        "scale": 1.0283,
+        "offset": [
+          123,
+          156
+        ],
+        "contact": [
+          354.37,
+          242.38
+        ]
+      },
+      {
+        "sourceRect": [
+          518,
+          1127,
+          252,
+          151
+        ],
+        "sourceFoot": [
+          142.5,
+          147
+        ],
+        "scale": 1.0283,
+        "offset": [
+          109,
+          177
+        ],
+        "contact": [
+          333.17,
+          278.8
+        ]
+      },
+      {
+        "sourceRect": [
+          766,
+          1013,
+          232,
+          264
+        ],
+        "sourceFoot": [
+          126.0,
+          260
+        ],
+        "scale": 1.0283,
+        "offset": [
+          126,
+          61
+        ],
+        "contact": [
+          351.2,
+          253.29
+        ]
+      },
+      {
+        "sourceRect": [
+          23,
+          1267,
+          198,
+          253
+        ],
+        "sourceFoot": [
+          49.0,
+          249
+        ],
+        "scale": 1.0283,
+        "offset": [
+          206,
+          72
+        ],
+        "contact": [
+          400.35,
+          213.91
+        ]
+      },
+      {
+        "sourceRect": [
+          263,
+          1287,
+          226,
+          231
+        ],
+        "sourceFoot": [
+          69.0,
+          227
+        ],
+        "scale": 1.0283,
+        "offset": [
+          185,
+          95
+        ],
+        "contact": [
+          408.14,
+          224.57
+        ]
+      },
+      {
+        "sourceRect": [
+          517,
+          1376,
+          268,
+          152
+        ],
+        "sourceFoot": [
+          141.0,
+          148
+        ],
+        "scale": 1.0283,
+        "offset": [
+          111,
+          176
+        ],
+        "contact": [
+          345.45,
+          280.37
+        ]
+      },
+      {
+        "sourceRect": [
+          786,
+          1289,
+          223,
+          237
+        ],
+        "sourceFoot": [
+          135.5,
+          233
+        ],
+        "scale": 1.0283,
+        "offset": [
+          117,
+          88
+        ],
+        "contact": [
+          319.58,
+          151.75
+        ]
+      }
+    ]
+  },
+  "art_stone_palm": {
+    "sheet": "palm-leg-needle",
+    "sourceSha256": "da078985f1cbac6b3d175c5bb3c5a8992e557fb5f2c6372b24bdc2188e8fc0dd",
+    "frameWidth": 512,
+    "frameHeight": 352,
+    "frameCount": 8,
+    "foot": [
+      256,
+      328
+    ],
+    "bodyHeight": 218,
+    "bytes": 220080,
+    "frames": [
+      {
+        "sourceRect": [
+          15,
+          41,
+          241,
+          241
+        ],
+        "sourceFoot": [
+          128.5,
+          236
+        ],
+        "scale": 1.06341,
+        "offset": [
+          119,
+          77
+        ],
+        "contact": [
+          365.71,
+          152.5
+        ]
+      },
+      {
+        "sourceRect": [
+          273,
+          87,
+          239,
+          197
+        ],
+        "sourceFoot": [
+          115.0,
+          193
+        ],
+        "scale": 1.06341,
+        "offset": [
+          134,
+          123
+        ],
+        "contact": [
+          379.65,
+          180.42
+        ]
+      },
+      {
+        "sourceRect": [
+          526,
+          42,
+          246,
+          243
+        ],
+        "sourceFoot": [
+          124.02,
+          239
+        ],
+        "scale": 1.06341,
+        "offset": [
+          124,
+          74
+        ],
+        "contact": [
+          351.57,
+          252.65
+        ]
+      },
+      {
+        "sourceRect": [
+          771,
+          0,
+          246,
+          285
+        ],
+        "sourceFoot": [
+          138.44,
+          281
+        ],
+        "scale": 1.06341,
+        "offset": [
+          109,
+          29
+        ],
+        "contact": [
+          330.19,
+          243.81
+        ]
+      },
+      {
+        "sourceRect": [
+          19,
+          336,
+          240,
+          203
+        ],
+        "sourceFoot": [
+          120.0,
+          199
+        ],
+        "scale": 1.06341,
+        "offset": [
+          128,
+          116
+        ],
+        "contact": [
+          354.51,
+          177.68
+        ]
+      },
+      {
+        "sourceRect": [
+          268,
+          369,
+          254,
+          174
+        ],
+        "sourceFoot": [
+          128.0,
+          170
+        ],
+        "scale": 1.06341,
+        "offset": [
+          120,
+          147
+        ],
+        "contact": [
+          375.59,
+          216.12
+        ]
+      },
+      {
+        "sourceRect": [
+          536,
+          322,
+          227,
+          218
+        ],
+        "sourceFoot": [
+          114.5,
+          214
+        ],
+        "scale": 1.06341,
+        "offset": [
+          134,
+          100
+        ],
+        "contact": [
+          336.51,
+          259.51
+        ]
+      },
+      {
+        "sourceRect": [
+          774,
+          308,
+          244,
+          232
+        ],
+        "sourceFoot": [
+          134.96,
+          227
+        ],
+        "scale": 1.06341,
+        "offset": [
+          112,
+          87
+        ],
+        "contact": [
+          357.65,
+          151.87
+        ]
+      }
+    ]
+  },
+  "art_wind_chase": {
+    "sheet": "palm-leg-needle",
+    "sourceSha256": "da078985f1cbac6b3d175c5bb3c5a8992e557fb5f2c6372b24bdc2188e8fc0dd",
+    "frameWidth": 512,
+    "frameHeight": 352,
+    "frameCount": 8,
+    "foot": [
+      256,
+      328
+    ],
+    "bodyHeight": 218,
+    "bytes": 217718,
+    "frames": [
+      {
+        "sourceRect": [
+          13,
+          560,
+          243,
+          238
+        ],
+        "sourceFoot": [
+          127.0,
+          234
+        ],
+        "scale": 1.06341,
+        "offset": [
+          121,
+          79
+        ],
+        "contact": [
+          351.76,
+          310.82
+        ]
+      },
+      {
+        "sourceRect": [
+          275,
+          590,
+          255,
+          208
+        ],
+        "sourceFoot": [
+          141.0,
+          204
+        ],
+        "scale": 1.06341,
+        "offset": [
+          106,
+          111
+        ],
+        "contact": [
+          351.65,
+          313.05
+        ]
+      },
+      {
+        "sourceRect": [
+          514,
+          551,
+          208,
+          248
+        ],
+        "sourceFoot": [
+          120.66,
+          243
+        ],
+        "scale": 1.06341,
+        "offset": [
+          128,
+          70
+        ],
+        "contact": [
+          330.05,
+          200.8
+        ]
+      },
+      {
+        "sourceRect": [
+          750,
+          558,
+          269,
+          237
+        ],
+        "sourceFoot": [
+          159.08,
+          233
+        ],
+        "scale": 1.06341,
+        "offset": [
+          87,
+          80
+        ],
+        "contact": [
+          292.24,
+          205.48
+        ]
+      },
+      {
+        "sourceRect": [
+          10,
+          807,
+          206,
+          242
+        ],
+        "sourceFoot": [
+          124.0,
+          238
+        ],
+        "scale": 1.06341,
+        "offset": [
+          124,
+          75
+        ],
+        "contact": [
+          322.86,
+          207.93
+        ]
+      },
+      {
+        "sourceRect": [
+          242,
+          811,
+          284,
+          239
+        ],
+        "sourceFoot": [
+          126.0,
+          235
+        ],
+        "scale": 1.06341,
+        "offset": [
+          122,
+          78
+        ],
+        "contact": [
+          335.75,
+          203.48
+        ]
+      },
+      {
+        "sourceRect": [
+          525,
+          845,
+          243,
+          207
+        ],
+        "sourceFoot": [
+          120.18,
+          203
+        ],
+        "scale": 1.06341,
+        "offset": [
+          128,
+          112
+        ],
+        "contact": [
+          359.82,
+          312.99
+        ]
+      },
+      {
+        "sourceRect": [
+          774,
+          815,
+          244,
+          237
+        ],
+        "sourceFoot": [
+          131.88,
+          233
+        ],
+        "scale": 1.06341,
+        "offset": [
+          116,
+          80
+        ],
+        "contact": [
+          347.3,
+          309.7
+        ]
+      }
+    ]
+  },
+  "tm_flying_needle": {
+    "sheet": "palm-leg-needle",
+    "sourceSha256": "da078985f1cbac6b3d175c5bb3c5a8992e557fb5f2c6372b24bdc2188e8fc0dd",
+    "frameWidth": 512,
+    "frameHeight": 352,
+    "frameCount": 8,
+    "foot": [
+      256,
+      328
+    ],
+    "bodyHeight": 218,
+    "bytes": 212756,
+    "frames": [
+      {
+        "sourceRect": [
+          12,
+          1058,
+          231,
+          234
+        ],
+        "sourceFoot": [
+          122.5,
+          230
+        ],
+        "scale": 1.0381,
+        "offset": [
+          129,
+          89
+        ],
+        "contact": [
+          340.77,
+          176.2
+        ]
+      },
+      {
+        "sourceRect": [
+          279,
+          1058,
+          229,
+          236
+        ],
+        "sourceFoot": [
+          113.0,
+          231
+        ],
+        "scale": 1.0381,
+        "offset": [
+          139,
+          88
+        ],
+        "contact": [
+          342.47,
+          255.13
+        ]
+      },
+      {
+        "sourceRect": [
+          506,
+          1064,
+          293,
+          228
+        ],
+        "sourceFoot": [
+          129.7,
+          224
+        ],
+        "scale": 1.0381,
+        "offset": [
+          121,
+          95
+        ],
+        "contact": [
+          386.75,
+          144.83
+        ]
+      },
+      {
+        "sourceRect": [
+          767,
+          1078,
+          253,
+          215
+        ],
+        "sourceFoot": [
+          123.5,
+          211
+        ],
+        "scale": 1.0381,
+        "offset": [
+          128,
+          109
+        ],
+        "contact": [
+          359.5,
+          162.98
+        ]
+      },
+      {
+        "sourceRect": [
+          19,
+          1304,
+          232,
+          222
+        ],
+        "sourceFoot": [
+          122.0,
+          218
+        ],
+        "scale": 1.0381,
+        "offset": [
+          129,
+          102
+        ],
+        "contact": [
+          333.5,
+          260.31
+        ]
+      },
+      {
+        "sourceRect": [
+          254,
+          1304,
+          263,
+          222
+        ],
+        "sourceFoot": [
+          132.0,
+          218
+        ],
+        "scale": 1.0381,
+        "offset": [
+          119,
+          102
+        ],
+        "contact": [
+          348.42,
+          148.71
+        ]
+      },
+      {
+        "sourceRect": [
+          512,
+          1310,
+          256,
+          216
+        ],
+        "sourceFoot": [
+          137.0,
+          212
+        ],
+        "scale": 1.0381,
+        "offset": [
+          114,
+          108
+        ],
+        "contact": [
+          347.57,
+          163.02
+        ]
+      },
+      {
+        "sourceRect": [
+          774,
+          1299,
+          236,
+          230
+        ],
+        "sourceFoot": [
+          128.5,
+          225
+        ],
+        "scale": 1.0381,
+        "offset": [
+          123,
+          94
+        ],
+        "contact": [
+          355.53,
+          162.51
+        ]
+      }
+    ]
+  },
+  "art_rain_sword": {
+    "sheet": "swords-blade",
+    "sourceSha256": "d5471eee8bea0d5cf349145db16144a9c29f49b746174bf9f952ba740469eb1f",
+    "frameWidth": 512,
+    "frameHeight": 352,
+    "frameCount": 8,
+    "foot": [
+      256,
+      328
+    ],
+    "bodyHeight": 218,
+    "bytes": 200726,
+    "frames": [
+      {
+        "sourceRect": [
+          32,
+          10,
+          197,
+          255
+        ],
+        "sourceFoot": [
+          117.0,
+          251
+        ],
+        "scale": 1.07389,
+        "offset": [
+          130,
+          58
+        ],
+        "contact": [
+          314.71,
+          248.08
+        ]
+      },
+      {
+        "sourceRect": [
+          266,
+          58,
+          246,
+          207
+        ],
+        "sourceFoot": [
+          119.5,
+          203
+        ],
+        "scale": 1.07389,
+        "offset": [
+          128,
+          110
+        ],
+        "contact": [
+          372.85,
+          167.99
+        ]
+      },
+      {
+        "sourceRect": [
+          532,
+          60,
+          250,
+          206
+        ],
+        "sourceFoot": [
+          103.0,
+          202
+        ],
+        "scale": 1.07389,
+        "offset": [
+          145,
+          111
+        ],
+        "contact": [
+          389.85,
+          182.95
+        ]
+      },
+      {
+        "sourceRect": [
+          770,
+          65,
+          248,
+          200
+        ],
+        "sourceFoot": [
+          107.0,
+          196
+        ],
+        "scale": 1.07389,
+        "offset": [
+          141,
+          118
+        ],
+        "contact": [
+          381.55,
+          165.25
+        ]
+      },
+      {
+        "sourceRect": [
+          17,
+          314,
+          213,
+          221
+        ],
+        "sourceFoot": [
+          111.5,
+          217
+        ],
+        "scale": 1.07389,
+        "offset": [
+          136,
+          95
+        ],
+        "contact": [
+          334.67,
+          255.01
+        ]
+      },
+      {
+        "sourceRect": [
+          260,
+          320,
+          312,
+          215
+        ],
+        "sourceFoot": [
+          118.08,
+          211
+        ],
+        "scale": 1.07389,
+        "offset": [
+          129,
+          101
+        ],
+        "contact": [
+          379.22,
+          146.1
+        ]
+      },
+      {
+        "sourceRect": [
+          524,
+          314,
+          267,
+          221
+        ],
+        "sourceFoot": [
+          113.36,
+          217
+        ],
+        "scale": 1.07389,
+        "offset": [
+          134,
+          95
+        ],
+        "contact": [
+          369.18,
+          263.6
+        ]
+      },
+      {
+        "sourceRect": [
+          800,
+          290,
+          199,
+          245
+        ],
+        "sourceFoot": [
+          107.0,
+          241
+        ],
+        "scale": 1.07389,
+        "offset": [
+          141,
+          69
+        ],
+        "contact": [
+          318.19,
+          253.71
+        ]
+      }
+    ]
+  },
+  "pr_wind_thread": {
+    "sheet": "swords-blade",
+    "sourceSha256": "d5471eee8bea0d5cf349145db16144a9c29f49b746174bf9f952ba740469eb1f",
+    "frameWidth": 512,
+    "frameHeight": 352,
+    "frameCount": 8,
+    "foot": [
+      256,
+      328
+    ],
+    "bodyHeight": 218,
+    "bytes": 205076,
+    "frames": [
+      {
+        "sourceRect": [
+          14,
+          602,
+          255,
+          200
+        ],
+        "sourceFoot": [
+          113.5,
+          196
+        ],
+        "scale": 1.09,
+        "offset": [
+          132,
+          114
+        ],
+        "contact": [
+          387.06,
+          233.9
+        ]
+      },
+      {
+        "sourceRect": [
+          273,
+          584,
+          203,
+          218
+        ],
+        "sourceFoot": [
+          106.7,
+          214
+        ],
+        "scale": 1.09,
+        "offset": [
+          140,
+          95
+        ],
+        "contact": [
+          329.66,
+          247.6
+        ]
+      },
+      {
+        "sourceRect": [
+          514,
+          601,
+          286,
+          201
+        ],
+        "sourceFoot": [
+          122.5,
+          196
+        ],
+        "scale": 1.09,
+        "offset": [
+          122,
+          114
+        ],
+        "contact": [
+          411.94,
+          188.12
+        ]
+      },
+      {
+        "sourceRect": [
+          755,
+          541,
+          251,
+          261
+        ],
+        "sourceFoot": [
+          136.0,
+          257
+        ],
+        "scale": 1.09,
+        "offset": [
+          108,
+          48
+        ],
+        "contact": [
+          331.45,
+          249.65
+        ]
+      },
+      {
+        "sourceRect": [
+          16,
+          820,
+          227,
+          238
+        ],
+        "sourceFoot": [
+          128.0,
+          234
+        ],
+        "scale": 1.09,
+        "offset": [
+          116,
+          73
+        ],
+        "contact": [
+          344.9,
+          255.03
+        ]
+      },
+      {
+        "sourceRect": [
+          259,
+          870,
+          321,
+          185
+        ],
+        "sourceFoot": [
+          117.5,
+          181
+        ],
+        "scale": 1.09,
+        "offset": [
+          128,
+          131
+        ],
+        "contact": [
+          454.61,
+          184.41
+        ]
+      },
+      {
+        "sourceRect": [
+          549,
+          846,
+          236,
+          207
+        ],
+        "sourceFoot": [
+          108.0,
+          203
+        ],
+        "scale": 1.09,
+        "offset": [
+          138,
+          107
+        ],
+        "contact": [
+          374.53,
+          247.61
+        ]
+      },
+      {
+        "sourceRect": [
+          809,
+          817,
+          191,
+          241
+        ],
+        "sourceFoot": [
+          109.66,
+          237
+        ],
+        "scale": 1.09,
+        "offset": [
+          136,
+          70
+        ],
+        "contact": [
+          301.68,
+          254.21
+        ]
+      }
+    ]
+  },
+  "art_thunder_blade": {
+    "sheet": "swords-blade",
+    "sourceSha256": "d5471eee8bea0d5cf349145db16144a9c29f49b746174bf9f952ba740469eb1f",
+    "frameWidth": 512,
+    "frameHeight": 352,
+    "frameCount": 8,
+    "foot": [
+      256,
+      328
+    ],
+    "bodyHeight": 218,
+    "bytes": 197826,
+    "frames": [
+      {
+        "sourceRect": [
+          18,
+          1090,
+          211,
+          212
+        ],
+        "sourceFoot": [
+          107.5,
+          207
+        ],
+        "scale": 1.06341,
+        "offset": [
+          142,
+          108
+        ],
+        "contact": [
+          346.18,
+          159.04
+        ]
+      },
+      {
+        "sourceRect": [
+          257,
+          1129,
+          274,
+          174
+        ],
+        "sourceFoot": [
+          119.0,
+          170
+        ],
+        "scale": 1.06341,
+        "offset": [
+          129,
+          147
+        ],
+        "contact": [
+          337.43,
+          275.67
+        ]
+      },
+      {
+        "sourceRect": [
+          531,
+          1064,
+          225,
+          239
+        ],
+        "sourceFoot": [
+          114.5,
+          235
+        ],
+        "scale": 1.06341,
+        "offset": [
+          134,
+          78
+        ],
+        "contact": [
+          346.68,
+          250.27
+        ]
+      },
+      {
+        "sourceRect": [
+          776,
+          1065,
+          229,
+          241
+        ],
+        "sourceFoot": [
+          41.0,
+          237
+        ],
+        "scale": 1.06341,
+        "offset": [
+          212,
+          76
+        ],
+        "contact": [
+          445.95,
+          222.75
+        ]
+      },
+      {
+        "sourceRect": [
+          16,
+          1324,
+          260,
+          193
+        ],
+        "sourceFoot": [
+          113.0,
+          188
+        ],
+        "scale": 1.06341,
+        "offset": [
+          136,
+          128
+        ],
+        "contact": [
+          349.75,
+          273.69
+        ]
+      },
+      {
+        "sourceRect": [
+          255,
+          1329,
+          277,
+          189
+        ],
+        "sourceFoot": [
+          146.5,
+          185
+        ],
+        "scale": 1.06341,
+        "offset": [
+          100,
+          131
+        ],
+        "contact": [
+          315.87,
+          267.12
+        ]
+      },
+      {
+        "sourceRect": [
+          531,
+          1327,
+          237,
+          191
+        ],
+        "sourceFoot": [
+          124.5,
+          187
+        ],
+        "scale": 1.06341,
+        "offset": [
+          124,
+          129
+        ],
+        "contact": [
+          348.38,
+          260.86
+        ]
+      },
+      {
+        "sourceRect": [
+          798,
+          1300,
+          203,
+          222
+        ],
+        "sourceFoot": [
+          110.0,
+          218
+        ],
+        "scale": 1.06341,
+        "offset": [
+          139,
+          96
+        ],
+        "contact": [
+          342.11,
+          147.04
+        ]
+      }
+    ]
+  },
+  "art_spear_cloud": {
+    "sheet": "spear-internal",
+    "sourceSha256": "b811d6f4c9f1fcf7085fde78a0d45f79b81ddebee676598e80cdd95243aba633",
+    "frameWidth": 512,
+    "frameHeight": 352,
+    "frameCount": 8,
+    "foot": [
+      256,
+      328
+    ],
+    "bodyHeight": 218,
+    "bytes": 241188,
+    "frames": [
+      {
+        "sourceRect": [
+          8,
+          30,
+          257,
+          244
+        ],
+        "sourceFoot": [
+          125.0,
+          240
+        ],
+        "scale": 1.14737,
+        "offset": [
+          113,
+          53
+        ],
+        "contact": [
+          351.52,
+          113.81
+        ]
+      },
+      {
+        "sourceRect": [
+          272,
+          81,
+          280,
+          193
+        ],
+        "sourceFoot": [
+          106.5,
+          189
+        ],
+        "scale": 1.14737,
+        "offset": [
+          134,
+          111
+        ],
+        "contact": [
+          433.46,
+          187.87
+        ]
+      },
+      {
+        "sourceRect": [
+          510,
+          103,
+          279,
+          171
+        ],
+        "sourceFoot": [
+          122.5,
+          167
+        ],
+        "scale": 1.14737,
+        "offset": [
+          115,
+          136
+        ],
+        "contact": [
+          415.61,
+          210.58
+        ]
+      },
+      {
+        "sourceRect": [
+          750,
+          86,
+          273,
+          188
+        ],
+        "sourceFoot": [
+          113.0,
+          184
+        ],
+        "scale": 1.14737,
+        "offset": [
+          126,
+          117
+        ],
+        "contact": [
+          417.43,
+          177.81
+        ]
+      },
+      {
+        "sourceRect": [
+          17,
+          326,
+          339,
+          214
+        ],
+        "sourceFoot": [
+          119.58,
+          210
+        ],
+        "scale": 1.14737,
+        "offset": [
+          119,
+          87
+        ],
+        "contact": [
+          415.02,
+          137.48
+        ]
+      },
+      {
+        "sourceRect": [
+          284,
+          343,
+          242,
+          193
+        ],
+        "sourceFoot": [
+          115.5,
+          189
+        ],
+        "scale": 1.14737,
+        "offset": [
+          123,
+          111
+        ],
+        "contact": [
+          377.74,
+          207.38
+        ]
+      },
+      {
+        "sourceRect": [
+          518,
+          290,
+          268,
+          251
+        ],
+        "sourceFoot": [
+          116.0,
+          247
+        ],
+        "scale": 1.14737,
+        "offset": [
+          123,
+          45
+        ],
+        "contact": [
+          367.39,
+          105.81
+        ]
+      },
+      {
+        "sourceRect": [
+          744,
+          282,
+          266,
+          258
+        ],
+        "sourceFoot": [
+          128.5,
+          254
+        ],
+        "scale": 1.14737,
+        "offset": [
+          109,
+          37
+        ],
+        "contact": [
+          355.68,
+          100.68
+        ]
+      }
+    ]
+  },
+  "art_iron_body": {
+    "sheet": "spear-internal",
+    "sourceSha256": "b811d6f4c9f1fcf7085fde78a0d45f79b81ddebee676598e80cdd95243aba633",
+    "frameWidth": 512,
+    "frameHeight": 352,
+    "frameCount": 8,
+    "foot": [
+      256,
+      328
+    ],
+    "bodyHeight": 218,
+    "bytes": 210554,
+    "frames": [
+      {
+        "sourceRect": [
+          18,
+          553,
+          221,
+          247
+        ],
+        "sourceFoot": [
+          119.0,
+          243
+        ],
+        "scale": 1.01395,
+        "offset": [
+          135,
+          82
+        ],
+        "contact": [
+          318.53,
+          256.4
+        ]
+      },
+      {
+        "sourceRect": [
+          262,
+          589,
+          242,
+          211
+        ],
+        "sourceFoot": [
+          122.5,
+          207
+        ],
+        "scale": 1.01395,
+        "offset": [
+          132,
+          118
+        ],
+        "contact": [
+          337.83,
+          267.05
+        ]
+      },
+      {
+        "sourceRect": [
+          507,
+          570,
+          248,
+          232
+        ],
+        "sourceFoot": [
+          136.0,
+          227
+        ],
+        "scale": 1.01395,
+        "offset": [
+          118,
+          98
+        ],
+        "contact": [
+          336.0,
+          259.22
+        ]
+      },
+      {
+        "sourceRect": [
+          760,
+          570,
+          245,
+          231
+        ],
+        "sourceFoot": [
+          135.02,
+          227
+        ],
+        "scale": 1.01395,
+        "offset": [
+          119,
+          98
+        ],
+        "contact": [
+          356.27,
+          180.13
+        ]
+      },
+      {
+        "sourceRect": [
+          12,
+          811,
+          242,
+          244
+        ],
+        "sourceFoot": [
+          122.5,
+          240
+        ],
+        "scale": 1.01395,
+        "offset": [
+          132,
+          85
+        ],
+        "contact": [
+          338.85,
+          257.37
+        ]
+      },
+      {
+        "sourceRect": [
+          261,
+          823,
+          242,
+          232
+        ],
+        "sourceFoot": [
+          124.0,
+          228
+        ],
+        "scale": 1.01395,
+        "offset": [
+          130,
+          97
+        ],
+        "contact": [
+          341.92,
+          257.2
+        ]
+      },
+      {
+        "sourceRect": [
+          497,
+          830,
+          267,
+          227
+        ],
+        "sourceFoot": [
+          146.0,
+          223
+        ],
+        "scale": 1.01395,
+        "offset": [
+          108,
+          102
+        ],
+        "contact": [
+          357.43,
+          193.76
+        ]
+      },
+      {
+        "sourceRect": [
+          772,
+          813,
+          232,
+          243
+        ],
+        "sourceFoot": [
+          126.16,
+          238
+        ],
+        "scale": 1.01395,
+        "offset": [
+          128,
+          87
+        ],
+        "contact": [
+          325.89,
+          258.36
+        ]
+      }
+    ]
+  },
+  "pr_diamond_body": {
+    "sheet": "spear-internal",
+    "sourceSha256": "b811d6f4c9f1fcf7085fde78a0d45f79b81ddebee676598e80cdd95243aba633",
+    "frameWidth": 512,
+    "frameHeight": 352,
+    "frameCount": 8,
+    "foot": [
+      256,
+      328
+    ],
+    "bodyHeight": 218,
+    "bytes": 207744,
+    "frames": [
+      {
+        "sourceRect": [
+          8,
+          1076,
+          247,
+          230
+        ],
+        "sourceFoot": [
+          124.0,
+          226
+        ],
+        "scale": 1.01395,
+        "offset": [
+          130,
+          99
+        ],
+        "contact": [
+          342.93,
+          260.22
+        ]
+      },
+      {
+        "sourceRect": [
+          263,
+          1111,
+          251,
+          194
+        ],
+        "sourceFoot": [
+          127.0,
+          190
+        ],
+        "scale": 1.01395,
+        "offset": [
+          127,
+          135
+        ],
+        "contact": [
+          348.04,
+          269.86
+        ]
+      },
+      {
+        "sourceRect": [
+          503,
+          1076,
+          254,
+          229
+        ],
+        "sourceFoot": [
+          134.0,
+          225
+        ],
+        "scale": 1.01395,
+        "offset": [
+          120,
+          100
+        ],
+        "contact": [
+          340.03,
+          261.22
+        ]
+      },
+      {
+        "sourceRect": [
+          739,
+          1082,
+          272,
+          223
+        ],
+        "sourceFoot": [
+          148.5,
+          219
+        ],
+        "scale": 1.01395,
+        "offset": [
+          105,
+          106
+        ],
+        "contact": [
+          368.63,
+          160.75
+        ]
+      },
+      {
+        "sourceRect": [
+          9,
+          1302,
+          249,
+          225
+        ],
+        "sourceFoot": [
+          131.8,
+          220
+        ],
+        "scale": 1.01395,
+        "offset": [
+          122,
+          105
+        ],
+        "contact": [
+          335.94,
+          260.13
+        ]
+      },
+      {
+        "sourceRect": [
+          267,
+          1321,
+          244,
+          207
+        ],
+        "sourceFoot": [
+          123.5,
+          203
+        ],
+        "scale": 1.01395,
+        "offset": [
+          131,
+          122
+        ],
+        "contact": [
+          344.94,
+          265.98
+        ]
+      },
+      {
+        "sourceRect": [
+          511,
+          1324,
+          250,
+          204
+        ],
+        "sourceFoot": [
+          128.5,
+          200
+        ],
+        "scale": 1.01395,
+        "offset": [
+          126,
+          125
+        ],
+        "contact": [
+          344.0,
+          267.97
+        ]
+      },
+      {
+        "sourceRect": [
+          766,
+          1307,
+          242,
+          221
+        ],
+        "sourceFoot": [
+          125.04,
+          217
+        ],
+        "scale": 1.01395,
+        "offset": [
+          129,
+          108
+        ],
+        "contact": [
+          335.85,
+          263.13
+        ]
+      }
+    ]
+  },
+  "qg_broken_bridge": {
+    "sheet": "steps-weiqi",
+    "sourceSha256": "57646dfa8f9796c17fa592d656c328becb88bd6b8b192b04a3abc6f19442b7d3",
+    "frameWidth": 512,
+    "frameHeight": 352,
+    "frameCount": 8,
+    "foot": [
+      256,
+      328
+    ],
+    "bodyHeight": 218,
+    "bytes": 191842,
+    "frames": [
+      {
+        "sourceRect": [
+          20,
+          15,
+          210,
+          260
+        ],
+        "sourceFoot": [
+          122.5,
+          256
+        ],
+        "scale": 1.01395,
+        "offset": [
+          132,
+          68
+        ],
+        "contact": [
+          325.67,
+          137.96
+        ]
+      },
+      {
+        "sourceRect": [
+          265,
+          67,
+          229,
+          207
+        ],
+        "sourceFoot": [
+          124.5,
+          203
+        ],
+        "scale": 1.01395,
+        "offset": [
+          130,
+          122
+        ],
+        "contact": [
+          324.68,
+          256.86
+        ]
+      },
+      {
+        "sourceRect": [
+          520,
+          63,
+          250,
+          213
+        ],
+        "sourceFoot": [
+          137.5,
+          209
+        ],
+        "scale": 1.01395,
+        "offset": [
+          117,
+          116
+        ],
+        "contact": [
+          331.96,
+          179.88
+        ]
+      },
+      {
+        "sourceRect": [
+          806,
+          50,
+          204,
+          225
+        ],
+        "sourceFoot": [
+          115.5,
+          221
+        ],
+        "scale": 1.01395,
+        "offset": [
+          139,
+          104
+        ],
+        "contact": [
+          321.51,
+          255.08
+        ]
+      },
+      {
+        "sourceRect": [
+          26,
+          315,
+          284,
+          214
+        ],
+        "sourceFoot": [
+          140.6,
+          210
+        ],
+        "scale": 1.01395,
+        "offset": [
+          113,
+          115
+        ],
+        "contact": [
+          354.32,
+          183.95
+        ]
+      },
+      {
+        "sourceRect": [
+          310,
+          302,
+          247,
+          228
+        ],
+        "sourceFoot": [
+          141.5,
+          224
+        ],
+        "scale": 1.01395,
+        "offset": [
+          113,
+          101
+        ],
+        "contact": [
+          327.96,
+          260.19
+        ]
+      },
+      {
+        "sourceRect": [
+          551,
+          289,
+          245,
+          240
+        ],
+        "sourceFoot": [
+          141.5,
+          236
+        ],
+        "scale": 1.01395,
+        "offset": [
+          113,
+          89
+        ],
+        "contact": [
+          314.78,
+          258.33
+        ]
+      },
+      {
+        "sourceRect": [
+          802,
+          280,
+          197,
+          249
+        ],
+        "sourceFoot": [
+          115.5,
+          245
+        ],
+        "scale": 1.01395,
+        "offset": [
+          139,
+          80
+        ],
+        "contact": [
+          315.32,
+          145.91
+        ]
+      }
+    ]
+  },
+  "pr_cloud_step": {
+    "sheet": "steps-weiqi",
+    "sourceSha256": "57646dfa8f9796c17fa592d656c328becb88bd6b8b192b04a3abc6f19442b7d3",
+    "frameWidth": 512,
+    "frameHeight": 352,
+    "frameCount": 8,
+    "foot": [
+      256,
+      328
+    ],
+    "bodyHeight": 218,
+    "bytes": 187442,
+    "frames": [
+      {
+        "sourceRect": [
+          23,
+          532,
+          213,
+          263
+        ],
+        "sourceFoot": [
+          117.0,
+          259
+        ],
+        "scale": 1.0381,
+        "offset": [
+          135,
+          59
+        ],
+        "contact": [
+          341.58,
+          121.29
+        ]
+      },
+      {
+        "sourceRect": [
+          247,
+          605,
+          251,
+          189
+        ],
+        "sourceFoot": [
+          153.0,
+          185
+        ],
+        "scale": 1.0381,
+        "offset": [
+          97,
+          136
+        ],
+        "contact": [
+          322.27,
+          208.67
+        ]
+      },
+      {
+        "sourceRect": [
+          535,
+          530,
+          205,
+          265
+        ],
+        "sourceFoot": [
+          112.0,
+          261
+        ],
+        "scale": 1.0381,
+        "offset": [
+          140,
+          57
+        ],
+        "contact": [
+          319.93,
+          110.98
+        ]
+      },
+      {
+        "sourceRect": [
+          722,
+          558,
+          289,
+          192
+        ],
+        "sourceFoot": [
+          74.14,
+          188
+        ],
+        "scale": 1.0381,
+        "offset": [
+          179,
+          133
+        ],
+        "contact": [
+          467.82,
+          188.02
+        ]
+      },
+      {
+        "sourceRect": [
+          54,
+          789,
+          241,
+          238
+        ],
+        "sourceFoot": [
+          115.5,
+          234
+        ],
+        "scale": 1.0381,
+        "offset": [
+          136,
+          85
+        ],
+        "contact": [
+          373.72,
+          150.4
+        ]
+      },
+      {
+        "sourceRect": [
+          310,
+          826,
+          214,
+          205
+        ],
+        "sourceFoot": [
+          107.5,
+          201
+        ],
+        "scale": 1.0381,
+        "offset": [
+          144,
+          119
+        ],
+        "contact": [
+          345.39,
+          238.38
+        ]
+      },
+      {
+        "sourceRect": [
+          529,
+          824,
+          253,
+          207
+        ],
+        "sourceFoot": [
+          113.5,
+          203
+        ],
+        "scale": 1.0381,
+        "offset": [
+          138,
+          117
+        ],
+        "contact": [
+          387.14,
+          193.82
+        ]
+      },
+      {
+        "sourceRect": [
+          792,
+          797,
+          200,
+          234
+        ],
+        "sourceFoot": [
+          117.0,
+          230
+        ],
+        "scale": 1.0381,
+        "offset": [
+          135,
+          89
+        ],
+        "contact": [
+          331.2,
+          152.32
+        ]
+      }
+    ]
+  },
+  "art_weiqi_trap": {
+    "sheet": "steps-weiqi",
+    "sourceSha256": "57646dfa8f9796c17fa592d656c328becb88bd6b8b192b04a3abc6f19442b7d3",
+    "frameWidth": 512,
+    "frameHeight": 352,
+    "frameCount": 8,
+    "foot": [
+      256,
+      328
+    ],
+    "bodyHeight": 218,
+    "bytes": 187718,
+    "frames": [
+      {
+        "sourceRect": [
+          21,
+          1030,
+          196,
+          256
+        ],
+        "sourceFoot": [
+          116.5,
+          252
+        ],
+        "scale": 1.01395,
+        "offset": [
+          138,
+          72
+        ],
+        "contact": [
+          304.29,
+          232.71
+        ]
+      },
+      {
+        "sourceRect": [
+          254,
+          1037,
+          237,
+          249
+        ],
+        "sourceFoot": [
+          136.0,
+          244
+        ],
+        "scale": 1.01395,
+        "offset": [
+          118,
+          81
+        ],
+        "contact": [
+          327.89,
+          244.75
+        ]
+      },
+      {
+        "sourceRect": [
+          509,
+          1061,
+          251,
+          225
+        ],
+        "sourceFoot": [
+          124.56,
+          221
+        ],
+        "scale": 1.01395,
+        "offset": [
+          130,
+          104
+        ],
+        "contact": [
+          372.33,
+          174.98
+        ]
+      },
+      {
+        "sourceRect": [
+          758,
+          1112,
+          252,
+          173
+        ],
+        "sourceFoot": [
+          119.5,
+          169
+        ],
+        "scale": 1.01395,
+        "offset": [
+          135,
+          157
+        ],
+        "contact": [
+          360.1,
+          278.67
+        ]
+      },
+      {
+        "sourceRect": [
+          15,
+          1286,
+          220,
+          240
+        ],
+        "sourceFoot": [
+          123.94,
+          236
+        ],
+        "scale": 1.01395,
+        "offset": [
+          130,
+          89
+        ],
+        "contact": [
+          340.9,
+          165.05
+        ]
+      },
+      {
+        "sourceRect": [
+          256,
+          1347,
+          255,
+          178
+        ],
+        "sourceFoot": [
+          121.5,
+          174
+        ],
+        "scale": 1.01395,
+        "offset": [
+          133,
+          152
+        ],
+        "contact": [
+          360.13,
+          278.74
+        ]
+      },
+      {
+        "sourceRect": [
+          528,
+          1282,
+          213,
+          244
+        ],
+        "sourceFoot": [
+          123.0,
+          240
+        ],
+        "scale": 1.01395,
+        "offset": [
+          131,
+          85
+        ],
+        "contact": [
+          310.47,
+          246.22
+        ]
+      },
+      {
+        "sourceRect": [
+          785,
+          1288,
+          218,
+          238
+        ],
+        "sourceFoot": [
+          125.5,
+          234
+        ],
+        "scale": 1.01395,
+        "offset": [
+          129,
+          91
+        ],
+        "contact": [
+          316.58,
+          257.29
+        ]
+      }
+    ]
+  },
+  "pr_mountain_split-crit": {
+    "sheet": "premium-fist-internal",
+    "sourceSha256": "87a082ba1ac5e4bcff5f03be6100d72415c0ce37ea5ec2334365874c11e2d015",
+    "frameWidth": 512,
+    "frameHeight": 352,
+    "frameCount": 8,
+    "foot": [
+      256,
+      328
+    ],
+    "bodyHeight": 218,
+    "bytes": 216594,
+    "frames": [
+      {
+        "sourceRect": [
+          25,
+          20,
+          283,
+          234
+        ],
+        "sourceFoot": [
+          112.5,
+          230
+        ],
+        "scale": 1.01395,
+        "offset": [
+          142,
+          95
+        ],
+        "contact": [
+          418.81,
+          158.88
+        ]
+      },
+      {
+        "sourceRect": [
+          288,
+          24,
+          258,
+          230
+        ],
+        "sourceFoot": [
+          104.0,
+          226
+        ],
+        "scale": 1.01395,
+        "offset": [
+          151,
+          99
+        ],
+        "contact": [
+          402.46,
+          159.84
+        ]
+      },
+      {
+        "sourceRect": [
+          529,
+          24,
+          261,
+          230
+        ],
+        "sourceFoot": [
+          120.0,
+          226
+        ],
+        "scale": 1.01395,
+        "offset": [
+          134,
+          99
+        ],
+        "contact": [
+          388.5,
+          164.91
+        ]
+      },
+      {
+        "sourceRect": [
+          799,
+          18,
+          211,
+          237
+        ],
+        "sourceFoot": [
+          110.68,
+          232
+        ],
+        "scale": 1.01395,
+        "offset": [
+          144,
+          93
+        ],
+        "contact": [
+          343.75,
+          252.19
+        ]
+      },
+      {
+        "sourceRect": [
+          11,
+          266,
+          254,
+          243
+        ],
+        "sourceFoot": [
+          131.5,
+          239
+        ],
+        "scale": 1.01395,
+        "offset": [
+          123,
+          86
+        ],
+        "contact": [
+          354.18,
+          251.27
+        ]
+      },
+      {
+        "sourceRect": [
+          266,
+          263,
+          247,
+          247
+        ],
+        "sourceFoot": [
+          126.72,
+          243
+        ],
+        "scale": 1.01395,
+        "offset": [
+          128,
+          82
+        ],
+        "contact": [
+          344.99,
+          255.39
+        ]
+      },
+      {
+        "sourceRect": [
+          521,
+          266,
+          243,
+          244
+        ],
+        "sourceFoot": [
+          126.48,
+          240
+        ],
+        "scale": 1.01395,
+        "offset": [
+          128,
+          85
+        ],
+        "contact": [
+          341.94,
+          253.32
+        ]
+      },
+      {
+        "sourceRect": [
+          771,
+          261,
+          246,
+          251
+        ],
+        "sourceFoot": [
+          137.0,
+          247
+        ],
+        "scale": 1.01395,
+        "offset": [
+          117,
+          78
+        ],
+        "contact": [
+          331.96,
+          253.41
+        ]
+      }
+    ]
+  },
+  "pr_mountain_split-kill": {
+    "sheet": "premium-fist-internal",
+    "sourceSha256": "87a082ba1ac5e4bcff5f03be6100d72415c0ce37ea5ec2334365874c11e2d015",
+    "frameWidth": 512,
+    "frameHeight": 352,
+    "frameCount": 8,
+    "foot": [
+      256,
+      328
+    ],
+    "bodyHeight": 218,
+    "bytes": 207274,
+    "frames": [
+      {
+        "sourceRect": [
+          12,
+          515,
+          250,
+          255
+        ],
+        "sourceFoot": [
+          123.96,
+          251
+        ],
+        "scale": 1.01395,
+        "offset": [
+          130,
+          73
+        ],
+        "contact": [
+          369.29,
+          195.69
+        ]
+      },
+      {
+        "sourceRect": [
+          263,
+          574,
+          254,
+          192
+        ],
+        "sourceFoot": [
+          136.5,
+          188
+        ],
+        "scale": 1.01395,
+        "offset": [
+          118,
+          137
+        ],
+        "contact": [
+          339.04,
+          266.79
+        ]
+      },
+      {
+        "sourceRect": [
+          505,
+          609,
+          273,
+          159
+        ],
+        "sourceFoot": [
+          153.08,
+          154
+        ],
+        "scale": 1.01395,
+        "offset": [
+          101,
+          172
+        ],
+        "contact": [
+          330.15,
+          280.49
+        ]
+      },
+      {
+        "sourceRect": [
+          770,
+          590,
+          246,
+          175
+        ],
+        "sourceFoot": [
+          97.0,
+          170
+        ],
+        "scale": 1.01395,
+        "offset": [
+          158,
+          156
+        ],
+        "contact": [
+          396.4,
+          203.66
+        ]
+      },
+      {
+        "sourceRect": [
+          14,
+          791,
+          248,
+          223
+        ],
+        "sourceFoot": [
+          129.06,
+          219
+        ],
+        "scale": 1.01395,
+        "offset": [
+          125,
+          106
+        ],
+        "contact": [
+          349.08,
+          214.49
+        ]
+      },
+      {
+        "sourceRect": [
+          267,
+          782,
+          230,
+          233
+        ],
+        "sourceFoot": [
+          119.0,
+          229
+        ],
+        "scale": 1.01395,
+        "offset": [
+          135,
+          96
+        ],
+        "contact": [
+          355.03,
+          196.38
+        ]
+      },
+      {
+        "sourceRect": [
+          517,
+          777,
+          259,
+          239
+        ],
+        "sourceFoot": [
+          132.0,
+          234
+        ],
+        "scale": 1.01395,
+        "offset": [
+          122,
+          91
+        ],
+        "contact": [
+          346.08,
+          257.29
+        ]
+      },
+      {
+        "sourceRect": [
+          784,
+          772,
+          233,
+          243
+        ],
+        "sourceFoot": [
+          121.0,
+          239
+        ],
+        "scale": 1.01395,
+        "offset": [
+          133,
+          86
+        ],
+        "contact": [
+          338.83,
+          254.32
+        ]
+      }
+    ]
+  },
+  "pr_diamond_body-detail": {
+    "sheet": "premium-fist-internal",
+    "sourceSha256": "87a082ba1ac5e4bcff5f03be6100d72415c0ce37ea5ec2334365874c11e2d015",
+    "frameWidth": 512,
+    "frameHeight": 352,
+    "frameCount": 8,
+    "foot": [
+      256,
+      328
+    ],
+    "bodyHeight": 218,
+    "bytes": 212860,
+    "frames": [
+      {
+        "sourceRect": [
+          9,
+          1022,
+          246,
+          254
+        ],
+        "sourceFoot": [
+          128.84,
+          250
+        ],
+        "scale": 1.01395,
+        "offset": [
+          125,
+          75
+        ],
+        "contact": [
+          325.76,
+          256.5
+        ]
+      },
+      {
+        "sourceRect": [
+          252,
+          1022,
+          251,
+          254
+        ],
+        "sourceFoot": [
+          138.0,
+          250
+        ],
+        "scale": 1.01395,
+        "offset": [
+          116,
+          75
+        ],
+        "contact": [
+          334.0,
+          251.43
+        ]
+      },
+      {
+        "sourceRect": [
+          508,
+          1019,
+          256,
+          257
+        ],
+        "sourceFoot": [
+          136.5,
+          253
+        ],
+        "scale": 1.01395,
+        "offset": [
+          118,
+          71
+        ],
+        "contact": [
+          342.08,
+          240.33
+        ]
+      },
+      {
+        "sourceRect": [
+          772,
+          1022,
+          245,
+          254
+        ],
+        "sourceFoot": [
+          129.0,
+          250
+        ],
+        "scale": 1.01395,
+        "offset": [
+          125,
+          75
+        ],
+        "contact": [
+          335.9,
+          254.47
+        ]
+      },
+      {
+        "sourceRect": [
+          9,
+          1279,
+          236,
+          248
+        ],
+        "sourceFoot": [
+          128.5,
+          244
+        ],
+        "scale": 1.01395,
+        "offset": [
+          126,
+          81
+        ],
+        "contact": [
+          327.78,
+          254.39
+        ]
+      },
+      {
+        "sourceRect": [
+          256,
+          1278,
+          246,
+          249
+        ],
+        "sourceFoot": [
+          130.5,
+          245
+        ],
+        "scale": 1.01395,
+        "offset": [
+          124,
+          80
+        ],
+        "contact": [
+          334.9,
+          255.92
+        ]
+      },
+      {
+        "sourceRect": [
+          515,
+          1280,
+          248,
+          247
+        ],
+        "sourceFoot": [
+          132.0,
+          243
+        ],
+        "scale": 1.01395,
+        "offset": [
+          122,
+          82
+        ],
+        "contact": [
+          336.96,
+          255.39
+        ]
+      },
+      {
+        "sourceRect": [
+          774,
+          1268,
+          239,
+          259
+        ],
+        "sourceFoot": [
+          137.46,
+          255
+        ],
+        "scale": 1.01395,
+        "offset": [
+          117,
+          69
+        ],
+        "contact": [
+          316.75,
+          253.54
+        ]
+      }
+    ]
+  },
+  "pr_wind_thread-crit": {
+    "sheet": "premium-sword-step",
+    "sourceSha256": "5448aba0946688c0692ffa7b56f706b89594872551e01f591d586ece02ff2557",
+    "frameWidth": 512,
+    "frameHeight": 352,
+    "frameCount": 8,
+    "foot": [
+      256,
+      328
+    ],
+    "bodyHeight": 218,
+    "bytes": 203616,
+    "frames": [
+      {
+        "sourceRect": [
+          10,
+          38,
+          328,
+          208
+        ],
+        "sourceFoot": [
+          125.0,
+          204
+        ],
+        "scale": 1.0381,
+        "offset": [
+          126,
+          116
+        ],
+        "contact": [
+          442.62,
+          167.9
+        ]
+      },
+      {
+        "sourceRect": [
+          270,
+          43,
+          303,
+          206
+        ],
+        "sourceFoot": [
+          118.5,
+          202
+        ],
+        "scale": 1.0381,
+        "offset": [
+          133,
+          118
+        ],
+        "contact": [
+          425.74,
+          169.9
+        ]
+      },
+      {
+        "sourceRect": [
+          524,
+          41,
+          310,
+          209
+        ],
+        "sourceFoot": [
+          123.0,
+          205
+        ],
+        "scale": 1.0381,
+        "offset": [
+          128,
+          115
+        ],
+        "contact": [
+          428.01,
+          162.75
+        ]
+      },
+      {
+        "sourceRect": [
+          797,
+          42,
+          219,
+          208
+        ],
+        "sourceFoot": [
+          110.5,
+          204
+        ],
+        "scale": 1.0381,
+        "offset": [
+          141,
+          116
+        ],
+        "contact": [
+          346.54,
+          188.67
+        ]
+      },
+      {
+        "sourceRect": [
+          23,
+          306,
+          254,
+          219
+        ],
+        "sourceFoot": [
+          111.5,
+          215
+        ],
+        "scale": 1.0381,
+        "offset": [
+          140,
+          105
+        ],
+        "contact": [
+          381.88,
+          162.1
+        ]
+      },
+      {
+        "sourceRect": [
+          277,
+          305,
+          219,
+          222
+        ],
+        "sourceFoot": [
+          128.5,
+          218
+        ],
+        "scale": 1.0381,
+        "offset": [
+          123,
+          102
+        ],
+        "contact": [
+          328.7,
+          166.36
+        ]
+      },
+      {
+        "sourceRect": [
+          519,
+          279,
+          243,
+          249
+        ],
+        "sourceFoot": [
+          137.0,
+          245
+        ],
+        "scale": 1.0381,
+        "offset": [
+          114,
+          74
+        ],
+        "contact": [
+          318.5,
+          254.63
+        ]
+      },
+      {
+        "sourceRect": [
+          792,
+          255,
+          194,
+          274
+        ],
+        "sourceFoot": [
+          103.5,
+          269
+        ],
+        "scale": 1.0381,
+        "offset": [
+          149,
+          49
+        ],
+        "contact": [
+          317.17,
+          162.15
+        ]
+      }
+    ]
+  },
+  "pr_wind_thread-kill": {
+    "sheet": "premium-sword-step",
+    "sourceSha256": "5448aba0946688c0692ffa7b56f706b89594872551e01f591d586ece02ff2557",
+    "frameWidth": 512,
+    "frameHeight": 352,
+    "frameCount": 8,
+    "foot": [
+      256,
+      328
+    ],
+    "bodyHeight": 218,
+    "bytes": 200044,
+    "frames": [
+      {
+        "sourceRect": [
+          15,
+          577,
+          289,
+          189
+        ],
+        "sourceFoot": [
+          113.5,
+          184
+        ],
+        "scale": 1.0381,
+        "offset": [
+          138,
+          137
+        ],
+        "contact": [
+          415.17,
+          249.11
+        ]
+      },
+      {
+        "sourceRect": [
+          268,
+          571,
+          296,
+          198
+        ],
+        "sourceFoot": [
+          150.5,
+          194
+        ],
+        "scale": 1.0381,
+        "offset": [
+          100,
+          127
+        ],
+        "contact": [
+          386.41,
+          238.08
+        ]
+      },
+      {
+        "sourceRect": [
+          560,
+          572,
+          218,
+          201
+        ],
+        "sourceFoot": [
+          95.82,
+          197
+        ],
+        "scale": 1.0381,
+        "offset": [
+          157,
+          123
+        ],
+        "contact": [
+          333.48,
+          271.45
+        ]
+      },
+      {
+        "sourceRect": [
+          780,
+          559,
+          228,
+          214
+        ],
+        "sourceFoot": [
+          95.0,
+          210
+        ],
+        "scale": 1.0381,
+        "offset": [
+          157,
+          110
+        ],
+        "contact": [
+          353.2,
+          263.64
+        ]
+      },
+      {
+        "sourceRect": [
+          14,
+          799,
+          238,
+          228
+        ],
+        "sourceFoot": [
+          120.5,
+          223
+        ],
+        "scale": 1.0381,
+        "offset": [
+          131,
+          97
+        ],
+        "contact": [
+          334.47,
+          262.06
+        ]
+      },
+      {
+        "sourceRect": [
+          270,
+          802,
+          264,
+          225
+        ],
+        "sourceFoot": [
+          125.0,
+          221
+        ],
+        "scale": 1.0381,
+        "offset": [
+          126,
+          99
+        ],
+        "contact": [
+          361.65,
+          264.06
+        ]
+      },
+      {
+        "sourceRect": [
+          527,
+          792,
+          225,
+          237
+        ],
+        "sourceFoot": [
+          130.0,
+          233
+        ],
+        "scale": 1.0381,
+        "offset": [
+          121,
+          86
+        ],
+        "contact": [
+          323.43,
+          257.29
+        ]
+      },
+      {
+        "sourceRect": [
+          779,
+          781,
+          229,
+          249
+        ],
+        "sourceFoot": [
+          105.5,
+          245
+        ],
+        "scale": 1.0381,
+        "offset": [
+          146,
+          74
+        ],
+        "contact": [
+          343.24,
+          255.67
+        ]
+      }
+    ]
+  },
+  "pr_cloud_step-detail": {
+    "sheet": "premium-sword-step",
+    "sourceSha256": "5448aba0946688c0692ffa7b56f706b89594872551e01f591d586ece02ff2557",
+    "frameWidth": 512,
+    "frameHeight": 352,
+    "frameCount": 8,
+    "foot": [
+      256,
+      328
+    ],
+    "bodyHeight": 218,
+    "bytes": 197026,
+    "frames": [
+      {
+        "sourceRect": [
+          13,
+          1038,
+          225,
+          254
+        ],
+        "sourceFoot": [
+          126.0,
+          250
+        ],
+        "scale": 1.0381,
+        "offset": [
+          125,
+          68
+        ],
+        "contact": [
+          344.04,
+          128.21
+        ]
+      },
+      {
+        "sourceRect": [
+          257,
+          1054,
+          253,
+          194
+        ],
+        "sourceFoot": [
+          38.0,
+          190
+        ],
+        "scale": 1.0381,
+        "offset": [
+          217,
+          131
+        ],
+        "contact": [
+          454.72,
+          192.77
+        ]
+      },
+      {
+        "sourceRect": [
+          520,
+          1042,
+          240,
+          220
+        ],
+        "sourceFoot": [
+          105.0,
+          216
+        ],
+        "scale": 1.0381,
+        "offset": [
+          147,
+          104
+        ],
+        "contact": [
+          374.34,
+          150.71
+        ]
+      },
+      {
+        "sourceRect": [
+          771,
+          1047,
+          232,
+          222
+        ],
+        "sourceFoot": [
+          117.0,
+          218
+        ],
+        "scale": 1.0381,
+        "offset": [
+          135,
+          102
+        ],
+        "contact": [
+          364.42,
+          154.94
+        ]
+      },
+      {
+        "sourceRect": [
+          16,
+          1310,
+          259,
+          195
+        ],
+        "sourceFoot": [
+          140.28,
+          191
+        ],
+        "scale": 1.0381,
+        "offset": [
+          110,
+          130
+        ],
+        "contact": [
+          315.54,
+          218.24
+        ]
+      },
+      {
+        "sourceRect": [
+          271,
+          1310,
+          263,
+          197
+        ],
+        "sourceFoot": [
+          236.5,
+          193
+        ],
+        "scale": 1.0381,
+        "offset": [
+          10,
+          128
+        ],
+        "contact": [
+          239.42,
+          235.96
+        ]
+      },
+      {
+        "sourceRect": [
+          542,
+          1272,
+          212,
+          252
+        ],
+        "sourceFoot": [
+          124.5,
+          247
+        ],
+        "scale": 1.0381,
+        "offset": [
+          127,
+          72
+        ],
+        "contact": [
+          335.68,
+          141.55
+        ]
+      },
+      {
+        "sourceRect": [
+          802,
+          1265,
+          181,
+          258
+        ],
+        "sourceFoot": [
+          110.0,
+          253
+        ],
+        "scale": 1.0381,
+        "offset": [
+          142,
+          65
+        ],
+        "contact": [
+          321.59,
+          188.53
+        ]
+      }
+    ]
+  }
+}
