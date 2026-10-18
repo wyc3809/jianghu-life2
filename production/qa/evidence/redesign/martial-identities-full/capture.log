@@ -1,0 +1,56 @@
+完成全量動態 qg_lotus_steps 34
+完成全量動態 art_mirror_breath 35
+完成全量動態 jy_ash_manual 36
+完成全量動態 qy_mist_step 37
+完成全量動態 qy_cloud_sword 38
+完成全量動態 art_heavy_halberd 39
+完成全量動態 td_open_blade 40
+完成全量動態 qy_sky_intent 41
+完成全量動態 qy_piercing_needle 42
+完成全量動態 td_no_return 43
+完成全量動態 td_thunder_combo 44
+完成全量動態 td_wind_slash 45
+完成全量動態 em_golden_palm 46
+完成全量動態 em_silk_wrap 47
+完成全量動態 em_soft_palm 48
+完成全量動態 sl_weituo 49
+完成全量動態 sl_luohan_fist 50
+完成全量動態 em_heart_breath 51
+完成全量動態 wd_sword_form 52
+完成全量動態 sl_yijin 53
+完成全量動態 sl_iron_shirt 54
+完成全量動態 wd_wuji_sword 55
+完成全量動態 wd_pure_yang 56
+完成全量動態 wd_tai_push 57
+完成全量動態 tm_shadow_step 58
+完成全量動態 tm_poison_dart 59
+完成全量動態 tm_flying_needle 60
+失敗 tm_thousand_mech Error: page.screenshot: Target page, context or browser has been closed
+Call log:
+[2m  - taking page screenshot[22m
+[2m  - waiting for fonts to load...[22m
+[2m  - fonts loaded[22m
+
+失敗 mj_devil_breath Error: page.screenshot: Target page, context or browser has been closed
+Call log:
+[2m  - taking page screenshot[22m
+[2m  - waiting for fonts to load...[22m
+[2m  - fonts loaded[22m
+
+失敗 mj_blood_palm Error: page.screenshot: Target page, context or browser has been closed
+Call log:
+[2m  - taking page screenshot[22m
+[2m  - waiting for fonts to load...[22m
+[2m  - fonts loaded[22m
+
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+    at /workspace/jianghu-life2-current/scripts/qa/recordMartialFullCatalog.mjs:17:114
+    at async file:///workspace/jianghu-life2-current/scripts/qa/recordMartialFullCatalog.mjs:15:1 {
+  name: 'Error'
+}
+
+Node.js v24.19.0

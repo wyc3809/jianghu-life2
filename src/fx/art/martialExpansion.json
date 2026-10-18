@@ -1,0 +1,2694 @@
+[
+  {
+    "id": "基礎吐納",
+    "family": "internal",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "art_bridge_step",
+    "family": "step",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "art_tomb_sword",
+    "family": "sword",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "art_lake_breath",
+    "family": "internal",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "art_nine_shadow",
+    "family": "step",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.22,
+      0.48,
+      0.78
+    ],
+    "settle": [
+      0,
+      0.24,
+      0.52,
+      0.82
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "art_cold_palm",
+    "family": "palm",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.2,
+      0.84,
+      1
+    ],
+    "settle": [
+      0,
+      0.18,
+      0.56,
+      0.88
+    ],
+    "contactIndex": 4
+  },
+  {
+    "id": "art_moon_sword",
+    "family": "sword",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "art_void_breath",
+    "family": "internal",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "art_silk_hand",
+    "family": "palm",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.38,
+      0.7,
+      1
+    ],
+    "settle": [
+      0,
+      0.35,
+      0.64,
+      0.9
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "art_hook_silk",
+    "family": "hook",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "art_meteor_palm",
+    "family": "palm",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "art_tiger_breath",
+    "family": "internal",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "art_spring_well",
+    "family": "internal",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "art_shadow_needle",
+    "family": "needle",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "qg_snow_track",
+    "family": "step",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "qg_swallow_turn",
+    "family": "step",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "qg_feiyan",
+    "family": "step",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "qg_canopy_void",
+    "family": "step",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "art_staff_iron",
+    "family": "staff",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "art_whip_silk",
+    "family": "whip",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.38,
+      0.7,
+      1
+    ],
+    "settle": [
+      0,
+      0.35,
+      0.64,
+      0.9
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "art_bow_star",
+    "family": "bow",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.2,
+      0.84,
+      1
+    ],
+    "settle": [
+      0,
+      0.18,
+      0.56,
+      0.88
+    ],
+    "contactIndex": 5
+  },
+  {
+    "id": "qg_reed_drift",
+    "family": "step",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "qg_wall_cat",
+    "family": "step",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "art_sand_palm",
+    "family": "palm",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 4
+  },
+  {
+    "id": "jy_ash_manual",
+    "family": "fist",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 4
+  },
+  {
+    "id": "art_mirror_breath",
+    "family": "internal",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "qg_lotus_steps",
+    "family": "step",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "art_heavy_halberd",
+    "family": "halberd",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "qy_cloud_sword",
+    "family": "sword",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "qy_mist_step",
+    "family": "finger",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "qy_piercing_needle",
+    "family": "sword",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.2,
+      0.84,
+      1
+    ],
+    "settle": [
+      0,
+      0.18,
+      0.56,
+      0.88
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "qy_sky_intent",
+    "family": "sword",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.22,
+      0.48,
+      0.78
+    ],
+    "settle": [
+      0,
+      0.24,
+      0.52,
+      0.82
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "td_open_blade",
+    "family": "blade",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "td_wind_slash",
+    "family": "blade",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "td_thunder_combo",
+    "family": "blade",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.22,
+      0.48,
+      0.78
+    ],
+    "settle": [
+      0,
+      0.24,
+      0.52,
+      0.82
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "td_no_return",
+    "family": "blade",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.2,
+      0.84,
+      1
+    ],
+    "settle": [
+      0,
+      0.18,
+      0.56,
+      0.88
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "em_soft_palm",
+    "family": "palm",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.38,
+      0.7,
+      1
+    ],
+    "settle": [
+      0,
+      0.35,
+      0.64,
+      0.9
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "em_silk_wrap",
+    "family": "finger",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.38,
+      0.7,
+      1
+    ],
+    "settle": [
+      0,
+      0.35,
+      0.64,
+      0.9
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "em_golden_palm",
+    "family": "palm",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.2,
+      0.84,
+      1
+    ],
+    "settle": [
+      0,
+      0.18,
+      0.56,
+      0.88
+    ],
+    "contactIndex": 4
+  },
+  {
+    "id": "em_heart_breath",
+    "family": "internal",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "sl_weituo",
+    "family": "staff",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "sl_iron_shirt",
+    "family": "internal",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "sl_yijin",
+    "family": "internal",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "wd_sword_form",
+    "family": "sword",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "wd_tai_push",
+    "family": "palm",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.38,
+      0.7,
+      1
+    ],
+    "settle": [
+      0,
+      0.35,
+      0.64,
+      0.9
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "wd_pure_yang",
+    "family": "internal",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "wd_wuji_sword",
+    "family": "sword",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "tm_shadow_step",
+    "family": "step",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "tm_poison_dart",
+    "family": "dart",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 4
+  },
+  {
+    "id": "tm_thousand_mech",
+    "family": "mechanism",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.22,
+      0.48,
+      0.78
+    ],
+    "settle": [
+      0,
+      0.24,
+      0.52,
+      0.82
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "mj_blood_palm",
+    "family": "palm",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "mj_devil_breath",
+    "family": "internal",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "mj_soul_drain",
+    "family": "finger",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "mj_asura_slash",
+    "family": "blade",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "hs_pine_sword",
+    "family": "sword",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "hs_cloud_step",
+    "family": "sword",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.22,
+      0.48,
+      0.78
+    ],
+    "settle": [
+      0,
+      0.24,
+      0.52,
+      0.82
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "hs_split_peak",
+    "family": "sword",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.2,
+      0.84,
+      1
+    ],
+    "settle": [
+      0,
+      0.18,
+      0.56,
+      0.88
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "hs_yue_breath",
+    "family": "internal",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "art_drunken_fist",
+    "family": "fist",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "th_finger_flick",
+    "family": "finger",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "th_flute_sword",
+    "family": "flute",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "th_falling_petals",
+    "family": "palm",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "th_qimen_array",
+    "family": "internal",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "wg_embroidery_needle",
+    "family": "needle",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 4
+  },
+  {
+    "id": "wg_silent_step",
+    "family": "step",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "wg_yin_soft_palm",
+    "family": "palm",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.38,
+      0.7,
+      1
+    ],
+    "settle": [
+      0,
+      0.35,
+      0.64,
+      0.9
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "wg_root_severed_creed",
+    "family": "internal",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "art_guqin_song",
+    "family": "internal",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "art_poetry_sword",
+    "family": "sword",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "art_ink_illusion",
+    "family": "step",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "art_buddha_heart",
+    "family": "internal",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "art_dao_breath",
+    "family": "internal",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "art_heretic_scripture",
+    "family": "fist",
+    "premium": false,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.22,
+      0.48,
+      0.78
+    ],
+    "settle": [
+      0,
+      0.24,
+      0.52,
+      0.82
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "pr_blood_lotus",
+    "family": "blade",
+    "premium": true,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "critRecovery": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "killRecovery": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.22,
+      0.48,
+      0.78
+    ],
+    "settle": [
+      0,
+      0.24,
+      0.52,
+      0.82
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "pr_crimson_moon",
+    "family": "sword",
+    "premium": true,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "critRecovery": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "killRecovery": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "pr_nine_chain",
+    "family": "palm",
+    "premium": true,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "critRecovery": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "killRecovery": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.22,
+      0.48,
+      0.78
+    ],
+    "settle": [
+      0,
+      0.24,
+      0.52,
+      0.82
+    ],
+    "contactIndex": 4
+  },
+  {
+    "id": "pr_heaven_spear",
+    "family": "spear",
+    "premium": true,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "critRecovery": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "killRecovery": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.2,
+      0.84,
+      1
+    ],
+    "settle": [
+      0,
+      0.18,
+      0.56,
+      0.88
+    ],
+    "contactIndex": 4
+  },
+  {
+    "id": "pr_soul_lock",
+    "family": "finger",
+    "premium": true,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "critRecovery": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "killRecovery": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.2,
+      0.84,
+      1
+    ],
+    "settle": [
+      0,
+      0.18,
+      0.56,
+      0.88
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "pr_mist_blind",
+    "family": "palm",
+    "premium": true,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "critRecovery": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "killRecovery": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 4
+  },
+  {
+    "id": "pr_vajra_palm",
+    "family": "palm",
+    "premium": true,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "critRecovery": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "killRecovery": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.2,
+      0.84,
+      1
+    ],
+    "settle": [
+      0,
+      0.18,
+      0.56,
+      0.88
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "pr_floating_blade",
+    "family": "blade",
+    "premium": true,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "critRecovery": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "killRecovery": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.38,
+      0.7,
+      1
+    ],
+    "settle": [
+      0,
+      0.35,
+      0.64,
+      0.9
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "pr_star_fall",
+    "family": "dart",
+    "premium": true,
+    "sequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "critRecovery": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "killRecovery": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "windup": [
+      0,
+      0.22,
+      0.48,
+      0.78
+    ],
+    "settle": [
+      0,
+      0.24,
+      0.52,
+      0.82
+    ],
+    "contactIndex": 3
+  },
+  {
+    "id": "pr_blood_sea",
+    "family": "internal",
+    "premium": true,
+    "sequence": [
+      0,
+      8,
+      1,
+      9,
+      2,
+      10,
+      3,
+      11,
+      4,
+      12,
+      5,
+      13,
+      6,
+      14,
+      7,
+      15
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 7
+  },
+  {
+    "id": "pr_thunder_heart",
+    "family": "internal",
+    "premium": true,
+    "sequence": [
+      0,
+      8,
+      1,
+      9,
+      2,
+      10,
+      3,
+      11,
+      4,
+      12,
+      5,
+      13,
+      6,
+      14,
+      7,
+      15
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 7
+  },
+  {
+    "id": "pr_seal_meridian",
+    "family": "internal",
+    "premium": true,
+    "sequence": [
+      0,
+      8,
+      1,
+      9,
+      2,
+      10,
+      3,
+      11,
+      4,
+      12,
+      5,
+      13,
+      6,
+      14,
+      7,
+      15
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 7
+  },
+  {
+    "id": "pr_void_breath",
+    "family": "internal",
+    "premium": true,
+    "sequence": [
+      0,
+      8,
+      1,
+      9,
+      2,
+      10,
+      3,
+      11,
+      4,
+      12,
+      5,
+      13,
+      6,
+      14,
+      7,
+      15
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 7
+  },
+  {
+    "id": "pr_shadow_flash",
+    "family": "step",
+    "premium": true,
+    "sequence": [
+      0,
+      8,
+      1,
+      9,
+      2,
+      10,
+      3,
+      11,
+      4,
+      12,
+      5,
+      13,
+      6,
+      14,
+      7,
+      15
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 7
+  },
+  {
+    "id": "pr_tide_step",
+    "family": "step",
+    "premium": true,
+    "sequence": [
+      0,
+      8,
+      1,
+      9,
+      2,
+      10,
+      3,
+      11,
+      4,
+      12,
+      5,
+      13,
+      6,
+      14,
+      7,
+      15
+    ],
+    "windup": [
+      0,
+      0.28,
+      0.63,
+      1
+    ],
+    "settle": [
+      0,
+      0.25,
+      0.58,
+      0.86
+    ],
+    "contactIndex": 7
+  }
+]

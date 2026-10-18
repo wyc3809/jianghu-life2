@@ -1,0 +1,563 @@
+[
+  {
+    "id": "pr_blood_lotus",
+    "outcome": "crit",
+    "frames": 132,
+    "result": {
+      "dmg": 85,
+      "crit": true,
+      "heal": 0,
+      "killed": false,
+      "fx": [],
+      "reflect": 0
+    },
+    "active": "pr_blood_lotus",
+    "loaded": [
+      "crit",
+      "kill"
+    ],
+    "source": "真實SparDuel seed42結果；凍結時計後置左檢視收勢，冇新增移動／傷害",
+    "actualSources": [
+      "pr_blood_lotus-crit.webp"
+    ],
+    "errors": []
+  },
+  {
+    "id": "pr_blood_lotus",
+    "outcome": "kill",
+    "frames": 1346,
+    "result": {
+      "dmg": 64,
+      "crit": true,
+      "heal": 0,
+      "killed": true,
+      "fx": [
+        {
+          "kind": "guard",
+          "value": 27
+        }
+      ],
+      "reflect": 0
+    },
+    "active": "pr_blood_lotus",
+    "loaded": [
+      "crit",
+      "kill"
+    ],
+    "source": "真實SparDuel seed42結果；凍結時計後置左檢視收勢，冇新增移動／傷害",
+    "actualSources": [
+      "pr_blood_lotus-kill.webp"
+    ],
+    "errors": []
+  },
+  {
+    "id": "pr_crimson_moon",
+    "outcome": "crit",
+    "frames": 128,
+    "result": {
+      "dmg": 85,
+      "crit": true,
+      "heal": 0,
+      "killed": false,
+      "fx": [],
+      "reflect": 0
+    },
+    "active": "pr_crimson_moon",
+    "loaded": [
+      "crit",
+      "kill"
+    ],
+    "source": "真實SparDuel seed42結果；凍結時計後置左檢視收勢，冇新增移動／傷害",
+    "actualSources": [
+      "pr_crimson_moon-crit.webp"
+    ],
+    "errors": []
+  },
+  {
+    "id": "pr_crimson_moon",
+    "outcome": "kill",
+    "frames": 1349,
+    "result": {
+      "dmg": 64,
+      "crit": true,
+      "heal": 0,
+      "killed": true,
+      "fx": [
+        {
+          "kind": "guard",
+          "value": 27
+        }
+      ],
+      "reflect": 0
+    },
+    "active": "pr_crimson_moon",
+    "loaded": [
+      "crit",
+      "kill"
+    ],
+    "source": "真實SparDuel seed42結果；凍結時計後置左檢視收勢，冇新增移動／傷害",
+    "actualSources": [
+      "pr_crimson_moon-kill.webp"
+    ],
+    "errors": []
+  },
+  {
+    "id": "pr_nine_chain",
+    "outcome": "crit",
+    "frames": 132,
+    "result": {
+      "dmg": 85,
+      "crit": true,
+      "heal": 0,
+      "killed": false,
+      "fx": [],
+      "reflect": 0
+    },
+    "active": "pr_nine_chain",
+    "loaded": [
+      "crit",
+      "kill"
+    ],
+    "source": "真實SparDuel seed42結果；凍結時計後置左檢視收勢，冇新增移動／傷害",
+    "actualSources": [
+      "pr_nine_chain-crit.webp"
+    ],
+    "errors": []
+  },
+  {
+    "id": "pr_nine_chain",
+    "outcome": "kill",
+    "frames": 1349,
+    "result": {
+      "dmg": 64,
+      "crit": true,
+      "heal": 0,
+      "killed": true,
+      "fx": [
+        {
+          "kind": "guard",
+          "value": 27
+        }
+      ],
+      "reflect": 0
+    },
+    "active": "pr_nine_chain",
+    "loaded": [
+      "crit",
+      "kill"
+    ],
+    "source": "真實SparDuel seed42結果；凍結時計後置左檢視收勢，冇新增移動／傷害",
+    "actualSources": [
+      "pr_nine_chain-kill.webp"
+    ],
+    "errors": []
+  },
+  {
+    "id": "pr_wind_thread",
+    "outcome": "crit",
+    "frames": 127,
+    "result": {
+      "dmg": 85,
+      "crit": true,
+      "heal": 0,
+      "killed": false,
+      "fx": [],
+      "reflect": 0
+    },
+    "active": "pr_wind_thread",
+    "loaded": [
+      "crit",
+      "kill"
+    ],
+    "source": "真實SparDuel seed42結果；凍結時計後置左檢視收勢，冇新增移動／傷害",
+    "actualSources": [
+      "pr_wind_thread-crit.webp"
+    ],
+    "errors": []
+  },
+  {
+    "id": "pr_wind_thread",
+    "outcome": "kill",
+    "frames": 1349,
+    "result": {
+      "dmg": 64,
+      "crit": true,
+      "heal": 0,
+      "killed": true,
+      "fx": [
+        {
+          "kind": "guard",
+          "value": 27
+        }
+      ],
+      "reflect": 0
+    },
+    "active": "pr_wind_thread",
+    "loaded": [
+      "crit",
+      "kill"
+    ],
+    "source": "真實SparDuel seed42結果；凍結時計後置左檢視收勢，冇新增移動／傷害",
+    "actualSources": [
+      "pr_wind_thread-kill.webp"
+    ],
+    "errors": []
+  },
+  {
+    "id": "pr_mountain_split",
+    "outcome": "crit",
+    "frames": 132,
+    "result": {
+      "dmg": 85,
+      "crit": true,
+      "heal": 0,
+      "killed": false,
+      "fx": [],
+      "reflect": 0
+    },
+    "active": "pr_mountain_split",
+    "loaded": [
+      "crit",
+      "kill"
+    ],
+    "source": "真實SparDuel seed42結果；凍結時計後置左檢視收勢，冇新增移動／傷害",
+    "actualSources": [
+      "pr_mountain_split-crit.webp"
+    ],
+    "errors": []
+  },
+  {
+    "id": "pr_mountain_split",
+    "outcome": "kill",
+    "frames": 1349,
+    "result": {
+      "dmg": 64,
+      "crit": true,
+      "heal": 0,
+      "killed": true,
+      "fx": [
+        {
+          "kind": "guard",
+          "value": 27
+        }
+      ],
+      "reflect": 0
+    },
+    "active": "pr_mountain_split",
+    "loaded": [
+      "crit",
+      "kill"
+    ],
+    "source": "真實SparDuel seed42結果；凍結時計後置左檢視收勢，冇新增移動／傷害",
+    "actualSources": [
+      "pr_mountain_split-kill.webp"
+    ],
+    "errors": []
+  },
+  {
+    "id": "pr_heaven_spear",
+    "outcome": "crit",
+    "frames": 132,
+    "result": {
+      "dmg": 85,
+      "crit": true,
+      "heal": 0,
+      "killed": false,
+      "fx": [],
+      "reflect": 0
+    },
+    "active": "pr_heaven_spear",
+    "loaded": [
+      "crit",
+      "kill"
+    ],
+    "source": "真實SparDuel seed42結果；凍結時計後置左檢視收勢，冇新增移動／傷害",
+    "actualSources": [
+      "pr_heaven_spear-crit.webp"
+    ],
+    "errors": []
+  },
+  {
+    "id": "pr_heaven_spear",
+    "outcome": "kill",
+    "frames": 1349,
+    "result": {
+      "dmg": 64,
+      "crit": true,
+      "heal": 0,
+      "killed": true,
+      "fx": [
+        {
+          "kind": "guard",
+          "value": 27
+        }
+      ],
+      "reflect": 0
+    },
+    "active": "pr_heaven_spear",
+    "loaded": [
+      "crit",
+      "kill"
+    ],
+    "source": "真實SparDuel seed42結果；凍結時計後置左檢視收勢，冇新增移動／傷害",
+    "actualSources": [
+      "pr_heaven_spear-kill.webp"
+    ],
+    "errors": []
+  },
+  {
+    "id": "pr_soul_lock",
+    "outcome": "crit",
+    "frames": 126,
+    "result": {
+      "dmg": 85,
+      "crit": true,
+      "heal": 0,
+      "killed": false,
+      "fx": [],
+      "reflect": 0
+    },
+    "active": "pr_soul_lock",
+    "loaded": [
+      "crit",
+      "kill"
+    ],
+    "source": "真實SparDuel seed42結果；凍結時計後置左檢視收勢，冇新增移動／傷害",
+    "actualSources": [
+      "pr_soul_lock-crit.webp"
+    ],
+    "errors": []
+  },
+  {
+    "id": "pr_soul_lock",
+    "outcome": "kill",
+    "frames": 1349,
+    "result": {
+      "dmg": 64,
+      "crit": true,
+      "heal": 0,
+      "killed": true,
+      "fx": [
+        {
+          "kind": "guard",
+          "value": 27
+        }
+      ],
+      "reflect": 0
+    },
+    "active": "pr_soul_lock",
+    "loaded": [
+      "crit",
+      "kill"
+    ],
+    "source": "真實SparDuel seed42結果；凍結時計後置左檢視收勢，冇新增移動／傷害",
+    "actualSources": [
+      "pr_soul_lock-kill.webp"
+    ],
+    "errors": []
+  },
+  {
+    "id": "pr_mist_blind",
+    "outcome": "crit",
+    "frames": 132,
+    "result": {
+      "dmg": 85,
+      "crit": true,
+      "heal": 0,
+      "killed": false,
+      "fx": [],
+      "reflect": 0
+    },
+    "active": "pr_mist_blind",
+    "loaded": [
+      "crit",
+      "kill"
+    ],
+    "source": "真實SparDuel seed42結果；凍結時計後置左檢視收勢，冇新增移動／傷害",
+    "actualSources": [
+      "pr_mist_blind-crit.webp"
+    ],
+    "errors": []
+  },
+  {
+    "id": "pr_mist_blind",
+    "outcome": "kill",
+    "frames": 1349,
+    "result": {
+      "dmg": 64,
+      "crit": true,
+      "heal": 0,
+      "killed": true,
+      "fx": [
+        {
+          "kind": "guard",
+          "value": 27
+        }
+      ],
+      "reflect": 0
+    },
+    "active": "pr_mist_blind",
+    "loaded": [
+      "crit",
+      "kill"
+    ],
+    "source": "真實SparDuel seed42結果；凍結時計後置左檢視收勢，冇新增移動／傷害",
+    "actualSources": [
+      "pr_mist_blind-kill.webp"
+    ],
+    "errors": []
+  },
+  {
+    "id": "pr_vajra_palm",
+    "outcome": "crit",
+    "frames": 132,
+    "result": {
+      "dmg": 85,
+      "crit": true,
+      "heal": 0,
+      "killed": false,
+      "fx": [],
+      "reflect": 0
+    },
+    "active": "pr_vajra_palm",
+    "loaded": [
+      "crit",
+      "kill"
+    ],
+    "source": "真實SparDuel seed42結果；凍結時計後置左檢視收勢，冇新增移動／傷害",
+    "actualSources": [
+      "pr_vajra_palm-crit.webp"
+    ],
+    "errors": []
+  },
+  {
+    "id": "pr_vajra_palm",
+    "outcome": "kill",
+    "frames": 1349,
+    "result": {
+      "dmg": 64,
+      "crit": true,
+      "heal": 0,
+      "killed": true,
+      "fx": [
+        {
+          "kind": "guard",
+          "value": 27
+        }
+      ],
+      "reflect": 0
+    },
+    "active": "pr_vajra_palm",
+    "loaded": [
+      "crit",
+      "kill"
+    ],
+    "source": "真實SparDuel seed42結果；凍結時計後置左檢視收勢，冇新增移動／傷害",
+    "actualSources": [
+      "pr_vajra_palm-kill.webp"
+    ],
+    "errors": []
+  },
+  {
+    "id": "pr_floating_blade",
+    "outcome": "crit",
+    "frames": 117,
+    "result": {
+      "dmg": 85,
+      "crit": true,
+      "heal": 0,
+      "killed": false,
+      "fx": [],
+      "reflect": 0
+    },
+    "active": "pr_floating_blade",
+    "loaded": [
+      "crit",
+      "kill"
+    ],
+    "source": "真實SparDuel seed42結果；凍結時計後置左檢視收勢，冇新增移動／傷害",
+    "actualSources": [
+      "pr_floating_blade-crit.webp"
+    ],
+    "errors": []
+  },
+  {
+    "id": "pr_floating_blade",
+    "outcome": "kill",
+    "frames": 1346,
+    "result": {
+      "dmg": 64,
+      "crit": true,
+      "heal": 0,
+      "killed": true,
+      "fx": [
+        {
+          "kind": "guard",
+          "value": 27
+        }
+      ],
+      "reflect": 0
+    },
+    "active": "pr_floating_blade",
+    "loaded": [
+      "crit",
+      "kill"
+    ],
+    "source": "真實SparDuel seed42結果；凍結時計後置左檢視收勢，冇新增移動／傷害",
+    "actualSources": [
+      "pr_floating_blade-kill.webp"
+    ],
+    "errors": []
+  },
+  {
+    "id": "pr_star_fall",
+    "outcome": "crit",
+    "frames": 132,
+    "result": {
+      "dmg": 85,
+      "crit": true,
+      "heal": 0,
+      "killed": false,
+      "fx": [],
+      "reflect": 0
+    },
+    "active": "pr_star_fall",
+    "loaded": [
+      "crit",
+      "kill"
+    ],
+    "source": "真實SparDuel seed42結果；凍結時計後置左檢視收勢，冇新增移動／傷害",
+    "actualSources": [
+      "pr_star_fall-crit.webp"
+    ],
+    "errors": []
+  },
+  {
+    "id": "pr_star_fall",
+    "outcome": "kill",
+    "frames": 1349,
+    "result": {
+      "dmg": 64,
+      "crit": true,
+      "heal": 0,
+      "killed": true,
+      "fx": [
+        {
+          "kind": "guard",
+          "value": 27
+        }
+      ],
+      "reflect": 0
+    },
+    "active": "pr_star_fall",
+    "loaded": [
+      "crit",
+      "kill"
+    ],
+    "source": "真實SparDuel seed42結果；凍結時計後置左檢視收勢，冇新增移動／傷害",
+    "actualSources": [
+      "pr_star_fall-kill.webp"
+    ],
+    "errors": []
+  }
+]

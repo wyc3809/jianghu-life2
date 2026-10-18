@@ -1,0 +1,1019 @@
+{
+  "seed": 42,
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "dpr": 2,
+  "cases": [
+    {
+      "id": "基礎吐納",
+      "name": "基礎吐納",
+      "kind": "internal",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "產品呈現器運氣／步法檢視",
+      "atlas": "基礎吐納.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_river_fist",
+        "基礎吐納"
+      ],
+      "resources": [
+        "art_river_fist.webp",
+        "%E5%9F%BA%E7%A4%8E%E5%90%90%E7%B4%8D.webp",
+        "fx-qi.webp",
+        "fx-wave.webp",
+        "fx-wave-big.webp",
+        "fx-crack.webp",
+        "fx-spark.webp",
+        "%E5%9F%BA%E7%A4%8E%E5%90%90%E7%B4%8D-fx-signature.webp",
+        "art_river_fist-fx-signature.webp"
+      ],
+      "activeArt": null,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "art_bow_star",
+      "name": "逐星箭意",
+      "kind": "external",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "真核心演武首領戰報",
+      "atlas": "art_bow_star.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_bow_star"
+      ],
+      "resources": [
+        "art_bow_star.webp",
+        "art_bow_star-fx-signature.webp"
+      ],
+      "activeArt": "art_bow_star",
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "pr_vajra_palm",
+      "name": "金剛不壞掌",
+      "kind": "external",
+      "rarity": "珍本",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "真核心演武首領戰報",
+      "atlas": "pr_vajra_palm.webp",
+      "guard": false,
+      "variants": [
+        "crit",
+        "kill"
+      ],
+      "effects": [
+        "signature",
+        "detail",
+        "finish"
+      ],
+      "assets": [
+        "pr_vajra_palm"
+      ],
+      "resources": [
+        "pr_vajra_palm.webp",
+        "pr_vajra_palm-kill.webp",
+        "pr_vajra_palm-crit.webp",
+        "fx-crack.webp",
+        "fx-rock.webp",
+        "fx-dust.webp",
+        "pr_vajra_palm-fx-signature.webp",
+        "pr_vajra_palm-fx-detail.webp",
+        "pr_vajra_palm-fx-finish.webp"
+      ],
+      "activeArt": "pr_vajra_palm",
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "art_river_fist",
+      "name": "長河拳",
+      "kind": "external",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "真核心演武首領戰報",
+      "atlas": "art_river_fist.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_river_fist"
+      ],
+      "resources": [
+        "art_river_fist.webp",
+        "fx-wave.webp",
+        "fx-wave-big.webp",
+        "fx-qi.webp",
+        "fx-crack.webp",
+        "fx-spark.webp",
+        "art_river_fist-fx-signature.webp"
+      ],
+      "activeArt": "art_river_fist",
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "art_stone_palm",
+      "name": "裂石殘掌",
+      "kind": "external",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "真核心演武首領戰報",
+      "atlas": "art_stone_palm.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_stone_palm"
+      ],
+      "resources": [
+        "art_stone_palm.webp",
+        "fx-crack.webp",
+        "fx-rock.webp",
+        "fx-dust.webp",
+        "art_stone_palm-fx-signature.webp"
+      ],
+      "activeArt": "art_stone_palm",
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "art_bridge_step",
+      "name": "斷橋步",
+      "kind": "external",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "真核心演武首領戰報",
+      "atlas": "art_bridge_step.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_bridge_step"
+      ],
+      "resources": [
+        "art_bridge_step.webp",
+        "fx-dust.webp",
+        "fx-cloud.webp",
+        "art_bridge_step-fx-signature.webp"
+      ],
+      "activeArt": "art_bridge_step",
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "art_lake_breath",
+      "name": "寒湖吐納",
+      "kind": "internal",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "產品呈現器運氣／步法檢視",
+      "atlas": "art_lake_breath.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_river_fist",
+        "art_lake_breath"
+      ],
+      "resources": [
+        "art_river_fist.webp",
+        "art_lake_breath.webp",
+        "fx-qi.webp",
+        "fx-wave.webp",
+        "fx-wave-big.webp",
+        "fx-crack.webp",
+        "fx-spark.webp",
+        "art_lake_breath-fx-signature.webp",
+        "art_river_fist-fx-signature.webp"
+      ],
+      "activeArt": null,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "art_tomb_sword",
+      "name": "無銘劍意",
+      "kind": "external",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "真核心演武首領戰報",
+      "atlas": "art_tomb_sword.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_tomb_sword"
+      ],
+      "resources": [
+        "art_tomb_sword.webp",
+        "fx-rain.webp",
+        "fx-streak.webp",
+        "art_tomb_sword-fx-signature.webp"
+      ],
+      "activeArt": "art_tomb_sword",
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "art_rain_sword",
+      "name": "聽雨劍意",
+      "kind": "external",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "真核心演武首領戰報",
+      "atlas": "art_rain_sword.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_rain_sword"
+      ],
+      "resources": [
+        "art_rain_sword.webp",
+        "fx-rain.webp",
+        "fx-streak.webp",
+        "art_rain_sword-fx-signature.webp"
+      ],
+      "activeArt": "art_rain_sword",
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "art_cold_palm",
+      "name": "寒霜掌",
+      "kind": "external",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "真核心演武首領戰報",
+      "atlas": "art_cold_palm.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_cold_palm"
+      ],
+      "resources": [
+        "art_cold_palm.webp",
+        "fx-crack.webp",
+        "fx-rock.webp",
+        "fx-dust.webp",
+        "art_cold_palm-fx-signature.webp"
+      ],
+      "activeArt": "art_cold_palm",
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "art_nine_shadow",
+      "name": "九影迷踪步",
+      "kind": "external",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "真核心演武首領戰報",
+      "atlas": "art_nine_shadow.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_nine_shadow"
+      ],
+      "resources": [
+        "art_nine_shadow.webp",
+        "fx-dust.webp",
+        "fx-cloud.webp",
+        "art_nine_shadow-fx-signature.webp"
+      ],
+      "activeArt": "art_nine_shadow",
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "art_iron_body",
+      "name": "鐵布衫",
+      "kind": "internal",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "產品呈現器運氣／步法檢視",
+      "atlas": "art_iron_body.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_river_fist",
+        "art_iron_body"
+      ],
+      "resources": [
+        "art_river_fist.webp",
+        "art_iron_body.webp",
+        "fx-qi.webp",
+        "fx-wave.webp",
+        "fx-wave-big.webp",
+        "fx-crack.webp",
+        "fx-spark.webp",
+        "art_iron_body-fx-signature.webp",
+        "art_river_fist-fx-signature.webp"
+      ],
+      "activeArt": null,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "art_void_breath",
+      "name": "空冥吐納",
+      "kind": "internal",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "產品呈現器運氣／步法檢視",
+      "atlas": "art_void_breath.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_river_fist",
+        "art_void_breath"
+      ],
+      "resources": [
+        "art_river_fist.webp",
+        "art_void_breath.webp",
+        "fx-wave.webp",
+        "fx-wave-big.webp",
+        "fx-qi.webp",
+        "fx-crack.webp",
+        "fx-spark.webp",
+        "art_void_breath-fx-signature.webp",
+        "art_river_fist-fx-signature.webp"
+      ],
+      "activeArt": null,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "art_moon_sword",
+      "name": "弄月劍法",
+      "kind": "external",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "真核心演武首領戰報",
+      "atlas": "art_moon_sword.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_moon_sword"
+      ],
+      "resources": [
+        "art_moon_sword.webp",
+        "fx-rain.webp",
+        "fx-streak.webp",
+        "art_moon_sword-fx-signature.webp"
+      ],
+      "activeArt": "art_moon_sword",
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "art_silk_hand",
+      "name": "柔絲手",
+      "kind": "external",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "真核心演武首領戰報",
+      "atlas": "art_silk_hand.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_silk_hand"
+      ],
+      "resources": [
+        "art_silk_hand.webp",
+        "fx-rock.webp",
+        "fx-crack.webp",
+        "fx-dust.webp",
+        "art_silk_hand-fx-signature.webp"
+      ],
+      "activeArt": "art_silk_hand",
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "art_wind_chase",
+      "name": "追風腿",
+      "kind": "external",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "真核心演武首領戰報",
+      "atlas": "art_wind_chase.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_wind_chase"
+      ],
+      "resources": [
+        "art_wind_chase.webp",
+        "fx-wind.webp",
+        "art_wind_chase-fx-signature.webp"
+      ],
+      "activeArt": "art_wind_chase",
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "art_thunder_blade",
+      "name": "驚雷刀",
+      "kind": "external",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "真核心演武首領戰報",
+      "atlas": "art_thunder_blade.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_thunder_blade"
+      ],
+      "resources": [
+        "art_thunder_blade.webp",
+        "fx-spark.webp",
+        "fx-lightning.webp",
+        "art_thunder_blade-fx-signature.webp"
+      ],
+      "activeArt": "art_thunder_blade",
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "art_hook_silk",
+      "name": "鐵線鉤法",
+      "kind": "external",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "真核心演武首領戰報",
+      "atlas": "art_hook_silk.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_hook_silk"
+      ],
+      "resources": [
+        "art_hook_silk.webp",
+        "art_hook_silk-fx-signature.webp"
+      ],
+      "activeArt": "art_hook_silk",
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "art_tiger_breath",
+      "name": "虎嘯內勁",
+      "kind": "internal",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "產品呈現器運氣／步法檢視",
+      "atlas": "art_tiger_breath.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_river_fist",
+        "art_tiger_breath"
+      ],
+      "resources": [
+        "art_river_fist.webp",
+        "art_tiger_breath.webp",
+        "fx-wave.webp",
+        "fx-wave-big.webp",
+        "fx-qi.webp",
+        "fx-crack.webp",
+        "fx-spark.webp",
+        "art_tiger_breath-fx-signature.webp",
+        "art_river_fist-fx-signature.webp"
+      ],
+      "activeArt": null,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "art_meteor_palm",
+      "name": "流星掌",
+      "kind": "external",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "真核心演武首領戰報",
+      "atlas": "art_meteor_palm.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_meteor_palm"
+      ],
+      "resources": [
+        "art_meteor_palm.webp",
+        "fx-crack.webp",
+        "fx-rock.webp",
+        "fx-dust.webp",
+        "art_meteor_palm-fx-signature.webp"
+      ],
+      "activeArt": "art_meteor_palm",
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "art_spring_well",
+      "name": "涌泉訣",
+      "kind": "internal",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "產品呈現器運氣／步法檢視",
+      "atlas": "art_spring_well.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_river_fist",
+        "art_spring_well"
+      ],
+      "resources": [
+        "art_river_fist.webp",
+        "art_spring_well.webp",
+        "fx-wave.webp",
+        "fx-wave-big.webp",
+        "fx-qi.webp",
+        "fx-crack.webp",
+        "fx-spark.webp",
+        "art_spring_well-fx-signature.webp",
+        "art_river_fist-fx-signature.webp"
+      ],
+      "activeArt": null,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "qg_snow_track",
+      "name": "踏雪無痕",
+      "kind": "qinggong",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "產品呈現器運氣／步法檢視",
+      "atlas": "qg_snow_track.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_river_fist",
+        "qg_snow_track"
+      ],
+      "resources": [
+        "art_river_fist.webp",
+        "qg_snow_track.webp",
+        "fx-wave.webp",
+        "fx-wave-big.webp",
+        "fx-qi.webp",
+        "fx-crack.webp",
+        "fx-spark.webp",
+        "fx-dust.webp",
+        "fx-cloud.webp",
+        "art_river_fist-fx-signature.webp",
+        "qg_snow_track-fx-signature.webp"
+      ],
+      "activeArt": null,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "art_shadow_needle",
+      "name": "無影針訣",
+      "kind": "external",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "真核心演武首領戰報",
+      "atlas": "art_shadow_needle.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_shadow_needle"
+      ],
+      "resources": [
+        "art_shadow_needle.webp",
+        "fx-needle.webp",
+        "art_shadow_needle-fx-signature.webp"
+      ],
+      "activeArt": "art_shadow_needle",
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "qg_swallow_turn",
+      "name": "燕子三轉",
+      "kind": "qinggong",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "產品呈現器運氣／步法檢視",
+      "atlas": "qg_swallow_turn.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_river_fist",
+        "qg_swallow_turn"
+      ],
+      "resources": [
+        "art_river_fist.webp",
+        "qg_swallow_turn.webp",
+        "fx-wave.webp",
+        "fx-wave-big.webp",
+        "fx-qi.webp",
+        "fx-crack.webp",
+        "fx-spark.webp",
+        "fx-dust.webp",
+        "fx-cloud.webp",
+        "qg_swallow_turn-fx-signature.webp",
+        "art_river_fist-fx-signature.webp"
+      ],
+      "activeArt": null,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "qg_canopy_void",
+      "name": "凌虛步",
+      "kind": "qinggong",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "產品呈現器運氣／步法檢視",
+      "atlas": "qg_canopy_void.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_river_fist",
+        "qg_canopy_void"
+      ],
+      "resources": [
+        "art_river_fist.webp",
+        "qg_canopy_void.webp",
+        "fx-wave.webp",
+        "fx-wave-big.webp",
+        "fx-qi.webp",
+        "fx-crack.webp",
+        "fx-spark.webp",
+        "fx-dust.webp",
+        "fx-cloud.webp",
+        "art_river_fist-fx-signature.webp",
+        "qg_canopy_void-fx-signature.webp"
+      ],
+      "activeArt": null,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "qg_feiyan",
+      "name": "飛燕功",
+      "kind": "qinggong",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "產品呈現器運氣／步法檢視",
+      "atlas": "qg_feiyan.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_river_fist",
+        "qg_feiyan"
+      ],
+      "resources": [
+        "art_river_fist.webp",
+        "qg_feiyan.webp",
+        "fx-dust.webp",
+        "fx-cloud.webp",
+        "fx-wave.webp",
+        "fx-wave-big.webp",
+        "fx-qi.webp",
+        "fx-crack.webp",
+        "fx-spark.webp",
+        "qg_feiyan-fx-signature.webp",
+        "art_river_fist-fx-signature.webp"
+      ],
+      "activeArt": null,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "qg_broken_bridge",
+      "name": "斷橋步",
+      "kind": "qinggong",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "產品呈現器運氣／步法檢視",
+      "atlas": "qg_broken_bridge.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_river_fist",
+        "qg_broken_bridge"
+      ],
+      "resources": [
+        "art_river_fist.webp",
+        "qg_broken_bridge.webp",
+        "fx-wave.webp",
+        "fx-wave-big.webp",
+        "fx-qi.webp",
+        "fx-crack.webp",
+        "fx-spark.webp",
+        "fx-dust.webp",
+        "fx-cloud.webp",
+        "art_river_fist-fx-signature.webp",
+        "qg_broken_bridge-fx-signature.webp"
+      ],
+      "activeArt": null,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "art_staff_iron",
+      "name": "鐵杖訣",
+      "kind": "external",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "真核心演武首領戰報",
+      "atlas": "art_staff_iron.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_staff_iron"
+      ],
+      "resources": [
+        "art_staff_iron.webp",
+        "art_staff_iron-fx-signature.webp"
+      ],
+      "activeArt": "art_staff_iron",
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "art_spear_cloud",
+      "name": "穿雲槍",
+      "kind": "external",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "真核心演武首領戰報",
+      "atlas": "art_spear_cloud.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_spear_cloud"
+      ],
+      "resources": [
+        "art_spear_cloud.webp",
+        "fx-thrust.webp",
+        "fx-cloud.webp",
+        "art_spear_cloud-fx-signature.webp"
+      ],
+      "activeArt": "art_spear_cloud",
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "art_whip_silk",
+      "name": "柔絲鞭法",
+      "kind": "external",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "真核心演武首領戰報",
+      "atlas": "art_whip_silk.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_whip_silk"
+      ],
+      "resources": [
+        "art_whip_silk.webp",
+        "art_whip_silk-fx-signature.webp"
+      ],
+      "activeArt": "art_whip_silk",
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "qg_reed_drift",
+      "name": "蘆花身法",
+      "kind": "qinggong",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "產品呈現器運氣／步法檢視",
+      "atlas": "qg_reed_drift.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_river_fist",
+        "qg_reed_drift"
+      ],
+      "resources": [
+        "art_river_fist.webp",
+        "qg_reed_drift.webp",
+        "fx-wave.webp",
+        "fx-wave-big.webp",
+        "fx-qi.webp",
+        "fx-crack.webp",
+        "fx-spark.webp",
+        "fx-dust.webp",
+        "fx-cloud.webp",
+        "art_river_fist-fx-signature.webp",
+        "qg_reed_drift-fx-signature.webp"
+      ],
+      "activeArt": null,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "art_sand_palm",
+      "name": "流沙掌",
+      "kind": "external",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "真核心演武首領戰報",
+      "atlas": "art_sand_palm.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_sand_palm"
+      ],
+      "resources": [
+        "art_sand_palm.webp",
+        "fx-crack.webp",
+        "fx-rock.webp",
+        "fx-dust.webp",
+        "art_sand_palm-fx-signature.webp"
+      ],
+      "activeArt": "art_sand_palm",
+      "errors": [],
+      "passed": true
+    },
+    {
+      "id": "qg_wall_cat",
+      "name": "壁虎遊牆",
+      "kind": "qinggong",
+      "rarity": "一般",
+      "normalFrames": 48,
+      "blindFrames": 32,
+      "source": "產品呈現器運氣／步法檢視",
+      "atlas": "qg_wall_cat.webp",
+      "guard": false,
+      "variants": [],
+      "effects": [
+        "signature"
+      ],
+      "assets": [
+        "art_river_fist",
+        "qg_wall_cat"
+      ],
+      "resources": [
+        "art_river_fist.webp",
+        "qg_wall_cat.webp",
+        "fx-wave.webp",
+        "fx-wave-big.webp",
+        "fx-qi.webp",
+        "fx-crack.webp",
+        "fx-spark.webp",
+        "fx-dust.webp",
+        "fx-cloud.webp",
+        "art_river_fist-fx-signature.webp",
+        "qg_wall_cat-fx-signature.webp"
+      ],
+      "activeArt": null,
+      "errors": [],
+      "passed": true
+    }
+  ],
+  "errors": [
+    {
+      "id": "art_mirror_breath",
+      "error": "Error: page.screenshot: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - taking page screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n",
+      "pageErrors": []
+    },
+    {
+      "id": "qg_lotus_steps",
+      "error": "Error: page.screenshot: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - taking page screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n",
+      "pageErrors": []
+    },
+    {
+      "id": "jy_ash_manual",
+      "error": "Error: page.screenshot: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - taking page screenshot\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n",
+      "pageErrors": []
+    }
+  ],
+  "note": "外功係真核心戰報；內功／身法及盲辨係同一呈現器姿勢檢視，唔新增攻擊。固定步進影片唔係效能量測。"
+}

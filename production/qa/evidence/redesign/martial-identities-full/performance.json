@@ -1,0 +1,300 @@
+{
+  "platform": "Linux桌面無頭Chromium，390×844 DPR2；非iPhone實機",
+  "samples": [
+    {
+      "scenario": "art_bow_star",
+      "readyMs": 2621,
+      "frames": 180,
+      "p50": 16.699999999999818,
+      "p95": 16.800000000000182,
+      "max": 66.59999999999945,
+      "over33ms": 2,
+      "activeArts": [
+        "art_bow_star"
+      ],
+      "newImageRgbaEstimate": 6029312,
+      "jsHeap": 25455756,
+      "resources": [
+        {
+          "name": "art_bow_star.webp",
+          "bytes": 184370
+        },
+        {
+          "name": "art_bow_star-fx-signature.webp",
+          "bytes": 36352
+        }
+      ]
+    },
+    {
+      "scenario": "pr_blood_lotus",
+      "readyMs": 2607,
+      "frames": 180,
+      "p50": 16.699999999999818,
+      "p95": 16.800000000000182,
+      "max": 66.69999999999982,
+      "over33ms": 3,
+      "activeArts": [
+        "pr_blood_lotus"
+      ],
+      "newImageRgbaEstimate": 18612224,
+      "jsHeap": 27324936,
+      "resources": [
+        {
+          "name": "pr_blood_lotus.webp",
+          "bytes": 201724
+        },
+        {
+          "name": "pr_blood_lotus-kill.webp",
+          "bytes": 178466
+        },
+        {
+          "name": "pr_blood_lotus-crit.webp",
+          "bytes": 170780
+        },
+        {
+          "name": "fx-lightning.webp",
+          "bytes": 49180
+        },
+        {
+          "name": "fx-spark.webp",
+          "bytes": 49948
+        },
+        {
+          "name": "pr_blood_lotus-fx-signature.webp",
+          "bytes": 58190
+        },
+        {
+          "name": "pr_blood_lotus-fx-detail.webp",
+          "bytes": 51440
+        },
+        {
+          "name": "pr_blood_lotus-fx-finish.webp",
+          "bytes": 59692
+        }
+      ]
+    },
+    {
+      "scenario": "five-rare-two-support",
+      "readyMs": 3761,
+      "frames": 180,
+      "p50": 16.699999999999818,
+      "p95": 16.800000000000182,
+      "max": 33.400000000000546,
+      "over33ms": 3,
+      "activeArts": [
+        "pr_blood_lotus",
+        "pr_crimson_moon",
+        "pr_nine_chain",
+        "pr_heaven_spear",
+        "pr_soul_lock",
+        "pr_thunder_heart",
+        "pr_tide_step"
+      ],
+      "newImageRgbaEstimate": 118226944,
+      "jsHeap": 50395912,
+      "resources": [
+        {
+          "name": "pr_crimson_moon.webp",
+          "bytes": 205178
+        },
+        {
+          "name": "pr_blood_lotus.webp",
+          "bytes": 201724
+        },
+        {
+          "name": "pr_nine_chain.webp",
+          "bytes": 204054
+        },
+        {
+          "name": "pr_heaven_spear.webp",
+          "bytes": 197892
+        },
+        {
+          "name": "pr_soul_lock.webp",
+          "bytes": 198302
+        },
+        {
+          "name": "pr_thunder_heart.webp",
+          "bytes": 175650
+        },
+        {
+          "name": "pr_tide_step.webp",
+          "bytes": 186420
+        },
+        {
+          "name": "pr_crimson_moon-crit.webp",
+          "bytes": 180608
+        },
+        {
+          "name": "pr_crimson_moon-kill.webp",
+          "bytes": 178026
+        },
+        {
+          "name": "pr_thunder_heart-detail.webp",
+          "bytes": 207492
+        },
+        {
+          "name": "pr_blood_lotus-crit.webp",
+          "bytes": 170780
+        },
+        {
+          "name": "pr_blood_lotus-kill.webp",
+          "bytes": 178466
+        },
+        {
+          "name": "pr_nine_chain-crit.webp",
+          "bytes": 211912
+        },
+        {
+          "name": "pr_nine_chain-kill.webp",
+          "bytes": 199610
+        },
+        {
+          "name": "pr_heaven_spear-crit.webp",
+          "bytes": 196220
+        },
+        {
+          "name": "pr_heaven_spear-kill.webp",
+          "bytes": 136644
+        },
+        {
+          "name": "pr_soul_lock-crit.webp",
+          "bytes": 208138
+        },
+        {
+          "name": "pr_soul_lock-kill.webp",
+          "bytes": 201308
+        },
+        {
+          "name": "pr_tide_step-detail.webp",
+          "bytes": 209136
+        },
+        {
+          "name": "fx-rain.webp",
+          "bytes": 35224
+        },
+        {
+          "name": "fx-streak.webp",
+          "bytes": 43672
+        },
+        {
+          "name": "fx-diamond.webp",
+          "bytes": 52406
+        },
+        {
+          "name": "fx-lightning.webp",
+          "bytes": 49180
+        },
+        {
+          "name": "fx-spark.webp",
+          "bytes": 49948
+        },
+        {
+          "name": "fx-crack.webp",
+          "bytes": 29572
+        },
+        {
+          "name": "fx-rock.webp",
+          "bytes": 39628
+        },
+        {
+          "name": "fx-dust.webp",
+          "bytes": 27350
+        },
+        {
+          "name": "fx-thrust.webp",
+          "bytes": 26546
+        },
+        {
+          "name": "fx-cloud.webp",
+          "bytes": 32666
+        },
+        {
+          "name": "pr_soul_lock-fx-signature.webp",
+          "bytes": 53272
+        },
+        {
+          "name": "pr_soul_lock-fx-detail.webp",
+          "bytes": 46950
+        },
+        {
+          "name": "pr_soul_lock-fx-finish.webp",
+          "bytes": 56040
+        },
+        {
+          "name": "pr_crimson_moon-fx-signature.webp",
+          "bytes": 56340
+        },
+        {
+          "name": "pr_crimson_moon-fx-detail.webp",
+          "bytes": 53542
+        },
+        {
+          "name": "pr_crimson_moon-fx-finish.webp",
+          "bytes": 53546
+        },
+        {
+          "name": "pr_thunder_heart-fx-signature.webp",
+          "bytes": 44166
+        },
+        {
+          "name": "pr_thunder_heart-fx-detail.webp",
+          "bytes": 41604
+        },
+        {
+          "name": "pr_thunder_heart-fx-finish.webp",
+          "bytes": 46434
+        },
+        {
+          "name": "pr_blood_lotus-fx-signature.webp",
+          "bytes": 58190
+        },
+        {
+          "name": "pr_blood_lotus-fx-detail.webp",
+          "bytes": 51440
+        },
+        {
+          "name": "pr_blood_lotus-fx-finish.webp",
+          "bytes": 59692
+        },
+        {
+          "name": "pr_nine_chain-fx-signature.webp",
+          "bytes": 60142
+        },
+        {
+          "name": "pr_nine_chain-fx-detail.webp",
+          "bytes": 59400
+        },
+        {
+          "name": "pr_nine_chain-fx-finish.webp",
+          "bytes": 57552
+        },
+        {
+          "name": "pr_heaven_spear-fx-signature.webp",
+          "bytes": 40408
+        },
+        {
+          "name": "pr_heaven_spear-fx-detail.webp",
+          "bytes": 43880
+        },
+        {
+          "name": "pr_heaven_spear-fx-finish.webp",
+          "bytes": 49058
+        },
+        {
+          "name": "pr_tide_step-fx-signature.webp",
+          "bytes": 52124
+        },
+        {
+          "name": "pr_tide_step-fx-detail.webp",
+          "bytes": 53580
+        },
+        {
+          "name": "pr_tide_step-fx-finish.webp",
+          "bytes": 52948
+        }
+      ]
+    }
+  ],
+  "limits": "RGBA只估當前新武學image解碼尺寸；唔包括瀏覽器、場景、字體或GPU複本，唔係峰值記憶體。"
+}

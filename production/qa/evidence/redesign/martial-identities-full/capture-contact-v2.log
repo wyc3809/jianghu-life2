@@ -1,0 +1,897 @@
+[Parsed_crop_0 @ 0x7f0868002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f0868002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x56150a42cdc0] Error reinitializing filters!
+[vf#0:0 @ 0x56150a42cdc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x56150a42cdc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x56150a42c840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x56150a42c840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x56150a42c840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x56150a42bec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 art_tomb_sword Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/art_tomb_sword/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:912,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-art_tomb_sword.mp4
+[Parsed_crop_0 @ 0x7f0868002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f0868002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x56150a42cdc0] Error reinitializing filters!
+[vf#0:0 @ 0x56150a42cdc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x56150a42cdc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x56150a42c840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x56150a42c840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x56150a42c840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x56150a42bec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7fb1a0002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fb1a0002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x564ddbaf5dc0] Error reinitializing filters!
+[vf#0:0 @ 0x564ddbaf5dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x564ddbaf5dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x564ddbaf5840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x564ddbaf5840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x564ddbaf5840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x564ddbaf4ec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 art_lake_breath Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/art_lake_breath/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:869,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-art_lake_breath.mp4
+[Parsed_crop_0 @ 0x7fb1a0002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fb1a0002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x564ddbaf5dc0] Error reinitializing filters!
+[vf#0:0 @ 0x564ddbaf5dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x564ddbaf5dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x564ddbaf5840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x564ddbaf5840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x564ddbaf5840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x564ddbaf4ec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f1bdc002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f1bdc002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55f62ff30dc0] Error reinitializing filters!
+[vf#0:0 @ 0x55f62ff30dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55f62ff30dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55f62ff30840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55f62ff30840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55f62ff30840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55f62ff2fec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 基礎吐納 Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/基礎吐納/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:869,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-基礎吐納.mp4
+[Parsed_crop_0 @ 0x7f1bdc002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f1bdc002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55f62ff30dc0] Error reinitializing filters!
+[vf#0:0 @ 0x55f62ff30dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55f62ff30dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55f62ff30840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55f62ff30840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55f62ff30840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55f62ff2fec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7ff8c4002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7ff8c4002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55bb762e3dc0] Error reinitializing filters!
+[vf#0:0 @ 0x55bb762e3dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55bb762e3dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55bb762e3840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55bb762e3840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55bb762e3840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55bb762e2ec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 art_bridge_step Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/art_bridge_step/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:918,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-art_bridge_step.mp4
+[Parsed_crop_0 @ 0x7ff8c4002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7ff8c4002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55bb762e3dc0] Error reinitializing filters!
+[vf#0:0 @ 0x55bb762e3dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55bb762e3dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55bb762e3840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55bb762e3840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55bb762e3840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55bb762e2ec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7fb270002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fb270002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x559d1d333dc0] Error reinitializing filters!
+[vf#0:0 @ 0x559d1d333dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x559d1d333dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x559d1d333840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x559d1d333840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x559d1d333840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x559d1d332ec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 art_cold_palm Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/art_cold_palm/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:918,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-art_cold_palm.mp4
+[Parsed_crop_0 @ 0x7fb270002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fb270002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x559d1d333dc0] Error reinitializing filters!
+[vf#0:0 @ 0x559d1d333dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x559d1d333dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x559d1d333840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x559d1d333840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x559d1d333840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x559d1d332ec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7fd998002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fd998002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x5566fbd44dc0] Error reinitializing filters!
+[vf#0:0 @ 0x5566fbd44dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x5566fbd44dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5566fbd44840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x5566fbd44840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5566fbd44840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x5566fbd43ec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 art_nine_shadow Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/art_nine_shadow/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:912,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-art_nine_shadow.mp4
+[Parsed_crop_0 @ 0x7fd998002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fd998002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x5566fbd44dc0] Error reinitializing filters!
+[vf#0:0 @ 0x5566fbd44dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x5566fbd44dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5566fbd44840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x5566fbd44840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5566fbd44840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x5566fbd43ec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f2590002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f2590002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x562bdca7bdc0] Error reinitializing filters!
+[vf#0:0 @ 0x562bdca7bdc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x562bdca7bdc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x562bdca7b840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x562bdca7b840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x562bdca7b840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x562bdca7aec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 art_silk_hand Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/art_silk_hand/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:912,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-art_silk_hand.mp4
+[Parsed_crop_0 @ 0x7f2590002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f2590002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x562bdca7bdc0] Error reinitializing filters!
+[vf#0:0 @ 0x562bdca7bdc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x562bdca7bdc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x562bdca7b840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x562bdca7b840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x562bdca7b840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x562bdca7aec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7fd478002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fd478002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x563acc58fdc0] Error reinitializing filters!
+[vf#0:0 @ 0x563acc58fdc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x563acc58fdc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x563acc58f840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x563acc58f840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x563acc58f840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x563acc58eec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 art_void_breath Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/art_void_breath/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:869,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-art_void_breath.mp4
+[Parsed_crop_0 @ 0x7fd478002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fd478002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x563acc58fdc0] Error reinitializing filters!
+[vf#0:0 @ 0x563acc58fdc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x563acc58fdc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x563acc58f840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x563acc58f840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x563acc58f840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x563acc58eec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f2b5c002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f2b5c002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55a962449dc0] Error reinitializing filters!
+[vf#0:0 @ 0x55a962449dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55a962449dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55a962449840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55a962449840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55a962449840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55a962448ec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 art_moon_sword Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/art_moon_sword/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:912,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-art_moon_sword.mp4
+[Parsed_crop_0 @ 0x7f2b5c002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f2b5c002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55a962449dc0] Error reinitializing filters!
+[vf#0:0 @ 0x55a962449dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55a962449dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55a962449840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55a962449840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55a962449840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55a962448ec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7fa4d8002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fa4d8002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55c79d78cdc0] Error reinitializing filters!
+[vf#0:0 @ 0x55c79d78cdc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55c79d78cdc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55c79d78c840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55c79d78c840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55c79d78c840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55c79d78bec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 art_hook_silk Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/art_hook_silk/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:912,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-art_hook_silk.mp4
+[Parsed_crop_0 @ 0x7fa4d8002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fa4d8002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55c79d78cdc0] Error reinitializing filters!
+[vf#0:0 @ 0x55c79d78cdc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55c79d78cdc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55c79d78c840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55c79d78c840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55c79d78c840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55c79d78bec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7fb830002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fb830002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55cb907e9dc0] Error reinitializing filters!
+[vf#0:0 @ 0x55cb907e9dc0] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55cb907e9840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55cb907e9840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55cb907e9840] Terminating thread with return code -22 (Invalid argument)
+[vf#0:0 @ 0x55cb907e9dc0] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55cb907e8ec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 art_tiger_breath Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/art_tiger_breath/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:869,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-art_tiger_breath.mp4
+[Parsed_crop_0 @ 0x7fb830002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fb830002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55cb907e9dc0] Error reinitializing filters!
+[vf#0:0 @ 0x55cb907e9dc0] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55cb907e9840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55cb907e9840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55cb907e9840] Terminating thread with return code -22 (Invalid argument)
+[vf#0:0 @ 0x55cb907e9dc0] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55cb907e8ec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f2558002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f2558002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x5619846a6dc0] Error reinitializing filters!
+[vf#0:0 @ 0x5619846a6dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x5619846a6dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5619846a6840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x5619846a6840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5619846a6840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x5619846a5ec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 art_meteor_palm Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/art_meteor_palm/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:918,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-art_meteor_palm.mp4
+[Parsed_crop_0 @ 0x7f2558002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f2558002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x5619846a6dc0] Error reinitializing filters!
+[vf#0:0 @ 0x5619846a6dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x5619846a6dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5619846a6840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x5619846a6840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5619846a6840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x5619846a5ec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f2b7c002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f2b7c002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x5563944dbdc0] Error reinitializing filters!
+[vf#0:0 @ 0x5563944dbdc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x5563944dbdc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5563944db840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x5563944db840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5563944db840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x5563944daec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 art_spring_well Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/art_spring_well/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:869,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-art_spring_well.mp4
+[Parsed_crop_0 @ 0x7f2b7c002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f2b7c002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x5563944dbdc0] Error reinitializing filters!
+[vf#0:0 @ 0x5563944dbdc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x5563944dbdc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5563944db840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x5563944db840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5563944db840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x5563944daec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7fde94002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fde94002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x556581ec8dc0] Error reinitializing filters!
+[vf#0:0 @ 0x556581ec8dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x556581ec8dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x556581ec8840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x556581ec8840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x556581ec8840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x556581ec7ec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 qg_snow_track Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/qg_snow_track/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:869,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-qg_snow_track.mp4
+[Parsed_crop_0 @ 0x7fde94002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fde94002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x556581ec8dc0] Error reinitializing filters!
+[vf#0:0 @ 0x556581ec8dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x556581ec8dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x556581ec8840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x556581ec8840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x556581ec8840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x556581ec7ec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f0968002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f0968002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x561b2c56ddc0] Error reinitializing filters!
+[vf#0:0 @ 0x561b2c56ddc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x561b2c56ddc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x561b2c56d840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x561b2c56d840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x561b2c56d840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x561b2c56cec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 art_shadow_needle Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/art_shadow_needle/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:912,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-art_shadow_needle.mp4
+[Parsed_crop_0 @ 0x7f0968002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f0968002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x561b2c56ddc0] Error reinitializing filters!
+[vf#0:0 @ 0x561b2c56ddc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x561b2c56ddc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x561b2c56d840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x561b2c56d840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x561b2c56d840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x561b2c56cec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f87fc002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f87fc002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55855e7aedc0] Error reinitializing filters!
+[vf#0:0 @ 0x55855e7aedc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55855e7aedc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55855e7ae840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55855e7ae840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55855e7ae840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55855e7adec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 qg_swallow_turn Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/qg_swallow_turn/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:869,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-qg_swallow_turn.mp4
+[Parsed_crop_0 @ 0x7f87fc002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f87fc002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55855e7aedc0] Error reinitializing filters!
+[vf#0:0 @ 0x55855e7aedc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55855e7aedc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55855e7ae840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55855e7ae840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55855e7ae840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55855e7adec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f0204002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f0204002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x5637aa255dc0] Error reinitializing filters!
+[vf#0:0 @ 0x5637aa255dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x5637aa255dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5637aa255840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x5637aa255840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5637aa255840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x5637aa254ec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 qg_canopy_void Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/qg_canopy_void/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:869,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-qg_canopy_void.mp4
+[Parsed_crop_0 @ 0x7f0204002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f0204002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x5637aa255dc0] Error reinitializing filters!
+[vf#0:0 @ 0x5637aa255dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x5637aa255dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5637aa255840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x5637aa255840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5637aa255840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x5637aa254ec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7fae10002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fae10002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x559fe7e38e80] Error reinitializing filters!
+[vf#0:0 @ 0x559fe7e38e80] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x559fe7e38e80] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x559fe7e38900] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x559fe7e38900] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x559fe7e38900] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x559fe7e37f80] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 qg_feiyan Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/qg_feiyan/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:869,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-qg_feiyan.mp4
+[Parsed_crop_0 @ 0x7fae10002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fae10002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x559fe7e38e80] Error reinitializing filters!
+[vf#0:0 @ 0x559fe7e38e80] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x559fe7e38e80] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x559fe7e38900] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x559fe7e38900] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x559fe7e38900] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x559fe7e37f80] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f66f8002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f66f8002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55fd92710dc0] Error reinitializing filters!
+[vf#0:0 @ 0x55fd92710dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55fd92710dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55fd92710840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55fd92710840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55fd92710840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55fd9270fec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 art_whip_silk Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/art_whip_silk/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:912,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-art_whip_silk.mp4
+[Parsed_crop_0 @ 0x7f66f8002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f66f8002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55fd92710dc0] Error reinitializing filters!
+[vf#0:0 @ 0x55fd92710dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55fd92710dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55fd92710840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55fd92710840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55fd92710840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55fd9270fec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f5848002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f5848002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x5591d3595dc0] Error reinitializing filters!
+[vf#0:0 @ 0x5591d3595dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x5591d3595dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5591d3595840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x5591d3595840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5591d3595840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x5591d3594ec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 art_staff_iron Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/art_staff_iron/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:912,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-art_staff_iron.mp4
+[Parsed_crop_0 @ 0x7f5848002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f5848002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x5591d3595dc0] Error reinitializing filters!
+[vf#0:0 @ 0x5591d3595dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x5591d3595dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5591d3595840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x5591d3595840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5591d3595840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x5591d3594ec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f9e30002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f9e30002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x5579b7a75dc0] Error reinitializing filters!
+[vf#0:0 @ 0x5579b7a75dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x5579b7a75dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5579b7a75840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x5579b7a75840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5579b7a75840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x5579b7a74ec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 art_bow_star Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/art_bow_star/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:912,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-art_bow_star.mp4
+[Parsed_crop_0 @ 0x7f9e30002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f9e30002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x5579b7a75dc0] Error reinitializing filters!
+[vf#0:0 @ 0x5579b7a75dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x5579b7a75dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5579b7a75840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x5579b7a75840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5579b7a75840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x5579b7a74ec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f4cdc002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f4cdc002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x5653b5728dc0] Error reinitializing filters!
+[vf#0:0 @ 0x5653b5728dc0] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5653b5728840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x5653b5728840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5653b5728840] Terminating thread with return code -22 (Invalid argument)
+[vf#0:0 @ 0x5653b5728dc0] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x5653b5727ec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 qg_wall_cat Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/qg_wall_cat/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:869,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-qg_wall_cat.mp4
+[Parsed_crop_0 @ 0x7f4cdc002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f4cdc002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x5653b5728dc0] Error reinitializing filters!
+[vf#0:0 @ 0x5653b5728dc0] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5653b5728840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x5653b5728840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5653b5728840] Terminating thread with return code -22 (Invalid argument)
+[vf#0:0 @ 0x5653b5728dc0] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x5653b5727ec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f2674002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f2674002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x562c566d7dc0] Error reinitializing filters!
+[vf#0:0 @ 0x562c566d7dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x562c566d7dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x562c566d7840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x562c566d7840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x562c566d7840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x562c566d6ec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 qg_reed_drift Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/qg_reed_drift/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:869,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-qg_reed_drift.mp4
+[Parsed_crop_0 @ 0x7f2674002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f2674002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x562c566d7dc0] Error reinitializing filters!
+[vf#0:0 @ 0x562c566d7dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x562c566d7dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x562c566d7840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x562c566d7840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x562c566d7840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x562c566d6ec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f04b4002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f04b4002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55c2a3c1bdc0] Error reinitializing filters!
+[vf#0:0 @ 0x55c2a3c1bdc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55c2a3c1bdc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55c2a3c1b840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55c2a3c1b840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55c2a3c1b840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55c2a3c1aec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 art_sand_palm Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/art_sand_palm/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:912,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-art_sand_palm.mp4
+[Parsed_crop_0 @ 0x7f04b4002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f04b4002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55c2a3c1bdc0] Error reinitializing filters!
+[vf#0:0 @ 0x55c2a3c1bdc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55c2a3c1bdc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55c2a3c1b840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55c2a3c1b840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55c2a3c1b840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55c2a3c1aec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f8f40002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f8f40002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55a368519dc0] Error reinitializing filters!
+[vf#0:0 @ 0x55a368519dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55a368519dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55a368519840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55a368519840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55a368519840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55a368518ec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 art_mirror_breath Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/art_mirror_breath/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:869,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-art_mirror_breath.mp4
+[Parsed_crop_0 @ 0x7f8f40002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f8f40002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55a368519dc0] Error reinitializing filters!
+[vf#0:0 @ 0x55a368519dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55a368519dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55a368519840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55a368519840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55a368519840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55a368518ec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f52f4002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f52f4002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55991aedfdc0] Error reinitializing filters!
+[vf#0:0 @ 0x55991aedfdc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55991aedfdc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55991aedf840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55991aedf840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55991aedf840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55991aedeec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 jy_ash_manual Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/jy_ash_manual/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:912,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-jy_ash_manual.mp4
+[Parsed_crop_0 @ 0x7f52f4002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f52f4002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55991aedfdc0] Error reinitializing filters!
+[vf#0:0 @ 0x55991aedfdc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55991aedfdc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55991aedf840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55991aedf840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55991aedf840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55991aedeec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7ff738002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7ff738002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x56094c530dc0] Error reinitializing filters!
+[vf#0:0 @ 0x56094c530dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x56094c530dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x56094c530840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x56094c530840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x56094c530840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x56094c52fec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 qg_lotus_steps Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/qg_lotus_steps/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:869,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-qg_lotus_steps.mp4
+[Parsed_crop_0 @ 0x7ff738002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7ff738002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x56094c530dc0] Error reinitializing filters!
+[vf#0:0 @ 0x56094c530dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x56094c530dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x56094c530840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x56094c530840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x56094c530840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x56094c52fec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7fcf48002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fcf48002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x556aebd3ddc0] Error reinitializing filters!
+[vf#0:0 @ 0x556aebd3ddc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x556aebd3ddc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x556aebd3d840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x556aebd3d840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x556aebd3d840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x556aebd3cec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 qy_cloud_sword Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/qy_cloud_sword/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:912,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-qy_cloud_sword.mp4
+[Parsed_crop_0 @ 0x7fcf48002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fcf48002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x556aebd3ddc0] Error reinitializing filters!
+[vf#0:0 @ 0x556aebd3ddc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x556aebd3ddc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x556aebd3d840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x556aebd3d840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x556aebd3d840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x556aebd3cec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7fc074002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fc074002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55cf6ba1ddc0] Error reinitializing filters!
+[vf#0:0 @ 0x55cf6ba1ddc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55cf6ba1ddc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55cf6ba1d840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55cf6ba1d840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55cf6ba1d840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55cf6ba1cec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 art_heavy_halberd Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/art_heavy_halberd/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:912,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-art_heavy_halberd.mp4
+[Parsed_crop_0 @ 0x7fc074002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fc074002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55cf6ba1ddc0] Error reinitializing filters!
+[vf#0:0 @ 0x55cf6ba1ddc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55cf6ba1ddc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55cf6ba1d840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55cf6ba1d840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55cf6ba1d840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55cf6ba1cec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f9af8002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f9af8002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x555eee01adc0] Error reinitializing filters!
+[vf#0:0 @ 0x555eee01adc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x555eee01adc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x555eee01a840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x555eee01a840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x555eee01a840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x555eee019ec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 qy_mist_step Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/qy_mist_step/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:912,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-qy_mist_step.mp4
+[Parsed_crop_0 @ 0x7f9af8002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f9af8002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x555eee01adc0] Error reinitializing filters!
+[vf#0:0 @ 0x555eee01adc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x555eee01adc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x555eee01a840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x555eee01a840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x555eee01a840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x555eee019ec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7fcc5c002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fcc5c002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x557df43b2dc0] Error reinitializing filters!
+[vf#0:0 @ 0x557df43b2dc0] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x557df43b2840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x557df43b2840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x557df43b2840] Terminating thread with return code -22 (Invalid argument)
+[vf#0:0 @ 0x557df43b2dc0] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x557df43b1ec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 qy_sky_intent Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/qy_sky_intent/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:912,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-qy_sky_intent.mp4
+[Parsed_crop_0 @ 0x7fcc5c002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fcc5c002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x557df43b2dc0] Error reinitializing filters!
+[vf#0:0 @ 0x557df43b2dc0] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x557df43b2840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x557df43b2840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x557df43b2840] Terminating thread with return code -22 (Invalid argument)
+[vf#0:0 @ 0x557df43b2dc0] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x557df43b1ec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7fd21c002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fd21c002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x557ea3a5fdc0] Error reinitializing filters!
+[vf#0:0 @ 0x557ea3a5fdc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x557ea3a5fdc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x557ea3a5f840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x557ea3a5f840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x557ea3a5f840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x557ea3a5eec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 qy_piercing_needle Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/qy_piercing_needle/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:918,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-qy_piercing_needle.mp4
+[Parsed_crop_0 @ 0x7fd21c002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fd21c002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x557ea3a5fdc0] Error reinitializing filters!
+[vf#0:0 @ 0x557ea3a5fdc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x557ea3a5fdc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x557ea3a5f840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x557ea3a5f840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x557ea3a5f840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x557ea3a5eec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f8b00002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f8b00002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x56266fae7dc0] Error reinitializing filters!
+[vf#0:0 @ 0x56266fae7dc0] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x56266fae7840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x56266fae7840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x56266fae7840] Terminating thread with return code -22 (Invalid argument)
+[vf#0:0 @ 0x56266fae7dc0] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x56266fae6ec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 td_open_blade Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/td_open_blade/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:912,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-td_open_blade.mp4
+[Parsed_crop_0 @ 0x7f8b00002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f8b00002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x56266fae7dc0] Error reinitializing filters!
+[vf#0:0 @ 0x56266fae7dc0] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x56266fae7840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x56266fae7840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x56266fae7840] Terminating thread with return code -22 (Invalid argument)
+[vf#0:0 @ 0x56266fae7dc0] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x56266fae6ec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7fea24002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fea24002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x5629cea2ddc0] Error reinitializing filters!
+[vf#0:0 @ 0x5629cea2ddc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x5629cea2ddc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5629cea2d840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x5629cea2d840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5629cea2d840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x5629cea2cec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 td_thunder_combo Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/td_thunder_combo/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:912,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-td_thunder_combo.mp4
+[Parsed_crop_0 @ 0x7fea24002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fea24002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x5629cea2ddc0] Error reinitializing filters!
+[vf#0:0 @ 0x5629cea2ddc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x5629cea2ddc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5629cea2d840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x5629cea2d840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5629cea2d840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x5629cea2cec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7fa1bc002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fa1bc002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55ccfb5a8dc0] Error reinitializing filters!
+[vf#0:0 @ 0x55ccfb5a8dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55ccfb5a8dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55ccfb5a8840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55ccfb5a8840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55ccfb5a8840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55ccfb5a7ec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 td_wind_slash Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/td_wind_slash/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:918,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-td_wind_slash.mp4
+[Parsed_crop_0 @ 0x7fa1bc002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fa1bc002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55ccfb5a8dc0] Error reinitializing filters!
+[vf#0:0 @ 0x55ccfb5a8dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55ccfb5a8dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55ccfb5a8840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55ccfb5a8840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55ccfb5a8840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55ccfb5a7ec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7feda0002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7feda0002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x561524098dc0] Error reinitializing filters!
+[vf#0:0 @ 0x561524098dc0] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x561524098840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x561524098840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x561524098840] Terminating thread with return code -22 (Invalid argument)
+[vf#0:0 @ 0x561524098dc0] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x561524097ec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 td_no_return Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/td_no_return/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:912,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-td_no_return.mp4
+[Parsed_crop_0 @ 0x7feda0002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7feda0002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x561524098dc0] Error reinitializing filters!
+[vf#0:0 @ 0x561524098dc0] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x561524098840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x561524098840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x561524098840] Terminating thread with return code -22 (Invalid argument)
+[vf#0:0 @ 0x561524098dc0] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x561524097ec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f7428002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f7428002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55ed78d08dc0] Error reinitializing filters!
+[vf#0:0 @ 0x55ed78d08dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55ed78d08dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55ed78d08840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55ed78d08840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55ed78d08840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55ed78d07ec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 em_silk_wrap Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/em_silk_wrap/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:912,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-em_silk_wrap.mp4
+[Parsed_crop_0 @ 0x7f7428002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f7428002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55ed78d08dc0] Error reinitializing filters!
+[vf#0:0 @ 0x55ed78d08dc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55ed78d08dc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55ed78d08840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55ed78d08840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55ed78d08840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55ed78d07ec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f0374002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f0374002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x564b7412fdc0] Error reinitializing filters!
+[vf#0:0 @ 0x564b7412fdc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x564b7412fdc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x564b7412f840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x564b7412f840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x564b7412f840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x564b7412eec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 em_soft_palm Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/em_soft_palm/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:912,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-em_soft_palm.mp4
+[Parsed_crop_0 @ 0x7f0374002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f0374002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x564b7412fdc0] Error reinitializing filters!
+[vf#0:0 @ 0x564b7412fdc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x564b7412fdc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x564b7412f840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x564b7412f840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x564b7412f840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x564b7412eec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f15f0002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f15f0002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x559bdf5dddc0] Error reinitializing filters!
+[vf#0:0 @ 0x559bdf5dddc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x559bdf5dddc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x559bdf5dd840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x559bdf5dd840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x559bdf5dd840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x559bdf5dcec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 em_golden_palm Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/em_golden_palm/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:912,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-em_golden_palm.mp4
+[Parsed_crop_0 @ 0x7f15f0002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f15f0002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x559bdf5dddc0] Error reinitializing filters!
+[vf#0:0 @ 0x559bdf5dddc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x559bdf5dddc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x559bdf5dd840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x559bdf5dd840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x559bdf5dd840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x559bdf5dcec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f1ea8002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f1ea8002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x5593a543fe80] Error reinitializing filters!
+[vf#0:0 @ 0x5593a543fe80] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x5593a543fe80] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5593a543f900] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x5593a543f900] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5593a543f900] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x5593a543ef80] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 sl_yijin Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/sl_yijin/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:869,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-sl_yijin.mp4
+[Parsed_crop_0 @ 0x7f1ea8002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f1ea8002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x5593a543fe80] Error reinitializing filters!
+[vf#0:0 @ 0x5593a543fe80] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x5593a543fe80] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5593a543f900] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x5593a543f900] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5593a543f900] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x5593a543ef80] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f9edc002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f9edc002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x5587a090cdc0] Error reinitializing filters!
+[vf#0:0 @ 0x5587a090cdc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x5587a090cdc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5587a090c840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x5587a090c840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5587a090c840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x5587a090bec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 em_heart_breath Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/em_heart_breath/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:869,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-em_heart_breath.mp4
+[Parsed_crop_0 @ 0x7f9edc002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f9edc002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x5587a090cdc0] Error reinitializing filters!
+[vf#0:0 @ 0x5587a090cdc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x5587a090cdc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5587a090c840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x5587a090c840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x5587a090c840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x5587a090bec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f7bb0002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f7bb0002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55dba8a18e80] Error reinitializing filters!
+[vf#0:0 @ 0x55dba8a18e80] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55dba8a18e80] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55dba8a18900] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55dba8a18900] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55dba8a18900] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55dba8a17f80] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 sl_weituo Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/sl_weituo/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:912,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-sl_weituo.mp4
+[Parsed_crop_0 @ 0x7f7bb0002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f7bb0002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55dba8a18e80] Error reinitializing filters!
+[vf#0:0 @ 0x55dba8a18e80] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55dba8a18e80] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55dba8a18900] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55dba8a18900] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55dba8a18900] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55dba8a17f80] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7fd794002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fd794002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55709eebfdc0] Error reinitializing filters!
+[vf#0:0 @ 0x55709eebfdc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55709eebfdc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55709eebf840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55709eebf840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55709eebf840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55709eebeec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 wd_pure_yang Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/wd_pure_yang/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:869,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-wd_pure_yang.mp4
+[Parsed_crop_0 @ 0x7fd794002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7fd794002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x55709eebfdc0] Error reinitializing filters!
+[vf#0:0 @ 0x55709eebfdc0] Task finished with error code: -22 (Invalid argument)
+[vf#0:0 @ 0x55709eebfdc0] Terminating thread with return code -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55709eebf840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x55709eebf840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x55709eebf840] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x55709eebeec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+[Parsed_crop_0 @ 0x7f8d20002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f8d20002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x564424065dc0] Error reinitializing filters!
+[vf#0:0 @ 0x564424065dc0] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x564424065840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x564424065840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x564424065840] Terminating thread with return code -22 (Invalid argument)
+[vf#0:0 @ 0x564424065dc0] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x564424064ec0] Nothing was written into output file, because at least one of its streams received no packets.
+失敗 sl_iron_shirt Error: Command failed: ffmpeg -loglevel error -y -framerate 20 -i /workspace/martial-record-full/sl_iron_shirt/blind-%03d.jpg -frames:v 32 -vf crop=480:360:0:869,scale=240:180 -c:v libx264 -pix_fmt yuv420p -crf 18 -movflags +faststart /workspace/jianghu-life2-current/production/qa/evidence/redesign/martial-identities-full/blind-sl_iron_shirt.mp4
+[Parsed_crop_0 @ 0x7f8d20002100] Invalid too big or non positive size for width '480' or height '360'
+[Parsed_crop_0 @ 0x7f8d20002100] Failed to configure input pad on Parsed_crop_0
+[vf#0:0 @ 0x564424065dc0] Error reinitializing filters!
+[vf#0:0 @ 0x564424065dc0] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x564424065840] Could not open encoder before EOF
+[vost#0:0/libx264 @ 0x564424065840] Task finished with error code: -22 (Invalid argument)
+[vost#0:0/libx264 @ 0x564424065840] Terminating thread with return code -22 (Invalid argument)
+[vf#0:0 @ 0x564424065dc0] Terminating thread with return code -22 (Invalid argument)
+[out#0/mp4 @ 0x564424064ec0] Nothing was written into output file, because at least one of its streams received no packets.
+
+失敗 wd_tai_push Error: page.goto: Target page, context or browser has been closed
+Call log:
+[2m  - navigating to "http://127.0.0.1:5188/?martial-preview=1&clean=1&art=wd_tai_push&source=spar", waiting until "networkidle"[22m
+
+失敗 tm_shadow_step Error: page.evaluate: Target page, context or browser has been closed
+失敗 wd_sword_form Error: cdpSession.send: Target page, context or browser has been closed
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+browserContext.newPage: Protocol error (Target.createTarget): Failed to open a new tab
+    at /workspace/jianghu-life2-current/scripts/qa/recordMartialFullCatalog.mjs:17:114
+    at async file:///workspace/jianghu-life2-current/scripts/qa/recordMartialFullCatalog.mjs:15:1 {
+  name: 'Error'
+}
+
+Node.js v24.19.0

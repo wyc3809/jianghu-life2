@@ -1,0 +1,7 @@
+完整切換通過 120 [
+  { frame: 5, id: 'art_rain_sword' },
+  { frame: 28, id: 'art_river_fist' },
+  { frame: 49, id: 'art_stone_palm' },
+  { frame: 72, id: 'art_wind_chase' },
+  { frame: 97, id: 'art_rain_sword' }
+]

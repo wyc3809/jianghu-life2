@@ -1,0 +1,882 @@
+{
+  "art_bridge_step": [
+    "side-on shoulder guard",
+    "toe probes gap",
+    "hips pause behind heel",
+    "cross foot slips inside",
+    "shoulder drives forward without punching",
+    "hips follow shoulder",
+    "rear foot collects",
+    "side-on shoulder guard"
+  ],
+  "art_tomb_sword": [
+    "low hidden jian",
+    "left foot slides aside",
+    "wrist lifts point",
+    "rising parry",
+    "diagonal narrow thrust",
+    "torso pivots away",
+    "jian folds beside ribs",
+    "low hidden jian"
+  ],
+  "art_nine_shadow": [
+    "very low crossed feet",
+    "lean left arms compact",
+    "uncross into right step",
+    "shoulder cuts forward",
+    "cross again opposite foot",
+    "sharp low side step",
+    "torso brakes tall",
+    "low crossed feet"
+  ],
+  "art_cold_palm": [
+    "vertical open palm at chest",
+    "rear foot recedes",
+    "open palm chambers slowly",
+    "front elbow extends",
+    "long level open palm push",
+    "palm held upright still",
+    "elbow draws inward",
+    "vertical palm guard"
+  ],
+  "art_moon_sword": [
+    "jian hidden along hip",
+    "low diagonal step",
+    "waist turns blade sideways",
+    "horizontal crescent slice",
+    "blade rises along arc",
+    "elbow wraps inward",
+    "toe collects and wrist folds",
+    "jian beside hip"
+  ],
+  "art_silk_hand": [
+    "two loose circular open hands",
+    "left palm meets forward",
+    "waist turns inward",
+    "right wrist draws across torso",
+    "left palm follows outward",
+    "soft open-hand return push",
+    "arms round at waist",
+    "loose circular guard"
+  ],
+  "art_hook_silk": [
+    "single hooked steel blade angled up",
+    "elbow bends close",
+    "wrist flips hook outward",
+    "step across hook catches",
+    "hips pull hooked blade backward",
+    "hook coils near waist",
+    "elbow returns outward",
+    "hook angled guard"
+  ],
+  "art_meteor_palm": [
+    "high open palm above shoulder",
+    "front heel lifts",
+    "first palm drops diagonally",
+    "opposite elbow rises",
+    "second palm drives downward",
+    "deep final open palm press",
+    "palms lift slowly",
+    "high open palm guard"
+  ],
+  "art_shadow_needle": [
+    "both hands hidden in long sleeves",
+    "elbow folds tightly",
+    "fingers pinch tiny needle at chest",
+    "body leans close",
+    "short straight finger flick",
+    "wrist immediately hides in sleeve",
+    "shoulders withdraw",
+    "sleeved quiet guard"
+  ],
+  "art_staff_iron": [
+    "thick blunt staff two hands vertical",
+    "rear hand lowers staff",
+    "wide step twists waist",
+    "horizontal broad staff sweep",
+    "staff brakes at far hip",
+    "opposite end circles back",
+    "staff rises to chest",
+    "two handed blunt staff guard"
+  ],
+  "art_whip_silk": [
+    "one soft whip coiled beside waist",
+    "shoulder turns back",
+    "wrist lifts loop",
+    "arm unfolds whip forward",
+    "whip tip bends over in long curve",
+    "elbow draws whip loop back",
+    "coil folds alongside hip",
+    "whip collected guard"
+  ],
+  "art_bow_star": [
+    "small recurved bow down left hand",
+    "bow arm raises",
+    "rear hand hooks string",
+    "elbow draws full string",
+    "stable full-draw stance",
+    "fingers release arrow",
+    "bow arm slowly lowers",
+    "bow lowered relaxed"
+  ],
+  "art_sand_palm": [
+    "open palms concealed low",
+    "left arm screens face",
+    "side step to flank",
+    "right palm turns flat",
+    "low sweeping open palm across waist",
+    "hand brushes outward",
+    "body withdraws behind sleeve",
+    "low concealed palms"
+  ],
+  "jy_ash_manual": [
+    "loose fist hanging down",
+    "torso droops inviting close",
+    "rear hip coils opposite",
+    "elbow rises backward",
+    "backfist snaps forward",
+    "hips unwind low",
+    "hanging fist lowers",
+    "loose hanging guard"
+  ],
+  "art_heavy_halberd": [
+    "one long crescent halberd across shoulder",
+    "rear knee sinks",
+    "hips rotate large crescent head up",
+    "diagonal halberd chop",
+    "wide low halberd follow-through",
+    "shaft retracts across body",
+    "head lifts behind shoulder",
+    "halberd shoulder guard"
+  ],
+  "qy_cloud_sword": [
+    "upright middle jian guard",
+    "rear heel anchors",
+    "front foot advances",
+    "clean middle straight thrust",
+    "blade held level extended",
+    "arm retracts on same line",
+    "front foot collects",
+    "upright middle guard"
+  ],
+  "qy_mist_step": [
+    "two empty extended fingers near chest",
+    "shoulder shrinks sideways",
+    "cross foot sneaks inside",
+    "first two-finger forward point",
+    "wrist retracts compact",
+    "second lower two-finger point",
+    "torso slips back",
+    "two-finger quiet guard"
+  ],
+  "qy_piercing_needle": [
+    "thin straight jian close to sternum",
+    "shoulders narrow",
+    "rear foot coils inline",
+    "torso shoots along narrow line",
+    "long fine jian thrust",
+    "elbow draws straight back",
+    "hips recede inline",
+    "fine jian close chest"
+  ],
+  "qy_sky_intent": [
+    "high jian wrist guard",
+    "rotate wrist inward",
+    "front foot changes",
+    "first high straight thrust",
+    "rear foot exchanges forward",
+    "second middle straight thrust",
+    "wrist circles above shoulder",
+    "high continuous guard"
+  ],
+  "td_open_blade": [
+    "broad curved dao behind shoulder",
+    "wide stance opens",
+    "waist coils away",
+    "large diagonal dao cut",
+    "deep front knee follows blade",
+    "dao sinks to front hip",
+    "weight returns back foot",
+    "broad dao shoulder guard"
+  ],
+  "td_wind_slash": [
+    "curved dao horizontal at waist",
+    "flat sliding step",
+    "shoulder turns level",
+    "thin horizontal waist cut",
+    "blade extends sideways",
+    "dao reverses beside ribs",
+    "foot draws under hips",
+    "horizontal waist guard"
+  ],
+  "td_thunder_combo": [
+    "heavy dao spine near shoulder",
+    "forward pressing step",
+    "first descending slash",
+    "second opposite diagonal slash",
+    "third compact cross slash",
+    "wide grounded stop",
+    "dao lifts to shoulder",
+    "compact dao shoulder guard"
+  ],
+  "td_no_return": [
+    "dao drawn fully behind back hip",
+    "deep rear weighted crouch",
+    "entire spine stretches back",
+    "one long explosive full-body slash",
+    "deep forward finish blade low",
+    "brief still low finish",
+    "blade slowly retracts",
+    "rear weighted dao guard"
+  ],
+  "em_soft_palm": [
+    "soft rounded open palm guard",
+    "hips yield backward",
+    "near palm redirects aside",
+    "waist turns gently",
+    "front open palm sends level",
+    "palm curls softly inward",
+    "hands complete round",
+    "soft round palm guard"
+  ],
+  "em_silk_wrap": [
+    "empty curved fingers near forearm",
+    "left fingers circle wrist",
+    "right wrist threads inward",
+    "small close finger lock",
+    "elbow lowers tight",
+    "finger point slips through",
+    "both wrists release",
+    "curved finger guard"
+  ],
+  "em_golden_palm": [
+    "one upturned open palm",
+    "supporting palm beneath elbow",
+    "upper palm lifts high",
+    "wrist flips forward",
+    "upright level palm push",
+    "torso stays tall palms float",
+    "hands descend softly",
+    "upturned palm guard"
+  ],
+  "sl_weituo": [
+    "blunt staff upright before torso",
+    "front hand guides staff down",
+    "rear hand slides shaft back",
+    "short staff tip jab",
+    "front knee braces vertical torso",
+    "staff butt pulls sharply rearward",
+    "shaft rises straight",
+    "upright staff guard"
+  ],
+  "wd_sword_form": [
+    "jian curved round guard",
+    "foot circles outward",
+    "wrist turns sword flower",
+    "sideways circular step",
+    "sword thrust follows circle",
+    "blade turns over wrist",
+    "toe completes circle",
+    "rounded jian guard"
+  ],
+  "wd_tai_push": [
+    "two open palms embrace round space",
+    "rear knee yields",
+    "waist turns palms left",
+    "palms redirect across chest",
+    "both palms slowly push forward",
+    "hips settle behind palms",
+    "hands close round again",
+    "embracing round guard"
+  ],
+  "wd_wuji_sword": [
+    "upright jian at middle line",
+    "wrist rotates inward",
+    "blade spirals to thrust",
+    "continuous narrow forward thrust",
+    "wrist rotates outward",
+    "second flowing thrust",
+    "foot retreats sword centered",
+    "upright jian middle guard"
+  ],
+  "tm_poison_dart": [
+    "one small triangular dart by shoulder",
+    "rear elbow coils",
+    "hips twist slightly back",
+    "elbow unfolds forward",
+    "wrist throws tiny triangular dart",
+    "fingers follow downward",
+    "sleeve returns near shoulder",
+    "small dart guard"
+  ],
+  "tm_thousand_mech": [
+    "compact wrist crossbow sleeve mechanisms",
+    "right sleeve aims forward",
+    "right index finger triggers",
+    "left sleeve aims lower",
+    "left finger triggers",
+    "alternating wrists recover",
+    "both sleeves fold across chest",
+    "compact hidden wrist devices"
+  ],
+  "mj_blood_palm": [
+    "open palm low beside waist",
+    "palm heel draws backward",
+    "back arches forward",
+    "heavy straight palm slap",
+    "palm turns inward near target",
+    "elbow hooks back to chest",
+    "hips withdraw",
+    "open palm low guard"
+  ],
+  "mj_soul_drain": [
+    "two curved empty fingers by chest",
+    "lean into close space",
+    "fingers straighten forward",
+    "two fingers probe narrow line",
+    "fingers curl inward",
+    "elbow pulls along line",
+    "torso retreats compact",
+    "curved finger guard"
+  ],
+  "mj_asura_slash": [
+    "one reversed curved dao held low",
+    "crouched sideways coil",
+    "hip twists upward",
+    "reverse-grip rising diagonal slash",
+    "blade passes above shoulder",
+    "shoulder turns dao down",
+    "blade folds close low",
+    "reverse dao low guard"
+  ],
+  "hs_pine_sword": [
+    "straight jian wrist held high",
+    "spine straightens",
+    "rear heel drives",
+    "clean high level jian thrust",
+    "torso remains erect",
+    "elbow folds inward",
+    "shoulders relax back",
+    "high wrist jian guard"
+  ],
+  "hs_cloud_step": [
+    "straight jian crossed high-step guard",
+    "front knee lifts",
+    "sword coils across chest",
+    "first thrust with high step",
+    "feet exchange elevated",
+    "second sideways opening thrust",
+    "front foot settles",
+    "crossed jian step guard"
+  ],
+  "hs_split_peak": [
+    "jian raised behind shoulder",
+    "front knee lifts slightly",
+    "two hands support sword high",
+    "straight vertical sword cut",
+    "front knee receives weight",
+    "blade stops low down center",
+    "shoulder lifts sword back",
+    "raised jian guard"
+  ],
+  "art_drunken_fist": [
+    "loose unarmed staggering stance",
+    "waist sways forward",
+    "body tilts apparently unbalanced",
+    "reverse hip snap",
+    "elbow strikes from unexpected angle",
+    "short fist follows elbow",
+    "waist rolls back loose",
+    "staggering open guard"
+  ],
+  "th_finger_flick": [
+    "thumb holds middle finger at chest",
+    "still relaxed shoulders",
+    "wrist bends slightly back",
+    "middle finger snaps tiny pebble",
+    "wrist follows minimal forward",
+    "fingers relax downward",
+    "arm falls near waist",
+    "finger flick quiet stance"
+  ],
+  "th_flute_sword": [
+    "ONE short jade flute horizontal chest",
+    "wrist rotates flute end forward",
+    "side waist twists",
+    "precise short flute tip jab",
+    "elbow stable flute extended",
+    "flute glides back horizontal",
+    "fingers adjust flute grip",
+    "jade flute chest guard"
+  ],
+  "th_falling_petals": [
+    "two open palms turned outward",
+    "first palm curls flower-like",
+    "side step and first open palm",
+    "other hand rotates flower-like",
+    "second open palm outward",
+    "palms cross softly",
+    "both wrists open downward",
+    "flower palm open guard"
+  ],
+  "wg_embroidery_needle": [
+    "sleeves low tiny needle pinched",
+    "hand emerges delicately",
+    "fingers draw fine thread-like motion",
+    "small needle pinch pull",
+    "fingers release needle precisely",
+    "wrist retracts as sewing",
+    "hand hides in sleeve",
+    "low sleeved needle guard"
+  ],
+  "wg_yin_soft_palm": [
+    "relaxed open palm forward",
+    "palm yields under pressure",
+    "wrist folds inward",
+    "waist redirects opposite side",
+    "back of open palm returns gently",
+    "elbow sinks and rolls",
+    "hand relaxes at chest",
+    "relaxed open palm guard"
+  ],
+  "art_poetry_sword": [
+    "jian tip paused downward",
+    "wrist checks short stroke",
+    "shoulder lifts long stroke",
+    "long sweeping calligraphic cut",
+    "wrist makes smaller hooked stroke",
+    "blade pauses then withdraws",
+    "tip settles with body",
+    "jian calligraphy quiet guard"
+  ],
+  "art_heretic_scripture": [
+    "EMPTY fists hidden leaning low",
+    "torso darts close",
+    "near elbow drives compact",
+    "short vicious body punch",
+    "opposite elbow pulls backward",
+    "fist retracts beside ribs",
+    "whole body recoils away",
+    "hidden low fists"
+  ],
+  "pr_blood_lotus": [
+    "curved dao held low outward",
+    "reverse wrist opens blade",
+    "cross foot and first petal slash",
+    "second crossing diagonal slash",
+    "waist spins compact third slash",
+    "deep final flower-closing cut",
+    "dao folds with crossed arms",
+    "low outward dao guard"
+  ],
+  "pr_crimson_moon": [
+    "straight jian concealed along arm",
+    "body turns away hiding point",
+    "wrist lifts crescent arc",
+    "turning crescent upward thrust",
+    "blade curves around shoulder",
+    "jian draws inward to waist",
+    "torso settles behind blade",
+    "hidden arm jian guard"
+  ],
+  "pr_nine_chain": [
+    "crossed open arms near waist",
+    "first palm expands forward",
+    "opposite palm follows underneath",
+    "left palm rises upper line",
+    "right palm threads middle line",
+    "both arms pass successive open palms",
+    "palms circle back chained",
+    "crossed open arms guard"
+  ],
+  "pr_heaven_spear": [
+    "single long spear butt beside ground",
+    "knees sink hands slide apart",
+    "torso raises spear tip",
+    "back and waist drive long thrust",
+    "full extended two-handed spear",
+    "rear knee follows beneath shaft",
+    "spear retracts and lowers butt",
+    "rooted spear guard"
+  ],
+  "pr_soul_lock": [
+    "two tight fingers chest guard",
+    "feet stop absolutely still",
+    "elbow coils backward",
+    "sharp two finger acupoint thrust",
+    "fingers hold exact extended point",
+    "wrist loosens slightly",
+    "elbow slowly returns",
+    "tight two finger guard"
+  ],
+  "pr_mist_blind": [
+    "two open palms crossing face",
+    "left palm screens high",
+    "right shoulder slips sideways",
+    "hands exchange hidden positions",
+    "reverse open palm pushes through",
+    "rear foot pivots away",
+    "palms cross again",
+    "screening palms guard"
+  ],
+  "pr_vajra_palm": [
+    "wide stance vertical open palm",
+    "back straightens rooted",
+    "shoulder and elbow gather",
+    "mountain-like strong palm push",
+    "whole torso follows stable palm",
+    "arms round returning to chest",
+    "knees settle open palms",
+    "wide vertical palm guard"
+  ],
+  "pr_floating_blade": [
+    "loose curved dao hanging down",
+    "curved side step and low wrist",
+    "blade drifts up unexpectedly",
+    "body turns into oblique light cut",
+    "wrist changes slant abruptly",
+    "dao falls softly in new angle",
+    "feet collect blade hanging",
+    "loose hanging dao guard"
+  ],
+  "pr_star_fall": [
+    "tiny star darts in both hands",
+    "right hand rises overhead",
+    "body turns to side",
+    "high scattering throw",
+    "left hand sweeps low scattering",
+    "both sleeves fold across waist",
+    "torso returns side-on",
+    "two-handed tiny darts guard"
+  ],
+  "基礎吐納": [
+    "palms flat at lower abdomen",
+    "knees soften upright",
+    "palms draw inward",
+    "chest rises slowly",
+    "palms descend outward",
+    "chest releases breath",
+    "shoulders settle",
+    "flat palms abdomen"
+  ],
+  "art_lake_breath": [
+    "two palms together belly",
+    "elbows drift sideways",
+    "palms spread level",
+    "chest held absolutely calm",
+    "hands reach wide lake horizon",
+    "palms gather slowly",
+    "shoulders settle low",
+    "palms together belly"
+  ],
+  "art_void_breath": [
+    "loose elbows hugging lower belly",
+    "shoulders descend",
+    "hands round empty space",
+    "palms float apart gradually",
+    "torso gently opens",
+    "wrists sink slack",
+    "hands gather around lower belly",
+    "loose rounded arms"
+  ],
+  "art_tiger_breath": [
+    "fists by waist broad chest",
+    "abdomen contracts",
+    "elbows draw back",
+    "sternum lifts strongly",
+    "jaw and chest release long breath",
+    "fists descend firm",
+    "shoulders loosen",
+    "broad chest fists waist"
+  ],
+  "art_spring_well": [
+    "overlapped palms abdomen",
+    "knees sink deep",
+    "hands press low",
+    "palms rise from below belly",
+    "torso rises with palms",
+    "palms hover chest",
+    "hands settle downward",
+    "overlapped palms abdomen"
+  ],
+  "art_mirror_breath": [
+    "symmetrical palms facing each other",
+    "palms glide sideways",
+    "elbows open equally",
+    "palms rise to chest mirror",
+    "shoulders held evenly",
+    "hands lower symmetrically",
+    "spine straight still",
+    "symmetrical palms quiet"
+  ],
+  "em_heart_breath": [
+    "round palms covering heart",
+    "left wrist rotates inward",
+    "right palm follows round",
+    "hands descend to belly",
+    "front elbow settles",
+    "rear elbow settles",
+    "hands rise round chest",
+    "round palms heart"
+  ],
+  "sl_iron_shirt": [
+    "wide stance elbows tight ribs",
+    "back braces forward",
+    "shoulders absorb inward",
+    "forearms close firmly",
+    "chest opens back",
+    "elbows spread beside ribs",
+    "waist settles rooted",
+    "elbows tight ribs"
+  ],
+  "sl_yijin": [
+    "loose spread fingers low",
+    "arms lift stretching",
+    "spine lengthens upwards",
+    "fingers extend over shoulder",
+    "arms reach broad side stretch",
+    "shoulders sink slowly",
+    "fingers relax and descend",
+    "loose fingers low"
+  ],
+  "wd_pure_yang": [
+    "palms facing lower belly",
+    "elbows lift slowly",
+    "chest expands calmly",
+    "shoulders widen softly",
+    "palms turn warm outward",
+    "long exhale elbows lower",
+    "spine relaxes upright",
+    "palms facing lower belly"
+  ],
+  "mj_devil_breath": [
+    "fist backs against abdomen",
+    "body folds inward",
+    "elbows press belly",
+    "chest rises against compressed fists",
+    "arms unfold with forceful exhale",
+    "shoulders roll inward",
+    "fists return to belly",
+    "fists against abdomen"
+  ],
+  "hs_yue_breath": [
+    "palms supporting broad imaginary weight",
+    "spine stands tall",
+    "palms lift mountain-like",
+    "elbows hold firm beside shoulders",
+    "palms turn inward",
+    "hands join abdomen",
+    "knees root down",
+    "mountain support palms"
+  ],
+  "th_qimen_array": [
+    "open palms centered",
+    "left palm turns left side",
+    "right palm turns right side",
+    "front foot angles outward",
+    "hands shift through upper then lower positions",
+    "rear foot aligns forward",
+    "palms circle back middle",
+    "centered open palms"
+  ],
+  "wg_root_severed_creed": [
+    "joined palms before chest",
+    "head inclines still",
+    "shoulders sink",
+    "joined hands lower",
+    "palms split downward symmetrically",
+    "wrists relax",
+    "hands gather slowly",
+    "joined palms chest"
+  ],
+  "art_guqin_song": [
+    "both hands in empty zither finger posture",
+    "left fingers press low",
+    "right fingers curl pluck",
+    "right index lifts pick",
+    "left wrist slides level",
+    "opposite finger plucks",
+    "both hands settle still",
+    "zither fingers quiet"
+  ],
+  "art_buddha_heart": [
+    "joined prayer palms",
+    "breath steadies chest",
+    "forearms separate slowly",
+    "palms spread protecting chest",
+    "hands pause gently",
+    "wrists turn inward",
+    "palms join again",
+    "prayer palm still"
+  ],
+  "art_dao_breath": [
+    "one palm up one palm down",
+    "upper palm circles outward",
+    "lower palm rises inward",
+    "palms exchange vertically",
+    "spine stretches gently",
+    "hands circle opposite",
+    "palms return unequal levels",
+    "one up one down"
+  ],
+  "pr_blood_sea": [
+    "palm heels against belly",
+    "hands compress inward",
+    "palms turn outward",
+    "chest and arms expand tide-like",
+    "wide palms reach broad",
+    "elbows fold as tide retreats",
+    "palms gather to belly",
+    "palm heels belly"
+  ],
+  "pr_thunder_heart": [
+    "cross palms chest",
+    "first short chest exhale",
+    "elbows pulse inward",
+    "second short chest exhale",
+    "shoulders settle then long open breath",
+    "arms spread and slow",
+    "palms cross chest",
+    "crossed palms quiet"
+  ],
+  "pr_seal_meridian": [
+    "flat palms lower belly",
+    "little fingers close first",
+    "ring and middle fingers close",
+    "index fingers close",
+    "thumbs close into quiet seal",
+    "hands open rising chest",
+    "all fingers extend slowly",
+    "flat palms lower belly"
+  ],
+  "pr_void_breath": [
+    "deep knees palms cupping",
+    "hands gather breath",
+    "body straightens lightly",
+    "arms float from full cup to loose cradle",
+    "palms turn almost weightless",
+    "body settles gently",
+    "hands close empty space",
+    "light cupped palms"
+  ],
+  "qg_snow_track": [
+    "toes narrow quiet stance",
+    "left heel lifts",
+    "right toe touches forward",
+    "left toe trades lightly",
+    "both heels barely raised",
+    "right foot collects",
+    "weight transfers quietly",
+    "narrow toes quiet"
+  ],
+  "qg_swallow_turn": [
+    "single foot side-on",
+    "shoulders rotate first",
+    "heel follows turning",
+    "opposite foot redirects",
+    "waist turns second corner",
+    "feet cross turning back",
+    "shoulders face right",
+    "single foot collected"
+  ],
+  "qg_feiyan": [
+    "low forward knee bend",
+    "rear ankle drives",
+    "front knee rises high",
+    "long flat flying stride",
+    "arms spread balance",
+    "front foot extends down",
+    "soft long landing",
+    "low ready stance"
+  ],
+  "qg_canopy_void": [
+    "tall toe-standing pose",
+    "left toe lightly taps",
+    "right toe rises",
+    "front knee floats high",
+    "body seems light suspended",
+    "foot gently lowers",
+    "rear foot collects delicately",
+    "tall toe stand"
+  ],
+  "qg_reed_drift": [
+    "side waist slack arms",
+    "weight rolls left foot",
+    "torso bends softly opposite",
+    "right foot crosses sideways",
+    "weight rolls right foot",
+    "torso bends reed-like",
+    "left foot gathers",
+    "slack side waist"
+  ],
+  "qg_wall_cat": [
+    "compact crouch empty hands",
+    "one knee lifts beside body",
+    "one hand reaches high balance",
+    "foot presses imaginary narrow wall",
+    "other hand and foot alternate",
+    "torso turns out of close crouch",
+    "soft compact landing",
+    "compact crouch"
+  ],
+  "qg_lotus_steps": [
+    "toe pointed ahead",
+    "toe touches then opens foot",
+    "sole spreads receiving weight",
+    "other foot draws curve",
+    "second toe touches curve",
+    "sole opens gently",
+    "feet gather on arc",
+    "pointed toe guard"
+  ],
+  "tm_shadow_step": [
+    "low shoulders sideways feet",
+    "front foot enters dark side",
+    "body compresses narrow",
+    "rear foot swaps sharply",
+    "torso emerges upright",
+    "shoulders turn opposite",
+    "feet stop close",
+    "low side-foot guard"
+  ],
+  "wg_silent_step": [
+    "outer edge lead foot",
+    "knees absorb deeply",
+    "whole foot rolls flat",
+    "rear foot glides close",
+    "outer edge new foot touches",
+    "knees soften without bounce",
+    "feet close narrow",
+    "outer edge foot stance"
+  ],
+  "art_ink_illusion": [
+    "diagonal loose stance",
+    "wide step left",
+    "narrow crossing right",
+    "torso cuts sharp diagonal",
+    "wide opposite side step",
+    "waist swivels back",
+    "feet gather abrupt stop",
+    "diagonal loose stance"
+  ],
+  "pr_shadow_flash": [
+    "extreme low compressed stance",
+    "hips sink almost floor",
+    "reverse foot switches behind",
+    "torso twists opposite",
+    "long low lateral escape",
+    "body unfolds suddenly",
+    "one foot brakes low",
+    "compressed low guard"
+  ],
+  "pr_tide_step": [
+    "forward foot probing",
+    "weight advances gently",
+    "back foot drags toward front",
+    "hips retreat with long rear step",
+    "front foot gathers backward",
+    "weight advances second wave",
+    "feet soften together",
+    "probing forward foot"
+  ]
+}

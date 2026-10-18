@@ -6,9 +6,12 @@
     "qinggong": 14,
     "common": 84,
     "premium": 19,
-    "prototypes": 15,
+    "prototypes": 103,
+    "directionApproved": 15,
+    "frames": 1064,
+    "identityEffects": 141,
     "productionAccepted": 0,
-    "notProduced": 88,
+    "notProduced": 0,
     "aliases": 10
   },
   "aliases": [
@@ -72,13 +75,28 @@
       "action": "平掌收至丹田，直立微沉再舒展",
       "rhythm": "慢吸慢吐",
       "signature": "丹田細息",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_lake_breath",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "基礎吐納",
+      "assets": {
+        "atlas": "public/ink/art/martial/基礎吐納.webp",
+        "anchors": "public/ink/art/martial/anchors.json#基礎吐納",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "基礎吐納-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/基礎吐納-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -106,16 +124,23 @@
       "signature": "長河三浪",
       "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "sl_luohan_fist",
-      "coverage": "代表原型待玩家動態確認",
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": true,
       "animationId": "art_river_fist",
       "assets": {
         "atlas": "public/ink/art/martial/art_river_fist.webp",
         "anchors": "public/ink/art/martial/anchors.json#art_river_fist",
         "source": "design/art/martial-identities/source/",
         "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_river_fist-fx-signature.webp"
+        ],
         "runtime": "共用2D引擎原有攻擊事件"
       },
       "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_river_fist-fx-signature.webp"
+      ],
       "variants": [
         "主招"
       ],
@@ -146,16 +171,23 @@
       "signature": "石縫向前延伸",
       "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_cold_palm",
-      "coverage": "代表原型待玩家動態確認",
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": true,
       "animationId": "art_stone_palm",
       "assets": {
         "atlas": "public/ink/art/martial/art_stone_palm.webp",
         "anchors": "public/ink/art/martial/anchors.json#art_stone_palm",
         "source": "design/art/martial-identities/source/",
         "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_stone_palm-fx-signature.webp"
+        ],
         "runtime": "共用2D引擎原有攻擊事件"
       },
       "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_stone_palm-fx-signature.webp"
+      ],
       "variants": [
         "主招"
       ],
@@ -185,13 +217,28 @@
       "action": "側身探步後踏隙欺近，以肩身迫入近距離",
       "rhythm": "探、停、進",
       "signature": "橋面斷痕",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_nine_shadow",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_bridge_step",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_bridge_step.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_bridge_step",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_bridge_step-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_bridge_step-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -217,13 +264,28 @@
       "action": "劍尖低藏，側步挑開破綻後斜刺回身",
       "rhythm": "靜、挑、刺",
       "signature": "古塚冷塵",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_rain_sword",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_tomb_sword",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_tomb_sword.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_tomb_sword",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_tomb_sword-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_tomb_sword-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -245,13 +307,28 @@
       "action": "兩掌由腹向兩側平展，肩胸凝定",
       "rhythm": "長吐短停",
       "signature": "寒湖同心波",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "基礎吐納",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_lake_breath",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_lake_breath.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_lake_breath",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_lake_breath-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_lake_breath-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -279,16 +356,23 @@
       "signature": "雨珠在劍尖破開",
       "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "pr_wind_thread",
-      "coverage": "代表原型待玩家動態確認",
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": true,
       "animationId": "art_rain_sword",
       "assets": {
         "atlas": "public/ink/art/martial/art_rain_sword.webp",
         "anchors": "public/ink/art/martial/anchors.json#art_rain_sword",
         "source": "design/art/martial-identities/source/",
         "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_rain_sword-fx-signature.webp"
+        ],
         "runtime": "共用2D引擎原有攻擊事件"
       },
       "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_rain_sword-fx-signature.webp"
+      ],
       "variants": [
         "主招"
       ],
@@ -317,13 +401,28 @@
       "action": "低身交叉步穿行左右再欺近，肩線連換方向",
       "rhythm": "左右左急停",
       "signature": "九道交錯殘跡",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_bridge_step",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_nine_shadow",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_nine_shadow.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_nine_shadow",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_nine_shadow-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_nine_shadow-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -348,13 +447,28 @@
       "action": "豎掌護胸，退半步後平推封住中線",
       "rhythm": "退、緩送、凝定",
       "signature": "霜枝沿掌路凝結",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_stone_palm",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_cold_palm",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_cold_palm.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_cold_palm",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_cold_palm-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_cold_palm-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -378,16 +492,23 @@
       "signature": "雙道墨色護身氣息",
       "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "pr_diamond_body",
-      "coverage": "代表原型待玩家動態確認",
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": true,
       "animationId": "art_iron_body",
       "assets": {
         "atlas": "public/ink/art/martial/art_iron_body.webp",
         "anchors": "public/ink/art/martial/anchors.json#art_iron_body",
         "source": "design/art/martial-identities/source/",
         "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_iron_body-fx-signature.webp"
+        ],
         "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
       },
       "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_iron_body-fx-signature.webp"
+      ],
       "variants": [
         "主招"
       ],
@@ -416,13 +537,28 @@
       "action": "劍藏側腰，斜步轉身以弧線削向側脅",
       "rhythm": "藏、弧削、挽回",
       "signature": "偏月弧痕",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_tomb_sword",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_moon_sword",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_moon_sword.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_moon_sword",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_moon_sword-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_moon_sword-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -444,13 +580,28 @@
       "action": "鬆肩垂肘環抱氣海，緩慢展掌",
       "rhythm": "低緩連續",
       "signature": "空冥薄霧",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "基礎吐納",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_void_breath",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_void_breath.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_void_breath",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_void_breath-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_void_breath-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -478,13 +629,28 @@
       "action": "雙手鬆圓搭接，隨來勢轉腕引開再回送",
       "rhythm": "接、引、送",
       "signature": "柔絲雙環",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_stone_palm",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_silk_hand",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_silk_hand.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_silk_hand",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_silk_hand-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_silk_hand-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -513,16 +679,23 @@
       "signature": "雷紋沿刃路落下",
       "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "td_thunder_combo",
-      "coverage": "代表原型待玩家動態確認",
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": true,
       "animationId": "art_thunder_blade",
       "assets": {
         "atlas": "public/ink/art/martial/art_thunder_blade.webp",
         "anchors": "public/ink/art/martial/anchors.json#art_thunder_blade",
         "source": "design/art/martial-identities/source/",
         "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_thunder_blade-fx-signature.webp"
+        ],
         "runtime": "共用2D引擎原有攻擊事件"
       },
       "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_thunder_blade-fx-signature.webp"
+      ],
       "variants": [
         "主招"
       ],
@@ -553,16 +726,23 @@
       "signature": "踢腿風弧",
       "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_bridge_step",
-      "coverage": "代表原型待玩家動態確認",
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": true,
       "animationId": "art_wind_chase",
       "assets": {
         "atlas": "public/ink/art/martial/art_wind_chase.webp",
         "anchors": "public/ink/art/martial/anchors.json#art_wind_chase",
         "source": "design/art/martial-identities/source/",
         "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_wind_chase-fx-signature.webp"
+        ],
         "runtime": "共用2D引擎原有攻擊事件"
       },
       "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_wind_chase-fx-signature.webp"
+      ],
       "variants": [
         "主招"
       ],
@@ -591,13 +771,28 @@
       "action": "鉤刃偏架，腕翻牽鎖後側腰拉回",
       "rhythm": "鉤、纏、拉",
       "signature": "鐵線鉤軌",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_thunder_blade",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_hook_silk",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_hook_silk.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_hook_silk",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_hook_silk-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_hook_silk-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -622,13 +817,28 @@
       "action": "抬肘換掌逐次下壓，前腳隨掌墜進",
       "rhythm": "連落、末掌停",
       "signature": "流星墜痕",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_stone_palm",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_meteor_palm",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_meteor_palm.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_meteor_palm",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_meteor_palm-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_meteor_palm-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -650,13 +860,28 @@
       "action": "闊胸收腹握拳腰側，抬胸後吐息",
       "rhythm": "深吸沉吐",
       "signature": "虎嘯氣紋",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "基礎吐納",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_tiger_breath",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_tiger_breath.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_tiger_breath",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_tiger_breath-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_tiger_breath-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -678,13 +903,28 @@
       "action": "掌心交疊於腹，屈膝後徐徐提掌",
       "rhythm": "下沉上湧",
       "signature": "泉眼細紋",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "基礎吐納",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_spring_well",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_spring_well.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_spring_well",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_spring_well-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_spring_well-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -713,13 +953,28 @@
       "action": "指尖藏針於袖，縮肘後貼身直彈",
       "rhythm": "藏、彈、即收",
       "signature": "幾近無痕針線",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "tm_flying_needle",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_shadow_needle",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_shadow_needle.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_shadow_needle",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_shadow_needle-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_shadow_needle-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -739,13 +994,28 @@
       "action": "足尖輕點交替提踵，保持身體中線",
       "rhythm": "輕點連移",
       "signature": "踏雪消痕",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_bridge_step",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "qg_snow_track",
+      "assets": {
+        "atlas": "public/ink/art/martial/qg_snow_track.webp",
+        "anchors": "public/ink/art/martial/anchors.json#qg_snow_track",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "qg_snow_track-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/qg_snow_track-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -766,13 +1036,28 @@
       "action": "單足側立後連換朝向，肩腰先轉腳跟隨",
       "rhythm": "轉轉折返",
       "signature": "燕尾三折",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_bridge_step",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "qg_swallow_turn",
+      "assets": {
+        "atlas": "public/ink/art/martial/qg_swallow_turn.webp",
+        "anchors": "public/ink/art/martial/anchors.json#qg_swallow_turn",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "qg_swallow_turn-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/qg_swallow_turn-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -792,13 +1077,28 @@
       "action": "低蹬前膝高提，雙臂平衡長距離落步",
       "rhythm": "蹬飛落",
       "signature": "飛燕掠風",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_bridge_step",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "qg_feiyan",
+      "assets": {
+        "atlas": "public/ink/art/martial/qg_feiyan.webp",
+        "anchors": "public/ink/art/martial/anchors.json#qg_feiyan",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "qg_feiyan-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/qg_feiyan-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -819,13 +1119,28 @@
       "action": "挺身腳尖連點，提步後輕輕收足",
       "rhythm": "點起懸落",
       "signature": "凌虛細霧",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_bridge_step",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "qg_canopy_void",
+      "assets": {
+        "atlas": "public/ink/art/martial/qg_canopy_void.webp",
+        "anchors": "public/ink/art/martial/anchors.json#qg_canopy_void",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "qg_canopy_void-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/qg_canopy_void-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -848,16 +1163,23 @@
       "signature": "斷橋灰塵錯痕",
       "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "pr_cloud_step",
-      "coverage": "代表原型待玩家動態確認",
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": true,
       "animationId": "qg_broken_bridge",
       "assets": {
         "atlas": "public/ink/art/martial/qg_broken_bridge.webp",
         "anchors": "public/ink/art/martial/anchors.json#qg_broken_bridge",
         "source": "design/art/martial-identities/source/",
         "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "qg_broken_bridge-fx-signature.webp"
+        ],
         "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
       },
       "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/qg_broken_bridge-fx-signature.webp"
+      ],
       "variants": [
         "主招"
       ],
@@ -888,16 +1210,23 @@
       "signature": "槍尖破雲錐",
       "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "pr_heaven_spear",
-      "coverage": "代表原型待玩家動態確認",
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": true,
       "animationId": "art_spear_cloud",
       "assets": {
         "atlas": "public/ink/art/martial/art_spear_cloud.webp",
         "anchors": "public/ink/art/martial/anchors.json#art_spear_cloud",
         "source": "design/art/martial-identities/source/",
         "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_spear_cloud-fx-signature.webp"
+        ],
         "runtime": "共用2D引擎原有攻擊事件"
       },
       "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_spear_cloud-fx-signature.webp"
+      ],
       "variants": [
         "主招"
       ],
@@ -926,13 +1255,28 @@
       "action": "雙手守中持杖，橫掃開架後回杖護身",
       "rhythm": "掃、頓、回架",
       "signature": "厚重杖風",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "sl_weituo",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_staff_iron",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_staff_iron.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_staff_iron",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_staff_iron-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_staff_iron-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -958,13 +1302,28 @@
       "action": "鞭握腰側，肩腕依次帶動鞭梢繞出再捲回",
       "rhythm": "放、梢響、收",
       "signature": "柔絲鞭環",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_staff_iron",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_whip_silk",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_whip_silk.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_whip_silk",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_whip_silk-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_whip_silk-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -990,13 +1349,28 @@
       "action": "前臂持弓後手引弦，穩住肩線後鬆指",
       "rhythm": "引、定、放",
       "signature": "逐星箭尾",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "tm_poison_dart",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_bow_star",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_bow_star.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_bow_star",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_bow_star-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_bow_star-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1017,13 +1391,28 @@
       "action": "側腰鬆肩，重心左右換足如隨風",
       "rhythm": "緩擺錯步",
       "signature": "蘆花低飄",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_bridge_step",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "qg_reed_drift",
+      "assets": {
+        "atlas": "public/ink/art/martial/qg_reed_drift.webp",
+        "anchors": "public/ink/art/martial/anchors.json#qg_reed_drift",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "qg_reed_drift-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/qg_reed_drift-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1043,13 +1432,28 @@
       "action": "縮身屈膝手足交替借力，沿窄面換步",
       "rhythm": "貼攀轉落",
       "signature": "壁面踏痕",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_bridge_step",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "qg_wall_cat",
+      "assets": {
+        "atlas": "public/ink/art/martial/qg_wall_cat.webp",
+        "anchors": "public/ink/art/martial/anchors.json#qg_wall_cat",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "qg_wall_cat-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/qg_wall_cat-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1075,13 +1479,28 @@
       "action": "掌心低藏，前手遮掩視線後反掌平抹",
       "rhythm": "遮、抹、撤",
       "signature": "流沙散幕",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_stone_palm",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_sand_palm",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_sand_palm.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_sand_palm",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_sand_palm-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_sand_palm-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1107,13 +1526,28 @@
       "action": "低垂拳背誘近，扭腰以反手崩拳送出",
       "rhythm": "緩藏、急崩",
       "signature": "灰燼拳痕",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_river_fist",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "jy_ash_manual",
+      "assets": {
+        "atlas": "public/ink/art/martial/jy_ash_manual.webp",
+        "anchors": "public/ink/art/martial/anchors.json#jy_ash_manual",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "jy_ash_manual-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/jy_ash_manual-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1135,13 +1569,28 @@
       "action": "雙掌相對平移至胸，肩肘維持對稱",
       "rhythm": "舒展澄定",
       "signature": "鏡面清波",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "基礎吐納",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_mirror_breath",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_mirror_breath.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_mirror_breath",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_mirror_breath-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_mirror_breath-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1162,13 +1611,28 @@
       "action": "腳尖先落再展腳掌，雙足沿弧線換位",
       "rhythm": "點展換",
       "signature": "踏蓮水紋",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_bridge_step",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "qg_lotus_steps",
+      "assets": {
+        "atlas": "public/ink/art/martial/qg_lotus_steps.webp",
+        "anchors": "public/ink/art/martial/anchors.json#qg_lotus_steps",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "qg_lotus_steps-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/qg_lotus_steps-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1194,13 +1658,28 @@
       "action": "長戟斜扛肩側，轉胯帶戟刃由上向外砍開",
       "rhythm": "扛、開、回桿",
       "signature": "開山戟裂風",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_spear_cloud",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_heavy_halberd",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_heavy_halberd.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_heavy_halberd",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_heavy_halberd-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_heavy_halberd-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1226,13 +1705,28 @@
       "action": "正身中平劍，前進直刺後原路收劍",
       "rhythm": "穩定一進一收",
       "signature": "青雲筆鋒",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_tomb_sword",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "qy_cloud_sword",
+      "assets": {
+        "atlas": "public/ink/art/martial/qy_cloud_sword.webp",
+        "anchors": "public/ink/art/martial/anchors.json#qy_cloud_sword",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "qy_cloud_sword-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/qy_cloud_sword-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1259,13 +1753,28 @@
       "action": "縮肩入側隙，以步帶雙指連點穴位",
       "rhythm": "錯步、雙點",
       "signature": "雲中虛步痕",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "em_silk_wrap",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "qy_mist_step",
+      "assets": {
+        "atlas": "public/ink/art/martial/qy_mist_step.webp",
+        "anchors": "public/ink/art/martial/anchors.json#qy_mist_step",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "qy_mist_step-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/qy_mist_step-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1292,13 +1801,28 @@
       "action": "細劍點線貼胸蓄勢，身體沿同一線穿刺",
       "rhythm": "收窄、急穿",
       "signature": "一線破雲",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_tomb_sword",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "qy_piercing_needle",
+      "assets": {
+        "atlas": "public/ink/art/martial/qy_piercing_needle.webp",
+        "anchors": "public/ink/art/martial/anchors.json#qy_piercing_needle",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "qy_piercing_needle-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/qy_piercing_needle-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1325,13 +1849,28 @@
       "action": "高劍架轉腕相接，前後腳連換令刺勢不斷",
       "rhythm": "密刺無長停",
       "signature": "青冥層疊劍痕",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_tomb_sword",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "qy_sky_intent",
+      "assets": {
+        "atlas": "public/ink/art/martial/qy_sky_intent.webp",
+        "anchors": "public/ink/art/martial/anchors.json#qy_sky_intent",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "qy_sky_intent-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/qy_sky_intent-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1355,13 +1894,28 @@
       "action": "寬步持刀於肩後，以肩腰帶動大幅斜斬",
       "rhythm": "開架、斬、沉刀",
       "signature": "山勢刀風",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_thunder_blade",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "td_open_blade",
+      "assets": {
+        "atlas": "public/ink/art/martial/td_open_blade.webp",
+        "anchors": "public/ink/art/martial/anchors.json#td_open_blade",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "td_open_blade-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/td_open_blade-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1388,13 +1942,28 @@
       "action": "刀鋒平架腰際，滑步橫割後回刃護肋",
       "rhythm": "滑、橫割、收",
       "signature": "裂風薄刃",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_thunder_blade",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "td_wind_slash",
+      "assets": {
+        "atlas": "public/ink/art/martial/td_wind_slash.webp",
+        "anchors": "public/ink/art/martial/anchors.json#td_wind_slash",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "td_wind_slash-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/td_wind_slash-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1422,13 +1991,28 @@
       "action": "刀背靠肩先壓步，交替三斬逐次縮短間隔",
       "rhythm": "斬、斬斬",
       "signature": "雷鳴三折刃路",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_thunder_blade",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "td_thunder_combo",
+      "assets": {
+        "atlas": "public/ink/art/martial/td_thunder_combo.webp",
+        "anchors": "public/ink/art/martial/anchors.json#td_thunder_combo",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "td_thunder_combo-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/td_thunder_combo-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1456,13 +2040,28 @@
       "action": "重心完全後蓄，全身送前完成單次長斬",
       "rhythm": "長蓄、單爆、低收",
       "signature": "無回斷墨",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_thunder_blade",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "td_no_return",
+      "assets": {
+        "atlas": "public/ink/art/martial/td_no_return.webp",
+        "anchors": "public/ink/art/martial/anchors.json#td_no_return",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "td_no_return-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/td_no_return-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1489,13 +2088,28 @@
       "action": "雙掌柔架，轉腰接勢後前掌平送",
       "rhythm": "卸、送、回圓",
       "signature": "柔掌回春細息",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_stone_palm",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "em_soft_palm",
+      "assets": {
+        "atlas": "public/ink/art/martial/em_soft_palm.webp",
+        "anchors": "public/ink/art/martial/anchors.json#em_soft_palm",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "em_soft_palm-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/em_soft_palm-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1522,13 +2136,28 @@
       "action": "指掌相纏沿對手前臂繞入，以小幅腕轉點脈",
       "rhythm": "纏、鎖、鬆",
       "signature": "繞指纏絲",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "qy_mist_step",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "em_silk_wrap",
+      "assets": {
+        "atlas": "public/ink/art/martial/em_silk_wrap.webp",
+        "anchors": "public/ink/art/martial/anchors.json#em_silk_wrap",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "em_silk_wrap-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/em_silk_wrap-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1555,13 +2184,28 @@
       "action": "掌心向上托起再翻送，身形保持穩定中正",
       "rhythm": "托、翻、送",
       "signature": "金頂柔雲",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_stone_palm",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "em_golden_palm",
+      "assets": {
+        "atlas": "public/ink/art/martial/em_golden_palm.webp",
+        "anchors": "public/ink/art/martial/anchors.json#em_golden_palm",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "em_golden_palm-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/em_golden_palm-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1584,13 +2228,28 @@
       "action": "圓掌守心轉掌至腹，前後肘緩沉",
       "rhythm": "圓轉穩息",
       "signature": "峨嵋柔氣環",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "基礎吐納",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "em_heart_breath",
+      "assets": {
+        "atlas": "public/ink/art/martial/em_heart_breath.webp",
+        "anchors": "public/ink/art/martial/anchors.json#em_heart_breath",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "em_heart_breath-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/em_heart_breath-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1616,16 +2275,23 @@
       "signature": "羅漢短勁墨震",
       "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_river_fist",
-      "coverage": "代表原型待玩家動態確認",
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": true,
       "animationId": "sl_luohan_fist",
       "assets": {
         "atlas": "public/ink/art/martial/sl_luohan_fist.webp",
         "anchors": "public/ink/art/martial/anchors.json#sl_luohan_fist",
         "source": "design/art/martial-identities/source/",
         "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "sl_luohan_fist-fx-signature.webp"
+        ],
         "runtime": "共用2D引擎原有攻擊事件"
       },
       "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/sl_luohan_fist-fx-signature.webp"
+      ],
       "variants": [
         "主招"
       ],
@@ -1653,13 +2319,28 @@
       "action": "直杖護身，前手導杖點穴後回抽杖根",
       "rhythm": "架、點、抽",
       "signature": "韋陀杖頭短印",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_staff_iron",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "sl_weituo",
+      "assets": {
+        "atlas": "public/ink/art/martial/sl_weituo.webp",
+        "anchors": "public/ink/art/martial/anchors.json#sl_weituo",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "sl_weituo-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/sl_weituo-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1681,13 +2362,28 @@
       "action": "闊步肘臂貼肋，肩背受力後展開",
       "rhythm": "受震歸定",
       "signature": "鐵衣反震紋",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "基礎吐納",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "sl_iron_shirt",
+      "assets": {
+        "atlas": "public/ink/art/martial/sl_iron_shirt.webp",
+        "anchors": "public/ink/art/martial/anchors.json#sl_iron_shirt",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "sl_iron_shirt-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/sl_iron_shirt-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1711,13 +2407,28 @@
       "action": "舒指引臂抬升，背脊逐節伸展再沉肩",
       "rhythm": "展筋落息",
       "signature": "筋骨清勁",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "基礎吐納",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "sl_yijin",
+      "assets": {
+        "atlas": "public/ink/art/martial/sl_yijin.webp",
+        "anchors": "public/ink/art/martial/anchors.json#sl_yijin",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "sl_yijin-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/sl_yijin-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1743,13 +2454,28 @@
       "action": "圓形劍架起手，腳步繞側配合腕花送刺",
       "rhythm": "圓轉、刺、回圓",
       "signature": "武當圓劍痕",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_tomb_sword",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "wd_sword_form",
+      "assets": {
+        "atlas": "public/ink/art/martial/wd_sword_form.webp",
+        "anchors": "public/ink/art/martial/anchors.json#wd_sword_form",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "wd_sword_form-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/wd_sword_form-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1777,13 +2503,28 @@
       "action": "前後掌相抱，以腰帶臂引開後雙掌緩推",
       "rhythm": "接、引、推",
       "signature": "太極雙向流痕",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_stone_palm",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "wd_tai_push",
+      "assets": {
+        "atlas": "public/ink/art/martial/wd_tai_push.webp",
+        "anchors": "public/ink/art/martial/anchors.json#wd_tai_push",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "wd_tai_push-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/wd_tai_push-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1805,13 +2546,28 @@
       "action": "雙掌相對氣海，隨吐息抬胸展肩",
       "rhythm": "悠長平穩",
       "signature": "純陽暖息",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "基礎吐納",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "wd_pure_yang",
+      "assets": {
+        "atlas": "public/ink/art/martial/wd_pure_yang.webp",
+        "anchors": "public/ink/art/martial/anchors.json#wd_pure_yang",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "wd_pure_yang-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/wd_pure_yang-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1838,13 +2594,28 @@
       "action": "劍鋒立於中線，連續轉腕接刺後退劍守中",
       "rhythm": "循環不斷",
       "signature": "無極相接劍環",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_tomb_sword",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "wd_wuji_sword",
+      "assets": {
+        "atlas": "public/ink/art/martial/wd_wuji_sword.webp",
+        "anchors": "public/ink/art/martial/anchors.json#wd_wuji_sword",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "wd_wuji_sword-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/wd_wuji_sword-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1875,16 +2646,23 @@
       "signature": "細針分路抵達",
       "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "wg_embroidery_needle",
-      "coverage": "代表原型待玩家動態確認",
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": true,
       "animationId": "tm_flying_needle",
       "assets": {
         "atlas": "public/ink/art/martial/tm_flying_needle.webp",
         "anchors": "public/ink/art/martial/anchors.json#tm_flying_needle",
         "source": "design/art/martial-identities/source/",
         "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "tm_flying_needle-fx-signature.webp"
+        ],
         "runtime": "共用2D引擎原有攻擊事件"
       },
       "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/tm_flying_needle-fx-signature.webp"
+      ],
       "variants": [
         "主招"
       ],
@@ -1908,13 +2686,28 @@
       "action": "壓低肩線側足入暗，短距離換位再挺身",
       "rhythm": "隱錯現",
       "signature": "影步折痕",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_bridge_step",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "tm_shadow_step",
+      "assets": {
+        "atlas": "public/ink/art/martial/tm_shadow_step.webp",
+        "anchors": "public/ink/art/martial/anchors.json#tm_shadow_step",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "tm_shadow_step-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/tm_shadow_step-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1944,13 +2737,28 @@
       "action": "拈鏢於肩側，肘帶腕拋出後指尖順勢下收",
       "rhythm": "蓄鏢、拋、收",
       "signature": "毒鏢尾霧",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "pr_star_fall",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "tm_poison_dart",
+      "assets": {
+        "atlas": "public/ink/art/martial/tm_poison_dart.webp",
+        "anchors": "public/ink/art/martial/anchors.json#tm_poison_dart",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "tm_poison_dart-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/tm_poison_dart-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -1981,13 +2789,28 @@
       "action": "袖口朝前交替抬臂，以短促指扣逐次放射",
       "rhythm": "扣、扣扣、合袖",
       "signature": "千機連射星點",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_shadow_needle",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "tm_thousand_mech",
+      "assets": {
+        "atlas": "public/ink/art/martial/tm_thousand_mech.webp",
+        "anchors": "public/ink/art/martial/anchors.json#tm_thousand_mech",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "tm_thousand_mech-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/tm_thousand_mech-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2012,13 +2835,28 @@
       "action": "掌根低蓄，向前拍送後掌心翻回胸前",
       "rhythm": "拍、回帶",
       "signature": "血影回捲掌霧",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_stone_palm",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "mj_blood_palm",
+      "assets": {
+        "atlas": "public/ink/art/martial/mj_blood_palm.webp",
+        "anchors": "public/ink/art/martial/anchors.json#mj_blood_palm",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "mj_blood_palm-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/mj_blood_palm-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2041,13 +2879,28 @@
       "action": "拳背貼腹俯身聚氣，抬胸再吐息",
       "rhythm": "壓聚吐",
       "signature": "魔息逆旋",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "基礎吐納",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "mj_devil_breath",
+      "assets": {
+        "atlas": "public/ink/art/martial/mj_devil_breath.webp",
+        "anchors": "public/ink/art/martial/anchors.json#mj_devil_breath",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "mj_devil_breath-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/mj_devil_breath-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2074,13 +2927,28 @@
       "action": "兩指內扣，貼近後直探經脈再彎指收回",
       "rhythm": "探、扣、抽",
       "signature": "吸脈回流細線",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "qy_mist_step",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "mj_soul_drain",
+      "assets": {
+        "atlas": "public/ink/art/martial/mj_soul_drain.webp",
+        "anchors": "public/ink/art/martial/anchors.json#mj_soul_drain",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "mj_soul_drain-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/mj_soul_drain-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2110,13 +2978,28 @@
       "action": "反握刀架守低位，轉腰向上斜斬再沉刃",
       "rhythm": "低、逆斬、收",
       "signature": "修羅朱砂刃痕",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_thunder_blade",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "mj_asura_slash",
+      "assets": {
+        "atlas": "public/ink/art/martial/mj_asura_slash.webp",
+        "anchors": "public/ink/art/martial/anchors.json#mj_asura_slash",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "mj_asura_slash-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/mj_asura_slash-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2142,13 +3025,28 @@
       "action": "高腕直劍，挺身送出乾淨直刺再收肩",
       "rhythm": "穩、刺、回",
       "signature": "松風劍葉",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_tomb_sword",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "hs_pine_sword",
+      "assets": {
+        "atlas": "public/ink/art/martial/hs_pine_sword.webp",
+        "anchors": "public/ink/art/martial/anchors.json#hs_pine_sword",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "hs_pine_sword-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/hs_pine_sword-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2175,13 +3073,28 @@
       "action": "持劍交叉踏高步，換足同時連刺兩側隙",
       "rhythm": "踏、連刺、落步",
       "signature": "雲臺階式劍痕",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_tomb_sword",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "hs_cloud_step",
+      "assets": {
+        "atlas": "public/ink/art/martial/hs_cloud_step.webp",
+        "anchors": "public/ink/art/martial/anchors.json#hs_cloud_step",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "hs_cloud_step-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/hs_cloud_step-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2209,13 +3122,28 @@
       "action": "劍舉過肩後沿脊線壓落，以前足承重停住",
       "rhythm": "舉、劈、定",
       "signature": "劈岳縱向墨裂",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_tomb_sword",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "hs_split_peak",
+      "assets": {
+        "atlas": "public/ink/art/martial/hs_split_peak.webp",
+        "anchors": "public/ink/art/martial/anchors.json#hs_split_peak",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "hs_split_peak-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/hs_split_peak-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2239,13 +3167,28 @@
       "action": "掌勢如承山，挺背後合掌於腹",
       "rhythm": "托立合",
       "signature": "華嶽厚息",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "基礎吐納",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "hs_yue_breath",
+      "assets": {
+        "atlas": "public/ink/art/martial/hs_yue_breath.webp",
+        "anchors": "public/ink/art/martial/anchors.json#hs_yue_breath",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "hs_yue_breath-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/hs_yue_breath-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2270,13 +3213,28 @@
       "action": "腰身搖晃佯失平衡，反向扭腰以肘拳補入",
       "rhythm": "晃、頓、反打",
       "signature": "酒霧錯位拳印",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_river_fist",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_drunken_fist",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_drunken_fist.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_drunken_fist",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_drunken_fist-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_drunken_fist-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2302,13 +3260,28 @@
       "action": "拇指扣中指於胸前，鬆腕彈出小石後收指",
       "rhythm": "靜、彈、垂",
       "signature": "彈石一點風",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "qy_mist_step",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "th_finger_flick",
+      "assets": {
+        "atlas": "public/ink/art/martial/th_finger_flick.webp",
+        "anchors": "public/ink/art/martial/anchors.json#th_finger_flick",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "th_finger_flick-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/th_finger_flick-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2334,13 +3307,28 @@
       "action": "玉簫橫架胸前，以腕帶簫身點刺後橫收",
       "rhythm": "橫、點、滑收",
       "signature": "簫音節點",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_tomb_sword",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "th_flute_sword",
+      "assets": {
+        "atlas": "public/ink/art/martial/th_flute_sword.webp",
+        "anchors": "public/ink/art/martial/anchors.json#th_flute_sword",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "th_flute_sword-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/th_flute_sword-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2366,13 +3354,28 @@
       "action": "掌心交替向外翻花，側步中連送開掌",
       "rhythm": "翻、送、換掌",
       "signature": "落英掌瓣",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_stone_palm",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "th_falling_petals",
+      "assets": {
+        "atlas": "public/ink/art/martial/th_falling_petals.webp",
+        "anchors": "public/ink/art/martial/anchors.json#th_falling_petals",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "th_falling_petals-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/th_falling_petals-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2394,13 +3397,28 @@
       "action": "雙掌依身側五位轉動，腳下換向再歸中",
       "rhythm": "五向循環",
       "signature": "奇門息位",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "基礎吐納",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "th_qimen_array",
+      "assets": {
+        "atlas": "public/ink/art/martial/th_qimen_array.webp",
+        "anchors": "public/ink/art/martial/anchors.json#th_qimen_array",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "th_qimen_array-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/th_qimen_array-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2427,13 +3445,28 @@
       "action": "垂袖遮手，以繡線般小幅拈指牽放細針",
       "rhythm": "拈、牽、放",
       "signature": "繡花銀針細路",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_shadow_needle",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "wg_embroidery_needle",
+      "assets": {
+        "atlas": "public/ink/art/martial/wg_embroidery_needle.webp",
+        "anchors": "public/ink/art/martial/anchors.json#wg_embroidery_needle",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "wg_embroidery_needle-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/wg_embroidery_needle-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2454,13 +3487,28 @@
       "action": "腳掌外沿先落，屈膝吸力再換窄步",
       "rhythm": "低緩不頓",
       "signature": "無聲足跡",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_bridge_step",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "wg_silent_step",
+      "assets": {
+        "atlas": "public/ink/art/martial/wg_silent_step.webp",
+        "anchors": "public/ink/art/martial/anchors.json#wg_silent_step",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "wg_silent_step-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/wg_silent_step-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2486,13 +3534,28 @@
       "action": "鬆掌受壓後沿腕轉向，以反掌將來力卸還",
       "rhythm": "受、柔化、還",
       "signature": "陰柔反向絲紋",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_stone_palm",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "wg_yin_soft_palm",
+      "assets": {
+        "atlas": "public/ink/art/martial/wg_yin_soft_palm.webp",
+        "anchors": "public/ink/art/martial/anchors.json#wg_yin_soft_palm",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "wg_yin_soft_palm-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/wg_yin_soft_palm-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2515,13 +3578,28 @@
       "action": "兩掌合於胸前，沉肩向下分掌",
       "rhythm": "靜定再放",
       "signature": "忘根寂息",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "基礎吐納",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "wg_root_severed_creed",
+      "assets": {
+        "atlas": "public/ink/art/martial/wg_root_severed_creed.webp",
+        "anchors": "public/ink/art/martial/anchors.json#wg_root_severed_creed",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "wg_root_severed_creed-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/wg_root_severed_creed-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2543,13 +3621,28 @@
       "action": "雙手作撫弦指勢，左右指尖輪替後平息",
       "rhythm": "勾挑息",
       "signature": "廣陵弦音紋",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "基礎吐納",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_guqin_song",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_guqin_song.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_guqin_song",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_guqin_song-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_guqin_song-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2577,16 +3670,23 @@
       "signature": "珍瓏黑白落子",
       "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "th_finger_flick",
-      "coverage": "代表原型待玩家動態確認",
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": true,
       "animationId": "art_weiqi_trap",
       "assets": {
         "atlas": "public/ink/art/martial/art_weiqi_trap.webp",
         "anchors": "public/ink/art/martial/anchors.json#art_weiqi_trap",
         "source": "design/art/martial-identities/source/",
         "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_weiqi_trap-fx-signature.webp"
+        ],
         "runtime": "共用2D引擎原有攻擊事件"
       },
       "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_weiqi_trap-fx-signature.webp"
+      ],
       "variants": [
         "主招"
       ],
@@ -2614,13 +3714,28 @@
       "action": "劍勢先抑後揚，提腕如書寫長短筆勢",
       "rhythm": "頓、長劃、收鋒",
       "signature": "詩劍行書飛白",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_tomb_sword",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_poetry_sword",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_poetry_sword.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_poetry_sword",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_poetry_sword-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_poetry_sword-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2641,13 +3756,28 @@
       "action": "斜側閃開，雙足沿寬窄相間曲線移位",
       "rhythm": "潑斷轉",
       "signature": "潑墨虛實影",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_bridge_step",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_ink_illusion",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_ink_illusion.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_ink_illusion",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_ink_illusion-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_ink_illusion-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2668,13 +3798,28 @@
       "action": "合掌凝神，前臂緩分護胸再回掌",
       "rhythm": "合開歸",
       "signature": "佛心墨暈",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "基礎吐納",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_buddha_heart",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_buddha_heart.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_buddha_heart",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_buddha_heart-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_buddha_heart-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2695,13 +3840,28 @@
       "action": "掌心一上一下交替轉動，脊背自然伸縮",
       "rhythm": "陰陽相續",
       "signature": "太乙遊氣",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "基礎吐納",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_dao_breath",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_dao_breath.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_dao_breath",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_dao_breath-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_dao_breath-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2727,13 +3887,28 @@
       "action": "俯身藏拳後貼身狠打，反肘收身而非持兵器",
       "rhythm": "急近、狠打、抽身",
       "signature": "天魔血氣殘痕",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_river_fist",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "art_heretic_scripture",
+      "assets": {
+        "atlas": "public/ink/art/martial/art_heretic_scripture.webp",
+        "anchors": "public/ink/art/martial/anchors.json#art_heretic_scripture",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "art_heretic_scripture-fx-signature.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 8,
+      "identityEffects": [
+        "public/ink/art/martial/art_heretic_scripture-fx-signature.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2761,13 +3936,34 @@
       "action": "低刀向外翻刃，交叉換足完成瓣狀連斬",
       "rhythm": "展、層斬、合",
       "signature": "血蓮千刃瓣",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_thunder_blade",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "pr_blood_lotus",
+      "assets": {
+        "atlas": "public/ink/art/martial/pr_blood_lotus.webp",
+        "anchors": "public/ink/art/martial/anchors.json#pr_blood_lotus",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "pr_blood_lotus-fx-signature.webp",
+          "pr_blood_lotus-fx-detail.webp",
+          "pr_blood_lotus-fx-finish.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 24,
+      "identityEffects": [
+        "public/ink/art/martial/pr_blood_lotus-fx-signature.webp",
+        "public/ink/art/martial/pr_blood_lotus-fx-detail.webp",
+        "public/ink/art/martial/pr_blood_lotus-fx-finish.webp"
+      ],
+      "variants": [
+        "主招",
+        "真實暴擊後專屬收勢",
+        "真實擊倒後專屬收勢"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2795,13 +3991,34 @@
       "action": "劍身貼臂藏鋒，回身月弧挑刺後帶劍收腰",
       "rhythm": "藏、弧刺、回飲",
       "signature": "赤月回流劍影",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_tomb_sword",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "pr_crimson_moon",
+      "assets": {
+        "atlas": "public/ink/art/martial/pr_crimson_moon.webp",
+        "anchors": "public/ink/art/martial/anchors.json#pr_crimson_moon",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "pr_crimson_moon-fx-signature.webp",
+          "pr_crimson_moon-fx-detail.webp",
+          "pr_crimson_moon-fx-finish.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 24,
+      "identityEffects": [
+        "public/ink/art/martial/pr_crimson_moon-fx-signature.webp",
+        "public/ink/art/martial/pr_crimson_moon-fx-detail.webp",
+        "public/ink/art/martial/pr_crimson_moon-fx-finish.webp"
+      ],
+      "variants": [
+        "主招",
+        "真實暴擊後專屬收勢",
+        "真實擊倒後專屬收勢"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2827,13 +4044,34 @@
       "action": "交臂開掌接續換手，九重掌勢由腰向前傳遞",
       "rhythm": "密接層推",
       "signature": "九環相扣掌紋",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_stone_palm",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "pr_nine_chain",
+      "assets": {
+        "atlas": "public/ink/art/martial/pr_nine_chain.webp",
+        "anchors": "public/ink/art/martial/anchors.json#pr_nine_chain",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "pr_nine_chain-fx-signature.webp",
+          "pr_nine_chain-fx-detail.webp",
+          "pr_nine_chain-fx-finish.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 24,
+      "identityEffects": [
+        "public/ink/art/martial/pr_nine_chain-fx-signature.webp",
+        "public/ink/art/martial/pr_nine_chain-fx-detail.webp",
+        "public/ink/art/martial/pr_nine_chain-fx-finish.webp"
+      ],
+      "variants": [
+        "主招",
+        "真實暴擊後專屬收勢",
+        "真實擊倒後專屬收勢"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2861,16 +4099,27 @@
       "signature": "穿風三股引線",
       "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_rain_sword",
-      "coverage": "代表原型待玩家動態確認",
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": true,
       "animationId": "pr_wind_thread",
       "assets": {
         "atlas": "public/ink/art/martial/pr_wind_thread.webp",
         "anchors": "public/ink/art/martial/anchors.json#pr_wind_thread",
         "source": "design/art/martial-identities/source/",
         "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "pr_wind_thread-fx-signature.webp",
+          "pr_wind_thread-fx-detail.webp",
+          "pr_wind_thread-fx-finish.webp"
+        ],
         "runtime": "共用2D引擎原有攻擊事件"
       },
       "frameCount": 24,
+      "identityEffects": [
+        "public/ink/art/martial/pr_wind_thread-fx-signature.webp",
+        "public/ink/art/martial/pr_wind_thread-fx-detail.webp",
+        "public/ink/art/martial/pr_wind_thread-fx-finish.webp"
+      ],
       "variants": [
         "主招",
         "真實暴擊後專屬收勢",
@@ -2903,16 +4152,27 @@
       "signature": "山嶽斷面碎岩",
       "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "sl_luohan_fist",
-      "coverage": "代表原型待玩家動態確認",
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": true,
       "animationId": "pr_mountain_split",
       "assets": {
         "atlas": "public/ink/art/martial/pr_mountain_split.webp",
         "anchors": "public/ink/art/martial/anchors.json#pr_mountain_split",
         "source": "design/art/martial-identities/source/",
         "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "pr_mountain_split-fx-signature.webp",
+          "pr_mountain_split-fx-detail.webp",
+          "pr_mountain_split-fx-finish.webp"
+        ],
         "runtime": "共用2D引擎原有攻擊事件"
       },
       "frameCount": 24,
+      "identityEffects": [
+        "public/ink/art/martial/pr_mountain_split-fx-signature.webp",
+        "public/ink/art/martial/pr_mountain_split-fx-detail.webp",
+        "public/ink/art/martial/pr_mountain_split-fx-finish.webp"
+      ],
       "variants": [
         "主招",
         "真實暴擊後專屬收勢",
@@ -2943,13 +4203,34 @@
       "action": "槍尾沉地後雙手托起，以背腰帶槍尖長距離貫刺",
       "rhythm": "沉、托、貫",
       "signature": "貫日槍鋒細芒",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_spear_cloud",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "pr_heaven_spear",
+      "assets": {
+        "atlas": "public/ink/art/martial/pr_heaven_spear.webp",
+        "anchors": "public/ink/art/martial/anchors.json#pr_heaven_spear",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "pr_heaven_spear-fx-signature.webp",
+          "pr_heaven_spear-fx-detail.webp",
+          "pr_heaven_spear-fx-finish.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 24,
+      "identityEffects": [
+        "public/ink/art/martial/pr_heaven_spear-fx-signature.webp",
+        "public/ink/art/martial/pr_heaven_spear-fx-detail.webp",
+        "public/ink/art/martial/pr_heaven_spear-fx-finish.webp"
+      ],
+      "variants": [
+        "主招",
+        "真實暴擊後專屬收勢",
+        "真實擊倒後專屬收勢"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -2975,13 +4256,34 @@
       "action": "雙指夾緊護胸，點出後保持短暫定勢再收指",
       "rhythm": "定、點、定、鬆",
       "signature": "鎖魂穴位封紋",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "qy_mist_step",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "pr_soul_lock",
+      "assets": {
+        "atlas": "public/ink/art/martial/pr_soul_lock.webp",
+        "anchors": "public/ink/art/martial/anchors.json#pr_soul_lock",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "pr_soul_lock-fx-signature.webp",
+          "pr_soul_lock-fx-detail.webp",
+          "pr_soul_lock-fx-finish.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 24,
+      "identityEffects": [
+        "public/ink/art/martial/pr_soul_lock-fx-signature.webp",
+        "public/ink/art/martial/pr_soul_lock-fx-detail.webp",
+        "public/ink/art/martial/pr_soul_lock-fx-finish.webp"
+      ],
+      "variants": [
+        "主招",
+        "真實暴擊後專屬收勢",
+        "真實擊倒後專屬收勢"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -3007,13 +4309,34 @@
       "action": "雙掌交錯遮掩後側身反推，手路虛實互換",
       "rhythm": "遮、換、推",
       "signature": "迷霧掌中散開",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_stone_palm",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "pr_mist_blind",
+      "assets": {
+        "atlas": "public/ink/art/martial/pr_mist_blind.webp",
+        "anchors": "public/ink/art/martial/anchors.json#pr_mist_blind",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "pr_mist_blind-fx-signature.webp",
+          "pr_mist_blind-fx-detail.webp",
+          "pr_mist_blind-fx-finish.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 24,
+      "identityEffects": [
+        "public/ink/art/martial/pr_mist_blind-fx-signature.webp",
+        "public/ink/art/martial/pr_mist_blind-fx-detail.webp",
+        "public/ink/art/martial/pr_mist_blind-fx-finish.webp"
+      ],
+      "variants": [
+        "主招",
+        "真實暴擊後專屬收勢",
+        "真實擊倒後專屬收勢"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -3039,13 +4362,34 @@
       "action": "闊步直掌護胸，背脊挺立送掌後圓收雙臂",
       "rhythm": "沉、山推、回護",
       "signature": "金剛山紋掌勁",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_stone_palm",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "pr_vajra_palm",
+      "assets": {
+        "atlas": "public/ink/art/martial/pr_vajra_palm.webp",
+        "anchors": "public/ink/art/martial/anchors.json#pr_vajra_palm",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "pr_vajra_palm-fx-signature.webp",
+          "pr_vajra_palm-fx-detail.webp",
+          "pr_vajra_palm-fx-finish.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 24,
+      "identityEffects": [
+        "public/ink/art/martial/pr_vajra_palm-fx-signature.webp",
+        "public/ink/art/martial/pr_vajra_palm-fx-detail.webp",
+        "public/ink/art/martial/pr_vajra_palm-fx-finish.webp"
+      ],
+      "variants": [
+        "主招",
+        "真實暴擊後專屬收勢",
+        "真實擊倒後專屬收勢"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -3070,13 +4414,34 @@
       "action": "鬆腕垂刀以曲步繞側，刀刃沿意外斜角輕落",
       "rhythm": "飄、折、落",
       "signature": "飄絮細碎刃尾",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_thunder_blade",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "pr_floating_blade",
+      "assets": {
+        "atlas": "public/ink/art/martial/pr_floating_blade.webp",
+        "anchors": "public/ink/art/martial/anchors.json#pr_floating_blade",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "pr_floating_blade-fx-signature.webp",
+          "pr_floating_blade-fx-detail.webp",
+          "pr_floating_blade-fx-finish.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 24,
+      "identityEffects": [
+        "public/ink/art/martial/pr_floating_blade-fx-signature.webp",
+        "public/ink/art/martial/pr_floating_blade-fx-detail.webp",
+        "public/ink/art/martial/pr_floating_blade-fx-finish.webp"
+      ],
+      "variants": [
+        "主招",
+        "真實暴擊後專屬收勢",
+        "真實擊倒後專屬收勢"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -3104,13 +4469,34 @@
       "action": "雙手先高後低交替撒出暗器，身體隨手轉側",
       "rhythm": "高撒、低撒、回袖",
       "signature": "流星墜月散點",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "tm_poison_dart",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "pr_star_fall",
+      "assets": {
+        "atlas": "public/ink/art/martial/pr_star_fall.webp",
+        "anchors": "public/ink/art/martial/anchors.json#pr_star_fall",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "pr_star_fall-fx-signature.webp",
+          "pr_star_fall-fx-detail.webp",
+          "pr_star_fall-fx-finish.webp"
+        ],
+        "runtime": "共用2D引擎原有攻擊事件"
+      },
+      "frameCount": 24,
+      "identityEffects": [
+        "public/ink/art/martial/pr_star_fall-fx-signature.webp",
+        "public/ink/art/martial/pr_star_fall-fx-detail.webp",
+        "public/ink/art/martial/pr_star_fall-fx-finish.webp"
+      ],
+      "variants": [
+        "主招",
+        "真實暴擊後專屬收勢",
+        "真實擊倒後專屬收勢"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -3132,13 +4518,32 @@
       "action": "掌根貼腹聚息，翻掌擴胸再收息",
       "rhythm": "聚擴收潮",
       "signature": "血海潮紋",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "基礎吐納",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "pr_blood_sea",
+      "assets": {
+        "atlas": "public/ink/art/martial/pr_blood_sea.webp",
+        "anchors": "public/ink/art/martial/anchors.json#pr_blood_sea",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "pr_blood_sea-fx-signature.webp",
+          "pr_blood_sea-fx-detail.webp",
+          "pr_blood_sea-fx-finish.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 16,
+      "identityEffects": [
+        "public/ink/art/martial/pr_blood_sea-fx-signature.webp",
+        "public/ink/art/martial/pr_blood_sea-fx-detail.webp",
+        "public/ink/art/martial/pr_blood_sea-fx-finish.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -3160,13 +4565,32 @@
       "action": "交掌貼胸連續短吐，肘肩隨息微震",
       "rhythm": "短短長吐",
       "signature": "雷動脈紋",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "基礎吐納",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "pr_thunder_heart",
+      "assets": {
+        "atlas": "public/ink/art/martial/pr_thunder_heart.webp",
+        "anchors": "public/ink/art/martial/anchors.json#pr_thunder_heart",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "pr_thunder_heart-fx-signature.webp",
+          "pr_thunder_heart-fx-detail.webp",
+          "pr_thunder_heart-fx-finish.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 16,
+      "identityEffects": [
+        "public/ink/art/martial/pr_thunder_heart-fx-signature.webp",
+        "public/ink/art/martial/pr_thunder_heart-fx-detail.webp",
+        "public/ink/art/martial/pr_thunder_heart-fx-finish.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -3190,16 +4614,27 @@
       "signature": "金剛多層細氣紋",
       "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_iron_body",
-      "coverage": "代表原型待玩家動態確認",
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": true,
       "animationId": "pr_diamond_body",
       "assets": {
         "atlas": "public/ink/art/martial/pr_diamond_body.webp",
         "anchors": "public/ink/art/martial/anchors.json#pr_diamond_body",
         "source": "design/art/martial-identities/source/",
         "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "pr_diamond_body-fx-signature.webp",
+          "pr_diamond_body-fx-detail.webp",
+          "pr_diamond_body-fx-finish.webp"
+        ],
         "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
       },
       "frameCount": 16,
+      "identityEffects": [
+        "public/ink/art/martial/pr_diamond_body-fx-signature.webp",
+        "public/ink/art/martial/pr_diamond_body-fx-detail.webp",
+        "public/ink/art/martial/pr_diamond_body-fx-finish.webp"
+      ],
       "variants": [
         "主招"
       ],
@@ -3224,13 +4659,32 @@
       "action": "平掌於腹逐指閉合，雙手展開至胸",
       "rhythm": "逐指收整體放",
       "signature": "封脈息點",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "基礎吐納",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "pr_seal_meridian",
+      "assets": {
+        "atlas": "public/ink/art/martial/pr_seal_meridian.webp",
+        "anchors": "public/ink/art/martial/anchors.json#pr_seal_meridian",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "pr_seal_meridian-fx-signature.webp",
+          "pr_seal_meridian-fx-detail.webp",
+          "pr_seal_meridian-fx-finish.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 16,
+      "identityEffects": [
+        "public/ink/art/martial/pr_seal_meridian-fx-signature.webp",
+        "public/ink/art/martial/pr_seal_meridian-fx-detail.webp",
+        "public/ink/art/martial/pr_seal_meridian-fx-finish.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -3252,13 +4706,32 @@
       "action": "屈膝吸氣後舒身，實抱轉為虛托",
       "rhythm": "沉輕起虛收",
       "signature": "太虛薄息",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "基礎吐納",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "pr_void_breath",
+      "assets": {
+        "atlas": "public/ink/art/martial/pr_void_breath.webp",
+        "anchors": "public/ink/art/martial/anchors.json#pr_void_breath",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "pr_void_breath-fx-signature.webp",
+          "pr_void_breath-fx-detail.webp",
+          "pr_void_breath-fx-finish.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 16,
+      "identityEffects": [
+        "public/ink/art/martial/pr_void_breath-fx-signature.webp",
+        "public/ink/art/martial/pr_void_breath-fx-detail.webp",
+        "public/ink/art/martial/pr_void_breath-fx-finish.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -3281,16 +4754,27 @@
       "signature": "九霄上揚雲跡",
       "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "qg_broken_bridge",
-      "coverage": "代表原型待玩家動態確認",
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": true,
       "animationId": "pr_cloud_step",
       "assets": {
         "atlas": "public/ink/art/martial/pr_cloud_step.webp",
         "anchors": "public/ink/art/martial/anchors.json#pr_cloud_step",
         "source": "design/art/martial-identities/source/",
         "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "pr_cloud_step-fx-signature.webp",
+          "pr_cloud_step-fx-detail.webp",
+          "pr_cloud_step-fx-finish.webp"
+        ],
         "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
       },
       "frameCount": 16,
+      "identityEffects": [
+        "public/ink/art/martial/pr_cloud_step-fx-signature.webp",
+        "public/ink/art/martial/pr_cloud_step-fx-detail.webp",
+        "public/ink/art/martial/pr_cloud_step-fx-finish.webp"
+      ],
       "variants": [
         "主招"
       ],
@@ -3314,13 +4798,32 @@
       "action": "極低縮身後反向換足，軀幹先隱再現",
       "rhythm": "壓閃反閃",
       "signature": "鬼影斷痕",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_bridge_step",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "pr_shadow_flash",
+      "assets": {
+        "atlas": "public/ink/art/martial/pr_shadow_flash.webp",
+        "anchors": "public/ink/art/martial/anchors.json#pr_shadow_flash",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "pr_shadow_flash-fx-signature.webp",
+          "pr_shadow_flash-fx-detail.webp",
+          "pr_shadow_flash-fx-finish.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 16,
+      "identityEffects": [
+        "public/ink/art/martial/pr_shadow_flash-fx-signature.webp",
+        "public/ink/art/martial/pr_shadow_flash-fx-detail.webp",
+        "public/ink/art/martial/pr_shadow_flash-fx-finish.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     },
     {
@@ -3342,13 +4845,32 @@
       "action": "前足探出後後足拖回，重心前後循環",
       "rhythm": "進緩回再進",
       "signature": "觀潮回波",
-      "recovery": "待逐門設計收勢；唔以通用揮擊當完成",
+      "recovery": "按圖集第六至八格收勢，還原起手重心",
       "closestPeer": "art_bridge_step",
-      "coverage": "設計草案／未製作素材",
-      "animationId": null,
-      "assets": null,
-      "frameCount": 0,
-      "variants": [],
+      "coverage": "全目錄獨立素材已接入，待玩家逐門動態確認",
+      "directionApproved": false,
+      "animationId": "pr_tide_step",
+      "assets": {
+        "atlas": "public/ink/art/martial/pr_tide_step.webp",
+        "anchors": "public/ink/art/martial/anchors.json#pr_tide_step",
+        "source": "design/art/martial-identities/source/",
+        "contactStatus": "透明輪廓接觸端點候選，待逐門人工校正",
+        "effects": [
+          "pr_tide_step-fx-signature.webp",
+          "pr_tide_step-fx-detail.webp",
+          "pr_tide_step-fx-finish.webp"
+        ],
+        "runtime": "共用2D引擎真實受擊／落空回應；唔新增攻擊"
+      },
+      "frameCount": 16,
+      "identityEffects": [
+        "public/ink/art/martial/pr_tide_step-fx-signature.webp",
+        "public/ink/art/martial/pr_tide_step-fx-detail.webp",
+        "public/ink/art/martial/pr_tide_step-fx-finish.webp"
+      ],
+      "variants": [
+        "主招"
+      ],
       "acceptance": "未驗收，唔視為商業完成品"
     }
   ]

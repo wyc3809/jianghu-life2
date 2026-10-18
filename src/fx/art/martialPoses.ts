@@ -1,8 +1,10 @@
-/** 第30項代表原型：真正肢體圖集；只取樣畫面，唔產生戰鬥事件。 */
+/** 第30項全目錄專屬動作：真正肢體圖集；只取樣畫面，唔產生戰鬥事件。 */
+import expansion from './martialExpansion.json';
+import type { IdentityTextures } from './identityFx';
 import type { ArtSpriteKey } from './choreo';
 import { canonicalSkillId } from '@data/skills/catalog';
 import { MARTIAL_FALLBACK } from './martialFallback';
-export type MartialFamily = 'fist' | 'palm' | 'kick' | 'needle' | 'sword' | 'blade' | 'spear' | 'internal' | 'step' | 'weiqi';
+export type MartialFamily = 'fist' | 'palm' | 'kick' | 'needle' | 'sword' | 'blade' | 'spear' | 'internal' | 'step' | 'weiqi' | 'finger' | 'staff' | 'whip' | 'bow' | 'hook' | 'halberd' | 'flute' | 'mechanism' | 'dart';
 export interface MartialPoseDef {
   id: string;
   family: MartialFamily;
@@ -10,13 +12,16 @@ export interface MartialPoseDef {
   /** 秒數由現有招式時間線決定；陣列只指定身體關鍵幀先後。 */
   sequence: readonly number[];
   /** 既有結果揭曉後才選擇收勢；唔預先結算、唔新增攻擊。 */
+  contactIndex?: number;
+  windup?: readonly number[];
+  settle?: readonly number[];
   critRecovery?: readonly number[];
   killRecovery?: readonly number[];
 }
 const pose = (id: string, family: MartialFamily, sequence: number[], premium = false,
   critRecovery?: number[], killRecovery?: number[]): MartialPoseDef => ({ id, family, sequence, premium, critRecovery, killRecovery });
 
-/** 全部都係代表樣本，未列出嘅武學仍待製作；唔等於全目錄完成。 */
+/** 103門獨立角色序列；素材及動態驗證由製作審核表逐項記錄。 */
 export const MARTIAL_POSES: readonly MartialPoseDef[] = [
   pose('art_river_fist', 'fist', [0, 1, 2, 3, 2, 4, 5, 6, 7]),
   pose('sl_luohan_fist', 'fist', [0, 1, 2, 3, 4, 5, 6, 7]),
@@ -33,6 +38,7 @@ export const MARTIAL_POSES: readonly MartialPoseDef[] = [
   pose('qg_broken_bridge', 'step', [0, 1, 2, 3, 4, 5, 6, 7]),
   pose('pr_cloud_step', 'step', [0, 8, 1, 9, 2, 10, 3, 11, 4, 12, 5, 13, 6, 14, 7, 15], true),
   pose('art_weiqi_trap', 'weiqi', [0, 1, 2, 3, 4, 5, 6, 7]),
+  ...expansion.map(d => ({ ...d, family: d.family as MartialFamily })),
 ];
 const byId = new Map(MARTIAL_POSES.map(d => [d.id, d]));
 // 舊八門保留原結算時刻，肢體幀貼齊每次接觸，而唔係均勻播完八張圖。
@@ -50,23 +56,32 @@ export const martialPoseFor = (id?: string | null): MartialPoseDef | undefined =
 export function sampleMartialPose(def: MartialPoseDef, time: number, duration: number, contact: number,
   result: { crit: boolean; killed: boolean; dmg: number } | null = null, reduced = false): number {
   const t = Math.max(0, Math.min(duration, time));
-  if (reduced) return t >= contact && t < duration * .8 ? def.sequence[3]! : def.sequence[0]!;
+  const touch = def.contactIndex ?? 3;
+  if (reduced) return t >= contact && t < duration * .8 ? def.sequence[touch]! : def.sequence[0]!;
+  // 真實步進會跨過接觸嘅精確小數；保留短暫接觸格，唔會跳過放箭／推出掌心。
+  if (def.contactIndex !== undefined && t >= contact - .02 && t <= contact + .04) return def.sequence[touch]!;
   const authored = cues[def.id];
   if (authored) return [...authored].reverse().find(([at]) => at <= t)?.[1] ?? 0;
   if (t <= contact) {
     const p = contact > 0 ? t / contact : 1;
-    return def.sequence[Math.min(3, Math.floor(p * 4))]!;
+    const beats = touch === 3 ? def.windup ?? [0, .25, .5, .75] : Array.from({ length: touch + 1 }, (_, i) => i / touch);
+    let index = 0; for (let i = 0; i < beats.length; i++) if (p >= beats[i]!) index = i;
+    return def.sequence[Math.min(touch, index)]!;
   }
   const recovery = result && result.dmg > 0 && result.killed ? def.killRecovery
     : result && result.dmg > 0 && result.crit ? def.critRecovery : undefined;
-  const seq = recovery ?? def.sequence.slice(4);
+  const seq = recovery ?? def.sequence.slice(touch + 1);
   const p = (t - contact) / Math.max(.001, duration - contact);
+  if (!recovery && seq.length === 4 && def.settle) {
+    let index = 0; for (let i = 0; i < def.settle.length; i++) if (p >= def.settle[i]!) index = i;
+    return seq[index]!;
+  }
   return seq[Math.min(seq.length - 1, Math.floor(p * seq.length))]!;
 }
 
 export interface MartialAsset { atlas: HTMLImageElement; guard: boolean;
   variants?: Partial<Record<'crit' | 'kill' | 'detail', HTMLImageElement>>;
-  effects?: Partial<Record<ArtSpriteKey, HTMLImageElement>> }
+  effects?: Partial<Record<ArtSpriteKey, HTMLImageElement>>; identityEffects?: IdentityTextures }
 const cache = new Map<string, Promise<MartialAsset | null>>();
 const base = () => `${import.meta.env.BASE_URL || '/'}ink/art/martial/`;
 const image = (url: string) => new Promise<HTMLImageElement>((resolve, reject) => {
@@ -79,6 +94,7 @@ const effectKeys: Record<MartialFamily, readonly ArtSpriteKey[]> = {
   fist: ['wave', 'wave-big', 'qi', 'crack', 'spark'], palm: ['crack', 'rock', 'dust'], kick: ['wind'],
   needle: ['needle'], sword: ['rain', 'streak'], blade: ['lightning', 'spark'], spear: ['thrust', 'cloud'],
   internal: ['qi'], step: ['dust', 'cloud'], weiqi: [],
+  finger: [], staff: [], whip: [], bow: [], hook: [], halberd: [], flute: [], mechanism: [], dart: [],
 };
 /** 只載當前用到嘅武學；最多保留七門加一門正在切換嘅快取。失敗唔永久快取。 */
 export async function loadMartialAssets(ids: readonly string[]): Promise<Map<string, MartialAsset>> {
@@ -96,7 +112,9 @@ export async function loadMartialAssets(ids: readonly string[]): Promise<Map<str
           [key, await image(`${base()}${id}-${key}.webp`).catch(() => null)] as const));
         const entries = await Promise.all(effectKeys[art.family].map(async key =>
           [key, await image(`${base()}fx-${art.premium && art.family === 'internal' && key === 'qi' ? 'diamond' : key}.webp`).catch(() => null)] as const));
-        return { ...actor, variants: Object.fromEntries(variantEntries.filter(([, im]) => im)), effects: Object.fromEntries(entries.filter(([, im]) => im)) };
+        const identityEntries = await Promise.all((art.premium ? ['signature', 'detail', 'finish'] : ['signature']).map(async key =>
+          [key, await image(`${base()}${id}-fx-${key}.webp`).catch(() => null)] as const));
+        return { ...actor, identityEffects: Object.fromEntries(identityEntries.filter(([, im]) => im)), variants: Object.fromEntries(variantEntries.filter(([, im]) => im)), effects: Object.fromEntries(entries.filter(([, im]) => im)) };
       })();
       cache.set(id, pending);
       while (cache.size > 8) cache.delete(cache.keys().next().value!);
