@@ -21,6 +21,7 @@ import { playInkTap } from '../../audio/inkAudio';
 import { CodexStageLazy, type HighlightConfig } from '../../fx/highlight';
 import { InkIcon } from './InkIcon';
 import { gachaHighlight } from '../../fx/highlight/fromGame';
+import { codexCoverUrl } from '../../fx/highlight/codexAppearance';
 import { InkSchoolTabs, InkSkillSchools } from './InkSchoolTabs';
 import { GachaSheet, InkGachaReveal } from './InkGachaReveal';
 import './gachaCodex.css';
@@ -130,13 +131,13 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
         </div>
         <div className="ink-codex-theatre">
           <div className="ink-codex-poem" aria-hidden><span>一卷藏山海</span><span>落墨見真章</span></div>
-          {!fx && <Suspense fallback={<img className="ink-codex-static" src={`${import.meta.env.BASE_URL}ink/art/gacha/codex-cover.webp`} alt="線裝秘笈" />}>
+          {!fx && <Suspense fallback={<img className="ink-codex-static" src={codexCoverUrl(banner === 'zhenben')} alt={banner === 'zhenben' ? '珍本金封秘笈' : '江湖青封秘笈'} />}>
             <CodexStageLazy premium={banner === 'zhenben'} />
           </Suspense>}
           <span className="ink-codex-edition">{banner === 'zhenben' ? '珍本藏卷' : '江湖藏卷'}<small>第{pool.part}冊 · {pool.arts.length}門</small></span>
           <span className="ink-codex-theatre-note">{school.focus}</span>
         </div>
-        <button type="button" className="ink-codex-wish" onClick={() => setSheet('wish')} aria-label={`心願：${b.wish ? skillLabel(b.wish) : '未選擇'}`}>
+        <button type="button" className={`ink-codex-wish${b.wish ? ' has-wish' : ''}`} onClick={() => setSheet('wish')} aria-label={`心願：${b.wish ? skillLabel(b.wish) : '未選擇'}`}>
           <span className="ink-codex-wish-seal">願</span>
           <span><small>心願武學</small><strong>{b.wish ? skillLabel(b.wish) : '選擇一門心願武學'} ›</strong></span>
           <span className="ink-codex-pity"><b>{b.sinceWish}<small>／{GACHA_WISH_PITY}</small></b><small>{b.wish ? `再抽${Math.max(0, GACHA_WISH_PITY - b.sinceWish)}次必出` : '選定後套用保底'}</small></span>
@@ -225,9 +226,9 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
         </>}
         {sheet === 'school' && <><InkSchoolTabs value={pool.school} label="抽卡流派" onChange={id => { if (id !== 'all') { selectPool(banner,schoolGachaPools(banner,id)[0]!.id); setSheet(null); } }} /><p>流派限定本冊抽取範圍，裝備可自由跨派配搭。</p></>}
         {sheet === 'catalog' && <><p>{school.name} · 第{pool.part}冊 · {pool.arts.length}門</p><p>{school.blurb}</p>
-          <ul className="ink-codex-catalog">{pool.arts.map(id => <li key={id}><strong>{skillLabel(id)}</strong><small>{skillKindLabel(getSkillDef(id)!.kind)} · {getSkillDef(id)?.premium ? '珍本' : '江湖'}{primarySchoolOfSkill(getSkillDef(id)) !== pool.school ? ' · 兼修配套' : ''}</small><InkSkillSchools id={id} /></li>)}</ul>
+          <ul className="ink-codex-catalog">{pool.arts.map(id => <li key={id} data-premium={getSkillDef(id)?.premium ? '1' : undefined}><strong>{skillLabel(id)}</strong><small>{skillKindLabel(getSkillDef(id)!.kind)} · {getSkillDef(id)?.premium ? '珍本' : '江湖'}{primarySchoolOfSkill(getSkillDef(id)) !== pool.school ? ' · 兼修配套' : ''}</small><InkSkillSchools id={id} /></li>)}</ul>
         </>}
-        {sheet === 'wish' && <><p>選擇本冊心願；現有保底進度保留。</p><div className="ink-codex-wish-options">{wishPool(banner,meta).map(id => <button key={id} type="button" aria-pressed={b.wish === id} onClick={() => { setWish(banner,id); setSheet(null); }}><strong>{skillLabel(id)}</strong><small>{skillKindLabel(getSkillDef(id)!.kind)}</small></button>)}</div></>}
+        {sheet === 'wish' && <><p>選擇本冊心願；現有保底進度保留。</p><div className="ink-codex-wish-options">{wishPool(banner,meta).map(id => <button key={id} type="button" data-premium={getSkillDef(id)?.premium ? '1' : undefined} aria-pressed={b.wish === id} onClick={() => { setWish(banner,id); setSheet(null); }}><strong>{skillLabel(id)}</strong><small>{skillKindLabel(getSkillDef(id)!.kind)}</small></button>)}</div></>}
         {sheet === 'results' && <>
           <p aria-label="抽取結果來源">上次抽取：{resultPool ? `${SCHOOLS.find(s => s.id === resultPool.school)?.name} · ${BANNERS[resultPool.banner].name} 第${resultPool.part}冊` : '秘笈入藏'}{resultPool && resultPool.id !== pool.id ? '（目前已切換小冊）' : ''}</p>
           <ul className="ink-pull-results" aria-label="抽卡結果">{lastPull?.map((r,i) => <li key={`${r.id}-${i}`} className={`ink-pull-card${r.isPremium ? ' is-premium' : ''}${r.isWish ? ' is-wish' : ''}`}>

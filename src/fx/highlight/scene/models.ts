@@ -508,8 +508,9 @@ export function buildPedestal(): THREE.Group {
   return g;
 }
 
-export function buildSubject(kind: HighlightSubject): SubjectModel {
-  if (kind === 'codex') return buildCodex();
+/** 建立主體；書冊用真實珍本身份，唔跟演出品階染色。 */
+export function buildSubject(kind: HighlightSubject, premium = false): SubjectModel {
+  if (kind === 'codex') return buildCodex(premium);
   if (kind === 'chest') return buildChest();
   if (kind === 'token') return buildToken();
   return buildCauldron();

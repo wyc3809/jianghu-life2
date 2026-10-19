@@ -1,0 +1,134 @@
+
+> jianghu-engine@0.77.0-ea test
+> vitest run
+
+
+ RUN  v3.2.7 /workspace/jianghu-life2
+
+ ❯ tests/martial_poses.test.ts (12 tests | 1 failed) 5763ms
+   ✓ 武學實體姿勢與核心隔離 > test_martial_poses_catalog_counts_and_all_identity_cards_match_real_ids 69ms
+   ✓ 武學實體姿勢與核心隔離 > test_martial_poses_all_legacy_aliases_share_canonical_identity 1ms
+   ✓ 武學實體姿勢與核心隔離 > test_martial_poses_sampling_never_consumes_core_rng_or_changes_before_contact 2ms
+   × 武學實體姿勢與核心隔離 > test_martial_poses_enabled_assets_leave_every_settlement_and_enemy_action_unchanged 5431ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   ✓ 武學實體姿勢與核心隔離 > test_martial_poses_unarmed_and_reduced_motion_never_draw_equipped_sword 70ms
+   ✓ 武學實體姿勢與核心隔離 > test_martial_poses_bow_release_and_long_palm_match_actual_contact_frame 1ms
+   ✓ 武學實體姿勢與核心隔離 > test_martial_poses_all_rare_external_recoveries_draw_correct_variant_without_equipment_overlay 5ms
+   ✓ 武學實體姿勢與核心隔離 > test_martial_poses_all_37_supports_follow_one_real_foe_event_without_extra_attack 8ms
+   ✓ 武學實體姿勢與核心隔離 > test_martial_poses_miss_does_not_create_hurt_or_damage_floaters 4ms
+   ✓ 武學實體姿勢與核心隔離 > test_martial_poses_other_rare_art_never_changes_active_effects_by_load_order 0ms
+   ✓ 武學實體姿勢與核心隔離 > test_martial_poses_replay_is_deterministic_and_volumes_do_not_invent_crit 169ms
+   ✓ 武學實體姿勢與核心隔離 > test_martial_poses_atlas_failure_uses_same_art_guard_instead_of_wrong_weapon 2ms
+ ✓ tests/lifeEngine.test.ts (74 tests) 1302ms
+ ✓ tests/cloud-adversarial.test.ts (8 tests) 1201ms
+ ✓ tests/familyLegacy.test.ts (6 tests) 1510ms
+   ✓ succession card lines > test_succession_lines_pick_inheritance_lines_only  1392ms
+ ✓ tests/lifeVariance.test.ts (10 tests) 135ms
+ ✓ tests/bingpu.test.ts (7 tests) 695ms
+   ✓ 百兵譜（50 新兵器） > 鍛造掉落全部係目錄內嘅合法 id（多 seed 掃描）  374ms
+ ✓ tests/injuries.test.ts (15 tests) 291ms
+ ✓ tests/persistence-adversarial.test.ts (6 tests) 160ms
+ ✓ tests/persistSchedule.test.ts (3 tests) 212ms
+ ✓ tests/cultivation.test.ts (32 tests) 225ms
+ ✓ tests/school_gacha.test.ts (9 tests) 250ms
+ ✓ tests/foe_traits.test.ts (18 tests) 377ms
+ ✓ tests/volumes_autocombat.test.ts (14 tests) 247ms
+ ✓ tests/combatDeathTuning.test.ts (6 tests) 231ms
+ ✓ tests/sparPresentationSwitch.test.ts (1 test) 38ms
+ ✓ tests/genealogy.test.ts (5 tests) 92ms
+ ✓ tests/jianghuRank.test.ts (11 tests) 21ms
+ ✓ tests/desperateReversal.test.ts (5 tests) 52ms
+ ✓ tests/martial_loadout.test.ts (12 tests) 126ms
+ ✓ tests/actionPoints.test.ts (5 tests) 27ms
+ ✓ tests/home_goals.test.ts (5 tests) 101ms
+ ✓ tests/engine.test.ts (3 tests) 89ms
+ ✓ tests/spar_art_engine.test.ts (2 tests) 426ms
+   ✓ 演武台外功動畫（第 25 項） > test_spar_art_engine_one_settlement_per_art_and_split_numbers  372ms
+ ✓ tests/playability.test.ts (6 tests) 23ms
+ ✓ tests/battlePrototype.test.ts (4 tests) 31ms
+ ✓ tests/spar_curve.test.ts (4 tests) 93ms
+ ✓ tests/martial_identity_fx.test.ts (6 tests) 12ms
+ ✓ tests/internalMode.test.ts (21 tests) 24ms
+ ✓ tests/art_choreo.test.ts (10 tests) 34ms
+ ✓ tests/spar_duel.test.ts (21 tests) 19ms
+ ✓ tests/combatDifficulty.test.ts (3 tests) 8ms
+ ✓ tests/foundedSect.test.ts (16 tests) 16ms
+ ✓ tests/culturalArtsAndSects.test.ts (9 tests) 17ms
+ ✓ tests/resultNarrate.test.ts (5 tests) 16ms
+ ✓ tests/ambient_fx.test.ts (10 tests) 17ms
+ ✓ tests/gearSpecialEffects.test.ts (12 tests) 7ms
+ ✓ tests/ladder_v2.test.ts (9 tests) 13ms
+ ✓ tests/ancestry.test.ts (8 tests) 13ms
+ ✓ tests/audio.test.ts (2 tests) 15ms
+ ✓ tests/lifeArcsCatalog.test.ts (9 tests) 13ms
+ ✓ tests/narrateDiversity.test.ts (2 tests) 6ms
+ ✓ tests/stanceVisualization.test.ts (4 tests) 15ms
+ ✓ tests/moveStance.test.ts (4 tests) 13ms
+ ✓ tests/comboSystem.test.ts (10 tests) 14ms
+ ✓ tests/sparPresentation.test.ts (5 tests) 15ms
+ ✓ tests/growthFeel.test.ts (13 tests) 13ms
+ ✓ tests/titles.test.ts (7 tests) 12ms
+ ✓ tests/gearOverrides.test.ts (9 tests) 5ms
+ ✓ tests/combatRating.test.ts (4 tests) 10ms
+ ✓ tests/inkBrush.test.ts (2 tests) 41ms
+ ✓ tests/encounters.test.ts (6 tests) 10ms
+ ✓ tests/moments.test.ts (5 tests) 10ms
+ ✓ tests/wineSystem.test.ts (5 tests) 12ms
+ ✓ tests/gacha.test.ts (7 tests) 12ms
+ ✓ tests/progression.test.ts (5 tests) 7ms
+ ✓ tests/ancestry_milestones.test.ts (4 tests) 11ms
+ ✓ tests/event-reachability.test.ts (3 tests) 6ms
+ ✓ tests/sparApproach.test.ts (2 tests) 9ms
+ ✓ tests/combat_full_hp.test.ts (6 tests) 11ms
+ ✓ tests/highlight_mapping.test.ts (5 tests) 8ms
+ ✓ tests/schools.test.ts (3 tests) 8ms
+ ✓ tests/jianghuPrestige.test.ts (5 tests) 8ms
+ ✓ tests/eventOverrides.test.ts (6 tests) 9ms
+ ✓ tests/natureArcs.test.ts (3 tests) 9ms
+ ✓ tests/leaderboard_score.test.ts (4 tests) 7ms
+ ✓ tests/originChronicle.test.ts (5 tests) 8ms
+ ✓ tests/inkSilhouettes.test.ts (6 tests) 8ms
+ ✓ tests/gearCompare.test.ts (5 tests) 8ms
+ ✓ tests/spar_strip_rig.test.ts (8 tests) 5ms
+ ✓ tests/result_format.test.ts (4 tests) 7ms
+ ✓ tests/choice_pick.test.ts (4 tests) 6ms
+ ✓ tests/cloud_sync.test.ts (4 tests) 6ms
+ ✓ tests/idle_harvest.test.ts (3 tests) 6ms
+ ✓ tests/gacha_highlight.test.ts (5 tests) 5ms
+ ✓ tests/sceneCopy.test.ts (3 tests) 6ms
+ ✓ tests/sceneVariants.test.ts (5 tests) 4ms
+ ✓ tests/sparAnimPolish.test.ts (3 tests) 5ms
+ ✓ tests/damageRebalance.test.ts (6 tests) 4ms
+ ✓ tests/combatInkFx.test.ts (5 tests) 5ms
+ ✓ tests/sparTypography.test.ts (1 test) 5ms
+ ✓ tests/inkAiCatalog.test.ts (5 tests) 5ms
+ ✓ tests/duel_strokes.test.ts (4 tests) 7ms
+ ✓ tests/eventEditorScope.test.ts (2 tests) 4ms
+ ✓ tests/moveCooldownTiers.test.ts (7 tests) 4ms
+ ✓ tests/settings_audio_account.test.ts (2 tests) 4ms
+ ✓ tests/sparSilhouette.test.ts (3 tests) 3ms
+ ✓ tests/gearAffixes.test.ts (3 tests) 3ms
+ ✓ tests/version.test.ts (1 test) 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/martial_poses.test.ts > 武學實體姿勢與核心隔離 > test_martial_poses_enabled_assets_leave_every_settlement_and_enemy_action_unchanged
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tests/martial_poses.test.ts:62:3
+     60|     expect(actual).toBe(expected);
+     61|   });
+     62|   it('test_martial_poses_enabled_assets_leave_every_settlement_and_ene…
+       |   ^
+     63|     for (const id of Object.values(SKILL_DEFS).filter(d => d.kind === …
+     64|       const plain = engine(id); const updated = engine(id, true);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 87 passed (88)
+      Tests  1 failed | 646 passed (647)
+   Start at  08:06:26
+   Duration  87.65s (transform 8.04s, setup 0ms, collect 35.84s, tests 14.35s, environment 27ms, prepare 10.97s)
+

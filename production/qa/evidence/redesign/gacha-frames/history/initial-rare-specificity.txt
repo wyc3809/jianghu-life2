@@ -1,0 +1,11 @@
+320 PASS
+390 PASS
+420 PASS
+Traceback (most recent call last):
+  File "/workspace/jianghu-life2/scripts/qa/checkGachaFrames.py", line 75, in <module>
+    rare=page.locator('.ink-codex-catalog li[data-premium="1"]').first;frame(rare,'frame-rare.webp');page.screenshot(path=str(OUT/'rare-catalog.png'));page.keyboard.press('Escape')
+                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/jianghu-life2/scripts/qa/checkGachaFrames.py", line 23, in frame
+    assert expected in value,(expected,value)
+           ^^^^^^^^^^^^^^^^^
+AssertionError: ('frame-rare.webp', 'url("http://127.0.0.1:5173/ink/art/wuxia-frames/frame-neutral.webp")')
