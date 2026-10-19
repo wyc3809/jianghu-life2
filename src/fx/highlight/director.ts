@@ -117,7 +117,7 @@ export class Director {
     this.stage = new HighlightStage({ canvas: refs.gl, lowPower: opts.reduceMotion || cfg.subject === 'codex', direct: cfg.subject === 'codex' });
     this.particles = new ParticleSystem(refs.fx);
     this.particles.density = this.reduce ? 0.35 : 1;
-    this.model = buildSubject(cfg.subject);
+    this.model = buildSubject(cfg.subject, cfg.rewards.some(card => card.isPremium === true));
     const size = new THREE.Box3().setFromObject(this.model.root).getSize(new THREE.Vector3());
     this.norm = SUBJECT_SIZE / Math.max(size.x, size.y, size.z * 0.8);
     this.model.root.scale.setScalar(this.norm);

@@ -1,0 +1,38 @@
+{
+  "switches": [
+    {
+      "lost": false,
+      "error": 0,
+      "rarity": "ordinary"
+    },
+    {
+      "lost": false,
+      "error": 0,
+      "rarity": "premium"
+    },
+    {
+      "lost": false,
+      "error": 0,
+      "rarity": "ordinary"
+    },
+    {
+      "lost": false,
+      "error": 0,
+      "rarity": "premium"
+    },
+    {
+      "lost": false,
+      "error": 0,
+      "rarity": "ordinary"
+    },
+    {
+      "lost": false,
+      "error": 0,
+      "rarity": "premium"
+    }
+  ],
+  "context_lost_fallback_colors": true,
+  "jade_unchanged": true,
+  "page_errors": [],
+  "console_errors": []
+}

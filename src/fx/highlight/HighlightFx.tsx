@@ -15,6 +15,7 @@ import { isInkAudioMuted, toggleInkAudioMuted } from '../../audio/inkAudio';
 import styles from './highlight.module.css';
 import { sealPhrase, sealUrlForText } from '../../ui/inkAssets';
 import { inkIconUrl } from '../../ui/inkIcons';
+import { codexCoverUrl } from './codexAppearance';
 
 /** 霞鶩文楷 TC（繁體毛筆楷書，同朱砂印同一字型） */
 const FONT_HREF = 'https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&display=swap';
@@ -65,7 +66,7 @@ function CardArt({ card, size }: { card: RewardCard; size: number }) {
     host.replaceChildren(cv);
   }, [card, size]);
   if (card.identityLabel) return <div className={styles.codexCardArt} style={{ width: size, height: size }} aria-hidden>
-    <img src={`${import.meta.env.BASE_URL}ink/art/gacha/codex-cover.webp`} alt="" /><b>{card.name.split('·')[0]}</b>
+    <img src={codexCoverUrl(card.isPremium === true)} data-codex-rarity={card.isPremium ? 'premium' : 'ordinary'} alt="" /><b>{card.name.split('·')[0]}</b>
   </div>;
   return <div ref={ref} className={styles.art} style={{ width: size, height: size }} aria-hidden />;
 }

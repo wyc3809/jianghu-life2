@@ -4,6 +4,7 @@
 
 - 原始生成PNG：`cover-source.png`，1024×1536，保留原檔。
 - 產品素材：`public/ink/art/gacha/codex-cover.webp`，640×960。
+- 珍本原畫：`cover-premium-source.png`，1024×1536；產品素材 `public/ink/art/gacha/codex-cover-premium.webp`，640×960。青綠係江湖一般、古金係珍本，兩張都由 `codexCoverUrl` 統一映射，真3D／卡面／後備共用。
 - 重建：`python scripts/art/prepare_gacha_codex.py`；只縮放／轉格式，唔重畫。
 - 頁面文字由真DOM排版，封面題簽留白，唔把生成亂字當武學名稱。
 - 最終紙頁採用下方獨立生成嘅左右山水原畫；早期沿用紙紋已被取代。
@@ -18,3 +19,13 @@ Create one original high-end Chinese wuxia mobile game texture asset, portrait 2
 `pages-source.png`係本次另外生成嘅兩頁山水畫：左頁遠山松枝、右頁江流竹葉，兩邊留白一致。用作裝幀題畫，唔假冒可閱讀武學內容。處理腳本沿正中分成兩頁，縮至512×768後轉WebP，唔重畫／補字。早期純色及灰噪點紙頁已由正式內頁取代。
 
 提示：Create a production texture asset for the INSIDE TWO FACING PAGES of an ancient Chinese wuxia thread-bound martial arts manuscript. A perfectly flat orthographic rectangular 4:3 landscape spread, no perspective, no book thickness, no cast shadow, no background. The whole rectangle is fine warm IVORY rice paper with subtle delicate fibers, NOT dark, NOT grungy. Two equal portrait pages side by side with an invisible exact center division. Original exceptionally refined Chinese light ink wash artwork: the LEFT page has pale misty mountain peaks and a slender pine branch in the lower two thirds, the RIGHT page has a delicate winding river and two bamboo leaves in the lower two thirds, evoking a hidden martial school. Keep the top third and generous margins of both pages clean empty ivory. Mineral grey-green ink, extremely restrained ochre pinpoints, soft diffuse light, fine real paper texture, sophisticated collector manuscript quality, quiet and elegant. No text of any kind, no writing, no pseudo characters, no seal lettering, no people, no martial diagrams, no borders, no center gutter or binding seam. This will be split exactly in half into two usable 3D page materials. Both halves must have matching ivory paper color, independently balanced artwork, straight full bleed rectangular edges.
+
+## 珍本古金封面（第31項書封分色）
+
+2026-10-19，玩家要求唔同稀有度嘅書唔同色。參照既有青綠封面，用本次對話圖像工具編輯成古金絲織封面，唔用CSS濾鏡或高光品階冒充永久稀有度。保留生成原PNG `cover-premium-source.png`，生成輸出原檔 `exec-e4dcae26-5a82-4e78-970a-fb525b428ded.png`；處理腳本只縮放同轉WebP。來源及權利記錄沿用上文：本次工具原創編輯，冇新增第三方素材，未另外宣稱授權審計。
+
+完整編輯提示：
+
+Edit this exact Chinese wuxia thread-bound book cover texture into its PREMIUM RARE edition. Preserve the exact full-bleed flat rectangular 2:3 composition, mountain and river ink painting, left binding threads, ornate border positions, woven silk detail, and the completely blank cream vertical title label at top right. Change the teal green silk cover into luminous but restrained ANTIQUE OCHRE GOLD / warm amber gold dyed silk, clearly visibly golden rather than green, with exquisite subtly burnished gold embroidery and dark warm sepia ink mountains. Rich handwoven cloth, NOT reflective metal, NOT bright yellow plastic. Keep the label blank ivory with high contrast against golden textile. Preserve elegant light ink wash wuxia collectible manuscript aesthetic, fine fibers, calm center, soft diffuse light. No new words, letters, pseudo-characters, watermark, extra labels, figures, perspective, mockup, transparency, background, or cast shadow. This is the direct front-cover texture for a real articulated 3D book and should remain perfectly front-facing edge-to-edge. Only change the color palette and restrained gilded thread details; preserve the original artwork and structure.
+
+待機係當前卡池嘅封冊，珍本池仍按真機率抽到一般武學；結果卡逐張跟 `isPremium`，整體啟封主體按該次有冇真正珍本用青／金書封。心願、首次獲得、重複同卷數都唔改書封稀有度；心願朱砂高光照舊。

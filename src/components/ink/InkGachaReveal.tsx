@@ -2,6 +2,7 @@
 import { Component, Suspense, useEffect, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { HighlightFxLazy, canUseWebGL, type HighlightConfig, type RewardCard } from '../../fx/highlight';
+import { codexCoverUrl } from '../../fx/highlight/codexAppearance';
 
 type Props = { config: HighlightConfig; onDone: () => void; renderAction: (card: RewardCard, ready: boolean) => ReactNode };
 
@@ -32,7 +33,7 @@ function FallbackReveal({ config, onDone, renderAction }: Props) {
     <p className="ink-codex-receipt">已入家族收藏 · {config.rewards.length}卷</p>
     <div className="ink-codex-fallback-cards" role="group" aria-label="抽卡結果">
       {config.rewards.map((r, i) => <button key={r.id} type="button" aria-pressed={index === i} onClick={() => setIndex(i)}>
-        <img src={`${import.meta.env.BASE_URL}ink/art/gacha/codex-cover.webp`} alt="" /><strong>{r.name}</strong><small>{r.identityLabel}</small>
+        <img src={codexCoverUrl(r.isPremium === true)} data-codex-rarity={r.isPremium ? 'premium' : 'ordinary'} alt="" /><strong>{r.name}</strong><small>{r.identityLabel}</small>
       </button>)}
     </div>
     <section className="ink-codex-result-detail"><h4>{card.name}</h4><p>{card.identityLabel}</p><p>{card.blurb}</p></section>

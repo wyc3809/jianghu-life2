@@ -21,6 +21,7 @@ import { playInkTap } from '../../audio/inkAudio';
 import { CodexStageLazy, type HighlightConfig } from '../../fx/highlight';
 import { InkIcon } from './InkIcon';
 import { gachaHighlight } from '../../fx/highlight/fromGame';
+import { codexCoverUrl } from '../../fx/highlight/codexAppearance';
 import { InkSchoolTabs, InkSkillSchools } from './InkSchoolTabs';
 import { GachaSheet, InkGachaReveal } from './InkGachaReveal';
 import './gachaCodex.css';
@@ -130,7 +131,7 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
         </div>
         <div className="ink-codex-theatre">
           <div className="ink-codex-poem" aria-hidden><span>一卷藏山海</span><span>落墨見真章</span></div>
-          {!fx && <Suspense fallback={<img className="ink-codex-static" src={`${import.meta.env.BASE_URL}ink/art/gacha/codex-cover.webp`} alt="線裝秘笈" />}>
+          {!fx && <Suspense fallback={<img className="ink-codex-static" src={codexCoverUrl(banner === 'zhenben')} alt={banner === 'zhenben' ? '珍本金封秘笈' : '江湖青封秘笈'} />}>
             <CodexStageLazy premium={banner === 'zhenben'} />
           </Suspense>}
           <span className="ink-codex-edition">{banner === 'zhenben' ? '珍本藏卷' : '江湖藏卷'}<small>第{pool.part}冊 · {pool.arts.length}門</small></span>

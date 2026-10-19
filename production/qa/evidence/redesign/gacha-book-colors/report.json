@@ -1,0 +1,213 @@
+{
+  "baseline": "1635b87",
+  "viewport": [
+    390,
+    844
+  ],
+  "dpr": 2,
+  "seed": 42,
+  "cases": [
+    {
+      "name": "ordinary",
+      "results": [
+        {
+          "id": "tm_flying_needle",
+          "vol": 5,
+          "isNew": true,
+          "isWish": false,
+          "isPremium": false
+        }
+      ],
+      "colors_match_identity": true,
+      "core_match": true,
+      "double_click_once": true,
+      "close_no_mutation": true,
+      "errors": []
+    },
+    {
+      "name": "premium",
+      "results": [
+        {
+          "id": "pr_crimson_moon",
+          "vol": 6,
+          "isNew": true,
+          "isWish": false,
+          "isPremium": true
+        }
+      ],
+      "colors_match_identity": true,
+      "core_match": true,
+      "double_click_once": true,
+      "close_no_mutation": true,
+      "errors": []
+    },
+    {
+      "name": "wish-ordinary",
+      "results": [
+        {
+          "id": "art_tiger_breath",
+          "isNew": true,
+          "isWish": true,
+          "isPremium": false
+        }
+      ],
+      "colors_match_identity": true,
+      "core_match": true,
+      "double_click_once": true,
+      "close_no_mutation": true,
+      "errors": []
+    },
+    {
+      "name": "ten-mixed",
+      "results": [
+        {
+          "id": "art_silk_hand",
+          "vol": 4,
+          "isNew": true,
+          "isWish": false,
+          "isPremium": false
+        },
+        {
+          "id": "art_tiger_breath",
+          "isNew": true,
+          "isWish": false,
+          "isPremium": false
+        },
+        {
+          "id": "art_silk_hand",
+          "vol": 2,
+          "isNew": true,
+          "isWish": false,
+          "isPremium": false
+        },
+        {
+          "id": "art_tiger_breath",
+          "isNew": false,
+          "isWish": false,
+          "isPremium": false
+        },
+        {
+          "id": "art_tiger_breath",
+          "isNew": false,
+          "isWish": false,
+          "isPremium": false
+        },
+        {
+          "id": "art_silk_hand",
+          "vol": 1,
+          "isNew": true,
+          "isWish": false,
+          "isPremium": false
+        },
+        {
+          "id": "art_tiger_breath",
+          "isNew": false,
+          "isWish": false,
+          "isPremium": false
+        },
+        {
+          "id": "art_thunder_blade",
+          "vol": 2,
+          "isNew": true,
+          "isWish": false,
+          "isPremium": false
+        },
+        {
+          "id": "art_thunder_blade",
+          "vol": 1,
+          "isNew": true,
+          "isWish": false,
+          "isPremium": false
+        },
+        {
+          "id": "pr_crimson_moon",
+          "vol": 6,
+          "isNew": true,
+          "isWish": false,
+          "isPremium": true
+        }
+      ],
+      "colors_match_identity": true,
+      "core_match": true,
+      "double_click_once": true,
+      "close_no_mutation": true,
+      "errors": []
+    },
+    {
+      "name": "fallback-ten",
+      "results": [
+        {
+          "id": "art_silk_hand",
+          "vol": 4,
+          "isNew": true,
+          "isWish": false,
+          "isPremium": false
+        },
+        {
+          "id": "art_tiger_breath",
+          "isNew": true,
+          "isWish": false,
+          "isPremium": false
+        },
+        {
+          "id": "art_silk_hand",
+          "vol": 2,
+          "isNew": true,
+          "isWish": false,
+          "isPremium": false
+        },
+        {
+          "id": "art_tiger_breath",
+          "isNew": false,
+          "isWish": false,
+          "isPremium": false
+        },
+        {
+          "id": "art_tiger_breath",
+          "isNew": false,
+          "isWish": false,
+          "isPremium": false
+        },
+        {
+          "id": "art_silk_hand",
+          "vol": 1,
+          "isNew": true,
+          "isWish": false,
+          "isPremium": false
+        },
+        {
+          "id": "art_tiger_breath",
+          "isNew": false,
+          "isWish": false,
+          "isPremium": false
+        },
+        {
+          "id": "art_thunder_blade",
+          "vol": 2,
+          "isNew": true,
+          "isWish": false,
+          "isPremium": false
+        },
+        {
+          "id": "art_thunder_blade",
+          "vol": 1,
+          "isNew": true,
+          "isWish": false,
+          "isPremium": false
+        },
+        {
+          "id": "pr_crimson_moon",
+          "vol": 6,
+          "isNew": true,
+          "isWish": false,
+          "isPremium": true
+        }
+      ],
+      "colors_match_identity": true,
+      "core_match": true,
+      "double_click_once": true,
+      "close_no_mutation": true,
+      "errors": []
+    }
+  ]
+}

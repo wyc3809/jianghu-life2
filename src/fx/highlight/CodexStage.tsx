@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { buildCodex } from './scene/codex';
+import { codexCoverUrl } from './codexAppearance';
 
 export default function CodexStage({ premium }: { premium: boolean }) {
   const host = useRef<HTMLCanvasElement>(null);
@@ -13,7 +14,7 @@ export default function CodexStage({ premium }: { premium: boolean }) {
     try { renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true }); }
     catch { setFailed(true); return; }
     const scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(34, 1, .1, 30);
-    const codex = buildCodex(); scene.add(codex.root);
+    const codex = buildCodex(premium); scene.add(codex.root);
     const light = new THREE.DirectionalLight('#fff4d9', 3); light.position.set(-3, 5, 5);
     scene.add(light, new THREE.HemisphereLight('#fff8eb', '#718076', 2));
     camera.position.set(0, 1.5, 5.3); camera.lookAt(0, 1.25, 0);
@@ -47,9 +48,11 @@ export default function CodexStage({ premium }: { premium: boolean }) {
       scene.traverse(o => { const m = o as THREE.Mesh; m.geometry?.dispose();
         const mats = m.material ? (Array.isArray(m.material) ? m.material : [m.material]) : [];
         mats.forEach(mat => mat.dispose()); });
-      renderer.dispose(); renderer.forceContextLoss();
+      // 切池／開發StrictMode會即時重用同一canvas；強制context loss會令下一冊失效。
+      // 上面已逐項釋放材質、貼圖及幾何，dispose清理renderer，canvas離場由瀏覽器回收context。
+      renderer.resetState(); renderer.dispose();
     };
-  }, [failed]);
-  return failed ? <img className="ink-codex-static" src={`${import.meta.env.BASE_URL}ink/art/gacha/codex-cover.webp`} alt="線裝秘笈" />
-    : <canvas className="ink-codex-canvas" ref={host} aria-label={premium ? '珍本線裝秘笈' : '江湖線裝秘笈'} role="img" />;
+  }, [failed, premium]);
+  return failed ? <img className="ink-codex-static" src={codexCoverUrl(premium)} alt={premium ? '珍本金封秘笈' : '江湖青封秘笈'} />
+    : <canvas className="ink-codex-canvas" data-codex-rarity={premium ? 'premium' : 'ordinary'} ref={host} aria-label={premium ? '珍本線裝秘笈' : '江湖線裝秘笈'} role="img" />;
 }

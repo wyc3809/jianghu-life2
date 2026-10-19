@@ -1,15 +1,16 @@
 /** 第31項：生成絲織封面、書脊鉸位、逐張可翻紙頁；抽卡專用，唔改寶箱。 */
 import * as THREE from 'three';
 import type { SubjectModel } from './models';
+import { codexCoverUrl } from '../codexAppearance';
 
 /** 線裝秘笈以左書脊為軸啟封；setOpen只控制畫面，唔產生抽卡結果。 */
-export function buildCodex(): SubjectModel {
+export function buildCodex(premium = false): SubjectModel {
   const root = new THREE.Group();
   const book = new THREE.Group();
   root.add(book);
   book.position.y = 1.22;
   book.rotation.set(-0.15, -0.22, -0.08);
-  const cloth = new THREE.MeshStandardMaterial({ color: '#325a52', roughness: .94 });
+  const cloth = new THREE.MeshStandardMaterial({ color: premium ? '#92703c' : '#325a52', roughness: .94 });
   const paperTexture = new THREE.TextureLoader().load(`${import.meta.env.BASE_URL}ink/art/gacha/codex-page-right.webp`, () => root.userData.invalidate?.());
   paperTexture.colorSpace = THREE.SRGBColorSpace;
   const leftTexture = new THREE.TextureLoader().load(`${import.meta.env.BASE_URL}ink/art/gacha/codex-page-left.webp`, () => root.userData.invalidate?.());
@@ -17,9 +18,9 @@ export function buildCodex(): SubjectModel {
   const paper = new THREE.MeshStandardMaterial({ color: '#faf0db', map: paperTexture, roughness: 1, side: THREE.DoubleSide });
   const leftPaper = paper.clone(); leftPaper.map = leftTexture;
   const edge = new THREE.MeshStandardMaterial({ color: '#a59069', roughness: .9 });
-  const gold = new THREE.MeshStandardMaterial({ color: '#b59b61', roughness: .6, metalness: .28 });
+  const gold = new THREE.MeshStandardMaterial({ color: premium ? '#d0ac60' : '#a7936b', roughness: .6, metalness: .28 });
   const coverMat = new THREE.MeshStandardMaterial({ color: '#ffffff', roughness: .92, side: THREE.DoubleSide });
-  const loading = new THREE.TextureLoader().load(`${import.meta.env.BASE_URL}ink/art/gacha/codex-cover.webp`, texture => {
+  const loading = new THREE.TextureLoader().load(codexCoverUrl(premium), texture => {
     texture.colorSpace = THREE.SRGBColorSpace;
     texture.anisotropy = 4;
     root.userData.invalidate?.();
@@ -68,11 +69,12 @@ export function buildCodex(): SubjectModel {
     clasps.add(box(.18, .035, .08, gold, W - .11, sy * (H / 2 - .08), .03));
     clasps.add(box(.035, .19, .08, gold, W - .035, sy * (H / 2 - .13), .03));
   }
-  cover.add(clasps); clasps.visible = false;
+  cover.add(clasps); clasps.visible = premium;
   root.userData.dispose = () => { disposed = true; loading.dispose(); paperTexture.dispose(); leftTexture.dispose(); };
   return {
     root, height: 2.4, burstPoint: new THREE.Vector3(.12, 1.4, .25),
-    setGrade(g) { gold.color.set(g.power >= 1.35 ? '#c4a354' : '#a7936b'); clasps.visible = g.power >= 1.35; },
+    // 高光強度仍由導演控制；心願命中唔會令青綠書封變成珍本金封。
+    setGrade() {},
     setGlow(k) { coreMat.opacity = disposed ? 0 : Math.min(.5, k * .5); },
     setOpen(k) {
       const t = Math.max(0, Math.min(1, k));
