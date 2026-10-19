@@ -1,0 +1,152 @@
+{
+  "bamboo_bloodguard": {
+    "sourceHeight": 788,
+    "bodyHeight": 656,
+    "footY": 788,
+    "downBodyHeight": 783.33333
+  },
+  "bamboo_bloodmaid": {
+    "sourceHeight": 788,
+    "bodyHeight": 733,
+    "footY": 788,
+    "downBodyHeight": 783.33333
+  },
+  "bamboo_boss": {
+    "sourceHeight": 788,
+    "bodyHeight": 719,
+    "footY": 788,
+    "downBodyHeight": 783.33333
+  },
+  "chifa": {
+    "sourceHeight": 788,
+    "bodyHeight": 730,
+    "footY": 784,
+    "downBodyHeight": 786.66667
+  },
+  "daoke": {
+    "sourceHeight": 788,
+    "bodyHeight": 554,
+    "footY": 784,
+    "downBodyHeight": 783.33333
+  },
+  "gate_boss": {
+    "sourceHeight": 788,
+    "bodyHeight": 707,
+    "footY": 788,
+    "downBodyHeight": 786.66667
+  },
+  "gate_ironbone": {
+    "sourceHeight": 788,
+    "bodyHeight": 722,
+    "footY": 788,
+    "downBodyHeight": 783.33333
+  },
+  "gate_vajra": {
+    "sourceHeight": 788,
+    "bodyHeight": 738,
+    "footY": 788,
+    "downBodyHeight": 786.66667
+  },
+  "gouke": {
+    "sourceHeight": 788,
+    "bodyHeight": 554,
+    "footY": 784,
+    "downBodyHeight": 783.33333
+  },
+  "inn_blades": {
+    "sourceHeight": 788,
+    "bodyHeight": 535,
+    "footY": 788,
+    "downBodyHeight": 783.33333
+  },
+  "inn_boss": {
+    "sourceHeight": 788,
+    "bodyHeight": 711,
+    "footY": 788,
+    "downBodyHeight": 783.33333
+  },
+  "inn_twin": {
+    "sourceHeight": 788,
+    "bodyHeight": 735,
+    "footY": 788,
+    "downBodyHeight": 783.33333
+  },
+  "nvcike": {
+    "sourceHeight": 788,
+    "bodyHeight": 580,
+    "footY": 728,
+    "downBodyHeight": 786.66667
+  },
+  "peak_berserk": {
+    "sourceHeight": 788,
+    "bodyHeight": 669,
+    "footY": 788,
+    "downBodyHeight": 786.66667
+  },
+  "peak_boss": {
+    "sourceHeight": 788,
+    "bodyHeight": 663,
+    "footY": 788,
+    "downBodyHeight": 783.33333
+  },
+  "peak_vanguard": {
+    "sourceHeight": 788,
+    "bodyHeight": 557,
+    "footY": 788,
+    "downBodyHeight": 783.33333
+  },
+  "road_boss": {
+    "sourceHeight": 788,
+    "bodyHeight": 748,
+    "footY": 788,
+    "downBodyHeight": 783.33333
+  },
+  "road_brute": {
+    "sourceHeight": 788,
+    "bodyHeight": 740,
+    "footY": 788,
+    "downBodyHeight": 786.66667
+  },
+  "road_captain": {
+    "sourceHeight": 788,
+    "bodyHeight": 665,
+    "footY": 788,
+    "downBodyHeight": 783.33333
+  },
+  "shadow": {
+    "sourceHeight": 788,
+    "bodyHeight": 630,
+    "footY": 746,
+    "downBodyHeight": 786.66667
+  },
+  "tiemian": {
+    "sourceHeight": 788,
+    "bodyHeight": 630,
+    "footY": 746,
+    "downBodyHeight": 783.33333
+  },
+  "toutuo": {
+    "sourceHeight": 788,
+    "bodyHeight": 730,
+    "footY": 784,
+    "downBodyHeight": 786.66667
+  },
+  "town_boss": {
+    "sourceHeight": 788,
+    "bodyHeight": 733,
+    "footY": 788,
+    "downBodyHeight": 783.33333
+  },
+  "town_bruiser": {
+    "sourceHeight": 788,
+    "bodyHeight": 745,
+    "footY": 788,
+    "downBodyHeight": 783.33333
+  },
+  "town_guard": {
+    "sourceHeight": 788,
+    "bodyHeight": 724,
+    "footY": 788,
+    "downBodyHeight": 786.66667
+  }
+}

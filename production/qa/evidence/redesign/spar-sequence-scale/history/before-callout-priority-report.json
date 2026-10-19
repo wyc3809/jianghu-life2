@@ -1,0 +1,153 @@
+{
+  "baseline": "0f2c9df",
+  "seed": 42,
+  "dpr": 2,
+  "static": [
+    {
+      "label": "before",
+      "hero": {
+        "height": 56,
+        "pixels": 1236
+      },
+      "foe": {
+        "height": 28,
+        "pixels": 328
+      },
+      "canvas": [
+        360,
+        160
+      ],
+      "errors": []
+    },
+    {
+      "label": "after",
+      "hero": {
+        "height": 56,
+        "pixels": 1236
+      },
+      "foe": {
+        "height": 55,
+        "pixels": 1234
+      },
+      "canvas": [
+        360,
+        160
+      ],
+      "errors": []
+    }
+  ],
+  "battles": [
+    {
+      "width": 390,
+      "height": 844,
+      "fast": false,
+      "records": [
+        {
+          "volume": "卷一",
+          "move": "長河崩拳",
+          "callout": "卷一 · 長河崩拳"
+        },
+        {
+          "volume": "卷六",
+          "move": "大河落日",
+          "callout": "卷六 · 大河落日"
+        },
+        {
+          "volume": "卷一",
+          "move": "長河崩拳",
+          "callout": "卷一 · 長河崩拳"
+        }
+      ],
+      "sequence": [
+        "卷一",
+        "卷六",
+        "卷一"
+      ],
+      "errors": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "fast": true,
+      "records": [
+        {
+          "volume": "卷一",
+          "move": "長河崩拳",
+          "callout": "卷一 · 長河崩拳"
+        },
+        {
+          "volume": "卷六",
+          "move": "大河落日",
+          "callout": "卷六 · 大河落日"
+        },
+        {
+          "volume": "卷一",
+          "move": "長河崩拳",
+          "callout": "卷一 · 長河崩拳"
+        }
+      ],
+      "sequence": [
+        "卷一",
+        "卷六",
+        "卷一"
+      ],
+      "errors": []
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "fast": true,
+      "records": [
+        {
+          "volume": "卷一",
+          "move": "長河崩拳",
+          "callout": "卷一 · 長河崩拳"
+        },
+        {
+          "volume": "卷六",
+          "move": "大河落日",
+          "callout": "卷六 · 大河落日"
+        },
+        {
+          "volume": "卷一",
+          "move": "長河崩拳",
+          "callout": "卷一 · 長河崩拳"
+        }
+      ],
+      "sequence": [
+        "卷一",
+        "卷六",
+        "卷一"
+      ],
+      "errors": []
+    },
+    {
+      "width": 420,
+      "height": 896,
+      "fast": true,
+      "records": [
+        {
+          "volume": "卷一",
+          "move": "長河崩拳",
+          "callout": "卷一 · 長河崩拳"
+        },
+        {
+          "volume": "卷六",
+          "move": "大河落日",
+          "callout": "卷六 · 大河落日"
+        },
+        {
+          "volume": "卷一",
+          "move": "長河崩拳",
+          "callout": "卷一 · 長河崩拳"
+        }
+      ],
+      "sequence": [
+        "卷一",
+        "卷六",
+        "卷一"
+      ],
+      "errors": []
+    }
+  ]
+}

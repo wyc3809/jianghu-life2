@@ -1,0 +1,11 @@
+{
+  "fixture": "首領checkpoint，主角動畫期間1HP受真核心還擊",
+  "result": {
+    "dmg": 29,
+    "heroDown": true,
+    "fx": [],
+    "foeHeal": 0
+  },
+  "callout": "鎮上惡霸 · 還擊",
+  "errors": []
+}

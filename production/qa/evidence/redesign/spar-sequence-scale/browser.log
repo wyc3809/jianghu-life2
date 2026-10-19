@@ -1,0 +1,5 @@
+390 False PASS ['卷一', '卷六', '卷一']
+390 True PASS ['卷一', '卷六', '卷一']
+320 True PASS ['卷一', '卷六', '卷一']
+420 True PASS ['卷一', '卷六', '卷一']
+SPAR_SEQUENCE_SCALE_PASS

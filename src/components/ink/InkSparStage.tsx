@@ -15,7 +15,7 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { SparStage, loadSparImages, loadSparImage, loadSparUiImages, type SparCombatHooks } from '../../spar/engine';
-import { sparArtAt, sparArtOrder } from '../../spar/artCycle';
+import { sparArtAt, sparArtOrder, sparMoveAt } from '../../spar/artCycle';
 import { SparDuel, formatSparNumber, sparHeroStats, sparRand, sparSavedStage, type SparDuelSnapshot } from '@core/life/sparDuel';
 import { InkBrushBar } from './InkBrush';
 import { inkHop, inkPopIn, inkRevealChars, inkShake, inkTweenVar } from '../../ui/inkMotion';
@@ -36,6 +36,7 @@ import { InkUnifiedBattleFrame } from './InkUnifiedBattleFrame';
 import { InkBattleEntrance } from './InkBattleEntrance';
 import { InkBattleArts } from './InkBattleArts';
 import { ownedVolumes } from '@core/life/volumes';
+import { VOLUME_NUMERALS } from '@data/skills/volumes';
 import { getSkillDef } from '@data/skills/catalog';
 import { motionReduced } from '../../ui/inkMotion';
 import { equippedMartialArts } from '@core/life/martialLoadout';
@@ -126,6 +127,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
   const skipRef = useRef(false);
   const [bossRound, setBossRound] = useState(0);
   const [activeArt, setActiveArt] = useState<string | null>(null);
+  const [activeVolume, setActiveVolume] = useState<number>();
   const [callout, setCallout] = useState('首領之戰');
   const character = useLifeStore(s => s.state?.character);
   const displayedArt = activeArt ?? (character ? sparArtAt(character, 0) : null);
@@ -237,7 +239,11 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
           foeStrike: () => {
             if (duel.foeHp <= 0) return { dmg: 0, heroDown: false, fx: [] };
             const r = duel.foeStrike();
-            if (duel.foe?.boss) setCallout(`${duel.foe.name} · 還擊`);
+            // 敵人照常結算還擊；主角出招未收勢時唔蓋走招名／卷數高亮。
+            if (r.heroDown || !stage?.heroAttackActive) {
+              setActiveVolume(undefined);
+              if (duel.foe?.boss) setCallout(`${duel.foe.name} · 還擊`);
+            }
             sync();
             return r;
           },
@@ -250,9 +256,13 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
           // 第 25 項：輪住用已學外功，每套播自己嘅專屬動畫
           nextArt: () => {
             const st = useLifeStore.getState().state;
-            const art = st ? sparArtAt(st.character, artTurn++) : null;
+            const move = st ? sparMoveAt(st.character, artTurn++) : null;
+            const art = move?.artId ?? null;
             setActiveArt(art);
-            if (duel.foe?.boss) setCallout(art ? getSkillDef(art)?.name ?? '出招' : '基本攻擊');
+            setActiveVolume(move?.volume);
+            if (duel.foe?.boss) setCallout(move?.volume && move.moveName
+              ? `卷${VOLUME_NUMERALS[move.volume - 1]} · ${move.moveName}`
+              : art ? getSkillDef(art)?.name ?? '出招' : '基本攻擊');
             return art;
           },
           foeCharging: () => duel.foeCharging,
@@ -577,6 +587,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
         scene={<div className="ink-unified-canvas-host" ref={sceneSlotRef} />}
         callout={<span>{callout}</span>}
         skills={<InkBattleArts artId={displayedArt ?? undefined} volumes={character && displayedArt ? ownedVolumes(character, displayedArt) : []}
+          activeVolume={activeVolume}
           rotation={character ? sparArtOrder(character).map(id => ({ id, vols: ownedVolumes(character, id) })) : []} />}
       /> : <div className="ink-spar-inline-slot" ref={sceneSlotRef} />}
       {createPortal(<div className={bossBattle ? 'ink-spar-battle-canvas' : 'ink-spar-stage'} ref={wrapRef} aria-label="切磋演武">
