@@ -1,0 +1,229 @@
+{
+  "source": "source.png",
+  "sourceSha256": "5349ff5e12d1862ac18fcd30f571a58bbea57dca9c0a5cf30ef205650ac282fd",
+  "output": "public/ink/spar/hero-detail/lifecycle.webp",
+  "outputSha256": "de06f1f633e3efd032ede2d367e950f4523ad8927c30e177f6772f254b81b2ce",
+  "columns": 4,
+  "rows": 3,
+  "frameWidth": 512,
+  "frameHeight": 352,
+  "bodyHeight": 218,
+  "frames": [
+    {
+      "name": "walk-left",
+      "sourceRect": [
+        43,
+        42,
+        348,
+        386
+      ],
+      "offset": [
+        141,
+        105
+      ],
+      "scale": 0.6546546546546547,
+      "foot": [
+        256,
+        328
+      ]
+    },
+    {
+      "name": "walk-left-pass",
+      "sourceRect": [
+        386,
+        48,
+        669,
+        384
+      ],
+      "offset": [
+        130,
+        111
+      ],
+      "scale": 0.6546546546546547,
+      "foot": [
+        256,
+        328
+      ]
+    },
+    {
+      "name": "walk-right",
+      "sourceRect": [
+        752,
+        46,
+        1061,
+        387
+      ],
+      "offset": [
+        133,
+        107
+      ],
+      "scale": 0.6546546546546547,
+      "foot": [
+        256,
+        328
+      ]
+    },
+    {
+      "name": "walk-right-pass",
+      "sourceRect": [
+        1122,
+        45,
+        1392,
+        385
+      ],
+      "offset": [
+        137,
+        108
+      ],
+      "scale": 0.6546546546546547,
+      "foot": [
+        256,
+        328
+      ]
+    },
+    {
+      "name": "idle",
+      "sourceRect": [
+        41,
+        407,
+        328,
+        745
+      ],
+      "offset": [
+        140,
+        109
+      ],
+      "scale": 0.6546546546546547,
+      "foot": [
+        256,
+        328
+      ]
+    },
+    {
+      "name": "idle-breath",
+      "sourceRect": [
+        401,
+        411,
+        685,
+        749
+      ],
+      "offset": [
+        138,
+        109
+      ],
+      "scale": 0.6546546546546547,
+      "foot": [
+        256,
+        328
+      ]
+    },
+    {
+      "name": "hurt",
+      "sourceRect": [
+        744,
+        423,
+        1065,
+        747
+      ],
+      "offset": [
+        129,
+        119
+      ],
+      "scale": 0.6546546546546547,
+      "foot": [
+        256,
+        328
+      ]
+    },
+    {
+      "name": "hurt-recover",
+      "sourceRect": [
+        1151,
+        469,
+        1392,
+        747
+      ],
+      "offset": [
+        170,
+        149
+      ],
+      "scale": 0.6546546546546547,
+      "foot": [
+        256,
+        328
+      ]
+    },
+    {
+      "name": "down-recoil",
+      "sourceRect": [
+        21,
+        770,
+        363,
+        1040
+      ],
+      "offset": [
+        144,
+        154
+      ],
+      "scale": 0.6546546546546547,
+      "foot": [
+        256,
+        328
+      ]
+    },
+    {
+      "name": "down-kneel",
+      "sourceRect": [
+        397,
+        831,
+        704,
+        1042
+      ],
+      "offset": [
+        156,
+        192
+      ],
+      "scale": 0.6546546546546547,
+      "foot": [
+        256,
+        328
+      ]
+    },
+    {
+      "name": "down-fall",
+      "sourceRect": [
+        745,
+        885,
+        1076,
+        1041
+      ],
+      "offset": [
+        148,
+        228
+      ],
+      "scale": 0.6546546546546547,
+      "foot": [
+        256,
+        328
+      ]
+    },
+    {
+      "name": "down-rest",
+      "sourceRect": [
+        1088,
+        922,
+        1437,
+        1035
+      ],
+      "offset": [
+        142,
+        257
+      ],
+      "scale": 0.6546546546546547,
+      "foot": [
+        256,
+        328
+      ]
+    }
+  ]
+}

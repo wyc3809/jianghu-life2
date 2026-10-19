@@ -1,0 +1,8 @@
+home PASS {'walk': 60, 'attack': 306, 'idle': 122, 'support': 23}
+spar-boss PASS {'walk': 51, 'attack': 213, 'idle': 106, 'support': 11}
+event PASS {'idle': 58, 'walk': 36, 'attack': 46}
+event-boss PASS {'idle': 174, 'walk': 40, 'attack': 256, 'hurt': 11, 'down': 63}
+320 False PASS
+390 True PASS
+420 False PASS
+HERO_CONTINUITY_PASS

@@ -51,7 +51,8 @@ import { martialPoseFor, sampleMartialPose, type MartialAsset } from '../fx/art/
 import { canonicalSkillId } from '@data/skills/catalog';
 import { martialFootwork } from '../fx/art/footwork';
 import { MartialIdentityFx } from '../fx/art/identityFx';
-import { martialFallbackImage } from '../fx/art/martialFallback';
+import { martialFallbackImage, MARTIAL_FALLBACK_ART } from '../fx/art/martialFallback';
+import { heroAppearanceFrame, heroFigureScale, HERO_VISUAL_SCALE, loadHeroAppearance, type HeroAppearance } from './heroAppearance';
 import poseAnchors from '../fx/art/poseAnchors.json';
 import { playInkBlade, playInkHit, playInkTap, playInkSeal } from '../audio/inkAudio';
 import { FOE_TRAITS } from '@data/foes/traits';
@@ -303,6 +304,8 @@ interface Afterimage {
 }
 
 export interface SparStageImages {
+  /** 主角待機／行路／受擊／倒地共用細節人物；與武學圖集同一腳底錨點。 */
+  heroAppearance?: HeroAppearance;
   art?: SparArtImages;
   /** AI 剪影：俠客待機全身 */
   heroIdle: HTMLImageElement;
@@ -702,11 +705,23 @@ export class SparStage {
     const ke = foe ? this.enemyKe(foe) : g.k;
     return {
       heroX: g.heroX,
-      heroHeadY: g.groundY - SILHOUETTE_DESIGN_H * g.k * 0.98,
+      heroHeadY: g.groundY - this.heroVisualHeight() * 0.98,
       foeX: foe ? foe.x : null,
       foeHeadY: g.groundY - SILHOUETTE_DESIGN_H * ke * 0.98,
       foeBoss: foe?.boss ?? false,
     };
+  }
+
+  /** 細人物嘅畫面身高；只供血條／受擊／回復提示定位。 */
+  private heroVisualHeight(): number {
+    return this.images.heroAppearance ? this.heroArtHeight() * HERO_VISUAL_SCALE : SILHOUETTE_DESIGN_H * this.geom().k;
+  }
+
+  /** 跟手機闊度固定人物比例，演武台轉全屏時唔再跟畫布高度縮放。 */
+  private heroArtHeight(): number {
+    // 頁內有留白、全屏冇留白，都用同一手機闊度；桌面沿用420px手機框上限。
+    const width = typeof window === 'undefined' ? this.cssW : Math.min(420, window.innerWidth);
+    return width * .23;
   }
 
   resize(cssW: number, cssH: number, dpr: number) {
@@ -980,7 +995,7 @@ export class SparStage {
     this.shake = Math.max(this.shake, this.quiet ? 0 : e.boss ? 5 : 3);
     this.floaters.push({
       x: g.heroX + (this.visualRng() - 0.5) * 22,
-      y: g.groundY - SILHOUETTE_DESIGN_H * g.k * 0.58,
+      y: g.groundY - this.heroVisualHeight() * 0.58,
       text: `-${formatSparNumber(r.dmg)}`,
       gain: r.dmg,
       age: 0,
@@ -988,7 +1003,7 @@ export class SparStage {
       kind: 'hurt',
     });
     if (!this.quiet) {
-      const hy = g.groundY - SILHOUETTE_DESIGN_H * g.k * 0.55;
+      const hy = g.groundY - this.heroVisualHeight() * 0.55;
       this.splashes.push({ x: g.heroX + 6, y: hy, rot: this.visualRng() * Math.PI * 2, age: 0, dur: e.boss ? 0.45 : 0.32 });
       for (let i = 0; i < (e.boss ? 10 : 6); i++) {
         const a = Math.PI + (this.visualRng() - 0.5) * 1.6;
@@ -1010,7 +1025,7 @@ export class SparStage {
   private showTraitFx(fx: CombatTraitFx[], e: EnemyInst, reflect: number, foeHeal: number) {
     const g = this.geom();
     const foeHead = g.groundY - SILHOUETTE_DESIGN_H * this.enemyKe(e) * 0.95;
-    const heroHead = g.groundY - SILHOUETTE_DESIGN_H * g.k * 0.95;
+    const heroHead = g.groundY - this.heroVisualHeight() * 0.95;
     for (const f of fx) {
       const def = FOE_TRAITS[f.kind];
       if (f.kind === 'enrage') {
@@ -1044,7 +1059,7 @@ export class SparStage {
       }
     }
     if (reflect > 0) {
-      this.floaters.push({ x: g.heroX + 10, y: g.groundY - SILHOUETTE_DESIGN_H * g.k * 0.58, text: `-${formatSparNumber(reflect)}`, gain: reflect, age: 0, dur: 0.95, kind: 'hurt' });
+      this.floaters.push({ x: g.heroX + 10, y: g.groundY - this.heroVisualHeight() * 0.58, text: `-${formatSparNumber(reflect)}`, gain: reflect, age: 0, dur: 0.95, kind: 'hurt' });
     }
     if (foeHeal > 0) {
       this.floaters.push({ x: e.x + 14, y: foeHead + 26, text: `+${formatSparNumber(foeHeal)}`, gain: foeHeal, age: 0, dur: 0.95, kind: 'heal' });
@@ -1179,7 +1194,7 @@ export class SparStage {
         if (r.heal > 0) {
           this.floaters.push({
             x: g.heroX - 14,
-            y: g.groundY - SILHOUETTE_DESIGN_H * g.k * 0.78,
+            y: g.groundY - this.heroVisualHeight() * 0.78,
             text: `+${formatSparNumber(r.heal)}`,
             gain: r.heal,
             age: 0,
@@ -1270,13 +1285,21 @@ export class SparStage {
       foeScale: foe ? this.enemyKe(foe) / g.k : 1,
       skyMinY: 8,
     });
+    if (this.images.heroAppearance) {
+      // 只移主角身體錨點；敵方尺寸同特效單位唔跟住縮。
+      anchors.hero.y = g.groundY - ho.dy - .55 * this.heroVisualHeight();
+      anchors.heroHand = { x: g.heroX + ho.dx + .28 * this.heroVisualHeight(),
+        y: g.groundY - ho.dy - .6 * this.heroVisualHeight() };
+      anchors.between.y = (anchors.hero.y + anchors.foe.y) / 2;
+    }
     const def = martialPoseFor(this.martialId);
     if (def && this.artRun) {
       const contact = this.artRun.c.events.find(e => e.kind === 'hit')?.t ?? .36;
       const frame = sampleMartialPose(def, this.artRun.t, this.artRun.c.dur, contact, this.artResult, this.quiet) % 8;
       const point = (poseAnchors as Record<string, number[][]>)[def.id]?.[frame];
-      if (point) anchors.heroHand = { x: g.heroX + ho.dx + (point[0]! - 256) * H / 218,
-        y: g.groundY - ho.dy + (point[1]! - 328) * H / 218 };
+      const unit = this.heroArtHeight() / 218 * heroFigureScale(this.martialAssets.get(def.id)?.scaleId ?? def.id);
+      if (point) anchors.heroHand = { x: g.heroX + ho.dx + (point[0]! - 256) * unit,
+        y: g.groundY - ho.dy + (point[1]! - 328) * unit };
     }
     return anchors;
   }
@@ -1369,7 +1392,7 @@ export class SparStage {
         if (r.heal > 0) {
           this.floaters.push({
             x: g.heroX - 14 + (this.visualRng() - 0.5) * 16,
-            y: g.groundY - SILHOUETTE_DESIGN_H * g.k * 0.78,
+            y: g.groundY - this.heroVisualHeight() * 0.78,
             text: `+${formatSparNumber(r.heal)}`,
             gain: r.heal,
             age: 0,
@@ -1638,9 +1661,9 @@ export class SparStage {
     const def = martialPoseFor(id);
     if (!def) return false;
     const staticImage = martialFallbackImage(def.family);
-    const asset = (id ? this.martialAssets.get(id) : null) ?? (staticImage ? { atlas: staticImage, guard: true } : null);
-    // 首次解碼最多空一格，亦唔用錯誤嘅整張劍影作佔位。
-    if (!asset) return true;
+    const asset = (id ? this.martialAssets.get(id) : null) ?? (staticImage ? { atlas: staticImage, guard: true, scaleId: MARTIAL_FALLBACK_ART[def.family] } : null);
+    // 首次解碼仍由細節人物後備承接，唔空一格或退返黑影。
+    if (!asset) return false;
     const run = this.artRun;
     const support = !inspection && !attacking;
     const c = choreoForArt(id);
@@ -1661,7 +1684,9 @@ export class SparStage {
     if (def.id === 'pr_mountain_split' && !this.quiet) {
       off.dy += H * .3 * Math.max(0, Math.sin(p * Math.PI * 2));
     }
-    const unit = SILHOUETTE_DESIGN_H * g.k / 218;
+    const scaleId = variant ? `${def.id}-${variant === asset.variants?.kill ? 'kill' : 'crit'}`
+      : atlas === asset.variants?.detail ? `${def.id}-detail` : asset.scaleId ?? def.id;
+    const unit = this.heroArtHeight() / 218 * heroFigureScale(scaleId);
     const ctx = this.ctx;
     ctx.save();
     ctx.translate(g.heroX + off.dx, g.groundY - off.dy);
@@ -1678,8 +1703,46 @@ export class SparStage {
     return true;
   }
 
+  /** 非出招階段維持同款人物；移動、受擊及倒地唔再讀舊黑影幀。 */
+  private drawDetailedWarrior(g: ReturnType<SparStage['geom']>): boolean {
+    const appearance = this.images.heroAppearance;
+    if (!appearance) return false;
+    const active = this.poseInspection || this.attackT !== null || this.supportPose;
+    if (this.heroDownT === null && active && this.drawMartialWarrior(g)) return true;
+    const frame = heroAppearanceFrame({ moving: this.heroMoving, gait: this.walkT, idle: this.idleT,
+      hurt: this.heroHitT, down: this.heroDownT, reduced: this.quiet });
+    // 平靜待機保留上一門／當前裝備武學嘅同一人物及正確持武；唔另外疊裝備劍。
+    const restId = this.martialAssets.has(this.martialId ?? '') ? this.martialId
+      : [...this.martialAssets.keys()].find(id => !['internal', 'step'].includes(martialPoseFor(id)?.family ?? ''));
+    const rest = !active && frame >= 4 && frame <= 5 && restId ? this.martialAssets.get(restId) : null;
+    const basic = this.heroDownT === null && this.attackT !== null && !martialPoseFor(this.martialId) ? appearance.basic : null;
+    const image = rest?.atlas ?? basic?.image ?? appearance.image;
+    const guard = rest ? rest.guard : basic ? basic.guard : appearance.guard;
+    const sample = rest ? 0 : basic && !basic.guard
+      ? sampleMartialPose(martialPoseFor('art_river_fist')!, this.attackT ?? 0, this.attackClipNow().dur, .36, null, this.quiet) : frame;
+    // 生命週期固定同一細比例，唔再跟上一招放大；武學圖只按自己守勢校準一次。
+    const scaleId = rest ? rest.scaleId ?? restId! : basic || guard ? 'art_river_fist' : undefined;
+    const unit = this.heroArtHeight() / 218 * heroFigureScale(scaleId);
+    const flinch = this.heroHitT < .22 ? 1 - this.heroHitT / .22 : 0;
+    const downFade = this.heroDownT === null ? 1 : Math.max(0, 1 - Math.max(0, this.heroDownT - .9) / .6);
+    const ctx = this.ctx;
+    ctx.save();
+    ctx.globalAlpha *= Math.max(.35, Math.min(1, this.heroFade || 1)) * downFade;
+    ctx.translate(g.heroX - 9 * flinch * flinch, g.groundY);
+    if (guard && this.heroDownT !== null) {
+      // 整套網絡圖失敗只用同款細節靜態人物後備，保持倒地／淡出節點。
+      ctx.rotate(-Math.min(1, this.heroDownT / .7) * Math.PI * .44);
+    }
+    if (guard) ctx.drawImage(image, -256 * unit, -328 * unit, 512 * unit, 352 * unit);
+    else ctx.drawImage(image, (rest || basic ? sample : sample % 4) * 512, rest || basic ? 0 : Math.floor(sample / 4) * 352,
+      512, 352, -256 * unit, -328 * unit, 512 * unit, 352 * unit);
+    ctx.restore();
+    return true;
+  }
+
   private drawWarrior(g: ReturnType<SparStage['geom']>): { x: number; y: number } | null {
     const { ctx } = this;
+    if (this.drawDetailedWarrior(g)) return null;
     if (this.heroDownT === null && this.drawMartialWarrior(g)) return null;
     try {
       const attack = this.attackT !== null ? this.attackClipNow() : null;
@@ -2197,8 +2260,9 @@ export function loadSparImages(
     const enemyImgs = loaded.slice(i, i + enemies.length) as HTMLImageElement[];
     i += enemies.length;
     const splash = loaded[i++]!;
-    const art = await loadSparArt().catch(() => undefined);
+    const [art, heroAppearance] = await Promise.all([loadSparArt().catch(() => undefined), loadHeroAppearance()]);
     return {
+      heroAppearance,
       heroIdle,
       heroAttack,
       heroWalk,

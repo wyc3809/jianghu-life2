@@ -1,0 +1,6 @@
+event PASS {'idle': 126, 'walk': 40, 'attack': 142}
+Traceback (most recent call last):
+  File "/workspace/jianghu-life2/scripts/qa/checkHeroContinuity.py", line 72, in <module>
+    if kind=='event-boss':assert result['states'].get('down',0)>0,result
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'draws': 231, 'legacy': 0, 'blank': 0, 'states': {'idle': 87, 'walk': 39, 'attack': 105}, 'sources': {'martial/art_river_fist.webp': 192, 'hero-detail/lifecycle.webp': 39}}
