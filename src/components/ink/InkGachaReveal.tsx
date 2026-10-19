@@ -32,11 +32,11 @@ function FallbackReveal({ config, onDone, renderAction }: Props) {
   return <GachaSheet title={config.revealTitle} onClose={onDone}>
     <p className="ink-codex-receipt">已入家族收藏 · {config.rewards.length}卷</p>
     <div className="ink-codex-fallback-cards" role="group" aria-label="抽卡結果">
-      {config.rewards.map((r, i) => <button key={r.id} type="button" aria-pressed={index === i} onClick={() => setIndex(i)}>
+      {config.rewards.map((r, i) => <button key={r.id} type="button" data-premium={r.isPremium ? '1' : undefined} aria-pressed={index === i} onClick={() => setIndex(i)}>
         <img src={codexCoverUrl(r.isPremium === true)} data-codex-rarity={r.isPremium ? 'premium' : 'ordinary'} alt="" /><strong>{r.name}</strong><small>{r.identityLabel}</small>
       </button>)}
     </div>
-    <section className="ink-codex-result-detail"><h4>{card.name}</h4><p>{card.identityLabel}</p><p>{card.blurb}</p></section>
+    <section className="ink-codex-result-detail" data-premium={card.isPremium ? '1' : undefined}><h4>{card.name}</h4><p>{card.identityLabel}</p><p>{card.blurb}</p></section>
     {renderAction(card, true)}
     <button className="ink-btn ink-btn--primary" type="button" onClick={onDone}>完成入藏</button>
   </GachaSheet>;

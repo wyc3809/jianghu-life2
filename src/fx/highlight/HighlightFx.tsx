@@ -520,6 +520,7 @@ export default function HighlightFx({ config, onDone, onUnavailable, renderRewar
               ref={panelRef}
               className={styles.panel}
               style={{ '--pc': GRADES[panelCard.grade].main } as CSSProperties}
+              data-premium={panelCard.isPremium ? '1' : undefined}
             >
               <CardArt card={panelCard} size={78} />
               <div className={styles.panelBody}>
@@ -548,6 +549,7 @@ export default function HighlightFx({ config, onDone, onUnavailable, renderRewar
                 key={card.id}
                 type="button"
                 data-card
+                data-premium={card.isPremium ? '1' : undefined}
                 className={styles.card}
                 data-inlay={GRADES[card.grade].inlay}
                 data-shine={card.grade >= 2 ? '1' : undefined}

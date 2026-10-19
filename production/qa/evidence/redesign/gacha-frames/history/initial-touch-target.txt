@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/jianghu-life2/scripts/qa/checkGachaFrames.py", line 43, in <module>
+    button=page.get_by_role('button',name=name,exact=True);clickable(button);button.click()
+                                                           ^^^^^^^^^^^^^^^^^
+  File "/workspace/jianghu-life2/scripts/qa/checkGachaFrames.py", line 28, in clickable
+    assert hit['hit'] and hit['height']>=44 and hit['width']>=44,hit
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'hit': True, 'height': 44, 'width': 42.65625, 'bottom': 257.78125}

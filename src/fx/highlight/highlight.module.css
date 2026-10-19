@@ -876,6 +876,42 @@
 .root[data-subject='codex'] .cards > :only-child .cardName { font-size: 17px; }
 .root[data-reduce] .title span { transform: none !important; opacity: 1 !important; filter: none !important; }
 .root[data-subject='codex'][data-phase='settle'] :is(.rays i, .curtain i, .card::after) { animation: none; }
+
+/* 第28項同款冊頁九宮格；只覆蓋抽卡，寶箱／武學令／丹爐保持原演出。 */
+.root[data-subject='codex'] :is(.card, .panel, .pill, .tag, .mute, .skip, :global(.ink-pull-equip-btn)) {
+  --codex-frame: var(--wuxia-frame-neutral); --codex-frame-width: 9px;
+  position: relative; isolation: isolate; border: 0; border-radius: 0;
+  background: transparent; box-shadow: none;
+}
+.root[data-subject='codex'] :is(.card, .panel, .pill, .tag, .mute, .skip, :global(.ink-pull-equip-btn))::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  width: auto; height: auto; border-radius: 0; transform: none;
+  border: var(--codex-frame-width) solid transparent;
+  border-image: var(--codex-frame) 128 / 1 / 0 stretch;
+  background: url('/ink/art/ui/paper-grain.webp') repeat, #faf6ee;
+  background-blend-mode: soft-light; background-clip: padding-box;
+}
+.root[data-subject='codex'] .panel { --codex-frame: var(--wuxia-frame-panel); --codex-frame-width: 16px; padding: 13px 14px; background: #faf6ee; }
+.root[data-subject='codex'] .panel::after,
+.root[data-subject='codex'] .card::after,
+.root[data-subject='codex'] .inlay { display: none; }
+.root[data-subject='codex'] [data-premium='1'] { --codex-frame: var(--wuxia-frame-rare); }
+.root[data-subject='codex'] .card[aria-pressed='true'] { --codex-frame: var(--wuxia-frame-selected); box-shadow: none; outline: 0; }
+.root[data-subject='codex'] .card[aria-pressed='true']::before { background-color: #f8ebd9; }
+.root[data-subject='codex'] .card { padding: 7px 3px 5px; }
+.root[data-subject='codex'] .cards > :only-child { --codex-frame-width: 13px; padding: 11px 9px; }
+.root[data-subject='codex'] :is(.mute, .skip, :global(.ink-pull-equip-btn)) { min-height: 44px; }
+.root[data-subject='codex'] :is(.mute, .skip, .card, :global(.ink-pull-equip-btn)):focus-visible { outline: 2px solid #a33a32; outline-offset: 2px; }
+.root[data-subject='codex'] .claim { min-height: 44px; }
+.root[data-subject='codex'] .skip { position: absolute; }
+.root[data-subject='codex'] .mute { width: 44px; min-width: 44px; }
+.root[data-subject='codex'] .hud { align-items: start; }
+.root[data-subject='codex'] .balances { min-width: 0; flex-wrap: wrap; justify-content: end; gap: 4px; }
+.root[data-subject='codex'] .pill { min-width: 0; min-height: 32px; height: auto; max-width: 100%; padding: 4px 7px; font-size: 14px; box-sizing: border-box; }
+.root[data-subject='codex'] .pill small { font-size: 10px; }
+.root[data-subject='codex'] .pill span { overflow-wrap: anywhere; min-width: 0; }
+.root[data-subject='codex'] .pill img { width: 22px; height: 22px; margin-left: 0; flex: none; }
+.root[data-subject='codex'] .tag { flex: none; padding: 6px 8px; font-size: 14px; letter-spacing: .1em; }
 @media (max-height: 700px) {
   .root[data-subject='codex'] .titleWrap { top: 9%; }
   .root[data-subject='codex'] .panel { padding: 6px 10px; }
