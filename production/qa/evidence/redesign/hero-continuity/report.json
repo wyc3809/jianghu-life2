@@ -1,0 +1,138 @@
+{
+  "baseline": "3f374c6",
+  "seed": 42,
+  "dpr": 2,
+  "cases": [
+    {
+      "kind": "home",
+      "draws": 628,
+      "legacy": 0,
+      "blank": 0,
+      "states": {
+        "walk": 69,
+        "attack": 386,
+        "idle": 147,
+        "support": 26
+      },
+      "sources": {
+        "hero-detail/lifecycle.webp": 69,
+        "martial/art_river_fist.webp": 137,
+        "martial/art_rain_sword.webp": 162,
+        "martial/art_stone_palm.webp": 88,
+        "martial/art_iron_body.webp": 26,
+        "martial/art_wind_chase.webp": 83,
+        "martial/art_staff_iron.webp": 63
+      },
+      "errors": []
+    },
+    {
+      "kind": "spar-boss",
+      "draws": 691,
+      "legacy": 0,
+      "blank": 0,
+      "states": {
+        "walk": 88,
+        "attack": 452,
+        "idle": 124,
+        "support": 27
+      },
+      "sources": {
+        "hero-detail/lifecycle.webp": 88,
+        "martial/art_river_fist.webp": 155,
+        "martial/art_rain_sword.webp": 109,
+        "martial/art_stone_palm.webp": 146,
+        "martial/art_wind_chase.webp": 119,
+        "martial/art_staff_iron.webp": 47,
+        "martial/art_iron_body.webp": 27
+      },
+      "errors": []
+    },
+    {
+      "kind": "event",
+      "draws": 308,
+      "legacy": 0,
+      "blank": 0,
+      "states": {
+        "idle": 126,
+        "walk": 40,
+        "attack": 142
+      },
+      "sources": {
+        "martial/art_river_fist.webp": 268,
+        "hero-detail/lifecycle.webp": 40
+      },
+      "errors": []
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "network_failure": false,
+      "reduced": true,
+      "draws": 131,
+      "legacy": 0,
+      "blank": 0,
+      "states": {
+        "walk": 126,
+        "attack": 5
+      },
+      "sources": {
+        "hero-detail/lifecycle.webp": 126,
+        "martial/art_river_fist.webp": 5
+      },
+      "errors": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "network_failure": true,
+      "reduced": false,
+      "draws": 94,
+      "legacy": 0,
+      "blank": 0,
+      "states": {
+        "walk": 67,
+        "attack": 27
+      },
+      "sources": {
+        "embedded-detail": 94
+      },
+      "errors": []
+    },
+    {
+      "width": 420,
+      "height": 896,
+      "network_failure": false,
+      "reduced": true,
+      "draws": 130,
+      "legacy": 0,
+      "blank": 0,
+      "states": {
+        "walk": 91,
+        "attack": 39
+      },
+      "sources": {
+        "hero-detail/lifecycle.webp": 91,
+        "martial/art_river_fist.webp": 39
+      },
+      "errors": []
+    },
+    {
+      "kind": "event-boss",
+      "draws": 552,
+      "legacy": 0,
+      "blank": 0,
+      "states": {
+        "idle": 199,
+        "walk": 39,
+        "attack": 242,
+        "hurt": 11,
+        "down": 61
+      },
+      "sources": {
+        "martial/art_river_fist.webp": 441,
+        "hero-detail/lifecycle.webp": 111
+      },
+      "errors": []
+    }
+  ]
+}

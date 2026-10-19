@@ -21,7 +21,8 @@ function engine(id: string, assets = false, miss = false) {
     events.push('hero'); return { dmg: miss ? 0 : 101, crit: false, heal: 0, killed: false };
   }, foeStrike: () => { events.push('foe'); return { dmg: 2, heroDown: false }; },
   nextFoe: () => ({ boss: false }), foeDefeated: () => ({ coins: 0 }), heroRecovered: () => {} };
-  const stage = new SparStage({ canvas, images: { heroIdle: img, heroAttack: img, enemies: [img], splash: img }, combat });
+  const stage = new SparStage({ canvas, images: { heroIdle: img, heroAttack: img, enemies: [img], splash: img,
+    heroAppearance: assets ? { image: atlas, guard: false } : undefined }, combat });
   stage.resize(390, 240, 1); stage.setWeapon(WEAPON_SPRITES.sword, weapon);
   if (assets) stage.setMartialAssets(new Map([[canonicalSkillId(id), { atlas, guard: false, identityEffects: { signature: atlas, detail: atlas, finish: atlas } }]]));
   return { stage, events, draws, atlas, weapon };

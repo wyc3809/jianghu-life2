@@ -52,6 +52,8 @@ import { canonicalSkillId } from '@data/skills/catalog';
 import { martialFootwork } from '../fx/art/footwork';
 import { MartialIdentityFx } from '../fx/art/identityFx';
 import { martialFallbackImage } from '../fx/art/martialFallback';
+import { heroAppearanceFrame, loadHeroAppearance, type HeroAppearance } from './heroAppearance';
+import heroStanceScale from '../fx/art/heroStanceScale.json';
 import poseAnchors from '../fx/art/poseAnchors.json';
 import { playInkBlade, playInkHit, playInkTap, playInkSeal } from '../audio/inkAudio';
 import { FOE_TRAITS } from '@data/foes/traits';
@@ -303,6 +305,8 @@ interface Afterimage {
 }
 
 export interface SparStageImages {
+  /** 主角待機／行路／受擊／倒地共用細節人物；與武學圖集同一腳底錨點。 */
+  heroAppearance?: HeroAppearance;
   art?: SparArtImages;
   /** AI 剪影：俠客待機全身 */
   heroIdle: HTMLImageElement;
@@ -1639,8 +1643,8 @@ export class SparStage {
     if (!def) return false;
     const staticImage = martialFallbackImage(def.family);
     const asset = (id ? this.martialAssets.get(id) : null) ?? (staticImage ? { atlas: staticImage, guard: true } : null);
-    // 首次解碼最多空一格，亦唔用錯誤嘅整張劍影作佔位。
-    if (!asset) return true;
+    // 首次解碼仍由細節人物後備承接，唔空一格或退返黑影。
+    if (!asset) return false;
     const run = this.artRun;
     const support = !inspection && !attacking;
     const c = choreoForArt(id);
@@ -1678,8 +1682,47 @@ export class SparStage {
     return true;
   }
 
+  /** 非出招階段維持同款人物；移動、受擊及倒地唔再讀舊黑影幀。 */
+  private drawDetailedWarrior(g: ReturnType<SparStage['geom']>): boolean {
+    const appearance = this.images.heroAppearance;
+    if (!appearance) return false;
+    const active = this.poseInspection || this.attackT !== null || this.supportPose;
+    if (this.heroDownT === null && active && this.drawMartialWarrior(g)) return true;
+    const frame = heroAppearanceFrame({ moving: this.heroMoving, gait: this.walkT, idle: this.idleT,
+      hurt: this.heroHitT, down: this.heroDownT, reduced: this.quiet });
+    // 平靜待機保留上一門／當前裝備武學嘅同一人物及正確持武；唔另外疊裝備劍。
+    const restId = this.martialAssets.has(this.martialId ?? '') ? this.martialId
+      : [...this.martialAssets.keys()].find(id => !['internal', 'step'].includes(martialPoseFor(id)?.family ?? ''));
+    const rest = !active && frame >= 4 && frame <= 5 && restId ? this.martialAssets.get(restId) : null;
+    const basic = this.heroDownT === null && this.attackT !== null && !martialPoseFor(this.martialId) ? appearance.basic : null;
+    const image = rest?.atlas ?? basic?.image ?? appearance.image;
+    const guard = rest ? rest.guard : basic ? basic.guard : appearance.guard;
+    const sample = rest ? 0 : basic && !basic.guard
+      ? sampleMartialPose(martialPoseFor('art_river_fist')!, this.attackT ?? 0, this.attackClipNow().dur, .36, null, this.quiet) : frame;
+    const continuityScale = !rest && !basic && restId ? (heroStanceScale as Record<string, number>)[restId] ?? 1 : 1;
+    const unit = SILHOUETTE_DESIGN_H * g.k / 218 * continuityScale;
+    const flinch = this.heroHitT < .22 ? 1 - this.heroHitT / .22 : 0;
+    const downFade = this.heroDownT === null ? 1 : Math.max(0, 1 - Math.max(0, this.heroDownT - .9) / .6);
+    const ctx = this.ctx;
+    ctx.save();
+    ctx.globalAlpha *= Math.max(.35, Math.min(1, this.heroFade || 1)) * downFade;
+    ctx.translate(g.heroX - 9 * flinch * flinch, g.groundY);
+    if (guard && this.heroDownT !== null) {
+      // 整套網絡圖失敗只用同款細節靜態人物後備，保持倒地／淡出節點。
+      ctx.rotate(-Math.min(1, this.heroDownT / .7) * Math.PI * .44);
+    } else if (!this.quiet && rest) {
+      ctx.scale(1, 1 + Math.sin(this.idleT * 2.2) * .006);
+    }
+    if (guard) ctx.drawImage(image, -256 * unit, -328 * unit, 512 * unit, 352 * unit);
+    else ctx.drawImage(image, (rest || basic ? sample : sample % 4) * 512, rest || basic ? 0 : Math.floor(sample / 4) * 352,
+      512, 352, -256 * unit, -328 * unit, 512 * unit, 352 * unit);
+    ctx.restore();
+    return true;
+  }
+
   private drawWarrior(g: ReturnType<SparStage['geom']>): { x: number; y: number } | null {
     const { ctx } = this;
+    if (this.drawDetailedWarrior(g)) return null;
     if (this.heroDownT === null && this.drawMartialWarrior(g)) return null;
     try {
       const attack = this.attackT !== null ? this.attackClipNow() : null;
@@ -2197,8 +2240,9 @@ export function loadSparImages(
     const enemyImgs = loaded.slice(i, i + enemies.length) as HTMLImageElement[];
     i += enemies.length;
     const splash = loaded[i++]!;
-    const art = await loadSparArt().catch(() => undefined);
+    const [art, heroAppearance] = await Promise.all([loadSparArt().catch(() => undefined), loadHeroAppearance()]);
     return {
+      heroAppearance,
       heroIdle,
       heroAttack,
       heroWalk,
