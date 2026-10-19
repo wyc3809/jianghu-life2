@@ -1,0 +1,14 @@
+{
+  "before": "da52e1f",
+  "after": "work/gacha-codex-polish",
+  "seed": 42,
+  "viewport": [
+    390,
+    844
+  ],
+  "dpr": 2,
+  "jade": {
+    "free": 600,
+    "paidTest": 0
+  }
+}

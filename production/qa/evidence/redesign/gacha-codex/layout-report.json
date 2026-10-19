@@ -1,0 +1,74 @@
+[
+  {
+    "engine": "chromium",
+    "width": 320,
+    "height": 568,
+    "all_six_schools": true,
+    "wish_catalog": true,
+    "cta_clickable": true,
+    "ten_fallback": true,
+    "missing_cover_font": true,
+    "insufficient_jade": true,
+    "errors": []
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "height": 844,
+    "all_six_schools": true,
+    "wish_catalog": true,
+    "cta_clickable": true,
+    "ten_fallback": true,
+    "missing_cover_font": true,
+    "insufficient_jade": true,
+    "errors": []
+  },
+  {
+    "engine": "chromium",
+    "width": 420,
+    "height": 896,
+    "all_six_schools": true,
+    "wish_catalog": true,
+    "cta_clickable": true,
+    "ten_fallback": true,
+    "missing_cover_font": true,
+    "insufficient_jade": true,
+    "errors": []
+  },
+  {
+    "engine": "webkit",
+    "width": 320,
+    "height": 568,
+    "all_six_schools": true,
+    "wish_catalog": true,
+    "cta_clickable": true,
+    "ten_fallback": true,
+    "missing_cover_font": true,
+    "insufficient_jade": true,
+    "errors": []
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "height": 844,
+    "all_six_schools": true,
+    "wish_catalog": true,
+    "cta_clickable": true,
+    "ten_fallback": true,
+    "missing_cover_font": true,
+    "insufficient_jade": true,
+    "errors": []
+  },
+  {
+    "engine": "webkit",
+    "width": 420,
+    "height": 896,
+    "all_six_schools": true,
+    "wish_catalog": true,
+    "cta_clickable": true,
+    "ten_fallback": true,
+    "missing_cover_font": true,
+    "insufficient_jade": true,
+    "errors": []
+  }
+]

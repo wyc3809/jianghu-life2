@@ -1,0 +1,101 @@
+
+> jianghu-engine@0.76.0-ea test
+> vitest run
+
+
+ RUN  v3.2.7 /workspace/jianghu-life2
+
+ ✓ tests/martial_poses.test.ts (12 tests) 2090ms
+   ✓ 武學實體姿勢與核心隔離 > test_martial_poses_enabled_assets_leave_every_settlement_and_enemy_action_unchanged  1909ms
+ ✓ tests/cloud-adversarial.test.ts (8 tests) 1086ms
+ ✓ tests/lifeEngine.test.ts (74 tests) 571ms
+ ✓ tests/familyLegacy.test.ts (6 tests) 323ms
+ ✓ tests/bingpu.test.ts (7 tests) 306ms
+ ✓ tests/injuries.test.ts (15 tests) 205ms
+ ✓ tests/persistSchedule.test.ts (3 tests) 439ms
+ ✓ tests/foe_traits.test.ts (18 tests) 265ms
+ ✓ tests/combatDeathTuning.test.ts (6 tests) 69ms
+ ✓ tests/persistence-adversarial.test.ts (6 tests) 188ms
+ ✓ tests/cultivation.test.ts (32 tests) 314ms
+ ✓ tests/spar_art_engine.test.ts (2 tests) 44ms
+ ✓ tests/school_gacha.test.ts (9 tests) 87ms
+ ✓ tests/volumes_autocombat.test.ts (14 tests) 70ms
+ ✓ tests/battlePrototype.test.ts (4 tests) 56ms
+ ✓ tests/martial_loadout.test.ts (12 tests) 62ms
+ ✓ tests/art_choreo.test.ts (10 tests) 57ms
+ ✓ tests/home_goals.test.ts (5 tests) 62ms
+ ✓ tests/ambient_fx.test.ts (10 tests) 29ms
+ ✓ tests/ancestry.test.ts (8 tests) 13ms
+ ✓ tests/genealogy.test.ts (5 tests) 60ms
+ ✓ tests/lifeVariance.test.ts (10 tests) 109ms
+ ✓ tests/engine.test.ts (3 tests) 68ms
+ ✓ tests/internalMode.test.ts (21 tests) 33ms
+ ✓ tests/culturalArtsAndSects.test.ts (9 tests) 22ms
+ ✓ tests/spar_curve.test.ts (4 tests) 28ms
+ ✓ tests/playability.test.ts (6 tests) 35ms
+ ✓ tests/resultNarrate.test.ts (5 tests) 18ms
+ ✓ tests/titles.test.ts (7 tests) 35ms
+ ✓ tests/spar_duel.test.ts (21 tests) 20ms
+ ✓ tests/sparPresentationSwitch.test.ts (1 test) 23ms
+ ✓ tests/desperateReversal.test.ts (5 tests) 22ms
+ ✓ tests/narrateDiversity.test.ts (2 tests) 6ms
+ ✓ tests/encounters.test.ts (6 tests) 10ms
+ ✓ tests/actionPoints.test.ts (5 tests) 28ms
+ ✓ tests/foundedSect.test.ts (16 tests) 64ms
+ ✓ tests/ladder_v2.test.ts (9 tests) 15ms
+ ✓ tests/audio.test.ts (2 tests) 14ms
+ ✓ tests/stanceVisualization.test.ts (4 tests) 30ms
+ ✓ tests/comboSystem.test.ts (10 tests) 13ms
+ ✓ tests/lifeArcsCatalog.test.ts (9 tests) 12ms
+ ✓ tests/sparPresentation.test.ts (5 tests) 13ms
+ ✓ tests/growthFeel.test.ts (13 tests) 11ms
+ ✓ tests/inkBrush.test.ts (2 tests) 12ms
+ ✓ tests/wineSystem.test.ts (5 tests) 11ms
+ ✓ tests/moments.test.ts (5 tests) 10ms
+ ✓ tests/jianghuRank.test.ts (11 tests) 11ms
+ ✓ tests/ancestry_milestones.test.ts (4 tests) 10ms
+ ✓ tests/moveStance.test.ts (4 tests) 10ms
+ ✓ tests/combat_full_hp.test.ts (6 tests) 10ms
+ ✓ tests/combatRating.test.ts (4 tests) 10ms
+ ✓ tests/gacha.test.ts (7 tests) 11ms
+ ✓ tests/moveCooldownTiers.test.ts (7 tests) 4ms
+ ✓ tests/sparTypography.test.ts (1 test) 4ms
+ ✓ tests/highlight_mapping.test.ts (5 tests) 10ms
+ ✓ tests/natureArcs.test.ts (3 tests) 10ms
+ ✓ tests/sparApproach.test.ts (2 tests) 22ms
+ ✓ tests/leaderboard_score.test.ts (4 tests) 28ms
+ ✓ tests/originChronicle.test.ts (5 tests) 12ms
+ ✓ tests/eventOverrides.test.ts (6 tests) 9ms
+ ✓ tests/jianghuPrestige.test.ts (5 tests) 11ms
+ ✓ tests/combatDifficulty.test.ts (3 tests) 50ms
+ ✓ tests/progression.test.ts (5 tests) 7ms
+ ✓ tests/martial_identity_fx.test.ts (6 tests) 9ms
+ ✓ tests/gearCompare.test.ts (5 tests) 11ms
+ ✓ tests/gearSpecialEffects.test.ts (12 tests) 10ms
+ ✓ tests/schools.test.ts (3 tests) 11ms
+ ✓ tests/inkSilhouettes.test.ts (6 tests) 12ms
+ ✓ tests/sceneCopy.test.ts (3 tests) 5ms
+ ✓ tests/cloud_sync.test.ts (4 tests) 7ms
+ ✓ tests/event-reachability.test.ts (3 tests) 7ms
+ ✓ tests/gearOverrides.test.ts (9 tests) 15ms
+ ✓ tests/result_format.test.ts (4 tests) 6ms
+ ✓ tests/inkAiCatalog.test.ts (5 tests) 4ms
+ ✓ tests/choice_pick.test.ts (4 tests) 6ms
+ ✓ tests/spar_strip_rig.test.ts (8 tests) 6ms
+ ✓ tests/duel_strokes.test.ts (4 tests) 3ms
+ ✓ tests/idle_harvest.test.ts (3 tests) 6ms
+ ✓ tests/sparAnimPolish.test.ts (3 tests) 4ms
+ ✓ tests/sceneVariants.test.ts (5 tests) 5ms
+ ✓ tests/gacha_highlight.test.ts (5 tests) 5ms
+ ✓ tests/settings_audio_account.test.ts (2 tests) 4ms
+ ✓ tests/damageRebalance.test.ts (6 tests) 5ms
+ ✓ tests/combatInkFx.test.ts (5 tests) 4ms
+ ✓ tests/sparSilhouette.test.ts (3 tests) 4ms
+ ✓ tests/gearAffixes.test.ts (3 tests) 3ms
+ ✓ tests/eventEditorScope.test.ts (2 tests) 3ms
+ ✓ tests/version.test.ts (1 test) 3ms
+
+ Test Files  88 passed (88)
+      Tests  647 passed (647)
+   Start at  06:10:46
+   Duration  64.70s (transform 3.55s, setup 0ms, collect 25.54s, tests 7.45s, environment 16ms, prepare 8.69s)

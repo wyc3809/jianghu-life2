@@ -843,3 +843,44 @@
 .root[data-quick-action] .panel .art canvas { width: 100%; height: 100%; }
 .root[data-quick-action] .panelName { font-size: 18px; }
 .root[data-quick-action] .blurb { font-size: 12px; }
+
+/* 抽卡身份獨立於裝備六級品階；線裝書逐張開頁，結果穩定留白。 */
+.codexCardArt { position: relative; flex: none; display: flex; align-items: center; justify-content: center; overflow: hidden; min-height: 0; }
+.codexCardArt img { width: auto; height: 90%; max-height: 100%; max-width: 90%; object-fit: contain; box-shadow: 3px 4px 5px #263a342d; }
+.codexCardArt b { position: absolute; right: 19%; top: 10%; height: 45%; width: 12%; overflow: hidden; writing-mode: vertical-rl; font: 7px/1 serif; color: #3d4030; }
+.codexIdentity { display: block; font-size: 9px; color: #756a51; }
+.root[data-subject='codex'] { --font: 'Jianghu Wuxia Titles', 'Noto Serif TC', serif; }
+.root[data-subject='codex'] .bg { background: radial-gradient(ellipse at 50% 30%, #f5ecd8, #ebe6d6 80%); }
+.root[data-subject='codex'] .rays { opacity: .45; }
+.root[data-subject='codex'] .beams { display: none; }
+.root[data-subject='codex'] .tag { font-size: 16px; }
+.root[data-subject='codex'] .titleWrap { top: 12%; }
+.root[data-subject='codex'] .title { font-size: clamp(25px, 7vw, 36px); }
+.root[data-subject='codex'] .reveal { max-height: 70dvh; overflow-y: auto; padding: 12px 14px; gap: 8px; }
+.root[data-subject='codex'] .panel { width: min(390px, 100%); box-sizing: border-box; }
+.root[data-subject='codex'] .panel::before, .root[data-subject='codex'] .panel::after { height: 3px; background: #a39168; }
+.root[data-subject='codex'] .panelName { font-size: 20px; }
+.root[data-subject='codex'] .panelGrade { font: 12px/1.5 sans-serif; border: 0; padding: 0; color: #8f4c38; background: transparent; }
+.root[data-subject='codex'] .blurb { max-height: 4.5em; overflow-y: auto; font: 12px/1.5 sans-serif; }
+.root[data-subject='codex'] .cards { max-width: 390px; }
+.root[data-subject='codex'] .card { min-height: 84px; padding: 4px 2px; background: #f9f3e6; border: 1px solid #beae8e; }
+.root[data-subject='codex'] .card[aria-pressed='true'] { border-color: #9d4938; box-shadow: inset 0 0 0 1px #9d4938; }
+.root[data-subject='codex'] .card .codexCardArt { width: 100% !important; height: 40px !important; }
+.root[data-subject='codex'] .cardName { line-height: 1.25; font-size: 11px; letter-spacing: 0; white-space: normal; overflow-wrap: anywhere; }
+.root[data-subject='codex'] .claimActions { align-items: center; width: min(390px, 100%); }
+.root[data-subject='codex'] .claim { width: 100px; font-size: 16px; letter-spacing: .05em; }
+.root[data-subject='codex'] .newBadge { font-size: 10px; }
+.root[data-subject='codex'] .cards:has(> :only-child) { display: flex; justify-content: center; }
+.root[data-subject='codex'] .cards > :only-child { width: 130px; min-height: 150px; }
+.root[data-subject='codex'] .cards > :only-child .codexCardArt { height: 100px !important; }
+.root[data-subject='codex'] .cards > :only-child .cardName { font-size: 17px; }
+.root[data-reduce] .title span { transform: none !important; opacity: 1 !important; filter: none !important; }
+.root[data-subject='codex'][data-phase='settle'] :is(.rays i, .curtain i, .card::after) { animation: none; }
+@media (max-height: 700px) {
+  .root[data-subject='codex'] .titleWrap { top: 9%; }
+  .root[data-subject='codex'] .panel { padding: 6px 10px; }
+  .root[data-subject='codex'] .card { min-height: 69px; }
+  .root[data-subject='codex'] .card .codexCardArt { height: 26px !important; }
+  .root[data-subject='codex'] .cards > :only-child { min-height: 100px; }
+  .root[data-subject='codex'] .cards > :only-child .codexCardArt { height: 50px !important; }
+}

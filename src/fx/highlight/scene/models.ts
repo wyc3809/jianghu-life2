@@ -10,6 +10,7 @@ import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeom
 import type { GradeStyle } from '../grades';
 import type { HighlightSubject } from '../types';
 import { toon } from './toon';
+import { buildCodex } from './codex';
 
 export interface SubjectModel {
   root: THREE.Group;
@@ -508,6 +509,7 @@ export function buildPedestal(): THREE.Group {
 }
 
 export function buildSubject(kind: HighlightSubject): SubjectModel {
+  if (kind === 'codex') return buildCodex();
   if (kind === 'chest') return buildChest();
   if (kind === 'token') return buildToken();
   return buildCauldron();

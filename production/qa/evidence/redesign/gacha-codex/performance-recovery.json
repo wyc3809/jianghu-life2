@@ -1,0 +1,25 @@
+{
+  "environment": "Linux Chromium / SwiftShader / 390x844 / DPR2，獨立運行",
+  "idle": {
+    "samples": 179,
+    "p50": 16.699999999999818,
+    "p95": 16.799999999999272,
+    "max": 16.80000000000109,
+    "heap": 34019700,
+    "canvas": 1
+  },
+  "settled_ten": {
+    "samples": 179,
+    "p50": 16.69999999999891,
+    "p95": 33.30000000000109,
+    "max": 216.6999999999989,
+    "heap": 42234642,
+    "canvas": 3
+  },
+  "keyboard_skip_on_control": true,
+  "keyboard_close_on_control": true,
+  "local_save_match": true,
+  "context_lost_same_results": true,
+  "page_errors": [],
+  "limits": "RAF唔等於GPU耗時；heap唔等於GPU峰值；未做iPhone真機／長時間溫度測試"
+}

@@ -105,6 +105,7 @@ export class Director {
   private stopCharge: (() => void) | null = null;
   private norm = 1;
   private orbitOn = false;
+  private beginTimer: gsap.core.Tween | null = null;
 
   constructor(
     private refs: DirectorRefs,
@@ -113,7 +114,7 @@ export class Director {
     opts: { reduceMotion: boolean },
   ) {
     this.reduce = opts.reduceMotion;
-    this.stage = new HighlightStage({ canvas: refs.gl, lowPower: opts.reduceMotion });
+    this.stage = new HighlightStage({ canvas: refs.gl, lowPower: opts.reduceMotion || cfg.subject === 'codex', direct: cfg.subject === 'codex' });
     this.particles = new ParticleSystem(refs.fx);
     this.particles.density = this.reduce ? 0.35 : 1;
     this.model = buildSubject(cfg.subject);
@@ -132,6 +133,12 @@ export class Director {
     this.stage.render();
     this.raf = requestAnimationFrame(this.tick);
     this.startIdle();
+    if (cfg.subject === 'codex') {
+      initHighlightAudio(); this.audioReady = true;
+      this.pedestal.visible = false;
+      this.applyGrade(cfg.targetGrade, false);
+      this.beginTimer = gsap.delayedCall(.25, () => { if (this.phase === 'idle') this.charge(); });
+    }
   }
 
   // ------------------------------------------------------------ 基礎 ---
@@ -140,7 +147,7 @@ export class Director {
     const r = this.refs.root.getBoundingClientRect();
     this.cssW = Math.max(1, r.width);
     this.cssH = Math.max(1, r.height);
-    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    const dpr = Math.min(this.cfg.subject === 'codex' ? 1.5 : 2, window.devicePixelRatio || 1);
     this.stage.resize(this.cssW, this.cssH, dpr);
     // 取景：闊度要容得落主體＋台座，高度要容得落跳起
     const cam = this.stage.camera;
@@ -152,6 +159,7 @@ export class Director {
     this.cam = { dist, lookY, camY: lookY + 0.9 };
     this.particles.resize(this.cssW, this.cssH, dpr);
     this.placeOverlays();
+    if (this.cfg.subject === 'codex' && this.phase === 'settle') { this.syncScene(); this.stage.render(); }
   }
 
   private get style(): GradeStyle {
@@ -233,7 +241,12 @@ export class Director {
   }
 
   private tick(now: number) {
+    if (this.cfg.subject === 'codex' && this.phase === 'settle') {
+      this.syncScene(); this.placeOverlays(); this.stage.render(); this.particles.draw();
+      return;
+    }
     this.raf = requestAnimationFrame(this.tick);
+    if (document.hidden) { this.last = now; return; }
     const dt = Math.min(0.05, this.last ? (now - this.last) / 1000 : 0.016);
     this.last = now;
     this.syncScene();
@@ -275,6 +288,10 @@ export class Director {
   private startIdle() {
     this.stopLoops();
     const A = this.A;
+    if (this.cfg.subject === 'codex' || this.reduce) {
+      if (!this.reduce) this.loops.push(gsap.to(A, { y: .045, duration: 2.2, ease: 'sine.inOut', yoyo: true, repeat: -1 }));
+      return;
+    }
     this.loops.push(
       gsap.to(A, { y: 0.16, duration: 1.3, ease: 'sine.inOut', yoyo: true, repeat: -1 }),
       gsap.fromTo(
@@ -382,14 +399,14 @@ export class Director {
     this.setPhase('charging');
     this.stopLoops();
     const A = this.A;
-    const sec = TUNING.chargeSec;
+    const sec = this.reduce ? .18 : TUNING.chargeSec;
     this.stopCharge = sfx.charge(sec);
     const st = this.style;
     const tl = gsap.timeline({ onComplete: () => this.burst() });
     this.main = tl;
     tl.to(A, { rotY: 0, y: 0, duration: 0.2, ease: 'power2.out' }, 0)
       .to(A, { glow: 1, duration: sec, ease: 'power2.in' }, 0)
-      .to(A, { jitter: this.reduce ? 0.3 : 1.2, duration: sec, ease: 'power2.in' }, 0)
+      .to(A, { jitter: this.reduce ? 0 : this.cfg.subject === 'codex' ? .12 : 1.2, duration: sec, ease: 'power2.in' }, 0)
       .to(this.refs.root, { '--ray-speed': 0.25, duration: sec, ease: 'power2.in' } as gsap.TweenVars, 0);
     // 粒子吸向中心（唔入主體輪廓）
     for (let t = 0; t < sec - 0.1; t += 0.09) {
@@ -410,12 +427,15 @@ export class Director {
       );
     }
     // 最後一刻猛壓
-    tl.to(A, { sy: 0.58, sx: 1.3, sz: 1.3, duration: 0.12, ease: 'power3.in' }, sec - 0.12);
+    tl.to(A, { sy: this.cfg.subject === 'codex' ? .98 : .58, sx: this.cfg.subject === 'codex' ? 1 : 1.3,
+      sz: this.cfg.subject === 'codex' ? 1 : 1.3, open: this.cfg.subject === 'codex' ? .07 : 0,
+      duration: .12, ease: 'power3.in' }, sec - .12);
   }
 
   // ------------------------------------------------------------ 4 爆發 ---
 
   private burst() {
+    if (this.cfg.subject === 'codex') { this.burstCodex(); return; }
     this.setPhase('bursting');
     this.stopCharge?.();
     this.stopCharge = null;
@@ -512,6 +532,30 @@ export class Director {
     tl.to({}, { duration: TUNING.revealDelay }, 0.2);
   }
 
+  /** 紙頁逐張繞書脊翻開；珍本增加第二段展頁、心願增加收印，唔改獎勵。 */
+  private burstCodex() {
+    this.setPhase('bursting'); this.stopCharge?.(); this.stopCharge = null;
+    this.A.jitter = 0;
+    const rare = this.cfg.rewards.some(r => r.isPremium), wish = this.cfg.rewards.some(r => r.isWish);
+    const b = this.burstScreen(), A = this.A;
+    sfx.explode(rare ? 1 : .6);
+    if (!this.reduce) this.flash(rare ? .26 : .12, .4, b);
+    const duration = this.reduce ? .15 : rare ? 1.35 : .95;
+    const tl = gsap.timeline({ onComplete: () => this.reveal() }); this.main = tl;
+    tl.to(A, { open: rare ? .62 : 1, y: .12, rotY: .15, duration: duration * .65, ease: 'power2.out' }, 0)
+      .to(A, { open: 1, y: .03, sy: 1, duration: duration * .45, ease: 'sine.inOut' }, duration * .6)
+      .to(A, { glow: .05, duration, ease: 'power2.out' }, .1);
+    if (!this.reduce) {
+      tl.call(() => {
+        this.particles.sparks(b.x, b.y, rare ? 32 : 12, [INK_WASH, GOLD_LEAF], 4, .1, this.subjectRadiusPx().rx);
+        this.particles.shockwave(b.x, b.y, rare ? 165 : 95, this.style.main, .7);
+        sfx.pop();
+      }, [], duration * .3);
+      if (rare) tl.call(() => { this.particles.stars(b.x, b.y, 12, GOLD_LEAF, 65, this.subjectRadiusPx().rx); sfx.levelUp(4); }, [], duration * .65);
+      if (wish) tl.call(() => { this.particles.shockwave(b.x, b.y, 190, CINNABAR, .8); sfx.land(); }, [], duration * .9);
+    }
+  }
+
   private dustTimer: gsap.core.Tween | null = null;
   private startBeamDust() {
     this.dustTimer?.kill();
@@ -533,8 +577,8 @@ export class Director {
     if (top) this.enterStage();
     sfx.fanfare();
     // 揭曉取景：主體上移、拉遠讓出下面面板；丹爐開蓋後最高，拉遠多啲
-    const frame = this.cfg.subject === 'cauldron' ? { pan: 0.1, k: 1.24 } : { pan: 0.2, k: 1.08 };
-    gsap.to(this.A, { pan: this.subH * frame.pan, camK: frame.k, duration: 0.8, ease: 'power2.inOut' });
+    const frame = this.cfg.subject === 'codex' ? { pan: .5, k: 1.55 } : this.cfg.subject === 'cauldron' ? { pan: 0.1, k: 1.24 } : { pan: 0.2, k: 1.08 };
+    gsap.to(this.A, { pan: this.subH * frame.pan, camK: frame.k, duration: this.reduce ? 0 : 0.8, ease: 'power2.inOut' });
     this.startIdle();
     this.cb.onReveal();
   }
@@ -562,6 +606,10 @@ export class Director {
   revealSettled() {
     if (this.phase !== 'revealing') return;
     this.setPhase('settle');
+    if (this.cfg.subject === 'codex') {
+      this.stopLoops(); this.dustTimer?.kill(); this.dustTimer = null;
+      this.particles.clear();
+    }
   }
 
   /** 領取：由 React 播金幣飛入，完成後叫 finish */
@@ -584,6 +632,8 @@ export class Director {
     if (this.phase === 'settle' || this.phase === 'claiming' || this.phase === 'done' || this.phase === 'revealing')
       return;
     this.main?.kill();
+    this.beginTimer?.kill();
+    this.refs.root.dataset.skipped = '1';
     this.stopCharge?.();
     this.stopCharge = null;
     this.stopLoops();
@@ -614,6 +664,7 @@ export class Director {
   dispose() {
     cancelAnimationFrame(this.raf);
     this.main?.kill();
+    this.beginTimer?.kill();
     this.stopCharge?.();
     this.stopLoops();
     this.dustTimer?.kill();

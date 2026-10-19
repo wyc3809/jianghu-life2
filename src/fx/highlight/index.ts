@@ -40,3 +40,6 @@ export function prefersReducedMotion(): boolean {
   if (typeof document !== 'undefined' && document.documentElement.dataset.inkMotion === 'reduce') return true;
   return typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 }
+
+/** 抽卡待機書冊按頁面需要載入。 */
+export const CodexStageLazy = lazy(() => import('./CodexStage'));
