@@ -1,0 +1,723 @@
+{
+  "calibration": [
+    {
+      "id": "art_river_fist",
+      "variant": "base",
+      "bodyPx": 54.560578281492106
+    },
+    {
+      "id": "sl_luohan_fist",
+      "variant": "base",
+      "bodyPx": 54.56083872428713
+    },
+    {
+      "id": "pr_mountain_split",
+      "variant": "base",
+      "bodyPx": 54.560877378030455
+    },
+    {
+      "id": "pr_mountain_split",
+      "variant": "crit",
+      "bodyPx": 54.560406264942905
+    },
+    {
+      "id": "pr_mountain_split",
+      "variant": "kill",
+      "bodyPx": 54.560578281492106
+    },
+    {
+      "id": "art_stone_palm",
+      "variant": "base",
+      "bodyPx": 54.56077166807272
+    },
+    {
+      "id": "art_wind_chase",
+      "variant": "base",
+      "bodyPx": 54.560586242259234
+    },
+    {
+      "id": "tm_flying_needle",
+      "variant": "base",
+      "bodyPx": 54.5607003999153
+    },
+    {
+      "id": "art_rain_sword",
+      "variant": "base",
+      "bodyPx": 54.56086320786305
+    },
+    {
+      "id": "pr_wind_thread",
+      "variant": "base",
+      "bodyPx": 54.56042612093934
+    },
+    {
+      "id": "pr_wind_thread",
+      "variant": "crit",
+      "bodyPx": 54.56043171489018
+    },
+    {
+      "id": "pr_wind_thread",
+      "variant": "kill",
+      "bodyPx": 54.56070316351438
+    },
+    {
+      "id": "art_thunder_blade",
+      "variant": "base",
+      "bodyPx": 54.5605267853359
+    },
+    {
+      "id": "art_spear_cloud",
+      "variant": "base",
+      "bodyPx": 54.560877378030455
+    },
+    {
+      "id": "art_iron_body",
+      "variant": "base",
+      "bodyPx": 54.56068964591282
+    },
+    {
+      "id": "pr_diamond_body",
+      "variant": "base",
+      "bodyPx": 54.56062180534073
+    },
+    {
+      "id": "pr_diamond_body",
+      "variant": "detail",
+      "bodyPx": 54.56048631473111
+    },
+    {
+      "id": "qg_broken_bridge",
+      "variant": "base",
+      "bodyPx": 54.5608365886211
+    },
+    {
+      "id": "pr_cloud_step",
+      "variant": "base",
+      "bodyPx": 54.56082407124843
+    },
+    {
+      "id": "pr_cloud_step",
+      "variant": "detail",
+      "bodyPx": 54.56057064698811
+    },
+    {
+      "id": "art_weiqi_trap",
+      "variant": "base",
+      "bodyPx": 54.560578281492106
+    },
+    {
+      "id": "基礎吐納",
+      "variant": "base",
+      "bodyPx": 54.56065316880033
+    },
+    {
+      "id": "art_bridge_step",
+      "variant": "base",
+      "bodyPx": 54.5605267853359
+    },
+    {
+      "id": "art_tomb_sword",
+      "variant": "base",
+      "bodyPx": 54.56083872428713
+    },
+    {
+      "id": "art_lake_breath",
+      "variant": "base",
+      "bodyPx": 54.560519248552055
+    },
+    {
+      "id": "art_nine_shadow",
+      "variant": "base",
+      "bodyPx": 54.56047231293905
+    },
+    {
+      "id": "art_cold_palm",
+      "variant": "base",
+      "bodyPx": 54.56072340849296
+    },
+    {
+      "id": "art_moon_sword",
+      "variant": "base",
+      "bodyPx": 54.56078391815674
+    },
+    {
+      "id": "art_void_breath",
+      "variant": "base",
+      "bodyPx": 54.5607357345247
+    },
+    {
+      "id": "art_silk_hand",
+      "variant": "base",
+      "bodyPx": 54.56051205749417
+    },
+    {
+      "id": "art_hook_silk",
+      "variant": "base",
+      "bodyPx": 54.560406264942905
+    },
+    {
+      "id": "art_meteor_palm",
+      "variant": "base",
+      "bodyPx": 54.56082407124843
+    },
+    {
+      "id": "art_tiger_breath",
+      "variant": "base",
+      "bodyPx": 54.56042079722872
+    },
+    {
+      "id": "art_spring_well",
+      "variant": "base",
+      "bodyPx": 54.560519248552055
+    },
+    {
+      "id": "art_shadow_needle",
+      "variant": "base",
+      "bodyPx": 54.56083872428713
+    },
+    {
+      "id": "qg_snow_track",
+      "variant": "base",
+      "bodyPx": 54.56042612093934
+    },
+    {
+      "id": "qg_swallow_turn",
+      "variant": "base",
+      "bodyPx": 54.560406264942905
+    },
+    {
+      "id": "qg_feiyan",
+      "variant": "base",
+      "bodyPx": 54.56035818901141
+    },
+    {
+      "id": "qg_canopy_void",
+      "variant": "base",
+      "bodyPx": 54.560401847641714
+    },
+    {
+      "id": "art_staff_iron",
+      "variant": "base",
+      "bodyPx": 54.5607116427406
+    },
+    {
+      "id": "art_whip_silk",
+      "variant": "base",
+      "bodyPx": 54.56042079722872
+    },
+    {
+      "id": "art_bow_star",
+      "variant": "base",
+      "bodyPx": 54.56043171489018
+    },
+    {
+      "id": "qg_reed_drift",
+      "variant": "base",
+      "bodyPx": 54.560519248552055
+    },
+    {
+      "id": "qg_wall_cat",
+      "variant": "base",
+      "bodyPx": 54.56048054115177
+    },
+    {
+      "id": "art_sand_palm",
+      "variant": "base",
+      "bodyPx": 54.56085408864687
+    },
+    {
+      "id": "jy_ash_manual",
+      "variant": "base",
+      "bodyPx": 54.5607003999153
+    },
+    {
+      "id": "art_mirror_breath",
+      "variant": "base",
+      "bodyPx": 54.56076223551178
+    },
+    {
+      "id": "qg_lotus_steps",
+      "variant": "base",
+      "bodyPx": 54.56063175960869
+    },
+    {
+      "id": "art_heavy_halberd",
+      "variant": "base",
+      "bodyPx": 54.56092380660291
+    },
+    {
+      "id": "qy_cloud_sword",
+      "variant": "base",
+      "bodyPx": 54.56082407124843
+    },
+    {
+      "id": "qy_mist_step",
+      "variant": "base",
+      "bodyPx": 54.56082407124843
+    },
+    {
+      "id": "qy_piercing_needle",
+      "variant": "base",
+      "bodyPx": 54.5607003999153
+    },
+    {
+      "id": "qy_sky_intent",
+      "variant": "base",
+      "bodyPx": 54.56068964591282
+    },
+    {
+      "id": "td_open_blade",
+      "variant": "base",
+      "bodyPx": 54.56057064698811
+    },
+    {
+      "id": "td_wind_slash",
+      "variant": "base",
+      "bodyPx": 54.5605267853359
+    },
+    {
+      "id": "td_thunder_combo",
+      "variant": "base",
+      "bodyPx": 54.5608100812505
+    },
+    {
+      "id": "td_no_return",
+      "variant": "base",
+      "bodyPx": 54.560664701078046
+    },
+    {
+      "id": "em_soft_palm",
+      "variant": "base",
+      "bodyPx": 54.5607116427406
+    },
+    {
+      "id": "em_silk_wrap",
+      "variant": "base",
+      "bodyPx": 54.56074866183226
+    },
+    {
+      "id": "em_golden_palm",
+      "variant": "base",
+      "bodyPx": 54.56085408864687
+    },
+    {
+      "id": "em_heart_breath",
+      "variant": "base",
+      "bodyPx": 54.5607116427406
+    },
+    {
+      "id": "sl_weituo",
+      "variant": "base",
+      "bodyPx": 54.56045034091059
+    },
+    {
+      "id": "sl_iron_shirt",
+      "variant": "base",
+      "bodyPx": 54.56041572463752
+    },
+    {
+      "id": "sl_yijin",
+      "variant": "base",
+      "bodyPx": 54.56085408864687
+    },
+    {
+      "id": "wd_sword_form",
+      "variant": "base",
+      "bodyPx": 54.56082407124843
+    },
+    {
+      "id": "wd_tai_push",
+      "variant": "base",
+      "bodyPx": 54.560519248552055
+    },
+    {
+      "id": "wd_pure_yang",
+      "variant": "base",
+      "bodyPx": 54.56085408864687
+    },
+    {
+      "id": "wd_wuji_sword",
+      "variant": "base",
+      "bodyPx": 54.56050518890704
+    },
+    {
+      "id": "tm_shadow_step",
+      "variant": "base",
+      "bodyPx": 54.560664701078046
+    },
+    {
+      "id": "tm_poison_dart",
+      "variant": "base",
+      "bodyPx": 54.5605267853359
+    },
+    {
+      "id": "tm_thousand_mech",
+      "variant": "base",
+      "bodyPx": 54.56041572463752
+    },
+    {
+      "id": "mj_blood_palm",
+      "variant": "base",
+      "bodyPx": 54.560519248552055
+    },
+    {
+      "id": "mj_devil_breath",
+      "variant": "base",
+      "bodyPx": 54.56051205749417
+    },
+    {
+      "id": "mj_soul_drain",
+      "variant": "base",
+      "bodyPx": 54.56082407124843
+    },
+    {
+      "id": "mj_asura_slash",
+      "variant": "base",
+      "bodyPx": 54.56085408864687
+    },
+    {
+      "id": "hs_pine_sword",
+      "variant": "base",
+      "bodyPx": 54.56085408864687
+    },
+    {
+      "id": "hs_cloud_step",
+      "variant": "base",
+      "bodyPx": 54.56068964591282
+    },
+    {
+      "id": "hs_split_peak",
+      "variant": "base",
+      "bodyPx": 54.56064220183486
+    },
+    {
+      "id": "hs_yue_breath",
+      "variant": "base",
+      "bodyPx": 54.56088716908339
+    },
+    {
+      "id": "art_drunken_fist",
+      "variant": "base",
+      "bodyPx": 54.5603484153434
+    },
+    {
+      "id": "th_finger_flick",
+      "variant": "base",
+      "bodyPx": 54.5605267853359
+    },
+    {
+      "id": "th_flute_sword",
+      "variant": "base",
+      "bodyPx": 54.56062180534073
+    },
+    {
+      "id": "th_falling_petals",
+      "variant": "base",
+      "bodyPx": 54.56074866183226
+    },
+    {
+      "id": "th_qimen_array",
+      "variant": "base",
+      "bodyPx": 54.56051205749417
+    },
+    {
+      "id": "wg_embroidery_needle",
+      "variant": "base",
+      "bodyPx": 54.560519248552055
+    },
+    {
+      "id": "wg_silent_step",
+      "variant": "base",
+      "bodyPx": 54.560807358873355
+    },
+    {
+      "id": "wg_yin_soft_palm",
+      "variant": "base",
+      "bodyPx": 54.56072340849296
+    },
+    {
+      "id": "wg_root_severed_creed",
+      "variant": "base",
+      "bodyPx": 54.56051205749417
+    },
+    {
+      "id": "art_guqin_song",
+      "variant": "base",
+      "bodyPx": 54.5607357345247
+    },
+    {
+      "id": "art_poetry_sword",
+      "variant": "base",
+      "bodyPx": 54.5605267853359
+    },
+    {
+      "id": "art_ink_illusion",
+      "variant": "base",
+      "bodyPx": 54.560519248552055
+    },
+    {
+      "id": "art_buddha_heart",
+      "variant": "base",
+      "bodyPx": 54.5605267853359
+    },
+    {
+      "id": "art_dao_breath",
+      "variant": "base",
+      "bodyPx": 54.56063175960869
+    },
+    {
+      "id": "art_heretic_scripture",
+      "variant": "base",
+      "bodyPx": 54.56042079722872
+    },
+    {
+      "id": "pr_blood_lotus",
+      "variant": "base",
+      "bodyPx": 54.560807358873355
+    },
+    {
+      "id": "pr_blood_lotus",
+      "variant": "crit",
+      "bodyPx": 54.56076223551178
+    },
+    {
+      "id": "pr_blood_lotus",
+      "variant": "kill",
+      "bodyPx": 54.56094364351245
+    },
+    {
+      "id": "pr_crimson_moon",
+      "variant": "base",
+      "bodyPx": 54.560664701078046
+    },
+    {
+      "id": "pr_crimson_moon",
+      "variant": "crit",
+      "bodyPx": 54.56070316351438
+    },
+    {
+      "id": "pr_crimson_moon",
+      "variant": "kill",
+      "bodyPx": 54.560664701078046
+    },
+    {
+      "id": "pr_nine_chain",
+      "variant": "base",
+      "bodyPx": 54.560498621575334
+    },
+    {
+      "id": "pr_nine_chain",
+      "variant": "crit",
+      "bodyPx": 54.5607357345247
+    },
+    {
+      "id": "pr_nine_chain",
+      "variant": "kill",
+      "bodyPx": 54.56042612093934
+    },
+    {
+      "id": "pr_heaven_spear",
+      "variant": "base",
+      "bodyPx": 54.5605267853359
+    },
+    {
+      "id": "pr_heaven_spear",
+      "variant": "crit",
+      "bodyPx": 54.560664701078046
+    },
+    {
+      "id": "pr_heaven_spear",
+      "variant": "kill",
+      "bodyPx": 54.56048929345722
+    },
+    {
+      "id": "pr_soul_lock",
+      "variant": "base",
+      "bodyPx": 54.56061230560894
+    },
+    {
+      "id": "pr_soul_lock",
+      "variant": "crit",
+      "bodyPx": 54.56041088580716
+    },
+    {
+      "id": "pr_soul_lock",
+      "variant": "kill",
+      "bodyPx": 54.560406264942905
+    },
+    {
+      "id": "pr_mist_blind",
+      "variant": "base",
+      "bodyPx": 54.56078391815674
+    },
+    {
+      "id": "pr_mist_blind",
+      "variant": "crit",
+      "bodyPx": 54.56063175960869
+    },
+    {
+      "id": "pr_mist_blind",
+      "variant": "kill",
+      "bodyPx": 54.56062180534073
+    },
+    {
+      "id": "pr_vajra_palm",
+      "variant": "base",
+      "bodyPx": 54.56088716908339
+    },
+    {
+      "id": "pr_vajra_palm",
+      "variant": "crit",
+      "bodyPx": 54.560401847641714
+    },
+    {
+      "id": "pr_vajra_palm",
+      "variant": "kill",
+      "bodyPx": 54.56085408864687
+    },
+    {
+      "id": "pr_floating_blade",
+      "variant": "base",
+      "bodyPx": 54.56042079722872
+    },
+    {
+      "id": "pr_floating_blade",
+      "variant": "crit",
+      "bodyPx": 54.56042079722872
+    },
+    {
+      "id": "pr_floating_blade",
+      "variant": "kill",
+      "bodyPx": 54.560492336104836
+    },
+    {
+      "id": "pr_star_fall",
+      "variant": "base",
+      "bodyPx": 54.5605267853359
+    },
+    {
+      "id": "pr_star_fall",
+      "variant": "crit",
+      "bodyPx": 54.56053469339212
+    },
+    {
+      "id": "pr_star_fall",
+      "variant": "kill",
+      "bodyPx": 54.56072340849296
+    },
+    {
+      "id": "pr_blood_sea",
+      "variant": "base",
+      "bodyPx": 54.56062180534073
+    },
+    {
+      "id": "pr_blood_sea",
+      "variant": "detail",
+      "bodyPx": 54.56085408864687
+    },
+    {
+      "id": "pr_thunder_heart",
+      "variant": "base",
+      "bodyPx": 54.56085408864687
+    },
+    {
+      "id": "pr_thunder_heart",
+      "variant": "detail",
+      "bodyPx": 54.56074866183226
+    },
+    {
+      "id": "pr_seal_meridian",
+      "variant": "base",
+      "bodyPx": 54.56064220183486
+    },
+    {
+      "id": "pr_seal_meridian",
+      "variant": "detail",
+      "bodyPx": 54.5605267853359
+    },
+    {
+      "id": "pr_void_breath",
+      "variant": "base",
+      "bodyPx": 54.56058089781138
+    },
+    {
+      "id": "pr_void_breath",
+      "variant": "detail",
+      "bodyPx": 54.56034398380563
+    },
+    {
+      "id": "pr_shadow_flash",
+      "variant": "base",
+      "bodyPx": 54.56033589819474
+    },
+    {
+      "id": "pr_shadow_flash",
+      "variant": "detail",
+      "bodyPx": 54.56076573564408
+    },
+    {
+      "id": "pr_tide_step",
+      "variant": "base",
+      "bodyPx": 54.56060322997541
+    },
+    {
+      "id": "pr_tide_step",
+      "variant": "detail",
+      "bodyPx": 54.56061230560894
+    }
+  ],
+  "lifecycle": [
+    {
+      "frame": 0,
+      "drawHeight": 94.14385321100917
+    },
+    {
+      "frame": 1,
+      "drawHeight": 94.14385321100917
+    },
+    {
+      "frame": 2,
+      "drawHeight": 94.14385321100917
+    },
+    {
+      "frame": 3,
+      "drawHeight": 94.14385321100917
+    },
+    {
+      "frame": 4,
+      "drawHeight": 94.14385321100917
+    },
+    {
+      "frame": 5,
+      "drawHeight": 94.14385321100917
+    },
+    {
+      "frame": 6,
+      "drawHeight": 94.14385321100917
+    },
+    {
+      "frame": 7,
+      "drawHeight": 94.14385321100917
+    },
+    {
+      "frame": 8,
+      "drawHeight": 94.14385321100917
+    },
+    {
+      "frame": 9,
+      "drawHeight": 94.14385321100917
+    },
+    {
+      "frame": 10,
+      "drawHeight": 94.14385321100917
+    },
+    {
+      "frame": 11,
+      "drawHeight": 94.14385321100917
+    }
+  ],
+  "cssHeight": 347.609375,
+  "motionHeight": 347.609375,
+  "expectedStandingBodyPx": 54.56064220183486,
+  "errors": []
+}

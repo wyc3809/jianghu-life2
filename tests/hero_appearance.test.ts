@@ -56,6 +56,47 @@ describe('主角全狀態細節人物', () => {
     a.draw(); expect(a.draws[0]![0]).toBe(a.detail);
     expect(a.draws[0]!.slice(1,3)).toEqual([1536,704]);
   });
+  it('test_hero_appearance_換招後行路受擊倒地_保持同一細比例唔跟上一招放大', () => {
+    const a = actor();
+    for (const id of ['art_river_fist','art_rain_sword','art_iron_body','pr_wind_thread']) {
+      a.stage.setMartialAssets(new Map([[id,{atlas:a.atlas,guard:false}]]));
+      for (const state of [{heroMoving:true},{heroHitT:.1},{heroDownT:.2},{heroDownT:.8}]) {
+        Object.assign(a.raw,{martialId:id,attackT:null,heroMoving:false,heroHitT:9,heroDownT:null},state);
+        a.draws.length=0;a.draw();
+        expect(a.draws[0]![0]).toBe(a.detail);
+        expect(a.draws[0]![7]).toBeCloseTo(512 * 390 * .23 / 218 * .65,8);
+        expect(a.draws[0]![8]).toBeCloseTo(352 * 390 * .23 / 218 * .65,8);
+      }
+    }
+  });
+  it('test_hero_appearance_基本攻擊同武學及待機_同圖保持固定細比例', () => {
+    const a=actor();Object.assign(a.raw,{heroMoving:false,heroHitT:9,heroDownT:null,attackT:.36,martialId:null});
+    a.draw();const basicSize=a.draws[0]!.slice(-2);
+    expect(Number(basicSize[1])).toBeLessThan(90);
+    a.stage.setMartialAssets(new Map([['art_river_fist',{atlas:a.atlas,guard:false}]]));
+    a.raw.martialId='art_river_fist';a.draws.length=0;a.draw();
+    expect(a.draws[0]!.slice(-2)).toEqual(basicSize);
+    a.raw.attackT=null;a.draws.length=0;a.draw();
+    expect(a.draws[0]!.slice(-2)).toEqual(basicSize);
+  });
+  it('test_hero_appearance_網絡後備用另一套人物_按真正圖集校準唔按招式身份', () => {
+    const a=actor();Object.assign(a.raw,{heroMoving:false,heroHitT:9,heroDownT:null,attackT:.4,martialId:'art_rain_sword'});
+    a.stage.setMartialAssets(new Map([['art_rain_sword',{atlas:a.atlas,guard:true,scaleId:'art_river_fist'}]]));
+    a.draw();const fallbackSize=a.draws[0]!.slice(-2);
+    a.raw.martialId='art_river_fist';a.stage.setMartialAssets(new Map([['art_river_fist',{atlas:a.atlas,guard:true}]]));
+    a.draws.length=0;a.draw();expect(a.draws[0]!.slice(-2)).toEqual(fallbackSize);
+  });
+  it('test_hero_appearance_演武轉全屏再縮返_同闊度人物尺寸不變', () => {
+    const a=actor();Object.assign(a.raw,{heroMoving:true,heroHitT:9,heroDownT:null,attackT:null});
+    vi.stubGlobal('window',{innerWidth:390});
+    try {
+      a.draw();const size=a.draws[0]!.slice(-2);
+      for(const [width,height] of [[390,844],[390,568],[360,240]]){
+        a.stage.setPresentation(height===240?'stage':'battle');a.stage.resize(width!,height!,2);
+        a.draws.length=0;a.draw();expect(a.draws[0]!.slice(-2)).toEqual(size);
+      }
+    } finally {vi.unstubAllGlobals();}
+  });
   it('test_hero_appearance_全部網絡圖失敗_先解碼嵌入細節後備唔返回黑影', async () => {
     const urls:string[]=[];
     class FakeImage {

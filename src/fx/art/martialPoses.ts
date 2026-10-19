@@ -3,7 +3,7 @@ import expansion from './martialExpansion.json';
 import type { IdentityTextures } from './identityFx';
 import type { ArtSpriteKey } from './choreo';
 import { canonicalSkillId } from '@data/skills/catalog';
-import { MARTIAL_FALLBACK } from './martialFallback';
+import { MARTIAL_FALLBACK, MARTIAL_FALLBACK_ART } from './martialFallback';
 export type MartialFamily = 'fist' | 'palm' | 'kick' | 'needle' | 'sword' | 'blade' | 'spear' | 'internal' | 'step' | 'weiqi' | 'finger' | 'staff' | 'whip' | 'bow' | 'hook' | 'halberd' | 'flute' | 'mechanism' | 'dart';
 export interface MartialPoseDef {
   id: string;
@@ -80,6 +80,8 @@ export function sampleMartialPose(def: MartialPoseDef, time: number, duration: n
 }
 
 export interface MartialAsset { atlas: HTMLImageElement; guard: boolean;
+  /** 真正圖集身份（全網絡失敗時可能用同類型後備），用作固定人物比例。 */
+  scaleId?: string;
   variants?: Partial<Record<'crit' | 'kill' | 'detail', HTMLImageElement>>;
   effects?: Partial<Record<ArtSpriteKey, HTMLImageElement>>; identityEffects?: IdentityTextures }
 const cache = new Map<string, Promise<MartialAsset | null>>();
@@ -103,9 +105,9 @@ export async function loadMartialAssets(ids: readonly string[]): Promise<Map<str
     if (!pending) {
       pending = (async () => {
         const art = byId.get(id)!;
-        const actor = await image(`${base()}${id}.webp`).then(atlas => ({ atlas, guard: false }))
-          .catch(() => image(`${base()}${id}-guard.webp`).then(atlas => ({ atlas, guard: true }))
-            .catch(() => image(MARTIAL_FALLBACK[art.family]).then(atlas => ({ atlas, guard: true })).catch(() => null)));
+        const actor = await image(`${base()}${id}.webp`).then(atlas => ({ atlas, guard: false, scaleId: id }))
+          .catch(() => image(`${base()}${id}-guard.webp`).then(atlas => ({ atlas, guard: true, scaleId: id }))
+            .catch(() => image(MARTIAL_FALLBACK[art.family]).then(atlas => ({ atlas, guard: true, scaleId: MARTIAL_FALLBACK_ART[art.family] })).catch(() => null)));
         if (!actor) return null;
         const variantNames = art.critRecovery ? ['crit', 'kill'] : art.premium && (art.family === 'internal' || art.family === 'step') ? ['detail'] : [];
         const variantEntries = await Promise.all(variantNames.map(async key =>

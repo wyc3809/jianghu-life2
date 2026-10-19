@@ -38,14 +38,13 @@ atlas.save(dest/'lifecycle.webp',quality=90,method=4)
 meta={'source':'source.png','sourceSha256':hashlib.sha256(source.read_bytes()).hexdigest(),'output':'public/ink/spar/hero-detail/lifecycle.webp','outputSha256':hashlib.sha256((dest/'lifecycle.webp').read_bytes()).hexdigest(),'columns':4,'rows':3,'frameWidth':512,'frameHeight':352,'bodyHeight':218,'frames':frames}
 (folder/'manifest.json').write_text(json.dumps(meta,ensure_ascii=False,indent=2)+'\n')
 # 用斗笠／身體有足夠寬度嘅首行估身高，排除槍尖等幼長兵器。
-# 只調新待機以外嘅生命週期圖比例，唔重縮舊103門武學或改接觸點。
+# 每套主圖／暴擊／擊倒／內功細節圖各自固定校準，顯示時統一縮細；唔逐幀fit。
 def standing_height(image):
     alpha=np.array(image.convert('RGBA'))[:,:,3]>110
     rows=np.where(alpha.sum(axis=1)>=40)[0]
     return int(np.where(alpha)[0].max()-rows[0]+1)
 neutral_h=standing_height(atlas.crop((0,352,512,704)))
 scales={p.stem.removesuffix('-guard'):round(standing_height(Image.open(p))/neutral_h,5)
-        for p in sorted((root/'public/ink/art/martial').glob('*-guard.webp'))
-        if not any(p.stem.endswith(s) for s in ['-crit-guard','-kill-guard','-detail-guard'])}
+        for p in sorted((root/'public/ink/art/martial').glob('*-guard.webp'))}
 (root/'src/fx/art/heroStanceScale.json').write_text(json.dumps(scales,ensure_ascii=False,separators=(',',':'))+'\n')
 print('12 detailed hero frames prepared, bytes:',(dest/'lifecycle.webp').stat().st_size)

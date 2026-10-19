@@ -1,0 +1,244 @@
+{
+  "baseline": "8ab12fa",
+  "seed": 42,
+  "dpr": 2,
+  "cases": [
+    {
+      "kind": "home",
+      "draws": 511,
+      "legacy": 0,
+      "blank": 0,
+      "states": {
+        "walk": 60,
+        "attack": 306,
+        "idle": 122,
+        "support": 23
+      },
+      "sources": {
+        "hero-detail/lifecycle.webp": 60,
+        "martial/art_river_fist.webp": 132,
+        "martial/art_rain_sword.webp": 91,
+        "martial/art_stone_palm.webp": 74,
+        "martial/art_wind_chase.webp": 69,
+        "martial/art_staff_iron.webp": 62,
+        "martial/art_iron_body.webp": 23
+      },
+      "sizes": {
+        "hero-detail/lifecycle.webp": {
+          "min": 94.14385321100917,
+          "max": 94.14385321100917
+        },
+        "martial/art_river_fist.webp": {
+          "min": 80.35700232253231,
+          "max": 80.35700232253231
+        },
+        "martial/art_rain_sword.webp": {
+          "min": 81.03554366737465,
+          "max": 81.03554366737465
+        },
+        "martial/art_stone_palm.webp": {
+          "min": 81.3787780811932,
+          "max": 81.3787780811932
+        },
+        "martial/art_wind_chase.webp": {
+          "min": 82.07404426186005,
+          "max": 82.07404426186005
+        },
+        "martial/art_staff_iron.webp": {
+          "min": 87.29713862838496,
+          "max": 87.29713862838496
+        },
+        "martial/art_iron_body.webp": {
+          "min": 83.5015771972231,
+          "max": 83.5015771972231
+        }
+      },
+      "errors": []
+    },
+    {
+      "kind": "spar-boss",
+      "draws": 381,
+      "legacy": 0,
+      "blank": 0,
+      "states": {
+        "walk": 51,
+        "attack": 213,
+        "idle": 106,
+        "support": 11
+      },
+      "sources": {
+        "hero-detail/lifecycle.webp": 51,
+        "martial/art_river_fist.webp": 74,
+        "martial/art_rain_sword.webp": 71,
+        "martial/art_stone_palm.webp": 89,
+        "martial/art_wind_chase.webp": 73,
+        "martial/art_staff_iron.webp": 12,
+        "martial/art_iron_body.webp": 11
+      },
+      "sizes": {
+        "hero-detail/lifecycle.webp": {
+          "min": 94.14385321100917,
+          "max": 94.14385321100917
+        },
+        "martial/art_river_fist.webp": {
+          "min": 80.35700232253231,
+          "max": 80.35700232253231
+        },
+        "martial/art_rain_sword.webp": {
+          "min": 81.03554366737465,
+          "max": 81.03554366737465
+        },
+        "martial/art_stone_palm.webp": {
+          "min": 81.3787780811932,
+          "max": 81.3787780811932
+        },
+        "martial/art_wind_chase.webp": {
+          "min": 82.07404426186005,
+          "max": 82.07404426186005
+        },
+        "martial/art_staff_iron.webp": {
+          "min": 87.29713862838496,
+          "max": 87.29713862838496
+        },
+        "martial/art_iron_body.webp": {
+          "min": 83.5015771972231,
+          "max": 83.5015771972231
+        }
+      },
+      "errors": []
+    },
+    {
+      "kind": "event",
+      "draws": 140,
+      "legacy": 0,
+      "blank": 0,
+      "states": {
+        "idle": 58,
+        "walk": 36,
+        "attack": 46
+      },
+      "sources": {
+        "martial/art_river_fist.webp": 104,
+        "hero-detail/lifecycle.webp": 36
+      },
+      "sizes": {
+        "martial/art_river_fist.webp": {
+          "min": 80.35700232253231,
+          "max": 80.35700232253231
+        },
+        "hero-detail/lifecycle.webp": {
+          "min": 94.14385321100917,
+          "max": 94.14385321100917
+        }
+      },
+      "errors": []
+    },
+    {
+      "kind": "event-boss",
+      "draws": 544,
+      "legacy": 0,
+      "blank": 0,
+      "states": {
+        "idle": 174,
+        "walk": 40,
+        "attack": 256,
+        "hurt": 11,
+        "down": 63
+      },
+      "sources": {
+        "martial/art_river_fist.webp": 430,
+        "hero-detail/lifecycle.webp": 114
+      },
+      "sizes": {
+        "martial/art_river_fist.webp": {
+          "min": 80.35700232253231,
+          "max": 80.35700232253231
+        },
+        "hero-detail/lifecycle.webp": {
+          "min": 94.14385321100917,
+          "max": 94.14385321100917
+        }
+      },
+      "errors": []
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "network_failure": false,
+      "reduced": true,
+      "draws": 130,
+      "legacy": 0,
+      "blank": 0,
+      "states": {
+        "walk": 126,
+        "attack": 4
+      },
+      "sources": {
+        "hero-detail/lifecycle.webp": 126,
+        "martial/art_river_fist.webp": 4
+      },
+      "sizes": {
+        "hero-detail/lifecycle.webp": {
+          "min": 77.2462385321101,
+          "max": 77.2462385321101
+        },
+        "martial/art_river_fist.webp": {
+          "min": 65.93395062361625,
+          "max": 65.93395062361625
+        }
+      },
+      "errors": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "network_failure": true,
+      "reduced": false,
+      "draws": 112,
+      "legacy": 0,
+      "blank": 0,
+      "states": {
+        "walk": 85,
+        "attack": 27
+      },
+      "sources": {
+        "embedded-detail": 112
+      },
+      "sizes": {
+        "embedded-detail": {
+          "min": 80.35700232253231,
+          "max": 80.35700232253231
+        }
+      },
+      "errors": []
+    },
+    {
+      "width": 420,
+      "height": 896,
+      "network_failure": false,
+      "reduced": true,
+      "draws": 130,
+      "legacy": 0,
+      "blank": 0,
+      "states": {
+        "walk": 91,
+        "attack": 39
+      },
+      "sources": {
+        "hero-detail/lifecycle.webp": 91,
+        "martial/art_river_fist.webp": 39
+      },
+      "sizes": {
+        "hero-detail/lifecycle.webp": {
+          "min": 101.38568807339452,
+          "max": 101.38568807339452
+        },
+        "martial/art_river_fist.webp": {
+          "min": 86.53831019349633,
+          "max": 86.53831019349633
+        }
+      },
+      "errors": []
+    }
+  ]
+}

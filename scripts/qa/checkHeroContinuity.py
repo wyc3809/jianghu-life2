@@ -2,9 +2,9 @@
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 from PIL import Image,ImageDraw,ImageFont
-import json,subprocess,os
+import json,subprocess,os,time
 
-ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'production/qa/evidence/redesign/hero-continuity';OUT.mkdir(parents=True,exist_ok=True)
+ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'production/qa/evidence/redesign'/os.environ.get('HERO_QA_FOLDER','hero-continuity');OUT.mkdir(parents=True,exist_ok=True)
 SETUP=(ROOT/'scripts/qa/gachaCodexSetup.js').read_text()
 PREP="""async kind=>{
  const{startCombat}=await import('/core/life/combat.ts');
@@ -22,11 +22,12 @@ PREP="""async kind=>{
 }"""
 PROBE="""()=>{
  const s=window.__martialBattleStage??window.__sparStage;window.qaHeroStage=s;
- const report={draws:0,legacy:0,blank:0,states:{},sources:{}};window.heroReport=report;
+ const report={draws:0,legacy:0,blank:0,states:{},sources:{},sizes:{}};window.heroReport=report;
  const original=s.drawWarrior.bind(s),draw=s.ctx.drawImage.bind(s.ctx);let inside=false,count=0;
  s.ctx.drawImage=(...args)=>{if(inside){count++;const im=args[0],src=im.src??'';
   if(im===s.images.heroIdle||im===s.images.heroAttack||s.images.heroWalk?.includes(im)||s.images.heroAtk?.includes(im)||s.images.art?.walk.includes(im)||s.images.art?.heroDown.includes(im))report.legacy++;
   const key=src.startsWith('data:')?'embedded-detail':src.split('/').slice(-2).join('/');report.sources[key]=(report.sources[key]??0)+1;
+  const h=args.at(-1),size=report.sizes[key]??{min:h,max:h};size.min=Math.min(size.min,h);size.max=Math.max(size.max,h);report.sizes[key]=size;
  }return draw(...args)};
  s.drawWarrior=(...args)=>{inside=true;count=0;try{return original(...args)}finally{
   inside=false;report.draws++;if(!count)report.blank++;
@@ -35,6 +36,7 @@ PROBE="""()=>{
 }"""
 
 def page_for(browser,port=5173,kind='home',width=390,height=844,record=False,missing=False,reduced=False):
+    recording_start=time.monotonic()
     ctx=browser.new_context(viewport={'width':width,'height':height},device_scale_factor=2,reduced_motion='reduce' if reduced else 'no-preference',**({'record_video_dir':str(OUT/'raw-video'),'record_video_size':{'width':width,'height':height}} if record else {}))
     page=ctx.new_page();page.route('https://**',lambda r:r.abort());errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
     if missing:
@@ -44,11 +46,12 @@ def page_for(browser,port=5173,kind='home',width=390,height=844,record=False,mis
     name='__martialBattleStage' if kind.startswith('event') else '__sparStage'
     check=f'window.{name}?.martialAssets.size>0' if kind.startswith('event') else f'window.{name}?.martialAssets.has("art_staff_iron")'
     page.wait_for_function(check,timeout=45000)
+    page.hero_video_offset=time.monotonic()-recording_start
     return ctx,page,errors
 
 static_only=bool(os.environ.get('HERO_QA_STATIC_ONLY'))
 selected=set(os.environ.get('HERO_QA_CASES','').split(','))-{''}
-report=json.loads((OUT/'report.json').read_text()) if static_only or selected else {'baseline':'3f374c6','seed':42,'dpr':2,'cases':[]}
+report=json.loads((OUT/'report.json').read_text()) if (static_only or selected) and (OUT/'report.json').exists() else {'baseline':os.environ.get('HERO_QA_BASELINE','3f374c6'),'seed':42,'dpr':2,'cases':[]}
 if selected:report['cases']=[c for c in report['cases'] if str(c.get('kind',c.get('width'))) not in selected]
 with sync_playwright() as p:
     browser=p.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox','--enable-unsafe-swiftshader'])
@@ -63,7 +66,8 @@ with sync_playwright() as p:
                 page.screenshot(path=str(OUT/f'{phase}-inspection.png'))
                 pixels=page.evaluate('''()=>{const s=window.__sparStage,c=document.createElement('canvas');c.width=512;c.height=352;const original=s.ctx;s.ctx=c.getContext('2d');
                  try{s.drawWarrior({k:218/788,heroX:256,groundY:328});const data=s.ctx.getImageData(0,0,512,352).data;let visible=0;for(let i=3;i<data.length;i+=4)if(data[i]>80)visible++;return visible}finally{s.ctx=original}}''')
-                assert pixels>1500,(phase,pixels)
+                # 固定闊度嘅細人物用真正CSS尺寸檢查，唔為咗像素門檻額外放大。
+                assert pixels>150,(phase,pixels)
         assert not errors,errors;ctx.close()
     for kind in ([] if static_only else ['home','spar-boss','event','event-boss']):
         if selected and kind not in selected:continue
@@ -75,13 +79,15 @@ with sync_playwright() as p:
             page.wait_for_function('window.heroReport.states.down>0',timeout=30000);page.wait_for_timeout(1300)
         result=page.evaluate('window.heroReport')
         assert result['draws']>0 and result['legacy']==0 and result['blank']==0,(kind,result)
+        if os.environ.get('HERO_QA_FOLDER')=='hero-small-scale':
+            assert all(size['max']-size['min']<.00001 for size in result['sizes'].values()),(kind,result['sizes'])
         if kind=='event-boss':assert result['states'].get('down',0)>0,result
         assert not page.evaluate('document.documentElement.scrollWidth>innerWidth')
         page.screenshot(path=str(OUT/f'{kind}-live.png'))
         assert not errors,(kind,errors)
         report['cases'].append({'kind':kind,**result,'errors':errors})
         video=page.video;ctx.close()
-        if video:subprocess.run(['ffmpeg','-y','-loglevel','error','-i',video.path(),'-an','-vf','fps=24','-c:v','libx264','-crf','25','-pix_fmt','yuv420p',str(OUT/f'{kind}.mp4')],check=True)
+        if video:subprocess.run(['ffmpeg','-y','-loglevel','error','-ss',str(page.hero_video_offset),'-i',video.path(),'-an','-vf','fps=24','-c:v','libx264','-crf','25','-pix_fmt','yuv420p',str(OUT/f'{kind}.mp4')],check=True)
         (OUT/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2));print(kind,'PASS',result['states'],flush=True)
     for width,height,missing,reduced in ([] if static_only else [(320,568,False,True),(390,844,True,False),(420,896,False,True)]):
         if selected and str(width) not in selected:continue
@@ -98,7 +104,7 @@ with sync_playwright() as p:
 font=ImageFont.truetype('/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc',24)
 small=ImageFont.truetype('/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc',16)
 canvas=Image.new('RGB',(800,960),'#eee8dd');d=ImageDraw.Draw(canvas)
-d.text((15,10),'主角全程細節人物 · 待機改前／改後',font=font,fill='#302e27')
+d.text((15,10),os.environ.get('HERO_QA_TITLE','主角全程細節人物 · 待機改前／改後'),font=font,fill='#302e27')
 d.text((15,45),'同一產品呈現器狀態檢視 · seed42 · 390×844 DPR2 · 免費600／付費0',font=small,fill='#57554b')
 for i,label in enumerate(['before','after']):
     x=5+i*400;canvas.paste(Image.open(OUT/f'{label}-idle.png').resize((390,844)),(x,90));d.rectangle((x+65,90+410,x+250,90+565),outline='#b74335',width=3)

@@ -1,6 +1,15 @@
 /** 主角全狀態細節人物：只選畫面幀，唔讀寫戰鬥、裝備或核心RNG。 */
 import { MARTIAL_FALLBACK } from '../fx/art/martialFallback';
 import { collapseSample, gaitFrame } from './presentation';
+import heroStanceScale from '../fx/art/heroStanceScale.json';
+
+/** 主角全程細比例；只影響繪圖，唔改演武距離、速度或核心時間。 */
+export const HERO_VISUAL_SCALE = .65;
+
+/** 每套圖按守勢身高固定校準；唔逐幀fit，蹲低／倒地唔會反而放大。 */
+export function heroFigureScale(artId?: string): number {
+  return HERO_VISUAL_SCALE / (artId ? (heroStanceScale as Record<string, number>)[artId] ?? 1 : 1);
+}
 
 export interface HeroAppearance {
   image: HTMLImageElement;

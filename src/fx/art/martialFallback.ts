@@ -20,6 +20,14 @@ import mechanism from './fallback/mechanism.webp?inline';
 import dart from './fallback/dart.webp?inline';
 import type { MartialFamily } from './martialPoses';
 export const MARTIAL_FALLBACK: Record<MartialFamily, string> = { fist, palm, kick, needle, sword, blade, spear, internal, step, weiqi, finger, staff, whip, bow, hook, halberd, flute, mechanism, dart };
+/** 嵌入後備真正來自邊套圖；比例要按實際人物，唔按未載到嘅招式。 */
+export const MARTIAL_FALLBACK_ART: Record<MartialFamily, string> = {
+  fist: 'art_river_fist', palm: 'art_stone_palm', kick: 'art_wind_chase', needle: 'tm_flying_needle',
+  sword: 'art_rain_sword', blade: 'art_thunder_blade', spear: 'art_spear_cloud', internal: 'art_iron_body',
+  step: 'qg_broken_bridge', weiqi: 'art_weiqi_trap', finger: 'qy_mist_step', staff: 'art_staff_iron',
+  whip: 'art_whip_silk', bow: 'art_bow_star', hook: 'art_hook_silk', halberd: 'art_heavy_halberd',
+  flute: 'th_flute_sword', mechanism: 'tm_thousand_mech', dart: 'tm_poison_dart',
+};
 const ready = new Map<MartialFamily, HTMLImageElement>();
 /** 換武學嗰一刻先解碼最低限度姿勢，主圖下載期間都唔顯示錯誤兵器。 */
 export function martialFallbackImage(family: MartialFamily): HTMLImageElement | null {
