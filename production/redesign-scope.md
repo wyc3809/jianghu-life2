@@ -700,3 +700,15 @@
 來源hash及量度規則：`design/art/foe-figure-scale/`；前後圖、25款敵人、正常速度影片／GIF及手機／倍速驗證：`production/qa/evidence/redesign/spar-sequence-scale/`。沿用正式版EA0.79.0，未部署網頁或TestFlight。
 
 本批最終驗證：91檔662項Vitest、Pages build含tsc及narrate hard-fail0全過；短畫布人物真像素身高56／28→56／55，25款原圖校準／接地及倒地固定比例通過。真正首領1x／2x與320／390／420闊度均顯示卷一→卷六→卷一且無pageerror，390卷六招名連續停留1755ms／860ms；1HP真核心還擊時敗退優先顯示正確。原有66外功×900步核心事件及敵方行動一致，未當iPhone真機或60fps驗收。
+
+
+### 第30項追加／EA0.80.0 正式發布（2026-10-19）
+
+玩家已確認，EA0.80.0 上線。玩家睇過逐招動態、身形前後對照及PR #127摘要後回覆「上線」，授權發布逐招展示與敵我同身形修正；上文待睇動態／未上線係歷史記錄，由本段更新。
+
+- 演武按真實已得卷數輪替招名及高亮，主角未收勢前唔再俾還擊提示蓋走；敗退仍優先。
+- 主角固定細比例不變，25款敵人按人物原圖身高及腳底校準；頁內及全屏一致。
+- 核心距離、攻擊時序、傷害、RNG、獎勵、裝備及存檔不變。
+- 書封沿用EA0.78.0一般青封／珍本金封；一般心願唔升成珍本，今次冇新增稀有度或重設抽卡經濟。
+
+動態、前後圖及驗證見 `production/qa/evidence/redesign/spar-sequence-scale/README.md`。發布前再跑全測、Pages build含tsc及narrate，合併後核對CI、Pages部署、正式版本與實際演武。本次只發布GitHub Pages網頁，未更新TestFlight，未當iPhone真機或60fps驗收。
