@@ -3,7 +3,7 @@
  * 三個主體：寶箱（裝備掉落）、令牌（武學）、丹爐（境界突破）；六級品階色（grades.ts）。
  */
 
-export type HighlightSubject = 'chest' | 'token' | 'cauldron';
+export type HighlightSubject = 'chest' | 'token' | 'cauldron' | 'codex';
 
 /** 0 普通白 · 1 精良綠 · 2 稀有藍 · 3 史詩紫 · 4 傳說橙 · 5 神話紅 */
 export type Grade = 0 | 1 | 2 | 3 | 4 | 5;
@@ -43,6 +43,10 @@ export interface RewardCard {
   grade: Grade;
   /** 卡面大字數量（例如 ×120）；細字數值唔放卡面 */
   amount?: number;
+  /** 抽卡真實身份，與高光品階獨立。 */
+  identityLabel?: string;
+  isPremium?: boolean;
+  isWish?: boolean;
   isNew?: boolean;
   /** 揭曉資訊面板用 */
   stats?: RewardStat[];

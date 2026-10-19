@@ -14,6 +14,7 @@ import type { Grade, HighlightConfig, HighlightSubject, RewardCard } from './typ
 import { isInkAudioMuted, toggleInkAudioMuted } from '../../audio/inkAudio';
 import styles from './highlight.module.css';
 import { sealPhrase, sealUrlForText } from '../../ui/inkAssets';
+import { inkIconUrl } from '../../ui/inkIcons';
 
 /** 霞鶩文楷 TC（繁體毛筆楷書，同朱砂印同一字型） */
 const FONT_HREF = 'https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&display=swap';
@@ -31,11 +32,12 @@ function reduceMotionPref(): boolean {
   return typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 }
 
-const SUBJECT_NAME: Record<HighlightSubject, string> = { chest: '寶箱', token: '武學令', cauldron: '丹爐' };
+const SUBJECT_NAME: Record<HighlightSubject, string> = { chest: '寶箱', token: '武學令', cauldron: '丹爐', codex: '秘笈' };
 
 export interface HighlightFxProps {
   config: HighlightConfig;
   onDone: () => void;
+  onUnavailable?: () => void;
   /** 揭曉所選獎勵嘅即時操作；準備好先可以操作，唔改獎勵結算。 */
   renderRewardAction?: (card: RewardCard, ready: boolean) => ReactNode;
   /** 示範頁：模式切換 */
@@ -62,6 +64,9 @@ function CardArt({ card, size }: { card: RewardCard; size: number }) {
     cv.style.height = `${size}px`;
     host.replaceChildren(cv);
   }, [card, size]);
+  if (card.identityLabel) return <div className={styles.codexCardArt} style={{ width: size, height: size }} aria-hidden>
+    <img src={`${import.meta.env.BASE_URL}ink/art/gacha/codex-cover.webp`} alt="" /><b>{card.name.split('·')[0]}</b>
+  </div>;
   return <div ref={ref} className={styles.art} style={{ width: size, height: size }} aria-hidden />;
 }
 
@@ -97,7 +102,7 @@ function Title({ text, gradeKey }: { text: string; gradeKey: string }) {
   );
 }
 
-export default function HighlightFx({ config, onDone, renderRewardAction, modes, onMode }: HighlightFxProps) {
+export default function HighlightFx({ config, onDone, onUnavailable, renderRewardAction, modes, onMode }: HighlightFxProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const worldRef = useRef<HTMLDivElement>(null);
   const glRef = useRef<HTMLCanvasElement>(null);
@@ -122,11 +127,29 @@ export default function HighlightFx({ config, onDone, renderRewardAction, modes,
   /** 面板數字滾完之後，切換卡片直接顯示終值 */
   const [statsFinal, setStatsFinal] = useState(false);
   const reduce = useMemo(reduceMotionPref, []);
+  const codex = config.subject === 'codex';
   const topGrade = config.targetGrade === 5;
 
   useEffect(ensureFonts, []);
 
+  useEffect(() => {
+    const el = rootRef.current!, previous = document.activeElement as HTMLElement | null;
+    el.focus();
+    const trap = (event: KeyboardEvent) => {
+      if (event.key !== 'Tab') return;
+      const buttons = [...el.querySelectorAll<HTMLButtonElement>('button:not(:disabled)')].filter(b => b.offsetWidth > 0);
+      const first = buttons[0], last = buttons[buttons.length - 1];
+      if (!first) { event.preventDefault(); return; }
+      if (event.shiftKey && (document.activeElement === first || document.activeElement === el)) { event.preventDefault(); last?.focus(); }
+      else if (!event.shiftKey && (document.activeElement === last || document.activeElement === el)) { event.preventDefault(); first.focus(); }
+    };
+    el.addEventListener('keydown', trap);
+    return () => { el.removeEventListener('keydown', trap); previous?.focus(); };
+  }, []);
+
   useLayoutEffect(() => {
+    const lost = (event: Event) => { event.preventDefault(); onUnavailable?.(); };
+    glRef.current!.addEventListener('webglcontextlost', lost);
     const d = new Director(
       {
         root: rootRef.current!,
@@ -148,6 +171,7 @@ export default function HighlightFx({ config, onDone, renderRewardAction, modes,
     ro.observe(rootRef.current!);
     return () => {
       ro.disconnect();
+      glRef.current?.removeEventListener('webglcontextlost', lost);
       d.dispose();
       director.current = null;
     };
@@ -162,9 +186,14 @@ export default function HighlightFx({ config, onDone, renderRewardAction, modes,
     const host = cardsRef.current;
     if (!d || !host) return;
     const cards = Array.from(host.querySelectorAll<HTMLElement>('[data-card]'));
+    if (reduce || rootRef.current?.dataset.skipped === '1') {
+      gsap.set(cards, { x: 0, y: 0, scale: 1, rotation: 0, opacity: 1 });
+      gsap.set(panelRef.current, { y: 0, scale: 1, opacity: 1 });
+      setStatsFinal(true); d.revealSettled(); return;
+    }
     const b = d.burstScreen();
     const rootRect = rootRef.current!.getBoundingClientRect();
-    const tl = gsap.timeline({ delay: topGrade ? 1.3 : 0.25 });
+    const tl = gsap.timeline({ delay: codex ? .15 : topGrade ? 1.3 : .25 });
     cards.forEach((el, i) => {
       const r = el.getBoundingClientRect();
       const dx = b.x - (r.left - rootRect.left + r.width / 2);
@@ -357,11 +386,17 @@ export default function HighlightFx({ config, onDone, renderRewardAction, modes,
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        if (director.current?.phase === 'settle') claim(); else director.current?.skip();
+        return;
+      }
+      if ((e.target as HTMLElement)?.closest('button, input, select, a')) return;
       if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
         if (director.current?.phase === 'settle') claim();
         else director.current?.tap();
-      } else if (e.key === 'Escape') director.current?.skip();
+      }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -370,7 +405,7 @@ export default function HighlightFx({ config, onDone, renderRewardAction, modes,
   const st = GRADES[grade];
   const beforeReveal = !revealed;
   const titleText = beforeReveal
-    ? (config.titles?.[grade] ?? `${SUBJECT_NAME[config.subject]} · ${st.name}`)
+    ? (codex ? '啟封秘笈' : config.titles?.[grade] ?? `${SUBJECT_NAME[config.subject]} · ${st.name}`)
     : config.revealTitle;
   const panelCard = config.rewards[panelIdx] ?? config.rewards[0];
   const showSkip = phase === 'idle' || phase === 'upgrading' || phase === 'charging' || phase === 'bursting';
@@ -379,6 +414,8 @@ export default function HighlightFx({ config, onDone, renderRewardAction, modes,
     <div
       ref={rootRef}
       className={styles.root}
+      tabIndex={-1}
+      data-subject={config.subject}
       data-phase={phase}
       data-quick-action={renderRewardAction ? '1' : undefined}
       data-top={topGrade ? '1' : undefined}
@@ -432,11 +469,13 @@ export default function HighlightFx({ config, onDone, renderRewardAction, modes,
         )}
         <div className={styles.balances}>
           <div ref={coinPillRef} className={styles.pill} title={config.balances.coin.label}>
-            <img src={iconDataUrl('coin', 22)} alt="" />
+            <img src={codex ? inkIconUrl('jade', 22) : iconDataUrl('coin', 22)} alt="" />
+            {codex && <small>免費</small>}
             <span ref={coinValRef}>{config.balances.coin.value.toLocaleString()}</span>
           </div>
           <div ref={gemPillRef} className={styles.pill} title={config.balances.gem.label}>
-            <img src={iconDataUrl('gem', 22)} alt="" />
+            <img src={codex ? inkIconUrl('jade-paid', 22) : iconDataUrl('gem', 22)} alt="" />
+            {codex && <small>付費測試</small>}
             <span ref={gemValRef}>{config.balances.gem.value.toLocaleString()}</span>
           </div>
           <button
@@ -459,10 +498,10 @@ export default function HighlightFx({ config, onDone, renderRewardAction, modes,
           )}
         </div>
         {!beforeReveal && config.revealSub && <p className={styles.sub}>{config.revealSub}</p>}
-        {beforeReveal && config.titles?.[grade] && <p className={styles.gradeTag}>{st.name}</p>}
+        {beforeReveal && !codex && config.titles?.[grade] && <p className={styles.gradeTag}>{st.name}</p>}
       </div>
 
-      {phase === 'idle' && (
+      {phase === 'idle' && !codex && (
         <p className={styles.hint} aria-live="polite">
           點擊
         </p>
@@ -484,7 +523,7 @@ export default function HighlightFx({ config, onDone, renderRewardAction, modes,
               <CardArt card={panelCard} size={78} />
               <div className={styles.panelBody}>
                 <p className={styles.panelName}>{panelCard.name}</p>
-                <p className={styles.panelGrade}>{GRADES[panelCard.grade].name}</p>
+                <p className={styles.panelGrade}>{panelCard.identityLabel ?? GRADES[panelCard.grade].name}</p>
                 {panelCard.blurb && <p className={styles.blurb}>{panelCard.blurb}</p>}
                 {panelCard.stats?.map((s) => (
                   <div key={s.label} className={styles.stat} data-stat>
@@ -523,6 +562,7 @@ export default function HighlightFx({ config, onDone, renderRewardAction, modes,
                 )}
                 <CardArt card={card} size={64} />
                 <span className={styles.cardName}>{card.name}</span>
+                {card.identityLabel && <small className={styles.codexIdentity}>{card.isPremium ? '珍本' : '江湖'}{card.isWish ? ' · 心願' : ''}</small>}
                 {card.amount ? (
                   <span className={styles.amount} data-amount={card.amount}>
                     ×0
@@ -539,7 +579,7 @@ export default function HighlightFx({ config, onDone, renderRewardAction, modes,
           {renderRewardAction && panelCard ? (
             <div className={styles.claimActions}>
               {renderRewardAction(panelCard, phase === 'settle')}
-              <button type="button" className={styles.claim} disabled={phase !== 'settle'} onClick={claim}>領取</button>
+              <button type="button" className={styles.claim} disabled={phase !== 'settle'} onClick={claim}>{codex ? '完成入藏' : '領取'}</button>
             </div>
           ) : (
             <button type="button" className={styles.claim} disabled={phase !== 'settle'} onClick={claim}>領取</button>

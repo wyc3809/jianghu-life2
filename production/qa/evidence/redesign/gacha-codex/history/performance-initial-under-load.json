@@ -1,0 +1,25 @@
+{
+  "environment": "歷史初版，同步轉碼負載；已由結果停畫及背景隱藏改善，唔計最終通過",
+  "idle": {
+    "samples": 179,
+    "p50": 16.699999999999818,
+    "p95": 50,
+    "max": 116.69999999999982,
+    "heap": 33656754,
+    "canvas": 1
+  },
+  "settled_ten": {
+    "samples": 179,
+    "p50": 166.59999999999854,
+    "p95": 183.40000000000146,
+    "max": 216.70000000000073,
+    "heap": 46443099,
+    "canvas": 3
+  },
+  "keyboard_skip_on_control": true,
+  "keyboard_close_on_control": true,
+  "local_save_match": true,
+  "context_lost_same_results": true,
+  "page_errors": [],
+  "limits": "RAF唔等於GPU耗時；heap唔等於GPU峰值；未做iPhone真機／長時間溫度測試"
+}

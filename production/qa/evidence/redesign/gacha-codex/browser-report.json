@@ -1,0 +1,131 @@
+{
+  "cases": [
+    {
+      "name": "single-new",
+      "phases": [
+        "charging",
+        "bursting",
+        "revealing",
+        "settle"
+      ],
+      "seconds_to_results": 6.34,
+      "result_count": 1,
+      "core_match": true,
+      "double_click_once": true,
+      "close_no_mutation": true,
+      "audio_tracks": 2,
+      "audio_timing": "實際輸出，按page建立與AudioContext開始時鐘對齊；非硬件延遲認證",
+      "errors": []
+    },
+    {
+      "name": "single-premium",
+      "phases": [
+        "charging",
+        "bursting",
+        "revealing",
+        "settle"
+      ],
+      "seconds_to_results": 5.42,
+      "result_count": 1,
+      "core_match": true,
+      "double_click_once": true,
+      "close_no_mutation": true,
+      "audio_tracks": 2,
+      "audio_timing": "實際輸出，按page建立與AudioContext開始時鐘對齊；非硬件延遲認證",
+      "errors": []
+    },
+    {
+      "name": "wish",
+      "phases": [
+        "charging",
+        "bursting",
+        "revealing",
+        "settle"
+      ],
+      "seconds_to_results": 4.96,
+      "result_count": 1,
+      "core_match": true,
+      "double_click_once": true,
+      "close_no_mutation": true,
+      "audio_tracks": 2,
+      "audio_timing": "實際輸出，按page建立與AudioContext開始時鐘對齊；非硬件延遲認證",
+      "errors": []
+    },
+    {
+      "name": "ten-mixed",
+      "phases": [
+        "charging",
+        "bursting",
+        "revealing",
+        "settle"
+      ],
+      "seconds_to_results": 7.63,
+      "result_count": 10,
+      "core_match": true,
+      "double_click_once": true,
+      "close_no_mutation": true,
+      "audio_tracks": 2,
+      "audio_timing": "實際輸出，按page建立與AudioContext開始時鐘對齊；非硬件延遲認證",
+      "errors": []
+    },
+    {
+      "name": "ten-duplicates",
+      "phases": [
+        "charging",
+        "bursting",
+        "revealing",
+        "settle"
+      ],
+      "seconds_to_results": 6.64,
+      "result_count": 10,
+      "core_match": true,
+      "double_click_once": true,
+      "close_no_mutation": true,
+      "audio_tracks": 2,
+      "audio_timing": "實際輸出，按page建立與AudioContext開始時鐘對齊；非硬件延遲認證",
+      "errors": []
+    },
+    {
+      "name": "skip",
+      "phases": [
+        "settle"
+      ],
+      "seconds_to_results": 3.0,
+      "result_count": 10,
+      "core_match": true,
+      "double_click_once": true,
+      "close_no_mutation": true,
+      "audio_tracks": 2,
+      "audio_timing": "實際輸出，按page建立與AudioContext開始時鐘對齊；非硬件延遲認證",
+      "errors": []
+    },
+    {
+      "name": "no-webgl",
+      "phases": [],
+      "seconds_to_results": 0.03,
+      "result_count": 1,
+      "core_match": true,
+      "double_click_once": true,
+      "close_no_mutation": true,
+      "audio_tracks": 1,
+      "audio_timing": "實際輸出，按page建立與AudioContext開始時鐘對齊；非硬件延遲認證",
+      "errors": []
+    },
+    {
+      "name": "reduced",
+      "phases": [
+        "settle"
+      ],
+      "seconds_to_results": 1.93,
+      "result_count": 1,
+      "core_match": true,
+      "double_click_once": true,
+      "close_no_mutation": true,
+      "audio_tracks": 1,
+      "audio_timing": "實際輸出，按page建立與AudioContext開始時鐘對齊；非硬件延遲認證",
+      "errors": []
+    }
+  ],
+  "errors": [],
+  "scope": "Chromium Linux手機尺寸，非iPhone實機"
+}

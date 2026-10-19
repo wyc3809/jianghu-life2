@@ -166,7 +166,7 @@ export function breakthroughHighlight(state: LifeGameState, r: BreakthroughResul
 }
 
 /**
- * 秘笈閣抽卡 → 同「每月學武學」一樣嘅武學令演出（玩家要求兩者畫面一致）。
+ * 秘笈閣抽卡 → 線裝秘笈啟封；其他學武學／升階沿用武學令。
  * 品階：心願＝5、珍本奇功＝4、新武學＝2、重複＝1。
  */
 export function gachaHighlight(
@@ -183,9 +183,9 @@ export function gachaHighlight(
   const premium = results.find((r) => r.isPremium);
   const fresh = results.filter((r) => r.isNew).length;
   return {
-    subject: 'token',
+    subject: 'codex',
     targetGrade: clampGrade(top),
-    revealTitle: wish ? '心願得償' : premium ? '珍本現世' : fresh ? '秘笈入藏' : '書頁盈篋',
+    revealTitle: wish ? '心願得償' : premium ? '珍本現世' : fresh ? '秘笈入藏' : '藏本增益',
     seal: '武',
     revealSub: wish
       ? `${names(wish.id)} · 心願秘笈到手`
@@ -198,6 +198,9 @@ export function gachaHighlight(
       name: r.vol ? `${names(r.id)}·卷${VOLUME_NUMERALS[r.vol - 1]}` : names(r.id),
       grade: gradeOf(r),
       isNew: r.isNew,
+      isPremium: r.isPremium,
+      isWish: r.isWish,
+      identityLabel: `${r.isPremium ? '珍本' : '江湖'} · ${r.isNew ? '新得' : '重複'}${r.isWish ? ' · 心願' : ''}`,
       blurb: `${r.isWish ? '【心願】' : ''}${r.isPremium ? '【珍本奇功】' : ''}${blurbOf(r.id) ?? ''}${r.isNew ? '' : '（重複：可升階或轉書頁）'}`,
     })),
   };

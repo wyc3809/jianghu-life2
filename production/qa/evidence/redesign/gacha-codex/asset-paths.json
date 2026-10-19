@@ -1,0 +1,80 @@
+[
+  {
+    "base": "http://127.0.0.1:5173/",
+    "name": "codex-cover.webp",
+    "status": 200,
+    "mime": "image/webp",
+    "bytes": 234828,
+    "sha256": "058d3c0a85ed745bfafd5b5d3e42bb26e26240acb51d6ab5d6ec3bf11a75fc4d",
+    "dimensions": [
+      640,
+      960
+    ],
+    "passed": true
+  },
+  {
+    "base": "http://127.0.0.1:5176/jianghu-life2/",
+    "name": "codex-cover.webp",
+    "status": 200,
+    "mime": "image/webp",
+    "bytes": 234828,
+    "sha256": "058d3c0a85ed745bfafd5b5d3e42bb26e26240acb51d6ab5d6ec3bf11a75fc4d",
+    "dimensions": [
+      640,
+      960
+    ],
+    "passed": true
+  },
+  {
+    "base": "http://127.0.0.1:5173/",
+    "name": "codex-page-left.webp",
+    "status": 200,
+    "mime": "image/webp",
+    "bytes": 88754,
+    "sha256": "4efd617bc2215dc4131b9736d2252212fa4516720fd522e9eb3a6e522855ae59",
+    "dimensions": [
+      512,
+      768
+    ],
+    "passed": true
+  },
+  {
+    "base": "http://127.0.0.1:5176/jianghu-life2/",
+    "name": "codex-page-left.webp",
+    "status": 200,
+    "mime": "image/webp",
+    "bytes": 88754,
+    "sha256": "4efd617bc2215dc4131b9736d2252212fa4516720fd522e9eb3a6e522855ae59",
+    "dimensions": [
+      512,
+      768
+    ],
+    "passed": true
+  },
+  {
+    "base": "http://127.0.0.1:5173/",
+    "name": "codex-page-right.webp",
+    "status": 200,
+    "mime": "image/webp",
+    "bytes": 80620,
+    "sha256": "7843e16f04a69bb2f1919b5c7f6b9d75feef30414c731a930c00a975cd02530b",
+    "dimensions": [
+      512,
+      768
+    ],
+    "passed": true
+  },
+  {
+    "base": "http://127.0.0.1:5176/jianghu-life2/",
+    "name": "codex-page-right.webp",
+    "status": 200,
+    "mime": "image/webp",
+    "bytes": 80620,
+    "sha256": "7843e16f04a69bb2f1919b5c7f6b9d75feef30414c731a930c00a975cd02530b",
+    "dimensions": [
+      512,
+      768
+    ],
+    "passed": true
+  }
+]

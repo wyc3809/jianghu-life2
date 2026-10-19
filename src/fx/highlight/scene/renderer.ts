@@ -107,6 +107,8 @@ export interface StageOptions {
   canvas: HTMLCanvasElement;
   /** 低端機／減少動態：唔超採樣 */
   lowPower?: boolean;
+  /** 生成材質書冊用單次實體渲染，唔再逐像素重畫素材輪廓。 */
+  direct?: boolean;
 }
 
 export class HighlightStage {
@@ -130,8 +132,10 @@ export class HighlightStage {
   private ss: number;
   private width = 1;
   private height = 1;
+  private direct: boolean;
 
   constructor(opts: StageOptions) {
+    this.direct = !!opts.direct;
     this.renderer = new THREE.WebGLRenderer({
       canvas: opts.canvas,
       alpha: true,
@@ -205,6 +209,7 @@ export class HighlightStage {
 
   render() {
     const r = this.renderer;
+    if (this.direct) { r.setRenderTarget(null); r.clear(); r.render(this.scene, this.camera); return; }
     r.setRenderTarget(this.colorRT);
     r.clear();
     r.render(this.scene, this.camera);
@@ -233,6 +238,7 @@ export class HighlightStage {
     this.composite.dispose();
     this.scene.traverse((o) => {
       const m = o as THREE.Mesh;
+      o.userData.dispose?.();
       m.geometry?.dispose();
       const mat = m.material as THREE.Material | THREE.Material[] | undefined;
       if (Array.isArray(mat)) mat.forEach((x) => x.dispose());
