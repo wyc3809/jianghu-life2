@@ -54,6 +54,7 @@ import { MartialIdentityFx } from '../fx/art/identityFx';
 import { martialFallbackImage, MARTIAL_FALLBACK_ART } from '../fx/art/martialFallback';
 import { heroAppearanceFrame, heroFigureScale, HERO_VISUAL_SCALE, loadHeroAppearance, type HeroAppearance } from './heroAppearance';
 import poseAnchors from '../fx/art/poseAnchors.json';
+import foeFigureMetrics from './foeFigureMetrics.json';
 import { playInkBlade, playInkHit, playInkTap, playInkSeal } from '../audio/inkAudio';
 import { FOE_TRAITS } from '@data/foes/traits';
 import type { CombatTraitFx } from '@interfaces/lifeEngine';
@@ -549,6 +550,11 @@ export class SparStage {
     this.poseInspection = id ? { id, t, result } : null;
   }
 
+  /** 主角動畫仍然出緊招；只用嚟保留主要招名，唔阻止敵人真實還擊。 */
+  get heroAttackActive(): boolean {
+    return this.heroDownT === null && this.attackT !== null;
+  }
+
   /** 驗收只關畫面層，唔改時計／命中／視覺事件。 */
   setMartialReview(effectsOff: boolean, monochrome = false) {
     this.reviewEffectsOff = effectsOff; this.reviewMonochrome = monochrome;
@@ -702,12 +708,11 @@ export class SparStage {
   getAnchors(): SparAnchors {
     const g = this.geom();
     const foe = this.enemies.find((e) => e.state !== 'dead') ?? null;
-    const ke = foe ? this.enemyKe(foe) : g.k;
     return {
       heroX: g.heroX,
       heroHeadY: g.groundY - this.heroVisualHeight() * 0.98,
       foeX: foe ? foe.x : null,
-      foeHeadY: g.groundY - SILHOUETTE_DESIGN_H * ke * 0.98,
+      foeHeadY: g.groundY - (foe ? this.enemyVisualHeight(foe) : SILHOUETTE_DESIGN_H * g.k) * 0.98,
       foeBoss: foe?.boss ?? false,
     };
   }
@@ -722,6 +727,23 @@ export class SparStage {
     // 頁內有留白、全屏冇留白，都用同一手機闊度；桌面沿用420px手機框上限。
     const width = typeof window === 'undefined' ? this.cssW : Math.min(420, window.innerWidth);
     return width * .23;
+  }
+
+  /** 生命週期待機圖實測身高204／設計218；敵人跟同一人物身高，唔跟畫布高度。 */
+  private enemyVisualHeight(e: EnemyInst): number {
+    return this.images.heroAppearance ? this.heroVisualHeight() * 204 / 218 : SILHOUETTE_DESIGN_H * this.enemyKe(e);
+  }
+
+  /** 原圖留白／腳底校準；只供繪圖，enemyKe仍處理原有企位與時間。 */
+  private enemyFigure(e: EnemyInst): { k: number; dy: number; footOffset: number; downK: number } {
+    if (!this.images.heroAppearance) return { k: this.enemyKe(e), dy: e.def.part.dy, footOffset: 0, downK: this.enemyKe(e) };
+    const key = e.def.part.src.split('/').pop()?.replace(/^enemy-|\.webp$/g, '') ?? '';
+    const metric = (foeFigureMetrics as Record<string, { sourceHeight: number; bodyHeight: number; footY: number; downBodyHeight: number }>)[key];
+    const height = this.enemyVisualHeight(e);
+    const sourceScale = e.def.part.h / (metric?.sourceHeight ?? e.def.part.h);
+    const footOffset = e.def.part.h - (metric?.footY ?? e.def.part.h) * sourceScale;
+    return { k: height / ((metric?.bodyHeight ?? e.def.part.h) * sourceScale),
+      dy: e.def.part.dy + footOffset, footOffset, downK: height / (metric?.downBodyHeight ?? 788) };
   }
 
   resize(cssW: number, cssH: number, dpr: number) {
@@ -1024,7 +1046,7 @@ export class SparStage {
    */
   private showTraitFx(fx: CombatTraitFx[], e: EnemyInst, reflect: number, foeHeal: number) {
     const g = this.geom();
-    const foeHead = g.groundY - SILHOUETTE_DESIGN_H * this.enemyKe(e) * 0.95;
+    const foeHead = g.groundY - this.enemyVisualHeight(e) * 0.95;
     const heroHead = g.groundY - this.heroVisualHeight() * 0.95;
     for (const f of fx) {
       const def = FOE_TRAITS[f.kind];
@@ -1212,7 +1234,7 @@ export class SparStage {
     this.heroRig.kick(300);
     target.rig.kick(ev.heavy ? 560 : 360);
     const foeOff = this.artFoeOffset(target);
-    const headY = g.groundY - foeOff.dy - SILHOUETTE_DESIGN_H * this.enemyKe(target) * 0.6;
+    const headY = g.groundY - foeOff.dy - this.enemyVisualHeight(target) * 0.6;
     if (part > 0) {
       this.floaters.push({
         x: target.x + foeOff.dx + (this.visualRng() - 0.5) * 30,
@@ -1282,7 +1304,7 @@ export class SparStage {
       heroFootY: g.groundY - ho.dy,
       foeFootX: foe ? foe.x + fo.dx : g.heroX + H,
       foeFootY: g.groundY - fo.dy,
-      foeScale: foe ? this.enemyKe(foe) / g.k : 1,
+      foeScale: foe ? this.enemyVisualHeight(foe) / H : 1,
       skyMinY: 8,
     });
     if (this.images.heroAppearance) {
@@ -1379,7 +1401,7 @@ export class SparStage {
         } else {
           target.hitT = 0;
         }
-        const headY = g.groundY - SILHOUETTE_DESIGN_H * this.enemyKe(target) * 0.6;
+        const headY = g.groundY - this.enemyVisualHeight(target) * 0.6;
         this.floaters.push({
           x: target.x + (this.visualRng() - 0.5) * 34,
           y: headY - this.visualRng() * 14,
@@ -1482,7 +1504,7 @@ export class SparStage {
     const heroOff = this.artHeroOffset();
     this.shadow(g.heroX + heroOff.dx, g.groundY, 60 * g.k * Math.max(0.45, 1 - heroOff.dy / (SILHOUETTE_DESIGN_H * g.k * 2)));
     for (const e of this.enemies) {
-      if (this.enemyAlpha(e) > 0.01) this.shadow(e.x, g.groundY, 68 * this.enemyKe(e));
+      if (this.enemyAlpha(e) > 0.01) this.shadow(e.x, g.groundY, 68 * this.enemyFigure(e).k);
     }
 
     this.drawDust(g);
@@ -1602,10 +1624,10 @@ export class SparStage {
       };
     }
     const bobY = Math.sin(e.bob * (e.state === 'walk' ? 8.5 : 2.4)) * (e.state === 'walk' ? 3.4 : 2.2);
-    // 待機：呼吸起伏、重心左右移、身體微擺（剪影唔再企到死實）
+    // 待機只微移重心，唔用垂直拉伸令人物忽大忽細。
     let x = this.combat ? 14 * Math.sin(e.bob * 1.3) : 0;
     let rot = this.combat ? 2.4 * Math.sin(e.bob * 1.7) : 0;
-    let sy = this.combat ? 1 + 0.028 * Math.sin(e.bob * 2.6) : 1;
+    let sy = 1;
     let alpha = 1;
     // 受擊：向後一彈、身仰、壓扁；頭 0.06 秒閃一閃
     if (e.hitT < 0.26) {
@@ -1950,10 +1972,11 @@ export class SparStage {
     const pose = this.enemyPose(e);
     if (pose.alpha <= 0.01) return;
     const { ctx } = this;
-    const ke = this.enemyKe(e);
+    const figure = this.enemyFigure(e);
+    const ke = figure.k;
     const artOff = this.artFoeOffset(e);
-    const footX = e.x + pose.x * ke + artOff.dx;
-    const footY = g.groundY + pose.y * ke - artOff.dy;
+    const footX = e.x + pose.x * this.enemyKe(e) + artOff.dx;
+    const footY = g.groundY + pose.y * this.enemyKe(e) - artOff.dy;
     pose.rot += artOff.rot;
     pose.sy *= artOff.sy;
     const idx = Math.max(0, this.enemyPool.indexOf(e.def));
@@ -1965,16 +1988,17 @@ export class SparStage {
       const frames = this.art?.deaths.get(e.def.part.src);
       ctx.save(); ctx.globalAlpha = pose.alpha;
       if (frames) {
+        const downK = figure.downK;
         // 圖集邊緣有少量上一格兵器碎影；倒地格只顯示接地姿勢嘅範圍。
         // 呢度係矩形裁切位圖，唔以path補畫角色。
-        const postureHeight = [1, .95, .72, .55][sample.frame]! * SILHOUETTE_DESIGN_H * ke;
-        ctx.beginPath(); ctx.rect(footX - 900 * ke, g.groundY - postureHeight, 1800 * ke, postureHeight + 12 * ke); ctx.clip();
-        ctx.drawImage(frames[sample.frame]!, footX - 900 * ke, g.groundY - 788 * ke, 1800 * ke, 800 * ke);
+        const postureHeight = [1, .95, .72, .55][sample.frame]! * SILHOUETTE_DESIGN_H * downK;
+        ctx.beginPath(); ctx.rect(footX - 900 * downK, g.groundY - postureHeight, 1800 * downK, postureHeight + 12 * downK); ctx.clip();
+        ctx.drawImage(frames[sample.frame]!, footX - 900 * downK, g.groundY - 788 * downK, 1800 * downK, 800 * downK);
       } else {
         // 素材未到時仍用原造型；貼地半蹲，唔飛起打轉。
         const flatten = Math.max(.22, 1 - sample.recoil * .78);
         ctx.translate(footX, g.groundY); ctx.scale(1, flatten);
-        drawSilhouetteSprite(ctx, enemyImg, { k: ke, ...e.def.part });
+        drawSilhouetteSprite(ctx, enemyImg, { ...e.def.part, k: ke, dy: figure.dy });
       }
       ctx.restore(); return;
     }
@@ -2002,7 +2026,7 @@ export class SparStage {
     ctx.translate(footX, footY);
     ctx.rotate(pose.rot * DEG);
     ctx.scale(1, pose.sy);
-    const sprite = { k: ke, w: e.def.part.w, h: e.def.part.h, dx: e.def.part.dx, dy: e.def.part.dy };
+    const sprite = { k: ke, w: e.def.part.w, h: e.def.part.h, dx: e.def.part.dx, dy: figure.dy };
     // 精英金邊、首領朱砂邊：單色剪影四向錯開畫喺後面
     if (e.tier !== 'minion') {
       const rim = solidSilhouette(enemyImg, e.boss ? BOSS_RIM : ELITE_RIM);
@@ -2024,7 +2048,7 @@ export class SparStage {
       for (const eye of e.def.eyes) {
         const size = Math.max(1.1, 13 * ke);
         ctx.globalAlpha *= .5;
-        ctx.drawImage(this.art.impact, eye.x * ke - size / 2, eye.y * ke - size / 2, size, size);
+        ctx.drawImage(this.art.impact, eye.x * ke - size / 2, (eye.y + figure.footOffset) * ke - size / 2, size, size);
       }
     }
     ctx.restore();

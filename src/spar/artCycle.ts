@@ -6,6 +6,8 @@
 import type { LifeCharacter } from '@interfaces/lifeEngine';
 import { getSkillDef } from '@data/skills/catalog';
 import { equippedMartialArts } from '@core/life/martialLoadout';
+import { ownedVolumes } from '@core/life/volumes';
+import { volumeMove } from '@data/skills/volumes';
 
 /** 已裝備外功（按欄位次序） */
 export function sparArtOrder(c: LifeCharacter): string[] {
@@ -19,4 +21,14 @@ export function sparArtOrder(c: LifeCharacter): string[] {
 export function sparArtAt(c: LifeCharacter, n: number): string | null {
   const order = sparArtOrder(c);
   return order.length ? order[((n % order.length) + order.length) % order.length]! : null;
+}
+
+/** 演武第n次起手嘅真實已得卷／招名；每門各自逐卷輪播，唔新增逐卷傷害或耗內規則。 */
+export function sparMoveAt(c: LifeCharacter, n: number): { artId: string; volume?: number; moveName?: string } | null {
+  const order = sparArtOrder(c);
+  const artId = sparArtAt(c, n);
+  if (!artId) return null;
+  const volumes = ownedVolumes(c, artId);
+  const volume = volumes[Math.floor(Math.max(0, n) / order.length) % volumes.length];
+  return { artId, volume, moveName: volume ? volumeMove(artId, volume)?.name : undefined };
 }
