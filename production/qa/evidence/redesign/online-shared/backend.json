@@ -1,0 +1,12 @@
+{
+  "project": "seuocqrmyljjzndgbynt",
+  "function": "jianghu-world",
+  "version": 1,
+  "verify_jwt": true,
+  "migration_version": "20261021134428",
+  "tables_rls": true,
+  "browser_grants": 0,
+  "browser_rpc_execute": false,
+  "world_storage": "one shared world; separate immutable history and receipts; transaction CAS",
+  "new_advisors": "INFO RLS without policies intentionally denies all browser access"
+}

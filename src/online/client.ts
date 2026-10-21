@@ -1,4 +1,4 @@
-import { publicOnline, publicOnlineRequest, pairRoomId } from '../cloud/online';
+import { publicOnline, publicOnlineRequest } from '../cloud/online';
 
 export class OnlineApiError extends Error {
   constructor(message: string, public status?: number) { super(message); }
@@ -17,13 +17,13 @@ export async function onlineRequest<T>(path: string, token: string | null, data?
   } catch { throw new OnlineApiError('暫時連唔到江湖，恢復連線後可重試。'); }
   const result = await response.json().catch(() => null);
   if (!response.ok || !result) throw new OnlineApiError(result?.error ?? '江湖未能回覆。', response.status);
-  return (publicOnline && path === 'login' ? { token: 'pair', snapshot: result } : result) as T;
+  return (publicOnline && path === 'login' ? { token: 'world', snapshot: result } : result) as T;
 }
 
 /** 只有已知結果先清除請求；遺失回覆／重開頁後重試仍用同一指令。 */
 export async function onlineCommand<T>(path: string, token: string, payload: Record<string, unknown>): Promise<T> {
   const key = 'jianghu-online-pending:' + path;
-  const signature = JSON.stringify({ token, payload, room: publicOnline ? pairRoomId() : undefined });
+  const signature = JSON.stringify({ token, payload });
   let requestId: string;
   try {
     const old = JSON.parse(sessionStorage.getItem(key) ?? 'null');

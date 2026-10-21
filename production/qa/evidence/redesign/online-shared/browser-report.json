@@ -1,0 +1,28 @@
+{
+  "viewport": [
+    390,
+    844
+  ],
+  "dpr": 2,
+  "world": "shared",
+  "simultaneous_presence_required": false,
+  "independent_users": 3,
+  "third_person_can_enter": true,
+  "no_room_or_invitation": true,
+  "defender_closed_before_attacker_enters": true,
+  "attacker_leaves_before_defender_returns": true,
+  "offline_defence": true,
+  "same_battle_on_later_login": true,
+  "replay_reload_no_mutation": true,
+  "lost_response_recovered": true,
+  "hero_volume_six": true,
+  "life_health_unchanged": true,
+  "phone_widths": [
+    320,
+    390,
+    420
+  ],
+  "overflow": false,
+  "touch44": true,
+  "pageerrors": []
+}

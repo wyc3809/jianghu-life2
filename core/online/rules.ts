@@ -31,7 +31,7 @@ export function settleOnlineWorld(world: OnlineWorld, now: number): void {
     for (const id of [battle.attacker, battle.defender]) {
       if (world.players[id].busy === battle.id) world.players[id].busy = null;
     }
-    battle.after = { river: world.players.river.rank, cloud: world.players.cloud.rank };
+    battle.after = { [battle.attacker]: world.players[battle.attacker].rank, [battle.defender]: world.players[battle.defender].rank };
     battle.settledAt = battle.endsAt;
   }
 }

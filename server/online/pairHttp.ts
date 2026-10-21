@@ -29,6 +29,11 @@ export function pairRepository(config: Config, fetcher: typeof fetch): PairRepos
 /** 真正驗證Supabase身份，再執行房間交易；唔接受前端自行指定account。 */
 export function createPairHandler(config: Config, fetcher: typeof fetch = fetch) {
   const service = new PairService(pairRepository(config, fetcher), Date.now, () => ({ seed: crypto.getRandomValues(new Uint32Array(1))[0], battleId: crypto.randomUUID(), invite: crypto.randomUUID() }));
+  return createOnlineHandler(config, service, fetcher);
+}
+
+/** 共用JWT／來源／內容長度驗證，權威服務自行處理所屬玩家。 */
+export function createOnlineHandler(config: Config, service: { execute(user: string, raw: unknown): Promise<unknown> }, fetcher: typeof fetch = fetch) {
   return async (request: Request): Promise<Response> => {
     const origin = request.headers.get('Origin') ?? '';
     const headers: Record<string, string> = { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', Vary: 'Origin' };
