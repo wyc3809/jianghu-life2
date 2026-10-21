@@ -1,0 +1,17 @@
+{
+  "project": "seuocqrmyljjzndgbynt",
+  "function": "jianghu-pair",
+  "deployed_version": 1,
+  "verify_jwt": true,
+  "migration_version": "20261021130356",
+  "rls": true,
+  "browser_table_grants": 0,
+  "direct_table_api_denied": true,
+  "security_new_findings": [
+    "INFO: RLS enabled without policies, intentionally no browser access"
+  ],
+  "performance_new_findings": [
+    "INFO: new guest foreign key index unused"
+  ],
+  "existing_advisories_unchanged": true
+}

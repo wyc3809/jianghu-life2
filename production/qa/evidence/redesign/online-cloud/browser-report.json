@@ -1,0 +1,40 @@
+{
+  "url_kind": "local UI + live cloud backend",
+  "viewport": [
+    390,
+    844
+  ],
+  "dpr": 2,
+  "cases": [
+    {
+      "width": 320,
+      "overflow": false,
+      "touch44": true
+    },
+    {
+      "width": 390,
+      "overflow": false,
+      "touch44": true
+    },
+    {
+      "width": 420,
+      "overflow": false,
+      "touch44": true
+    }
+  ],
+  "copy_invite": true,
+  "independent_users": 3,
+  "third_user_rejected": true,
+  "offline_defence": true,
+  "lost_response_recovered": true,
+  "hero_volume6": true,
+  "replay_no_mutation": true,
+  "reload_same_room": true,
+  "same_battle_both_players": true,
+  "failed_challenge_ranks_unchanged": true,
+  "ranks": [
+    20,
+    100
+  ],
+  "errors": []
+}

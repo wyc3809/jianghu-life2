@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
-import type { CombatReplay, CombatReplayHit } from '@interfaces/lifeEngine';
+import type { CombatReplay, CombatReplayHit, LifeCharacter } from '@interfaces/lifeEngine';
 import { canonicalSkillId, getSkillDef } from '@data/skills/catalog';
 import { getGearDef } from '@data/equipment/catalog';
 import { VOLUME_COUNT, VOLUME_NUMERALS, artVolumeMoves, replayArtAt } from '@data/skills/volumes';
@@ -26,6 +26,10 @@ const COIN_SRC = `${import.meta.env.BASE_URL || '/'}ink/spar/fx-coin.webp`;
 export const AUTO_BATTLE_MAX_MS = 45_000;
 
 type Props = {
+  /** 多人戰報用伺服器快照，唔借用或寫入本機人生角色。 */
+  character?: LifeCharacter;
+  /** 只有真實核心已派嘅獎勵先顯示；多人排名切磋傳0。 */
+  rewardCoins?: number;
   /** 只限 DEV 驗收；正式入口永遠唔傳，唔寫存檔。 */
   review?: { speed: number; effectsOff: boolean; monochrome: boolean; legacy: boolean;
     supports?: string[]; onStage?: (stage: SparStage) => void; inspect?: { id: string; t: number } };
@@ -61,7 +65,7 @@ function sceneOf(replay: CombatReplay): string {
  * 出招次序同傷害照自動戰鬥紀錄（core/life/autoCombat.ts）逐招播。
  * 下面主修外功七卷：已得嘅卷亮起，輪到嗰卷發紅；頭頂彈「卷幾・招名」。
  */
-export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = false, season = 'spring', notice, battleBackdropSrc, review }: Props) {
+export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = false, season = 'spring', notice, battleBackdropSrc, review, character, rewardCoins = 6 }: Props) {
   const reviewRef = useRef(import.meta.env.DEV ? review : undefined);
   reviewRef.current = import.meta.env.DEV ? review : undefined;
   const hits = useMemo<Hit[]>(
@@ -91,8 +95,10 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
     onDoneRef.current();
   };
 
-  const sectId = useLifeStore((s) => s.state?.character.sectId ?? null);
-  const weaponId = useLifeStore((s) => s.state?.character.equipment.weapon ?? null);
+  const localSectId = useLifeStore((s) => s.state?.character.sectId ?? null);
+  const localWeaponId = useLifeStore((s) => s.state?.character.equipment.weapon ?? null);
+  const sectId = character ? character.sectId ?? null : localSectId;
+  const weaponId = character ? character.equipment.weapon ?? null : localWeaponId;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -157,7 +163,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
       foeEnraged: () => enraged,
       foeDefeated: () => {
         end(700);
-        return { coins: 6 };
+        return { coins: rewardCoins };
       },
       heroRecovered: () => end(200),
     };
@@ -215,8 +221,8 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
         images.ui = await loadSparUiImages();
         images.coin = await loadSparImage(COIN_SRC).catch(() => null);
         const battleBackdrop = unified && battleBackdropSrc ? await loadSparImage(battleBackdropSrc).catch(() => null) : null;
-        const character = useLifeStore.getState().state?.character;
-        const supports = reviewRef.current?.supports ?? (character ? equippedMartialArts(character).filter(id => getSkillDef(id)?.kind !== 'external') : []);
+        const actor = character ?? useLifeStore.getState().state?.character;
+        const supports = reviewRef.current?.supports ?? (actor ? equippedMartialArts(actor).filter(id => getSkillDef(id)?.kind !== 'external') : []);
         const requested = [...hits.flatMap(h => h.skillId ? [canonicalSkillId(h.skillId)] : []), ...supports];
         const martialAssets = await loadMartialAssets(reviewRef.current?.legacy ? [] : requested);
         if (cancelled) return;
@@ -264,7 +270,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
     };
     // 一場演出一個引擎：replay 變先重開
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [replay, unified, season, battleBackdropSrc]);
+  }, [replay, unified, season, battleBackdropSrc, character, rewardCoins]);
 
   // 素材載唔到：唔好卡住，直接當播完
   useEffect(() => {

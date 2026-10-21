@@ -5,6 +5,9 @@ import path from 'path';
 export default defineConfig({
   base: process.env.VITE_BASE || '/',
   plugins: [react()],
+  server: {
+    proxy: { '/api/jianghu': { target: `http://127.0.0.1:${process.env.ONLINE_PORT || '8787'}` } },
+  },
   build: {
     rollupOptions: {
       output: {

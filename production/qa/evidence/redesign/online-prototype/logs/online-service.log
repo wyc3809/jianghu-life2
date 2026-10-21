@@ -1,0 +1,11 @@
+
+ RUN  v3.2.7 /workspace/jianghu-life2
+
+ ✓ tests/online_service.test.ts (11 tests) 143ms
+ ✓ tests/online_rules.test.ts (7 tests) 34ms
+
+ Test Files  2 passed (2)
+      Tests  18 passed (18)
+   Start at  04:42:08
+   Duration  1.79s (transform 641ms, setup 0ms, collect 1.16s, tests 177ms, environment 0ms, prepare 142ms)
+

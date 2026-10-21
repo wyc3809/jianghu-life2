@@ -18,6 +18,15 @@ export function cloudConfigured(): boolean {
   return Boolean(URL && ANON_KEY);
 }
 
+/** 二人江湖共用身份及自動更新session；憑證只供雲端模組使用。 */
+export async function cloudAccess(): Promise<{ url: string; key: string; token: string } | null> {
+  if (!await ensureIdentity()) return null;
+  const sb = await client();
+  const { data, error } = await sb.auth.getSession();
+  if (error || !data.session) return null;
+  return { url: URL, key: ANON_KEY, token: data.session.access_token };
+}
+
 let clientPromise: Promise<SupabaseClient> | null = null;
 
 function client(): Promise<SupabaseClient> {
