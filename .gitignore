@@ -1,4 +1,5 @@
 node_modules/
+.local-online/
 dist/
 *.local
 .DS_Store

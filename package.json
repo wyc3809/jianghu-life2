@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:online": "node scripts/devOnline.mjs",
     "build": "tsc --noEmit && vite build",
     "build:pages": "VITE_BASE=/jianghu-life2/ npm run build",
     "build:mobile": "VITE_BASE=/ npm run build",

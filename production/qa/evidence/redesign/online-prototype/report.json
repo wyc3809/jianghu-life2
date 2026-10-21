@@ -1,0 +1,60 @@
+{
+  "seed": 42,
+  "viewport": [
+    390,
+    844
+  ],
+  "dpr": 2,
+  "life_jade": {
+    "free": 600,
+    "paidTest": 0
+  },
+  "baseline": "0af2826",
+  "cases": [
+    {
+      "name": "offline_defender_lost_response_replay",
+      "battleId": "40fea5e7-8eb9-4a0e-8695-d2c5583b1868",
+      "ranks": {
+        "river": 20,
+        "cloud": 100
+      },
+      "requestRecovered": true,
+      "replaysNoMutation": true
+    },
+    {
+      "name": "real_offline_income_claim",
+      "offlineDelta": 1,
+      "claimed": {
+        "online": 0,
+        "offline": 1,
+        "total": 1
+      },
+      "doubleClickOnce": true
+    },
+    {
+      "name": "failed_challenge_protection_reload",
+      "ranks": [
+        20,
+        100
+      ],
+      "sameBattle": true,
+      "reloadNoMutation": true,
+      "injuryDeathUnchanged": true
+    },
+    {
+      "name": "phone",
+      "width": 320,
+      "overflow": false,
+      "touch44": true,
+      "errors": []
+    },
+    {
+      "name": "phone",
+      "width": 420,
+      "overflow": false,
+      "touch44": true,
+      "errors": []
+    }
+  ],
+  "errors": []
+}

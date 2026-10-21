@@ -1,5 +1,5 @@
 import { InkSaveStatus } from './InkSaveStatus';
-import { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { natureKeys, natureLabels } from '@interfaces/lifeEngine';
@@ -93,6 +93,9 @@ import { breakthroughHighlight, momentHighlight } from '../../fx/highlight/fromG
 type Props = {
   state: LifeGameState;
 };
+
+const InkOnlinePanel = import.meta.env.DEV && import.meta.env.VITE_ONLINE_PROTOTYPE === '1'
+  ? lazy(() => import('./InkOnlinePanel')) : null;
 
 export function InkPlayScreen({ state }: Props) {
   const choose = useLifeStore((s) => s.choose);
@@ -780,6 +783,7 @@ export function InkPlayScreen({ state }: Props) {
         </div>
       )}
 
+      {tab === 'jianghu' && !combat && !eventFocus && InkOnlinePanel && <Suspense fallback={null}><InkOnlinePanel /></Suspense>}
       {tab === 'jianghu' && !combat && !eventFocus && <InkGachaPanel state={state} onEquipRequest={id => {
         setRequestedArt(id); setTab('person'); setPersonView('skills');
       }} />}

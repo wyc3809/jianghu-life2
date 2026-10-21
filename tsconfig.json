@@ -25,5 +25,5 @@
       "@content/*": ["content/*"]
     }
   },
-  "include": ["src", "core", "interfaces", "tests", "data", "content"]
+  "include": ["src", "core", "interfaces", "tests", "data", "content", "server"]
 }

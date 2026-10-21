@@ -18,9 +18,12 @@ const BattlePreview = import.meta.env.DEV ? lazy(() => import('./prototypes/Unif
 const isBattlePreview = import.meta.env.DEV && new URLSearchParams(window.location.search).get('battle-preview') === 'unified';
 const MartialPreview = import.meta.env.DEV ? lazy(() => import('./prototypes/MartialIdentityPreview')) : () => null;
 const isMartialPreview = import.meta.env.DEV && new URLSearchParams(window.location.search).get('martial-preview') === '1';
+const OnlinePreview = import.meta.env.DEV && import.meta.env.VITE_ONLINE_PROTOTYPE === '1'
+  ? lazy(() => import('./components/ink/InkOnlinePanel')) : null;
+const isOnlinePreview = Boolean(OnlinePreview) && new URLSearchParams(window.location.search).get('online') === '1';
 
 // 雲端：開機揾身份，雲端存檔較新就先寫返本機（最多等 2.5 秒）
-const boot = isFxDemo || isBattlePreview || isMartialPreview ? Promise.resolve({ restored: false }) : bootCloud(readLocalSavedAt, writeLocal);
+const boot = isFxDemo || isBattlePreview || isMartialPreview || isOnlinePreview ? Promise.resolve({ restored: false }) : bootCloud(readLocalSavedAt, writeLocal);
 
 void boot.then(({ restored }) => {
   if (restored) useAncestryStore.setState({ meta: loadAncestry() });
@@ -30,7 +33,9 @@ void boot.then(({ restored }) => {
 function render() {
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
-      {isMartialPreview ? (
+      {isOnlinePreview && OnlinePreview ? (
+        <Suspense fallback={null}><OnlinePreview standalone /></Suspense>
+      ) : isMartialPreview ? (
         <Suspense fallback={null}><MartialPreview /></Suspense>
       ) : isBattlePreview ? (
         <Suspense fallback={null}><BattlePreview /></Suspense>

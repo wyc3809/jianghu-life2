@@ -1,0 +1,6 @@
+OFFLINE_BATTLE_AND_RECOVERY_PASS
+Traceback (most recent call last):
+  File "/workspace/jianghu-life2/scripts/qa/checkOnlinePrototype.py", line 83, in <module>
+    claimed=response.value.json()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Page.wait_for_function() takes 2 positional arguments but 3 were given
