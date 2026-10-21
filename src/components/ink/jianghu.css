@@ -1,0 +1,17 @@
+.ink-feature-list { list-style: none; padding: 0; margin: 8px 0 0; }
+.ink-feature-list > li { min-width: 0; border-bottom: 1px solid var(--ink-faint); }
+.ink-feature-list > li:last-child { border-bottom: 0; }
+.ink-feature-menu .ink-bitlife-row { min-height: 78px; padding: 7px 4px; border: 0; gap: 12px; }
+.ink-feature-menu .ink-row-badge { margin: 0; }
+.ink-feature-menu .ink-bitlife-row-text > span { font-size: 13px; line-height: 1.65; letter-spacing: .025em; color: var(--ink-mid); overflow-wrap: anywhere; }
+.ink-feature-menu button:focus-visible, .ink-jianghu-back:focus-visible { outline: 2px solid var(--cinnabar); outline-offset: 2px; }
+.ink-feature-count { flex: none; max-width: 5em; font-size: 12px; color: var(--cinnabar); overflow-wrap: anywhere; }
+.ink-jianghu-hub h3 { font-size: 20px; letter-spacing: .08em; }
+.ink-jianghu-intro { margin: 0 0 12px; font-size: 13px; line-height: 1.65; }
+.ink-jianghu-detail { min-width: 0; }
+.ink-jianghu-back { display: inline-flex; align-items: center; min-height: 44px; margin: 0 0 8px; padding: 4px 8px 4px 0; background: transparent; border: 0; color: var(--ink-mid); font: inherit; font-size: 14px; cursor: pointer; gap: 6px; }
+.ink-jianghu-detail > .ink-panel { margin-top: 0; }
+@media (max-width: 350px) {
+  .ink-feature-menu .ink-bitlife-row { gap: 8px; }
+  .ink-feature-menu .ink-bitlife-row-text > span { font-size: 12px; }
+}

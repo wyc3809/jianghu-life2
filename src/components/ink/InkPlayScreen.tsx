@@ -56,6 +56,7 @@ import { InkSuccessionModal } from './InkSuccessionModal';
 import { InkHomeGoals } from './InkHomeGoals';
 import { InkHomeQuick, type QuickTarget } from './InkHomeQuick';
 import { InkGachaPanel } from './InkGachaPanel';
+import { InkJianghuHub, type JianghuView } from './InkFeatureMenu';
 import { InkEncounterCard, InkEncounterModal } from './InkEncounter';
 import { newbieActive } from '@core/life/goals';
 import { NEWBIE_TRIAL } from '@data/redesign/newbie';
@@ -173,6 +174,8 @@ export function InkPlayScreen({ state }: Props) {
   const clearOfflineGain = useLifeStore((s) => s.clearOfflineGain);
   const [practiceView, setPracticeView] = useState<PracticeView>('main');
   const [personView, setPersonView] = useState<PersonView>('main');
+  const [jianghuView, setJianghuView] = useState<JianghuView>('main');
+  const jianghuRef = useRef<HTMLDivElement>(null);
   const [requestedArt, setRequestedArt] = useState<string | null>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [boardOpen, setBoardOpen] = useState(false);
@@ -230,7 +233,13 @@ export function InkPlayScreen({ state }: Props) {
   useEffect(() => {
     if ((state.tab ?? 'home') !== 'practice') setPracticeView('main');
     if ((state.tab ?? 'home') !== 'person') setPersonView('main');
+    if ((state.tab ?? 'home') !== 'jianghu') setJianghuView('main');
   }, [state.tab]);
+
+  useLayoutEffect(() => {
+    if (state.tab !== 'jianghu') return;
+    jianghuRef.current?.closest('.ink-play-body, .scroll-shell')?.scrollTo({ top: 0 });
+  }, [state.tab, jianghuView]);
 
   const c = state.character;
   useCultivationTicker(state.phase === 'playing' && c.alive, tickCultivation);
@@ -323,15 +332,12 @@ export function InkPlayScreen({ state }: Props) {
   const jadeTotal = (jadeBal?.free ?? 0) + (jadeBal?.paidTest ?? 0);
   const setEncounterOpen = useAncestryStore((s) => s.setEncounterOpen);
   const claimEncounter = useAncestryStore((s) => s.claimEncounter);
-  /** 跳去其他分頁再捲到指定區塊（江湖分頁嘅秘笈閣／論劍） */
-  const goTo = (t: 'jianghu' | 'person', selector?: string) => {
-    setTab(t);
-    if (selector) window.setTimeout(() => document.querySelector(selector)?.scrollIntoView({ block: 'start', behavior: 'smooth' }), 80);
-  };
-  const openGachaTab = () => goTo('jianghu', '#ink-gacha');
+  /** 主頁捷徑直接開指定內容頁，唔再捲向舊長頁區塊。 */
+  const goTo = (t: 'jianghu' | 'person') => setTab(t);
+  const openGachaTab = () => { setJianghuView('gacha'); goTo('jianghu'); };
   const openQuick = (q: QuickTarget) => {
     if (q === 'gacha') openGachaTab();
-    else if (q === 'huashan') goTo('jianghu', '.ink-huashan-panel');
+    else if (q === 'huashan') { setJianghuView('huashan'); goTo('jianghu'); }
     else if (q === 'skills') {
       goTo('person');
       setPersonView('skills');
@@ -783,48 +789,27 @@ export function InkPlayScreen({ state }: Props) {
         </div>
       )}
 
-      {tab === 'jianghu' && !combat && !eventFocus && InkOnlinePanel && <Suspense fallback={null}><InkOnlinePanel /></Suspense>}
-      {tab === 'jianghu' && !combat && !eventFocus && <InkGachaPanel state={state} onEquipRequest={id => {
-        setRequestedArt(id); setTab('person'); setPersonView('skills');
-      }} />}
-
-      {tab === 'jianghu' && !combat && !eventFocus && (
-        <section key="jianghu" className="ink-panel ink-world-panel ink-tab-pane" aria-label="心性">
-          <h3>心性</h3>
-          <p className="ink-note ink-nature-line">
-            {natureKeys.map((k, i) => (
-              <span
-                key={k}
-                className={`ink-nature-chip ink-nature--${k}${k === dominant ? ' ink-nature--dominant' : ''}`}
-              >
-                {i > 0 ? ' ' : ''}
-                {natureLabels[k]}
-                {nature[k]}
-              </span>
-            ))}
-          </p>
-          <p className="ink-note">{natureSummary(c)}</p>
-        </section>
-      )}
-
-      {tab === 'jianghu' && !combat && !eventFocus && (
-        <InkHuashanPanel
-          state={state}
-          onStart={huashanStart}
-          onFight={huashanFight}
-          onDismissReport={huashanDismissReport}
-          onCloseTournament={huashanClose}
-        />
-      )}
-
-      {tab === 'jianghu' && !combat && !eventFocus && (
-        <InkSectFounderPanel
-          state={state}
-          onFound={foundSect}
-          onRecruit={recruitDisciple}
-          onTeach={teachDisciple}
-        />
-      )}
+      {tab === 'jianghu' && !combat && !eventFocus && <div className="ink-jianghu-view" ref={jianghuRef}>
+        {jianghuView === 'main' ? <InkJianghuHub online={Boolean(InkOnlinePanel)} onOpen={setJianghuView} />
+          : jianghuView === 'online' && InkOnlinePanel ? <Suspense fallback={<p role="status">正在翻開江湖名冊……</p>}>
+            <InkOnlinePanel onBack={() => setJianghuView('main')} />
+          </Suspense> : <div className="ink-jianghu-detail">
+            <button type="button" className="ink-jianghu-back" onClick={() => setJianghuView('main')}>‹ 返回江湖</button>
+            {jianghuView === 'gacha' && <InkGachaPanel state={state} onEquipRequest={id => {
+              setRequestedArt(id); setTab('person'); setPersonView('skills');
+            }} />}
+            {jianghuView === 'nature' && <section className="ink-panel ink-world-panel ink-tab-pane" aria-label="心性">
+              <h3>心性</h3>
+              <p className="ink-note ink-nature-line">{natureKeys.map((k, i) => <span key={k}
+                className={`ink-nature-chip ink-nature--${k}${k === dominant ? ' ink-nature--dominant' : ''}`}>
+                {i > 0 ? ' ' : ''}{natureLabels[k]}{nature[k]}
+              </span>)}</p><p className="ink-note">{natureSummary(c)}</p>
+            </section>}
+            {jianghuView === 'huashan' && <InkHuashanPanel state={state} onStart={huashanStart} onFight={huashanFight}
+              onDismissReport={huashanDismissReport} onCloseTournament={huashanClose} />}
+            {jianghuView === 'founder' && <InkSectFounderPanel state={state} onFound={foundSect} onRecruit={recruitDisciple} onTeach={teachDisciple} />}
+          </div>}
+      </div>}
 
       {tab === 'person' && !combat && !eventFocus && (
         <InkPersonPanel
@@ -1140,6 +1125,7 @@ export function InkPlayScreen({ state }: Props) {
               aria-label={label}
               aria-current={tab === id ? 'page' : undefined}
               onClick={() => {
+                if (id === 'jianghu') setJianghuView('main');
                 setTab(id);
               }}
             >
