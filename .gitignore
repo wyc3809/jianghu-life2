@@ -78,3 +78,5 @@ production/qa/evidence/redesign/release-ea073/frames/
 
 # 細人物驗收保留成品影片，唔提交瀏覽器錄影暫存。
 production/qa/evidence/redesign/hero-small-scale/raw-video/
+
+supabase/.temp/

@@ -18,7 +18,7 @@ const BattlePreview = import.meta.env.DEV ? lazy(() => import('./prototypes/Unif
 const isBattlePreview = import.meta.env.DEV && new URLSearchParams(window.location.search).get('battle-preview') === 'unified';
 const MartialPreview = import.meta.env.DEV ? lazy(() => import('./prototypes/MartialIdentityPreview')) : () => null;
 const isMartialPreview = import.meta.env.DEV && new URLSearchParams(window.location.search).get('martial-preview') === '1';
-const OnlinePreview = import.meta.env.DEV && import.meta.env.VITE_ONLINE_PROTOTYPE === '1'
+const OnlinePreview = import.meta.env.VITE_ONLINE_PUBLIC === '1' || (import.meta.env.DEV && import.meta.env.VITE_ONLINE_PROTOTYPE === '1')
   ? lazy(() => import('./components/ink/InkOnlinePanel')) : null;
 const isOnlinePreview = Boolean(OnlinePreview) && new URLSearchParams(window.location.search).get('online') === '1';
 

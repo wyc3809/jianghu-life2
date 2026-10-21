@@ -1,27 +1,16 @@
 import { DatabaseSync } from 'node:sqlite';
 import { createHash, randomBytes, randomUUID } from 'node:crypto';
 import { z } from 'zod';
-import { getSkillDef } from '../../data/skills/catalog';
 import { ONLINE_TEST } from '../../data/redesign/onlineTestParams';
 import type { OnlineAccountId, OnlineSnapshot, OnlineWorld } from '../../interfaces/online';
-import { simulateOnlineBattle } from '../../core/online/combat';
 import { settleOnlineWorld } from '../../core/online/rules';
 import { createOnlineFixture } from './fixtures';
+import { applyOnlineCommand, parseOnlineCommand, OnlineError } from '../../core/online/commands';
 
 const accountSchema = z.enum(['river', 'cloud']);
-const requestId = z.string().min(8).max(100).regex(/^[a-zA-Z0-9_-]+$/);
-const challengeSchema = z.object({ requestId, target: accountSchema }).strict();
-const claimSchema = z.object({ requestId }).strict();
-const loadoutSchema = z.object({ requestId,
-  external: z.array(z.string().max(80)).max(5),
-  internal: z.string().max(80).nullable(), qinggong: z.string().max(80).nullable(),
-}).strict();
 type Session = { account_id: OnlineAccountId; expires_at: number; present_until: number };
 
-export class OnlineError extends Error {
-  constructor(public status: number, message: string) { super(message); }
-}
-
+export { OnlineError } from '../../core/online/commands';
 /** 本機SQLite權威服務；每個指令同結算喺同一交易內，重啟保留戰報／去重收據。 */
 export class OnlineService {
   readonly db: DatabaseSync;
@@ -124,50 +113,21 @@ export class OnlineService {
   }
   /** 戰鬥一次產生並鎖雙方；無人在線亦會由tick按伺服器時間結算。 */
   challenge(token: string, raw: unknown) {
-    const input = challengeSchema.parse(raw);
-    return this.command(token, input, 'challenge', (world, now, id) => {
-      if (input.target === id) throw new OnlineError(400, '不能挑戰自己。');
-      const a = world.players[id], b = world.players[input.target];
-      if (a.busy || b.busy) throw new OnlineError(409, '其中一方仍在交戰，請稍後再試。');
-      if (b.protectedUntil > now) throw new OnlineError(409, '對手正受戰敗保護。');
-      const result = simulateOnlineBattle(a.character, b.character, this.seed());
-      const battleId = randomUUID();
-      a.protectedUntil = 0; a.busy = battleId; b.busy = battleId;
-      world.battles.push({ id: battleId, attacker: id, defender: b.id,
-        winner: result.winner === 0 ? id : result.winner === 1 ? b.id : null,
-        startedAt: now, endsAt: now + ONLINE_TEST.battleMs, settledAt: null,
-        before: { river: world.players.river.rank, cloud: world.players.cloud.rank }, after: null,
-        replays: { [id]: result.forward, [b.id]: result.reverse } as typeof world.battles[number]['replays'],
-        characters: { river: structuredClone(world.players.river.character), cloud: structuredClone(world.players.cloud.character) },
-      });
-      return { battleId };
-    });
+    const input = parseOnlineCommand('challenge', raw);
+    return this.command(token, input, 'challenge', (world, now, id) =>
+      applyOnlineCommand(world, now, id, 'challenge', input, { seed: this.seed(), battleId: randomUUID() })) as { battleId: string };
   }
   /** 同一領取請求跨重啟亦只入帳一次，舊存檔銀兩完全獨立。 */
   claim(token: string, raw: unknown) {
-    const input = claimSchema.parse(raw);
-    return this.command(token, input, 'claim', (world, _now, id) => {
-      const p = world.players[id], online = p.pendingOnline, offline = p.pendingOffline;
-      p.silver += online + offline; p.pendingOnline = 0; p.pendingOffline = 0;
-      return { online, offline, total: online + offline };
-    });
+    const input = parseOnlineCommand('claim', raw);
+    return this.command(token, input, 'claim', (world, now, id) =>
+      applyOnlineCommand(world, now, id, 'claim', input, { seed: this.seed(), battleId: randomUUID() })) as { online: number; offline: number; total: number };
   }
   /** 只能裝備伺服器已知武學；五外功、一內功、一身法，戰鬥期間不可改快照。 */
   loadout(token: string, raw: unknown) {
-    const input = loadoutSchema.parse(raw);
-    return this.command(token, input, 'loadout', (world, _now, id) => {
-      const p = world.players[id], c = p.character;
-      if (p.busy) throw new OnlineError(409, '交戰期間不能調整武學。');
-      if (new Set(input.external).size !== input.external.length) throw new OnlineError(400, '外功不能重複。');
-      const validate = (skill: string | null, kind: string) => {
-        if (skill && (!c.skills.includes(skill) || getSkillDef(skill)?.kind !== kind)) throw new OnlineError(400, '未學識或武學類型不符。');
-      };
-      input.external.forEach(skill => validate(skill, 'external'));
-      validate(input.internal, 'internal'); validate(input.qinggong, 'qinggong');
-      c.equippedArts = [...input.external, ...Array<null>(5 - input.external.length).fill(null)];
-      c.supportArts = { internal: input.internal, qinggong: input.qinggong };
-      return { ok: true };
-    });
+    const input = parseOnlineCommand('loadout', raw);
+    return this.command(token, input, 'loadout', (world, now, id) =>
+      applyOnlineCommand(world, now, id, 'loadout', input, { seed: this.seed(), battleId: randomUUID() })) as { ok: boolean };
   }
   /** 由常駐服務呼叫，唔需要瀏覽器觸發。 */
   tick() {

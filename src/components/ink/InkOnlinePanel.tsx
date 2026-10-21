@@ -4,13 +4,14 @@ import { getSkillDef } from '@data/skills/catalog';
 import { ONLINE_TEST } from '@data/redesign/onlineTestParams';
 import { equippedMartialArts } from '@core/life/martialLoadout';
 import { confirmOnlineCommands, onlineCommand, onlineRequest, OnlineApiError } from '../../online/client';
+import { publicOnline, pairInvite, pairRoomId } from '../../cloud/online';
 import { InkIcon } from './InkIcon';
 import './online.css';
 
 const Battle = lazy(() => import('./InkAutoBattle').then(m => ({ default: m.InkAutoBattle })));
 const SESSION = 'jianghu-online-session';
 const labels = { river: '沈雲舟', cloud: '謝清霜' };
-function readToken() { try { return sessionStorage.getItem(SESSION); } catch { return null; } }
+function readToken() { try { return publicOnline ? pairRoomId() && !pairInvite() ? 'pair' : null : sessionStorage.getItem(SESSION); } catch { return null; } }
 function timeLeft(until: number, now: number) { return Math.max(0, Math.ceil((until - now) / 1000)); }
 
 /** 第32項本機真服務入口；隔離測試角色，唔讀寫單機人生與祖蔭存檔。 */
@@ -24,6 +25,7 @@ export default function InkOnlinePanel({ standalone = false }: { standalone?: bo
   const [connected, setConnected] = useState(false);
   const [replay, setReplay] = useState<OnlineBattle | null>(null);
   const [editing, setEditing] = useState(false);
+  const [showInvite, setShowInvite] = useState(false);
   const [external, setExternal] = useState<string[]>([]);
   const [internal, setInternal] = useState<string | null>(null);
   const [qinggong, setQinggong] = useState<string | null>(null);
@@ -32,6 +34,7 @@ export default function InkOnlinePanel({ standalone = false }: { standalone?: bo
   const accept = useCallback((next: OnlineSnapshot) => {
     confirmOnlineCommands(next.confirmedRequests);
     setSnapshot(next); setConnected(true);
+    setError(current => current.startsWith('暫時連唔到江湖') ? '' : current);
     const settled = next.battles.filter(b => b.settledAt !== null);
     if (!seen.current) seen.current = new Set(settled.map(b => b.id));
     else {
@@ -41,7 +44,7 @@ export default function InkOnlinePanel({ standalone = false }: { standalone?: bo
     }
   }, []);
   const reportError = useCallback((e: unknown) => {
-    if (e instanceof OnlineApiError && e.status === 401) {
+    if (e instanceof OnlineApiError && (e.status === 401 || (publicOnline && e.status === 403))) {
       sessionStorage.removeItem(SESSION); setToken(null); setSnapshot(null); seen.current = null;
     }
     setError(e instanceof Error ? e.message : '暫時未能處理。');
@@ -79,7 +82,13 @@ export default function InkOnlinePanel({ standalone = false }: { standalone?: bo
     sessionStorage.setItem(SESSION, result.token); seen.current = null;
     setToken(result.token); accept(result.snapshot);
   });
+  const enterPair = (action: 'create' | 'join' | 'resume') => run(async () => {
+    const result = await onlineRequest<{ token: string; snapshot: OnlineSnapshot }>('login', null, { action, ...(action === 'join' ? { invite: pairInvite() } : {}) });
+    seen.current = null; setToken(result.token); accept(result.snapshot);
+    if (action === 'join') history.replaceState(null, '', location.pathname + location.search);
+  });
   const me = snapshot?.me, now = snapshot?.serverNow ?? 0;
+  const invitation = snapshot?.room?.invite ? `${location.origin}${import.meta.env.BASE_URL}?online=1#invite=${snapshot.room.invite}` : '';
   const latest = snapshot?.battles.find(b => b.settledAt !== null);
   const openLoadout = () => {
     if (!me) return;
@@ -90,19 +99,36 @@ export default function InkOnlinePanel({ standalone = false }: { standalone?: bo
   const content = <section className="ink-online" aria-label="多人江湖" id="ink-online">
     <header className="online-heading">
       <div><small>同在江湖，各憑武學</small><h2>江湖風雲</h2></div>
-      <span className="online-test-seal">本機試玩</span>
+      <span className="online-test-seal">{publicOnline ? '二人封測' : '本機試玩'}</span>
     </header>
     <div className="online-landscape">
       <img src={`${import.meta.env.BASE_URL}ink/ai/banners/banner-mountain-road.webp`} alt="水墨山路與遠山" />
       <div><small>江湖試場</small><b>千燈鎮</b><span>切磋論高下 · 勝負只影響名次</span></div>
     </div>
-    {!token ? <div className="online-frame online-login">
+    {!token && publicOnline ? <div className="online-frame online-login">
+      <h3>{pairInvite() ? '朋友邀你入江湖' : '邀一位朋友，同闖江湖'}</h3>
+      <p>每個試場兩位俠客，各自用自己部手機入場；離線仍會自動應戰。</p>
+      <div className="online-pair-actions">
+        {pairInvite() ? <button className="online-frame" disabled={pending} onClick={() => void enterPair('join')}>接受邀請 · 入江湖</button> : <button className="online-frame" disabled={pending} onClick={() => void enterPair('create')}>開二人試場</button>}
+        {pairRoomId() && <button className="online-frame" disabled={pending} onClick={() => void enterPair('resume')}>返回上次試場</button>}
+      </div>
+      <p className="online-note">試場角色與銀兩獨立，唔會修改正式存檔。身份保留喺呢個瀏覽器；清除網站資料前，可到遊戲設定綁定電郵。</p>
+    </div> : !token ? <div className="online-frame online-login">
       <h3>選一位俠客入江湖</h3><p>兩個獨立測試帳戶，可分別喺兩個視窗入場。</p>
       <div className="online-accounts">{(['river', 'cloud'] as const).map(id => <button type="button" className="online-frame" key={id} disabled={pending} onClick={() => void login(id)}>
         <InkIcon name="hat" size={38} /><strong>{labels[id]}</strong><small>初始第 {id === 'river' ? 100 : 20} 名</small><span>入江湖 ›</span>
       </button>)}</div>
       <p className="online-note">試玩角色與正式存檔分開，今次進度會留喺本機試場。</p>
     </div> : !me ? <p role="status">正在接返江湖消息……</p> : <>
+      {publicOnline && snapshot.room && <div className="online-frame online-room">
+        <h3>{snapshot.room.waiting ? '等朋友赴約' : '二人已入江湖'}</h3>
+        <p>{snapshot.room.waiting ? '複製邀請連結，畀朋友用另一部手機或瀏覽器開啟。' : '勝負、武學配搭同試場收益都保留喺雲端。'}</p>
+        {invitation && <button className="online-frame" disabled={pending} onClick={() => void run(async () => {
+          try { await navigator.clipboard.writeText(invitation); setNotice('邀請連結已複製，傳畀朋友就可以入場。'); }
+          catch { setShowInvite(true); setNotice('長按下方連結即可複製。'); }
+        })}>複製邀請連結</button>}
+        {showInvite && <label className="online-invite-label">邀請連結<input className="online-frame" readOnly value={invitation} onFocus={e => e.currentTarget.select()} /></label>}
+      </div>}
       <div className="online-frame online-self">
         <div><small>現世俠客 · {connected ? '在線' : '連線中斷'}</small><h3>{me.character.name}</h3>
           <p>外功 {equippedMartialArts(me.character).filter(id => getSkillDef(id)?.kind === 'external').length}／5 · 內功 {me.character.supportArts?.internal ? 1 : 0}／1 · 身法 {me.character.supportArts?.qinggong ? 1 : 0}／1</p></div>
@@ -121,6 +147,7 @@ export default function InkOnlinePanel({ standalone = false }: { standalone?: bo
         <button className="online-frame" disabled={pending || !!me.busy} onClick={() => void run(async () => { await onlineCommand('loadout', token, { external, internal, qinggong }); await refresh(); setEditing(false); setNotice('武學配搭已更新。'); })}>保存配搭</button>
       </div>}
       <section className="online-opponents" aria-label="江湖對手"><div className="online-section-title"><h3>江湖對手</h3><small>低排名勝出 · 雙方換位</small></div>
+        {snapshot.room?.waiting && <p className="online-note">朋友入場後，呢度會顯示佢嘅在線狀態同挑戰入口。</p>}
         {snapshot.peers.filter(p => p.id !== me.id).map(peer => <div className="online-frame online-opponent" key={peer.id} data-peer-id={peer.id} data-peer-online={peer.online}>
           <div className="online-opponent-copy"><small>{peer.online ? '在線' : '離線 · 自動應戰'}</small><h3>{peer.name}</h3>
             <p>江湖第 <b data-peer-rank={peer.rank}>{peer.rank}</b> 名{peer.protectedUntil > now ? ` · 保護 ${timeLeft(peer.protectedUntil, now)} 秒` : peer.busy ? ' · 交戰中' : ''}</p></div>

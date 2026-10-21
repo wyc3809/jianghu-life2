@@ -1,3 +1,5 @@
+import { publicOnline, publicOnlineRequest, pairRoomId } from '../cloud/online';
+
 export class OnlineApiError extends Error {
   constructor(message: string, public status?: number) { super(message); }
 }
@@ -6,22 +8,22 @@ export class OnlineApiError extends Error {
 export async function onlineRequest<T>(path: string, token: string | null, data?: unknown, keepalive = false): Promise<T> {
   let response: Response;
   try {
-    response = await fetch('/api/jianghu/' + path, {
+    response = publicOnline ? await publicOnlineRequest(path, data, keepalive) : await fetch('/api/jianghu/' + path, {
       method: data === undefined ? 'GET' : 'POST',
       headers: { ...(token ? { Authorization: 'Bearer ' + token } : {}), ...(data === undefined ? {} : { 'Content-Type': 'application/json' }) },
       body: data === undefined ? undefined : JSON.stringify(data),
       signal: AbortSignal.timeout(8_000), keepalive,
     });
-  } catch { throw new OnlineApiError('暫時連唔到本機江湖，恢復連線後可重試。'); }
+  } catch { throw new OnlineApiError('暫時連唔到江湖，恢復連線後可重試。'); }
   const result = await response.json().catch(() => null);
-  if (!response.ok || !result) throw new OnlineApiError(result?.error ?? '本機江湖未能回覆。', response.status);
-  return result as T;
+  if (!response.ok || !result) throw new OnlineApiError(result?.error ?? '江湖未能回覆。', response.status);
+  return (publicOnline && path === 'login' ? { token: 'pair', snapshot: result } : result) as T;
 }
 
 /** 只有已知結果先清除請求；遺失回覆／重開頁後重試仍用同一指令。 */
 export async function onlineCommand<T>(path: string, token: string, payload: Record<string, unknown>): Promise<T> {
   const key = 'jianghu-online-pending:' + path;
-  const signature = JSON.stringify({ token, payload });
+  const signature = JSON.stringify({ token, payload, room: publicOnline ? pairRoomId() : undefined });
   let requestId: string;
   try {
     const old = JSON.parse(sessionStorage.getItem(key) ?? 'null');

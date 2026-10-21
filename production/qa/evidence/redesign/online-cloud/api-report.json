@@ -1,0 +1,24 @@
+{
+  "provider": "Supabase Edge + Postgres",
+  "room_slots": 2,
+  "actual_authenticated_users": 3,
+  "third_user_denied": true,
+  "foreign_room_denied": true,
+  "forged_jwt_denied": true,
+  "direct_database_denied": true,
+  "stat_tamper_denied": true,
+  "duplicate_create_same_room": true,
+  "concurrent_duplicate_challenge_one_battle": true,
+  "same_settled_battle_both_players": true,
+  "offline_defence": true,
+  "ranks": [
+    20,
+    100
+  ],
+  "failed_challenge_ranks_unchanged": true,
+  "duplicate_claim_one_credit": true,
+  "loadout_saved": true,
+  "battle_count": 2,
+  "life_health_unchanged": true,
+  "offline_pending_at_least_one": true
+}

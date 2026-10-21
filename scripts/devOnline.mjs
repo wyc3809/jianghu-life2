@@ -1,7 +1,7 @@
 import { spawn } from 'node:child_process';
 
 // 單一命令開啟兩個真正程序；資料只寫忽略提交嘅本機SQLite。
-const env = { ...process.env, LOCAL_MULTIPLAYER: '1', VITE_ONLINE_PROTOTYPE: '1' };
+const env = { ...process.env, LOCAL_MULTIPLAYER: '1', VITE_ONLINE_PROTOTYPE: '1', VITE_ONLINE_PUBLIC: '0' };
 const children = [];
 let stopping = false;
 function stop(code = 0) {

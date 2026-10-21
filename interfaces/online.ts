@@ -44,6 +44,7 @@ export interface OnlinePeer {
   busy: string | null;
 }
 export interface OnlineSnapshot {
+  room?: { id: string; invite?: string; waiting: boolean };
   serverNow: number;
   revision: number;
   me: OnlinePlayer;

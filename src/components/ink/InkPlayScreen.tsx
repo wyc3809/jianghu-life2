@@ -94,7 +94,7 @@ type Props = {
   state: LifeGameState;
 };
 
-const InkOnlinePanel = import.meta.env.DEV && import.meta.env.VITE_ONLINE_PROTOTYPE === '1'
+const InkOnlinePanel = import.meta.env.VITE_ONLINE_PUBLIC === '1' || (import.meta.env.DEV && import.meta.env.VITE_ONLINE_PROTOTYPE === '1')
   ? lazy(() => import('./InkOnlinePanel')) : null;
 
 export function InkPlayScreen({ state }: Props) {

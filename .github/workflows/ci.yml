@@ -21,3 +21,4 @@ jobs:
       - run: npm run build
         env:
           VITE_BASE: /jianghu-life2/
+          VITE_ONLINE_PUBLIC: '1'
