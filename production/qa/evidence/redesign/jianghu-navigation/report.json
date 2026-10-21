@@ -1,0 +1,57 @@
+{
+  "viewport": [
+    390,
+    844
+  ],
+  "dpr": 2,
+  "seed": 42,
+  "jade": {
+    "free": 600,
+    "paidTest": 0
+  },
+  "baseline": "EA0.82.0",
+  "cases": [
+    {
+      "name": "five_root_entries_and_back",
+      "only_selected_content": true,
+      "icons": 5,
+      "scroll_reset": true
+    },
+    {
+      "name": "home_shortcuts",
+      "gacha": true,
+      "huashan": true,
+      "dock_returns_to_menu": true
+    },
+    {
+      "name": "gacha_equipment_handoff",
+      "jade_after_one_pull": 540,
+      "no_auto_learning": true,
+      "person_page": true
+    },
+    {
+      "name": "online_sections",
+      "menu_only": true,
+      "loadout_preserved": true,
+      "claim_total": 222,
+      "claim_double_click_once": true,
+      "replay_no_challenge": true,
+      "offline_qa_challenge_and_history": true,
+      "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif"
+    }
+  ],
+  "phone_widths": [
+    320,
+    390,
+    420
+  ],
+  "overflow": false,
+  "touch44": true,
+  "bitmap_icons_loaded": true,
+  "pageerrors": [],
+  "commands": {
+    "loadout": 1,
+    "claim": 1,
+    "challenge": 1
+  }
+}
