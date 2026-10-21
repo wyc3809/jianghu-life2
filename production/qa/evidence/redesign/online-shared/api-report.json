@@ -1,0 +1,19 @@
+{
+  "world": "shared",
+  "real_users": 3,
+  "no_room_or_invite": true,
+  "all_players_visible": true,
+  "third_player_can_register": true,
+  "third_player_cannot_read_others_battle": true,
+  "all_tables_and_rpc_denied_to_browser": true,
+  "tampered_stats_denied": true,
+  "offline_defence": true,
+  "same_battle_both_players": true,
+  "duplicate_challenge_one_battle": true,
+  "ranks_match_authoritative_winner": true,
+  "unrelated_third_rank_unchanged": true,
+  "life_health_unchanged": true,
+  "all_offline_62seconds_then_resume": true,
+  "offline_income": 1,
+  "duplicate_claim_one_credit": true
+}

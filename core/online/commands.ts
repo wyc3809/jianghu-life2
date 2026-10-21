@@ -4,7 +4,7 @@ import { ONLINE_TEST } from '@data/redesign/onlineTestParams';
 import type { OnlineAccountId, OnlineWorld } from '@interfaces/online';
 import { simulateOnlineBattle } from './combat';
 
-const accountSchema = z.enum(['river', 'cloud']);
+const accountSchema = z.string().min(1).max(100).regex(/^[a-zA-Z0-9_-]+$/);
 const requestId = z.string().min(8).max(100).regex(/^[a-zA-Z0-9_-]+$/);
 const challengeSchema = z.object({ requestId, target: accountSchema }).strict();
 const claimSchema = z.object({ requestId }).strict();
@@ -29,6 +29,7 @@ export function applyOnlineCommand(world: OnlineWorld, now: number, id: OnlineAc
     const input = challengeSchema.parse(raw);
     if (input.target === id) throw new OnlineError(400, '不能挑戰自己。');
     const a = world.players[id], b = world.players[input.target];
+    if (!a || !b) throw new OnlineError(404, '搵唔到呢位江湖玩家。');
     if (a.busy || b.busy) throw new OnlineError(409, '其中一方仍在交戰，請稍後再試。');
     if (b.protectedUntil > now) throw new OnlineError(409, '對手正受戰敗保護。');
     const result = simulateOnlineBattle(a.character, b.character, entropy.seed);
@@ -37,9 +38,9 @@ export function applyOnlineCommand(world: OnlineWorld, now: number, id: OnlineAc
     world.battles.push({ id: battleId, attacker: id, defender: b.id,
       winner: result.winner === 0 ? id : result.winner === 1 ? b.id : null,
       startedAt: now, endsAt: now + ONLINE_TEST.battleMs, settledAt: null,
-      before: { river: world.players.river.rank, cloud: world.players.cloud.rank }, after: null,
+      before: { [id]: a.rank, [b.id]: b.rank }, after: null,
       replays: { [id]: result.forward, [b.id]: result.reverse } as typeof world.battles[number]['replays'],
-      characters: { river: structuredClone(world.players.river.character), cloud: structuredClone(world.players.cloud.character) },
+      characters: { [id]: structuredClone(a.character), [b.id]: structuredClone(b.character) },
     });
     return { battleId };
   }

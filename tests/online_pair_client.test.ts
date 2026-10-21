@@ -3,24 +3,27 @@ import { afterEach, expect, it, vi } from 'vitest';
 vi.mock('../src/cloud/cloud', () => ({ cloudAccess: async () => ({ url: 'https://test.invalid', key: 'test-public', token: 'test-session' }) }));
 afterEach(() => { vi.unstubAllGlobals(); vi.resetModules(); });
 
-it('test_pair_client_另一分頁轉房_本頁心跳及指令仍送原房', async () => {
-  // 已入A房嘅頁面；B分頁之後改寫「上次房間」。
-  let saved = 'room-a';
-  vi.stubGlobal('localStorage', { getItem: () => saved, setItem: (_key: string, value: string) => { saved = value; } });
-  const bodies: { roomId: string; clientId: string }[] = [];
-  vi.stubGlobal('fetch', async (_url: string, init: RequestInit) => {
-    bodies.push(JSON.parse(init.body as string));
-    return new Response(JSON.stringify({ room: { id: 'room-c' } }), { status: 200 });
+it('test_world_client_舊房間資料_唔改身份或發送房間選擇', async () => {
+  const saved = new Map([['jianghu-pair-room', 'old-room']]);
+  vi.stubGlobal('localStorage', { getItem: (key: string) => saved.get(key), setItem: (key: string, value: string) => { saved.set(key, value); } });
+  const calls: { url: string; body: Record<string, unknown>; headers: Record<string, string> }[] = [];
+  vi.stubGlobal('fetch', async (url: string, init: RequestInit) => {
+    calls.push({ url, body: JSON.parse(init.body as string), headers: init.headers as Record<string, string> });
+    return new Response('{}', { status: 200 });
   });
-  const { publicOnlineRequest, pairRoomId } = await import('../src/cloud/online');
-  saved = 'room-b';
+  const { publicOnlineRequest, worldJoined } = await import('../src/cloud/online');
+  expect(worldJoined()).toBe(false);
+  await publicOnlineRequest('login', { name: '測試俠客' }, false);
+  expect(worldJoined()).toBe(true);
+  saved.set('jianghu-pair-room', 'another-old-room');
   await publicOnlineRequest('heartbeat', {}, false);
-  await publicOnlineRequest('challenge', { requestId: 'command-001', target: 'cloud' }, false);
-  expect(bodies.map(b => b.roomId)).toEqual(['room-a', 'room-a']);
-  expect(bodies[0].clientId).toBe(bodies[1].clientId);
-  // 只有本頁成功接受邀請先改成新房；下次重開用新房。
-  await publicOnlineRequest('login', { action: 'join', invite: 'new-invite' }, false);
-  await publicOnlineRequest('heartbeat', {}, false);
-  expect(pairRoomId()).toBe('room-c'); expect(saved).toBe('room-c');
-  expect(bodies.at(-1)?.roomId).toBe('room-c');
+  expect(calls[0].url).toBe('https://test.invalid/functions/v1/jianghu-world');
+  expect(calls[0].body).toMatchObject({ action: 'register', data: { name: '測試俠客' } });
+  expect(calls[1].body).toMatchObject({ action: 'heartbeat', data: {} });
+  expect(calls[0].body.clientId).toBe(calls[1].body.clientId);
+  for (const call of calls) {
+    expect(call.body).not.toHaveProperty('roomId');
+    expect(call.body).not.toHaveProperty('account');
+    expect(call.headers.Authorization).toBe('Bearer test-session');
+  }
 });

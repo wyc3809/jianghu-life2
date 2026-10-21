@@ -69,8 +69,7 @@
 @media (max-width: 350px) { .online-page { padding-inline: 10px; } .online-section-title { align-items: flex-start; flex-direction: column; gap: 0; } .online-income { padding: 14px 12px; } .online-income button { padding-inline: 9px; } }
 @media (prefers-reduced-motion: reduce) { .ink-online button:active:not(:disabled) { transform: none; } }
 .online-pair-actions { display: grid; gap: 12px; margin: 18px 0; }
-.online-pair-actions button, .online-room button { min-height: 48px; padding: 10px 18px; }
-.online-room { padding: 16px; margin: 14px 0; }
-.online-room p { color: var(--ink-muted, #756b5d); line-height: 1.7; font-size: 14px; }
-.online-invite-label { display: grid; gap: 8px; margin-top: 12px; }
-.online-invite-label input { width: 100%; min-width: 0; min-height: 48px; box-sizing: border-box; padding: 8px; font-size: 14px; }
+.online-pair-actions button { min-height: 48px; padding: 10px 18px; }
+.online-name-label { display: grid; gap: 6px; margin: 15px 0; }
+.online-name-field { display: block; }
+.online-name-label input { width: 100%; min-width: 0; min-height: 48px; box-sizing: border-box; padding: 10px 14px; font: inherit; background: transparent; color: inherit; border: 0; }

@@ -8,3 +8,10 @@ Deno.serve(createPairHandler({ url: Deno.env.get('SUPABASE_URL'), anonKey: Deno.
   bundle: true, platform: 'neutral', format: 'esm', target: 'es2022', outfile: '.local-online/edge/index.ts', tsconfig: 'tsconfig.json', minify: false });
 await writeFile('.local-online/edge/deno.json', JSON.stringify({ compilerOptions: { lib: ['deno.ns', 'dom', 'esnext'] } }));
 console.log('二人試場Edge bundle已建立（無憑證）。');
+
+await mkdir('.local-online/world-edge', { recursive: true });
+await build({ stdin: { contents: `import { createSharedHandler } from './server/online/sharedHttp';
+Deno.serve(createSharedHandler({ url: Deno.env.get('SUPABASE_URL'), anonKey: Deno.env.get('SUPABASE_ANON_KEY'), serviceKey: Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') }));`, resolveDir: process.cwd(), sourcefile: 'world-edge-entry.ts' },
+  bundle: true, platform: 'neutral', format: 'esm', target: 'es2022', outfile: '.local-online/world-edge/index.ts', tsconfig: 'tsconfig.json', minify: false });
+await writeFile('.local-online/world-edge/deno.json', JSON.stringify({ compilerOptions: { lib: ['deno.ns', 'dom', 'esnext'] } }));
+console.log('共用江湖Edge bundle已建立（無憑證）。');

@@ -9,4 +9,5 @@ export const ONLINE_TEST = {
   offlineCapMs: 48 * 60 * 60 * 1_000,
   maxRounds: 40,
   sessionMs: 24 * 60 * 60 * 1_000,
+  maxPublicPlayers: 100,
 } as const;

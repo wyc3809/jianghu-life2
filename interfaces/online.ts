@@ -1,6 +1,6 @@
 import type { CombatReplay, LifeCharacter } from './lifeEngine';
 
-export type OnlineAccountId = 'river' | 'cloud';
+export type OnlineAccountId = string;
 export interface OnlinePlayer {
   id: OnlineAccountId;
   character: LifeCharacter;
@@ -44,6 +44,7 @@ export interface OnlinePeer {
   busy: string | null;
 }
 export interface OnlineSnapshot {
+  population?: number;
   room?: { id: string; invite?: string; waiting: boolean };
   serverNow: number;
   revision: number;
