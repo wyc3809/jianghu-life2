@@ -41,6 +41,7 @@ import { getSkillDef } from '@data/skills/catalog';
 import { motionReduced } from '../../ui/inkMotion';
 import { equippedMartialArts } from '@core/life/martialLoadout';
 import { loadMartialAssets } from '../../fx/art/martialPoses';
+import './spar-home.css';
 
 interface Props {
   season?: SparSeason;
@@ -138,11 +139,11 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
   const heroGhostRef = useRef<HTMLSpanElement | null>(null);
   const foeInnerRef = useRef<HTMLDivElement | null>(null);
   const foeGhostRef = useRef<HTMLSpanElement | null>(null);
-  const bossNameRef = useRef<HTMLElement | null>(null);
   const placeRef = useRef<HTMLDivElement | null>(null);
   const clearNoteRef = useRef<HTMLParagraphElement | null>(null);
   const leftRef = useRef<HTMLSpanElement | null>(null);
   const foeBarRef = useRef<HTMLDivElement | null>(null);
+  const infoRef = useRef<HTMLDivElement | null>(null);
   const statsKey = useHeroStatsKey();
   // 場景跟關數走（每 10 關換）；未有對打資料就用外面傳入嘅背景
   const sceneBg = snap?.sceneBg ?? background;
@@ -284,11 +285,12 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
       if (!stage || bossRef.current) return;
       const a = stage.getAnchors();
       const w = wrap.clientWidth;
+      const safeTop = (infoRef.current?.offsetTop ?? 0) + (infoRef.current?.offsetHeight ?? 0) + 10;
       // 主角血條向左伸、敵人血條向右伸，上下錯開，唔會疊埋
       const hb = heroBarRef.current;
       if (hb) {
         const left = Math.max(6, a.heroX + 18 - hb.offsetWidth);
-        hb.style.transform = `translate(${left.toFixed(1)}px, ${(a.heroHeadY - 12).toFixed(1)}px)`;
+        hb.style.transform = `translate(${left.toFixed(1)}px, ${Math.max(safeTop, a.heroHeadY - 12).toFixed(1)}px)`;
       }
       const fb = foeBarRef.current;
       if (fb) {
@@ -297,7 +299,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
           fb.style.opacity = '1';
           const left = Math.min(a.foeX - 18, w - fb.offsetWidth - 6);
           const lift = fb.offsetHeight + 30;
-          fb.style.transform = `translate(${left.toFixed(1)}px, ${(a.foeHeadY - lift).toFixed(1)}px)`;
+          fb.style.transform = `translate(${left.toFixed(1)}px, ${Math.max(safeTop, a.foeHeadY - lift).toFixed(1)}px)`;
         }
       }
     };
@@ -494,13 +496,6 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
   useBarMotion(heroInnerRef, heroGhostRef, heroPct, String(snap?.stage ?? ''));
   useBarMotion(foeInnerRef, foeGhostRef, foePct, foeKey);
 
-  // 首領名：逐字凝聚
-  const bossName = snap?.foe?.boss ? `${snap.stage}-${snap.foe.name}` : '';
-  useEffect(() => {
-    if (!bossName) return;
-    return inkRevealChars(bossNameRef.current, { delay: 120, step: 90 }) ?? undefined;
-  }, [bossName]);
-
   // 換景題字：地名逐字、其餘落筆出場
   useEffect(() => {
     const el = placeRef.current;
@@ -593,22 +588,39 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
       {createPortal(<div className={bossBattle ? 'ink-spar-battle-canvas' : 'ink-spar-stage'} ref={wrapRef} aria-label="切磋演武">
       <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
       {!bossBattle && overlay}
-      {!bossBattle && caption && (
-        <p className="ink-spar-caption">
+      {!bossBattle && <div className="ink-spar-info" ref={infoRef}>
+        {caption && <p className="ink-spar-caption">
           <span>{caption.date}</span>
           <strong>{snap && snap.sceneBg !== 'town' ? snap.place : caption.home}</strong>
-        </p>
-      )}
+        </p>}
+        {snap && <div className="ink-spar-info-right">
+          <div className="ink-spar-hud">
+            <span className="ink-spar-hud-stage">第 {snap.stage} 關 · {snap.theme}</span>
+            <span className="ink-spar-hud-left" ref={leftRef}>餘敵 {snap.minionsLeft + 1}</span>
+          </div>
+          {snap.foe && <div className="ink-spar-enemy-info" aria-label="敵人資料">
+            <span className={`ink-spar-enemy-name${snap.foe.tier === 'elite' ? ' is-elite' : ''}`}>
+              <em>{snap.foe.tier === 'elite' ? '精英' : '對手'}</em><b>{snap.foe.name}</b>
+            </span>
+            {snap.foe?.trait && (
+              <span
+                className={`ink-spar-trait${snap.foeCharging ? ' is-charging' : ''}${snap.foeEnraged ? ' is-enraged' : ''}`}
+                style={{ ['--trait' as string]: `rgb(${FOE_TRAITS[snap.foe.trait].rgb})` }}
+                title={FOE_TRAITS[snap.foe.trait].blurb}
+              >
+                <i>{FOE_TRAITS[snap.foe.trait].glyph}</i>
+                {FOE_TRAITS[snap.foe.trait].name}
+                {snap.foe.tier === 'elite' ? '·弱' : ''}
+              </span>
+            )}
+          </div>}
+        </div>}
+        {conditions.length > 0 && <div className="ink-spar-conditions" aria-label="狀態">
+          {conditions.map(cond => <span key={cond.id} className="ink-spar-condition-chip">{cond.name}·{cond.monthsLeft}月</span>)}
+        </div>}
+      </div>}
       {!bossBattle && snap && (
         <>
-          <div className="ink-spar-hud" aria-live="polite">
-            <span className="ink-spar-hud-stage">
-              第 {snap.stage} 關 · {snap.theme}
-            </span>
-            <span className="ink-spar-hud-left" ref={leftRef}>
-              {snap.foe?.boss ? '首領之戰' : `餘敵 ${snap.minionsLeft + 1}`}
-            </span>
-          </div>
           <div className="ink-spar-bar ink-spar-bar--hero" ref={heroBarRef} aria-label={`演武氣血 ${snap.heroHp}/${snap.heroMaxHp}`}>
             <div className="ink-spar-bar-inner" ref={heroInnerRef}>
               {/* 殘血：扣血後白影慢慢追落 */}
@@ -624,29 +636,6 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
             ref={foeBarRef}
             aria-label={snap.foe ? `${snap.foe.name} ${fmt(snap.foeHp)}` : undefined}
           >
-            {snap.foe?.boss && (
-              <span className="ink-spar-boss-name" key={`${snap.stage}-${snap.foe.name}`}>
-                <em>首領</em>
-                <b ref={bossNameRef}>{snap.foe.name}</b>
-              </span>
-            )}
-            {snap.foe?.tier === 'elite' && (
-              <span className="ink-spar-boss-name ink-spar-elite-name" key={`${snap.stage}-${snap.minionsLeft}-${snap.foe.name}`}>
-                <em>精英</em>
-                <b>{snap.foe.name}</b>
-              </span>
-            )}
-            {snap.foe?.trait && (
-              <span
-                className={`ink-spar-trait${snap.foeCharging ? ' is-charging' : ''}${snap.foeEnraged ? ' is-enraged' : ''}`}
-                style={{ ['--trait' as string]: `rgb(${FOE_TRAITS[snap.foe.trait].rgb})` }}
-                title={FOE_TRAITS[snap.foe.trait].blurb}
-              >
-                <i>{FOE_TRAITS[snap.foe.trait].glyph}</i>
-                {FOE_TRAITS[snap.foe.trait].name}
-                {snap.foe.tier === 'elite' ? '·弱' : ''}
-              </span>
-            )}
             <div className="ink-spar-bar-inner" ref={foeInnerRef}>
               <span className="ink-spar-bar-ghost" ref={foeGhostRef}>
                 <InkBrushBar pct={100} tone="ink" />
@@ -671,15 +660,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
           )}
         </>
       )}
-      {!bossBattle && conditions.length > 0 && (
-        <div className="ink-spar-conditions" aria-label="狀態">
-          {conditions.map((cond) => (
-            <span key={cond.id} className="ink-spar-condition-chip">
-              {cond.name}·{cond.monthsLeft}月
-            </span>
-          ))}
-        </div>
-      )}
+
     </div>, sceneHost)}
     </>, portalHost)}
     </div>

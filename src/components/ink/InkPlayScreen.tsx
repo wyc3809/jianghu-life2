@@ -54,6 +54,7 @@ import { InkAutoBattleView } from './InkAutoBattleView';
 import { InkLifeOrDeathConfirm } from './InkLifeOrDeathConfirm';
 import { InkSuccessionModal } from './InkSuccessionModal';
 import { InkHomeGoals } from './InkHomeGoals';
+import { InkIdleHarvest } from './InkIdleHarvest';
 import { InkHomeQuick, type QuickTarget } from './InkHomeQuick';
 import { InkGachaPanel } from './InkGachaPanel';
 import { InkJianghuHub, type JianghuView } from './InkFeatureMenu';
@@ -717,29 +718,18 @@ export function InkPlayScreen({ state }: Props) {
       {/* 演武台常駐（事件／交手時只係收埋）：過月唔再重新載入，關數、血量、敵陣接住打 */}
       {onHomeTab && (
         <div className="ink-home-focus" style={combat || eventFocus ? { display: 'none' } : undefined}>
-          {state.phase === 'playing' && c.alive && !showResult && (
-            <InkHomeGoals
-              section="harvest"
-              state={state}
-              busy={Boolean(combat)}
-              onHarvest={() => {
-                const got = harvestIdle();
-                if (got > 0) playInkWin();
-              }}
-              onAction={(a) => {
-                if (a === 'trial') startNewbieTrial();
-                else if (a === 'equip') equipOwned(NEWBIE_TRIAL.rewardGearId);
-                else if (a === 'breakthrough') attemptBreakthrough();
-              }}
-            />
-          )}
-
           {/* 演武台直接用地圖 banner 嘅鎮景長卷做背景，季節・地點名浮喺動畫入面，唔再分開兩張圖 */}
           <div className="ink-home-scene">
             <InkSparStage
               reduceMotion={reduceMotion}
               season={inkSeason}
               background="town"
+              overlay={state.phase === 'playing' && c.alive && !showResult && <InkIdleHarvest
+                state={state} busy={Boolean(combat)} onHarvest={() => {
+                  const got = harvestIdle();
+                  if (got > 0) playInkWin();
+                }}
+              />}
               caption={{ date: `${seasonLabel(month)} · ${state.year}年${month}月`, home: c.location || '千燈鎮' }}
             />
             {/* 四季／地面位圖由演武Canvas繪製，全屏首領戰亦保持同一畫面。 */}

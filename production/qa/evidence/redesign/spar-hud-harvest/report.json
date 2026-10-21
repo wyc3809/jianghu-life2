@@ -1,0 +1,467 @@
+{
+  "viewport_baseline": [
+    390,
+    844
+  ],
+  "dpr": 2,
+  "seed": 42,
+  "jade": {
+    "free": 600,
+    "paidTest": 0
+  },
+  "fixture": "第6關精英；本機氣血2000、待收成123.75；跳過前排小兵以重現名牌",
+  "layouts": [
+    {
+      "width": 320,
+      "height": 568,
+      "reduced_motion": false,
+      "rects": {
+        "scene": {
+          "left": 10,
+          "top": 141.1875,
+          "right": 310,
+          "bottom": 352,
+          "width": 300,
+          "height": 210.8125
+        },
+        "info": {
+          "left": 24,
+          "top": 154.1875,
+          "right": 296,
+          "bottom": 226.375,
+          "width": 272,
+          "height": 72.1875
+        },
+        "caption": {
+          "left": 24,
+          "top": 154.1875,
+          "right": 127.296875,
+          "bottom": 203.78125,
+          "width": 103.296875,
+          "height": 49.59375
+        },
+        "stage": {
+          "left": 135.296875,
+          "top": 154.1875,
+          "right": 296,
+          "bottom": 174.6875,
+          "width": 160.703125,
+          "height": 20.5
+        },
+        "enemy": {
+          "left": 207.15625,
+          "top": 180.6875,
+          "right": 296,
+          "bottom": 202.6875,
+          "width": 88.84375,
+          "height": 22
+        },
+        "trait": {
+          "left": 213,
+          "top": 205.6875,
+          "right": 296,
+          "bottom": 226.375,
+          "width": 83,
+          "height": 20.6875
+        },
+        "heroHp": {
+          "left": 147.10000610351562,
+          "top": 256.98748779296875,
+          "right": 211.10000610351562,
+          "bottom": 266.98748779296875,
+          "width": 64,
+          "height": 10
+        },
+        "foeHp": {
+          "left": 211.60000610351562,
+          "top": 236.1875,
+          "right": 281.6000061035156,
+          "bottom": 246.1875,
+          "width": 70,
+          "height": 10
+        },
+        "entry": {
+          "left": 25,
+          "top": 287,
+          "right": 151.015625,
+          "bottom": 337,
+          "width": 126.015625,
+          "height": 50
+        },
+        "quick": {
+          "left": 14,
+          "top": 355,
+          "right": 306,
+          "bottom": 403,
+          "width": 292,
+          "height": 48
+        },
+        "task": {
+          "left": 14,
+          "top": 411,
+          "right": 306,
+          "bottom": 467,
+          "width": 292,
+          "height": 56
+        },
+        "dock": {
+          "left": 0,
+          "top": 473,
+          "right": 320,
+          "bottom": 568,
+          "width": 320,
+          "height": 95
+        }
+      },
+      "overlaps": [],
+      "overflow": false,
+      "entryHit": true,
+      "heroHeight": 47.84000000000001
+    },
+    {
+      "width": 390,
+      "height": 720,
+      "reduced_motion": false,
+      "rects": {
+        "scene": {
+          "left": 10,
+          "top": 174.390625,
+          "right": 380,
+          "bottom": 470,
+          "width": 370,
+          "height": 295.609375
+        },
+        "info": {
+          "left": 24,
+          "top": 187.390625,
+          "right": 366,
+          "bottom": 259.578125,
+          "width": 342,
+          "height": 72.1875
+        },
+        "caption": {
+          "left": 24,
+          "top": 187.390625,
+          "right": 154.6875,
+          "bottom": 236.984375,
+          "width": 130.6875,
+          "height": 49.59375
+        },
+        "stage": {
+          "left": 162.6875,
+          "top": 187.390625,
+          "right": 366,
+          "bottom": 207.890625,
+          "width": 203.3125,
+          "height": 20.5
+        },
+        "enemy": {
+          "left": 277.15625,
+          "top": 213.890625,
+          "right": 366,
+          "bottom": 235.890625,
+          "width": 88.84375,
+          "height": 22
+        },
+        "trait": {
+          "left": 283,
+          "top": 238.890625,
+          "right": 366,
+          "bottom": 259.578125,
+          "width": 83,
+          "height": 20.6875
+        },
+        "heroHp": {
+          "left": 192.1999969482422,
+          "top": 351.59063720703125,
+          "right": 256.20001220703125,
+          "bottom": 361.59063720703125,
+          "width": 64.00001525878906,
+          "height": 10
+        },
+        "foeHp": {
+          "left": 263.3999938964844,
+          "top": 327.2906188964844,
+          "right": 333.3999938964844,
+          "bottom": 337.2906188964844,
+          "width": 70,
+          "height": 10
+        },
+        "entry": {
+          "left": 25,
+          "top": 405,
+          "right": 151.015625,
+          "bottom": 455,
+          "width": 126.015625,
+          "height": 50
+        },
+        "quick": {
+          "left": 14,
+          "top": 476,
+          "right": 376,
+          "bottom": 538,
+          "width": 362,
+          "height": 62
+        },
+        "task": {
+          "left": 14,
+          "top": 546,
+          "right": 376,
+          "bottom": 604,
+          "width": 362,
+          "height": 58
+        },
+        "dock": {
+          "left": 0,
+          "top": 610,
+          "right": 390,
+          "bottom": 720,
+          "width": 390,
+          "height": 110
+        }
+      },
+      "overlaps": [],
+      "overflow": false,
+      "entryHit": true,
+      "heroHeight": 58.30500000000001
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "reduced_motion": false,
+      "rects": {
+        "scene": {
+          "left": 10,
+          "top": 174.390625,
+          "right": 380,
+          "bottom": 594,
+          "width": 370,
+          "height": 419.609375
+        },
+        "info": {
+          "left": 24,
+          "top": 187.390625,
+          "right": 366,
+          "bottom": 259.578125,
+          "width": 342,
+          "height": 72.1875
+        },
+        "caption": {
+          "left": 24,
+          "top": 187.390625,
+          "right": 154.6875,
+          "bottom": 236.984375,
+          "width": 130.6875,
+          "height": 49.59375
+        },
+        "stage": {
+          "left": 162.6875,
+          "top": 187.390625,
+          "right": 366,
+          "bottom": 207.890625,
+          "width": 203.3125,
+          "height": 20.5
+        },
+        "enemy": {
+          "left": 277.15625,
+          "top": 213.890625,
+          "right": 366,
+          "bottom": 235.890625,
+          "width": 88.84375,
+          "height": 22
+        },
+        "trait": {
+          "left": 283,
+          "top": 238.890625,
+          "right": 366,
+          "bottom": 259.578125,
+          "width": 83,
+          "height": 20.6875
+        },
+        "heroHp": {
+          "left": 190.60000610351562,
+          "top": 456.390625,
+          "right": 254.60000610351562,
+          "bottom": 466.390625,
+          "width": 64,
+          "height": 10
+        },
+        "foeHp": {
+          "left": 263.3999938964844,
+          "top": 432.09063720703125,
+          "right": 333.3999938964844,
+          "bottom": 442.09063720703125,
+          "width": 70,
+          "height": 10
+        },
+        "entry": {
+          "left": 25,
+          "top": 529,
+          "right": 151.015625,
+          "bottom": 579,
+          "width": 126.015625,
+          "height": 50
+        },
+        "quick": {
+          "left": 14,
+          "top": 600,
+          "right": 376,
+          "bottom": 662,
+          "width": 362,
+          "height": 62
+        },
+        "task": {
+          "left": 14,
+          "top": 670,
+          "right": 376,
+          "bottom": 728,
+          "width": 362,
+          "height": 58
+        },
+        "dock": {
+          "left": 0,
+          "top": 734,
+          "right": 390,
+          "bottom": 844,
+          "width": 390,
+          "height": 110
+        }
+      },
+      "overlaps": [],
+      "overflow": false,
+      "entryHit": true,
+      "heroHeight": 58.30500000000001
+    },
+    {
+      "width": 420,
+      "height": 896,
+      "reduced_motion": true,
+      "rects": {
+        "scene": {
+          "left": 10,
+          "top": 174.390625,
+          "right": 410,
+          "bottom": 646,
+          "width": 400,
+          "height": 471.609375
+        },
+        "info": {
+          "left": 24,
+          "top": 187.390625,
+          "right": 396,
+          "bottom": 259.578125,
+          "width": 372,
+          "height": 72.1875
+        },
+        "caption": {
+          "left": 24,
+          "top": 187.390625,
+          "right": 166.421875,
+          "bottom": 236.984375,
+          "width": 142.421875,
+          "height": 49.59375
+        },
+        "stage": {
+          "left": 174.421875,
+          "top": 187.390625,
+          "right": 396,
+          "bottom": 207.890625,
+          "width": 221.578125,
+          "height": 20.5
+        },
+        "enemy": {
+          "left": 307.15625,
+          "top": 213.890625,
+          "right": 396,
+          "bottom": 235.890625,
+          "width": 88.84375,
+          "height": 22
+        },
+        "trait": {
+          "left": 313,
+          "top": 238.890625,
+          "right": 396,
+          "bottom": 259.578125,
+          "width": 83,
+          "height": 20.6875
+        },
+        "heroHp": {
+          "left": 208.89999389648438,
+          "top": 495.890625,
+          "right": 272.8999938964844,
+          "bottom": 505.890625,
+          "width": 64,
+          "height": 10
+        },
+        "foeHp": {
+          "left": 285.6000061035156,
+          "top": 471.890625,
+          "right": 355.6000061035156,
+          "bottom": 481.890625,
+          "width": 70,
+          "height": 10
+        },
+        "entry": {
+          "left": 25,
+          "top": 581,
+          "right": 151.015625,
+          "bottom": 631,
+          "width": 126.015625,
+          "height": 50
+        },
+        "quick": {
+          "left": 14,
+          "top": 652,
+          "right": 406,
+          "bottom": 714,
+          "width": 392,
+          "height": 62
+        },
+        "task": {
+          "left": 14,
+          "top": 722,
+          "right": 406,
+          "bottom": 780,
+          "width": 392,
+          "height": 58
+        },
+        "dock": {
+          "left": 0,
+          "top": 786,
+          "right": 420,
+          "bottom": 896,
+          "width": 420,
+          "height": 110
+        }
+      },
+      "overlaps": [],
+      "overflow": false,
+      "entryHit": true,
+      "heroHeight": 62.790000000000006
+    }
+  ],
+  "cases": [
+    {
+      "name": "live_elite_no_overlap",
+      "samples": 12,
+      "scene_height_before": 357.609375,
+      "scene_height_after": 419.609375
+    },
+    {
+      "name": "real_harvest_and_modal",
+      "rates_match_core": true,
+      "double_click_credited": 123,
+      "fraction_retained": true,
+      "empty_can_open": true,
+      "escape_close_focus_return": true,
+      "backdrop_close": true,
+      "stage_not_reset": true
+    },
+    {
+      "name": "boss_handoff",
+      "fullscreen_preserved": true,
+      "modal_removed": true
+    }
+  ],
+  "pageerrors": []
+}
