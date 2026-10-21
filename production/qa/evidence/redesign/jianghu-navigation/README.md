@@ -9,8 +9,9 @@
 - `opponents.png`、`loadout.png`、`income.png`、`history.png`、`rules.png`、`new-battle-history.png`：真雲端資料及可操作內容，唔以假資料回覆充當連線驗證。
 - `equip-selection.png`：單抽後馬上裝備仍先導向人物選欄；600玉石變540，未自動學習或換裝。
 - `root-*.png`／`online-*.png`：320／390／420手機，無橫向溢出，主要入口觸控至少44px，所有牌章位圖載入成功；原有底欄保留。
-- `navigation.mp4`／`navigation.gif`：正常速度實際導航與操作。GIF節錄7–19秒，唔加速核心。
+- `navigation.mp4`：最後排版嘅正常速度導航；`functional-regression.mp4`：完整功能回歸（最後內功／身法邊框精修前，邏輯相同）。`navigation.gif`節錄最後排版導航，唔加速核心。
 - `report.json`：完整Playwright報告，pageerror0；主頁秘笈閣／論劍捷徑直接開目標頁；重新點江湖底欄回列表；真正內容捲動容器返回頂部。
+- `loadout-*.png`／`select-layout.json`：內功／身法選單補齊同款位圖框，320／390／420再次驗證觸控／溢出及pageerror0。
 - `tests.txt`／`build.txt`／`narrate.txt`：全測、Pages build含tsc及narrate結果。
 
 真雲端只操作既有自己QA身份：保存原配搭一次（角色不變）、連點領收益只一條claim、重播唔發challenge、向另一個自己QA身份挑戰一次，再喺獨立戰報頁讀同一戰報。冇挑戰其他玩家、改伺服器、數值或存檔格式。原圖、器物映射及授權沿用現有素材登記，冇產生新素材。

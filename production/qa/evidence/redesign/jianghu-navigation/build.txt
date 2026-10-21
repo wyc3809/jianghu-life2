@@ -19,24 +19,24 @@ rendering chunks...
 computing gzip size...
 dist/index.html                              1.27 kB │ gzip:   0.59 kB
 dist/assets/wuxia-titles-DuK567Iq.woff2    210.12 kB
-dist/assets/InkOnlinePanel-BmCSxNgr.css      6.70 kB │ gzip:   1.85 kB
+dist/assets/InkOnlinePanel-DRfzmSAf.css      6.80 kB │ gzip:   1.87 kB
 dist/assets/DuelFx-C-t2mby_.css              8.17 kB │ gzip:   2.43 kB
 dist/assets/HighlightFx-T3J_rm05.css        21.70 kB │ gzip:   5.10 kB
 dist/assets/index-cfM_Bb32.css             227.48 kB │ gzip:  43.33 kB
-dist/assets/CodexStage-mv_W-V6K.js           2.12 kB │ gzip:   1.20 kB
-dist/assets/codex-o5kYUHK0.js                2.65 kB │ gzip:   1.28 kB
-dist/assets/HighlightDemo-C4P6aR6Z.js        2.80 kB │ gzip:   1.51 kB
-dist/assets/InkOnlinePanel-BoiLYw7h.js      16.14 kB │ gzip:   6.20 kB
-dist/assets/DuelFx-D0sMaiRz.js              34.63 kB │ gzip:  13.04 kB
-dist/assets/HighlightFx-DCtB37Gx.js         54.38 kB │ gzip:  19.87 kB
+dist/assets/CodexStage-BMHv2ifB.js           2.12 kB │ gzip:   1.20 kB
+dist/assets/codex-C0Qj9eFO.js                2.65 kB │ gzip:   1.28 kB
+dist/assets/HighlightDemo-BzCnw72i.js        2.80 kB │ gzip:   1.51 kB
+dist/assets/InkOnlinePanel-MslCy_-U.js      16.14 kB │ gzip:   6.20 kB
+dist/assets/DuelFx-QSUxeZhp.js              34.63 kB │ gzip:  13.04 kB
+dist/assets/HighlightFx-gjdHmXQe.js         54.38 kB │ gzip:  19.86 kB
 dist/assets/particles-CPZHKqCJ.js           76.32 kB │ gzip:  29.93 kB
 dist/assets/index-D5bMjAqh.js              227.81 kB │ gzip:  59.26 kB
 dist/assets/vendor-BW_UMXlD.js             279.13 kB │ gzip:  84.43 kB
 dist/assets/three.module-dfjUNOCT.js       562.51 kB │ gzip: 143.05 kB
-dist/assets/index-CbcG4oVE.js            1,642.60 kB │ gzip: 545.32 kB
+dist/assets/index-B20szxMQ.js            1,642.60 kB │ gzip: 545.33 kB
 
 (!) Some chunks are larger than 500 kB after minification. Consider:
 - Using dynamic import() to code-split the application
 - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
-✓ built in 5.65s
+✓ built in 5.71s

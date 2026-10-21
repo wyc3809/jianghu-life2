@@ -45,7 +45,7 @@
 .online-loadout fieldset { border: 0; padding: 0 0 18px; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .online-loadout legend { font-size: 14px; font-weight: 600; margin-bottom: 10px; }
 .online-loadout label { display: grid; grid-template-columns: 42px minmax(0, 1fr); align-items: center; gap: 8px; margin: 10px 0; }
-.online-loadout select { min-height: 44px; width: 100%; color: var(--ink); padding: 8px; font: inherit; background: var(--paper-bright); border: 1px solid var(--ink-faint); }
+.online-loadout select { min-height: 48px; width: 100%; min-width: 0; color: var(--ink); padding: 4px 10px; font: inherit; background: var(--paper-bright); background-clip: padding-box; border: 12px solid transparent; border-image: var(--wuxia-frame-neutral) 128 / 1 / 0 stretch; }
 .online-loadout > button { width: 100%; margin-top: 16px; }
 .online-balance { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 9px; margin: 16px 0; }
 .online-balance strong { margin-left: auto; font-variant-numeric: tabular-nums; font-size: 20px; overflow-wrap: anywhere; }
