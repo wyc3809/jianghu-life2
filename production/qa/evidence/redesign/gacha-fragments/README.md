@@ -28,3 +28,7 @@
 無新增外來素材。書頁沿用`public/ink/art/gacha/codex-page-right.webp`原創山水內頁，三層疊紙只係排版。原圖、生成提示、來源／授權及處理腳本沿用`design/art/gacha-codex/README.md`、`pages-source.png`、`scripts/art/prepare_gacha_codex.py`；映射見`src/fx/highlight/codexAppearance.ts`。文字全部用真文字，無SVG。
 
 Linux軟件GPU下錄影會降低畫格率，唔代表實機效能量測；一般完整啟封已實播，今次無重做高階動畫，無宣稱用減少動態截圖驗證完整心願演出。抽卡主頁沿用既有共用人物資訊及導航，較短手機仍需捲到操作區；演出結果獨立捲動。
+
+## EA0.86.0 發布
+
+玩家睇圖後已回覆「上線」，今次發布EA0.86.0；本段取代上文未發布狀態。發布時只升版本及更新發布記錄，抽取規則、素材與已驗收畫面沿用本批內容。

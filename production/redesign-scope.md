@@ -863,3 +863,13 @@ EA0.85.0 發布檢查：96檔698項Vitest、Pages build含tsc及narrate hard-fai
 維持EA0.85.0，待玩家睇圖確認先發布。完整驗收與限制見 `production/qa/evidence/redesign/gacha-fragments/README.md`。
 
 今輪驗收完成：97檔713項Vitest、Pages build含tsc、narrate hard-fail0全過。真瀏覽器9組情境通過，pageerror0：完整單抽、混合十連、兩池第40抽、裝備導向、context lost／無WebGL／減少動態及四個手機尺寸。完整單抽錄影與前後圖已備；高階心願只核對減少動態結果，無宣稱重驗完整高階演出。
+
+### 第31項追加／EA0.86.0 發布確認（2026-10-22）
+
+玩家睇過書頁單抽／混合十連結果圖同完整啟封動畫後回覆「上線」。玩家已確認，EA0.86.0 上線；本段取代上文待睇圖及未發布狀態。
+
+發布內容：非保底抽取20%武功／80%書頁，書頁每份先用5頁測試值直接入帳；200頁換一般江湖武功、每抽60玉石／十連600及有效心願40抽保底保留。兩池與六派定向小冊、免費／付費玉石限制、重複手動轉書頁及人物選欄裝備流程沿用原規則。單抽／十連、上次結果與無WebGL／context lost後備會分清武功及書頁，顯示真實身份、數量與兌換入口。
+
+發布前重跑完整Vitest、Pages build含tsc及narrate，等發布提交CI通過先squash合併；部署後核對正式版本及手機池規／結果畫面。原本驗收見`production/qa/evidence/redesign/gacha-fragments/README.md`。只發布網頁，唔改多人後端或TestFlight。
+
+EA0.86.0 發布檢查：97檔713項Vitest、Pages build含tsc及narrate hard-fail0全部通過。
