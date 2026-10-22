@@ -43,6 +43,8 @@ export interface RewardCard {
   grade: Grade;
   /** 卡面大字數量（例如 ×120）；細字數值唔放卡面 */
   amount?: number;
+  /** 抽卡結果嘅真實類別；書頁唔係武功，唔顯示書封或裝備操作。 */
+  rewardKind?: 'art' | 'pages';
   /** 抽卡真實身份，與高光品階獨立。 */
   identityLabel?: string;
   isPremium?: boolean;
@@ -71,6 +73,8 @@ export interface HighlightConfig {
   revealTitle: string;
   /** 標題下一行 */
   revealSub?: string;
+  /** 已入帳結果嘅完成文字；唔影響派獎時機。 */
+  claimLabel?: string;
   /** 揭曉時蓋嘅詞語印（印鍵，見 src/ui/inkAssets.ts） */
   seal?: string;
   rewards: RewardCard[];

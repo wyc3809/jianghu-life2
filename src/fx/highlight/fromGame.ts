@@ -2,6 +2,8 @@
  * 遊戲狀態 → 高光時刻設定（純展示映射，唔改遊戲狀態）。
  * 寶箱＝新裝備（品階＝裝備稀有度）；令牌＝學武學／升階；丹爐＝境界突破成功。
  */
+import type { PullResult } from '@core/life/gacha';
+import { PAGES_PER_EXCHANGE } from '@data/redesign/testParams';
 import { VOLUME_NUMERALS } from '@data/skills/volumes';
 import type { LifeGameState, LifeMoment } from '@interfaces/lifeEngine';
 import type { BreakthroughResult } from '@core/life/cultivation';
@@ -167,32 +169,41 @@ export function breakthroughHighlight(state: LifeGameState, r: BreakthroughResul
 
 /**
  * 秘笈閣抽卡 → 線裝秘笈啟封；其他學武學／升階沿用武學令。
- * 品階：心願＝5、珍本奇功＝4、新武學＝2、重複＝1。
+ * 品階：心願＝5、珍本奇功＝4、新武學＝2、重複＝1、書頁＝0；與永久稀有度分開。
  */
 export function gachaHighlight(
-  results: { id: string; vol?: number; isNew: boolean; isWish: boolean; isPremium: boolean }[],
+  results: PullResult[],
   names: (id: string) => string,
   blurbOf: (id: string) => string | undefined,
   jade: { free: number; paidTest: number },
 ): HighlightConfig | null {
   if (!results.length) return null;
   const gradeOf = (r: (typeof results)[number]): Grade =>
-    r.isWish ? 5 : r.isPremium ? 4 : r.isNew ? 2 : 1;
+    r.kind === 'pages' ? 0 : r.isWish ? 5 : r.isPremium ? 4 : r.isNew ? 2 : 1;
   const top = results.reduce<Grade>((g, r) => (gradeOf(r) > g ? gradeOf(r) : g), 0 as Grade);
-  const wish = results.find((r) => r.isWish);
-  const premium = results.find((r) => r.isPremium);
-  const fresh = results.filter((r) => r.isNew).length;
+  const arts = results.filter(r => r.kind !== 'pages');
+  const pages = results.reduce((sum, r) => sum + (r.kind === 'pages' ? r.pages : 0), 0);
+  const wish = arts.find((r) => r.isWish);
+  const premium = arts.find((r) => r.isPremium);
+  const fresh = arts.filter((r) => r.isNew).length;
   return {
     subject: 'codex',
     targetGrade: clampGrade(top),
-    revealTitle: wish ? '心願得償' : premium ? '珍本現世' : fresh ? '秘笈入藏' : '藏本增益',
-    seal: '武',
+    revealTitle: wish ? '心願得償' : premium ? '珍本現世' : fresh ? '秘笈入藏' : arts.length ? '藏本增益' : '書頁入帳',
+    claimLabel: pages ? '完成' : '完成入藏',
+    seal: arts.length ? '武' : undefined,
     revealSub: wish
-      ? `${names(wish.id)} · 心願秘笈到手`
-      : `${results.length} 卷秘笈 · 新得 ${fresh} 卷`,
+      ? `${names(wish.id)} · 心願命中${pages ? ` · 書頁＋${pages}` : ''}`
+      : arts.length ? `${arts.length} 份武功 · 新得 ${fresh} 份${pages ? ` · 書頁＋${pages}` : ''}` : `書頁＋${pages} · 已加入帳戶`,
     balances: { coin: { label: '免費玉石', value: jade.free }, gem: { label: '付費玉石', value: jade.paidTest } },
-    rewards: results.map((r, i) => ({
-      id: `gacha-${r.id}-${i}`,
+    rewards: results.map((r, i) => r.kind === 'pages' ? {
+      id: `gacha-pages-${i}`, rewardKind: 'pages' as const,
+      icon: 'scroll' as const, pattern: 'art' as const, name: '書頁', grade: 0 as Grade,
+      amount: r.pages, isNew: false, isPremium: false, isWish: false,
+      identityLabel: `秘笈碎片 · 已入帳${r.pages}頁`,
+      blurb: `書頁＋${r.pages}，已加入帳戶。累積${PAGES_PER_EXCHANGE}頁可到家族收藏兌換一般江湖武功，不能兌換珍本。`,
+    } : ({
+      id: `gacha-${r.id}-${i}`, rewardKind: 'art' as const,
       icon: 'scroll' as const,
       pattern: 'art' as const,
       name: r.vol ? `${names(r.id)}·卷${VOLUME_NUMERALS[r.vol - 1]}` : names(r.id),

@@ -42,7 +42,10 @@ with sync_playwright() as p:
   page.get_by_role('navigation',name='分卷').get_by_role('button',name='江湖',exact=True).click();page.locator('#ink-jianghu-menu').wait_for()
  report['cases'].append({'name':'home_shortcuts','gacha':True,'huashan':True,'dock_returns_to_menu':True})
  # 新導航唔改抽卡入帳；馬上裝備仍先去人物揀欄。
- page.get_by_role('button',name='秘笈閣',exact=True).click();before_skills=page.evaluate('window.qa.life.getState().state.character.skills')
+ page.get_by_role('button',name='秘笈閣',exact=True).click()
+ # 呢項專驗武功裝備銜接：新規則唔再每抽必中，揀固定會出武功嘅本機QA抽序。
+ page.evaluate("""()=>{const{anc,g}=window.qa;const m=structuredClone(anc.getState().meta);for(let i=0;i<100;i++){m.gacha.pulls=i;if(g.pull(structuredClone(m),'jianghu',1)?.[0].kind==='art'){anc.setState({meta:m});return}}throw Error('未搵到武功QA抽序')}""")
+ before_skills=page.evaluate('window.qa.life.getState().state.character.skills')
  page.get_by_role('button',name=re.compile('^抽一次')).click();page.get_by_role('dialog').wait_for(timeout=30000)
  skip_button=page.get_by_role('button',name='跳過 ›',exact=True)
  if skip_button.count():skip_button.click()

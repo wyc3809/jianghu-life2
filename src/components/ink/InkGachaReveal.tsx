@@ -2,7 +2,7 @@
 import { Component, Suspense, useEffect, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { HighlightFxLazy, canUseWebGL, type HighlightConfig, type RewardCard } from '../../fx/highlight';
-import { codexCoverUrl } from '../../fx/highlight/codexAppearance';
+import { gachaRewardImageUrl } from '../../fx/highlight/codexAppearance';
 
 type Props = { config: HighlightConfig; onDone: () => void; renderAction: (card: RewardCard, ready: boolean) => ReactNode };
 
@@ -30,15 +30,15 @@ function FallbackReveal({ config, onDone, renderAction }: Props) {
   const [index, setIndex] = useState(0);
   const card = config.rewards[index]!;
   return <GachaSheet title={config.revealTitle} onClose={onDone}>
-    <p className="ink-codex-receipt">已入家族收藏 · {config.rewards.length}卷</p>
+    <p className="ink-codex-receipt">已入帳 · {config.rewards.length}份結果</p>
     <div className="ink-codex-fallback-cards" role="group" aria-label="抽卡結果">
       {config.rewards.map((r, i) => <button key={r.id} type="button" data-premium={r.isPremium ? '1' : undefined} aria-pressed={index === i} onClick={() => setIndex(i)}>
-        <img src={codexCoverUrl(r.isPremium === true)} data-codex-rarity={r.isPremium ? 'premium' : 'ordinary'} alt="" /><strong>{r.name}</strong><small>{r.identityLabel}</small>
+        <img src={gachaRewardImageUrl(r)} data-reward-kind={r.rewardKind ?? 'art'} data-codex-rarity={r.rewardKind === 'pages' ? undefined : r.isPremium ? 'premium' : 'ordinary'} alt="" /><strong>{r.name}{r.amount ? ` ×${r.amount}` : ''}</strong><small>{r.identityLabel}</small>
       </button>)}
     </div>
     <section className="ink-codex-result-detail" data-premium={card.isPremium ? '1' : undefined}><h4>{card.name}</h4><p>{card.identityLabel}</p><p>{card.blurb}</p></section>
     {renderAction(card, true)}
-    <button className="ink-btn ink-btn--primary" type="button" onClick={onDone}>完成入藏</button>
+    <button className="ink-btn ink-btn--primary" type="button" onClick={onDone}>{config.claimLabel ?? '完成入藏'}</button>
   </GachaSheet>;
 }
 
@@ -55,7 +55,7 @@ export function InkGachaReveal(props: Props) {
   const fallback = <FallbackReveal {...props} />;
   // Lazy chunk永遠未到亦可立即看結果；出錯後用同一份已確定結果。
   return simple ? fallback : <FxBoundary fallback={fallback}>
-    <Suspense fallback={<GachaSheet title="秘笈已入藏" onClose={props.onDone}>
+    <Suspense fallback={<GachaSheet title="抽取結果已入帳" onClose={props.onDone}>
       <p>正在準備啟封演出</p><button type="button" className="ink-btn" onClick={() => setSimple(true)}>直接查看結果</button>
     </GachaSheet>}>
       <HighlightFxLazy config={props.config} onDone={props.onDone} renderRewardAction={props.renderAction} onUnavailable={() => setSimple(true)} />

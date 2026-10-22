@@ -32,7 +32,7 @@ export interface AncestryMeta {
   /** 家族秘笈收藏：stars＝升階數、copies＝未處理嘅重複本 */
   /** 家族秘笈收藏；外功嘅 vols＝收咗邊幾卷（舊記錄冇 vols＝成套七卷） */
   manuals?: Record<string, { stars: number; copies: number; vols?: number[] }>;
-  /** 書頁（重複秘笈轉成） */
+  /** 書頁（抽取直接取得，或重複秘笈手動轉成） */
   pages?: number;
   /** 已領過玉石嘅成就 id（帳戶首次） */
   jadeAchv?: string[];

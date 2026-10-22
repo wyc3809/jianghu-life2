@@ -164,3 +164,9 @@
 .ink-codex-sheet :is(.ink-codex-fallback-cards, .ink-codex-wish-options) button[aria-pressed='true'] { --codex-frame: var(--wuxia-frame-selected); box-shadow: none; }
 .ink-codex-sheet .ink-codex-fallback-cards button { --codex-frame-width: 12px; padding: 12px 9px; }
 :is(.ink-codex-page, .ink-codex-sheet) button:active:not(:disabled) { filter: brightness(.94); }
+
+/* 武功／書頁機率同帳戶碎片常駐顯示，沿用冊頁字體及觸控尺寸。 */
+.ink-codex-probability { margin: 5px 0 2px; text-align: center; font: 12px/1.5 var(--game-ui-font); color: var(--ink-mid); }
+.ink-codex-heading-actions button small { display: block; font-size: 11px; line-height: 1.4; margin-top: 2px; color: var(--ink-soft); }
+.ink-pull-card[data-reward-kind='pages'] p { font-size: 12px; }
+.ink-codex-page .ink-codex-theatre { height: clamp(108px, 16dvh, 136px); }

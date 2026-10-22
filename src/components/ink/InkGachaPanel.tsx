@@ -3,6 +3,8 @@ import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getSkillDef, skillKindLabel, skillLabel } from '@data/skills/catalog';
 import {
   GACHA_COST_PER_PULL,
+  GACHA_ART_RATE,
+  GACHA_PAGES_PER_PULL,
   GACHA_WISH_PITY,
   MANUAL_MAX_STARS,
   PAGES_PER_DUPLICATE,
@@ -108,7 +110,7 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
         <div><small>藏天下武學</small><h3>秘笈閣</h3></div>
         <div className="ink-codex-heading-actions">
           <button type="button" onClick={() => setSheet('info')} aria-label="卡池詳情">池規</button>
-          <button type="button" onClick={() => setView(view === 'shelf' ? 'draw' : 'shelf')} aria-pressed={view === 'shelf'}>家族收藏 <b>{shelf.length}</b></button>
+          <button type="button" onClick={() => setView(view === 'shelf' ? 'draw' : 'shelf')} aria-pressed={view === 'shelf'}>家族收藏 <b>{shelf.length}</b><small>書頁 {(meta.pages ?? 0).toLocaleString('zh-Hant')}頁</small></button>
         </div>
       </header>
       <div className="ink-codex-wallet" aria-label="玉石餘額">
@@ -143,13 +145,14 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
           <span className="ink-codex-pity"><b>{b.sinceWish}<small>／{GACHA_WISH_PITY}</small></b><small>{b.wish ? `再抽${Math.max(0, GACHA_WISH_PITY - b.sinceWish)}次必出` : '選定後套用保底'}</small></span>
           <i className="ink-codex-pity-track" style={{ '--pity': `${Math.min(100,b.sinceWish/GACHA_WISH_PITY*100)}%` } as CSSProperties} aria-hidden />
         </button>
+        <p className="ink-codex-probability">一般抽取：武功 {GACHA_ART_RATE*100}% · 書頁 {(1-GACHA_ART_RATE)*100}%（{GACHA_PAGES_PER_PULL}頁）</p>
         <div className="ink-codex-pulls">
           {[1,10].map(n => <button key={n} type="button" disabled={!canPay(n) || !!fx || combatBusy} onClick={() => doPull(n)}>
             <span>{n === 1 ? '抽一次' : '抽十次'}</span><small><InkIcon name={banner === 'zhenben' ? 'jade-paid' : 'jade'} size={18} />{GACHA_COST_PER_PULL*n} 玉石</small>
           </button>)}
         </div>
         <p className="ink-codex-fineprint">{banner === 'jianghu' ? '優先使用免費玉石 · 本池不產出珍本' : '使用付費測試玉石 · 測試版不收取真實款項'}</p>
-        {lastPull?.length ? <button type="button" className="ink-codex-last" onClick={() => setSheet('results')}>上次入藏 {lastPull.length} 卷 · 查看結果 ›</button> : null}
+        {lastPull?.length ? <button type="button" className="ink-codex-last" onClick={() => setSheet('results')}>上次抽取 {lastPull.length} 份 · 查看結果 ›</button> : null}
       </>}
         {view === 'shelf' && (
           <>
@@ -157,7 +160,7 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
               ← 返去抽秘笈
             </button>
             <p className="ink-gacha-note">
-              外功分七卷（一卷＝一招），每抽出一卷；重複卷可以升階（每階效果＋10%，最多 {MANUAL_MAX_STARS} 階）或者轉書頁（每卷 {PAGES_PER_DUPLICATE} 頁）。收藏跨代保留，每代都可以由收藏學返。
+              外功分七卷（一卷＝一招），抽中外功時出一卷；重複卷可以升階（每階效果＋10%，最多 {MANUAL_MAX_STARS} 階）或者轉書頁（每卷 {PAGES_PER_DUPLICATE} 頁）。收藏跨代保留，每代都可以由收藏學返。書頁即秘笈碎片，可由抽取取得，或將重複秘笈手動轉化。
             </p>
             <div className="ink-pages">
               <span>
@@ -219,7 +222,9 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
       {sheet && <GachaSheet title={sheet === 'info' ? '卡池詳情' : sheet === 'catalog' ? '本冊可得武學' : sheet === 'wish' ? '心願祈福' : sheet === 'school' ? '六派藏卷' : '上次入藏'} onClose={() => setSheet(null)}>
         {sheet === 'info' && <>
           {BANNER_IDS.map(id => <p key={id}><b>{BANNERS[id].name}</b>：{BANNERS[id].blurb}</p>)}
-          <p>每抽 {GACHA_COST_PER_PULL} 玉石；設定心願後 {GACHA_WISH_PITY} 抽內必出心願。外功分七卷，每抽出一卷。</p>
+          <p>每抽 {GACHA_COST_PER_PULL} 玉石；設定心願後 {GACHA_WISH_PITY} 抽內必出心願。外功分七卷，抽中外功時出一卷。</p>
+          <p>非保底抽取：{GACHA_ART_RATE*100}%武功、{(1-GACHA_ART_RATE)*100}%書頁；每份書頁＋{GACHA_PAGES_PER_PULL}頁，抽中後直接入帳。抽到書頁同樣推進心願保底，第{GACHA_WISH_PITY}抽必出已設定嘅心願。</p>
+          <p>書頁即秘笈碎片，累積{PAGES_PER_EXCHANGE}頁可到家族收藏兌換一般江湖武功，不能兌換珍本。十連按十抽依次結算；未觸及心願保底時，唔保證有武功。</p>
           <p>更換流派／小冊保留保底；心願不在新冊時須重新選擇。武學可跨派裝備。</p>
           <p>付費玉石為模擬測試額度，不收取真實款項。</p>
           <button className="ink-btn" type="button" onClick={grantTest}>領測試額度＋{TEST_PAID_JADE_GRANT}</button>
@@ -231,14 +236,22 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
         {sheet === 'wish' && <><p>選擇本冊心願；現有保底進度保留。</p><div className="ink-codex-wish-options">{wishPool(banner,meta).map(id => <button key={id} type="button" data-premium={getSkillDef(id)?.premium ? '1' : undefined} aria-pressed={b.wish === id} onClick={() => { setWish(banner,id); setSheet(null); }}><strong>{skillLabel(id)}</strong><small>{skillKindLabel(getSkillDef(id)!.kind)}</small></button>)}</div></>}
         {sheet === 'results' && <>
           <p aria-label="抽取結果來源">上次抽取：{resultPool ? `${SCHOOLS.find(s => s.id === resultPool.school)?.name} · ${BANNERS[resultPool.banner].name} 第${resultPool.part}冊` : '秘笈入藏'}{resultPool && resultPool.id !== pool.id ? '（目前已切換小冊）' : ''}</p>
-          <ul className="ink-pull-results" aria-label="抽卡結果">{lastPull?.map((r,i) => <li key={`${r.id}-${i}`} className={`ink-pull-card${r.isPremium ? ' is-premium' : ''}${r.isWish ? ' is-wish' : ''}`}>
-            <strong className="ink-pull-name">{r.vol ? volumeLabel(r.id,r.vol) : skillLabel(r.id)}</strong><InkSkillSchools id={r.id} /><span>{skillKindLabel(getSkillDef(r.id)!.kind)} · {r.isPremium ? '珍本' : '江湖'} · {r.isNew ? '新得' : '重複'}{r.isWish ? ' · 心願' : ''}</span>{equipControl(r.id)}
-          </li>)}</ul>
+          <ul className="ink-pull-results" aria-label="抽卡結果">{lastPull?.map((r,i) => r.kind === 'pages'
+            ? <li key={`pages-${i}`} className="ink-pull-card" data-reward-kind="pages"><strong className="ink-pull-name">書頁 ×{r.pages}</strong><span>秘笈碎片 · 已入帳{r.pages}頁</span><p>到家族收藏累積{PAGES_PER_EXCHANGE}頁可兌換一般江湖武功。</p></li>
+            : <li key={`${r.id}-${i}`} className={`ink-pull-card${r.isPremium ? ' is-premium' : ''}${r.isWish ? ' is-wish' : ''}`} data-reward-kind="art">
+              <strong className="ink-pull-name">{r.vol ? volumeLabel(r.id,r.vol) : skillLabel(r.id)}</strong><InkSkillSchools id={r.id} /><span>{skillKindLabel(getSkillDef(r.id)!.kind)} · {r.isPremium ? '珍本' : '江湖'} · {r.isNew ? '新得' : '重複'}{r.isWish ? ' · 心願' : ''}</span>{equipControl(r.id)}
+            </li>)}</ul>
         </>}
       </GachaSheet>}
       {fx && <InkGachaReveal config={fx} onDone={closeFx} renderAction={(card,ready) => {
         const result = lastPull?.[fx.rewards.findIndex(reward => reward.id === card.id)];
-        return result ? equipControl(result.id,ready,'ink-pull-equip--reveal') : null;
+        if (!result) return null;
+        if (result.kind === 'pages') return <div className="ink-pull-equip ink-pull-equip--reveal">
+          <span className="ink-pull-replaces">書頁已入帳 · {PAGES_PER_EXCHANGE}頁可換一般江湖武功</span>
+          <button type="button" className="ink-btn ink-btn--quiet ink-pull-equip-btn" disabled={!ready}
+            onClick={() => { closeFx(); setView('shelf'); }}>查看書頁兌換</button>
+        </div>;
+        return equipControl(result.id,ready,'ink-pull-equip--reveal');
       }} />}
     </section>
   );

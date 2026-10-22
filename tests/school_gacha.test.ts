@@ -59,7 +59,7 @@ describe('六流派小卡池與舊收藏相容', () => {
       const m = emptyAncestry(); m.jade = { free: 0, paidTest: GACHA_COST_PER_PULL * 100 };
       expect(selectSchoolGachaPool(m, pool.banner, pool.id)).toBe(true);
       const clone = structuredClone(m), results = pull(m, pool.banner, 100)!;
-      expect(results.every(r => pool.arts.includes(r.id))).toBe(true);
+      expect(results.every(r => r.kind === 'pages' || pool.arts.includes(r.id))).toBe(true);
       expect(pull(clone, pool.banner, 100)).toEqual(results);
       expect(m.jade?.paidTest).toBe(0);
     }
