@@ -1,0 +1,58 @@
+{
+  "seed": 42,
+  "jade": {
+    "free": 600,
+    "paidTest": 0
+  },
+  "dpr": 2,
+  "cases": [
+    {
+      "width": 44,
+      "height": 44,
+      "text": "",
+      "border": "0px",
+      "borderImage": "none",
+      "background": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "none",
+      "hit": true,
+      "imageLoaded": true
+    },
+    {
+      "width": 44,
+      "height": 44,
+      "text": "",
+      "border": "0px",
+      "borderImage": "none",
+      "background": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "none",
+      "hit": true,
+      "imageLoaded": true
+    },
+    {
+      "width": 44,
+      "height": 44,
+      "text": "",
+      "border": "0px",
+      "borderImage": "none",
+      "background": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "none",
+      "hit": true,
+      "imageLoaded": true
+    },
+    {
+      "width": 44,
+      "height": 44,
+      "text": "",
+      "border": "0px",
+      "borderImage": "none",
+      "background": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "none",
+      "hit": true,
+      "imageLoaded": true
+    }
+  ],
+  "pageerrors": [],
+  "empty_opens_details": true,
+  "focus_returns": true,
+  "modal_content_preserved": true
+}

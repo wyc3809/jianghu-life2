@@ -28,7 +28,7 @@ export function InkIdleHarvest({ state, onHarvest, busy }: {
   return <>
     <button type="button" className="ink-spar-harvest-entry" aria-label="掛機收成" aria-haspopup="dialog"
       aria-controls={id} aria-expanded={open} onClick={() => setOpen(true)}>
-      <InkIcon name="censer" size={24} /><span>掛機收成</span>
+      <InkIcon name="censer" size={36} />
       {pending > 0 && <i className="ink-spar-harvest-dot" aria-label={pending >= cap ? '收成已滿' : '有銀兩可收成'} />}
     </button>
     {createPortal(<dialog ref={dialogRef} id={id} className="ink-idle-dialog" aria-labelledby={`${id}-title`}
