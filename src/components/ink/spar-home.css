@@ -1,0 +1,73 @@
+/* 關卡／敵人資料用正常排版固定喺場景上方，唔再跟血條撞埋。 */
+.ink-spar-stage .ink-spar-info {
+  position: absolute;
+  inset: 8px 9px auto;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.4fr);
+  align-items: start;
+  gap: 6px 8px;
+  pointer-events: none;
+  font-family: var(--game-ui-font);
+}
+.ink-spar-info .ink-spar-caption { position: static; min-width: 0; }
+.ink-spar-info .ink-spar-caption span { font-size: 10px; letter-spacing: .04em; }
+.ink-spar-info .ink-spar-caption strong { font-size: 18px; letter-spacing: .08em; overflow-wrap: anywhere; }
+.ink-spar-info-right { display: grid; gap: 6px; min-width: 0; }
+.ink-spar-info .ink-spar-hud { position: static; flex-wrap: wrap; justify-content: flex-end; gap: 3px; }
+.ink-spar-info .ink-spar-hud span { font-size: 11px; line-height: 1.5; letter-spacing: 0; padding: 2px 6px; overflow-wrap: anywhere; }
+.ink-spar-info .ink-spar-hud-stage { flex: 1 1 auto; }
+.ink-spar-info .ink-spar-hud-left { flex: none; }
+.ink-spar-enemy-info { display: grid; justify-items: end; gap: 3px; min-width: 0; }
+.ink-spar-enemy-name {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end;
+  gap: 2px 5px; max-width: 100%; padding: 2px 6px;
+  color: #fbf7ee; background: rgba(22, 19, 15, .72);
+  font-size: 12px; line-height: 1.5;
+}
+.ink-spar-enemy-name em { font-style: normal; color: #ddd3bd; font-size: 10px; }
+.ink-spar-enemy-name.is-elite em { color: #f6d36b; }
+.ink-spar-enemy-name b { font-weight: 600; overflow-wrap: anywhere; }
+.ink-spar-info .ink-spar-trait { margin: 0; max-width: 100%; font-size: 11px; letter-spacing: 0; white-space: normal; }
+.ink-spar-info .ink-spar-trait.is-charging { animation: none; box-shadow: 0 0 6px var(--trait); }
+.ink-spar-info .ink-spar-conditions { position: static; display: flex; flex-wrap: wrap; gap: 3px; grid-column: 1 / -1; }
+/* 收起原本整行收益，釋放嘅高度直接交返俾場景；人物仍用原有固定手機比例。 */
+.scroll-shell--home .ink-home-focus > .ink-home-scene { max-height: none; }
+.ink-spar-harvest-entry {
+  position: absolute; left: 10px; bottom: 10px; z-index: 5;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+  min-height: 44px; padding: 4px 10px;
+  border: 9px solid transparent; border-image: var(--wuxia-frame-neutral) 128 / 1 stretch;
+  background: rgba(250, 246, 238, .94); background-clip: padding-box;
+  font-family: var(--game-ui-font); font-size: 12px; color: var(--ink);
+  cursor: pointer; touch-action: manipulation;
+}
+.ink-spar-harvest-entry .ink-badge { flex: none; }
+.ink-spar-harvest-dot { width: 6px; height: 6px; flex: none; border-radius: 50%; background: var(--cinnabar); }
+.ink-spar-harvest-entry:focus-visible, .ink-idle-dialog button:focus-visible { outline: 2px solid var(--cinnabar); outline-offset: 2px; }
+.ink-idle-dialog {
+  box-sizing: border-box; width: min(390px, calc(100vw - 28px)); max-height: calc(100dvh - 36px);
+  margin: auto; padding: 16px; overflow-y: auto; overscroll-behavior: contain;
+  border: 14px solid transparent; border-image: var(--wuxia-frame-panel) 128 / 1 stretch;
+  background: linear-gradient(rgba(250, 246, 238, .97), rgba(250, 246, 238, .97)), url('/ink/art/ui/paper-grain.webp') repeat, #faf6ee;
+  --font-body: var(--game-ui-font); --font-title: var(--game-ui-font);
+  color: var(--ink); font-family: var(--game-ui-font); font-size: 14px;
+  box-shadow: 0 16px 45px rgba(26, 26, 26, .25);
+}
+.ink-idle-dialog::backdrop { background: rgba(26, 26, 26, .38); }
+.ink-idle-dialog header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.ink-idle-dialog h2 { font-family: inherit; margin: 0; font-size: 20px; letter-spacing: .04em; }
+.ink-idle-dialog button { font-family: inherit; min-height: 44px; cursor: pointer; touch-action: manipulation; }
+.ink-idle-close { padding: 5px 12px; border: 9px solid transparent; border-image: var(--wuxia-frame-neutral) 128 / 1 stretch; background: none; color: var(--ink-mid); font-size: 13px; }
+.ink-idle-details { margin: 16px 0; }
+.ink-idle-details > div { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--ink-faint); }
+.ink-idle-details dt { display: flex; align-items: center; gap: 6px; flex: none; color: var(--ink-mid); }
+.ink-idle-details dd { font-family: inherit; margin: 0; text-align: right; font-size: 17px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.ink-idle-details dd > span { display: block; font-size: 15px; }
+.ink-idle-details small, .ink-idle-pending small { font-size: 12px; font-weight: 400; color: var(--ink-soft); }
+.ink-idle-pending { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px; }
+.ink-idle-pending strong { font-size: 24px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.ink-idle-pending em { margin-left: 6px; font-size: 12px; font-style: normal; color: var(--cinnabar); }
+.ink-idle-note { color: var(--ink-soft); font-size: 12px; line-height: 1.8; margin: 10px 0 18px; }
+.ink-idle-collect { width: 100%; padding: 6px 12px; border: 10px solid transparent; border-image: var(--wuxia-frame-selected) 128 / 1 stretch; background: rgba(163, 58, 50, .07); background-clip: padding-box; color: var(--cinnabar); font-size: 16px; font-weight: 600; }
+.ink-idle-collect:disabled { cursor: default; color: var(--ink-soft); border-image-source: var(--wuxia-frame-neutral); background: none; }
