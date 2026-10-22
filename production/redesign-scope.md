@@ -827,3 +827,23 @@ EA0.83.0 發布檢查：96檔698項Vitest全部通過，Pages構建含tsc通過�
 發布前重新跑完整Vitest、Pages構建含tsc及narrate，等本次提交CI全過先合併。合併後核對正式Pages版本字串、演武台資料排版、掛機詳情與收成銜接。前後對照及功能回歸見 `production/qa/evidence/redesign/spar-hud-harvest/README.md`。本次係網頁發布，唔代表TestFlight更新。
 
 EA0.84.0 發布檢查：96檔698項Vitest、Pages build含tsc及narrate hard-fail0全部通過。
+
+### 第27項追加：掛機收成改淨icon（2026-10-22，待睇圖，未上線）
+
+玩家要求演武台嘅掛機收成入口唔要文字同外框，淨係點icon，減少遮住場景。已移除入口文字、長方框、紙色底及陰影，保留既有香爐位圖器物icon（36px），透明44×44觸控範圍；有銀兩可收只保留細朱砂提示點。讀屏名稱仍為掛機收成，鍵盤焦點提示保留。
+
+只改入口顯示；點開詳情、收成指令、金額／上限、關閉／焦點返回及演武台資料分區都沿用EA0.84.0。前後對照及320×568／390×720／390×844／420×896實際瀏覽器驗收見 `production/qa/evidence/redesign/spar-harvest-icon/README.md`。維持EA0.84.0，待玩家睇圖確認。
+
+上一輪抽卡機率選項仍待玩家選擇，今輪唔更改機率、抽取獎勵或保底。
+
+淨icon入口完整檢查：96檔698項Vitest、Pages build含tsc及narrate hard-fail0全部通過。四個手機尺寸入口透明44×44可點、詳情正常，pageerror0。
+
+### 第27項追加／EA0.85.0 發布確認（2026-10-22）
+
+玩家睇過掛機收成入口前後對照後回覆「上線」。玩家已確認，EA0.85.0 上線；本段取代上文待睇圖、未發布嘅狀態。
+
+發布內容只係掛機收成入口改淨36px香爐icon，移除文字、長方框、紙色底及陰影；透明44×44觸控範圍、朱砂提示點、讀屏名稱及鍵盤焦點保留。點開詳情同收成功能沿用原流程，唔改演武台核心、經濟、存檔或多人服務。抽卡機率仍待玩家選擇，今次發布唔改抽取規則。
+
+發布前重新跑完整Vitest、Pages build含tsc及narrate，等本次提交CI通過先合併；部署後核對正式版本及手機icon／詳情開關。前後對照與四個手機尺寸驗證見 `production/qa/evidence/redesign/spar-harvest-icon/README.md`。本次只發布網頁，唔代表TestFlight更新。
+
+EA0.85.0 發布檢查：96檔698項Vitest、Pages build含tsc及narrate hard-fail0全部通過。
