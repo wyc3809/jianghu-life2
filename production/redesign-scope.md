@@ -817,3 +817,13 @@ EA0.83.0 發布檢查：96檔698項Vitest全部通過，Pages構建含tsc通過�
 390×844 DPR2、seed42、玉石free600／paidTest0對照、320×568／390×720／390×844／420×896、真動畫連續抽樣、收成防連點及首領切換見 `production/qa/evidence/redesign/spar-hud-harvest/README.md`。QA只用隔離本機存檔，第6關跳過前排小兵以重現精英名牌，測試氣血2000及待收成123.75；唔觸碰公開玩家或雲端資料。維持EA0.83.0，待玩家睇圖後再決定發布。
 
 本批完整檢查：96檔698項Vitest、Pages build含tsc及narrate hard-fail0全部通過。瀏覽器320／390／420闊度無重疊、無溢出及pageerror0。
+
+### 第27項追加／EA0.84.0 發布確認（2026-10-22）
+
+玩家睇過演武台前後對照、掛機詳情及正常速度操作示範後回覆「上線」。玩家已確認，EA0.84.0 上線；本段取代上文待睇圖、未發布嘅狀態。
+
+發布範圍：關卡／敵人名／特性固定分區、血條避讓，原本整行掛機資訊改放演武台內「掛機收成」按鈕，點開同款宣紙框詳情後收成。釋放嘅空間交返場景，人物保持細比例；沿用原有演武核心、每關獎勵、掛機／收成、首領全屏、經濟及存檔，唔改多人服務。
+
+發布前重新跑完整Vitest、Pages構建含tsc及narrate，等本次提交CI全過先合併。合併後核對正式Pages版本字串、演武台資料排版、掛機詳情與收成銜接。前後對照及功能回歸見 `production/qa/evidence/redesign/spar-hud-harvest/README.md`。本次係網頁發布，唔代表TestFlight更新。
+
+EA0.84.0 發布檢查：96檔698項Vitest、Pages build含tsc及narrate hard-fail0全部通過。
