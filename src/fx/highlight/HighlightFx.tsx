@@ -15,7 +15,7 @@ import { isInkAudioMuted, toggleInkAudioMuted } from '../../audio/inkAudio';
 import styles from './highlight.module.css';
 import { sealPhrase, sealUrlForText } from '../../ui/inkAssets';
 import { inkIconUrl } from '../../ui/inkIcons';
-import { codexCoverUrl } from './codexAppearance';
+import { gachaRewardImageUrl } from './codexAppearance';
 
 /** 霞鶩文楷 TC（繁體毛筆楷書，同朱砂印同一字型） */
 const FONT_HREF = 'https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&display=swap';
@@ -65,8 +65,10 @@ function CardArt({ card, size }: { card: RewardCard; size: number }) {
     cv.style.height = `${size}px`;
     host.replaceChildren(cv);
   }, [card, size]);
-  if (card.identityLabel) return <div className={styles.codexCardArt} style={{ width: size, height: size }} aria-hidden>
-    <img src={codexCoverUrl(card.isPremium === true)} data-codex-rarity={card.isPremium ? 'premium' : 'ordinary'} alt="" /><b>{card.name.split('·')[0]}</b>
+  if (card.identityLabel) return <div className={`${styles.codexCardArt}${card.rewardKind === 'pages' ? ` ${styles.pagesCardArt}` : ''}`} style={{ width: size, height: size }} aria-hidden>
+    {card.rewardKind === 'pages' && <><img src={gachaRewardImageUrl(card)} alt="" /><img src={gachaRewardImageUrl(card)} alt="" /></>}
+    <img src={gachaRewardImageUrl(card)} data-reward-kind={card.rewardKind ?? 'art'} data-codex-rarity={card.rewardKind === 'pages' ? undefined : card.isPremium ? 'premium' : 'ordinary'} alt="" />
+    {card.rewardKind !== 'pages' && <b>{card.name.split('·')[0]}</b>}
   </div>;
   return <div ref={ref} className={styles.art} style={{ width: size, height: size }} aria-hidden />;
 }
@@ -565,10 +567,10 @@ export default function HighlightFx({ config, onDone, onUnavailable, renderRewar
                 )}
                 <CardArt card={card} size={64} />
                 <span className={styles.cardName}>{card.name}</span>
-                {card.identityLabel && <small className={styles.codexIdentity}>{card.isPremium ? '珍本' : '江湖'}{card.isWish ? ' · 心願' : ''}</small>}
+                {card.identityLabel && <small className={styles.codexIdentity}>{card.rewardKind === 'pages' ? '秘笈碎片' : card.isPremium ? '珍本' : '江湖'}{card.isWish ? ' · 心願' : ''}</small>}
                 {card.amount ? (
                   <span className={styles.amount} data-amount={card.amount}>
-                    ×0
+                    ×{statsFinal ? card.amount : 0}
                   </span>
                 ) : null}
                 {card.isNew && (
@@ -582,10 +584,10 @@ export default function HighlightFx({ config, onDone, onUnavailable, renderRewar
           {renderRewardAction && panelCard ? (
             <div className={styles.claimActions}>
               {renderRewardAction(panelCard, phase === 'settle')}
-              <button type="button" className={styles.claim} disabled={phase !== 'settle'} onClick={claim}>{codex ? '完成入藏' : '領取'}</button>
+              <button type="button" className={styles.claim} disabled={phase !== 'settle'} onClick={claim}>{config.claimLabel ?? (codex ? '完成入藏' : '領取')}</button>
             </div>
           ) : (
-            <button type="button" className={styles.claim} disabled={phase !== 'settle'} onClick={claim}>領取</button>
+            <button type="button" className={styles.claim} disabled={phase !== 'settle'} onClick={claim}>{config.claimLabel ?? '領取'}</button>
           )}
         </div>
       )}

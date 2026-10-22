@@ -1,0 +1,79 @@
+{
+  "seed": 42,
+  "viewport": [
+    390,
+    844
+  ],
+  "dpr": 2,
+  "jade": {
+    "free": 600,
+    "paidTest": 0
+  },
+  "cases": [
+    {
+      "name": "single_pages",
+      "double_click_once": true,
+      "cost": 60,
+      "pages": 5,
+      "manuals_unchanged": true,
+      "full_play_close_reopen_no_mutation": true,
+      "no_equip": true,
+      "exchange_entry": true
+    },
+    {
+      "name": "mixed_ten",
+      "arts": 2,
+      "pages": 40,
+      "all_cards_selectable": true,
+      "one_core_receipt": true
+    },
+    {
+      "name": "wish_jianghu",
+      "pity_40": true,
+      "premium": false,
+      "person_handoff_no_auto_learning": true
+    },
+    {
+      "name": "wish_zhenben",
+      "pity_40": true,
+      "premium": true,
+      "person_handoff_no_auto_learning": true
+    },
+    {
+      "name": "fallbacks",
+      "context_loss_same_results": true,
+      "no_webgl": true,
+      "reduced_motion_amounts": true,
+      "all_pages_ten": 50
+    },
+    {
+      "name": "mobile_results",
+      "width": 320,
+      "height": 568,
+      "ten_cards_min_height_44": true,
+      "complete_inside_viewport": true
+    },
+    {
+      "name": "mobile_results",
+      "width": 390,
+      "height": 720,
+      "ten_cards_min_height_44": true,
+      "complete_inside_viewport": true
+    },
+    {
+      "name": "mobile_results",
+      "width": 390,
+      "height": 844,
+      "ten_cards_min_height_44": true,
+      "complete_inside_viewport": true
+    },
+    {
+      "name": "mobile_results",
+      "width": 420,
+      "height": 896,
+      "ten_cards_min_height_44": true,
+      "complete_inside_viewport": true
+    }
+  ],
+  "pageerrors": []
+}

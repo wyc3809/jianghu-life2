@@ -2,8 +2,9 @@
  * 玉石・抽卡・心願保底・重複秘笈（design/agreed-design-2026-10.md §3.1、§3.2）。
  *
  * 兩個卡池：
- *   - 江湖秘笈（jianghu）：免費／付費玉石都用得（先扣免費），只出「免費池」武學（約 80%）。
- *   - 珍本奇功（zhenben）：只限付費玉石，出 19 門珍本奇功（約 20%）或免費池武學。
+ *   - 江湖秘笈（jianghu）：免費／付費玉石都用得（先扣免費），只出一般江湖武學或書頁。
+ *   - 珍本奇功（zhenben）：只限付費玉石，可出19門珍本奇功、一般江湖武學或書頁。
+ * 非保底抽取：20%武功、80%書頁；武功命中後沿用原有心願／珍本權重。
  * 免費玉石永遠抽唔到珍本奇功；書頁兌換亦只限免費池（唔可以繞過）。
  * 心願保底：每池揀一門心願，連續 GACHA_WISH_PITY 抽未出，下一抽必出；換代、換心願都保留進度。
  *
@@ -17,6 +18,8 @@ import { createRng } from '@core/random';
 import { activeSchoolGachaPool, schoolGachaPools, schoolPoolForArt } from './schoolGachaPools';
 import {
   GACHA_COST_PER_PULL,
+  GACHA_ART_RATE,
+  GACHA_PAGES_PER_PULL,
   GACHA_PREMIUM_RATE,
   GACHA_WISH_PITY,
   GACHA_WISH_RATE,
@@ -29,8 +32,8 @@ import {
 export type BannerId = 'jianghu' | 'zhenben';
 
 export const BANNERS: Record<BannerId, { name: string; blurb: string; paidOnly: boolean }> = {
-  jianghu: { name: '江湖秘笈', blurb: '免費／付費玉石都用得 · 出江湖武學', paidOnly: false },
-  zhenben: { name: '珍本奇功', blurb: '只限付費玉石 · 可出 19 門珍本奇功', paidOnly: true },
+  jianghu: { name: '江湖秘笈', blurb: '免費／付費玉石都用得 · 江湖武學／書頁', paidOnly: false },
+  zhenben: { name: '珍本奇功', blurb: '只限付費玉石 · 可出19門珍本奇功／書頁', paidOnly: true },
 };
 
 /** 免費池：所有唔係珍本嘅武學（約 80%） */
@@ -98,7 +101,9 @@ export function spendableJade(meta: AncestryMeta, banner: BannerId): number {
   return BANNERS[banner].paidOnly ? j.paidTest : j.free + j.paidTest;
 }
 
-export interface PullResult {
+export interface ArtPullResult {
+  /** 舊演出資料冇kind仍視為武功；新結果會明示。 */
+  kind?: 'art';
   id: string;
   /** 外功：抽中第幾卷（1–7）；內功／輕功冇 */
   vol?: number;
@@ -107,11 +112,24 @@ export interface PullResult {
   isPremium: boolean;
 }
 
+export interface PagesPullResult {
+  kind: 'pages';
+  id: 'manual-pages';
+  pages: number;
+  vol?: never;
+  isNew: false;
+  isWish: false;
+  isPremium: false;
+}
+
+export type PullResult = ArtPullResult | PagesPullResult;
+
 /** 抽 n 次；玉石唔夠就一次都唔抽，返回 null */
 export function pull(meta: AncestryMeta, banner: BannerId, n: number): PullResult[] | null {
+  if (!Number.isSafeInteger(n) || n <= 0) return null;
   const m = ensure(meta);
   const cost = GACHA_COST_PER_PULL * n;
-  if (n <= 0 || spendableJade(meta, banner) < cost) return null;
+  if (spendableJade(meta, banner) < cost) return null;
   // 扣玉石：江湖池先扣免費；珍本池只扣付費
   if (BANNERS[banner].paidOnly) m.jade.paidTest -= cost;
   else {
@@ -126,11 +144,20 @@ export function pull(meta: AncestryMeta, banner: BannerId, n: number): PullResul
   const out: PullResult[] = [];
   for (let i = 0; i < n; i++) {
     const rng = createRng(0x9e3779b1 ^ (m.gacha.pulls + 1) * 2654435761);
+    // 派武功／書頁用獨立種子流；武功種類／七卷仍沿用原有抽取流。
+    const rewardRng = createRng(0x85ebca6b ^ (m.gacha.pulls + 1) * 2654435761);
     m.gacha.pulls += 1;
     b.total += 1;
     let id: string;
     const wish = b.wish && wishPool(banner, meta).includes(b.wish) ? b.wish : undefined;
-    if (wish && (b.sinceWish + 1 >= GACHA_WISH_PITY || rng.chance(GACHA_WISH_RATE))) {
+    const guaranteedWish = Boolean(wish) && b.sinceWish + 1 >= GACHA_WISH_PITY;
+    if (!guaranteedWish && !rewardRng.chance(GACHA_ART_RATE)) {
+      m.pages += GACHA_PAGES_PER_PULL;
+      b.sinceWish += 1;
+      out.push({ kind: 'pages', id: 'manual-pages', pages: GACHA_PAGES_PER_PULL, isNew: false, isWish: false, isPremium: false });
+      continue;
+    }
+    if (wish && (guaranteedWish || rng.chance(GACHA_WISH_RATE))) {
       id = wish;
     } else if (banner === 'zhenben' && rng.chance(GACHA_PREMIUM_RATE)) {
       id = rng.pick(pool.premium);
@@ -144,13 +171,13 @@ export function pull(meta: AncestryMeta, banner: BannerId, n: number): PullResul
       // 外功逐卷出：隨機一卷；已有呢卷＝重複本
       const vol = rng.nextInt(1, VOLUME_COUNT);
       const isNew = addCollectionVolume(meta, id, vol);
-      out.push({ id, vol, isNew, isWish, isPremium: isPremiumArt(id) });
+      out.push({ kind: 'art', id, vol, isNew, isWish, isPremium: isPremiumArt(id) });
       continue;
     }
     const owned = m.manuals[id];
     if (owned) owned.copies += 1;
     else m.manuals[id] = { stars: 0, copies: 0 };
-    out.push({ id, isNew: !owned, isWish, isPremium: isPremiumArt(id) });
+    out.push({ kind: 'art', id, isNew: !owned, isWish, isPremium: isPremiumArt(id) });
   }
   return out;
 }

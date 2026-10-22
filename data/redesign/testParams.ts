@@ -33,9 +33,13 @@ export const TEST_IDLE_SILVER_PER_STAGE_PER_HOUR = 0.5;
 export const GACHA_COST_PER_PULL = 60;
 /** 心願保底：連續幾多抽未出心願，下一抽必出——玩家揀 40 */
 export const GACHA_WISH_PITY = 40;
-/** 每抽直接出心願嘅機率（未到保底前）——測試參數 */
+/** 非保底抽取出武功嘅機率；其餘直接派書頁——玩家確認20%（2026-10-22） */
+export const GACHA_ART_RATE = 0.2;
+/** 未中武功派幾多書頁——測試參數；沿用200頁兌換江湖武學。 */
+export const GACHA_PAGES_PER_PULL = 5;
+/** 命中武功後直接揀心願嘅條件機率（未到保底前）——測試參數 */
 export const GACHA_WISH_RATE = 0.025;
-/** 「珍本奇功」池：每抽出珍本（非心願）嘅機率，其餘出免費池武學——玩家要求高階更難抽（2026-10-07）：17.5% → 6% */
+/** 「珍本奇功」池：命中武功、未直接揀心願時出珍本嘅條件機率，其餘出免費池武學。 */
 export const GACHA_PREMIUM_RATE = 0.06;
 
 /** 重複秘笈：升階上限——玩家揀最多 3 次 */
