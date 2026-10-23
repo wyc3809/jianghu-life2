@@ -1,0 +1,32 @@
+{
+  "version": "EA0.88.0",
+  "status": "published-and-live-verified",
+  "verified_at": "2026-10-23T16:27:40.022142+00:00",
+  "url": "https://wyc3809.github.io/jianghu-life2/",
+  "pr": 137,
+  "release_head": "b37434acaffb1271aca475966540308ecc330d00",
+  "main": "5dead178b8f3499e11c76930f90f15aaae3ee42c",
+  "gh_pages": "3161c025c8af139e7f618ad53982846efb4fe9c7",
+  "pr_ci": 39986149574,
+  "main_ci": 39986501357,
+  "pages_workflow": 39986501609,
+  "pages_deployment": 39986737644,
+  "bundle": "https://wyc3809.github.io/jianghu-life2/assets/index-CMm4vjXd.js",
+  "phones": [
+    [
+      320,
+      568
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      420,
+      896
+    ]
+  ],
+  "all_four_destinations_and_back": true,
+  "pageerrors": [],
+  "http_errors": []
+}
