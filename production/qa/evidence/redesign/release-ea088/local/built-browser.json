@@ -1,0 +1,27 @@
+{
+  "base": "http://127.0.0.1:5175/jianghu-life2/",
+  "bundle": {
+    "url": "http://127.0.0.1:5175/jianghu-life2/assets/index-BOh9bwO5.js",
+    "version": "EA0.88.0",
+    "match": true
+  },
+  "ordinary_ui": true,
+  "fixture_injection": false,
+  "phones": [
+    [
+      320,
+      568
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      420,
+      896
+    ]
+  ],
+  "four_destinations_and_back": true,
+  "pageerrors": [],
+  "http_errors": []
+}

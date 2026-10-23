@@ -48,6 +48,8 @@ with sync_playwright() as p:
     page.wait_for_function("document.querySelector('.ink-jianghu-map-art')?.naturalWidth===1024")
     assert page.get_by_role('navigation', name='江湖功能').get_by_role('button').count() == 4
     assert page.get_by_role('navigation', name='江湖功能').get_by_role('button', name='心性', exact=True).count() == 0
+    # 開局印章與獎勵提示退場後，才拍攝地圖的穩定畫面。
+    page.wait_for_timeout(4500)
     shot('map')
     page.locator('.ink-map-destination--gacha .ink-map-destination-name').click()
     page.locator('#ink-gacha').wait_for()

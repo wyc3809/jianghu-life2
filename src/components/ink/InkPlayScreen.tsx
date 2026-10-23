@@ -498,7 +498,7 @@ export function InkPlayScreen({ state }: Props) {
       root.style.removeProperty('--ink-dock-height');
       root.style.removeProperty('--ink-task-height');
     };
-  }, [hasTask, combat, eventFocus]);
+  }, [hasTask, combat, eventFocus, onJianghuMap]);
   const sceneBits = [
     'scroll-shell',
     'scroll-shell--play',
@@ -510,7 +510,7 @@ export function InkPlayScreen({ state }: Props) {
     combat ? 'scroll-shell--combat' : '',
     eventFocus ? 'scroll-shell--event' : '',
     /* 底部分卷導航顯示時：預留空間（條件同下方 <nav className="ink-tabs"> 一致） */
-    !combat && !eventFocus ? 'scroll-shell--has-tabs' : '',
+    !combat && !eventFocus && !onJianghuMap ? 'scroll-shell--has-tabs' : '',
     onHomeTab && !combat && !eventFocus ? 'scroll-shell--home' : '',
     onJianghuMap ? 'scroll-shell--jianghu-map' : '',
     hasTask ? 'scroll-shell--has-task' : '',
@@ -582,7 +582,7 @@ export function InkPlayScreen({ state }: Props) {
         <InkOfflineGainModal gain={offlineGain} onClose={clearOfflineGain} />
       )}
 
-      <header className="ink-status ink-status--bare-top ink-hud">
+      {!onJianghuMap && <header className="ink-status ink-status--bare-top ink-hud">
         {/* 商業手遊式頂欄：頭像＋名號 | 貨幣；第二行氣血內力疲勞 */}
         <div className="ink-hud-top">
           <button
@@ -679,7 +679,7 @@ export function InkPlayScreen({ state }: Props) {
             ))}
           </div>
         </div>
-      </header>
+      </header>}
       <InkSaveStatus />
 
       {boardOpen && <InkLeaderboardPanel onClose={() => setBoardOpen(false)} />}
@@ -777,7 +777,7 @@ export function InkPlayScreen({ state }: Props) {
       )}
 
       {tab === 'jianghu' && !combat && !eventFocus && <div className="ink-jianghu-view" ref={jianghuRef}>
-        {jianghuView === 'main' ? <InkJianghuHub online={Boolean(InkOnlinePanel)} onOpen={setJianghuView} />
+        {jianghuView === 'main' ? <InkJianghuHub online={Boolean(InkOnlinePanel)} onOpen={setJianghuView} onBack={() => setTab('home')} />
           : jianghuView === 'online' && InkOnlinePanel ? <Suspense fallback={<p role="status">正在翻開江湖名冊……</p>}>
             <InkOnlinePanel onBack={() => setJianghuView('main')} />
           </Suspense> : <div className="ink-jianghu-detail">
@@ -1058,8 +1058,8 @@ export function InkPlayScreen({ state }: Props) {
 
       </div>
 
-      {!combat && !eventFocus && createPortal(
-        <nav className={`ink-tabs ink-bottom-dock${onJianghuMap ? ' ink-bottom-dock--map' : ''}`} aria-label="分卷" ref={navRef}>
+      {!combat && !eventFocus && !onJianghuMap && createPortal(
+        <nav className="ink-tabs ink-bottom-dock" aria-label="分卷" ref={navRef}>
           {(
             [
               ['home', '鎮居'],

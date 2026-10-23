@@ -1,0 +1,34 @@
+{
+  "base": "https://wyc3809.github.io/jianghu-life2/",
+  "version": "EA0.87.0",
+  "mode": "ordinary-production-ui-no-fixture-or-dev-import",
+  "bundle": {
+    "url": "https://wyc3809.github.io/jianghu-life2/assets/index-mz8HobEI.js",
+    "version": true
+  },
+  "age_badge_removed": true,
+  "no_age_gates": true,
+  "nature_in_person": true,
+  "four_landmarks": true,
+  "feature_navigation_and_back": true,
+  "gacha_rates_costs_and_written_rules": true,
+  "settings_version": true,
+  "phones": [
+    [
+      320,
+      568
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      420,
+      896
+    ]
+  ],
+  "dpr": 2,
+  "reduced_motion": true,
+  "pageerrors": [],
+  "failed_http": []
+}

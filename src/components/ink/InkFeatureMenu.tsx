@@ -28,6 +28,6 @@ export function InkFeatureMenu<Id extends string>({ label, entries, onOpen }: {
 export type JianghuView = 'main' | 'online' | 'gacha' | 'huashan' | 'founder';
 
 /** 地圖直接承接江湖分頁，功能沿用原有內容頁。 */
-export function InkJianghuHub({ online, onOpen }: { online: boolean; onOpen: (view: JianghuView) => void }) {
-  return <InkJianghuMap online={online} onOpen={onOpen} />;
+export function InkJianghuHub({ online, onOpen, onBack }: { online: boolean; onOpen: (view: JianghuView) => void; onBack: () => void }) {
+  return <InkJianghuMap online={online} onOpen={onOpen} onBack={onBack} />;
 }

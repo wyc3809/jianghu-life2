@@ -17,10 +17,12 @@ const LANDMARKS = [
 ] as const;
 
 /** 淡彩地圖入口：建築與題字共用按鈕，點擊只切換既有功能頁。 */
-export function InkJianghuMap({ online, onOpen }: { online: boolean; onOpen: (view: JianghuView) => void }) {
+export function InkJianghuMap({ online, onOpen, onBack }: { online: boolean; onOpen: (view: JianghuView) => void; onBack: () => void }) {
   const [imageFailed, setImageFailed] = useState(false);
   return <section className={`ink-jianghu-map${imageFailed ? ' ink-jianghu-map--fallback' : ''}`} aria-label="江湖地圖" id="ink-jianghu-menu">
-    <div className="ink-jianghu-map-heading"><h2>江湖</h2><span>點選地標</span></div>
+    <button type="button" className="ink-map-back" aria-label="返回鎮居" onClick={onBack}>
+      <span aria-hidden="true">‹</span>返回
+    </button>
     <div className="ink-jianghu-map-stage">
       <img className="ink-jianghu-map-art" src={MAP_SRC} width={1024} height={1536} alt="山寺、華山論劍台、門派山莊與河畔城鎮，以山徑和石橋相連。" fetchPriority="high" decoding="async" onError={() => setImageFailed(true)} />
       <nav aria-label="江湖功能">
