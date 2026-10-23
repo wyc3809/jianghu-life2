@@ -11,7 +11,7 @@ try{
  check(!await page.getByRole('button',{name:'定種子 · 除錯',exact:true}).count(),'production-has-no-dev-controls');
  await page.getByRole('button',{name:'開卷',exact:true}).click();await page.getByLabel('姓名',{exact:true}).fill('驗證少俠');await page.getByRole('button',{name:'翻開少時',exact:true}).click();
  for(let i=0;i<3;i++)await page.getByRole('region',{name:'少時往事'}).locator('button.ink-choice').first().click();
- await page.getByRole('button',{name:'落筆開卷',exact:true}).click();await page.locator('.scroll-shell--play').waitFor();
+ await page.getByRole('button',{name:'開始遊戲',exact:true}).click();await page.locator('.scroll-shell--play').waitFor();
  check((await page.locator('.ink-hud').innerText()).includes('驗證少俠'),'created-isolated-character-through-real-ui');
  await page.screenshot({path:out+'/home.png'});
  const nav=page.getByRole('navigation',{name:'分卷'});
