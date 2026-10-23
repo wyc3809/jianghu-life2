@@ -104,7 +104,7 @@ export function applyLegacyToCharacter(state: LifeGameState, legacy: LegacyCarry
     writeGenealogyChronicle(c, legacy.genealogyChronicle);
   }
   lines.push(
-    `前世「${legacy.ancestorName}」享年 ${legacy.ancestorAge}，此為第 ${gen} 世入江湖。`,
+    `前世「${legacy.ancestorName}」的傳承由你承接，第 ${gen} 世踏入江湖。`,
   );
 
   // 軟繼承：取前世武學／名望的一小截，避免碾壓

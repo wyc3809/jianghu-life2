@@ -149,7 +149,6 @@ export function InkEventPanel({
   onChoose,
   onDismiss,
 }: Props) {
-  const c = state.character;
   const month = state.month ?? 1;
   const bannerKind = pickAiEventBanner({
     title: pendingEvent.title,
@@ -224,7 +223,7 @@ export function InkEventPanel({
       <div className="ink-event-scroll" ref={scrollRef}>
         {eventBannerSrc && <InkEventBanner src={eventBannerSrc} />}
         <p className="ink-event-year">
-          {state.year}年{month}月 · {c.age}歲
+          {state.year}年{month}月
           {state.pending?.kind === 'special' ? ' · 奇遇' : ''}
         </p>
         <h3 ref={titleRef}>{pendingEvent.title}</h3>

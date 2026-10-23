@@ -141,7 +141,7 @@ const TITLE_RULES: TitleDef[] = [
     category: 'fame',
     label: '暮年客',
     bonus: { defense: 3 },
-    test: (s) => s.character.age >= 60,
+    test: () => false, // 停止新增年齡稱號；已取得的紀錄與加成保留。
   },
   {
     id: 'title_righteous',

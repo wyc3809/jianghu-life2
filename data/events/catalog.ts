@@ -870,7 +870,7 @@ export const EVENT_CATALOG: GameEvent[] = [
   },
   {
     id: 'old_age_reflect',
-    title: '花甲回首',
+    title: '江湖回首',
     requirements: { minAge: 60 },
     weight: 20,
     choices: [

@@ -41,7 +41,7 @@ export const EVENT_BODIES: Record<string, string> = {
   caravan_guard: '鏢車的鈴先響。官道塵土裡有人問你：這一程，刀出不出鞘。',
   lost_in_forest: '林霧把路舔沒了。苔蘚潮着一邊，遠處溪聲若有若無。',
   sect_library: '藏經閣燈芯短得像故意。冊頁還沒翻開，墨味已經先到喉嚨。',
-  old_age_reflect: '硯台結了一層薄灰。你研墨時肩先酸，紙上舊傷那一筆還沒落。',
+  old_age_reflect: '你翻出旅途筆記，幾頁尚未寫完。院外有人練拳，招式與你當年初學時一樣。',
   fatal_illness: '你服藥後靠窗休息，入夜仍未退熱。',
   final_duel: '金盆水涼。刀橫在盆沿，門外有人等着看你洗不洗手。',
   inheritance: '族規寫在粗紙上。印泥未乾，風把紙邊掀起一角，像不肯讓你蓋得太滿。',

@@ -35,7 +35,7 @@ export function InkSectFounderPanel({ state, onFound, onRecruit, onTeach }: Prop
       {!sect && (
         <>
           <p className="ink-note">
-            武學、名望俱足，年歲既長，可自立門戶，收徒傳功，另闢一支傳承（需銀兩 {FOUND_SECT_COST} 兩）。
+            武學、名望俱足，便可自立門戶，收徒傳功，另闢一支傳承（需銀兩 {FOUND_SECT_COST} 兩）。
           </p>
           <label className="ink-field">
             <span>門號</span>

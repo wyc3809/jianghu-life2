@@ -6,7 +6,7 @@ import { BOARD_LIMIT, cloudConfigured, ensureIdentity, fetchBoard, type BoardKin
 const TABS: { kind: BoardKind; label: string; hint: string }[] = [
   { kind: 'rank', label: '江湖排名', hint: '現役俠客 · 名次越前越高' },
   { kind: 'cultivation', label: '修為境界', hint: '現役俠客 · 境界高者居上，同境比修為' },
-  { kind: 'life', label: '一生總結', hint: '已結束的一生 · 綜合壽數、武學、名望、境界、稱號與成就' },
+  { kind: 'life', label: '一生總結', hint: '已結束的一生 · 綜合武學、名望、境界、稱號與成就' },
 ];
 
 function tierName(tier: number): string {
@@ -20,8 +20,8 @@ function mainValue(kind: BoardKind, r: BoardRow): string {
 }
 
 function subValue(kind: BoardKind, r: BoardRow): string {
-  if (kind === 'cultivation') return `修為 ${r.sub.toLocaleString('zh-Hant')} · ${r.age} 歲`;
-  return `${tierName(r.sub)} · ${r.age} 歲`;
+  if (kind === 'cultivation') return `修為 ${r.sub.toLocaleString('zh-Hant')}`;
+  return tierName(r.sub);
 }
 
 /** 開發用示範數據：?cloudDemo=1（只限 dev） */
@@ -33,7 +33,7 @@ function demoRows(kind: BoardKind): BoardRow[] {
     value:
       kind === 'rank' ? [3, 18, 64, 230, 811, 1520, 4200, 9800][i]! : kind === 'cultivation' ? 13 - i : 1480 - i * 137,
     sub: kind === 'cultivation' ? 900000 - i * 70000 : 12 - i,
-    age: 40 + i * 4,
+    age: 0,
   }));
 }
 

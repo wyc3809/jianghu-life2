@@ -19,8 +19,7 @@ export function meetsRequirements(
   if (!req) return true;
   const c = state.character;
 
-  if (req.minAge !== undefined && c.age < req.minAge) return false;
-  if (req.maxAge !== undefined && c.age > req.maxAge) return false;
+  // 舊內容的 minAge／maxAge 保留供讀檔相容，不再作門檻。
   if (req.minMoney !== undefined && c.money < req.minMoney) return false;
   if (req.minHealth !== undefined && c.health < req.minHealth) return false;
   if (req.minMartial !== undefined && c.martial < req.minMartial) return false;

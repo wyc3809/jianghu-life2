@@ -27,7 +27,7 @@ function qualifyFounder(state: LifeGameState): void {
 }
 
 describe('foundedSect: gating', () => {
-  it('blocks founding below age/martial/reputation/money thresholds', () => {
+  it('blocks founding below martial/reputation/money thresholds', () => {
     initRng(1);
     const state = createNewLife(1);
     expect(canFoundSect(state).ok).toBe(false);

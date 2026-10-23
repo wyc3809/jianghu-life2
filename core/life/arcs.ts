@@ -86,7 +86,7 @@ const ARC_DEFS: ArcDef[] = [
     bondMemory: '認你為忘年筆友',
     reward: { kind: 'wuXing', amount: 1, label: '悟性＋1' },
     doneFlag: 'arc_done_lu',
-    canStart: (s) => s.character.age <= 32 && !s.character.flags.arc_done_lu,
+    canStart: (s) => !s.character.flags.arc_done_lu,
     beats: [
       {
         chronicle: '陸硯生在茶棚邊攤開舊紙，邀你對坐寫字：「字如人，人如江湖。」',
@@ -366,7 +366,7 @@ const ARC_DEFS: ArcDef[] = [
     severMemory: '嫌你礙他報仇',
     bondMemory: '認你做能託付後事的人',
     reward: { kind: 'martial', amount: 2, label: '武學＋2' },
-    canStart: (s) => s.character.age >= 40 && !s.character.flags.arc_done_arc_pang_frontier,
+    canStart: (s) => !s.character.flags.arc_done_arc_pang_frontier,
     beats: [
       {
         chronicle: '龐鐵衣一身舊邊軍甲，坐在城門口曬太陽，見你路過，忽然問：「你信不信，有人能瞞著整支軍隊通敵？」',
@@ -1001,7 +1001,7 @@ const ARC_DEFS: ArcDef[] = [
     bondMemory: '認你識得山裡的規矩',
     reward: { kind: 'fuYuan', amount: 3, label: '福緣＋3' },
     canStart: (s) =>
-      s.character.age >= 30 && dominantNature(s.character) !== 'kuang' && !s.character.flags.arc_done_arc_bu_herbmountain,
+      dominantNature(s.character) !== 'kuang' && !s.character.flags.arc_done_arc_bu_herbmountain,
     beats: [
       {
         chronicle: '山中採藥翁卜長生蹲在崖邊，見你路過，隨口問：「識不識這株草？認得，算你有緣。」',
@@ -1241,7 +1241,7 @@ const ARC_DEFS: ArcDef[] = [
     severMemory: '嫌你辜負一番好意',
     bondMemory: '認你是講良心的主顧',
     reward: { kind: 'meiLi', amount: 3, label: '魅力＋3' },
-    canStart: (s) => !s.character.loverId && s.character.age >= 16 && !s.character.flags.arc_done_arc_ran_matchmaker,
+    canStart: (s) => !s.character.loverId && !s.character.flags.arc_done_arc_ran_matchmaker,
     beats: [
       {
         chronicle: '媒婆冉巧言笑盈盈地登門：「小兄弟這般人物，怎能無人牽紅線？我這裡倒有幾門好親事。」',
@@ -1319,7 +1319,7 @@ const ARC_DEFS: ArcDef[] = [
     severMemory: '嫌他攀扯舊情',
     bondMemory: '認他是父親真正的故人',
     reward: { kind: 'reputation', amount: 5, label: '名望＋5' },
-    canStart: (s) => s.character.age <= 20 && !s.character.flags.arc_done_arc_gong_oldfriend,
+    canStart: (s) => !s.character.flags.arc_done_arc_gong_oldfriend,
     beats: [
       {
         chronicle: '自稱是你父輩故交的龔守義找上門：「令尊當年救過我一命，這份情，我記到現在。」',

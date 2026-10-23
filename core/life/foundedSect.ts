@@ -7,7 +7,8 @@ import { syncRngFromState, snapshotRng } from './gameState';
 import { applyAchievementRankBonus } from './jianghuRank';
 import { gainJianghuPrestige } from './jianghuPrestige';
 
-export const FOUND_SECT_MIN_AGE = 30;
+/** @deprecated 年齡門檻已取消，保留舊匯入相容。 */
+export const FOUND_SECT_MIN_AGE = 0;
 export const FOUND_SECT_MIN_MARTIAL = 300;
 export const FOUND_SECT_MIN_REPUTATION = 100;
 export const FOUND_SECT_COST = 200;
@@ -15,14 +16,13 @@ export const RECRUIT_COST = 20;
 
 export type GateResult = { ok: true } | { ok: false; reason: string };
 
-/** 開宗立派門檻：需武學／名望／年齡達標，銀両夠，且不在既有門派任職 */
+/** 開宗立派門檻：需武學／名望達標、銀兩足夠，且不在既有門派任職 */
 export function canFoundSect(state: LifeGameState): GateResult {
   const c = state.character;
   if (!c.alive || state.phase !== 'playing') return { ok: false, reason: '此刻無法開宗立派。' };
   if (state.pending || state.pendingCombat) return { ok: false, reason: '尚有要事未了。' };
   if (state.foundedSect) return { ok: false, reason: '你已開宗立派，不必重來。' };
   if (c.sectId) return { ok: false, reason: '身在師門，需先退出師門方可自立門戶。' };
-  if (c.age < FOUND_SECT_MIN_AGE) return { ok: false, reason: `需滿 ${FOUND_SECT_MIN_AGE} 歲方可開宗立派。` };
   if (c.martial < FOUND_SECT_MIN_MARTIAL) return { ok: false, reason: `武學需達 ${FOUND_SECT_MIN_MARTIAL} 以上。` };
   if (c.reputation < FOUND_SECT_MIN_REPUTATION) return { ok: false, reason: `名望需達 ${FOUND_SECT_MIN_REPUTATION} 以上。` };
   if (c.money < FOUND_SECT_COST) return { ok: false, reason: `開宗立派需銀兩 ${FOUND_SECT_COST} 兩。` };

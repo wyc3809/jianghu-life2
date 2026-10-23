@@ -11,7 +11,6 @@ import {
 import { buildLifeSummary } from './summary';
 import { pushChronicle } from './chronicle';
 import { simulateMonthBody, seasonLabel } from './monthly';
-import { stageWeightBias } from './stages';
 import { recordDeath } from './death';
 import { RANDOM_PACK_EVENTS } from './packAdapter';
 import { ORDINARY_EVENTS } from '@data/events/ordinary';
@@ -238,7 +237,9 @@ export function clearDanglingPending(state: LifeGameState): boolean {
 }
 
 export function listEligibleEvents(catalog: GameEvent[], state: LifeGameState): GameEvent[] {
-  const eligible = catalog.filter((e) => meetsRequirements(state, e.requirements, e.id));
+  // 出生、幼年專屬及老年惡疾不再進入主角的月度事件池；保留舊ID解析。
+  const retired = new Set(['life_birth', 'childhood_play', 'fatal_illness']);
+  const eligible = catalog.filter((e) => !retired.has(e.id) && meetsRequirements(state, e.requirements, e.id));
   const fresh = eligible.filter((e) => {
     // 路遇交手可重複，不受 50 月冷卻限制（另有 7–15 月倒數節奏）
     if ((e.tags ?? []).includes('road')) return true;
@@ -270,13 +271,11 @@ function relationshipBias(state: LifeGameState, event: GameEvent): number {
 function weightedPick(state: LifeGameState, events: GameEvent[]): GameEvent | null {
   if (!events.length) return null;
   const rng = getRng();
-  const age = state.character.age;
   const weighted = events.map((e) => ({
     e,
     w: Math.max(
       0.05,
       (e.weight ?? 10) *
-        stageWeightBias(age, e.tags) *
         relationshipBias(state, e) *
         varianceWeight(state, e),
     ),
@@ -595,7 +594,6 @@ export function startMonth(state: LifeGameState): LifeGameState {
   if (state.month > 12) {
     state.month = 1;
     state.year += 1;
-    state.character.age += 1;
     state.character.stats.yearsLived += 1;
   }
   state.character.stats.monthsLived += 1;

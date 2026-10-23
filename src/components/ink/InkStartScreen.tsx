@@ -109,7 +109,7 @@ export function InkStartGate({
       if (cancelled) return;
       if (save?.state.character.alive && save.state.phase === 'playing') {
         const c = save.state.character;
-        onReady(true, `${c.name} · ${c.age} 歲`);
+        onReady(true, c.name);
       } else if (save?.state.phase === 'summary') {
         onReady(true, '本世已結束 · 查看總結或開始新生');
       } else {

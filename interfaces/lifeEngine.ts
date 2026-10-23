@@ -198,6 +198,7 @@ export interface StoryState {
 export interface LifeCharacter {
   name: string;
   gender: 'male' | 'female';
+  /** 舊存檔相容欄位；不再增長、顯示或參與玩法。 */
   age: number;
   alive: boolean;
   health: number;

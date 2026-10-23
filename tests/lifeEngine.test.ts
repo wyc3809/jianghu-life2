@@ -105,15 +105,15 @@ describe('jianghu pack repository + outcome resolver', () => {
 });
 
 describe('life stages', () => {
-  it('maps ages to stages', () => {
-    expect(getLifeStage(0)).toBe('infant');
-    expect(getLifeStage(16)).toBe('youth');
-    expect(getLifeStage(72)).toBe('twilight');
+  it('test_age_舊階段呼叫_不再隨歲數改變', () => {
+    expect(getLifeStage(0)).toBe('adult');
+    expect(getLifeStage(16)).toBe('adult');
+    expect(getLifeStage(72)).toBe('adult');
   });
 });
 
 describe('life event engine', () => {
-  it('creates life in 千燈鎮 at age 16', () => {
+  it('creates life in 千燈鎮 retaining the legacy age field', () => {
     const state = createNewLife({ seed: 42, name: '沈雲舟', birthplace: '千燈鎮' });
     expect(state.character.name).toBe('沈雲舟');
     expect(state.character.age).toBe(16);
@@ -1071,10 +1071,10 @@ describe('life event engine', () => {
     expect(next.character.money).toBeGreaterThan(60);
   });
 
-  it('stageWeightBias favors elder death/old_age tags', async () => {
+  it('test_age_舊年齡權重_不再影響事件抽選', async () => {
     const { stageWeightBias } = await import('../core/life/stages');
-    expect(stageWeightBias(75, ['old_age'])).toBeGreaterThan(stageWeightBias(25, ['old_age']));
-    expect(stageWeightBias(22, ['romance'])).toBeGreaterThan(stageWeightBias(70, ['romance']));
+    expect(stageWeightBias(75, ['old_age'])).toBe(stageWeightBias(25, ['old_age']));
+    expect(stageWeightBias(22, ['romance'])).toBe(stageWeightBias(70, ['romance']));
   });
 
   it('story chapters do not advance over months', async () => {

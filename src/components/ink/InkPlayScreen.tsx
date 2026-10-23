@@ -595,7 +595,6 @@ export function InkPlayScreen({ state }: Props) {
             }}
           >
             <InkBadge src={inkArtUrl('art/portraits/wanderer.webp')} size={60} tone="slate" className="ink-hud-person-badge" />
-            <span className="ink-hud-avatar-lv">{c.age}歲</span>
           </button>
           <div className="ink-identity">
             <h2 className="ink-name">

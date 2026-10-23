@@ -33,7 +33,8 @@ describe('ancestral merit (design/gdd/ancestral-merit.md)', () => {
     c.childrenCount = 1;
     const g = computeMeritGain(s);
     const titles = g.parts.find((p) => p.label === '稱號')?.value ?? 0;
-    expect(g.total).toBe(6 + 4 + 2 + 6 + titles + 2);
+    expect(g.total).toBe(4 + 2 + 6 + titles + 2);
+    expect(g.parts.some((p) => p.label === '壽數')).toBe(false);
   });
 
   it('test_ancestry_gain_is_capped', () => {
@@ -45,6 +46,7 @@ describe('ancestral merit (design/gdd/ancestral-merit.md)', () => {
   it('test_ancestry_record_life_only_once_and_logs_arts', () => {
     const s = endedLife();
     s.character.age = 40;
+    s.character.martial = 40;
     const meta = emptyAncestry();
     const first = recordLife(meta, s);
     const second = recordLife(meta, s);

@@ -1,7 +1,6 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { wuxiaAttributeLabels, wuxiaAttributeKeys } from '@interfaces/lifeEngine';
 import { skillDisplay } from './flavor';
-import { getLifeStageLabel } from './stages';
 import { deathCauseOf } from './death';
 import { titleLabels } from './titles';
 import { achievementLabels } from './achievements';
@@ -29,7 +28,6 @@ function pickEpitaph(state: LifeGameState): string {
 
 export function buildLifeSummary(state: LifeGameState): string {
   const c = state.character;
-  const stage = getLifeStageLabel(state);
   const cause = deathCauseOf(state);
   const gen = Number(c.flags.legacy_generation ?? 1);
   const titles = titleLabels(state);
@@ -37,7 +35,6 @@ export function buildLifeSummary(state: LifeGameState): string {
     '　　——　墓誌　——',
     '',
     `　　${c.name}`,
-    `　　享年 ${c.age} 歲 · ${stage}`,
     `　　卒於 ${state.year} 年${state.month ? `${state.month} 月` : ''}`,
   ];
 

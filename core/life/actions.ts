@@ -381,7 +381,7 @@ export function applyPracticeOutcome(
         }
         break;
       }
-      const gearId = rollForgeResult(rng, { age: c.age, martial: c.martial });
+      const gearId = rollForgeResult(rng, { martial: c.martial });
       const name = grantGear(state, gearId);
       logs.push(`爐火純青，你煉成「${name}」。`);
       if (gearId.startsWith('divine')) logs.push('天地異象一瞬——竟是神兵！');

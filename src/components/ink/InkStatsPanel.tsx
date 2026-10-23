@@ -94,9 +94,6 @@ export function InkStatsPanel({ state, onClose }: Props) {
               姓名 <b>{c.name}</b>
             </span>
             <span>
-              年歲 <b>{c.age}</b>
-            </span>
-            <span>
               門派 <b>{sectName}</b>
             </span>
             <span>

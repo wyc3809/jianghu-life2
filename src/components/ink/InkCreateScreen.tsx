@@ -174,7 +174,7 @@ export function InkCreateScreen() {
               ))}
             </ul>
             <p className="ink-note" style={{ marginTop: 12 }}>
-              十六歲離家出鎮。初始屬性已根據童年選擇調整。
+              離家出鎮，踏入江湖。初始屬性已根據出身經歷調整。
             </p>
           </section>
           <div className="ink-cta-stack">

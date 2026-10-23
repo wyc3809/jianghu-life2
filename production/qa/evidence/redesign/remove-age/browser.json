@@ -1,0 +1,32 @@
+{
+  "seed": 42,
+  "jade": {
+    "free": 600,
+    "paidTest": 0
+  },
+  "dpr": 2,
+  "phones": [
+    [
+      320,
+      568
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      420,
+      896
+    ]
+  ],
+  "calendar_after_store_advance": {
+    "year": 19,
+    "month": 1,
+    "legacyAge": 92
+  },
+  "age_badge_removed": true,
+  "person_and_gates": true,
+  "event_date_kept": true,
+  "new_summary_has_no_age": true,
+  "pageerrors": []
+}

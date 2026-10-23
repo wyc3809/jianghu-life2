@@ -228,7 +228,7 @@ export interface OfflineCultivationResult {
 /**
  * 離線收益：deterministic 純函數——同一 state（速率）+ 同一 elapsedMs，
  * 結果必定一樣，唔涉及 RNG。呼叫方（store）負責讀存檔時間戳算 elapsedMs。
- * 離線唔會老（年齡只跟手動過月）。
+ * 離線只結算修為；角色不設年齡與自然老死。
  */
 export function applyOfflineCultivation(state: LifeGameState, elapsedMs: number): OfflineCultivationResult {
   const clampedMs = Math.max(0, Math.min(OFFLINE_CULTIVATION_CAP_MS, elapsedMs));

@@ -36,7 +36,6 @@ import { skillDisplay } from '@core/life/flavor';
 import { rankName, skillAdvanceHint, skillAdvancePercent } from '@core/life/martialRanks';
 import { formatSkillEffects, getSkillDef, skillKindLabel } from '@data/skills/catalog';
 import { ensureNature, dominantNature, natureSummary } from '@core/life/nature';
-import { getLifeStageLabel } from '@core/life/stages';
 import { playerEvasionPercent } from '@core/life/jianghuHints';
 import { listWeaponMasteries } from '@core/life/weaponMastery';
 import { careerLabel, getCareer } from '@core/life/careers';
@@ -154,7 +153,6 @@ export function InkPersonPanel({
   const dominant = dominantNature(c);
   const lover = c.loverId ? state.npcs[c.loverId] : null;
   const sect = c.sectId ? state.sects[c.sectId] : null;
-  const stage = getLifeStageLabel(state);
   const gearIds = c.gear ?? [];
   const equipment = c.equipment ?? { weapon: null, armor: null, accessory: null };
   const gearStatTotals = gearTotals(c);
@@ -234,7 +232,7 @@ export function InkPersonPanel({
       <section className="ink-panel ink-attrs ink-tab-pane" aria-label="人物" ref={paneRef}>
         <h3>人物</h3>
         <p className="ink-note">
-          {c.name} · {c.age}歲 · {stage} · 名望 {c.reputation}
+          {c.name} · 名望 {c.reputation}
           {lover ? ` · 眷屬${lover.name}` : ''}
         </p>
         <div className="ink-vitals-meters ink-progress-overview">

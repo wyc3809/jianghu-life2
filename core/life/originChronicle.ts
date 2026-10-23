@@ -31,7 +31,7 @@ export const ORIGIN_EVENTS: OriginEvent[] = [
   {
     id: 'origin_alley',
     title: '巷口一劫',
-    body: '十四歲那年，巷口有人搶走鄰家老人的藥包。你剛從私塾回來，書包還未放下。',
+    body: '一次放學回家，巷口有人搶走鄰家老人的藥包。你剛從私塾回來，書包還未放下。',
     choices: [
       {
         id: 'chase',
@@ -62,7 +62,7 @@ export const ORIGIN_EVENTS: OriginEvent[] = [
   {
     id: 'origin_guest',
     title: '門前異客',
-    body: '十五歲秋，有異客在你家門前歇腳，說要指點一式半招，也願用銀兩換一夜茶飯。',
+    body: '某年秋天，有異客在你家門前歇腳，說要指點一式半招，也願用銀兩換一夜茶飯。',
     choices: [
       {
         id: 'learn',
@@ -93,7 +93,7 @@ export const ORIGIN_EVENTS: OriginEvent[] = [
   {
     id: 'origin_vow',
     title: '辭鎮夜話',
-    body: '十六歲將出鎮。燈下，你對自己說了一句話——往後的江湖，多半繞着這句轉。',
+    body: '離鎮前夕，燈下，你對自己說了一句話——往後的江湖，多半繞着這句轉。',
     choices: [
       {
         id: 'vow_blade',
