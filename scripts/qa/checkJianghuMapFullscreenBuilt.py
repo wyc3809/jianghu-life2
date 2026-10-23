@@ -5,7 +5,9 @@ from playwright.sync_api import sync_playwright
 import json, os
 
 ROOT=Path(__file__).resolve().parents[2]
-OUT=ROOT/'production/qa/evidence/redesign/jianghu-map-fullscreen'
+OUT=ROOT/os.getenv('MAP_BUILT_OUT','production/qa/evidence/redesign/jianghu-map-fullscreen')
+OUT.mkdir(parents=True,exist_ok=True)
+EXPECTED_VERSION=os.getenv('MAP_EXPECTED_VERSION')
 BASE=os.getenv('MAP_BUILT_BASE','http://127.0.0.1:5175/jianghu-life2/')
 with sync_playwright() as p:
     browser=p.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox','--enable-unsafe-swiftshader'])
@@ -18,6 +20,9 @@ with sync_playwright() as p:
     page.on('response',lambda response:bad.append({'url':response.url,'status':response.status})
             if response.status>=400 and urlparse(response.url).netloc==urlparse(BASE).netloc else None)
     page.goto(BASE,wait_until='domcontentloaded')
+    bundle=page.evaluate('''async expected=>{const url=document.querySelector('script[type="module"]').src;
+        const body=await(await fetch(url,{cache:'no-store'})).text();return {url,version:expected,match:!expected||body.includes(expected)};}''',EXPECTED_VERSION)
+    assert bundle['match'],bundle
     page.get_by_role('button',name='開卷',exact=True).click()
     page.get_by_label('姓名',exact=True).fill('驗圖少俠')
     page.get_by_role('button',name='翻開少時',exact=True).click()
@@ -45,8 +50,14 @@ with sync_playwright() as p:
         page.get_by_role('button',name='返回鎮居',exact=True).click()
         assert page.locator('.ink-hud').count()==1 and nav().count()==1
         nav().get_by_role('button',name='江湖',exact=True).click()
+    if EXPECTED_VERSION:
+        page.get_by_role('button',name='返回鎮居',exact=True).click()
+        page.get_by_role('button',name='開啟設定',exact=True).click()
+        page.get_by_role('dialog').wait_for()
+        assert EXPECTED_VERSION in page.locator('.ink-settings-version').inner_text()
+        page.screenshot(path=str(OUT/'settings-version.png'))
     assert not errors and not bad,(errors,bad)
-    (OUT/'built-browser.json').write_text(json.dumps({'base':BASE,'ordinary_ui':True,'fixture_injection':False,
+    (OUT/'built-browser.json').write_text(json.dumps({'base':BASE,'bundle':bundle,'ordinary_ui':True,'fixture_injection':False,
         'phones':[[320,568],[390,844],[420,896]],'four_destinations_and_back':True,'pageerrors':errors,'http_errors':bad},ensure_ascii=False,indent=2)+'\n')
     browser.close()
 print('FULLSCREEN_MAP_BUILT_PASS')

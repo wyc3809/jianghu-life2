@@ -939,3 +939,14 @@ EA0.87.0發布前檢查：100檔728項Vitest、Pages build含tsc、narrate hard-
 驗收與前後圖見 `production/qa/evidence/redesign/jianghu-map-fullscreen/README.md`。
 
 第36項驗收完成：100檔728項Vitest、Pages build含tsc、narrate hard-fail0及文案審核通過。六組手機尺寸無溢出、四地標／名稱共48次點擊及返回正常；瀏覽器高度變化、安全區、鍵盤、減少動態、圖片後備與導航前後帳戶一致通過。正式構建普通介面建立人物，三組手機尺寸四入口／返回正常，pageerror0／HTTP錯誤0。待玩家檢視全畫面截圖，未上線。
+
+
+### 第36項／EA0.88.0 發布確認（2026-10-23）
+
+玩家檢視全畫面地圖預覽後回覆「上線」。第36項玩家已確認，EA0.88.0 上線；本段取代本項待檢視及未上線狀態。
+
+發布內容：江湖根頁獨立全畫面，移除人物／貨幣頂欄及底部分卷，只保留左上返回鎮居。四個地標與名稱一屏完整顯示，短屏等比例容納，不需捲動。功能子頁恢復原有介面；不改玩法、存檔、素材或多人後端。
+
+發布前重跑完整測試、Pages構建、敘事與文案檢查，並以正式構建普通介面驗證手機導航；發布提交CI通過後才squash合併。Pages部署後核對正式版本及三組手機四入口／返回。記錄見 `production/qa/evidence/redesign/release-ea088/README.md`。
+
+EA0.88.0發布前檢查：100檔728項Vitest、Pages build含tsc、narrate hard-fail0及文案審核全過。正式構建以普通介面建立人物，三組手機四入口／返回、全圖無縱捲、頂欄／導航按頁切換、主bundle及設定EA0.88.0通過，pageerror0／HTTP錯誤0。
