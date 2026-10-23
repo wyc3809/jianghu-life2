@@ -1,0 +1,74 @@
+{
+  "version": "EA0.87.0",
+  "pr": 136,
+  "main_commit": "c45f8a882e9db04c349d6ef5b929e528d431598a",
+  "workflows": {
+    "pr-ci": {
+      "conclusion": "success",
+      "created_at": "2026-10-23T14:55:56Z",
+      "head_sha": "be9f234c130e4eb6b97435f5149128feeac5f5c0",
+      "html_url": "https://github.com/wyc3809/jianghu-life2/actions/runs/39973856561",
+      "id": 39973856561,
+      "run_attempt": 1,
+      "status": "completed",
+      "updated_at": "2026-10-23T14:57:52Z"
+    },
+    "main-ci": {
+      "conclusion": "success",
+      "created_at": "2026-10-23T14:58:13Z",
+      "head_sha": "c45f8a882e9db04c349d6ef5b929e528d431598a",
+      "html_url": "https://github.com/wyc3809/jianghu-life2/actions/runs/39974181814",
+      "id": 39974181814,
+      "run_attempt": 1,
+      "status": "completed",
+      "updated_at": "2026-10-23T14:59:41Z"
+    },
+    "pages-build": {
+      "conclusion": "success",
+      "created_at": "2026-10-23T14:58:13Z",
+      "head_sha": "c45f8a882e9db04c349d6ef5b929e528d431598a",
+      "html_url": "https://github.com/wyc3809/jianghu-life2/actions/runs/39974181780",
+      "id": 39974181780,
+      "run_attempt": 2,
+      "status": "completed",
+      "updated_at": "2026-10-23T15:06:32Z"
+    },
+    "pages-deploy": {
+      "conclusion": "success",
+      "created_at": "2026-10-23T15:06:30Z",
+      "head_sha": "34ac18c4fd8c9d2b89a1fefbeb0ef46134a222f0",
+      "html_url": "https://github.com/wyc3809/jianghu-life2/actions/runs/39975408532",
+      "id": 39975408532,
+      "run_attempt": 1,
+      "status": "completed",
+      "updated_at": "2026-10-23T15:08:05Z"
+    }
+  },
+  "live": {
+    "canonical_url": "https://wyc3809.github.io/jianghu-life2/",
+    "bundle": "https://wyc3809.github.io/jianghu-life2/assets/index-mz8HobEI.js",
+    "expected_version": "EA0.87.0",
+    "version_found": true
+  },
+  "browser_report": "live-browser.json",
+  "tests": 728,
+  "phone_sizes": [
+    [
+      320,
+      568
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      420,
+      896
+    ]
+  ],
+  "superseded_prs": [
+    134,
+    135
+  ],
+  "status": "published-and-verified"
+}
