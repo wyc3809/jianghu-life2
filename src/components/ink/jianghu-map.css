@@ -1,0 +1,64 @@
+/* 地圖與各地標共用原圖座標，不因螢幕長寬比拉伸或裁掉入口。 */
+.scroll-shell--play.scroll-shell--jianghu-map {
+  padding-inline: 0;
+  padding-top: max(8px, env(safe-area-inset-top, 0px));
+  gap: 0;
+  background: #f8f1e5;
+}
+.scroll-shell--jianghu-map > .ink-hud { margin: 0; padding: 0 14px 8px; }
+.scroll-shell--jianghu-map .ink-hud-top { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 10px; align-items: center; }
+.scroll-shell--jianghu-map .ink-hud-avatar.ink-hud-avatar--badge,
+.scroll-shell--jianghu-map .ink-hud-person-badge { width: 44px !important; height: 44px !important; }
+.scroll-shell--jianghu-map .ink-hud .ink-name { font-size: 16px; white-space: normal; overflow-wrap: anywhere; line-height: 1.45; }
+.scroll-shell--jianghu-map .ink-identity { min-width: 0; }
+.scroll-shell--jianghu-map .ink-hud .ink-name-title { display: none; }
+.scroll-shell--jianghu-map .ink-hud .ink-status-kicker,
+.scroll-shell--jianghu-map .ink-hud .ink-meta,
+.scroll-shell--jianghu-map .ink-hud-bars { display: none; }
+.scroll-shell--jianghu-map .ink-hud-wallet { display: grid; grid-template-columns: minmax(80px, auto) 44px; grid-template-rows: 22px 44px; gap: 0 6px; }
+.scroll-shell--jianghu-map .ink-hud-wallet .ink-money-chip,
+.scroll-shell--jianghu-map .ink-hud-wallet .ink-jade-chip { grid-template-columns: 22px auto; gap: 4px; padding: 0; min-width: 0; font-size: 13px; }
+.scroll-shell--jianghu-map .ink-hud-wallet .ink-money-chip { grid-column: 1; grid-row: 1; min-height: 22px; }
+.scroll-shell--jianghu-map .ink-hud-wallet .ink-jade-chip { grid-column: 1; grid-row: 2; min-height: 44px; }
+.scroll-shell--jianghu-map .ink-hud-wallet .ink-wallet-icon { width: 22px !important; height: 22px !important; }
+.scroll-shell--jianghu-map .ink-hud-wallet .ink-wallet-name { display: none; }
+.scroll-shell--jianghu-map .ink-hud-wallet .ink-status-buttons { grid-column: 2; grid-row: 1 / 3; align-self: center; }
+.scroll-shell--jianghu-map .ink-hud-wallet .ink-hud-settings { display: flex; justify-content: center; width: 44px; height: 44px; padding: 0; border: 0; background: none; }
+.scroll-shell--jianghu-map .ink-play-body { display: flex; flex-direction: column; }
+.scroll-shell--jianghu-map .ink-jianghu-view { flex: 1 0 auto; display: flex; flex-direction: column; }
+.ink-tabs.ink-bottom-dock--map::before { height: 100%; background: linear-gradient(to top, var(--paper) 58%, transparent 100%); }
+.ink-jianghu-map { position: relative; flex: 1 0 auto; display: grid; place-items: center; isolation: isolate; width: 100%; color: #302b25; }
+.ink-jianghu-map-stage { position: relative; width: 100%; max-width: 420px; aspect-ratio: 2 / 3; flex: none; }
+.ink-jianghu-map-art { display: block; width: 100%; height: 100%; object-fit: contain; }
+.ink-jianghu-map-heading { position: absolute; z-index: 2; left: max(6%, calc((100% - 420px) / 2 + 24px)); top: 14px; pointer-events: none; }
+.ink-jianghu-map-heading h2 { margin: 0; font-size: 22px; font-weight: 700; line-height: 1.5; letter-spacing: .22em; }
+.ink-jianghu-map-heading > span { color: #746a5a; font-size: 11px; letter-spacing: .14em; }
+.ink-map-destination { position: absolute; display: block; padding: 0; margin: 0; min-width: 44px; min-height: 44px; border: 0; border-radius: 0; background: none; box-shadow: none; color: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; isolation: isolate; }
+.ink-map-destination-light { position: absolute; display: block; pointer-events: none; opacity: .26; filter: drop-shadow(0 0 5px #caa66080); animation: ink-map-breathe 4.5s ease-in-out infinite; }
+.ink-map-destination-light > span { position: absolute; inset: 0; display: block; background-size: 100% 100%; clip-path: var(--landmark-clip); filter: brightness(1.16) saturate(1.08); }
+.ink-map-destination--gacha .ink-map-destination-light { animation-delay: -.9s; }
+.ink-map-destination--huashan .ink-map-destination-light { animation-delay: -2s; }
+.ink-map-destination--founder .ink-map-destination-light { animation-delay: -3.1s; }
+.ink-map-destination-name { position: absolute; z-index: 1; top: 100%; left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 3px 12px; white-space: nowrap; font: 700 18px / 1.45 var(--game-ui-font); letter-spacing: .08em; color: #302b25; background: radial-gradient(ellipse, #fff9ede8 28%, #fff9edbb 58%, #fff9ed00 74%); text-shadow: 0 1px 0 #fff9ed, 1px 0 0 #fff9ed, -1px 0 0 #fff9ed; transition: color .18s ease, transform .18s ease; }
+.ink-map-destination-dot { width: 6px; height: 6px; flex: none; transform: rotate(45deg); background: #aa7f3e; box-shadow: 0 0 5px #fff4cd; }
+.ink-map-destination:hover .ink-map-destination-name,
+.ink-map-destination:focus-visible .ink-map-destination-name { color: var(--cinnabar); }
+.ink-map-destination:active .ink-map-destination-name { transform: translateX(-50%) translateY(2px); }
+.ink-map-destination:focus-visible { outline: none; }
+.ink-map-destination:focus-visible .ink-map-destination-name { outline: 2px solid var(--cinnabar); outline-offset: 1px; }
+.ink-map-destination:is(:hover, :focus-visible) .ink-map-destination-light { animation: none; opacity: .65; }
+.ink-map-destination:active .ink-map-destination-light { animation: none; opacity: .8; }
+.ink-jianghu-map--fallback .ink-jianghu-map-art { visibility: hidden; }
+.ink-jianghu-map--fallback .ink-jianghu-map-stage { background: linear-gradient(155deg, #faf6ec, #e5ddcb); }
+.ink-jianghu-map--fallback .ink-map-destination-name { top: 40%; background: #faf6ec; }
+@keyframes ink-map-breathe { 0%, 100% { opacity: .22; } 50% { opacity: .5; } }
+@media (max-width: 350px) {
+  .scroll-shell--jianghu-map .ink-hud-top { gap: 6px; }
+  .scroll-shell--jianghu-map .ink-hud { padding-inline: 10px; }
+  .ink-map-destination-name { font-size: 16px; padding-inline: 8px; gap: 5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ink-map-destination-light { animation: none; opacity: .4; }
+  .ink-map-destination-name { transition: none; }
+}
+html[data-ink-motion='reduce'] .ink-map-destination-light { animation: none; opacity: .4; }

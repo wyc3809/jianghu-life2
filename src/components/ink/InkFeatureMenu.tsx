@@ -1,6 +1,7 @@
 import { InkIcon } from './InkIcon';
 import type { InkIconKey } from '../../ui/inkIcons';
 import './jianghu.css';
+import { InkJianghuMap } from './InkJianghuMap';
 
 export interface InkFeatureEntry<Id extends string> {
   id: Id;
@@ -24,19 +25,9 @@ export function InkFeatureMenu<Id extends string>({ label, entries, onOpen }: {
   </ul></nav>;
 }
 
-export type JianghuView = 'main' | 'online' | 'gacha' | 'huashan' | 'founder' | 'nature';
+export type JianghuView = 'main' | 'online' | 'gacha' | 'huashan' | 'founder';
 
-/** 江湖總目錄只呈現入口；原有功能保留喺各自內容頁。 */
+/** 地圖直接承接江湖分頁，功能沿用原有內容頁。 */
 export function InkJianghuHub({ online, onOpen }: { online: boolean; onOpen: (view: JianghuView) => void }) {
-  const entries: InkFeatureEntry<JianghuView>[] = [
-    ...(online ? [{ id: 'online' as const, title: '江湖風雲', icon: 'banner' as const, hint: '共用江湖 · 離線亦可應戰' }] : []),
-    { id: 'gacha', title: '秘笈閣', icon: 'book', hint: '尋訪武學 · 定向小冊與心願' },
-    { id: 'huashan', title: '華山論劍', icon: 'swords', hint: '持帖赴會 · 八強逐招論劍' },
-    { id: 'founder', title: '開宗立派', icon: 'house', hint: '開山收徒 · 傳承門中武學' },
-    { id: 'nature', title: '心性', icon: 'fan', hint: '俠、邪、狂、惡 · 查看人物心性' },
-  ];
-  return <section className="ink-panel ink-jianghu-hub ink-tab-pane" aria-label="江湖列表" id="ink-jianghu-menu">
-    <h3>江湖</h3><p className="ink-note ink-jianghu-intro">行走江湖，各有去處。</p>
-    <InkFeatureMenu label="江湖功能" entries={entries} onOpen={onOpen} />
-  </section>;
+  return <InkJianghuMap online={online} onOpen={onOpen} />;
 }

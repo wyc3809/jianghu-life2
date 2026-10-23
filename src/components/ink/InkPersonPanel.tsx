@@ -187,7 +187,7 @@ export function InkPersonPanel({
       },
       {
         id: 'attrs',
-        label: '五維心性',
+        label: '五維與心性',
         hint: `${wuxiaAttributeLabels.genGu}${c.attributes.genGu} · 俠${nature.xia}`,
         icon: 'motif-jade',
       },
