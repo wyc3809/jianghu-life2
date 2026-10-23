@@ -158,7 +158,7 @@ export function breakthroughHighlight(state: LifeGameState, r: BreakthroughResul
               grade: 2 as Grade,
               amount: prestige,
               flyTo: 'gem' as const,
-              blurb: '江湖上傳開你突破嘅消息。',
+              blurb: '你突破境界的消息已在江湖傳開。',
               stats: [{ label: '威望', from: prestigeNow - prestige, to: prestigeNow }],
             },
           ]

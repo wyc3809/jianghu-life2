@@ -53,7 +53,7 @@ export function InkCloudSection({ onOpenBoard }: Props) {
 
   const run = async (fn: () => Promise<{ ok: boolean; message: string }>) => {
     if (!EMAIL_RE.test(email.trim())) {
-      setMsg('電郵格式唔啱。');
+      setMsg('電郵格式不正確。');
       return;
     }
     setBusy(true);
@@ -66,16 +66,16 @@ export function InkCloudSection({ onOpenBoard }: Props) {
   };
 
   const bindStatus = !configured
-    ? '未綁定 · 雲端服務未開通，進度只存喺本機'
+    ? '未綁定 · 雲端服務尚未開通，進度僅存於本機'
     : checking
       ? '連接雲端中……'
       : !id
-        ? '未綁定 · 未連上雲端，進度照樣存喺本機'
+        ? '未綁定 · 尚未連接雲端，進度仍保存於本機'
         : id.email
           ? `已綁定 ${id.email}`
           : id.pendingEmail
-            ? `等緊確認 ${id.pendingEmail}`
-            : '未綁定 · 匿名身份（綁定電郵先可以換機）';
+            ? `等待確認 ${id.pendingEmail}`
+            : '未綁定 · 匿名身份（綁定電郵後可在其他裝置登入）';
 
   const syncText = !configured
     ? '未同步 · 雲端服務未開通'
@@ -95,7 +95,7 @@ export function InkCloudSection({ onOpenBoard }: Props) {
       <dl className="ink-account-rows">
         <div className="ink-account-row">
           <dt>綁定狀態</dt>
-          <dd title={cloudLastError() || undefined}>{bindStatus}</dd>
+          <dd title={cloudLastError() ? '雲端連線發生錯誤，請檢查網絡後重試。' : undefined}>{bindStatus}</dd>
         </div>
         <div className="ink-account-row">
           <dt>最近存檔</dt>
@@ -133,7 +133,7 @@ export function InkCloudSection({ onOpenBoard }: Props) {
                   void run(() => linkEmail(email.trim()));
                 }}
               >
-                綁定呢個身份
+                綁定此身份
               </button>
             )}
             <button
@@ -149,7 +149,7 @@ export function InkCloudSection({ onOpenBoard }: Props) {
               className="ink-settings-seg-btn"
               disabled={busy}
               onClick={async () => {
-                if (!window.confirm('用雲端存檔覆蓋本機進度？本機未上傳嘅進度會冇咗。')) return;
+                if (!window.confirm('是否以雲端存檔覆蓋本機進度？尚未上傳的本機進度將會遺失。')) return;
                 setBusy(true);
                 try {
                   const ok = await restoreFromCloud(writeLocal);

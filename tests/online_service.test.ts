@@ -34,7 +34,7 @@ describe('真正本機多人服務', () => {
     const result = f.service.challenge(f.a, command);
     expect(f.service.challenge(f.a, command)).toEqual(result);
     expect(() => f.service.challenge(f.b, { requestId: 'challenge-2', target: 'river' })).toThrow('仍在交戰');
-    expect(() => f.service.challenge(f.a, { requestId: 'challenge-1', target: 'river' })).toThrow('唔可以改內容');
+    expect(() => f.service.challenge(f.a, { requestId: 'challenge-1', target: 'river' })).toThrow('不可變更內容');
     expect(f.service.world(f.a).battles).toHaveLength(1);
   });
   it('test_online_戰敗保護與主動反擊_拒絕再襲擊但主動出擊可解除', () => {
@@ -73,7 +73,7 @@ describe('真正本機多人服務', () => {
   it('test_online_篡改戰力及未學識武學_被拒絕且現有配搭不變', () => {
     const f = fixture(), before = f.service.world(f.a).me.character;
     expect(() => f.service.challenge(f.a, { requestId: 'challenge-1', target: 'cloud', attack: 99999 })).toThrow();
-    expect(() => f.service.loadout(f.a, { requestId: 'loadout-1', external: ['pr_crimson_moon'], internal: null, qinggong: null })).toThrow('未學識');
+    expect(() => f.service.loadout(f.a, { requestId: 'loadout-1', external: ['pr_crimson_moon'], internal: null, qinggong: null })).toThrow('尚未習得');
     expect(() => f.service.loadout(f.a, { requestId: 'loadout-2', external: ['art_river_fist', 'art_river_fist'], internal: null, qinggong: null })).toThrow('不能重複');
     expect(f.service.world(f.a).me.character).toEqual(before);
   });

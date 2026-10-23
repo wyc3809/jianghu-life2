@@ -140,7 +140,7 @@ export function seekChild(state: LifeGameState): string[] {
         100,
         (state.npcs[c.loverId]!.affinity ?? 50) + 3,
       );
-      lines.push('縱無子嗣，情誼卻又深了一寸。');
+      lines.push('雖無子嗣，兩人仍決定相伴度日。');
     }
   }
 

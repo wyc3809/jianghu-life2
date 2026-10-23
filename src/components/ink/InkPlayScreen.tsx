@@ -763,7 +763,7 @@ export function InkPlayScreen({ state }: Props) {
               <h3>{coach.title}</h3>
               <p>{coach.body}</p>
               <button type="button" className="ink-btn ink-btn--ghost" onClick={() => dismissCoach()}>
-                已知曉
+                確認
               </button>
             </section>
           )}
@@ -995,8 +995,8 @@ export function InkPlayScreen({ state }: Props) {
                 }}
               >
                 {lastResult.deltas.length > 0 && !resultDeltasReady
-                  ? '接著 · 見消長'
-                  : '已知曉 · 掩卷'}
+                  ? '查看變化'
+                  : '繼續'}
               </button>
             </div>
           </div>,
@@ -1029,7 +1029,7 @@ export function InkPlayScreen({ state }: Props) {
 
       {state.phase === 'summary' && (
         <section className="ink-panel ink-epitaph">
-          <h3>掩卷</h3>
+          <h3>一生總結</h3>
           <pre className="ink-epitaph-text">{state.summaryText}</pre>
           <InkStaticSeal text="終" className="ink-seal-static--end" />
           {ancestryAward && ancestryAward.total > 0 && (

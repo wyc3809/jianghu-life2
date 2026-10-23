@@ -416,7 +416,7 @@ export function InkEventEditor({ onClose }: Props) {
               ? `改標題／正文／選項／數值 · 存手機本地 · 已改 ${patchedSet.size} 則`
               : tab === 'gear'
                 ? `改裝備數值／特效／文案 · 存手機本地 · 已改 ${patchedGearSet.size} 件`
-                : `全面檢視各事件已改嘅結果敘事 · 共 ${patchedResults.length} 條`}
+                : `檢視已修改的事件結果敘事 · 共 ${patchedResults.length} 條`}
           </p>
         </div>
       </header>
@@ -899,7 +899,7 @@ export function InkEventEditor({ onClose }: Props) {
 
       {tab === 'results' && (
         <>
-          <p className="ink-note">列出各事件已改嘅「結果敘事」，按行可直接跳去該事件編修。</p>
+          <p className="ink-note">列出已修改的結果敘事，點選可前往編輯。</p>
           {patchedResults.length === 0 ? (
             <p className="ink-note">尚未有任何結果文案覆寫。</p>
           ) : (

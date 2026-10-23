@@ -72,9 +72,10 @@ describe('life event catalog', () => {
     expect(later.some((e) => e.id === 'jx_black_inn')).toBe(true);
   });
 
-  it('preserves original pack choice texts (3 each)', () => {
+  it('preserves authored pack choice texts and IDs (3 each)', () => {
     const first = RANDOM_PACK_EVENTS.find((e) => e.id === 'event_001')!;
-    expect(first.choices.map((c) => c.text)).toEqual(['暗中相助', '公開交涉', '向有權勢者報信']);
+    expect(first.choices.map((c) => c.text)).toEqual(['暗中藏匿帳房', '請眾人作證', '向官署報信']);
+    expect(first.choices.map((c) => c.id)).toEqual(['choice_1', 'choice_2', 'choice_3']);
     expect(RANDOM_PACK_EVENTS.every((e) => e.choices.length === 3)).toBe(true);
   });
 });
@@ -958,12 +959,16 @@ describe('life event engine', () => {
         const rt = c.result_text;
         const s = typeof rt === 'string' ? rt : rt?.success ?? '';
         const f = typeof rt === 'string' ? '' : rt?.failure ?? '';
-        expect(s.length).toBeGreaterThan(40);
+        // 簡潔敘事須有內容並控制篇幅，不再強制固定失敗套語。
+        expect(s.length).toBeGreaterThan(8);
+        expect(s.length).toBeLessThanOrEqual(60);
         expect(s).not.toBe('你的選擇改變了事情的走向。');
         expect(s).not.toMatch(/像棋盤上多落了一子/);
-        expect(f.length).toBeGreaterThan(40);
+        expect(f.length).toBeGreaterThan(8);
+        expect(f.length).toBeLessThanOrEqual(60);
         expect(f).not.toMatch(/銀錢、氣血或顏面|改日再圖/);
-        expect(f).toMatch(/功敗垂成|卻/);
+        expect(f).not.toBe(s);
+        expect(s + f).not.toMatch(/失敗寫得很具體|你本想|你選擇|這一局輸了細節|記得疼的疤/);
         successes.add(s);
         failures.add(f);
       }

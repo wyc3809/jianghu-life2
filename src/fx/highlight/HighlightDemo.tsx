@@ -44,7 +44,7 @@ function demoConfig(subject: HighlightSubject, g: Grade): HighlightConfig {
           grade: 1,
           amount: 180,
           flyTo: 'coin',
-          blurb: '白花花嘅銀子。',
+          blurb: '銀兩。',
           stats: [{ label: '銀兩', from: 1280, to: 1460 }],
         },
         {
@@ -55,7 +55,7 @@ function demoConfig(subject: HighlightSubject, g: Grade): HighlightConfig {
           grade: 2,
           amount: 24,
           flyTo: 'gem',
-          blurb: '江湖上多咗人識你。',
+          blurb: '你的名望有所提升。',
           stats: [{ label: '名望', from: 36, to: 60 }],
         },
       ],

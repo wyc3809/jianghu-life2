@@ -39,7 +39,7 @@ export class OnlineService {
     try {
       const row = this.db.prepare('SELECT payload FROM world WHERE id=1').get() as { payload: string };
       const world: OnlineWorld = JSON.parse(row.payload);
-      if (world.version !== 1) throw new Error('不支援嘅原型資料版本');
+      if (world.version !== 1) throw new Error('不支援的原型資料版本');
       const now = this.now(); settleOnlineWorld(world, now);
       const result = fn(world, now); world.revision++;
       this.db.prepare('UPDATE world SET payload=? WHERE id=1').run(JSON.stringify(world));
@@ -103,7 +103,7 @@ export class OnlineService {
     return this.transaction((world, now) => {
       const receipt = this.db.prepare('SELECT input,result FROM receipts WHERE account_id=? AND request_id=?').get(s.account_id, input.requestId) as { input: string; result: string } | undefined;
       if (receipt) {
-        if (receipt.input !== key) throw new OnlineError(409, '同一指令編號唔可以改內容。');
+        if (receipt.input !== key) throw new OnlineError(409, '同一指令編號不可變更內容。');
         return JSON.parse(receipt.result) as T;
       }
       const result = fn(world, now, s.account_id);

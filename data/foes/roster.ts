@@ -71,14 +71,14 @@ export const FOE_REGIONS: readonly FoeRegion[] = [
     theme: '市井潑皮',
     trait: 'guard',
     minions: [
-      m('town_rascal', '市井潑皮', '街頭混混', 'daoke', '176,122,60', '仗住人多，喺街口收保護費'),
-      m('town_collector', '收數打手', '追債鉤手', 'gouke', '176,122,60', '收唔到數就落手'),
+      m('town_rascal', '市井潑皮', '街頭混混', 'daoke', '176,122,60', '仗勢欺人，在街口勒索商販'),
+      m('town_collector', '收數打手', '追債鉤手', 'gouke', '176,122,60', '索錢不成便動手傷人'),
     ],
     elites: [
       e('town_guard', '惡霸護院', '鐵衫護院', 'toutuo', '176,122,60', '練過幾年鐵布衫，刀槍難入'),
-      e('town_bruiser', '鐵衫打手', '橫行街坊', 'daoke', '176,122,60', '惡霸手下嘅頭馬'),
+      e('town_bruiser', '鐵衫打手', '橫行街坊', 'daoke', '176,122,60', '惡霸手下的打手'),
     ],
-    boss: b('town_boss', '鎮上惡霸', '鐵肚金剛', 'toutuo', '176,122,60', '一身橫練，鎮上冇人敢惹'),
+    boss: b('town_boss', '鎮上惡霸', '鐵肚金剛', 'toutuo', '176,122,60', '橫練功夫深厚，鎮民避之不及'),
   },
   {
     bg: 'road',
@@ -91,7 +91,7 @@ export const FOE_REGIONS: readonly FoeRegion[] = [
     ],
     elites: [
       e('road_brute', '開山力士', '劈石手', 'toutuo', '192,57,43', '一斧落地，碎石四濺'),
-      e('road_captain', '寨中刀頭', '赤巾刀頭', 'daoke', '192,57,43', '寨主親手帶出嚟嘅刀手'),
+      e('road_captain', '寨中刀頭', '赤巾刀頭', 'daoke', '192,57,43', '寨主親自訓練的刀手'),
     ],
     boss: b('road_boss', '赤髮寨主', '開山赤鬼', 'chifa', '192,57,43', '蓄滿一刀，可以劈開山門'),
   },
@@ -102,13 +102,13 @@ export const FOE_REGIONS: readonly FoeRegion[] = [
     trait: 'drain',
     minions: [
       m('bamboo_killer', '影門殺手', '竹影刺', 'shadow', '142,44,90', '竹影一晃就到你身後'),
-      m('bamboo_assassin', '影門女刺', '青竹娘', 'nvcike', '142,44,90', '短刃淬咗血毒'),
+      m('bamboo_assassin', '影門女刺', '青竹娘', 'nvcike', '142,44,90', '短刃淬有血毒'),
     ],
     elites: [
       e('bamboo_bloodguard', '影門血衛', '飲血衛', 'tiemian', '142,44,90', '每殺一人就飲一口血'),
       e('bamboo_bloodmaid', '影門血姬', '紅袖刃', 'nvcike', '142,44,90', '紅袖一揚，血就倒流'),
     ],
-    boss: b('bamboo_boss', '影門門主', '噬血竹魔', 'tiemian', '142,44,90', '靠飲人血續命嘅邪功'),
+    boss: b('bamboo_boss', '影門門主', '噬血竹魔', 'tiemian', '142,44,90', '以鮮血續命的邪功'),
   },
   {
     bg: 'inn',
@@ -116,14 +116,14 @@ export const FOE_REGIONS: readonly FoeRegion[] = [
     theme: '夜行刺客',
     trait: 'combo',
     minions: [
-      m('inn_stalker', '夜行女刺', '雨夜燕', 'nvcike', '63,95,138', '趁雨聲落手'),
+      m('inn_stalker', '夜行女刺', '雨夜燕', 'nvcike', '63,95,138', '藉雨聲掩護行刺'),
       m('inn_shade', '影衛', '簷下影', 'shadow', '63,95,138', '專守客棧簷角'),
     ],
     elites: [
       e('inn_twin', '分影刺客', '雙影', 'nvcike', '63,95,138', '一刀未收，第二刀已到'),
       e('inn_blades', '雙刃影衛', '對刃', 'gouke', '63,95,138', '雙刃交錯，連環出手'),
     ],
-    boss: b('inn_boss', '鐵面影魁', '千影', 'tiemian', '63,95,138', '身法快到留低殘影'),
+    boss: b('inn_boss', '鐵面影魁', '千影', 'tiemian', '63,95,138', '身法迅疾，行動時留下殘影'),
   },
   {
     bg: 'gate',
@@ -132,11 +132,11 @@ export const FOE_REGIONS: readonly FoeRegion[] = [
     trait: 'thorns',
     minions: [
       m('gate_monk', '護寺頭陀', '守門僧', 'toutuo', '212,169,55', '把守邪寺山門'),
-      m('gate_soldier', '黑衣僧兵', '夜巡僧', 'shadow', '212,169,55', '夜晚巡山嘅僧兵'),
+      m('gate_soldier', '黑衣僧兵', '夜巡僧', 'shadow', '212,169,55', '夜間巡山的僧兵'),
     ],
     elites: [
-      e('gate_vajra', '金剛護法', '銅皮羅漢', 'toutuo', '212,169,55', '打佢一拳，手骨都震痛'),
-      e('gate_ironbone', '鐵骨僧兵', '鐵骨', 'shadow', '212,169,55', '金剛功練到三成'),
+      e('gate_vajra', '金剛護法', '銅皮羅漢', 'toutuo', '212,169,55', '硬功深厚，拳擊其身會受反震'),
+      e('gate_ironbone', '鐵骨僧兵', '鐵骨', 'shadow', '212,169,55', '金剛功已有三成火候'),
     ],
     boss: b('gate_boss', '鬼面頭陀', '金剛鬼面', 'toutuo', '212,169,55', '金剛不壞，反震傷人'),
   },
@@ -146,7 +146,7 @@ export const FOE_REGIONS: readonly FoeRegion[] = [
     theme: '黑風寨',
     trait: 'enrage',
     minions: [
-      m('peak_blade', '黑風刀手', '風刀', 'daoke', '122,31,26', '黑風寨嘅刀手'),
+      m('peak_blade', '黑風刀手', '風刀', 'daoke', '122,31,26', '黑風寨刀手'),
       m('peak_strong', '黑風力士', '扛鼎', 'toutuo', '122,31,26', '一身蠻力'),
       m('peak_hook', '黑風鉤客', '鉤魂', 'gouke', '122,31,26', '鉤人入寨'),
     ],
@@ -154,7 +154,7 @@ export const FOE_REGIONS: readonly FoeRegion[] = [
       e('peak_berserk', '黑風狂刀', '血眼刀', 'daoke', '122,31,26', '受傷越重，出刀越狠'),
       e('peak_vanguard', '黑風先鋒', '赤狼', 'chifa', '122,31,26', '寨主帳下先鋒'),
     ],
-    boss: b('peak_boss', '黑風寨主', '黑風狂獅', 'chifa', '122,31,26', '半血之後狂性大發'),
+    boss: b('peak_boss', '黑風寨主', '黑風狂獅', 'chifa', '122,31,26', '氣血低於一半時陷入狂怒'),
   },
 ];
 

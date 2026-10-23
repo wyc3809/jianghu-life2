@@ -52,17 +52,17 @@ export class PairService {
       if (!input.roomId) throw new OnlineError(400, '請先開房或用邀請連結加入。');
       room = await this.repo.load(input.roomId);
     }
-    if (!room) throw new OnlineError(404, '搵唔到呢個試場，請核對邀請連結。');
+    if (!room) throw new OnlineError(404, '找不到此試場，請核對邀請連結。');
     // 同一次請求喺CAS重試期間，始終沿用同一組種子與戰報編號。
     const entropy = this.entropy();
     for (let attempt = 0; attempt < 10; attempt++) {
       const expected = room.revision, now = this.now();
       if (input.action === 'join' && room.host_id !== user && room.guest_id !== user) {
-        if (room.guest_id) throw new OnlineError(409, '呢個二人試場已滿。');
+        if (room.guest_id) throw new OnlineError(409, '此二人試場已滿。');
         room.guest_id = user;
         room.payload.world.players.cloud = createOnlineFixture(now).players.cloud;
       }
-      const seat: OnlineAccountId = room.host_id === user ? 'river' : room.guest_id === user ? 'cloud' : (() => { throw new OnlineError(403, '你唔係呢個試場嘅玩家。'); })();
+      const seat: OnlineAccountId = room.host_id === user ? 'river' : room.guest_id === user ? 'cloud' : (() => { throw new OnlineError(403, '你並非此試場的玩家。'); })();
       const { world, presence, receipts } = room.payload;
       settleOnlineWorld(world, now);
       for (const [key, value] of Object.entries(presence)) if (value.until <= now) delete presence[key];
@@ -71,7 +71,7 @@ export class PairService {
       if (['create', 'join', 'resume', 'heartbeat'].includes(input.action)) {
         if (input.action !== 'join') empty.parse(data);
         if (world.players[seat].onlineUntil <= now) world.players[seat].offlineAccruedMs = 0;
-        if (!presence[presenceKey] && Object.keys(presence).length >= 20) throw new OnlineError(429, '開啟咗太多試場分頁，請先關閉其他分頁。');
+        if (!presence[presenceKey] && Object.keys(presence).length >= 20) throw new OnlineError(429, '開啟的試場分頁過多，請先關閉其他分頁。');
         presence[presenceKey] = { seat, until: now + ONLINE_TEST.presenceLeaseMs };
       } else if (input.action === 'leave' || input.action === 'logout') {
         empty.parse(data); delete presence[presenceKey];
@@ -83,10 +83,10 @@ export class PairService {
         const key = `${seat}:${command.requestId}`, signature = JSON.stringify({ action: input.action, ...command });
         const old = receipts[key];
         if (old) {
-          if (old.input !== signature) throw new OnlineError(409, '同一指令編號唔可以改內容。');
+          if (old.input !== signature) throw new OnlineError(409, '同一指令編號不可變更內容。');
           result = old.result;
         } else {
-          if (Object.keys(receipts).length >= 500 || (input.action === 'challenge' && world.battles.length >= 100)) throw new OnlineError(429, '呢個試場已達封測操作上限。');
+          if (Object.keys(receipts).length >= 500 || (input.action === 'challenge' && world.battles.length >= 100)) throw new OnlineError(429, '此試場已達封測操作上限。');
           if (input.action === 'challenge' && !room.guest_id) throw new OnlineError(409, '等朋友入場先可以挑戰。');
           result = applyOnlineCommand(world, now, seat, input.action, command, entropy);
           receipts[key] = { input: signature, result };

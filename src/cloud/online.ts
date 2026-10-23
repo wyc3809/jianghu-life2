@@ -17,7 +17,7 @@ export function forgetWorldHint(): void {
 /** 共用非同步江湖：每次由SDK取得最新JWT，唔發送房間／帳戶選擇。 */
 export async function publicOnlineRequest(path: string, data: unknown, keepalive: boolean): Promise<Response> {
   const access = await cloudAccess();
-  if (!access) throw new Error('暫時連唔到雲端身份，請稍後重試。');
+  if (!access) throw new Error('暫時無法驗證雲端身份，請稍後重試。');
   const action = path === 'login' ? 'register' : path;
   const response = await fetch(`${access.url}/functions/v1/jianghu-world`, {
     method: 'POST', headers: { Authorization: `Bearer ${access.token}`, apikey: access.key, 'Content-Type': 'application/json' },

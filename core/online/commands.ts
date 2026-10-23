@@ -29,7 +29,7 @@ export function applyOnlineCommand(world: OnlineWorld, now: number, id: OnlineAc
     const input = challengeSchema.parse(raw);
     if (input.target === id) throw new OnlineError(400, '不能挑戰自己。');
     const a = world.players[id], b = world.players[input.target];
-    if (!a || !b) throw new OnlineError(404, '搵唔到呢位江湖玩家。');
+    if (!a || !b) throw new OnlineError(404, '找不到此江湖玩家。');
     if (a.busy || b.busy) throw new OnlineError(409, '其中一方仍在交戰，請稍後再試。');
     if (b.protectedUntil > now) throw new OnlineError(409, '對手正受戰敗保護。');
     const result = simulateOnlineBattle(a.character, b.character, entropy.seed);
@@ -55,7 +55,7 @@ export function applyOnlineCommand(world: OnlineWorld, now: number, id: OnlineAc
   if (p.busy) throw new OnlineError(409, '交戰期間不能調整武學。');
   if (new Set(input.external).size !== input.external.length) throw new OnlineError(400, '外功不能重複。');
   const validate = (skill: string | null, kind: string) => {
-    if (skill && (!c.skills.includes(skill) || getSkillDef(skill)?.kind !== kind)) throw new OnlineError(400, '未學識或武學類型不符。');
+    if (skill && (!c.skills.includes(skill) || getSkillDef(skill)?.kind !== kind)) throw new OnlineError(400, '尚未習得此武學，或武學類型不符。');
   };
   input.external.forEach(skill => validate(skill, 'external'));
   validate(input.internal, 'internal'); validate(input.qinggong, 'qinggong');

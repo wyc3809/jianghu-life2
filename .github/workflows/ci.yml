@@ -18,6 +18,7 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run audit:narrate
+      - run: npm run audit:copy
       - run: npm run build
         env:
           VITE_BASE: /jianghu-life2/

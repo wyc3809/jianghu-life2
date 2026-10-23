@@ -51,7 +51,7 @@ export const EVENT_CATALOG: GameEvent[] = [
       {
         id: 'complain',
         text: '怨天尤人',
-        outcomes: [{ effects: [{ type: 'attr', delta: { fuYuan: -2 } }, { type: 'reputation', amount: -3 }, { type: 'narrate', text: '你摔了碗，又默默掃乾淨。怨氣散在灶灰裡，家里更靜了。' }] }],
+        outcomes: [{ effects: [{ type: 'attr', delta: { fuYuan: -2 } }, { type: 'reputation', amount: -3 }, { type: 'narrate', text: '你摔了碗，又默默掃乾淨。怨氣散在灶灰裡，家中更安靜了。' }] }],
       },
     ],
   },
@@ -69,7 +69,7 @@ export const EVENT_CATALOG: GameEvent[] = [
       {
         id: 'return',
         text: '交還失主',
-        outcomes: [{ effects: [{ type: 'reputation', amount: 8 }, { type: 'attr', delta: { meiLi: 2 } }, { type: 'narrate', text: '你追上去，把銅錢塞回那人手裡。對方一愣，連聲道謝。巷口風過，胸口輕了一寸。' }] }],
+        outcomes: [{ effects: [{ type: 'reputation', amount: 8 }, { type: 'attr', delta: { meiLi: 2 } }, { type: 'narrate', text: '你追上失主，將銅錢交還。對方連聲道謝。' }] }],
       },
     ],
   },
@@ -124,7 +124,7 @@ export const EVENT_CATALOG: GameEvent[] = [
       {
         id: 'hard',
         text: '苦練不止',
-        outcomes: [{ effects: [{ type: 'martial', amount: 6 }, { type: 'health', amount: -5 }, { type: 'narrate', text: '晨練到肘臂發顫，教習才喝停。汗滴在青石上，像一行寫不完的字。' }] }],
+        outcomes: [{ effects: [{ type: 'martial', amount: 6 }, { type: 'health', amount: -5 }, { type: 'narrate', text: '你晨練至肘臂發顫，教習才喝令停手。' }] }],
       },
       {
         id: 'rest',
@@ -147,7 +147,7 @@ export const EVENT_CATALOG: GameEvent[] = [
               { type: 'learnSkill', skillId: 'skill_sword_basic', name: '青雲劍法（殘篇）' },
               { type: 'martial', amount: 8 },
               { type: 'attr', delta: { wuXing: 2 } },
-              { type: 'narrate', text: '劍譜上的圈點漸漸被你讀懂。出招時風聲變了——不是更快，是更準。' },
+              { type: 'narrate', text: '你讀懂劍譜上的圈點，依照記載修正出劍角度。' },
             ],
           },
         ],
@@ -155,7 +155,7 @@ export const EVENT_CATALOG: GameEvent[] = [
       {
         id: 'sell',
         text: '賣給書商',
-        outcomes: [{ effects: [{ type: 'money', amount: 40 }, { type: 'narrate', text: '你把譜本易了銀兩。銀子沉甸甸，心底卻像缺了一角。' }] }],
+        outcomes: [{ effects: [{ type: 'money', amount: 40 }, { type: 'narrate', text: '你將譜本賣給書商，換取銀兩。' }] }],
       },
     ],
   },
@@ -172,7 +172,7 @@ export const EVENT_CATALOG: GameEvent[] = [
             effects: [
               { type: 'memory', npcId: 'lover_candidate', text: '燈會初遇', affinity: 20 },
               { type: 'flag', key: 'romance_started', value: true },
-              { type: 'narrate', text: '你們在橋邊說了很久。河燈一盞盞漂過，誰也沒問明日。' },
+              { type: 'narrate', text: '你們在橋邊談了許久，直到河燈散盡才道別。' },
             ],
           },
         ],
@@ -293,7 +293,7 @@ export const EVENT_CATALOG: GameEvent[] = [
       {
         id: 'pass',
         text: '穩妥為上',
-        outcomes: [{ effects: [{ type: 'money', amount: 10 }, { type: 'narrate', text: '你搖頭不入股。船走了，岸上的你口袋輕，風也輕。' }] }],
+        outcomes: [{ effects: [{ type: 'money', amount: 10 }, { type: 'narrate', text: '你婉拒入股，留在岸邊目送貨船離開。' }] }],
       },
     ],
   },
@@ -311,7 +311,7 @@ export const EVENT_CATALOG: GameEvent[] = [
       {
         id: 'flee_city',
         text: '離城避禍',
-        outcomes: [{ effects: [{ type: 'money', amount: -20 }, { type: 'health', amount: 5 }, { type: 'narrate', text: '你連夜出城。回頭時，鎮燈稀疏，像一雙眼慢慢閉上。' }] }],
+        outcomes: [{ effects: [{ type: 'money', amount: -20 }, { type: 'health', amount: 5 }, { type: 'narrate', text: '你連夜出城避疫，天亮時已離鎮數里。' }] }],
       },
     ],
   },
@@ -342,7 +342,7 @@ export const EVENT_CATALOG: GameEvent[] = [
       {
         id: 'watch',
         text: '旁觀學藝',
-        outcomes: [{ effects: [{ type: 'martial', amount: 5 }, { type: 'attr', delta: { wuXing: 2 } }, { type: 'narrate', text: '你站在場邊看完三場。有人贏得很醜，有人輸得很漂亮。袖裡多了三道沙痕。' }] }],
+        outcomes: [{ effects: [{ type: 'martial', amount: 5 }, { type: 'attr', delta: { wuXing: 2 } }, { type: 'narrate', text: '你在場邊看完三場比試，記下勝負關鍵與幾式招法。' }] }],
       },
     ],
   },
@@ -402,7 +402,7 @@ export const EVENT_CATALOG: GameEvent[] = [
       {
         id: 'refuse',
         text: '稱病推辭',
-        outcomes: [{ effects: [{ type: 'reputation', amount: -8 }, { type: 'narrate', text: '你推了這趟差。門中人看你的眼神淡了些，山門石上還留着你的腳印。' }] }],
+        outcomes: [{ effects: [{ type: 'reputation', amount: -8 }, { type: 'narrate', text: '你推辭差事。長老收回書信，另派一名弟子下山。' }] }],
       },
     ],
   },
@@ -463,7 +463,7 @@ export const EVENT_CATALOG: GameEvent[] = [
       {
         id: 'drink',
         text: '只顧暢飲',
-        outcomes: [{ effects: [{ type: 'health', amount: -5 }, { type: 'money', amount: -8 }, { type: 'narrate', text: '你與詩人對飲到更殘。醉意裡桌面發黏，明天的路變遠。' }] }],
+        outcomes: [{ effects: [{ type: 'health', amount: -5 }, { type: 'money', amount: -8 }, { type: 'narrate', text: '你與詩人對飲至深夜，醉後伏案睡去。' }] }],
       },
     ],
   },
@@ -667,7 +667,7 @@ export const EVENT_CATALOG: GameEvent[] = [
       {
         id: 'trust',
         text: '選擇信任',
-        outcomes: [{ effects: [{ type: 'attr', delta: { meiLi: 2 } }, { type: 'narrate', text: '你選擇相信。裂縫還在，你只是沒伸手去掰。' }] }],
+        outcomes: [{ effects: [{ type: 'attr', delta: { meiLi: 2 } }, { type: 'narrate', text: '你決定相信對方，沒有再追問。' }] }],
       },
     ],
   },
@@ -718,7 +718,7 @@ export const EVENT_CATALOG: GameEvent[] = [
       {
         id: 'decline_court',
         text: '辭不就徵',
-        outcomes: [{ effects: [{ type: 'reputation', amount: 5 }, { type: 'narrate', text: '你辭了差事。官道外的風更自由，口袋也更空。' }] }],
+        outcomes: [{ effects: [{ type: 'reputation', amount: 5 }, { type: 'narrate', text: '你婉拒官府差事，歸還文書後離開衙門。' }] }],
       },
     ],
   },
@@ -779,12 +779,12 @@ export const EVENT_CATALOG: GameEvent[] = [
       {
         id: 'gift',
         text: '厚禮出席',
-        outcomes: [{ effects: [{ type: 'money', amount: -15 }, { type: 'reputation', amount: 6 }, { type: 'narrate', text: '禮盒遞上，紅綢扎得發緊。席上有人看你一眼，又去敬酒——銀子少了，面子多了一寸。' }] }],
+        outcomes: [{ effects: [{ type: 'money', amount: -15 }, { type: 'reputation', amount: 6 }, { type: 'narrate', text: '你送上賀禮，主人領你入席，親自敬了一杯酒。' }] }],
       },
       {
         id: 'perform',
         text: '獻藝助興',
-        outcomes: [{ effects: [{ type: 'reputation', amount: 10 }, { type: 'martial', amount: 1 }, { type: 'narrate', text: '你在席間走了一趟拳。掌聲稀疏，卻真，新娘母親塞來一盤年糕。' }] }],
+        outcomes: [{ effects: [{ type: 'reputation', amount: 10 }, { type: 'martial', amount: 1 }, { type: 'narrate', text: '你在席間演練一套拳法。賓客鼓掌，主人請你留下用飯。' }] }],
       },
     ],
   },
@@ -1025,7 +1025,7 @@ export const EVENT_CATALOG: GameEvent[] = [
       {
         id: 'miss',
         text: '錯過機緣',
-        outcomes: [{ effects: [{ type: 'narrate', text: '你猶豫了一下，老人已經走遠。山風把他的背影吹得很淡。' }] }],
+        outcomes: [{ effects: [{ type: 'narrate', text: '你尚在猶豫，老人已沿山路離開。' }] }],
       },
     ],
   },

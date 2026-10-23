@@ -6,7 +6,7 @@ import { BOARD_LIMIT, cloudConfigured, ensureIdentity, fetchBoard, type BoardKin
 const TABS: { kind: BoardKind; label: string; hint: string }[] = [
   { kind: 'rank', label: '江湖排名', hint: '現役俠客 · 名次越前越高' },
   { kind: 'cultivation', label: '修為境界', hint: '現役俠客 · 境界高者居上，同境比修為' },
-  { kind: 'life', label: '一生總結', hint: '已掩卷嘅一世 · 壽數、武學、名望、境界、稱號、成就合計' },
+  { kind: 'life', label: '一生總結', hint: '已結束的一生 · 綜合壽數、武學、名望、境界、稱號與成就' },
 ];
 
 function tierName(tier: number): string {
@@ -121,7 +121,7 @@ export function InkLeaderboardPanel({ onClose }: Props) {
         ) : loading && !rows ? (
           <p className="ink-note ink-note--center">翻閱榜單中……</p>
         ) : !rows ? (
-          <p className="ink-note ink-note--center">連唔到雲端，遲啲再試。</p>
+          <p className="ink-note ink-note--center">無法連接雲端，請稍後再試。</p>
         ) : rows.length === 0 ? (
           <p className="ink-note ink-note--center">榜上暫時無人，搶先留名。</p>
         ) : (

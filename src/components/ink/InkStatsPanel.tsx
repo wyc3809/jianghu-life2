@@ -60,7 +60,7 @@ export function InkStatsPanel({ state, onClose }: Props) {
       <div className={styles.wrap}>
         <div className={styles.scroll}>
           <button type="button" className={styles.close} onClick={onClose}>
-            掩卷
+            關閉
           </button>
           <div className={cls(styles.banner, styles.bannerStill)} aria-hidden>
             <img

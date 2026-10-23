@@ -25,7 +25,7 @@ export function canFoundSect(state: LifeGameState): GateResult {
   if (c.age < FOUND_SECT_MIN_AGE) return { ok: false, reason: `需滿 ${FOUND_SECT_MIN_AGE} 歲方可開宗立派。` };
   if (c.martial < FOUND_SECT_MIN_MARTIAL) return { ok: false, reason: `武學需達 ${FOUND_SECT_MIN_MARTIAL} 以上。` };
   if (c.reputation < FOUND_SECT_MIN_REPUTATION) return { ok: false, reason: `名望需達 ${FOUND_SECT_MIN_REPUTATION} 以上。` };
-  if (c.money < FOUND_SECT_COST) return { ok: false, reason: `開宗立派需銀両 ${FOUND_SECT_COST} 兩。` };
+  if (c.money < FOUND_SECT_COST) return { ok: false, reason: `開宗立派需銀兩 ${FOUND_SECT_COST} 兩。` };
   return { ok: true };
 }
 
@@ -63,7 +63,7 @@ export function canRecruitDisciple(state: LifeGameState): GateResult {
   if (sect.disciples.filter((d) => d.status === 'training').length >= sect.maxDisciples) {
     return { ok: false, reason: '門下弟子已滿，聲望再高些方能擴收。' };
   }
-  if (c.money < RECRUIT_COST) return { ok: false, reason: `收徒需銀両 ${RECRUIT_COST} 兩。` };
+  if (c.money < RECRUIT_COST) return { ok: false, reason: `收徒需銀兩 ${RECRUIT_COST} 兩。` };
   return { ok: true };
 }
 

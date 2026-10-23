@@ -157,10 +157,10 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
         {view === 'shelf' && (
           <>
             <button type="button" className="ink-btn ink-btn--quiet ink-gacha-back" onClick={() => setView('draw')}>
-              ← 返去抽秘笈
+              ← 返回抽取
             </button>
             <p className="ink-gacha-note">
-              外功分七卷（一卷＝一招），抽中外功時出一卷；重複卷可以升階（每階效果＋10%，最多 {MANUAL_MAX_STARS} 階）或者轉書頁（每卷 {PAGES_PER_DUPLICATE} 頁）。收藏跨代保留，每代都可以由收藏學返。書頁即秘笈碎片，可由抽取取得，或將重複秘笈手動轉化。
+              外功分七卷（一卷＝一招），抽中外功時出一卷；重複卷可以升階（每階效果＋10%，最多 {MANUAL_MAX_STARS} 階）或者轉書頁（每卷 {PAGES_PER_DUPLICATE} 頁）。收藏跨代保留，後世可從收藏重新學習。書頁即秘笈碎片，可由抽取取得，或將重複秘笈手動轉化。
             </p>
             <div className="ink-pages">
               <span>
@@ -223,8 +223,8 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
         {sheet === 'info' && <>
           {BANNER_IDS.map(id => <p key={id}><b>{BANNERS[id].name}</b>：{BANNERS[id].blurb}</p>)}
           <p>每抽 {GACHA_COST_PER_PULL} 玉石；設定心願後 {GACHA_WISH_PITY} 抽內必出心願。外功分七卷，抽中外功時出一卷。</p>
-          <p>非保底抽取：{GACHA_ART_RATE*100}%武功、{(1-GACHA_ART_RATE)*100}%書頁；每份書頁＋{GACHA_PAGES_PER_PULL}頁，抽中後直接入帳。抽到書頁同樣推進心願保底，第{GACHA_WISH_PITY}抽必出已設定嘅心願。</p>
-          <p>書頁即秘笈碎片，累積{PAGES_PER_EXCHANGE}頁可到家族收藏兌換一般江湖武功，不能兌換珍本。十連按十抽依次結算；未觸及心願保底時，唔保證有武功。</p>
+          <p>非保底抽取：{GACHA_ART_RATE*100}%武功、{(1-GACHA_ART_RATE)*100}%書頁；每份書頁＋{GACHA_PAGES_PER_PULL}頁，抽中後直接入帳。抽到書頁同樣推進心願保底，第{GACHA_WISH_PITY}抽必出已設定的心願。</p>
+          <p>書頁即秘笈碎片，累積{PAGES_PER_EXCHANGE}頁可到家族收藏兌換一般江湖武功，不能兌換珍本。十連按十抽依次結算；未觸及心願保底時，不保證獲得武功。</p>
           <p>更換流派／小冊保留保底；心願不在新冊時須重新選擇。武學可跨派裝備。</p>
           <p>付費玉石為模擬測試額度，不收取真實款項。</p>
           <button className="ink-btn" type="button" onClick={grantTest}>領測試額度＋{TEST_PAID_JADE_GRANT}</button>

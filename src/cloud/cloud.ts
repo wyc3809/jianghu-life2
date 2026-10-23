@@ -10,6 +10,7 @@ import type { SupabaseClient, User } from '@supabase/supabase-js';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { liveBoardEntry, lifeScoreEntry } from '@core/life/leaderboardScore';
 import { APP_VERSION } from '../version';
+import { authErrorCopy } from '../ui/serviceErrorCopy';
 
 const URL = (import.meta.env.VITE_SUPABASE_URL as string | undefined)?.trim() ?? '';
 const ANON_KEY = (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined)?.trim() ?? '';
@@ -111,11 +112,11 @@ function redirectUrl(): string {
 
 /** 匿名身份綁定電郵：寄確認信，確認後同一個身份變永久（存檔、榜位都跟住） */
 export async function linkEmail(email: string): Promise<{ ok: boolean; message: string }> {
-  if (!(await ensureIdentity())) return { ok: false, message: '連唔到雲端。' };
+  if (!(await ensureIdentity())) return { ok: false, message: '無法連接雲端。' };
   const sb = await client();
   const { error } = await sb.auth.updateUser({ email }, { emailRedirectTo: redirectUrl() });
-  if (error) return { ok: false, message: error.message };
-  return { ok: true, message: `確認信已寄去 ${email}，撳信入面條連結就綁定完成。` };
+  if (error) return { ok: false, message: authErrorCopy(error) };
+  return { ok: true, message: `確認信已寄至 ${email}，請開啟信中的連結完成綁定。` };
 }
 
 /** 換機：用已綁定嘅電郵登入（寄魔法連結） */
@@ -126,8 +127,8 @@ export async function signInWithEmail(email: string): Promise<{ ok: boolean; mes
     email,
     options: { shouldCreateUser: false, emailRedirectTo: redirectUrl() },
   });
-  if (error) return { ok: false, message: error.message };
-  return { ok: true, message: `登入連結已寄去 ${email}，喺呢部機撳開就會載入雲端存檔。` };
+  if (error) return { ok: false, message: authErrorCopy(error) };
+  return { ok: true, message: `登入連結已寄至 ${email}，請在此裝置開啟連結，載入雲端存檔。` };
 }
 
 export async function signOut(): Promise<void> {

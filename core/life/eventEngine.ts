@@ -343,11 +343,12 @@ export function applyChoice(
   }
 
   const tags = event.tags ?? [];
+  const mechanicsText = choice.mechanicsText ?? choice.text;
 
   // 戰鬥事件：非逃避選項 → 進入回合制交手（外功可出招，內功僅被動）
   if (
     (tags.includes('combat') || /duel|assassin|bandit|rival/.test(event.id)) &&
-    !isFleeChoice(choice.id, choice.text)
+    !isFleeChoice(choice.id, mechanicsText)
   ) {
     const bossCfg = tags.includes('boss') ? getBossFightConfig(event.id) : undefined;
     const foeName =
@@ -374,11 +375,11 @@ export function applyChoice(
     markEventComplete(state, event.id);
     grantEventCultivation(state);
     const deltas: string[] = [];
-    const natureLines = applyChoiceNature(state, choice.text);
+    const natureLines = applyChoiceNature(state, mechanicsText);
     if (natureLines.length) {
       deltas.push(...natureLines);
     }
-    const { pathLines } = applyPathAndEcho(state, choice.text, event);
+    const { pathLines } = applyPathAndEcho(state, mechanicsText, event);
     if (pathLines.length) {
       deltas.push(...pathLines);
     }
@@ -462,12 +463,12 @@ export function applyChoice(
     feedback = resultNarrate?.trim() || buildStoryFeedback(logs, '事已了結。');
   }
 
-  const natureLines = applyChoiceNature(state, choice.text);
+  const natureLines = applyChoiceNature(state, mechanicsText);
   if (natureLines.length) {
     deltas.push(...natureLines);
   }
 
-  const { pathLines } = applyPathAndEcho(state, choice.text, event);
+  const { pathLines } = applyPathAndEcho(state, mechanicsText, event);
   // 關路提示走芯片／年譜，唔併入結果主文（避免蓋過編修器敘事）
   if (pathLines.length) {
     deltas.push(...pathLines);

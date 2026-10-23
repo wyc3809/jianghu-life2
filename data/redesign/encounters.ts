@@ -19,9 +19,9 @@ export type TrialKind = 'months' | 'harvest' | 'stages' | 'wins';
 
 export const TRIAL_LABEL: Record<TrialKind, { verb: string; unit: string }> = {
   months: { verb: '過月', unit: '個月' },
-  harvest: { verb: '賺銀兩', unit: '兩' },
+  harvest: { verb: '賺取銀兩', unit: '兩' },
   stages: { verb: '演武台再過', unit: '關' },
-  wins: { verb: '交手打贏', unit: '場' },
+  wins: { verb: '交手獲勝', unit: '場' },
 };
 
 export interface EncounterRoute {
@@ -54,8 +54,8 @@ export const ENCOUNTERS: EncounterTemplate[] = [
     routes: [
       {
         id: 'feed',
-        label: '奉上乾糧，聽佢講',
-        story: '老僧吃罷，寫低一個地名：「去搵我師弟，佢會教你。」',
+        label: '奉上乾糧，聽他說明',
+        story: '老僧吃罷，寫下一個地名：「去找我師弟，他會傳你武功。」',
         trialName: '尋人',
         trial: 'months',
         target: 3,
@@ -64,7 +64,7 @@ export const ENCOUNTERS: EncounterTemplate[] = [
       {
         id: 'spar',
         label: '「大師手上功夫，可否賜教？」',
-        story: '老僧大笑：「先過得我徒兒幾關再講。」',
+        story: '老僧大笑：「先勝過我徒兒，再來向我請教。」',
         trialName: '比試',
         trial: 'stages',
         target: 5,
@@ -76,12 +76,12 @@ export const ENCOUNTERS: EncounterTemplate[] = [
   {
     id: 'enc_thunder_widow',
     title: '雷雨夜客',
-    story: '雷雨夜，客棧門外有個濕透嘅女子，背住一個用油布包好嘅長匣。',
+    story: '雷雨夜，一名女子來到客棧門外，全身濕透，背上負著一隻油布長匣。',
     routes: [
       {
         id: 'shelter',
-        label: '讓位畀佢避雨',
-        story: '佢話匣入面係亡夫遺物，要湊夠盤川先送得返師門。',
+        label: '讓位供她避雨',
+        story: '她說匣中是亡夫遺物，尚缺盤纏，無法送回師門。',
         trialName: '收集',
         trial: 'harvest',
         target: 120,
@@ -90,7 +90,7 @@ export const ENCOUNTERS: EncounterTemplate[] = [
       {
         id: 'escort',
         label: '「我護你一程。」',
-        story: '半路殺出追兵——佢冷冷一句：「打贏佢，匣入面嘅嘢歸你一半。」',
+        story: '途中追兵攔路。她拔刀道：「助我退敵，匣中之物分你一半。」',
         trialName: '比試',
         trial: 'wins',
         target: 1,
@@ -102,12 +102,12 @@ export const ENCOUNTERS: EncounterTemplate[] = [
   {
     id: 'enc_iron_mountain',
     title: '鐵山老人',
-    story: '山腳有個老人用拳頭打石，一拳一個坑。佢頭都唔抬：「後生，睇夠未？」',
+    story: '山腳下，一名老人揮拳擊石，拳拳入石。他未曾抬頭，只問：「年輕人，看夠了嗎？」',
     routes: [
       {
         id: 'learn',
-        label: '跪低求教',
-        story: '「求我？先幫我搵返走失咗嘅孫仔。」',
+        label: '跪地求教',
+        story: '「想學武功？先幫我找回走失的孫兒。」',
         trialName: '尋人',
         trial: 'months',
         target: 4,
@@ -115,7 +115,7 @@ export const ENCOUNTERS: EncounterTemplate[] = [
       },
       {
         id: 'challenge',
-        label: '「我都試吓。」',
+        label: '「讓我一試。」',
         story: '老人終於抬頭：「好，演武台見真章。」',
         trialName: '比試',
         trial: 'stages',
@@ -128,12 +128,12 @@ export const ENCOUNTERS: EncounterTemplate[] = [
   {
     id: 'enc_mist_child',
     title: '霧中孩童',
-    story: '濃霧入面有個細路行出嚟，手一伸你錢袋已經唔見咗——佢笑住消失喺霧中。',
+    story: '一名孩童從濃霧中走出，擦身而過時取走你的錢袋。你轉身追趕，他已隱入霧中。',
     routes: [
       {
         id: 'chase',
         label: '追！',
-        story: '霧散時佢坐喺樹上：「追到我就教你，但我餓喇。」',
+        story: '霧散後，孩童坐在樹上：「追得上我，便教你身法。不過我餓了，先備些吃食。」',
         trialName: '收集',
         trial: 'harvest',
         target: 150,
@@ -141,8 +141,8 @@ export const ENCOUNTERS: EncounterTemplate[] = [
       },
       {
         id: 'wait',
-        label: '原地等佢返嚟',
-        story: '細路果然返嚟還錢袋：「你夠定力。下個月再嚟搵我。」',
+        label: '原地等候',
+        story: '孩童回來歸還錢袋：「倒有幾分定力。下個月再來找我。」',
         trialName: '尋人',
         trial: 'months',
         target: 2,
@@ -154,12 +154,12 @@ export const ENCOUNTERS: EncounterTemplate[] = [
   {
     id: 'enc_cloud_hermit',
     title: '踏雲隱者',
-    story: '你喺崖邊見到一個人行喺雲上，一步十丈，回頭望你一眼。',
+    story: '崖邊一人踏霧而行，一步便越過十丈山隙。他回頭看你一眼，停在對岸。',
     routes: [
       {
         id: 'follow',
-        label: '跟住佢嘅腳印',
-        story: '腳印去到懸崖邊就斷咗，旁邊刻住一行字：「三月後再嚟。」',
+        label: '循足跡追尋',
+        story: '足跡止於崖邊，石上刻著一行字：「三月後再來。」',
         trialName: '尋人',
         trial: 'months',
         target: 3,
@@ -168,7 +168,7 @@ export const ENCOUNTERS: EncounterTemplate[] = [
       {
         id: 'call',
         label: '大叫：「前輩留步！」',
-        story: '雲上傳來一句：「接得住我徒弟一招先講。」',
+        story: '對岸傳來聲音：「先接住我徒弟一招，再來見我。」',
         trialName: '比試',
         trial: 'wins',
         target: 1,

@@ -276,7 +276,7 @@ export function InkEventPanel({
       </div>
       {lowActionPoints && (
         <p className="ink-ap-hint" role="status">
-          過勞未歇——疲勞回落後先可以再選（約數十秒）。
+          疲勞過高，請等待恢復後再選擇，約需數十秒。
         </p>
       )}
     </section>

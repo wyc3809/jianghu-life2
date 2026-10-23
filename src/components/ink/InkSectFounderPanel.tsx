@@ -35,7 +35,7 @@ export function InkSectFounderPanel({ state, onFound, onRecruit, onTeach }: Prop
       {!sect && (
         <>
           <p className="ink-note">
-            武學、名望俱足，年歲既長，可自立門戶，收徒傳功，另闢一支傳承（需銀両 {FOUND_SECT_COST} 兩）。
+            武學、名望俱足，年歲既長，可自立門戶，收徒傳功，另闢一支傳承（需銀兩 {FOUND_SECT_COST} 兩）。
           </p>
           <label className="ink-field">
             <span>門號</span>
@@ -70,7 +70,7 @@ export function InkSectFounderPanel({ state, onFound, onRecruit, onTeach }: Prop
             disabled={!recruitGate.ok}
             onClick={onRecruit}
           >
-            收徒（銀両 {RECRUIT_COST} 兩）
+            收徒（銀兩 {RECRUIT_COST} 兩）
           </button>
           {!recruitGate.ok && <p className="ink-note ink-sect-founder-hint">{recruitGate.reason}</p>}
 

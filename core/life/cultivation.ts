@@ -339,7 +339,7 @@ export function attemptCultivationBreakthrough(state: LifeGameState): Breakthrou
       `自此踏入「${nextTier.name}」之境，武學＋${martialGain}，氣血上限、內力上限同步提升。`,
     );
     if (reserveReleased > 0) {
-      lines.push(`積存嘅修為傾瀉而下，新境界修為＋${Math.floor(reserveReleased).toLocaleString('zh-Hant')}。`);
+      lines.push(`儲備修為已轉入新境界，修為＋${Math.floor(reserveReleased).toLocaleString('zh-Hant')}。`);
     }
     const prestigeGain = 50 + nextTier.level * 25;
     lines.push(...gainJianghuPrestige(state, prestigeGain));
@@ -367,7 +367,7 @@ export function attemptCultivationBreakthrough(state: LifeGameState): Breakthrou
   const setback = 0;
   lines.push(
     '閉關數月，行至緊要關頭卻氣息紊亂，未能破關。',
-    `修為保留，氣血－${hpLoss}，內力－${qiLoss}。調整配搭可再試（今次成功率約 ${Math.round(chance * 100)}%）。`,
+    `修為保留，氣血－${hpLoss}，內力－${qiLoss}。調整配搭可再試（本次成功率約 ${Math.round(chance * 100)}%）。`,
   );
   pushChronicle(state, lines);
   snapshotRng(state);
