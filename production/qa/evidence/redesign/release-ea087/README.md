@@ -2,7 +2,7 @@
 
 2026-10-23，玩家回覆「上線」，批准一併發布第33項書面語／敘事精簡、第34項江湖地圖及第35項取消角色歲數。版本四處同步為EA0.87.0／0.87.0-ea。
 
-三項整合至同一發布PR，不分次部署過渡版本；原前置草稿#134／#135由本次發布取代。全部程式變更見相應改版項目與各自驗收目錄：`written-copy/`、`jianghu-map/`、`remove-age/`。
+三項整合至發布PR #136，以main為目標，不分次部署過渡版本；原前置草稿#134／#135由本次發布取代。全部程式變更見相應改版項目與各自驗收目錄：`written-copy/`、`jianghu-map/`、`remove-age/`。
 
 發布前完整100檔728項Vitest、Pages build含tsc、narrate hard-fail0及文案掃描9681段／口語禁句0全部通過，記錄為 `tests.txt`、`build.txt`、`narrate.txt`、`copy-audit.txt`。
 
