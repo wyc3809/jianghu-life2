@@ -60,7 +60,7 @@ export function InkStatsPanel({ state, onClose }: Props) {
       <div className={styles.wrap}>
         <div className={styles.scroll}>
           <button type="button" className={styles.close} onClick={onClose}>
-            掩卷
+            關閉
           </button>
           <div className={cls(styles.banner, styles.bannerStill)} aria-hidden>
             <img
@@ -92,9 +92,6 @@ export function InkStatsPanel({ state, onClose }: Props) {
           <div className={cls(styles.meta, styles.metaStill)}>
             <span>
               姓名 <b>{c.name}</b>
-            </span>
-            <span>
-              年歲 <b>{c.age}</b>
             </span>
             <span>
               門派 <b>{sectName}</b>

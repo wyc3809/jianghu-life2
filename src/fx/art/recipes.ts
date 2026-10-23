@@ -94,7 +94,7 @@ const STONE_PALM: ArtChoreo = {
 /** 聽雨劍意：靜立聽雨，雨絲落下；忽然閃現三刺，每刺挑破一滴雨 */
 const RAIN_SWORD: ArtChoreo = {
   artId: 'art_rain_sword',
-  motif: '先靜立聽雨、天色轉暗，雨絲落下；閃現敵前連刺三劍，每劍刺破一滴雨珠，再閃返原位',
+  motif: '先靜立聽雨、天色轉暗，雨絲落下；閃現敵前連刺三劍，每劍刺破一滴雨珠，再返回原位',
   motion: 'still-blink-thrusts',
   dur: 1.35,
   hero: [
@@ -144,7 +144,7 @@ const RAIN_SWORD: ArtChoreo = {
 /** 驚雷刀：躍上半空、烏雲壓頂，一道驚雷劈落嗰刻借雷勢俯衝直劈 */
 const THUNDER_BLADE: ArtChoreo = {
   artId: 'art_thunder_blade',
-  motif: '躍上半空、烏雲壓頂天色轉暗，驚雷劈落嗰刻俯衝直劈，白光一閃，地面留焦痕',
+  motif: '躍上半空、烏雲壓頂天色轉暗，驚雷劈下時俯衝直劈，白光一閃，地面留焦痕',
   motion: 'sky-dive-lightning',
   dur: 1.4,
   hero: [
@@ -256,7 +256,7 @@ const FLYING_NEEDLE: ArtChoreo = {
 /** 追風腿：帶風衝前，挑腿踢起敵人，半空迴旋一踢，再一腳下劈砸返落地 */
 const WIND_CHASE: ArtChoreo = {
   artId: 'art_wind_chase',
-  motif: '帶住風痕衝前，挑腿將敵人踢上半空，追上去迴旋一踢，最後一腳下劈將敵人砸返落地',
+  motif: '挾風向前衝刺，挑腿將敵人踢上半空，追上去迴旋一踢，最後一腳下劈將敵人砸向地面',
   motion: 'aerial-juggle-kicks',
   dur: 1.45,
   hero: [

@@ -75,7 +75,7 @@ const deathCache = new Map<string, Promise<HTMLImageElement[]>>();
 /** 各敵人逐款按需載入，唔一次迫手機下載100張圖。 */
 export function loadFoeCollapse(src: string): Promise<HTMLImageElement[]> {
   const key = /enemy-([a-z0-9_]+)\.webp/.exec(src)?.[1];
-  if (!key) return Promise.reject(new Error('敵人冇位圖代號'));
+  if (!key) return Promise.reject(new Error('敵人缺少位圖代號'));
   const hit = deathCache.get(key);
   if (hit) return hit;
   const promise = Promise.all([0, 1, 2, 3].map(i => new Promise<HTMLImageElement>((resolve, reject) => {

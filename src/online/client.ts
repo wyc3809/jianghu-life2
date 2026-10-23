@@ -1,4 +1,5 @@
 import { publicOnline, publicOnlineRequest } from '../cloud/online';
+import { onlineErrorCopy } from '../ui/serviceErrorCopy';
 
 export class OnlineApiError extends Error {
   constructor(message: string, public status?: number) { super(message); }
@@ -14,9 +15,9 @@ export async function onlineRequest<T>(path: string, token: string | null, data?
       body: data === undefined ? undefined : JSON.stringify(data),
       signal: AbortSignal.timeout(8_000), keepalive,
     });
-  } catch { throw new OnlineApiError('暫時連唔到江湖，恢復連線後可重試。'); }
+  } catch { throw new OnlineApiError('暫時無法連接江湖，請在恢復連線後重試。'); }
   const result = await response.json().catch(() => null);
-  if (!response.ok || !result) throw new OnlineApiError(result?.error ?? '江湖未能回覆。', response.status);
+  if (!response.ok || !result) throw new OnlineApiError(onlineErrorCopy(result?.error, response.status), response.status);
   return (publicOnline && path === 'login' ? { token: 'world', snapshot: result } : result) as T;
 }
 

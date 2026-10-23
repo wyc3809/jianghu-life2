@@ -487,14 +487,14 @@ function pickFromPool(rng: { nextFloat: () => number }, rarity: GearRarity): str
   return pool[Math.min(pool.length - 1, Math.floor(rng.nextFloat() * pool.length))];
 }
 
+/** 鍛造品質只按武學計算；age 選項僅保留舊呼叫相容。 */
 export function rollForgeResult(
   rng: { nextFloat: () => number; chance: (p: number) => boolean },
   opts?: { age?: number; martial?: number },
 ): string {
-  const age = opts?.age ?? 20;
   const martial = opts?.martial ?? 10;
-  // 年輕／武淺：神兵幾乎無；年長武深：絕品／神兵機率上升（整體已調低）
-  const tier = Math.min(1, Math.max(0, (age - 18) / 40 + martial / 120));
+  // 品質只隨武學造詣提高，舊 age 選項不再影響結果。
+  const tier = Math.min(1, Math.max(0, martial / 120));
   const roll = rng.nextFloat();
   const divineGate = 0.002 + tier * 0.018;
   const mythicGate = divineGate + 0.008 + tier * 0.02;

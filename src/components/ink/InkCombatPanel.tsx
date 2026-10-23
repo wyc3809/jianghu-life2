@@ -406,15 +406,15 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
             <p className="ink-note">
               <InkArt className="ink-combat-seal" src={sealUrlForText(INK_COMBAT_SEAL.fate)!} />
               {combat.foeSurrendered
-                ? '對方已跪地求饒——殺、放、廢其武功，如何抉擇，亦會留在心性裡。'
-                : '勝負已分——如何處置落敗之人，亦會留在心性裡。'}
+                ? '對方已求饒。處置方式將影響人物心性。'
+                : '勝負已分。處置對手將影響人物心性。'}
             </p>
             <div className="ink-choice-list ink-combat-resolve">
               {(
                 [
-                  ['kill', '殺', '殺死', '永絕後患，得修為；戾氣難消', dominant === 'xia' ? '俠心較重，下手需自問' : ''],
-                  ['release', '放', '放走', '留其一命，寬恕在胸', dominant === 'e' ? '惡念未消，放人亦是克制' : ''],
-                  ['stun', '暈', '擊暈', '點穴制住，不傷性命', '戰利或略薄，心性較穩'],
+                  ['kill', '殺', '殺死', '殺死對手，獲得修為，「惡」上升', dominant === 'xia' ? '俠性較高，殺人會影響心性' : ''],
+                  ['release', '放', '放走', '放走對手，不取其性命', dominant === 'e' ? '放走對手會影響心性' : ''],
+                  ['stun', '暈', '擊暈', '點穴制住，不傷性命', '戰利品可能較少，不取性命'],
                   ...(combat.foeSurrendered
                     ? ([
                         ['cripple', '廢', '廢武功', '斷其根基，任其苟活', '較殺人留情，較放人狠絕'],

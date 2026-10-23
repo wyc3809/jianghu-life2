@@ -38,7 +38,7 @@ export default function InkOnlinePanel({ standalone = false, onBack }: { standal
   const accept = useCallback((next: OnlineSnapshot) => {
     confirmOnlineCommands(next.confirmedRequests);
     setSnapshot(next); setConnected(true);
-    setError(current => current.startsWith('暫時連唔到江湖') ? '' : current);
+    setError(current => current.startsWith('暫時無法連接江湖') ? '' : current);
     const settled = next.battles.filter(b => b.settledAt !== null);
     if (!seen.current) seen.current = new Set(settled.map(b => b.id));
     else {
@@ -117,22 +117,22 @@ export default function InkOnlinePanel({ standalone = false, onBack }: { standal
     <div className="online-feedback" aria-live="polite">{error ? <p role="alert">{error}</p> : notice && <p>{notice}</p>}</div>
     {view === 'rules' ? <div className="online-rules">
       <p className="online-lead">各自隨時入江湖，離線亦會自動應戰。</p>
-      <h3>排名與勝負</h3><p>較低排名打贏較高排名，雙方直接換位；挑戰失敗名次不變。切磋唔造成傷勢或死亡。</p>
-      <h3>戰敗保護</h3><p>戰敗後保護 {ONLINE_TEST.protectionMs / 1000} 秒，主動挑戰會解除自己嘅保護。</p>
-      <h3>修行所得</h3><p>在線每分鐘 {ONLINE_TEST.onlineSilverPerMinute}、離線每分鐘 {ONLINE_TEST.offlineSilverPerMinute} 試場銀兩。離線最多累積48小時，返場再領取。</p>
-      <p className="online-note">以上係封測數值，未定為正式規則。離開江湖試場頁或斷線會轉離線，最多約8秒判定；試場角色與銀兩同正式存檔分開。</p>
+      <h3>排名與勝負</h3><p>排名較低者戰勝排名較高者，雙方交換名次；挑戰失敗則名次不變。切磋不會造成受傷或死亡。</p>
+      <h3>戰敗保護</h3><p>戰敗後保護 {ONLINE_TEST.protectionMs / 1000} 秒，主動挑戰會解除自身保護。</p>
+      <h3>修行所得</h3><p>在線每分鐘 {ONLINE_TEST.onlineSilverPerMinute}、離線每分鐘 {ONLINE_TEST.offlineSilverPerMinute} 試場銀兩。離線最多累積48小時，返回試場後可領取。</p>
+      <p className="online-note">以上為封測數值，日後可能調整。離開試場頁面或斷線後，系統會在約8秒內判定離線。試場角色與銀兩獨立保存。</p>
     </div> : !token && publicOnline ? <div className="online-login">
-      <p className="online-lead">留名江湖，隨時論劍。</p><p>直接挑戰名冊中嘅俠客，對方離線亦會自動應戰。</p>
+      <p className="online-lead">留名江湖，隨時論劍。</p><p>可挑戰名冊中的俠客；對方離線時亦會自動應戰。</p>
       <label className="online-name-label">俠名<span className="online-frame online-name-field"><input value={name} onChange={e => setName(e.target.value)} maxLength={12} autoComplete="nickname" placeholder="輸入2至12字俠名" disabled={pending} /></span></label>
       <button className="online-frame online-enter" disabled={pending || name.trim().length < 2} onClick={() => void enterWorld()}>{worldJoined() ? '重返江湖' : '踏入江湖'}</button>
-      <p className="online-note">曾入籍會沿用原角色。身份保留喺呢個瀏覽器，清除資料前可到設定綁電郵；試場唔會修改正式存檔。</p>
+      <p className="online-note">已入籍者沿用原角色。身份保存在此瀏覽器，可前往設定綁定電郵。試場不會修改單人人生存檔。</p>
       <button type="button" className="online-text-link" onClick={() => setView('rules')}>查看試場規則 ›</button>
     </div> : !token ? <div className="online-login">
       <p className="online-lead">選一位俠客入江湖</p><p>兩個獨立本機測試帳戶，與正式存檔分開。</p>
       <div className="online-accounts">{(['river', 'cloud'] as const).map(id => <button type="button" className="online-frame" key={id} disabled={pending} onClick={() => void login(id)}>
         <InkIcon name="hat" size={56} label={labels[id]} /><strong>{labels[id]}</strong><small>初始第 {id === 'river' ? 100 : 20} 名</small>
       </button>)}</div>
-    </div> : !me ? <p role="status">正在接返江湖消息……</p> : <>
+    </div> : !me ? <p role="status">正在載入江湖資料……</p> : <>
       {view === 'main' && <>
         <div className="online-self"><div><small>現世俠客 · {connected ? '在線' : '連線中斷'}</small><h3>{me.character.name}</h3>
           <p>外功 {equippedMartialArts(me.character).filter(id => getSkillDef(id)?.kind === 'external').length}／5 · 內功 {me.character.supportArts?.internal ? 1 : 0}／1 · 身法 {me.character.supportArts?.qinggong ? 1 : 0}／1</p></div>
@@ -144,7 +144,7 @@ export default function InkOnlinePanel({ standalone = false, onBack }: { standal
           await onlineRequest('logout', token, {}); sessionStorage.removeItem(SESSION); setToken(null); setSnapshot(null); seen.current = null; setReplay(null); setView('main');
         })}>離線留場 ›</button>
       </>}
-      {view === 'loadout' && <div className="online-loadout"><p className="online-lead">跨流派配搭，各憑所長。</p><p className="online-note">只顯示已學武學；交戰期間不能更換。</p>
+      {view === 'loadout' && <div className="online-loadout"><p className="online-lead">武學可跨流派搭配。</p><p className="online-note">只顯示已學武學；交戰期間不能更換。</p>
         <fieldset><legend>外功 {external.length}／5</legend>{me.character.skills.filter(id => getSkillDef(id)?.kind === 'external').map(id => <button type="button" className="online-frame" key={id} aria-pressed={external.includes(id)} disabled={pending || !!me.busy} onClick={() => setExternal(cur => cur.includes(id) ? cur.filter(x => x !== id) : cur.length < 5 ? [...cur, id] : cur)}>{getSkillDef(id)?.name}</button>)}</fieldset>
         {(['internal', 'qinggong'] as const).map(kind => <label key={kind}>{kind === 'internal' ? '內功' : '身法'}<select disabled={pending || !!me.busy} value={(kind === 'internal' ? internal : qinggong) ?? ''} onChange={e => (kind === 'internal' ? setInternal : setQinggong)(e.target.value || null)}>
           <option value="">不裝備</option>{me.character.skills.filter(id => getSkillDef(id)?.kind === kind).map(id => <option key={id} value={id}>{getSkillDef(id)?.name}</option>)}
@@ -152,8 +152,8 @@ export default function InkOnlinePanel({ standalone = false, onBack }: { standal
         <button className="online-frame" disabled={pending || !!me.busy} onClick={() => void run(async () => { await onlineCommand('loadout', token, { external, internal, qinggong }); await refresh(); setView('main'); setNotice('武學配搭已更新。'); })}>保存配搭</button>
       </div>}
       {view === 'opponents' && <section className="online-opponents" aria-label="江湖對手"><div className="online-section-title"><p>我居第 <strong data-my-rank={me.rank}>{me.rank}</strong> 名</p><small>{snapshot.population ?? snapshot.peers.length} 位俠客</small></div>
-        <p className="online-note">低排名勝出可換位，離線俠客照樣應戰。</p>
-        {snapshot.peers.length <= 1 && <p className="online-empty">暫未有其他俠客入籍。你可以先離線留場，下次返嚟再查看。</p>}
+        <p className="online-note">排名較低者獲勝可交換名次；離線俠客仍會應戰。</p>
+        {snapshot.peers.length <= 1 && <p className="online-empty">尚無其他俠客入籍。可先離線，稍後返回查看；角色仍會留在試場。</p>}
         {snapshot.peers.filter(p => p.id !== me.id).map(peer => <div className="online-frame online-opponent" key={peer.id} data-peer-id={peer.id} data-peer-online={peer.online}>
           <div className="online-opponent-copy"><small>{peer.online ? '在線' : '離線 · 自動應戰'}</small><h3>{peer.name}</h3>
             <p>江湖第 <b data-peer-rank={peer.rank}>{peer.rank}</b> 名{peer.protectedUntil > now ? ` · 保護 ${timeLeft(peer.protectedUntil, now)} 秒` : peer.busy ? ' · 交戰中' : ''}</p></div>
@@ -171,9 +171,9 @@ export default function InkOnlinePanel({ standalone = false, onBack }: { standal
       {view === 'history' && <div className="online-history">
         {latest ? <section className="online-frame online-result" aria-label="最近戰果" data-battle-id={latest.id}><small>最近戰果 · 已結算</small>
           <h3>{latest.winner === null ? '平手，名次不變' : latest.winner === me.id ? '此戰得勝' : '此戰落敗'}</h3>
-          <p>第 {latest.before[me.id]} 名 → 第 {latest.after?.[me.id]} 名</p><p className="online-note">切磋只影響名次，人物不受傷，唔會死亡。</p>
+          <p>第 {latest.before[me.id]} 名 → 第 {latest.after?.[me.id]} 名</p><p className="online-note">切磋僅影響名次，不會造成受傷或死亡。</p>
           <button className="online-frame" onClick={() => setReplay(latest)}>重播交手</button>
-        </section> : <p className="online-empty">名冊尚無交手紀錄。挑戰其他俠客後，戰果會收錄喺呢度。</p>}
+        </section> : <p className="online-empty">尚無交手紀錄。挑戰其他俠客後，可在此查看戰報。</p>}
         {snapshot.battles.filter(b => b.settledAt !== null).map(b => <button className="online-frame online-report-row" key={b.id} onClick={() => setReplay(b)}>
           <strong>{b.characters[b.attacker]?.name ?? '江湖俠客'} <span>對</span> {b.characters[b.defender]?.name ?? '江湖俠客'}</strong><small>{b.winner ? `${b.characters[b.winner]?.name ?? '俠客'} 勝` : '平手'} · 查看戰報 ›</small>
         </button>)}

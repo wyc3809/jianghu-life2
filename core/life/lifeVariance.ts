@@ -253,7 +253,7 @@ export function applyPathAndEcho(
     }
   }
   if (/助|救|義|讓|保護|護送|調停|交還|施捨|收留|勸/.test(t)) {
-    open('path_open_bond', '人情線鬆了一寸，往後較易撞見求援與故人。');
+    open('path_open_bond', '此後較容易遇見故人或求助者。');
     close('path_closed_dark', '你把黑暗的門掩上了一半。');
   }
   if (/避開|抽身|觀望|退去|不戰|改日|只看|默默|暫時/.test(t)) {
@@ -278,7 +278,7 @@ export function applyPathAndEcho(
     open('path_open_blade', '');
   }
   if (/深結此緣|以心相交|猶豫說開/.test(t)) {
-    open('path_open_bond', '這段緣沉了一寸，往後會再來敲門。');
+    open('path_open_bond', '此事尚未了結，日後仍可能有人前來。');
   }
 
   // 一事一余韻：寫入下月傳聞，不立刻刷系統句
@@ -301,20 +301,20 @@ function craftEcho(state: LifeGameState, choiceText: string, event: GameEvent): 
   if (/戰|硬闖|應戰|拔刀|動手/.test(choiceText)) {
     return theme.id === 'revenge'
       ? `有人說你在「${title}」動了手，刀風像在找誰。`
-      : `官道耳語：有人在「${title}」動了刃，步法像你。`;
+      : `路人談起「${title}」的交手，認出你當時使過的招式。`;
   }
   if (/偷|騙|搶|訛|賣掉線索|佔便宜/.test(choiceText)) {
-    return `夜巷有人笑：懂得在「${title}」取巧的，不止一個——也有你。`;
+    return `有人提起你在「${title}」中設下的計策。`;
   }
   if (/避開|抽身|觀望|退去/.test(choiceText)) {
-    return `有人記得你在「${title}」停步不前，像把故事撕掉半頁。`;
+    return `有人記得你在「${title}」中沒有介入，隨後離開。`;
   }
   if (/深結|絕交|疏遠/.test(choiceText)) {
-    return `故人巷口的燈，為「${title}」那一念，明暗都變了。`;
+    return `故人仍記得你在「${title}」時說過的話。`;
   }
   // 偶發余韻，避免每事都吵
   if (getRng().chance(0.35)) {
-    return `風裏還有「${title}」的餘溫，未完全散。`;
+    return `街上仍有人談論「${title}」的經過。`;
   }
   return null;
 }

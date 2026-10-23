@@ -196,7 +196,7 @@ export function encounterTimeLeft(meta: AncestryMeta, now: number): number {
 export function formatTimeLeft(ms: number): string {
   const h = Math.floor(ms / HOUR);
   const d = Math.floor(h / 24);
-  if (d >= 1) return `${d} 日 ${h % 24} 個鐘`;
-  if (h >= 1) return `${h} 個鐘`;
+  if (d >= 1) return `${d} 日 ${h % 24} 小時`;
+  if (h >= 1) return `${h} 小時`;
   return `${Math.max(1, Math.ceil(ms / 60_000))} 分鐘`;
 }

@@ -26,10 +26,11 @@ describe('leaderboard score (排行榜數值)', () => {
     expect(e.cult_xp).toBe(1234);
   });
 
-  it('test_life_score_grows_with_age_and_achievements', () => {
+  it('test_life_score_年齡不加分_已取得成就仍計分', () => {
     const s = fresh(2);
     const before = lifeScore(s);
     s.character.age = 70;
+    expect(lifeScore(s)).toBe(before);
     s.character.flags.achievements = 'ach_first_blood,ach_elder';
     expect(lifeScore(s)).toBeGreaterThan(before);
   });

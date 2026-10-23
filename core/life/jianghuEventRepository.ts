@@ -15,6 +15,8 @@ export type PackOutcomeOp = {
 export type PackChoiceRaw = {
   id: string;
   text: string;
+  /** 僅供舊有文字推導規則，不作顯示。 */
+  mechanics_text?: string;
   requirements?: unknown[];
   outcomes?: PackOutcomeOp[];
   result_text?: string | { success?: string; failure?: string };
@@ -68,8 +70,6 @@ export function filterPackByConditions(state: LifeGameState): PackEventRaw[] {
   const c = state.character;
   return library.events.filter((event) => {
     const cond = event.conditions ?? {};
-    if (cond.min_age != null && c.age < cond.min_age) return false;
-    if (cond.max_age != null && c.age > cond.max_age) return false;
 
     for (const f of cond.required_flags ?? []) {
       if (!c.flags[f] && !state.completedEvents.includes(f.replace(/^completed_/, ''))) {

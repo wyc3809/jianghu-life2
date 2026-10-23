@@ -78,12 +78,12 @@ export function InkAncestryPanel({ onClose }: { onClose: () => void }) {
                 disabled={meta.points < SECOND_SLOT_COST}
                 onClick={() => buySecondSlot()}
               >
-                開第二格 · {SECOND_SLOT_COST}
+                解鎖第二欄 · {SECOND_SLOT_COST}
               </button>
             )}
           </p>
           {arts.length === 0 ? (
-            <p className="ink-note">武學譜未有記載——今世學到嘅武學，死後會記入譜中，下一世可以解鎖。</p>
+            <p className="ink-note">武學譜尚無記錄。本世所學會在身故後記入譜中，後世可解鎖傳承。</p>
           ) : (
             arts.map(({ id, def }) => {
               const unlocked = meta.unlockedArts.includes(id);
@@ -133,9 +133,9 @@ export function InkAncestryPanel({ onClose }: { onClose: () => void }) {
           })}
         </section>
 
-        <p className="ink-note ink-note--center">祖蔭跨世永存；下一世開局自動受用。</p>
+        <p className="ink-note ink-note--center">祖蔭跨代保留，後世開局時自動生效。</p>
         <button ref={closeRef} type="button" className="ink-btn ink-btn--ghost" onClick={onClose}>
-          掩門
+          關閉
         </button>
       </div>
     </div>,

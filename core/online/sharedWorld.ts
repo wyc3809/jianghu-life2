@@ -62,7 +62,7 @@ export class SharedWorldService {
         const command = parseOnlineCommand(input.action, data), signature = JSON.stringify({ action: input.action, ...command });
         const old = await this.repo.receipt(user, command.requestId);
         if (old) {
-          if (old.input !== signature) throw new OnlineError(409, '同一指令編號唔可以改內容。');
+          if (old.input !== signature) throw new OnlineError(409, '同一指令編號不可變更內容。');
           result = old.result;
         } else {
           result = applyOnlineCommand(world, now, user, input.action, command, entropy);

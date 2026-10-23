@@ -124,7 +124,7 @@ export function InkSettingsPanel({
           <p className="ink-settings-label">聲音</p>
           <AudioChannelRow
             label="音樂"
-            hint="配樂曲目未定，暫時未有配樂；呢度先調好音量。"
+            hint="目前尚未提供配樂，可預先設定音量。"
             on={mix.musicOn}
             level={mix.musicLevel}
             onToggle={() => update({ musicOn: !mix.musicOn }, 'music')}

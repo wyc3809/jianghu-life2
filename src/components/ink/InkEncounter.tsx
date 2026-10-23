@@ -37,13 +37,13 @@ export function InkEncounterModal({ onLearn }: { onLearn: (id: string) => void }
             珍本奇功 · {def ? skillKindLabel(def.kind) : ''}
           </p>
           <p className="ink-enc-story">{def?.flavor}</p>
-          <p className="ink-note">已入家族收藏，每代都可以學。</p>
+          <p className="ink-note">已收入家族收藏，後世亦可學習。</p>
           <div className="ink-enc-actions">
             <button type="button" className="ink-enc-btn is-main" onClick={() => { onLearn(reward); close(); }}>
-              即刻學
+              立即學習
             </button>
             <button type="button" className="ink-enc-btn" onClick={close}>
-              遲啲先
+              稍後
             </button>
           </div>
         </div>
@@ -74,14 +74,14 @@ export function InkEncounterModal({ onLearn }: { onLearn: (id: string) => void }
           ))}
         </ul>
         <p className="ink-enc-note">
-          揀咗先開始計限期（離線時間照計）；過期乜都冇。唔揀嘅話 {ENCOUNTER_OFFER_HOURS} 個鐘後散（剩 {formatTimeLeft(encounterTimeLeft(meta, Date.now()))}）。
+          選定路線後開始計時，離線期間仍會計時；逾期無法領取獎勵。尚未選擇時，奇遇將於 {ENCOUNTER_OFFER_HOURS} 小時後結束（剩餘 {formatTimeLeft(encounterTimeLeft(meta, Date.now()))}）。
         </p>
         <div className="ink-enc-actions">
           <button type="button" className="ink-enc-btn" onClick={() => setOpen(false)}>
-            遲啲再揀
+            稍後選擇
           </button>
           <button type="button" className="ink-enc-btn is-quiet" onClick={dismiss}>
-            唔理
+            放棄奇遇
           </button>
         </div>
       </div>
@@ -102,7 +102,7 @@ export function InkEncounterCard() {
     return (
       <button type="button" className="ink-enc-strip is-offer" onClick={() => setOpen(true)}>
         <span className="ink-enc-strip-kicker">奇遇</span>
-        <span className="ink-enc-strip-title">{tpl?.title} · 等你揀</span>
+        <span className="ink-enc-strip-title">{tpl?.title} · 待選擇</span>
         <span className="ink-enc-strip-time">剩 {formatTimeLeft(encounterTimeLeft(meta, now))}</span>
       </button>
     );

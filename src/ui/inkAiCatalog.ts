@@ -40,7 +40,7 @@ export const INK_AI_ASSETS: readonly InkAiAsset[] = [
     kind: 'backdrop',
     path: 'ai/backdrops/backdrop-play-main.webp',
     titleZh: '江上孤舟',
-    useWhen: '主畫面底景，山水壓下角、上方大留白俾 UI',
+    useWhen: '主畫面底景，山水集中下角，上方留白供介面使用',
     tags: ['play', 'home', 'river', 'boat', 'mountains'],
   },
   {

@@ -69,7 +69,7 @@ export function InkCreateScreen() {
             ? '出生地已定 · 千燈鎮'
             : step === 'origin'
               ? originRoundLabel(round)
-              : '少時已定 · 落筆出鎮'}
+              : '童年經歷已定'}
         </p>
         <p className="ink-rule" aria-hidden />
       </header>
@@ -82,7 +82,7 @@ export function InkCreateScreen() {
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="不書則天賜一名"
+                placeholder="留空則隨機取名"
                 maxLength={8}
               />
             </label>
@@ -94,7 +94,7 @@ export function InkCreateScreen() {
               </select>
             </label>
             <p className="ink-note">
-              接下來會翻過幾頁少時往事。你的抉擇會改寫出生時的根骨、心性，並定下此生題眼——不是下拉選單，而是你走過的路。
+              接下來將經歷數段童年往事。不同選擇會影響人物的初始屬性、心性與身世。
             </p>
           </section>
           <div className="ink-cta-stack">
@@ -174,7 +174,7 @@ export function InkCreateScreen() {
               ))}
             </ul>
             <p className="ink-note" style={{ marginTop: 12 }}>
-              十六歲辭親出鎮。根骨福緣，已由少時抉擇改寫一寸。
+              離家出鎮，踏入江湖。初始屬性已根據出身經歷調整。
             </p>
           </section>
           <div className="ink-cta-stack">
@@ -183,7 +183,7 @@ export function InkCreateScreen() {
               className="ink-btn ink-btn--primary"
               onClick={() => startLife(picks)}
             >
-              落筆開卷
+              開始遊戲
             </button>
             <button
               type="button"

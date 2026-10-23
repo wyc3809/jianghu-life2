@@ -79,7 +79,7 @@ export function InkHuashanPanel({
     <section className="ink-panel ink-huashan-panel ink-tab-pane" aria-label="華山論劍">
       <h3>華山論劍</h3>
       <p className="ink-note">
-        每週一會，八強論劍。自動交手：雙方主修外功已得嘅卷逐招出手；其餘席位為江湖名手幻影。
+        每週舉行八強論劍。雙方依已獲得的外功卷數自動出招；其餘席位由江湖名手幻影出戰。
       </p>
       <p className="ink-note ink-huashan-season">本期論劍：{huashanSeasonLabel(season)}</p>
 

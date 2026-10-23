@@ -473,7 +473,7 @@
       "id": "jy_ash_manual",
       "name": "灰中拳",
       "kind": "external",
-      "flavor": "火場焦譜悟出嘅拳路——拳勁藏於灰燼，中者如墜煙塵。",
+      "flavor": "從火場殘譜悟出的拳法，拳勢急促，出手時以煙塵遮蔽對手視線。",
       "encounterOnly": true,
       "move": {
         "id": "mv_ash_fist",

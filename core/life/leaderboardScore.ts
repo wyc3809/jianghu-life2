@@ -7,7 +7,7 @@ import { jianghuRank } from './jianghuRank';
  * 排行榜數值（純函數，唔碰 RNG）：雲端上傳前喺度統一計，UI 同測試共用。
  * - 現世榜：江湖排名（越細越前）、修為境界（境界高先，同境比修為）
  * - 一生榜：一生總結分＝祖蔭公式未封頂合計 ×10 ＋ 已解鎖成就 ×5
- *   （沿用 design/gdd/ancestral-merit.md 嘅「壽數／武學／名望／境界／稱號／血脈」，唔另起爐灶）
+ *   （沿用 design/gdd/ancestral-merit.md 嘅「武學／名望／境界／稱號／血脈」，唔另起爐灶）
  */
 
 export const LIFE_SCORE_MERIT_WEIGHT = 10;
@@ -41,7 +41,7 @@ export function liveBoardEntry(state: LifeGameState): LiveBoardEntry {
     jianghu_rank: Math.max(1, Math.min(99999, Math.round(jianghuRank(state)))),
     cult_tier: Math.max(0, Math.min(14, Math.floor(c.cultivation?.tier ?? 0))),
     cult_xp: Math.max(0, Math.floor(c.cultivation?.xp ?? 0)),
-    age: Math.max(0, Math.min(200, Math.floor(c.age))),
+    age: 0, // 舊榜單協定保留欄位；年齡已取消，不參與排名或顯示。
   };
 }
 

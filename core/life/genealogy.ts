@@ -64,7 +64,6 @@ export function snapshotLifeForGenealogy(state: LifeGameState): string {
     c.loverId && state.npcs[c.loverId] ? state.npcs[c.loverId]!.name : undefined;
   const bits = [
     `第${gen}世「${c.name}」`,
-    `享年${c.age}`,
     lover ? `眷屬${lover}` : '',
     kids.length ? `子女${kids.join('、')}` : '無嗣',
     heir ? `立嗣${heir}` : '',
@@ -132,7 +131,6 @@ export function buildGenealogy(state: LifeGameState): GenealogyView {
     name: c.name,
     self: true,
     note: [
-      `${c.age}歲`,
       c.birthplace ? `籍${c.birthplace}` : '',
       c.sectId && view.sects[c.sectId] ? view.sects[c.sectId]!.name : '',
     ]

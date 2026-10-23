@@ -2,7 +2,6 @@ import { InkSaveStatus } from './InkSaveStatus';
 import { lazy, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { LifeGameState } from '@interfaces/lifeEngine';
-import { natureKeys, natureLabels } from '@interfaces/lifeEngine';
 import { useLifeStore } from '../../store/lifeStore';
 import { resolvePendingEvent } from '@core/life/eventEngine';
 import { hasEnoughActionPoints } from '@core/life/actionPoints';
@@ -38,7 +37,6 @@ import {
   LEARN_SKILL_MARKER,
   RANK_UP_MARKER,
 } from '@core/life/playerText';
-import { ensureNature, dominantNature, natureSummary } from '@core/life/nature';
 import { coachCopy, nextCoachStep } from '@core/life/tutorial';
 import { track } from '../../telemetry/events';
 import { InkAmbientFx } from './InkAmbientFx';
@@ -277,11 +275,10 @@ export function InkPlayScreen({ state }: Props) {
   const enoughActionPoints = hasEnoughActionPoints(state);
   const canAdvanceMonthGlobal =
     state.phase === 'playing' && !state.pending && !combat && c.alive && !showResult && enoughActionPoints;
-  const nature = ensureNature(c);
-  const dominant = dominantNature(c);
   /** 有待決事件時進入專注版面，避免選項被頂欄／年譜擠出可視區 */
   const eventFocus =
     state.phase === 'playing' && Boolean(pendingEvent) && !showResult && !combat;
+  const onJianghuMap = tab === 'jianghu' && jianghuView === 'main' && !combat && !eventFocus;
   /** 交手中隱藏全局氣血條，避免與戰鬥血條重複 */
   // 有重傷／傷殘：名字旁朱砂點（撳入人物欄）
   const worstInjury = (c.injuries ?? []).reduce<'heavy' | 'crippled' | null>(
@@ -515,6 +512,7 @@ export function InkPlayScreen({ state }: Props) {
     /* 底部分卷導航顯示時：預留空間（條件同下方 <nav className="ink-tabs"> 一致） */
     !combat && !eventFocus ? 'scroll-shell--has-tabs' : '',
     onHomeTab && !combat && !eventFocus ? 'scroll-shell--home' : '',
+    onJianghuMap ? 'scroll-shell--jianghu-map' : '',
     hasTask ? 'scroll-shell--has-task' : '',
     monthTurning ? 'ink-month-turn' : '',
   ]
@@ -566,7 +564,7 @@ export function InkPlayScreen({ state }: Props) {
         night={useNightWash}
       />
       {/* 墨韻：左右邊墨點、墨暈，點擊濺墨 */}
-      <InkAmbientFx mode="ink" paused={Boolean(combat)} />
+      <InkAmbientFx mode="ink" paused={Boolean(combat) || onJianghuMap} />
       {sealText && <InkSealStamp text={sealText} onDone={clearSeal} />}
 
       {succession && <InkSuccessionModal lines={succession} onClose={clearSuccession} />}
@@ -597,7 +595,6 @@ export function InkPlayScreen({ state }: Props) {
             }}
           >
             <InkBadge src={inkArtUrl('art/portraits/wanderer.webp')} size={60} tone="slate" className="ink-hud-person-badge" />
-            <span className="ink-hud-avatar-lv">{c.age}歲</span>
           </button>
           <div className="ink-identity">
             <h2 className="ink-name">
@@ -763,7 +760,7 @@ export function InkPlayScreen({ state }: Props) {
               <h3>{coach.title}</h3>
               <p>{coach.body}</p>
               <button type="button" className="ink-btn ink-btn--ghost" onClick={() => dismissCoach()}>
-                已知曉
+                確認
               </button>
             </section>
           )}
@@ -788,13 +785,6 @@ export function InkPlayScreen({ state }: Props) {
             {jianghuView === 'gacha' && <InkGachaPanel state={state} onEquipRequest={id => {
               setRequestedArt(id); setTab('person'); setPersonView('skills');
             }} />}
-            {jianghuView === 'nature' && <section className="ink-panel ink-world-panel ink-tab-pane" aria-label="心性">
-              <h3>心性</h3>
-              <p className="ink-note ink-nature-line">{natureKeys.map((k, i) => <span key={k}
-                className={`ink-nature-chip ink-nature--${k}${k === dominant ? ' ink-nature--dominant' : ''}`}>
-                {i > 0 ? ' ' : ''}{natureLabels[k]}{nature[k]}
-              </span>)}</p><p className="ink-note">{natureSummary(c)}</p>
-            </section>}
             {jianghuView === 'huashan' && <InkHuashanPanel state={state} onStart={huashanStart} onFight={huashanFight}
               onDismissReport={huashanDismissReport} onCloseTournament={huashanClose} />}
             {jianghuView === 'founder' && <InkSectFounderPanel state={state} onFound={foundSect} onRecruit={recruitDisciple} onTeach={teachDisciple} />}
@@ -995,8 +985,8 @@ export function InkPlayScreen({ state }: Props) {
                 }}
               >
                 {lastResult.deltas.length > 0 && !resultDeltasReady
-                  ? '接著 · 見消長'
-                  : '已知曉 · 掩卷'}
+                  ? '查看變化'
+                  : '繼續'}
               </button>
             </div>
           </div>,
@@ -1029,7 +1019,7 @@ export function InkPlayScreen({ state }: Props) {
 
       {state.phase === 'summary' && (
         <section className="ink-panel ink-epitaph">
-          <h3>掩卷</h3>
+          <h3>一生總結</h3>
           <pre className="ink-epitaph-text">{state.summaryText}</pre>
           <InkStaticSeal text="終" className="ink-seal-static--end" />
           {ancestryAward && ancestryAward.total > 0 && (
@@ -1062,14 +1052,14 @@ export function InkPlayScreen({ state }: Props) {
       {onPracticeTab && !combat && !showResult && !eventFocus && (
         <p className="ink-note ink-note--center">修煉不催歲月——按下方圓鈕過一月。</p>
       )}
-      {(tab === 'person' || tab === 'jianghu') && !combat && !showResult && !eventFocus && (
+      {(tab === 'person' || (tab === 'jianghu' && !onJianghuMap)) && !combat && !showResult && !eventFocus && (
         <p className="ink-note ink-note--center">按下方圓鈕即可過一月。</p>
       )}
 
       </div>
 
       {!combat && !eventFocus && createPortal(
-        <nav className="ink-tabs ink-bottom-dock" aria-label="分卷" ref={navRef}>
+        <nav className={`ink-tabs ink-bottom-dock${onJianghuMap ? ' ink-bottom-dock--map' : ''}`} aria-label="分卷" ref={navRef}>
           {(
             [
               ['home', '鎮居'],

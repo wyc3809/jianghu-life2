@@ -1,0 +1,72 @@
+{
+  "seed": 42,
+  "jade": {
+    "free": 600,
+    "paidTest": 0
+  },
+  "dpr": 2,
+  "cases": [
+    {
+      "landmark": "秘笈閣",
+      "building_and_label_click": true,
+      "back_to_map": true
+    },
+    {
+      "landmark": "華山論劍",
+      "building_and_label_click": true,
+      "back_to_map": true
+    },
+    {
+      "landmark": "開宗立派",
+      "building_and_label_click": true,
+      "back_to_map": true
+    }
+  ],
+  "glow_opacity_range": [
+    0.221068,
+    0.499533
+  ],
+  "navigation_keeps_account": true,
+  "phones": [
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "touch44": true,
+      "label_font_min16": true,
+      "town_above_dock": true
+    },
+    {
+      "viewport": [
+        390,
+        720
+      ],
+      "touch44": true,
+      "label_font_min16": true,
+      "town_above_dock": true
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "touch44": true,
+      "label_font_min16": true,
+      "town_above_dock": true
+    },
+    {
+      "viewport": [
+        420,
+        896
+      ],
+      "touch44": true,
+      "label_font_min16": true,
+      "town_above_dock": true
+    }
+  ],
+  "pageerrors": [],
+  "reduced_motion": true,
+  "keyboard": true,
+  "image_failure_navigation": true
+}

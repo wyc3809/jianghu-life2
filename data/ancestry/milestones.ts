@@ -60,7 +60,7 @@ export const FAMILY_MILESTONES: FamilyMilestone[] = [
   {
     id: 'fm_boss',
     label: '首斬強敵',
-    hint: '家族第一次打贏首領生死戰',
+    hint: '家族首次在首領生死戰中獲勝',
     merit: 8,
     test: (s) => Number(s.character.flags.boss_wins ?? 0) >= 1,
   },

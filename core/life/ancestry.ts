@@ -58,7 +58,6 @@ export interface MeritGain {
 export function computeMeritGain(state: LifeGameState): MeritGain {
   const c = state.character;
   const parts = [
-    { label: '壽數', value: Math.floor(Math.max(0, c.age) / 10) },
     { label: '武學', value: Math.floor(Math.max(0, c.martial) / 20) },
     { label: '名望', value: Math.floor(Math.max(0, c.reputation) / 25) },
     // 15 境縮放返舊 7 境嘅分值（頂境 12 分）

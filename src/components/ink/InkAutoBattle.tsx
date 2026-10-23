@@ -382,7 +382,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
             </ol>
           </div>
         ) : (
-          <p className="ink-note">未學外功——只可以用基本攻擊。</p>
+          <p className="ink-note">尚未學習外功，僅可使用基本攻擊。</p>
         )}
       </div>
     </div>,

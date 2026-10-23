@@ -40,7 +40,7 @@ export function createOnlineHandler(config: Config, service: { execute(user: str
     if (allowedOrigin(origin)) Object.assign(headers, { 'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Headers': 'authorization, apikey, content-type, x-client-info', 'Access-Control-Allow-Methods': 'POST, OPTIONS' });
     const response = (body: unknown, status = 200) => new Response(JSON.stringify(body), { status, headers });
     try {
-      if (origin && !allowedOrigin(origin)) throw new OnlineError(403, '呢個網址未開放試場。');
+      if (origin && !allowedOrigin(origin)) throw new OnlineError(403, '此網址尚未開放試場。');
       if (request.method === 'OPTIONS') return response({ ok: true });
       if (request.method !== 'POST') throw new OnlineError(405, '只接受試場指令。');
       const auth = request.headers.get('Authorization');

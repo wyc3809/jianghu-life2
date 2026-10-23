@@ -22,9 +22,9 @@ export function InkLifeOrDeathConfirm({ combat, onConfirm, onDecline }: Props) {
         <h3 id="ink-lod-title" className="ink-lod-title">{combat.title}</h3>
         <p className="ink-lod-foe">對手：{combat.foe.name}</p>
         <ul className="ink-lod-rules">
-          <li className="is-danger">此戰輸咗，角色會死，一生就此終結。</li>
-          <li>平時嘅戰敗只會撤退受傷；只有呢類標明嘅生死戰先會喪命。</li>
-          <li>未出手之前可以退避，唔會受傷，亦唔使打。</li>
+          <li className="is-danger">此戰若敗，角色將死亡，本世結束。</li>
+          <li>一般戰鬥落敗只會撤退或受傷；標明「生死戰」的戰鬥才有死亡風險。</li>
+          <li>開戰前可選擇退避，無須交手，亦不會受傷。</li>
         </ul>
         <div className="ink-lod-actions">
           <button type="button" className="ink-lod-btn ink-lod-btn--fight" onClick={onConfirm}>

@@ -406,7 +406,7 @@ export function resolveCombatDisposition(
   // 俠心過重仍選殺：額外損俠
   if (disposition === 'kill' && (c.nature?.xia ?? 0) >= 35) {
     lines.push(...applyNatureDelta(c, { xia: -2 }));
-    lines.push('你心裡清楚：這一刀，也斬在自己的俠名上。');
+    lines.push('殺死求饒之人，有損你的俠名。');
   }
   // 惡念過重仍放人：額外抑惡
   if (disposition === 'release' && (c.nature?.e ?? 0) >= 30) {
@@ -840,7 +840,7 @@ export function playerCombatTurn(state: LifeGameState, moveId: string, chain: Tu
       } else {
         combat.player.qi -= move.qiCost;
         combat.player.chargeBonus = Math.max(combat.player.chargeBonus, 0.55);
-        lines.push('你凝勁於腕，蓄勢待發（虛）。');
+        lines.push('你運勁至腕，蓄力待發（虛）。');
         combat.log.push(lines[lines.length - 1]!);
       }
     } else {

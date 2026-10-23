@@ -150,22 +150,11 @@ export function simulateMonthBody(state: LifeGameState): void {
   ];
   if (monthBits.length) pushChronicle(state, monthBits);
 
-  // 老年額外衰弱：遲暮更易體虛
-  if (c.alive && c.age >= 65) {
-    if (rng.chance(0.12)) {
-      c.health = clamp(c.health - rng.nextInt(2, 6), 0, c.maxHealth);
-      c.actionPoints = clamp(c.actionPoints - rng.nextInt(4, 10), 0, 100);
-    }
-  }
-
   if (c.health <= 0) {
     c.health = 0;
     if (c.alive) {
       recordDeath(state, '氣血耗盡，倒於旅途。');
     }
-  }
-  if (c.alive && c.age > 72 && rng.chance((c.age - 70) / 160)) {
-    recordDeath(state, '年邁體衰，無疾而終。');
   }
 }
 

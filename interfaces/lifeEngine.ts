@@ -120,6 +120,8 @@ export const outcomeSchema = z.object({
 export const choiceSchema = z.object({
   id: z.string(),
   text: z.string(),
+  /** 舊有文字推導規則使用的固定語意；文案改寫不改變心性、關路或RNG。 */
+  mechanicsText: z.string().optional(),
   requirements: requirementSchema.optional(),
   outcomes: z.array(outcomeSchema).min(1),
 });
@@ -196,6 +198,7 @@ export interface StoryState {
 export interface LifeCharacter {
   name: string;
   gender: 'male' | 'female';
+  /** 舊存檔相容欄位；不再增長、顯示或參與玩法。 */
   age: number;
   alive: boolean;
   health: number;

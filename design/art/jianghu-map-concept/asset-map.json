@@ -1,0 +1,14 @@
+{
+  "source": "design/art/jianghu-map-concept/watercolor-v3.png",
+  "source_sha256": "a75cfeaf9e94fa139d609aacd368b329a8ffb5e07a8fa53d17764fcc9f751fd7",
+  "runtime": "public/ink/art/jianghu/jianghu-map-watercolor.webp",
+  "runtime_sha256": "286e7f4fd7df09a3a65c957ec7442f4ea911ca15848895c47643d86ae6d7e928",
+  "runtime_bytes": 441648,
+  "dimensions": [
+    1024,
+    1536
+  ],
+  "conversion": "scripts/art/prepare_jianghu_map.py",
+  "landmarks": "src/components/ink/InkJianghuMap.tsx",
+  "typeface": "--game-ui-font"
+}

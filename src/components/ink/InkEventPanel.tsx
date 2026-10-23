@@ -149,7 +149,6 @@ export function InkEventPanel({
   onChoose,
   onDismiss,
 }: Props) {
-  const c = state.character;
   const month = state.month ?? 1;
   const bannerKind = pickAiEventBanner({
     title: pendingEvent.title,
@@ -224,7 +223,7 @@ export function InkEventPanel({
       <div className="ink-event-scroll" ref={scrollRef}>
         {eventBannerSrc && <InkEventBanner src={eventBannerSrc} />}
         <p className="ink-event-year">
-          {state.year}年{month}月 · {c.age}歲
+          {state.year}年{month}月
           {state.pending?.kind === 'special' ? ' · 奇遇' : ''}
         </p>
         <h3 ref={titleRef}>{pendingEvent.title}</h3>
@@ -276,7 +275,7 @@ export function InkEventPanel({
       </div>
       {lowActionPoints && (
         <p className="ink-ap-hint" role="status">
-          過勞未歇——疲勞回落後先可以再選（約數十秒）。
+          疲勞過高，請等待恢復後再選擇，約需數十秒。
         </p>
       )}
     </section>

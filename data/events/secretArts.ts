@@ -102,7 +102,7 @@ const RAW: GameEvent[] = [
               { type: 'grantGear', gearId: 'divine-xuan-sword' },
               { type: 'learnSkill', skillId: 'art_tomb_sword', name: '無銘劍意' },
               { type: 'martial', amount: 15 },
-              { type: 'narrate', text: '你握住無銘劍脊，用力一拔。劍鳴如龍吟，墓道塵土竟退開半尺。劍意無形，卻在腕底生出寒意——神兵在握的同時，你也感覺到：這柄劍要的不是主人，是敢試鋒的人。' },
+              { type: 'narrate', text: '你握住無銘劍柄，將劍拔出石槽。劍鋒薄而直，出鞘時發出清鳴，你依墓壁劍痕試演數式。' },
             ],
           },
         ],
@@ -225,7 +225,7 @@ const RAW: GameEvent[] = [
             effects: [
               { type: 'learnSkill', skillId: 'art_nine_shadow', name: '九影迷踪步' },
               { type: 'martial', amount: 11 },
-              { type: 'narrate', text: '你藏在崖側暗處，把影中人的步位一寸寸記下。暮色收盡時，拳影散了，你自己演過半套，發覺身法輕了半寸——九影迷踪，原來是從影子裡偷來的路。' },
+              { type: 'narrate', text: '你藏在崖側，記下影中人的步位。暮色收盡後，便依所見演練，逐漸接上九影迷蹤的前半套身法。' },
             ],
           },
         ],
@@ -246,7 +246,7 @@ const RAW: GameEvent[] = [
       {
         id: 'leave',
         text: '不便打擾，悄然退去',
-        outcomes: [{ effects: [{ type: 'narrate', text: '你不便打擾，悄然退去。崖上拳影仍在，你把那餘影收進心裡，轉身下山——有些功夫，看過一遍也算見過世面。' }] }],
+        outcomes: [{ effects: [{ type: 'narrate', text: '你沒有上前打擾，只記下看清的幾處步位，隨後下山。' }] }],
       },
     ],
   },
@@ -280,7 +280,7 @@ const RAW: GameEvent[] = [
             effects: [
               { type: 'maxQi', amount: 15 },
               { type: 'attr', delta: { fuYuan: 2 } },
-              { type: 'narrate', text: '你把拳譜重新供上，只求心安。鐘聲再響一記，梁塵微落，你內息竟平穩許多。福緣這種東西，有時不是搶來的，是放回去的。' },
+              { type: 'narrate', text: '你將拳譜放回供桌，向守寺僧人告辭。鐘聲響起時，你停步調息，待內息平穩後才離去。' },
             ],
           },
         ],

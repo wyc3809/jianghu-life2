@@ -1,6 +1,5 @@
 import type { GameEffect, LifeGameState, NatureAttr, WuxiaAttribute, WorldAttr } from '@interfaces/lifeEngine';
 import { natureLabels, wuxiaAttributeLabels, worldAttrLabels } from '@interfaces/lifeEngine';
-import { getLifeStageLabel } from './stages';
 import { displaySkillName, sanitizePlayerLine, LEARN_SKILL_MARKER } from './playerText';
 
 export function formatEffectLine(eff: GameEffect, state: LifeGameState): string | null {
@@ -82,15 +81,14 @@ export function pushChronicle(state: LifeGameState, lines: string[]): void {
     .filter(Boolean)
     .map((t) => {
       const month = state.month ?? 1;
-      return `【${state.year}年${month}月·${state.character.age}歲·${getLifeStageLabel(state)}】${t}`;
+      return `【${state.year}年${month}月】${t}`;
     });
   state.lifeLog = [...stamped, ...state.lifeLog].slice(0, 140);
 }
 
 export function yearQuietLine(state: LifeGameState): string {
-  const stage = getLifeStageLabel(state);
   const lines = [
-    `${state.year}年，${stage}無事，紙窗聞雨。`,
+    `${state.year}年，平安無事，紙窗聞雨。`,
     `${state.year}年，江湖遠，茶熱，你只度一日。`,
     `${state.year}年，風平，墨未乾。`,
   ];

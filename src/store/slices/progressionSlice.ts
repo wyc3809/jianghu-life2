@@ -136,7 +136,7 @@ export function createProgressionSlice(
       if (!loaded) return false;
       const state = migrateLifeState(loaded.state);
       syncRngFromState(state);
-      track('life_resume', { age: state.character.age });
+      track('life_resume', { year: state.year });
       const elapsedMs = Date.now() - loaded.savedAt;
       const offline = applyOfflineCultivation(state, elapsedMs);
       // 掛機銀兩：同修為一樣最多計 48 小時，入「待收成」
@@ -192,7 +192,7 @@ export function createProgressionSlice(
       if (next.phase === 'summary') {
         track('life_death', { cause: String(next.character.flags.death_cause ?? '') });
       } else {
-        track('month_advance', { month: next.month, age: next.character.age });
+        track('month_advance', { month: next.month, year: next.year });
       }
       void save(next);
       set({

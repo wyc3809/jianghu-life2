@@ -35,12 +35,6 @@ export function canHaveChild(state: LifeGameState): ChildBirthGate {
   if (FAMILY_RULES.requireLover && !c.loverId) {
     return { ok: false, reason: '尚未有眷屬，難以添丁。' };
   }
-  if (c.age < FAMILY_RULES.minAge || c.age > FAMILY_RULES.maxAge) {
-    return {
-      ok: false,
-      reason: `求子宜在 ${FAMILY_RULES.minAge}–${FAMILY_RULES.maxAge} 歲之間。`,
-    };
-  }
   if (c.childrenCount >= c.childrenMax) {
     return { ok: false, reason: '此生子女已滿，不宜再添。' };
   }
@@ -140,7 +134,7 @@ export function seekChild(state: LifeGameState): string[] {
         100,
         (state.npcs[c.loverId]!.affinity ?? 50) + 3,
       );
-      lines.push('縱無子嗣，情誼卻又深了一寸。');
+      lines.push('雖無子嗣，兩人仍決定相伴度日。');
     }
   }
 

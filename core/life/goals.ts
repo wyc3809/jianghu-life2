@@ -45,7 +45,7 @@ export function currentGoal(state: LifeGameState): CurrentGoal {
         id: 'newbie_trial',
         kicker: '新手 1／3 · 挑戰',
         title: `試煉：擊敗${NEWBIE_TRIAL.foeName}`,
-        detail: `贏咗得「${reward.name}」——比你手上嗰把好用。`,
+        detail: `獲勝可獲得「${reward.name}」，可提升目前裝備的攻擊。`,
         action: 'trial',
         actionLabel: '應戰',
       };
@@ -59,7 +59,7 @@ export function currentGoal(state: LifeGameState): CurrentGoal {
         id: 'newbie_equip',
         kicker: '新手 2／3 · 換裝',
         title: `換上「${reward.name}」`,
-        detail: `攻擊 ${from} → ${to}（${cur ? `${cur.name}換${reward.name}` : '空手換刀'}），演武台即刻打得快啲。`,
+        detail: `攻擊 ${from} → ${to}（${cur ? `${cur.name}換${reward.name}` : '空手換刀'}），可提升演武台的攻擊。`,
         action: 'equip',
         actionLabel: '換上',
       };
@@ -67,7 +67,7 @@ export function currentGoal(state: LifeGameState): CurrentGoal {
   }
   const tier = currentCultivationTier(state);
   const next = CULTIVATION_TIERS[tier.level + 1];
-  const kicker = newbieActive(state) ? '新手 3／3 · 下個目標' : '當前目標';
+  const kicker = newbieActive(state) ? '新手 3／3 · 下一目標' : '當前目標';
   if (!next) {
     return { id: 'peak', kicker, title: '已至武道巔峰', detail: '繼續過月，闖蕩江湖、傳承家族。' };
   }
@@ -85,7 +85,7 @@ export function currentGoal(state: LifeGameState): CurrentGoal {
     id: 'cultivate',
     kicker,
     title: `修為儲滿 → 突破至「${next.name}」`,
-    detail: '掛機都會自己儲；過月推進門派、歷練同新武學。',
+    detail: '掛機可累積修為；推進月份可參與門派活動、歷練及學習武學。',
     progress: { cur: Math.floor(c.cultivation.xp), max: tier.cap },
   };
 }

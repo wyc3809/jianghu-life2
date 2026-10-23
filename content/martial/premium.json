@@ -1,5 +1,5 @@
 {
-  "notes": "珍本奇功（design/agreed-design-2026-10.md §3.1：約 20% 武學只能經付費抽卡或在線奇遇取得）。玩家揀「全新特製 19 門」（2026-10-05）。唔屬任何門派，免費玉石／門派／事件都攞唔到。數值屬測試參數：略高過同類最強免費武學，唔會碾壓。",
+  "notes": "珍本奇功共19門，僅可透過付費玉石抽取或在線奇遇獲得，不屬於任何門派。數值為測試參數。",
   "skills": [
     { "id": "pr_blood_lotus", "name": "血蓮千刃", "kind": "external", "weaponKind": "blade", "flavor": "刀落如蓮開，一瓣一道血痕。", "move": { "id": "mv_pr_blood_lotus", "name": "千刃血蓮", "qiCost": 60, "power": 1.95, "bleedChance": 0.5, "bleedDamage": 9, "bleedTurns": 3, "lifesteal": 0.12, "description": "刀如蓮開，血痕層疊。" } },
     { "id": "pr_crimson_moon", "name": "赤月飲血劍", "kind": "external", "weaponKind": "sword", "flavor": "月色染紅之夜所創，劍飲敵血以養己身。", "move": { "id": "mv_pr_crimson_moon", "name": "赤月飲血", "qiCost": 56, "power": 1.85, "lifesteal": 0.22, "bleedChance": 0.25, "bleedDamage": 6, "bleedTurns": 2, "description": "劍光如赤月，傷敵養己。" } },

@@ -1,7 +1,7 @@
 {
   "name": "jianghu-engine",
   "private": true,
-  "version": "0.86.0-ea",
+  "version": "0.87.0-ea",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -15,6 +15,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "audit:copy": "node scripts/auditPlayerCopy.mjs",
     "audit:narrate": "node scripts/auditNarrate.mjs --fail",
     "docs:events": "vite-node scripts/dumpEvents.mts && vite-node scripts/buildEventsPage.mts",
     "audit:events": "vite-node scripts/auditEventDraws.mts"

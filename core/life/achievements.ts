@@ -12,6 +12,8 @@ export type AchievementDef = {
   label: string;
   /** 未解鎖時的短提示（不劇透具體門檻數字亦可） */
   hint: string;
+  /** 已停止解鎖；只顯示玩家已取得的舊紀錄。 */
+  retired?: boolean;
   test: (s: LifeGameState) => boolean;
 };
 
@@ -92,8 +94,9 @@ export const ACHIEVEMENT_RULES: AchievementDef[] = [
   {
     id: 'ach_elder',
     label: '甲子',
-    hint: '年滿六十',
-    test: (s) => s.character.age >= 60,
+    hint: '舊版成就，已停止解鎖',
+    retired: true,
+    test: () => false,
   },
   {
     id: 'ach_soft_hand',
@@ -261,8 +264,9 @@ export const ACHIEVEMENT_RULES: AchievementDef[] = [
   {
     id: 'ach_age_80',
     label: '耄耋',
-    hint: '年滿八十',
-    test: (s) => s.character.age >= 80,
+    hint: '舊版成就，已停止解鎖',
+    retired: true,
+    test: () => false,
   },
 ];
 
@@ -284,7 +288,7 @@ export function syncAchievements(state: LifeGameState): string[] {
   const have = new Set(readAchievementIds(state));
   const gained: string[] = [];
   for (const rule of ACHIEVEMENT_RULES) {
-    if (have.has(rule.id)) continue;
+    if (rule.retired || have.has(rule.id)) continue;
     if (!rule.test(state)) continue;
     have.add(rule.id);
     gained.push(rule.label);
@@ -305,7 +309,7 @@ export function listAchievementStatus(state: LifeGameState): Array<{
   unlocked: boolean;
 }> {
   const ids = new Set(readAchievementIds(state));
-  return ACHIEVEMENT_RULES.map((r) => ({
+  return ACHIEVEMENT_RULES.filter((r) => !r.retired || ids.has(r.id)).map((r) => ({
     id: r.id,
     label: r.label,
     hint: r.hint,
@@ -317,6 +321,6 @@ export function achievementProgress(state: LifeGameState): { unlocked: number; t
   const ids = new Set(readAchievementIds(state));
   return {
     unlocked: ACHIEVEMENT_RULES.filter((r) => ids.has(r.id)).length,
-    total: ACHIEVEMENT_RULES.length,
+    total: ACHIEVEMENT_RULES.filter((r) => !r.retired || ids.has(r.id)).length,
   };
 }

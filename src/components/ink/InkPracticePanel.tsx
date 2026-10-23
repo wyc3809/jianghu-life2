@@ -41,7 +41,7 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
         <>
           <h3>修煉</h3>
           <p className="ink-note">
-            本月可煉 {practiceLeft}/3 次。多問風聲，翻頁易逢奇人；苦練、鑄兵、尋訪，亦在歲月裡。
+            本月可煉 {practiceLeft}/3 次。打聽消息可提高遇見奇人的機會；苦練、鑄兵與尋訪則隨月份推進。
           </p>
           <div className="ink-practice-grid">
             <button
@@ -101,12 +101,12 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
           <div className="ink-sect-head">
             <h3>{sect ? sect.name : '擇門拜師'}</h3>
             <button type="button" className="ink-btn ink-btn--quiet" onClick={() => onView('main')}>
-              回門
+              返回
             </button>
           </div>
           {!sect ? (
             <>
-              <p className="ink-note">各派門風不同，拜入與否，看你當下根基與來意。</p>
+              <p className="ink-note">各門派有不同的入門條件，符合條件後可拜師。</p>
               <div className="ink-practice-grid">
                 {SECT_DEFS.map((s) => (
                   <button
@@ -130,7 +130,7 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
             </>
           ) : (
             <>
-              <p className="ink-note">既入師門，差事、比武、靜修皆可磨礪身心；地位提升可傳四套門中武學。</p>
+              <p className="ink-note">完成門派差事、比武或靜修可提升門派地位，逐步解鎖四套門派武學。</p>
               <ul className="ink-skill-list ink-sect-progress">
                 {describeSectProgress(state).map((line) => (
                   <li key={line}>{line}</li>
@@ -174,11 +174,11 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
           <div className="ink-sect-head">
             <h3>修習雅藝</h3>
             <button type="button" className="ink-btn ink-btn--quiet" onClick={() => onView('main')}>
-              回門
+              返回
             </button>
           </div>
           <p className="ink-note">
-            琴棋書畫、佛道邪學，各有所長；練至熟練度 {ART_MASTERY_THRESHOLD} 可悟對應武功。
+            琴棋書畫、佛道邪學可提供不同加成；熟練度達 {ART_MASTERY_THRESHOLD} 可悟對應武功。
           </p>
           <div className="ink-practice-grid">
             {ART_DEFS.map((a) => (

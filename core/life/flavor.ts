@@ -118,7 +118,7 @@ export function mystifyLine(line: string): string {
   s = s.replace(/疲勞[＋+\-]*/g, '疲態更甚·');
   s = s.replace(/·+/g, '·').replace(/\s{2,}/g, ' ').trim();
   s = s.replace(/^[·\s]+|[·\s]+$/g, '');
-  if (!s || /^[·\s]*$/.test(s)) return '事態悄然推移。';
+  if (!s || /^[·\s]*$/.test(s)) return '事情已有進展。';
   return s;
 }
 
@@ -240,7 +240,7 @@ function learnSkillProse(
 
   const openers: Record<string, string[]> = {
     external: [
-      '勁路忽然贯通，',
+      '勁路忽然貫通，',
       '一招一式入懷，',
       '腕底記住新招，',
     ],
@@ -250,7 +250,7 @@ function learnSkillProse(
       '經脈間多了一條路，',
     ],
     qinggong: [
-      '足尖輕了半寸，',
+      '步法較先前輕快，',
       '身法初成，',
       '風聲在耳畔換了調子，',
     ],

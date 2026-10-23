@@ -27,16 +27,16 @@ export function InkStartScreen({ onStart, onContinue, resumeHint, onSeedDebug, o
           aria-hidden
           decoding="async"
         />
-        <p className="ink-eyebrow">水墨江湖 · 一生一卷</p>
+        <p className="ink-eyebrow">武俠人生</p>
         <h1 className="ink-brand">江湖一生</h1>
         <span className="ink-gold-rule" aria-hidden />
-        <p className="ink-tagline">一筆成江湖，留白即命運</p>
+        <p className="ink-tagline">習武、闖蕩、傳承</p>
       </header>
 
       <section className="ink-verse" aria-label="卷首">
-        <p>千燈一別，歲月如刀</p>
-        <p>奇遇路遇，皆在翻頁之間</p>
-        <p>落筆為生，蓋印為定</p>
+        <p>少年起於千燈鎮</p>
+        <p>拜師學藝，行走江湖</p>
+        <p>將所學傳給後人</p>
       </section>
 
       <div className="ink-cta-stack">
@@ -109,9 +109,9 @@ export function InkStartGate({
       if (cancelled) return;
       if (save?.state.character.alive && save.state.phase === 'playing') {
         const c = save.state.character;
-        onReady(true, `${c.name} · ${c.age} 歲`);
+        onReady(true, c.name);
       } else if (save?.state.phase === 'summary') {
-        onReady(true, '前緣已盡 · 可掩卷或新開');
+        onReady(true, '本世已結束 · 查看總結或開始新生');
       } else {
         onReady(false);
       }

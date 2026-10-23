@@ -1,0 +1,9 @@
+{
+  "base": "/jianghu-life2/",
+  "mode": "ordinary-production-ui-no-fixture-or-dev-import",
+  "four_landmarks": true,
+  "image_loaded": true,
+  "gacha_and_return": true,
+  "pageerrors": [],
+  "failed_local_http": []
+}

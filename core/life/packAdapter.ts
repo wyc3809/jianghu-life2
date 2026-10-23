@@ -56,10 +56,11 @@ function convertPackChoice(item: PackChoiceRaw, index: number): EventChoice {
     (typeof item.result_text === 'string'
       ? item.result_text
       : item.result_text?.success) ||
-    `你選擇「${item.text}」之後，現場留下了可追的痕跡——一枚腰牌、半句地名，或一縷未散的藥香。`;
+    `你選擇「${item.text}」之後，事情已有結果，詳見下方紀錄。`;
   return {
     id: item.id || `choice_${index + 1}`,
     text: item.text,
+    mechanicsText: item.mechanics_text,
     outcomes: [
       {
         // UI／驗證用占位；真正套用見 applyPackChoice → OutcomeResolver

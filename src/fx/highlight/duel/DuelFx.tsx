@@ -343,7 +343,7 @@ export default function DuelFx({ replay, onDone, onFail, weaponKind = null }: Du
             </ol>
           </div>
         ) : (
-          <p className={styles.noArt}>未學外功——只可以用基本攻擊。</p>
+          <p className={styles.noArt}>尚未學習外功，僅可使用基本攻擊。</p>
         )}
       </footer>
     </div>,

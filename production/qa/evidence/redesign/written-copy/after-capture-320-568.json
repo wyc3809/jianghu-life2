@@ -1,0 +1,14 @@
+{
+  "viewport": [
+    320,
+    568
+  ],
+  "dpr": 2,
+  "seed": 42,
+  "jade": {
+    "free": 600,
+    "paidTest": 0
+  },
+  "phase": "after",
+  "pageerrors": []
+}

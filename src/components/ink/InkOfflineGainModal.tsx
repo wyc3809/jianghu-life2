@@ -38,13 +38,13 @@ export function InkOfflineGainModal({ gain, onClose }: Props) {
           </p>
         )}
         {gain.timeCapped && (
-          <p className="ink-offline-modal-note">離開超過四十八個時辰，之後嘅修持冇計入。</p>
+          <p className="ink-offline-modal-note">離線收益最多累積48小時，超出部分不計。</p>
         )}
         {gain.tierCapped && (
           <p className="ink-offline-modal-note ink-offline-modal-note--cap">
             {gain.reserveCapped
-              ? '修為同儲備都已滿——先突破，積存嘅修為會撥入新境界。'
-              : '修為已至瓶頂，多出嘅存入儲備——突破後撥入新境界。'}
+              ? '修為與儲備均已滿。突破後，儲備修為將轉入新境界。'
+              : '修為已達上限，多出部分存入儲備，突破後轉入新境界。'}
           </p>
         )}
         <button type="button" className="ink-offline-modal-btn" onClick={onClose} autoFocus>

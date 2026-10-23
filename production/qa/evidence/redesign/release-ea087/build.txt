@@ -1,0 +1,42 @@
+
+> jianghu-engine@0.87.0-ea build:pages
+> VITE_BASE=/jianghu-life2/ npm run build
+
+
+> jianghu-engine@0.87.0-ea build
+> tsc --noEmit && vite build
+
+vite v6.4.3 building for production...
+transforming...
+✓ 488 modules transformed.
+rendering chunks...
+[plugin vite:reporter]
+(!) /workspace/jianghu-life2/core/life/gameState.ts is dynamically imported by /workspace/jianghu-life2/src/cloud/localBridge.ts but also statically imported by /workspace/jianghu-life2/core/life/actions.ts, /workspace/jianghu-life2/core/life/bonds.ts, /workspace/jianghu-life2/core/life/combat.ts, /workspace/jianghu-life2/core/life/cultivation.ts, /workspace/jianghu-life2/core/life/eventEngine.ts, /workspace/jianghu-life2/core/life/family.ts, /workspace/jianghu-life2/core/life/foundedSect.ts, /workspace/jianghu-life2/core/life/huashan.ts, /workspace/jianghu-life2/core/life/jianghuEventRepository.ts, /workspace/jianghu-life2/core/life/manualFragments.ts, /workspace/jianghu-life2/core/life/outcomeResolver.ts, /workspace/jianghu-life2/core/life/saveIndexedDb.ts, /workspace/jianghu-life2/src/store/slices/progressionSlice.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter]
+(!) /workspace/jianghu-life2/core/life/saveIndexedDb.ts is dynamically imported by /workspace/jianghu-life2/src/cloud/localBridge.ts, /workspace/jianghu-life2/src/cloud/localBridge.ts, /workspace/jianghu-life2/src/cloud/localBridge.ts, /workspace/jianghu-life2/src/components/ink/InkStartScreen.tsx but also statically imported by /workspace/jianghu-life2/src/components/ink/InkCloudSection.tsx, /workspace/jianghu-life2/src/components/ink/InkSaveStatus.tsx, /workspace/jianghu-life2/src/store/lifeStore.ts, /workspace/jianghu-life2/src/store/persistSchedule.ts, /workspace/jianghu-life2/src/store/slices/progressionSlice.ts, dynamic import will not move module into another chunk.
+
+computing gzip size...
+dist/index.html                              1.27 kB │ gzip:   0.59 kB
+dist/assets/wuxia-titles-DuK567Iq.woff2    210.12 kB
+dist/assets/InkOnlinePanel-DRfzmSAf.css      6.80 kB │ gzip:   1.87 kB
+dist/assets/DuelFx-C-t2mby_.css              8.17 kB │ gzip:   2.43 kB
+dist/assets/HighlightFx-D6xDdbjR.css        22.21 kB │ gzip:   5.21 kB
+dist/assets/index-B3nHBhHE.css             237.85 kB │ gzip:  45.25 kB
+dist/assets/CodexStage-C2Pt9QPZ.js           2.12 kB │ gzip:   1.20 kB
+dist/assets/codex-4gbYWeC7.js                2.65 kB │ gzip:   1.28 kB
+dist/assets/HighlightDemo-BRdOHWwu.js        2.78 kB │ gzip:   1.49 kB
+dist/assets/InkOnlinePanel-CCjdwvip.js      16.15 kB │ gzip:   6.15 kB
+dist/assets/DuelFx-AMLMBE17.js              34.63 kB │ gzip:  13.04 kB
+dist/assets/HighlightFx-C-U1tp2p.js         54.76 kB │ gzip:  19.98 kB
+dist/assets/particles-CPZHKqCJ.js           76.32 kB │ gzip:  29.93 kB
+dist/assets/index-D5bMjAqh.js              227.81 kB │ gzip:  59.26 kB
+dist/assets/vendor-BW_UMXlD.js             279.13 kB │ gzip:  84.43 kB
+dist/assets/three.module-dfjUNOCT.js       562.51 kB │ gzip: 143.05 kB
+dist/assets/index-D8_Nbzi5.js            1,470.56 kB │ gzip: 539.84 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 7.86s

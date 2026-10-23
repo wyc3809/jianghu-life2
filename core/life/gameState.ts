@@ -274,7 +274,6 @@ export function snapshotRng(state: LifeGameState): void {
 
 export function advanceYear(state: LifeGameState): void {
   if (!state.character.alive || state.phase !== 'playing') return;
-  state.character.age += 1;
   state.character.stats.yearsLived += 1;
   state.year += 1;
 }

@@ -26,15 +26,15 @@ with sync_playwright() as p:
  page.on('request',observe)
  page.goto(BASE,wait_until='domcontentloaded');page.wait_for_timeout(3500);page.evaluate(SETUP,{'jade':{'free':600,'paidTest':0}})
  page.locator('#ink-jianghu-menu').wait_for();shot(page,'after.png')
- assert page.get_by_role('navigation',name='江湖功能').get_by_role('button').count()==5
+ assert page.get_by_role('navigation',name='江湖功能').get_by_role('button').count()==4
  for selector in ['#ink-online','#ink-gacha','.ink-huashan-panel','.ink-sect-founder-panel','.ink-world-panel']:assert page.locator(selector).count()==0,selector
- assert page.locator('#ink-jianghu-menu .ink-badge-object').count()==5
+ assert page.locator('#ink-jianghu-menu .ink-jianghu-map-art').count()==1
  # 原有功能各自點入，返回唔再留喺舊長頁底部。
- for name,selector in [('秘笈閣','#ink-gacha'),('華山論劍','.ink-huashan-panel'),('開宗立派','.ink-sect-founder-panel'),('心性','.ink-world-panel')]:
+ for name,selector in [('秘笈閣','#ink-gacha'),('華山論劍','.ink-huashan-panel'),('開宗立派','.ink-sect-founder-panel')]:
   page.get_by_role('button',name=name,exact=True).click();page.locator(selector).wait_for();shot(page,{'秘笈閣':'gacha.png','華山論劍':'huashan.png','開宗立派':'founder.png','心性':'nature.png'}[name])
   page.evaluate("document.querySelector('.ink-play-body').scrollTop=99999")
   page.get_by_role('button',name='‹ 返回江湖',exact=True).click();page.locator('#ink-jianghu-menu').wait_for();assert page.evaluate("document.querySelector('.ink-play-body').scrollTop")<2
- report['cases'].append({'name':'five_root_entries_and_back','only_selected_content':True,'icons':5,'scroll_reset':True})
+ report['cases'].append({'name':'four_map_entries_and_back','only_selected_content':True,'map':True,'scroll_reset':True})
  # 主頁兩個原有捷徑：直接開所選功能，而唔係捲向已經不存在嘅節點。
  for name,selector in [('秘笈閣','#ink-gacha'),('論劍','.ink-huashan-panel')]:
   page.get_by_role('navigation',name='分卷').get_by_role('button',name='鎮居',exact=True).click()
@@ -93,8 +93,8 @@ with sync_playwright() as p:
  for width,height in [(320,568),(390,844),(420,896)]:
   page.get_by_role('button',name='‹ 返回江湖',exact=True).click();page.locator('#ink-jianghu-menu').wait_for();page.set_viewport_size({'width':width,'height':height});shot(page,f'root-{width}.png')
   assert not page.evaluate('document.documentElement.scrollWidth>innerWidth')
-  assert page.locator('.ink-feature-list button').evaluate_all('(els)=>els.every(el=>el.getBoundingClientRect().height>=44)')
-  assert page.locator('.ink-feature-list img').evaluate_all('(els)=>els.every(el=>el.complete && el.naturalWidth>0)')
+  assert page.locator('.ink-map-destination').evaluate_all('(els)=>els.every(el=>el.getBoundingClientRect().height>=44)')
+  assert page.locator('.ink-jianghu-map-art').evaluate('(el)=>el.complete && el.naturalWidth>0')
   page.get_by_role('button',name='江湖風雲',exact=True).click();page.locator('[data-my-rank]').wait_for();shot(page,f'online-{width}.png')
   page.get_by_role('button',name='對手名冊',exact=True).click();page.evaluate("document.querySelector('.ink-play-body').scrollTop=99999");online_back(page)
   assert page.evaluate("document.querySelector('.ink-play-body').scrollTop")<2

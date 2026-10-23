@@ -1,5 +1,4 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
-import { getLifeStage } from './stages';
 import { careerMonthlyIncome, getCareer } from './careers';
 
 /** 月度薄利：令銀兩有緩慢壓力／來源，唔靠純事件掉錢 */
@@ -7,12 +6,9 @@ export function tickMonthlyEconomy(state: LifeGameState): string[] {
   const c = state.character;
   if (!c.alive) return [];
   const lines: string[] = [];
-  const stage = getLifeStage(c.age);
 
   // 日常開銷
   let upkeep = 2;
-  if (stage === 'midlife' || stage === 'elder') upkeep = 3;
-  if (stage === 'twilight') upkeep = 4;
   if (c.sectId) upkeep += 1;
   if ((c.family?.childrenNames?.length ?? 0) > 0) upkeep += 1;
   if (getCareer(state)) upkeep += 1;
@@ -36,7 +32,7 @@ export function tickMonthlyEconomy(state: LifeGameState): string[] {
   }
 
   // 偶發：開一小攤（只觸發一次提示）
-  if (!c.flags.side_trade && c.money >= 40 && c.age >= 22 && c.age <= 50) {
+  if (!c.flags.side_trade && c.money >= 40) {
     c.flags.side_trade = 2;
     lines.push('你在鎮口支了個小攤，往後每月略有薄利。');
   }

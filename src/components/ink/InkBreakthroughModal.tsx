@@ -92,18 +92,18 @@ export function InkBreakthroughModal({ result, onClose }: Props) {
               </>
             ) : (
               <>
-                <li className={styles.keep}>修為保留，一點唔扣</li>
+                <li className={styles.keep}>修為全數保留</li>
                 {typeof result.hpLoss === 'number' && <li>氣血－{result.hpLoss}</li>}
                 {typeof result.qiLoss === 'number' && <li>內力－{result.qiLoss}</li>}
-                <li>調整配搭可以即刻再試</li>
+                <li>調整武學搭配後可再次嘗試</li>
                 {typeof result.chance === 'number' && (
-                  <li>今次成功率約 {Math.round(result.chance * 100)}%（根骨、悟性越高越易）</li>
+                  <li>本次成功率約 {Math.round(result.chance * 100)}%（根骨、悟性越高越易）</li>
                 )}
               </>
             )}
           </ul>
           <button type="button" className={styles.ack} onClick={onClose}>
-            {ok ? '合十 · 繼續前路' : '知曉 · 再圖後計'}
+            {ok ? '繼續' : '返回'}
           </button>
         </div>
       </div>

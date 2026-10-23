@@ -18,7 +18,8 @@ import { syncAchievements } from './achievements';
 import { recordHuashanPlacement, applyHuashanPlacementRank } from './jianghuRank';
 import { gainJianghuPrestige } from './jianghuPrestige';
 
-export const HUASHAN_MIN_AGE = 16;
+/** @deprecated 年齡門檻已取消，保留舊匯入相容。 */
+export const HUASHAN_MIN_AGE = 0;
 export const HUASHAN_MIN_MARTIAL = 12;
 export const HUASHAN_BRACKET_SIZE = 8;
 
@@ -350,7 +351,6 @@ export function canEnterHuashan(state: LifeGameState): { ok: true } | { ok: fals
   const c = state.character;
   if (!c.alive || state.phase !== 'playing') return { ok: false, reason: '此刻無法論劍。' };
   if (state.pending || state.pendingCombat) return { ok: false, reason: '尚有要事未了。' };
-  if (c.age < HUASHAN_MIN_AGE) return { ok: false, reason: `需滿 ${HUASHAN_MIN_AGE} 歲方可登山。` };
   if (c.martial < HUASHAN_MIN_MARTIAL) return { ok: false, reason: `武學需達 ${HUASHAN_MIN_MARTIAL} 以上。` };
   const season = getHuashanSeasonKey();
   if (c.flags.huashan_last_season === season) return { ok: false, reason: '本週已參與過華山論劍。' };

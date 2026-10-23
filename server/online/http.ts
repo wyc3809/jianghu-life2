@@ -40,9 +40,9 @@ export function createOnlineHttpServer(service: OnlineService) {
           case '/api/jianghu/challenge': result = service.challenge(token, await body(req)); break;
           case '/api/jianghu/claim': result = service.claim(token, await body(req)); break;
           case '/api/jianghu/loadout': result = service.loadout(token, await body(req)); break;
-          default: throw new OnlineError(404, '搵唔到呢個操作。');
+          default: throw new OnlineError(404, '找不到此操作。');
         }
-      } else throw new OnlineError(404, '搵唔到呢個操作。');
+      } else throw new OnlineError(404, '找不到此操作。');
       res.end(JSON.stringify(result));
     } catch (error) {
       const status = error instanceof OnlineError ? error.status : error instanceof ZodError ? 400 : 500;

@@ -1,6 +1,5 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getRng } from '@core/random';
-import { getLifeStage } from './stages';
 
 /** 門派月度碎事：差事／罰跪／師命，令拜入後有後果 */
 export function tickSectMonth(state: LifeGameState): string[] {
@@ -9,16 +8,7 @@ export function tickSectMonth(state: LifeGameState): string[] {
   const sect = state.sects[c.sectId];
   if (!sect) return [];
   const rng = getRng();
-  const stage = getLifeStage(c.age);
   const lines: string[] = [];
-
-  // 老年少差事
-  if (stage === 'elder' || stage === 'twilight') {
-    if (rng.chance(0.2)) {
-      lines.push(`${sect.name}長老見你年邁，免了你這個月的雜役。`);
-    }
-    return lines;
-  }
 
   const roll = rng.nextFloat();
   if (roll < 0.22) {
