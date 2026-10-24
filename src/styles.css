@@ -10981,12 +10981,12 @@ body:has(.ink-spar-boss-screen) .ink-task-dock { visibility: hidden; }
 .ink-pull-card .ink-skill-schools { align-self: start; }
 .ink-school-tabs.has-all { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 
-/* 第28項：武學／流派題簽用同一繁中楷筆字，說明、資源及數字仍讀統一UI字。 */
+/* 武學與流派名稱沿用主頁功能字體，保留字級及粗幼層次。 */
 .scroll-shell--play :is(.ink-school-tabs strong, .ink-school-pool-heading > strong,
   .ink-school-pool-preview li > strong, .ink-school-tag, .ink-school-seal, .ink-school-level,
   .ink-main-slot-name, .ink-skill-card-head > strong, .ink-shelf-name, .ink-pull-name,
   .ink-gacha-head h3, .ink-pool-calli, .ink-pool-calli span, .ink-wish-head, .ink-wish-name) {
-  font-family: var(--font-wuxia-title) !important;
+  font-family: var(--game-ui-font) !important;
   font-weight: 700;
   font-synthesis: none;
   letter-spacing: 0.035em;

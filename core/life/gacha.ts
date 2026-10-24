@@ -32,7 +32,7 @@ import {
 export type BannerId = 'jianghu' | 'zhenben';
 
 export const BANNERS: Record<BannerId, { name: string; blurb: string; paidOnly: boolean }> = {
-  jianghu: { name: '江湖秘笈', blurb: '免費／付費玉石都用得 · 江湖武學／書頁', paidOnly: false },
+  jianghu: { name: '江湖秘笈', blurb: '可使用免費及付費測試玉石 · 江湖武學／書頁', paidOnly: false },
   zhenben: { name: '珍本奇功', blurb: '只限付費玉石 · 可出19門珍本奇功／書頁', paidOnly: true },
 };
 

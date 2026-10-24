@@ -46,6 +46,7 @@ import { buildGenealogy } from '@core/life/genealogy';
 import { achievementProgress, listAchievementStatus } from '@core/life/achievements';
 import { allTitles } from '@core/life/titles';
 import { calculateProgress } from '@core/life/progression';
+import { MANUAL_MAX_STARS, MANUAL_STAR_BONUS } from '@data/redesign/testParams';
 import { SPAR_TIER_SCALE, sparHeroBreakdown, sparSavedStage } from '@core/life/sparDuel';
 import { InkStatsPanel } from './InkStatsPanel';
 import { InkInjuryCard } from './InkInjuryCard';
@@ -470,6 +471,7 @@ export function InkPersonPanel({
           <h3>武學</h3>
           {equipNotice && <p className="ink-note ink-loadout-notice" role="status">{equipNotice}</p>}
           <InkMainArts state={state} selected={selectedArt} busy={busy} onEquip={equipArt} onCancel={() => setSelectedArt(null)} />
+          <p className="ink-note">演武台按已得卷次連招，不消耗內力；江湖交手另計耗內及招式效果。藏本升階跨代保留，熟練階位由本代實戰及修煉累積。</p>
           <InkSchoolTabs value={skillSchool} onChange={setSkillSchool} allowAll label="武學流派分類" />
           {skillSchool !== 'all' && !availableArts.some(id => primarySchoolOfSkill(getSkillDef(id)) === skillSchool) && <p className="ink-note">此流派尚無可用武學。</p>}
           {listWeaponMasteries(state).length > 0 && (
@@ -493,8 +495,9 @@ export function InkPersonPanel({
                 return (
                   <li key={id} className={`ink-skill-card ink-skill-card--${kind}${isMain ? ' is-main' : ''}`}>
                     <div className="ink-skill-card-head">
-                      <strong>{skillDisplay(c, id)}</strong>
+                      <strong>{c.skills.includes(id) ? skillDisplay(c, id) : def?.name ?? id}</strong>
                       <span className="ink-skill-badge">{skillKindLabel(kind)}</span>
+                      <span className="ink-skill-badge">{def?.premium ? '珍本' : '江湖'}</span>
                       {isMain ? <span className="ink-main-badge">已裝備</span> : !c.skills.includes(id) ? <span className="ink-main-badge">收藏 · 待習得</span> : null}
                       {stance ? (
                         <span className={`ink-stance-seal ink-stance-seal--${stance}`}>
@@ -525,7 +528,8 @@ export function InkPersonPanel({
                         </span>
                       </p>
                     ) : null}
-                    <p className="ink-skill-fx">{formatSkillEffects(id) || '尚無詳載'}</p>
+                    <p className="ink-note">藏本升階 {manuals?.[id]?.stars ?? 0}／{MANUAL_MAX_STARS}{(manuals?.[id]?.stars ?? 0) > 0 ? ` · 效果＋${Math.round((manuals?.[id]?.stars ?? 0) * MANUAL_STAR_BONUS * 100)}%` : ''}</p>
+                    <p className="ink-skill-fx">原始效果：{formatSkillEffects(id) || '尚無詳載'}</p>
                     <div className="ink-skill-school-row">
                       <span className="ink-main-slot-tags">
                         <InkSkillSchools id={id} related />
@@ -542,7 +546,7 @@ export function InkPersonPanel({
                         </button>
                       )}
                     </div>
-                    {advancePct === null ? (
+                    {!c.skills.includes(id) ? <p className="ink-note ink-skill-progress">尚未習得，選定裝備欄位後開始修煉。</p> : advancePct === null ? (
                       <p className="ink-note ink-skill-progress">{skillAdvanceHint(c, id)}</p>
                     ) : (
                       <div

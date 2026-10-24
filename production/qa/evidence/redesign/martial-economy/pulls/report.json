@@ -1,0 +1,141 @@
+{
+  "base": "http://127.0.0.1:5188/",
+  "productionBuild": true,
+  "actualIOS": false,
+  "renderer": "Chromium SwiftShader software GPU",
+  "dpr": 2.0,
+  "cases": [
+    {
+      "name": "ordinary",
+      "mode": "normal",
+      "mainButtonStyle": {
+        "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+        "weight": "900"
+      },
+      "stats": {
+        "bursting": {
+          "samples": 4,
+          "drawsMedian": 17.0,
+          "frameMsMedian": 308.35000000000036,
+          "frameMsP95": 350,
+          "dprMin": 1.5,
+          "dprMax": 1.75
+        },
+        "charging": {
+          "samples": 3,
+          "drawsMedian": 17,
+          "frameMsMedian": 350,
+          "frameMsP95": 366.60000000000036,
+          "dprMin": 1.75,
+          "dprMax": 2
+        },
+        "idle": {
+          "samples": 3,
+          "drawsMedian": 17,
+          "frameMsMedian": 483.2000000000007,
+          "frameMsP95": 2883.2999999999993,
+          "dprMin": 2,
+          "dprMax": 2
+        },
+        "revealing": {
+          "samples": 7,
+          "drawsMedian": 17,
+          "frameMsMedian": 216.6999999999971,
+          "frameMsP95": 299.8999999999978,
+          "dprMin": 1,
+          "dprMax": 1.5
+        },
+        "settle": {
+          "samples": 80,
+          "drawsMedian": 0.0,
+          "frameMsMedian": 16.700000000000728,
+          "frameMsP95": 116.60000000000218,
+          "dprMin": 2,
+          "dprMax": 2
+        }
+      },
+      "actualJade": {
+        "free": 540,
+        "paidTest": 600
+      },
+      "coreResultMatches": true,
+      "errors": [],
+      "claimTouchTarget": {
+        "y": 738.5,
+        "bottom": 782.5,
+        "height": 44,
+        "width": 100,
+        "hit": true
+      },
+      "resultFont": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+      "repeatedClaimNoDebit": true,
+      "oldContextReleased": true
+    },
+    {
+      "name": "ten",
+      "mode": "normal",
+      "mainButtonStyle": {
+        "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+        "weight": "900"
+      },
+      "stats": {
+        "bursting": {
+          "samples": 8,
+          "drawsMedian": 18.0,
+          "frameMsMedian": 200.04999999999927,
+          "frameMsP95": 266.6000000000022,
+          "dprMin": 1.25,
+          "dprMax": 1.75
+        },
+        "charging": {
+          "samples": 5,
+          "drawsMedian": 18,
+          "frameMsMedian": 300,
+          "frameMsP95": 1433.300000000001,
+          "dprMin": 1.75,
+          "dprMax": 2
+        },
+        "idle": {
+          "samples": 1,
+          "drawsMedian": 20,
+          "frameMsMedian": 16.600000000000364,
+          "frameMsP95": 16.600000000000364,
+          "dprMin": 2,
+          "dprMax": 2
+        },
+        "revealing": {
+          "samples": 27,
+          "drawsMedian": 18,
+          "frameMsMedian": 83.30000000000291,
+          "frameMsP95": 300,
+          "dprMin": 0.8,
+          "dprMax": 1
+        },
+        "settle": {
+          "samples": 71,
+          "drawsMedian": 0,
+          "frameMsMedian": 16.700000000000728,
+          "frameMsP95": 66.70000000000073,
+          "dprMin": 2,
+          "dprMax": 2
+        }
+      },
+      "actualJade": {
+        "free": 600,
+        "paidTest": 0
+      },
+      "coreResultMatches": true,
+      "errors": [],
+      "claimTouchTarget": {
+        "y": 738.5,
+        "bottom": 782.5,
+        "height": 44,
+        "width": 100,
+        "hit": true
+      },
+      "resultFont": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+      "repeatedClaimNoDebit": true,
+      "oldContextReleased": true
+    }
+  ]
+}

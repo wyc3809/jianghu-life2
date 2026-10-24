@@ -1,0 +1,4020 @@
+{
+  "version": "EA0.90.0",
+  "changedEconomy": false,
+  "dataSource": "production core and catalogue; isolated in-memory accounts",
+  "sampling": "Exact rule formulas assume uniform PRNG. Empirical samples use deterministic, spaced global pull counters; no IID/player retention claims.",
+  "constants": {
+    "GACHA_COST_PER_PULL": 60,
+    "GACHA_WISH_PITY": 40,
+    "GACHA_ART_RATE": 0.2,
+    "GACHA_PAGES_PER_PULL": 5,
+    "GACHA_WISH_RATE": 0.025,
+    "GACHA_PREMIUM_RATE": 0.06,
+    "MANUAL_MAX_STARS": 3,
+    "MANUAL_STAR_BONUS": 0.1,
+    "PAGES_PER_DUPLICATE": 20,
+    "PAGES_PER_EXCHANGE": 200,
+    "JADE_PER_MONTH": 3,
+    "JADE_PER_SPAR_SCENE": 30,
+    "JADE_PER_BREAKTHROUGH_BASE": 20,
+    "JADE_PER_BREAKTHROUGH_TIER": 5,
+    "JADE_PER_ACHIEVEMENT": 15,
+    "JADE_PER_MILESTONE": 60,
+    "TEST_PAID_JADE_GRANT": 2400,
+    "SCHOOL_GACHA_POOL_MIN": 6,
+    "SCHOOL_GACHA_POOL_MAX": 8
+  },
+  "counts": {
+    "ordinary": 84,
+    "premium": 19,
+    "pools": 21,
+    "catalogue": 103
+  },
+  "rates": [
+    {
+      "id": "jianghu-xueren-1",
+      "free": 8,
+      "premium": 0,
+      "target": "art_tiger_breath",
+      "noWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0
+      },
+      "withWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0.029375000000000002
+      },
+      "sequentialPulls": 10000,
+      "observed": {
+        "art": 2112,
+        "premium": 0,
+        "wish": 407
+      },
+      "expectedWishWait": 23.713011624456055
+    },
+    {
+      "id": "jianghu-xueren-2",
+      "free": 8,
+      "premium": 0,
+      "target": "art_tiger_breath",
+      "noWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0
+      },
+      "withWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0.029375000000000002
+      },
+      "sequentialPulls": 10000,
+      "observed": {
+        "art": 2158,
+        "premium": 0,
+        "wish": 438
+      },
+      "expectedWishWait": 23.713011624456055
+    },
+    {
+      "id": "jianghu-xueren-3",
+      "free": 6,
+      "premium": 0,
+      "target": "art_tiger_breath",
+      "noWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0
+      },
+      "withWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0.037500000000000006
+      },
+      "sequentialPulls": 10000,
+      "observed": {
+        "art": 2168,
+        "premium": 0,
+        "wish": 487
+      },
+      "expectedWishWait": 20.885729360707924
+    },
+    {
+      "id": "zhenben-xueren-1",
+      "free": 3,
+      "premium": 3,
+      "target": "pr_blood_lotus",
+      "noWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0.012,
+        "wish": 0
+      },
+      "withWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0.0167,
+        "wish": 0.0089
+      },
+      "sequentialPulls": 10000,
+      "observed": {
+        "art": 2184,
+        "premium": 361,
+        "wish": 293
+      },
+      "expectedWishWait": 33.78009077113563
+    },
+    {
+      "id": "jianghu-lianhuan-1",
+      "free": 8,
+      "premium": 0,
+      "target": "基礎吐納",
+      "noWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0
+      },
+      "withWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0.029375000000000002
+      },
+      "sequentialPulls": 10000,
+      "observed": {
+        "art": 2158,
+        "premium": 0,
+        "wish": 406
+      },
+      "expectedWishWait": 23.713011624456055
+    },
+    {
+      "id": "jianghu-lianhuan-2",
+      "free": 8,
+      "premium": 0,
+      "target": "基礎吐納",
+      "noWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0
+      },
+      "withWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0.029375000000000002
+      },
+      "sequentialPulls": 10000,
+      "observed": {
+        "art": 2175,
+        "premium": 0,
+        "wish": 434
+      },
+      "expectedWishWait": 23.713011624456055
+    },
+    {
+      "id": "jianghu-lianhuan-3",
+      "free": 6,
+      "premium": 0,
+      "target": "基礎吐納",
+      "noWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0
+      },
+      "withWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0.037500000000000006
+      },
+      "sequentialPulls": 10000,
+      "observed": {
+        "art": 2097,
+        "premium": 0,
+        "wish": 474
+      },
+      "expectedWishWait": 20.885729360707924
+    },
+    {
+      "id": "zhenben-lianhuan-1",
+      "free": 3,
+      "premium": 4,
+      "target": "pr_nine_chain",
+      "noWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0.012,
+        "wish": 0
+      },
+      "withWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0.0167,
+        "wish": 0.007925
+      },
+      "sequentialPulls": 10000,
+      "observed": {
+        "art": 2128,
+        "premium": 365,
+        "wish": 284
+      },
+      "expectedWishWait": 34.39601163719378
+    },
+    {
+      "id": "jianghu-pojia-1",
+      "free": 8,
+      "premium": 0,
+      "target": "hs_yue_breath",
+      "noWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0
+      },
+      "withWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0.029375000000000002
+      },
+      "sequentialPulls": 10000,
+      "observed": {
+        "art": 2092,
+        "premium": 0,
+        "wish": 407
+      },
+      "expectedWishWait": 23.713011624456055
+    },
+    {
+      "id": "jianghu-pojia-2",
+      "free": 8,
+      "premium": 0,
+      "target": "hs_yue_breath",
+      "noWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0
+      },
+      "withWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0.029375000000000002
+      },
+      "sequentialPulls": 10000,
+      "observed": {
+        "art": 2122,
+        "premium": 0,
+        "wish": 434
+      },
+      "expectedWishWait": 23.713011624456055
+    },
+    {
+      "id": "jianghu-pojia-3",
+      "free": 6,
+      "premium": 0,
+      "target": "hs_yue_breath",
+      "noWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0
+      },
+      "withWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0.037500000000000006
+      },
+      "sequentialPulls": 10000,
+      "observed": {
+        "art": 2076,
+        "premium": 0,
+        "wish": 496
+      },
+      "expectedWishWait": 20.885729360707924
+    },
+    {
+      "id": "zhenben-pojia-1",
+      "free": 4,
+      "premium": 2,
+      "target": "pr_mountain_split",
+      "noWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0.012,
+        "wish": 0
+      },
+      "withWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0.0167,
+        "wish": 0.01085
+      },
+      "sequentialPulls": 10000,
+      "observed": {
+        "art": 2144,
+        "premium": 359,
+        "wish": 299
+      },
+      "expectedWishWait": 32.59193785324987
+    },
+    {
+      "id": "jianghu-zhidi-1",
+      "free": 8,
+      "premium": 0,
+      "target": "art_dao_breath",
+      "noWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0
+      },
+      "withWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0.029375000000000002
+      },
+      "sequentialPulls": 10000,
+      "observed": {
+        "art": 2018,
+        "premium": 0,
+        "wish": 408
+      },
+      "expectedWishWait": 23.713011624456055
+    },
+    {
+      "id": "jianghu-zhidi-2",
+      "free": 6,
+      "premium": 0,
+      "target": "art_dao_breath",
+      "noWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0
+      },
+      "withWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0.037500000000000006
+      },
+      "sequentialPulls": 10000,
+      "observed": {
+        "art": 2140,
+        "premium": 0,
+        "wish": 480
+      },
+      "expectedWishWait": 20.885729360707924
+    },
+    {
+      "id": "zhenben-zhidi-1",
+      "free": 3,
+      "premium": 3,
+      "target": "pr_soul_lock",
+      "noWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0.012,
+        "wish": 0
+      },
+      "withWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0.0167,
+        "wish": 0.0089
+      },
+      "sequentialPulls": 10000,
+      "observed": {
+        "art": 2134,
+        "premium": 374,
+        "wish": 300
+      },
+      "expectedWishWait": 33.78009077113563
+    },
+    {
+      "id": "jianghu-jingang-1",
+      "free": 8,
+      "premium": 0,
+      "target": "art_lake_breath",
+      "noWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0
+      },
+      "withWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0.029375000000000002
+      },
+      "sequentialPulls": 10000,
+      "observed": {
+        "art": 2043,
+        "premium": 0,
+        "wish": 418
+      },
+      "expectedWishWait": 23.713011624456055
+    },
+    {
+      "id": "jianghu-jingang-2",
+      "free": 6,
+      "premium": 0,
+      "target": "art_lake_breath",
+      "noWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0
+      },
+      "withWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0.037500000000000006
+      },
+      "sequentialPulls": 10000,
+      "observed": {
+        "art": 2123,
+        "premium": 0,
+        "wish": 458
+      },
+      "expectedWishWait": 20.885729360707924
+    },
+    {
+      "id": "zhenben-jingang-1",
+      "free": 4,
+      "premium": 2,
+      "target": "pr_vajra_palm",
+      "noWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0.012,
+        "wish": 0
+      },
+      "withWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0.0167,
+        "wish": 0.01085
+      },
+      "sequentialPulls": 10000,
+      "observed": {
+        "art": 2173,
+        "premium": 360,
+        "wish": 308
+      },
+      "expectedWishWait": 32.59193785324987
+    },
+    {
+      "id": "jianghu-qingling-1",
+      "free": 8,
+      "premium": 0,
+      "target": "th_qimen_array",
+      "noWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0
+      },
+      "withWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0.029375000000000002
+      },
+      "sequentialPulls": 10000,
+      "observed": {
+        "art": 2174,
+        "premium": 0,
+        "wish": 416
+      },
+      "expectedWishWait": 23.713011624456055
+    },
+    {
+      "id": "jianghu-qingling-2",
+      "free": 7,
+      "premium": 0,
+      "target": "th_qimen_array",
+      "noWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0
+      },
+      "withWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0,
+        "wish": 0.032857142857142856
+      },
+      "sequentialPulls": 10000,
+      "observed": {
+        "art": 2120,
+        "premium": 0,
+        "wish": 445
+      },
+      "expectedWishWait": 22.436525681260324
+    },
+    {
+      "id": "zhenben-qingling-1",
+      "free": 3,
+      "premium": 5,
+      "target": "pr_floating_blade",
+      "noWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0.012,
+        "wish": 0
+      },
+      "withWish": {
+        "art": 0.2,
+        "pages": 0.8,
+        "premium": 0.0167,
+        "wish": 0.007339999999999999
+      },
+      "sequentialPulls": 10000,
+      "observed": {
+        "art": 2261,
+        "premium": 385,
+        "wish": 284
+      },
+      "expectedWishWait": 34.77278200945995
+    }
+  ],
+  "tenPulls": {
+    "accounts": 1000,
+    "noWish": true,
+    "noArt": 98,
+    "formulaNoArt": 0.10737418240000006,
+    "arts": {
+      "mean": 2.074,
+      "p50": 2,
+      "p90": 4
+    }
+  },
+  "completion": [
+    {
+      "banner": "jianghu",
+      "pool": "jianghu-xueren-1",
+      "target": "art_silk_hand",
+      "accounts": 300,
+      "cap": 2000,
+      "censored": 0,
+      "firstTarget": {
+        "mean": 23.953333333333333,
+        "p50": 26,
+        "p90": 40
+      },
+      "allSeven": {
+        "mean": 426.88,
+        "p50": 398,
+        "p90": 678
+      },
+      "note": "固定抽數位移樣本；並非獨立隨機玩家。完整七卷指收藏，不把學習贈卷一計入。"
+    },
+    {
+      "banner": "zhenben",
+      "pool": "zhenben-xueren-1",
+      "target": "pr_blood_lotus",
+      "accounts": 300,
+      "cap": 2000,
+      "censored": 1,
+      "firstTarget": {
+        "mean": 33.60333333333333,
+        "p50": 40,
+        "p90": 40
+      },
+      "allSeven": {
+        "mean": 594.5919732441472,
+        "p50": 541,
+        "p90": 916
+      },
+      "note": "固定抽數位移樣本；並非獨立隨機玩家。完整七卷指收藏，不把學習贈卷一計入。"
+    }
+  ],
+  "exchange": {
+    "external": "art_river_fist",
+    "firstPurchaseVolumes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "existingPartialVolumes": [
+      2
+    ],
+    "existingCopies": 1,
+    "uiBlocksExisting": true
+  },
+  "growth": {
+    "withVolumes": [
+      {
+        "count": 1,
+        "moves": [
+          "長河崩拳"
+        ],
+        "summedPower": 1.5
+      },
+      {
+        "count": 3,
+        "moves": [
+          "長河崩拳",
+          "逆流",
+          "翻江倒海"
+        ],
+        "summedPower": 4.27
+      },
+      {
+        "count": 7,
+        "moves": [
+          "長河崩拳",
+          "逆流",
+          "翻江倒海",
+          "百川歸海",
+          "怒濤拍岸",
+          "大河落日",
+          "萬里奔流"
+        ],
+        "summedPower": 11.11
+      }
+    ],
+    "modes": [
+      {
+        "type": "base",
+        "spar": {
+          "maxHp": 254,
+          "atk": 49,
+          "critRate": 0.249,
+          "critMul": 1.85,
+          "lifesteal": 0,
+          "killHeal": 0,
+          "guard": 0.024
+        },
+        "sparRoundPower": 1.5,
+        "event": {
+          "name": "審核少俠",
+          "hp": 294,
+          "maxHp": 294,
+          "qi": 234,
+          "maxQi": 234,
+          "attack": 19,
+          "defense": 22,
+          "hitBonus": 0.20500000000000002,
+          "evasion": 0.178,
+          "qiRegen": 0,
+          "blind": 0,
+          "isPlayer": true,
+          "stun": 0,
+          "bleedDamage": 0,
+          "bleedTurns": 0,
+          "defenseMod": 0,
+          "reflect": 0.08,
+          "chargeBonus": 0,
+          "gearPierce": 0.1,
+          "gearLifesteal": 0,
+          "gearBleedChance": 0,
+          "gearSpecials": [],
+          "martial": 8
+        },
+        "huashanSnapshot": {
+          "id": "player",
+          "name": "審核少俠",
+          "martial": 8,
+          "reputation": 0,
+          "age": 16,
+          "maxHealth": 254,
+          "maxQi": 234,
+          "attributes": {
+            "genGu": 34,
+            "wuXing": 47,
+            "fuYuan": 66,
+            "meiLi": 47,
+            "danShi": 34
+          },
+          "skills": [
+            "art_river_fist",
+            "art_iron_body",
+            "qg_broken_bridge"
+          ],
+          "skillRanks": {
+            "art_river_fist": 0,
+            "art_iron_body": 0,
+            "qg_broken_bridge": 0
+          },
+          "gear": [
+            "old-sword",
+            "plain-robe"
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          },
+          "isPlayer": true,
+          "autoArt": "art_river_fist",
+          "autoVols": [
+            1
+          ],
+          "autoArts": [
+            {
+              "id": "art_river_fist",
+              "vols": [
+                1
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "type": "rank3",
+        "spar": {
+          "maxHp": 254,
+          "atk": 49,
+          "critRate": 0.249,
+          "critMul": 1.85,
+          "lifesteal": 0,
+          "killHeal": 0,
+          "guard": 0.024
+        },
+        "sparRoundPower": 1.5,
+        "event": {
+          "name": "審核少俠",
+          "hp": 324,
+          "maxHp": 324,
+          "qi": 234,
+          "maxQi": 234,
+          "attack": 19,
+          "defense": 31,
+          "hitBonus": 0.20500000000000002,
+          "evasion": 0.21550000000000002,
+          "qiRegen": 0,
+          "blind": 0,
+          "isPlayer": true,
+          "stun": 0,
+          "bleedDamage": 0,
+          "bleedTurns": 0,
+          "defenseMod": 0,
+          "reflect": 0.14,
+          "chargeBonus": 0,
+          "gearPierce": 0.1,
+          "gearLifesteal": 0,
+          "gearBleedChance": 0,
+          "gearSpecials": [],
+          "martial": 8
+        },
+        "huashanSnapshot": {
+          "id": "player",
+          "name": "審核少俠",
+          "martial": 8,
+          "reputation": 0,
+          "age": 16,
+          "maxHealth": 254,
+          "maxQi": 234,
+          "attributes": {
+            "genGu": 34,
+            "wuXing": 47,
+            "fuYuan": 66,
+            "meiLi": 47,
+            "danShi": 34
+          },
+          "skills": [
+            "art_river_fist",
+            "art_iron_body",
+            "qg_broken_bridge"
+          ],
+          "skillRanks": {
+            "art_river_fist": 3,
+            "art_iron_body": 3,
+            "qg_broken_bridge": 3
+          },
+          "gear": [
+            "old-sword",
+            "plain-robe"
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          },
+          "isPlayer": true,
+          "autoArt": "art_river_fist",
+          "autoVols": [
+            1
+          ],
+          "autoArts": [
+            {
+              "id": "art_river_fist",
+              "vols": [
+                1
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "type": "stars3",
+        "spar": {
+          "maxHp": 254,
+          "atk": 49,
+          "critRate": 0.249,
+          "critMul": 1.85,
+          "lifesteal": 0,
+          "killHeal": 0,
+          "guard": 0.024
+        },
+        "sparRoundPower": 1.9500000000000002,
+        "event": {
+          "name": "審核少俠",
+          "hp": 306,
+          "maxHp": 306,
+          "qi": 234,
+          "maxQi": 234,
+          "attack": 19,
+          "defense": 26,
+          "hitBonus": 0.20500000000000002,
+          "evasion": 0.193,
+          "qiRegen": 0,
+          "blind": 0,
+          "isPlayer": true,
+          "stun": 0,
+          "bleedDamage": 0,
+          "bleedTurns": 0,
+          "defenseMod": 0,
+          "reflect": 0.10400000000000001,
+          "chargeBonus": 0,
+          "gearPierce": 0.1,
+          "gearLifesteal": 0,
+          "gearBleedChance": 0,
+          "gearSpecials": [],
+          "martial": 8
+        },
+        "huashanSnapshot": {
+          "id": "player",
+          "name": "審核少俠",
+          "martial": 8,
+          "reputation": 0,
+          "age": 16,
+          "maxHealth": 254,
+          "maxQi": 234,
+          "attributes": {
+            "genGu": 34,
+            "wuXing": 47,
+            "fuYuan": 66,
+            "meiLi": 47,
+            "danShi": 34
+          },
+          "skills": [
+            "art_river_fist",
+            "art_iron_body",
+            "qg_broken_bridge"
+          ],
+          "skillRanks": {
+            "art_river_fist": 0,
+            "art_iron_body": 0,
+            "qg_broken_bridge": 0
+          },
+          "gear": [
+            "old-sword",
+            "plain-robe"
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          },
+          "isPlayer": true,
+          "autoArt": "art_river_fist",
+          "autoVols": [
+            1
+          ],
+          "autoArts": [
+            {
+              "id": "art_river_fist",
+              "vols": [
+                1
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "additionalUnequippedLearnedSkills": 10,
+    "cultivationBase": {
+      "base": 0.3,
+      "fromMartial": 0.16,
+      "fromSkills": 1.09,
+      "fromSect": 0,
+      "fromGear": 0,
+      "total": 1.55
+    },
+    "cultivationWithMoreKnown": {
+      "base": 0.3,
+      "fromMartial": 0.16,
+      "fromSkills": 4.280000000000001,
+      "fromSect": 0,
+      "fromGear": 0,
+      "total": 4.740000000000001
+    }
+  },
+  "onlineFirstRound": {
+    "round": 1,
+    "hits": [
+      {
+        "side": "foe",
+        "moveName": "長河崩拳",
+        "skillId": "art_river_fist",
+        "vol": 1,
+        "damage": 0,
+        "playerHp": 294,
+        "foeHp": 294
+      },
+      {
+        "side": "foe",
+        "moveName": "普通攻擊",
+        "damage": 15,
+        "playerHp": 279,
+        "foeHp": 293
+      },
+      {
+        "side": "player",
+        "moveName": "長河崩拳",
+        "skillId": "art_river_fist",
+        "vol": 1,
+        "damage": 24,
+        "playerHp": 277,
+        "foeHp": 269
+      },
+      {
+        "side": "player",
+        "moveName": "普通攻擊",
+        "damage": 0,
+        "playerHp": 277,
+        "foeHp": 269
+      }
+    ]
+  },
+  "externalRankIgnoredOnline": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "matchups": {
+    "seedsPerOrderedPair": 16,
+    "totalFights": 2112,
+    "profiles": [
+      {
+        "key": "xueren-ordinary",
+        "art": "td_no_return"
+      },
+      {
+        "key": "xueren-premium",
+        "art": "pr_blood_lotus"
+      },
+      {
+        "key": "lianhuan-ordinary",
+        "art": "art_wind_chase"
+      },
+      {
+        "key": "lianhuan-premium",
+        "art": "pr_wind_thread"
+      },
+      {
+        "key": "pojia-ordinary",
+        "art": "art_heavy_halberd"
+      },
+      {
+        "key": "pojia-premium",
+        "art": "pr_mountain_split"
+      },
+      {
+        "key": "zhidi-ordinary",
+        "art": "art_meteor_palm"
+      },
+      {
+        "key": "zhidi-premium",
+        "art": "pr_soul_lock"
+      },
+      {
+        "key": "jingang-ordinary",
+        "art": "sl_luohan_fist"
+      },
+      {
+        "key": "jingang-premium",
+        "art": "pr_vajra_palm"
+      },
+      {
+        "key": "qingling-ordinary",
+        "art": "art_drunken_fist"
+      },
+      {
+        "key": "qingling-premium",
+        "art": "pr_floating_blade"
+      }
+    ],
+    "results": [
+      {
+        "a": "xueren-ordinary",
+        "b": "xueren-premium",
+        "fights": 16,
+        "aWins": 4,
+        "bWins": 12,
+        "draws": 0,
+        "meanRounds": 21.5625
+      },
+      {
+        "a": "xueren-ordinary",
+        "b": "lianhuan-ordinary",
+        "fights": 16,
+        "aWins": 0,
+        "bWins": 16,
+        "draws": 0,
+        "meanRounds": 8.25
+      },
+      {
+        "a": "xueren-ordinary",
+        "b": "lianhuan-premium",
+        "fights": 16,
+        "aWins": 0,
+        "bWins": 16,
+        "draws": 0,
+        "meanRounds": 15.1875
+      },
+      {
+        "a": "xueren-ordinary",
+        "b": "pojia-ordinary",
+        "fights": 16,
+        "aWins": 6,
+        "bWins": 10,
+        "draws": 0,
+        "meanRounds": 21.4375
+      },
+      {
+        "a": "xueren-ordinary",
+        "b": "pojia-premium",
+        "fights": 16,
+        "aWins": 7,
+        "bWins": 9,
+        "draws": 0,
+        "meanRounds": 20.8125
+      },
+      {
+        "a": "xueren-ordinary",
+        "b": "zhidi-ordinary",
+        "fights": 16,
+        "aWins": 6,
+        "bWins": 10,
+        "draws": 0,
+        "meanRounds": 22.6875
+      },
+      {
+        "a": "xueren-ordinary",
+        "b": "zhidi-premium",
+        "fights": 16,
+        "aWins": 7,
+        "bWins": 9,
+        "draws": 0,
+        "meanRounds": 23.5
+      },
+      {
+        "a": "xueren-ordinary",
+        "b": "jingang-ordinary",
+        "fights": 16,
+        "aWins": 2,
+        "bWins": 14,
+        "draws": 0,
+        "meanRounds": 19.6875
+      },
+      {
+        "a": "xueren-ordinary",
+        "b": "jingang-premium",
+        "fights": 16,
+        "aWins": 6,
+        "bWins": 10,
+        "draws": 0,
+        "meanRounds": 22.6875
+      },
+      {
+        "a": "xueren-ordinary",
+        "b": "qingling-ordinary",
+        "fights": 16,
+        "aWins": 3,
+        "bWins": 13,
+        "draws": 0,
+        "meanRounds": 20.6875
+      },
+      {
+        "a": "xueren-ordinary",
+        "b": "qingling-premium",
+        "fights": 16,
+        "aWins": 4,
+        "bWins": 12,
+        "draws": 0,
+        "meanRounds": 20.375
+      },
+      {
+        "a": "xueren-premium",
+        "b": "xueren-ordinary",
+        "fights": 16,
+        "aWins": 6,
+        "bWins": 8,
+        "draws": 2,
+        "meanRounds": 21.9375
+      },
+      {
+        "a": "xueren-premium",
+        "b": "lianhuan-ordinary",
+        "fights": 16,
+        "aWins": 0,
+        "bWins": 16,
+        "draws": 0,
+        "meanRounds": 9.5
+      },
+      {
+        "a": "xueren-premium",
+        "b": "lianhuan-premium",
+        "fights": 16,
+        "aWins": 0,
+        "bWins": 16,
+        "draws": 0,
+        "meanRounds": 16.5
+      },
+      {
+        "a": "xueren-premium",
+        "b": "pojia-ordinary",
+        "fights": 16,
+        "aWins": 6,
+        "bWins": 9,
+        "draws": 1,
+        "meanRounds": 21.875
+      },
+      {
+        "a": "xueren-premium",
+        "b": "pojia-premium",
+        "fights": 16,
+        "aWins": 11,
+        "bWins": 5,
+        "draws": 0,
+        "meanRounds": 21.5625
+      },
+      {
+        "a": "xueren-premium",
+        "b": "zhidi-ordinary",
+        "fights": 16,
+        "aWins": 8,
+        "bWins": 7,
+        "draws": 1,
+        "meanRounds": 21.6875
+      },
+      {
+        "a": "xueren-premium",
+        "b": "zhidi-premium",
+        "fights": 16,
+        "aWins": 7,
+        "bWins": 9,
+        "draws": 0,
+        "meanRounds": 24.1875
+      },
+      {
+        "a": "xueren-premium",
+        "b": "jingang-ordinary",
+        "fights": 16,
+        "aWins": 4,
+        "bWins": 12,
+        "draws": 0,
+        "meanRounds": 20.0625
+      },
+      {
+        "a": "xueren-premium",
+        "b": "jingang-premium",
+        "fights": 16,
+        "aWins": 6,
+        "bWins": 10,
+        "draws": 0,
+        "meanRounds": 22.625
+      },
+      {
+        "a": "xueren-premium",
+        "b": "qingling-ordinary",
+        "fights": 16,
+        "aWins": 6,
+        "bWins": 10,
+        "draws": 0,
+        "meanRounds": 21.25
+      },
+      {
+        "a": "xueren-premium",
+        "b": "qingling-premium",
+        "fights": 16,
+        "aWins": 8,
+        "bWins": 8,
+        "draws": 0,
+        "meanRounds": 21
+      },
+      {
+        "a": "lianhuan-ordinary",
+        "b": "xueren-ordinary",
+        "fights": 16,
+        "aWins": 16,
+        "bWins": 0,
+        "draws": 0,
+        "meanRounds": 6.8125
+      },
+      {
+        "a": "lianhuan-ordinary",
+        "b": "xueren-premium",
+        "fights": 16,
+        "aWins": 16,
+        "bWins": 0,
+        "draws": 0,
+        "meanRounds": 7.75
+      },
+      {
+        "a": "lianhuan-ordinary",
+        "b": "lianhuan-premium",
+        "fights": 16,
+        "aWins": 15,
+        "bWins": 1,
+        "draws": 0,
+        "meanRounds": 8.8125
+      },
+      {
+        "a": "lianhuan-ordinary",
+        "b": "pojia-ordinary",
+        "fights": 16,
+        "aWins": 16,
+        "bWins": 0,
+        "draws": 0,
+        "meanRounds": 7.4375
+      },
+      {
+        "a": "lianhuan-ordinary",
+        "b": "pojia-premium",
+        "fights": 16,
+        "aWins": 16,
+        "bWins": 0,
+        "draws": 0,
+        "meanRounds": 7.625
+      },
+      {
+        "a": "lianhuan-ordinary",
+        "b": "zhidi-ordinary",
+        "fights": 16,
+        "aWins": 16,
+        "bWins": 0,
+        "draws": 0,
+        "meanRounds": 7.5625
+      },
+      {
+        "a": "lianhuan-ordinary",
+        "b": "zhidi-premium",
+        "fights": 16,
+        "aWins": 15,
+        "bWins": 1,
+        "draws": 0,
+        "meanRounds": 15.625
+      },
+      {
+        "a": "lianhuan-ordinary",
+        "b": "jingang-ordinary",
+        "fights": 16,
+        "aWins": 16,
+        "bWins": 0,
+        "draws": 0,
+        "meanRounds": 7.375
+      },
+      {
+        "a": "lianhuan-ordinary",
+        "b": "jingang-premium",
+        "fights": 16,
+        "aWins": 16,
+        "bWins": 0,
+        "draws": 0,
+        "meanRounds": 10.75
+      },
+      {
+        "a": "lianhuan-ordinary",
+        "b": "qingling-ordinary",
+        "fights": 16,
+        "aWins": 16,
+        "bWins": 0,
+        "draws": 0,
+        "meanRounds": 9
+      },
+      {
+        "a": "lianhuan-ordinary",
+        "b": "qingling-premium",
+        "fights": 16,
+        "aWins": 16,
+        "bWins": 0,
+        "draws": 0,
+        "meanRounds": 9.375
+      },
+      {
+        "a": "lianhuan-premium",
+        "b": "xueren-ordinary",
+        "fights": 16,
+        "aWins": 16,
+        "bWins": 0,
+        "draws": 0,
+        "meanRounds": 15.625
+      },
+      {
+        "a": "lianhuan-premium",
+        "b": "xueren-premium",
+        "fights": 16,
+        "aWins": 15,
+        "bWins": 1,
+        "draws": 0,
+        "meanRounds": 16.5
+      },
+      {
+        "a": "lianhuan-premium",
+        "b": "lianhuan-ordinary",
+        "fights": 16,
+        "aWins": 1,
+        "bWins": 15,
+        "draws": 0,
+        "meanRounds": 8.4375
+      },
+      {
+        "a": "lianhuan-premium",
+        "b": "pojia-ordinary",
+        "fights": 16,
+        "aWins": 16,
+        "bWins": 0,
+        "draws": 0,
+        "meanRounds": 15.6875
+      },
+      {
+        "a": "lianhuan-premium",
+        "b": "pojia-premium",
+        "fights": 16,
+        "aWins": 16,
+        "bWins": 0,
+        "draws": 0,
+        "meanRounds": 15.5625
+      },
+      {
+        "a": "lianhuan-premium",
+        "b": "zhidi-ordinary",
+        "fights": 16,
+        "aWins": 16,
+        "bWins": 0,
+        "draws": 0,
+        "meanRounds": 16.375
+      },
+      {
+        "a": "lianhuan-premium",
+        "b": "zhidi-premium",
+        "fights": 16,
+        "aWins": 15,
+        "bWins": 1,
+        "draws": 0,
+        "meanRounds": 21.0625
+      },
+      {
+        "a": "lianhuan-premium",
+        "b": "jingang-ordinary",
+        "fights": 16,
+        "aWins": 13,
+        "bWins": 3,
+        "draws": 0,
+        "meanRounds": 16
+      },
+      {
+        "a": "lianhuan-premium",
+        "b": "jingang-premium",
+        "fights": 16,
+        "aWins": 14,
+        "bWins": 2,
+        "draws": 0,
+        "meanRounds": 18.4375
+      },
+      {
+        "a": "lianhuan-premium",
+        "b": "qingling-ordinary",
+        "fights": 16,
+        "aWins": 12,
+        "bWins": 3,
+        "draws": 1,
+        "meanRounds": 16.9375
+      },
+      {
+        "a": "lianhuan-premium",
+        "b": "qingling-premium",
+        "fights": 16,
+        "aWins": 9,
+        "bWins": 7,
+        "draws": 0,
+        "meanRounds": 17.6875
+      },
+      {
+        "a": "pojia-ordinary",
+        "b": "xueren-ordinary",
+        "fights": 16,
+        "aWins": 7,
+        "bWins": 9,
+        "draws": 0,
+        "meanRounds": 21.3125
+      },
+      {
+        "a": "pojia-ordinary",
+        "b": "xueren-premium",
+        "fights": 16,
+        "aWins": 4,
+        "bWins": 12,
+        "draws": 0,
+        "meanRounds": 21.0625
+      },
+      {
+        "a": "pojia-ordinary",
+        "b": "lianhuan-ordinary",
+        "fights": 16,
+        "aWins": 0,
+        "bWins": 16,
+        "draws": 0,
+        "meanRounds": 8.875
+      },
+      {
+        "a": "pojia-ordinary",
+        "b": "lianhuan-premium",
+        "fights": 16,
+        "aWins": 0,
+        "bWins": 15,
+        "draws": 1,
+        "meanRounds": 16.375
+      },
+      {
+        "a": "pojia-ordinary",
+        "b": "pojia-premium",
+        "fights": 16,
+        "aWins": 8,
+        "bWins": 7,
+        "draws": 1,
+        "meanRounds": 21.6875
+      },
+      {
+        "a": "pojia-ordinary",
+        "b": "zhidi-ordinary",
+        "fights": 16,
+        "aWins": 11,
+        "bWins": 5,
+        "draws": 0,
+        "meanRounds": 22.5
+      },
+      {
+        "a": "pojia-ordinary",
+        "b": "zhidi-premium",
+        "fights": 16,
+        "aWins": 5,
+        "bWins": 11,
+        "draws": 0,
+        "meanRounds": 24.5625
+      },
+      {
+        "a": "pojia-ordinary",
+        "b": "jingang-ordinary",
+        "fights": 16,
+        "aWins": 4,
+        "bWins": 12,
+        "draws": 0,
+        "meanRounds": 19.75
+      },
+      {
+        "a": "pojia-ordinary",
+        "b": "jingang-premium",
+        "fights": 16,
+        "aWins": 5,
+        "bWins": 11,
+        "draws": 0,
+        "meanRounds": 23.8125
+      },
+      {
+        "a": "pojia-ordinary",
+        "b": "qingling-ordinary",
+        "fights": 16,
+        "aWins": 3,
+        "bWins": 13,
+        "draws": 0,
+        "meanRounds": 20.5625
+      },
+      {
+        "a": "pojia-ordinary",
+        "b": "qingling-premium",
+        "fights": 16,
+        "aWins": 1,
+        "bWins": 15,
+        "draws": 0,
+        "meanRounds": 20.375
+      },
+      {
+        "a": "pojia-premium",
+        "b": "xueren-ordinary",
+        "fights": 16,
+        "aWins": 9,
+        "bWins": 7,
+        "draws": 0,
+        "meanRounds": 22.3125
+      },
+      {
+        "a": "pojia-premium",
+        "b": "xueren-premium",
+        "fights": 16,
+        "aWins": 4,
+        "bWins": 11,
+        "draws": 1,
+        "meanRounds": 21.1875
+      },
+      {
+        "a": "pojia-premium",
+        "b": "lianhuan-ordinary",
+        "fights": 16,
+        "aWins": 0,
+        "bWins": 16,
+        "draws": 0,
+        "meanRounds": 8.6875
+      },
+      {
+        "a": "pojia-premium",
+        "b": "lianhuan-premium",
+        "fights": 16,
+        "aWins": 0,
+        "bWins": 16,
+        "draws": 0,
+        "meanRounds": 15.125
+      },
+      {
+        "a": "pojia-premium",
+        "b": "pojia-ordinary",
+        "fights": 16,
+        "aWins": 9,
+        "bWins": 7,
+        "draws": 0,
+        "meanRounds": 20.75
+      },
+      {
+        "a": "pojia-premium",
+        "b": "zhidi-ordinary",
+        "fights": 16,
+        "aWins": 7,
+        "bWins": 9,
+        "draws": 0,
+        "meanRounds": 22.5
+      },
+      {
+        "a": "pojia-premium",
+        "b": "zhidi-premium",
+        "fights": 16,
+        "aWins": 6,
+        "bWins": 10,
+        "draws": 0,
+        "meanRounds": 23.375
+      },
+      {
+        "a": "pojia-premium",
+        "b": "jingang-ordinary",
+        "fights": 16,
+        "aWins": 2,
+        "bWins": 14,
+        "draws": 0,
+        "meanRounds": 19.9375
+      },
+      {
+        "a": "pojia-premium",
+        "b": "jingang-premium",
+        "fights": 16,
+        "aWins": 6,
+        "bWins": 9,
+        "draws": 1,
+        "meanRounds": 23.5
+      },
+      {
+        "a": "pojia-premium",
+        "b": "qingling-ordinary",
+        "fights": 16,
+        "aWins": 1,
+        "bWins": 15,
+        "draws": 0,
+        "meanRounds": 19.5625
+      },
+      {
+        "a": "pojia-premium",
+        "b": "qingling-premium",
+        "fights": 16,
+        "aWins": 4,
+        "bWins": 12,
+        "draws": 0,
+        "meanRounds": 20.4375
+      },
+      {
+        "a": "zhidi-ordinary",
+        "b": "xueren-ordinary",
+        "fights": 16,
+        "aWins": 9,
+        "bWins": 7,
+        "draws": 0,
+        "meanRounds": 22.25
+      },
+      {
+        "a": "zhidi-ordinary",
+        "b": "xueren-premium",
+        "fights": 16,
+        "aWins": 5,
+        "bWins": 11,
+        "draws": 0,
+        "meanRounds": 22.5625
+      },
+      {
+        "a": "zhidi-ordinary",
+        "b": "lianhuan-ordinary",
+        "fights": 16,
+        "aWins": 0,
+        "bWins": 16,
+        "draws": 0,
+        "meanRounds": 9.5
+      },
+      {
+        "a": "zhidi-ordinary",
+        "b": "lianhuan-premium",
+        "fights": 16,
+        "aWins": 0,
+        "bWins": 16,
+        "draws": 0,
+        "meanRounds": 16.625
+      },
+      {
+        "a": "zhidi-ordinary",
+        "b": "pojia-ordinary",
+        "fights": 16,
+        "aWins": 7,
+        "bWins": 9,
+        "draws": 0,
+        "meanRounds": 22.25
+      },
+      {
+        "a": "zhidi-ordinary",
+        "b": "pojia-premium",
+        "fights": 16,
+        "aWins": 12,
+        "bWins": 3,
+        "draws": 1,
+        "meanRounds": 22.9375
+      },
+      {
+        "a": "zhidi-ordinary",
+        "b": "zhidi-premium",
+        "fights": 16,
+        "aWins": 4,
+        "bWins": 12,
+        "draws": 0,
+        "meanRounds": 25.8125
+      },
+      {
+        "a": "zhidi-ordinary",
+        "b": "jingang-ordinary",
+        "fights": 16,
+        "aWins": 1,
+        "bWins": 15,
+        "draws": 0,
+        "meanRounds": 20.5625
+      },
+      {
+        "a": "zhidi-ordinary",
+        "b": "jingang-premium",
+        "fights": 16,
+        "aWins": 5,
+        "bWins": 11,
+        "draws": 0,
+        "meanRounds": 24.1875
+      },
+      {
+        "a": "zhidi-ordinary",
+        "b": "qingling-ordinary",
+        "fights": 16,
+        "aWins": 1,
+        "bWins": 15,
+        "draws": 0,
+        "meanRounds": 21.4375
+      },
+      {
+        "a": "zhidi-ordinary",
+        "b": "qingling-premium",
+        "fights": 16,
+        "aWins": 2,
+        "bWins": 14,
+        "draws": 0,
+        "meanRounds": 21.0625
+      },
+      {
+        "a": "zhidi-premium",
+        "b": "xueren-ordinary",
+        "fights": 16,
+        "aWins": 7,
+        "bWins": 8,
+        "draws": 1,
+        "meanRounds": 23.25
+      },
+      {
+        "a": "zhidi-premium",
+        "b": "xueren-premium",
+        "fights": 16,
+        "aWins": 6,
+        "bWins": 10,
+        "draws": 0,
+        "meanRounds": 22.75
+      },
+      {
+        "a": "zhidi-premium",
+        "b": "lianhuan-ordinary",
+        "fights": 16,
+        "aWins": 1,
+        "bWins": 15,
+        "draws": 0,
+        "meanRounds": 15.8125
+      },
+      {
+        "a": "zhidi-premium",
+        "b": "lianhuan-premium",
+        "fights": 16,
+        "aWins": 3,
+        "bWins": 13,
+        "draws": 0,
+        "meanRounds": 19.9375
+      },
+      {
+        "a": "zhidi-premium",
+        "b": "pojia-ordinary",
+        "fights": 16,
+        "aWins": 8,
+        "bWins": 8,
+        "draws": 0,
+        "meanRounds": 23.9375
+      },
+      {
+        "a": "zhidi-premium",
+        "b": "pojia-premium",
+        "fights": 16,
+        "aWins": 10,
+        "bWins": 6,
+        "draws": 0,
+        "meanRounds": 23.4375
+      },
+      {
+        "a": "zhidi-premium",
+        "b": "zhidi-ordinary",
+        "fights": 16,
+        "aWins": 8,
+        "bWins": 8,
+        "draws": 0,
+        "meanRounds": 24.75
+      },
+      {
+        "a": "zhidi-premium",
+        "b": "jingang-ordinary",
+        "fights": 16,
+        "aWins": 7,
+        "bWins": 9,
+        "draws": 0,
+        "meanRounds": 23.875
+      },
+      {
+        "a": "zhidi-premium",
+        "b": "jingang-premium",
+        "fights": 16,
+        "aWins": 7,
+        "bWins": 8,
+        "draws": 1,
+        "meanRounds": 25.625
+      },
+      {
+        "a": "zhidi-premium",
+        "b": "qingling-ordinary",
+        "fights": 16,
+        "aWins": 5,
+        "bWins": 11,
+        "draws": 0,
+        "meanRounds": 24.6875
+      },
+      {
+        "a": "zhidi-premium",
+        "b": "qingling-premium",
+        "fights": 16,
+        "aWins": 6,
+        "bWins": 9,
+        "draws": 1,
+        "meanRounds": 25
+      },
+      {
+        "a": "jingang-ordinary",
+        "b": "xueren-ordinary",
+        "fights": 16,
+        "aWins": 14,
+        "bWins": 2,
+        "draws": 0,
+        "meanRounds": 19.5625
+      },
+      {
+        "a": "jingang-ordinary",
+        "b": "xueren-premium",
+        "fights": 16,
+        "aWins": 11,
+        "bWins": 5,
+        "draws": 0,
+        "meanRounds": 20.0625
+      },
+      {
+        "a": "jingang-ordinary",
+        "b": "lianhuan-ordinary",
+        "fights": 16,
+        "aWins": 0,
+        "bWins": 16,
+        "draws": 0,
+        "meanRounds": 9.6875
+      },
+      {
+        "a": "jingang-ordinary",
+        "b": "lianhuan-premium",
+        "fights": 16,
+        "aWins": 3,
+        "bWins": 13,
+        "draws": 0,
+        "meanRounds": 15.375
+      },
+      {
+        "a": "jingang-ordinary",
+        "b": "pojia-ordinary",
+        "fights": 16,
+        "aWins": 13,
+        "bWins": 3,
+        "draws": 0,
+        "meanRounds": 19.875
+      },
+      {
+        "a": "jingang-ordinary",
+        "b": "pojia-premium",
+        "fights": 16,
+        "aWins": 14,
+        "bWins": 2,
+        "draws": 0,
+        "meanRounds": 20
+      },
+      {
+        "a": "jingang-ordinary",
+        "b": "zhidi-ordinary",
+        "fights": 16,
+        "aWins": 14,
+        "bWins": 1,
+        "draws": 1,
+        "meanRounds": 20.625
+      },
+      {
+        "a": "jingang-ordinary",
+        "b": "zhidi-premium",
+        "fights": 16,
+        "aWins": 7,
+        "bWins": 9,
+        "draws": 0,
+        "meanRounds": 23.5625
+      },
+      {
+        "a": "jingang-ordinary",
+        "b": "jingang-premium",
+        "fights": 16,
+        "aWins": 9,
+        "bWins": 7,
+        "draws": 0,
+        "meanRounds": 21.5
+      },
+      {
+        "a": "jingang-ordinary",
+        "b": "qingling-ordinary",
+        "fights": 16,
+        "aWins": 4,
+        "bWins": 11,
+        "draws": 1,
+        "meanRounds": 19.6875
+      },
+      {
+        "a": "jingang-ordinary",
+        "b": "qingling-premium",
+        "fights": 16,
+        "aWins": 5,
+        "bWins": 11,
+        "draws": 0,
+        "meanRounds": 19.4375
+      },
+      {
+        "a": "jingang-premium",
+        "b": "xueren-ordinary",
+        "fights": 16,
+        "aWins": 10,
+        "bWins": 6,
+        "draws": 0,
+        "meanRounds": 22.75
+      },
+      {
+        "a": "jingang-premium",
+        "b": "xueren-premium",
+        "fights": 16,
+        "aWins": 10,
+        "bWins": 6,
+        "draws": 0,
+        "meanRounds": 23.4375
+      },
+      {
+        "a": "jingang-premium",
+        "b": "lianhuan-ordinary",
+        "fights": 16,
+        "aWins": 0,
+        "bWins": 16,
+        "draws": 0,
+        "meanRounds": 13.125
+      },
+      {
+        "a": "jingang-premium",
+        "b": "lianhuan-premium",
+        "fights": 16,
+        "aWins": 4,
+        "bWins": 12,
+        "draws": 0,
+        "meanRounds": 19.375
+      },
+      {
+        "a": "jingang-premium",
+        "b": "pojia-ordinary",
+        "fights": 16,
+        "aWins": 11,
+        "bWins": 5,
+        "draws": 0,
+        "meanRounds": 24.1875
+      },
+      {
+        "a": "jingang-premium",
+        "b": "pojia-premium",
+        "fights": 16,
+        "aWins": 11,
+        "bWins": 5,
+        "draws": 0,
+        "meanRounds": 23.4375
+      },
+      {
+        "a": "jingang-premium",
+        "b": "zhidi-ordinary",
+        "fights": 16,
+        "aWins": 14,
+        "bWins": 2,
+        "draws": 0,
+        "meanRounds": 24.25
+      },
+      {
+        "a": "jingang-premium",
+        "b": "zhidi-premium",
+        "fights": 16,
+        "aWins": 8,
+        "bWins": 6,
+        "draws": 2,
+        "meanRounds": 26.125
+      },
+      {
+        "a": "jingang-premium",
+        "b": "jingang-ordinary",
+        "fights": 16,
+        "aWins": 8,
+        "bWins": 7,
+        "draws": 1,
+        "meanRounds": 22
+      },
+      {
+        "a": "jingang-premium",
+        "b": "qingling-ordinary",
+        "fights": 16,
+        "aWins": 6,
+        "bWins": 10,
+        "draws": 0,
+        "meanRounds": 22.5
+      },
+      {
+        "a": "jingang-premium",
+        "b": "qingling-premium",
+        "fights": 16,
+        "aWins": 7,
+        "bWins": 9,
+        "draws": 0,
+        "meanRounds": 23.5625
+      },
+      {
+        "a": "qingling-ordinary",
+        "b": "xueren-ordinary",
+        "fights": 16,
+        "aWins": 14,
+        "bWins": 2,
+        "draws": 0,
+        "meanRounds": 19.9375
+      },
+      {
+        "a": "qingling-ordinary",
+        "b": "xueren-premium",
+        "fights": 16,
+        "aWins": 13,
+        "bWins": 3,
+        "draws": 0,
+        "meanRounds": 20.3125
+      },
+      {
+        "a": "qingling-ordinary",
+        "b": "lianhuan-ordinary",
+        "fights": 16,
+        "aWins": 0,
+        "bWins": 16,
+        "draws": 0,
+        "meanRounds": 10.25
+      },
+      {
+        "a": "qingling-ordinary",
+        "b": "lianhuan-premium",
+        "fights": 16,
+        "aWins": 5,
+        "bWins": 11,
+        "draws": 0,
+        "meanRounds": 18
+      },
+      {
+        "a": "qingling-ordinary",
+        "b": "pojia-ordinary",
+        "fights": 16,
+        "aWins": 14,
+        "bWins": 2,
+        "draws": 0,
+        "meanRounds": 20.5625
+      },
+      {
+        "a": "qingling-ordinary",
+        "b": "pojia-premium",
+        "fights": 16,
+        "aWins": 13,
+        "bWins": 3,
+        "draws": 0,
+        "meanRounds": 20.625
+      },
+      {
+        "a": "qingling-ordinary",
+        "b": "zhidi-ordinary",
+        "fights": 16,
+        "aWins": 14,
+        "bWins": 2,
+        "draws": 0,
+        "meanRounds": 19.875
+      },
+      {
+        "a": "qingling-ordinary",
+        "b": "zhidi-premium",
+        "fights": 16,
+        "aWins": 11,
+        "bWins": 5,
+        "draws": 0,
+        "meanRounds": 24.5625
+      },
+      {
+        "a": "qingling-ordinary",
+        "b": "jingang-ordinary",
+        "fights": 16,
+        "aWins": 9,
+        "bWins": 7,
+        "draws": 0,
+        "meanRounds": 20.25
+      },
+      {
+        "a": "qingling-ordinary",
+        "b": "jingang-premium",
+        "fights": 16,
+        "aWins": 13,
+        "bWins": 3,
+        "draws": 0,
+        "meanRounds": 22.625
+      },
+      {
+        "a": "qingling-ordinary",
+        "b": "qingling-premium",
+        "fights": 16,
+        "aWins": 6,
+        "bWins": 10,
+        "draws": 0,
+        "meanRounds": 20.5
+      },
+      {
+        "a": "qingling-premium",
+        "b": "xueren-ordinary",
+        "fights": 16,
+        "aWins": 13,
+        "bWins": 2,
+        "draws": 1,
+        "meanRounds": 20.5
+      },
+      {
+        "a": "qingling-premium",
+        "b": "xueren-premium",
+        "fights": 16,
+        "aWins": 12,
+        "bWins": 4,
+        "draws": 0,
+        "meanRounds": 20.5625
+      },
+      {
+        "a": "qingling-premium",
+        "b": "lianhuan-ordinary",
+        "fights": 16,
+        "aWins": 0,
+        "bWins": 16,
+        "draws": 0,
+        "meanRounds": 9.8125
+      },
+      {
+        "a": "qingling-premium",
+        "b": "lianhuan-premium",
+        "fights": 16,
+        "aWins": 7,
+        "bWins": 9,
+        "draws": 0,
+        "meanRounds": 16.6875
+      },
+      {
+        "a": "qingling-premium",
+        "b": "pojia-ordinary",
+        "fights": 16,
+        "aWins": 11,
+        "bWins": 5,
+        "draws": 0,
+        "meanRounds": 20.25
+      },
+      {
+        "a": "qingling-premium",
+        "b": "pojia-premium",
+        "fights": 16,
+        "aWins": 13,
+        "bWins": 3,
+        "draws": 0,
+        "meanRounds": 21.0625
+      },
+      {
+        "a": "qingling-premium",
+        "b": "zhidi-ordinary",
+        "fights": 16,
+        "aWins": 14,
+        "bWins": 2,
+        "draws": 0,
+        "meanRounds": 20.1875
+      },
+      {
+        "a": "qingling-premium",
+        "b": "zhidi-premium",
+        "fights": 16,
+        "aWins": 12,
+        "bWins": 3,
+        "draws": 1,
+        "meanRounds": 24.9375
+      },
+      {
+        "a": "qingling-premium",
+        "b": "jingang-ordinary",
+        "fights": 16,
+        "aWins": 9,
+        "bWins": 7,
+        "draws": 0,
+        "meanRounds": 20.25
+      },
+      {
+        "a": "qingling-premium",
+        "b": "jingang-premium",
+        "fights": 16,
+        "aWins": 11,
+        "bWins": 5,
+        "draws": 0,
+        "meanRounds": 23.5
+      },
+      {
+        "a": "qingling-premium",
+        "b": "qingling-ordinary",
+        "fights": 16,
+        "aWins": 7,
+        "bWins": 7,
+        "draws": 2,
+        "meanRounds": 21.125
+      }
+    ],
+    "limitation": "三卷、相同內功身法、無兵器、每派按基礎威力選一門；非全配搭、非玩家勝率、非服務端驗證。"
+  },
+  "testGrantAfterTwoClaims": {
+    "free": 0,
+    "paidTest": 4800
+  },
+  "catalogue": [
+    {
+      "id": "基礎吐納",
+      "name": "基礎吐納",
+      "kind": "internal",
+      "premium": false,
+      "poolIds": [
+        "jianghu-lianhuan-1",
+        "jianghu-lianhuan-2",
+        "jianghu-lianhuan-3",
+        "zhenben-lianhuan-1"
+      ],
+      "passive": {
+        "maxQi": 10,
+        "qiRegen": 4
+      }
+    },
+    {
+      "id": "art_river_fist",
+      "name": "長河拳",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-pojia-1",
+        "zhenben-pojia-1"
+      ],
+      "move": {
+        "id": "mv_river_fist",
+        "name": "長河崩拳",
+        "qiCost": 41,
+        "power": 1.5,
+        "description": "拳勢如河，一往無前。",
+        "pierce": 0.08,
+        "cooldown": 1
+      }
+    },
+    {
+      "id": "art_stone_palm",
+      "name": "裂石殘掌",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-pojia-1",
+        "zhenben-pojia-1"
+      ],
+      "move": {
+        "id": "mv_stone_palm",
+        "name": "裂石掌",
+        "qiCost": 43,
+        "power": 1.55,
+        "description": "掌力沉猛，專破硬架。",
+        "pierce": 0.2,
+        "defenseBreak": 3
+      }
+    },
+    {
+      "id": "art_bridge_step",
+      "name": "斷橋步",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-qingling-1",
+        "zhenben-qingling-1"
+      ],
+      "move": {
+        "id": "mv_bridge_step",
+        "name": "斷橋踏",
+        "qiCost": 29,
+        "power": 1.15,
+        "hitBonus": 0.12,
+        "qiSelf": 10,
+        "cooldown": 2,
+        "description": "步法欺近，一踏即中，借勢回神。"
+      }
+    },
+    {
+      "id": "art_tomb_sword",
+      "name": "無銘劍意",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-pojia-1"
+      ],
+      "move": {
+        "id": "mv_tomb_sword",
+        "name": "無銘一刺",
+        "qiCost": 53,
+        "power": 1.7,
+        "hitBonus": 0.05,
+        "pierce": 0.35,
+        "description": "劍意無形，專取破綻。"
+      }
+    },
+    {
+      "id": "art_lake_breath",
+      "name": "寒湖吐納",
+      "kind": "internal",
+      "premium": false,
+      "poolIds": [
+        "jianghu-jingang-1",
+        "jianghu-jingang-2",
+        "zhenben-jingang-1"
+      ],
+      "passive": {
+        "maxQi": 25,
+        "qiRegen": 8,
+        "defense": 4
+      }
+    },
+    {
+      "id": "art_rain_sword",
+      "name": "聽雨劍意",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-lianhuan-1",
+        "jianghu-lianhuan-3",
+        "zhenben-lianhuan-1"
+      ],
+      "move": {
+        "id": "mv_rain_sword",
+        "name": "聽雨連刺",
+        "qiCost": 44,
+        "power": 0.75,
+        "hitBonus": 0.08,
+        "multiHit": 3,
+        "description": "劍如細雨，連點不絕。"
+      }
+    },
+    {
+      "id": "art_nine_shadow",
+      "name": "九影迷踪步",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-zhidi-1",
+        "jianghu-zhidi-2",
+        "zhenben-zhidi-1"
+      ],
+      "move": {
+        "id": "mv_nine_shadow",
+        "name": "九影閃擊",
+        "qiCost": 34,
+        "power": 1.2,
+        "hitBonus": 0.18,
+        "applyBlind": 0.15,
+        "description": "身形一晃，敵眸難追。"
+      }
+    },
+    {
+      "id": "art_cold_palm",
+      "name": "寒霜掌",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-zhidi-1",
+        "jianghu-zhidi-2",
+        "zhenben-zhidi-1"
+      ],
+      "move": {
+        "id": "mv_cold_palm",
+        "name": "寒霜掌",
+        "qiCost": 48,
+        "power": 1.45,
+        "qiDrain": 14,
+        "description": "掌風帶寒，傷人內息。"
+      }
+    },
+    {
+      "id": "art_iron_body",
+      "name": "鐵布衫",
+      "kind": "internal",
+      "premium": false,
+      "poolIds": [
+        "jianghu-jingang-1",
+        "jianghu-jingang-2",
+        "zhenben-jingang-1"
+      ],
+      "passive": {
+        "defense": 12,
+        "maxHp": 40,
+        "reflect": 0.08
+      }
+    },
+    {
+      "id": "art_moon_sword",
+      "name": "弄月劍法",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-pojia-1"
+      ],
+      "move": {
+        "id": "mv_moon_sword",
+        "name": "弄月一劍",
+        "qiCost": 36,
+        "power": 1.4,
+        "hitBonus": 0.06,
+        "pierce": 0.12,
+        "description": "劍光如月，弧線取敵。"
+      }
+    },
+    {
+      "id": "art_void_breath",
+      "name": "空冥吐納",
+      "kind": "internal",
+      "premium": false,
+      "poolIds": [
+        "jianghu-lianhuan-1"
+      ],
+      "passive": {
+        "maxQi": 35,
+        "qiRegen": 10,
+        "attack": 3
+      }
+    },
+    {
+      "id": "art_silk_hand",
+      "name": "柔絲手",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-xueren-1",
+        "jianghu-xueren-3",
+        "zhenben-xueren-1"
+      ],
+      "move": {
+        "id": "mv_silk_hand",
+        "name": "柔絲鎖脈",
+        "qiCost": 31,
+        "power": 1.1,
+        "hitBonus": 0.1,
+        "healSelf": 8,
+        "lifesteal": 0.15,
+        "cooldown": 2,
+        "description": "借力卸力，順勢回氣。"
+      }
+    },
+    {
+      "id": "art_thunder_blade",
+      "name": "驚雷刀",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-xueren-1",
+        "jianghu-xueren-3",
+        "zhenben-xueren-1"
+      ],
+      "move": {
+        "id": "mv_thunder_blade",
+        "name": "驚雷一刀",
+        "qiCost": 58,
+        "power": 1.85,
+        "bleedChance": 0.35,
+        "bleedDamage": 6,
+        "bleedTurns": 2,
+        "description": "刀出如雷，勢不可擋。"
+      }
+    },
+    {
+      "id": "art_wind_chase",
+      "name": "追風腿",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-lianhuan-1"
+      ],
+      "move": {
+        "id": "mv_wind_chase",
+        "name": "追風三連",
+        "qiCost": 38,
+        "power": 1.35,
+        "hitBonus": 0.1,
+        "multiHit": 2,
+        "description": "腿影連環，逼敵退守。"
+      }
+    },
+    {
+      "id": "art_hook_silk",
+      "name": "鐵線鉤法",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-pojia-1"
+      ],
+      "move": {
+        "id": "mv_hook_silk",
+        "name": "鐵線鎖刃",
+        "qiCost": 43,
+        "power": 1.42,
+        "pierce": 0.15,
+        "defenseBreak": 4,
+        "description": "鉤尖一繞，敵刃難發。"
+      }
+    },
+    {
+      "id": "art_meteor_palm",
+      "name": "流星掌",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-zhidi-1",
+        "jianghu-zhidi-2"
+      ],
+      "move": {
+        "id": "mv_meteor_palm",
+        "name": "流星墜",
+        "qiCost": 46,
+        "power": 1.5,
+        "stunChance": 0.22,
+        "description": "掌風壓頂，令人氣短。"
+      }
+    },
+    {
+      "id": "art_tiger_breath",
+      "name": "虎嘯內勁",
+      "kind": "internal",
+      "premium": false,
+      "poolIds": [
+        "jianghu-xueren-1",
+        "jianghu-xueren-2",
+        "jianghu-xueren-3",
+        "zhenben-xueren-1"
+      ],
+      "passive": {
+        "attack": 5,
+        "maxHp": 30,
+        "qiRegen": 6
+      }
+    },
+    {
+      "id": "art_spring_well",
+      "name": "涌泉訣",
+      "kind": "internal",
+      "premium": false,
+      "poolIds": [
+        "jianghu-lianhuan-1"
+      ],
+      "passive": {
+        "maxQi": 40,
+        "qiRegen": 12,
+        "defense": 3
+      }
+    },
+    {
+      "id": "art_shadow_needle",
+      "name": "無影針訣",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-xueren-1",
+        "jianghu-xueren-3"
+      ],
+      "move": {
+        "id": "mv_shadow_needle",
+        "name": "無影一針",
+        "qiCost": 34,
+        "power": 1.25,
+        "hitBonus": 0.14,
+        "pierce": 0.25,
+        "bleedChance": 0.3,
+        "bleedDamage": 5,
+        "bleedTurns": 2,
+        "description": "針出無聲，血線難察。"
+      }
+    },
+    {
+      "id": "qg_snow_track",
+      "name": "踏雪無痕",
+      "kind": "qinggong",
+      "premium": false,
+      "poolIds": [
+        "jianghu-qingling-1",
+        "jianghu-qingling-2",
+        "zhenben-qingling-1"
+      ],
+      "passive": {
+        "evasionBonus": 0.06
+      }
+    },
+    {
+      "id": "qg_swallow_turn",
+      "name": "燕子三轉",
+      "kind": "qinggong",
+      "premium": false,
+      "poolIds": [
+        "jianghu-lianhuan-1",
+        "jianghu-lianhuan-2",
+        "jianghu-lianhuan-3",
+        "zhenben-lianhuan-1"
+      ],
+      "passive": {
+        "evasionBonus": 0.08,
+        "qiRegen": 2
+      }
+    },
+    {
+      "id": "qg_feiyan",
+      "name": "飛燕功",
+      "kind": "qinggong",
+      "premium": false,
+      "poolIds": [
+        "jianghu-qingling-1"
+      ],
+      "passive": {
+        "evasionBonus": 0.07
+      }
+    },
+    {
+      "id": "qg_canopy_void",
+      "name": "凌虛步",
+      "kind": "qinggong",
+      "premium": false,
+      "poolIds": [
+        "jianghu-pojia-1",
+        "jianghu-pojia-2",
+        "jianghu-pojia-3",
+        "zhenben-pojia-1",
+        "jianghu-qingling-1"
+      ],
+      "passive": {
+        "evasionBonus": 0.12,
+        "hitBonus": 0.03
+      }
+    },
+    {
+      "id": "qg_broken_bridge",
+      "name": "斷橋步",
+      "kind": "qinggong",
+      "premium": false,
+      "poolIds": [
+        "jianghu-qingling-1"
+      ],
+      "passive": {
+        "evasionBonus": 0.05,
+        "hitBonus": 0.04
+      }
+    },
+    {
+      "id": "art_spear_cloud",
+      "name": "穿雲槍",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-pojia-1"
+      ],
+      "move": {
+        "id": "mv_spear_cloud",
+        "name": "穿雲一刺",
+        "qiCost": 41,
+        "power": 1.48,
+        "pierce": 0.18,
+        "hitBonus": 0.05,
+        "description": "槍出如電，專取中宮。"
+      }
+    },
+    {
+      "id": "art_staff_iron",
+      "name": "鐵杖訣",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-zhidi-1"
+      ],
+      "move": {
+        "id": "mv_staff_iron",
+        "name": "鐵杖橫掃",
+        "qiCost": 36,
+        "power": 1.32,
+        "defenseBreak": 3,
+        "stunChance": 0.18,
+        "description": "杖影橫掃，敵勢一滯。"
+      }
+    },
+    {
+      "id": "art_whip_silk",
+      "name": "柔絲鞭法",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-zhidi-1"
+      ],
+      "move": {
+        "id": "mv_whip_silk",
+        "name": "柔絲鎖喉",
+        "qiCost": 38,
+        "power": 1.28,
+        "hitBonus": 0.12,
+        "applyBlind": 0.1,
+        "description": "鞭梢點穴，視線一花。"
+      }
+    },
+    {
+      "id": "art_bow_star",
+      "name": "逐星箭意",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-pojia-2"
+      ],
+      "move": {
+        "id": "mv_bow_star",
+        "name": "逐星一矢",
+        "qiCost": 34,
+        "power": 1.4,
+        "hitBonus": 0.16,
+        "pierce": 0.12,
+        "description": "箭意貫中，遠點取敵。"
+      }
+    },
+    {
+      "id": "qg_reed_drift",
+      "name": "蘆花身法",
+      "kind": "qinggong",
+      "premium": false,
+      "poolIds": [
+        "jianghu-lianhuan-1"
+      ],
+      "passive": {
+        "evasionBonus": 0.07,
+        "qiRegen": 1
+      }
+    },
+    {
+      "id": "qg_wall_cat",
+      "name": "壁虎遊牆",
+      "kind": "qinggong",
+      "premium": false,
+      "poolIds": [
+        "jianghu-qingling-1"
+      ],
+      "passive": {
+        "evasionBonus": 0.09
+      }
+    },
+    {
+      "id": "art_sand_palm",
+      "name": "流沙掌",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-zhidi-1"
+      ],
+      "move": {
+        "id": "mv_sand_palm",
+        "name": "流沙掩目",
+        "qiCost": 36,
+        "power": 1.22,
+        "applyBlind": 0.18,
+        "hitBonus": 0.08,
+        "description": "掌風揚沙，迷敵耳目。"
+      }
+    },
+    {
+      "id": "jy_ash_manual",
+      "name": "灰中拳",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-zhidi-1"
+      ],
+      "move": {
+        "id": "mv_ash_fist",
+        "name": "灰飛煙滅",
+        "qiCost": 30,
+        "power": 1.28,
+        "hitBonus": 0.1,
+        "applyBlind": 0.22,
+        "description": "拳影裹灰，迷眼封喉。"
+      }
+    },
+    {
+      "id": "art_mirror_breath",
+      "name": "澄心鏡息",
+      "kind": "internal",
+      "premium": false,
+      "poolIds": [
+        "jianghu-jingang-1",
+        "jianghu-jingang-2",
+        "zhenben-jingang-1"
+      ],
+      "passive": {
+        "maxQi": 28,
+        "defense": 5,
+        "qiRegen": 7
+      }
+    },
+    {
+      "id": "qg_lotus_steps",
+      "name": "踏蓮步",
+      "kind": "qinggong",
+      "premium": false,
+      "poolIds": [
+        "jianghu-qingling-1"
+      ],
+      "passive": {
+        "evasionBonus": 0.08,
+        "hitBonus": 0.02
+      }
+    },
+    {
+      "id": "art_heavy_halberd",
+      "name": "開山戟意",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-pojia-2"
+      ],
+      "move": {
+        "id": "mv_heavy_halberd",
+        "name": "開山一戟",
+        "qiCost": 53,
+        "power": 1.75,
+        "pierce": 0.22,
+        "stunChance": 0.2,
+        "description": "長兵砸落，敵勢一窒。"
+      }
+    },
+    {
+      "id": "qy_cloud_sword",
+      "name": "青雲初劍",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-pojia-2"
+      ],
+      "move": {
+        "id": "mv_qy_cloud",
+        "name": "青雲初劍",
+        "qiCost": 30,
+        "power": 1.28,
+        "hitBonus": 0.06,
+        "pierce": 0.1,
+        "description": "劍勢清正，點破敵招破綻。"
+      }
+    },
+    {
+      "id": "qy_mist_step",
+      "name": "雲中步",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-lianhuan-1"
+      ],
+      "move": {
+        "id": "mv_qy_mist",
+        "name": "雲中連點",
+        "qiCost": 38,
+        "power": 0.7,
+        "hitBonus": 0.14,
+        "multiHit": 2,
+        "applyBlind": 0.12,
+        "description": "步影迷離，連點敵身要害。"
+      }
+    },
+    {
+      "id": "qy_piercing_needle",
+      "name": "破雲刺",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-pojia-2"
+      ],
+      "move": {
+        "id": "mv_qy_pierce",
+        "name": "破雲刺",
+        "qiCost": 43,
+        "power": 1.35,
+        "hitBonus": 0.08,
+        "pierce": 0.4,
+        "qiDrain": 12,
+        "description": "一刺透防，寒意侵脈。"
+      }
+    },
+    {
+      "id": "qy_sky_intent",
+      "name": "青冥劍意",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-lianhuan-2"
+      ],
+      "move": {
+        "id": "mv_qy_sky",
+        "name": "青冥三刺",
+        "qiCost": 53,
+        "power": 0.85,
+        "hitBonus": 0.1,
+        "multiHit": 3,
+        "pierce": 0.25,
+        "description": "三刺連綿，如青冥覆頂。"
+      }
+    },
+    {
+      "id": "td_open_blade",
+      "name": "天刀開山",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-pojia-2"
+      ],
+      "move": {
+        "id": "mv_td_open",
+        "name": "開山一刀",
+        "qiCost": 30,
+        "power": 1.42,
+        "description": "刀勢開山，剛猛直取。"
+      }
+    },
+    {
+      "id": "td_wind_slash",
+      "name": "裂風斬",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-xueren-1"
+      ],
+      "move": {
+        "id": "mv_td_wind",
+        "name": "裂風斬",
+        "qiCost": 38,
+        "power": 1.38,
+        "bleedChance": 0.55,
+        "bleedDamage": 7,
+        "bleedTurns": 3,
+        "description": "刀風過處，血線難止。"
+      }
+    },
+    {
+      "id": "td_thunder_combo",
+      "name": "雷鳴連刀",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-lianhuan-2"
+      ],
+      "move": {
+        "id": "mv_td_thunder",
+        "name": "雷鳴三斬",
+        "qiCost": 48,
+        "power": 0.8,
+        "multiHit": 3,
+        "bleedChance": 0.25,
+        "bleedDamage": 5,
+        "bleedTurns": 2,
+        "description": "三刀如雷，連綿不絕。"
+      }
+    },
+    {
+      "id": "td_no_return",
+      "name": "天刀無回",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-xueren-1"
+      ],
+      "move": {
+        "id": "mv_td_noreturn",
+        "name": "無回一刀",
+        "qiCost": 67,
+        "power": 2.15,
+        "pierce": 0.15,
+        "bleedChance": 0.4,
+        "bleedDamage": 8,
+        "bleedTurns": 2,
+        "description": "全力一刀，勢無回頭。"
+      }
+    },
+    {
+      "id": "em_soft_palm",
+      "name": "峨嵋柔掌",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-jingang-1",
+        "jianghu-jingang-2",
+        "zhenben-jingang-1"
+      ],
+      "move": {
+        "id": "mv_em_soft",
+        "name": "柔掌回春",
+        "qiCost": 26,
+        "power": 1.12,
+        "hitBonus": 0.08,
+        "healSelf": 10,
+        "cooldown": 2,
+        "description": "柔勁入體，順勢調息。"
+      }
+    },
+    {
+      "id": "em_silk_wrap",
+      "name": "繞指柔",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-zhidi-2"
+      ],
+      "move": {
+        "id": "mv_em_silk",
+        "name": "繞指鎖脈",
+        "qiCost": 34,
+        "power": 1.05,
+        "hitBonus": 0.12,
+        "applyBlind": 0.18,
+        "defenseBreak": 5,
+        "description": "纏絲鎖脈，敵招滯澀。"
+      }
+    },
+    {
+      "id": "em_golden_palm",
+      "name": "金頂綿掌",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-xueren-1"
+      ],
+      "move": {
+        "id": "mv_em_golden",
+        "name": "金頂綿掌",
+        "qiCost": 41,
+        "power": 1.3,
+        "healSelf": 6,
+        "lifesteal": 0.28,
+        "cooldown": 3,
+        "description": "綿掌入骨，化傷為養。"
+      }
+    },
+    {
+      "id": "em_heart_breath",
+      "name": "峨嵋心法",
+      "kind": "internal",
+      "premium": false,
+      "poolIds": [
+        "jianghu-jingang-1"
+      ],
+      "passive": {
+        "defense": 8,
+        "qiRegen": 7,
+        "hitBonus": 0.06,
+        "maxQi": 20
+      }
+    },
+    {
+      "id": "sl_luohan_fist",
+      "name": "羅漢拳",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-jingang-1"
+      ],
+      "move": {
+        "id": "mv_sl_luohan",
+        "name": "羅漢崩拳",
+        "qiCost": 30,
+        "power": 1.36,
+        "description": "架勢沉穩，拳拳到肉。"
+      }
+    },
+    {
+      "id": "sl_weituo",
+      "name": "韋陀杖意",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-zhidi-2"
+      ],
+      "move": {
+        "id": "mv_sl_weituo",
+        "name": "韋陀點穴",
+        "qiCost": 38,
+        "power": 1.25,
+        "stunChance": 0.28,
+        "description": "杖意點穴，敵身一滯。"
+      }
+    },
+    {
+      "id": "sl_iron_shirt",
+      "name": "鐵布衫功",
+      "kind": "internal",
+      "premium": false,
+      "poolIds": [
+        "jianghu-jingang-1"
+      ],
+      "passive": {
+        "defense": 14,
+        "maxHp": 50,
+        "reflect": 0.12
+      }
+    },
+    {
+      "id": "sl_yijin",
+      "name": "易筋吐納",
+      "kind": "internal",
+      "premium": false,
+      "poolIds": [
+        "jianghu-jingang-1"
+      ],
+      "passive": {
+        "attack": 5,
+        "defense": 10,
+        "maxQi": 30,
+        "maxHp": 25,
+        "qiRegen": 5
+      }
+    },
+    {
+      "id": "wd_sword_form",
+      "name": "武當劍式",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-pojia-2"
+      ],
+      "move": {
+        "id": "mv_wd_sword",
+        "name": "武當圓劍",
+        "qiCost": 30,
+        "power": 1.22,
+        "hitBonus": 0.07,
+        "pierce": 0.1,
+        "description": "劍走圓弧，以靜制動。"
+      }
+    },
+    {
+      "id": "wd_tai_push",
+      "name": "太極推手",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-jingang-2"
+      ],
+      "move": {
+        "id": "mv_wd_push",
+        "name": "太極推手",
+        "qiCost": 31,
+        "power": 1.08,
+        "healSelf": 12,
+        "defenseBreak": 4,
+        "applyBlind": 0.1,
+        "cooldown": 2,
+        "description": "卸力推手，敵勢自潰。"
+      }
+    },
+    {
+      "id": "wd_pure_yang",
+      "name": "純陽吐納",
+      "kind": "internal",
+      "premium": false,
+      "poolIds": [
+        "jianghu-lianhuan-2"
+      ],
+      "passive": {
+        "maxQi": 40,
+        "qiRegen": 12,
+        "attack": 2
+      }
+    },
+    {
+      "id": "wd_wuji_sword",
+      "name": "無極劍意",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-lianhuan-2"
+      ],
+      "move": {
+        "id": "mv_wd_wuji",
+        "name": "無極連刺",
+        "qiCost": 50,
+        "power": 0.78,
+        "multiHit": 3,
+        "pierce": 0.22,
+        "qiDrain": 10,
+        "description": "劍意無極，連刺耗脈。"
+      }
+    },
+    {
+      "id": "tm_flying_needle",
+      "name": "唐門飛針",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-xueren-1"
+      ],
+      "move": {
+        "id": "mv_tm_needle",
+        "name": "飛針如雨",
+        "qiCost": 32,
+        "power": 0.72,
+        "hitBonus": 0.1,
+        "multiHit": 3,
+        "bleedChance": 0.28,
+        "bleedDamage": 6,
+        "bleedTurns": 2,
+        "description": "細針連發，專取見血。"
+      }
+    },
+    {
+      "id": "tm_shadow_step",
+      "name": "影步",
+      "kind": "qinggong",
+      "premium": false,
+      "poolIds": [
+        "jianghu-qingling-2"
+      ],
+      "passive": {
+        "evasionBonus": 0.1,
+        "hitBonus": 0.05
+      }
+    },
+    {
+      "id": "tm_poison_dart",
+      "name": "淬毒鏢",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-xueren-2"
+      ],
+      "move": {
+        "id": "mv_tm_poison",
+        "name": "淬毒一鏢",
+        "qiCost": 44,
+        "power": 1.32,
+        "hitBonus": 0.08,
+        "pierce": 0.28,
+        "qiDrain": 10,
+        "bleedChance": 0.4,
+        "bleedDamage": 8,
+        "bleedTurns": 3,
+        "description": "毒鏢破空，脈息皆滯。"
+      }
+    },
+    {
+      "id": "tm_thousand_mech",
+      "name": "千機手",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-lianhuan-2"
+      ],
+      "move": {
+        "id": "mv_tm_mech",
+        "name": "千機連射",
+        "qiCost": 52,
+        "power": 0.7,
+        "hitBonus": 0.12,
+        "multiHit": 4,
+        "pierce": 0.15,
+        "stunChance": 0.22,
+        "bleedChance": 0.25,
+        "bleedDamage": 5,
+        "bleedTurns": 2,
+        "description": "機關齊發，敵勢一窒。"
+      }
+    },
+    {
+      "id": "mj_blood_palm",
+      "name": "血影掌",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-xueren-2"
+      ],
+      "move": {
+        "id": "mv_mj_palm",
+        "name": "血影一掌",
+        "qiCost": 34,
+        "power": 1.35,
+        "lifesteal": 0.22,
+        "description": "掌帶血煞，傷敵補己。"
+      }
+    },
+    {
+      "id": "mj_devil_breath",
+      "name": "魔息吐納",
+      "kind": "internal",
+      "premium": false,
+      "poolIds": [
+        "jianghu-xueren-2"
+      ],
+      "passive": {
+        "attack": 8,
+        "maxQi": 20,
+        "qiRegen": 4,
+        "reflect": 0.08
+      }
+    },
+    {
+      "id": "mj_soul_drain",
+      "name": "吸脈指",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-xueren-2"
+      ],
+      "move": {
+        "id": "mv_mj_drain",
+        "name": "吸脈一指",
+        "qiCost": 46,
+        "power": 1.25,
+        "pierce": 0.3,
+        "qiDrain": 18,
+        "lifesteal": 0.12,
+        "description": "一指抽脈，敵息歸我。"
+      }
+    },
+    {
+      "id": "mj_asura_slash",
+      "name": "修羅斬",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-xueren-2"
+      ],
+      "move": {
+        "id": "mv_mj_asura",
+        "name": "修羅一斬",
+        "qiCost": 55,
+        "power": 1.7,
+        "pierce": 0.18,
+        "lifesteal": 0.28,
+        "bleedChance": 0.45,
+        "bleedDamage": 10,
+        "bleedTurns": 3,
+        "stunChance": 0.15,
+        "description": "修羅刀意，血火齊吞。"
+      }
+    },
+    {
+      "id": "hs_pine_sword",
+      "name": "松風劍",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-pojia-3"
+      ],
+      "move": {
+        "id": "mv_hs_pine",
+        "name": "松風一刺",
+        "qiCost": 30,
+        "power": 1.3,
+        "hitBonus": 0.08,
+        "pierce": 0.12,
+        "description": "劍帶松風，點破敵招。"
+      }
+    },
+    {
+      "id": "hs_cloud_step",
+      "name": "雲臺步",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-lianhuan-2"
+      ],
+      "move": {
+        "id": "mv_hs_cloud",
+        "name": "雲臺連刺",
+        "qiCost": 38,
+        "power": 0.75,
+        "hitBonus": 0.12,
+        "multiHit": 2,
+        "pierce": 0.1,
+        "description": "步影如雲，連刺取隙。"
+      }
+    },
+    {
+      "id": "hs_split_peak",
+      "name": "劈岳劍",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-pojia-3"
+      ],
+      "move": {
+        "id": "mv_hs_peak",
+        "name": "劈岳一劍",
+        "qiCost": 48,
+        "power": 1.55,
+        "hitBonus": 0.06,
+        "pierce": 0.22,
+        "defenseBreak": 5,
+        "stunChance": 0.18,
+        "description": "劍勢如岳，敵防一潰。"
+      }
+    },
+    {
+      "id": "hs_yue_breath",
+      "name": "華嶽吐納",
+      "kind": "internal",
+      "premium": false,
+      "poolIds": [
+        "jianghu-pojia-1",
+        "jianghu-pojia-2",
+        "jianghu-pojia-3",
+        "zhenben-pojia-1"
+      ],
+      "passive": {
+        "attack": 4,
+        "maxQi": 35,
+        "qiRegen": 8,
+        "hitBonus": 0.04,
+        "defense": 4
+      }
+    },
+    {
+      "id": "art_drunken_fist",
+      "name": "醉八仙拳",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-qingling-2"
+      ],
+      "move": {
+        "id": "mv_drunk_fist",
+        "name": "醉步連環",
+        "qiCost": 30,
+        "power": 1.3,
+        "hitBonus": 0.06,
+        "description": "身形東倒西歪，招式虛實難辨。"
+      }
+    },
+    {
+      "id": "th_finger_flick",
+      "name": "彈指神通",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-pojia-3"
+      ],
+      "move": {
+        "id": "mv_th_finger",
+        "name": "彈指一點",
+        "qiCost": 28,
+        "power": 1.2,
+        "hitBonus": 0.1,
+        "pierce": 0.08,
+        "description": "指風如彈，隔空點中破綻。"
+      }
+    },
+    {
+      "id": "th_flute_sword",
+      "name": "玉簫劍法",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-lianhuan-3"
+      ],
+      "move": {
+        "id": "mv_th_flute",
+        "name": "玉簫三疊",
+        "qiCost": 38,
+        "power": 1.32,
+        "hitBonus": 0.08,
+        "multiHit": 2,
+        "description": "簫聲三疊，劍隨聲轉，連刺不絕。"
+      }
+    },
+    {
+      "id": "th_falling_petals",
+      "name": "落英神劍掌",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-lianhuan-3"
+      ],
+      "move": {
+        "id": "mv_th_petals",
+        "name": "落英繽紛",
+        "qiCost": 48,
+        "power": 1.1,
+        "multiHit": 3,
+        "applyBlind": 1,
+        "description": "掌風化作漫天落花，敵目為之一眩。"
+      }
+    },
+    {
+      "id": "th_qimen_array",
+      "name": "奇門一氣",
+      "kind": "internal",
+      "premium": false,
+      "poolIds": [
+        "jianghu-qingling-1",
+        "jianghu-qingling-2",
+        "zhenben-qingling-1"
+      ],
+      "passive": {
+        "evasionBonus": 0.1,
+        "hitBonus": 0.05,
+        "qiRegen": 6
+      }
+    },
+    {
+      "id": "wg_embroidery_needle",
+      "name": "繡花奪命針",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-xueren-2"
+      ],
+      "move": {
+        "id": "mv_wg_needle",
+        "name": "銀針暗刺",
+        "qiCost": 26,
+        "power": 1.05,
+        "bleedChance": 0.5,
+        "bleedDamage": 3,
+        "bleedTurns": 3,
+        "description": "一針暗刺，血珠隨即滲出。"
+      }
+    },
+    {
+      "id": "wg_silent_step",
+      "name": "無聲遁跡",
+      "kind": "qinggong",
+      "premium": false,
+      "poolIds": [
+        "jianghu-qingling-2"
+      ],
+      "passive": {
+        "evasionBonus": 0.09,
+        "qiRegen": 3
+      }
+    },
+    {
+      "id": "wg_yin_soft_palm",
+      "name": "陰柔化勁掌",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-xueren-2"
+      ],
+      "move": {
+        "id": "mv_wg_yin_palm",
+        "name": "化勁反噬",
+        "qiCost": 44,
+        "power": 1.15,
+        "defenseBreak": 6,
+        "lifesteal": 0.14,
+        "description": "以柔卸剛，敵力反噬其身。"
+      }
+    },
+    {
+      "id": "wg_root_severed_creed",
+      "name": "忘根訣",
+      "kind": "internal",
+      "premium": false,
+      "poolIds": [
+        "jianghu-xueren-3"
+      ],
+      "passive": {
+        "attack": 6,
+        "defense": 5,
+        "maxQi": 25,
+        "qiRegen": 5
+      }
+    },
+    {
+      "id": "art_guqin_song",
+      "name": "廣陵絕響",
+      "kind": "internal",
+      "premium": false,
+      "poolIds": [
+        "jianghu-lianhuan-3"
+      ],
+      "passive": {
+        "qiRegen": 6,
+        "hitBonus": 0.03,
+        "reflect": 0.04
+      }
+    },
+    {
+      "id": "art_weiqi_trap",
+      "name": "珍瓏棋局",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-pojia-3"
+      ],
+      "move": {
+        "id": "mv_weiqi_trap",
+        "name": "落子成局",
+        "qiCost": 34,
+        "power": 1.1,
+        "defenseBreak": 5,
+        "hitBonus": 0.07,
+        "description": "招式如落子布局，一步步逼死敵方退路。"
+      }
+    },
+    {
+      "id": "art_poetry_sword",
+      "name": "詩劍風流",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-qingling-2"
+      ],
+      "move": {
+        "id": "mv_poetry_sword",
+        "name": "一劍成詩",
+        "qiCost": 36,
+        "power": 1.24,
+        "hitBonus": 0.09,
+        "description": "劍出如詩成句，一氣呵成。"
+      }
+    },
+    {
+      "id": "art_ink_illusion",
+      "name": "潑墨迷蹤",
+      "kind": "qinggong",
+      "premium": false,
+      "poolIds": [
+        "jianghu-qingling-2"
+      ],
+      "passive": {
+        "evasionBonus": 0.07,
+        "hitBonus": 0.02
+      }
+    },
+    {
+      "id": "art_buddha_heart",
+      "name": "金剛不壞",
+      "kind": "internal",
+      "premium": false,
+      "poolIds": [
+        "jianghu-jingang-2"
+      ],
+      "passive": {
+        "defense": 8,
+        "maxHp": 24
+      }
+    },
+    {
+      "id": "art_dao_breath",
+      "name": "太乙玄清",
+      "kind": "internal",
+      "premium": false,
+      "poolIds": [
+        "jianghu-zhidi-1",
+        "jianghu-zhidi-2",
+        "zhenben-zhidi-1"
+      ],
+      "passive": {
+        "maxQi": 30,
+        "qiRegen": 8
+      }
+    },
+    {
+      "id": "art_heretic_scripture",
+      "name": "天魔邪功",
+      "kind": "external",
+      "premium": false,
+      "poolIds": [
+        "jianghu-xueren-3"
+      ],
+      "move": {
+        "id": "mv_heretic",
+        "name": "天魔一擊",
+        "qiCost": 42,
+        "power": 1.4,
+        "pierce": 0.15,
+        "lifesteal": 0.08,
+        "description": "邪功一擊，狠辣不留餘地。"
+      }
+    },
+    {
+      "id": "pr_blood_lotus",
+      "name": "血蓮千刃",
+      "kind": "external",
+      "premium": true,
+      "poolIds": [
+        "zhenben-xueren-1"
+      ],
+      "move": {
+        "id": "mv_pr_blood_lotus",
+        "name": "千刃血蓮",
+        "qiCost": 60,
+        "power": 1.95,
+        "bleedChance": 0.5,
+        "bleedDamage": 9,
+        "bleedTurns": 3,
+        "lifesteal": 0.12,
+        "description": "刀如蓮開，血痕層疊。"
+      }
+    },
+    {
+      "id": "pr_crimson_moon",
+      "name": "赤月飲血劍",
+      "kind": "external",
+      "premium": true,
+      "poolIds": [
+        "zhenben-xueren-1"
+      ],
+      "move": {
+        "id": "mv_pr_crimson_moon",
+        "name": "赤月飲血",
+        "qiCost": 56,
+        "power": 1.85,
+        "lifesteal": 0.22,
+        "bleedChance": 0.25,
+        "bleedDamage": 6,
+        "bleedTurns": 2,
+        "description": "劍光如赤月，傷敵養己。"
+      }
+    },
+    {
+      "id": "pr_nine_chain",
+      "name": "九連環掌",
+      "kind": "external",
+      "premium": true,
+      "poolIds": [
+        "zhenben-lianhuan-1"
+      ],
+      "move": {
+        "id": "mv_pr_nine_chain",
+        "name": "九重連環",
+        "qiCost": 58,
+        "power": 0.75,
+        "multiHit": 4,
+        "hitBonus": 0.08,
+        "description": "掌影連綿，九重不斷。"
+      }
+    },
+    {
+      "id": "pr_wind_thread",
+      "name": "穿風引線劍",
+      "kind": "external",
+      "premium": true,
+      "poolIds": [
+        "zhenben-lianhuan-1"
+      ],
+      "move": {
+        "id": "mv_pr_wind_thread",
+        "name": "穿風三刺",
+        "qiCost": 52,
+        "power": 0.85,
+        "multiHit": 3,
+        "pierce": 0.1,
+        "description": "一招三刺，快如穿線。"
+      }
+    },
+    {
+      "id": "pr_mountain_split",
+      "name": "裂嶽神拳",
+      "kind": "external",
+      "premium": true,
+      "poolIds": [
+        "zhenben-pojia-1"
+      ],
+      "move": {
+        "id": "mv_pr_mountain_split",
+        "name": "裂嶽一拳",
+        "qiCost": 62,
+        "power": 2.05,
+        "pierce": 0.4,
+        "defenseBreak": 5,
+        "description": "拳勁透甲，硬功盡碎。"
+      }
+    },
+    {
+      "id": "pr_heaven_spear",
+      "name": "貫日神槍",
+      "kind": "external",
+      "premium": true,
+      "poolIds": [
+        "zhenben-pojia-1"
+      ],
+      "move": {
+        "id": "mv_pr_heaven_spear",
+        "name": "白虹貫日",
+        "qiCost": 60,
+        "power": 2,
+        "pierce": 0.32,
+        "hitBonus": 0.06,
+        "description": "槍如白虹，直貫甲冑。"
+      }
+    },
+    {
+      "id": "pr_soul_lock",
+      "name": "鎖魂指",
+      "kind": "external",
+      "premium": true,
+      "poolIds": [
+        "zhenben-zhidi-1"
+      ],
+      "move": {
+        "id": "mv_pr_soul_lock",
+        "name": "鎖魂一指",
+        "qiCost": 54,
+        "power": 1.5,
+        "stunChance": 0.38,
+        "qiDrain": 18,
+        "description": "指封要穴，敵難動彈。"
+      }
+    },
+    {
+      "id": "pr_mist_blind",
+      "name": "迷蹤散霧手",
+      "kind": "external",
+      "premium": true,
+      "poolIds": [
+        "zhenben-zhidi-1"
+      ],
+      "move": {
+        "id": "mv_pr_mist_blind",
+        "name": "散霧迷蹤",
+        "qiCost": 50,
+        "power": 1.4,
+        "applyBlind": 2,
+        "stunChance": 0.2,
+        "description": "霧掌迷眼，敵招落空。"
+      }
+    },
+    {
+      "id": "pr_vajra_palm",
+      "name": "金剛不壞掌",
+      "kind": "external",
+      "premium": true,
+      "poolIds": [
+        "zhenben-jingang-1"
+      ],
+      "move": {
+        "id": "mv_pr_vajra_palm",
+        "name": "金剛護體掌",
+        "qiCost": 55,
+        "power": 1.6,
+        "healSelf": 18,
+        "defenseBreak": 2,
+        "description": "掌勁回流，護體療傷。"
+      }
+    },
+    {
+      "id": "pr_floating_blade",
+      "name": "飄絮刀",
+      "kind": "external",
+      "premium": true,
+      "poolIds": [
+        "zhenben-qingling-1"
+      ],
+      "move": {
+        "id": "mv_pr_floating_blade",
+        "name": "飄絮落刀",
+        "qiCost": 48,
+        "power": 1.7,
+        "hitBonus": 0.15,
+        "description": "刀輕如絮，防不勝防。"
+      }
+    },
+    {
+      "id": "pr_star_fall",
+      "name": "流星墜月",
+      "kind": "external",
+      "premium": true,
+      "poolIds": [
+        "zhenben-lianhuan-1"
+      ],
+      "move": {
+        "id": "mv_pr_star_fall",
+        "name": "流星墜月",
+        "qiCost": 56,
+        "power": 0.7,
+        "multiHit": 4,
+        "bleedChance": 0.3,
+        "bleedDamage": 5,
+        "bleedTurns": 2,
+        "description": "星落如雨，處處見血。"
+      }
+    },
+    {
+      "id": "pr_blood_sea",
+      "name": "血海心經",
+      "kind": "internal",
+      "premium": true,
+      "poolIds": [
+        "zhenben-xueren-1"
+      ],
+      "passive": {
+        "attack": 12,
+        "maxHp": 20,
+        "qiRegen": 4
+      }
+    },
+    {
+      "id": "pr_thunder_heart",
+      "name": "雷動心法",
+      "kind": "internal",
+      "premium": true,
+      "poolIds": [
+        "zhenben-lianhuan-1"
+      ],
+      "passive": {
+        "qiRegen": 14,
+        "maxQi": 35,
+        "hitBonus": 0.05
+      }
+    },
+    {
+      "id": "pr_diamond_body",
+      "name": "金剛不壞體",
+      "kind": "internal",
+      "premium": true,
+      "poolIds": [
+        "zhenben-jingang-1"
+      ],
+      "passive": {
+        "defense": 18,
+        "maxHp": 60,
+        "reflect": 0.12
+      }
+    },
+    {
+      "id": "pr_seal_meridian",
+      "name": "封脈真經",
+      "kind": "internal",
+      "premium": true,
+      "poolIds": [
+        "zhenben-zhidi-1"
+      ],
+      "passive": {
+        "maxQi": 60,
+        "attack": 6,
+        "qiRegen": 6
+      }
+    },
+    {
+      "id": "pr_void_breath",
+      "name": "太虛吐納",
+      "kind": "internal",
+      "premium": true,
+      "poolIds": [
+        "zhenben-qingling-1"
+      ],
+      "passive": {
+        "evasionBonus": 0.06,
+        "hitBonus": 0.06,
+        "qiRegen": 8
+      }
+    },
+    {
+      "id": "pr_cloud_step",
+      "name": "踏雲九霄",
+      "kind": "qinggong",
+      "premium": true,
+      "poolIds": [
+        "zhenben-qingling-1"
+      ],
+      "passive": {
+        "evasionBonus": 0.12,
+        "qiRegen": 3
+      }
+    },
+    {
+      "id": "pr_shadow_flash",
+      "name": "鬼影閃",
+      "kind": "qinggong",
+      "premium": true,
+      "poolIds": [
+        "zhenben-qingling-1"
+      ],
+      "passive": {
+        "evasionBonus": 0.08,
+        "hitBonus": 0.08
+      }
+    },
+    {
+      "id": "pr_tide_step",
+      "name": "觀潮步",
+      "kind": "qinggong",
+      "premium": true,
+      "poolIds": [
+        "zhenben-qingling-1"
+      ],
+      "passive": {
+        "evasionBonus": 0.07,
+        "qiRegen": 8,
+        "hitBonus": 0.03
+      }
+    }
+  ]
+}
