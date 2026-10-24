@@ -1004,3 +1004,5 @@ EA0.89.0發布前驗證完成：101檔741項Vitest、Pages build含tsc、narrate
 Apple build改為查詢同一App跨版本的App Store／TestFlight歷史最高值再加一；查詢成功且沒有build才從1開始，API失敗不作空值繼續，非整數或越界值停止。不改遊戲玩法、存檔、登入、資料庫或後端，不把未完成的原生回調、帳戶刪除與隱私準備當已完成。
 
 102檔758項Vitest（含17項內測設定與build號回歸）、mobile build含tsc、Capacitor同步、789個資源與EA0.89.0主程式驗證、narrate及文案審核通過。Codemagic官方schema、兩種匯出／發布條件與外測仍被未完成清單阻擋均通過。瀏覽器原生標記／安全區模擬320／390／768尺寸、網頁對照、四地標／返回及重開續玩通過，pageerror0；不是WKWebView真機驗收。證據：`production/qa/evidence/redesign/testflight-internal-ea089/`。未合併main、未發布新網頁、未觸發Codemagic或上傳Apple；Mac未簽名CI結果另記。
+
+第37項首次內測最新程式`5e4b592`的CI40084637904及Mac iOS Package40084637880均成功；實際未簽名Archive、驗證與工程包完成。Codemagic的簽署與上傳仍由擁有者手動開始，未將本次GitHub CI當作Apple上傳。

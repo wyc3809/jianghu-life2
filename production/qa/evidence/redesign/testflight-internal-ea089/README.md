@@ -18,3 +18,5 @@
 - https://docs.codemagic.io/yaml-basic-configuration/yaml-getting-started/ （anchors、手動啟動及官方schema）
 - https://github.com/codemagic-ci-cd/cli-tools/blob/master/docs/app-store-connect/get-latest-build-number.md
 - https://github.com/codemagic-ci-cd/cli-tools/blob/master/src/codemagic/tools/app_store_connect/actions/latest_build_number_actions.py （成功無build返回空；失敗拋錯）
+
+最新程式提交`5e4b592e544c5de24e03eb9636e931e83fbc5cf3`已通過GitHub CI [40084637904](https://github.com/wyc3809/jianghu-life2/actions/runs/40084637904)及Mac iOS Package [40084637880](https://github.com/wyc3809/jianghu-life2/actions/runs/40084637880)，見`ci.json`／`mac-ci.json`。Mac工作流程實際未簽名Archive、資源核對與工程包均成功；沒有Apple發佈簽署或TestFlight上傳，不將未簽名Archive當作已簽名IPA。
