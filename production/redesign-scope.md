@@ -950,3 +950,15 @@ EA0.87.0發布前檢查：100檔728項Vitest、Pages build含tsc、narrate hard-
 發布前重跑完整測試、Pages構建、敘事與文案檢查，並以正式構建普通介面驗證手機導航；發布提交CI通過後才squash合併。Pages部署後核對正式版本及三組手機四入口／返回。記錄見 `production/qa/evidence/redesign/release-ea088/README.md`。
 
 EA0.88.0發布前檢查：100檔728項Vitest、Pages build含tsc、narrate hard-fail0及文案審核全過。正式構建以普通介面建立人物，三組手機四入口／返回、全圖無縱捲、頂欄／導航按頁切換、主bundle及設定EA0.88.0通過，pageerror0／HTTP錯誤0。
+
+### 第37項：EA0.88.0 iOS／TestFlight準備（2026-10-24，未上傳Apple）
+
+玩家要求準備App Store／TestFlight。沿用舊PR #115的Capacitor8.5.3／SwiftPM原生工程，選擇性接入目前EA0.88.0，不合併舊分支遊戲內容，不發布新網頁版本。
+
+- 完整遊戲與位圖隨App打包、直版、安全區、1024px無透明icon、App／SDK私隱manifest；逐檔核對789個資源及主程式版本。保留現有玩法、雲端、多人入口及存檔格式。
+- 加入可重建工程ZIP、版本／Bundle ID檢查、Mac未簽名Archive與Xcode26／iOS26 SDK實際檢查。工程ZIP排除私鑰、憑證、.env與私人存檔；不是可安裝IPA。
+- 最低原生系統暫用17.4，以符合現行AbortSignal.any等Web API；候選Bundle ID com.wyc3809.jianghulife2、Apple版本1.0，須依既有Apple App確認。保留iPhone／iPad直版target，真機驗收未完成。
+- 準備Codemagic簽署／TestFlight流程及已知缺項檢查，Apple build從正確App現有build遞增。未設定Apple身份，不產生假簽名、不上傳或自動邀請測試者。
+- 實際缺項：原生電郵登入回調／雲端還原、App內帳戶刪除與後端、政策／支援網址／聯絡人及Apple服務側資料。提供真實資料盤點、測試文案及真機清單；本次不修改Auth／資料庫或假稱已完成審核。
+
+操作與待辦見 `production/ios/README.md`；證據見 `production/qa/evidence/redesign/testflight-prep/README.md`。沿用EA0.88.0，未合併main、未發布網頁或TestFlight。

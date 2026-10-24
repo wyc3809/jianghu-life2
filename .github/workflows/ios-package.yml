@@ -1,0 +1,94 @@
+name: iOS Package
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'ios/**'
+      - 'src/**'
+      - 'core/**'
+      - 'data/**'
+      - 'content/**'
+      - 'public/**'
+      - 'interfaces/**'
+      - 'capacitor.config.ts'
+      - 'scripts/ios/**'
+      - 'production/ios/**'
+      - 'package*.json'
+      - '.github/workflows/ios-package.yml'
+  workflow_dispatch:
+    inputs:
+      bundle_id:
+        description: 'App Store Connect Bundle ID（已有App必須一致）'
+        default: 'com.wyc3809.jianghulife2'
+        required: true
+      marketing_version:
+        description: 'Apple版本號（與EA版本分開）'
+        default: '1.0'
+        required: true
+      build_number:
+        description: '未簽名驗證build號；真正上傳前須查Apple現有build'
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: macos-15
+    timeout-minutes: 30
+    env:
+      IOS_BUNDLE_ID: ${{ inputs.bundle_id || 'com.wyc3809.jianghulife2' }}
+      IOS_MARKETING_VERSION: ${{ inputs.marketing_version || '1.0' }}
+      IOS_BUILD_NUMBER: ${{ inputs.build_number || github.run_number }}
+      VITE_SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+      VITE_SUPABASE_ANON_KEY: ${{ vars.SUPABASE_ANON_KEY }}
+      VITE_ONLINE_PUBLIC: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+      - run: bash scripts/ios/check-xcode.sh
+      - run: npm ci
+      - run: npm test
+      - run: npm run audit:narrate
+      - run: npm run audit:copy
+      - run: npm run ios:sync
+      - run: npm run ios:verify
+      - name: 編譯未簽名iPhone Archive
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts
+          xcodebuild archive \
+            -project ios/App/App.xcodeproj \
+            -scheme App -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$PWD/artifacts/JianghuLife.xcarchive" \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO \
+            > artifacts/xcode-archive.log 2>&1 || { tail -100 artifacts/xcode-archive.log; exit 1; }
+          python3 scripts/ios/verify_archive.py artifacts/JianghuLife.xcarchive
+          ditto -c -k --sequesterRsrc --keepParent artifacts/JianghuLife.xcarchive artifacts/JianghuLife-unsigned-xcarchive.zip
+      - name: 工程包
+        run: python3 scripts/ios/package_source.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: JianghuLife-iOS-package
+          path: |
+            artifacts/*ios-project.zip
+            artifacts/*xcarchive.zip
+            artifacts/*.json
+            artifacts/xcode-archive.log
+          if-no-files-found: error
+          retention-days: 30
+      - name: 保留失敗編譯紀錄
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: iOS-build-failure-log
+          path: artifacts/xcode-archive.log
+          if-no-files-found: ignore

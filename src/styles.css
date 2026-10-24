@@ -11098,3 +11098,7 @@ body:has(.ink-spar-boss-screen) .ink-task-dock { visibility: hidden; }
 .scroll-shell--play .ink-loadout-support .ink-loadout-slot { grid-template-columns: 2.2em minmax(0,1fr) auto; }
 .ink-loadout-support > .ink-loadout-heading { flex-wrap: wrap; gap: 6px; margin-top: 16px; }
 .ink-loadout-support > .ink-loadout-heading > span { font-size: 11px; }
+
+/* 原生App佔滿視窗；地圖已由root留出頂部安全區，避免重複計算。 */
+html.native-ios #root { padding: env(safe-area-inset-top, 0px) 0 0; }
+html.native-ios .scroll-shell--play.scroll-shell--jianghu-map { padding-top: 0; }
