@@ -13,4 +13,8 @@
 
 全部瀏覽器以新隔離context操作，攔截Supabase，不操作真玩家或遠端寫入。數值難度比較與正常速度影片仍以前一輪證據為準，不因發布重標成真機／效能已驗收。
 
-本機正式構建兩組驗證均通過：第1回合卷一至七後敵人還擊，三組手機地圖／入口及設定版本正確；pageerror0／HTTP錯誤0。Mac／iPhone真機及TestFlight不包含在此發布。正式CI、Pages部署及線上版本／操作結果完成後補記。
+本機正式構建兩組驗證均通過：第1回合卷一至七後敵人還擊，三組手機地圖／入口及設定版本正確；pageerror0／HTTP錯誤0。Mac／iPhone真機及TestFlight不包含在此發布。發布已完成並線上驗證。PR #139的發布提交f90a60b，CI40063085658成功後squash合併main b10aec7。main CI40063209869、Pages發布40063209867成功；gh-pages b83c4ec的實際Pages部署40063328614中build／report／deploy三項成功，Pages API為built。
+
+正式網址主bundle `assets/index-mizORfIE.js` 含EA0.89.0；已由不帶快取參數的正式入口核對。live七卷schema-v1存檔自然打完小兵後，第1回合的DOM招名／高亮依序卷一至七，再一次敵人還擊；主程式與真核心均非替身。正式畫面及renderedVitals保存，目視第1回合／卷七正確。
+
+live普通介面三組手機全圖、四入口／返回及設定EA0.89.0通過，兩組驗證pageerror0／HTTP錯誤0。工作分支已非強制對齊main，部署後證據只補工作分支，不另觸發程式發布。詳見release.json、live-bundle.json及live目錄。

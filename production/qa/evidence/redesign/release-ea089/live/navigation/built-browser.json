@@ -1,0 +1,27 @@
+{
+  "base": "https://wyc3809.github.io/jianghu-life2/",
+  "bundle": {
+    "url": "https://wyc3809.github.io/jianghu-life2/assets/index-mizORfIE.js",
+    "version": "EA0.89.0",
+    "match": true
+  },
+  "ordinary_ui": true,
+  "fixture_injection": false,
+  "phones": [
+    [
+      320,
+      568
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      420,
+      896
+    ]
+  ],
+  "four_destinations_and_back": true,
+  "pageerrors": [],
+  "http_errors": []
+}

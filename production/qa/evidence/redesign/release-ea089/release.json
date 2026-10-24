@@ -1,0 +1,33 @@
+{
+  "version": "EA0.89.0",
+  "status": "published-and-live-verified",
+  "verifiedAt": "2026-10-24T04:43:22.213174+00:00",
+  "url": "https://wyc3809.github.io/jianghu-life2/",
+  "pr": 139,
+  "releaseHead": "f90a60b44937ada998a804108ff92dd188b5128a",
+  "main": "b10aec7c4beeac162212dfa2e3c60a6eaa10f84c",
+  "ghPages": "b83c4ecfdc3fa5af926c6f67fbed3f5cf3669441",
+  "prCI": 40063085658,
+  "mainCI": 40063209869,
+  "pagesWorkflow": 40063209867,
+  "pagesDeployment": 40063328614,
+  "bundle": "https://wyc3809.github.io/jianghu-life2/assets/index-mizORfIE.js",
+  "firstRoundSevenThenCounter": true,
+  "ordinaryUIPhones": [
+    [
+      320,
+      568
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      420,
+      896
+    ]
+  ],
+  "pageerrors": [],
+  "httpErrors": [],
+  "nativeRelease": false
+}

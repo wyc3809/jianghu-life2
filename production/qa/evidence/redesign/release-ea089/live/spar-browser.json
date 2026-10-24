@@ -1,0 +1,84 @@
+{
+  "base": "https://wyc3809.github.io/jianghu-life2/",
+  "version": "EA0.89.0",
+  "storedFixtureSchema": 1,
+  "fixtureSeed": 42,
+  "fixtureInputHealth": 5000,
+  "fixtureMartial": 0,
+  "fixtureEquipment": null,
+  "fixtureStage": 1,
+  "devImports": false,
+  "engineMock": false,
+  "directBossSelection": false,
+  "cases": [
+    {
+      "volumes": 7,
+      "renderedVitals": "首領\n鎮上惡霸\n381／616\n驗版7招\n234／254",
+      "bundle": {
+        "url": "https://wyc3809.github.io/jianghu-life2/assets/index-mizORfIE.js",
+        "version": "EA0.89.0",
+        "match": true
+      },
+      "trace": [
+        {
+          "side": "hero",
+          "round": 1,
+          "volume": 1,
+          "callout": "卷一 · 長河崩拳",
+          "time": 24598
+        },
+        {
+          "side": "hero",
+          "round": 1,
+          "volume": 2,
+          "callout": "卷二 · 逆流",
+          "time": 26330.5
+        },
+        {
+          "side": "hero",
+          "round": 1,
+          "volume": 3,
+          "callout": "卷三 · 翻江倒海",
+          "time": 28097.60000000056
+        },
+        {
+          "side": "hero",
+          "round": 1,
+          "volume": 4,
+          "callout": "卷四 · 百川歸海",
+          "time": 29863.800000000745
+        },
+        {
+          "side": "hero",
+          "round": 1,
+          "volume": 5,
+          "callout": "卷五 · 怒濤拍岸",
+          "time": 31613.300000000745
+        },
+        {
+          "side": "hero",
+          "round": 1,
+          "volume": 6,
+          "callout": "卷六 · 大河落日",
+          "time": 33381.60000000056
+        },
+        {
+          "side": "hero",
+          "round": 1,
+          "volume": 7,
+          "callout": "卷七 · 萬里奔流",
+          "time": 35147.10000000056
+        },
+        {
+          "side": "foe",
+          "round": 1,
+          "volume": null,
+          "callout": "鎮上惡霸 · 還擊",
+          "time": 36925
+        }
+      ],
+      "pageerrors": [],
+      "http_errors": []
+    }
+  ]
+}
