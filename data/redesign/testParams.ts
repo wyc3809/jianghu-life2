@@ -70,19 +70,19 @@ export const COMBAT_RATING_TIERS = [
   { min: 16000, label: '一代高手' }, { min: 32000, label: '宗師之境' },
 ] as const;
 /**
- * 演武難度曲線（玩家 2026-10-14：修正撞牆，但主角氣血唔可以亂加）。
- * 舊版敵人血同攻擊一齊每關 ×1.18，主角氣血幾乎唔升 → 第 20 幾關一擊倒地。
- * 新版分開兩條：
- * - 血量每關 ×1.18：同主角攻擊（境界 ×1.32＋武學成長）對齊，過唔過關睇攻擊。
- * - 攻擊每關 ×1.032：約等於主角氣血跟境界自然成長（境界 0→14 約 ×3.3，約 38 關），一擊唔會打走大半血。
+ * 第38項演武完整回合候選曲線（待玩家驗收）。
+ * 每門已學招式按卷序連出，敵人再還擊一次；後續關卡的HP／攻擊成長提高。
+ * 前三關以攻擊緩衝保留新角色入門，之後固定按關數成長，不跟玩家配裝偷偷同步加強。
  */
-export const SPAR_FOE_HP_GROWTH = 1.18;
-export const SPAR_FOE_ATK_GROWTH = 1.032;
-/** 首領血量、攻擊倍率（相對小兵）；舊版 7／2.2，新角色打唔過第 1 關首領 */
-export const SPAR_BOSS_HP_MUL = 4;
+export const SPAR_FOE_HP_GROWTH = 1.21;
+export const SPAR_FOE_ATK_GROWTH = 1.045;
+/** 首領血量、攻擊倍率（相對小兵）；第38項候選血量4.4，攻擊倍率2.2沿用。 */
+export const SPAR_BOSS_HP_MUL = 4.4;
 export const SPAR_BOSS_ATK_MUL = 2.2;
 /** 有回血武學：每打低一個小兵／精英回幾多氣血（過關已經回滿，取代舊「過關回 35%」） */
 export const SPAR_KILL_HEAL = 0.12;
+/** 第38項候選值：前三關保留入門緩衝，其後使用完整敵人攻擊。 */
+export const SPAR_OPENING_ATK_FACTORS = [0.5, 0.68, 0.84] as const;
 /** 綜合戰力顯示權重；首版測試參數，唔會反過來改戰鬥結果。 */
 export const COMBAT_RATING_WEIGHTS = { attack: 4, hpDivisor: 5, qiDivisor: 10, lifesteal: 2 } as const;
 

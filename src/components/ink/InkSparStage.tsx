@@ -15,7 +15,7 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { SparStage, loadSparImages, loadSparImage, loadSparUiImages, type SparCombatHooks } from '../../spar/engine';
-import { sparArtAt, sparArtOrder, sparMoveAt } from '../../spar/artCycle';
+import { sparArtAt, sparArtOrder } from '../../spar/artCycle';
 import { SparDuel, formatSparNumber, sparHeroStats, sparRand, sparSavedStage, type SparDuelSnapshot } from '@core/life/sparDuel';
 import { InkBrushBar } from './InkBrush';
 import { inkHop, inkPopIn, inkRevealChars, inkShake, inkTweenVar } from '../../ui/inkMotion';
@@ -68,7 +68,7 @@ function useHeroStatsKey() {
   return useLifeStore((s) => {
     const c = s.state?.character;
     if (!c) return '';
-    return [c.martial, c.health, c.maxHealth, c.cultivation?.tier ?? 0, JSON.stringify(c.attributes), c.skills.join(','), JSON.stringify(c.equippedArts), JSON.stringify(c.supportArts), c.equipment.weapon, c.equipment.armor, c.equipment.accessory].join('|');
+    return [c.martial, c.health, c.maxHealth, c.cultivation?.tier ?? 0, JSON.stringify(c.attributes), c.skills.join(','), JSON.stringify(c.equippedArts), JSON.stringify(c.supportArts), JSON.stringify(c.volumes), JSON.stringify(c.manualStars), c.equipment.weapon, c.equipment.armor, c.equipment.accessory].join('|');
   });
 }
 const NO_CONDITIONS: { id: string; name: string; monthsLeft: number; severity: number }[] = [];
@@ -174,6 +174,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
     const duel = duelRef.current;
     if (!st || !duel) return;
     duel.setHero(sparHeroStats(st), st.character.health);
+    duel.rounds.updateLoadout(st.character);
     setSnap(duel.snapshot());
   }, [statsKey]);
 
@@ -213,7 +214,6 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
       }
     };
     let noteTimer: ReturnType<typeof setTimeout> | null = null;
-    let artTurn = 0;
     /** 敵人 0 血就換人；過咗關就入賬、出提示。回傳係咪過關 */
     const settleDeadFoe = (): boolean => {
       if (!duel) return false;
@@ -231,14 +231,15 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
       ? {
           heroStrike: () => {
             settleDeadFoe();
-            const wasBoss = Boolean(duel.foe?.boss);
-            const r = duel.heroStrike();
-            if (wasBoss) setBossRound(n => n + 1);
+            const move = duel.rounds.activeMove;
+            if (!move || !duel.rounds.commitHeroMove()) return { dmg: 0, crit: false, heal: 0, killed: false };
+            const r = duel.heroStrike(move.power);
             sync();
             return r;
           },
           foeStrike: () => {
             if (duel.foeHp <= 0) return { dmg: 0, heroDown: false, fx: [] };
+            if (!duel.rounds.commitFoeMove()) return { dmg: 0, heroDown: false, fx: [] };
             const r = duel.foeStrike();
             // 敵人照常結算還擊；主角出招未收勢時唔蓋走招名／卷數高亮。
             if (r.heroDown || !stage?.heroAttackActive) {
@@ -254,10 +255,13 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
             const f = duel.foe;
             return { boss: f?.boss ?? false, look: f?.look, tier: f?.tier, trait: f?.trait, accent: f?.accent };
           },
-          // 第 25 項：輪住用已學外功，每套播自己嘅專屬動畫
+          heroMayAttack: () => duel.rounds.phase === 'hero' && !stage?.foeAttackActive,
+          foeMayAttack: () => duel.rounds.phase === 'foe' && !stage?.heroAttackActive,
+          // 一回合完整使出已學卷次，再輪到敵人。
           nextArt: () => {
             const st = useLifeStore.getState().state;
-            const move = st ? sparMoveAt(st.character, artTurn++) : null;
+            const move = st ? duel.rounds.beginMove(st.character) : null;
+            if (duel.foe?.boss) setBossRound(duel.rounds.round);
             const art = move?.artId ?? null;
             setActiveArt(art);
             setActiveVolume(move?.volume);

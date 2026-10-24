@@ -1,0 +1,85 @@
+{
+  "base": "http://127.0.0.1:5175/jianghu-life2/",
+  "version": "EA0.89.0",
+  "storedFixtureSchema": 1,
+  "fixtureSeed": 42,
+  "fixtureMartial": 0,
+  "fixtureEquipment": null,
+  "fixtureStage": 1,
+  "devImports": false,
+  "engineMock": false,
+  "directBossSelection": false,
+  "cases": [
+    {
+      "volumes": 7,
+      "bundle": {
+        "url": "http://127.0.0.1:5175/jianghu-life2/assets/index-CHzalBa9.js",
+        "version": "EA0.89.0",
+        "match": true
+      },
+      "trace": [
+        {
+          "side": "hero",
+          "round": 1,
+          "volume": 1,
+          "callout": "卷一 · 長河崩拳",
+          "time": 23421.299999999814
+        },
+        {
+          "side": "hero",
+          "round": 1,
+          "volume": 2,
+          "callout": "卷二 · 逆流",
+          "time": 25200.5
+        },
+        {
+          "side": "hero",
+          "round": 1,
+          "volume": 3,
+          "callout": "卷三 · 翻江倒海",
+          "time": 26950.10000000056
+        },
+        {
+          "side": "hero",
+          "round": 1,
+          "volume": 4,
+          "callout": "卷四 · 百川歸海",
+          "time": 28699.900000000373
+        },
+        {
+          "side": "hero",
+          "round": 1,
+          "volume": 5,
+          "callout": "卷五 · 怒濤拍岸",
+          "time": 30452.10000000056
+        },
+        {
+          "side": "hero",
+          "round": 1,
+          "volume": 6,
+          "callout": "卷六 · 大河落日",
+          "time": 32240.5
+        },
+        {
+          "side": "hero",
+          "round": 1,
+          "volume": 7,
+          "callout": "卷七 · 萬里奔流",
+          "time": 33966.700000000186
+        },
+        {
+          "side": "foe",
+          "round": 1,
+          "volume": null,
+          "callout": "鎮上惡霸 · 還擊",
+          "time": 35761.200000000186
+        }
+      ],
+      "pageerrors": [],
+      "http_errors": []
+    }
+  ],
+  "fixtureInputHealth": 5000,
+  "observedHeroMaxHpFromScreenshot": 254,
+  "healthNote": "輸入存檔氣血5000；核心續玩正規化後畫面為254／254，以實際核心結果為準。"
+}
