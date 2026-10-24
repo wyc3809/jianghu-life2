@@ -1,0 +1,93 @@
+{
+  "base": "http://127.0.0.1:5177/",
+  "productionBuild": true,
+  "actualIOS": false,
+  "renderer": "Chromium SwiftShader software GPU",
+  "dpr": 2.0,
+  "cases": [
+    {
+      "name": "ordinary",
+      "mode": "skip",
+      "mainButtonStyle": {
+        "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+        "weight": "900"
+      },
+      "stats": {
+        "charging": {
+          "samples": 4,
+          "drawsMedian": 70.0,
+          "frameMsMedian": 241.60000000000036,
+          "frameMsP95": 400,
+          "dprMin": 1,
+          "dprMax": 1
+        },
+        "idle": {
+          "samples": 2,
+          "drawsMedian": 71.0,
+          "frameMsMedian": 283.3499999999999,
+          "frameMsP95": 550.1000000000004,
+          "dprMin": 1,
+          "dprMax": 1
+        },
+        "settle": {
+          "samples": 127,
+          "drawsMedian": 0,
+          "frameMsMedian": 16.69999999999891,
+          "frameMsP95": 16.80000000000109,
+          "dprMin": 1,
+          "dprMax": 1
+        }
+      },
+      "actualJade": {
+        "free": 540,
+        "paidTest": 600
+      },
+      "coreResultMatches": true,
+      "errors": [],
+      "resultFont": "\"Jianghu Wuxia Titles\", \"Noto Serif TC\", serif",
+      "repeatedClaimNoDebit": true
+    },
+    {
+      "name": "premium",
+      "mode": "skip",
+      "mainButtonStyle": {
+        "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+        "weight": "900"
+      },
+      "stats": {
+        "charging": {
+          "samples": 2,
+          "drawsMedian": 74.0,
+          "frameMsMedian": 300.0,
+          "frameMsP95": 383.2999999999993,
+          "dprMin": 1,
+          "dprMax": 1
+        },
+        "idle": {
+          "samples": 2,
+          "drawsMedian": 75.0,
+          "frameMsMedian": 208.3499999999999,
+          "frameMsP95": 400,
+          "dprMin": 1,
+          "dprMax": 1
+        },
+        "settle": {
+          "samples": 123,
+          "drawsMedian": 0,
+          "frameMsMedian": 16.69999999999891,
+          "frameMsP95": 16.80000000000109,
+          "dprMin": 1,
+          "dprMax": 1
+        }
+      },
+      "actualJade": {
+        "free": 600,
+        "paidTest": 540
+      },
+      "coreResultMatches": true,
+      "errors": [],
+      "resultFont": "\"Jianghu Wuxia Titles\", \"Noto Serif TC\", serif",
+      "repeatedClaimNoDebit": true
+    }
+  ]
+}

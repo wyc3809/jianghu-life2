@@ -1,0 +1,105 @@
+{
+  "base": "http://127.0.0.1:5177/",
+  "productionBuild": true,
+  "actualIOS": false,
+  "renderer": "Chromium SwiftShader software GPU",
+  "dpr": 1.0,
+  "cases": [
+    {
+      "name": "ordinary",
+      "mode": "normal",
+      "mainButtonStyle": {
+        "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+        "weight": "900"
+      },
+      "stats": {
+        "bursting": {
+          "samples": 14,
+          "drawsMedian": 70.0,
+          "frameMsMedian": 83.30000000000018,
+          "frameMsP95": 100.10000000000036
+        },
+        "charging": {
+          "samples": 12,
+          "drawsMedian": 70.0,
+          "frameMsMedian": 83.24999999999955,
+          "frameMsP95": 183.4000000000001
+        },
+        "idle": {
+          "samples": 2,
+          "drawsMedian": 71.0,
+          "frameMsMedian": 133.29999999999995,
+          "frameMsP95": 249.9000000000001
+        },
+        "revealing": {
+          "samples": 31,
+          "drawsMedian": 70,
+          "frameMsMedian": 33.399999999999636,
+          "frameMsP95": 100
+        },
+        "settle": {
+          "samples": 55,
+          "drawsMedian": 0,
+          "frameMsMedian": 16.699999999999818,
+          "frameMsP95": 16.799999999999272
+        }
+      },
+      "actualJade": {
+        "free": 540,
+        "paidTest": 600
+      },
+      "coreResultMatches": true,
+      "errors": [],
+      "resultFont": "\"Jianghu Wuxia Titles\", \"Noto Serif TC\", serif",
+      "repeatedClaimNoDebit": true
+    },
+    {
+      "name": "premium",
+      "mode": "normal",
+      "mainButtonStyle": {
+        "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+        "weight": "900"
+      },
+      "stats": {
+        "bursting": {
+          "samples": 21,
+          "drawsMedian": 74,
+          "frameMsMedian": 66.70000000000073,
+          "frameMsP95": 99.89999999999964
+        },
+        "charging": {
+          "samples": 15,
+          "drawsMedian": 74,
+          "frameMsMedian": 83.29999999999927,
+          "frameMsP95": 100
+        },
+        "idle": {
+          "samples": 3,
+          "drawsMedian": 74,
+          "frameMsMedian": 166.59999999999945,
+          "frameMsP95": 216.69999999999982
+        },
+        "revealing": {
+          "samples": 33,
+          "drawsMedian": 74,
+          "frameMsMedian": 33.400000000001455,
+          "frameMsP95": 100
+        },
+        "settle": {
+          "samples": 61,
+          "drawsMedian": 0,
+          "frameMsMedian": 16.69999999999891,
+          "frameMsP95": 16.700000000000728
+        }
+      },
+      "actualJade": {
+        "free": 600,
+        "paidTest": 540
+      },
+      "coreResultMatches": true,
+      "errors": [],
+      "resultFont": "\"Jianghu Wuxia Titles\", \"Noto Serif TC\", serif",
+      "repeatedClaimNoDebit": true
+    }
+  ]
+}

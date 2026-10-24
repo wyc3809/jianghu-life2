@@ -1,0 +1,105 @@
+{
+  "base": "http://127.0.0.1:5176/",
+  "productionBuild": true,
+  "actualIOS": false,
+  "renderer": "Chromium SwiftShader software GPU",
+  "dpr": 1.0,
+  "cases": [
+    {
+      "name": "ordinary",
+      "mode": "normal",
+      "mainButtonStyle": {
+        "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+        "weight": "900"
+      },
+      "stats": {
+        "bursting": {
+          "samples": 13,
+          "drawsMedian": 17,
+          "frameMsMedian": 83.39999999999964,
+          "frameMsP95": 116.69999999999982
+        },
+        "charging": {
+          "samples": 8,
+          "drawsMedian": 17.0,
+          "frameMsMedian": 83.34999999999991,
+          "frameMsP95": 700
+        },
+        "idle": {
+          "samples": 1,
+          "drawsMedian": 19,
+          "frameMsMedian": 16.599999999999454,
+          "frameMsP95": 16.599999999999454
+        },
+        "revealing": {
+          "samples": 20,
+          "drawsMedian": 17.0,
+          "frameMsMedian": 66.69999999999982,
+          "frameMsP95": 166.60000000000036
+        },
+        "settle": {
+          "samples": 46,
+          "drawsMedian": 0.0,
+          "frameMsMedian": 16.69999999999891,
+          "frameMsP95": 16.799999999999272
+        }
+      },
+      "actualJade": {
+        "free": 540,
+        "paidTest": 600
+      },
+      "coreResultMatches": true,
+      "errors": [],
+      "resultFont": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+      "repeatedClaimNoDebit": true
+    },
+    {
+      "name": "premium",
+      "mode": "normal",
+      "mainButtonStyle": {
+        "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+        "weight": "900"
+      },
+      "stats": {
+        "bursting": {
+          "samples": 13,
+          "drawsMedian": 18,
+          "frameMsMedian": 100,
+          "frameMsP95": 166.69999999999982
+        },
+        "charging": {
+          "samples": 8,
+          "drawsMedian": 18.0,
+          "frameMsMedian": 91.69999999999982,
+          "frameMsP95": 816.6999999999998
+        },
+        "idle": {
+          "samples": 1,
+          "drawsMedian": 20,
+          "frameMsMedian": 16.600000000000364,
+          "frameMsP95": 16.600000000000364
+        },
+        "revealing": {
+          "samples": 22,
+          "drawsMedian": 18.0,
+          "frameMsMedian": 66.65000000000055,
+          "frameMsP95": 166.70000000000073
+        },
+        "settle": {
+          "samples": 57,
+          "drawsMedian": 0,
+          "frameMsMedian": 16.69999999999891,
+          "frameMsP95": 16.700000000000728
+        }
+      },
+      "actualJade": {
+        "free": 600,
+        "paidTest": 540
+      },
+      "coreResultMatches": true,
+      "errors": [],
+      "resultFont": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+      "repeatedClaimNoDebit": true
+    }
+  ]
+}

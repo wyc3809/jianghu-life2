@@ -1,0 +1,19 @@
+{
+  "base": "http://127.0.0.1:5176/",
+  "productionBuild": true,
+  "fixtureCoreGrantGear": true,
+  "nativeMarkerAndCssSafeAreaSimulation": true,
+  "actualIOS": false,
+  "cases": [
+    {
+      "grade": 1,
+      "mode": "contextlost",
+      "gear": "精鋼刀",
+      "settledDraws": 0,
+      "ownedCount": 1,
+      "autoEquipped": false,
+      "replayOnReload": false,
+      "pageerrors": []
+    }
+  ]
+}

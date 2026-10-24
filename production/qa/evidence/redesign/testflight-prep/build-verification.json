@@ -1,0 +1,15 @@
+{
+  "gameVersion": "EA0.88.0",
+  "bundleId": "com.wyc3809.jianghulife2",
+  "appleVersion": "1.0",
+  "buildNumber": "3",
+  "sdk": "iphoneos26.2",
+  "minimumIOS": "17.4",
+  "platform": "iphoneos",
+  "architecture": "arm64",
+  "privacyManifest": true,
+  "bundleSHA256": "6a6486de663918a2733f3e5958f64477647812c894f4814efcef79c5064d38b1",
+  "archiveCompileVerified": true,
+  "signedIPA": false,
+  "testflightUploaded": false
+}

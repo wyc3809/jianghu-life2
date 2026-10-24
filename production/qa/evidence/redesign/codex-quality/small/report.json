@@ -1,0 +1,60 @@
+{
+  "base": "http://127.0.0.1:5176/",
+  "productionBuild": true,
+  "actualIOS": false,
+  "renderer": "Chromium SwiftShader software GPU",
+  "dpr": 2.0,
+  "cases": [
+    {
+      "name": "ten",
+      "mode": "skip",
+      "mainButtonStyle": {
+        "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+        "weight": "900"
+      },
+      "stats": {
+        "charging": {
+          "samples": 5,
+          "drawsMedian": 18,
+          "frameMsMedian": 83.40000000000055,
+          "frameMsP95": 100,
+          "dprMin": 1.75,
+          "dprMax": 2
+        },
+        "idle": {
+          "samples": 2,
+          "drawsMedian": 19.0,
+          "frameMsMedian": 316.6500000000001,
+          "frameMsP95": 616.6000000000004,
+          "dprMin": 2,
+          "dprMax": 2
+        },
+        "settle": {
+          "samples": 32,
+          "drawsMedian": 0.0,
+          "frameMsMedian": 16.699999999999818,
+          "frameMsP95": 99.89999999999964,
+          "dprMin": 2,
+          "dprMax": 2
+        }
+      },
+      "actualJade": {
+        "free": 600,
+        "paidTest": 0
+      },
+      "coreResultMatches": true,
+      "errors": [],
+      "claimTouchTarget": {
+        "y": 475,
+        "bottom": 519,
+        "height": 44,
+        "width": 100,
+        "hit": true
+      },
+      "allCardsSelectable": true,
+      "resultFont": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+      "repeatedClaimNoDebit": true,
+      "oldContextReleased": true
+    }
+  ]
+}

@@ -80,3 +80,12 @@ production/qa/evidence/redesign/release-ea073/frames/
 production/qa/evidence/redesign/hero-small-scale/raw-video/
 
 supabase/.temp/
+
+# iOS打包輸出及簽署資料，不可提交憑證。
+artifacts/
+build/
+*.p8
+*.p12
+*.mobileprovision
+*.xcarchive/
+*.ipa

@@ -9,6 +9,7 @@
  */
 import gsap from 'gsap';
 import * as THREE from 'three';
+import { CodexRenderBudget } from './scene/codexRenderBudget';
 import { GRADES, type GradeStyle } from './grades';
 import type { Grade, HighlightConfig } from './types';
 import { HighlightStage } from './scene/renderer';
@@ -106,6 +107,10 @@ export class Director {
   private norm = 1;
   private orbitOn = false;
   private beginTimer: gsap.core.Tween | null = null;
+  private overlaysKey = '';
+  private revealTarget = { pan: 0, camK: 1 };
+  private renderBudget: CodexRenderBudget | null = null;
+  private renderDpr = 1;
 
   constructor(
     private refs: DirectorRefs,
@@ -114,16 +119,18 @@ export class Director {
     opts: { reduceMotion: boolean },
   ) {
     this.reduce = opts.reduceMotion;
-    this.stage = new HighlightStage({ canvas: refs.gl, lowPower: opts.reduceMotion || cfg.subject === 'codex', direct: cfg.subject === 'codex' });
+    this.stage = new HighlightStage({ canvas: refs.gl, lowPower: opts.reduceMotion || cfg.subject === 'codex',
+      direct: cfg.subject === 'codex', painted: cfg.subject === 'chest' });
     this.particles = new ParticleSystem(refs.fx);
     this.particles.density = this.reduce ? 0.35 : 1;
     this.model = buildSubject(cfg.subject, cfg.rewards.some(card => card.isPremium === true));
+    this.model.root.userData.invalidate = () => { if (this.phase === 'settle') this.stage.render(); };
     const size = new THREE.Box3().setFromObject(this.model.root).getSize(new THREE.Vector3());
     this.norm = SUBJECT_SIZE / Math.max(size.x, size.y, size.z * 0.8);
     this.model.root.scale.setScalar(this.norm);
     this.subH = size.y * this.norm;
     this.stage.subjectRoot.add(this.model.root);
-    this.pedestal = buildPedestal();
+    this.pedestal = buildPedestal(cfg.subject === 'chest');
     this.stage.props.add(this.pedestal);
     this.applyGrade(0, false);
     this.resize();
@@ -147,7 +154,10 @@ export class Director {
     const r = this.refs.root.getBoundingClientRect();
     this.cssW = Math.max(1, r.width);
     this.cssH = Math.max(1, r.height);
-    const dpr = Math.min(this.cfg.subject === 'codex' ? 1.5 : 2, window.devicePixelRatio || 1);
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    this.renderBudget = this.cfg.subject === 'codex' ? new CodexRenderBudget(dpr) : null;
+    this.renderDpr = dpr;
+    this.refs.root.dataset.renderDpr = String(dpr);
     this.stage.resize(this.cssW, this.cssH, dpr);
     // 取景：闊度要容得落主體＋台座，高度要容得落跳起
     const cam = this.stage.camera;
@@ -159,7 +169,7 @@ export class Director {
     this.cam = { dist, lookY, camY: lookY + 0.9 };
     this.particles.resize(this.cssW, this.cssH, dpr);
     this.placeOverlays();
-    if (this.cfg.subject === 'codex' && this.phase === 'settle') { this.syncScene(); this.stage.render(); }
+    if (this.phase === 'settle') { this.syncScene(); this.stage.render(); }
   }
 
   private get style(): GradeStyle {
@@ -194,6 +204,10 @@ export class Director {
     const c = this.centerScreen();
     const b = this.baseScreen();
     const bp = this.burstScreen();
+    const { rx, ry } = this.subjectRadiusPx();
+    const key = [c.x, c.y, bp.x, bp.y, b.x, b.y, rx, ry].map(value => value.toFixed(1)).join(':');
+    if (key === this.overlaysKey) return;
+    this.overlaysKey = key;
     const root = this.refs.root.style;
     root.setProperty('--cx', `${c.x}px`);
     root.setProperty('--cy', `${c.y}px`);
@@ -201,7 +215,6 @@ export class Director {
     root.setProperty('--by', `${bp.y}px`);
     root.setProperty('--gx', `${b.x}px`);
     root.setProperty('--gy', `${b.y}px`);
-    const { rx, ry } = this.subjectRadiusPx();
     root.setProperty('--sr', `${Math.max(rx, ry)}px`);
   }
 
@@ -241,12 +254,20 @@ export class Director {
   }
 
   private tick(now: number) {
-    if (this.cfg.subject === 'codex' && this.phase === 'settle') {
+    if (this.phase === 'settle') {
       this.syncScene(); this.placeOverlays(); this.stage.render(); this.particles.draw();
       return;
     }
     this.raf = requestAnimationFrame(this.tick);
     if (document.hidden) { this.last = now; return; }
+    if (this.renderBudget && this.last) {
+      const dpr = this.renderBudget.sample(now - this.last);
+      if (dpr !== this.renderDpr) {
+        this.renderDpr = dpr; this.refs.root.dataset.renderDpr = String(dpr);
+        this.stage.resize(this.cssW, this.cssH, dpr);
+        this.particles.resize(this.cssW, this.cssH, Math.min(1.5, dpr));
+      }
+    }
     const dt = Math.min(0.05, this.last ? (now - this.last) / 1000 : 0.016);
     this.last = now;
     this.syncScene();
@@ -266,10 +287,15 @@ export class Director {
     this.model.setOpen(A.open);
     this.model.setGlow(A.glow);
     const cam = this.stage.camera;
-    cam.position.set(0, this.cam.camY, this.cam.dist * A.camK);
+    // 翻開時逐步容納雙頁，取景中心跟住書脊展幅，避免左頁伸出手機邊界。
+    const opening = this.cfg.subject === 'codex' ? THREE.MathUtils.smoothstep(A.open, .06, .8) : 0;
+    const bookCenter = -opening * .55 * this.norm;
+    const spreadK = 1 + opening * .2;
+    cam.position.set(bookCenter, this.cam.camY, this.cam.dist * A.camK * spreadK);
     // pan：揭曉時主體上移、拉遠少少，讓出下面嘅面板位
     cam.position.y = this.cam.camY - A.pan;
-    cam.lookAt(0, this.cam.lookY + (1 - A.camK) * this.subH * 0.35 - A.pan, 0);
+    cam.lookAt(bookCenter, this.cam.lookY + (1 - A.camK) * this.subH * 0.35 - A.pan, 0);
+    cam.updateMatrixWorld();
     // 投影：高度越高越細越淡
     const sh = this.refs.shadow.style;
     const k = 1 / (1 + A.y * 0.55);
@@ -361,6 +387,12 @@ export class Director {
     this.stopLoops();
     const A = this.A;
     const next = (this.grade + 1) as Grade;
+    if (this.reduce) {
+      this.main = gsap.timeline({ onComplete: () => { this.setPhase('idle'); this.startIdle(); } })
+        .to(A, { y: 0, rotY: 0, sx: 1, sy: 1, sz: 1, duration: .12 })
+        .call(() => this.applyGrade(next, false));
+      return;
+    }
     sfx.jump();
     const tl = gsap.timeline({
       onComplete: () => {
@@ -577,8 +609,9 @@ export class Director {
     if (top) this.enterStage();
     sfx.fanfare();
     // 揭曉取景：主體上移、拉遠讓出下面面板；丹爐開蓋後最高，拉遠多啲
-    const frame = this.cfg.subject === 'codex' ? { pan: .5, k: 1.55 } : this.cfg.subject === 'cauldron' ? { pan: 0.1, k: 1.24 } : { pan: 0.2, k: 1.08 };
-    gsap.to(this.A, { pan: this.subH * frame.pan, camK: frame.k, duration: this.reduce ? 0 : 0.8, ease: 'power2.inOut' });
+    const frame = this.cfg.subject === 'codex' ? { pan: .5, k: 1.35 } : this.cfg.subject === 'cauldron' ? { pan: 0.1, k: 1.24 } : { pan: 0.2, k: 1.08 };
+    this.revealTarget = { pan: this.subH * frame.pan, camK: frame.k };
+    gsap.to(this.A, { ...this.revealTarget, duration: this.reduce || this.refs.root.dataset.skipped === '1' ? 0 : .8, ease: 'power2.inOut' });
     this.startIdle();
     this.cb.onReveal();
   }
@@ -605,11 +638,15 @@ export class Director {
   /** React 揭曉動畫播完（卡片落位、面板數字滾完）→ 可以領取 */
   revealSettled() {
     if (this.phase !== 'revealing') return;
+    gsap.killTweensOf(this.A, 'pan,camK');
+    Object.assign(this.A, this.revealTarget);
     this.setPhase('settle');
-    if (this.cfg.subject === 'codex') {
-      this.stopLoops(); this.dustTimer?.kill(); this.dustTimer = null;
-      this.particles.clear();
+    if (this.renderBudget) {
+      this.renderDpr = this.renderBudget.settle(); this.refs.root.dataset.renderDpr = String(this.renderDpr);
+      this.stage.resize(this.cssW, this.cssH, this.renderDpr);
     }
+    this.stopLoops(); this.dustTimer?.kill(); this.dustTimer = null;
+    this.particles.clear();
   }
 
   /** 領取：由 React 播金幣飛入，完成後叫 finish */

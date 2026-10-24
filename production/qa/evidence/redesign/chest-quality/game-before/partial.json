@@ -1,0 +1,22 @@
+[
+  {
+    "grade": 1,
+    "mode": "skip",
+    "gear": "精鋼刀",
+    "settledDraws": 147,
+    "ownedCount": 1,
+    "autoEquipped": false,
+    "replayOnReload": false,
+    "pageerrors": []
+  },
+  {
+    "grade": 5,
+    "mode": "skip",
+    "gear": "玄鐵重劍",
+    "settledDraws": 143,
+    "ownedCount": 1,
+    "autoEquipped": false,
+    "replayOnReload": false,
+    "pageerrors": []
+  }
+]

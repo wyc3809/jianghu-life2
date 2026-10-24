@@ -1,0 +1,43 @@
+{
+  "base": "http://127.0.0.1:5176/",
+  "productionBuild": true,
+  "actualIOS": false,
+  "renderer": "Chromium SwiftShader software GPU",
+  "dpr": 2.0,
+  "cases": [
+    {
+      "name": "ordinary",
+      "mode": "contextlost",
+      "mainButtonStyle": {
+        "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+        "weight": "900"
+      },
+      "stats": {
+        "charging": {
+          "samples": 7,
+          "drawsMedian": 17,
+          "frameMsMedian": 100,
+          "frameMsP95": 166.60000000000036,
+          "dprMin": 1.5,
+          "dprMax": 2
+        },
+        "idle": {
+          "samples": 2,
+          "drawsMedian": 18.0,
+          "frameMsMedian": 391.7000000000003,
+          "frameMsP95": 766.8000000000002,
+          "dprMin": 2,
+          "dprMax": 2
+        }
+      },
+      "actualJade": {
+        "free": 540,
+        "paidTest": 600
+      },
+      "coreResultMatches": true,
+      "errors": [],
+      "repeatedClaimNoDebit": true,
+      "oldContextReleased": true
+    }
+  ]
+}

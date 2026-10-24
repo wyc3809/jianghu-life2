@@ -104,3 +104,8 @@
 - 開卷／掩卷朱砂印：`InkStaticSeal`
 - 命運落印動畫：`InkSealStamp`
 - 事件橫幅：`InkPlayScreen` + `InkEventBanner`（`src` WebP 或 SVG `markup`）
+
+
+## 秘笈原畫高清映射（2026-10-24，第42項）
+
+青封／珍本金封1024×1536，左右山水內頁724×1086；四圖來源、原提示、處理腳本及條款保留於`gacha-codex/README.md`，新尺寸／SHA256見`gacha-codex/quality-mapping.json`。沿用既有原畫，不放大舊縮圖或新增第三方素材。介面按鈕沿用主頁`public/ink/art/ui/brush-btn-cinnabar.webp`；此項不新增或改動其他頁面框素材。

@@ -1,0 +1,22 @@
+{
+  "base": "http://127.0.0.1:5177/",
+  "productionBuild": true,
+  "actualIOS": false,
+  "cssSafeAreaInputsOnly": true,
+  "cases": [
+    {
+      "tag": "chromium-native-393-852",
+      "errors": [],
+      "httpErrors": [],
+      "hudVisible": true,
+      "dockVisible": true
+    },
+    {
+      "tag": "chromium-web-390-844",
+      "errors": [],
+      "httpErrors": [],
+      "hudVisible": true,
+      "dockVisible": true
+    }
+  ]
+}

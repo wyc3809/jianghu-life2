@@ -1,0 +1,84 @@
+workflows:
+  ios-testflight: &ios-release
+    name: 江湖一生 iOS 外測發布
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    integrations:
+      # 喺Codemagic建立同名App Store Connect整合，唔好將p8放入repo。
+      app_store_connect: jianghu-life2-app-store
+    environment:
+      node: 24
+      xcode: latest
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.wyc3809.jianghulife2
+      groups:
+        - jianghu-public-config
+      vars:
+        IOS_BUNDLE_ID: com.wyc3809.jianghulife2
+        IOS_MARKETING_VERSION: '1.0'
+        VITE_ONLINE_PUBLIC: '1'
+        # 玩家提供的App Store Connect數字App ID，從此App的最新TestFlight build加一。
+        APP_STORE_APP_ID: '6826541114'
+    scripts:
+      - name: 核對TestFlight準備狀態
+        script: |
+          set -euo pipefail
+          node scripts/ios/release-check.mjs
+          bash scripts/ios/check-xcode.sh
+      - &install-and-test
+        name: 安裝及驗證
+        script: |
+          set -euo pipefail
+          npm ci
+          npm test
+          npm run audit:narrate
+          npm run audit:copy
+      - &package-game
+        name: 打包遊戲與原生工程
+        script: |
+          set -euo pipefail
+          IOS_BUILD_NUMBER="$(bash scripts/ios/next-build-number.sh)"
+          export IOS_BUILD_NUMBER
+          npm run ios:sync
+          npm run ios:verify
+      - name: 套用Apple簽名
+        script: xcode-project use-profiles
+      - &build-ipa
+        name: 編譯已簽名IPA
+        script: |
+          set -euo pipefail
+          xcode-project build-ipa \
+            --project ios/App/App.xcodeproj \
+            --scheme App
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+        submit_to_app_store: false
+
+  ios-internal-testflight:
+    <<: *ios-release
+    name: 江湖一生 iOS 首次內測
+    scripts:
+      - name: 核對內測設定及列出已知限制
+        script: |
+          set -euo pipefail
+          node scripts/ios/internal-check.mjs
+          bash scripts/ios/check-xcode.sh
+      - *install-and-test
+      - *package-game
+      - name: 套用僅供內測的Apple簽名
+        script: |
+          xcode-project use-profiles \
+            --custom-export-options='{"testFlightInternalTestingOnly": true}'
+      - *build-ipa
+    publishing:
+      app_store_connect:
+        auth: integration
+        # 上傳後由擁有者手動加入內測；不提交Beta審核或正式商店審核。
+        submit_to_testflight: false
+        submit_to_app_store: false

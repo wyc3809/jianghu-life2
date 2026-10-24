@@ -45,7 +45,8 @@ with sync_playwright() as p:
         for label,selector in [('秘笈閣','#ink-gacha'),('華山論劍','.ink-huashan-panel'),('開宗立派','.ink-sect-founder-panel'),('江湖風雲','#ink-online')]:
             page.get_by_role('button',name=label,exact=True).click()
             page.locator(selector).wait_for()
-            assert page.locator('.ink-hud').count()==1 and nav().count()==1
+            expected=0 if label=='秘笈閣' else 1
+            assert page.locator('.ink-hud').count()==expected and nav().count()==expected
             page.get_by_role('button',name='‹ 返回江湖',exact=True).click()
         page.get_by_role('button',name='返回鎮居',exact=True).click()
         assert page.locator('.ink-hud').count()==1 and nav().count()==1

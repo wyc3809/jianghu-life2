@@ -1,0 +1,106 @@
+{
+  "base": "http://127.0.0.1:5180/",
+  "device": "Chromium mobile 390x844 DPR1.0 SwiftShader, not iPhone",
+  "results": [
+    {
+      "grade": 1,
+      "stats": {
+        "bursting": {
+          "frames": 4,
+          "frameP50": 325.0,
+          "frameP95": 366.60000000000036,
+          "cpuP95": 4.200000002980232,
+          "drawCallsMedian": 20.0
+        },
+        "charging": {
+          "frames": 3,
+          "frameP50": 399.89999999999964,
+          "frameP95": 400,
+          "cpuP95": 2.2000000029802322,
+          "drawCallsMedian": 20
+        },
+        "idle": {
+          "frames": 17,
+          "frameP50": 400.10000000000036,
+          "frameP95": 1200,
+          "cpuP95": 46.100000001490116,
+          "drawCallsMedian": 20
+        },
+        "revealing": {
+          "frames": 12,
+          "frameP50": 308.3000000000011,
+          "frameP95": 566.6000000000004,
+          "cpuP95": 6.700000002980232,
+          "drawCallsMedian": 20.0
+        },
+        "settle": {
+          "frames": 65,
+          "frameP50": 16.69999999999709,
+          "frameP95": 16.700000000000728,
+          "cpuP95": 0.10000000149011612,
+          "drawCallsMedian": 0
+        },
+        "upgrading": {
+          "frames": 6,
+          "frameP50": 341.64999999999964,
+          "frameP95": 550,
+          "cpuP95": 7.300000004470348,
+          "drawCallsMedian": 20.0
+        }
+      },
+      "buffers": [],
+      "errors": [],
+      "video": "/workspace/jianghu-testflight-setup/.local-online/chest-quality/video/after/page@b75bb1b51592e5c9d92d4e7d64aea6d5.webm"
+    },
+    {
+      "grade": 5,
+      "stats": {
+        "bursting": {
+          "frames": 5,
+          "frameP50": 283.2999999999993,
+          "frameP95": 283.3000000000029,
+          "cpuP95": 9,
+          "drawCallsMedian": 20
+        },
+        "charging": {
+          "frames": 6,
+          "frameP50": 200.0,
+          "frameP95": 216.70000000000073,
+          "cpuP95": 11.200000002980232,
+          "drawCallsMedian": 20.0
+        },
+        "idle": {
+          "frames": 36,
+          "frameP50": 200.0,
+          "frameP95": 416.5,
+          "cpuP95": 5.0999999940395355,
+          "drawCallsMedian": 20.0
+        },
+        "revealing": {
+          "frames": 20,
+          "frameP50": 191.70000000000255,
+          "frameP95": 283.2000000000007,
+          "cpuP95": 11.899999998509884,
+          "drawCallsMedian": 17.0
+        },
+        "settle": {
+          "frames": 53,
+          "frameP50": 16.700000000000728,
+          "frameP95": 33.400000000001455,
+          "cpuP95": 0.10000000149011612,
+          "drawCallsMedian": 0
+        },
+        "upgrading": {
+          "frames": 32,
+          "frameP50": 200.0,
+          "frameP95": 266.6999999999989,
+          "cpuP95": 29.600000001490116,
+          "drawCallsMedian": 20.0
+        }
+      },
+      "buffers": [],
+      "errors": [],
+      "video": "/workspace/jianghu-testflight-setup/.local-online/chest-quality/video/after/page@72bc3823938aecfece60310c36fb7c8c.webm"
+    }
+  ]
+}

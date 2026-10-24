@@ -1,0 +1,1618 @@
+{
+  "base": "http://127.0.0.1:5176/",
+  "productionBuild": true,
+  "actualIOS": false,
+  "cssSafeAreaInputsOnly": true,
+  "cases": [
+    {
+      "tag": "chromium-native-320-568",
+      "errors": [],
+      "httpErrors": [],
+      "layout": {
+        "shell": {
+          "x": 0,
+          "y": 20,
+          "width": 320,
+          "height": 548,
+          "bottom": 568,
+          "scrollHeight": 548,
+          "clientHeight": 548,
+          "scrollWidth": 320,
+          "clientWidth": 320
+        },
+        "body": {
+          "x": 8,
+          "y": 20,
+          "width": 304,
+          "height": 540,
+          "bottom": 560,
+          "scrollHeight": 540,
+          "clientHeight": 540,
+          "scrollWidth": 304,
+          "clientWidth": 304
+        },
+        "panel": {
+          "x": 8,
+          "y": 64,
+          "width": 304,
+          "height": 496,
+          "bottom": 560,
+          "scrollHeight": 494,
+          "clientHeight": 494,
+          "scrollWidth": 302,
+          "clientWidth": 302
+        },
+        "draw": {
+          "x": 21,
+          "y": 191.78125,
+          "width": 278,
+          "height": 355.21875,
+          "bottom": 547,
+          "scrollHeight": 421,
+          "clientHeight": 355,
+          "scrollWidth": 278,
+          "clientWidth": 278
+        },
+        "theatre": {
+          "x": 21,
+          "y": 304.78125,
+          "width": 278,
+          "height": 120,
+          "bottom": 424.78125,
+          "scrollHeight": 128,
+          "clientHeight": 120,
+          "scrollWidth": 278,
+          "clientWidth": 278
+        }
+      },
+      "controls": [
+        {
+          "text": "‹ 返回江湖",
+          "x": 8,
+          "y": 20,
+          "width": 96,
+          "height": 44,
+          "bottom": 64,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "＋",
+          "x": 255,
+          "y": 147.78125,
+          "width": 44,
+          "height": 44,
+          "bottom": 191.78125,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "願心願武學虎嘯內勁 ›39／40再抽1次必出",
+          "x": 21,
+          "y": 424.78125,
+          "width": 278,
+          "height": 68,
+          "bottom": 492.78125,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽一次60 玉石",
+          "x": 21,
+          "y": 488.78125,
+          "width": 134.5,
+          "height": 58,
+          "bottom": 546.78125,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽十次600 玉石",
+          "x": 164.5,
+          "y": 488.78125,
+          "width": 134.5,
+          "height": 58,
+          "bottom": 546.78125,
+          "safe": true,
+          "hit": true
+        }
+      ],
+      "navigationAndAccountUnchanged": true
+    },
+    {
+      "tag": "chromium-native-375-667",
+      "errors": [],
+      "httpErrors": [],
+      "layout": {
+        "shell": {
+          "x": 0,
+          "y": 20,
+          "width": 375,
+          "height": 647,
+          "bottom": 667,
+          "scrollHeight": 647,
+          "clientHeight": 647,
+          "scrollWidth": 375,
+          "clientWidth": 375
+        },
+        "body": {
+          "x": 8,
+          "y": 20,
+          "width": 359,
+          "height": 639,
+          "bottom": 659,
+          "scrollHeight": 639,
+          "clientHeight": 639,
+          "scrollWidth": 359,
+          "clientWidth": 359
+        },
+        "panel": {
+          "x": 8,
+          "y": 64,
+          "width": 359,
+          "height": 595,
+          "bottom": 659,
+          "scrollHeight": 593,
+          "clientHeight": 593,
+          "scrollWidth": 357,
+          "clientWidth": 357
+        },
+        "draw": {
+          "x": 21,
+          "y": 191.78125,
+          "width": 333,
+          "height": 454.21875,
+          "bottom": 646,
+          "scrollHeight": 454,
+          "clientHeight": 454,
+          "scrollWidth": 333,
+          "clientWidth": 333
+        },
+        "theatre": {
+          "x": 21,
+          "y": 304.78125,
+          "width": 333,
+          "height": 153.21875,
+          "bottom": 458,
+          "scrollHeight": 153,
+          "clientHeight": 153,
+          "scrollWidth": 333,
+          "clientWidth": 333
+        }
+      },
+      "controls": [
+        {
+          "text": "‹ 返回江湖",
+          "x": 8,
+          "y": 20,
+          "width": 96,
+          "height": 44,
+          "bottom": 64,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "＋",
+          "x": 310,
+          "y": 147.78125,
+          "width": 44,
+          "height": 44,
+          "bottom": 191.78125,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "願心願武學虎嘯內勁 ›39／40再抽1次必出",
+          "x": 21,
+          "y": 458,
+          "width": 333,
+          "height": 68,
+          "bottom": 526,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽一次60 玉石",
+          "x": 21,
+          "y": 561,
+          "width": 162,
+          "height": 58,
+          "bottom": 619,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽十次600 玉石",
+          "x": 192,
+          "y": 561,
+          "width": 162,
+          "height": 58,
+          "bottom": 619,
+          "safe": true,
+          "hit": true
+        }
+      ],
+      "navigationAndAccountUnchanged": true
+    },
+    {
+      "tag": "chromium-native-390-844",
+      "errors": [],
+      "httpErrors": [],
+      "layout": {
+        "shell": {
+          "x": 0,
+          "y": 47,
+          "width": 390,
+          "height": 797,
+          "bottom": 844,
+          "scrollHeight": 797,
+          "clientHeight": 797,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "body": {
+          "x": 8,
+          "y": 47,
+          "width": 374,
+          "height": 763,
+          "bottom": 810,
+          "scrollHeight": 763,
+          "clientHeight": 763,
+          "scrollWidth": 374,
+          "clientWidth": 374
+        },
+        "panel": {
+          "x": 8,
+          "y": 91,
+          "width": 374,
+          "height": 719,
+          "bottom": 810,
+          "scrollHeight": 717,
+          "clientHeight": 717,
+          "scrollWidth": 372,
+          "clientWidth": 372
+        },
+        "draw": {
+          "x": 21,
+          "y": 218.78125,
+          "width": 348,
+          "height": 578.21875,
+          "bottom": 797,
+          "scrollHeight": 578,
+          "clientHeight": 578,
+          "scrollWidth": 348,
+          "clientWidth": 348
+        },
+        "theatre": {
+          "x": 21,
+          "y": 331.78125,
+          "width": 348,
+          "height": 277.21875,
+          "bottom": 609,
+          "scrollHeight": 277,
+          "clientHeight": 277,
+          "scrollWidth": 348,
+          "clientWidth": 348
+        }
+      },
+      "controls": [
+        {
+          "text": "‹ 返回江湖",
+          "x": 8,
+          "y": 47,
+          "width": 96,
+          "height": 44,
+          "bottom": 91,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "＋",
+          "x": 325,
+          "y": 174.78125,
+          "width": 44,
+          "height": 44,
+          "bottom": 218.78125,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "願心願武學虎嘯內勁 ›39／40再抽1次必出",
+          "x": 21,
+          "y": 609,
+          "width": 348,
+          "height": 68,
+          "bottom": 677,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽一次60 玉石",
+          "x": 21,
+          "y": 712,
+          "width": 169.5,
+          "height": 58,
+          "bottom": 770,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽十次600 玉石",
+          "x": 199.5,
+          "y": 712,
+          "width": 169.5,
+          "height": 58,
+          "bottom": 770,
+          "safe": true,
+          "hit": true
+        }
+      ],
+      "navigationAndAccountUnchanged": true
+    },
+    {
+      "tag": "chromium-native-393-852",
+      "errors": [],
+      "httpErrors": [],
+      "layout": {
+        "shell": {
+          "x": 0,
+          "y": 59,
+          "width": 393,
+          "height": 793,
+          "bottom": 852,
+          "scrollHeight": 793,
+          "clientHeight": 793,
+          "scrollWidth": 393,
+          "clientWidth": 393
+        },
+        "body": {
+          "x": 8,
+          "y": 59,
+          "width": 377,
+          "height": 759,
+          "bottom": 818,
+          "scrollHeight": 759,
+          "clientHeight": 759,
+          "scrollWidth": 377,
+          "clientWidth": 377
+        },
+        "panel": {
+          "x": 8,
+          "y": 103,
+          "width": 377,
+          "height": 715,
+          "bottom": 818,
+          "scrollHeight": 713,
+          "clientHeight": 713,
+          "scrollWidth": 375,
+          "clientWidth": 375
+        },
+        "draw": {
+          "x": 21,
+          "y": 230.78125,
+          "width": 351,
+          "height": 574.21875,
+          "bottom": 805,
+          "scrollHeight": 574,
+          "clientHeight": 574,
+          "scrollWidth": 351,
+          "clientWidth": 351
+        },
+        "theatre": {
+          "x": 21,
+          "y": 343.78125,
+          "width": 351,
+          "height": 273.21875,
+          "bottom": 617,
+          "scrollHeight": 273,
+          "clientHeight": 273,
+          "scrollWidth": 351,
+          "clientWidth": 351
+        }
+      },
+      "controls": [
+        {
+          "text": "‹ 返回江湖",
+          "x": 8,
+          "y": 59,
+          "width": 96,
+          "height": 44,
+          "bottom": 103,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "＋",
+          "x": 328,
+          "y": 186.78125,
+          "width": 44,
+          "height": 44,
+          "bottom": 230.78125,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "願心願武學虎嘯內勁 ›39／40再抽1次必出",
+          "x": 21,
+          "y": 617,
+          "width": 351,
+          "height": 68,
+          "bottom": 685,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽一次60 玉石",
+          "x": 21,
+          "y": 720,
+          "width": 171,
+          "height": 58,
+          "bottom": 778,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽十次600 玉石",
+          "x": 201,
+          "y": 720,
+          "width": 171,
+          "height": 58,
+          "bottom": 778,
+          "safe": true,
+          "hit": true
+        }
+      ],
+      "navigationAndAccountUnchanged": true
+    },
+    {
+      "tag": "chromium-native-430-932",
+      "errors": [],
+      "httpErrors": [],
+      "layout": {
+        "shell": {
+          "x": 0,
+          "y": 59,
+          "width": 430,
+          "height": 873,
+          "bottom": 932,
+          "scrollHeight": 873,
+          "clientHeight": 873,
+          "scrollWidth": 430,
+          "clientWidth": 430
+        },
+        "body": {
+          "x": 8,
+          "y": 59,
+          "width": 414,
+          "height": 839,
+          "bottom": 898,
+          "scrollHeight": 839,
+          "clientHeight": 839,
+          "scrollWidth": 414,
+          "clientWidth": 414
+        },
+        "panel": {
+          "x": 8,
+          "y": 103,
+          "width": 414,
+          "height": 795,
+          "bottom": 898,
+          "scrollHeight": 793,
+          "clientHeight": 793,
+          "scrollWidth": 412,
+          "clientWidth": 412
+        },
+        "draw": {
+          "x": 21,
+          "y": 230.78125,
+          "width": 388,
+          "height": 654.21875,
+          "bottom": 885,
+          "scrollHeight": 654,
+          "clientHeight": 654,
+          "scrollWidth": 388,
+          "clientWidth": 388
+        },
+        "theatre": {
+          "x": 21,
+          "y": 343.78125,
+          "width": 388,
+          "height": 353.21875,
+          "bottom": 697,
+          "scrollHeight": 353,
+          "clientHeight": 353,
+          "scrollWidth": 388,
+          "clientWidth": 388
+        }
+      },
+      "controls": [
+        {
+          "text": "‹ 返回江湖",
+          "x": 8,
+          "y": 59,
+          "width": 96,
+          "height": 44,
+          "bottom": 103,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "＋",
+          "x": 365,
+          "y": 186.78125,
+          "width": 44,
+          "height": 44,
+          "bottom": 230.78125,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "願心願武學虎嘯內勁 ›39／40再抽1次必出",
+          "x": 21,
+          "y": 697,
+          "width": 388,
+          "height": 68,
+          "bottom": 765,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽一次60 玉石",
+          "x": 21,
+          "y": 800,
+          "width": 189.5,
+          "height": 58,
+          "bottom": 858,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽十次600 玉石",
+          "x": 219.5,
+          "y": 800,
+          "width": 189.5,
+          "height": 58,
+          "bottom": 858,
+          "safe": true,
+          "hit": true
+        }
+      ],
+      "navigationAndAccountUnchanged": true
+    },
+    {
+      "tag": "chromium-native-768-1024",
+      "errors": [],
+      "httpErrors": [],
+      "layout": {
+        "shell": {
+          "x": 154,
+          "y": 24,
+          "width": 460,
+          "height": 1000,
+          "bottom": 1024,
+          "scrollHeight": 1000,
+          "clientHeight": 1000,
+          "scrollWidth": 460,
+          "clientWidth": 460
+        },
+        "body": {
+          "x": 162,
+          "y": 24,
+          "width": 444,
+          "height": 980,
+          "bottom": 1004,
+          "scrollHeight": 980,
+          "clientHeight": 980,
+          "scrollWidth": 444,
+          "clientWidth": 444
+        },
+        "panel": {
+          "x": 162,
+          "y": 68,
+          "width": 444,
+          "height": 936,
+          "bottom": 1004,
+          "scrollHeight": 934,
+          "clientHeight": 934,
+          "scrollWidth": 442,
+          "clientWidth": 442
+        },
+        "draw": {
+          "x": 175,
+          "y": 195.78125,
+          "width": 418,
+          "height": 795.21875,
+          "bottom": 991,
+          "scrollHeight": 795,
+          "clientHeight": 795,
+          "scrollWidth": 418,
+          "clientWidth": 418
+        },
+        "theatre": {
+          "x": 175,
+          "y": 308.78125,
+          "width": 418,
+          "height": 494.21875,
+          "bottom": 803,
+          "scrollHeight": 494,
+          "clientHeight": 494,
+          "scrollWidth": 418,
+          "clientWidth": 418
+        }
+      },
+      "controls": [
+        {
+          "text": "‹ 返回江湖",
+          "x": 162,
+          "y": 24,
+          "width": 96,
+          "height": 44,
+          "bottom": 68,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "＋",
+          "x": 549,
+          "y": 151.78125,
+          "width": 44,
+          "height": 44,
+          "bottom": 195.78125,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "願心願武學虎嘯內勁 ›39／40再抽1次必出",
+          "x": 175,
+          "y": 803,
+          "width": 418,
+          "height": 68,
+          "bottom": 871,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽一次60 玉石",
+          "x": 175,
+          "y": 906,
+          "width": 204.5,
+          "height": 58,
+          "bottom": 964,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽十次600 玉石",
+          "x": 388.5,
+          "y": 906,
+          "width": 204.5,
+          "height": 58,
+          "bottom": 964,
+          "safe": true,
+          "hit": true
+        }
+      ],
+      "navigationAndAccountUnchanged": true
+    },
+    {
+      "tag": "chromium-web-390-844",
+      "errors": [],
+      "httpErrors": [],
+      "layout": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844,
+          "bottom": 844,
+          "scrollHeight": 844,
+          "clientHeight": 844,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "body": {
+          "x": 8,
+          "y": 0,
+          "width": 374,
+          "height": 836,
+          "bottom": 836,
+          "scrollHeight": 836,
+          "clientHeight": 836,
+          "scrollWidth": 374,
+          "clientWidth": 374
+        },
+        "panel": {
+          "x": 8,
+          "y": 44,
+          "width": 374,
+          "height": 792,
+          "bottom": 836,
+          "scrollHeight": 790,
+          "clientHeight": 790,
+          "scrollWidth": 372,
+          "clientWidth": 372
+        },
+        "draw": {
+          "x": 21,
+          "y": 171.78125,
+          "width": 348,
+          "height": 651.21875,
+          "bottom": 823,
+          "scrollHeight": 651,
+          "clientHeight": 651,
+          "scrollWidth": 348,
+          "clientWidth": 348
+        },
+        "theatre": {
+          "x": 21,
+          "y": 284.78125,
+          "width": 348,
+          "height": 350.21875,
+          "bottom": 635,
+          "scrollHeight": 350,
+          "clientHeight": 350,
+          "scrollWidth": 348,
+          "clientWidth": 348
+        }
+      },
+      "controls": [
+        {
+          "text": "‹ 返回江湖",
+          "x": 8,
+          "y": 0,
+          "width": 96,
+          "height": 44,
+          "bottom": 44,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "＋",
+          "x": 325,
+          "y": 127.78125,
+          "width": 44,
+          "height": 44,
+          "bottom": 171.78125,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "願心願武學虎嘯內勁 ›39／40再抽1次必出",
+          "x": 21,
+          "y": 635,
+          "width": 348,
+          "height": 68,
+          "bottom": 703,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽一次60 玉石",
+          "x": 21,
+          "y": 738,
+          "width": 169.5,
+          "height": 58,
+          "bottom": 796,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽十次600 玉石",
+          "x": 199.5,
+          "y": 738,
+          "width": 169.5,
+          "height": 58,
+          "bottom": 796,
+          "safe": true,
+          "hit": true
+        }
+      ],
+      "navigationAndAccountUnchanged": true
+    },
+    {
+      "tag": "webkit-native-320-568",
+      "errors": [],
+      "httpErrors": [],
+      "layout": {
+        "shell": {
+          "x": 0,
+          "y": 20,
+          "width": 320,
+          "height": 548,
+          "bottom": 568,
+          "scrollHeight": 548,
+          "clientHeight": 548,
+          "scrollWidth": 320,
+          "clientWidth": 320
+        },
+        "body": {
+          "x": 8,
+          "y": 20,
+          "width": 304,
+          "height": 540,
+          "bottom": 560,
+          "scrollHeight": 540,
+          "clientHeight": 540,
+          "scrollWidth": 304,
+          "clientWidth": 304
+        },
+        "panel": {
+          "x": 8,
+          "y": 64,
+          "width": 304,
+          "height": 496,
+          "bottom": 560,
+          "scrollHeight": 494,
+          "clientHeight": 494,
+          "scrollWidth": 302,
+          "clientWidth": 302
+        },
+        "draw": {
+          "x": 21,
+          "y": 191.78125,
+          "width": 278,
+          "height": 355.21875,
+          "bottom": 547,
+          "scrollHeight": 431,
+          "clientHeight": 355,
+          "scrollWidth": 278,
+          "clientWidth": 278
+        },
+        "theatre": {
+          "x": 21,
+          "y": 313.15625,
+          "width": 278,
+          "height": 120,
+          "bottom": 433.15625,
+          "scrollHeight": 128,
+          "clientHeight": 120,
+          "scrollWidth": 278,
+          "clientWidth": 278
+        }
+      },
+      "controls": [
+        {
+          "text": "‹ 返回江湖",
+          "x": 8,
+          "y": 20,
+          "width": 96,
+          "height": 44,
+          "bottom": 64,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "＋",
+          "x": 255,
+          "y": 147.78125,
+          "width": 44,
+          "height": 44,
+          "bottom": 191.78125,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "願心願武學虎嘯內勁 ›39／40再抽1次必出",
+          "x": 21,
+          "y": 433.15625,
+          "width": 278,
+          "height": 70,
+          "bottom": 503.15625,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽一次60 玉石",
+          "x": 21,
+          "y": 488.15625,
+          "width": 134.5,
+          "height": 58,
+          "bottom": 546.15625,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽十次600 玉石",
+          "x": 164.5,
+          "y": 488.15625,
+          "width": 134.5,
+          "height": 58,
+          "bottom": 546.15625,
+          "safe": true,
+          "hit": true
+        }
+      ],
+      "navigationAndAccountUnchanged": true
+    },
+    {
+      "tag": "webkit-native-375-667",
+      "errors": [],
+      "httpErrors": [],
+      "layout": {
+        "shell": {
+          "x": 0,
+          "y": 20,
+          "width": 375,
+          "height": 647,
+          "bottom": 667,
+          "scrollHeight": 647,
+          "clientHeight": 647,
+          "scrollWidth": 375,
+          "clientWidth": 375
+        },
+        "body": {
+          "x": 8,
+          "y": 20,
+          "width": 359,
+          "height": 639,
+          "bottom": 659,
+          "scrollHeight": 639,
+          "clientHeight": 639,
+          "scrollWidth": 359,
+          "clientWidth": 359
+        },
+        "panel": {
+          "x": 8,
+          "y": 64,
+          "width": 359,
+          "height": 595,
+          "bottom": 659,
+          "scrollHeight": 593,
+          "clientHeight": 593,
+          "scrollWidth": 357,
+          "clientWidth": 357
+        },
+        "draw": {
+          "x": 21,
+          "y": 191.78125,
+          "width": 333,
+          "height": 454.21875,
+          "bottom": 646,
+          "scrollHeight": 454,
+          "clientHeight": 454,
+          "scrollWidth": 333,
+          "clientWidth": 333
+        },
+        "theatre": {
+          "x": 21,
+          "y": 304.78125,
+          "width": 333,
+          "height": 151.21875,
+          "bottom": 456,
+          "scrollHeight": 151,
+          "clientHeight": 151,
+          "scrollWidth": 333,
+          "clientWidth": 333
+        }
+      },
+      "controls": [
+        {
+          "text": "‹ 返回江湖",
+          "x": 8,
+          "y": 20,
+          "width": 96,
+          "height": 44,
+          "bottom": 64,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "＋",
+          "x": 310,
+          "y": 147.78125,
+          "width": 44,
+          "height": 44,
+          "bottom": 191.78125,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "願心願武學虎嘯內勁 ›39／40再抽1次必出",
+          "x": 21,
+          "y": 456,
+          "width": 333,
+          "height": 70,
+          "bottom": 526,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽一次60 玉石",
+          "x": 21,
+          "y": 561,
+          "width": 162,
+          "height": 58,
+          "bottom": 619,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽十次600 玉石",
+          "x": 192,
+          "y": 561,
+          "width": 162,
+          "height": 58,
+          "bottom": 619,
+          "safe": true,
+          "hit": true
+        }
+      ],
+      "navigationAndAccountUnchanged": true
+    },
+    {
+      "tag": "webkit-native-390-844",
+      "errors": [],
+      "httpErrors": [],
+      "layout": {
+        "shell": {
+          "x": 0,
+          "y": 47,
+          "width": 390,
+          "height": 796.984375,
+          "bottom": 843.984375,
+          "scrollHeight": 797,
+          "clientHeight": 797,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "body": {
+          "x": 8,
+          "y": 47,
+          "width": 374,
+          "height": 762.984375,
+          "bottom": 809.984375,
+          "scrollHeight": 763,
+          "clientHeight": 763,
+          "scrollWidth": 374,
+          "clientWidth": 374
+        },
+        "panel": {
+          "x": 8,
+          "y": 91,
+          "width": 374,
+          "height": 718.984375,
+          "bottom": 809.984375,
+          "scrollHeight": 717,
+          "clientHeight": 717,
+          "scrollWidth": 372,
+          "clientWidth": 372
+        },
+        "draw": {
+          "x": 21,
+          "y": 218.78125,
+          "width": 348,
+          "height": 578.203125,
+          "bottom": 796.984375,
+          "scrollHeight": 578,
+          "clientHeight": 578,
+          "scrollWidth": 348,
+          "clientWidth": 348
+        },
+        "theatre": {
+          "x": 21,
+          "y": 331.78125,
+          "width": 348,
+          "height": 275.203125,
+          "bottom": 606.984375,
+          "scrollHeight": 275,
+          "clientHeight": 275,
+          "scrollWidth": 348,
+          "clientWidth": 348
+        }
+      },
+      "controls": [
+        {
+          "text": "‹ 返回江湖",
+          "x": 8,
+          "y": 47,
+          "width": 96,
+          "height": 44,
+          "bottom": 91,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "＋",
+          "x": 325,
+          "y": 174.78125,
+          "width": 44,
+          "height": 44,
+          "bottom": 218.78125,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "願心願武學虎嘯內勁 ›39／40再抽1次必出",
+          "x": 21,
+          "y": 606.984375,
+          "width": 348,
+          "height": 70,
+          "bottom": 676.984375,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽一次60 玉石",
+          "x": 21,
+          "y": 711.984375,
+          "width": 169.5,
+          "height": 58,
+          "bottom": 769.984375,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽十次600 玉石",
+          "x": 199.5,
+          "y": 711.984375,
+          "width": 169.5,
+          "height": 58,
+          "bottom": 769.984375,
+          "safe": true,
+          "hit": true
+        }
+      ],
+      "navigationAndAccountUnchanged": true
+    },
+    {
+      "tag": "webkit-native-393-852",
+      "errors": [],
+      "httpErrors": [],
+      "layout": {
+        "shell": {
+          "x": 0,
+          "y": 59,
+          "width": 393,
+          "height": 793,
+          "bottom": 852,
+          "scrollHeight": 793,
+          "clientHeight": 793,
+          "scrollWidth": 393,
+          "clientWidth": 393
+        },
+        "body": {
+          "x": 8,
+          "y": 59,
+          "width": 377,
+          "height": 759,
+          "bottom": 818,
+          "scrollHeight": 759,
+          "clientHeight": 759,
+          "scrollWidth": 377,
+          "clientWidth": 377
+        },
+        "panel": {
+          "x": 8,
+          "y": 103,
+          "width": 377,
+          "height": 715,
+          "bottom": 818,
+          "scrollHeight": 713,
+          "clientHeight": 713,
+          "scrollWidth": 375,
+          "clientWidth": 375
+        },
+        "draw": {
+          "x": 21,
+          "y": 230.78125,
+          "width": 351,
+          "height": 574.21875,
+          "bottom": 805,
+          "scrollHeight": 574,
+          "clientHeight": 574,
+          "scrollWidth": 351,
+          "clientWidth": 351
+        },
+        "theatre": {
+          "x": 21,
+          "y": 343.78125,
+          "width": 351,
+          "height": 271.21875,
+          "bottom": 615,
+          "scrollHeight": 271,
+          "clientHeight": 271,
+          "scrollWidth": 351,
+          "clientWidth": 351
+        }
+      },
+      "controls": [
+        {
+          "text": "‹ 返回江湖",
+          "x": 8,
+          "y": 59,
+          "width": 96,
+          "height": 44,
+          "bottom": 103,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "＋",
+          "x": 328,
+          "y": 186.78125,
+          "width": 44,
+          "height": 44,
+          "bottom": 230.78125,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "願心願武學虎嘯內勁 ›39／40再抽1次必出",
+          "x": 21,
+          "y": 615,
+          "width": 351,
+          "height": 70,
+          "bottom": 685,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽一次60 玉石",
+          "x": 21,
+          "y": 720,
+          "width": 171,
+          "height": 58,
+          "bottom": 778,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽十次600 玉石",
+          "x": 201,
+          "y": 720,
+          "width": 171,
+          "height": 58,
+          "bottom": 778,
+          "safe": true,
+          "hit": true
+        }
+      ],
+      "navigationAndAccountUnchanged": true
+    },
+    {
+      "tag": "webkit-native-430-932",
+      "errors": [],
+      "httpErrors": [],
+      "layout": {
+        "shell": {
+          "x": 0,
+          "y": 59,
+          "width": 430,
+          "height": 873,
+          "bottom": 932,
+          "scrollHeight": 873,
+          "clientHeight": 873,
+          "scrollWidth": 430,
+          "clientWidth": 430
+        },
+        "body": {
+          "x": 8,
+          "y": 59,
+          "width": 414,
+          "height": 839,
+          "bottom": 898,
+          "scrollHeight": 839,
+          "clientHeight": 839,
+          "scrollWidth": 414,
+          "clientWidth": 414
+        },
+        "panel": {
+          "x": 8,
+          "y": 103,
+          "width": 414,
+          "height": 795,
+          "bottom": 898,
+          "scrollHeight": 793,
+          "clientHeight": 793,
+          "scrollWidth": 412,
+          "clientWidth": 412
+        },
+        "draw": {
+          "x": 21,
+          "y": 230.78125,
+          "width": 388,
+          "height": 654.21875,
+          "bottom": 885,
+          "scrollHeight": 654,
+          "clientHeight": 654,
+          "scrollWidth": 388,
+          "clientWidth": 388
+        },
+        "theatre": {
+          "x": 21,
+          "y": 343.78125,
+          "width": 388,
+          "height": 351.21875,
+          "bottom": 695,
+          "scrollHeight": 351,
+          "clientHeight": 351,
+          "scrollWidth": 388,
+          "clientWidth": 388
+        }
+      },
+      "controls": [
+        {
+          "text": "‹ 返回江湖",
+          "x": 8,
+          "y": 59,
+          "width": 96,
+          "height": 44,
+          "bottom": 103,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "＋",
+          "x": 365,
+          "y": 186.78125,
+          "width": 44,
+          "height": 44,
+          "bottom": 230.78125,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "願心願武學虎嘯內勁 ›39／40再抽1次必出",
+          "x": 21,
+          "y": 695,
+          "width": 388,
+          "height": 70,
+          "bottom": 765,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽一次60 玉石",
+          "x": 21,
+          "y": 800,
+          "width": 189.5,
+          "height": 58,
+          "bottom": 858,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽十次600 玉石",
+          "x": 219.5,
+          "y": 800,
+          "width": 189.5,
+          "height": 58,
+          "bottom": 858,
+          "safe": true,
+          "hit": true
+        }
+      ],
+      "navigationAndAccountUnchanged": true
+    },
+    {
+      "tag": "webkit-native-768-1024",
+      "errors": [],
+      "httpErrors": [],
+      "layout": {
+        "shell": {
+          "x": 154,
+          "y": 24,
+          "width": 460,
+          "height": 1000,
+          "bottom": 1024,
+          "scrollHeight": 1000,
+          "clientHeight": 1000,
+          "scrollWidth": 460,
+          "clientWidth": 460
+        },
+        "body": {
+          "x": 162,
+          "y": 24,
+          "width": 444,
+          "height": 980,
+          "bottom": 1004,
+          "scrollHeight": 980,
+          "clientHeight": 980,
+          "scrollWidth": 444,
+          "clientWidth": 444
+        },
+        "panel": {
+          "x": 162,
+          "y": 68,
+          "width": 444,
+          "height": 936,
+          "bottom": 1004,
+          "scrollHeight": 934,
+          "clientHeight": 934,
+          "scrollWidth": 442,
+          "clientWidth": 442
+        },
+        "draw": {
+          "x": 175,
+          "y": 195.78125,
+          "width": 418,
+          "height": 795.21875,
+          "bottom": 991,
+          "scrollHeight": 795,
+          "clientHeight": 795,
+          "scrollWidth": 418,
+          "clientWidth": 418
+        },
+        "theatre": {
+          "x": 175,
+          "y": 308.78125,
+          "width": 418,
+          "height": 492.21875,
+          "bottom": 801,
+          "scrollHeight": 492,
+          "clientHeight": 492,
+          "scrollWidth": 418,
+          "clientWidth": 418
+        }
+      },
+      "controls": [
+        {
+          "text": "‹ 返回江湖",
+          "x": 162,
+          "y": 24,
+          "width": 96,
+          "height": 44,
+          "bottom": 68,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "＋",
+          "x": 549,
+          "y": 151.78125,
+          "width": 44,
+          "height": 44,
+          "bottom": 195.78125,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "願心願武學虎嘯內勁 ›39／40再抽1次必出",
+          "x": 175,
+          "y": 801,
+          "width": 418,
+          "height": 70,
+          "bottom": 871,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽一次60 玉石",
+          "x": 175,
+          "y": 906,
+          "width": 204.5,
+          "height": 58,
+          "bottom": 964,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽十次600 玉石",
+          "x": 388.5,
+          "y": 906,
+          "width": 204.5,
+          "height": 58,
+          "bottom": 964,
+          "safe": true,
+          "hit": true
+        }
+      ],
+      "navigationAndAccountUnchanged": true
+    },
+    {
+      "tag": "webkit-web-390-844",
+      "errors": [],
+      "httpErrors": [],
+      "layout": {
+        "shell": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 843.984375,
+          "bottom": 843.984375,
+          "scrollHeight": 844,
+          "clientHeight": 844,
+          "scrollWidth": 390,
+          "clientWidth": 390
+        },
+        "body": {
+          "x": 8,
+          "y": 0,
+          "width": 374,
+          "height": 835.984375,
+          "bottom": 835.984375,
+          "scrollHeight": 836,
+          "clientHeight": 836,
+          "scrollWidth": 374,
+          "clientWidth": 374
+        },
+        "panel": {
+          "x": 8,
+          "y": 44,
+          "width": 374,
+          "height": 791.984375,
+          "bottom": 835.984375,
+          "scrollHeight": 790,
+          "clientHeight": 790,
+          "scrollWidth": 372,
+          "clientWidth": 372
+        },
+        "draw": {
+          "x": 21,
+          "y": 171.78125,
+          "width": 348,
+          "height": 651.203125,
+          "bottom": 822.984375,
+          "scrollHeight": 651,
+          "clientHeight": 651,
+          "scrollWidth": 348,
+          "clientWidth": 348
+        },
+        "theatre": {
+          "x": 21,
+          "y": 284.78125,
+          "width": 348,
+          "height": 348.203125,
+          "bottom": 632.984375,
+          "scrollHeight": 348,
+          "clientHeight": 348,
+          "scrollWidth": 348,
+          "clientWidth": 348
+        }
+      },
+      "controls": [
+        {
+          "text": "‹ 返回江湖",
+          "x": 8,
+          "y": 0,
+          "width": 96,
+          "height": 44,
+          "bottom": 44,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "＋",
+          "x": 325,
+          "y": 127.78125,
+          "width": 44,
+          "height": 44,
+          "bottom": 171.78125,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "願心願武學虎嘯內勁 ›39／40再抽1次必出",
+          "x": 21,
+          "y": 632.984375,
+          "width": 348,
+          "height": 70,
+          "bottom": 702.984375,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽一次60 玉石",
+          "x": 21,
+          "y": 737.984375,
+          "width": 169.5,
+          "height": 58,
+          "bottom": 795.984375,
+          "safe": true,
+          "hit": true
+        },
+        {
+          "text": "抽十次600 玉石",
+          "x": 199.5,
+          "y": 737.984375,
+          "width": 169.5,
+          "height": 58,
+          "bottom": 795.984375,
+          "safe": true,
+          "hit": true
+        }
+      ],
+      "navigationAndAccountUnchanged": true
+    }
+  ]
+}

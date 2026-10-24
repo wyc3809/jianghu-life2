@@ -1,7 +1,7 @@
 /**
- * 高光時刻 3D 舞台：卡通著色 ＋ 後期邊緣描邊。
+ * 高光時刻3D舞台：寶箱用實體細墨邊／材質單次繪製，書冊直接繪製。
  *
- * 流程（每幀）：
+ * 令牌／丹爐保留原有後期流程：
  *   1. colorRT（MSAA×4，1.5 倍超採樣）：卡通材質正常渲染，透明底（背後係 DOM 光效層）
  *   2. normalRT（無 MSAA，附 depthTexture）：覆蓋成法線材質，出視空間法線＋深度
  *   3. 合成 pass：外輪廓（覆蓋率跨背景，粗）＋ 零件交界（法線差為主、深度差放寬，幼）→ 畫到畫布
@@ -109,6 +109,8 @@ export interface StageOptions {
   lowPower?: boolean;
   /** 生成材質書冊用單次實體渲染，唔再逐像素重畫素材輪廓。 */
   direct?: boolean;
+  /** 水彩寶箱：硬件抗鋸齒＋實體薄墨邊，不做全屏後期描邊。 */
+  painted?: boolean;
 }
 
 export class HighlightStage {
@@ -123,54 +125,61 @@ export class HighlightStage {
   readonly skyLight = new THREE.HemisphereLight(0xf6efe0, 0x6b6257, 1.35);
   readonly rimLight = new THREE.DirectionalLight(0xffffff, 2.2);
 
-  private colorRT: THREE.WebGLRenderTarget;
-  private normalRT: THREE.WebGLRenderTarget;
-  private normalMat = new THREE.MeshNormalMaterial();
+  private colorRT: THREE.WebGLRenderTarget | null = null;
+  private normalRT: THREE.WebGLRenderTarget | null = null;
+  private normalMat: THREE.MeshNormalMaterial | null = null;
   private quadScene = new THREE.Scene();
   private quadCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-  private composite: THREE.ShaderMaterial;
+  private composite: THREE.ShaderMaterial | null = null;
   private ss: number;
   private width = 1;
   private height = 1;
   private direct: boolean;
 
   constructor(opts: StageOptions) {
-    this.direct = !!opts.direct;
+    this.direct = !!(opts.direct || opts.painted);
     this.renderer = new THREE.WebGLRenderer({
       canvas: opts.canvas,
       alpha: true,
-      antialias: false,
+      antialias: !!(opts.painted || opts.direct),
       premultipliedAlpha: true,
     });
     this.renderer.setClearColor(0x000000, 0);
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
+    if (opts.painted || opts.direct) {
+      this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      this.renderer.toneMappingExposure = 1.1;
+    }
     this.ss = opts.lowPower ? 1 : SUPERSAMPLE;
 
-    this.colorRT = new THREE.WebGLRenderTarget(1, 1, { samples: 4, type: THREE.HalfFloatType });
-    this.normalRT = new THREE.WebGLRenderTarget(1, 1, { samples: 0 });
-    this.normalRT.depthTexture = new THREE.DepthTexture(1, 1);
-    this.normalRT.depthTexture.type = THREE.UnsignedIntType;
+    if (!this.direct) {
+      this.normalMat = new THREE.MeshNormalMaterial();
+      this.colorRT = new THREE.WebGLRenderTarget(1, 1, { samples: 4, type: THREE.HalfFloatType });
+      this.normalRT = new THREE.WebGLRenderTarget(1, 1, { samples: 0 });
+      this.normalRT.depthTexture = new THREE.DepthTexture(1, 1);
+      this.normalRT.depthTexture.type = THREE.UnsignedIntType;
 
-    this.composite = new THREE.ShaderMaterial({
-      vertexShader: COMPOSITE_VERT,
-      fragmentShader: COMPOSITE_FRAG,
-      uniforms: {
-        tColor: { value: this.colorRT.texture },
-        tNormal: { value: this.normalRT.texture },
-        tDepth: { value: this.normalRT.depthTexture },
-        texel: { value: new THREE.Vector2() },
-        outerPx: { value: 3.2 },
-        innerPx: { value: 1.2 },
-        lineColor: { value: new THREE.Color(OUTLINE) },
-        cameraNear: { value: this.camera.near },
-        cameraFar: { value: this.camera.far },
-        rtSize: { value: new THREE.Vector2(1, 1) },
-      },
-      transparent: true,
-      depthTest: false,
-      depthWrite: false,
-    });
-    this.quadScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), this.composite));
+      this.composite = new THREE.ShaderMaterial({
+        vertexShader: COMPOSITE_VERT,
+        fragmentShader: COMPOSITE_FRAG,
+        uniforms: {
+          tColor: { value: this.colorRT.texture },
+          tNormal: { value: this.normalRT.texture },
+          tDepth: { value: this.normalRT.depthTexture },
+          texel: { value: new THREE.Vector2() },
+          outerPx: { value: 3.2 },
+          innerPx: { value: 1.2 },
+          lineColor: { value: new THREE.Color(OUTLINE) },
+          cameraNear: { value: this.camera.near },
+          cameraFar: { value: this.camera.far },
+          rtSize: { value: new THREE.Vector2(1, 1) },
+        },
+        transparent: true,
+        depthTest: false,
+        depthWrite: false,
+      });
+      this.quadScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), this.composite));
+    }
 
     this.camera.position.set(0, 1.15, 9.2);
     this.camera.lookAt(0, 0.55, 0);
@@ -189,14 +198,16 @@ export class HighlightStage {
     const k = Math.min(this.ss, 2560 / Math.max(this.width, this.height));
     const rw = Math.round(this.width * k);
     const rh = Math.round(this.height * k);
-    this.colorRT.setSize(rw, rh);
-    this.normalRT.setSize(rw, rh);
-    this.composite.uniforms.texel!.value.set(1 / rw, 1 / rh);
-    this.composite.uniforms.rtSize!.value.set(rw, rh);
-    // 線寬以輸出像素定義（dpr 1 時外 2.2px、內 0.9px），換算落 RT 像素
-    const perOut = rw / this.width;
-    this.composite.uniforms.outerPx!.value = 2.4 * dpr * perOut;
-    this.composite.uniforms.innerPx!.value = Math.max(1, 0.9 * dpr * perOut);
+    this.colorRT?.setSize(rw, rh);
+    this.normalRT?.setSize(rw, rh);
+    if (this.composite) {
+      this.composite.uniforms.texel!.value.set(1 / rw, 1 / rh);
+      this.composite.uniforms.rtSize!.value.set(rw, rh);
+      // 線寬以輸出像素定義（dpr 1 時外 2.2px、內 0.9px），換算落 RT 像素
+      const perOut = rw / this.width;
+      this.composite.uniforms.outerPx!.value = 2.4 * dpr * perOut;
+      this.composite.uniforms.innerPx!.value = Math.max(1, 0.9 * dpr * perOut);
+    }
     this.camera.aspect = cssW / cssH;
     // 窄屏：拉遠少少，主體唔好出界
     this.camera.fov = cssW / cssH < 0.62 ? 38 : 32;
@@ -232,18 +243,32 @@ export class HighlightStage {
   }
 
   dispose() {
-    this.colorRT.dispose();
-    this.normalRT.dispose();
-    this.normalMat.dispose();
-    this.composite.dispose();
+    this.colorRT?.dispose();
+    this.normalRT?.dispose();
+    this.normalMat?.dispose();
+    this.composite?.dispose();
+    this.quadScene.traverse(object => (object as THREE.Mesh).geometry?.dispose());
+    const materials = new Set<THREE.Material>();
+    const textures = new Set<THREE.Texture>();
+    const geometries = new Set<THREE.BufferGeometry>();
     this.scene.traverse((o) => {
       const m = o as THREE.Mesh;
       o.userData.dispose?.();
-      m.geometry?.dispose();
+      if (m.geometry) geometries.add(m.geometry);
       const mat = m.material as THREE.Material | THREE.Material[] | undefined;
-      if (Array.isArray(mat)) mat.forEach((x) => x.dispose());
-      else mat?.dispose();
+      if (Array.isArray(mat)) mat.forEach(material => materials.add(material));
+      else if (mat) materials.add(mat);
     });
+    geometries.forEach(geometry => geometry.dispose());
+    materials.forEach(material => {
+      for (const value of Object.values(material)) if (value instanceof THREE.Texture) textures.add(value);
+      material.dispose();
+    });
+    // 只釋放GPU引用；快取仍保留圖片，下次開箱不用重新下載。
+    textures.forEach(texture => texture.dispose());
     this.renderer.dispose();
+    // StrictMode會沿用同一Canvas重掛；等真正離開DOM才釋放原生context。
+    const canvas = this.renderer.domElement;
+    queueMicrotask(() => { if (!canvas.isConnected) this.renderer.forceContextLoss(); });
   }
 }

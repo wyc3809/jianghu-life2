@@ -1,0 +1,52 @@
+{
+  "beforeSourceCommit": "cbf98c1",
+  "version": "EA0.89.0",
+  "beforeCases": 16,
+  "afterCases": 16,
+  "engines": [
+    "Chromium",
+    "WebKit"
+  ],
+  "webLayoutUnchanged": true,
+  "actualIOSRuntime": false,
+  "safeAreas": [
+    [
+      20,
+      0
+    ],
+    [
+      47,
+      34
+    ],
+    [
+      59,
+      34
+    ],
+    [
+      24,
+      20
+    ]
+  ],
+  "comparisons": [
+    {
+      "engine": "chromium",
+      "safeTop": 59,
+      "safeBottom": 34,
+      "hudMovedUp": 51,
+      "nameMovedUp": 71.4375,
+      "sceneHeightGained": 51.0,
+      "navHeightBefore": 136,
+      "navHeightAfter": 136
+    },
+    {
+      "engine": "webkit",
+      "safeTop": 59,
+      "safeBottom": 34,
+      "hudMovedUp": 51,
+      "nameMovedUp": 71.453125,
+      "sceneHeightGained": 51.0,
+      "navHeightBefore": 136,
+      "navHeightAfter": 136
+    }
+  ]
+}

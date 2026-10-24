@@ -1,0 +1,76 @@
+{
+  "base": "http://127.0.0.1:5176/",
+  "productionBuild": true,
+  "actualIOS": false,
+  "renderer": "Chromium SwiftShader software GPU",
+  "dpr": 2.0,
+  "cases": [
+    {
+      "name": "ordinary",
+      "mode": "normal",
+      "mainButtonStyle": {
+        "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+        "weight": "900"
+      },
+      "stats": {
+        "bursting": {
+          "samples": 19,
+          "drawsMedian": 17,
+          "frameMsMedian": 50,
+          "frameMsP95": 416.60000000000036,
+          "dprMin": 1,
+          "dprMax": 1.25
+        },
+        "charging": {
+          "samples": 10,
+          "drawsMedian": 17.0,
+          "frameMsMedian": 99.94999999999982,
+          "frameMsP95": 183.30000000000018,
+          "dprMin": 1.25,
+          "dprMax": 2
+        },
+        "idle": {
+          "samples": 2,
+          "drawsMedian": 18.0,
+          "frameMsMedian": 341.6999999999998,
+          "frameMsP95": 666.6999999999998,
+          "dprMin": 2,
+          "dprMax": 2
+        },
+        "revealing": {
+          "samples": 45,
+          "drawsMedian": 17,
+          "frameMsMedian": 33.29999999999927,
+          "frameMsP95": 66.60000000000036,
+          "dprMin": 0.8,
+          "dprMax": 1
+        },
+        "settle": {
+          "samples": 79,
+          "drawsMedian": 0,
+          "frameMsMedian": 16.69999999999891,
+          "frameMsP95": 16.799999999999272,
+          "dprMin": 2,
+          "dprMax": 2
+        }
+      },
+      "actualJade": {
+        "free": 540,
+        "paidTest": 600
+      },
+      "coreResultMatches": true,
+      "errors": [],
+      "claimTouchTarget": {
+        "y": 738.5,
+        "bottom": 782.5,
+        "height": 44,
+        "width": 100,
+        "hit": true
+      },
+      "resultFont": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+      "repeatedClaimNoDebit": true,
+      "oldContextReleased": true,
+      "video": "/workspace/jianghu-testflight-setup/.local-online/codex-quality/video/motion/page@053d1f207422e0e02cf656327d861c94.webm"
+    }
+  ]
+}

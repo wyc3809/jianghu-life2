@@ -29,3 +29,12 @@ Create one original high-end Chinese wuxia mobile game texture asset, portrait 2
 Edit this exact Chinese wuxia thread-bound book cover texture into its PREMIUM RARE edition. Preserve the exact full-bleed flat rectangular 2:3 composition, mountain and river ink painting, left binding threads, ornate border positions, woven silk detail, and the completely blank cream vertical title label at top right. Change the teal green silk cover into luminous but restrained ANTIQUE OCHRE GOLD / warm amber gold dyed silk, clearly visibly golden rather than green, with exquisite subtly burnished gold embroidery and dark warm sepia ink mountains. Rich handwoven cloth, NOT reflective metal, NOT bright yellow plastic. Keep the label blank ivory with high contrast against golden textile. Preserve elegant light ink wash wuxia collectible manuscript aesthetic, fine fibers, calm center, soft diffuse light. No new words, letters, pseudo-characters, watermark, extra labels, figures, perspective, mockup, transparency, background, or cast shadow. This is the direct front-cover texture for a real articulated 3D book and should remain perfectly front-facing edge-to-edge. Only change the color palette and restrained gilded thread details; preserve the original artwork and structure.
 
 待機係當前卡池嘅封冊，珍本池仍按真機率抽到一般武學；結果卡逐張跟 `isPremium`，整體啟封主體按該次有冇真正珍本用青／金書封。心願、首次獲得、重複同卷數都唔改書封稀有度；心願朱砂高光照舊。
+
+
+## 第42項高清素材更新（2026-10-24）
+
+本段取代舊縮圖尺寸：沿用上文三張已保留原畫及生成提示，沒有重新生成、銳化、改畫或放大低解像圖。兩張書封直接保留原畫1024×1536；內頁原畫1448×1086分半後保留724×1086。`scripts/art/prepare_gacha_codex.py`只裁頁及轉WebP quality92，映射、尺寸、bytes及SHA256見`quality-mapping.json`。四圖合計2085942 bytes；比舊版約多1.38MiB，仍隨App本機打包，不依賴線上圖床。
+
+3D書冊用正確sRGB、mipmap及4倍斜角取樣，共用圖片快取／預載。封面與紙頁用較輕的漫反射材質，訂線／金扣用高光材質；硬件抗鋸齒、可彎曲紙面與同材質合併配合原畫。普通書封仍青綠、真正珍本才金封；心願／新得／演出強度不改稀有度。缺圖用素紙材質，延遲圖在結果補畫，離場取消訂閱及釋放GPU。
+
+介面按玩家新指示改用主頁紙底墨線、朱砂筆觸按鈕與game-ui-font，不再沿用秘笈頁仿古金屬框。這是介面更新，不改原畫、原來源條款或其他功能頁的框。

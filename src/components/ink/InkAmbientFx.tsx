@@ -10,6 +10,7 @@
  */
 import { useEffect, useRef } from 'react';
 import { inkArtUrl } from '../../ui/inkAssets';
+import { highlightCoversPage } from '../../ui/highlightVisibility';
 import { AMBIENT_TUNING, type AmbientSeason } from '../../fx/ambient/tuning';
 import {
   createRng,
@@ -132,6 +133,7 @@ export function InkAmbientFx({ mode, season = 'spring', paused = false, classNam
     };
 
     const frame = (now: number) => {
+      if (highlightCoversPage()) { last = now; raf = requestAnimationFrame(frame); return; }
       const dt = Math.min(0.05, (now - last) / 1000);
       last = now;
       t += dt;
