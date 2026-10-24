@@ -170,3 +170,37 @@
 .ink-codex-heading-actions button small { display: block; font-size: 11px; line-height: 1.4; margin-top: 2px; color: var(--ink-soft); }
 .ink-pull-card[data-reward-kind='pages'] p { font-size: 12px; }
 .ink-codex-page .ink-codex-theatre { height: clamp(108px, 16dvh, 136px); }
+
+
+/* 秘笈閣獨立全畫面；返回與帳戶留在頁內，收藏及短屏內容各自可捲。 */
+.scroll-shell--play.scroll-shell--gacha {
+  padding: env(safe-area-inset-top, 0px) max(8px, env(safe-area-inset-right, 0px)) max(8px, env(safe-area-inset-bottom, 0px)) max(8px, env(safe-area-inset-left, 0px));
+  gap: 0; background: #f8f4eb;
+}
+html.native-ios .scroll-shell--play.scroll-shell--gacha { padding-top: 0; }
+.scroll-shell--gacha > :is(.ink-backdrop, .ink-ai-wash) { display: none; }
+.scroll-shell--play.scroll-shell--gacha .ink-play-body,
+.scroll-shell--gacha .ink-jianghu-view,
+.scroll-shell--gacha .ink-jianghu-detail--gacha {
+  display: flex; flex-direction: column; flex: 1 1 0; min-height: 0; overflow: hidden;
+}
+.scroll-shell--gacha .ink-codex-back {
+  align-self: flex-start; flex: none; min-height: 44px; min-width: 96px;
+  margin: 0; padding: 4px 8px; color: #302b25; font-size: 16px;
+}
+.scroll-shell--gacha .ink-gacha.ink-codex-page {
+  display: flex; flex-direction: column; flex: 1 1 0; min-height: 0;
+  padding: 12px; overflow: hidden;
+}
+.scroll-shell--gacha :is(.ink-codex-heading, .ink-codex-wallet) { flex: none; }
+.scroll-shell--gacha :is(.ink-codex-draw, .ink-codex-shelf) {
+  flex: 1 1 0; min-height: 0; overflow-y: auto; overflow-x: hidden;
+  overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+}
+.scroll-shell--gacha .ink-codex-draw { display: flex; flex-direction: column; }
+.scroll-shell--gacha .ink-codex-draw > * { flex-shrink: 0; }
+.scroll-shell--gacha .ink-codex-theatre { flex: 1 0 120px; height: auto; min-height: 120px; }
+.scroll-shell--gacha .ink-codex-volume > .ink-codex-school-picker { min-width: 0; flex: 1; }
+.scroll-shell--gacha .ink-codex-volume > :last-child { flex: none; }
+.scroll-shell--gacha .ink-codex-heading > :first-child { min-width: 0; }
+.scroll-shell--gacha .ink-codex-heading-actions { flex: none; }

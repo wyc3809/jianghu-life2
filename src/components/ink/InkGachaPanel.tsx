@@ -118,7 +118,7 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
         <span><InkIcon name="jade-paid" size={18} />付費測試 <b>{jade.paidTest.toLocaleString('zh-Hant')}</b></span>
         <button type="button" aria-label={`領測試額度＋${TEST_PAID_JADE_GRANT}`} onClick={grantTest}>＋</button>
       </div>
-      {view === 'draw' && <>
+      {view === 'draw' && <div className="ink-codex-draw">
         <div className="ink-codex-banners" role="tablist" aria-label="卡池">
           {BANNER_IDS.map(id => <button key={id} type="button" role="tab" aria-selected={banner === id} onClick={() => setBanner(id)}>
             <strong>{BANNERS[id].name}</strong><small>{id === 'jianghu' ? '免費玉石可用' : '僅限付費玉石'}</small>
@@ -153,9 +153,9 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
         </div>
         <p className="ink-codex-fineprint">{banner === 'jianghu' ? '優先使用免費玉石 · 本池不產出珍本' : '使用付費測試玉石 · 測試版不收取真實款項'}</p>
         {lastPull?.length ? <button type="button" className="ink-codex-last" onClick={() => setSheet('results')}>上次抽取 {lastPull.length} 份 · 查看結果 ›</button> : null}
-      </>}
+      </div>}
         {view === 'shelf' && (
-          <>
+          <div className="ink-codex-shelf">
             <button type="button" className="ink-btn ink-btn--quiet ink-gacha-back" onClick={() => setView('draw')}>
               ← 返回抽取
             </button>
@@ -217,7 +217,7 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
               </ul>
             )}
             {shelf.length > 0 && visibleShelf.length === 0 && <p className="ink-note">此流派尚無藏本，可前往對應流派卡池獲取。</p>}
-          </>
+          </div>
         )}
       {sheet && <GachaSheet title={sheet === 'info' ? '卡池詳情' : sheet === 'catalog' ? '本冊可得武學' : sheet === 'wish' ? '心願祈福' : sheet === 'school' ? '六派藏卷' : '上次入藏'} onClose={() => setSheet(null)}>
         {sheet === 'info' && <>
