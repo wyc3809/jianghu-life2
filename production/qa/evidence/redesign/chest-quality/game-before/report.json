@@ -1,0 +1,29 @@
+{
+  "base": "http://127.0.0.1:5177/",
+  "productionBuild": true,
+  "fixtureCoreGrantGear": true,
+  "nativeMarkerAndCssSafeAreaSimulation": true,
+  "actualIOS": false,
+  "cases": [
+    {
+      "grade": 1,
+      "mode": "skip",
+      "gear": "精鋼刀",
+      "settledDraws": 147,
+      "ownedCount": 1,
+      "autoEquipped": false,
+      "replayOnReload": false,
+      "pageerrors": []
+    },
+    {
+      "grade": 5,
+      "mode": "skip",
+      "gear": "玄鐵重劍",
+      "settledDraws": 143,
+      "ownedCount": 1,
+      "autoEquipped": false,
+      "replayOnReload": false,
+      "pageerrors": []
+    }
+  ]
+}

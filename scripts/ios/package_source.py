@@ -6,7 +6,7 @@ out=root/'artifacts'
 out.mkdir(exist_ok=True)
 version=json.loads((root/'package.json').read_text())['version']
 archive=out/f'jianghu-life2-{version}-ios-project.zip'
-folders=['ios','src','core','interfaces','data','content','public','tests','server','supabase','production/ios','scripts','docs/architecture']
+folders=['ios','src','core','interfaces','data','content','public','tests','server','supabase','production/ios','scripts','docs/architecture','design/art/chest-quality']
 files=['package.json','package-lock.json','capacitor.config.ts','vite.config.ts','tsconfig.json','index.html','codemagic.yaml','.github/workflows/ios-package.yml','design/art/martial-identities/directions.json','design/art/spar-commercial/atlas.json']
 skip={'node_modules','.git','build','DerivedData','xcuserdata','Pods','output','__pycache__','.temp'}
 def permitted(p):

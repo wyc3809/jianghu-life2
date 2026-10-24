@@ -1,0 +1,55 @@
+
+> jianghu-engine@0.89.0-ea ios:sync
+> npm run build:mobile && cap sync ios && node scripts/ios/configure.mjs
+
+
+> jianghu-engine@0.89.0-ea build:mobile
+> VITE_BASE=/ npm run build
+
+
+> jianghu-engine@0.89.0-ea build
+> tsc --noEmit && vite build
+
+vite v6.4.3 building for production...
+transforming...
+✓ 494 modules transformed.
+rendering chunks...
+[plugin vite:reporter]
+(!) /workspace/jianghu-testflight-setup/core/life/gameState.ts is dynamically imported by /workspace/jianghu-testflight-setup/src/cloud/localBridge.ts but also statically imported by /workspace/jianghu-testflight-setup/core/life/actions.ts, /workspace/jianghu-testflight-setup/core/life/bonds.ts, /workspace/jianghu-testflight-setup/core/life/combat.ts, /workspace/jianghu-testflight-setup/core/life/cultivation.ts, /workspace/jianghu-testflight-setup/core/life/eventEngine.ts, /workspace/jianghu-testflight-setup/core/life/family.ts, /workspace/jianghu-testflight-setup/core/life/foundedSect.ts, /workspace/jianghu-testflight-setup/core/life/huashan.ts, /workspace/jianghu-testflight-setup/core/life/jianghuEventRepository.ts, /workspace/jianghu-testflight-setup/core/life/manualFragments.ts, /workspace/jianghu-testflight-setup/core/life/outcomeResolver.ts, /workspace/jianghu-testflight-setup/core/life/saveIndexedDb.ts, /workspace/jianghu-testflight-setup/src/store/slices/progressionSlice.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter]
+(!) /workspace/jianghu-testflight-setup/core/life/saveIndexedDb.ts is dynamically imported by /workspace/jianghu-testflight-setup/src/cloud/localBridge.ts, /workspace/jianghu-testflight-setup/src/cloud/localBridge.ts, /workspace/jianghu-testflight-setup/src/cloud/localBridge.ts, /workspace/jianghu-testflight-setup/src/components/ink/InkStartScreen.tsx but also statically imported by /workspace/jianghu-testflight-setup/src/components/ink/InkCloudSection.tsx, /workspace/jianghu-testflight-setup/src/components/ink/InkSaveStatus.tsx, /workspace/jianghu-testflight-setup/src/store/lifeStore.ts, /workspace/jianghu-testflight-setup/src/store/persistSchedule.ts, /workspace/jianghu-testflight-setup/src/store/slices/progressionSlice.ts, dynamic import will not move module into another chunk.
+
+computing gzip size...
+dist/index.html                              1.23 kB │ gzip:   0.58 kB
+dist/assets/wuxia-titles-DuK567Iq.woff2    210.12 kB
+dist/assets/InkOnlinePanel-DRfzmSAf.css      6.80 kB │ gzip:   1.87 kB
+dist/assets/DuelFx-q1amxsse.css              8.13 kB │ gzip:   2.41 kB
+dist/assets/HighlightFx-BekZkcmH.css        22.23 kB │ gzip:   5.22 kB
+dist/assets/index-CGPJyuyn.css             236.31 kB │ gzip:  45.06 kB
+dist/assets/CodexStage-C7Oa8ir1.js           2.12 kB │ gzip:   1.20 kB
+dist/assets/codex-B8so8vqJ.js                2.62 kB │ gzip:   1.27 kB
+dist/assets/HighlightDemo-DheKyC7U.js        2.78 kB │ gzip:   1.49 kB
+dist/assets/InkOnlinePanel-D-O-I1Rx.js      16.13 kB │ gzip:   6.14 kB
+dist/assets/DuelFx-DcQzn4Yf.js              34.61 kB │ gzip:  13.03 kB
+dist/assets/HighlightFx-Cdf9rBnG.js         61.96 kB │ gzip:  22.40 kB
+dist/assets/particles-CPZHKqCJ.js           76.32 kB │ gzip:  29.93 kB
+dist/assets/index-D5bMjAqh.js              227.81 kB │ gzip:  59.26 kB
+dist/assets/vendor-BW_UMXlD.js             279.13 kB │ gzip:  84.43 kB
+dist/assets/three.module-DMG28W21.js       566.35 kB │ gzip: 143.30 kB
+dist/assets/index-B4AN0bQX.js            1,480.62 kB │ gzip: 543.76 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 5.22s
+✔ Copying web assets from dist to ios/App/App/public in 212.10ms
+✔ Creating capacitor.config.json in ios/App/App in 899.45μs
+✔ copy ios in 230.92ms
+✔ Updating iOS plugins in 3.51ms
+[info] All Capacitor plugins have a Package.swift file and will be included in Package.swift
+[info] Writing Package.swift
+✔ update ios in 32.00ms
+[info] Sync finished in 0.283s
+iOS：com.wyc3809.jianghulife2；Apple版本1.0；build 1

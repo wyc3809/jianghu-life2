@@ -18,7 +18,7 @@ function demoConfig(subject: HighlightSubject, g: Grade): HighlightConfig {
     return {
       subject,
       targetGrade: g,
-      revealTitle: '神兵出世',
+      revealTitle: g >= 4 ? '神兵出世' : g >= 2 ? '寶物入手' : '得到裝備',
       seal: '裝',
       revealSub: '青霜劍 · 入手',
       balances,

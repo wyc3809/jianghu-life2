@@ -69,6 +69,9 @@
   opacity: 0.16;
 }
 
+.root[data-subject='chest'] .bg::after { opacity: .1; }
+.root[data-subject='chest'] .curtain::after { opacity: .15; }
+
 /* 背景：兩個慢轉墨環＋一團品階色暈染（取代放射光） */
 .rays {
   position: absolute;

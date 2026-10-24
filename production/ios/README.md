@@ -1,12 +1,12 @@
 # 《江湖一生》iOS／TestFlight準備
 
-最新進度：玩家已回報透過TestFlight安裝並提供主頁實機畫面；首個安裝流程已由玩家走通。現正依該畫面精修安全區與主頁高度，詳見改版第39項及`production/qa/evidence/redesign/ios-safe-area/`。精修仍是待檢視原型，未再次上傳；原生登入、帳戶刪除與完整真機清單維持待辦。
+最新進度：玩家已回報透過TestFlight安裝並提供主頁實機畫面；首個安裝流程已由玩家走通。已依該畫面精修安全區與主頁高度（第39項），並依寶箱實機回報精修材質、開啟／旋轉繪製負荷與結果靜止（第40項）。前後圖／動態分別見`production/qa/evidence/redesign/ios-safe-area/`及`production/qa/evidence/redesign/chest-quality/`。精修仍是待檢視原型，未再次上傳；原生登入、帳戶刪除與完整真機清單維持待辦。
 
 內容版本EA0.89.0，已接入main的完整回合連招及難度調整；本工作準備iOS工程，不發布新網頁版本。承接舊PR #115的Capacitor8.5.3／SwiftPM工程，接入目前完整遊戲、資源及多人入口。候選Bundle ID `com.wyc3809.jianghulife2`，Apple版本暫用1.0；兩者尚未獲Apple服務側資料確認。
 
 ## 已準備
 
-- 隨App打包完整Vite遊戲與789個public資源，非遠端Pages外殼。原生直版、安全區、紙色啟動畫面、1024px無透明App icon、App及SDK私隱manifest。
+- 隨App打包完整Vite遊戲與793個public資源，非遠端Pages外殼。原生直版、安全區、紙色啟動畫面、1024px無透明App icon、App及SDK私隱manifest。
 - `npm run ios:sync`：mobile根路徑構建、同步Swift工程，再對齊App識別／版本。`npm run ios:verify`核對真正主bundle版本、全部public資源hash、Bundle ID、私隱資源及無開發server。
 - `npm run ios:package`：建立可交Mac重建的工程ZIP及SHA256資訊。含server型別／測試依賴；排除.env、憑證、私鑰、node_modules及私人存檔。ZIP不是IPA。
 - GitHub `iOS Package`：Mac實際未簽名Archive並驗證SDK、版本與資源，保留Archive、工程包及編譯記錄。這不會上傳Apple或邀請測試者。

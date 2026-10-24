@@ -1,0 +1,69 @@
+{
+  "originalSize": [
+    1254,
+    1254
+  ],
+  "originalSha256": "0a41534fda9cd4bad7534235b032f16e71d5a88dda09eead7e068937ef8a1c0c",
+  "materials": {
+    "wood": {
+      "crop": [
+        0,
+        0,
+        627,
+        627
+      ],
+      "file": "public/ink/art/chest/wood.webp",
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "6b3136ddaa4f952c53535ab816df63f200ab74b4d7995de9cbeed57a133adc81",
+      "bytes": 75614
+    },
+    "metal": {
+      "crop": [
+        627,
+        0,
+        1254,
+        627
+      ],
+      "file": "public/ink/art/chest/metal.webp",
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "034d770d38e7c42bd16111d1daae22f6b53e88cdeaa0fa566df2cc08ddeba10a",
+      "bytes": 99868
+    },
+    "lining": {
+      "crop": [
+        0,
+        627,
+        627,
+        1254
+      ],
+      "file": "public/ink/art/chest/lining.webp",
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "660fb0dc03c18b455729d15028f1583a8b9f8aef1bee447520723dc971ef6ffa",
+      "bytes": 105640
+    },
+    "stone": {
+      "crop": [
+        627,
+        627,
+        1254,
+        1254
+      ],
+      "file": "public/ink/art/chest/stone.webp",
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "230d4169b59f38699fc1986dc23579c779b336f435db31eff0f04ab5b013f0dd",
+      "bytes": 87218
+    }
+  }
+}
