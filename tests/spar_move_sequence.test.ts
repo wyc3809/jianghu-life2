@@ -19,11 +19,11 @@ describe('演武逐招呈現',()=>{
     expect(moves.map(m=>m?.moveName)).toEqual(['長河崩拳','大河落日','長河崩拳','大河落日']);
     expect(JSON.stringify(c)).toBe(before);
   });
-  it('test_spar_sequence_兩門外功_維持逐門輪替並各自輪播已得卷',()=>{
+  it('test_spar_sequence_兩門外功_每門已得卷全部使出再換下一門',()=>{
     const c=character();c.equippedArts![1]='art_rain_sword';
     const moves=Array.from({length:6},(_,n)=>sparMoveAt(c,n));
-    expect(moves.map(m=>m?.artId)).toEqual(['art_river_fist','art_rain_sword','art_river_fist','art_rain_sword','art_river_fist','art_rain_sword']);
-    expect(moves.map(m=>m?.volume)).toEqual([1,1,6,3,1,7]);
+    expect(moves.map(m=>m?.artId)).toEqual(['art_river_fist','art_river_fist','art_rain_sword','art_rain_sword','art_rain_sword','art_river_fist']);
+    expect(moves.map(m=>m?.volume)).toEqual([1,6,1,3,7,1]);
   });
   it('test_spar_sequence_舊存檔及卸下外功_唔虛構卷數或將內功當外功',()=>{
     const c=character();delete c.volumes;

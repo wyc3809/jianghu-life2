@@ -1,3 +1,4 @@
+import { SparRounds } from './sparRounds';
 import { equippedMartialArts } from './martialLoadout';
 import {
   SPAR_BOSS_ATK_MUL,
@@ -5,6 +6,7 @@ import {
   SPAR_FOE_ATK_GROWTH,
   SPAR_FOE_HP_GROWTH,
   SPAR_KILL_HEAL,
+  SPAR_OPENING_ATK_FACTORS,
 } from '@data/redesign/testParams';
 import { createRng } from '../random';
 import type { LifeGameState } from '@interfaces/lifeEngine';
@@ -25,7 +27,7 @@ import {
 
 /**
  * 演武台對打（純邏輯、唔碰模擬 RNG）：
- * 每關＝幾個小兵＋精英（第 3 關起）＋一個長血條首領；首領／精英有特性（data/foes/traits.ts）；雙方輪流出手，主角有暴擊同吸血。
+ * 每關＝幾個小兵＋精英（第 3 關起）＋一個長血條首領；首領／精英有特性（data/foes/traits.ts）；主角按已學卷次完整連招後，敵人還擊一次；主角有暴擊同吸血。
  * - 主角數值跟角色實力：武學、修為境界、氣血上限、兵器攻擊（越練越強，數字越跳越大）
  * - 演武氣血同角色同步：敗退最低保留1點，休整同一關重試、回滿血再戰，唔會死亡
  * - 關卡越後敵人越強：血量每關 ×SPAR_FOE_HP_GROWTH、攻擊每關 ×SPAR_FOE_ATK_GROWTH，自然停喺「同自己實力相若」嗰關
@@ -253,7 +255,7 @@ export function sparStageFoes(stage: number): SparFoe[] {
   const s = Math.max(1, Math.floor(stage));
   // 血量跟主角攻擊、攻擊跟主角氣血，兩條曲線分開（data/redesign/testParams.ts）
   const minionHp = Math.round(140 * SPAR_FOE_HP_GROWTH ** (s - 1));
-  const minionAtk = Math.round(16 * SPAR_FOE_ATK_GROWTH ** (s - 1));
+  const minionAtk = Math.round(16 * SPAR_FOE_ATK_GROWTH ** (s - 1) * (SPAR_OPENING_ATK_FACTORS[s - 1] ?? 1));
   const region = sparSceneFor(s).region;
   const foes: SparFoe[] = [];
   const n = sparMinionCount(s);
@@ -328,6 +330,7 @@ export function sparRand(seed: number, stage: number): SparRand {
 
 /** 一場演武嘅狀態機；engine 每次劍鋒到肉叫 heroStrike()、敵人出手叫 foeStrike() */
 export class SparDuel {
+  readonly rounds = new SparRounds();
   stage: number;
   hero: SparHeroStats;
   heroHp: number;
@@ -389,13 +392,13 @@ export class SparDuel {
     };
   }
 
-  /** 主角一擊：±10% 浮動、暴擊、吸血；敵人特性（鐵布衫、反震）喺度生效 */
-  heroStrike(): SparHeroHit {
+  /** 主角一招：實際招式威力、±10%浮動、暴擊與吸血；命中一次結算一次。 */
+  heroStrike(power = 1): SparHeroHit {
     const foe = this.foe;
     if (!foe || this.foeHp <= 0) return { dmg: 0, crit: false, heal: 0, killed: false, bossKilled: false, fx: [], reflect: 0 };
     const crit = this.rand() < this.hero.critRate;
     const spread = 0.9 + this.rand() * 0.2;
-    const raw = Math.max(1, Math.round(this.hero.atk * spread * (crit ? this.hero.critMul : 1)));
+    const raw = Math.max(1, Math.round(this.hero.atk * Math.max(0, power) * spread * (crit ? this.hero.critMul : 1)));
     const t = traitOnFoeHit(this.traits, raw);
     const dmg = t.dmg;
     this.foeHp = Math.max(0, this.foeHp - dmg);
@@ -434,6 +437,7 @@ export class SparDuel {
   /** 當前敵人倒下後：換下一個；首領倒下就入下一關（回少少血） */
   advance(): { stageCleared: boolean } {
     if (this.foeHp > 0) return { stageCleared: false };
+    this.rounds.nextOpponent();
     const wasBoss = this.foe?.boss ?? false;
     if (wasBoss) {
       // 入新一關一律滿血（玩家 2026-10-14）
@@ -463,6 +467,7 @@ export class SparDuel {
 
   /** 演武敗退：同一關由第一個敵人重新開始，回滿血，唔派過關獎勵。 */
   retreat() {
+    this.rounds.reset();
     this.queue = sparStageFoes(this.stage);
     this.idx = 0;
     this.foeHp = this.queue[0]!.maxHp;

@@ -1,0 +1,1055 @@
+{
+  "mode": "candidate",
+  "seed42Character": true,
+  "independentCombatSeeds": 32,
+  "starterSeeds": 64,
+  "starterStage1WinRate": 1,
+  "baselineCadenceNote": "已學招式全出後敵人還擊一次，真實SparDuel與SparRounds結算",
+  "cases": [
+    {
+      "tier": 0,
+      "volumes": 1,
+      "hero": {
+        "maxHp": 325,
+        "atk": 49,
+        "critRate": 0.336,
+        "critMul": 1.85,
+        "lifesteal": 0,
+        "killHeal": 0,
+        "guard": 0.024
+      },
+      "firstLossSeed42": 3,
+      "stages": [
+        {
+          "stage": 1,
+          "winRate": 1,
+          "meanHeroHits": 15.6875,
+          "meanCounters": 11.6875,
+          "bossHitFraction": 0.055384615384615386
+        },
+        {
+          "stage": 2,
+          "winRate": 0.78125,
+          "meanHeroHits": 18.5625,
+          "meanCounters": 14.78125,
+          "bossHitFraction": 0.07384615384615385
+        },
+        {
+          "stage": 3,
+          "winRate": 0,
+          "meanHeroHits": 19.4375,
+          "meanCounters": 15.4375,
+          "bossHitFraction": 0.10153846153846154
+        },
+        {
+          "stage": 5,
+          "winRate": 0,
+          "meanHeroHits": 18.625,
+          "meanCounters": 15.59375,
+          "bossHitFraction": 0.12923076923076923
+        },
+        {
+          "stage": 10,
+          "winRate": 0,
+          "meanHeroHits": 15.5,
+          "meanCounters": 14.21875,
+          "bossHitFraction": 0.16307692307692306
+        },
+        {
+          "stage": 20,
+          "winRate": 0,
+          "meanHeroHits": 9.5,
+          "meanCounters": 9.5,
+          "bossHitFraction": 0.24923076923076923
+        },
+        {
+          "stage": 35,
+          "winRate": 0,
+          "meanHeroHits": 5.15625,
+          "meanCounters": 5.15625,
+          "bossHitFraction": 0.48
+        }
+      ]
+    },
+    {
+      "tier": 0,
+      "volumes": 3,
+      "hero": {
+        "maxHp": 325,
+        "atk": 49,
+        "critRate": 0.336,
+        "critMul": 1.85,
+        "lifesteal": 0,
+        "killHeal": 0,
+        "guard": 0.024
+      },
+      "firstLossSeed42": 5,
+      "stages": [
+        {
+          "stage": 1,
+          "winRate": 1,
+          "meanHeroHits": 17,
+          "meanCounters": 2.875,
+          "bossHitFraction": 0.055384615384615386
+        },
+        {
+          "stage": 3,
+          "winRate": 1,
+          "meanHeroHits": 30.375,
+          "meanCounters": 6.21875,
+          "bossHitFraction": 0.10153846153846154
+        },
+        {
+          "stage": 4,
+          "winRate": 0.96875,
+          "meanHeroHits": 35.28125,
+          "meanCounters": 8.03125,
+          "bossHitFraction": 0.12307692307692308
+        },
+        {
+          "stage": 5,
+          "winRate": 0.03125,
+          "meanHeroHits": 39.21875,
+          "meanCounters": 10.65625,
+          "bossHitFraction": 0.12923076923076923
+        },
+        {
+          "stage": 10,
+          "winRate": 0,
+          "meanHeroHits": 47.90625,
+          "meanCounters": 13.1875,
+          "bossHitFraction": 0.16307692307692306
+        },
+        {
+          "stage": 20,
+          "winRate": 0,
+          "meanHeroHits": 28.3125,
+          "meanCounters": 9.4375,
+          "bossHitFraction": 0.24923076923076923
+        },
+        {
+          "stage": 35,
+          "winRate": 0,
+          "meanHeroHits": 15.09375,
+          "meanCounters": 5.03125,
+          "bossHitFraction": 0.48
+        }
+      ]
+    },
+    {
+      "tier": 0,
+      "volumes": 7,
+      "hero": {
+        "maxHp": 325,
+        "atk": 49,
+        "critRate": 0.336,
+        "critMul": 1.85,
+        "lifesteal": 0,
+        "killHeal": 0,
+        "guard": 0.024
+      },
+      "firstLossSeed42": 9,
+      "stages": [
+        {
+          "stage": 1,
+          "winRate": 1,
+          "meanHeroHits": 15.90625,
+          "meanCounters": 1,
+          "bossHitFraction": 0.055384615384615386
+        },
+        {
+          "stage": 3,
+          "winRate": 1,
+          "meanHeroHits": 28.53125,
+          "meanCounters": 1.3125,
+          "bossHitFraction": 0.10153846153846154
+        },
+        {
+          "stage": 5,
+          "winRate": 1,
+          "meanHeroHits": 39.8125,
+          "meanCounters": 2.90625,
+          "bossHitFraction": 0.12923076923076923
+        },
+        {
+          "stage": 8,
+          "winRate": 0.9375,
+          "meanHeroHits": 90.5,
+          "meanCounters": 7.90625,
+          "bossHitFraction": 0.1476923076923077
+        },
+        {
+          "stage": 9,
+          "winRate": 0,
+          "meanHeroHits": 95.3125,
+          "meanCounters": 9,
+          "bossHitFraction": 0.15692307692307692
+        },
+        {
+          "stage": 10,
+          "winRate": 0,
+          "meanHeroHits": 92.90625,
+          "meanCounters": 10.75,
+          "bossHitFraction": 0.16307692307692306
+        },
+        {
+          "stage": 20,
+          "winRate": 0,
+          "meanHeroHits": 70.5625,
+          "meanCounters": 9.4375,
+          "bossHitFraction": 0.24923076923076923
+        },
+        {
+          "stage": 35,
+          "winRate": 0,
+          "meanHeroHits": 35,
+          "meanCounters": 5,
+          "bossHitFraction": 0.48
+        }
+      ]
+    },
+    {
+      "tier": 2,
+      "volumes": 1,
+      "hero": {
+        "maxHp": 372,
+        "atk": 135,
+        "critRate": 0.336,
+        "critMul": 1.85,
+        "lifesteal": 0,
+        "killHeal": 0,
+        "guard": 0.024
+      },
+      "firstLossSeed42": 5,
+      "stages": [
+        {
+          "stage": 1,
+          "winRate": 1,
+          "meanHeroHits": 6.875,
+          "meanCounters": 2.875,
+          "bossHitFraction": 0.04838709677419355
+        },
+        {
+          "stage": 3,
+          "winRate": 1,
+          "meanHeroHits": 12.28125,
+          "meanCounters": 7.28125,
+          "bossHitFraction": 0.08870967741935484
+        },
+        {
+          "stage": 4,
+          "winRate": 1,
+          "meanHeroHits": 13.78125,
+          "meanCounters": 8.78125,
+          "bossHitFraction": 0.10752688172043011
+        },
+        {
+          "stage": 5,
+          "winRate": 0.3125,
+          "meanHeroHits": 15.5,
+          "meanCounters": 11.1875,
+          "bossHitFraction": 0.11290322580645161
+        },
+        {
+          "stage": 10,
+          "winRate": 0,
+          "meanHeroHits": 18.9375,
+          "meanCounters": 14.9375,
+          "bossHitFraction": 0.1424731182795699
+        },
+        {
+          "stage": 20,
+          "winRate": 0,
+          "meanHeroHits": 10.875,
+          "meanCounters": 10.875,
+          "bossHitFraction": 0.21774193548387097
+        },
+        {
+          "stage": 35,
+          "winRate": 0,
+          "meanHeroHits": 5.96875,
+          "meanCounters": 5.96875,
+          "bossHitFraction": 0.41935483870967744
+        }
+      ]
+    },
+    {
+      "tier": 2,
+      "volumes": 3,
+      "hero": {
+        "maxHp": 372,
+        "atk": 135,
+        "critRate": 0.336,
+        "critMul": 1.85,
+        "lifesteal": 0,
+        "killHeal": 0,
+        "guard": 0.024
+      },
+      "firstLossSeed42": 9,
+      "stages": [
+        {
+          "stage": 1,
+          "winRate": 1,
+          "meanHeroHits": 6.875,
+          "meanCounters": 0.78125,
+          "bossHitFraction": 0.04838709677419355
+        },
+        {
+          "stage": 3,
+          "winRate": 1,
+          "meanHeroHits": 13,
+          "meanCounters": 1.46875,
+          "bossHitFraction": 0.08870967741935484
+        },
+        {
+          "stage": 5,
+          "winRate": 1,
+          "meanHeroHits": 17.15625,
+          "meanCounters": 2.6875,
+          "bossHitFraction": 0.11290322580645161
+        },
+        {
+          "stage": 8,
+          "winRate": 1,
+          "meanHeroHits": 37.28125,
+          "meanCounters": 7.09375,
+          "bossHitFraction": 0.12903225806451613
+        },
+        {
+          "stage": 9,
+          "winRate": 0.3125,
+          "meanHeroHits": 42.9375,
+          "meanCounters": 9.71875,
+          "bossHitFraction": 0.13709677419354838
+        },
+        {
+          "stage": 10,
+          "winRate": 0,
+          "meanHeroHits": 44.25,
+          "meanCounters": 11.28125,
+          "bossHitFraction": 0.1424731182795699
+        },
+        {
+          "stage": 20,
+          "winRate": 0,
+          "meanHeroHits": 33.90625,
+          "meanCounters": 10.71875,
+          "bossHitFraction": 0.21774193548387097
+        },
+        {
+          "stage": 35,
+          "winRate": 0,
+          "meanHeroHits": 17.90625,
+          "meanCounters": 5.96875,
+          "bossHitFraction": 0.41935483870967744
+        }
+      ]
+    },
+    {
+      "tier": 2,
+      "volumes": 7,
+      "hero": {
+        "maxHp": 372,
+        "atk": 135,
+        "critRate": 0.336,
+        "critMul": 1.85,
+        "lifesteal": 0,
+        "killHeal": 0,
+        "guard": 0.024
+      },
+      "firstLossSeed42": 15,
+      "stages": [
+        {
+          "stage": 1,
+          "winRate": 1,
+          "meanHeroHits": 6.96875,
+          "meanCounters": 0,
+          "bossHitFraction": 0.04838709677419355
+        },
+        {
+          "stage": 3,
+          "winRate": 1,
+          "meanHeroHits": 12.625,
+          "meanCounters": 0,
+          "bossHitFraction": 0.08870967741935484
+        },
+        {
+          "stage": 5,
+          "winRate": 1,
+          "meanHeroHits": 16.375,
+          "meanCounters": 0.34375,
+          "bossHitFraction": 0.11290322580645161
+        },
+        {
+          "stage": 10,
+          "winRate": 1,
+          "meanHeroHits": 50.84375,
+          "meanCounters": 3.65625,
+          "bossHitFraction": 0.1424731182795699
+        },
+        {
+          "stage": 14,
+          "winRate": 0.875,
+          "meanHeroHits": 75.09375,
+          "meanCounters": 5.375,
+          "bossHitFraction": 0.16666666666666666
+        },
+        {
+          "stage": 15,
+          "winRate": 0,
+          "meanHeroHits": 79,
+          "meanCounters": 8.5,
+          "bossHitFraction": 0.1774193548387097
+        },
+        {
+          "stage": 20,
+          "winRate": 0,
+          "meanHeroHits": 99.59375,
+          "meanCounters": 10.8125,
+          "bossHitFraction": 0.21774193548387097
+        },
+        {
+          "stage": 35,
+          "winRate": 0,
+          "meanHeroHits": 41.78125,
+          "meanCounters": 5.96875,
+          "bossHitFraction": 0.41935483870967744
+        }
+      ]
+    },
+    {
+      "tier": 4,
+      "volumes": 1,
+      "hero": {
+        "maxHp": 439,
+        "atk": 362,
+        "critRate": 0.336,
+        "critMul": 1.85,
+        "lifesteal": 0,
+        "killHeal": 0,
+        "guard": 0.024
+      },
+      "firstLossSeed42": 10,
+      "stages": [
+        {
+          "stage": 1,
+          "winRate": 1,
+          "meanHeroHits": 4.71875,
+          "meanCounters": 0.71875,
+          "bossHitFraction": 0.04100227790432802
+        },
+        {
+          "stage": 3,
+          "winRate": 1,
+          "meanHeroHits": 7.0625,
+          "meanCounters": 2.0625,
+          "bossHitFraction": 0.07517084282460136
+        },
+        {
+          "stage": 5,
+          "winRate": 1,
+          "meanHeroHits": 7.8125,
+          "meanCounters": 2.8125,
+          "bossHitFraction": 0.09567198177676538
+        },
+        {
+          "stage": 9,
+          "winRate": 0.53125,
+          "meanHeroHits": 18.0625,
+          "meanCounters": 11.53125,
+          "bossHitFraction": 0.11617312072892938
+        },
+        {
+          "stage": 10,
+          "winRate": 0,
+          "meanHeroHits": 18.6875,
+          "meanCounters": 12.6875,
+          "bossHitFraction": 0.12072892938496584
+        },
+        {
+          "stage": 20,
+          "winRate": 0,
+          "meanHeroHits": 13.625,
+          "meanCounters": 12.59375,
+          "bossHitFraction": 0.1845102505694761
+        },
+        {
+          "stage": 35,
+          "winRate": 0,
+          "meanHeroHits": 6.96875,
+          "meanCounters": 6.96875,
+          "bossHitFraction": 0.3553530751708428
+        }
+      ]
+    },
+    {
+      "tier": 4,
+      "volumes": 3,
+      "hero": {
+        "maxHp": 439,
+        "atk": 362,
+        "critRate": 0.336,
+        "critMul": 1.85,
+        "lifesteal": 0,
+        "killHeal": 0,
+        "guard": 0.024
+      },
+      "firstLossSeed42": 16,
+      "stages": [
+        {
+          "stage": 1,
+          "winRate": 1,
+          "meanHeroHits": 4.71875,
+          "meanCounters": 0,
+          "bossHitFraction": 0.04100227790432802
+        },
+        {
+          "stage": 3,
+          "winRate": 1,
+          "meanHeroHits": 7.03125,
+          "meanCounters": 0,
+          "bossHitFraction": 0.07517084282460136
+        },
+        {
+          "stage": 5,
+          "winRate": 1,
+          "meanHeroHits": 7.90625,
+          "meanCounters": 0.34375,
+          "bossHitFraction": 0.09567198177676538
+        },
+        {
+          "stage": 10,
+          "winRate": 1,
+          "meanHeroHits": 22.625,
+          "meanCounters": 3.53125,
+          "bossHitFraction": 0.12072892938496584
+        },
+        {
+          "stage": 15,
+          "winRate": 0.0625,
+          "meanHeroHits": 36.375,
+          "meanCounters": 8.3125,
+          "bossHitFraction": 0.15034168564920272
+        },
+        {
+          "stage": 16,
+          "winRate": 0,
+          "meanHeroHits": 43.15625,
+          "meanCounters": 10.8125,
+          "bossHitFraction": 0.1548974943052392
+        },
+        {
+          "stage": 20,
+          "winRate": 0,
+          "meanHeroHits": 48.96875,
+          "meanCounters": 12.65625,
+          "bossHitFraction": 0.1845102505694761
+        },
+        {
+          "stage": 35,
+          "winRate": 0,
+          "meanHeroHits": 20.8125,
+          "meanCounters": 6.9375,
+          "bossHitFraction": 0.3553530751708428
+        }
+      ]
+    },
+    {
+      "tier": 4,
+      "volumes": 7,
+      "hero": {
+        "maxHp": 439,
+        "atk": 362,
+        "critRate": 0.336,
+        "critMul": 1.85,
+        "lifesteal": 0,
+        "killHeal": 0,
+        "guard": 0.024
+      },
+      "firstLossSeed42": 19,
+      "stages": [
+        {
+          "stage": 1,
+          "winRate": 1,
+          "meanHeroHits": 4.71875,
+          "meanCounters": 0,
+          "bossHitFraction": 0.04100227790432802
+        },
+        {
+          "stage": 3,
+          "winRate": 1,
+          "meanHeroHits": 7.03125,
+          "meanCounters": 0,
+          "bossHitFraction": 0.07517084282460136
+        },
+        {
+          "stage": 5,
+          "winRate": 1,
+          "meanHeroHits": 7.90625,
+          "meanCounters": 0,
+          "bossHitFraction": 0.09567198177676538
+        },
+        {
+          "stage": 10,
+          "winRate": 1,
+          "meanHeroHits": 22.0625,
+          "meanCounters": 0.34375,
+          "bossHitFraction": 0.12072892938496584
+        },
+        {
+          "stage": 18,
+          "winRate": 0.9375,
+          "meanHeroHits": 80.75,
+          "meanCounters": 4.75,
+          "bossHitFraction": 0.17084282460136674
+        },
+        {
+          "stage": 19,
+          "winRate": 0.15625,
+          "meanHeroHits": 92,
+          "meanCounters": 6.625,
+          "bossHitFraction": 0.17539863325740318
+        },
+        {
+          "stage": 20,
+          "winRate": 0,
+          "meanHeroHits": 96.625,
+          "meanCounters": 9.59375,
+          "bossHitFraction": 0.1845102505694761
+        },
+        {
+          "stage": 35,
+          "winRate": 0,
+          "meanHeroHits": 48.5625,
+          "meanCounters": 6.9375,
+          "bossHitFraction": 0.3553530751708428
+        }
+      ]
+    },
+    {
+      "tier": 8,
+      "volumes": 1,
+      "hero": {
+        "maxHp": 633,
+        "atk": 2219,
+        "critRate": 0.336,
+        "critMul": 1.85,
+        "lifesteal": 0,
+        "killHeal": 0,
+        "guard": 0.024
+      },
+      "firstLossSeed42": 19,
+      "stages": [
+        {
+          "stage": 1,
+          "winRate": 1,
+          "meanHeroHits": 4,
+          "meanCounters": 0,
+          "bossHitFraction": 0.02843601895734597
+        },
+        {
+          "stage": 3,
+          "winRate": 1,
+          "meanHeroHits": 5,
+          "meanCounters": 0,
+          "bossHitFraction": 0.052132701421800945
+        },
+        {
+          "stage": 5,
+          "winRate": 1,
+          "meanHeroHits": 5,
+          "meanCounters": 0,
+          "bossHitFraction": 0.06635071090047394
+        },
+        {
+          "stage": 10,
+          "winRate": 1,
+          "meanHeroHits": 7.59375,
+          "meanCounters": 0.59375,
+          "bossHitFraction": 0.08372827804107424
+        },
+        {
+          "stage": 18,
+          "winRate": 0.875,
+          "meanHeroHits": 18.1875,
+          "meanCounters": 9.3125,
+          "bossHitFraction": 0.11848341232227488
+        },
+        {
+          "stage": 19,
+          "winRate": 0.0625,
+          "meanHeroHits": 19.8125,
+          "meanCounters": 11.75,
+          "bossHitFraction": 0.12164296998420221
+        },
+        {
+          "stage": 20,
+          "winRate": 0,
+          "meanHeroHits": 20.125,
+          "meanCounters": 12.125,
+          "bossHitFraction": 0.12796208530805686
+        },
+        {
+          "stage": 35,
+          "winRate": 0,
+          "meanHeroHits": 9.65625,
+          "meanCounters": 9.65625,
+          "bossHitFraction": 0.24644549763033174
+        }
+      ]
+    },
+    {
+      "tier": 8,
+      "volumes": 3,
+      "hero": {
+        "maxHp": 633,
+        "atk": 2219,
+        "critRate": 0.336,
+        "critMul": 1.85,
+        "lifesteal": 0,
+        "killHeal": 0,
+        "guard": 0.024
+      },
+      "firstLossSeed42": 25,
+      "stages": [
+        {
+          "stage": 1,
+          "winRate": 1,
+          "meanHeroHits": 4,
+          "meanCounters": 0,
+          "bossHitFraction": 0.02843601895734597
+        },
+        {
+          "stage": 3,
+          "winRate": 1,
+          "meanHeroHits": 5,
+          "meanCounters": 0,
+          "bossHitFraction": 0.052132701421800945
+        },
+        {
+          "stage": 5,
+          "winRate": 1,
+          "meanHeroHits": 5,
+          "meanCounters": 0,
+          "bossHitFraction": 0.06635071090047394
+        },
+        {
+          "stage": 10,
+          "winRate": 1,
+          "meanHeroHits": 7.59375,
+          "meanCounters": 0,
+          "bossHitFraction": 0.08372827804107424
+        },
+        {
+          "stage": 20,
+          "winRate": 1,
+          "meanHeroHits": 24,
+          "meanCounters": 2.71875,
+          "bossHitFraction": 0.12796208530805686
+        },
+        {
+          "stage": 24,
+          "winRate": 0.90625,
+          "meanHeroHits": 38.5625,
+          "meanCounters": 6.90625,
+          "bossHitFraction": 0.15323854660347552
+        },
+        {
+          "stage": 25,
+          "winRate": 0.03125,
+          "meanHeroHits": 42.875,
+          "meanCounters": 10.15625,
+          "bossHitFraction": 0.15955766192733017
+        },
+        {
+          "stage": 35,
+          "winRate": 0,
+          "meanHeroHits": 30.5,
+          "meanCounters": 9.53125,
+          "bossHitFraction": 0.24644549763033174
+        }
+      ]
+    },
+    {
+      "tier": 8,
+      "volumes": 7,
+      "hero": {
+        "maxHp": 633,
+        "atk": 2219,
+        "critRate": 0.336,
+        "critMul": 1.85,
+        "lifesteal": 0,
+        "killHeal": 0,
+        "guard": 0.024
+      },
+      "firstLossSeed42": 29,
+      "stages": [
+        {
+          "stage": 1,
+          "winRate": 1,
+          "meanHeroHits": 4,
+          "meanCounters": 0,
+          "bossHitFraction": 0.02843601895734597
+        },
+        {
+          "stage": 3,
+          "winRate": 1,
+          "meanHeroHits": 5,
+          "meanCounters": 0,
+          "bossHitFraction": 0.052132701421800945
+        },
+        {
+          "stage": 5,
+          "winRate": 1,
+          "meanHeroHits": 5,
+          "meanCounters": 0,
+          "bossHitFraction": 0.06635071090047394
+        },
+        {
+          "stage": 10,
+          "winRate": 1,
+          "meanHeroHits": 7.59375,
+          "meanCounters": 0,
+          "bossHitFraction": 0.08372827804107424
+        },
+        {
+          "stage": 20,
+          "winRate": 1,
+          "meanHeroHits": 23.65625,
+          "meanCounters": 0,
+          "bossHitFraction": 0.12796208530805686
+        },
+        {
+          "stage": 28,
+          "winRate": 0.90625,
+          "meanHeroHits": 88.625,
+          "meanCounters": 5.65625,
+          "bossHitFraction": 0.1848341232227488
+        },
+        {
+          "stage": 29,
+          "winRate": 0.03125,
+          "meanHeroHits": 92.78125,
+          "meanCounters": 8.1875,
+          "bossHitFraction": 0.1911532385466035
+        },
+        {
+          "stage": 35,
+          "winRate": 0,
+          "meanHeroHits": 84.40625,
+          "meanCounters": 9.5625,
+          "bossHitFraction": 0.24644549763033174
+        }
+      ]
+    },
+    {
+      "tier": 14,
+      "volumes": 1,
+      "hero": {
+        "maxHp": 1074,
+        "atk": 25315,
+        "critRate": 0.336,
+        "critMul": 1.85,
+        "lifesteal": 0,
+        "killHeal": 0,
+        "guard": 0.024
+      },
+      "firstLossSeed42": 33,
+      "stages": [
+        {
+          "stage": 1,
+          "winRate": 1,
+          "meanHeroHits": 4,
+          "meanCounters": 0,
+          "bossHitFraction": 0.01675977653631285
+        },
+        {
+          "stage": 3,
+          "winRate": 1,
+          "meanHeroHits": 5,
+          "meanCounters": 0,
+          "bossHitFraction": 0.030726256983240222
+        },
+        {
+          "stage": 5,
+          "winRate": 1,
+          "meanHeroHits": 5,
+          "meanCounters": 0,
+          "bossHitFraction": 0.03910614525139665
+        },
+        {
+          "stage": 10,
+          "winRate": 1,
+          "meanHeroHits": 7,
+          "meanCounters": 0,
+          "bossHitFraction": 0.049348230912476726
+        },
+        {
+          "stage": 20,
+          "winRate": 1,
+          "meanHeroHits": 9,
+          "meanCounters": 0,
+          "bossHitFraction": 0.07541899441340782
+        },
+        {
+          "stage": 32,
+          "winRate": 0.75,
+          "meanHeroHits": 15.0625,
+          "meanCounters": 8.3125,
+          "bossHitFraction": 0.12942271880819367
+        },
+        {
+          "stage": 33,
+          "winRate": 0.09375,
+          "meanHeroHits": 17.46875,
+          "meanCounters": 10.375,
+          "bossHitFraction": 0.13314711359404097
+        },
+        {
+          "stage": 35,
+          "winRate": 0,
+          "meanHeroHits": 20.1875,
+          "meanCounters": 13.4375,
+          "bossHitFraction": 0.1452513966480447
+        }
+      ]
+    },
+    {
+      "tier": 14,
+      "volumes": 3,
+      "hero": {
+        "maxHp": 1074,
+        "atk": 25315,
+        "critRate": 0.336,
+        "critMul": 1.85,
+        "lifesteal": 0,
+        "killHeal": 0,
+        "guard": 0.024
+      },
+      "firstLossSeed42": 36,
+      "stages": [
+        {
+          "stage": 1,
+          "winRate": 1,
+          "meanHeroHits": 4,
+          "meanCounters": 0,
+          "bossHitFraction": 0.01675977653631285
+        },
+        {
+          "stage": 3,
+          "winRate": 1,
+          "meanHeroHits": 5,
+          "meanCounters": 0,
+          "bossHitFraction": 0.030726256983240222
+        },
+        {
+          "stage": 5,
+          "winRate": 1,
+          "meanHeroHits": 5,
+          "meanCounters": 0,
+          "bossHitFraction": 0.03910614525139665
+        },
+        {
+          "stage": 10,
+          "winRate": 1,
+          "meanHeroHits": 7,
+          "meanCounters": 0,
+          "bossHitFraction": 0.049348230912476726
+        },
+        {
+          "stage": 20,
+          "winRate": 1,
+          "meanHeroHits": 9,
+          "meanCounters": 0,
+          "bossHitFraction": 0.07541899441340782
+        },
+        {
+          "stage": 35,
+          "winRate": 1,
+          "meanHeroHits": 29.375,
+          "meanCounters": 3.5,
+          "bossHitFraction": 0.1452513966480447
+        },
+        {
+          "stage": 36,
+          "winRate": 0.96875,
+          "meanHeroHits": 35.75,
+          "meanCounters": 5.65625,
+          "bossHitFraction": 0.15363128491620112
+        }
+      ]
+    },
+    {
+      "tier": 14,
+      "volumes": 7,
+      "hero": {
+        "maxHp": 1074,
+        "atk": 25315,
+        "critRate": 0.336,
+        "critMul": 1.85,
+        "lifesteal": 0,
+        "killHeal": 0,
+        "guard": 0.024
+      },
+      "firstLossSeed42": 41,
+      "stages": [
+        {
+          "stage": 1,
+          "winRate": 1,
+          "meanHeroHits": 4,
+          "meanCounters": 0,
+          "bossHitFraction": 0.01675977653631285
+        },
+        {
+          "stage": 3,
+          "winRate": 1,
+          "meanHeroHits": 5,
+          "meanCounters": 0,
+          "bossHitFraction": 0.030726256983240222
+        },
+        {
+          "stage": 5,
+          "winRate": 1,
+          "meanHeroHits": 5,
+          "meanCounters": 0,
+          "bossHitFraction": 0.03910614525139665
+        },
+        {
+          "stage": 10,
+          "winRate": 1,
+          "meanHeroHits": 7,
+          "meanCounters": 0,
+          "bossHitFraction": 0.049348230912476726
+        },
+        {
+          "stage": 20,
+          "winRate": 1,
+          "meanHeroHits": 9,
+          "meanCounters": 0,
+          "bossHitFraction": 0.07541899441340782
+        },
+        {
+          "stage": 35,
+          "winRate": 1,
+          "meanHeroHits": 28.28125,
+          "meanCounters": 0.78125,
+          "bossHitFraction": 0.1452513966480447
+        },
+        {
+          "stage": 40,
+          "winRate": 0.96875,
+          "meanHeroHits": 77.4375,
+          "meanCounters": 4.21875,
+          "bossHitFraction": 0.1824953445065177
+        },
+        {
+          "stage": 41,
+          "winRate": 0,
+          "meanHeroHits": 44.34375,
+          "meanCounters": 1.1875,
+          "bossHitFraction": 0.1908752327746741
+        }
+      ]
+    }
+  ]
+}

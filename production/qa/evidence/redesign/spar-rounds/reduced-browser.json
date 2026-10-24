@@ -1,0 +1,2659 @@
+{
+  "base": "http://127.0.0.1:5173/",
+  "seed": 42,
+  "phone": [
+    320,
+    568
+  ],
+  "reducedMotion": true,
+  "dpr": 2,
+  "bossStage": 20,
+  "fixtureHealth": 5000,
+  "directBossSelection": true,
+  "realEngineAndDamage": true,
+  "cases": [
+    {
+      "volumes": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "trace": [
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 1,
+          "damage": 124,
+          "time": 5323.299999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 1,
+          "damage": 64,
+          "time": 7090.699999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 1,
+          "damage": 119,
+          "time": 8856.099999999627
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 1,
+          "damage": 130,
+          "time": 10605.799999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 1,
+          "damage": 143,
+          "time": 12372.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 1,
+          "damage": 93,
+          "time": 14122.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 1,
+          "damage": 103,
+          "time": 15872.399999999441
+        },
+        {
+          "side": "foe",
+          "round": 1,
+          "damage": 80,
+          "time": 17356
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 2,
+          "damage": 68,
+          "time": 17839
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 2,
+          "damage": 128,
+          "time": 19605.799999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 2,
+          "damage": 76,
+          "time": 21355.599999999627
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 2,
+          "damage": 139,
+          "time": 23105.39999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 2,
+          "damage": 73,
+          "time": 24872.099999999627
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 2,
+          "damage": 87,
+          "time": 26693.099999999627
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 2,
+          "damage": 99,
+          "time": 28406.299999999814
+        },
+        {
+          "side": "foe",
+          "round": 2,
+          "damage": 81,
+          "time": 29905.199999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 3,
+          "damage": 80,
+          "time": 30208.299999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 3,
+          "damage": 68,
+          "time": 31107
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 3,
+          "damage": 76,
+          "time": 31955.199999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 3,
+          "damage": 136,
+          "time": 32859.299999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 3,
+          "damage": 153,
+          "time": 33721.799999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 3,
+          "damage": 90,
+          "time": 34605.09999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 3,
+          "damage": 95,
+          "time": 35492.199999999255
+        },
+        {
+          "side": "foe",
+          "round": 3,
+          "damage": 151,
+          "time": 36246.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 4,
+          "damage": 76,
+          "time": 36388.699999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 4,
+          "damage": 118,
+          "time": 36395
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 4,
+          "damage": 68,
+          "time": 36397.09999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 4,
+          "damage": 67,
+          "time": 36398
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 4,
+          "damage": 82,
+          "time": 36402.09999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 4,
+          "damage": 85,
+          "time": 36404.89999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 4,
+          "damage": 95,
+          "time": 36405.699999999255
+        },
+        {
+          "side": "foe",
+          "round": 4,
+          "damage": 91,
+          "time": 36467.59999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 5,
+          "damage": 73,
+          "time": 36468
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 5,
+          "damage": 132,
+          "time": 36468.89999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 5,
+          "damage": 72,
+          "time": 36470
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 5,
+          "damage": 131,
+          "time": 36471.799999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 5,
+          "damage": 77,
+          "time": 36472.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 5,
+          "damage": 84,
+          "time": 36473.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 5,
+          "damage": 98,
+          "time": 36474.39999999944
+        },
+        {
+          "side": "foe",
+          "round": 5,
+          "damage": 86,
+          "time": 36511.39999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 6,
+          "damage": 139,
+          "time": 36512.299999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 6,
+          "damage": 111,
+          "time": 36513.59999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 6,
+          "damage": 69,
+          "time": 36514.39999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 6,
+          "damage": 73,
+          "time": 36515.09999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 6,
+          "damage": 160,
+          "time": 36516.59999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 6,
+          "damage": 93,
+          "time": 36517.699999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 6,
+          "damage": 181,
+          "time": 36518.799999999814
+        },
+        {
+          "side": "foe",
+          "round": 6,
+          "damage": 149,
+          "time": 36575.89999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 7,
+          "damage": 72,
+          "time": 36576.89999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 7,
+          "damage": 69,
+          "time": 36577.699999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 7,
+          "damage": 122,
+          "time": 36580.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 7,
+          "damage": 73,
+          "time": 36583
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 7,
+          "damage": 142,
+          "time": 36583.799999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 7,
+          "damage": 78,
+          "time": 36584.59999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 7,
+          "damage": 90,
+          "time": 36650.699999999255
+        },
+        {
+          "side": "foe",
+          "round": 7,
+          "damage": 86,
+          "time": 36652.09999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 8,
+          "damage": 70,
+          "time": 36652.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 8,
+          "damage": 71,
+          "time": 36654.39999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 8,
+          "damage": 133,
+          "time": 36658.09999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 8,
+          "damage": 69,
+          "time": 36659.299999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 8,
+          "damage": 146,
+          "time": 36662.09999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 8,
+          "damage": 92,
+          "time": 36663.299999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 8,
+          "damage": 92,
+          "time": 36697.199999999255
+        },
+        {
+          "side": "foe",
+          "round": 8,
+          "damage": 69,
+          "time": 36697.89999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 9,
+          "damage": 133,
+          "time": 36698.199999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 9,
+          "damage": 63,
+          "time": 36700.199999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 9,
+          "damage": 73,
+          "time": 36700.89999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 9,
+          "damage": 127,
+          "time": 36705
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 9,
+          "damage": 86,
+          "time": 36705.699999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 9,
+          "damage": 86,
+          "time": 36706.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 9,
+          "damage": 101,
+          "time": 36797.59999999963
+        },
+        {
+          "side": "foe",
+          "round": 9,
+          "damage": 187,
+          "time": 36798.59999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 10,
+          "damage": 127,
+          "time": 36798.799999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 10,
+          "damage": 73,
+          "time": 36799.699999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 10,
+          "damage": 65,
+          "time": 36800.699999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 10,
+          "damage": 127,
+          "time": 36802.09999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 10,
+          "damage": 78,
+          "time": 36802.799999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 10,
+          "damage": 81,
+          "time": 36870.699999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 10,
+          "damage": 190,
+          "time": 36871.59999999963
+        },
+        {
+          "side": "foe",
+          "round": 10,
+          "damage": 84,
+          "time": 36873.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 11,
+          "damage": 74,
+          "time": 36873.699999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 11,
+          "damage": 63,
+          "time": 36874.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 11,
+          "damage": 75,
+          "time": 36875.299999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 11,
+          "damage": 71,
+          "time": 36877.199999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 11,
+          "damage": 83,
+          "time": 36878
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 11,
+          "damage": 84,
+          "time": 36912.199999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 11,
+          "damage": 96,
+          "time": 36913
+        },
+        {
+          "side": "foe",
+          "round": 11,
+          "damage": 71,
+          "time": 36913.59999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 12,
+          "damage": 72,
+          "time": 36913.799999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 12,
+          "damage": 60,
+          "time": 36914.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 12,
+          "damage": 64,
+          "time": 36947.59999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 12,
+          "damage": 73,
+          "time": 36948.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 12,
+          "damage": 147,
+          "time": 36949.09999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 12,
+          "damage": 93,
+          "time": 36984.299999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 12,
+          "damage": 88,
+          "time": 36985
+        },
+        {
+          "side": "foe",
+          "round": 12,
+          "damage": 189,
+          "time": 36986.09999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 13,
+          "damage": 70,
+          "time": 36986.299999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 13,
+          "damage": 120,
+          "time": 36987
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 13,
+          "damage": 133,
+          "time": 36987.59999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 13,
+          "damage": 80,
+          "time": 36988.39999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 13,
+          "damage": 79,
+          "time": 36988.89999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 13,
+          "damage": 154,
+          "time": 37025.09999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 13,
+          "damage": 96,
+          "time": 37026
+        },
+        {
+          "side": "foe",
+          "round": 13,
+          "damage": 76,
+          "time": 37048.39999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 14,
+          "damage": 78,
+          "time": 37048.799999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 14,
+          "damage": 68,
+          "time": 37049.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 14,
+          "damage": 134,
+          "time": 37050.299999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 14,
+          "damage": 132,
+          "time": 37050.89999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 14,
+          "damage": 73,
+          "time": 37095.59999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 14,
+          "damage": 156,
+          "time": 37096.39999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 14,
+          "damage": 91,
+          "time": 37098.5
+        },
+        {
+          "side": "foe",
+          "round": 14,
+          "damage": 78,
+          "time": 37099.199999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 15,
+          "damage": 75,
+          "time": 37099.39999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 15,
+          "damage": 64,
+          "time": 37100
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 15,
+          "damage": 65,
+          "time": 37100.59999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 15,
+          "damage": 67,
+          "time": 37101.199999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 15,
+          "damage": 75,
+          "time": 37186.09999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 15,
+          "damage": 168,
+          "time": 37187.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 15,
+          "damage": 93,
+          "time": 37188.199999999255
+        },
+        {
+          "side": "foe",
+          "round": 15,
+          "damage": 193,
+          "time": 37191.09999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 16,
+          "damage": 78,
+          "time": 37191.299999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 16,
+          "damage": 65,
+          "time": 37193.59999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 16,
+          "damage": 76,
+          "time": 37195.799999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 16,
+          "damage": 70,
+          "time": 37197
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 16,
+          "damage": 82,
+          "time": 37267.89999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 16,
+          "damage": 92,
+          "time": 37271.199999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 16,
+          "damage": 93,
+          "time": 37272.299999999814
+        },
+        {
+          "side": "foe",
+          "round": 16,
+          "damage": 90,
+          "time": 37274.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 17,
+          "damage": 72,
+          "time": 37274.799999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 17,
+          "damage": 60,
+          "time": 37275.89999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 17,
+          "damage": 71,
+          "time": 37277.199999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 17,
+          "damage": 76,
+          "time": 37315
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 17,
+          "damage": 140,
+          "time": 37315.799999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 17,
+          "damage": 92,
+          "time": 37316.39999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 17,
+          "damage": 165,
+          "time": 37317.09999999963
+        },
+        {
+          "side": "foe",
+          "round": 17,
+          "damage": 85,
+          "time": 37348.299999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 18,
+          "damage": 72,
+          "time": 37348.799999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 18,
+          "damage": 117,
+          "time": 37349.799999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 18,
+          "damage": 75,
+          "time": 37350.89999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 18,
+          "damage": 79,
+          "time": 37394.699999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 18,
+          "damage": 161,
+          "time": 37395.89999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 18,
+          "damage": 149,
+          "time": 37401.699999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 18,
+          "damage": 88,
+          "time": 37402.5
+        },
+        {
+          "side": "foe",
+          "round": 18,
+          "damage": 174,
+          "time": 37403.199999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 19,
+          "damage": 78,
+          "time": 37403.299999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 19,
+          "damage": 68,
+          "time": 37404
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 19,
+          "damage": 122,
+          "time": 37404.89999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 19,
+          "damage": 141,
+          "time": 37465.799999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 19,
+          "damage": 73,
+          "time": 37467.299999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 19,
+          "damage": 148,
+          "time": 37468.09999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 19,
+          "damage": 88,
+          "time": 37468.799999999814
+        },
+        {
+          "side": "foe",
+          "round": 19,
+          "damage": 71,
+          "time": 37469.299999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 20,
+          "damage": 130,
+          "time": 37469.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 20,
+          "damage": 61,
+          "time": 37470.299999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 20,
+          "damage": 122,
+          "time": 37507
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 20,
+          "damage": 68,
+          "time": 37509.59999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 20,
+          "damage": 148,
+          "time": 37510.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 20,
+          "damage": 166,
+          "time": 37550.799999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 20,
+          "damage": 178,
+          "time": 37551.59999999963
+        },
+        {
+          "side": "foe",
+          "round": 20,
+          "damage": 70,
+          "time": 37552.09999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 21,
+          "damage": 76,
+          "time": 37552.39999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 21,
+          "damage": 69,
+          "time": 37553.09999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 21,
+          "damage": 74,
+          "time": 37599.09999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 21,
+          "damage": 70,
+          "time": 37599.799999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 21,
+          "damage": 85,
+          "time": 37601
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 21,
+          "damage": 82,
+          "time": 37601.59999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 21,
+          "damage": 106,
+          "time": 37602.199999999255
+        },
+        {
+          "side": "foe",
+          "round": 21,
+          "damage": 189,
+          "time": 37603
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 22,
+          "damage": 75,
+          "time": 37603.199999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 22,
+          "damage": 63,
+          "time": 37603.89999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 22,
+          "damage": 140,
+          "time": 37664.89999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 22,
+          "damage": 78,
+          "time": 37667.59999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 22,
+          "damage": 75,
+          "time": 37668.299999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 22,
+          "damage": 93,
+          "time": 37668.89999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 22,
+          "damage": 88,
+          "time": 37669.699999999255
+        },
+        {
+          "side": "foe",
+          "round": 22,
+          "damage": 83,
+          "time": 37672.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 23,
+          "damage": 80,
+          "time": 37672.799999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 23,
+          "damage": 115,
+          "time": 37673.39999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 23,
+          "damage": 74,
+          "time": 37695.09999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 23,
+          "damage": 125,
+          "time": 37695.799999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 23,
+          "damage": 78,
+          "time": 37696.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 23,
+          "damage": 82,
+          "time": 37697
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 23,
+          "damage": 98,
+          "time": 37697.59999999963
+        },
+        {
+          "side": "foe",
+          "round": 23,
+          "damage": 83,
+          "time": 37698.09999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 24,
+          "damage": 71,
+          "time": 37698.39999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 24,
+          "damage": 72,
+          "time": 37776.799999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 24,
+          "damage": 64,
+          "time": 37783.89999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 24,
+          "damage": 69,
+          "time": 37784.699999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 24,
+          "damage": 148,
+          "time": 37789.699999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 24,
+          "damage": 81,
+          "time": 37795.299999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 24,
+          "damage": 96,
+          "time": 37795.89999999944
+        },
+        {
+          "side": "foe",
+          "round": 24,
+          "damage": 149,
+          "time": 37796.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 25,
+          "damage": 80,
+          "time": 37796.699999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 25,
+          "damage": 71,
+          "time": 37860
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 25,
+          "damage": 72,
+          "time": 37861.59999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 25,
+          "damage": 126,
+          "time": 37864.699999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 25,
+          "damage": 144,
+          "time": 37865.299999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 25,
+          "damage": 147,
+          "time": 37865.89999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 25,
+          "damage": 98,
+          "time": 37866.59999999963
+        },
+        {
+          "side": "foe",
+          "round": 25,
+          "damage": 72,
+          "time": 37867.199999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 26,
+          "damage": 76,
+          "time": 37867.799999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 26,
+          "damage": 65,
+          "time": 37897
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 26,
+          "damage": 130,
+          "time": 37897.699999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 26,
+          "damage": 68,
+          "time": 37898.299999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 26,
+          "damage": 149,
+          "time": 37899
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 26,
+          "damage": 84,
+          "time": 37899.59999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 26,
+          "damage": 90,
+          "time": 37900.199999999255
+        },
+        {
+          "side": "foe",
+          "round": 26,
+          "damage": 73,
+          "time": 37903.09999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 27,
+          "damage": 67,
+          "time": 37967.89999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 27,
+          "damage": 69,
+          "time": 37968.799999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 27,
+          "damage": 74,
+          "time": 37969.39999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 27,
+          "damage": 80,
+          "time": 37970
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 27,
+          "damage": 84,
+          "time": 37970.699999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 27,
+          "damage": 158,
+          "time": 37971.39999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 27,
+          "damage": 98,
+          "time": 37976.5
+        },
+        {
+          "side": "foe",
+          "round": 27,
+          "damage": 156,
+          "time": 38005.799999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 28,
+          "damage": 71,
+          "time": 38006
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 28,
+          "damage": 60,
+          "time": 38007
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 28,
+          "damage": 73,
+          "time": 38007.699999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 28,
+          "damage": 128,
+          "time": 38008.299999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 28,
+          "damage": 85,
+          "time": 38009
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 28,
+          "damage": 82,
+          "time": 38009.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 28,
+          "damage": 194,
+          "time": 38010.09999999963
+        },
+        {
+          "side": "foe",
+          "round": 28,
+          "damage": 83,
+          "time": 38067.09999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 29,
+          "damage": 79,
+          "time": 38067.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 29,
+          "damage": 66,
+          "time": 38068.09999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 29,
+          "damage": 71,
+          "time": 38069
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 29,
+          "damage": 70,
+          "time": 38069.59999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 29,
+          "damage": 84,
+          "time": 38070.299999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 29,
+          "damage": 86,
+          "time": 38071
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 29,
+          "damage": 96,
+          "time": 38071.5
+        },
+        {
+          "side": "foe",
+          "round": 29,
+          "damage": 80,
+          "time": 38099.89999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 30,
+          "damage": 72,
+          "time": 38100.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 30,
+          "damage": 72,
+          "time": 38101.199999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 30,
+          "damage": 72,
+          "time": 38101.89999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 30,
+          "damage": 66,
+          "time": 38102.39999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 30,
+          "damage": 76,
+          "time": 38109.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 30,
+          "damage": 84,
+          "time": 38110.199999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 30,
+          "damage": 171,
+          "time": 38175
+        },
+        {
+          "side": "foe",
+          "round": 30,
+          "damage": 196,
+          "time": 38175.699999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 31,
+          "damage": 127,
+          "time": 38175.89999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 31,
+          "damage": 72,
+          "time": 38176.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 31,
+          "damage": 67,
+          "time": 38177
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 31,
+          "damage": 69,
+          "time": 38177.59999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 31,
+          "damage": 85,
+          "time": 38178.199999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 31,
+          "damage": 77,
+          "time": 38179
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 31,
+          "damage": 97,
+          "time": 38206.299999999814
+        },
+        {
+          "side": "foe",
+          "round": 31,
+          "damage": 87,
+          "time": 38207.09999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 32,
+          "damage": 73,
+          "time": 38207.39999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 32,
+          "damage": 125,
+          "time": 38208
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 32,
+          "damage": 132,
+          "time": 38208.59999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 32,
+          "damage": 74,
+          "time": 38209
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 32,
+          "damage": 150,
+          "time": 38209.699999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 32,
+          "damage": 150,
+          "time": 38210.39999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 32,
+          "damage": 102,
+          "time": 38274.89999999944
+        },
+        {
+          "side": "foe",
+          "round": 32,
+          "damage": 83,
+          "time": 38275.699999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 33,
+          "damage": 75,
+          "time": 38275.89999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 33,
+          "damage": 61,
+          "time": 38276.5
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 33,
+          "damage": 69,
+          "time": 38277.09999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 33,
+          "damage": 74,
+          "time": 38277.699999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 33,
+          "damage": 75,
+          "time": 38278.299999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 33,
+          "damage": 88,
+          "time": 38279
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 33,
+          "damage": 100,
+          "time": 38352.299999999814
+        },
+        {
+          "side": "foe",
+          "round": 33,
+          "damage": 189,
+          "time": 38353.299999999814
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 34,
+          "damage": 136,
+          "time": 38353.59999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 34,
+          "damage": 69,
+          "time": 38358.59999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 34,
+          "damage": 65,
+          "time": 38359.59999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 34,
+          "damage": 74,
+          "time": 38360.699999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 5,
+          "moveName": "怒濤拍岸",
+          "power": 1.62,
+          "round": 34,
+          "damage": 133,
+          "time": 38361.59999999963
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 6,
+          "moveName": "大河落日",
+          "power": 1.74,
+          "round": 34,
+          "damage": 79,
+          "time": 38407
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 7,
+          "moveName": "萬里奔流",
+          "power": 1.98,
+          "round": 34,
+          "damage": 103,
+          "time": 38408.09999999963
+        },
+        {
+          "side": "foe",
+          "round": 34,
+          "damage": 72,
+          "time": 38408.89999999944
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 1,
+          "moveName": "長河崩拳",
+          "power": 1.5,
+          "round": 35,
+          "damage": 132,
+          "time": 38409.199999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 2,
+          "moveName": "逆流",
+          "power": 1.35,
+          "round": 35,
+          "damage": 133,
+          "time": 38410.199999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 3,
+          "moveName": "翻江倒海",
+          "power": 1.42,
+          "round": 35,
+          "damage": 64,
+          "time": 38411.199999999255
+        },
+        {
+          "side": "hero",
+          "artId": "art_river_fist",
+          "volume": 4,
+          "moveName": "百川歸海",
+          "power": 1.5,
+          "round": 35,
+          "damage": 67,
+          "time": 38412.09999999963
+        }
+      ],
+      "clearCalls": [
+        [
+          20
+        ]
+      ],
+      "pageerrors": []
+    }
+  ]
+}

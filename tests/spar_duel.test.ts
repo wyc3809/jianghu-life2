@@ -104,30 +104,25 @@ describe('spar duel (演武台對打)', () => {
     expect(high.maxHp).toBe(low.maxHp);
   });
 
-  it('test_fresh_hero_must_train_before_clearing_harder_stage_one', () => {
+  it('test_fresh_hero_must_train_before_clearing_harder_stage_three', () => {
     initRng(4);
     const s = createNewLife(4);
-    const d = new SparDuel(sparHeroStats(s), 1, seq([0.37, 0.61, 0.12, 0.88, 0.45]));
-    let cleared = false;
-    let down = false;
-    for (let round = 0; round < 400 && !cleared && !down; round++) {
-      for (let k = 0; k < 4 && !cleared; k++) {
-        const h = d.heroStrike();
-        if (h.killed) cleared = d.advance().stageCleared;
+    const run = (duel: SparDuel) => {
+      for (let tick = 0; tick < 5000; tick++) {
+        if (duel.rounds.phase === 'hero') {
+          const move = duel.rounds.beginMove(s.character)!;
+          duel.rounds.commitHeroMove();
+          if (duel.heroStrike(move.power).killed && duel.advance().stageCleared) return true;
+        } else {
+          if (duel.foeStrike().heroDown) return false;
+          duel.rounds.commitFoeMove();
+        }
       }
-      for (let k = 0; k < 3 && !down; k++) down = d.foeStrike().heroDown;
-    }
-    expect(down).toBe(true);
-    expect(cleared).toBe(false);
+      return false;
+    };
+    expect(run(new SparDuel(sparHeroStats(s), 3, seq([0.37, 0.61, 0.12, 0.88, 0.45])))).toBe(false);
     s.character.cultivation.tier = 6;
-    const trained = new SparDuel(sparHeroStats(s), 1, seq([0.37, 0.61, 0.12, 0.88, 0.45]));
-    for (let round = 0; round < 400 && !cleared; round++) {
-      for (let k = 0; k < 4 && !cleared; k++) {
-        if (trained.heroStrike().killed) cleared = trained.advance().stageCleared;
-      }
-      for (let k = 0; k < 3; k++) expect(trained.foeStrike().heroDown).toBe(false);
-    }
-    expect(cleared).toBe(true);
+    expect(run(new SparDuel(sparHeroStats(s), 3, seq([0.37, 0.61, 0.12, 0.88, 0.45])))).toBe(true);
   });
 
   it('test_reward_and_saved_stage', () => {

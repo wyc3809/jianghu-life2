@@ -30,9 +30,9 @@ describe('戰力及演武氣血改版', () => {
       s.character.cultivation.tier = tier;
       expect(sparHeroStats(s).maxHp).toBe(s.character.maxHealth);
     }
-    // 2026-10-14：血量同攻擊分兩條曲線；攻擊跟主角氣血自然成長，唔再同血量一齊 ×1.18
-    expect(sparStageFoes(10)[0]!.maxHp).toBe(Math.round(140 * 1.18 ** 9));
-    expect(sparStageFoes(10)[0]!.atk).toBe(Math.round(16 * 1.032 ** 9));
+    // 第38項候選：後期血量與攻擊成長提高，主角氣血仍與實際相同。
+    expect(sparStageFoes(10)[0]!.maxHp).toBe(Math.round(140 * 1.21 ** 9));
+    expect(sparStageFoes(10)[0]!.atk).toBe(Math.round(16 * 1.045 ** 9));
   });
 });
 
@@ -42,8 +42,8 @@ import { useLifeStore } from '../src/store/lifeStore';
 it('test_spar_real_health_sync_nonlethal_and_retreat_recovers', () => {
   const s = createNewLife({ seed: 42, skipCoach: true });
   const d = new SparDuel(sparHeroStats(s), 1, () => .5);
-  d.setHero(sparHeroStats(s), 10);
-  expect(d.heroHp).toBe(10);
+  d.setHero(sparHeroStats(s), 5);
+  expect(d.heroHp).toBe(5);
   expect(d.foeStrike().heroDown).toBe(true);
   expect(d.heroHp).toBe(1);
   useLifeStore.setState({ state: s });

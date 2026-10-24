@@ -1,0 +1,23 @@
+{
+  "normalAndReducedDamageSequenceIdentical": true,
+  "doubleSkipClick": true,
+  "normalClearCalls": [
+    [
+      20
+    ]
+  ],
+  "reducedClearCalls": [
+    [
+      20
+    ]
+  ],
+  "settledHitCount": 276,
+  "normalPhone": [
+    390,
+    844
+  ],
+  "reducedPhone": [
+    320,
+    568
+  ]
+}

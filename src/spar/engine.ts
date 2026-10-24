@@ -550,7 +550,12 @@ export class SparStage {
     this.poseInspection = id ? { id, t, result } : null;
   }
 
-  /** 主角動畫仍然出緊招；只用嚟保留主要招名，唔阻止敵人真實還擊。 */
+  /** 敵人撲擊及收勢未完成時，不開始主角下一回合。 */
+  get foeAttackActive(): boolean {
+    return this.enemies.some(e => e.lungeT !== null);
+  }
+
+  /** 主角出招至收勢完成前，保留招名並等待回合交接。 */
   get heroAttackActive(): boolean {
     return this.heroDownT === null && this.attackT !== null;
   }
@@ -799,8 +804,8 @@ export class SparStage {
     // B：導演節奏
     const inMelee = !!this.nearestInRange();
     this.director.notifyMelee(inMelee);
-    if (inMelee && this.attackT === null && (this.presentation !== 'battle' || (this.combat?.heroMayAttack?.() ?? true))) this.director.requestWindup();
-    if ((this.presentation !== 'battle' || (this.combat?.heroMayAttack?.() ?? true)) && this.director.consumeWindupReady() && this.attackT === null) {
+    if (inMelee && this.attackT === null && (this.combat?.heroMayAttack?.() ?? true)) this.director.requestWindup();
+    if ((this.combat?.heroMayAttack?.() ?? true) && this.director.consumeWindupReady() && this.attackT === null) {
       this.attackT = 0;
       this.firedStrike = false;
       this.startArt();
