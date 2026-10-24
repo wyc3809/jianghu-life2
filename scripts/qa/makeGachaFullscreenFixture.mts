@@ -1,0 +1,21 @@
+/** 全畫面驗圖使用隔離人物；從真正卡池設定建立39抽心願測試，不讀玩家存檔。 */
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { createNewLife } from '../../core/life/gameState';
+import { emptyAncestry } from '../../core/life/ancestry';
+import { bannerState, setWish, wishPool } from '../../core/life/gacha';
+import { FAMILY_MILESTONES } from '../../data/ancestry/milestones';
+import { ACHIEVEMENT_RULES } from '../../core/life/achievements';
+const state = createNewLife({ seed: 42, name: '驗圖少俠', skipCoach: true });
+state.character.flags.newbie_done = true;
+state.character.flags.coach_done = true;
+state.pending = null;
+state.tab = 'home';
+const meta = emptyAncestry();
+meta.jade = { free: 600, paidTest: 600 };
+meta.milestones = FAMILY_MILESTONES.map(x => x.id);
+meta.jadeAchv = ACHIEVEMENT_RULES.map(x => x.id);
+setWish(meta, 'jianghu', wishPool('jianghu', meta)[0]!);
+bannerState(meta, 'jianghu').sinceWish = 39;
+mkdirSync('.local-online/gacha-fullscreen', { recursive: true });
+writeFileSync('.local-online/gacha-fullscreen/fixture.json', JSON.stringify({ state, meta }));
+console.log('GACHA_FULLSCREEN_FIXTURE_READY');

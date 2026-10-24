@@ -1,0 +1,89 @@
+{
+  "mode": "development actual renderer, no GPU mock",
+  "results": [
+    {
+      "cycle": 1,
+      "oldCanvasRemoved": true,
+      "oldContextReleased": true,
+      "nextChestMounted": true,
+      "pageerrors": []
+    },
+    {
+      "cycle": 2,
+      "oldCanvasRemoved": true,
+      "oldContextReleased": true,
+      "nextChestMounted": true,
+      "pageerrors": []
+    },
+    {
+      "cycle": 3,
+      "oldCanvasRemoved": true,
+      "oldContextReleased": true,
+      "nextChestMounted": true,
+      "pageerrors": []
+    },
+    {
+      "cycle": 4,
+      "oldCanvasRemoved": true,
+      "oldContextReleased": true,
+      "nextChestMounted": true,
+      "pageerrors": []
+    },
+    {
+      "cycle": 5,
+      "oldCanvasRemoved": true,
+      "oldContextReleased": true,
+      "nextChestMounted": true,
+      "pageerrors": []
+    },
+    {
+      "cycle": 6,
+      "oldCanvasRemoved": true,
+      "oldContextReleased": true,
+      "nextChestMounted": true,
+      "pageerrors": []
+    },
+    {
+      "cycle": 7,
+      "oldCanvasRemoved": true,
+      "oldContextReleased": true,
+      "nextChestMounted": true,
+      "pageerrors": []
+    },
+    {
+      "cycle": 8,
+      "oldCanvasRemoved": true,
+      "oldContextReleased": true,
+      "nextChestMounted": true,
+      "pageerrors": []
+    },
+    {
+      "cycle": 9,
+      "oldCanvasRemoved": true,
+      "oldContextReleased": true,
+      "nextChestMounted": true,
+      "pageerrors": []
+    },
+    {
+      "cycle": 10,
+      "oldCanvasRemoved": true,
+      "oldContextReleased": true,
+      "nextChestMounted": true,
+      "pageerrors": []
+    },
+    {
+      "cycle": 11,
+      "oldCanvasRemoved": true,
+      "oldContextReleased": true,
+      "nextChestMounted": true,
+      "pageerrors": []
+    },
+    {
+      "cycle": 12,
+      "oldCanvasRemoved": true,
+      "oldContextReleased": true,
+      "nextChestMounted": true,
+      "pageerrors": []
+    }
+  ]
+}

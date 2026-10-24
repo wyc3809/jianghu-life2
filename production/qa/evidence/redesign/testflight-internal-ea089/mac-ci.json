@@ -1,0 +1,22 @@
+{
+  "conclusion": "success",
+  "databaseId": 40084637880,
+  "headSha": "5e4b592e544c5de24e03eb9636e931e83fbc5cf3",
+  "status": "completed",
+  "url": "https://github.com/wyc3809/jianghu-life2/actions/runs/40084637880",
+  "archiveVerification": {
+    "gameVersion": "EA0.89.0",
+    "bundleId": "com.wyc3809.jianghulife2",
+    "appleVersion": "1.0",
+    "buildNumber": "5",
+    "sdk": "iphoneos26.2",
+    "minimumIOS": "17.4",
+    "platform": "iphoneos",
+    "architecture": "arm64",
+    "privacyManifest": true,
+    "bundleSHA256": "5e765225a03881b189762ef0ddf22413b1249bd8961df8027804c7be3c418aca",
+    "archiveCompileVerified": true,
+    "signedIPA": false,
+    "testflightUploaded": false
+  }
+}

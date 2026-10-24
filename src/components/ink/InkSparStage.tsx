@@ -14,6 +14,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
+import { highlightCoversPage } from '../../ui/highlightVisibility';
 import { SparStage, loadSparImages, loadSparImage, loadSparUiImages, type SparCombatHooks } from '../../spar/engine';
 import { sparArtAt, sparArtOrder } from '../../spar/artCycle';
 import { SparDuel, formatSparNumber, sparHeroStats, sparRand, sparSavedStage, type SparDuelSnapshot } from '@core/life/sparDuel';
@@ -329,8 +330,10 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
           }
         } else stage.update(dt);
       }
-      stage.render();
-      placeBars();
+      if (!highlightCoversPage()) {
+        stage.render();
+        placeBars();
+      }
       if (running) raf = requestAnimationFrame(frame);
     };
 

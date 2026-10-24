@@ -16,6 +16,8 @@ import styles from './highlight.module.css';
 import { sealPhrase, sealUrlForText } from '../../ui/inkAssets';
 import { inkIconUrl } from '../../ui/inkIcons';
 import { gachaRewardImageUrl } from './codexAppearance';
+import { preloadChestTextures } from './scene/chestMaterials';
+import { holdHighlightVisibility } from '../../ui/highlightVisibility';
 
 /** 霞鶩文楷 TC（繁體毛筆楷書，同朱砂印同一字型） */
 const FONT_HREF = 'https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&display=swap';
@@ -26,6 +28,12 @@ function ensureFonts() {
   l.rel = 'stylesheet';
   l.href = FONT_HREF;
   document.head.appendChild(l);
+}
+
+/** 遊戲閒時預載字體與箱體材質，避免首次旋轉中途才切換字型或解碼圖片。 */
+export function prefetchHighlightAssets(): void {
+  ensureFonts();
+  preloadChestTextures();
 }
 
 function reduceMotionPref(): boolean {
@@ -134,6 +142,7 @@ export default function HighlightFx({ config, onDone, onUnavailable, renderRewar
   const topGrade = config.targetGrade === 5;
 
   useEffect(ensureFonts, []);
+  useLayoutEffect(holdHighlightVisibility, []);
 
   useEffect(() => {
     const el = rootRef.current!, previous = document.activeElement as HTMLElement | null;
@@ -151,8 +160,12 @@ export default function HighlightFx({ config, onDone, onUnavailable, renderRewar
   }, []);
 
   useLayoutEffect(() => {
-    const lost = (event: Event) => { event.preventDefault(); onUnavailable?.(); };
-    glRef.current!.addEventListener('webglcontextlost', lost);
+    const canvas = glRef.current!;
+    const lost = (event: Event) => {
+      event.preventDefault();
+      if (onUnavailable) onUnavailable(); else director.current?.skip();
+    };
+    canvas.addEventListener('webglcontextlost', lost);
     const d = new Director(
       {
         root: rootRef.current!,
@@ -174,7 +187,7 @@ export default function HighlightFx({ config, onDone, onUnavailable, renderRewar
     ro.observe(rootRef.current!);
     return () => {
       ro.disconnect();
-      glRef.current?.removeEventListener('webglcontextlost', lost);
+      canvas.removeEventListener('webglcontextlost', lost);
       d.dispose();
       director.current = null;
     };

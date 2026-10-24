@@ -279,6 +279,8 @@ export function InkPlayScreen({ state }: Props) {
   const eventFocus =
     state.phase === 'playing' && Boolean(pendingEvent) && !showResult && !combat;
   const onJianghuMap = tab === 'jianghu' && jianghuView === 'main' && !combat && !eventFocus;
+  const onGachaPage = tab === 'jianghu' && jianghuView === 'gacha' && !combat && !eventFocus;
+  const onFullPage = onJianghuMap || onGachaPage;
   /** 交手中隱藏全局氣血條，避免與戰鬥血條重複 */
   // 有重傷／傷殘：名字旁朱砂點（撳入人物欄）
   const worstInjury = (c.injuries ?? []).reduce<'heavy' | 'crippled' | null>(
@@ -498,7 +500,7 @@ export function InkPlayScreen({ state }: Props) {
       root.style.removeProperty('--ink-dock-height');
       root.style.removeProperty('--ink-task-height');
     };
-  }, [hasTask, combat, eventFocus, onJianghuMap]);
+  }, [hasTask, combat, eventFocus, onFullPage]);
   const sceneBits = [
     'scroll-shell',
     'scroll-shell--play',
@@ -510,9 +512,10 @@ export function InkPlayScreen({ state }: Props) {
     combat ? 'scroll-shell--combat' : '',
     eventFocus ? 'scroll-shell--event' : '',
     /* 底部分卷導航顯示時：預留空間（條件同下方 <nav className="ink-tabs"> 一致） */
-    !combat && !eventFocus && !onJianghuMap ? 'scroll-shell--has-tabs' : '',
+    !combat && !eventFocus && !onFullPage ? 'scroll-shell--has-tabs' : '',
     onHomeTab && !combat && !eventFocus ? 'scroll-shell--home' : '',
     onJianghuMap ? 'scroll-shell--jianghu-map' : '',
+    onGachaPage ? 'scroll-shell--gacha' : '',
     hasTask ? 'scroll-shell--has-task' : '',
     monthTurning ? 'ink-month-turn' : '',
   ]
@@ -582,7 +585,7 @@ export function InkPlayScreen({ state }: Props) {
         <InkOfflineGainModal gain={offlineGain} onClose={clearOfflineGain} />
       )}
 
-      {!onJianghuMap && <header className="ink-status ink-status--bare-top ink-hud">
+      {!onFullPage && <header className="ink-status ink-status--bare-top ink-hud">
         {/* 商業手遊式頂欄：頭像＋名號 | 貨幣；第二行氣血內力疲勞 */}
         <div className="ink-hud-top">
           <button
@@ -780,8 +783,8 @@ export function InkPlayScreen({ state }: Props) {
         {jianghuView === 'main' ? <InkJianghuHub online={Boolean(InkOnlinePanel)} onOpen={setJianghuView} onBack={() => setTab('home')} />
           : jianghuView === 'online' && InkOnlinePanel ? <Suspense fallback={<p role="status">正在翻開江湖名冊……</p>}>
             <InkOnlinePanel onBack={() => setJianghuView('main')} />
-          </Suspense> : <div className="ink-jianghu-detail">
-            <button type="button" className="ink-jianghu-back" onClick={() => setJianghuView('main')}>‹ 返回江湖</button>
+          </Suspense> : <div className={`ink-jianghu-detail${onGachaPage ? ' ink-jianghu-detail--gacha' : ''}`}>
+            <button type="button" className={`ink-jianghu-back${onGachaPage ? ' ink-codex-back' : ''}`} onClick={() => setJianghuView('main')}>‹ 返回江湖</button>
             {jianghuView === 'gacha' && <InkGachaPanel state={state} onEquipRequest={id => {
               setRequestedArt(id); setTab('person'); setPersonView('skills');
             }} />}
@@ -1052,13 +1055,13 @@ export function InkPlayScreen({ state }: Props) {
       {onPracticeTab && !combat && !showResult && !eventFocus && (
         <p className="ink-note ink-note--center">修煉不催歲月——按下方圓鈕過一月。</p>
       )}
-      {(tab === 'person' || (tab === 'jianghu' && !onJianghuMap)) && !combat && !showResult && !eventFocus && (
+      {(tab === 'person' || (tab === 'jianghu' && !onFullPage)) && !combat && !showResult && !eventFocus && (
         <p className="ink-note ink-note--center">按下方圓鈕即可過一月。</p>
       )}
 
       </div>
 
-      {!combat && !eventFocus && !onJianghuMap && createPortal(
+      {!combat && !eventFocus && !onFullPage && createPortal(
         <nav className="ink-tabs ink-bottom-dock" aria-label="分卷" ref={navRef}>
           {(
             [

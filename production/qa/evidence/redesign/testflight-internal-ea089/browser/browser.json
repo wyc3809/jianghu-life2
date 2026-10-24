@@ -1,0 +1,19 @@
+{
+  "mode": "chromium-mobile-webkit-bridge-marker-and-safe-area-simulation-not-ios-runtime",
+  "results": [
+    {
+      "native_detection_simulated": true,
+      "external_cloud_and_fonts_blocked": true,
+      "four_destinations": true,
+      "reload_save_resume": true,
+      "pageerrors": []
+    },
+    {
+      "native_detection_simulated": false,
+      "external_cloud_and_fonts_blocked": true,
+      "four_destinations": true,
+      "reload_save_resume": true,
+      "pageerrors": []
+    }
+  ]
+}

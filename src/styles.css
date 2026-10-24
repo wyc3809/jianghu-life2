@@ -11098,3 +11098,17 @@ body:has(.ink-spar-boss-screen) .ink-task-dock { visibility: hidden; }
 .scroll-shell--play .ink-loadout-support .ink-loadout-slot { grid-template-columns: 2.2em minmax(0,1fr) auto; }
 .ink-loadout-support > .ink-loadout-heading { flex-wrap: wrap; gap: 6px; margin-top: 16px; }
 .ink-loadout-support > .ink-loadout-heading > span { font-size: 11px; }
+
+/* 原生頂部安全區只由root預留一次；內頁只保留正常內容間距。 */
+html.native-ios #root { padding: env(safe-area-inset-top, 0px) 0 0; }
+html.native-ios .scroll-shell--play { padding-top: 12px; }
+html.native-ios .scroll-shell--play.scroll-shell--home,
+html.native-ios .scroll-shell--play.scroll-shell--event { padding-top: 8px; }
+html.native-ios .scroll-shell--play.scroll-shell--combat { padding-top: 6px; }
+html.native-ios .scroll-shell--play.scroll-shell--jianghu-map { padding-top: 0; }
+html.native-ios .ink-hud-top { align-items: flex-start; }
+/* 演武台承接省下的高度；導航保留完整底部手勢安全區。 */
+html.native-ios .scroll-shell--home .ink-home-scene { max-height: none; }
+html.native-ios .ink-tabs.ink-bottom-dock { padding-top: 18px; }
+html.native-ios .ink-bottom-dock .ink-nav-center { margin-bottom: 0; }
+html.native-ios .ink-bottom-dock .ink-nav-center-xp { top: -18px; }

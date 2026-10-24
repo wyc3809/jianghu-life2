@@ -1,0 +1,156 @@
+{
+  "base": "http://127.0.0.1:5181/",
+  "device": "Chromium mobile 390x844 DPR1.0 SwiftShader, not iPhone",
+  "results": [
+    {
+      "grade": 1,
+      "stats": {
+        "bursting": {
+          "frames": 5,
+          "frameP50": 250.10000000000036,
+          "frameP95": 283.2999999999993,
+          "cpuP95": 4,
+          "drawCallsMedian": 147
+        },
+        "charging": {
+          "frames": 5,
+          "frameP50": 216.70000000000073,
+          "frameP95": 250,
+          "cpuP95": 5.4000000059604645,
+          "drawCallsMedian": 147
+        },
+        "idle": {
+          "frames": 22,
+          "frameP50": 200.0,
+          "frameP95": 633.2000000000003,
+          "cpuP95": 10.199999995529652,
+          "drawCallsMedian": 147.0
+        },
+        "revealing": {
+          "frames": 12,
+          "frameP50": 233.34999999999945,
+          "frameP95": 300,
+          "cpuP95": 27.30000000447035,
+          "drawCallsMedian": 147.0
+        },
+        "settle": {
+          "frames": 11,
+          "frameP50": 216.6999999999989,
+          "frameP95": 300,
+          "cpuP95": 23.600000001490116,
+          "drawCallsMedian": 147
+        },
+        "upgrading": {
+          "frames": 6,
+          "frameP50": 225.0,
+          "frameP95": 283.3000000000002,
+          "cpuP95": 4.199999995529652,
+          "drawCallsMedian": 147.0
+        }
+      },
+      "buffers": [
+        [
+          4,
+          34842,
+          585,
+          1266
+        ],
+        [
+          4,
+          33190,
+          585,
+          1266
+        ],
+        [
+          4,
+          34842,
+          585,
+          1266
+        ],
+        [
+          4,
+          33190,
+          585,
+          1266
+        ]
+      ],
+      "errors": [],
+      "video": null
+    },
+    {
+      "grade": 5,
+      "stats": {
+        "bursting": {
+          "frames": 5,
+          "frameP50": 250,
+          "frameP95": 300,
+          "cpuP95": 31.299999997019768,
+          "drawCallsMedian": 147
+        },
+        "charging": {
+          "frames": 5,
+          "frameP50": 200.10000000000218,
+          "frameP95": 216.70000000000073,
+          "cpuP95": 1.7999999970197678,
+          "drawCallsMedian": 147
+        },
+        "idle": {
+          "frames": 45,
+          "frameP50": 200,
+          "frameP95": 250.10000000000036,
+          "cpuP95": 5.600000001490116,
+          "drawCallsMedian": 147
+        },
+        "revealing": {
+          "frames": 16,
+          "frameP50": 233.35000000000036,
+          "frameP95": 349.8999999999978,
+          "cpuP95": 33.29999999701977,
+          "drawCallsMedian": 143.0
+        },
+        "settle": {
+          "frames": 8,
+          "frameP50": 241.65000000000146,
+          "frameP95": 283.2999999999993,
+          "cpuP95": 1.8000000044703484,
+          "drawCallsMedian": 143.0
+        },
+        "upgrading": {
+          "frames": 30,
+          "frameP50": 216.64999999999964,
+          "frameP95": 266.6999999999989,
+          "cpuP95": 31.700000002980232,
+          "drawCallsMedian": 147.0
+        }
+      },
+      "buffers": [
+        [
+          4,
+          34842,
+          585,
+          1266
+        ],
+        [
+          4,
+          33190,
+          585,
+          1266
+        ],
+        [
+          4,
+          34842,
+          585,
+          1266
+        ],
+        [
+          4,
+          33190,
+          585,
+          1266
+        ]
+      ],
+      "errors": [],
+      "video": null
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "productionBuild": true,
+  "fixtureCoreGrantGear": true,
+  "actualIOS": false,
+  "contextLossIsolated": true,
+  "note": "批次最後一個SwiftShader context-loss API呼叫停滯，已中止該測試進程；獨立context-loss案例與同一頁連續12次重播（第12次強制失去context）分別通過，不把停滯本身當作通過。",
+  "cases": [
+    {
+      "grade": 0,
+      "mode": "skip",
+      "gear": "鐵匠鋪青鋒劍",
+      "settledDraws": 0,
+      "ownedCount": 1,
+      "autoEquipped": false,
+      "replayOnReload": false,
+      "pageerrors": []
+    },
+    {
+      "grade": 1,
+      "mode": "skip",
+      "gear": "精鋼刀",
+      "settledDraws": 0,
+      "ownedCount": 1,
+      "autoEquipped": false,
+      "replayOnReload": false,
+      "pageerrors": []
+    },
+    {
+      "grade": 2,
+      "mode": "skip",
+      "gear": "月牙彎刀",
+      "settledDraws": 0,
+      "ownedCount": 1,
+      "autoEquipped": false,
+      "replayOnReload": false,
+      "pageerrors": []
+    },
+    {
+      "grade": 3,
+      "mode": "skip",
+      "gear": "墨雨劍",
+      "settledDraws": 0,
+      "ownedCount": 1,
+      "autoEquipped": false,
+      "replayOnReload": false,
+      "pageerrors": []
+    },
+    {
+      "grade": 4,
+      "mode": "skip",
+      "gear": "鳳血刀",
+      "settledDraws": 0,
+      "ownedCount": 1,
+      "autoEquipped": false,
+      "replayOnReload": false,
+      "pageerrors": []
+    },
+    {
+      "grade": 5,
+      "mode": "skip",
+      "gear": "玄鐵重劍",
+      "settledDraws": 0,
+      "ownedCount": 1,
+      "autoEquipped": false,
+      "replayOnReload": false,
+      "pageerrors": []
+    },
+    {
+      "grade": 1,
+      "mode": "normal",
+      "gear": "精鋼刀",
+      "settledDraws": 0,
+      "ownedCount": 1,
+      "autoEquipped": false,
+      "replayOnReload": false,
+      "pageerrors": []
+    },
+    {
+      "grade": 5,
+      "mode": "reduce",
+      "gear": "玄鐵重劍",
+      "settledDraws": 0,
+      "ownedCount": 1,
+      "autoEquipped": false,
+      "replayOnReload": false,
+      "pageerrors": []
+    },
+    {
+      "grade": 1,
+      "mode": "missing",
+      "gear": "精鋼刀",
+      "settledDraws": 0,
+      "ownedCount": 1,
+      "autoEquipped": false,
+      "replayOnReload": false,
+      "pageerrors": []
+    },
+    {
+      "grade": 1,
+      "mode": "late",
+      "gear": "精鋼刀",
+      "settledDraws": 0,
+      "ownedCount": 1,
+      "autoEquipped": false,
+      "replayOnReload": false,
+      "pageerrors": []
+    },
+    {
+      "grade": 1,
+      "mode": "contextlost",
+      "gear": "精鋼刀",
+      "settledDraws": 0,
+      "ownedCount": 1,
+      "autoEquipped": false,
+      "replayOnReload": false,
+      "pageerrors": []
+    }
+  ]
+}

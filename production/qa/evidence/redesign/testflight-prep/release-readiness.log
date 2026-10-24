@@ -1,0 +1,10 @@
+apple-membership：確認已付費Apple Developer會員與App Store Connect權限
+app-record：確認已存在App的Bundle ID、數字App ID、Apple版本及下一個build號
+signing：在Mac或Codemagic配置Distribution憑證、profile及Apple整合
+privacy-metadata：完成私隱政策公開網址、聯絡資料、App Privacy及內容分級
+native-email-login：完成原生電郵登入／綁定回調、Supabase allowlist及雙裝置還原實測
+account-deletion：App內可發起帳戶刪除，後端驗證身份並處理存檔、榜單與多人資料
+device-save-upgrade：真iPhone前後台、離線重開、舊檔升級及效能驗收
+beta-review：確認測試聯絡人、測試內容與必要的Beta App Review資料
+工程可編譯；TestFlight上傳條件尚未齊備。
+需設定已確認的APP_STORE_APP_ID，避免使用另一App或重複build號。

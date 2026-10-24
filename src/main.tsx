@@ -1,3 +1,4 @@
+import { Capacitor } from '@capacitor/core';
 import { StrictMode, Suspense, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
@@ -7,6 +8,9 @@ import { bootCloud } from './cloud/sync';
 import { readLocalSavedAt, writeLocal } from './cloud/localBridge';
 import { useAncestryStore } from './store/ancestryStore';
 import { loadAncestry } from './store/ancestryMeta';
+
+// 原生安全區由獨立樣式處理；瀏覽器版本沿用現有排版。
+if (Capacitor.getPlatform() === 'ios') document.documentElement.classList.add('native-ios');
 
 installPressFeedback();
 

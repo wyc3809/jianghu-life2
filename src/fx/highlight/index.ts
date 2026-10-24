@@ -29,7 +29,7 @@ let prefetched = false;
 export function prefetchHighlight(): void {
   if (prefetched) return;
   prefetched = true;
-  void load();
+  void load().then(module => module.prefetchHighlightAssets()).catch(() => { /* 閒時預載失敗不阻止遊戲；顯示時沿用正常載入。 */ });
   void loadDuel();
 }
 

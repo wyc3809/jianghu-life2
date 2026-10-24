@@ -11,6 +11,8 @@ import type { GradeStyle } from '../grades';
 import type { HighlightSubject } from '../types';
 import { toon } from './toon';
 import { buildCodex } from './codex';
+import { chestMaterial, watchChestTextures } from './chestMaterials';
+import { batchPaintedParts } from './paintedMesh';
 
 export interface SubjectModel {
   root: THREE.Group;
@@ -86,15 +88,16 @@ function gem(size: number, mat: THREE.MeshToonMaterial): THREE.Mesh {
 
 function buildChest(): SubjectModel {
   const root = new THREE.Group();
+  root.userData.dispose = watchChestTextures(() => root.userData.invalidate?.());
   const W = 2.2;
   const D = 1.45;
   const H = 1.05;
   const T = 0.12; // 板厚
   const GAP = 0.038; // 板縫
   // 木：赭石淡設色
-  const woods = [toon('#A88660'), toon('#9A7853'), toon('#B4936C')];
-  const metal = toon('#C9CCD6');
-  const rivetMat = toon('#E9ECF4');
+  const woods = [chestMaterial('wood', '#F1DFCA'), chestMaterial('wood', '#D9BEA0'), chestMaterial('wood', '#E5CDB2')];
+  const metal = chestMaterial('metal', '#C9CCD6');
+  const rivetMat = new THREE.MeshPhongMaterial({ color: '#E9ECF4', shininess: 36, specular: '#C9BD9F' });
   const gemMat = toon('#FFFFFF');
   const dark = toon('#1C1A17');
   const core = new GlowCore();
@@ -116,9 +119,13 @@ function buildChest(): SubjectModel {
     }
   }
   // 內膽發光核心（由板縫透出）
-  body.add(
-    mesh(new THREE.BoxGeometry(W - T * 2 - 0.02, H - T - 0.06, D - T * 2 - 0.02), core.mat, 0, T + (H - T) / 2, 0),
-  );
+  // 五面薄內膽留出真正中空，開蓋時不再露出一整塊實心亮盒。
+  body.add(mesh(new THREE.BoxGeometry(W - T * 2, .025, D - T * 2), core.mat, 0, T + .02));
+  for (const z of [-1, 1]) body.add(mesh(new THREE.BoxGeometry(W - T * 2, H - T, .015), core.mat,
+    0, (H + T) / 2, z * (D / 2 - T - .015)));
+  for (const x of [-1, 1]) body.add(mesh(new THREE.BoxGeometry(.015, H - T, D - T * 2), core.mat,
+    x * (W / 2 - T - .015), (H + T) / 2));
+  body.add(mesh(rbox(W - T * 2 - .05, .015, D - T * 2 - .05), chestMaterial('lining', '#EBDDC5'), 0, T + .05));
 
   // 金屬直箍（前後各兩條）＋鉚釘
   const strapX = [-W * 0.29, W * 0.29];
@@ -190,10 +197,12 @@ function buildChest(): SubjectModel {
     cap.position.set(sx > 0 ? W / 2 : -W / 2 + T, 0, R);
     lid.add(cap);
   }
-  // 蓋內發光核心（半圓柱）
+  // 蓋內絲襯保留中空曲面，唔以一整塊平色圓柱遮住內側結構。
+  const lidLining = chestMaterial('lining', '#EEE0C5');
+  lidLining.side = THREE.DoubleSide;
   const lidCore = mesh(
-    new THREE.CylinderGeometry(R - T - 0.01, R - T - 0.01, W - T * 2, 20, 1, false, 0, Math.PI),
-    core.mat,
+    new THREE.CylinderGeometry(R - T - 0.01, R - T - 0.01, W - T * 2, 20, 1, true, 0, Math.PI),
+    lidLining,
   );
   lidCore.rotation.z = Math.PI / 2; // 軸轉去 x；θ∈[0,π] 落喺 y≥0 半邊
   lidCore.position.set(0, 0, R);
@@ -225,6 +234,8 @@ function buildChest(): SubjectModel {
     lid.add(hinge);
   }
 
+  batchPaintedParts(body);
+  batchPaintedParts(lid);
   root.position.y = 0;
   return {
     root,
@@ -497,14 +508,15 @@ function buildCauldron(): SubjectModel {
 }
 
 /** 台座（揭曉舞台時會隱藏） */
-export function buildPedestal(): THREE.Group {
+export function buildPedestal(painted = false): THREE.Group {
   const g = new THREE.Group();
   // 台座：硯石
-  const stone = toon('#5A554D');
-  const rim = toon('#7C766B');
+  const stone = painted ? chestMaterial('stone', '#A39B8E') : toon('#5A554D');
+  const rim = painted ? chestMaterial('stone', '#C3B9A8') : toon('#7C766B');
   g.add(mesh(new THREE.CylinderGeometry(1.75, 1.9, 0.28, 48), stone, 0, -0.14, 0));
   g.add(mesh(new THREE.TorusGeometry(1.76, 0.06, 8, 48), rim, 0, 0.0, 0).rotateX(Math.PI / 2));
   g.position.y = -0.62;
+  if (painted) batchPaintedParts(g);
   return g;
 }
 
