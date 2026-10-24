@@ -2,9 +2,12 @@
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 from PIL import Image, ImageDraw, ImageFont
-import json, re
+import json, re, os
 ROOT=Path(__file__).resolve().parents[2]
-OUT=ROOT/'production/qa/evidence/redesign/testflight-prep'
+OUT=ROOT/os.getenv('IOS_QA_OUT','production/qa/evidence/redesign/testflight-prep')
+OUT.mkdir(parents=True,exist_ok=True)
+BASE=os.getenv('IOS_QA_BASE','http://127.0.0.1:5176/')
+EXPECTED_VERSION=re.search(r"APP_VERSION = '([^']+)'",(ROOT/'src/version.ts').read_text()).group(1)
 with sync_playwright() as p:
     browser=p.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox','--enable-unsafe-swiftshader'])
     results=[]
@@ -17,7 +20,7 @@ with sync_playwright() as p:
         page=context.new_page()
         errors=[]
         page.on('pageerror',lambda error:errors.append(str(error)))
-        page.goto('http://127.0.0.1:5176/',wait_until='domcontentloaded')
+        page.goto(BASE,wait_until='domcontentloaded')
         page.get_by_role('button',name='開卷',exact=True).click()
         assert page.locator('html').evaluate('el=>el.classList.contains("native-ios")')==native
         page.get_by_label('姓名',exact=True).fill('驗圖少俠')
@@ -53,7 +56,7 @@ with sync_playwright() as p:
             page.get_by_role('button',name='返回鎮居',exact=True).click()
         assert '驗圖少俠' in page.locator('.ink-hud').inner_text()
         page.get_by_role('button',name='開啟設定',exact=True).click()
-        assert 'EA0.88.0' in page.locator('.ink-settings-version').inner_text()
+        assert EXPECTED_VERSION in page.locator('.ink-settings-version').inner_text()
         assert not errors,errors
         results.append({'native_detection_simulated':native,'external_cloud_and_fonts_blocked':True,'four_destinations':True,'reload_save_resume':True,'pageerrors':errors})
         context.close()

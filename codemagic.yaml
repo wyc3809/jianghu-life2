@@ -1,6 +1,6 @@
 workflows:
-  ios-testflight:
-    name: 江湖一生 iOS TestFlight
+  ios-testflight: &ios-release
+    name: 江湖一生 iOS 外測發布
     instance_type: mac_mini_m2
     max_build_duration: 60
     integrations:
@@ -26,27 +26,26 @@ workflows:
           set -euo pipefail
           node scripts/ios/release-check.mjs
           bash scripts/ios/check-xcode.sh
-      - name: 安裝及驗證
+      - &install-and-test
+        name: 安裝及驗證
         script: |
           set -euo pipefail
           npm ci
           npm test
           npm run audit:narrate
           npm run audit:copy
-      - name: 打包遊戲與原生工程
+      - &package-game
+        name: 打包遊戲與原生工程
         script: |
           set -euo pipefail
-          if [ -n "$APP_STORE_APP_ID" ]; then
-            latest="$(app-store-connect get-latest-testflight-build-number "$APP_STORE_APP_ID")"
-            export IOS_BUILD_NUMBER="$((latest + 1))"
-          else
-            export IOS_BUILD_NUMBER="$((BUILD_NUMBER + 1))"
-          fi
+          IOS_BUILD_NUMBER="$(bash scripts/ios/next-build-number.sh)"
+          export IOS_BUILD_NUMBER
           npm run ios:sync
           npm run ios:verify
       - name: 套用Apple簽名
         script: xcode-project use-profiles
-      - name: 編譯已簽名IPA
+      - &build-ipa
+        name: 編譯已簽名IPA
         script: |
           set -euo pipefail
           xcode-project build-ipa \
@@ -59,4 +58,27 @@ workflows:
       app_store_connect:
         auth: integration
         submit_to_testflight: true
+        submit_to_app_store: false
+
+  ios-internal-testflight:
+    <<: *ios-release
+    name: 江湖一生 iOS 首次內測
+    scripts:
+      - name: 核對內測設定及列出已知限制
+        script: |
+          set -euo pipefail
+          node scripts/ios/internal-check.mjs
+          bash scripts/ios/check-xcode.sh
+      - *install-and-test
+      - *package-game
+      - name: 套用僅供內測的Apple簽名
+        script: |
+          xcode-project use-profiles \
+            --custom-export-options='{"testFlightInternalTestingOnly": true}'
+      - *build-ipa
+    publishing:
+      app_store_connect:
+        auth: integration
+        # 上傳後由擁有者手動加入內測；不提交Beta審核或正式商店審核。
+        submit_to_testflight: false
         submit_to_app_store: false
