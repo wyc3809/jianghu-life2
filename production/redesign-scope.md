@@ -1006,3 +1006,17 @@ Apple build改為查詢同一App跨版本的App Store／TestFlight歷史最高�
 102檔758項Vitest（含17項內測設定與build號回歸）、mobile build含tsc、Capacitor同步、789個資源與EA0.89.0主程式驗證、narrate及文案審核通過。Codemagic官方schema、兩種匯出／發布條件與外測仍被未完成清單阻擋均通過。瀏覽器原生標記／安全區模擬320／390／768尺寸、網頁對照、四地標／返回及重開續玩通過，pageerror0；不是WKWebView真機驗收。證據：`production/qa/evidence/redesign/testflight-internal-ea089/`。未合併main、未發布新網頁、未觸發Codemagic或上傳Apple；Mac未簽名CI結果另記。
 
 第37項首次內測最新程式`5e4b592`的CI40084637904及Mac iOS Package40084637880均成功；實際未簽名Archive、驗證與工程包完成。Codemagic的簽署與上傳仍由擁有者手動開始，未將本次GitHub CI當作Apple上傳。
+
+
+### 第39項：TestFlight實機主頁安全區及高度精修（2026-10-24，待睇圖，未更新TestFlight）
+
+玩家回報已在TestFlight安裝，並提供實機主頁畫面，要求人物資料及下方操作向上收緊、用盡可用畫面。本段記錄安裝及可進入主頁的玩家證據，不將其他真機清單當作已驗收。
+
+- 修正原生root與內頁同時使用safe-area-inset-top的重複預留：root負責一次頂部安全區，主頁／事件8px、一般內頁12px、交手6px，江湖地圖0px內距。保留系統狀態列／瀏海空間，body portal的全屏畫面繼續自行處理安全區。
+- 人物頭像與姓名改為靠上排列；主頁演武台解除360px最高限制，承接騰出的高度。原引擎人物身高按手機寬度計算，不改人物／敵人比例、出招、戰鬥數值、獎勵或存檔。
+- 原生導航頂部間距24→18px，修為牌同步；中央按鈕取消-6px底部外距，向上收回完整底部安全範圍。保留底部手勢區及原圖示／字體／主要操作觸控範圍。Safari／一般網頁選擇器不變。
+- 補齊真正套用於整份正式CSS的安全區輸入模擬，取代之前只加root padding、未重現內頁重複安全區的不足。改前來源cbf98c1的mobile構建獨立保留，與改後同用seed42、隔離schema-v1存檔、相同視窗與字體後備；不讀取玩家存檔或連接雲端。
+
+102檔758項Vitest、mobile build含tsc、Capacitor同步、789資源核對、narrate hard-fail0及文案9682段／禁句0通過。Chromium／WebKit前後各16組（320至768寬、20／47／59／24頂部與0／34／20底部安全區、八字人物名、普通網頁）通過。主要操作44px以上且點擊不被遮擋，任務詳情、人物／地圖／返回、地圖無頂底HUD正常，pageerror0／HTTP錯誤0。393×852、59／34安全區下，主頁上移51px、姓名上移約71.4px、演武台多51px；普通網頁各主區矩形完全相同。
+
+證據與前後紅框：`production/qa/evidence/redesign/ios-safe-area/`。此為瀏覽器安全區與原生識別模擬，未宣稱新版本已在真iPhone驗收；維持EA0.89.0原型，未升版本、未再上傳Apple或發布網頁，待玩家睇圖。

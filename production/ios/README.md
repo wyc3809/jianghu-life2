@@ -1,5 +1,7 @@
 # 《江湖一生》iOS／TestFlight準備
 
+最新進度：玩家已回報透過TestFlight安裝並提供主頁實機畫面；首個安裝流程已由玩家走通。現正依該畫面精修安全區與主頁高度，詳見改版第39項及`production/qa/evidence/redesign/ios-safe-area/`。精修仍是待檢視原型，未再次上傳；原生登入、帳戶刪除與完整真機清單維持待辦。
+
 內容版本EA0.89.0，已接入main的完整回合連招及難度調整；本工作準備iOS工程，不發布新網頁版本。承接舊PR #115的Capacitor8.5.3／SwiftPM工程，接入目前完整遊戲、資源及多人入口。候選Bundle ID `com.wyc3809.jianghulife2`，Apple版本暫用1.0；兩者尚未獲Apple服務側資料確認。
 
 ## 已準備
