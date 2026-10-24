@@ -3,7 +3,6 @@
   "version": "EA0.89.0",
   "storedFixtureSchema": 1,
   "fixtureSeed": 42,
-  "fixtureHealth": 5000,
   "fixtureMartial": 0,
   "fixtureEquipment": null,
   "fixtureStage": 1,
@@ -79,5 +78,8 @@
       "pageerrors": [],
       "http_errors": []
     }
-  ]
+  ],
+  "fixtureInputHealth": 5000,
+  "observedHeroMaxHpFromScreenshot": 254,
+  "healthNote": "輸入存檔氣血5000；核心續玩正規化後畫面為254／254，以實際核心結果為準。"
 }

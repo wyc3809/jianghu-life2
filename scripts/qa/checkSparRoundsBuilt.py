@@ -55,9 +55,9 @@ with sync_playwright() as p:
         actual=[(e['side'],e['round'],e['volume']) for e in trace[:len(expected)]]
         assert actual==expected,actual
         assert not errors and not bad,(errors,bad)
-        cases.append({'volumes':fixture['count'],'bundle':bundle,'trace':trace,'pageerrors':errors,'http_errors':bad})
+        cases.append({'volumes':fixture['count'],'renderedVitals':page.locator('.ink-unified-vitals').inner_text(),'bundle':bundle,'trace':trace,'pageerrors':errors,'http_errors':bad})
         context.close()
     browser.close()
-(OUT/'spar-browser.json').write_text(json.dumps({'base':BASE,'version':EXPECTED,'storedFixtureSchema':1,'fixtureSeed':42,'fixtureHealth':5000,
+(OUT/'spar-browser.json').write_text(json.dumps({'base':BASE,'version':EXPECTED,'storedFixtureSchema':1,'fixtureSeed':42,'fixtureInputHealth':5000,
   'fixtureMartial':0,'fixtureEquipment':None,'fixtureStage':1,'devImports':False,'engineMock':False,'directBossSelection':False,'cases':cases},ensure_ascii=False,indent=2)+'\n')
 print('SPAR_ROUNDS_BUILT_PASS',LABEL)
