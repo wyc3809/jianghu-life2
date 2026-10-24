@@ -965,3 +965,5 @@ EA0.88.0發布前檢查：100檔728項Vitest、Pages build含tsc、narrate hard-
 
 
 第37項驗證完成：100檔728項Vitest、mobile build含tsc、narrate及文案檢查通過；實際解壓工程再重建與728項測試通過。網頁／原生標記及安全區模擬320／390／768尺寸、四入口、離線字體與重開續玩通過，pageerror0。PR #138的CI40057344739及Mac iOS Package40057344740成功，iOS26.2 SDK實際Archive為arm64／最低iOS17.4／內容EA0.88.0，已下載並驗證約102MiB工程包與58MiB未簽名Archive，詳見證據JSON。未取得Apple簽署身份，沒有已簽名IPA、沒有上傳TestFlight；原生登入、帳戶刪除、政策與真機等缺項維持待辦。未合併main或發布網頁。
+
+第37項帳戶設定補充（2026-10-24）：玩家提供App Store Connect數字App ID `6826541114`，已填入Codemagic的`APP_STORE_APP_ID`及準備紀錄。尚未取得Apple服務側核對或簽署授權，不能由單一數字推定Bundle ID、版本、會員與簽署均已完成；發布檢查的未完成項目維持原狀。未觸發Codemagic建置或上傳Apple。

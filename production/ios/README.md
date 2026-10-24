@@ -23,6 +23,8 @@ GitHub PR會跑未簽名Mac Archive；亦可手動執行iOS Package。其Artifac
 
 ## 之後簽署與TestFlight
 
+玩家已提供App Store Connect數字App ID `6826541114`，已填入Codemagic的`APP_STORE_APP_ID`。這是玩家提供的App識別資料，尚未以Apple API核實其Bundle ID、版本、簽署或授權；其餘待辦保持未完成。
+
 1. 確認付費Apple Developer會員、App Store Connect權限、已存在App的Bundle ID及數字App ID。已有App不要另建另一個同名App；維持`capacitor://localhost`儲存origin。
 2. 先完成`release-readiness.json`的實際待辦，逐項有證據才改done。`npm run ios:release-check`目前應明確失敗：它表示仍有已知缺項，不是編譯失敗。
 3. 在Mac或Codemagic安全設定Distribution憑證及App Store profile。使用Codemagic時，建立`jianghu-life2-app-store` Apple整合，將p8放服務的整合設定；不要貼入聊天或提交Git。GitHub登入不等於Apple已授權。

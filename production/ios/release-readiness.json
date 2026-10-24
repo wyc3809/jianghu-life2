@@ -1,9 +1,10 @@
 {
   "gameVersion": "EA0.88.0",
   "candidateBundleId": "com.wyc3809.jianghulife2",
+  "appStoreAppId": "6826541114",
   "checks": [
     {"id":"apple-membership", "done":false, "detail":"確認已付費Apple Developer會員與App Store Connect權限"},
-    {"id":"app-record", "done":false, "detail":"確認已存在App的Bundle ID、數字App ID、Apple版本及下一個build號"},
+    {"id":"app-record", "done":false, "detail":"玩家已提供數字App ID 6826541114；仍須在Apple核對所屬App、Bundle ID、Apple版本及下一個build號"},
     {"id":"signing", "done":false, "detail":"在Mac或Codemagic配置Distribution憑證、profile及Apple整合"},
     {"id":"privacy-metadata", "done":false, "detail":"完成私隱政策公開網址、聯絡資料、App Privacy及內容分級"},
     {"id":"native-email-login", "done":false, "detail":"完成原生電郵登入／綁定回調、Supabase allowlist及雙裝置還原實測"},

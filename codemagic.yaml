@@ -18,8 +18,8 @@ workflows:
         IOS_BUNDLE_ID: com.wyc3809.jianghulife2
         IOS_MARKETING_VERSION: '1.0'
         VITE_ONLINE_PUBLIC: '1'
-        # 已有App時，填App Store Connect數字App ID，從最新TestFlight build加一。
-        APP_STORE_APP_ID: ''
+        # 玩家提供的App Store Connect數字App ID，從此App的最新TestFlight build加一。
+        APP_STORE_APP_ID: '6826541114'
     scripts:
       - name: 核對TestFlight準備狀態
         script: |
