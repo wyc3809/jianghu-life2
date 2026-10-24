@@ -1,0 +1,38 @@
+{
+  "run": 40057344740,
+  "compiledCommit": "711156c7308752f59ff402f63d6ab061882cfdd8",
+  "artifactId": 12545259167,
+  "artifactExpiresAt": "2026-11-23T03:16:27Z",
+  "mac": {
+    "gameVersion": "EA0.88.0",
+    "bundleId": "com.wyc3809.jianghulife2",
+    "appleVersion": "1.0",
+    "buildNumber": "3",
+    "sdk": "iphoneos26.2",
+    "minimumIOS": "17.4",
+    "platform": "iphoneos",
+    "architecture": "arm64",
+    "privacyManifest": true,
+    "bundleSHA256": "6a6486de663918a2733f3e5958f64477647812c894f4814efcef79c5064d38b1",
+    "archiveCompileVerified": true,
+    "signedIPA": false,
+    "testflightUploaded": false
+  },
+  "downloadedAndVerified": true,
+  "arm64MachO": true,
+  "unsignedApp": true,
+  "projectNoCredentials": true,
+  "files": [
+    {
+      "name": "JianghuLife-unsigned-xcarchive.zip",
+      "bytes": 60874988,
+      "sha256": "1ffb8896ceeea4bca9a85178b7dbec104ac70ef326c20d706c431d6b2614c92d"
+    },
+    {
+      "name": "jianghu-life2-0.88.0-ea-ios-project.zip",
+      "bytes": 106970985,
+      "sha256": "3223cc6c2845763dcd062fa0391d4ad895f77d10a76db29e1a1d5de13a22ae43"
+    }
+  ],
+  "testflightUploaded": false
+}

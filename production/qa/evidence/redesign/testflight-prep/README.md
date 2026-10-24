@@ -10,4 +10,8 @@
 
 瀏覽器正式mobile構建已通過：網頁390×844、原生識別／47px頂部及34px底部安全區模擬320×568／390×844／768×1024，四個地標與返回、重開續玩及設定版本正常，pageerror0。外部雲端及Google Fonts請求攔截後仍可遊玩，沒有操作真玩家資料。`browser.json`、`safe-area-comparison.png`及相關截圖保留真實結果；這是Chromium標記模擬，不是WKWebView或iPhone真機。
 
-Mac Archive結果待完成後補記；不宣稱iPhone真機、簽署IPA、App Store審核或TestFlight已完成。工程及未簽名Archive只能用來重建／簽署，不能直接在TestFlight安裝。
+Mac實際編譯已完成：PR #138／commit711156c7308752f59ff402f63d6ab061882cfdd8，CI Run40057344739及iOS Package Run40057344740成功。Xcode實際使用iPhoneOS26.2 SDK，產物為arm64、最低iOS17.4、候選Bundle ID com.wyc3809.jianghulife2、Apple版本1.0／build3、遊戲EA0.88.0。build3僅為此未簽名驗證的workflow號，不能當作已確認的TestFlight下一build。
+
+已下載GitHub Artifact12545259167，逐一核對ZIP完整性、真正Mach-O arm64標頭、App Info.plist、私隱manifest、無App簽名及工程無.env／私鑰。Mac工程包106970985bytes，未簽名Archive60874988bytes，SHA256與真實內容見mac-verification.json。原始Mac檢查見build-verification.json及mac-workflow.json；CI證據見ci-workflow.json。Artifact至2026-11-23保留，可從GitHub工作流重取，過期可重跑。原始工程及未簽名Archive亦在本機artifacts/testflight-mac-40057344740/，不進git。
+
+舊PR #115仍保留歷史，但由本次最新版準備取代，避免誤用EA0.69.0內容。不宣稱iPhone真機、簽署IPA、App Store審核或TestFlight已完成。工程及未簽名Archive只能用來重建／簽署，不能直接在TestFlight安裝。

@@ -962,3 +962,6 @@ EA0.88.0發布前檢查：100檔728項Vitest、Pages build含tsc、narrate hard-
 - 實際缺項：原生電郵登入回調／雲端還原、App內帳戶刪除與後端、政策／支援網址／聯絡人及Apple服務側資料。提供真實資料盤點、測試文案及真機清單；本次不修改Auth／資料庫或假稱已完成審核。
 
 操作與待辦見 `production/ios/README.md`；證據見 `production/qa/evidence/redesign/testflight-prep/README.md`。沿用EA0.88.0，未合併main、未發布網頁或TestFlight。
+
+
+第37項驗證完成：100檔728項Vitest、mobile build含tsc、narrate及文案檢查通過；實際解壓工程再重建與728項測試通過。網頁／原生標記及安全區模擬320／390／768尺寸、四入口、離線字體與重開續玩通過，pageerror0。PR #138的CI40057344739及Mac iOS Package40057344740成功，iOS26.2 SDK實際Archive為arm64／最低iOS17.4／內容EA0.88.0，已下載並驗證約102MiB工程包與58MiB未簽名Archive，詳見證據JSON。未取得Apple簽署身份，沒有已簽名IPA、沒有上傳TestFlight；原生登入、帳戶刪除、政策與真機等缺項維持待辦。未合併main或發布網頁。
