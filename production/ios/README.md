@@ -1,8 +1,10 @@
 # 《江湖一生》iOS／TestFlight準備
 
-最新進度：玩家已回報透過TestFlight安裝並提供主頁實機畫面；首個安裝流程已由玩家走通。已依該畫面精修安全區與主頁高度（第39項），並依寶箱實機回報精修材質、開啟／旋轉繪製負荷與結果靜止（第40項）。秘笈閣亦已改為如江湖地圖的獨立全畫面（第41項），圖見`production/qa/evidence/redesign/gacha-fullscreen/`。前後圖／動態分別見`production/qa/evidence/redesign/ios-safe-area/`及`production/qa/evidence/redesign/chest-quality/`。秘笈書冊畫質、翻冊及主頁同款介面亦已完成原型（第42項），見`production/qa/evidence/redesign/codex-quality/`。精修仍是待檢視原型，未再次上傳；原生登入、帳戶刪除與完整真機清單維持待辦。
+最新發布安排（2026-10-24）：玩家已確認第39至42項並要求上線，內容升至EA0.90.0。網頁發布及Mac工程驗證記錄見`production/qa/evidence/redesign/release-ea090/`；iOS仍沿用Apple版本1.0，真正上傳build由Codemagic查Apple後遞增。此環境沒有可操作的Codemagic／Apple連線，未觸發其上傳；擁有者可用原分支的「江湖一生 iOS 首次內測」建置新版。
 
-內容版本EA0.89.0，已接入main的完整回合連招及難度調整；本工作準備iOS工程，不發布新網頁版本。承接舊PR #115的Capacitor8.5.3／SwiftPM工程，接入目前完整遊戲、資源及多人入口。候選Bundle ID `com.wyc3809.jianghulife2`，Apple版本暫用1.0；兩者尚未獲Apple服務側資料確認。
+前次安裝與精修過程：玩家已回報透過TestFlight安裝並提供主頁實機畫面；首個安裝流程已由玩家走通。已依該畫面精修安全區與主頁高度（第39項），並依寶箱實機回報精修材質、開啟／旋轉繪製負荷與結果靜止（第40項）。秘笈閣亦已改為如江湖地圖的獨立全畫面（第41項），圖見`production/qa/evidence/redesign/gacha-fullscreen/`。前後圖／動態分別見`production/qa/evidence/redesign/ios-safe-area/`及`production/qa/evidence/redesign/chest-quality/`。秘笈書冊畫質、翻冊及主頁同款介面亦已完成原型（第42項），見`production/qa/evidence/redesign/codex-quality/`。精修仍是待檢視原型，未再次上傳；原生登入、帳戶刪除與完整真機清單維持待辦。
+
+內容版本EA0.90.0，已接入main的完整回合連招及難度調整；本工作準備iOS工程，不發布新網頁版本。承接舊PR #115的Capacitor8.5.3／SwiftPM工程，接入目前完整遊戲、資源及多人入口。候選Bundle ID `com.wyc3809.jianghulife2`，Apple版本暫用1.0；兩者尚未獲Apple服務側資料確認。
 
 ## 已準備
 
@@ -29,7 +31,7 @@ GitHub PR會跑未簽名Mac Archive；亦可手動執行iOS Package。其Artifac
 
 ### 首次安裝：ios-internal-testflight
 
-玩家已回覆完成描述檔上傳、環境變數設定，並確認Apple整合名稱`jianghu-life2-app-store`；這是玩家回報，不等於本環境已登入Codemagic或驗證Apple簽署。Codemagic重新整理後，選分支`work/testflight-prep-ea088`及workflow「江湖一生 iOS 首次內測」（`ios-internal-testflight`）。分支名保留，但內容已是EA0.89.0。
+玩家已回覆完成描述檔上傳、環境變數設定，並確認Apple整合名稱`jianghu-life2-app-store`；這是玩家回報，不等於本環境已登入Codemagic或驗證Apple簽署。Codemagic重新整理後，選分支`work/testflight-prep-ea088`及workflow「江湖一生 iOS 首次內測」（`ios-internal-testflight`）。分支名保留，但內容已是EA0.90.0。
 
 - 檢查App ID、Bundle ID、內容版本、Apple數字版本及公開連線設定；拒絕漏填、Dashboard網址、不同專案的anon key及後端金鑰，不打印金鑰內容。
 - 列出未完成待辦，保持JSON中的`done:false`。先上傳內測版，再按真iPhone完成存檔、前後台、效能與升級測試，避免把真機驗收當首次安裝的前置條件。

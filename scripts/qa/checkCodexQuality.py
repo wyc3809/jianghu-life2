@@ -6,7 +6,7 @@ ROOT=Path(__file__).resolve().parents[2]
 BASE=os.getenv('CODEX_BASE','http://127.0.0.1:5176/')
 LABEL=os.getenv('CODEX_LABEL','after')
 CASES=json.loads(os.getenv('CODEX_CASES','["ordinary","premium","wish","ten","pages"]'))
-OUT=ROOT/'production/qa/evidence/redesign/codex-quality'/LABEL;OUT.mkdir(parents=True,exist_ok=True)
+OUT=Path(os.getenv('CODEX_OUT',str(ROOT/'production/qa/evidence/redesign/codex-quality'/LABEL)));OUT.mkdir(parents=True,exist_ok=True)
 FIXTURES=json.loads((ROOT/'.local-online/codex-quality/fixtures.json').read_text())
 DPR=float(os.getenv('CODEX_DPR','2'))
 WIDTH,HEIGHT,TOP,BOTTOM=json.loads(os.getenv('CODEX_VIEWPORT','[390,844,47,34]'))
