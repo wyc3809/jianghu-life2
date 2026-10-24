@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-24",
+  "method": "Original source pixels, WebP quality92, no upscaling or repainting",
+  "assets": {
+    "codex-cover": {
+      "path": "public/ink/art/gacha/codex-cover.webp",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "bytes": 819412,
+      "sha256": "7f1047de59938495d49bf3bfa8fc13487f6c6c75e350b9f0c9056bda15261439"
+    },
+    "codex-cover-premium": {
+      "path": "public/ink/art/gacha/codex-cover-premium.webp",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "bytes": 806940,
+      "sha256": "d48ca6e28a128e4897c869ecabefe40ce7ace78189ea2ceb59cb0167a1df68c6"
+    },
+    "codex-page-left": {
+      "path": "public/ink/art/gacha/codex-page-left.webp",
+      "dimensions": [
+        724,
+        1086
+      ],
+      "bytes": 238992,
+      "sha256": "3eaea97d76c738bb2c094c9d4954b82635b66ea52ba0ac90a4bcf92704fc060c"
+    },
+    "codex-page-right": {
+      "path": "public/ink/art/gacha/codex-page-right.webp",
+      "dimensions": [
+        724,
+        1086
+      ],
+      "bytes": 220598,
+      "sha256": "9002d57db325d36921dc99a36539a90aa2907d8dba55d62a760d044958f03167"
+    }
+  }
+}

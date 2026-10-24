@@ -7,7 +7,7 @@ BASE=os.getenv('GACHA_FULL_BASE','http://127.0.0.1:5176/')
 LABEL=os.getenv('GACHA_FULL_LABEL','after')
 ENGINES=json.loads(os.getenv('GACHA_FULL_ENGINES','["chromium","webkit"]'))
 SIZES=json.loads(os.getenv('GACHA_FULL_SIZES','[[320,568,20,0],[375,667,20,0],[390,844,47,34],[393,852,59,34],[430,932,59,34],[768,1024,24,20]]'))
-OUT=ROOT/'production/qa/evidence/redesign/gacha-fullscreen'/LABEL;OUT.mkdir(parents=True,exist_ok=True)
+OUT=Path(os.getenv('GACHA_FULL_EVIDENCE',str(ROOT/'production/qa/evidence/redesign/gacha-fullscreen'/LABEL)));OUT.mkdir(parents=True,exist_ok=True)
 fixture=json.loads((ROOT/'.local-online/gacha-fullscreen/fixture.json').read_text())
 report={'base':BASE,'productionBuild':True,'actualIOS':False,'cssSafeAreaInputsOnly':True,'cases':[]}
 
@@ -78,9 +78,7 @@ with sync_playwright() as p:
      if os.getenv('GACHA_FULL_FUNCTIONAL')=='1' and native and width==393:
       page.get_by_role('button',name=re.compile('^抽一次')).click()
       stage=page.locator('[data-subject="codex"]');stage.wait_for(timeout=60000)
-      if stage.get_attribute('data-phase')!='settle':
-       skip=stage.get_by_role('button',name='跳過 ›',exact=True)
-       if skip.count():skip.click()
+      page.evaluate("document.querySelector('[data-subject] button[class*=skip]')?.click()")
       page.locator('[data-subject="codex"][data-phase="settle"]').wait_for(timeout=60000)
       single=account(page)
       assert single['jade']=={'free':540,'paidTest':600} and single['gacha']['pulls']==1,single
@@ -102,9 +100,7 @@ with sync_playwright() as p:
       page.get_by_role('button',name='秘笈閣',exact=True).click()
       page.get_by_role('button',name=re.compile('^抽十次')).click()
       stage=page.locator('[data-subject="codex"]');stage.wait_for(timeout=60000)
-      if stage.get_attribute('data-phase')!='settle':
-       skip=stage.get_by_role('button',name='跳過 ›',exact=True)
-       if skip.count():skip.click()
+      page.evaluate("document.querySelector('[data-subject] button[class*=skip]')?.click()")
       page.locator('[data-subject="codex"][data-phase="settle"]').wait_for(timeout=60000)
       assert stage.locator('[data-card]').count()==10
       ten=account(page)

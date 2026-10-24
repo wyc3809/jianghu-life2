@@ -1,0 +1,25 @@
+{
+  "base": "http://127.0.0.1:5176/",
+  "productionBuild": true,
+  "actualIOS": false,
+  "renderer": "Chromium SwiftShader software GPU",
+  "dpr": 2.0,
+  "cases": [
+    {
+      "name": "ten",
+      "mode": "no-webgl",
+      "mainButtonStyle": {
+        "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+        "weight": "900"
+      },
+      "stats": {},
+      "actualJade": {
+        "free": 600,
+        "paidTest": 0
+      },
+      "coreResultMatches": true,
+      "errors": [],
+      "repeatedClaimNoDebit": true
+    }
+  ]
+}

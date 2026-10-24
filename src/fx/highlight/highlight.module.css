@@ -852,9 +852,17 @@
 .codexCardArt img { width: auto; height: 90%; max-height: 100%; max-width: 90%; object-fit: contain; box-shadow: 3px 4px 5px #263a342d; }
 .codexCardArt b { position: absolute; right: 19%; top: 10%; height: 45%; width: 12%; overflow: hidden; writing-mode: vertical-rl; font: 7px/1 serif; color: #3d4030; }
 .codexIdentity { display: block; font-size: 9px; color: #756a51; }
-.root[data-subject='codex'] { --font: 'Jianghu Wuxia Titles', 'Noto Serif TC', serif; }
+.root[data-subject='codex'] { --font: var(--game-ui-font); }
+.root[data-subject='codex'] * { font-family: var(--game-ui-font) !important; }
+.root[data-subject='codex'] .bg::after { opacity: .055; }
+.root[data-subject='codex'] .curtain::after { opacity: .07; }
+.root[data-subject='codex'] .title span { filter: none !important; }
 .root[data-subject='codex'] .bg { background: radial-gradient(ellipse at 50% 30%, #f5ecd8, #ebe6d6 80%); }
-.root[data-subject='codex'] .rays { opacity: .45; }
+.root[data-subject='codex'] .rays { opacity: .3; }
+.root[data-subject='codex'] .rays i { animation: none; filter: none; }
+.root[data-subject='codex'] .curtain i { animation: none; }
+.root[data-subject='codex'] .backGlow { filter: none; }
+.root[data-subject='codex'] .title { text-shadow: none; }
 .root[data-subject='codex'] .beams { display: none; }
 .root[data-subject='codex'] .tag { font-size: 16px; }
 .root[data-subject='codex'] .titleWrap { top: 12%; }
@@ -878,31 +886,24 @@
 .root[data-subject='codex'] .cards > :only-child .codexCardArt { height: 100px !important; }
 .root[data-subject='codex'] .cards > :only-child .cardName { font-size: 17px; }
 .root[data-reduce] .title span { transform: none !important; opacity: 1 !important; filter: none !important; }
-.root[data-subject='codex'][data-phase='settle'] :is(.rays i, .curtain i, .card::after) { animation: none; }
+.root[data-subject='codex'][data-phase='settle'] :is(.rays i, .curtain i, .card::after, .seal) { animation: none; }
 
-/* 第28項同款冊頁九宮格；只覆蓋抽卡，寶箱／武學令／丹爐保持原演出。 */
+/* 沿用主頁紙底墨線及朱砂按鈕；少一層偽元素紋理，文字保持清晰。 */
 .root[data-subject='codex'] :is(.card, .panel, .pill, .tag, .mute, .skip, :global(.ink-pull-equip-btn)) {
-  --codex-frame: var(--wuxia-frame-neutral); --codex-frame-width: 9px;
-  position: relative; isolation: isolate; border: 0; border-radius: 0;
-  background: transparent; box-shadow: none;
+  position: relative; border: 1px solid #1c1a1733; border-radius: 0;
+  background: var(--paper-bright); box-shadow: none;
 }
-.root[data-subject='codex'] :is(.card, .panel, .pill, .tag, .mute, .skip, :global(.ink-pull-equip-btn))::before {
-  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  width: auto; height: auto; border-radius: 0; transform: none;
-  border: var(--codex-frame-width) solid transparent;
-  border-image: var(--codex-frame) 128 / 1 / 0 stretch;
-  background: url('/ink/art/ui/paper-grain.webp') repeat, #faf6ee;
-  background-blend-mode: soft-light; background-clip: padding-box;
-}
-.root[data-subject='codex'] .panel { --codex-frame: var(--wuxia-frame-panel); --codex-frame-width: 16px; padding: 13px 14px; background: #faf6ee; }
+.root[data-subject='codex'] :is(.card, .panel, .pill, .tag, .mute, .skip, :global(.ink-pull-equip-btn))::before,
 .root[data-subject='codex'] .panel::after,
 .root[data-subject='codex'] .card::after,
 .root[data-subject='codex'] .inlay { display: none; }
-.root[data-subject='codex'] [data-premium='1'] { --codex-frame: var(--wuxia-frame-rare); }
-.root[data-subject='codex'] .card[aria-pressed='true'] { --codex-frame: var(--wuxia-frame-selected); box-shadow: none; outline: 0; }
-.root[data-subject='codex'] .card[aria-pressed='true']::before { background-color: #f8ebd9; }
+.root[data-subject='codex'] .panel { padding: 12px 14px; border-left: 2px solid var(--main); }
+.root[data-subject='codex'] [data-premium='1'] { border-color: #ac895780; }
+.root[data-subject='codex'] .card[aria-pressed='true'] { border: 1px solid var(--cinnabar); background: #faf0e4; box-shadow: none; outline: 0; }
 .root[data-subject='codex'] .card { padding: 7px 3px 5px; }
-.root[data-subject='codex'] .cards > :only-child { --codex-frame-width: 13px; padding: 11px 9px; }
+.root[data-subject='codex'] .cards > :only-child { padding: 11px 9px; }
+.root[data-subject='codex'] .claim { font-weight: 700; text-shadow: 0 1px 0 #5a140e59; }
+.root[data-subject='codex'] .cardName { font-weight: 600; }
 .root[data-subject='codex'] :is(.mute, .skip, :global(.ink-pull-equip-btn)) { min-height: 44px; }
 .root[data-subject='codex'] :is(.mute, .skip, .card, :global(.ink-pull-equip-btn)):focus-visible { outline: 2px solid #a33a32; outline-offset: 2px; }
 .root[data-subject='codex'] .claim { min-height: 44px; }
@@ -930,3 +931,11 @@
 .pagesCardArt img:nth-child(2) { position: absolute; transform: translate(4px, 2px) rotate(8deg); }
 .pagesCardArt img:last-child { position: relative; }
 .root[data-subject='codex'] .card .amount { position: static; display: block; font-size: 13px; line-height: 1.3; min-height: 17px; }
+
+/* 長結果局部捲動，操作留在可視底部；短屏不把完成按鈕裁到畫面外。 */
+.root[data-subject='codex'] .reveal > * { flex-shrink: 0; }
+.root[data-subject='codex'] .claimActions {
+  position: sticky; bottom: 0; z-index: 2; flex: none;
+  padding-block: 6px; background: var(--paper-bright);
+}
+.root[data-subject='codex'][data-phase='settle'] .seal { opacity: 1; transform: none; filter: none; }

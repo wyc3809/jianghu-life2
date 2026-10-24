@@ -141,12 +141,12 @@ export class HighlightStage {
     this.renderer = new THREE.WebGLRenderer({
       canvas: opts.canvas,
       alpha: true,
-      antialias: !!opts.painted,
+      antialias: !!(opts.painted || opts.direct),
       premultipliedAlpha: true,
     });
     this.renderer.setClearColor(0x000000, 0);
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
-    if (opts.painted) {
+    if (opts.painted || opts.direct) {
       this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
       this.renderer.toneMappingExposure = 1.1;
     }

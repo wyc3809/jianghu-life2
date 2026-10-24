@@ -1,9 +1,9 @@
-/** 合併靜態零件及細墨輪廓；箱身／鉸鏈兩組仍各自保留真實結構動作。 */
+/** 合併器物靜態零件；活動書頁／鉸鏈維持分組，寶箱另加細墨輪廓。 */
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 
-/** 把同材質零件合併為一次繪製；不跨過活動鉸鏈，不改物件外形。 */
-export function batchPaintedParts(group: THREE.Group): void {
+/** 把同材質零件合併為一次繪製；不跨活動鉸鏈，書冊可略過薄殼描邊。 */
+export function batchPaintedParts(group: THREE.Group, inkOutline = true): void {
   group.updateMatrixWorld(true);
   const inverse = group.matrixWorld.clone().invert();
   const parts = new Map<THREE.Material, THREE.BufferGeometry[]>();
@@ -26,6 +26,7 @@ export function batchPaintedParts(group: THREE.Group): void {
     geometries.forEach(g => g.dispose());
   }
   originals.forEach(g => g.dispose());
+  if (!inkOutline) return;
   const hull = mergeGeometries(merged, false);
   if (!hull) return;
   // 背面薄殼只出現於物件外緣；無全屏深度／法線取樣，也無逐像素飛白碎點。

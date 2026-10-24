@@ -16,6 +16,7 @@ import styles from './highlight.module.css';
 import { sealPhrase, sealUrlForText } from '../../ui/inkAssets';
 import { inkIconUrl } from '../../ui/inkIcons';
 import { gachaRewardImageUrl } from './codexAppearance';
+import { preloadCodexTextures } from './scene/codexTextures';
 import { preloadChestTextures } from './scene/chestMaterials';
 import { holdHighlightVisibility } from '../../ui/highlightVisibility';
 
@@ -34,6 +35,7 @@ function ensureFonts() {
 export function prefetchHighlightAssets(): void {
   ensureFonts();
   preloadChestTextures();
+  preloadCodexTextures();
 }
 
 function reduceMotionPref(): boolean {
@@ -81,27 +83,28 @@ function CardArt({ card, size }: { card: RewardCard; size: number }) {
   return <div ref={ref} className={styles.art} style={{ width: size, height: size }} aria-hidden />;
 }
 
-function Title({ text, gradeKey }: { text: string; gradeKey: string }) {
+function Title({ text, gradeKey, crisp = false }: { text: string; gradeKey: string; crisp?: boolean }) {
   const ref = useRef<HTMLHeadingElement>(null);
   useLayoutEffect(() => {
     const chars = ref.current?.querySelectorAll('span');
     if (!chars?.length) return;
     // 逐字落墨：由化開（大、模糊、淡）收實，輕微回彈似筆鋒按落
-    gsap.fromTo(
+    const tween = gsap.fromTo(
       chars,
-      { scale: 1.9, y: -18, opacity: 0, filter: 'blur(10px)' },
+      crisp ? { scale: 1, y: 4, opacity: 0 } : { scale: 1.9, y: -18, opacity: 0, filter: 'blur(10px)' },
       {
         scale: 1,
         y: 0,
         opacity: 1,
-        filter: 'blur(0px)',
-        duration: 0.55,
-        ease: 'back.out(2)',
-        stagger: 0.07,
+        ...(crisp ? {} : { filter: 'blur(0px)' }),
+        duration: crisp ? .24 : .55,
+        ease: crisp ? 'power2.out' : 'back.out(2)',
+        stagger: crisp ? .025 : .07,
         overwrite: true,
       },
     );
-  }, [text, gradeKey]);
+    return () => { tween.kill(); };
+  }, [text, gradeKey, crisp]);
   return (
     <h1 ref={ref} className={styles.title} aria-label={text}>
       {Array.from(text).map((ch, i) => (
@@ -508,7 +511,7 @@ export default function HighlightFx({ config, onDone, onUnavailable, renderRewar
 
       <div className={styles.titleWrap}>
         <div className={styles.titleRow}>
-          <Title text={titleText} gradeKey={beforeReveal ? `g${grade}` : 'reveal'} />
+          <Title text={titleText} gradeKey={beforeReveal ? `g${grade}` : 'reveal'} crisp={codex} />
           {!beforeReveal && config.seal && sealUrlForText(config.seal) && (
             <img className={styles.seal} src={sealUrlForText(config.seal)!} alt={sealPhrase(config.seal)} />
           )}

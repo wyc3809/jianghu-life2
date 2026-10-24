@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-24",
+  "baselineCommit": "141667b",
+  "actualIOS": false,
+  "renderer": "Chromium SwiftShader",
+  "testFiles": 105,
+  "tests": 775,
+  "publicFilesVerified": 793,
+  "normalCases": 5,
+  "fallbackAndQuickCases": 6,
+  "layoutCases": 14,
+  "performance": [
+    {
+      "name": "ordinary",
+      "before": {
+        "samples": 14,
+        "drawsMedian": 70.0,
+        "frameMsMedian": 66.65000000000009,
+        "frameMsP95": 133.29999999999927,
+        "dprMin": 1,
+        "dprMax": 1
+      },
+      "after": {
+        "samples": 30,
+        "drawsMedian": 17.0,
+        "frameMsMedian": 33.30000000000018,
+        "frameMsP95": 66.60000000000036,
+        "dprMin": 1,
+        "dprMax": 1
+      },
+      "resultFontMatchesMain": true
+    },
+    {
+      "name": "premium",
+      "before": {
+        "samples": 22,
+        "drawsMedian": 74.0,
+        "frameMsMedian": 83.19999999999982,
+        "frameMsP95": 83.40000000000055,
+        "dprMin": 1,
+        "dprMax": 1
+      },
+      "after": {
+        "samples": 44,
+        "drawsMedian": 18.0,
+        "frameMsMedian": 33.30000000000018,
+        "frameMsP95": 66.59999999999945,
+        "dprMin": 0.8,
+        "dprMax": 0.8
+      },
+      "resultFontMatchesMain": true
+    }
+  ],
+  "equipmentHandoffAndCostCases": 2,
+  "smallScreenTenCardsSelectable": true
+}

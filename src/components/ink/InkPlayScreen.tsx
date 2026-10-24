@@ -567,7 +567,7 @@ export function InkPlayScreen({ state }: Props) {
         night={useNightWash}
       />
       {/* 墨韻：左右邊墨點、墨暈，點擊濺墨 */}
-      <InkAmbientFx mode="ink" paused={Boolean(combat) || onJianghuMap} />
+      <InkAmbientFx mode="ink" paused={Boolean(combat) || onFullPage} />
       {sealText && <InkSealStamp text={sealText} onDone={clearSeal} />}
 
       {succession && <InkSuccessionModal lines={succession} onClose={clearSuccession} />}

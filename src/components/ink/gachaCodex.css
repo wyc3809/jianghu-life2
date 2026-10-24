@@ -94,33 +94,25 @@
 .scroll-shell--play .ink-codex-heading h3 { background: none; border: 0; padding: 0; font: 28px/1.2 'Jianghu Wuxia Titles', serif; }
 .ink-codex-edition small { display: none; }
 
-/* 沿用第28項已確認嘅冊頁位圖框；Portal彈窗亦使用同一套，唔依賴scroll-shell。 */
+/* 與主頁共用紙底墨線、朱砂筆觸與介面字體；不再疊仿古金屬框。 */
+:is(.ink-codex-page, .ink-codex-sheet),
+:is(.ink-codex-page, .ink-codex-sheet) * { font-family: var(--game-ui-font) !important; }
 :is(.ink-codex-page, .ink-codex-sheet) button,
-.ink-codex-sheet :is(.ink-codex-catalog li, .ink-pull-card, .ink-school-tag, .ink-codex-result-detail),
-.scroll-shell--play .ink-gacha.ink-codex-page,
-.ink-codex-sheet {
-  --codex-frame: var(--wuxia-frame-neutral);
-  --codex-frame-width: 9px;
-  position: relative; isolation: isolate; border: 0; border-radius: 0;
-  background: transparent; box-shadow: none;
+.ink-codex-sheet :is(.ink-codex-catalog li, .ink-pull-card, .ink-codex-result-detail) {
+  border: 1px solid var(--ink-faint); border-radius: 0; background: var(--paper-bright); box-shadow: none;
 }
 :is(.ink-codex-page, .ink-codex-sheet) button::before,
 .ink-codex-sheet :is(.ink-codex-catalog li, .ink-pull-card, .ink-school-tag, .ink-codex-result-detail)::before,
-.scroll-shell--play .ink-gacha.ink-codex-page::before,
-.ink-codex-sheet::before {
-  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  width: auto; height: auto; border: var(--codex-frame-width) solid transparent;
-  border-image: var(--codex-frame) 128 / 1 / 0 stretch;
-  background: url('/ink/art/ui/paper-grain.webp') repeat, #faf6ee;
-  background-blend-mode: soft-light; background-clip: padding-box;
-  transform: none; opacity: 1;
+.scroll-shell--play .ink-gacha.ink-codex-page::before { display: none; }
+.scroll-shell--play .ink-gacha.ink-codex-page {
+  padding: 14px 14px 12px; border: 1px solid var(--ink-faint); box-shadow: 0 2px 6px #26241c12;
+  background: var(--paper-bright);
 }
-.scroll-shell--play .ink-gacha.ink-codex-page { --codex-frame: var(--wuxia-frame-panel); --codex-frame-width: 18px; padding: 14px 14px 12px; }
 .scroll-shell--play .ink-gacha.ink-codex-page::after { display: none; }
-.ink-codex-sheet { --codex-frame: var(--wuxia-frame-panel); --codex-frame-width: 18px; position: fixed; padding: 22px 18px 18px; background: #f8f3e8; box-shadow: 0 24px 90px #172b2966; }
-.ink-codex-sheet > header { border: 0; gap: 8px; }
+.ink-codex-sheet { position: fixed; padding: 20px 16px 16px; background: var(--paper-bright); border: 1px solid var(--ink-faint); box-shadow: 0 16px 50px #172b2940; }
+.ink-codex-sheet > header { gap: 8px; }
 .ink-codex-sheet > header button { min-width: 54px; flex: none; }
-.ink-codex-heading-actions { gap: 3px; }
+.ink-codex-heading-actions { gap: 5px; }
 .ink-codex-heading-actions button { padding: 5px 8px; }
 .ink-codex-page button { min-width: 44px; }
 .ink-codex-wallet > button { font-size: 23px; }
@@ -128,41 +120,35 @@
 .ink-codex-banners button { padding: 7px 8px; }
 .ink-codex-banners button[aria-selected='true'],
 :is(.ink-codex-page, .ink-codex-sheet) button[aria-pressed='true'],
-.ink-codex-page .ink-codex-wish.has-wish { --codex-frame: var(--wuxia-frame-selected); color: #983e32; }
-.ink-codex-banners button[aria-selected='true']::before,
-:is(.ink-codex-page, .ink-codex-sheet) button[aria-pressed='true']::before { background-color: #f8ebd9; }
-.ink-codex-volume { gap: 4px; padding-block: 3px; }
+.ink-codex-page .ink-codex-wish.has-wish { color: var(--cinnabar); border-color: #a33a3280; background: #a33a3208; }
+.ink-codex-volume { gap: 5px; padding-block: 3px; }
 .ink-codex-volume > button { padding: 6px 8px; }
 .ink-codex-volume > .ink-codex-school-picker { font-size: 16px; padding-inline: 8px; }
 :is(.ink-codex-page, .ink-codex-sheet) select {
-  box-sizing: border-box; border: 7px solid transparent; border-image: var(--wuxia-frame-neutral) 128 / 1 / 0 stretch;
-  min-height: 44px; border-radius: 0; background: #faf6ee; color: #484e42;
+  box-sizing: border-box; min-height: 44px; padding: 3px 5px; border: 1px solid var(--ink-faint);
+  border-radius: 0; background: var(--paper-bright); color: var(--ink-mid);
 }
-.ink-codex-volume select { max-width: 70px; padding: 0; font-size: 11px; }
-.ink-codex-page .ink-codex-wish { --codex-frame-width: 12px; padding: 10px 9px 12px; gap: 7px; }
+.ink-codex-volume select { max-width: 70px; font-size: 12px; }
+.ink-codex-page .ink-codex-wish { padding: 10px 9px 12px; gap: 7px; }
 .ink-codex-wish-seal { background: url('/ink/art/ui/brush-btn-cinnabar.webp') center / 100% 100% no-repeat; }
-.ink-codex-pity-track { left: 10px; bottom: 6px; max-width: calc(100% - 20px); background: #a33a32; height: 2px; }
+.ink-codex-pity-track { left: 10px; bottom: 5px; max-width: calc(100% - 20px); background: var(--cinnabar); height: 2px; }
 .ink-codex-pulls { margin-top: 10px; }
-.ink-codex-pulls > button { --codex-frame-width: 12px; min-height: 58px; color: #354a3e; }
+.ink-codex-pulls > button { min-height: 58px; color: var(--ink); border-color: #1c1a1750; }
+.ink-codex-pulls span { font-size: 22px; font-weight: 700; letter-spacing: .08em; }
 .ink-codex-pulls > button + button,
 :is(.ink-codex-page, .ink-codex-sheet) .ink-btn--primary {
-  color: #fff7e7; background: url('/ink/art/ui/brush-btn-cinnabar.webp') center / 100% 100% no-repeat;
-  border: 0; box-shadow: none; text-shadow: 0 1px 1px #622820;
+  color: var(--paper-bright); background: url('/ink/art/ui/brush-btn-cinnabar.webp') center / 100% 100% no-repeat;
+  border: 0; box-shadow: none; text-shadow: 0 1px 0 #5a140e59;
 }
-.ink-codex-pulls > button + button::before,
-:is(.ink-codex-page, .ink-codex-sheet) .ink-btn--primary::before { display: none; }
-:is(.ink-codex-page, .ink-codex-sheet) button:disabled { opacity: .55; cursor: not-allowed; border: 0; box-shadow: none; }
+:is(.ink-codex-page, .ink-codex-sheet) button:disabled { opacity: .5; cursor: not-allowed; box-shadow: none; }
 .ink-codex-page .ink-codex-last { width: 100%; margin-top: 7px; }
-.ink-codex-sheet .ink-school-tabs button { padding: 12px 8px; --codex-frame-width: 13px; border: 0; background: transparent; box-shadow: none; }
+.ink-codex-sheet .ink-school-tabs button { padding: 12px 8px; }
 .ink-codex-sheet .ink-school-tabs button small { display: block; }
-.ink-codex-sheet .ink-school-tabs button[aria-pressed='true'] { border: 0; box-shadow: none; }
-.ink-codex-sheet :is(.ink-codex-catalog li, .ink-pull-card) { --codex-frame-width: 13px; padding: 13px 12px; margin-block: 7px; border: 0; }
-.ink-codex-sheet .ink-school-tag { --codex-frame-width: 5px; display: inline-block; padding: 2px 7px; }
-.ink-codex-sheet .ink-codex-result-detail { --codex-frame-width: 13px; padding: 12px; margin-block: 10px; }
-.ink-codex-sheet :is(.ink-codex-catalog li, .ink-codex-result-detail, button, .ink-pull-card)[data-premium='1'],
-.ink-codex-sheet .ink-pull-card.is-premium { --codex-frame: var(--wuxia-frame-rare); }
-.ink-codex-sheet :is(.ink-codex-fallback-cards, .ink-codex-wish-options) button[aria-pressed='true'] { --codex-frame: var(--wuxia-frame-selected); box-shadow: none; }
-.ink-codex-sheet .ink-codex-fallback-cards button { --codex-frame-width: 12px; padding: 12px 9px; }
+.ink-codex-sheet :is(.ink-codex-catalog li, .ink-pull-card) { padding: 12px; margin-block: 7px; }
+.ink-codex-sheet .ink-school-tag { display: inline-block; padding: 2px 7px; border: 1px solid var(--ink-faint); }
+.ink-codex-sheet .ink-codex-result-detail { padding: 12px; margin-block: 10px; }
+.ink-codex-sheet [data-premium='1'] { border-color: #ac895780; }
+.ink-codex-sheet .ink-codex-fallback-cards button { padding: 12px 9px; }
 :is(.ink-codex-page, .ink-codex-sheet) button:active:not(:disabled) { filter: brightness(.94); }
 
 /* 武功／書頁機率同帳戶碎片常駐顯示，沿用冊頁字體及觸控尺寸。 */
