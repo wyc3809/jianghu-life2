@@ -14,6 +14,7 @@ import type { AncestryMeta } from '@interfaces/ancestry';
 import { getSkillDef, SKILL_DEFS } from '@data/skills/catalog';
 import { VOLUME_COUNT, hasVolumes } from '@data/skills/volumes';
 import { addCollectionVolume } from './volumes';
+import { economyDay } from './accountEconomy';
 import { createRng } from '@core/random';
 import { activeSchoolGachaPool, schoolGachaPools, schoolPoolForArt } from './schoolGachaPools';
 import { MANUAL_STAR_PAGE_COSTS } from '@data/redesign/martialEconomyParams';
@@ -27,6 +28,7 @@ import {
   PAGES_PER_DUPLICATE,
   PAGES_PER_EXCHANGE,
   TEST_PAID_JADE_GRANT,
+  TEST_SILVER_SINKS,
 } from '@data/redesign/testParams';
 
 export type BannerId = 'jianghu' | 'zhenben';
@@ -229,10 +231,38 @@ export function exchangePages(meta: AncestryMeta, id: string, volume?: number): 
   return true;
 }
 
-/** 測試版：領付費玉石測試額度（唔係真錢，分開記帳） */
-export function grantTestPaidJade(meta: AncestryMeta): number {
-  ensure(meta).jade.paidTest += TEST_PAID_JADE_GRANT;
+/** 今日已經領過測試額度（同每日任務一樣，香港時間凌晨四時換日） */
+export function testPaidJadeClaimedToday(meta: AncestryMeta, now: number): boolean {
+  return meta.jade?.testDay === economyDay(now);
+}
+
+/** 測試版：每日領一次付費玉石測試額度（唔係真錢，分開記帳）；今日領過就回傳 0 */
+export function grantTestPaidJade(meta: AncestryMeta, now: number): number {
+  if (testPaidJadeClaimedToday(meta, now)) return 0;
+  const jade = ensure(meta).jade;
+  jade.paidTest += TEST_PAID_JADE_GRANT;
+  jade.testDay = economyDay(now);
   return TEST_PAID_JADE_GRANT;
+}
+
+/** 今日仲可以用銀兩換幾多次書頁 */
+export function silverPagesLeft(meta: AncestryMeta, now: number): number {
+  const used = meta.silverPages?.day === economyDay(now) ? meta.silverPages.count : 0;
+  return Math.max(0, TEST_SILVER_SINKS.pagesDailyLimit - used);
+}
+
+/**
+ * 銀兩換書頁（審計 B4）：扣今世角色銀兩，入帳戶書頁；每日有上限。
+ * 回傳換到幾多頁（0＝銀兩唔夠或今日用完）。
+ */
+export function exchangeSilverForPages(meta: AncestryMeta, character: { money: number }, now: number): number {
+  if (silverPagesLeft(meta, now) <= 0 || character.money < TEST_SILVER_SINKS.pagesSilverCost) return 0;
+  const day = economyDay(now);
+  const used = meta.silverPages?.day === day ? meta.silverPages.count : 0;
+  character.money -= TEST_SILVER_SINKS.pagesSilverCost;
+  ensure(meta).pages += TEST_SILVER_SINKS.pagesPerExchange;
+  meta.silverPages = { day, count: used + 1 };
+  return TEST_SILVER_SINKS.pagesPerExchange;
 }
 
 /** 免費玉石入帳 */

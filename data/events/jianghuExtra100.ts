@@ -227,6 +227,7 @@ const RAW: GameEvent[] = [
       {
         id: "b",
         text: "硬闖則過",
+        combat: true,
         outcomes: [
           {
             effects: [
@@ -291,6 +292,7 @@ const RAW: GameEvent[] = [
       {
         id: "a",
         text: "應戰比試",
+        combat: true,
         outcomes: [
           {
             effects: [
@@ -4405,6 +4407,7 @@ const RAW: GameEvent[] = [
       {
         id: "a",
         text: "應戰比試",
+        combat: true,
         outcomes: [
           {
             effects: [
@@ -9220,6 +9223,7 @@ const RAW: GameEvent[] = [
       {
         id: "b",
         text: "打到認輸",
+        combat: true,
         outcomes: [
           {
             effects: [

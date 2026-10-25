@@ -21,6 +21,7 @@ const RAW: GameEvent[] = [
       {
         id: 'pay',
         text: '丟銀過關',
+        combat: false,
         outcomes: [
           {
             effects: [
@@ -62,6 +63,7 @@ const RAW: GameEvent[] = [
       {
         id: 'talk',
         text: '好言勸醒',
+        combat: false,
         outcomes: [
           {
             effects: [
@@ -103,6 +105,7 @@ const RAW: GameEvent[] = [
       {
         id: 'throw',
         text: '拋出銀包誘敵',
+        combat: false,
         outcomes: [
           {
             effects: [
@@ -145,6 +148,7 @@ const RAW: GameEvent[] = [
       {
         id: 'distract',
         text: '高聲驚擾',
+        combat: false,
         outcomes: [
           {
             effects: [
@@ -187,6 +191,7 @@ const RAW: GameEvent[] = [
       {
         id: 'decline_politely',
         text: '以禮婉拒',
+        combat: false,
         outcomes: [
           {
             effects: [
@@ -228,6 +233,7 @@ const RAW: GameEvent[] = [
       {
         id: 'lantern',
         text: '舉火逼問',
+        combat: false,
         outcomes: [
           {
             effects: [

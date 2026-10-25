@@ -490,11 +490,11 @@ function pickFromPool(rng: { nextFloat: () => number }, rarity: GearRarity): str
 /** 鍛造品質只按武學計算；age 選項僅保留舊呼叫相容。 */
 export function rollForgeResult(
   rng: { nextFloat: () => number; chance: (p: number) => boolean },
-  opts?: { age?: number; martial?: number },
+  opts?: { age?: number; martial?: number; quality?: number },
 ): string {
   const martial = opts?.martial ?? 10;
-  // 品質只隨武學造詣提高，舊 age 選項不再影響結果。
-  const tier = Math.min(1, Math.max(0, martial / 120));
+  // 普通鑄造品質隨武學造詣（120 封頂）；精鑄直接傳 quality（0–1，跟境界），舊 age 選項不再影響結果。
+  const tier = Math.min(1, Math.max(0, opts?.quality ?? martial / 120));
   const roll = rng.nextFloat();
   const divineGate = 0.002 + tier * 0.018;
   const mythicGate = divineGate + 0.008 + tier * 0.02;

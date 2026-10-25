@@ -55,6 +55,8 @@ const partialWorldSchema = z.partialRecord(z.enum(worldAttrKeys), z.number());
 export const requirementSchema = z.object({
   minAge: z.number().optional(),
   maxAge: z.number().optional(),
+  /** 修為境界上限（含）：超過就唔再出。未寫但有舊 maxAge 時按 LEGACY_MAX_AGE_TIER 換算 */
+  maxTier: z.number().optional(),
   minAttrs: partialAttrsSchema.optional(),
   maxAttrs: partialAttrsSchema.optional(),
   minNature: partialNatureSchema.optional(),
@@ -122,6 +124,11 @@ export const choiceSchema = z.object({
   text: z.string(),
   /** 舊有文字推導規則使用的固定語意；文案改寫不改變心性、關路或RNG。 */
   mechanicsText: z.string().optional(),
+  /**
+   * 呢個選項係咪開打回合制交手。未寫：event 有 `combat` 標籤且唔係逃避選項先開打；
+   * true／false 直接覆寫。唔再用 event id 估（2026-10-25 審計 A1）。
+   */
+  combat: z.boolean().optional(),
   requirements: requirementSchema.optional(),
   outcomes: z.array(outcomeSchema).min(1),
 });

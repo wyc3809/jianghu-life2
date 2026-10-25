@@ -6,6 +6,7 @@
  */
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { NEWBIE_TRIAL } from '@data/redesign/newbie';
+import { TEST_BREAKTHROUGH_FAIL_XP_LOSS } from '@data/redesign/testParams';
 import { getGearDef } from '@data/equipment/catalog';
 import {
   CULTIVATION_TIERS,
@@ -76,7 +77,7 @@ export function currentGoal(state: LifeGameState): CurrentGoal {
       id: 'breakthrough',
       kicker,
       title: `突破至「${next.name}」`,
-      detail: `修為已滿。成功率約 ${Math.round(breakthroughChance(state) * 100)}%，失敗修為保留。`,
+      detail: `修為已滿。成功率約 ${Math.round(breakthroughChance(state) * 100)}%，失敗會扣 ${Math.round(TEST_BREAKTHROUGH_FAIL_XP_LOSS * 100)}% 修為。`,
       action: 'breakthrough',
       actionLabel: '突破',
     };

@@ -61,6 +61,8 @@ export interface LifeStore {
   continueLife: () => Promise<boolean>;
   advanceMonth: () => void;
   advanceYear: () => void;
+  /** 主動歸隱傳位（第 8 境起）：結束今世入總結頁，傳承同死亡一樣 */
+  retire: () => void;
   choose: (choiceId: string) => void;
   /** 無可選抉擇時暫避；label：顯示喺結果嘅所擇（例如「一笑置之」） */
   dismissEvent: (label?: string) => void;

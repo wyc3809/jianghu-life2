@@ -773,6 +773,7 @@ const RAW: GameEvent[] = [
       {
         id: 'ignore',
         text: '當作無見物',
+        combat: false,
         outcomes: [
           {
             effects: [
@@ -1359,6 +1360,7 @@ const RAW: GameEvent[] = [
       {
         id: 'bribe',
         text: '丟銀買路',
+        combat: false,
         outcomes: [
           {
             effects: [

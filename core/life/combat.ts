@@ -1,5 +1,5 @@
 import { internalQiRegen } from './martialTurn';
-import { BOSS_CONTROL_RESISTANCE, MEDITATE_QI_RATIO, EVENT_FOE_HP_MULT, EVENT_FOE_CHAIN, EVENT_FOE_ATK_MULT } from '@data/redesign/martialEconomyParams';
+import { BOSS_CONTROL_RESISTANCE, MEDITATE_QI_RATIO, EVENT_FOE_HP_MULT, EVENT_FOE_CHAIN, EVENT_FOE_ATK_MULT, EVENT_FOE_BASELINE, EVENT_FOE_DIFFICULTY } from '@data/redesign/martialEconomyParams';
 import { equippedMartialArts } from './martialLoadout';
 import {
   BASIC_STRIKE,
@@ -70,6 +70,8 @@ import { gainWeaponMastery, weaponSynergyBoost } from './weaponMastery';
 import { applyCombatOutcomeRank } from './jianghuRank';
 import { gainPrestigeForCombatWin } from './jianghuPrestige';
 import { checkCombo, pushComboHistory } from './comboSystem';
+import { grantActiveCultivation } from './cultivation';
+import { TEST_ACTIVE_CULTIVATION_SECONDS } from '@data/redesign/testParams';
 import {
   applySnakeVenom,
   getInternalMode,
@@ -199,6 +201,17 @@ export function buildFoe(
   };
 }
 
+/** 事件對手縮放基準：按境界查表 × 難度，唔睇玩家當刻數值（審計 B3） */
+export function eventFoeScale(
+  tier: number,
+  power: keyof typeof EVENT_FOE_DIFFICULTY = 'normal',
+  difficulty: number = EVENT_FOE_DIFFICULTY[power],
+): { martial: number; maxHp: number; attack: number; tier: number } {
+  const t = Math.max(0, Math.min(EVENT_FOE_BASELINE.length - 1, Math.floor(tier || 0)));
+  const b = EVENT_FOE_BASELINE[t]!;
+  return { martial: b.martial, maxHp: b.maxHp * difficulty, attack: b.attack * difficulty, tier: t };
+}
+
 export function startCombat(
   state: LifeGameState,
   opts: {
@@ -217,12 +230,7 @@ export function startCombat(
   const foePower = opts.foePower ?? 'normal';
   const style = inferFoeAiStyle(opts.foeName, foePower);
   const player = buildPlayerFighter(state);
-  const foe = buildFoe(opts.foeName, foePower, {
-    martial: state.character.martial,
-    maxHp: player.maxHp,
-    attack: player.attack,
-    tier:state.character.cultivation.tier,
-  });
+  const foe = buildFoe(opts.foeName, foePower, eventFoeScale(state.character.cultivation.tier, foePower));
   if (foePower === 'boss') foe.controlResistance = BOSS_CONTROL_RESISTANCE;
   const combat: PendingCombat = {
     id: `cbt_${state.year}_${state.month}_${state.character.stats.combats}`,
@@ -474,6 +482,9 @@ function finishCombatWin(state: LifeGameState, dispositionLabel?: CombatFoeDispo
   c.stats.combatsWon += 1;
   if (combat.foePower === 'boss') c.flags.boss_wins = Number(c.flags.boss_wins ?? 0) + 1;
   if (combat.eventId === 'newbie_trial') c.flags.newbie_trial_won = true;
+  // 勝仗修為＝掛機速率 × 秒數（審計 B2）
+  const winXp = grantActiveCultivation(state, TEST_ACTIVE_CULTIVATION_SECONDS.combatWin[combat.foePower ?? 'normal']);
+  if (winXp > 0) lines.push(`修為＋${winXp.toLocaleString('zh-Hant')}`);
   if (combat.usedDesperateBurn) {
     addCondition(state, 'internal');
     lines.push('絕地反擊燃盡真氣，戰後留下內傷。');
@@ -527,7 +538,8 @@ function finishCombatWin(state: LifeGameState, dispositionLabel?: CombatFoeDispo
       const xiuwei = killCultivationGain(combat.foePower);
       const base = r.martial - xiuwei;
       if (base > 0) lines.push(`武學＋${base}`);
-      lines.push(`修為＋${xiuwei}（殺敵所得）`);
+      // 呢份加落武學（舊旗標名 xiuwei 保留），真修為喺下面按掛機速率另計
+      lines.push(`武學＋${xiuwei}（殺敵所得）`);
       c.flags.kills = (Number(c.flags.kills ?? 0) || 0) + 1;
       c.flags.xiuwei_from_kills = (Number(c.flags.xiuwei_from_kills ?? 0) || 0) + xiuwei;
     } else {

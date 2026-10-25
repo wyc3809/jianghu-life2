@@ -77,6 +77,9 @@ describe('comboSystem: integrated into playerCombatTurn', () => {
     startCombat(state, { source: 'event', title: '試', foeName: '木樁', foePower: 'weak' });
     // 確保過程唔會暈眩打斷連招偵測
     state.pendingCombat!.player.stun = 0;
+    // 木樁要捱得過三擊（敵人已改跟境界基準，唔再因武學 200 而變厚血）
+    state.pendingCombat!.foe.maxHp = 99999;
+    state.pendingCombat!.foe.hp = 99999;
 
     let triggeredAt = -1;
     for (let turn = 1; turn <= 3 && state.pendingCombat; turn++) {

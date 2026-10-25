@@ -276,6 +276,7 @@ export const EVENT_CATALOG: GameEvent[] = [
       {
         id: 'hide',
         text: '躲入草叢',
+        combat: false,
         outcomes: [{ effects: [{ type: 'attr', delta: { danShi: -1 } }, { type: 'narrate', text: '你把家人推進地窖，自己屏息聽著外頭的馬蹄。土腥氣裡，燈火滅了。' }] }],
       },
     ],
@@ -651,6 +652,7 @@ export const EVENT_CATALOG: GameEvent[] = [
       {
         id: 'confront',
         text: '當面對質',
+        combat: false,
         outcomes: [
           { chance: 0.5, effects: [{ type: 'reputation', amount: 5 }, { type: 'martial', amount: 2 }] },
           {
@@ -667,6 +669,7 @@ export const EVENT_CATALOG: GameEvent[] = [
       {
         id: 'trust',
         text: '選擇信任',
+        combat: false,
         outcomes: [{ effects: [{ type: 'attr', delta: { meiLi: 2 } }, { type: 'narrate', text: '你決定相信對方，沒有再追問。' }] }],
       },
     ],
@@ -923,6 +926,7 @@ export const EVENT_CATALOG: GameEvent[] = [
       {
         id: 'retire',
         text: '金盆洗手',
+        combat: false,
         outcomes: [{ effects: [{ type: 'flag', key: 'retired', value: true }, { type: 'martial', amount: -5 }, { type: 'narrate', text: '金盆水涼。你把刀橫在盆沿，聽水聲一圈圈散開——門外有人等著看你洗不洗手。' }] }],
       },
     ],
@@ -990,7 +994,8 @@ export const EVENT_CATALOG: GameEvent[] = [
   {
     id: 'accident_fall',
     title: '失足墜崖',
-    requirements: { minAge: 15 },
+    // 一世一次；壞結果由即死改重傷（2026-10-25 審計，冇老死後可重複即死事件遲早必中）
+    requirements: { minAge: 15, once: true },
     weight: 5,
     choices: [
       {
@@ -998,7 +1003,15 @@ export const EVENT_CATALOG: GameEvent[] = [
         text: '抓住藤蔓',
         outcomes: [
           { chance: 0.7, effects: [{ type: 'attr', delta: { fuYuan: 2 } }, { type: 'martial', amount: 2 }] },
-          { chance: 0.3, label: '事與願違', effects: [{ type: 'die', reason: '墜崖身亡。' }] },
+          {
+            chance: 0.3,
+            label: '事與願違',
+            effects: [
+              { type: 'health', amount: -9999 },
+              { type: 'injury', part: 'leg', tier: 'heavy' },
+              { type: 'narrate', text: '藤蔓斷了。你滾落半山，醒來時腿骨劇痛，只剩一口氣吊着。' },
+            ],
+          },
         ],
       },
     ],

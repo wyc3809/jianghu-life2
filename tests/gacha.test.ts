@@ -25,6 +25,9 @@ import {
 } from '../data/redesign/testParams';
 import { getSkillDef } from '../data/skills/catalog';
 
+/** 固定時間（香港 2026-10-25 中午）；測試額度每日一次 */
+const DAY0 = Date.UTC(2026, 9, 25, 4);
+
 describe('jade + gacha (agreed-design §3.1 §3.2)', () => {
   it('test_premium_pool_is_19_new_arts_about_20_percent', () => {
     expect(PREMIUM_POOL).toHaveLength(19);
@@ -46,7 +49,7 @@ describe('jade + gacha (agreed-design §3.1 §3.2)', () => {
   it('test_jade_spent_free_first_and_balances_separate', () => {
     const m = emptyAncestry();
     addFreeJade(m, 100);
-    grantTestPaidJade(m);
+    grantTestPaidJade(m, DAY0);
     const paidBefore = m.jade!.paidTest;
     pull(m, 'jianghu', 2);
     expect(m.jade!.free).toBe(0);
@@ -55,8 +58,7 @@ describe('jade + gacha (agreed-design §3.1 §3.2)', () => {
 
   it('test_wish_pity_guarantees_wish_within_40_pulls_and_progress_survives_wish_change', () => {
     const m = emptyAncestry();
-    grantTestPaidJade(m);
-    grantTestPaidJade(m);
+    m.jade = { free: 0, paidTest: GACHA_COST_PER_PULL * GACHA_WISH_PITY };
     const wish = PREMIUM_POOL[0]!;
     expect(setWish(m, 'zhenben', FREE_POOL[0]!)).toBe(false); // 心願要喺池內
     setWish(m, 'zhenben', wish);

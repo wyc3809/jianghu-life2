@@ -6,6 +6,8 @@ import { gearTotals, raiseBaseMaxHp, raiseBaseMaxQi } from './equipment';
 import { headProgressFactor } from './injuryMath';
 import { pushChronicle } from './chronicle';
 import {
+  TEST_ACTIVE_CULTIVATION_SECONDS,
+  TEST_BREAKTHROUGH_FAIL_XP_LOSS,
   TEST_CULTIVATION_RESERVE_RATIO,
 } from '@data/redesign/testParams';
 
@@ -251,10 +253,26 @@ export function grantSparCultivation(state: LifeGameState): number {
   return g.toXp + g.toReserve;
 }
 
-/** 每次事件了結（唔問成敗）隨手加嘅一筆修為，做「事件回饋感」；細過 idle 速率，唔會蓋過原有曲線 */
+/** 主動玩法折算嘅修為：當刻掛機速率 × 秒數（純算術，唔碰 RNG） */
+export function activeCultivationGain(state: LifeGameState, seconds: number): number {
+  return Math.round(effectiveCultivationRate(state) * Math.max(0, seconds));
+}
+
+/** 主動玩法入帳（演武過關、江湖勝仗等）；返回實際入咗幾多（境界進度＋儲備） */
+export function grantActiveCultivation(state: LifeGameState, seconds: number): number {
+  if (!state.character.alive || state.phase !== 'playing') return 0;
+  const g = addCultivationXp(state, activeCultivationGain(state, seconds));
+  return g.toXp + g.toReserve;
+}
+
+/**
+ * 每次事件了結（唔問成敗）嘅修為：舊有 2–6 點＋掛機速率 × eventResolve 秒。
+ * 舊隨機數照抽一次，保持人生事件 RNG 序列唔變。
+ */
 export function grantEventCultivation(state: LifeGameState): number {
   if (!state.character.alive || state.phase !== 'playing') return 0;
-  const g = addCultivationXp(state, getRng().nextInt(2, 6));
+  const legacy = getRng().nextInt(2, 6);
+  const g = addCultivationXp(state, legacy + activeCultivationGain(state, TEST_ACTIVE_CULTIVATION_SECONDS.eventResolve));
   return g.toXp + g.toReserve;
 }
 
@@ -294,6 +312,7 @@ export interface BreakthroughResult {
   jadeGain?: number;
   hpLoss?: number;
   qiLoss?: number;
+  /** 失敗扣走嘅修為（要儲返滿先可以再試） */
   setback?: number;
   /** 突破成功時由儲備撥入新境界嘅修為 */
   reserveReleased?: number;
@@ -356,15 +375,18 @@ export function attemptCultivationBreakthrough(state: LifeGameState): Breakthrou
     };
   }
 
-  // 失敗保留修為（design/agreed-design-2026-10.md §3）；代價只扣氣血、內力，唔落內傷（玩家決定 2026-10-05）
+  // 失敗扣修為（TEST_BREAKTHROUGH_FAIL_XP_LOSS），要儲返滿先可以再試；取代舊「失敗保留修為」
+  // （design/agreed-design-2026-10.md §3，2026-10-25 審計 B1 玩家改選）。儲備唔扣，突破成功先撥入。
+  // 氣血、內力照扣，唔落內傷（玩家決定 2026-10-05）
   const hpLoss = Math.round(c.maxHealth * 0.12);
   const qiLoss = Math.round(c.maxQi * 0.18);
   c.health = Math.max(1, c.health - hpLoss);
   c.qi = Math.max(0, c.qi - qiLoss);
-  const setback = 0;
+  const setback = Math.min(c.cultivation.xp, Math.round(tier.cap * TEST_BREAKTHROUGH_FAIL_XP_LOSS));
+  c.cultivation.xp -= setback;
   lines.push(
-    '閉關數月，行至緊要關頭卻氣息紊亂，未能破關。',
-    `修為保留，氣血－${hpLoss}，內力－${qiLoss}。調整配搭可再試（本次成功率約 ${Math.round(chance * 100)}%）。`,
+    '運功衝關，行至緊要關頭卻氣息紊亂，未能破關。',
+    `修為－${setback.toLocaleString('zh-Hant')}，氣血－${hpLoss}，內力－${qiLoss}。修為儲滿可再試（本次成功率約 ${Math.round(chance * 100)}%，看根骨、悟性）。`,
   );
   pushChronicle(state, lines);
   snapshotRng(state);

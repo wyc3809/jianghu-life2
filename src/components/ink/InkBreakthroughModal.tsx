@@ -41,7 +41,7 @@ export function InkBreakthroughModal({ result, onClose }: Props) {
       className={`${styles.root} ${ok ? styles.rootSuccess : styles.rootFail}`}
       role="dialog"
       aria-modal="true"
-      aria-label={ok ? `突破關口：${result.oldTierName}進至${bigText}` : '突破未成，修為保留'}
+      aria-label={ok ? `突破關口：${result.oldTierName}進至${bigText}` : '突破未成，修為受損'}
       onClick={onClose}
     >
       <div className={styles.grain} aria-hidden />
@@ -92,10 +92,10 @@ export function InkBreakthroughModal({ result, onClose }: Props) {
               </>
             ) : (
               <>
-                <li className={styles.keep}>修為全數保留</li>
+                {!!result.setback && <li>修為－{result.setback.toLocaleString('zh-Hant')}</li>}
                 {typeof result.hpLoss === 'number' && <li>氣血－{result.hpLoss}</li>}
                 {typeof result.qiLoss === 'number' && <li>內力－{result.qiLoss}</li>}
-                <li>調整武學搭配後可再次嘗試</li>
+                <li className={styles.keep}>修為重新儲滿後可再次嘗試</li>
                 {typeof result.chance === 'number' && (
                   <li>本次成功率約 {Math.round(result.chance * 100)}%（根骨、悟性越高越易）</li>
                 )}

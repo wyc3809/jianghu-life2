@@ -37,6 +37,7 @@ import { resolvePackOutcomes } from './outcomeResolver';
 import { isFleeChoice, startCombat } from './combat';
 import { applyChoiceNature } from './nature';
 import { grantEventCultivation } from './cultivation';
+import { retireLife } from './retire';
 import { ROAD_ENCOUNTER_EVENTS } from '@data/events/roadEncounters';
 import { NATURE_ARC_EVENTS } from '@data/events/natureArcs';
 import { applyNarrateOverrideToEffects } from '@data/events/narrateOverrides';
@@ -343,12 +344,19 @@ export function applyChoice(
 
   const tags = event.tags ?? [];
   const mechanicsText = choice.mechanicsText ?? choice.text;
+  // 金盆洗手：呢個選項先寫 retired 先算（舊檔已有旗標唔會無故歸隱）
+  const wasRetired = Boolean(state.character.flags.retired);
 
-  // 戰鬥事件：非逃避選項 → 進入回合制交手（外功可出招，內功僅被動）
-  if (
-    (tags.includes('combat') || /duel|assassin|bandit|rival/.test(event.id)) &&
-    !isFleeChoice(choice.id, mechanicsText)
-  ) {
+  // 戰鬥事件：選項寫明 combat 就照寫；未寫就係 combat 標籤＋非逃避選項 → 回合制交手。
+  // 唔再用 event id 估（id 含 rival 嘅故人短弧會死循環，2026-10-25 審計 A1）。
+  const startsCombat = choice.combat ?? (tags.includes('combat') && !isFleeChoice(choice.id, mechanicsText));
+  if (startsCombat) {
+    // 開打會跳過選項結果；選項入面嘅旗標（完成標記等）照寫，免得同一事件重複彈出
+    if (choice.outcomes.length === 1) {
+      for (const eff of choice.outcomes[0]!.effects) {
+        if (eff.type === 'flag') state.character.flags[eff.key] = eff.value;
+      }
+    }
     const bossCfg = tags.includes('boss') ? getBossFightConfig(event.id) : undefined;
     const foeName =
       bossCfg?.foeName ??
@@ -516,15 +524,18 @@ export function applyChoice(
   feedback = presented.feedback;
   deltas = presented.deltas;
 
-  if (tags.includes('combat') || /duel|assassin|bandit|rival/.test(event.id)) {
-    // 真交手已改走回合制；逃避選項維持敘事結算
-  }
-
   markEventComplete(state, event.id);
   grantEventCultivation(state);
   state.pending = null;
   const titleForLog = event.title;
   pushChronicle(state, [`「${titleForLog}」——${choice.text}`, feedback, ...deltas]);
+
+  if (!wasRetired && state.character.flags.retired === true && state.character.alive) {
+    // 事件歸隱唔限境界；結算同死亡一樣（審計 C2）
+    retireLife(state, true);
+    snapshotRng(state);
+    return { state, logs, deltas, feedback, died: false };
+  }
 
   if (died || !state.character.alive) {
     if (!state.character.flags.death_cause) {

@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { effectiveCultivationRate } from '@core/life/cultivation';
 import { idleSilverCap, idleSilverPending, idleSilverPerHour } from '@core/life/idleHarvest';
-import { sparSavedStage, sparStageReward } from '@core/life/sparDuel';
+import { sparSavedStage, sparStageClearXp, sparStageReward } from '@core/life/sparDuel';
 import { InkIcon } from './InkIcon';
 import './spar-home.css';
 
@@ -44,7 +44,7 @@ export function InkIdleHarvest({ state, onHarvest, busy }: {
       <dl className="ink-idle-details">
         <div><dt><InkIcon name="censer" size={24} />掛機修為</dt><dd>＋{effectiveCultivationRate(state).toFixed(2)}<small>／秒</small></dd></div>
         <div><dt><InkIcon name="silver" size={24} />掛機銀兩</dt><dd>＋{idleSilverPerHour(state).toFixed(1)}<small>／時</small></dd></div>
-        <div><dt><InkIcon name="swords" size={24} />演武每關</dt><dd><span>銀兩＋{reward.silver}</span><span>修為＋{reward.xp}</span></dd></div>
+        <div><dt><InkIcon name="swords" size={24} />演武每關</dt><dd><span>銀兩＋{reward.silver}</span><span>修為＋{sparStageClearXp(state, sparSavedStage(state)).toLocaleString('zh-Hant')}</span></dd></div>
       </dl>
       <div className="ink-idle-pending"><span>待收成銀兩{pending >= cap && <em>已滿</em>}</span>
         <strong>{pending.toLocaleString('zh-Hant')}<small>／{cap.toLocaleString('zh-Hant')}</small></strong>

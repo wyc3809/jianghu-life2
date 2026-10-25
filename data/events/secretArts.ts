@@ -357,6 +357,7 @@ const RAW: GameEvent[] = [
       {
         id: 'humble',
         text: '以禮化解',
+        combat: false,
         outcomes: [
           {
             effects: [
@@ -389,6 +390,7 @@ const RAW: GameEvent[] = [
       {
         id: 'trap',
         text: '假裝入睡，伺機反制',
+        combat: false,
         outcomes: [
           {
             effects: [
@@ -402,6 +404,7 @@ const RAW: GameEvent[] = [
       {
         id: 'yell',
         text: '大喊有賊',
+        combat: false,
         outcomes: [{ effects: [{ type: 'narrate', text: '你大喊有賊，客棧立刻喧鬧起來。燈火亂晃，黑影早已無踪。譜還在，人已散——有時候喊一聲，比追一程更管用。' }] }],
       },
     ],

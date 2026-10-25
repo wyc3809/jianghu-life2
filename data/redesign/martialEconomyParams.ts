@@ -36,5 +36,24 @@ export const EVENT_FOE_CONTROL_CHANCE = 0.12;
 export const EVENT_FOE_BLIND = 0.1;
 export const EVENT_FOE_DEFENSE_BREAK = 2;
 export const EVENT_FOE_ATK_MULT = { weak: 1, normal: 1, strong: 1.1, boss: 1.3 } as const;
+/**
+ * 江湖事件對手基準：每個境界嘅「中位數人物」（氣血上限、交手攻擊、武學）。
+ * 敵人按呢個基準生成，唔再跟玩家當刻數值縮放——同境界配裝好就打得輕鬆，差就會輸
+ * （2026-10-25 審計 B3，玩家揀「改跟境界」）。
+ * 來源：固定種子 8 條人生 × 600 個月模擬（每月 30 分鐘掛機、揀第一個非逃避選項）各境界中位數，
+ * 見 production/balance/audit-ea091.md。頂境冇上限，沿用第 14 境數值。
+ */
+export const EVENT_FOE_BASELINE: readonly { maxHp: number; attack: number; martial: number }[] = [
+  { maxHp: 312, attack: 19, martial: 8 }, { maxHp: 319, attack: 21, martial: 16 },
+  { maxHp: 345, attack: 24, martial: 28 }, { maxHp: 390, attack: 26, martial: 38 },
+  { maxHp: 426, attack: 30, martial: 54 }, { maxHp: 467, attack: 37, martial: 70 },
+  { maxHp: 499, attack: 44, martial: 89 }, { maxHp: 550, attack: 63, martial: 112 },
+  { maxHp: 606, attack: 71, martial: 144 }, { maxHp: 667, attack: 81, martial: 181 },
+  { maxHp: 746, attack: 91, martial: 222 }, { maxHp: 845, attack: 107, martial: 282 },
+  { maxHp: 921, attack: 127, martial: 359 }, { maxHp: 1022, attack: 147, martial: 435 },
+  { maxHp: 1192, attack: 225, martial: 713 },
+];
+/** 事件對手難度（按對手強度乘基準氣血、攻擊；1＝同境界中位數人物）。玩家揀「中等」：普通／弱×1.6、強敵×1.3、首領×1.0（模擬勝率見審計報告 B3；待試玩） */
+export const EVENT_FOE_DIFFICULTY = { weak: 1.6, normal: 1.6, strong: 1.3, boss: 1 } as const;
 /** 日常有效修煉候選；整裝、飲酒及失敗操作不計。 */
 export const DAILY_TRAINING_ACTIONS: readonly string[] = ['train_martial','train_internal','temper_body','sect_ask_elder','sect_guard','sect_meditate'];

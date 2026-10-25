@@ -1,5 +1,5 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
-import { PRACTICE_ACTIONS, SECT_INNER_ACTIONS, SECT_DEFS, ART_DEFS, type PracticeActionId } from '@core/life/actions';
+import { PRACTICE_ACTIONS, SECT_INNER_ACTIONS, SECT_DEFS, ART_DEFS, fineForgeCost, fullHealCost, sectDonateCost, type PracticeAction, type PracticeActionId } from '@core/life/actions';
 import { natureGateHint } from '@core/life/nature';
 import { describeSectProgress } from '@core/life/sectStanding';
 import { artProficiency, ART_MASTERY_THRESHOLD } from '@core/life/arts';
@@ -16,7 +16,20 @@ const PRACTICE_ICON: Partial<Record<PracticeActionId, InkAiAssetId>> = {
   seek_child: 'motif-lantern',
   designate_heir: 'motif-jade',
   equip_best: 'motif-sword',
+  forge_fine: 'motif-sword',
+  heal_full: 'motif-lantern',
 };
+
+/** 有價錢嘅項目顯示實際費用（審計 B4） */
+function actionHint(act: PracticeAction, state: LifeGameState): string {
+  const c = state.character;
+  if (act.id === 'heal_full') return `費銀${fullHealCost(c)}兩，氣血回滿`;
+  if (act.id === 'forge_fine') return `費銀${fineForgeCost(state)}兩，境界越高越易出好兵器`;
+  if (act.id === 'sect_donate') {
+    return Number(c.flags.sect_donate_month ?? -1) === c.stats.monthsLived ? '本月已捐' : `費銀${sectDonateCost(c)}兩，必得晉升；每月一次`;
+  }
+  return act.hint;
+}
 
 function RowIcon({ icon, label }: { icon?: InkAiAssetId; label: string }) {
   return <InkBadge src={motifBadgeIconUrl(icon)} label={label} size={64} className="ink-row-badge" />;
@@ -85,7 +98,7 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
                 <RowIcon icon={PRACTICE_ICON[act.id]} label={act.label} />
                 <span className="ink-practice-btn-text">
                   <strong>{act.label}</strong>
-                  <span>{act.hint}</span>
+                  <span>{actionHint(act, state)}</span>
                 </span>
               </button>
             ))}
@@ -148,7 +161,7 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
                     }}
                   >
                     <strong>{act.label}</strong>
-                    <span>{act.hint}</span>
+                    <span>{actionHint(act, state)}</span>
                   </button>
                 ))}
                 <button

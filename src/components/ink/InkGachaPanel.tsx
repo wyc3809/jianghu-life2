@@ -10,6 +10,7 @@ import {
   PAGES_PER_DUPLICATE,
   PAGES_PER_EXCHANGE,
   TEST_PAID_JADE_GRANT,
+  TEST_SILVER_SINKS,
 } from '@data/redesign/testParams';
 import { VOLUME_COUNT, hasVolumes, volumeLabel } from '@data/skills/volumes';
 import { gachaBaseOdds } from '@core/life/gachaOdds';
@@ -17,7 +18,7 @@ import { collectionVolumes } from '@core/life/volumes';
 import { equippedMartialArts } from '@core/life/martialLoadout';
 import { activeSchoolGachaPool, schoolGachaPools } from '@core/life/schoolGachaPools';
 import { primarySchoolOfSkill, SCHOOLS, type SchoolId } from '@data/redesign/schools';
-import { BANNERS, FREE_POOL, bannerState, spendableJade, wishPool, manualUpgradeCost, type BannerId } from '@core/life/gacha';
+import { BANNERS, FREE_POOL, bannerState, spendableJade, wishPool, manualUpgradeCost, testPaidJadeClaimedToday, silverPagesLeft, type BannerId } from '@core/life/gacha';
 import { useAncestryStore } from '../../store/ancestryStore';
 import { useLifeStore } from '../../store/lifeStore';
 import { playInkTap } from '../../audio/inkAudio';
@@ -48,6 +49,10 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
   const pulp = useAncestryStore((s) => s.pulpManual);
   const exchange = useAncestryStore((s) => s.exchangePages);
   const grantTest = useAncestryStore((s) => s.grantTestJade);
+  // meta 改咗（領完）會重新 render；跨日要重開秘笈閣先刷新，夠用
+  const testClaimed = testPaidJadeClaimedToday(meta, Date.now());
+  const buySilverPages = useAncestryStore((s) => s.buySilverPages);
+  const silverLeft = silverPagesLeft(meta, Date.now());
   const learn = useAncestryStore((s) => s.learnManual);
   const combatBusy = useLifeStore((s) => Boolean(s.state?.pendingCombat || s.combatReplay));
   const [banner, setBanner] = useState<BannerId>('jianghu');
@@ -122,7 +127,7 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
       <div className="ink-codex-wallet" aria-label="玉石餘額">
         <span><InkIcon name="jade" size={18} />免費 <b>{jade.free.toLocaleString('zh-Hant')}</b></span>
         <span><InkIcon name="jade-paid" size={18} />付費測試 <b>{jade.paidTest.toLocaleString('zh-Hant')}</b></span>
-        <button type="button" aria-label={`領測試額度＋${TEST_PAID_JADE_GRANT}`} onClick={grantTest}>＋</button>
+        <button type="button" aria-label={testClaimed ? '今日已領測試額度' : `領測試額度＋${TEST_PAID_JADE_GRANT}`} disabled={testClaimed} onClick={grantTest}>＋</button>
       </div>
       {view === 'draw' && <div className="ink-codex-draw">
         <div className="ink-codex-banners" role="tablist" aria-label="卡池">
@@ -186,6 +191,12 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
               </button>
             </div>
             <p className="ink-note">每200書頁可自選一卷未持有的江湖外功；內功及身法按整門兌換。已收錄的卷不會重複扣頁。</p>
+            <div className="ink-pages">
+              <span>今世銀兩 <b>{state.character.money.toLocaleString('zh-Hant')}</b>兩</span>
+              <button type="button" className="ink-btn ink-btn--quiet" disabled={silverLeft <= 0 || state.character.money < TEST_SILVER_SINKS.pagesSilverCost} onClick={buySilverPages}>
+                {silverLeft <= 0 ? '今日已換完' : `${TEST_SILVER_SINKS.pagesSilverCost}兩換${TEST_SILVER_SINKS.pagesPerExchange}頁（今日剩${silverLeft}次）`}
+              </button>
+            </div>
             <InkSchoolTabs value={shelfSchool} onChange={setShelfSchool} allowAll label="收藏流派分類" />
             {shelf.length === 0 ? (
               <p className="ink-note">尚無收藏，可返回抽取或使用書頁兌換。</p>
@@ -242,7 +253,7 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
           </div>
           <p>更換流派／小冊保留保底；心願不在新冊時須重新選擇。武學可跨派裝備。</p>
           <p>付費玉石為模擬測試額度，不收取真實款項。</p>
-          <button className="ink-btn" type="button" onClick={grantTest}>領測試額度＋{TEST_PAID_JADE_GRANT}</button>
+          <button className="ink-btn" type="button" disabled={testClaimed} onClick={grantTest}>{testClaimed ? '今日已領測試額度' : `領測試額度＋${TEST_PAID_JADE_GRANT}（每日一次）`}</button>
         </>}
         {sheet === 'school' && <><InkSchoolTabs value={pool.school} label="抽卡流派" onChange={id => { if (id !== 'all') { selectPool(banner,schoolGachaPools(banner,id)[0]!.id); setSheet(null); } }} /><p>流派限定本冊抽取範圍，裝備可自由跨派配搭。</p></>}
         {sheet === 'catalog' && <><p>{school.name} · 第{pool.part}冊 · {pool.arts.length}門</p><p>{school.blurb}</p>

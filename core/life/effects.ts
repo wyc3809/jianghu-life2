@@ -74,7 +74,8 @@ export function applyEffects(state: LifeGameState, effects: GameEffect[]): Effec
         }
         break;
       case 'health':
-        c.health = clamp(c.health + eff.amount, 0, c.maxHealth);
+        // 普通事件扣血最多扣到 1，唔會致死；要死就要明寫 die（2026-10-25 審計，玩家揀「普通事件唔致死」）
+        c.health = clamp(c.health + eff.amount, eff.amount < 0 ? Math.min(1, c.health) : 0, c.maxHealth);
         if (eff.amount !== 0) {
           const line = `氣血${eff.amount > 0 ? '＋' : ''}${eff.amount}`;
           logs.push(line);

@@ -18,7 +18,7 @@ import {
   cultivationReserveCap,
   releaseCultivationReserve,
 } from '../core/life/cultivation';
-import { TEST_CULTIVATION_RESERVE_RATIO } from '../data/redesign/testParams';
+import { TEST_BREAKTHROUGH_FAIL_XP_LOSS, TEST_CULTIVATION_RESERVE_RATIO } from '../data/redesign/testParams';
 import { createNewLife, migrateLifeState } from '../core/life/gameState';
 import { lifeGameStateSchema, type LifeGameState } from '../interfaces/lifeEngine';
 import { initRng } from '../core/random';
@@ -284,15 +284,17 @@ describe('cultivation: breakthrough', () => {
       if (!result.success && !sawFailure) {
         sawFailure = true;
         expect(state.character.cultivation.tier).toBe(before.tier);
-        // 失敗保留修為（agreed-design §3）
-        expect(state.character.cultivation.xp).toBe(currentCultivationTier(state).cap);
-        expect(result.setback).toBe(0);
+        // 失敗扣修為（審計 B1，取代舊「失敗保留修為」）：要儲返滿先可以再試
+        const cap = currentCultivationTier(state).cap;
+        expect(result.setback).toBe(Math.round(cap * TEST_BREAKTHROUGH_FAIL_XP_LOSS));
+        expect(state.character.cultivation.xp).toBe(cap - result.setback!);
+        expect(canAttemptBreakthrough(state)).toBe(false);
         // 玩家決定：失敗只扣氣血內力，唔落內傷
         expect(state.character.conditions.some((x) => x.id === 'internal')).toBe(false);
         expect(result.chance).toBeGreaterThan(0);
         expect(state.character.health).toBeLessThan(before.health);
         expect(state.character.qi).toBeLessThanOrEqual(before.qi);
-        expect(result.lines.join('')).toContain('修為保留');
+        expect(result.lines.join('')).toContain('修為儲滿可再試');
         expect(result.oldTierName).toBe(currentCultivationTier(state).name);
         expect(result.newTierName).toBeUndefined();
         expect(result.hpLoss).toBeGreaterThan(0);
