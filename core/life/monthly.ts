@@ -1,7 +1,6 @@
 import type { LifeGameState, WorldState, StoryState, LifeCondition } from '@interfaces/lifeEngine';
 import { getRng } from '@core/random';
 import { tryMonthlyBirth } from './family';
-import { recordDeath } from './death';
 import { tickLifeArc } from './arcs';
 import { tickMonthlyEconomy } from './economy';
 import { tickSectMonth } from './sectLife';
@@ -150,12 +149,9 @@ export function simulateMonthBody(state: LifeGameState): void {
   ];
   if (monthBits.length) pushChronicle(state, monthBits);
 
-  if (c.health <= 0) {
-    c.health = 0;
-    if (c.alive) {
-      recordDeath(state, '氣血耗盡，倒於旅途。');
-    }
-  }
+  // 每月傷勢／中毒／流血最多扣到剩 1 血，唔會自己致死（2026-10-25 審計，玩家同意同普通事件一樣）；
+  // 要死只有生死戰同明寫身亡嘅事件
+  if (c.alive && c.health < 1) c.health = 1;
 }
 
 export function seasonLabel(month: number): string {
