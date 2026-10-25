@@ -1145,4 +1145,8 @@ iOS／Codemagic準備工程一併接入main，Apple版本保留1.0、build由App
 - B5 保留；靜月免費翻月唔改。
 - C3 清理：刪 `core/life/stages.ts`、舊突破玉石常數；`auditBalance.mts` 改用現行突破玉石公式；新增 `scripts/balance/lifeSim.mts`。**已實作**。
 
-第45項前後圖及操作數據：`production/qa/evidence/redesign/audit-ea091/README.md`。全部未上線，待玩家睇圖。
+第45項前後圖及操作數據：`production/qa/evidence/redesign/audit-ea091/README.md`。
+
+### 第45項／EA0.92.0 發布確認（2026-10-25）
+
+玩家檢視前後對比圖後回覆「上線」。第45項玩家已確認，EA0.92.0 上線；本段取代第45項「未上線、待睇圖」狀態。所有新數值仍屬 testParams／martialEconomyParams 候選值，待試玩配平；每月傷勢扣血致死路徑未改，待玩家決定。
