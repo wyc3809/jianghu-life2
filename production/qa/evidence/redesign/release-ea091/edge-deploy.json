@@ -1,0 +1,10 @@
+{
+  "name": "jianghu-world",
+  "version": 2,
+  "status": "ACTIVE",
+  "verify_jwt": true,
+  "bundle_sha256": "2ff12c589a42bc2d38c2234b65ff4f81d039fe0c366f368d434ffb7d88ed1b72",
+  "source_commit": "066930723c530240790eed348a66dcc18bf02ce9",
+  "schemaChanged": false,
+  "previousVersion": 1
+}
