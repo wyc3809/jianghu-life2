@@ -1,0 +1,43 @@
+
+> jianghu-engine@0.91.0-ea build:pages
+> VITE_BASE=/jianghu-life2/ npm run build
+
+
+> jianghu-engine@0.91.0-ea build
+> tsc --noEmit && vite build
+
+vite v6.4.3 building for production...
+transforming...
+✓ 505 modules transformed.
+rendering chunks...
+[plugin vite:reporter]
+(!) /workspace/jianghu-testflight-setup/core/life/gameState.ts is dynamically imported by /workspace/jianghu-testflight-setup/src/cloud/localBridge.ts but also statically imported by /workspace/jianghu-testflight-setup/core/life/actions.ts, /workspace/jianghu-testflight-setup/core/life/bonds.ts, /workspace/jianghu-testflight-setup/core/life/combat.ts, /workspace/jianghu-testflight-setup/core/life/cultivation.ts, /workspace/jianghu-testflight-setup/core/life/eventEngine.ts, /workspace/jianghu-testflight-setup/core/life/family.ts, /workspace/jianghu-testflight-setup/core/life/foundedSect.ts, /workspace/jianghu-testflight-setup/core/life/huashan.ts, /workspace/jianghu-testflight-setup/core/life/jianghuEventRepository.ts, /workspace/jianghu-testflight-setup/core/life/manualFragments.ts, /workspace/jianghu-testflight-setup/core/life/outcomeResolver.ts, /workspace/jianghu-testflight-setup/core/life/saveIndexedDb.ts, /workspace/jianghu-testflight-setup/src/store/slices/progressionSlice.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter]
+(!) /workspace/jianghu-testflight-setup/core/life/saveIndexedDb.ts is dynamically imported by /workspace/jianghu-testflight-setup/src/cloud/localBridge.ts, /workspace/jianghu-testflight-setup/src/cloud/localBridge.ts, /workspace/jianghu-testflight-setup/src/cloud/localBridge.ts, /workspace/jianghu-testflight-setup/src/components/ink/InkStartScreen.tsx but also statically imported by /workspace/jianghu-testflight-setup/src/components/ink/InkCloudSection.tsx, /workspace/jianghu-testflight-setup/src/components/ink/InkSaveStatus.tsx, /workspace/jianghu-testflight-setup/src/store/lifeStore.ts, /workspace/jianghu-testflight-setup/src/store/persistSchedule.ts, /workspace/jianghu-testflight-setup/src/store/slices/progressionSlice.ts, dynamic import will not move module into another chunk.
+
+computing gzip size...
+dist/index.html                              1.27 kB │ gzip:   0.59 kB
+dist/assets/wuxia-titles-DuK567Iq.woff2    210.12 kB
+dist/assets/InkOnlinePanel-DRfzmSAf.css      6.80 kB │ gzip:   1.87 kB
+dist/assets/DuelFx-C-t2mby_.css              8.17 kB │ gzip:   2.43 kB
+dist/assets/HighlightFx-DKd_2j-T.css        22.79 kB │ gzip:   5.22 kB
+dist/assets/index-DFN7B8ze.css             239.69 kB │ gzip:  45.55 kB
+dist/assets/online-DkgYQa6n.js               1.36 kB │ gzip:   0.87 kB
+dist/assets/HighlightDemo-B0drG5s9.js        2.82 kB │ gzip:   1.52 kB
+dist/assets/CodexStage-DWX9KO4w.js           2.93 kB │ gzip:   1.51 kB
+dist/assets/codex-B5qBupz6.js                8.28 kB │ gzip:   3.39 kB
+dist/assets/InkOnlinePanel-DjN2US5Q.js      16.90 kB │ gzip:   6.51 kB
+dist/assets/DuelFx-D5S4_Kl3.js              34.63 kB │ gzip:  13.04 kB
+dist/assets/HighlightFx-9vkQqBEM.js         58.49 kB │ gzip:  21.31 kB
+dist/assets/particles-CPZHKqCJ.js           76.32 kB │ gzip:  29.93 kB
+dist/assets/index-D5bMjAqh.js              227.81 kB │ gzip:  59.26 kB
+dist/assets/vendor-BW_UMXlD.js             279.13 kB │ gzip:  84.43 kB
+dist/assets/three.module-B7jpce71.js       566.37 kB │ gzip: 143.31 kB
+dist/assets/index-DSYT7mKJ.js            1,503.80 kB │ gzip: 551.48 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 11.32s

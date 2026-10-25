@@ -1,3 +1,5 @@
+最新發布安排（2026-10-25）：玩家已確認第43、44項並要求上線，內容升至EA0.91.0，包含書頁養成、回內及雙配搭。沿用Apple版本1.0，Codemagic選main或已對齊的work/testflight-prep-ea088及ios-internal-testflight；本次未宣稱已上傳Apple。
+
 # 《江湖一生》iOS／TestFlight準備
 
 最新發布安排（2026-10-24）：玩家已確認第39至42項並要求上線，內容升至EA0.90.0。網頁發布及Mac工程驗證記錄見`production/qa/evidence/redesign/release-ea090/`；iOS仍沿用Apple版本1.0，真正上傳build由Codemagic查Apple後遞增。此環境沒有可操作的Codemagic／Apple連線，未觸發其上傳；擁有者可用原分支的「江湖一生 iOS 首次內測」建置新版。

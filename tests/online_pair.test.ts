@@ -130,3 +130,20 @@ it('test_pair_http_偽造JWT及跨站_入核心前拒絕', async () => {
   const options = await handler(new Request('https://test.invalid', { method: 'OPTIONS', headers: { Origin: 'https://wyc3809.github.io' } }));
   expect(options.headers.get('Access-Control-Allow-Origin')).toBe('https://wyc3809.github.io');
 });
+
+it('test_pair_http_iOS固定來源_允許預檢但仍驗證身份', async () => {
+  // 原生App固定使用capacitor://localhost，不能開放任意同名scheme主機。
+  let authCalls = 0;
+  const handler = createPairHandler({ url: 'https://test.invalid', anonKey: 'test-public', serviceKey: 'test-private' }, async () => { authCalls++; return new Response('{}', { status: 401 }); });
+  const options = await handler(new Request('https://test.invalid', { method: 'OPTIONS', headers: { Origin: 'capacitor://localhost' } }));
+  expect(options.status).toBe(200);
+  expect(options.headers.get('Access-Control-Allow-Origin')).toBe('capacitor://localhost');
+  expect(authCalls).toBe(0);
+  const forged = await handler(new Request('https://test.invalid', { method: 'POST', headers: { Origin: 'capacitor://localhost', Authorization: 'Bearer fake' }, body: '{}' }));
+  expect(forged.status).toBe(401);
+  expect(forged.headers.get('Access-Control-Allow-Origin')).toBe('capacitor://localhost');
+  expect(authCalls).toBe(1);
+  const other = await handler(new Request('https://test.invalid', { method: 'OPTIONS', headers: { Origin: 'capacitor://evil.invalid' } }));
+  expect(other.status).toBe(403);
+  expect(other.headers.get('Access-Control-Allow-Origin')).toBeNull();
+});
