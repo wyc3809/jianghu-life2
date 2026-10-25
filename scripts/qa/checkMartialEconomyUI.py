@@ -5,7 +5,7 @@ import copy,json,os,re
 ROOT=Path(__file__).resolve().parents[2]
 BASE=os.getenv('MARTIAL_UI_BASE','http://127.0.0.1:5188/')
 LABEL=os.getenv('MARTIAL_UI_LABEL','after')
-OUT=ROOT/'production/qa/evidence/redesign/martial-economy'/LABEL
+OUT=ROOT/'production/qa/evidence/redesign/martial-economy-v2/typography'/LABEL
 OUT.mkdir(parents=True,exist_ok=True)
 fixture=json.loads((ROOT/'.local-online/codex-quality/fixtures.json').read_text())[0]
 fixture=copy.deepcopy(fixture)
@@ -47,7 +47,7 @@ window.webkit={messageHandlers:{bridge:{postMessage(){}}}};})();''')
    page.get_by_role('button',name='關閉卡池詳情').click()
    page.get_by_role('button',name=re.compile('^家族收藏')).click()
    page.locator('.ink-codex-shelf').wait_for()
-   if LABEL!='before':assert '首次兌換外功會收錄完整七卷' in page.locator('.ink-codex-shelf').inner_text()
+   if LABEL!='before':assert '每200書頁可自選一卷未持有的江湖外功' in page.locator('.ink-codex-shelf').inner_text()
    page.screenshot(path=str(OUT/f'{tag}-shelf.png'))
    page.locator('.ink-codex-back').click()
    page.get_by_role('button',name='返回鎮居',exact=True).click()

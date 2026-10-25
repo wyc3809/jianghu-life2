@@ -1,4 +1,8 @@
 import { SparRounds } from './sparRounds';
+import { sumInternalPassives, sumEvasionBonus, type CombatMoveDef } from '@data/skills/catalog';
+import type { CombatFighterState } from '@interfaces/lifeEngine';
+import { applyOnHitEffects, applyControl, consumeStun, tickStatus } from './combatCore';
+import { BOSS_CONTROL_RESISTANCE, SPAR_FOE_DEFENSE } from '@data/redesign/martialEconomyParams';
 import { equippedMartialArts } from './martialLoadout';
 import {
   SPAR_BOSS_ATK_MUL,
@@ -48,6 +52,9 @@ export interface SparHeroStats {
   killHeal: number;
   /** 減傷比例 0..0.6 */
   guard: number;
+  evasion?: number;
+  reflect?: number;
+  gearLifesteal?: number;
 }
 
 /** 修為境界每升一境，演武數值 ×1.32（對應 15 境曲線，頂境約 ×48） */
@@ -86,7 +93,9 @@ export function sparHeroBreakdown(state: LifeGameState): SparHeroBreakdown {
   const scale = SPAR_TIER_SCALE ** tier;
   const martial = Math.max(0, c.martial + gear.martialBonus);
   const hp = { fromHealth: c.maxHealth, fromMartial: 0 };
-  const atk = { base: 24, fromMartial: martial * 1.6, fromWeapon: gear.attack * 3 };
+  const passive = sumInternalPassives(equippedMartialArts(c), c.skillRanks, c.manualStars);
+  const gearFx = sumGearCombatBonuses(c);
+  const atk = { base: 24 + (passive.attack ?? 0), fromMartial: martial * 1.6, fromWeapon: gear.attack * 3 };
   const crit = {
     base: CRIT_BASE,
     fromDanShi: (c.attributes.danShi ?? 0) * 0.003,
@@ -113,15 +122,18 @@ export function sparHeroBreakdown(state: LifeGameState): SparHeroBreakdown {
     skillNames: stealSkills,
   };
   const heal = { skillNames: healSkills, onKill: healSkills.length ? SPAR_KILL_HEAL : 0 };
-  const guard = { fromArmor: gear.defense * 0.012, cap: GUARD_CAP };
+  const guard = { fromArmor: 1 - (1 - Math.min(GUARD_CAP, gear.defense * 0.012)) * (100 / (100 + (passive.defense ?? 0))), cap: GUARD_CAP };
   const stats: SparHeroStats = {
-    maxHp: Math.max(1, Math.round(c.maxHealth)),
+    maxHp: Math.max(1, Math.round(c.maxHealth + (c.flags.caps_include_internal ? 0 : passive.maxHp ?? 0))),
     atk: Math.round((atk.base + atk.fromMartial + atk.fromWeapon) * scale),
     critRate: Math.min(CRIT_CAP, crit.base + crit.fromDanShi + crit.fromWuXing),
     critMul: 1.85,
     lifesteal: Math.min(LIFESTEAL_CAP, lifesteal.fromSkills + lifesteal.fromGear),
     killHeal: heal.onKill,
     guard: Math.min(GUARD_CAP, guard.fromArmor),
+    evasion: Math.min(.5, sumEvasionBonus(equippedMartialArts(c),c.skillRanks,c.manualStars) + gearFx.evasion),
+    reflect: Math.min(.4, (passive.reflect ?? 0) + gearFx.reflect),
+    gearLifesteal: gearFx.lifesteal,
   };
   return { stats, tier, scale, hp, atk, crit, lifesteal, heal, guard, martial, gearAttack: gear.attack, gearDefense: gear.defense };
 }
@@ -293,6 +305,7 @@ export interface SparHeroHit {
 }
 
 export interface SparFoeHit {
+  foeKilled?: boolean;
   dmg: number;
   heroDown: boolean;
   /** 敵人特性觸發（蓄力、狂怒、噬血、連擊） */
@@ -328,6 +341,10 @@ export function sparRand(seed: number, stage: number): SparRand {
   return () => rng.nextFloat();
 }
 
+function statusFighter(): CombatFighterState {
+  return {name:'',hp:1,maxHp:1,qi:0,maxQi:0,attack:0,defense:0,hitBonus:0,evasion:0,qiRegen:0,blind:0,isPlayer:false,stun:0,bleedDamage:0,bleedTurns:0,defenseMod:0,reflect:0,chargeBonus:0};
+}
+
 /** 一場演武嘅狀態機；engine 每次劍鋒到肉叫 heroStrike()、敵人出手叫 foeStrike() */
 export class SparDuel {
   readonly rounds = new SparRounds();
@@ -338,9 +355,16 @@ export class SparDuel {
   private idx = 0;
   foeHp: number;
   private traits: FoeTraitState;
+  private heroEffects = statusFighter();
+  private foeEffects = statusFighter();
+  private heroStatusRound = 0;
+  private fxRng = createRng(0);
+  readonly usedArtIds = new Set<string>();
 
   constructor(hero: SparHeroStats, stage = 1, private rand: SparRand = sparRand(0, stage)) {
     this.hero = hero;
+    this.fxRng.chance = p => this.rand() < p;
+    this.fxRng.nextFloat = () => this.rand();
     this.stage = Math.max(1, Math.floor(stage));
     this.heroHp = hero.maxHp;
     this.queue = sparStageFoes(this.stage);
@@ -354,6 +378,19 @@ export class SparDuel {
 
   get foe(): SparFoe | null {
     return this.queue[this.idx] ?? null;
+  }
+
+  /** 受控跳過整次行動；動畫及加速不可逐卷消耗控制。 */
+  skipStunnedHero(): boolean {
+    if (!consumeStun(this.heroEffects)) return false;
+    this.rounds.skipHeroAction(); return true;
+  }
+  /** 敵人保護留至真正完成正常行動。 */
+  skipStunnedFoe(): boolean {
+    if(this.foeEffects.stun<=0)return false;
+    this.foeEffects.hp=this.foeHp;this.foeEffects.maxHp=this.foe?.maxHp??1;
+    tickStatus(this.foeEffects);this.foeHp=Math.max(0,this.foeEffects.hp);
+    return consumeStun(this.foeEffects);
   }
 
   /** 當前敵人下一擊係咪蓄力重擊 */
@@ -393,29 +430,52 @@ export class SparDuel {
   }
 
   /** 主角一招：實際招式威力、±10%浮動、暴擊與吸血；命中一次結算一次。 */
-  heroStrike(power = 1): SparHeroHit {
+  heroStrike(power = 1, move?: CombatMoveDef, artId?: string): SparHeroHit {
     const foe = this.foe;
-    if (!foe || this.foeHp <= 0) return { dmg: 0, crit: false, heal: 0, killed: false, bossKilled: false, fx: [], reflect: 0 };
-    const crit = this.rand() < this.hero.critRate;
-    const spread = 0.9 + this.rand() * 0.2;
-    const raw = Math.max(1, Math.round(this.hero.atk * Math.max(0, power) * spread * (crit ? this.hero.critMul : 1)));
-    const t = traitOnFoeHit(this.traits, raw);
-    const dmg = t.dmg;
-    this.foeHp = Math.max(0, this.foeHp - dmg);
-    const room = this.hero.maxHp - this.heroHp;
-    const heal = Math.min(room, Math.round(dmg * this.hero.lifesteal));
-    this.heroHp += heal;
-    // 反震唔會震死主角（留一絲血，等敵人出手先分勝負）
-    const reflect = Math.min(t.reflect, Math.max(0, this.heroHp - 1));
-    this.heroHp -= reflect;
-    const killed = this.foeHp <= 0;
-    return { dmg, crit, heal, killed, bossKilled: killed && foe.boss, fx: t.fx, reflect };
+    if (!foe || this.foeHp <= 0) return { dmg:0,crit:false,heal:0,killed:false,bossKilled:false,fx:[],reflect:0 };
+    if (artId) this.usedArtIds.add(artId);
+    if (this.heroStatusRound !== this.rounds.round) {
+      this.heroEffects.hp=this.heroHp;this.heroEffects.maxHp=this.hero.maxHp;
+      tickStatus(this.heroEffects); this.heroHp=Math.max(1,this.heroEffects.hp);this.heroStatusRound=this.rounds.round;
+    }
+    let total=0,heal=0,reflect=0,crit=false;const fx:TraitFx[]=[];
+    for(let hit=0;hit<Math.max(1,move?.multiHit??1)&&this.foeHp>0;hit++) {
+      const critical=this.rand()<this.hero.critRate;crit ||= critical;
+      const spread=.9+this.rand()*.2;
+      const defense=move ? Math.max(0,SPAR_FOE_DEFENSE[foe.tier]+this.foeEffects.defenseMod)*(1-(move.pierce??0)) : 0;
+      const raw=Math.max(1,Math.round(this.hero.atk*Math.max(0,power)*spread*(critical?this.hero.critMul:1)*100/(100+defense)));
+      const t=traitOnFoeHit(this.traits,raw);fx.push(...t.fx);
+      const damage=Math.min(this.foeHp,t.dmg);total+=damage;this.foeHp=Math.max(0,this.foeHp-damage);
+      const rate=move ? Math.min(.25,(move.lifesteal??0)+(this.hero.gearLifesteal??0)) : this.hero.lifesteal;
+      const gained=Math.min(this.hero.maxHp-this.heroHp,Math.round(damage*rate));heal+=gained;this.heroHp+=gained;
+      const back=Math.min(t.reflect,Math.max(0,this.heroHp-1));reflect+=back;this.heroHp-=back;
+      this.foeEffects.hp=this.foeHp;this.foeEffects.maxHp=foe.maxHp;this.foeEffects.controlResistance=foe.boss?BOSS_CONTROL_RESISTANCE:0;
+      if(move?.stunChance)applyControl(this.foeEffects,move.stunChance,this.fxRng);
+    }
+    if(move) {
+      this.heroEffects.hp=this.heroHp;this.heroEffects.maxHp=this.hero.maxHp;
+      const before=this.heroEffects.hp;
+      const scale=move.power>0?power/move.power:1;
+      applyOnHitEffects(this.heroEffects,this.foeEffects,move,this.fxRng,total>0,scale,false);
+      heal+=Math.max(0,this.heroEffects.hp-before);this.heroHp=Math.max(1,Math.min(this.hero.maxHp,this.heroEffects.hp));
+    }
+    if(this.rounds.phase==='foe')this.heroEffects.stunProtected=false;
+    const killed=this.foeHp<=0;
+    return {dmg:total,crit,heal,killed,bossKilled:killed&&foe.boss,fx,reflect};
   }
 
   /** 敵人一擊：主角減傷後扣血；蓄力／狂怒加倍、噬血回血、分影多打一擊 */
   foeStrike(): SparFoeHit {
     const foe = this.foe;
     if (!foe || this.foeHp <= 0 || this.heroHp <= 0) return { dmg: 0, heroDown: false, fx: [], foeHeal: 0 };
+    this.foeEffects.hp=this.foeHp;this.foeEffects.maxHp=foe.maxHp;
+    tickStatus(this.foeEffects);this.foeHp=Math.max(0,this.foeEffects.hp);
+    if(this.foeHp<=0)return {dmg:0,heroDown:false,fx:[],foeHeal:0,foeKilled:true};
+    if(consumeStun(this.foeEffects))return {dmg:0,heroDown:false,fx:[],foeHeal:0};
+    this.foeEffects.stunProtected=false;
+    const evade=(this.hero.evasion??0)+this.foeEffects.blind;
+    this.foeEffects.blind*=.35;
+    if(evade>0 && this.rand()<Math.min(.85,evade))return {dmg:0,heroDown:false,fx:[],foeHeal:0};
     const atk = traitAttackMult(this.traits, this.foeHp / Math.max(1, foe.maxHp));
     const spread = 0.85 + this.rand() * 0.3;
     let dmg = Math.max(1, Math.round(foe.atk * atk.mult * spread * (1 - this.hero.guard)));
@@ -429,15 +489,18 @@ export class SparDuel {
     }
     const heroDown = this.heroHp - dmg <= 0;
     this.heroHp = Math.max(1, this.heroHp - dmg);
+    const reflected=Math.round(dmg*(this.hero.reflect??0));
+    this.foeHp=Math.max(0,this.foeHp-reflected);
     const foeHeal = Math.min(after.heal, foe.maxHp - this.foeHp);
     this.foeHp += foeHeal;
-    return { dmg, heroDown, fx, foeHeal };
+    return { dmg, heroDown, fx, foeHeal, foeKilled:this.foeHp<=0 };
   }
 
   /** 當前敵人倒下後：換下一個；首領倒下就入下一關（回少少血） */
   advance(): { stageCleared: boolean } {
     if (this.foeHp > 0) return { stageCleared: false };
     this.rounds.nextOpponent();
+    this.foeEffects=statusFighter();this.heroStatusRound=0;this.usedArtIds.clear();
     const wasBoss = this.foe?.boss ?? false;
     if (wasBoss) {
       // 入新一關一律滿血（玩家 2026-10-14）
@@ -468,6 +531,7 @@ export class SparDuel {
   /** 演武敗退：同一關由第一個敵人重新開始，回滿血，唔派過關獎勵。 */
   retreat() {
     this.rounds.reset();
+    this.foeEffects=statusFighter();this.heroEffects=statusFighter();this.heroStatusRound=0;this.usedArtIds.clear();
     this.queue = sparStageFoes(this.stage);
     this.idx = 0;
     this.foeHp = this.queue[0]!.maxHp;

@@ -33,6 +33,7 @@ describe('spar duel (演武台對打)', () => {
   it('test_hero_strike_crit_and_lifesteal', () => {
     const d = new SparDuel(HERO, 1, seq([0.1, 0.5])); // 0.1 < critRate → 暴擊；spread 1.0
     d.heroHp = 500;
+    d.foeHp = 10000;
     const hit = d.heroStrike();
     expect(hit.crit).toBe(true);
     expect(hit.dmg).toBe(200);

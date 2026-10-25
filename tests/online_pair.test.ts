@@ -35,7 +35,7 @@ describe('二人雲端試場', () => {
     const [a, b] = await Promise.all([f.call(host, 'create'), f.call(host, 'create')]) as OnlineSnapshot[];
     expect(f.rows.size).toBe(1); expect(a.me.id).toBe('river');
     expect(b.room).toEqual({ id: host, invite, waiting: true }); expect(b.peers).toHaveLength(1);
-    await expect(f.call(host, 'challenge', { requestId: 'waiting-001', target: 'cloud' })).rejects.toMatchObject({ status: 409 });
+    await expect(f.call(host, 'challenge', { requestId: 'waiting-001' })).rejects.toMatchObject({ status: 409 });
   });
   it('test_pair_邀請綁身份_第三人及非成員均拒絕', async () => {
     const f = fixture(); await f.setup();
@@ -53,7 +53,7 @@ describe('二人雲端試場', () => {
   });
   it('test_pair_交戰重送競爭及重讀_只有一場一次互換', async () => {
     const f = fixture(); await f.setup(); f.failSaves(1);
-    const data = { requestId: 'challenge-001', target: 'cloud' };
+    const data = { requestId: 'challenge-001' };
     const result = await Promise.all([f.call(host, 'challenge', data), f.call(host, 'challenge', data)]);
     expect(result[0]).toEqual(result[1]); expect(f.rows.get(host)?.payload.world.battles).toHaveLength(1);
     f.advance(2000);
@@ -68,8 +68,8 @@ describe('二人雲端試場', () => {
   });
   it('test_pair_主動解除保護與挑戰失敗_名次不變', async () => {
     const f = fixture(); await f.setup();
-    await f.call(host, 'challenge', { requestId: 'challenge-001', target: 'cloud' }); f.advance(2000);
-    await f.call(guest, 'challenge', { requestId: 'challenge-002', target: 'river' }); f.advance(2000);
+    await f.call(host, 'challenge', { requestId: 'challenge-001' }); f.advance(2000);
+    await f.call(guest, 'challenge', { requestId: 'challenge-002' }); f.advance(2000);
     const b = await f.call(guest, 'world') as OnlineSnapshot;
     expect(b.me.rank).toBe(100); expect(b.battles[0].before).toEqual(b.battles[0].after);
     expect(b.battles[0].winner).toBe('river');
@@ -91,19 +91,19 @@ describe('二人雲端試場', () => {
     const claims = await Promise.all([f.call(guest, 'claim', data), f.call(guest, 'claim', data)]);
     expect(claims[0]).toEqual(claims[1]);
     expect((await f.call(guest, 'world') as OnlineSnapshot).me.silver).toBe(1);
-    await expect(f.call(guest, 'challenge', { ...data, target: 'river' })).rejects.toMatchObject({ status: 409 });
+    await expect(f.call(guest, 'challenge', { ...data })).rejects.toMatchObject({ status: 409 });
   });
   it('test_pair_篡改身份戰力配搭_唔修改權威資料', async () => {
     const f = fixture(); await f.setup();
     const before = structuredClone(f.rows.get(host)?.payload.world.players);
-    await expect(f.call(guest, 'challenge', { requestId: 'tamper-0001', target: 'river', damage: 9999 })).rejects.toThrow();
+    await expect(f.call(guest, 'challenge', { requestId: 'tamper-0001', damage: 9999 })).rejects.toThrow();
     await expect(f.call(guest, 'loadout', { requestId: 'tamper-0002', external: ['art_river_fist', 'art_river_fist'], internal: null, qinggong: null })).rejects.toMatchObject({ status: 400 });
     await expect(f.call(guest, 'loadout', { requestId: 'tamper-0003', external: ['art_iron_body'], internal: null, qinggong: null })).rejects.toMatchObject({ status: 400 });
     expect(f.rows.get(host)?.payload.world.players).toEqual(before);
   });
   it('test_pair_CAS繁忙_可安全重試且未寫入', async () => {
     const f = fixture(); await f.setup(); f.failSaves(10);
-    const data = { requestId: 'retry-00001', target: 'cloud' };
+    const data = { requestId: 'retry-00001' };
     await expect(f.call(host, 'challenge', data)).rejects.toMatchObject({ status: 503 });
     expect(f.rows.get(host)?.payload.world.battles).toHaveLength(0);
     await f.call(host, 'challenge', data); expect(f.rows.get(host)?.payload.world.battles).toHaveLength(1);

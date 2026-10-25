@@ -16,6 +16,7 @@ import { VOLUME_COUNT, hasVolumes } from '@data/skills/volumes';
 import { addCollectionVolume } from './volumes';
 import { createRng } from '@core/random';
 import { activeSchoolGachaPool, schoolGachaPools, schoolPoolForArt } from './schoolGachaPools';
+import { MANUAL_STAR_PAGE_COSTS } from '@data/redesign/martialEconomyParams';
 import {
   GACHA_COST_PER_PULL,
   GACHA_ART_RATE,
@@ -23,7 +24,6 @@ import {
   GACHA_PREMIUM_RATE,
   GACHA_WISH_PITY,
   GACHA_WISH_RATE,
-  MANUAL_MAX_STARS,
   PAGES_PER_DUPLICATE,
   PAGES_PER_EXCHANGE,
   TEST_PAID_JADE_GRANT,
@@ -110,6 +110,8 @@ export interface ArtPullResult {
   isNew: boolean;
   isWish: boolean;
   isPremium: boolean;
+  /** 重複結果已自動入帳的書頁，僅作展示。 */
+  duplicatePages?: number;
 }
 
 export interface PagesPullResult {
@@ -171,13 +173,13 @@ export function pull(meta: AncestryMeta, banner: BannerId, n: number): PullResul
       // 外功逐卷出：隨機一卷；已有呢卷＝重複本
       const vol = rng.nextInt(1, VOLUME_COUNT);
       const isNew = addCollectionVolume(meta, id, vol);
-      out.push({ kind: 'art', id, vol, isNew, isWish, isPremium: isPremiumArt(id) });
+      out.push({ kind: 'art', id, vol, isNew, isWish, isPremium: isPremiumArt(id), ...(!isNew ? { duplicatePages: PAGES_PER_DUPLICATE } : {}) });
       continue;
     }
     const owned = m.manuals[id];
-    if (owned) owned.copies += 1;
+    if (owned) m.pages += PAGES_PER_DUPLICATE;
     else m.manuals[id] = { stars: 0, copies: 0 };
-    out.push({ kind: 'art', id, isNew: !owned, isWish, isPremium: isPremiumArt(id) });
+    out.push({ kind: 'art', id, isNew: !owned, isWish, isPremium: isPremiumArt(id), ...(owned ? { duplicatePages: PAGES_PER_DUPLICATE } : {}) });
   }
   return out;
 }
@@ -185,10 +187,17 @@ export function pull(meta: AncestryMeta, banner: BannerId, n: number): PullResul
 /** 重複本升階（最多 MANUAL_MAX_STARS） */
 export function upgradeManual(meta: AncestryMeta, id: string): boolean {
   const e = ensure(meta).manuals[id];
-  if (!e || e.copies < 1 || e.stars >= MANUAL_MAX_STARS) return false;
-  e.copies -= 1;
+  const cost = manualUpgradeCost(meta, id);
+  if (!e || cost === null || (meta.pages ?? 0) < cost) return false;
+  meta.pages! -= cost;
   e.stars += 1;
   return true;
+}
+
+/** 下一階書頁成本；未收藏或已滿階不提供升階。 */
+export function manualUpgradeCost(meta: AncestryMeta, id: string): number | null {
+  const e = meta.manuals?.[id];
+  return e ? MANUAL_STAR_PAGE_COSTS[e.stars] ?? null : null;
 }
 
 /** 重複本轉書頁 */
@@ -202,13 +211,21 @@ export function pulpManual(meta: AncestryMeta, id: string): boolean {
 }
 
 /** 書頁換一門免費池武學（換唔到珍本奇功） */
-export function exchangePages(meta: AncestryMeta, id: string): boolean {
+export function exchangePages(meta: AncestryMeta, id: string, volume?: number): boolean {
   const m = ensure(meta);
   if (!FREE_POOL.includes(id) || m.pages < PAGES_PER_EXCHANGE) return false;
+  if (hasVolumes(id)) {
+    if (!Number.isInteger(volume) || volume! < 1 || volume! > VOLUME_COUNT) return false;
+    // 已有卷不扣頁、不轉重複；舊整本視作七卷全部已持有。
+    const entry = m.manuals[id];
+    if (entry && (!entry.vols || entry.vols.includes(volume!))) return false;
+    m.pages -= PAGES_PER_EXCHANGE;
+    addCollectionVolume(meta, id, volume!);
+    return true;
+  }
+  if (m.manuals[id]) return false;
   m.pages -= PAGES_PER_EXCHANGE;
-  const e = m.manuals[id];
-  if (e) e.copies += 1;
-  else m.manuals[id] = { stars: 0, copies: 0 };
+  m.manuals[id] = { stars: 0, copies: 0 };
   return true;
 }
 

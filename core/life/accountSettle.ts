@@ -1,3 +1,5 @@
+import { recomputeCapBonuses } from './equipment';
+import { settleAccountEconomy } from './accountEconomy';
 /**
  * 人生 ↔ 帳戶結算（純函數；src/store/ancestryStore.ts 每次人生狀態變就叫）：
  *   - 家族里程碑（首次）→ 祖蔭＋免費玉石
@@ -24,8 +26,11 @@ export interface AccountSettlement {
 }
 
 export function settleLifeIntoAccount(meta: AncestryMeta, state: LifeGameState): AccountSettlement {
+  const economyBefore = JSON.stringify(meta.economy ?? null);
+  const flagsBefore = JSON.stringify(state.character.flags);
+  const economyJade = settleAccountEconomy(meta,state,Date.now());
   const milestones = claimFamilyMilestones(meta, state);
-  let jade = milestones.length * JADE_PER_MILESTONE;
+  let jade = milestones.length * JADE_PER_MILESTONE + economyJade;
 
   const seen = new Set(meta.jadeAchv ?? []);
   const fresh = readAchievementIds(state).filter((id) => !seen.has(id));
@@ -41,14 +46,14 @@ export function settleLifeIntoAccount(meta: AncestryMeta, state: LifeGameState):
   const want = manualStarMap(meta);
   const have = state.character.manualStars ?? {};
   const starsDiffer = JSON.stringify(want) !== JSON.stringify(have);
-  if (starsDiffer) state.character.manualStars = want;
+  if (starsDiffer) { state.character.manualStars = want; recomputeCapBonuses(state.character); }
   // 家族收藏嘅外功卷 → 同步落今世角色已學嘅外功
   const volsChanged = syncCollectionVolumes(state.character, meta);
 
   return {
     milestones,
     jade,
-    metaChanged: milestones.length > 0 || fresh.length > 0 || jade > 0,
-    lifeChanged: pending > 0 || starsDiffer || volsChanged,
+    metaChanged: milestones.length > 0 || fresh.length > 0 || jade > 0 || JSON.stringify(meta.economy ?? null) !== economyBefore,
+    lifeChanged: pending > 0 || starsDiffer || volsChanged || JSON.stringify(state.character.flags) !== flagsBefore,
   };
 }

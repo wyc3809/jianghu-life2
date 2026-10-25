@@ -11,13 +11,14 @@ import { sparRoundMoves } from '../../core/life/sparRounds';
 import { sparHeroStats } from '../../core/life/sparDuel';
 import { buildPlayerFighter } from '../../core/life/combat';
 import { snapshotContestantFromLife } from '../../core/life/huashan';
+import { normalPreset } from '../../core/life/loadoutPresets';
 import { calculateCultivationRate } from '../../core/life/cultivation';
 import { SKILL_DEFS, getSkillDef } from '../../data/skills/catalog';
 import { hasVolumes } from '../../data/skills/volumes';
 import { simulateOnlineBattle } from '../../core/online/combat';
 import * as P from '../../data/redesign/testParams';
 
-const out = process.env.MARTIAL_AUDIT_OUT ?? 'production/qa/evidence/redesign/martial-economy';
+const out = process.env.MARTIAL_AUDIT_OUT ?? 'production/qa/evidence/redesign/martial-economy-v2/catalogue-audit';
 mkdirSync(out, { recursive: true });
 const quantiles = (values: number[]) => {
   const sorted = [...values].sort((a, b) => a - b);
@@ -74,13 +75,13 @@ for (const banner of ['jianghu', 'zhenben'] as const) {
 
 const external = FREE_POOL.find(hasVolumes)!;
 const fresh = emptyAncestry(); fresh.pages = P.PAGES_PER_EXCHANGE;
-assert(exchangePages(fresh, external));
+assert(exchangePages(fresh, external, 7));
 const freshVolumes = collectionVolumes(fresh, external);
-assert.equal(freshVolumes.length, 7);
+assert.deepEqual(freshVolumes, [7]);
 const partial = emptyAncestry(); partial.pages = P.PAGES_PER_EXCHANGE;
 partial.manuals = { [external]: { stars: 0, copies: 0, vols: [2] } };
-exchangePages(partial, external);
-assert.deepEqual(collectionVolumes(partial, external), [2]);
+exchangePages(partial, external, 7);
+assert.deepEqual(collectionVolumes(partial, external), [2,7]);
 
 const state = createNewLife({ seed: 42, skipCoach: true, name: '審核少俠' });
 state.character.skills = ['art_river_fist', 'art_iron_body', 'qg_broken_bridge'];
@@ -88,6 +89,7 @@ state.character.equippedArts = ['art_river_fist', null, null, null, null];
 state.character.supportArts = { internal: 'art_iron_body', qinggong: 'qg_broken_bridge' };
 state.character.skillRanks = Object.fromEntries(state.character.skills.map(id => [id, 0]));
 state.character.manualStars = {};
+state.character.combatLoadout=normalPreset(state.character);
 const base = structuredClone(state);
 const trained = structuredClone(base);
 trained.character.skillRanks = Object.fromEntries(state.character.skills.map(id => [id, 3]));
@@ -102,20 +104,20 @@ const withVolumes = [1, 3, 7].map(count => {
 const modes = [base, trained, starred].map((s, i) => ({ type: ['base', 'rank3', 'stars3'][i],
   spar: sparHeroStats(s), sparRoundPower: sparRoundMoves(s.character, 0).reduce((n, m) => n + m.power, 0),
   event: buildPlayerFighter(s), huashanSnapshot: snapshotContestantFromLife(s) }));
-assert.deepEqual(modes[0]!.spar, modes[1]!.spar);
-assert.deepEqual(modes[0]!.huashanSnapshot, modes[2]!.huashanSnapshot);
+assert.notDeepEqual(modes[0]!.spar, modes[1]!.spar);
+assert.notDeepEqual(modes[0]!.huashanSnapshot, modes[2]!.huashanSnapshot);
 const unequipped = structuredClone(base);
 unequipped.character.skills.push(...FREE_POOL.filter(id => !unequipped.character.skills.includes(id)).slice(0, 10));
 const testJade = emptyAncestry(); grantTestPaidJade(testJade); grantTestPaidJade(testJade);
 const battle = simulateOnlineBattle(base.character, structuredClone(base.character), 42);
 const externalRank = structuredClone(base.character);
 externalRank.skillRanks!['art_river_fist'] = 3;
-const rankIgnoredOnline = Array.from({ length: 16 }, (_, seed) => {
+const rankHasEffectOnline = Array.from({ length: 16 }, (_, seed) => {
   const ordinary = simulateOnlineBattle(base.character, base.character, seed);
   const ranked = simulateOnlineBattle(externalRank, base.character, seed);
-  return JSON.stringify(ordinary) === JSON.stringify(ranked);
+  return JSON.stringify(ordinary) !== JSON.stringify(ranked);
 });
-assert(rankIgnoredOnline.every(Boolean));
+assert(rankHasEffectOnline.some(Boolean));
 
 // 每派各一門一般／珍本、三卷、同基礎數值、無兵器；這是差異篩查，不是最強配搭榜。
 const profiles = SCHOOL_GACHA_POOLS.filter(p => p.banner === 'zhenben').flatMap(pool =>
@@ -131,6 +133,7 @@ const profiles = SCHOOL_GACHA_POOLS.filter(p => p.banner === 'zhenben').flatMap(
     c.supportArts = { internal: 'art_iron_body', qinggong: 'qg_broken_bridge' };
     c.skillRanks = Object.fromEntries(c.skills.map(s => [s, 0])); c.manualStars = {};
     c.volumes = { [id]: [1, 2, 3] };
+    c.combatLoadout=normalPreset(c);
     return { key: c.name, art: id, character: c };
   }));
 const matchups = profiles.flatMap(a => profiles.filter(b => b.key !== a.key).map(b => {
@@ -143,17 +146,17 @@ const matchups = profiles.flatMap(a => profiles.filter(b => b.key !== a.key).map
 const catalogue = Object.values(SKILL_DEFS).map(d => ({ id: d.id, name: d.name, kind: d.kind, premium: !!d.premium,
   poolIds: SCHOOL_GACHA_POOLS.filter(p => p.arts.includes(d.id)).map(p => p.id), move: d.move, passive: d.passive }));
 assert(catalogue.every(d => d.poolIds.length > 0));
-const report = { version: 'EA0.90.0', changedEconomy: false, dataSource: 'production core and catalogue; isolated in-memory accounts',
+const report = { version: 'EA0.90.0 unpublished Story44', changedEconomy: true, dataSource: 'production core and catalogue; isolated in-memory accounts',
   sampling: 'Exact rule formulas assume uniform PRNG. Empirical samples use deterministic, spaced global pull counters; no IID/player retention claims.',
   constants: Object.fromEntries(Object.entries(P).filter(([k]) => /GACHA|JADE|MANUAL|PAGES/.test(k))),
   counts: { ordinary: FREE_POOL.length, premium: PREMIUM_POOL.length, pools: rates.length, catalogue: catalogue.length },
   rates, tenPulls: { accounts: tenRuns.length, noWish: true, noArt: tenRuns.filter(n => n === 0).length,
     formulaNoArt: (1 - P.GACHA_ART_RATE) ** 10, arts: quantiles(tenRuns) }, completion,
   exchange: { external, firstPurchaseVolumes: freshVolumes, existingPartialVolumes: collectionVolumes(partial, external),
-    existingCopies: partial.manuals![external]!.copies, uiBlocksExisting: true },
+    existingCopies: partial.manuals![external]!.copies, uiBlocksOwnedVolumeOnly: true },
   growth: { withVolumes, modes, additionalUnequippedLearnedSkills: 10,
     cultivationBase: calculateCultivationRate(base), cultivationWithMoreKnown: calculateCultivationRate(unequipped) },
-  onlineFirstRound: battle.forward.rounds[0], externalRankIgnoredOnline: rankIgnoredOnline,
+  onlineFirstRound: battle.forward.rounds[0], externalRankHasEffectOnline: rankHasEffectOnline,
   matchups: { seedsPerOrderedPair: 16, totalFights: matchups.length * 16,
     profiles: profiles.map(({ key, art }) => ({ key, art })), results: matchups,
     limitation: '三卷、相同內功身法、無兵器、每派按基礎威力選一門；非全配搭、非玩家勝率、非服務端驗證。' },

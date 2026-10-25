@@ -1,9 +1,11 @@
+import { duelPreset } from '../life/loadoutPresets';
 import { z } from 'zod';
 import type { OnlineBattle, OnlineSnapshot, OnlineWorld } from '@interfaces/online';
 import { ONLINE_TEST } from '@data/redesign/onlineTestParams';
-import { applyOnlineCommand, parseOnlineCommand, OnlineError } from './commands';
+import { applyOnlineCommand, parseOnlineCommand, compatibleReceiptInput, OnlineError, selectOnlineOpponent } from './commands';
 import { createOnlineFixture } from './fixtures';
 import { settleOnlineWorld } from './rules';
+import type { LifeCharacter } from '@interfaces/lifeEngine';
 
 export interface SharedWorld {
   revision: number;
@@ -11,6 +13,8 @@ export interface SharedWorld {
 }
 export interface WorldReceipt { user_id: string; request_id: string; input: string; result: unknown }
 export interface SharedRepository {
+  /** 從已驗證身份的遊戲存檔讀人物，唔接受挑戰請求夾帶戰力。 */
+  profile?(user:string):Promise<LifeCharacter|null>;
   load(): Promise<SharedWorld>;
   receipt(user: string, request: string): Promise<WorldReceipt | null>;
   history(user: string): Promise<OnlineBattle[]>;
@@ -20,7 +24,16 @@ export interface SharedRepository {
 }
 const envelope = z.object({ action: z.enum(['register', 'world', 'heartbeat', 'leave', 'logout', 'challenge', 'claim', 'loadout']), clientId: z.uuid(), data: z.unknown().optional() }).strict();
 const empty = z.object({}).strict();
-const registration = z.object({ name: z.string().trim().min(2).max(12).regex(/^[\p{L}\p{N}·]+$/u) }).strict();
+const registration = z.object({ name: z.string().trim().min(1).max(12).regex(/^[\p{L}\p{N}·]+$/u) }).strict();
+
+/** 舊版尚無人物頁雙配搭時，保留經合法欄位指令保存的對戰套。 */
+function refreshedProfile(profile:LifeCharacter,prior:LifeCharacter|undefined):LifeCharacter {
+  if(profile.flags.cloud_has_duel_preset===false&&prior?.flags.duel_loadout_saved){
+    profile.combatLoadout=duelPreset({...profile,combatLoadout:prior.combatLoadout});
+    profile.flags.duel_loadout_saved=true;
+  }
+  return profile;
+}
 
 /** 全部玩家共用一個非同步江湖；任何身份可入籍，唔需要開房或等對手在線。 */
 export class SharedWorldService {
@@ -34,6 +47,8 @@ export class SharedWorldService {
       settleOnlineWorld(world, now);
       if (input.action === 'register') {
         const { name } = registration.parse(data);
+        const profile=this.repo.profile ? await this.repo.profile(user) : undefined;
+        if(this.repo.profile && !profile)throw new OnlineError(409,'請先建立並保存人物，再踏入江湖。');
         if (!world.players[user]) {
           const players = Object.values(world.players);
           if (players.length >= ONLINE_TEST.maxPublicPlayers) throw new OnlineError(429, '共用江湖已達今輪封測人數上限。');
@@ -44,6 +59,7 @@ export class SharedWorldService {
           player.character.skillRanks = Object.fromEntries(player.character.skills.map(id => [id, 3]));
           world.players[user] = player;
         }
+        if(profile && !world.players[user].busy)world.players[user].character=refreshedProfile(profile,world.players[user].character);
       }
       const me = world.players[user];
       if (!me) throw new OnlineError(404, '未有江湖身份，請先入籍。');
@@ -62,9 +78,18 @@ export class SharedWorldService {
         const command = parseOnlineCommand(input.action, data), signature = JSON.stringify({ action: input.action, ...command });
         const old = await this.repo.receipt(user, command.requestId);
         if (old) {
-          if (old.input !== signature) throw new OnlineError(409, '同一指令編號不可變更內容。');
+          if (compatibleReceiptInput(old.input) !== signature) throw new OnlineError(409, '同一指令編號不可變更內容。');
           result = old.result;
         } else {
+          if(input.action==='challenge' && this.repo.profile) {
+            if(me.busy)throw new OnlineError(409,'交手仍在結算。');
+            const profile=await this.repo.profile(user);
+            if(!profile)throw new OnlineError(409,'尚未取得已保存的對戰配搭，請稍後再試。');
+            me.character=refreshedProfile(profile,me.character);
+            const opponent=selectOnlineOpponent(world,now,user,entropy.seed);
+            const defense=await this.repo.profile(opponent.id);
+            if(defense)opponent.character=refreshedProfile(defense,opponent.character);
+          }
           result = applyOnlineCommand(world, now, user, input.action, command, entropy);
           receipt = { user_id: user, request_id: command.requestId, input: signature, result };
         }

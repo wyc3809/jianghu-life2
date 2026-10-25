@@ -28,7 +28,7 @@ function clearsStage(state: LifeGameState, stage: number, seed = 42): boolean {
     if (d.rounds.phase === 'hero') {
       const move = d.rounds.beginMove(state.character)!;
       d.rounds.commitHeroMove();
-      if (d.heroStrike(move.power).killed && d.advance().stageCleared) return true;
+      if (d.heroStrike(move.power,move.move,move.artId).killed && d.advance().stageCleared) return true;
     } else {
       if (d.foeStrike().heroDown) return false;
       d.rounds.commitFoeMove();

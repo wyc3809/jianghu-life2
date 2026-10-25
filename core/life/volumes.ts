@@ -1,26 +1,26 @@
 /**
  * 外功七卷：角色同家族收藏兩邊嘅卷號管理（data/skills/volumes.ts 定義七卷招式）。
- * 角色學識一門外功＝有卷一；其餘卷靠抽卡／奇遇（入家族收藏，再同步落今世角色）。
+ * 新收藏按實際卷次學習；舊無卷記錄保留卷一，抽卡／奇遇收藏同步本代。
  */
 import type { LifeCharacter, LifeGameState } from '@interfaces/lifeEngine';
 import type { AncestryMeta } from '@interfaces/ancestry';
 import { getSkillDef, type CombatMoveDef } from '@data/skills/catalog';
 import { VOLUME_COUNT, artVolumeMoves, hasVolumes, normalizeVolumes } from '@data/skills/volumes';
-import { MANUAL_STAR_BONUS } from '@data/redesign/testParams';
+import { MANUAL_STAR_BONUS, PAGES_PER_DUPLICATE } from '@data/redesign/testParams';
 import { equippedMartialArts } from './martialLoadout';
 
 const ALL_VOLUMES = Array.from({ length: VOLUME_COUNT }, (_, i) => i + 1);
 
-/** 角色已得嘅卷（學識咗就一定有卷一） */
+/** 角色實際已得卷；只有無明確卷記錄的舊角色才沿用卷一 */
 export function ownedVolumes(c: LifeCharacter, skillId: string): number[] {
   if (!hasVolumes(skillId) || !c.skills.includes(skillId)) return [];
-  return normalizeVolumes([1, ...(c.volumes?.[skillId] ?? [])]);
+  return normalizeVolumes(c.volumes?.[skillId] ?? [1]);
 }
 
 /** 角色加卷；返回係咪新卷 */
 export function grantVolume(c: LifeCharacter, skillId: string, vol: number): boolean {
   if (!hasVolumes(skillId)) return false;
-  const cur = normalizeVolumes(c.volumes?.[skillId]);
+  const cur = c.skills.includes(skillId) ? ownedVolumes(c, skillId) : normalizeVolumes(c.volumes?.[skillId]);
   if (cur.includes(vol)) return false;
   c.volumes = { ...(c.volumes ?? {}), [skillId]: normalizeVolumes([...cur, vol]) };
   return true;
@@ -33,7 +33,7 @@ export function collectionVolumes(meta: AncestryMeta, skillId: string): number[]
   return e.vols ? normalizeVolumes(e.vols) : ALL_VOLUMES;
 }
 
-/** 家族收藏加卷；返回係咪新卷（重複就當重複本） */
+/** 家族收藏加卷；返回係咪新卷；新重複卷自動轉頁，舊重複本保留 */
 export function addCollectionVolume(meta: AncestryMeta, skillId: string, vol: number): boolean {
   meta.manuals ??= {};
   const e = meta.manuals[skillId];
@@ -43,7 +43,7 @@ export function addCollectionVolume(meta: AncestryMeta, skillId: string, vol: nu
   }
   const have = collectionVolumes(meta, skillId);
   if (have.includes(vol)) {
-    e.copies += 1;
+    meta.pages = (meta.pages ?? 0) + PAGES_PER_DUPLICATE;
     return false;
   }
   e.vols = normalizeVolumes([...have, vol]);
@@ -54,7 +54,7 @@ export function addCollectionVolume(meta: AncestryMeta, skillId: string, vol: nu
 export function syncCollectionVolumes(c: LifeCharacter, meta: AncestryMeta): boolean {
   let changed = false;
   for (const id of c.skills) {
-    for (const v of collectionVolumes(meta, id)) if (v > 1 && grantVolume(c, id, v)) changed = true;
+    for (const v of collectionVolumes(meta, id)) if (grantVolume(c, id, v)) changed = true;
   }
   return changed;
 }

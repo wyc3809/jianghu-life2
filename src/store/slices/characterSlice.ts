@@ -1,5 +1,6 @@
-import { setMartialSlot } from '@core/life/martialLoadout';
-import { syncCollectionVolumes } from '@core/life/volumes';
+import { recomputeCapBonuses } from '@core/life/equipment';
+import { setPresetMartialSlot, ensureCombatPreset, setDuelGear } from '@core/life/loadoutPresets';
+import { syncCollectionVolumes, collectionVolumes } from '@core/life/volumes';
 import { getSkillDef } from '@data/skills/catalog';
 import { useAncestryStore } from '../ancestryStore';
 import { produce } from 'immer';
@@ -18,7 +19,7 @@ export function createCharacterSlice(
   save: (state: LifeGameState, immediate?: boolean) => void,
 ): Pick<LifeStore, 'equipOwned' | 'resolveGearCompare' | 'startNewbieTrial' | 'setMainArt' | 'setMartialSlot'> {
   return {
-    setMartialSlot: (slot, skillId) => {
+    setMartialSlot: (slot, skillId, preset = 'normal') => {
       const { state, combatReplay } = get();
       if (!state || state.phase !== 'playing' || !state.character.alive || state.pendingCombat || combatReplay) return false;
       const meta = useAncestryStore.getState().meta;
@@ -27,15 +28,18 @@ export function createCharacterSlice(
         const c = draft.character;
         if (skillId && !c.skills.includes(skillId)) {
           if (!meta.manuals?.[skillId] || !getSkillDef(skillId)) return;
+          const vols = collectionVolumes(meta, skillId);
+          if (vols.length) c.volumes = { ...c.volumes, [skillId]: vols };
           c.skills.push(skillId);
           c.skillRanks[skillId] ??= 0;
           c.skillProgress[skillId] ??= 0;
         }
-        ok = setMartialSlot(draft, slot, skillId);
+        ok = setPresetMartialSlot(draft, slot, skillId, preset);
         if (ok) {
           syncCollectionVolumes(c, meta);
           if (skillId && meta.manuals?.[skillId]) {
             c.manualStars = { ...c.manualStars, [skillId]: meta.manuals[skillId].stars };
+            recomputeCapBonuses(c);
           }
         }
       });
@@ -68,14 +72,16 @@ export function createCharacterSlice(
       set({ state: next, flashLines: [], lastResult: null });
     },
 
-    equipOwned: (gearId: string) => {
+    equipOwned: (gearId: string, preset = 'normal') => {
       const { state } = get();
       if (!state || state.phase !== 'playing' || !state.character.alive) return;
       if (state.pendingCombat) return;
       let msg = '';
       const next = produce(state, (draft) => {
         if (gearId === NEWBIE_TRIAL.rewardGearId) ensureNewbieReward(draft);
-        msg = equipGear(draft, gearId);
+        ensureCombatPreset(draft.character);
+        if (preset === 'duel') msg = setDuelGear(draft.character, gearId) ? '已更新對戰裝備。' : '未能更換對戰裝備。';
+        else msg = equipGear(draft, gearId);
       });
       void save(next);
       set({

@@ -25,11 +25,12 @@ describe('江湖交手開場滿血（玩家 2026-10-14）', () => {
     expect(p.maxHp).toBeGreaterThanOrEqual(state.character.maxHealth);
   });
 
-  it('test_combat_start_keeps_current_qi', () => {
+  it('test_combat_start_refills_qi_without_mutating_character', () => {
     const state = fresh(12);
     state.character.qi = 30;
     startCombat(state, { source: 'event', title: '試', foeName: '木人', foePower: 'weak' });
-    expect(state.pendingCombat!.player.qi).toBe(30);
+    expect(state.pendingCombat!.player.qi).toBe(state.pendingCombat!.player.maxQi);
+    expect(state.character.qi).toBe(30);
   });
 });
 

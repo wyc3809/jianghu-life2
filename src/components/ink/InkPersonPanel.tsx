@@ -1,3 +1,4 @@
+import { characterForPreset, type PresetKind } from '@core/life/loadoutPresets';
 import { combatRating, combatRatingTier } from '@core/life/combatRating';
 import { jianghuRank, jianghuRankTier, JIANGHU_RANK_START } from '@core/life/jianghuRank';
 import { jianghuPrestige } from '@core/life/jianghuPrestige';
@@ -81,12 +82,13 @@ type Props = {
   view: PersonView;
   onView: (v: PersonView) => void;
   busy: boolean;
-  onEquip: (id: string) => void;
-  onEquipBest: () => void;
+  onEquip: (id: string, preset?: PresetKind) => void;
+  onEquipBest: (preset: PresetKind) => void;
   onBreakthrough: () => void;
+  initialPreset?: PresetKind;
   requestedArt?: string | null;
   onRequestHandled?: () => void;
-  onSetMartialSlot: (slot: number, id: string | null) => boolean;
+  onSetMartialSlot: (slot: number, id: string | null, preset?: PresetKind) => boolean;
 };
 
 const pctText = (v: number) => `${(v * 100).toFixed(1).replace(/\.0$/, '')}%`;
@@ -101,9 +103,12 @@ export function InkPersonPanel({
   onEquipBest,
   onBreakthrough,
   requestedArt,
+  initialPreset,
   onRequestHandled,
   onSetMartialSlot,
 }: Props) {
+  const [preset, setPreset] = useState<PresetKind>(initialPreset ?? 'normal');
+  const displayState = preset === 'duel' && (view === 'skills' || view === 'gear') ? { ...state, character: characterForPreset(state.character, 'duel') } : state;
   const [previewGearId, setPreviewGearId] = useState<string | null>(null);
   const [showStatsScroll, setShowStatsScroll] = useState(false);
   const [skillSchool, setSkillSchool] = useState<SchoolId | 'all'>('all');
@@ -113,7 +118,7 @@ export function InkPersonPanel({
   const manuals = collection.manuals;
   useEffect(() => {
     if (!requestedArt) return;
-    setSelectedArt(requestedArt); setSkillSchool('all'); setEquipNotice('');
+    setPreset('normal'); setSelectedArt(requestedArt); setSkillSchool('all'); setEquipNotice('');
     const body = paneRef.current?.closest<HTMLElement>('.ink-play-body');
     const loadout = paneRef.current?.querySelector('.ink-loadout');
     if (body && loadout) body.scrollTop += loadout.getBoundingClientRect().top - body.getBoundingClientRect().top;
@@ -124,7 +129,7 @@ export function InkPersonPanel({
     paneRef.current?.querySelector('.ink-loadout')?.scrollIntoView({ block: 'start' });
   };
   const equipArt = (slot: number, id: string | null) => {
-    if (onSetMartialSlot(slot, id)) {
+    if (onSetMartialSlot(slot, id, preset)) {
       const label = slot === INTERNAL_ART_SLOT ? '內功欄位' : slot === QINGGONG_ART_SLOT ? '身法欄位' : `外功欄位${slot + 1}`;
       setEquipNotice(id ? `已裝備「${getSkillDef(id)?.name ?? id}」至${label}。` : `已卸下${label}的武學。`);
       setSelectedArt(null);
@@ -135,6 +140,7 @@ export function InkPersonPanel({
   useEffect(() => {
     const pane = paneRef.current;
     if (!pane) return;
+    pane.closest<HTMLElement>('.ink-play-body')?.scrollTo({top:0});
     inkPopIn(
       pane.querySelectorAll('.ink-bitlife-row, .ink-combat-grid > div, .ink-delta-row, .ink-ach-list > li'),
       { step: 32, y: 10 },
@@ -147,7 +153,7 @@ export function InkPersonPanel({
       setTimeout(() => inkCountTo(el, 0, to, fmt, 820), 60 + i * 50);
     });
   }, [view]);
-  const c = state.character;
+  const c = displayState.character;
   const mainArtIds = equippedMartialArts(c);
   const availableArts = [...new Set([...c.skills, ...Object.keys(manuals ?? {})])].filter(id => getSkillDef(id));
   const nature = ensureNature(c);
@@ -329,6 +335,12 @@ export function InkPersonPanel({
         ← 返回人物
       </button>
 
+      {(view === 'skills' || view === 'gear') && <div className="ink-preset-select">
+        <div className="ink-preset-tabs" role="tablist" aria-label="配搭方案">{(['normal','duel'] as const).map(kind =>
+          <button type="button" key={kind} role="tab" aria-selected={preset === kind} className="ink-btn ink-btn--quiet" onClick={() => { setPreset(kind); setSelectedArt(null); setPreviewGearId(null); setEquipNotice(''); }}>{kind === 'normal' ? '普通配搭' : '對戰配搭'}</button>)}</div>
+        <p className="ink-note">{preset === 'normal' ? '演武台及江湖交手使用此套。' : '華山、多人挑戰及離線防守使用此套。'}兩套共用收藏、卷數與養成；開戰後的更改留待下一場。</p>
+      </div>}
+
       {view === 'cultivation' &&
         (() => {
           const tier = currentCultivationTier(state);
@@ -470,8 +482,8 @@ export function InkPersonPanel({
         <>
           <h3>武學</h3>
           {equipNotice && <p className="ink-note ink-loadout-notice" role="status">{equipNotice}</p>}
-          <InkMainArts state={state} selected={selectedArt} busy={busy} onEquip={equipArt} onCancel={() => setSelectedArt(null)} />
-          <p className="ink-note">演武台按已得卷次連招，不消耗內力；江湖交手另計耗內及招式效果。藏本升階跨代保留，熟練階位由本代實戰及修煉累積。</p>
+          <InkMainArts state={displayState} selected={selectedArt} busy={busy} onEquip={equipArt} onCancel={() => setSelectedArt(null)} />
+          <p className="ink-note">演武台連招不耗內；其他交手每門外功起手只扣一次內力，已學卷次依序連出。每回合自然回內1%，另計已裝備內功；全部武學均無法使出時調息回復30%。藏本升階跨代保留，熟練由本代實戰及修煉累積。</p>
           <InkSchoolTabs value={skillSchool} onChange={setSkillSchool} allowAll label="武學流派分類" />
           {skillSchool !== 'all' && !availableArts.some(id => primarySchoolOfSkill(getSkillDef(id)) === skillSchool) && <p className="ink-note">此流派尚無可用武學。</p>}
           {listWeaponMasteries(state).length > 0 && (
@@ -509,7 +521,7 @@ export function InkPersonPanel({
                       <p className="ink-skill-move">
                         戰招「{def.move.name}」
                         {stance ? ` · ${MOVE_STANCE_LABEL[stance]}` : ''}
-                        {def.move.qiCost > 0 ? ` · 耗內${def.move.qiCost}` : ' · 無耗'}
+                        {def.move.qiCost > 0 ? ` · 整套耗內${def.move.qiCost}` : ' · 無耗'}
                         {def.move.power > 0 ? ` · 威×${def.move.power.toFixed(1)}` : ''}
                       </p>
                     ) : null}
@@ -693,7 +705,7 @@ export function InkPersonPanel({
                         disabled={busy || equipped}
                         onClick={() => {
                           setPreviewGearId(null);
-                          onEquip(id);
+                          onEquip(id, preset);
                         }}
                       >
                         {equipped ? '披中' : '披上'}
@@ -713,7 +725,7 @@ export function InkPersonPanel({
               })}
             </ul>
           )}
-          <button type="button" className="ink-btn ink-btn--quiet" disabled={busy} onClick={onEquipBest}>
+          <button type="button" className="ink-btn ink-btn--quiet" disabled={busy} onClick={() => onEquipBest(preset)}>
             整裝披掛
           </button>
         </>

@@ -3,7 +3,7 @@ import type { OnlineAccountId, OnlineSnapshot, OnlineWorld } from '@interfaces/o
 import { ONLINE_TEST } from '@data/redesign/onlineTestParams';
 import { createOnlineFixture } from './fixtures';
 import { settleOnlineWorld } from './rules';
-import { applyOnlineCommand, OnlineError, parseOnlineCommand } from './commands';
+import { applyOnlineCommand, OnlineError, compatibleReceiptInput, parseOnlineCommand } from './commands';
 
 export interface PairRoom {
   id: string;
@@ -83,7 +83,7 @@ export class PairService {
         const key = `${seat}:${command.requestId}`, signature = JSON.stringify({ action: input.action, ...command });
         const old = receipts[key];
         if (old) {
-          if (old.input !== signature) throw new OnlineError(409, '同一指令編號不可變更內容。');
+          if (compatibleReceiptInput(old.input) !== signature) throw new OnlineError(409, '同一指令編號不可變更內容。');
           result = old.result;
         } else {
           if (Object.keys(receipts).length >= 500 || (input.action === 'challenge' && world.battles.length >= 100)) throw new OnlineError(429, '此試場已達封測操作上限。');

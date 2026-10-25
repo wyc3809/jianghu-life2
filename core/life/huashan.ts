@@ -1,3 +1,6 @@
+import { queueAccountReward } from './accountEconomy';
+import { HUASHAN_ROUND_JADE } from '@data/redesign/martialEconomyParams';
+import { characterForPreset } from './loadoutPresets';
 import { equippedMartialArts } from './martialLoadout';
 import type {
   ContestantBuild,
@@ -5,6 +8,7 @@ import type {
   HuashanBracketState,
   LifeGameState,
 } from '@interfaces/lifeEngine';
+import { sumInternalPassives } from '@data/skills/catalog';
 import { hasVolumes } from '@data/skills/volumes';
 import { autoBattleArt, autoBattleRotation, ownedVolumes } from './volumes';
 import { wuxiaAttributeKeys } from '@interfaces/lifeEngine';
@@ -119,21 +123,23 @@ export function huashanSeasonLabel(seasonKey: string): string {
 }
 
 export function snapshotContestantFromLife(state: LifeGameState): ContestantBuild {
-  const c = state.character;
+  const c = characterForPreset(state.character, 'duel');
   ensureGear(c);
   const attrs = {} as Record<(typeof wuxiaAttributeKeys)[number], number>;
   for (const k of wuxiaAttributeKeys) attrs[k] = c.attributes[k];
   return {
     id: 'player',
+    capsIncludeGear: true,
     name: c.name,
     martial: c.martial,
     reputation: c.reputation,
     age: c.age,
-    maxHealth: c.maxHealth,
-    maxQi: c.maxQi ?? 120,
+    maxHealth: c.maxHealth - (c.flags.caps_include_internal ? sumInternalPassives(equippedMartialArts(c),c.skillRanks,c.manualStars).maxHp ?? 0 : 0),
+    maxQi: c.maxQi - (c.flags.caps_include_internal ? sumInternalPassives(equippedMartialArts(c),c.skillRanks,c.manualStars).maxQi ?? 0 : 0),
     attributes: attrs,
     skills: equippedMartialArts(c),
     skillRanks: { ...(c.skillRanks ?? {}) },
+    manualStars: { ...c.manualStars },
     gear: [...(c.gear ?? [])],
     equipment: { ...c.equipment },
     isPlayer: true,
@@ -480,7 +486,8 @@ export function runPlayerHuashanDuel(state: LifeGameState): string[] {
     return lines;
   }
 
-  lines.push(`你勝過「${foe.name}」，晉級。`);
+  queueAccountReward(state, `huashan:${bracket.seasonKey}:${match.round}`, HUASHAN_ROUND_JADE[match.round-1]);
+  lines.push(`你勝過「${foe.name}」，晉級。免費玉石＋${HUASHAN_ROUND_JADE[match.round-1]}。`);
   pushChronicle(state, [`【華山論劍】${ROUND_LABEL[match.round]}告捷。`]);
 
   autoResolveGhosts(state, bracket);

@@ -1,28 +1,14 @@
-import { createRng, type SeededRng } from '@core/random';
-import {
-  BASIC_STRIKE,
-  GUARD_STANCE,
-  CHARGE_STANCE,
-  getSkillDef,
-  listExternalMovesForSkills,
-  sumInternalPassives,
-  sumEvasionBonus,
-  type CombatMoveDef,
-} from '@data/skills/catalog';
-import { getGearDef } from '@data/equipment/catalog';
-import { gearTotals, ensureGear, sumGearCombatBonuses } from './equipment';
-import { rankPowerMult } from './martialRanks';
-import type { CombatFighterState, LifeCharacter, WuxiaAttribute } from '@interfaces/lifeEngine';
-import type { CombatReplay, CombatReplayHit, ContestantBuild } from '@interfaces/lifeEngine';
-import { artVolumeMoves, normalizeVolumes } from '@data/skills/volumes';
-import { clamp, tickStatus, resolveStrike as resolveStrikeCore } from './combatCore';
-import { weaponSynergyForLoadout } from './weaponMastery';
-
+import { createRng } from '@core/random';
+import { sumInternalPassives, sumEvasionBonus } from '@data/skills/catalog';
+import { gearTotals, ensureGear, sumGearCombatBonuses, equippedDefs } from './equipment';
+import type { CombatFighterState, LifeCharacter, WuxiaAttribute, CombatReplay, CombatReplayHit, ContestantBuild } from '@interfaces/lifeEngine';
+import { normalizeVolumes } from '@data/skills/volumes';
+import { internalQiRegen, resolveMartialTurn } from './martialTurn';
 export type ContestFighter = CombatFighterState;
 
 function fakeCharacter(loadout: ContestantBuild): LifeCharacter {
   const attrs = { ...loadout.attributes };
-  const c = {
+  const c: LifeCharacter = {
     name: loadout.name,
     gender: 'male' as const,
     age: loadout.age ?? 28,
@@ -42,6 +28,8 @@ function fakeCharacter(loadout: ContestantBuild): LifeCharacter {
     nature: { xia: 0, xie: 0, kuang: 0, e: 0 },
     skills: [...loadout.skills],
     skillRanks: { ...loadout.skillRanks },
+    manualStars: { ...loadout.manualStars },
+    volumes: Object.fromEntries((loadout.autoArts ?? (loadout.autoArt ? [{id:loadout.autoArt,vols:loadout.autoVols ?? [1]}] : [])).map(a => [a.id,a.vols])),
     skillProgress: {},
     skillAdvanceNeed: {},
     gear: [...(loadout.gear ?? [])],
@@ -73,10 +61,10 @@ export function buildContestantFighter(loadout: ContestantBuild, isPlayerSide = 
   const c = fakeCharacter(loadout);
   const gear = gearTotals(c);
   const gearCombat = sumGearCombatBonuses(c);
-  const passive = sumInternalPassives(c.skills, c.skillRanks ?? {});
-  const evasion = sumEvasionBonus(c.skills, c.skillRanks ?? {}) + c.attributes.danShi / 500;
-  const maxHp = c.maxHealth + (passive.maxHp ?? 0) + gear.maxHpBonus;
-  const maxQi = c.maxQi + (passive.maxQi ?? 0) + gear.maxQiBonus;
+  const passive = sumInternalPassives(c.skills, c.skillRanks ?? {}, c.manualStars);
+  const evasion = sumEvasionBonus(c.skills, c.skillRanks ?? {}, c.manualStars) + c.attributes.danShi / 500;
+  const maxHp = c.maxHealth + (loadout.capsIncludeGear ? 0 : gear.maxHpBonus) + (passive.maxHp ?? 0);
+  const maxQi = c.maxQi + (loadout.capsIncludeGear ? 0 : gear.maxQiBonus) + (passive.maxQi ?? 0);
   return {
     name: loadout.name,
     hp: maxHp,
@@ -92,7 +80,9 @@ export function buildContestantFighter(loadout: ContestantBuild, isPlayerSide = 
     defense: 6 + Math.floor(c.attributes.genGu / 12) + gear.defense + (passive.defense ?? 0),
     hitBonus: 0.05 + c.attributes.danShi / 400 + (passive.hitBonus ?? 0) + gearCombat.hitBonus,
     evasion: Math.min(0.45, evasion + gearCombat.evasion),
-    qiRegen: 0,
+    qiRegen: internalQiRegen(c).flat,
+    qiRegenPercent: internalQiRegen(c).percent,
+    gearSpecials: equippedDefs(c).flatMap(d => d.special ? [d.special] : []),
     blind: 0,
     isPlayer: isPlayerSide,
     stun: 0,
@@ -101,105 +91,11 @@ export function buildContestantFighter(loadout: ContestantBuild, isPlayerSide = 
     defenseMod: 0,
     reflect: Math.min(0.35, (passive.reflect ?? 0) + gearCombat.reflect),
     chargeBonus: 0,
+    martial: c.martial,
     gearPierce: gearCombat.pierce,
     gearLifesteal: gearCombat.lifesteal,
     gearBleedChance: gearCombat.bleedChance,
   };
-}
-
-
-function skillIdForMove(skills: string[], moveId: string): string | null {
-  for (const id of skills) {
-    const def = getSkillDef(id);
-    if (def?.kind === 'external' && def.move?.id === moveId) return id;
-  }
-  return null;
-}
-
-function weaponMatchBoost(
-  loadout: ContestantBuild,
-  skillId: string | null,
-): { power: number; hit: number } {
-  if (!skillId) return { power: 1, hit: 0 };
-  const def = getSkillDef(skillId);
-  if (!def?.weaponKind) return { power: 1, hit: 0 };
-  const equipped = loadout.equipment?.weapon ? getGearDef(loadout.equipment.weapon) : undefined;
-  return weaponSynergyForLoadout(equipped?.weaponKind, def.weaponKind, 0);
-}
-
-
-function resolveStrike(
-  attacker: ContestFighter,
-  defender: ContestFighter,
-  move: CombatMoveDef,
-  loadout: ContestantBuild,
-  rng: SeededRng,
-  powerMult = 1,
-  extraHit = 0,
-): string[] {
-  if (move.id === GUARD_STANCE.id || move.id === CHARGE_STANCE.id) return [];
-  const sid = skillIdForMove(loadout.skills, move.id);
-  const wpn = weaponMatchBoost(loadout, sid);
-  const rank = sid ? (loadout.skillRanks[sid] ?? 0) : 0;
-  const mult = (sid ? rankPowerMult(rank) : 1) * wpn.power * powerMult;
-  return resolveStrikeCore(attacker, defender, move, rng, mult, extraHit + wpn.hit);
-}
-
-function contestChooseMove(
-  fighter: ContestFighter,
-  moves: CombatMoveDef[],
-  rng: SeededRng,
-): CombatMoveDef {
-  const hpR = fighter.hp / Math.max(1, fighter.maxHp);
-  if (hpR < 0.38 && fighter.qi >= GUARD_STANCE.qiCost && rng.chance(0.35)) {
-    return GUARD_STANCE;
-  }
-  if (fighter.chargeBonus <= 0 && fighter.qi >= CHARGE_STANCE.qiCost + 25 && rng.chance(0.22)) {
-    return CHARGE_STANCE;
-  }
-  const attacks = moves.filter((m) => m.power > 0 && fighter.qi >= m.qiCost);
-  if (attacks.length) {
-    const sorted = [...attacks].sort((a, b) => b.power - a.power);
-    const top = sorted.slice(0, Math.min(3, sorted.length));
-    return rng.pick(top);
-  }
-  return BASIC_STRIKE;
-}
-
-function executeTurn(
-  attacker: ContestFighter,
-  defender: ContestFighter,
-  loadout: ContestantBuild,
-  moves: CombatMoveDef[],
-  rng: SeededRng,
-): string[] {
-  const lines: string[] = [];
-  lines.push(...tickStatus(attacker));
-  if (attacker.hp <= 0) return lines;
-  if (attacker.stun > 0) {
-    attacker.stun -= 1;
-    lines.push(`${attacker.name}穴道未暢，這一招使不出來。`);
-    return lines;
-  }
-  const move = contestChooseMove(attacker, moves, rng);
-  if (move.id === GUARD_STANCE.id) {
-    attacker.defenseMod += 6;
-    attacker.qi = clamp(attacker.qi + 12, 0, attacker.maxQi);
-    lines.push(`${attacker.name}收招守中，架勢更穩。`);
-    return lines;
-  }
-  if (move.id === CHARGE_STANCE.id) {
-    if (attacker.qi < move.qiCost) {
-      lines.push(...resolveStrike(attacker, defender, BASIC_STRIKE, loadout, rng));
-    } else {
-      attacker.qi -= move.qiCost;
-      attacker.chargeBonus = Math.max(attacker.chargeBonus, 0.55);
-      lines.push(`${attacker.name}凝勁於腕，蓄勢待發。`);
-    }
-    return lines;
-  }
-  lines.push(...resolveStrike(attacker, defender, move, loadout, rng));
-  return lines;
 }
 
 export interface ContestDuelResult {
@@ -211,83 +107,14 @@ export interface ContestDuelResult {
   replay: CombatReplay;
 }
 
-/** 外功七卷：呢方每回合出嘅招（按卷序、內力夠先出） */
-/** 第 turn 回合輪到邊門外功（每回合輪一門；冇輪替表就淨用 autoArt） */
-function artForTurn(loadout: ContestantBuild, turn: number): { id: string; vols: number[] } | null {
-  const rot = (loadout.autoArts ?? []).filter((a) => loadout.skills.includes(a.id));
-  if (rot.length) return rot[(Math.max(1, turn) - 1) % rot.length]!;
-  if (!loadout.autoArt || !loadout.skills.includes(loadout.autoArt)) return null;
-  return { id: loadout.autoArt, vols: loadout.autoVols ?? [] };
+/** 回傳真實逐招落點；調息、受控同樣留下可讀行動。 */
+function executeAutoTurn(actor: ContestFighter, target: ContestFighter, c: LifeCharacter, rng: ReturnType<typeof createRng>, side: 'player' | 'foe', _hp: () => {playerHp:number;foeHp:number}, round: number) {
+  const action = resolveMartialTurn(actor,target,c,round,rng);
+  const hits: CombatReplayHit[] = action.hits.map(h => ({side,moveName:h.moveName,skillId:h.skillId,vol:h.vol,damage:h.damage,
+    playerHp:side === 'player' ? h.actorHp : h.targetHp, foeHp:side === 'player' ? h.targetHp : h.actorHp}));
+  return {lines:action.lines,hits};
 }
 
-function volumeChain(
-  fighter: ContestFighter,
-  loadout: ContestantBuild,
-  turn: number,
-): { move: CombatMoveDef; vol: number; skillId: string }[] {
-  const art = artForTurn(loadout, turn);
-  if (!art) return [];
-  const moves = artVolumeMoves(art.id);
-  let qi = fighter.qi;
-  const out: { move: CombatMoveDef; vol: number; skillId: string }[] = [];
-  for (const vol of normalizeVolumes([1, ...art.vols])) {
-    const m = moves[vol - 1];
-    if (!m || qi < m.qiCost) continue;
-    qi -= m.qiCost;
-    out.push({ move: m, vol, skillId: art.id });
-  }
-  return out;
-}
-
-/** 有七卷就逐卷出；冇就照舊揀一招。返回逐招紀錄 */
-function executeAutoTurn(
-  attacker: ContestFighter,
-  defender: ContestFighter,
-  loadout: ContestantBuild,
-  moves: CombatMoveDef[],
-  rng: SeededRng,
-  side: 'player' | 'foe',
-  hp: () => { playerHp: number; foeHp: number },
-  turn: number,
-): { lines: string[]; hits: CombatReplayHit[] } {
-  const chain = volumeChain(attacker, loadout, turn);
-  if (!chain.length) {
-    const before = defender.hp;
-    const lines = executeTurn(attacker, defender, loadout, moves, rng);
-    const name = /「(.+?)」/.exec(lines.find((l) => l.includes('「')) ?? '')?.[1] ?? '出手';
-    return { lines, hits: [{ side, moveName: name, damage: Math.max(0, Math.round(before - defender.hp)), ...hp() }] };
-  }
-  const lines: string[] = [...tickStatus(attacker)];
-  const hits: CombatReplayHit[] = [];
-  if (attacker.hp <= 0) return { lines, hits };
-  if (attacker.stun > 0) {
-    attacker.stun -= 1;
-    lines.push(`${attacker.name}穴道未暢，這一招使不出來。`);
-    return { lines, hits };
-  }
-  for (const { move, vol, skillId } of chain) {
-    if (defender.hp <= 0) break;
-    const before = defender.hp;
-    lines.push(...resolveStrike(attacker, defender, move, loadout, rng));
-    hits.push({
-      side,
-      moveName: move.name,
-      vol,
-      skillId,
-      damage: Math.max(0, Math.round(before - defender.hp)),
-      ...hp(),
-    });
-  }
-  // 招式出完再補一下普通攻擊（同自動交手一致）
-  if (defender.hp > 0) {
-    const before = defender.hp;
-    lines.push(...resolveStrike(attacker, defender, BASIC_STRIKE, loadout, rng));
-    hits.push({ side, moveName: BASIC_STRIKE.name, damage: Math.max(0, Math.round(before - defender.hp)), ...hp() });
-  }
-  return { lines, hits };
-}
-
-/** 非即時自動比武：依雙方武功與數值推演，固定 seed 可重播 */
 export function simulateContestDuel(opts: {
   title: string;
   a: ContestantBuild;
@@ -300,8 +127,7 @@ export function simulateContestDuel(opts: {
   const maxTurns = opts.maxTurns ?? 36;
   const aF = buildContestantFighter(opts.a, Boolean(opts.aIsPlayer));
   const bF = buildContestantFighter(opts.b, false);
-  const movesA = listExternalMovesForSkills(opts.a.skills);
-  const movesB = listExternalMovesForSkills(opts.b.skills);
+  const characterA = fakeCharacter(opts.a), characterB = fakeCharacter(opts.b);
   const log: string[] = [`【${opts.title}】`, `${opts.a.name} 對 ${opts.b.name}，劍拔弩張。`];
   // 演出用「玩家」方：玩家喺 b 就對調
   const playerIsB = opts.aIsPlayer === false && Boolean(opts.b.isPlayer);
@@ -320,8 +146,8 @@ export function simulateContestDuel(opts: {
     ...(pB.autoArt
       ? {
           artId: pB.autoArt,
-          vols: normalizeVolumes([1, ...(pB.autoVols ?? [])]),
-          arts: (pB.autoArts ?? []).map((a) => ({ id: a.id, vols: normalizeVolumes([1, ...a.vols]) })),
+          vols: normalizeVolumes(pB.autoVols ?? [1]),
+          arts: (pB.autoArts ?? []).map((a) => ({ id: a.id, vols: normalizeVolumes(a.vols) })),
         }
       : {}),
     rounds: [],
@@ -332,12 +158,12 @@ export function simulateContestDuel(opts: {
   for (let turn = 1; turn <= maxTurns; turn += 1) {
     const hits: CombatReplayHit[] = [];
     if (aF.hp > 0 && bF.hp > 0) {
-      const t = executeAutoTurn(aF, bF, opts.a, movesA, rng, sideOf(true), hp, turn);
+      const t = executeAutoTurn(aF, bF, characterA, rng, sideOf(true), hp, turn);
       log.push(...t.lines);
       hits.push(...t.hits);
     }
     if (bF.hp > 0 && aF.hp > 0) {
-      const t = executeAutoTurn(bF, aF, opts.b, movesB, rng, sideOf(false), hp, turn);
+      const t = executeAutoTurn(bF, aF, characterB, rng, sideOf(false), hp, turn);
       log.push(...t.lines);
       hits.push(...t.hits);
     }

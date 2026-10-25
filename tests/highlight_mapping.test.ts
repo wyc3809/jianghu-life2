@@ -46,7 +46,7 @@ describe('highlight fx mapping (高光時刻)', () => {
     expect(momentHighlight(state, { kind: 'injury', part: 'arm', tier: 'heavy' })).toBeNull();
   });
 
-  it('test_highlight_breakthrough_success_only_and_prestige_flies', () => {
+  it('test_highlight_breakthrough_success_only_and_free_jade_flies', () => {
     const state = fresh();
     state.character.flags.jianghu_prestige = 300;
     expect(breakthroughHighlight(state, { success: false, lines: [], oldTierName: 'a' })).toBeNull();
@@ -59,8 +59,8 @@ describe('highlight fx mapping (高光時刻)', () => {
       hpGain: 10,
       qiGain: 20,
       martialGain: 5,
-      prestigeGain: 140,
-    })!;
+      jadeGain: 140,
+    }, 300)!;
     expect(cfg.subject).toBe('cauldron');
     expect(cfg.targetGrade).toBe(5);
     expect(cfg.balances.gem.value).toBe(160);

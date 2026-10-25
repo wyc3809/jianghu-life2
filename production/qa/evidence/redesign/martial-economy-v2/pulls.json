@@ -1,0 +1,10 @@
+{
+  "productionBuild": true,
+  "doubleClickSingleCost": 60,
+  "doubleClickTenCost": 600,
+  "coreExpectedSingleMatched": true,
+  "duplicate20True": true,
+  "tenSelectable": 10,
+  "reopenDoesNotCredit": true,
+  "pageerrors": []
+}

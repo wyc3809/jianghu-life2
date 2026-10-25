@@ -37,6 +37,23 @@ describe('cloud safety acceptance checks', () => {
     expect(write).not.toHaveBeenCalled();
   });
 
+  it('test_online_profile_同毫秒改配搭_必須等新快照上傳成功', async () => {
+    const {saveProfileForOnline}=await import('../src/cloud/sync');
+    const first=createNewLife({seed:42});expect(await saveProfileForOnline(first)).toBe(true);
+    const second=structuredClone(first);second.character.combatLoadout!.external=[null,null,null,null,null];
+    expect(await saveProfileForOnline(second)).toBe(true);
+    expect(mock.upload).toHaveBeenCalledTimes(2);
+    expect(mock.upload.mock.calls[1][0].life.character.combatLoadout.external).toEqual([null,null,null,null,null]);
+    expect(mock.upload.mock.calls[1][0].savedAt).toBeGreaterThan(mock.upload.mock.calls[0][0].savedAt);
+  });
+
+  it('test_online_profile_保存失敗_不得確認可配對', async () => {
+    mock.upload.mockResolvedValue(false);
+    const {saveProfileForOnline}=await import('../src/cloud/sync');
+    expect(await saveProfileForOnline(createNewLife({seed:42}))).toBe(false);
+    expect(mock.upload).toHaveBeenCalledTimes(2);
+  });
+
   it('retains a failed upload for retry on next flush', async () => {
     mock.upload.mockResolvedValue(false);
     const { queueCloudSync, flushCloudSync, getCloudSyncStatus } = await import('../src/cloud/sync');

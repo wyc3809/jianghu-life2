@@ -195,6 +195,13 @@ export interface StoryState {
   nextMilestone: number;
 }
 
+export interface MartialPreset {
+  external: (string | null)[];
+  internal: string | null;
+  qinggong: string | null;
+  equipment: { weapon: string | null; armor: string | null; accessory: string | null };
+}
+
 export interface LifeCharacter {
   name: string;
   gender: 'male' | 'female';
@@ -236,6 +243,8 @@ export interface LifeCharacter {
   /** 五格外功；內功及身法獨立保存。 */
   equippedArts?: (string | null)[];
   supportArts?: { internal: string | null; qinggong: string | null };
+  /** 普通配搭沿用原欄位；對戰配搭獨立保存並共用收藏。 */
+  combatLoadout?: MartialPreset;
   /** 秘笈升階（帳戶家族收藏嘅鏡像，畀戰鬥計威力用；見 core/life/gacha.ts） */
   manualStars?: Record<string, number>;
   /** 外功七卷：已得嘅卷號（1–7）；冇記錄＝只有卷一 */
@@ -289,6 +298,8 @@ export interface ContestantBuild {
   martial: number;
   reputation?: number;
   age?: number;
+  /** 新人物快照已包含裝備上限；舊快照保持原有加法語義。 */
+  capsIncludeGear?: boolean;
   maxHealth: number;
   maxQi: number;
   attributes: Record<WuxiaAttribute, number>;
@@ -302,6 +313,7 @@ export interface ContestantBuild {
   autoVols?: number[];
   /** 每回合輪一門：輪替次序同各自已得卷（冇就淨用 autoArt） */
   autoArts?: { id: string; vols: number[] }[];
+  manualStars?: Record<string, number>;
 }
 
 export interface HuashanBracketMatch {
@@ -511,9 +523,15 @@ export interface CombatFighterState {
   /** 閃避加成：降低敵方命中機率（0–0.45 建議上限） */
   evasion: number;
   qiRegen: number;
+  qiRegenPercent?: number;
+  /** 事件對手的整次連段數；不會逐段再扣內力。 */
+  actionHits?: number;
   blind: number;
   isPlayer: boolean;
   stun: number;
+  /** 解暈後保護至下一次正常行動完成。 */
+  stunProtected?: boolean;
+  controlResistance?: number;
   bleedDamage: number;
   bleedTurns: number;
   defenseMod: number;
@@ -651,6 +669,11 @@ export const lifeCharacterSchema = z.object({
     .optional(),
   equippedArts: z.array(z.string().nullable()).max(MARTIAL_LOADOUT_LIMIT).optional(),
   supportArts: z.object({ internal: z.string().nullable(), qinggong: z.string().nullable() }).optional(),
+  combatLoadout: z.object({
+    external: z.array(z.string().nullable()).max(MARTIAL_LOADOUT_LIMIT),
+    internal: z.string().nullable(), qinggong: z.string().nullable(),
+    equipment: z.object({ weapon: z.string().nullable(), armor: z.string().nullable(), accessory: z.string().nullable() }),
+  }).optional(),
   manualStars: z.record(z.string(), z.number()).optional(),
   volumes: z.record(z.string(), z.array(z.number())).optional(),
   sectId: z.string().nullable(),

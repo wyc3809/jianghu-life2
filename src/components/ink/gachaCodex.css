@@ -200,3 +200,17 @@ html.native-ios .scroll-shell--play.scroll-shell--gacha { padding-top: 0; }
 .ink-codex-probability { color: var(--ink-mid); }
 .ink-codex-odds { margin-block: 12px; padding: 12px; background: var(--paper); border: 1px solid var(--ink-faint); }
 .ink-codex-odds p { margin: 4px 0; }
+
+/* 書頁兌換及升階按鈕自然換行；局部內容不可被橫向捲走。 */
+.ink-codex-shelf { min-width: 0; }
+.ink-codex-shelf > * { min-width: 0; max-width: 100%; }
+.ink-codex-shelf .ink-pages { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+.ink-codex-shelf .ink-pages > span,
+.ink-codex-shelf .ink-pages > select:first-of-type { grid-column: 1 / -1; }
+.ink-codex-shelf .ink-pages > select { width: 100%; min-width: 0; min-height: 44px; font-size: 16px; }
+.ink-codex-shelf .ink-pages > button { grid-column: 2; min-height: 44px; }
+.ink-codex-shelf .ink-shelf-row { min-width: 0; flex-direction: column; align-items: stretch; gap: 10px; }
+.ink-codex-shelf .ink-shelf-main { min-width: 0; overflow-wrap: anywhere; }
+.ink-codex-shelf .ink-shelf-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; gap: 8px; }
+.ink-codex-shelf .ink-shelf-actions .ink-btn { min-width: 0; min-height: 44px; white-space: normal; overflow-wrap: anywhere; font-size: 14px; }
+.ink-codex-shelf .ink-shelf-actions .ink-btn:first-child:nth-last-child(3) { grid-column: 1 / -1; }

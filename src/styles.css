@@ -11112,3 +11112,14 @@ html.native-ios .scroll-shell--home .ink-home-scene { max-height: none; }
 html.native-ios .ink-tabs.ink-bottom-dock { padding-top: 18px; }
 html.native-ios .ink-bottom-dock .ink-nav-center { margin-bottom: 0; }
 html.native-ios .ink-bottom-dock .ink-nav-center-xp { top: -18px; }
+
+/* 普通／對戰配搭沿用人物頁紙底與朱砂選取。 */
+.ink-preset-tabs { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-block:12px 6px; }
+.ink-preset-tabs button { min-height:44px; font-size:16px; font-weight:700; }
+.ink-preset-tabs button[aria-selected='true'] { color:var(--cinnabar); border-color:var(--cinnabar); background:#a33a3208; }
+
+.ink-account-tasks { list-style:none; padding:0; display:grid; gap:10px; }
+.ink-account-tasks li { display:flex; align-items:center; flex-wrap:wrap; gap:8px; padding:12px; border:1px solid var(--ink-faint); background:var(--paper-bright); }
+.ink-account-tasks li > div { flex:1 1 150px; min-width:0; }
+.ink-account-tasks p { margin:4px 0; color:var(--ink-mid); }
+.ink-account-tasks button { min-height:44px; }

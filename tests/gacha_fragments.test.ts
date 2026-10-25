@@ -19,7 +19,7 @@ describe('抽卡二成武功／八成書頁', () => {
     expect(arts.length / results.length).toBeGreaterThan(.19);
     expect(arts.length / results.length).toBeLessThan(.21);
     expect(pages.length + arts.length).toBe(20000);
-    expect(m.pages).toBe(7 + pages.length * GACHA_PAGES_PER_PULL);
+    expect(m.pages).toBe(7 + pages.length * GACHA_PAGES_PER_PULL + arts.reduce((sum,r)=>sum+(r.kind==='art' ? r.duplicatePages??0 : 0),0));
     expect(results.every(r => !r.isPremium)).toBe(true);
     expect(m.jade!.free).toBe(0);
   });

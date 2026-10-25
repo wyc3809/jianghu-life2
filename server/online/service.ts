@@ -5,7 +5,7 @@ import { ONLINE_TEST } from '../../data/redesign/onlineTestParams';
 import type { OnlineAccountId, OnlineSnapshot, OnlineWorld } from '../../interfaces/online';
 import { settleOnlineWorld } from '../../core/online/rules';
 import { createOnlineFixture } from './fixtures';
-import { applyOnlineCommand, parseOnlineCommand, OnlineError } from '../../core/online/commands';
+import { applyOnlineCommand, parseOnlineCommand, compatibleReceiptInput, OnlineError } from '../../core/online/commands';
 
 const accountSchema = z.enum(['river', 'cloud']);
 type Session = { account_id: OnlineAccountId; expires_at: number; present_until: number };
@@ -103,7 +103,7 @@ export class OnlineService {
     return this.transaction((world, now) => {
       const receipt = this.db.prepare('SELECT input,result FROM receipts WHERE account_id=? AND request_id=?').get(s.account_id, input.requestId) as { input: string; result: string } | undefined;
       if (receipt) {
-        if (receipt.input !== key) throw new OnlineError(409, '同一指令編號不可變更內容。');
+        if (compatibleReceiptInput(receipt.input) !== key) throw new OnlineError(409, '同一指令編號不可變更內容。');
         return JSON.parse(receipt.result) as T;
       }
       const result = fn(world, now, s.account_id);

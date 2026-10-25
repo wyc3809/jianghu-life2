@@ -341,7 +341,7 @@ export interface SparCombatHooks {
   /** 主角劍鋒到肉 */
   heroStrike(): { dmg: number; crit: boolean; heal: number; killed: boolean; fx?: CombatTraitFx[]; reflect?: number };
   /** 敵人撲擊到肉 */
-  foeStrike(): { dmg: number; heroDown: boolean; fx?: CombatTraitFx[]; foeHeal?: number };
+  foeStrike(): { dmg: number; heroDown: boolean; foeKilled?: boolean; fx?: CombatTraitFx[]; foeHeal?: number };
   /**
    * 下一個出場敵人：係咪首領、用邊款剪影（ENEMY_POOL 索引，按關卡主題）；
    * tier／trait／accent 係第 20 項敵人圖鑑（精英金邊、首領朱砂邊、特性光環、衣帶色）
@@ -1005,10 +1005,18 @@ export class SparStage {
     }
   }
 
+  /** 狀態傷害擊倒，沿用現有死亡及換人流程，不額外出招。 */
+  foeFellFromStatus(): void {
+    const enemy=this.enemies.find(e=>e.state!=='dead');
+    if(!enemy)return;
+    enemy.state='dead';enemy.t=0;enemy.lungeT=null;this.pendingDefeat=true;
+  }
+
   /** 敵人一擊到肉：主角退縮、彈紅字；血見底就敗退 */
   private foeHits(e: EnemyInst) {
     if (!this.combat || this.heroDownT !== null) return;
     const r = this.combat.foeStrike();
+    if(r.foeKilled){e.state='dead';e.t=0;e.lungeT=null;this.pendingDefeat=true;this.attackT=null;}
     // 只跟真正受擊／落空做運氣或閃步，唔製造護盾、閃避或新攻擊。
     const support = this.supportIds.find(id => martialPoseFor(id)?.family === (r.dmg > 0 ? 'internal' : 'step'));
     if (support && !r.heroDown) {

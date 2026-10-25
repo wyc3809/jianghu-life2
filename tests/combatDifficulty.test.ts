@@ -42,7 +42,10 @@ describe('combat difficulty', () => {
     const player = state.pendingCombat!.player;
     const foe = state.pendingCombat!.foe;
     expect(foe.maxHp).toBeGreaterThan(player.maxHp * 0.35);
-    expect(foe.maxHp).toBeLessThan(player.maxHp * 0.95);
+    // 強敵可有略高氣血及兩段武學，普通對手仍由上例檢查較弱。
+    expect(foe.maxHp).toBeGreaterThan(player.maxHp);
+    expect(foe.maxHp).toBeLessThan(player.maxHp * 1.5);
+    expect(foe.actionHits).toBe(2);
     expect(foe.attack).toBeLessThan(player.attack);
   });
 });

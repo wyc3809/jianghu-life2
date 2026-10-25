@@ -71,13 +71,16 @@ describe('jade + gacha (agreed-design §3.1 §3.2)', () => {
   it('test_duplicate_upgrade_cap_and_pages_exchange_free_pool_only', () => {
     const m = emptyAncestry();
     m.manuals = { [FREE_POOL[0]!]: { stars: 0, copies: 5 } };
+    m.pages = 600;
     for (let i = 0; i < MANUAL_MAX_STARS; i++) expect(upgradeManual(m, FREE_POOL[0]!)).toBe(true);
     expect(upgradeManual(m, FREE_POOL[0]!)).toBe(false);
+    expect(m.manuals[FREE_POOL[0]!].copies).toBe(5);
+    expect(m.pages).toBe(0);
     expect(pulpManual(m, FREE_POOL[0]!)).toBe(true);
     expect(m.pages).toBe(PAGES_PER_DUPLICATE);
     m.pages = PAGES_PER_EXCHANGE;
     expect(exchangePages(m, PREMIUM_POOL[0]!)).toBe(false);
-    expect(exchangePages(m, FREE_POOL[3]!)).toBe(true);
+    expect(exchangePages(m, FREE_POOL[3]!, 7)).toBe(true);
     expect(m.pages).toBe(0);
   });
 

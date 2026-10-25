@@ -1,0 +1,35 @@
+vite v6.4.3 building for production...
+transforming...
+✓ 505 modules transformed.
+rendering chunks...
+[plugin vite:reporter]
+(!) /workspace/jianghu-testflight-setup/core/life/gameState.ts is dynamically imported by /workspace/jianghu-testflight-setup/src/cloud/localBridge.ts but also statically imported by /workspace/jianghu-testflight-setup/core/life/actions.ts, /workspace/jianghu-testflight-setup/core/life/bonds.ts, /workspace/jianghu-testflight-setup/core/life/combat.ts, /workspace/jianghu-testflight-setup/core/life/cultivation.ts, /workspace/jianghu-testflight-setup/core/life/eventEngine.ts, /workspace/jianghu-testflight-setup/core/life/family.ts, /workspace/jianghu-testflight-setup/core/life/foundedSect.ts, /workspace/jianghu-testflight-setup/core/life/huashan.ts, /workspace/jianghu-testflight-setup/core/life/jianghuEventRepository.ts, /workspace/jianghu-testflight-setup/core/life/manualFragments.ts, /workspace/jianghu-testflight-setup/core/life/outcomeResolver.ts, /workspace/jianghu-testflight-setup/core/life/saveIndexedDb.ts, /workspace/jianghu-testflight-setup/src/store/slices/progressionSlice.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter]
+(!) /workspace/jianghu-testflight-setup/core/life/saveIndexedDb.ts is dynamically imported by /workspace/jianghu-testflight-setup/src/cloud/localBridge.ts, /workspace/jianghu-testflight-setup/src/cloud/localBridge.ts, /workspace/jianghu-testflight-setup/src/cloud/localBridge.ts, /workspace/jianghu-testflight-setup/src/components/ink/InkStartScreen.tsx but also statically imported by /workspace/jianghu-testflight-setup/src/components/ink/InkCloudSection.tsx, /workspace/jianghu-testflight-setup/src/components/ink/InkSaveStatus.tsx, /workspace/jianghu-testflight-setup/src/store/lifeStore.ts, /workspace/jianghu-testflight-setup/src/store/persistSchedule.ts, /workspace/jianghu-testflight-setup/src/store/slices/progressionSlice.ts, dynamic import will not move module into another chunk.
+
+computing gzip size...
+.local-online/martial-economy-v2/public-build/index.html                              1.23 kB │ gzip:   0.57 kB
+.local-online/martial-economy-v2/public-build/assets/wuxia-titles-DuK567Iq.woff2    210.12 kB
+.local-online/martial-economy-v2/public-build/assets/InkOnlinePanel-DRfzmSAf.css      6.80 kB │ gzip:   1.87 kB
+.local-online/martial-economy-v2/public-build/assets/DuelFx-q1amxsse.css              8.13 kB │ gzip:   2.41 kB
+.local-online/martial-economy-v2/public-build/assets/HighlightFx-CN194CUf.css        22.70 kB │ gzip:   5.20 kB
+.local-online/martial-economy-v2/public-build/assets/index-CHSajtUA.css             238.92 kB │ gzip:  45.50 kB
+.local-online/martial-economy-v2/public-build/assets/online-vjGcHkfK.js               1.36 kB │ gzip:   0.87 kB
+.local-online/martial-economy-v2/public-build/assets/HighlightDemo-qDUVRDKG.js        2.82 kB │ gzip:   1.52 kB
+.local-online/martial-economy-v2/public-build/assets/CodexStage-pXbnyiZ2.js           2.93 kB │ gzip:   1.51 kB
+.local-online/martial-economy-v2/public-build/assets/codex-DkbGLwf7.js                8.26 kB │ gzip:   3.37 kB
+.local-online/martial-economy-v2/public-build/assets/InkOnlinePanel-VgMGNbQ2.js      16.88 kB │ gzip:   6.50 kB
+.local-online/martial-economy-v2/public-build/assets/DuelFx-Bht6B74j.js              34.62 kB │ gzip:  13.02 kB
+.local-online/martial-economy-v2/public-build/assets/HighlightFx-CSZMWVy3.js         58.49 kB │ gzip:  21.31 kB
+.local-online/martial-economy-v2/public-build/assets/particles-CPZHKqCJ.js           76.32 kB │ gzip:  29.93 kB
+.local-online/martial-economy-v2/public-build/assets/index-D5bMjAqh.js              227.81 kB │ gzip:  59.26 kB
+.local-online/martial-economy-v2/public-build/assets/vendor-BW_UMXlD.js             279.13 kB │ gzip:  84.43 kB
+.local-online/martial-economy-v2/public-build/assets/three.module-B7jpce71.js       566.37 kB │ gzip: 143.31 kB
+.local-online/martial-economy-v2/public-build/assets/index-Ctz5n8nr.js            1,503.40 kB │ gzip: 551.39 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 10.56s

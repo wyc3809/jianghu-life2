@@ -45,6 +45,7 @@ export function harvestIdleSilver(state: LifeGameState): number {
   if (amount <= 0) return 0;
   const c = state.character;
   c.money += amount;
+  c.flags.harvest_claims = Number(c.flags.harvest_claims ?? 0)+1;
   c.stats.wealthPeak = Math.max(c.stats.wealthPeak, c.money);
   c.flags.idle_silver = pending - amount;
   // 奇遇「收集」考驗用：累計收成

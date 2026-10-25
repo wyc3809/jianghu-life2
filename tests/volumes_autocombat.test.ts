@@ -67,7 +67,7 @@ describe('外功七卷（data/skills/volumes.ts）', () => {
 });
 
 describe('抽卡／收藏逐卷出', () => {
-  it('test_pull_external_art_gives_one_volume_and_duplicate_volume_is_copy', () => {
+  it('test_pull_external_art_gives_one_volume_and_duplicate_converts_pages', () => {
     const m = emptyAncestry();
     addFreeJade(m, GACHA_COST_PER_PULL * 60);
     const res = pull(m, 'jianghu', 60)!;
@@ -76,10 +76,11 @@ describe('抽卡／收藏逐卷出', () => {
     for (const r of ext) expect(r.vol).toBeGreaterThanOrEqual(1);
     const id = ext[0]!.id;
     expect(collectionVolumes(m, id)).toContain(ext[0]!.vol);
-    // 同一卷再入藏＝重複本
-    const before = m.manuals![id]!.copies;
+    // 新重複卷即轉書頁；舊重複本不變。
+    const before = m.manuals![id]!.copies, pagesBefore=m.pages??0;
     expect(addCollectionVolume(m, id, ext[0]!.vol!)).toBe(false);
-    expect(m.manuals![id]!.copies).toBe(before + 1);
+    expect(m.manuals![id]!.copies).toBe(before);
+    expect(m.pages).toBe(pagesBefore + 20);
   });
 
   it('test_legacy_collection_entry_counts_as_full_set', () => {
@@ -102,25 +103,23 @@ describe('抽卡／收藏逐卷出', () => {
 });
 
 describe('自動戰鬥（core/life/autoCombat.ts）', () => {
-  it('test_one_volume_means_one_move_then_basic_strike_per_round', () => {
+  it('test_one_volume_means_one_move_without_appended_basic', () => {
     const s = fightLife(7, []);
     const r = runAutoCombat(s)!;
     expect(r.rounds.length).toBeGreaterThan(0);
     for (const round of r.rounds) {
       const mine = round.hits.filter((h) => h.side === 'player');
-      expect(mine.length).toBeLessThanOrEqual(2);
-      // 招式（有卷號）一定喺普攻（冇卷號）之前
-      const firstBasic = mine.findIndex((h) => !h.vol);
-      if (firstBasic >= 0) expect(mine.slice(firstBasic).every((h) => !h.vol)).toBe(true);
+      expect(mine.length).toBeLessThanOrEqual(1);
+      expect(mine.some(h=>h.moveName==='普通攻擊')).toBe(false);
     }
     expect(['resolve', 'won', 'lost']).toContain(r.outcome);
   });
 
-  it('test_two_moves_then_basic_strike_order', () => {
+  it('test_two_moves_order_without_appended_basic', () => {
     const r = runAutoCombat(fightLife(7, [2]))!;
     const first = r.rounds[0]!.hits.filter((h) => h.side === 'player');
-    expect(first.map((h) => h.vol ?? 0)).toEqual([1, 2, 0]);
-    expect(first[2]!.moveName).toBe('普通攻擊');
+    expect(first.map((h) => h.vol ?? 0)).toEqual([1, 2]);
+    expect(first.some(h=>h.moveName==='普通攻擊')).toBe(false);
   });
 
   it('test_more_volumes_hit_more_and_finish_faster', () => {

@@ -1,14 +1,17 @@
 /**
  * 自動戰鬥（玩家決定 2026-10-07：全部交手都自動）。
- * 每回合：輪到嗰門外功已得嘅卷（一卷＝一招）按卷序逐招出，內力唔夠嗰招就跳過；
- * 招式出完再補一下普通攻擊。全部出完先到敵人還手一次。
+ * 每回合輪一門已裝備外功，起手只扣一次內力，已得卷次按序連出；
+ * 內力不足先換另一門，全部不足先調息，不追加普攻。整次行動後敵人還手。
  * 生死戰要先確認（needsLifeOrDeathConfirm）先會開打；打完如果要處置敵人，照舊停喺 resolve 畀玩家揀。
  * 返回逐招紀錄，畀介面逐招扣血、出特效。
  */
 import type { CombatReplay, CombatReplayHit, LifeGameState } from '@interfaces/lifeEngine';
 import { BASIC_STRIKE } from '@data/skills/catalog';
+import { martialTurnPlan } from './martialTurn';
+import { getInternalMode } from './internalMode';
+import { turnQiRegen } from './combatCore';
 import { needsLifeOrDeathConfirm, playerCombatTurn } from './combat';
-import { autoBattleArt, autoBattleMoves, autoBattleRotation, ownedVolumes } from './volumes';
+import { autoBattleArt, autoBattleRotation, ownedVolumes } from './volumes';
 
 /** 自動戰鬥最多打幾多回合（防止無限拉鋸；到咗就照常由引擎判） */
 export const AUTO_COMBAT_MAX_ROUNDS = 40;
@@ -58,54 +61,47 @@ export function runAutoCombat(state: LifeGameState): AutoCombatResult | null {
 
   for (let round = 1; round <= AUTO_COMBAT_MAX_ROUNDS; round++) {
     if (state.pendingCombat !== combat || combat.phase !== 'player') break;
-    const all = autoBattleMoves(state, round);
-    // 內力夠先出（按卷序，邊出邊扣）
-    let qi = combat.player.qi;
-    const usable = all.filter((m) => {
-      if (qi < m.move.qiCost) return false;
-      qi -= m.move.qiCost;
-      return true;
-    });
-    // 招式出完再補一下普通攻擊（玩家決定 2026-10-09：例如兩招＝a 招 → b 招 → 普攻）；冇招就淨係普攻
-    const basic = { skillId: undefined as string | undefined, vol: undefined as number | undefined, move: BASIC_STRIKE };
-    const plan = [...usable, basic];
+    const mode=getInternalMode(combat.player.internalMode);
+    const upkeep=mode&&combat.player.qi>=mode.qiCostPerTurn ? mode.qiCostPerTurn : 0;
+    const modeRegen=upkeep&&mode?.effects.qiRegenBonus ? Math.round(mode.effects.qiRegenBonus*10) : 0;
+    const action = martialTurnPlan(state.character, Math.min(combat.player.maxQi, combat.player.qi-upkeep+modeRegen+turnQiRegen(combat.player)), round, combat.player.maxQi);
+    const plan = combat.player.stun > 0 ? [{ skillId: undefined, vol: undefined, move: BASIC_STRIKE }] : action.moves.map((item,i) => ({ ...item, move: { ...item.move, qiCost: i === 0 ? action.cost : 0 } }));
     const hits: AutoHit[] = [];
     for (let i = 0; i < plan.length; i++) {
       const p = plan[i]!;
       const last = i === plan.length - 1;
       const foeBefore = combat.foe.hp;
-      const playerBefore = combat.player.hp;
+      const turnBefore=combat.turn;
+      let own={playerHp:combat.player.hp,foeHp:combat.foe.hp,skipped:false};
       const lines = playerCombatTurn(state, p.move.id, {
         chained: i > 0,
         skipEnemy: !last,
         ignoreCooldown: true,
+        moveOverride: p.move,
+        onPlayerResolved: hp=>{own=hp;},
       });
       res.lines.push(...lines);
       // 特性觸發分邊：鐵布衫／反震跟玩家呢招；蓄力／狂怒／噬血／連擊跟敵人還手
       const fx = combat.lastTraitFx ?? [];
       const onPlayer = fx.filter((f) => f.kind === 'guard' || f.kind === 'thorns');
       const onFoe = fx.filter((f) => f.kind !== 'guard' && f.kind !== 'thorns');
-      // 反震係玩家自己呢招扣嘅血，唔好算落敵人還手
-      const reflected = onPlayer.filter((f) => f.kind === 'thorns').reduce((n, f) => n + f.value, 0);
-      const playerAfterOwn = playerBefore - reflected;
-      const enemyActed = last && combat.phase === 'player' && state.pendingCombat === combat;
-      // 敵人還手之前嘅氣血變化計落玩家呢招；還手造成嘅另計
-      const foeHpAfterPlayer = Math.max(0, combat.foe.hp);
+      const enemyActed = last && (combat.turn>turnBefore || (combat.phase as string)==='enemy' || combat.player.hp!==own.playerHp || combat.foe.hp!==own.foeHp);
+      const foeHpAfterPlayer = Math.max(0, own.foeHp);
       hits.push({
         side: 'player',
-        moveName: p.move.name,
+        moveName: own.skipped ? '穴道受制' : p.move.name,
         vol: p.vol,
         skillId: p.skillId,
         damage: Math.max(0, Math.round(foeBefore - foeHpAfterPlayer)),
-        playerHp: enemyActed ? playerAfterOwn : Math.max(0, combat.player.hp),
+        playerHp: Math.max(0, own.playerHp),
         foeHp: foeHpAfterPlayer,
         ...(onPlayer.length ? { traitFx: onPlayer } : {}),
       });
-      if (enemyActed || (last && combat.player.hp < playerAfterOwn)) {
+      if (enemyActed) {
         hits.push({
           side: 'foe',
-          moveName: combat.lastFoeMoveName ?? '出手',
-          damage: Math.max(0, Math.round(playerAfterOwn - combat.player.hp)),
+          moveName: combat.foe.hp<=0 && own.foeHp>0 ? '流血' : combat.foe.stunProtected && combat.phase==='player' ? '穴道受制' : combat.lastFoeMoveName ?? '出手',
+          damage: Math.max(0, Math.round(own.playerHp - combat.player.hp)),
           playerHp: Math.max(0, combat.player.hp),
           foeHp: Math.max(0, combat.foe.hp),
           ...(onFoe.length ? { traitFx: onFoe } : {}),

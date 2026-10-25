@@ -20,7 +20,7 @@ describe('真正本機多人服務', () => {
   it('test_online_雙帳戶離線應戰_同戰報同排名且人物不受傷', () => {
     const f = fixture(), original = f.service.world(f.b).me.character;
     f.service.leave(f.b);
-    const result = f.service.challenge(f.a, { requestId: 'challenge-1', target: 'cloud' });
+    const result = f.service.challenge(f.a, { requestId: 'challenge-1' });
     expect(f.service.world(f.b).me.busy).toBe(result.battleId);
     f.advance(ONLINE_TEST.battleMs); f.service.tick();
     const a = f.service.world(f.a), b = f.service.world(f.b);
@@ -30,27 +30,27 @@ describe('真正本機多人服務', () => {
     expect(a.peers.find(p => p.id === 'cloud')!.online).toBe(false);
   });
   it('test_online_連點與雙方同時挑戰_只產生一場且重用收據', () => {
-    const f = fixture(), command = { requestId: 'challenge-1', target: 'cloud' };
+    const f = fixture(), command = { requestId: 'challenge-1' };
     const result = f.service.challenge(f.a, command);
     expect(f.service.challenge(f.a, command)).toEqual(result);
-    expect(() => f.service.challenge(f.b, { requestId: 'challenge-2', target: 'river' })).toThrow('仍在交戰');
-    expect(() => f.service.challenge(f.a, { requestId: 'challenge-1', target: 'river' })).toThrow('不可變更內容');
+    expect(() => f.service.challenge(f.b, { requestId: 'challenge-2' })).toThrow('仍在交戰');
+    expect(() => f.service.claim(f.a, { requestId: 'challenge-1' })).toThrow('不可變更內容');
     expect(f.service.world(f.a).battles).toHaveLength(1);
   });
   it('test_online_戰敗保護與主動反擊_拒絕再襲擊但主動出擊可解除', () => {
-    const f = fixture(); f.service.challenge(f.a, { requestId: 'challenge-1', target: 'cloud' });
+    const f = fixture(); f.service.challenge(f.a, { requestId: 'challenge-1' });
     f.advance(ONLINE_TEST.battleMs); f.service.tick();
-    expect(() => f.service.challenge(f.a, { requestId: 'challenge-2', target: 'cloud' })).toThrow('戰敗保護');
+    expect(() => f.service.challenge(f.a, { requestId: 'challenge-2' })).toThrow('戰敗保護');
     expect(f.service.world(f.b).me.protectedUntil).toBeGreaterThan(f.now());
-    f.service.challenge(f.b, { requestId: 'challenge-3', target: 'river' });
+    f.service.challenge(f.b, { requestId: 'challenge-3' });
     expect(f.service.world(f.b).me.protectedUntil).toBe(0);
     f.advance(ONLINE_TEST.battleMs); f.service.tick();
     expect([f.service.world(f.a).me.rank, f.service.world(f.b).me.rank]).toEqual([20, 100]);
   });
   it('test_online_保護期到期_可再挑戰', () => {
-    const f = fixture(); f.service.challenge(f.a, { requestId: 'challenge-1', target: 'cloud' });
+    const f = fixture(); f.service.challenge(f.a, { requestId: 'challenge-1' });
     f.advance(ONLINE_TEST.battleMs + ONLINE_TEST.protectionMs); f.service.tick();
-    expect(f.service.challenge(f.a, { requestId: 'challenge-2', target: 'cloud' }).battleId).toBeTruthy();
+    expect(f.service.challenge(f.a, { requestId: 'challenge-2' }).battleId).toBeTruthy();
   });
   it('test_online_收益領取重送_一次入帳且離線對手仍可累積', () => {
     const f = fixture(); f.service.leave(f.b); f.advance(60_000);
@@ -72,7 +72,7 @@ describe('真正本機多人服務', () => {
   });
   it('test_online_篡改戰力及未學識武學_被拒絕且現有配搭不變', () => {
     const f = fixture(), before = f.service.world(f.a).me.character;
-    expect(() => f.service.challenge(f.a, { requestId: 'challenge-1', target: 'cloud', attack: 99999 })).toThrow();
+    expect(() => f.service.challenge(f.a, { requestId: 'challenge-1', attack: 99999 })).toThrow();
     expect(() => f.service.loadout(f.a, { requestId: 'loadout-1', external: ['pr_crimson_moon'], internal: null, qinggong: null })).toThrow('尚未習得');
     expect(() => f.service.loadout(f.a, { requestId: 'loadout-2', external: ['art_river_fist', 'art_river_fist'], internal: null, qinggong: null })).toThrow('不能重複');
     expect(f.service.world(f.a).me.character).toEqual(before);
@@ -80,12 +80,14 @@ describe('真正本機多人服務', () => {
   it('test_online_只改已知配搭_保留五外功與獨立內功身法', () => {
     const f = fixture(); f.service.loadout(f.a, { requestId: 'loadout-1', external: ['art_stone_palm'], internal: 'art_iron_body', qinggong: 'qg_broken_bridge' });
     const c = f.service.world(f.a).me.character;
-    expect(c.equippedArts).toEqual(['art_stone_palm', null, null, null, null]);
-    expect(c.supportArts).toEqual({ internal: 'art_iron_body', qinggong: 'qg_broken_bridge' });
+    expect(c.combatLoadout?.external).toEqual(['art_stone_palm', null, null, null, null]);
+    expect(c.combatLoadout?.internal).toBe('art_iron_body');
+    expect(c.combatLoadout?.qinggong).toBe('qg_broken_bridge');
+    expect(c.equippedArts).toEqual(['art_river_fist', 'art_rain_sword', null, null, null]);
   });
   it('test_online_重啟SQLite_離線完成戰鬥且收據及排名不重結算', () => {
     const dir = mkdtempSync(join(tmpdir(), 'jianghu-online-')); cleanups.push(() => rmSync(dir, { recursive: true, force: true }));
-    const file = join(dir, 'world.sqlite'), f = fixture(file), command = { requestId: 'challenge-1', target: 'cloud' };
+    const file = join(dir, 'world.sqlite'), f = fixture(file), command = { requestId: 'challenge-1' };
     const battle = f.service.challenge(f.a, command); f.advance(60_000); f.service.close();
     const restarted = new OnlineService({ file, now: f.now, seed: () => 42 }); cleanups.push(() => restarted.close());
     expect(restarted.world(f.a).me.rank).toBe(20);
@@ -103,7 +105,7 @@ describe('真正本機多人服務', () => {
       expect(bad.status).toBe(403);
       const login = await (await fetch(base + '/login', { method: 'POST', body: '{"account":"river"}' })).json();
       const headers = { Authorization: 'Bearer ' + login.token };
-      const result = await fetch(base + '/challenge', { method: 'POST', headers, body: JSON.stringify({ requestId: 'http-test-1', target: 'cloud' }) });
+      const result = await fetch(base + '/challenge', { method: 'POST', headers, body: JSON.stringify({ requestId: 'http-test-1' }) });
       expect(result.status).toBe(200);
       const spoof = await fetch(base + '/claim', { method: 'POST', headers, body: '{"requestId":"claim-001","silver":999999}' });
       expect(spoof.status).toBe(400);

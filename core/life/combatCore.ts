@@ -8,6 +8,7 @@ import {
   isRecoverySupportMove,
 } from '@data/skills/catalog';
 import type { CombatFighterState } from '@interfaces/lifeEngine';
+import { NATURAL_QI_REGEN_RATIO } from '@data/redesign/martialEconomyParams';
 
 export type CombatFighter = CombatFighterState;
 
@@ -34,7 +35,28 @@ export function tickStatus(f: CombatFighter): string[] {
 }
 
 export function tickRegen(f: CombatFighter): void {
-  f.qi = clamp(f.qi + f.qiRegen, 0, f.maxQi);
+  f.qi = clamp(f.qi + turnQiRegen(f), 0, f.maxQi);
+}
+
+/** 保留小數累積，低內力上限亦不會因取整而失去自然回內。 */
+export function turnQiRegen(f: CombatFighter): number {
+  return f.qiRegen + f.maxQi * (NATURAL_QI_REGEN_RATIO + (f.qiRegenPercent ?? 0));
+}
+
+/** 每段真正命中獨立判控；解暈保護覆蓋整次正常行動。 */
+export function applyControl(defender: CombatFighter, chance: number, rng: SeededRng): boolean {
+  if (defender.stunProtected || chance <= 0) return false;
+  const effective = Math.min(.55, chance) * (1 - clamp(defender.controlResistance ?? 0, 0, 1));
+  if (!rng.chance(effective)) return false;
+  defender.stun = 1;
+  return true;
+}
+
+/** 跳過一次行動後啟動解暈保護；正常行動完成先清除。 */
+export function consumeStun(f: CombatFighter): boolean {
+  if (f.stun <= 0) return false;
+  f.stun = 0; f.stunProtected = true;
+  return true;
 }
 
 export function resolveOneHit(
@@ -54,7 +76,7 @@ export function resolveOneHit(
       (move.hitBonus ?? 0) +
       extraHit -
       (defender.evasion ?? 0) -
-      defender.blind -
+      attacker.blind -
       hitIndex * 0.04,
     0.12,
     0.95,
@@ -135,6 +157,7 @@ export function applyOnHitEffects(
   rng: SeededRng,
   anyHit: boolean,
   powerMult = 1,
+  includeControl = true,
 ): string[] {
   const lines: string[] = [];
   if (!anyHit) return lines;
@@ -175,8 +198,7 @@ export function applyOnHitEffects(
     defender.bleedTurns = Math.max(defender.bleedTurns, 2);
     lines.push(`${defender.name}兵刃帶血，傷口難合。`);
   }
-  if (move.stunChance && rng.chance(Math.min(0.55, move.stunChance * (0.9 + powerMult * 0.1)))) {
-    defender.stun = Math.max(defender.stun, 1);
+  if (includeControl && move.stunChance && applyControl(defender, move.stunChance, rng)) {
     lines.push(`${defender.name}穴道一滯，動作遲了半拍！`);
   }
   return lines;
@@ -211,7 +233,7 @@ export function resolveStrike(
     return resolveStrike(attacker, defender, BASIC_STRIKE, rng, 1, extraHit, stanceMult);
   }
   attacker.qi -= move.qiCost;
-  defender.blind = Math.max(0, defender.blind * 0.35);
+
 
   let charge = 1;
   if (attacker.chargeBonus > 0) {
@@ -227,8 +249,10 @@ export function resolveStrike(
     const before = defender.hp;
     lines.push(...resolveOneHit(attacker, defender, move, rng, i, hits, mult, extraHit));
     if (defender.hp < before) anyHit = true;
-    if (defender.hp <= 0) break;
+    if (defender.hp < before && move.stunChance && applyControl(defender, move.stunChance, rng)) lines.push(`${defender.name}穴道受制，動作一滯。`);
+    if (defender.hp <= 0 || attacker.hp <= 0) break;
   }
-  lines.push(...applyOnHitEffects(attacker, defender, move, rng, anyHit, mult));
+  lines.push(...applyOnHitEffects(attacker, defender, move, rng, anyHit, mult, false));
+  attacker.blind = Math.max(0, attacker.blind * 0.35);
   return lines;
 }

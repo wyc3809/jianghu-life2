@@ -17,7 +17,7 @@ import { collectionVolumes } from '@core/life/volumes';
 import { equippedMartialArts } from '@core/life/martialLoadout';
 import { activeSchoolGachaPool, schoolGachaPools } from '@core/life/schoolGachaPools';
 import { primarySchoolOfSkill, SCHOOLS, type SchoolId } from '@data/redesign/schools';
-import { BANNERS, FREE_POOL, bannerState, spendableJade, wishPool, type BannerId } from '@core/life/gacha';
+import { BANNERS, FREE_POOL, bannerState, spendableJade, wishPool, manualUpgradeCost, type BannerId } from '@core/life/gacha';
 import { useAncestryStore } from '../../store/ancestryStore';
 import { useLifeStore } from '../../store/lifeStore';
 import { playInkTap } from '../../audio/inkAudio';
@@ -52,6 +52,7 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
   const combatBusy = useLifeStore((s) => Boolean(s.state?.pendingCombat || s.combatReplay));
   const [banner, setBanner] = useState<BannerId>('jianghu');
   const [view, setView] = useState<'draw' | 'shelf'>('draw');
+  const [swapVolume, setSwapVolume] = useState(1);
   const [swap, setSwap] = useState('');
   const [fx, setFx] = useState<HighlightConfig | null>(null);
   const [sheet, setSheet] = useState<'info' | 'catalog' | 'wish' | 'results' | 'school' | null>(null);
@@ -76,7 +77,9 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
       ),
     [manuals],
   );
-  const swapOptions = FREE_POOL.filter((id) => !manuals[id]);
+  const swapOptions = FREE_POOL.filter(id => hasVolumes(id) ? collectionVolumes(meta,id).length < VOLUME_COUNT : !manuals[id]);
+  const missingSwapVolumes = Array.from({length:VOLUME_COUNT},(_,i)=>i+1).filter(v => !collectionVolumes(meta,swap).includes(v));
+  const selectedSwapVolume = missingSwapVolumes.includes(swapVolume) ? swapVolume : undefined;
   const visibleShelf = shelf.filter(([id]) => shelfSchool === 'all' || primarySchoolOfSkill(getSkillDef(id)) === shelfSchool);
   const known = new Set(state.character.skills);
   const equippedArts = equippedMartialArts(state.character);
@@ -163,13 +166,13 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
               ← 返回抽取
             </button>
             <p className="ink-gacha-note">
-              外功分七卷（一卷＝一招），抽中外功時出一卷；重複秘笈可用於同門升階（每階效果＋10%，最多 {MANUAL_MAX_STARS} 階），或手動轉為 {PAGES_PER_DUPLICATE} 書頁。收藏跨代保留，後世可從收藏重新學習。書頁為通用兌換材料，與人物頁的指定武學殘譜分開計算。
+              外功分七卷（一卷＝一招），抽中外功時出一卷；重複秘笈會自動轉為 {PAGES_PER_DUPLICATE} 書頁。升階需依次消耗100／200／300書頁，每階效果＋10%，最多 {MANUAL_MAX_STARS} 階。收藏跨代保留，後世可從收藏重新學習。書頁為通用兌換材料，與人物頁的指定武學殘譜分開計算。
             </p>
             <div className="ink-pages">
               <span>
                 書頁 <b>{(meta.pages ?? 0).toLocaleString('zh-Hant')}</b>／{PAGES_PER_EXCHANGE}
               </span>
-              <select value={swap} onChange={(e) => setSwap(e.target.value)} aria-label="選擇兌換武學">
+              <select value={swap} onChange={(e) => { const id=e.target.value;setSwap(id);setSwapVolume(Array.from({length:VOLUME_COUNT},(_,i)=>i+1).find(v=>!collectionVolumes(meta,id).includes(v))??0); }} aria-label="選擇兌換武學">
                 <option value="">選擇一門江湖武學兌換</option>
                 {swapOptions.map((id) => (
                   <option key={id} value={id}>
@@ -177,11 +180,12 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
                   </option>
                 ))}
               </select>
-              <button type="button" className="ink-btn ink-btn--quiet" disabled={!swap || (meta.pages ?? 0) < PAGES_PER_EXCHANGE} onClick={() => { exchange(swap); setSwap(''); }}>
+              {hasVolumes(swap) && <select aria-label="選擇兌換卷次" value={selectedSwapVolume ?? ""} onChange={e => setSwapVolume(Number(e.target.value))}><option value="" disabled>選擇卷次</option>{missingSwapVolumes.map(v => <option key={v} value={v}>{volumeLabel(swap,v)}</option>)}</select>}
+              <button type="button" className="ink-btn ink-btn--quiet" disabled={!swapOptions.includes(swap) || (hasVolumes(swap) && selectedSwapVolume === undefined) || (meta.pages ?? 0) < PAGES_PER_EXCHANGE} onClick={() => { exchange(swap, hasVolumes(swap) ? selectedSwapVolume : undefined); setSwap(''); }}>
                 兌換
               </button>
             </div>
-            <p className="ink-note">現行兌換規則：首次兌換外功會收錄完整七卷；已收藏的外功不能在此補換缺卷。</p>
+            <p className="ink-note">每200書頁可自選一卷未持有的江湖外功；內功及身法按整門兌換。已收錄的卷不會重複扣頁。</p>
             <InkSchoolTabs value={shelfSchool} onChange={setShelfSchool} allowAll label="收藏流派分類" />
             {shelf.length === 0 ? (
               <p className="ink-note">尚無收藏，可返回抽取或使用書頁兌換。</p>
@@ -208,11 +212,11 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
                             學習
                           </button>
                         )}
-                        <button type="button" className="ink-btn ink-btn--quiet" disabled={e.copies < 1 || e.stars >= MANUAL_MAX_STARS} onClick={() => upgrade(id)}>
-                          升階
+                        <button type="button" className="ink-btn ink-btn--quiet" disabled={manualUpgradeCost(meta,id) === null || (meta.pages ?? 0) < (manualUpgradeCost(meta,id) ?? Infinity)} onClick={() => upgrade(id)}>
+                          升階{manualUpgradeCost(meta,id) !== null ? ` · ${manualUpgradeCost(meta,id)}頁` : ' · 已滿'}
                         </button>
                         <button type="button" className="ink-btn ink-btn--quiet" disabled={e.copies < 1} onClick={() => pulp(id)}>
-                          轉書頁
+                          舊重複本轉頁
                         </button>
                       </div>
                     </li>

@@ -1,7 +1,16 @@
+import { equippedMartialArts } from './martialLoadout';
+import { sumInternalPassives } from '@data/skills/catalog';
 import type { LifeCharacter, LifeGameState } from '@interfaces/lifeEngine';
 import { GEAR_CATALOG, getGearDef, type GearCombatBonus, type GearDef, type GearSlot } from '@data/equipment/catalog';
 import { torsoHpFactor } from './injuryMath';
 import { pushMoment } from './moments';
+
+/** 沿用整裝披掛的品階排序，只讀已持有物品。 */
+export function bestOwnedGear(c: LifeCharacter, slot: GearSlot): GearDef | undefined {
+  const order = ['common','fine','rare','epic','mythic','divine'];
+  return c.gear.map(getGearDef).filter((d): d is GearDef => Boolean(d && d.slot === slot))
+    .sort((a,b)=>order.indexOf(b.rarity)-order.indexOf(a.rarity))[0];
+}
 
 export function emptyEquipment(): Record<GearSlot, string | null> {
   return { weapon: 'old-sword', armor: 'plain-robe', accessory: null };
@@ -141,8 +150,10 @@ export function recomputeCapBonuses(c: LifeCharacter): void {
   c.flags.baseMaxQi = baseQi;
   const t = gearTotals(c);
   // 軀幹傷：上限按比例扣（design/gdd/injury-system.md §3.5）
-  c.maxHealth = Math.round((baseHp + t.maxHpBonus) * torsoHpFactor(c));
-  c.maxQi = baseQi + t.maxQiBonus;
+  const passive = sumInternalPassives(equippedMartialArts(c),c.skillRanks ?? {},c.manualStars);
+  c.maxHealth = Math.round((baseHp + t.maxHpBonus + (passive.maxHp ?? 0)) * torsoHpFactor(c));
+  c.maxQi = baseQi + t.maxQiBonus + (passive.maxQi ?? 0);
+  c.flags.caps_include_internal = true;
   if (c.health > c.maxHealth) c.health = c.maxHealth;
   if (c.qi > c.maxQi) c.qi = c.maxQi;
 }
