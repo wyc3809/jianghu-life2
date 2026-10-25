@@ -434,6 +434,7 @@ export function buildLegacyScriptEvent(state: LifeGameState): GameEvent | null {
         {
           id: 'ask',
           text: '先問來歷，再定恩怨',
+          combat: false,
           outcomes: [
             {
               effects: [

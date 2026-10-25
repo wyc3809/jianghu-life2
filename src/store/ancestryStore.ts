@@ -24,6 +24,7 @@ import { settleLifeIntoAccount } from '@core/life/accountSettle';
 import {
   exchangePages,
   grantTestPaidJade,
+  exchangeSilverForPages,
   pull,
   pulpManual,
   setWish,
@@ -77,7 +78,9 @@ interface AncestryStore {
   upgradeManual: (artId: string) => void;
   pulpManual: (artId: string) => void;
   exchangePages: (artId: string, volume?: number) => void;
-  /** 測試版：領付費玉石測試額度 */
+  /** 今世銀兩換帳戶書頁（每日有上限） */
+  buySilverPages: () => void;
+  /** 測試版：領付費玉石測試額度（每日一次） */
   grantTestJade: () => void;
   /** 由家族收藏學一門秘笈（今世角色） */
   learnManual: (artId: string) => void;
@@ -176,7 +179,7 @@ export const useAncestryStore = create<AncestryStore>()((set, get) => ({
   },
   pulpManual: (id) => mutate(get, set, (m) => pulpManual(m, id)),
   exchangePages: (id, volume) => { mutate(get, set, (m) => exchangePages(m, id, volume)); get().checkMilestones(); },
-  grantTestJade: () => mutate(get, set, (m) => grantTestPaidJade(m) > 0),
+  grantTestJade: () => mutate(get, set, (m) => grantTestPaidJade(m, Date.now()) > 0),
   encounterOpen: false,
   encounterReward: null,
   setEncounterOpen: (open) => set({ encounterOpen: open }),
@@ -212,6 +215,21 @@ export const useAncestryStore = create<AncestryStore>()((set, get) => ({
     queueCloudSync(useLifeStore.getState().state);
     get().checkMilestones(); // 新卷同步落角色
     return id;
+  },
+  buySilverPages: () => {
+    const life = useLifeStore.getState().state;
+    if (!life || life.phase !== 'playing' || !life.character.alive) return;
+    const meta = structuredClone(get().meta);
+    let gained = 0;
+    const next = produce(life, (draft) => {
+      gained = exchangeSilverForPages(meta, draft.character, Date.now());
+    });
+    if (!gained) return;
+    persistAncestry(meta);
+    set({ meta });
+    useLifeStore.setState({ state: next });
+    schedulePersist(next, { immediate: true });
+    queueCloudSync(next);
   },
   learnManual: (id) => {
     const life = useLifeStore.getState().state;

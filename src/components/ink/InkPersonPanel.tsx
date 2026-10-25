@@ -10,6 +10,8 @@ import { useAncestryStore } from '../../store/ancestryStore';
 import { SCHOOLS, schoolOfGear, primarySchoolOfSkill, type SchoolId } from '@data/redesign/schools';
 import { InkSchoolTabs, InkSkillSchools } from './InkSchoolTabs';
 import { useEffect, useRef, useState } from 'react';
+import { useLifeStore } from '../../store/lifeStore';
+import { canRetire } from '@core/life/retire';
 import { inkCountTo, inkPopIn } from '../../ui/inkMotion';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import type { InkAiAssetId } from '../../ui/inkAiCatalog';
@@ -47,7 +49,7 @@ import { buildGenealogy } from '@core/life/genealogy';
 import { achievementProgress, listAchievementStatus } from '@core/life/achievements';
 import { allTitles } from '@core/life/titles';
 import { calculateProgress } from '@core/life/progression';
-import { MANUAL_MAX_STARS, MANUAL_STAR_BONUS } from '@data/redesign/testParams';
+import { MANUAL_MAX_STARS, MANUAL_STAR_BONUS, TEST_BREAKTHROUGH_FAIL_XP_LOSS, RETIRE_MIN_TIER } from '@data/redesign/testParams';
 import { SPAR_TIER_SCALE, sparHeroBreakdown, sparSavedStage } from '@core/life/sparDuel';
 import { InkStatsPanel } from './InkStatsPanel';
 import { InkInjuryCard } from './InkInjuryCard';
@@ -93,6 +95,34 @@ type Props = {
 
 const pctText = (v: number) => `${(v * 100).toFixed(1).replace(/\.0$/, '')}%`;
 const numText = (v: number) => Math.round(v).toLocaleString('en-US');
+
+/** 歸隱傳位（審計 C2）：要撳兩下確認，避免誤觸結束今世 */
+function InkRetireBox({ state, busy }: { state: LifeGameState; busy: boolean }) {
+  const retire = useLifeStore((s) => s.retire);
+  const [confirming, setConfirming] = useState(false);
+  const check = canRetire(state);
+  return (
+    <div className="ink-retire">
+      <h3 className="ink-subhead">歸隱傳位</h3>
+      <p className="ink-note">
+        {check.ok
+          ? '金盆洗手，結束此生。傳承與身故相同：傳承點、家傳武學、銀庫及裝備庫照常留給後人。'
+          : `${check.reason ?? ''}（第 ${RETIRE_MIN_TIER} 境起可自願歸隱，傳承與身故相同）`}
+      </p>
+      {check.ok && (
+        <button
+          type="button"
+          className={`ink-btn ${confirming ? 'ink-btn--primary' : 'ink-btn--quiet'}`}
+          disabled={busy}
+          onClick={() => (confirming ? retire() : setConfirming(true))}
+          onBlur={() => setConfirming(false)}
+        >
+          {confirming ? '確定歸隱？請再按一次' : '歸隱傳位'}
+        </button>
+      )}
+    </div>
+  );
+}
 
 export function InkPersonPanel({
   state,
@@ -424,7 +454,7 @@ export function InkPersonPanel({
                   <p className="ink-note">
                     修為已滿，需突破方可入「{nextTier.name}」之境。成功率約{' '}
                     <strong>{Math.round(breakthroughChance(state) * 100)}%</strong>
-                    （根骨、悟性越高越易）。失敗修為保留，只損氣血、內力，可再試。
+                    （根骨、悟性越高越易）。失敗會扣 {Math.round(TEST_BREAKTHROUGH_FAIL_XP_LOSS * 100)}% 修為及少量氣血、內力，修為儲滿可再試。
                   </p>
                   <button
                     type="button"
@@ -436,6 +466,7 @@ export function InkPersonPanel({
                   </button>
                 </>
               )}
+              <InkRetireBox state={state} busy={busy} />
             </>
           );
         })()}

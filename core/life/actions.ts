@@ -2,6 +2,7 @@ import { DAILY_TRAINING_ACTIONS } from '@data/redesign/martialEconomyParams';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getRng } from '@core/random';
 import { getGearDef, rollForgeResult, type GearRarity } from '@data/equipment/catalog';
+import { TEST_SILVER_SINKS } from '@data/redesign/testParams';
 import { artForStanding, getSectContent } from '@data/content/packs';
 import { addCondition } from './monthly';
 import { addInjury, healInjuries } from './injuries';
@@ -32,6 +33,9 @@ export type PracticeActionId =
   | 'drink_wine'
   | 'study_art'
   | 'heal'
+  | 'heal_full'
+  | 'forge_fine'
+  | 'sect_donate'
   | 'equip_best'
   | 'join_sect'
   | 'sect_duty'
@@ -68,6 +72,8 @@ export const PRACTICE_ACTIONS: PracticeAction[] = [
   { id: 'seek_child', label: '求子添丁', hint: '有眷屬可祈嗣；費銀二十兩' },
   { id: 'designate_heir', label: '立嗣傳家', hint: '有子女時指定繼承人，死後族產可繼' },
   { id: 'heal', label: '醫館調養', hint: '費銀十五兩，療傷減疲' },
+  { id: 'heal_full', label: '名醫療傷', hint: '費銀為氣血上限一成，氣血回滿' },
+  { id: 'forge_fine', label: '精工鑄器', hint: '費銀隨境界升，境界越高越易出好兵器' },
   { id: 'equip_best', label: '整裝披掛', hint: '按庫中器物自行披掛妥當' },
 ];
 
@@ -80,9 +86,25 @@ export const SECT_INNER_ACTIONS: PracticeAction[] = [
   { id: 'sect_meditate', label: '靜室修煉', hint: '門中心法，閉目調息' },
   { id: 'sect_namecard', label: '名帖往來', hint: '接待外派，交好或交惡' },
   { id: 'sect_politics', label: '山門站隊', hint: '門中風波，選邊或調解' },
+  { id: 'sect_donate', label: '捐獻山門', hint: '費銀隨地位升，必得晉升；每月一次' },
 ];
 
 export { SECT_DEFS, ART_DEFS };
+
+/** 醫館大療傷費用（TEST_SILVER_SINKS.fullHealPerMaxHp） */
+export function fullHealCost(c: LifeGameState['character']): number {
+  return Math.max(15, Math.round(c.maxHealth * TEST_SILVER_SINKS.fullHealPerMaxHp));
+}
+
+/** 精工鑄器費用：基數 × (境界＋1) */
+export function fineForgeCost(state: LifeGameState): number {
+  return TEST_SILVER_SINKS.fineForgeBase * ((state.character.cultivation?.tier ?? 0) + 1);
+}
+
+/** 捐獻山門費用：基數 × (地位＋1) */
+export function sectDonateCost(c: LifeGameState['character']): number {
+  return TEST_SILVER_SINKS.sectDonateBase * ((c.sectStanding ?? 0) + 1);
+}
 
 function clamp(n: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, n));
@@ -488,6 +510,58 @@ export function applyPracticeOutcome(
       logs.push('醫館調養後，氣色好了許多。');
       if (treated) logs.push('大夫正骨敷藥，身上傷勢好轉。');
       if (c.injuries?.some((x) => x.tier === 'crippled')) logs.push('大夫搖頭：殘疾之處，非尋常藥石可醫。');
+      break;
+    }
+    case 'heal_full': {
+      const cost = fullHealCost(c);
+      if (c.money < cost) {
+        logs.push(`大療傷要${cost}兩，你錢袋不夠。`);
+        break;
+      }
+      c.money -= cost;
+      c.health = c.maxHealth;
+      const treated = healInjuries(state, HEAL_MONTHS);
+      logs.push(`你付了${cost}兩，名醫施針一夜，氣血盡復。`);
+      if (treated) logs.push('大夫正骨敷藥，身上傷勢好轉。');
+      break;
+    }
+    case 'forge_fine': {
+      const cost = fineForgeCost(state);
+      if (c.money < cost) {
+        logs.push(`名匠開價${cost}兩，你錢袋不夠。`);
+        break;
+      }
+      c.money -= cost;
+      const quality = Math.min(1, Math.max(0, (c.cultivation?.tier ?? 0) / 14));
+      const gearId = rollForgeResult(rng, { martial: c.martial, quality });
+      const name = grantGear(state, gearId);
+      logs.push(`你付了${cost}兩，名匠依你境界開爐，煉成「${name}」。`);
+      if (gearId.startsWith('divine')) logs.push('天地異象一瞬——竟是神兵！');
+      break;
+    }
+    case 'sect_donate': {
+      if (!c.sectId) {
+        logs.push('你尚未拜入門派。');
+        break;
+      }
+      const month = c.stats.monthsLived;
+      if (Number(c.flags.sect_donate_month ?? -1) === month) {
+        logs.push('本月已捐過，山門不收重禮。');
+        break;
+      }
+      const cost = sectDonateCost(c);
+      if (c.money < cost) {
+        logs.push(`捐獻要${cost}兩，你錢袋不夠。`);
+        break;
+      }
+      const stand = tryGainSectStanding(state, 100);
+      if (!stand) {
+        logs.push('你在門中已位極人臣，捐獻只換得一聲多謝。');
+        break;
+      }
+      c.money -= cost;
+      c.flags.sect_donate_month = month;
+      logs.push(`你捐出${cost}兩修繕山門。`, stand);
       break;
     }
     case 'seek_child': {

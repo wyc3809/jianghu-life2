@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { currentGoal, type GoalAction } from '@core/life/goals';
 import { effectiveCultivationRate } from '@core/life/cultivation';
-import { sparSavedStage, sparStageReward } from '@core/life/sparDuel';
+import { formatSparNumber, sparSavedStage, sparStageClearXp, sparStageReward } from '@core/life/sparDuel';
 import { InkBrushBar } from './InkBrush';
 import { InkIcon } from './InkIcon';
 import { idleSilverCap, idleSilverPending, idleSilverPerHour } from '@core/life/idleHarvest';
@@ -80,7 +80,7 @@ export function InkHomeGoals({ state, onAction, onHarvest, busy, section }: Prop
           <div>
             <dt><InkIcon name="swords" size={18} />演武每關</dt>
             <dd>
-              <span>銀＋{reward.silver}</span><span>修＋{reward.xp}</span>
+              <span>銀＋{reward.silver}</span><span>修＋{formatSparNumber(sparStageClearXp(state, stage))}</span>
             </dd>
           </div>
         </dl>

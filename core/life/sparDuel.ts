@@ -15,6 +15,8 @@ import {
 import { createRng } from '../random';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { gearTotals, sumGearCombatBonuses } from './equipment';
+import { activeCultivationGain } from './cultivation';
+import { TEST_ACTIVE_CULTIVATION_SECONDS } from '@data/redesign/testParams';
 import { getSkillDef } from '@data/skills/catalog';
 import { FOE_BY_NAME, FOE_REGIONS, FOE_SPRITE_IDS, lookForFoeName, type FoeEntry, type FoeRegion } from '@data/foes/roster';
 import type { FoeTier, FoeTraitId } from '@data/foes/traits';
@@ -544,6 +546,11 @@ export class SparDuel {
 export function sparStageReward(stage: number): { silver: number; xp: number } {
   const s = Math.max(1, Math.floor(stage));
   return { silver: 2 + Math.floor(s / 3), xp: 10 + s * 4 };
+}
+
+/** 過關實際修為：固定 10＋4×關數，再加掛機速率 × sparStageClear 秒（審計 B2）；介面預告同入帳共用 */
+export function sparStageClearXp(state: LifeGameState, stage: number): number {
+  return sparStageReward(stage).xp + activeCultivationGain(state, TEST_ACTIVE_CULTIVATION_SECONDS.sparStageClear);
 }
 
 /** 存檔用：演武台去到第幾關 */

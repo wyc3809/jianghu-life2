@@ -38,7 +38,8 @@ import {
 } from '@core/life/cultivation';
 import { hasEnoughActionPoints, tickActionPoints } from '@core/life/actionPoints';
 import { track } from '../../telemetry/events';
-import { sparStageReward } from '@core/life/sparDuel';
+import { sparStageClearXp, sparStageReward } from '@core/life/sparDuel';
+import { canRetire, retireLife, RETIRE_CAUSE } from '@core/life/retire';
 import { addCultivationXp } from '@core/life/cultivation';
 import type { LifeStore } from '../lifeStore';
 
@@ -61,6 +62,7 @@ export function createProgressionSlice(
   | 'continueLife'
   | 'advanceMonth'
   | 'advanceYear'
+  | 'retire'
   | 'dismissCoach'
   | 'ackMoment'
   | 'clearResult'
@@ -207,6 +209,17 @@ export function createProgressionSlice(
     },
 
     advanceYear: () => get().advanceMonth(),
+
+    retire: () => {
+      const { state } = get();
+      if (!state || !canRetire(state).ok) return;
+      const next = produce(state, (draft) => {
+        retireLife(draft);
+      });
+      track('life_death', { cause: RETIRE_CAUSE });
+      void save(next);
+      set({ state: next, sealText: '終', flashLines: [] });
+    },
 
     ackMoment: () => {
       const { state } = get();
@@ -416,7 +429,7 @@ export function createProgressionSlice(
       const next = produce(state, (draft) => {
         const c = draft.character;
         c.money += reward.silver;
-        const g = addCultivationXp(draft, reward.xp);
+        const g = addCultivationXp(draft, sparStageClearXp(draft, clearedStage));
         xp = g.toXp + g.toReserve;
         // 演武台每過 10 關（換場景）送免費玉石；每代各自計
         if (clearedStage % 10 === 0 && Number(c.flags.spar_jade_stage ?? 0) < clearedStage) {

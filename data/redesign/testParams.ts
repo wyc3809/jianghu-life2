@@ -11,6 +11,52 @@
  * md §4：上限原本「未確認」；**玩家睇完第 1 步截圖後確認照用 50%**（2026-10-05）。
  */
 export const TEST_CULTIVATION_RESERVE_RATIO = 0.5;
+/**
+ * 突破失敗扣走現境界上限嘅比例（要儲返滿先可以再試）。
+ * 原本失敗保留修為、即刻可以再撳，成功率形同虛設（2026-10-25 審計 B1，玩家揀「失敗扣修為」；比例待試玩）。
+ */
+export const TEST_BREAKTHROUGH_FAIL_XP_LOSS = 0.2;
+/**
+ * 銀兩用途（2026-10-25 審計 B4：600 個月後幾千兩冇用處，玩家揀四項、用建議值；待試玩）。
+ */
+export const TEST_SILVER_SINKS = {
+  /** 醫館大療傷：費用＝氣血上限 × 呢個數（最少 15 兩），一次回滿 */
+  fullHealPerMaxHp: 0.1,
+  /** 門派捐獻：費用＝呢個數 × (地位＋1)，必得一次晉升，每月一次 */
+  sectDonateBase: 100,
+  /** 銀兩換書頁：每次幾多兩、換幾多頁、每日幾次（香港時間凌晨四時換日） */
+  pagesSilverCost: 200,
+  pagesPerExchange: 10,
+  pagesDailyLimit: 3,
+  /** 精鑄：費用＝呢個數 × (境界＋1)；品質跟境界，第 14 境封頂 */
+  fineForgeBase: 40,
+} as const;
+/** 主動歸隱傳位最低境界（第 8 境洗髓伐毛；金盆洗手事件唔限）——2026-10-25 審計 C2 */
+export const RETIRE_MIN_TIER = 8;
+/**
+ * 舊事件 maxAge → 境界上限：取消歲數後童年／少年事件喺頂境照出（家道中落、門派收徒等），
+ * 改按境界收（2026-10-25 審計 C1，玩家揀「改跟境界門檻」）。按 maxAge 由細到大揀第一格。
+ */
+export const LEGACY_MAX_AGE_TIER: readonly { maxAge: number; maxTier: number }[] = [
+  { maxAge: 12, maxTier: 1 },
+  { maxAge: 20, maxTier: 3 },
+  { maxAge: 30, maxTier: 5 },
+  { maxAge: 40, maxTier: 7 },
+  { maxAge: 50, maxTier: 9 },
+  { maxAge: 65, maxTier: 11 },
+];
+/**
+ * 主動玩送嘅修為＝當刻掛機速率 × 秒數（境界越高自動越多）。
+ * 原本固定 1–5／110 點，對比每境數萬至百萬上限等於零（2026-10-25 審計 B2，玩家揀「按掛機速率計」；秒數待試玩）。
+ */
+export const TEST_ACTIVE_CULTIVATION_SECONDS = {
+  /** 演武台過一關（首領倒下） */
+  sparStageClear: 600,
+  /** 每個事件了結 */
+  eventResolve: 60,
+  /** 江湖交手勝出（按對手強度） */
+  combatWin: { weak: 120, normal: 180, strong: 300, boss: 900 },
+} as const;
 
 /**
  * 突破成功後儲備點釋放：全數撥入新境界（以新境界上限為頂，多出留返儲備）。
@@ -54,13 +100,14 @@ export const PAGES_PER_EXCHANGE = 200;
 /** 免費玉石來源（玩家揀晒四項；數量係測試參數） */
 export const JADE_PER_MONTH = 3;
 export const JADE_PER_SPAR_SCENE = 30; // 演武台每過 10 關
-export const JADE_PER_BREAKTHROUGH_BASE = 20; // ＋境界 × 5
-export const JADE_PER_BREAKTHROUGH_TIER = 5;
 export const JADE_PER_ACHIEVEMENT = 15; // 帳戶首次達成
 export const JADE_PER_MILESTONE = 60; // 家族里程碑（首次）
 
-/** 測試版：撳一下領嘅「付費玉石（測試額度）」——等於一次心願保底嘅量；唔係真錢 */
-export const TEST_PAID_JADE_GRANT = GACHA_COST_PER_PULL * GACHA_WISH_PITY;
+/**
+ * 測試版：每日領一次嘅「付費玉石（測試額度）」＝一次十連；唔係真錢。
+ * 原本撳一下＝一次保底（2400）而且冇上限，令免費玉石設計失效（2026-10-25 審計 A2，玩家揀每日一次 600）。
+ */
+export const TEST_PAID_JADE_GRANT = GACHA_COST_PER_PULL * 10;
 
 /** 戰力階級門檻：首版測試參數，跟綜合實戰能力，唔跟威望。 */
 export const COMBAT_RATING_TIERS = [

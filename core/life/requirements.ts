@@ -1,5 +1,13 @@
 import type { EventRequirement, LifeGameState, NatureAttr } from '@interfaces/lifeEngine';
 import { ensureNature } from './nature';
+import { LEGACY_MAX_AGE_TIER } from '@data/redesign/testParams';
+
+/** 境界上限：maxTier 優先；舊內容只有 maxAge 就按對照表換算；都冇就唔限 */
+export function requirementMaxTier(req: EventRequirement): number | undefined {
+  if (req.maxTier !== undefined) return req.maxTier;
+  if (req.maxAge === undefined) return undefined;
+  return LEGACY_MAX_AGE_TIER.find((row) => req.maxAge! <= row.maxAge)?.maxTier;
+}
 
 function flagMatch(
   flags: Record<string, boolean | number | string>,
@@ -19,7 +27,9 @@ export function meetsRequirements(
   if (!req) return true;
   const c = state.character;
 
-  // 舊內容的 minAge／maxAge 保留供讀檔相容，不再作門檻。
+  // 舊內容嘅 minAge 唔再作門檻；maxAge 換算做境界上限（審計 C1）
+  const maxTier = requirementMaxTier(req);
+  if (maxTier !== undefined && (c.cultivation?.tier ?? 0) > maxTier) return false;
   if (req.minMoney !== undefined && c.money < req.minMoney) return false;
   if (req.minHealth !== undefined && c.health < req.minHealth) return false;
   if (req.minMartial !== undefined && c.martial < req.minMartial) return false;

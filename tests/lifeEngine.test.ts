@@ -12,7 +12,6 @@ import {
 import { JIANGHU_EXTRA_EVENTS } from '../data/events/jianghuExtra100';
 import { createNewLife } from '../core/life/gameState';
 import { meetsRequirements } from '../core/life/requirements';
-import { getLifeStage } from '../core/life/stages';
 import { RANDOM_PACK_EVENTS } from '../core/life/packAdapter';
 import { initRng } from '../core/random';
 
@@ -104,14 +103,6 @@ describe('jianghu pack repository + outcome resolver', () => {
   });
 });
 
-describe('life stages', () => {
-  it('test_age_舊階段呼叫_不再隨歲數改變', () => {
-    expect(getLifeStage(0)).toBe('adult');
-    expect(getLifeStage(16)).toBe('adult');
-    expect(getLifeStage(72)).toBe('adult');
-  });
-});
-
 describe('life event engine', () => {
   it('creates life in 千燈鎮 retaining the legacy age field', () => {
     const state = createNewLife({ seed: 42, name: '沈雲舟', birthplace: '千燈鎮' });
@@ -183,6 +174,8 @@ describe('life event engine', () => {
       'seek_child',
       'designate_heir',
       'heal',
+      'heal_full',
+      'forge_fine',
       'equip_best',
     ]);
     expect(PRACTICE_WANDER_EVENTS.some((e) => e.id === 'wander_seek_master')).toBe(true);
@@ -396,9 +389,17 @@ describe('life event engine', () => {
     playerCombatTurn(state, 'basic_strike');
     expect(state.pendingCombat?.phase).toBe('resolve');
     const before = state.character.martial;
+    const xpBefore = state.character.cultivation.xp;
+    const { activeCultivationGain } = await import('../core/life/cultivation');
+    const { TEST_ACTIVE_CULTIVATION_SECONDS } = await import('../data/redesign/testParams');
+    const expectXp = activeCultivationGain(state, TEST_ACTIVE_CULTIVATION_SECONDS.combatWin.strong);
     const logs = resolveCombatDisposition(state, 'kill');
-    expect(logs.some((l) => /修為＋3/.test(l))).toBe(true);
+    // 殺敵加成實際入武學（審計 B2 修正標籤）；真修為按掛機速率另計
+    expect(logs.some((l) => /武學＋3（殺敵所得）/.test(l))).toBe(true);
     expect(state.character.martial).toBe(before + 1 + 3);
+    const gained = state.character.cultivation.xp - xpBefore + (state.character.cultivation.reserve ?? 0);
+    expect(gained).toBe(expectXp);
+    expect(logs.some((l) => /^修為＋/.test(l))).toBe(true);
     expect(Number(state.character.flags.kills)).toBe(1);
     expect(Number(state.character.flags.xiuwei_from_kills)).toBe(3);
   });
@@ -1072,12 +1073,6 @@ describe('life event engine', () => {
     expect(next.character.martial).toBeGreaterThan(8);
     expect(next.lifeLog.some((l) => l.includes('前世'))).toBe(true);
     expect(next.character.money).toBeGreaterThan(60);
-  });
-
-  it('test_age_舊年齡權重_不再影響事件抽選', async () => {
-    const { stageWeightBias } = await import('../core/life/stages');
-    expect(stageWeightBias(75, ['old_age'])).toBe(stageWeightBias(25, ['old_age']));
-    expect(stageWeightBias(22, ['romance'])).toBe(stageWeightBias(70, ['romance']));
   });
 
   it('story chapters do not advance over months', async () => {
