@@ -287,3 +287,20 @@ describe('審計 B4：銀兩用途', () => {
     expect(exchangeSilverForPages(m, { money: 199 }, noon + 24 * 3600_000)).toBe(0);
   });
 });
+
+describe('審計：每月傷勢扣血唔致死', () => {
+  it('test_monthly_bleeding_leaves_one_hp', async () => {
+    const { simulateMonthBody } = await import('../core/life/monthly');
+    const s = freshLife();
+    s.character.health = 2;
+    s.character.actionPoints = 0;
+    s.character.conditions = [
+      { id: 'bleeding', name: '流血', severity: 9, monthsLeft: 3 },
+      { id: 'poison', name: '中毒', severity: 1, monthsLeft: 3 },
+      { id: 'internal', name: '內傷', severity: 1, monthsLeft: 3 },
+    ] as LifeGameState['character']['conditions'];
+    simulateMonthBody(s);
+    expect(s.character.alive).toBe(true);
+    expect(s.character.health).toBe(1);
+  });
+});
