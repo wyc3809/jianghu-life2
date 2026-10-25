@@ -3,7 +3,7 @@ import { PairService, type PairRepository, type PairRoom } from '../../core/onli
 import { OnlineError } from '../../core/online/commands';
 
 type Config = { url: string; anonKey: string; serviceKey: string };
-const allowedOrigin = (origin: string) => origin === 'https://wyc3809.github.io' || /^http:\/\/(127\.0\.0\.1|localhost):\d+$/.test(origin);
+const allowedOrigin = (origin: string) => origin === 'https://wyc3809.github.io' || origin === 'capacitor://localhost' || /^http:\/\/(127\.0\.0\.1|localhost):\d+$/.test(origin);
 
 /** Edge服務專用資料庫存取；RLS禁止瀏覽器直接讀寫呢張表。 */
 export function pairRepository(config: Config, fetcher: typeof fetch): PairRepository {

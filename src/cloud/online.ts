@@ -16,6 +16,11 @@ export function forgetWorldHint(): void {
 
 /** 共用非同步江湖：每次由SDK取得最新JWT，唔發送房間／帳戶選擇。 */
 export async function publicOnlineRequest(path: string, data: unknown, keepalive: boolean): Promise<Response> {
+  if(path==='login'||path==='challenge') {
+    const [{useLifeStore},{saveProfileForOnline}]=await Promise.all([import('../store/lifeStore'),import('./sync')]);
+    const state=useLifeStore.getState().state;
+    if(!state || !await saveProfileForOnline(state))throw new Error('對戰配搭尚未保存，請待連線恢復後再試。');
+  }
   const access = await cloudAccess();
   if (!access) throw new Error('暫時無法驗證雲端身份，請稍後重試。');
   const action = path === 'login' ? 'register' : path;

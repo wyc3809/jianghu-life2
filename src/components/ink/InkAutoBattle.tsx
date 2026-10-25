@@ -44,6 +44,9 @@ type Props = {
   reduceMotion?: boolean;
 };
 
+/** 純狀態行動留有閱讀節拍，不播放攻擊或落空聲。 */
+const passiveAction = (hit: {moveName:string}) => /^(調息|穴道受制|流血)$/.test(hit.moveName);
+
 type Hit = CombatReplayHit & { round: number };
 
 /** 按敵人名揀剪影（首領用鐵面／赤髮大隻款），同一個名每次一樣 */
@@ -112,6 +115,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
     let i = 0;
     let ended = false;
     let enraged = false;
+    let supportHold = 0;
     const end = (ms: number) => {
       if (ended) return;
       ended = true;
@@ -121,13 +125,13 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
     };
     const show = (h: Hit) => {
       setCur({ hit: h, n: i });
-      if (h.damage <= 0) playInkMiss();
+      if (h.damage <= 0 && !passiveAction(h)) playInkMiss();
     };
     const combat: SparCombatHooks = {
-      heroMayAttack: () => !ended && hits[i]?.side === 'player',
+      heroMayAttack: () => !ended && supportHold<=0 && hits[i]?.side === 'player' && !passiveAction(hits[i]),
       // 第 25 項：今回合用邊套外功就播嗰套專屬動畫
       nextArt: () => (hits[i]?.side === 'player' ? (hits[i]?.skillId ?? null) : null),
-      foeMayAttack: () => !ended && hits[i]?.side === 'foe',
+      foeMayAttack: () => !ended && supportHold<=0 && hits[i]?.side === 'foe' && !passiveAction(hits[i]),
       heroStrike: () => {
         const h = hits[i];
         if (!h || h.side !== 'player') return { dmg: 0, crit: false, heal: 0, killed: false };
@@ -205,6 +209,13 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
       // 全屏喺低幀率裝置亦追返播放時間；更新仍分小步，唔跳過命中。
       const dt = last ? Math.min(unified ? 0.15 : 0.05, (now - last) / 1000) : 0;
       last = now;
+      supportHold = Math.max(0,supportHold-dt*speedRef.current);
+      const pending=hits[i];
+      if(!ended && pending && passiveAction(pending) && supportHold<=0 && !stage.heroAttackActive && !stage.foeAttackActive) {
+        i++;show(pending);supportHold=.9;
+        if(pending.foeHp<=0)stage.foeFellFromStatus();
+        if(i>=hits.length)end(900);
+      }
       // 兩倍播放推相同小步，唔因dt夾值令加速冇效或改命中結算。
       if (unified) {
         let budget = dt * (qa?.speed ?? speedRef.current);
@@ -302,7 +313,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
     foe={{ name: replay.foeName, hp: foeHp, maxHp: replay.foeMaxHp }} boss={replay.foeBoss}
     scene={<div className="ink-unified-canvas-host" ref={wrapRef}><canvas ref={canvasRef} /></div>}
     callout={h ? <span key={cur!.n} className={h.side === 'foe' ? 'is-foe' : ''}>
-      {h.side === 'player' && h.vol && <i>卷{VOLUME_NUMERALS[h.vol - 1]} ·</i>}{h.moveName}{h.damage <= 0 ? ' · 落空' : ''}
+      {h.side === 'player' && h.vol && <i>卷{VOLUME_NUMERALS[h.vol - 1]} ·</i>}{h.moveName}{h.damage <= 0 && !passiveAction(h) ? ' · 落空' : ''}
     </span> : <span>{replay.title}</span>}
     skills={<InkBattleArts artId={artNow.artId} volumes={artNow.vols} rotation={artNow.rotation} activeVolume={h?.side === 'player' ? h.vol : undefined} />}
   />, document.body);
@@ -345,10 +356,10 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
           {/* 出招題字：卷幾・招名（敵人出手就題敵招） */}
           <div className="ink-auto-callout" ref={calloutRef} aria-live="polite">
             {h && (
-              <span key={cur!.n} className={`ink-auto-callout-inner is-${h.side}${h.damage <= 0 ? ' is-miss' : ''}`}>
+              <span key={cur!.n} className={`ink-auto-callout-inner is-${h.side}${h.damage <= 0 && !passiveAction(h) ? ' is-miss' : ''}`}>
                 {h.side === 'player' && h.vol ? <i>卷{VOLUME_NUMERALS[h.vol - 1]}</i> : null}
                 <b>{h.moveName}</b>
-                {h.damage <= 0 ? <small>落空</small> : null}
+                {h.damage <= 0 && !passiveAction(h) ? <small>落空</small> : null}
               </span>
             )}
           </div>

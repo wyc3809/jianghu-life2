@@ -1,0 +1,17 @@
+{
+  "function": "jianghu-world",
+  "version": 2,
+  "realAuthenticatedQaAccounts": 2,
+  "cloudProfileRead": true,
+  "normalAndDuelSeparate": true,
+  "legacyCloudAndLoadoutCompatible": true,
+  "capacitorPreflightAndAuthenticatedRequest": true,
+  "forgedJwtDenied": true,
+  "statTamperDenied": true,
+  "arbitraryOriginDenied": true,
+  "directWorldTablesAndRpcDenied": true,
+  "productionChallengeIssued": false,
+  "productionPlayerRanksChangedByQa": false,
+  "actualIphone": false,
+  "checkedAtUTC": "2026-10-25T13:16:28Z"
+}

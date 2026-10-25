@@ -2,12 +2,15 @@ import type { LifeCharacter } from '@interfaces/lifeEngine';
 import { volumeMove } from '@data/skills/volumes';
 import { MANUAL_STAR_BONUS } from '@data/redesign/testParams';
 import { autoBattleArtForRound, autoBattleRotation, ownedVolumes } from './volumes';
+import type { CombatMoveDef } from '@data/skills/catalog';
+import { rankPowerMult } from './martialRanks';
 
 export interface SparRoundMove {
   artId?: string;
   volume?: number;
   moveName: string;
   power: number;
+  move?: CombatMoveDef;
 }
 
 /** 一回合輪到一門外功，按實際已學卷次完整使出；無外功只用基本攻擊。 */
@@ -17,12 +20,12 @@ export function sparRoundMoves(c: LifeCharacter, rotationTurn: number): SparRoun
   const stars = c.manualStars?.[artId] ?? 0;
   return ownedVolumes(c, artId).map(volume => {
     const move = volumeMove(artId, volume)!;
-    return { artId, volume, moveName: move.name, power: move.power * (1 + MANUAL_STAR_BONUS * stars) };
+    return { artId, volume, moveName: move.name, move, power: move.power * (1 + MANUAL_STAR_BONUS * stars) * rankPowerMult(c.skillRanks[artId] ?? 0) };
   });
 }
 
 function loadoutKey(c: LifeCharacter): string {
-  return JSON.stringify(autoBattleRotation(c).map(id => [id, ownedVolumes(c, id), c.manualStars?.[id] ?? 0]));
+  return JSON.stringify(autoBattleRotation(c).map(id => [id, ownedVolumes(c, id), c.manualStars?.[id] ?? 0, c.skillRanks[id] ?? 0]));
 }
 
 /** 演武回合游標：一次起手只結算一次，全部已學招式收勢後才輪到敵人。 */
@@ -37,6 +40,9 @@ export class SparRounds {
 
   /** 已排定的當前招式；結算後清空，重送同一次命中不會再推游標。 */
   get activeMove(): SparRoundMove | null { return this.active; }
+
+  /** 受控只跳過一次完整行動，唔逐卷扣暈眩次數。 */
+  skipHeroAction(): void { this.active = null; this.plan = null; this.cursor = 0; this.phase = 'foe'; }
 
   /** 只在回合開始排招，切頁不改順序；換冊／換裝則下一完整回合採用新武學。 */
   updateLoadout(c: LifeCharacter): void {

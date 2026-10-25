@@ -3,6 +3,7 @@
  * 資料定義見 data/equipment/catalog.ts 嘅 GearSpecialEffect；呢度只按 kind 分派。
  */
 import type { CombatFighterState, CombatGearSpecial } from '@interfaces/lifeEngine';
+import { applyControl } from './combatCore';
 import type { SeededRng } from '@core/random';
 
 /** 命中後觸發嘅裝備特效（burst／stun_proc）；revive 唔喺呢度處理，見 tryGearRevive */
@@ -20,8 +21,7 @@ export function applyGearSpecialOnHit(
       defender.hp = Math.max(0, defender.hp - extra);
       lines.push(`${attacker.name}「${special.name}」發動，追加 ${extra} 點傷害！`);
     } else if (special.kind === 'stun_proc') {
-      if (!rng.chance(special.chance ?? 0)) continue;
-      defender.stun = Math.max(defender.stun, 1);
+      if (!applyControl(defender, special.chance ?? 0, rng)) continue;
       lines.push(`${attacker.name}「${special.name}」發動，${defender.name}穴道一滯！`);
     }
   }

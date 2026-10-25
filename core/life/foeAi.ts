@@ -1,5 +1,6 @@
 import type { CombatMoveDef } from '@data/skills/catalog';
-import { BASIC_STRIKE } from '@data/skills/catalog';
+import { REST_QI_MOVE } from '@data/skills/catalog';
+import { EVENT_FOE_CONTROL_CHANCE, EVENT_FOE_BLIND, EVENT_FOE_DEFENSE_BREAK, MEDITATE_QI_RATIO } from '@data/redesign/martialEconomyParams';
 import type { CombatFighterState } from '@interfaces/lifeEngine';
 
 export type FoeAiStyle = 'brute' | 'duelist' | 'trickster' | 'boss';
@@ -38,6 +39,7 @@ export function chooseFoeMove(
     qiCost: 12,
     power: bossEnraged ? 1.7 : style === 'brute' ? 1.5 : 1.35,
     stance: 'shi',
+    defenseBreak: EVENT_FOE_DEFENSE_BREAK,
     description: '實招硬撼',
   };
   const feint: CombatMoveDef = {
@@ -47,6 +49,7 @@ export function chooseFoeMove(
     power: style === 'trickster' ? 0.85 : 0.9,
     hitBonus: bossEnraged ? 0.22 : style === 'trickster' ? 0.2 : 0.12,
     stance: 'xu',
+    applyBlind: EVENT_FOE_BLIND,
     description: '虛招誘敵',
   };
   const parry: CombatMoveDef = {
@@ -66,10 +69,10 @@ export function chooseFoeMove(
     hitBonus: 0.18,
     pierce: 0.08,
     stance: 'shi',
+    stunChance: EVENT_FOE_CONTROL_CHANCE,
     description: '實指點穴',
   };
   const pool: CombatMoveDef[] = [
-    { ...BASIC_STRIKE, stance: 'shi' },
     heavy,
     feint,
     parry,
@@ -88,24 +91,26 @@ export function chooseFoeMove(
   }
 
   const affordable = pool.filter((m) => foe.qi >= m.qiCost);
-  const use = affordable.length ? affordable : [{ ...BASIC_STRIKE, stance: 'shi' as const }];
+  if(!affordable.length)return {...REST_QI_MOVE,name:'調息',qiSelf:foe.maxQi*MEDITATE_QI_RATIO};
+  const use=affordable;
+  const prepare=(move:CombatMoveDef):CombatMoveDef=>({...move,multiHit:move.id==='enemy_parry'?1:foe.actionHits??1});
 
   // 風格偏好
   if (style === 'brute' && rng.chance(0.55)) {
     const h = use.find((m) => m.id === 'enemy_heavy');
-    if (h) return h;
+    if (h) return prepare(h);
   }
   if (style === 'trickster' && rng.chance(0.5)) {
     const f = use.find((m) => m.id === 'enemy_feint');
-    if (f) return f;
+    if (f) return prepare(f);
   }
   if (style === 'duelist' && rng.chance(0.35)) {
     const p = use.find((m) => m.id === 'enemy_precise');
-    if (p) return p;
+    if (p) return prepare(p);
   }
   if ((style === 'duelist' || style === 'boss') && rng.chance(0.28)) {
     const g = use.find((m) => m.id === 'enemy_parry');
-    if (g) return g;
+    if (g) return prepare(g);
   }
-  return rng.pick(use);
+  return prepare(rng.pick(use));
 }

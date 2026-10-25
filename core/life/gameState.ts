@@ -1,3 +1,4 @@
+import { ensureCombatPreset } from './loadoutPresets';
 import { martialSlots, supportMartialSlots } from './martialLoadout';
 import type { LifeCharacter, LifeGameState, WuxiaAttribute } from '@interfaces/lifeEngine';
 import { wuxiaAttributeKeys } from '@interfaces/lifeEngine';
@@ -142,6 +143,7 @@ export function createNewLife(options: CreateLifeOptions | number = {}): LifeGam
     },
     cultivation: { xp: 0, tier: 0 },
   };
+  character.flags.economy_baseline_tier = 0;
   character.stats.wealthPeak = character.money;
 
   const originLines: string[] = [];
@@ -259,6 +261,7 @@ export function createNewLife(options: CreateLifeOptions | number = {}): LifeGam
   // Baseline unlocks (e.g. starter arts) — silent so first action tips stay clean.
   syncAchievements(state);
 
+  ensureCombatPreset(state.character);
   return state;
 }
 
@@ -374,6 +377,7 @@ export function migrateLifeState(raw: LifeGameState): LifeGameState {
   const supportArts = supportMartialSlots(c);
   c.equippedArts = martialSlots(c);
   c.supportArts = supportArts;
+  ensureCombatPreset(c);
   if (!c.skillRanks) c.skillRanks = {};
   if (!c.skillProgress) c.skillProgress = {};
   if (!c.skillAdvanceNeed) c.skillAdvanceNeed = {};
@@ -403,6 +407,7 @@ export function migrateLifeState(raw: LifeGameState): LifeGameState {
     c.cultivation.reserve = 0;
   }
   migrateLadderV2(c);
+  c.flags.economy_baseline_tier ??= c.cultivation.tier;
   if (raw.month === undefined) raw.month = 1;
   if (!raw.world) raw.world = makeWorldState();
   if (!raw.story) raw.story = makeStoryState();

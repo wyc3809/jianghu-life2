@@ -1,3 +1,4 @@
+import { DAILY_TRAINING_ACTIONS } from '@data/redesign/martialEconomyParams';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getRng } from '@core/random';
 import { getGearDef, rollForgeResult, type GearRarity } from '@data/equipment/catalog';
@@ -541,7 +542,10 @@ export function performPracticeAction(
   }
 
   state.practiceActionsLeft = Math.max(0, (state.practiceActionsLeft ?? 3) - 1);
+  const progress = () => { const c=state.character;return JSON.stringify([c.actionPoints,c.martial,c.qi,c.maxQi,c.maxHealth,c.attributes,c.skills,c.skillProgress,c.skillRanks]); };
+  const before=progress();
   const logs = applyPracticeOutcome(state, actionId, opts);
+  if (DAILY_TRAINING_ACTIONS.includes(actionId) && before!==progress()) state.character.flags.practice_actions = Number(state.character.flags.practice_actions ?? 0)+1;
   logs.push(`本月尚餘修煉 ${state.practiceActionsLeft} 次。`);
   pushChronicle(state, logs);
   snapshotRng(state);

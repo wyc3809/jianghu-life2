@@ -1,3 +1,4 @@
+import { HUASHAN_ROUND_JADE } from '@data/redesign/martialEconomyParams';
 import { useEffect, useRef, useState } from 'react';
 import type { HuashanBracketState, LifeGameState } from '@interfaces/lifeEngine';
 import { InkAutoBattleView } from './InkAutoBattleView';
@@ -79,7 +80,7 @@ export function InkHuashanPanel({
     <section className="ink-panel ink-huashan-panel ink-tab-pane" aria-label="華山論劍">
       <h3>華山論劍</h3>
       <p className="ink-note">
-        每週舉行八強論劍。雙方依已獲得的外功卷數自動出招；其餘席位由江湖名手幻影出戰。
+        每週舉行八強論劍，使用人物頁的對戰配搭；每門外功整套只耗內一次。八強、四強及決賽勝出分別獲{HUASHAN_ROUND_JADE.join("／")}免費玉石，每屆每輪一次。其餘席位由江湖名手幻影出戰。
       </p>
       <p className="ink-note ink-huashan-season">本期論劍：{huashanSeasonLabel(season)}</p>
 

@@ -6,7 +6,7 @@
 .ink-codex-page button { touch-action: manipulation; }
 .ink-codex-page button:focus-visible, .ink-codex-sheet button:focus-visible { outline: 2px solid #9c3b31; outline-offset: 2px; }
 .ink-codex-heading { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-.ink-codex-heading h3 { margin: 0; font: 28px/1.2 'Jianghu Wuxia Titles', serif; letter-spacing: .15em; }
+.ink-codex-heading h3 { margin: 0; font: 28px/1.2 var(--game-ui-font); letter-spacing: .15em; }
 .ink-codex-heading small { font-size: 10px; color: #8a7b61; letter-spacing: .16em; }
 .ink-codex-heading-actions { display: flex; gap: 6px; }
 .ink-codex-heading-actions button { min-height: 44px; border: 0; border-bottom: 1px solid #b7ab90; background: transparent; color: #414b42; font: 12px/1.3 inherit; }
@@ -18,7 +18,7 @@
 .ink-codex-banners { display: grid; grid-template-columns: 1fr 1fr; margin: 0 0 9px; border-bottom: 1px solid #c3b79e; }
 .ink-codex-banners button { min-height: 48px; padding: 4px 8px; border: 0; border-bottom: 3px solid transparent; background: transparent; color: #7a7c70; }
 .ink-codex-banners button[aria-selected='true'] { color: #324c42; border-color: #405e50; background: #e7e9dd; }
-.ink-codex-banners strong { display: block; font: 20px/1.2 'Jianghu Wuxia Titles', serif; letter-spacing: .13em; }
+.ink-codex-banners strong { display: block; font: 20px/1.2 var(--game-ui-font); letter-spacing: .13em; }
 .ink-codex-banners small { display: block; font-size: 10px; line-height: 1.4; }
 .scroll-shell--play .ink-codex-page .ink-school-tabs { margin: 0; gap: 3px; }
 .scroll-shell--play .ink-codex-page .ink-school-tabs button { min-height: 44px; padding: 4px 2px; gap: 1px; display: flex; justify-content: center; align-items: center; flex-direction: row; --wuxia-frame-width: 5px; }
@@ -26,7 +26,7 @@
 .ink-codex-page .ink-school-focus { display: none; }
 .ink-codex-page .ink-school-tabs .ink-icon { width: 15px !important; height: 15px !important; flex: none; }
 .ink-codex-volume { display: flex; align-items: center; gap: 6px; min-height: 44px; font-size: 11px; }
-.ink-codex-volume strong { font: 16px/1.2 'Jianghu Wuxia Titles', serif; overflow-wrap: anywhere; }
+.ink-codex-volume strong { font: 16px/1.2 var(--game-ui-font); overflow-wrap: anywhere; }
 .ink-codex-volume select { max-width: 90px; min-height: 44px; border: 0; background: transparent; color: #655e4d; font-size: 12px; }
 .ink-codex-volume > button { margin-left: auto; min-height: 44px; border: 0; background: transparent; color: #8d4437; font: 11px/1.3 inherit; white-space: nowrap; }
 .ink-codex-theatre { position: relative; height: clamp(116px, 18dvh, 156px); overflow: hidden; background: radial-gradient(ellipse at 54% 58%, #e2dfca 0%, #f1eddf 48%, #f8f4eb 78%); }
@@ -34,16 +34,16 @@
 .ink-codex-canvas { width: 100%; height: 100%; display: block; position: relative; z-index: 1; }
 .ink-codex-static { display: block; height: 82%; width: auto; margin: 8px auto; transform: perspective(550px) rotateY(-15deg) rotateZ(-5deg); box-shadow: 8px 12px 15px #25382e30; }
 .ink-codex-poem { position: absolute; z-index: 2; top: 12px; left: 7px; display: flex; gap: 7px; pointer-events: none; }
-.ink-codex-poem span { writing-mode: vertical-rl; font: 15px/1.4 'Jianghu Wuxia Titles', serif; letter-spacing: .22em; color: #647361; }
+.ink-codex-poem span { writing-mode: vertical-rl; font: 15px/1.4 var(--game-ui-font); letter-spacing: .22em; color: #647361; }
 .ink-codex-poem span + span { padding-top: 24px; color: #9c8f70; }
-.ink-codex-edition { position: absolute; top: 16px; right: 7px; writing-mode: vertical-rl; font: 17px/1.6 'Jianghu Wuxia Titles', serif; color: #7e503a; letter-spacing: .15em; }
+.ink-codex-edition { position: absolute; top: 16px; right: 7px; writing-mode: vertical-rl; font: 17px/1.6 var(--game-ui-font); color: #7e503a; letter-spacing: .15em; }
 .ink-codex-edition small { font: 10px/1.5 sans-serif; letter-spacing: .1em; margin-right: 5px; }
 .ink-codex-theatre-note { position: absolute; bottom: 3px; left: 0; right: 0; text-align: center; font-size: 10px; letter-spacing: .2em; color: #8a8068; }
 .ink-codex-wish { position: relative; width: 100%; display: flex; align-items: center; gap: 9px; padding: 9px 4px 12px; border: 0; border-block: 1px solid #c9bda6; background: transparent; text-align: left; color: inherit; min-height: 68px; }
 .ink-codex-wish > span:nth-child(2) { min-width: 0; flex: 1; }
 .ink-codex-wish small { display: block; font: 10px/1.4 inherit; color: #8b8068; }
-.ink-codex-wish strong { display: block; font: 17px/1.4 'Jianghu Wuxia Titles', serif; overflow-wrap: anywhere; }
-.ink-codex-wish-seal { display: grid; place-items: center; background: #964136; color: #f9edda; width: 29px; height: 31px; font: 21px 'Jianghu Wuxia Titles', serif; transform: rotate(-4deg); flex: none; }
+.ink-codex-wish strong { display: block; font: 17px/1.4 var(--game-ui-font); overflow-wrap: anywhere; }
+.ink-codex-wish-seal { display: grid; place-items: center; background: #964136; color: #f9edda; width: 29px; height: 31px; font: 21px var(--game-ui-font); transform: rotate(-4deg); flex: none; }
 .ink-codex-pity { text-align: right; flex: none; }
 .ink-codex-pity b { font-size: 19px; font-weight: 500; color: #9a4434; font-variant-numeric: tabular-nums; }
 .ink-codex-pity b small { display: inline; }
@@ -53,26 +53,26 @@
 .ink-codex-pulls > button + button { background: #874034; border-color: #753c30; box-shadow: inset 0 0 0 3px #874034, inset 0 0 0 4px #c19a6d; }
 .ink-codex-pulls > button:active:not(:disabled) { transform: translateY(2px) scale(.98); }
 .ink-codex-pulls > button:disabled { opacity: .48; box-shadow: none; }
-.ink-codex-pulls span { font: 23px/1.15 'Jianghu Wuxia Titles', serif; letter-spacing: .2em; }
+.ink-codex-pulls span { font: 23px/1.15 var(--game-ui-font); letter-spacing: .2em; }
 .ink-codex-pulls small { display: flex; align-items: center; gap: 3px; font-size: 11px; line-height: 1.6; }
 .ink-codex-fineprint { margin: 3px 0; text-align: center; color: #817660; font-size: 10px; line-height: 1.5; }
 .ink-codex-last { display: block; min-height: 44px; margin: auto; color: #6c735f; font-size: 11px; border: 0; background: transparent; }
-.ink-codex-volume > .ink-codex-school-picker { margin-left: 0; margin-right: auto; color: #3d5145; font: 18px/1.2 'Jianghu Wuxia Titles', serif; text-align: left; white-space: normal; }
+.ink-codex-volume > .ink-codex-school-picker { margin-left: 0; margin-right: auto; color: #3d5145; font: 18px/1.2 var(--game-ui-font); text-align: left; white-space: normal; }
 .ink-codex-sheet .ink-school-tabs { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
 .ink-codex-sheet .ink-school-tabs button { min-height: 84px; padding: 8px; background: #fdf8ec; border: 1px solid #c4b89d; display: grid; place-items: center; color: #3e5145; }
 .ink-codex-sheet .ink-school-tabs button[aria-pressed='true'] { border-color: #963e32; color: #963e32; }
-.ink-codex-sheet .ink-school-tabs strong { font: 18px/1.4 'Jianghu Wuxia Titles', serif; }
+.ink-codex-sheet .ink-school-tabs strong { font: 18px/1.4 var(--game-ui-font); }
 .ink-codex-sheet .ink-school-tabs small { font-size: 11px; }
 .ink-codex-page.is-zhenben .ink-codex-theatre { background: radial-gradient(ellipse at 54% 58%, #e8d8ae 0%, #f3ead7 48%, #f8f4eb 78%); }
 .ink-codex-sheet { position: fixed; width: min(420px, calc(100% - 24px)); box-sizing: border-box; max-height: min(88dvh, 850px); padding: 18px; border: 1px solid #c0ad89; background: #f7f2e6; color: #3c443b; box-shadow: 0 24px 90px #172b2966; }
 .ink-codex-sheet::backdrop { background: #18251dc2; backdrop-filter: blur(4px); }
 .ink-codex-sheet > header { display: flex; justify-content: space-between; align-items: center; gap: 12px; border-bottom: 1px solid #c7b897; padding-bottom: 8px; }
-.ink-codex-sheet h3 { font: 25px 'Jianghu Wuxia Titles', serif; margin: 0; }
+.ink-codex-sheet h3 { font: 25px var(--game-ui-font); margin: 0; }
 .ink-codex-sheet > header button { min-height: 44px; padding: 4px 10px; background: none; border: 1px solid #c5b99e; color: inherit; }
 .ink-codex-sheet-body { font-size: 13px; line-height: 1.7; overflow-wrap: anywhere; }
 .ink-codex-catalog { list-style: none; padding: 0; }
 .ink-codex-catalog li { padding: 12px 0; border-bottom: 1px solid #d7cdb8; }
-.ink-codex-catalog strong, .ink-codex-wish-options strong { display: block; font: 19px/1.5 'Jianghu Wuxia Titles', serif; }
+.ink-codex-catalog strong, .ink-codex-wish-options strong { display: block; font: 19px/1.5 var(--game-ui-font); }
 .ink-codex-catalog small { display: block; color: #85795f; }
 .ink-codex-wish-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .ink-codex-wish-options button { min-height: 70px; border: 1px solid #c7b99b; background: #fffaf0; color: inherit; padding: 9px; }
@@ -91,7 +91,7 @@
 }
 @media (prefers-reduced-motion: reduce) { .ink-codex-pulls > button { transition: none; } }
 
-.scroll-shell--play .ink-codex-heading h3 { background: none; border: 0; padding: 0; font: 28px/1.2 'Jianghu Wuxia Titles', serif; }
+.scroll-shell--play .ink-codex-heading h3 { background: none; border: 0; padding: 0; font: 700 28px/1.2 var(--game-ui-font); }
 .ink-codex-edition small { display: none; }
 
 /* 與主頁共用紙底墨線、朱砂筆觸與介面字體；不再疊仿古金屬框。 */
@@ -190,3 +190,27 @@ html.native-ios .scroll-shell--play.scroll-shell--gacha { padding-top: 0; }
 .scroll-shell--gacha .ink-codex-volume > :last-child { flex: none; }
 .scroll-shell--gacha .ink-codex-heading > :first-child { min-width: 0; }
 .scroll-shell--gacha .ink-codex-heading-actions { flex: none; }
+
+/* 與主頁功能頁一致：標題粗體、說明正常字重，取消過寬題字間距。 */
+:is(.ink-codex-heading h3, .ink-codex-sheet h3) { font-weight: 700; letter-spacing: .04em; }
+.ink-codex-banners strong, .ink-codex-wish strong, .ink-codex-volume > .ink-codex-school-picker,
+.ink-codex-catalog strong, .ink-codex-wish-options strong, .ink-codex-sheet .ink-school-tabs strong { font-weight: 700; letter-spacing: .02em; }
+.ink-codex-heading-actions button, .ink-codex-volume > button, .ink-codex-last { font-size: 13px; }
+.ink-codex-wallet, .ink-codex-banners small, .ink-codex-wish small, .ink-codex-fineprint { font-size: 12px; }
+.ink-codex-probability { color: var(--ink-mid); }
+.ink-codex-odds { margin-block: 12px; padding: 12px; background: var(--paper); border: 1px solid var(--ink-faint); }
+.ink-codex-odds p { margin: 4px 0; }
+
+/* 書頁兌換及升階按鈕自然換行；局部內容不可被橫向捲走。 */
+.ink-codex-shelf { min-width: 0; }
+.ink-codex-shelf > * { min-width: 0; max-width: 100%; }
+.ink-codex-shelf .ink-pages { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+.ink-codex-shelf .ink-pages > span,
+.ink-codex-shelf .ink-pages > select:first-of-type { grid-column: 1 / -1; }
+.ink-codex-shelf .ink-pages > select { width: 100%; min-width: 0; min-height: 44px; font-size: 16px; }
+.ink-codex-shelf .ink-pages > button { grid-column: 2; min-height: 44px; }
+.ink-codex-shelf .ink-shelf-row { min-width: 0; flex-direction: column; align-items: stretch; gap: 10px; }
+.ink-codex-shelf .ink-shelf-main { min-width: 0; overflow-wrap: anywhere; }
+.ink-codex-shelf .ink-shelf-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; gap: 8px; }
+.ink-codex-shelf .ink-shelf-actions .ink-btn { min-width: 0; min-height: 44px; white-space: normal; overflow-wrap: anywhere; font-size: 14px; }
+.ink-codex-shelf .ink-shelf-actions .ink-btn:first-child:nth-last-child(3) { grid-column: 1 / -1; }

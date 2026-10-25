@@ -1,3 +1,4 @@
+import { recomputeCapBonuses } from './equipment';
 /** 五門外功＋內功／身法各一門；全部都可以跨流派裝備。 */
 import type { LifeCharacter, LifeGameState } from '@interfaces/lifeEngine';
 import { canonicalSkillId, getSkillDef } from '@data/skills/catalog';
@@ -67,5 +68,6 @@ export function setMartialSlot(state: LifeGameState, slot: number, id: string | 
   else support[kind] = id;
   c.equippedArts = slots;
   c.supportArts = support;
+  recomputeCapBonuses(c);
   return true;
 }

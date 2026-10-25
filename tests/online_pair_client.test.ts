@@ -1,5 +1,7 @@
 import { afterEach, expect, it, vi } from 'vitest';
 
+vi.mock('../src/cloud/sync',()=>({saveProfileForOnline:vi.fn(async()=>true)}));
+vi.mock('../src/store/lifeStore',()=>({useLifeStore:{getState:()=>({state:{character:{name:'測試俠客'}}})}}));
 vi.mock('../src/cloud/cloud', () => ({ cloudAccess: async () => ({ url: 'https://test.invalid', key: 'test-public', token: 'test-session' }) }));
 afterEach(() => { vi.unstubAllGlobals(); vi.resetModules(); });
 

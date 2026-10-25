@@ -1,3 +1,4 @@
+import { selectDailyTask, claimDailyTask, claimGrowthGuide, receiveOnlineJade } from '@core/life/accountEconomy';
 /**
  * 祖蔭（帳戶層、跨世永久）：localStorage `jianghu_ancestry_v1`，同人生存檔分開，
  * 「重新開始」都唔會清。私隱模式寫唔到就只留喺記憶體。
@@ -31,6 +32,7 @@ import {
   type BannerId,
   type PullResult,
 } from '@core/life/gacha';
+import { collectionVolumes } from '@core/life/volumes';
 import { getSkillDef } from '@data/skills/catalog';
 import { activeSchoolGachaPool } from '@core/life/schoolGachaPools';
 import {
@@ -62,6 +64,10 @@ interface AncestryStore {
   /** 啱啱入帳嘅免費玉石（toast 用） */
   jadeToast: number;
   clearJadeToast: () => void;
+  selectDaily: (id:string) => void;
+  claimDaily: (id:string) => void;
+  claimGuide: (id:string) => void;
+  receiveOnlineJade: (source:string,total:number)=>void;
   /** 抽卡；返回結果（玉石唔夠＝null） */
   gachaPull: (banner: BannerId, n: number) => PullResult[] | null;
   lastPull: PullResult[] | null;
@@ -70,7 +76,7 @@ interface AncestryStore {
   selectSchoolPool: (banner: BannerId, poolId: string) => void;
   upgradeManual: (artId: string) => void;
   pulpManual: (artId: string) => void;
-  exchangePages: (artId: string) => void;
+  exchangePages: (artId: string, volume?: number) => void;
   /** 測試版：領付費玉石測試額度 */
   grantTestJade: () => void;
   /** 由家族收藏學一門秘笈（今世角色） */
@@ -146,6 +152,10 @@ export const useAncestryStore = create<AncestryStore>()((set, get) => ({
   setPanelOpen: (open) => set({ panelOpen: open }),
   jadeToast: 0,
   clearJadeToast: () => set({ jadeToast: 0 }),
+  receiveOnlineJade: (source,total) => { get().checkMilestones(); let gain=0;mutate(get,set,m=>{gain=receiveOnlineJade(m,source,total);return gain>0;});if(gain)set({jadeToast:get().jadeToast+gain}); },
+  selectDaily: id => { get().checkMilestones(); mutate(get,set,m => selectDailyTask(m,id)); },
+  claimDaily: id => { get().checkMilestones(); mutate(get,set,m => claimDailyTask(m,id)); },
+  claimGuide: id => { const state=useLifeStore.getState().state; if(state){get().checkMilestones();mutate(get,set,m=>claimGrowthGuide(m,state,id));} },
   lastPull: null,
   lastPullSource: null,
   gachaPull: (banner, n) => {
@@ -165,7 +175,7 @@ export const useAncestryStore = create<AncestryStore>()((set, get) => ({
     get().checkMilestones();
   },
   pulpManual: (id) => mutate(get, set, (m) => pulpManual(m, id)),
-  exchangePages: (id) => mutate(get, set, (m) => exchangePages(m, id)),
+  exchangePages: (id, volume) => { mutate(get, set, (m) => exchangePages(m, id, volume)); get().checkMilestones(); },
   grantTestJade: () => mutate(get, set, (m) => grantTestPaidJade(m) > 0),
   encounterOpen: false,
   encounterReward: null,
@@ -209,6 +219,7 @@ export const useAncestryStore = create<AncestryStore>()((set, get) => ({
     if (!get().meta.manuals?.[id] || life.character.skills.includes(id) || !getSkillDef(id)) return;
     const next = produce(life, (draft) => {
       const c = draft.character;
+      c.volumes = { ...c.volumes, ...(collectionVolumes(get().meta, id).length ? { [id]: collectionVolumes(get().meta, id) } : {}) };
       c.skills.push(id);
       c.skillRanks = { ...(c.skillRanks ?? {}), [id]: c.skillRanks?.[id] ?? 0 };
       c.skillProgress = { ...(c.skillProgress ?? {}), [id]: c.skillProgress?.[id] ?? 0 };

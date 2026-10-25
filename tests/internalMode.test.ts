@@ -241,10 +241,12 @@ describe('internalMode: integrated into combat', () => {
     startCombat(state, { source: 'event', title: '試', foeName: '木樁', foePower: 'weak' });
     // huxiao 冇 qiRegenBonus，淨消耗最易驗證（guixi 因為有 qiRegenBonus 反而可能淨回氣）
     setCombatInternalMode(state, 'huxiao'); // qiCostPerTurn = 8
+    state.pendingCombat!.player.qi = 100;
     const qiBefore = state.pendingCombat!.player.qi;
+    const regen = state.pendingCombat!.player.qiRegen + state.pendingCombat!.player.maxQi * .01;
     playerCombatTurn(state, 'basic_strike');
     if (state.pendingCombat) {
-      expect(state.pendingCombat.player.qi).toBeLessThanOrEqual(qiBefore - 8);
+      expect(state.pendingCombat.player.qi).toBeCloseTo(qiBefore + regen - 8, 8);
     }
   });
 });

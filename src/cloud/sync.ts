@@ -34,6 +34,8 @@ let syncStatus: CloudSyncStatus = 'idle';
 const statusListeners = new Set<() => void>();
 
 let lastSyncedAt = 0;
+let lastSyncedPayloadAt = 0;
+let lastQueuedAt = 0;
 
 export function getCloudSyncStatus(): CloudSyncStatus { return syncStatus; }
 /** 最近一次成功上傳雲端嘅時間（ms epoch）；0＝未試過成功 */
@@ -95,6 +97,7 @@ async function uploadNow(): Promise<void> {
   if (!succeeded && !pending) pending = payload;
   if (succeeded) {
     lastSyncedAt = Date.now();
+    lastSyncedPayloadAt = payload.savedAt;
     for (const listener of statusListeners) listener();
   }
   setCloudSyncStatus(!succeeded ? 'retrying' : pending ? 'pending' : 'synced');
@@ -105,7 +108,8 @@ async function uploadNow(): Promise<void> {
 /** Snapshot 喺排隊時固定，失敗保留，單一上傳避免舊進度最後蓋過新進度。 */
 export function queueCloudSync(state: LifeGameState | null): void {
   if (!cloudConfigured()) return;
-  pending = { version: 1, savedAt: Date.now(), life: state, ancestry: readAncestryRaw() };
+  lastQueuedAt = Math.max(Date.now(), lastQueuedAt + 1);
+  pending = { version: 1, savedAt: lastQueuedAt, life: state, ancestry: readAncestryRaw() };
   if (inFlight) return;
   setCloudSyncStatus('pending');
   if (state?.phase === 'summary' && timer) { clearTimeout(timer); timer = null; }
@@ -117,6 +121,20 @@ export function flushCloudSync(): void {
   if (timer) { clearTimeout(timer); timer = null; }
   if (inFlight) { flushRequested = true; return; }
   void uploadNow();
+}
+
+/** 配對前等候已選配搭真正存妥；唔用本機請求內容當服務端戰力。 */
+export async function saveProfileForOnline(state:LifeGameState):Promise<boolean> {
+  if(!cloudConfigured())return false;
+  queueCloudSync(state);
+  const target=pending?.savedAt??0;
+  for(let attempt=0;attempt<2;attempt++) {
+    if(timer){clearTimeout(timer);timer=null;}
+    if(inFlight)await inFlight;
+    if(lastSyncedPayloadAt>=target)return true;
+    await uploadNow();
+  }
+  return lastSyncedPayloadAt>=target;
 }
 
 export interface BootResult {

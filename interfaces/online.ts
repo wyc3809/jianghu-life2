@@ -15,6 +15,9 @@ export interface OnlinePlayer {
   onlineRemainder: number;
   offlineRemainder: number;
   silver: number;
+  /** 服務端累計已派免費玉石，帳戶以來源高水位收據接收。 */
+  jadeEarnedTotal?: number;
+  jadeDay?: { day: string; attackWins: number; defendWins: number; opponents: string[] };
 }
 export interface OnlineBattle {
   id: string;
@@ -28,6 +31,7 @@ export interface OnlineBattle {
   after: Record<OnlineAccountId, number> | null;
   replays: Record<OnlineAccountId, CombatReplay>;
   characters: Record<OnlineAccountId, LifeCharacter>;
+  jadeAwards?: Record<OnlineAccountId, number>;
 }
 export interface OnlineWorld {
   version: 1;

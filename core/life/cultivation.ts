@@ -3,15 +3,11 @@ import { getRng } from '@core/random';
 import { syncRngFromState, snapshotRng } from './gameState';
 import { getSkillDef } from '@data/skills/catalog';
 import { gearTotals, raiseBaseMaxHp, raiseBaseMaxQi } from './equipment';
-import { gainJianghuPrestige } from './jianghuPrestige';
 import { headProgressFactor } from './injuryMath';
 import { pushChronicle } from './chronicle';
 import {
-  JADE_PER_BREAKTHROUGH_BASE,
-  JADE_PER_BREAKTHROUGH_TIER,
   TEST_CULTIVATION_RESERVE_RATIO,
 } from '@data/redesign/testParams';
-import { addJadePending } from './jadePending';
 
 /**
  * 放置修為層：功法／內功／門派加成／裝備詞條全部換算做一個「修為/秒」速率，
@@ -294,6 +290,8 @@ export interface BreakthroughResult {
   hpGain?: number;
   qiGain?: number;
   prestigeGain?: number;
+  /** 帳戶結算成功後實際入帳的突破玉石。 */
+  jadeGain?: number;
   hpLoss?: number;
   qiLoss?: number;
   setback?: number;
@@ -327,7 +325,7 @@ export function attemptCultivationBreakthrough(state: LifeGameState): Breakthrou
     c.cultivation.tier = nextTier.level;
     c.cultivation.xp = 0;
     const reserveReleased = releaseCultivationReserve(state);
-    addJadePending(state, JADE_PER_BREAKTHROUGH_BASE + JADE_PER_BREAKTHROUGH_TIER * nextTier.level);
+    // 免費玉石由帳戶最高境界收據一次結算，唔再沿用逐代待入帳。
     const martialGain = 6 + nextTier.level * 2;
     c.martial += martialGain;
     const hpGain = 16 + nextTier.level * 5;
@@ -341,8 +339,7 @@ export function attemptCultivationBreakthrough(state: LifeGameState): Breakthrou
     if (reserveReleased > 0) {
       lines.push(`儲備修為已轉入新境界，修為＋${Math.floor(reserveReleased).toLocaleString('zh-Hant')}。`);
     }
-    const prestigeGain = 50 + nextTier.level * 25;
-    lines.push(...gainJianghuPrestige(state, prestigeGain));
+    const prestigeGain = 0;
     pushChronicle(state, lines);
     snapshotRng(state);
     return {

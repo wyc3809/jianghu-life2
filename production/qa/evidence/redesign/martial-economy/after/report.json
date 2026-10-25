@@ -1,0 +1,715 @@
+{
+  "base": "http://127.0.0.1:5188/",
+  "actualIOS": false,
+  "productionBuild": true,
+  "cases": [
+    {
+      "tag": "chromium-320-568",
+      "mainFont": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+      "typography": [
+        {
+          "text": "長河拳",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置欄位",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置欄位",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置欄位",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置欄位",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "基礎吐納",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置身法",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "全部",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "修羅血戰道",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "長河疊浪",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "摧鋒破陣",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "鎖脈擒龍",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "不動金剛",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "逍遙遊",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "基礎吐納（內功）· 略有小成",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "長河疊浪",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "鎖脈擒龍",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "長河拳（外功）· 略有小成",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "摧鋒破陣",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "柔絲手",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "修羅血戰道",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "不動金剛",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        }
+      ],
+      "readOnlyNavigation": true,
+      "pageerrors": []
+    },
+    {
+      "tag": "chromium-390-844",
+      "mainFont": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+      "typography": [
+        {
+          "text": "長河拳",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置欄位",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置欄位",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置欄位",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置欄位",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "基礎吐納",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置身法",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "全部",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "修羅血戰道",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "長河疊浪",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "摧鋒破陣",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "鎖脈擒龍",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "不動金剛",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "逍遙遊",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "基礎吐納（內功）· 略有小成",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "長河疊浪",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "鎖脈擒龍",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "長河拳（外功）· 略有小成",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "摧鋒破陣",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "柔絲手",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "修羅血戰道",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "不動金剛",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        }
+      ],
+      "readOnlyNavigation": true,
+      "pageerrors": []
+    },
+    {
+      "tag": "chromium-420-896",
+      "mainFont": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+      "typography": [
+        {
+          "text": "長河拳",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置欄位",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置欄位",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置欄位",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置欄位",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "基礎吐納",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置身法",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "全部",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "修羅血戰道",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "長河疊浪",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "摧鋒破陣",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "鎖脈擒龍",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "不動金剛",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "逍遙遊",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "基礎吐納（內功）· 略有小成",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "長河疊浪",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "鎖脈擒龍",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "長河拳（外功）· 略有小成",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "摧鋒破陣",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "柔絲手",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "修羅血戰道",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "不動金剛",
+          "font": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+          "weight": "700"
+        }
+      ],
+      "readOnlyNavigation": true,
+      "pageerrors": []
+    },
+    {
+      "tag": "webkit-320-568",
+      "mainFont": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+      "typography": [
+        {
+          "text": "長河拳",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置欄位",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置欄位",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置欄位",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置欄位",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "基礎吐納",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置身法",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "全部",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "修羅血戰道",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "長河疊浪",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "摧鋒破陣",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "鎖脈擒龍",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "不動金剛",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "逍遙遊",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "基礎吐納（內功）· 略有小成",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "長河疊浪",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "鎖脈擒龍",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "長河拳（外功）· 略有小成",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "摧鋒破陣",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "柔絲手",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "修羅血戰道",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "不動金剛",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        }
+      ],
+      "readOnlyNavigation": true,
+      "pageerrors": []
+    },
+    {
+      "tag": "webkit-390-844",
+      "mainFont": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+      "typography": [
+        {
+          "text": "長河拳",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置欄位",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置欄位",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置欄位",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置欄位",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "基礎吐納",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置身法",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "全部",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "修羅血戰道",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "長河疊浪",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "摧鋒破陣",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "鎖脈擒龍",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "不動金剛",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "逍遙遊",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "基礎吐納（內功）· 略有小成",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "長河疊浪",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "鎖脈擒龍",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "長河拳（外功）· 略有小成",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "摧鋒破陣",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "柔絲手",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "修羅血戰道",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "不動金剛",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        }
+      ],
+      "readOnlyNavigation": true,
+      "pageerrors": []
+    },
+    {
+      "tag": "webkit-420-896",
+      "mainFont": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+      "typography": [
+        {
+          "text": "長河拳",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置欄位",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置欄位",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置欄位",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置欄位",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "基礎吐納",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "空置身法",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "全部",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "修羅血戰道",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "長河疊浪",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "摧鋒破陣",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "鎖脈擒龍",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "不動金剛",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "逍遙遊",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "基礎吐納（內功）· 略有小成",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "長河疊浪",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "鎖脈擒龍",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "長河拳（外功）· 略有小成",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "摧鋒破陣",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "柔絲手",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "修羅血戰道",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        },
+        {
+          "text": "不動金剛",
+          "font": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+          "weight": "700"
+        }
+      ],
+      "readOnlyNavigation": true,
+      "pageerrors": []
+    }
+  ]
+}

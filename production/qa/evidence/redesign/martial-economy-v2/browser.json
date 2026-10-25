@@ -1,0 +1,102 @@
+{
+  "productionBuild": true,
+  "actualIphone": false,
+  "cases": [
+    {
+      "tag": "chromium-320-568",
+      "dailyJade": 180,
+      "guideJade": 30,
+      "normalUnchanged": true,
+      "duelVolume": [
+        7
+      ],
+      "exchangeVolume": [
+        7
+      ],
+      "upgradePages": 600,
+      "oldCopiesKept": 2,
+      "mainFont": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+      "pageerrors": []
+    },
+    {
+      "tag": "chromium-390-844",
+      "dailyJade": 180,
+      "guideJade": 30,
+      "normalUnchanged": true,
+      "duelVolume": [
+        7
+      ],
+      "exchangeVolume": [
+        7
+      ],
+      "upgradePages": 600,
+      "oldCopiesKept": 2,
+      "mainFont": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+      "pageerrors": []
+    },
+    {
+      "tag": "chromium-430-932",
+      "dailyJade": 180,
+      "guideJade": 30,
+      "normalUnchanged": true,
+      "duelVolume": [
+        7
+      ],
+      "exchangeVolume": [
+        7
+      ],
+      "upgradePages": 600,
+      "oldCopiesKept": 2,
+      "mainFont": "\"Noto Sans CJK TC\", \"Microsoft JhengHei\", sans-serif",
+      "pageerrors": []
+    },
+    {
+      "tag": "webkit-320-568",
+      "dailyJade": 180,
+      "guideJade": 30,
+      "normalUnchanged": true,
+      "duelVolume": [
+        7
+      ],
+      "exchangeVolume": [
+        7
+      ],
+      "upgradePages": 600,
+      "oldCopiesKept": 2,
+      "mainFont": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+      "pageerrors": []
+    },
+    {
+      "tag": "webkit-390-844",
+      "dailyJade": 180,
+      "guideJade": 30,
+      "normalUnchanged": true,
+      "duelVolume": [
+        7
+      ],
+      "exchangeVolume": [
+        7
+      ],
+      "upgradePages": 600,
+      "oldCopiesKept": 2,
+      "mainFont": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+      "pageerrors": []
+    },
+    {
+      "tag": "webkit-430-932",
+      "dailyJade": 180,
+      "guideJade": 30,
+      "normalUnchanged": true,
+      "duelVolume": [
+        7
+      ],
+      "exchangeVolume": [
+        7
+      ],
+      "upgradePages": 600,
+      "oldCopiesKept": 2,
+      "mainFont": "Noto Sans CJK TC, Microsoft JhengHei, sans-serif",
+      "pageerrors": []
+    }
+  ]
+}

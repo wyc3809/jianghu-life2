@@ -1,0 +1,2651 @@
+{
+  "version": "EA0.90.0 unpublished Story44",
+  "method": "真核心、固定種子，沒有玩家樣本；鏡像基礎角色配搭比較，不代表完整賽季勝率。",
+  "duelSamples": 1296,
+  "eventSamples": 432,
+  "duels": [
+    {
+      "tier": 0,
+      "art": "art_silk_hand",
+      "school": "修羅血戰道",
+      "volumes": 1,
+      "samples": 24,
+      "wins": 0,
+      "losses": 24,
+      "draws": 0,
+      "meanRounds": 8.125,
+      "meditationActionRatio": 0.03314917127071823
+    },
+    {
+      "tier": 0,
+      "art": "art_silk_hand",
+      "school": "修羅血戰道",
+      "volumes": 3,
+      "samples": 24,
+      "wins": 23,
+      "losses": 1,
+      "draws": 0,
+      "meanRounds": 7.541666666666667,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 0,
+      "art": "art_silk_hand",
+      "school": "修羅血戰道",
+      "volumes": 7,
+      "samples": 24,
+      "wins": 24,
+      "losses": 0,
+      "draws": 0,
+      "meanRounds": 3.2083333333333335,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 0,
+      "art": "art_rain_sword",
+      "school": "長河疊浪",
+      "volumes": 1,
+      "samples": 24,
+      "wins": 1,
+      "losses": 23,
+      "draws": 0,
+      "meanRounds": 6.666666666666667,
+      "meditationActionRatio": 0.06164383561643835
+    },
+    {
+      "tier": 0,
+      "art": "art_rain_sword",
+      "school": "長河疊浪",
+      "volumes": 3,
+      "samples": 24,
+      "wins": 24,
+      "losses": 0,
+      "draws": 0,
+      "meanRounds": 3.5416666666666665,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 0,
+      "art": "art_rain_sword",
+      "school": "長河疊浪",
+      "volumes": 7,
+      "samples": 24,
+      "wins": 24,
+      "losses": 0,
+      "draws": 0,
+      "meanRounds": 1.9166666666666667,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 0,
+      "art": "art_river_fist",
+      "school": "摧鋒破陣",
+      "volumes": 1,
+      "samples": 24,
+      "wins": 0,
+      "losses": 24,
+      "draws": 0,
+      "meanRounds": 6.75,
+      "meditationActionRatio": 0.06756756756756757
+    },
+    {
+      "tier": 0,
+      "art": "art_river_fist",
+      "school": "摧鋒破陣",
+      "volumes": 3,
+      "samples": 24,
+      "wins": 11,
+      "losses": 13,
+      "draws": 0,
+      "meanRounds": 6.125,
+      "meditationActionRatio": 0.051470588235294115
+    },
+    {
+      "tier": 0,
+      "art": "art_river_fist",
+      "school": "摧鋒破陣",
+      "volumes": 7,
+      "samples": 24,
+      "wins": 24,
+      "losses": 0,
+      "draws": 0,
+      "meanRounds": 2.7083333333333335,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 0,
+      "art": "art_nine_shadow",
+      "school": "鎖脈擒龍",
+      "volumes": 1,
+      "samples": 24,
+      "wins": 0,
+      "losses": 24,
+      "draws": 0,
+      "meanRounds": 7.875,
+      "meditationActionRatio": 0.02857142857142857
+    },
+    {
+      "tier": 0,
+      "art": "art_nine_shadow",
+      "school": "鎖脈擒龍",
+      "volumes": 3,
+      "samples": 24,
+      "wins": 18,
+      "losses": 6,
+      "draws": 0,
+      "meanRounds": 6.291666666666667,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 0,
+      "art": "art_nine_shadow",
+      "school": "鎖脈擒龍",
+      "volumes": 7,
+      "samples": 24,
+      "wins": 24,
+      "losses": 0,
+      "draws": 0,
+      "meanRounds": 3.0416666666666665,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 0,
+      "art": "em_soft_palm",
+      "school": "不動金剛",
+      "volumes": 1,
+      "samples": 24,
+      "wins": 0,
+      "losses": 24,
+      "draws": 0,
+      "meanRounds": 8.041666666666666,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 0,
+      "art": "em_soft_palm",
+      "school": "不動金剛",
+      "volumes": 3,
+      "samples": 24,
+      "wins": 22,
+      "losses": 2,
+      "draws": 0,
+      "meanRounds": 7.75,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 0,
+      "art": "em_soft_palm",
+      "school": "不動金剛",
+      "volumes": 7,
+      "samples": 24,
+      "wins": 24,
+      "losses": 0,
+      "draws": 0,
+      "meanRounds": 3.3333333333333335,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 0,
+      "art": "art_bridge_step",
+      "school": "逍遙遊",
+      "volumes": 1,
+      "samples": 24,
+      "wins": 0,
+      "losses": 24,
+      "draws": 0,
+      "meanRounds": 7.666666666666667,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 0,
+      "art": "art_bridge_step",
+      "school": "逍遙遊",
+      "volumes": 3,
+      "samples": 24,
+      "wins": 15,
+      "losses": 9,
+      "draws": 0,
+      "meanRounds": 6.208333333333333,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 0,
+      "art": "art_bridge_step",
+      "school": "逍遙遊",
+      "volumes": 7,
+      "samples": 24,
+      "wins": 24,
+      "losses": 0,
+      "draws": 0,
+      "meanRounds": 3,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 4,
+      "art": "art_silk_hand",
+      "school": "修羅血戰道",
+      "volumes": 1,
+      "samples": 24,
+      "wins": 0,
+      "losses": 24,
+      "draws": 0,
+      "meanRounds": 6.208333333333333,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 4,
+      "art": "art_silk_hand",
+      "school": "修羅血戰道",
+      "volumes": 3,
+      "samples": 24,
+      "wins": 16,
+      "losses": 8,
+      "draws": 0,
+      "meanRounds": 6.125,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 4,
+      "art": "art_silk_hand",
+      "school": "修羅血戰道",
+      "volumes": 7,
+      "samples": 24,
+      "wins": 24,
+      "losses": 0,
+      "draws": 0,
+      "meanRounds": 2.8333333333333335,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 4,
+      "art": "art_rain_sword",
+      "school": "長河疊浪",
+      "volumes": 1,
+      "samples": 24,
+      "wins": 2,
+      "losses": 22,
+      "draws": 0,
+      "meanRounds": 5.458333333333333,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 4,
+      "art": "art_rain_sword",
+      "school": "長河疊浪",
+      "volumes": 3,
+      "samples": 24,
+      "wins": 24,
+      "losses": 0,
+      "draws": 0,
+      "meanRounds": 3,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 4,
+      "art": "art_rain_sword",
+      "school": "長河疊浪",
+      "volumes": 7,
+      "samples": 24,
+      "wins": 24,
+      "losses": 0,
+      "draws": 0,
+      "meanRounds": 1.5,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 4,
+      "art": "art_river_fist",
+      "school": "摧鋒破陣",
+      "volumes": 1,
+      "samples": 24,
+      "wins": 0,
+      "losses": 24,
+      "draws": 0,
+      "meanRounds": 5.333333333333333,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 4,
+      "art": "art_river_fist",
+      "school": "摧鋒破陣",
+      "volumes": 3,
+      "samples": 24,
+      "wins": 11,
+      "losses": 13,
+      "draws": 0,
+      "meanRounds": 5.083333333333333,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 4,
+      "art": "art_river_fist",
+      "school": "摧鋒破陣",
+      "volumes": 7,
+      "samples": 24,
+      "wins": 24,
+      "losses": 0,
+      "draws": 0,
+      "meanRounds": 2.3333333333333335,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 4,
+      "art": "art_nine_shadow",
+      "school": "鎖脈擒龍",
+      "volumes": 1,
+      "samples": 24,
+      "wins": 0,
+      "losses": 24,
+      "draws": 0,
+      "meanRounds": 6.416666666666667,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 4,
+      "art": "art_nine_shadow",
+      "school": "鎖脈擒龍",
+      "volumes": 3,
+      "samples": 24,
+      "wins": 18,
+      "losses": 6,
+      "draws": 0,
+      "meanRounds": 5.375,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 4,
+      "art": "art_nine_shadow",
+      "school": "鎖脈擒龍",
+      "volumes": 7,
+      "samples": 24,
+      "wins": 24,
+      "losses": 0,
+      "draws": 0,
+      "meanRounds": 2.2916666666666665,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 4,
+      "art": "em_soft_palm",
+      "school": "不動金剛",
+      "volumes": 1,
+      "samples": 24,
+      "wins": 0,
+      "losses": 24,
+      "draws": 0,
+      "meanRounds": 5.875,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 4,
+      "art": "em_soft_palm",
+      "school": "不動金剛",
+      "volumes": 3,
+      "samples": 24,
+      "wins": 14,
+      "losses": 10,
+      "draws": 0,
+      "meanRounds": 5.958333333333333,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 4,
+      "art": "em_soft_palm",
+      "school": "不動金剛",
+      "volumes": 7,
+      "samples": 24,
+      "wins": 24,
+      "losses": 0,
+      "draws": 0,
+      "meanRounds": 2.9166666666666665,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 4,
+      "art": "art_bridge_step",
+      "school": "逍遙遊",
+      "volumes": 1,
+      "samples": 24,
+      "wins": 0,
+      "losses": 24,
+      "draws": 0,
+      "meanRounds": 5.833333333333333,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 4,
+      "art": "art_bridge_step",
+      "school": "逍遙遊",
+      "volumes": 3,
+      "samples": 24,
+      "wins": 10,
+      "losses": 14,
+      "draws": 0,
+      "meanRounds": 5.291666666666667,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 4,
+      "art": "art_bridge_step",
+      "school": "逍遙遊",
+      "volumes": 7,
+      "samples": 24,
+      "wins": 24,
+      "losses": 0,
+      "draws": 0,
+      "meanRounds": 2.375,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 8,
+      "art": "art_silk_hand",
+      "school": "修羅血戰道",
+      "volumes": 1,
+      "samples": 24,
+      "wins": 0,
+      "losses": 24,
+      "draws": 0,
+      "meanRounds": 5.083333333333333,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 8,
+      "art": "art_silk_hand",
+      "school": "修羅血戰道",
+      "volumes": 3,
+      "samples": 24,
+      "wins": 12,
+      "losses": 12,
+      "draws": 0,
+      "meanRounds": 5.125,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 8,
+      "art": "art_silk_hand",
+      "school": "修羅血戰道",
+      "volumes": 7,
+      "samples": 24,
+      "wins": 24,
+      "losses": 0,
+      "draws": 0,
+      "meanRounds": 2.4583333333333335,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 8,
+      "art": "art_rain_sword",
+      "school": "長河疊浪",
+      "volumes": 1,
+      "samples": 24,
+      "wins": 3,
+      "losses": 21,
+      "draws": 0,
+      "meanRounds": 4.75,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 8,
+      "art": "art_rain_sword",
+      "school": "長河疊浪",
+      "volumes": 3,
+      "samples": 24,
+      "wins": 24,
+      "losses": 0,
+      "draws": 0,
+      "meanRounds": 2.7083333333333335,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 8,
+      "art": "art_rain_sword",
+      "school": "長河疊浪",
+      "volumes": 7,
+      "samples": 24,
+      "wins": 24,
+      "losses": 0,
+      "draws": 0,
+      "meanRounds": 1.0416666666666667,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 8,
+      "art": "art_river_fist",
+      "school": "摧鋒破陣",
+      "volumes": 1,
+      "samples": 24,
+      "wins": 0,
+      "losses": 24,
+      "draws": 0,
+      "meanRounds": 4.708333333333333,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 8,
+      "art": "art_river_fist",
+      "school": "摧鋒破陣",
+      "volumes": 3,
+      "samples": 24,
+      "wins": 9,
+      "losses": 15,
+      "draws": 0,
+      "meanRounds": 4.333333333333333,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 8,
+      "art": "art_river_fist",
+      "school": "摧鋒破陣",
+      "volumes": 7,
+      "samples": 24,
+      "wins": 24,
+      "losses": 0,
+      "draws": 0,
+      "meanRounds": 2.1666666666666665,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 8,
+      "art": "art_nine_shadow",
+      "school": "鎖脈擒龍",
+      "volumes": 1,
+      "samples": 24,
+      "wins": 0,
+      "losses": 24,
+      "draws": 0,
+      "meanRounds": 5.583333333333333,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 8,
+      "art": "art_nine_shadow",
+      "school": "鎖脈擒龍",
+      "volumes": 3,
+      "samples": 24,
+      "wins": 18,
+      "losses": 6,
+      "draws": 0,
+      "meanRounds": 4.5,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 8,
+      "art": "art_nine_shadow",
+      "school": "鎖脈擒龍",
+      "volumes": 7,
+      "samples": 24,
+      "wins": 24,
+      "losses": 0,
+      "draws": 0,
+      "meanRounds": 2.0416666666666665,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 8,
+      "art": "em_soft_palm",
+      "school": "不動金剛",
+      "volumes": 1,
+      "samples": 24,
+      "wins": 0,
+      "losses": 24,
+      "draws": 0,
+      "meanRounds": 5,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 8,
+      "art": "em_soft_palm",
+      "school": "不動金剛",
+      "volumes": 3,
+      "samples": 24,
+      "wins": 7,
+      "losses": 17,
+      "draws": 0,
+      "meanRounds": 5.083333333333333,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 8,
+      "art": "em_soft_palm",
+      "school": "不動金剛",
+      "volumes": 7,
+      "samples": 24,
+      "wins": 24,
+      "losses": 0,
+      "draws": 0,
+      "meanRounds": 2.5416666666666665,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 8,
+      "art": "art_bridge_step",
+      "school": "逍遙遊",
+      "volumes": 1,
+      "samples": 24,
+      "wins": 0,
+      "losses": 24,
+      "draws": 0,
+      "meanRounds": 5.291666666666667,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 8,
+      "art": "art_bridge_step",
+      "school": "逍遙遊",
+      "volumes": 3,
+      "samples": 24,
+      "wins": 9,
+      "losses": 15,
+      "draws": 0,
+      "meanRounds": 4.75,
+      "meditationActionRatio": 0
+    },
+    {
+      "tier": 8,
+      "art": "art_bridge_step",
+      "school": "逍遙遊",
+      "volumes": 7,
+      "samples": 24,
+      "wins": 24,
+      "losses": 0,
+      "draws": 0,
+      "meanRounds": 2.0833333333333335,
+      "meditationActionRatio": 0
+    }
+  ],
+  "sustain": [
+    {
+      "tier": 0,
+      "internal": "基礎吐納",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 1,
+      "maxQi": 244,
+      "regen": {
+        "flat": 4,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 71,
+      "rests": 29
+    },
+    {
+      "tier": 0,
+      "internal": "基礎吐納",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 3,
+      "maxQi": 244,
+      "regen": {
+        "flat": 4,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 71,
+      "rests": 29
+    },
+    {
+      "tier": 0,
+      "internal": "基礎吐納",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 7,
+      "maxQi": 244,
+      "regen": {
+        "flat": 4,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 71,
+      "rests": 29
+    },
+    {
+      "tier": 0,
+      "internal": "基礎吐納",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 1,
+      "maxQi": 247,
+      "regen": {
+        "flat": 5,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 72,
+      "rests": 28
+    },
+    {
+      "tier": 0,
+      "internal": "基礎吐納",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 3,
+      "maxQi": 247,
+      "regen": {
+        "flat": 5,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 72,
+      "rests": 28
+    },
+    {
+      "tier": 0,
+      "internal": "基礎吐納",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 7,
+      "maxQi": 247,
+      "regen": {
+        "flat": 5,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 72,
+      "rests": 28
+    },
+    {
+      "tier": 0,
+      "internal": "基礎吐納",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 1,
+      "maxQi": 252,
+      "regen": {
+        "flat": 7,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 75,
+      "rests": 25
+    },
+    {
+      "tier": 0,
+      "internal": "基礎吐納",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 3,
+      "maxQi": 252,
+      "regen": {
+        "flat": 7,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 75,
+      "rests": 25
+    },
+    {
+      "tier": 0,
+      "internal": "基礎吐納",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 7,
+      "maxQi": 252,
+      "regen": {
+        "flat": 7,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 75,
+      "rests": 25
+    },
+    {
+      "tier": 0,
+      "internal": "基礎吐納",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 1,
+      "maxQi": 257,
+      "regen": {
+        "flat": 9,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 77,
+      "rests": 23
+    },
+    {
+      "tier": 0,
+      "internal": "基礎吐納",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 3,
+      "maxQi": 257,
+      "regen": {
+        "flat": 9,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 77,
+      "rests": 23
+    },
+    {
+      "tier": 0,
+      "internal": "基礎吐納",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 7,
+      "maxQi": 257,
+      "regen": {
+        "flat": 9,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 77,
+      "rests": 23
+    },
+    {
+      "tier": 0,
+      "internal": "art_spring_well",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 1,
+      "maxQi": 274,
+      "regen": {
+        "flat": 12,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 80,
+      "rests": 20
+    },
+    {
+      "tier": 0,
+      "internal": "art_spring_well",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 3,
+      "maxQi": 274,
+      "regen": {
+        "flat": 12,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 80,
+      "rests": 20
+    },
+    {
+      "tier": 0,
+      "internal": "art_spring_well",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 7,
+      "maxQi": 274,
+      "regen": {
+        "flat": 12,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 80,
+      "rests": 20
+    },
+    {
+      "tier": 0,
+      "internal": "art_spring_well",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 1,
+      "maxQi": 286,
+      "regen": {
+        "flat": 16,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 84,
+      "rests": 16
+    },
+    {
+      "tier": 0,
+      "internal": "art_spring_well",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 3,
+      "maxQi": 286,
+      "regen": {
+        "flat": 16,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 84,
+      "rests": 16
+    },
+    {
+      "tier": 0,
+      "internal": "art_spring_well",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 7,
+      "maxQi": 286,
+      "regen": {
+        "flat": 16,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 84,
+      "rests": 16
+    },
+    {
+      "tier": 0,
+      "internal": "art_spring_well",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 1,
+      "maxQi": 304,
+      "regen": {
+        "flat": 21,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 89,
+      "rests": 11
+    },
+    {
+      "tier": 0,
+      "internal": "art_spring_well",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 3,
+      "maxQi": 304,
+      "regen": {
+        "flat": 21,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 89,
+      "rests": 11
+    },
+    {
+      "tier": 0,
+      "internal": "art_spring_well",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 7,
+      "maxQi": 304,
+      "regen": {
+        "flat": 21,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 89,
+      "rests": 11
+    },
+    {
+      "tier": 0,
+      "internal": "art_spring_well",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 1,
+      "maxQi": 325,
+      "regen": {
+        "flat": 27,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 94,
+      "rests": 6
+    },
+    {
+      "tier": 0,
+      "internal": "art_spring_well",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 3,
+      "maxQi": 325,
+      "regen": {
+        "flat": 27,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 94,
+      "rests": 6
+    },
+    {
+      "tier": 0,
+      "internal": "art_spring_well",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 7,
+      "maxQi": 325,
+      "regen": {
+        "flat": 27,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 94,
+      "rests": 6
+    },
+    {
+      "tier": 0,
+      "internal": "pr_void_breath",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 1,
+      "maxQi": 234,
+      "regen": {
+        "flat": 0,
+        "percent": 0.04
+      },
+      "chainCost": 41,
+      "attacks": 75,
+      "rests": 25
+    },
+    {
+      "tier": 0,
+      "internal": "pr_void_breath",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 3,
+      "maxQi": 234,
+      "regen": {
+        "flat": 0,
+        "percent": 0.04
+      },
+      "chainCost": 41,
+      "attacks": 75,
+      "rests": 25
+    },
+    {
+      "tier": 0,
+      "internal": "pr_void_breath",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 7,
+      "maxQi": 234,
+      "regen": {
+        "flat": 0,
+        "percent": 0.04
+      },
+      "chainCost": 41,
+      "attacks": 75,
+      "rests": 25
+    },
+    {
+      "tier": 0,
+      "internal": "pr_void_breath",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 1,
+      "maxQi": 234,
+      "regen": {
+        "flat": 0,
+        "percent": 0.052000000000000005
+      },
+      "chainCost": 41,
+      "attacks": 78,
+      "rests": 22
+    },
+    {
+      "tier": 0,
+      "internal": "pr_void_breath",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 3,
+      "maxQi": 234,
+      "regen": {
+        "flat": 0,
+        "percent": 0.052000000000000005
+      },
+      "chainCost": 41,
+      "attacks": 78,
+      "rests": 22
+    },
+    {
+      "tier": 0,
+      "internal": "pr_void_breath",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 7,
+      "maxQi": 234,
+      "regen": {
+        "flat": 0,
+        "percent": 0.052000000000000005
+      },
+      "chainCost": 41,
+      "attacks": 78,
+      "rests": 22
+    },
+    {
+      "tier": 0,
+      "internal": "pr_void_breath",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 1,
+      "maxQi": 234,
+      "regen": {
+        "flat": 0,
+        "percent": 0.07
+      },
+      "chainCost": 41,
+      "attacks": 81,
+      "rests": 19
+    },
+    {
+      "tier": 0,
+      "internal": "pr_void_breath",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 3,
+      "maxQi": 234,
+      "regen": {
+        "flat": 0,
+        "percent": 0.07
+      },
+      "chainCost": 41,
+      "attacks": 81,
+      "rests": 19
+    },
+    {
+      "tier": 0,
+      "internal": "pr_void_breath",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 7,
+      "maxQi": 234,
+      "regen": {
+        "flat": 0,
+        "percent": 0.07
+      },
+      "chainCost": 41,
+      "attacks": 81,
+      "rests": 19
+    },
+    {
+      "tier": 0,
+      "internal": "pr_void_breath",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 1,
+      "maxQi": 234,
+      "regen": {
+        "flat": 0,
+        "percent": 0.091
+      },
+      "chainCost": 41,
+      "attacks": 86,
+      "rests": 14
+    },
+    {
+      "tier": 0,
+      "internal": "pr_void_breath",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 3,
+      "maxQi": 234,
+      "regen": {
+        "flat": 0,
+        "percent": 0.091
+      },
+      "chainCost": 41,
+      "attacks": 86,
+      "rests": 14
+    },
+    {
+      "tier": 0,
+      "internal": "pr_void_breath",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 7,
+      "maxQi": 234,
+      "regen": {
+        "flat": 0,
+        "percent": 0.091
+      },
+      "chainCost": 41,
+      "attacks": 86,
+      "rests": 14
+    },
+    {
+      "tier": 4,
+      "internal": "基礎吐納",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 1,
+      "maxQi": 384,
+      "regen": {
+        "flat": 4,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 81,
+      "rests": 19
+    },
+    {
+      "tier": 4,
+      "internal": "基礎吐納",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 3,
+      "maxQi": 384,
+      "regen": {
+        "flat": 4,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 81,
+      "rests": 19
+    },
+    {
+      "tier": 4,
+      "internal": "基礎吐納",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 7,
+      "maxQi": 384,
+      "regen": {
+        "flat": 4,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 81,
+      "rests": 19
+    },
+    {
+      "tier": 4,
+      "internal": "基礎吐納",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 1,
+      "maxQi": 387,
+      "regen": {
+        "flat": 5,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 81,
+      "rests": 19
+    },
+    {
+      "tier": 4,
+      "internal": "基礎吐納",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 3,
+      "maxQi": 387,
+      "regen": {
+        "flat": 5,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 81,
+      "rests": 19
+    },
+    {
+      "tier": 4,
+      "internal": "基礎吐納",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 7,
+      "maxQi": 387,
+      "regen": {
+        "flat": 5,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 81,
+      "rests": 19
+    },
+    {
+      "tier": 4,
+      "internal": "基礎吐納",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 1,
+      "maxQi": 392,
+      "regen": {
+        "flat": 7,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 83,
+      "rests": 17
+    },
+    {
+      "tier": 4,
+      "internal": "基礎吐納",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 3,
+      "maxQi": 392,
+      "regen": {
+        "flat": 7,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 83,
+      "rests": 17
+    },
+    {
+      "tier": 4,
+      "internal": "基礎吐納",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 7,
+      "maxQi": 392,
+      "regen": {
+        "flat": 7,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 83,
+      "rests": 17
+    },
+    {
+      "tier": 4,
+      "internal": "基礎吐納",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 1,
+      "maxQi": 397,
+      "regen": {
+        "flat": 9,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 84,
+      "rests": 16
+    },
+    {
+      "tier": 4,
+      "internal": "基礎吐納",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 3,
+      "maxQi": 397,
+      "regen": {
+        "flat": 9,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 84,
+      "rests": 16
+    },
+    {
+      "tier": 4,
+      "internal": "基礎吐納",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 7,
+      "maxQi": 397,
+      "regen": {
+        "flat": 9,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 84,
+      "rests": 16
+    },
+    {
+      "tier": 4,
+      "internal": "art_spring_well",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 1,
+      "maxQi": 414,
+      "regen": {
+        "flat": 12,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 87,
+      "rests": 13
+    },
+    {
+      "tier": 4,
+      "internal": "art_spring_well",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 3,
+      "maxQi": 414,
+      "regen": {
+        "flat": 12,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 87,
+      "rests": 13
+    },
+    {
+      "tier": 4,
+      "internal": "art_spring_well",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 7,
+      "maxQi": 414,
+      "regen": {
+        "flat": 12,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 87,
+      "rests": 13
+    },
+    {
+      "tier": 4,
+      "internal": "art_spring_well",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 1,
+      "maxQi": 426,
+      "regen": {
+        "flat": 16,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 90,
+      "rests": 10
+    },
+    {
+      "tier": 4,
+      "internal": "art_spring_well",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 3,
+      "maxQi": 426,
+      "regen": {
+        "flat": 16,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 90,
+      "rests": 10
+    },
+    {
+      "tier": 4,
+      "internal": "art_spring_well",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 7,
+      "maxQi": 426,
+      "regen": {
+        "flat": 16,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 90,
+      "rests": 10
+    },
+    {
+      "tier": 4,
+      "internal": "art_spring_well",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 1,
+      "maxQi": 444,
+      "regen": {
+        "flat": 21,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 93,
+      "rests": 7
+    },
+    {
+      "tier": 4,
+      "internal": "art_spring_well",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 3,
+      "maxQi": 444,
+      "regen": {
+        "flat": 21,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 93,
+      "rests": 7
+    },
+    {
+      "tier": 4,
+      "internal": "art_spring_well",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 7,
+      "maxQi": 444,
+      "regen": {
+        "flat": 21,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 93,
+      "rests": 7
+    },
+    {
+      "tier": 4,
+      "internal": "art_spring_well",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 1,
+      "maxQi": 465,
+      "regen": {
+        "flat": 27,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 97,
+      "rests": 3
+    },
+    {
+      "tier": 4,
+      "internal": "art_spring_well",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 3,
+      "maxQi": 465,
+      "regen": {
+        "flat": 27,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 97,
+      "rests": 3
+    },
+    {
+      "tier": 4,
+      "internal": "art_spring_well",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 7,
+      "maxQi": 465,
+      "regen": {
+        "flat": 27,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 97,
+      "rests": 3
+    },
+    {
+      "tier": 4,
+      "internal": "pr_void_breath",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 1,
+      "maxQi": 374,
+      "regen": {
+        "flat": 0,
+        "percent": 0.04
+      },
+      "chainCost": 41,
+      "attacks": 87,
+      "rests": 13
+    },
+    {
+      "tier": 4,
+      "internal": "pr_void_breath",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 3,
+      "maxQi": 374,
+      "regen": {
+        "flat": 0,
+        "percent": 0.04
+      },
+      "chainCost": 41,
+      "attacks": 87,
+      "rests": 13
+    },
+    {
+      "tier": 4,
+      "internal": "pr_void_breath",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 7,
+      "maxQi": 374,
+      "regen": {
+        "flat": 0,
+        "percent": 0.04
+      },
+      "chainCost": 41,
+      "attacks": 87,
+      "rests": 13
+    },
+    {
+      "tier": 4,
+      "internal": "pr_void_breath",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 1,
+      "maxQi": 374,
+      "regen": {
+        "flat": 0,
+        "percent": 0.052000000000000005
+      },
+      "chainCost": 41,
+      "attacks": 90,
+      "rests": 10
+    },
+    {
+      "tier": 4,
+      "internal": "pr_void_breath",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 3,
+      "maxQi": 374,
+      "regen": {
+        "flat": 0,
+        "percent": 0.052000000000000005
+      },
+      "chainCost": 41,
+      "attacks": 90,
+      "rests": 10
+    },
+    {
+      "tier": 4,
+      "internal": "pr_void_breath",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 7,
+      "maxQi": 374,
+      "regen": {
+        "flat": 0,
+        "percent": 0.052000000000000005
+      },
+      "chainCost": 41,
+      "attacks": 90,
+      "rests": 10
+    },
+    {
+      "tier": 4,
+      "internal": "pr_void_breath",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 1,
+      "maxQi": 374,
+      "regen": {
+        "flat": 0,
+        "percent": 0.07
+      },
+      "chainCost": 41,
+      "attacks": 95,
+      "rests": 5
+    },
+    {
+      "tier": 4,
+      "internal": "pr_void_breath",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 3,
+      "maxQi": 374,
+      "regen": {
+        "flat": 0,
+        "percent": 0.07
+      },
+      "chainCost": 41,
+      "attacks": 95,
+      "rests": 5
+    },
+    {
+      "tier": 4,
+      "internal": "pr_void_breath",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 7,
+      "maxQi": 374,
+      "regen": {
+        "flat": 0,
+        "percent": 0.07
+      },
+      "chainCost": 41,
+      "attacks": 95,
+      "rests": 5
+    },
+    {
+      "tier": 4,
+      "internal": "pr_void_breath",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 1,
+      "maxQi": 374,
+      "regen": {
+        "flat": 0,
+        "percent": 0.091
+      },
+      "chainCost": 41,
+      "attacks": 100,
+      "rests": 0
+    },
+    {
+      "tier": 4,
+      "internal": "pr_void_breath",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 3,
+      "maxQi": 374,
+      "regen": {
+        "flat": 0,
+        "percent": 0.091
+      },
+      "chainCost": 41,
+      "attacks": 100,
+      "rests": 0
+    },
+    {
+      "tier": 4,
+      "internal": "pr_void_breath",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 7,
+      "maxQi": 374,
+      "regen": {
+        "flat": 0,
+        "percent": 0.091
+      },
+      "chainCost": 41,
+      "attacks": 100,
+      "rests": 0
+    },
+    {
+      "tier": 8,
+      "internal": "基礎吐納",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 1,
+      "maxQi": 620,
+      "regen": {
+        "flat": 4,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 89,
+      "rests": 11
+    },
+    {
+      "tier": 8,
+      "internal": "基礎吐納",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 3,
+      "maxQi": 620,
+      "regen": {
+        "flat": 4,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 89,
+      "rests": 11
+    },
+    {
+      "tier": 8,
+      "internal": "基礎吐納",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 7,
+      "maxQi": 620,
+      "regen": {
+        "flat": 4,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 89,
+      "rests": 11
+    },
+    {
+      "tier": 8,
+      "internal": "基礎吐納",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 1,
+      "maxQi": 623,
+      "regen": {
+        "flat": 5,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 89,
+      "rests": 11
+    },
+    {
+      "tier": 8,
+      "internal": "基礎吐納",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 3,
+      "maxQi": 623,
+      "regen": {
+        "flat": 5,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 89,
+      "rests": 11
+    },
+    {
+      "tier": 8,
+      "internal": "基礎吐納",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 7,
+      "maxQi": 623,
+      "regen": {
+        "flat": 5,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 89,
+      "rests": 11
+    },
+    {
+      "tier": 8,
+      "internal": "基礎吐納",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 1,
+      "maxQi": 628,
+      "regen": {
+        "flat": 7,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 90,
+      "rests": 10
+    },
+    {
+      "tier": 8,
+      "internal": "基礎吐納",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 3,
+      "maxQi": 628,
+      "regen": {
+        "flat": 7,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 90,
+      "rests": 10
+    },
+    {
+      "tier": 8,
+      "internal": "基礎吐納",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 7,
+      "maxQi": 628,
+      "regen": {
+        "flat": 7,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 90,
+      "rests": 10
+    },
+    {
+      "tier": 8,
+      "internal": "基礎吐納",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 1,
+      "maxQi": 633,
+      "regen": {
+        "flat": 9,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 91,
+      "rests": 9
+    },
+    {
+      "tier": 8,
+      "internal": "基礎吐納",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 3,
+      "maxQi": 633,
+      "regen": {
+        "flat": 9,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 91,
+      "rests": 9
+    },
+    {
+      "tier": 8,
+      "internal": "基礎吐納",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 7,
+      "maxQi": 633,
+      "regen": {
+        "flat": 9,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 91,
+      "rests": 9
+    },
+    {
+      "tier": 8,
+      "internal": "art_spring_well",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 1,
+      "maxQi": 650,
+      "regen": {
+        "flat": 12,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 93,
+      "rests": 7
+    },
+    {
+      "tier": 8,
+      "internal": "art_spring_well",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 3,
+      "maxQi": 650,
+      "regen": {
+        "flat": 12,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 93,
+      "rests": 7
+    },
+    {
+      "tier": 8,
+      "internal": "art_spring_well",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 7,
+      "maxQi": 650,
+      "regen": {
+        "flat": 12,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 93,
+      "rests": 7
+    },
+    {
+      "tier": 8,
+      "internal": "art_spring_well",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 1,
+      "maxQi": 662,
+      "regen": {
+        "flat": 16,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 94,
+      "rests": 6
+    },
+    {
+      "tier": 8,
+      "internal": "art_spring_well",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 3,
+      "maxQi": 662,
+      "regen": {
+        "flat": 16,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 94,
+      "rests": 6
+    },
+    {
+      "tier": 8,
+      "internal": "art_spring_well",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 7,
+      "maxQi": 662,
+      "regen": {
+        "flat": 16,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 94,
+      "rests": 6
+    },
+    {
+      "tier": 8,
+      "internal": "art_spring_well",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 1,
+      "maxQi": 680,
+      "regen": {
+        "flat": 21,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 97,
+      "rests": 3
+    },
+    {
+      "tier": 8,
+      "internal": "art_spring_well",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 3,
+      "maxQi": 680,
+      "regen": {
+        "flat": 21,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 97,
+      "rests": 3
+    },
+    {
+      "tier": 8,
+      "internal": "art_spring_well",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 7,
+      "maxQi": 680,
+      "regen": {
+        "flat": 21,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 97,
+      "rests": 3
+    },
+    {
+      "tier": 8,
+      "internal": "art_spring_well",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 1,
+      "maxQi": 701,
+      "regen": {
+        "flat": 27,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 99,
+      "rests": 1
+    },
+    {
+      "tier": 8,
+      "internal": "art_spring_well",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 3,
+      "maxQi": 701,
+      "regen": {
+        "flat": 27,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 99,
+      "rests": 1
+    },
+    {
+      "tier": 8,
+      "internal": "art_spring_well",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 7,
+      "maxQi": 701,
+      "regen": {
+        "flat": 27,
+        "percent": 0
+      },
+      "chainCost": 41,
+      "attacks": 99,
+      "rests": 1
+    },
+    {
+      "tier": 8,
+      "internal": "pr_void_breath",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 1,
+      "maxQi": 610,
+      "regen": {
+        "flat": 0,
+        "percent": 0.04
+      },
+      "chainCost": 41,
+      "attacks": 97,
+      "rests": 3
+    },
+    {
+      "tier": 8,
+      "internal": "pr_void_breath",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 3,
+      "maxQi": 610,
+      "regen": {
+        "flat": 0,
+        "percent": 0.04
+      },
+      "chainCost": 41,
+      "attacks": 97,
+      "rests": 3
+    },
+    {
+      "tier": 8,
+      "internal": "pr_void_breath",
+      "rank": 0,
+      "stars": 0,
+      "volumes": 7,
+      "maxQi": 610,
+      "regen": {
+        "flat": 0,
+        "percent": 0.04
+      },
+      "chainCost": 41,
+      "attacks": 97,
+      "rests": 3
+    },
+    {
+      "tier": 8,
+      "internal": "pr_void_breath",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 1,
+      "maxQi": 610,
+      "regen": {
+        "flat": 0,
+        "percent": 0.052000000000000005
+      },
+      "chainCost": 41,
+      "attacks": 100,
+      "rests": 0
+    },
+    {
+      "tier": 8,
+      "internal": "pr_void_breath",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 3,
+      "maxQi": 610,
+      "regen": {
+        "flat": 0,
+        "percent": 0.052000000000000005
+      },
+      "chainCost": 41,
+      "attacks": 100,
+      "rests": 0
+    },
+    {
+      "tier": 8,
+      "internal": "pr_void_breath",
+      "rank": 0,
+      "stars": 3,
+      "volumes": 7,
+      "maxQi": 610,
+      "regen": {
+        "flat": 0,
+        "percent": 0.052000000000000005
+      },
+      "chainCost": 41,
+      "attacks": 100,
+      "rests": 0
+    },
+    {
+      "tier": 8,
+      "internal": "pr_void_breath",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 1,
+      "maxQi": 610,
+      "regen": {
+        "flat": 0,
+        "percent": 0.07
+      },
+      "chainCost": 41,
+      "attacks": 100,
+      "rests": 0
+    },
+    {
+      "tier": 8,
+      "internal": "pr_void_breath",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 3,
+      "maxQi": 610,
+      "regen": {
+        "flat": 0,
+        "percent": 0.07
+      },
+      "chainCost": 41,
+      "attacks": 100,
+      "rests": 0
+    },
+    {
+      "tier": 8,
+      "internal": "pr_void_breath",
+      "rank": 3,
+      "stars": 0,
+      "volumes": 7,
+      "maxQi": 610,
+      "regen": {
+        "flat": 0,
+        "percent": 0.07
+      },
+      "chainCost": 41,
+      "attacks": 100,
+      "rests": 0
+    },
+    {
+      "tier": 8,
+      "internal": "pr_void_breath",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 1,
+      "maxQi": 610,
+      "regen": {
+        "flat": 0,
+        "percent": 0.091
+      },
+      "chainCost": 41,
+      "attacks": 100,
+      "rests": 0
+    },
+    {
+      "tier": 8,
+      "internal": "pr_void_breath",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 3,
+      "maxQi": 610,
+      "regen": {
+        "flat": 0,
+        "percent": 0.091
+      },
+      "chainCost": 41,
+      "attacks": 100,
+      "rests": 0
+    },
+    {
+      "tier": 8,
+      "internal": "pr_void_breath",
+      "rank": 3,
+      "stars": 3,
+      "volumes": 7,
+      "maxQi": 610,
+      "regen": {
+        "flat": 0,
+        "percent": 0.091
+      },
+      "chainCost": 41,
+      "attacks": 100,
+      "rests": 0
+    }
+  ],
+  "spar": [
+    {
+      "tier": 0,
+      "volumes": 1,
+      "firstFailedStage": 3
+    },
+    {
+      "tier": 0,
+      "volumes": 3,
+      "firstFailedStage": 5
+    },
+    {
+      "tier": 0,
+      "volumes": 7,
+      "firstFailedStage": 9
+    },
+    {
+      "tier": 4,
+      "volumes": 1,
+      "firstFailedStage": 9
+    },
+    {
+      "tier": 4,
+      "volumes": 3,
+      "firstFailedStage": 15
+    },
+    {
+      "tier": 4,
+      "volumes": 7,
+      "firstFailedStage": 19
+    },
+    {
+      "tier": 8,
+      "volumes": 1,
+      "firstFailedStage": 18
+    },
+    {
+      "tier": 8,
+      "volumes": 3,
+      "firstFailedStage": 26
+    },
+    {
+      "tier": 8,
+      "volumes": 7,
+      "firstFailedStage": 28
+    }
+  ],
+  "event": [
+    {
+      "art": "art_silk_hand",
+      "volumes": 1,
+      "power": "normal",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 7.083333333333333
+    },
+    {
+      "art": "art_silk_hand",
+      "volumes": 1,
+      "power": "boss",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 15
+    },
+    {
+      "art": "art_silk_hand",
+      "volumes": 3,
+      "power": "normal",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 3
+    },
+    {
+      "art": "art_silk_hand",
+      "volumes": 3,
+      "power": "boss",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 4.666666666666667
+    },
+    {
+      "art": "art_silk_hand",
+      "volumes": 7,
+      "power": "normal",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 1.1666666666666667
+    },
+    {
+      "art": "art_silk_hand",
+      "volumes": 7,
+      "power": "boss",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 2
+    },
+    {
+      "art": "art_rain_sword",
+      "volumes": 1,
+      "power": "normal",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 3.0833333333333335
+    },
+    {
+      "art": "art_rain_sword",
+      "volumes": 1,
+      "power": "boss",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 6.5
+    },
+    {
+      "art": "art_rain_sword",
+      "volumes": 3,
+      "power": "normal",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 1.25
+    },
+    {
+      "art": "art_rain_sword",
+      "volumes": 3,
+      "power": "boss",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 2.1666666666666665
+    },
+    {
+      "art": "art_rain_sword",
+      "volumes": 7,
+      "power": "normal",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 1
+    },
+    {
+      "art": "art_rain_sword",
+      "volumes": 7,
+      "power": "boss",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 1
+    },
+    {
+      "art": "art_river_fist",
+      "volumes": 1,
+      "power": "normal",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 5.333333333333333
+    },
+    {
+      "art": "art_river_fist",
+      "volumes": 1,
+      "power": "boss",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 15.083333333333334
+    },
+    {
+      "art": "art_river_fist",
+      "volumes": 3,
+      "power": "normal",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 2.1666666666666665
+    },
+    {
+      "art": "art_river_fist",
+      "volumes": 3,
+      "power": "boss",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 4.583333333333333
+    },
+    {
+      "art": "art_river_fist",
+      "volumes": 7,
+      "power": "normal",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 1.0833333333333333
+    },
+    {
+      "art": "art_river_fist",
+      "volumes": 7,
+      "power": "boss",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 2
+    },
+    {
+      "art": "art_nine_shadow",
+      "volumes": 1,
+      "power": "normal",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 7.333333333333333
+    },
+    {
+      "art": "art_nine_shadow",
+      "volumes": 1,
+      "power": "boss",
+      "samples": 12,
+      "wins": 10,
+      "losses": 2,
+      "meanRounds": 14.583333333333334
+    },
+    {
+      "art": "art_nine_shadow",
+      "volumes": 3,
+      "power": "normal",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 2.9166666666666665
+    },
+    {
+      "art": "art_nine_shadow",
+      "volumes": 3,
+      "power": "boss",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 4.833333333333333
+    },
+    {
+      "art": "art_nine_shadow",
+      "volumes": 7,
+      "power": "normal",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 1
+    },
+    {
+      "art": "art_nine_shadow",
+      "volumes": 7,
+      "power": "boss",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 2
+    },
+    {
+      "art": "em_soft_palm",
+      "volumes": 1,
+      "power": "normal",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 7.083333333333333
+    },
+    {
+      "art": "em_soft_palm",
+      "volumes": 1,
+      "power": "boss",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 14.583333333333334
+    },
+    {
+      "art": "em_soft_palm",
+      "volumes": 3,
+      "power": "normal",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 3
+    },
+    {
+      "art": "em_soft_palm",
+      "volumes": 3,
+      "power": "boss",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 4.75
+    },
+    {
+      "art": "em_soft_palm",
+      "volumes": 7,
+      "power": "normal",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 1.0833333333333333
+    },
+    {
+      "art": "em_soft_palm",
+      "volumes": 7,
+      "power": "boss",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 2
+    },
+    {
+      "art": "art_bridge_step",
+      "volumes": 1,
+      "power": "normal",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 7
+    },
+    {
+      "art": "art_bridge_step",
+      "volumes": 1,
+      "power": "boss",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 13.833333333333334
+    },
+    {
+      "art": "art_bridge_step",
+      "volumes": 3,
+      "power": "normal",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 2.9166666666666665
+    },
+    {
+      "art": "art_bridge_step",
+      "volumes": 3,
+      "power": "boss",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 4.416666666666667
+    },
+    {
+      "art": "art_bridge_step",
+      "volumes": 7,
+      "power": "normal",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 1.0833333333333333
+    },
+    {
+      "art": "art_bridge_step",
+      "volumes": 7,
+      "power": "boss",
+      "samples": 12,
+      "wins": 12,
+      "losses": 0,
+      "meanRounds": 2
+    }
+  ]
+}

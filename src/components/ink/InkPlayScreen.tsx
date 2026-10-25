@@ -21,6 +21,8 @@ import { InkIcon } from './InkIcon';
 import { InkBadge } from './InkBadge';
 import { deltaIconKey, type InkIconKey } from '../../ui/inkIcons';
 import { cloudConfigured } from '../../cloud/cloud';
+import { bestOwnedGear } from '@core/life/equipment';
+import type { OnlineSnapshot } from '@interfaces/online';
 import { lifeScore } from '@core/life/leaderboardScore';
 import { InkGearCompareModal } from './InkGearCompareModal';
 import { titleTierColorClass, topTitle, topTitles } from '@core/life/titles';
@@ -142,6 +144,7 @@ export function InkPlayScreen({ state }: Props) {
   const checkMilestones = useAncestryStore((s) => s.checkMilestones);
   const clearMilestoneToast = useAncestryStore((s) => s.clearMilestoneToast);
   const jadeToast = useAncestryStore((s) => s.jadeToast);
+  const freeJade = useAncestryStore(s=>s.meta.jade?.free??0);
   const clearJadeToast = useAncestryStore((s) => s.clearJadeToast);
   const encounterOpen = useAncestryStore((s) => s.encounterOpen);
   const encounterTick = useAncestryStore((s) => s.encounterTick);
@@ -171,7 +174,23 @@ export function InkPlayScreen({ state }: Props) {
   }, [milestoneToast, clearMilestoneToast]);
   const clearSuccession = useLifeStore((s) => s.clearSuccession);
   const clearOfflineGain = useLifeStore((s) => s.clearOfflineGain);
+  useEffect(() => {
+    if(import.meta.env.VITE_ONLINE_PUBLIC !== '1') return;
+    let stopped=false;
+    const collect=async()=>{
+      try {
+        const {worldJoined,publicOnlineRequest}=await import('../../cloud/online');
+        if(!worldJoined()||stopped)return;
+        const response=await publicOnlineRequest('world',{},false);
+        if(response.ok&&!stopped){const snapshot=await response.json() as OnlineSnapshot;useAncestryStore.getState().checkMilestones();useAncestryStore.getState().receiveOnlineJade(`public:${snapshot.me.id}`,snapshot.me.jadeEarnedTotal??0);}
+      }catch{ /* 下次回到前景或開江湖時重試。 */ }
+    };
+    const visible=()=>{if(document.visibilityState==='visible')void collect();};
+    void collect();document.addEventListener('visibilitychange',visible);
+    return()=>{stopped=true;document.removeEventListener('visibilitychange',visible);};
+  }, []);
   const [practiceView, setPracticeView] = useState<PracticeView>('main');
+  const [personPreset,setPersonPreset]=useState<'normal'|'duel'>('normal');
   const [personView, setPersonView] = useState<PersonView>('main');
   const [jianghuView, setJianghuView] = useState<JianghuView>('main');
   const jianghuRef = useRef<HTMLDivElement>(null);
@@ -298,7 +317,7 @@ export function InkPlayScreen({ state }: Props) {
     [momentKey],
   );
   const breakthroughFx = useMemo(
-    () => (breakthroughResult && canUseWebGL() ? breakthroughHighlight(state, breakthroughResult) : null),
+    () => (breakthroughResult && canUseWebGL() ? breakthroughHighlight(state, breakthroughResult, freeJade) : null),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [breakthroughResult],
   );
@@ -782,11 +801,11 @@ export function InkPlayScreen({ state }: Props) {
       {tab === 'jianghu' && !combat && !eventFocus && <div className="ink-jianghu-view" ref={jianghuRef}>
         {jianghuView === 'main' ? <InkJianghuHub online={Boolean(InkOnlinePanel)} onOpen={setJianghuView} onBack={() => setTab('home')} />
           : jianghuView === 'online' && InkOnlinePanel ? <Suspense fallback={<p role="status">正在翻開江湖名冊……</p>}>
-            <InkOnlinePanel onBack={() => setJianghuView('main')} />
+            <InkOnlinePanel onBack={() => setJianghuView('main')} onPrepare={()=>{setPersonPreset('duel');setRequestedArt(null);setTab('person');setPersonView('skills');}} />
           </Suspense> : <div className={`ink-jianghu-detail${onGachaPage ? ' ink-jianghu-detail--gacha' : ''}`}>
             <button type="button" className={`ink-jianghu-back${onGachaPage ? ' ink-codex-back' : ''}`} onClick={() => setJianghuView('main')}>‹ 返回江湖</button>
             {jianghuView === 'gacha' && <InkGachaPanel state={state} onEquipRequest={id => {
-              setRequestedArt(id); setTab('person'); setPersonView('skills');
+              setPersonPreset('normal');setRequestedArt(id); setTab('person'); setPersonView('skills');
             }} />}
             {jianghuView === 'huashan' && <InkHuashanPanel state={state} onStart={huashanStart} onFight={huashanFight}
               onDismissReport={huashanDismissReport} onCloseTournament={huashanClose} />}
@@ -801,11 +820,16 @@ export function InkPlayScreen({ state }: Props) {
           onView={setPersonView}
           busy={busy}
           onEquip={equipOwned}
+          initialPreset={personPreset}
           requestedArt={requestedArt}
           onRequestHandled={() => setRequestedArt(null)}
           onSetMartialSlot={setMartialSlotAction}
-          onEquipBest={() => {
-            practice('equip_best');
+          onEquipBest={(preset) => {
+            if (preset === 'normal') { practice('equip_best'); return; }
+            for (const slot of ['weapon', 'armor', 'accessory'] as const) {
+              const best = bestOwnedGear(state.character, slot);
+              if(best)equipOwned(best.id, 'duel');
+            }
           }}
           onBreakthrough={attemptBreakthrough}
         />

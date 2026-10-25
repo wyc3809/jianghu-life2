@@ -1,3 +1,5 @@
+import { internalQiRegen } from './martialTurn';
+import { BOSS_CONTROL_RESISTANCE, MEDITATE_QI_RATIO, EVENT_FOE_HP_MULT, EVENT_FOE_CHAIN, EVENT_FOE_ATK_MULT } from '@data/redesign/martialEconomyParams';
 import { equippedMartialArts } from './martialLoadout';
 import {
   BASIC_STRIKE,
@@ -16,7 +18,7 @@ import {
   isRecoverySupportMove,
   effectiveMoveCooldown,
 } from '@data/skills/catalog';
-import { volumeMove, volumeOfMoveId } from '@data/skills/volumes';
+import { hasVolumes, volumeMove, volumeOfMoveId } from '@data/skills/volumes';
 import { ownedVolumes } from './volumes';
 import { addCondition } from './monthly';
 import { applyCombatInjuries } from './injuries';
@@ -39,7 +41,9 @@ import {
   clamp,
   tickStatus,
   tickRegen,
+  turnQiRegen,
   resolveStrike,
+  consumeStun,
   applyRecoveryEffects,
 } from './combatCore';
 import { recordDeath } from './death';
@@ -96,8 +100,8 @@ export function buildPlayerFighter(state: LifeGameState): CombatFighter {
   const passive = sumInternalPassives(equippedMartialArts(c), c.skillRanks ?? {}, c.manualStars);
   const titleBonus = titleBonusTotals(state);
   const evasion = sumEvasionBonus(equippedMartialArts(c), c.skillRanks ?? {}, c.manualStars) + c.attributes.danShi / 500;
-  // 江湖交手開場一律滿血（玩家 2026-10-14）：上限連內功被動；內力照用角色現有
-  const maxHp = c.maxHealth + (passive.maxHp ?? 0);
+  // 每場滿氣血／滿內力；舊檔未鏡像內功上限時才補一次。
+  const maxHp = c.maxHealth + (c.flags.caps_include_internal ? 0 : passive.maxHp ?? 0);
   // 流派協同（主修＋裝備；只用喺回合制交手，唔影響演武台）
   const sb = schoolBonusTotal(c);
   const schoolSpecials = sb.stunChance > 0
@@ -107,8 +111,8 @@ export function buildPlayerFighter(state: LifeGameState): CombatFighter {
     name: c.name,
     hp: maxHp,
     maxHp,
-    qi: c.qi,
-    maxQi: c.maxQi + (passive.maxQi ?? 0),
+    qi: c.maxQi + (c.flags.caps_include_internal ? 0 : passive.maxQi ?? 0),
+    maxQi: c.maxQi + (c.flags.caps_include_internal ? 0 : passive.maxQi ?? 0),
     // 手臂傷：出手按比例扣
     attack: Math.round(
       (12 + Math.floor(c.martial / 4) + gear.attack + gear.martialBonus + (passive.attack ?? 0) + titleBonus.attack) *
@@ -126,8 +130,9 @@ export function buildPlayerFighter(state: LifeGameState): CombatFighter {
       0,
       Math.min(0.5, evasion + gearCombat.evasion + titleBonus.evasion + sb.evasion) - legEvasionPenalty(c),
     ),
-    // 戰鬥中不自動回內力；耗去的內力戰後亦保留，需打坐／歇息再復。
-    qiRegen: 0,
+    // 每回合自然回內另由tickRegen處理；此處只填裝備內功回內。
+    qiRegen: internalQiRegen(c).flat,
+    qiRegenPercent: internalQiRegen(c).percent,
     blind: 0,
     isPlayer: true,
     stun: 0,
@@ -147,10 +152,10 @@ export function buildPlayerFighter(state: LifeGameState): CombatFighter {
 export function buildFoe(
   name: string,
   power: 'weak' | 'normal' | 'strong' | 'boss' = 'normal',
-  scale?: { martial: number; maxHp: number; attack: number },
+  scale?: { martial: number; maxHp: number; attack: number; tier?: number },
 ): CombatFighter {
   /**
-   * 線性難度（偏易）：敵人明顯低於玩家一檔，頭目接近但不碾壓。
+   * 普通保持短戰鬥；強敵／首領另有候選倍率及連段，與境界同步成長。
    */
   const martial = Math.max(0, scale?.martial ?? 12);
   const playerHp = Math.max(80, scale?.maxHp ?? 100);
@@ -164,9 +169,11 @@ export function buildFoe(
   const baseAtk = power === 'weak' ? 8 : power === 'strong' ? 12 : power === 'boss' ? 14 : 10;
   const baseDef = power === 'weak' ? 4 : power === 'strong' ? 6 : power === 'boss' ? 8 : 5;
 
-  const maxHp = Math.round(baseHp * (1 + 0.4 * t) + playerHp * ratio * (0.5 + 0.15 * t));
+  const maxHp = Math.round((baseHp * (1 + 0.4 * t) + playerHp * ratio * (0.5 + 0.15 * t)) * EVENT_FOE_HP_MULT[power]);
+  const chain = EVENT_FOE_CHAIN[power];
+  const actionHits = Math.min(chain.cap,chain.start+Math.floor(Math.max(0,scale?.tier??0)/chain.tierStep));
   const maxQi = Math.round((power === 'boss' ? 72 : 58) * (1 + 0.35 * t));
-  const attack = Math.round(baseAtk * (1 + 0.4 * t) + playerAtk * ratio * (0.38 + 0.15 * t));
+  const attack = Math.round((baseAtk * (1 + 0.4 * t) + playerAtk * ratio * (0.38 + 0.15 * t)) * EVENT_FOE_ATK_MULT[power]);
   const defense = Math.round(baseDef * (1 + 0.35 * t) + martial * 0.025);
   return {
     name,
@@ -178,6 +185,7 @@ export function buildFoe(
     defense,
     hitBonus: power === 'boss' ? 0.06 : power === 'strong' ? 0.04 : 0.025,
     evasion: power === 'boss' ? 0.05 : power === 'strong' ? 0.02 : 0,
+    actionHits,
     qiRegen: power === 'boss' ? 6 : power === 'strong' ? 4 : 3,
     blind: 0,
     isPlayer: false,
@@ -213,7 +221,9 @@ export function startCombat(
     martial: state.character.martial,
     maxHp: player.maxHp,
     attack: player.attack,
+    tier:state.character.cultivation.tier,
   });
+  if (foePower === 'boss') foe.controlResistance = BOSS_CONTROL_RESISTANCE;
   const combat: PendingCombat = {
     id: `cbt_${state.year}_${state.month}_${state.character.stats.combats}`,
     source: opts.source,
@@ -257,7 +267,10 @@ export function startCombat(
 
 export function getPlayerMoves(state: LifeGameState): CombatMoveDef[] {
   const stars = state.character.manualStars ?? {};
-  return listExternalMovesForSkills(equippedMartialArts(state.character)).map((m) => {
+  return listExternalMovesForSkills(equippedMartialArts(state.character)).filter(m=>{
+    const volume=volumeOfMoveId(m.id);
+    return !volume || ownedVolumes(state.character,volume.skillId).includes(volume.vol);
+  }).map((m) => {
     const sid = state.character.skills.find((id) => getSkillDef(id)?.move?.id === m.id);
     return sid ? withManualStars(m, stars[sid]) : m;
   });
@@ -306,7 +319,7 @@ function findMove(state: LifeGameState, moveId: string): CombatMoveDef | null {
   if (moveId === DESPERATE_SURRENDER_MOVE.id) return DESPERATE_SURRENDER_MOVE;
   for (const id of equippedMartialArts(state.character)) {
     const def = getSkillDef(id);
-    if (def?.move?.id === moveId) return withManualStars(def.move, state.character.manualStars?.[id]);
+    if (def?.move?.id === moveId && (!hasVolumes(id) || ownedVolumes(state.character,id).includes(1))) return withManualStars(def.move, state.character.manualStars?.[id]);
   }
   // 外功七卷：卷二至卷七（要已得呢卷）
   const v = volumeOfMoveId(moveId);
@@ -346,7 +359,7 @@ function enemyChooseMove(
   bossEnraged = false,
 ): CombatMoveDef {
   const style = inferFoeAiStyle(combat.foe.name, combat.foePower ?? 'normal');
-  return chooseFoeMove(combat.foe, rng, style, bossEnraged);
+  return chooseFoeMove({...combat.foe,qi:Math.min(combat.foe.maxQi,combat.foe.qi+turnQiRegen(combat.foe))}, rng, style, bossEnraged);
 }
 
 function needsFoeDisposition(combat: PendingCombat): boolean {
@@ -658,6 +671,10 @@ export interface TurnChainOpts {
   skipEnemy?: boolean;
   /** 自動戰鬥：七卷每回合各出一次，唔計招式冷卻 */
   ignoreCooldown?: boolean;
+  /** 共用整門排程提供零後續耗內與30%調息，不受外部輸入控制。 */
+  moveOverride?: CombatMoveDef;
+  /** 真實我方行動落點，於敵方狀態及還擊前記錄。 */
+  onPlayerResolved?: (hp: { playerHp: number; foeHp: number; skipped: boolean }) => void;
 }
 
 function foeTraitStateOf(combat: PendingCombatState): FoeTraitState {
@@ -723,7 +740,8 @@ export function playerCombatTurn(state: LifeGameState, moveId: string, chain: Tu
     combat.foePower === 'boss' && combat.foe.maxHp > 0 && combat.foe.hp / combat.foe.maxHp <= 0.45;
   const enemyMove = enemyChooseMove(combat, rng, Boolean(combat.bossPhase2 || bossEnragedPreview));
   combat.lastFoeMoveName = enemyMove.name;
-  const playerMovePreview = findMove(state, moveId) ?? BASIC_STRIKE;
+  const playerMovePreview = { ...(chain.moveOverride ?? findMove(state, moveId) ?? BASIC_STRIKE) };
+  if (playerMovePreview.id === REST_QI_MOVE.id) playerMovePreview.qiSelf = combat.player.maxQi * MEDITATE_QI_RATIO;
   const playerStance = resolveMoveStance(playerMovePreview);
   const foeStance = resolveMoveStance(enemyMove);
   const playerStanceMult = stanceDamageMult(playerStance, foeStance);
@@ -735,8 +753,10 @@ export function playerCombatTurn(state: LifeGameState, moveId: string, chain: Tu
   lines.push(reveal);
   combat.log.push(reveal);
 
-  if (combat.player.stun > 0 && !chain.chained) {
-    combat.player.stun -= 1;
+  const playerSkipped = !chain.chained && combat.player.stun > 0;
+  if (playerSkipped) {
+    consumeStun(combat.player);
+    tickRegen(combat.player);
     lines.push('你穴道未暢，這一招使不出來。');
     combat.log.push(lines[lines.length - 1]!);
   } else {
@@ -929,13 +949,14 @@ export function playerCombatTurn(state: LifeGameState, moveId: string, chain: Tu
         }
       }
       strikeLines.push(...applySnakeVenom(combat.player, combat.foe));
-      strikeLines.push(...applyGearSpecialOnHit(combat.player, combat.foe, rng));
+      if(combat.foe.hp < foeHpBeforeStrike) strikeLines.push(...applyGearSpecialOnHit(combat.player, combat.foe, rng));
       lines.push(...strikeLines);
       combat.log.push(...strikeLines);
       if (!chain.ignoreCooldown) setMoveCooldown(combat, move);
     }
   }
 
+  chain.onPlayerResolved?.({playerHp:combat.player.hp,foeHp:combat.foe.hp,skipped:playerSkipped});
   if (
     combat.foe.hp > 0 &&
     !combat.foeSurrendered &&
@@ -963,6 +984,8 @@ export function playerCombatTurn(state: LifeGameState, moveId: string, chain: Tu
     return [...lines, ...end];
   }
 
+  if (!chain.skipEnemy && !playerSkipped) combat.player.stunProtected = false;
+
   if (chain.skipEnemy) {
     snapshotRng(state);
     return lines;
@@ -983,8 +1006,10 @@ export function playerCombatTurn(state: LifeGameState, moveId: string, chain: Tu
     return [...lines, ...end];
   }
 
-  if (combat.foe.stun > 0) {
-    combat.foe.stun -= 1;
+  const foeSkipped = combat.foe.stun > 0;
+  if (foeSkipped) {
+    consumeStun(combat.foe);
+    tickRegen(combat.foe);
     const skip = `${combat.foe.name}動作遲滯，錯過機會。`;
     lines.push(skip);
     combat.log.push(skip);
@@ -1015,7 +1040,7 @@ export function playerCombatTurn(state: LifeGameState, moveId: string, chain: Tu
     combat.player.evasion = Math.min(0.85, combat.player.evasion + modeEvasionBonus(combat.player.internalMode));
     // 敵人特性：蓄力重擊／狂怒加倍；打中後噬血回血、分影多打一擊
     const traitState = foeTraitStateOf(combat);
-    const atk = traitAttackMult(traitState, combat.foe.hp / Math.max(1, combat.foe.maxHp));
+    const atk = isRecoverySupportMove(enemyMove) ? {mult:1,fx:[]} : traitAttackMult(traitState, combat.foe.hp / Math.max(1, combat.foe.maxHp));
     const playerHpBeforeFoe = combat.player.hp;
     const enemyLines = resolveStrike(
       combat.foe,
@@ -1041,7 +1066,7 @@ export function playerCombatTurn(state: LifeGameState, moveId: string, chain: Tu
       const before2 = combat.player.hp;
       enemyLines.push(`${combat.foe.name}身形一分，殘影再出一擊！`);
       enemyLines.push(
-        ...resolveStrike(combat.foe, combat.player, enemyMove, rng, after.followUp, 0, foeStanceMult * modeDefenseFactor),
+        ...resolveStrike(combat.foe, combat.player, {...enemyMove,qiCost:0}, rng, after.followUp, 0, foeStanceMult * modeDefenseFactor),
       );
       combat.lastTraitFx!.push({ kind: 'combo', value: Math.max(0, before2 - combat.player.hp) });
     }
@@ -1063,6 +1088,7 @@ export function playerCombatTurn(state: LifeGameState, moveId: string, chain: Tu
     }
   }
 
+  if (!foeSkipped) combat.foe.stunProtected = false;
   combat.turn += 1;
   tickMoveCooldowns(combat);
   combat.phase = 'player';

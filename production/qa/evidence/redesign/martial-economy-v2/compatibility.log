@@ -1,0 +1,12 @@
+
+ RUN  v3.2.7 /workspace/jianghu-testflight-setup
+
+ ✓ tests/online_service.test.ts (11 tests) 130ms
+ ✓ tests/online_pair.test.ts (11 tests) 102ms
+ ✓ tests/martial_economy_v2.test.ts (33 tests) 168ms
+ ✓ tests/online_shared.test.ts (11 tests) 104ms
+
+ Test Files  4 passed (4)
+      Tests  66 passed (66)
+   Start at  12:38:32
+   Duration  3.02s (transform 813ms, setup 0ms, collect 1.71s, tests 504ms, environment 1ms, prepare 256ms)

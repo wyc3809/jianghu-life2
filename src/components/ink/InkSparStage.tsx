@@ -69,7 +69,7 @@ function useHeroStatsKey() {
   return useLifeStore((s) => {
     const c = s.state?.character;
     if (!c) return '';
-    return [c.martial, c.health, c.maxHealth, c.cultivation?.tier ?? 0, JSON.stringify(c.attributes), c.skills.join(','), JSON.stringify(c.equippedArts), JSON.stringify(c.supportArts), JSON.stringify(c.volumes), JSON.stringify(c.manualStars), c.equipment.weapon, c.equipment.armor, c.equipment.accessory].join('|');
+    return [c.martial, c.health, c.maxHealth, c.cultivation?.tier ?? 0, JSON.stringify(c.attributes), c.skills.join(','), JSON.stringify(c.equippedArts), JSON.stringify(c.supportArts), JSON.stringify(c.volumes), JSON.stringify(c.manualStars), JSON.stringify(c.skillRanks), c.equipment.weapon, c.equipment.armor, c.equipment.accessory].join('|');
   });
 }
 const NO_CONDITIONS: { id: string; name: string; monthsLeft: number; severity: number }[] = [];
@@ -234,7 +234,8 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
             settleDeadFoe();
             const move = duel.rounds.activeMove;
             if (!move || !duel.rounds.commitHeroMove()) return { dmg: 0, crit: false, heal: 0, killed: false };
-            const r = duel.heroStrike(move.power);
+            const r = duel.heroStrike(move.power, move.move, move.artId);
+            if(r.killed)useLifeStore.getState().sparFoeDefeated([...duel.usedArtIds]);
             sync();
             return r;
           },
@@ -242,6 +243,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
             if (duel.foeHp <= 0) return { dmg: 0, heroDown: false, fx: [] };
             if (!duel.rounds.commitFoeMove()) return { dmg: 0, heroDown: false, fx: [] };
             const r = duel.foeStrike();
+            if(r.foeKilled)useLifeStore.getState().sparFoeDefeated([...duel.usedArtIds]);
             // 敵人照常結算還擊；主角出招未收勢時唔蓋走招名／卷數高亮。
             if (r.heroDown || !stage?.heroAttackActive) {
               setActiveVolume(undefined);
@@ -256,8 +258,8 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
             const f = duel.foe;
             return { boss: f?.boss ?? false, look: f?.look, tier: f?.tier, trait: f?.trait, accent: f?.accent };
           },
-          heroMayAttack: () => duel.rounds.phase === 'hero' && !stage?.foeAttackActive,
-          foeMayAttack: () => duel.rounds.phase === 'foe' && !stage?.heroAttackActive,
+          heroMayAttack: () => { if(duel.rounds.phase!=='hero'||stage?.foeAttackActive)return false; if(duel.skipStunnedHero()){setCallout('穴道受制');sync();return false;}return true; },
+          foeMayAttack: () => {if(duel.rounds.phase!=='foe'||stage?.heroAttackActive)return false;if(duel.skipStunnedFoe()){duel.rounds.commitFoeMove();setCallout('對手穴道受制');if(duel.foeHp<=0){useLifeStore.getState().sparFoeDefeated([...duel.usedArtIds]);stage?.foeFellFromStatus();}sync();return false;}return true;},
           // 一回合完整使出已學卷次，再輪到敵人。
           nextArt: () => {
             const st = useLifeStore.getState().state;

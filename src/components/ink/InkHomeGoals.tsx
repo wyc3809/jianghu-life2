@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { InkAccountTasks } from './InkAccountTasks';
+import { useAncestryStore } from '../../store/ancestryStore';
 import { createPortal } from 'react-dom';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { currentGoal, type GoalAction } from '@core/life/goals';
@@ -21,6 +24,8 @@ type Props = {
  * 收益放喺演武台上方；目標喺演武台下方，詳情可展開。
  */
 export function InkHomeGoals({ state, onAction, onHarvest, busy, section }: Props) {
+  const [tasksOpen,setTasksOpen]=useState(false);
+  const check=useAncestryStore(s=>s.checkMilestones);
   const goal = currentGoal(state);
   const rate = effectiveCultivationRate(state);
   const stage = sparSavedStage(state);
@@ -53,6 +58,7 @@ export function InkHomeGoals({ state, onAction, onHarvest, busy, section }: Prop
             </div>
           </details>
         </div>
+        <button type="button" className="ink-goal-btn" disabled={busy} onClick={()=>{check();setTasksOpen(true);}}>日常</button>
         {goal.action && (
           <button type="button" className="ink-goal-btn" disabled={busy}
             onClick={() => onAction(goal.action!)}>
@@ -60,6 +66,7 @@ export function InkHomeGoals({ state, onAction, onHarvest, busy, section }: Prop
           </button>
         )}
       </div>}
+      {tasksOpen && <InkAccountTasks state={state} onClose={()=>setTasksOpen(false)} />}
       {section !== 'task' && <div className="ink-idle-row">
         <dl className="ink-idle">
           <div>

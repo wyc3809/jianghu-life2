@@ -1,3 +1,6 @@
+import { useAncestryStore } from '../ancestryStore';
+import { BREAKTHROUGH_FIRST_JADE, BREAKTHROUGH_JADE_STEP } from '@data/redesign/martialEconomyParams';
+import { settleSparTraining } from '@core/life/sparTraining';
 import { accrueIdleSilver, harvestIdleSilver } from '@core/life/idleHarvest';
 import { addJadePending } from '@core/life/jadePending';
 import { JADE_PER_SPAR_SCENE } from '@data/redesign/testParams';
@@ -74,6 +77,7 @@ export function createProgressionSlice(
   | 'teachDisciple'
   | 'tickCultivation'
   | 'sparStrike'
+  | 'sparFoeDefeated'
   | 'sparStageClear'
   | 'sparSetStage'
   | 'sparSyncHealth'
@@ -384,6 +388,12 @@ export function createProgressionSlice(
       set({ state: next });
     },
 
+    sparFoeDefeated: usedArts => {
+      const state=get().state;
+      if(!state||state.phase!=='playing'||!state.character.alive)return;
+      const next=produce(state,draft=>{settleSparTraining(draft,usedArts);});
+      save(next,false);set({state:next});
+    },
     sparStrike: () => {
       const { state } = get();
       if (!state || state.phase !== 'playing' || !state.character.alive) return 0;
@@ -442,8 +452,11 @@ export function createProgressionSlice(
     },
 
     attemptBreakthrough: () => {
-      const { state } = get();
+      let { state } = get();
       if (!state) return;
+      useAncestryStore.getState().checkMilestones();
+      state=get().state!;
+      const highestBefore = useAncestryStore.getState().meta.economy?.highestTier ?? state.character.cultivation.tier;
       let result: BreakthroughResult = { success: false, lines: [], oldTierName: '' };
       const next = produce(state, (draft) => {
         result = attemptCultivationBreakthrough(draft);
@@ -453,8 +466,16 @@ export function createProgressionSlice(
       set({
         state: next,
         flashLines: [],
-        breakthroughResult: result,
+        breakthroughResult: null,
       });
+      useAncestryStore.getState().checkMilestones();
+      const highestAfter = useAncestryStore.getState().meta.economy?.highestTier ?? highestBefore;
+      if(result.success) {
+        result.jadeGain = 0;
+        for(let tier=highestBefore+1;tier<=highestAfter;tier++)result.jadeGain += BREAKTHROUGH_FIRST_JADE + (tier-1)*BREAKTHROUGH_JADE_STEP;
+        if(result.jadeGain)result.lines.push(`首次境界獎勵：免費玉石＋${result.jadeGain}。`);
+      }
+      set({breakthroughResult:result});
     },
 
     clearBreakthroughResult: () => set({ breakthroughResult: null }),

@@ -450,13 +450,15 @@ describe('life event engine', () => {
       foePower: 'weak',
       rewardOnWin: { martial: 1 },
     });
-    expect(state.pendingCombat!.player.qiRegen).toBe(0);
+    expect(state.pendingCombat!.player.qiRegen).toBe(4);
     state.pendingCombat!.foe.hp = 500;
     state.pendingCombat!.foe.maxHp = 500;
     const before = state.pendingCombat!.player.qi;
     playerCombatTurn(state, 'mv_river_fist');
     expect(state.pendingCombat).toBeTruthy();
-    expect(state.pendingCombat!.player.qi).toBeLessThanOrEqual(before - river.qiCost);
+    // 開場已滿內，自然回內不會超出上限，內功主動架仍可另有回內效果。
+    expect(state.pendingCombat!.player.qi).toBeLessThan(before);
+    expect(state.pendingCombat!.player.qi).toBeGreaterThanOrEqual(before - river.qiCost);
     state.pendingCombat!.foe.hp = 0;
     playerCombatTurn(state, 'basic_strike');
     expect(state.pendingCombat?.phase).toBe('resolve');
@@ -739,6 +741,7 @@ describe('life event engine', () => {
     expect(moves.some((m) => m.id === REST_HEAL_MOVE.id)).toBe(true);
 
     const combat = state.pendingCombat!;
+    combat.player.qi = 0;
     const qiBefore = combat.player.qi;
     playerCombatTurn(state, REST_QI_MOVE.id);
     expect(state.pendingCombat!.player.qi).toBeGreaterThan(qiBefore);

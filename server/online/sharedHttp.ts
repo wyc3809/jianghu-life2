@@ -2,6 +2,8 @@ import { SharedWorldService, type SharedRepository, type SharedWorld, type World
 import type { OnlineBattle } from '../../interfaces/online';
 import { OnlineError } from '../../core/online/commands';
 import { createOnlineHandler } from './pairHttp';
+import { lifeGameStateSchema } from '../../interfaces/lifeEngine';
+import { migrateLifeState } from '../../core/life/gameState';
 
 type Config = { url: string; anonKey: string; serviceKey: string };
 /** 世界、收據及戰報分開儲存；只喺一個Postgres RPC交易內提交。 */
@@ -14,6 +16,13 @@ export function sharedRepository(config: Config, fetcher: typeof fetch): SharedR
     return response.json() as Promise<T>;
   };
   return {
+    profile: async user => {
+      const rows=await request<{payload:{life:unknown}}[]>(`saves?user_id=eq.${encodeURIComponent(user)}&select=payload`);
+      const parsed=lifeGameStateSchema.safeParse(rows[0]?.payload.life);
+      if(!parsed.success||parsed.data.phase!=='playing'||!parsed.data.character.alive)return null;
+      const hasDuel=parsed.data.character.combatLoadout!==undefined;
+      const character=migrateLifeState(parsed.data).character;character.flags.cloud_has_duel_preset=hasDuel;return character;
+    },
     load: async () => (await request<SharedWorld[]>('jianghu_world?id=eq.1&select=revision,payload'))[0],
     receipt: async (user, id) => (await request<WorldReceipt[]>(`jianghu_world_receipts?user_id=eq.${user}&request_id=eq.${encodeURIComponent(id)}&select=user_id,request_id,input,result`))[0] ?? null,
     history: async user => (await request<{ payload: OnlineBattle }[]>(`jianghu_world_battles?or=(attacker.eq.${user},defender.eq.${user})&order=started_at.desc,id.desc&limit=10&select=payload`)).map(r => r.payload),

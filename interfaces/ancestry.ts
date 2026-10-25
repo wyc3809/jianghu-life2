@@ -38,6 +38,18 @@ export interface AncestryMeta {
   jadeAchv?: string[];
   /** 在線奇遇（見 core/life/encounters.ts） */
   encounter?: EncounterState;
+  economy?: AccountEconomy;
+}
+
+export interface AccountEconomy {
+  highestTier: number;
+  guides: string[];
+  rewards: string[];
+  totals: Record<string, number>;
+  lifeKey: string;
+  last: Record<string, number>;
+  daily?: { day: string; selected: string[]; claimed: string[]; base: Record<string, number> };
+  onlineCredited?: Record<string, number>;
 }
 
 export interface EncounterState {
@@ -90,6 +102,12 @@ export const ancestryMetaSchema = z.object({
   manuals: z.record(z.string(), z.object({ stars: z.number().int().min(0), copies: z.number().int().min(0), vols: z.array(z.number().int()).optional() })).optional(),
   pages: z.number().int().min(0).optional(),
   jadeAchv: z.array(z.string()).optional(),
+  economy: z.object({
+    highestTier: z.number().int().min(0), guides: z.array(z.string()), rewards: z.array(z.string()),
+    totals: z.record(z.string(),z.number()), lifeKey: z.string(), last: z.record(z.string(),z.number()),
+    daily: z.object({ day: z.string(), selected: z.array(z.string()), claimed: z.array(z.string()), base: z.record(z.string(),z.number()) }).optional(),
+    onlineCredited: z.record(z.string(),z.number()).optional(),
+  }).optional(),
   encounter: z
     .object({
       nextAt: z.number(),

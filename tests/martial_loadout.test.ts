@@ -125,7 +125,8 @@ describe('五格自由武學', () => {
     expect(getPlayerMoves(s).filter(m => m.id !== BASIC_STRIKE.id && !SYSTEM_MOVES.some(sys => sys.id === m.id)).map(m => m.id)).toEqual(['art_stone_palm', 'art_river_fist'].map(id => getSkillDef(id)!.move!.id));
     expect(autoBattleRotation(s.character)).toEqual(['art_stone_palm', 'art_river_fist']);
     expect(sparArtOrder(s.character)).toEqual(['art_stone_palm', 'art_river_fist']);
-    expect(snapshotContestantFromLife(s).skills).toEqual(['art_stone_palm', 'art_river_fist', 'art_iron_body']);
+    // 普通配搭更動不覆蓋舊檔初始化的獨立對戰配搭。
+    expect(snapshotContestantFromLife(s).skills).toEqual(['art_river_fist']);
     setMartialSlot(s, INTERNAL_ART_SLOT, null);
     expect(buildPlayerFighter(s).defense).toBe(before.defense);
   });

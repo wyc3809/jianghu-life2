@@ -1,4 +1,5 @@
 import { createNewLife } from '../life/gameState';
+import { normalPreset } from '../life/loadoutPresets';
 import type { OnlineAccountId, OnlinePlayer, OnlineWorld } from '@interfaces/online';
 
 /** 隔離試場角色；唔匯入玩家存檔，唔代表正式服平衡。 */
@@ -16,6 +17,7 @@ export function createOnlineFixture(now: number): OnlineWorld {
     c.maxHealth = id === 'river' ? 520 : 300; c.health = c.maxHealth;
     c.maxQi = 360; c.qi = 360;
     c.flags.coach_done = true; c.flags.newbie_done = true;
+    c.combatLoadout = normalPreset(c);
     return { id, character: c, rank: id === 'river' ? 100 : 20,
       protectedUntil: 0, onlineUntil: now, busy: null, rewardAt: now,
       offlineAccruedMs: 0, pendingOnline: 0, pendingOffline: 0,

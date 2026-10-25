@@ -1,0 +1,22 @@
+/** 第44項隔離真存檔，只用於正式構建驗收。 */
+import {mkdirSync,writeFileSync} from 'node:fs';
+import {createNewLife} from '../../core/life/gameState';
+import {emptyAncestry} from '../../core/life/ancestry';
+import {FAMILY_MILESTONES} from '../../data/ancestry/milestones';
+import {ACHIEVEMENT_RULES} from '../../core/life/achievements';
+import {normalPreset} from '../../core/life/loadoutPresets';
+import {settleAccountEconomy,selectDailyTask} from '../../core/life/accountEconomy';
+import {setWish,bannerState,pull} from '../../core/life/gacha';
+const state=createNewLife({seed:42,name:'驗收少俠',skipCoach:true});state.pending=null;state.tab='home';
+const c=state.character;c.flags.newbie_done=true;c.flags.coach_done=true;c.flags.newbie_trial_won=true;
+c.skills=['art_river_fist','基礎吐納','qg_broken_bridge'];c.equippedArts=['art_river_fist',null,null,null,null];c.supportArts={internal:'基礎吐納',qinggong:'qg_broken_bridge'};
+c.volumes={art_river_fist:[1,3,7]};c.combatLoadout=normalPreset(c);c.gear.push('iron-blade');
+const meta=emptyAncestry();meta.jade={free:2000,paidTest:600};meta.pages=1000;
+meta.milestones=FAMILY_MILESTONES.map(x=>x.id);meta.jadeAchv=ACHIEVEMENT_RULES.map(x=>x.id);
+meta.manuals={art_river_fist:{stars:0,copies:2,vols:[1,3,7]},art_silk_hand:{stars:0,copies:0,vols:[7]}};
+settleAccountEconomy(meta,state,Date.now());for(const id of ['spar','practice','months'])selectDailyTask(meta,id);
+c.flags.spar_foes_total=20;c.flags.practice_actions=3;c.stats.monthsLived=3;settleAccountEconomy(meta,state,Date.now());
+const duplicate=structuredClone(meta);duplicate.manuals!.art_river_fist!.vols=[1,2,3,4,5,6,7];setWish(duplicate,'jianghu','art_river_fist');bannerState(duplicate,'jianghu').sinceWish=39;
+const expected=structuredClone(duplicate),result=pull(expected,'jianghu',1);
+mkdirSync('.local-online/martial-economy-v2',{recursive:true});writeFileSync('.local-online/martial-economy-v2/fixtures.json',JSON.stringify({state,meta,duplicate,expected,result}));
+console.log('MARTIAL_V2_FIXTURES_READY');

@@ -76,7 +76,7 @@ export interface LifeStore {
   /** 自動戰鬥演出中：演出資料＋打完嘅狀態 */
   combatReplay: { replay: CombatReplay; next: LifeGameState; logs: string[] } | null;
   /** 五格外功＋獨立內功及身法；指定欄位先替換，收藏武學可同時習得。 */
-  setMartialSlot: (slot: number, skillId: string | null) => boolean;
+  setMartialSlot: (slot: number, skillId: string | null, preset?: 'normal' | 'duel') => boolean;
   /** 舊入口兼容，人物介面改用五格裝備。 */
   setMainArt: (kind: import('@data/skills/catalog').SkillKind, skillId: string) => void;
   /** 新手試煉：開打（贏咗得有用裝備） */
@@ -97,7 +97,7 @@ export interface LifeStore {
   huashanDismissReport: () => void;
   huashanClose: () => void;
   /** 免費換裝（不耗修煉次數） */
-  equipOwned: (gearId: string) => void;
+  equipOwned: (gearId: string, preset?: 'normal' | 'duel') => void;
   /** 「獲得新裝備」彈窗：換上或先收好 */
   resolveGearCompare: (action: 'equip' | 'keep') => void;
   foundSect: (sectName: string) => void;
@@ -107,6 +107,7 @@ export interface LifeStore {
   tickCultivation: (deltaSeconds: number) => void;
   /** 主畫面切磋演武：俠客每擊中敵影一次嘅修為回饋，回傳實際入賬數（0＝已到頂或未開局） */
   sparStrike: () => number;
+  sparFoeDefeated: (usedArts: string[]) => void;
   /** 演武台：首領倒下過關（銀兩＋修為），記低去到第幾關；回傳實際獎勵 */
   sparStageClear: (clearedStage: number) => { silver: number; xp: number };
   /** 演武台：敗退後記低退返嘅關數 */

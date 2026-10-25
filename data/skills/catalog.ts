@@ -1,6 +1,7 @@
 import type { WeaponKind } from '@data/equipment/catalog';
 import { MARTIAL_CATALOG_RAW } from '@data/content/packs';
 import PREMIUM_CATALOG_RAW from '@content/martial/premium.json';
+import { INTERNAL_PERCENT_REGEN } from '@data/redesign/martialEconomyParams';
 import { rankName } from '@core/life/martialRanks';
 
 export type SkillKind = 'external' | 'internal' | 'qinggong';
@@ -321,7 +322,8 @@ export function formatSkillEffects(id: string): string {
     if (p.defense) fx.push(`防+${p.defense}`);
     if (p.maxHp) fx.push(`氣血上限+${p.maxHp}`);
     if (p.maxQi) fx.push(`內力上限+${p.maxQi}`);
-    if (p.qiRegen) fx.push(`回息+${p.qiRegen}`);
+    if (INTERNAL_PERCENT_REGEN[id]) fx.push(`每回合回內${INTERNAL_PERCENT_REGEN[id]*100}%`);
+    else if (p.qiRegen) fx.push(`每回合回內${p.qiRegen}`);
     if (p.reflect) fx.push(`反震${Math.round(p.reflect * 100)}%`);
     if (p.evasionBonus) fx.push(`閃避+${Math.round(p.evasionBonus * 100)}%`);
     if (fx.length) bits.push(`被動：${fx.join('、')}`);

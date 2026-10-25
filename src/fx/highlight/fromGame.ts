@@ -120,12 +120,11 @@ export function momentHighlight(state: LifeGameState, m: LifeMoment): HighlightC
 }
 
 /** 突破成功 → 丹爐；失敗照用水墨彈窗 */
-export function breakthroughHighlight(state: LifeGameState, r: BreakthroughResult): HighlightConfig | null {
+export function breakthroughHighlight(state: LifeGameState, r: BreakthroughResult, freeJade = 0): HighlightConfig | null {
   if (!r.success || !r.newTierName) return null;
   const c = state.character;
   const g = clampGrade(TIER_GRADE[r.newTierLevel ?? 1] ?? 1);
-  const prestigeNow = jianghuPrestige(state);
-  const prestige = Math.min(r.prestigeGain ?? 0, prestigeNow);
+  const jade = r.jadeGain ?? 0;
   const stats: RewardStat[] = [];
   if (r.hpGain) stats.push({ label: '氣血上限', from: c.maxHealth - r.hpGain, to: c.maxHealth });
   if (r.qiGain) stats.push({ label: '內力上限', from: c.maxQi - r.qiGain, to: c.maxQi });
@@ -136,7 +135,7 @@ export function breakthroughHighlight(state: LifeGameState, r: BreakthroughResul
     revealTitle: '境界突破',
     seal: '破',
     revealSub: `${r.oldTierName} → ${r.newTierName}`,
-    balances: balances(state, prestigeNow - prestige),
+    balances: {coin:{label:'銀兩',value:c.money},gem:{label:'免費玉石',value:Math.max(0,freeJade-jade)}},
     rewards: [
       {
         id: 'tier',
@@ -148,18 +147,18 @@ export function breakthroughHighlight(state: LifeGameState, r: BreakthroughResul
         blurb: '打通任督二脈，真氣運行更上層樓。',
         stats,
       },
-      ...(prestige
+      ...(jade
         ? [
             {
-              id: 'prestige',
+              id: 'breakthrough-jade',
               icon: 'gem' as const,
               pattern: 'charm' as const,
-              name: '威望',
+              name: '免費玉石',
               grade: 2 as Grade,
-              amount: prestige,
+              amount: jade,
               flyTo: 'gem' as const,
-              blurb: '你突破境界的消息已在江湖傳開。',
-              stats: [{ label: '威望', from: prestigeNow - prestige, to: prestigeNow }],
+              blurb: '首次達成此境界，獎勵已加入帳戶。',
+              stats: [{ label: '免費玉石', from: Math.max(0,freeJade-jade), to: freeJade }],
             },
           ]
         : []),
@@ -182,7 +181,7 @@ export function gachaHighlight(
     r.kind === 'pages' ? 0 : r.isWish ? 5 : r.isPremium ? 4 : r.isNew ? 2 : 1;
   const top = results.reduce<Grade>((g, r) => (gradeOf(r) > g ? gradeOf(r) : g), 0 as Grade);
   const arts = results.filter(r => r.kind !== 'pages');
-  const pages = results.reduce((sum, r) => sum + (r.kind === 'pages' ? r.pages : 0), 0);
+  const pages = results.reduce((sum, r) => sum + (r.kind === 'pages' ? r.pages : (r.duplicatePages ?? 0)), 0);
   const wish = arts.find((r) => r.isWish);
   const premium = arts.find((r) => r.isPremium);
   const fresh = arts.filter((r) => r.isNew).length;
@@ -212,7 +211,7 @@ export function gachaHighlight(
       isPremium: r.isPremium,
       isWish: r.isWish,
       identityLabel: `${r.isPremium ? '珍本' : '江湖'} · ${r.isNew ? '新得' : '重複'}${r.isWish ? ' · 心願' : ''}`,
-      blurb: `${r.isWish ? '【心願】' : ''}${r.isPremium ? '【珍本奇功】' : ''}${blurbOf(r.id) ?? ''}${r.isNew ? '' : '（重複：可升階或轉書頁）'}`,
+      blurb: `${r.isWish ? '【心願】' : ''}${r.isPremium ? '【珍本奇功】' : ''}${blurbOf(r.id) ?? ''}${r.isNew ? '' : r.duplicatePages ? `（重複：已轉為${r.duplicatePages}書頁）` : '（重複藏本）'}`,
     })),
   };
 }

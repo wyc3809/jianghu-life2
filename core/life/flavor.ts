@@ -1,3 +1,4 @@
+import { recomputeCapBonuses } from './equipment';
 import type { LifeCharacter, LifeGameState, WuxiaAttribute } from '@interfaces/lifeEngine';
 import { pushMoment } from './moments';
 import { headProgressFactor } from './injuryMath';
@@ -155,6 +156,7 @@ export function tryAdvanceSkill(
   state: LifeGameState,
   skillId: string,
   source: 'practice' | 'combat',
+  advanceRng?: Parameters<typeof rollAdvanceNeed>[1],
 ): string | null {
   const c = state.character;
   c.skillRanks = ensureSkillRanks(c.skillRanks);
@@ -164,7 +166,7 @@ export function tryAdvanceSkill(
   const rank = c.skillRanks[skillId] ?? 0;
   if (rank >= 3) return null;
 
-  const rng = getRng();
+  const rng = advanceRng ?? getRng();
   if (c.skillAdvanceNeed[skillId] === undefined) {
     c.skillAdvanceNeed[skillId] = rollAdvanceNeed(rank, rng);
   }
@@ -176,6 +178,7 @@ export function tryAdvanceSkill(
   if ((c.skillProgress[skillId] ?? 0) < need) return null;
 
   c.skillRanks[skillId] = rank + 1;
+  recomputeCapBonuses(c);
   c.skillProgress[skillId] = 0;
   const nextRank = rank + 1;
   c.skillAdvanceNeed[skillId] =
