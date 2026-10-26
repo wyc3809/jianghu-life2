@@ -299,7 +299,8 @@ export function InkPlayScreen({ state }: Props) {
     state.phase === 'playing' && Boolean(pendingEvent) && !showResult && !combat;
   const onJianghuMap = tab === 'jianghu' && jianghuView === 'main' && !combat && !eventFocus;
   const onGachaPage = tab === 'jianghu' && jianghuView === 'gacha' && !combat && !eventFocus;
-  const onFullPage = onJianghuMap || onGachaPage;
+  const onPersonPage = tab === 'person' && !combat && !eventFocus;
+  const onFullPage = onJianghuMap || onGachaPage || onPersonPage;
   /** 交手中隱藏全局氣血條，避免與戰鬥血條重複 */
   // 有重傷／傷殘：名字旁朱砂點（撳入人物欄）
   const worstInjury = (c.injuries ?? []).reduce<'heavy' | 'crippled' | null>(
@@ -535,6 +536,8 @@ export function InkPlayScreen({ state }: Props) {
     onHomeTab && !combat && !eventFocus ? 'scroll-shell--home' : '',
     onJianghuMap ? 'scroll-shell--jianghu-map' : '',
     onGachaPage ? 'scroll-shell--gacha' : '',
+    onPersonPage ? 'scroll-shell--person' : '',
+    onPersonPage && personView !== 'main' ? 'scroll-shell--tap-detail' : '',
     hasTask ? 'scroll-shell--has-task' : '',
     monthTurning ? 'ink-month-turn' : '',
   ]
@@ -819,7 +822,8 @@ export function InkPlayScreen({ state }: Props) {
           view={personView}
           onView={setPersonView}
           busy={busy}
-          onEquip={equipOwned}
+          onEquip={(id,preset) => {equipOwned(id,preset);if(useLifeStore.getState().lastResult?.title==='整裝')clearResult();}}
+          onBack={() => setTab('home')}
           initialPreset={personPreset}
           requestedArt={requestedArt}
           onRequestHandled={() => setRequestedArt(null)}
@@ -1079,7 +1083,7 @@ export function InkPlayScreen({ state }: Props) {
       {onPracticeTab && !combat && !showResult && !eventFocus && (
         <p className="ink-note ink-note--center">修煉不催歲月——按下方圓鈕過一月。</p>
       )}
-      {(tab === 'person' || (tab === 'jianghu' && !onFullPage)) && !combat && !showResult && !eventFocus && (
+      {(tab === 'jianghu' && !onFullPage) && !combat && !showResult && !eventFocus && (
         <p className="ink-note ink-note--center">按下方圓鈕即可過一月。</p>
       )}
 

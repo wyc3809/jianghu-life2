@@ -1,6 +1,7 @@
 /** 抽卡高光載入／WebGL失敗時仍可讀完整結果；所有操作只呈現已入帳結果。 */
-import { Component, Suspense, useEffect, useRef, useState, type ReactNode } from 'react';
+import { Component, Suspense, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
+import { InkPersonNativeContext } from './InkPersonSheet';
 import { HighlightFxLazy, canUseWebGL, type HighlightConfig, type RewardCard } from '../../fx/highlight';
 import { gachaRewardImageUrl } from '../../fx/highlight/codexAppearance';
 
@@ -14,13 +15,14 @@ class FxBoundary extends Component<{ fallback: ReactNode; children: ReactNode },
 
 /** 原生dialog提供焦點圍欄、Escape及關閉後焦點復原。 */
 export function GachaSheet({ title, onClose, children }: { title: string; onClose: () => void; children: ReactNode }) {
+  const native = useContext(InkPersonNativeContext);
   const ref = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     const el = ref.current!; const previous = document.activeElement as HTMLElement | null;
     el.showModal();
     return () => { el.close(); previous?.focus(); };
   }, []);
-  return createPortal(<dialog ref={ref} className="ink-codex-sheet" aria-label={title} onCancel={event => { event.preventDefault(); onClose(); }}>
+  return createPortal(<dialog ref={ref} className={`ink-codex-sheet${native ? ' ink-person-dialog' : ''}`} aria-label={title} onCancel={event => { event.preventDefault(); onClose(); }}>
     <header><h3>{title}</h3><button type="button" aria-label={`關閉${title}`} onClick={onClose}>收起</button></header>
     <div className="ink-codex-sheet-body">{children}</div>
   </dialog>, document.body);

@@ -1,0 +1,213 @@
+{
+  "sword": {
+    "file": "public/ink/art/person/gear-sword.webp",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 26378,
+    "alphaRange": [
+      0,
+      255
+    ],
+    "opaqueBounds": [
+      16,
+      29,
+      239,
+      227
+    ],
+    "sourceCrop": [
+      0,
+      0,
+      438,
+      418
+    ]
+  },
+  "blade": {
+    "file": "public/ink/art/person/gear-blade.webp",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 28510,
+    "alphaRange": [
+      0,
+      255
+    ],
+    "opaqueBounds": [
+      16,
+      31,
+      240,
+      224
+    ],
+    "sourceCrop": [
+      438,
+      0,
+      836,
+      418
+    ]
+  },
+  "spear": {
+    "file": "public/ink/art/person/gear-spear.webp",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 27586,
+    "alphaRange": [
+      0,
+      255
+    ],
+    "opaqueBounds": [
+      16,
+      16,
+      240,
+      239
+    ],
+    "sourceCrop": [
+      836,
+      0,
+      1254,
+      418
+    ]
+  },
+  "staff": {
+    "file": "public/ink/art/person/gear-staff.webp",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 17016,
+    "alphaRange": [
+      0,
+      255
+    ],
+    "opaqueBounds": [
+      16,
+      21,
+      240,
+      236
+    ],
+    "sourceCrop": [
+      0,
+      418,
+      438,
+      836
+    ]
+  },
+  "whip": {
+    "file": "public/ink/art/person/gear-whip.webp",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 48888,
+    "alphaRange": [
+      0,
+      255
+    ],
+    "opaqueBounds": [
+      17,
+      26,
+      239,
+      229
+    ],
+    "sourceCrop": [
+      438,
+      418,
+      836,
+      836
+    ]
+  },
+  "bow": {
+    "file": "public/ink/art/person/gear-bow.webp",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 23560,
+    "alphaRange": [
+      0,
+      255
+    ],
+    "opaqueBounds": [
+      22,
+      16,
+      234,
+      240
+    ],
+    "sourceCrop": [
+      836,
+      418,
+      1254,
+      836
+    ]
+  },
+  "hidden": {
+    "file": "public/ink/art/person/gear-hidden.webp",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 38264,
+    "alphaRange": [
+      0,
+      255
+    ],
+    "opaqueBounds": [
+      16,
+      17,
+      240,
+      239
+    ],
+    "sourceCrop": [
+      0,
+      836,
+      418,
+      1254
+    ]
+  },
+  "armor": {
+    "file": "public/ink/art/person/gear-armor.webp",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 66042,
+    "alphaRange": [
+      0,
+      255
+    ],
+    "opaqueBounds": [
+      16,
+      21,
+      240,
+      234
+    ],
+    "sourceCrop": [
+      418,
+      836,
+      836,
+      1254
+    ]
+  },
+  "accessory": {
+    "file": "public/ink/art/person/gear-accessory.webp",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 49144,
+    "alphaRange": [
+      0,
+      255
+    ],
+    "opaqueBounds": [
+      16,
+      16,
+      239,
+      240
+    ],
+    "sourceCrop": null
+  }
+}

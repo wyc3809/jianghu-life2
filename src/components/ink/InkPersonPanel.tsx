@@ -1,22 +1,24 @@
+import { InkPersonOverview } from './InkPersonOverview';
+import { InkPersonNativeContext } from './InkPersonSheet';
+import { InkTapCard } from './InkTapCard';
 import { characterForPreset, type PresetKind } from '@core/life/loadoutPresets';
 import { combatRating, combatRatingTier } from '@core/life/combatRating';
-import { jianghuRank, jianghuRankTier, JIANGHU_RANK_START } from '@core/life/jianghuRank';
+import { jianghuRank, JIANGHU_RANK_START } from '@core/life/jianghuRank';
 import { jianghuPrestige } from '@core/life/jianghuPrestige';
 import { InkMainArts } from './InkMainArts';
+import { InkMartialPicker } from './InkMartialPicker';
 import { VOLUME_COUNT, VOLUME_NUMERALS, artVolumeMoves, hasVolumes } from '@data/skills/volumes';
 import { ownedVolumes, collectionVolumes } from '@core/life/volumes';
 import { equippedMartialArts, INTERNAL_ART_SLOT, QINGGONG_ART_SLOT } from '@core/life/martialLoadout';
 import { useAncestryStore } from '../../store/ancestryStore';
 import { SCHOOLS, schoolOfGear, primarySchoolOfSkill, type SchoolId } from '@data/redesign/schools';
-import { InkSchoolTabs, InkSkillSchools } from './InkSchoolTabs';
+import { InkSkillSchools } from './InkSchoolTabs';
+import { InkPersonSchoolTabs as InkSchoolTabs } from './InkPersonSchoolTabs';
 import { useEffect, useRef, useState } from 'react';
 import { useLifeStore } from '../../store/lifeStore';
 import { canRetire } from '@core/life/retire';
 import { inkCountTo, inkPopIn } from '../../ui/inkMotion';
 import type { LifeGameState } from '@interfaces/lifeEngine';
-import type { InkAiAssetId } from '../../ui/inkAiCatalog';
-import { motifBadgeIconUrl } from '../../ui/inkIcons';
-import { InkBadge } from './InkBadge';
 import {
   natureKeys,
   natureLabels,
@@ -69,6 +71,7 @@ import {
 
 export type PersonView =
   | 'main'
+  | 'overview'
   | 'attrs'
   | 'skills'
   | 'gear'
@@ -85,6 +88,7 @@ type Props = {
   onView: (v: PersonView) => void;
   busy: boolean;
   onEquip: (id: string, preset?: PresetKind) => void;
+  onBack: () => void;
   onEquipBest: (preset: PresetKind) => void;
   onBreakthrough: () => void;
   initialPreset?: PresetKind;
@@ -130,6 +134,7 @@ export function InkPersonPanel({
   onView,
   busy,
   onEquip,
+  onBack,
   onEquipBest,
   onBreakthrough,
   requestedArt,
@@ -137,33 +142,38 @@ export function InkPersonPanel({
   onRequestHandled,
   onSetMartialSlot,
 }: Props) {
+  const [martialView, setMartialView] = useState<'loadout' | 'library' | 'rules'>('loadout');
   const [preset, setPreset] = useState<PresetKind>(initialPreset ?? 'normal');
-  const displayState = preset === 'duel' && (view === 'skills' || view === 'gear') ? { ...state, character: characterForPreset(state.character, 'duel') } : state;
+  const displayState = preset === 'duel' && (view === 'main' || view === 'skills' || view === 'gear') ? { ...state, character: characterForPreset(state.character, 'duel') } : state;
   const [previewGearId, setPreviewGearId] = useState<string | null>(null);
   const [showStatsScroll, setShowStatsScroll] = useState(false);
   const [skillSchool, setSkillSchool] = useState<SchoolId | 'all'>('all');
   const [selectedArt, setSelectedArt] = useState<string | null>(requestedArt ?? null);
   const [equipNotice, setEquipNotice] = useState('');
+  const [pickerSlot, setPickerSlot] = useState<number | null>(null);
   const collection = useAncestryStore(s => s.meta);
   const manuals = collection.manuals;
   useEffect(() => {
     if (!requestedArt) return;
-    setPreset('normal'); setSelectedArt(requestedArt); setSkillSchool('all'); setEquipNotice('');
+    setPreset('normal'); setMartialView('loadout'); setSelectedArt(requestedArt); setSkillSchool('all'); setEquipNotice('');
     const body = paneRef.current?.closest<HTMLElement>('.ink-play-body');
     const loadout = paneRef.current?.querySelector('.ink-loadout');
     if (body && loadout) body.scrollTop += loadout.getBoundingClientRect().top - body.getBoundingClientRect().top;
     onRequestHandled?.();
   }, [requestedArt, onRequestHandled]);
   const selectArt = (id: string) => {
-    setSelectedArt(id); setEquipNotice('');
-    paneRef.current?.querySelector('.ink-loadout')?.scrollIntoView({ block: 'start' });
+    setSelectedArt(id); setMartialView('loadout'); setEquipNotice('');
   };
   const equipArt = (slot: number, id: string | null) => {
     if (onSetMartialSlot(slot, id, preset)) {
       const label = slot === INTERNAL_ART_SLOT ? '內功欄位' : slot === QINGGONG_ART_SLOT ? '身法欄位' : `外功欄位${slot + 1}`;
       setEquipNotice(id ? `已裝備「${getSkillDef(id)?.name ?? id}」至${label}。` : `已卸下${label}的武學。`);
       setSelectedArt(null);
-    } else setEquipNotice('未能調整裝備，請在戰鬥結束後重試。');
+      setPickerSlot(null);
+      return true;
+    }
+    setEquipNotice('未能調整裝備，請在戰鬥結束後重試。');
+    return false;
   };
   // anime.js：入頁時列表／格仔錯開落筆出場；戰力數字由 0 滾到現值
   const paneRef = useRef<HTMLElement | null>(null);
@@ -200,78 +210,7 @@ export function InkPersonPanel({
   const progress = calculateProgress(state);
   const spar = sparHeroBreakdown(state);
 
-  if (view === 'main') {
-    const cultTier = currentCultivationTier(state);
-    const cultCapped = isCultivationCapped(state);
-    const rows: { id: PersonView; label: string; hint: string; icon?: InkAiAssetId }[] = [
-      {
-        id: 'cultivation',
-        label: '修為',
-        hint: cultCapped ? `${cultTier.name} · 可突破` : `${cultTier.name} · 修煉中`,
-        icon: 'motif-jade',
-      },
-      {
-        id: 'combat',
-        label: '戰力',
-        hint: `${combatRating(state).toLocaleString('zh-Hant')} · ${combatRatingTier(combatRating(state))}`,
-        icon: 'motif-sword',
-      },
-      {
-        id: 'combat', label: '江湖排名', icon: 'motif-mountain-gate',
-        hint: jianghuRank(state) >= JIANGHU_RANK_START ? '未列名 · 江湖新丁' : `第${jianghuRank(state)}位 · ${jianghuRankTier(jianghuRank(state))}`,
-      },
-      {
-        id: 'attrs',
-        label: '五維與心性',
-        hint: `${wuxiaAttributeLabels.genGu}${c.attributes.genGu} · 俠${nature.xia}`,
-        icon: 'motif-jade',
-      },
-      {
-        id: 'skills',
-        label: '武學',
-        hint: c.skills.length ? `已習 ${c.skills.length} 門` : '尚未習武',
-        icon: 'motif-scroll',
-      },
-      {
-        id: 'gear',
-        label: '裝備',
-        hint: `戰意 ${combatPowerScore(c)} · 庫中 ${gearIds.length}`,
-        icon: 'motif-sword',
-      },
-      {
-        id: 'genealogy',
-        label: '族譜',
-        hint: `${genealogy.clanLabel} · 第${genealogy.generationIndex}世`,
-        icon: 'motif-mountain-gate',
-      },
-      {
-        id: 'people',
-        label: '人際',
-        hint: lover
-          ? `眷屬 · 子女 ${c.childrenCount ?? 0}`
-          : `尚未有眷屬 · 子女 ${c.childrenCount ?? 0}`,
-        icon: 'motif-lantern',
-      },
-      {
-        id: 'achievements',
-        label: '成就',
-        hint: `${achProgress.unlocked}/${achProgress.total}${nicknames.length ? ` · 綽號${nicknames.length}` : ''}`,
-      },
-      {
-        id: 'roots',
-        label: '江湖根腳',
-        hint: `${careerLabel(state)}${getMasterName(state) ? ` · 師「${getMasterName(state)}」` : ''}`,
-      },
-    ];
-
-    return (
-      <>
-      <section className="ink-panel ink-attrs ink-tab-pane" aria-label="人物" ref={paneRef}>
-        <h3>人物</h3>
-        <p className="ink-note">
-          {c.name} · 名望 {c.reputation}
-          {lover ? ` · 眷屬${lover.name}` : ''}
-        </p>
+  const overviewContent = <>
         <div className="ink-vitals-meters ink-progress-overview">
           {progress.bars.map((bar) => (
             <div className="ink-meter" key={bar.key}>
@@ -317,43 +256,19 @@ export function InkPersonPanel({
           )}
         </div>
         <InkInjuryCard character={c} />
-        <div className="ink-bitlife-list" role="list">
-          {rows.map((row) => (
-            <button
-              key={row.label}
-              type="button"
-              className="ink-bitlife-row"
-              role="listitem"
-              onClick={() => {
-                onView(row.id);
-              }}
-            >
-              <InkBadge src={motifBadgeIconUrl(row.icon)} label={row.label} size={64} className="ink-row-badge" />
-              <span className="ink-bitlife-row-text">
-                <strong>{row.label}</strong>
-                <span>{row.hint}</span>
-              </span>
-              <span className="ink-bitlife-chevron" aria-hidden>
-                ›
-              </span>
-            </button>
-          ))}
-        </div>
-        <button
-          type="button"
-          className="ink-btn ink-btn--quiet"
-          onClick={() => setShowStatsScroll(true)}
-        >
-          人物誌卷 · 山水橫幅
-        </button>
-      </section>
-      {showStatsScroll && <InkStatsPanel state={state} onClose={() => setShowStatsScroll(false)} />}
-    </>
-    );
+  </>;
+  if (view === 'main') {
+    return <InkPersonNativeContext.Provider value={true}>
+      <InkPersonOverview state={displayState} preset={preset} busy={busy} onPreset={setPreset}
+        onEquip={id => {onEquip(id,preset);const next=useLifeStore.getState().state;const def=getGearDef(id);return Boolean(next && def && characterForPreset(next.character,preset).equipment[def.slot]===id);}} onView={onView} onBack={onBack}
+        onStats={() => setShowStatsScroll(true)} onBest={() => onEquipBest(preset)} />
+      {showStatsScroll && <InkStatsPanel state={displayState} onClose={() => setShowStatsScroll(false)} />}
+    </InkPersonNativeContext.Provider>;
   }
 
   return (
-    <section className="ink-panel ink-attrs ink-tab-pane" aria-label="人物詳情" ref={paneRef}>
+    <InkPersonNativeContext.Provider value={true}>
+    <section className="ink-panel ink-attrs ink-tab-pane ink-tap-screen" aria-label="人物詳情" ref={paneRef}>
       <button
         type="button"
         className="ink-btn ink-btn--quiet ink-person-back"
@@ -367,10 +282,15 @@ export function InkPersonPanel({
 
       {(view === 'skills' || view === 'gear') && <div className="ink-preset-select">
         <div className="ink-preset-tabs" role="tablist" aria-label="配搭方案">{(['normal','duel'] as const).map(kind =>
-          <button type="button" key={kind} role="tab" aria-selected={preset === kind} className="ink-btn ink-btn--quiet" onClick={() => { setPreset(kind); setSelectedArt(null); setPreviewGearId(null); setEquipNotice(''); }}>{kind === 'normal' ? '普通配搭' : '對戰配搭'}</button>)}</div>
-        <p className="ink-note">{preset === 'normal' ? '演武台及江湖交手使用此套。' : '華山、多人挑戰及離線防守使用此套。'}兩套共用收藏、卷數與養成；開戰後的更改留待下一場。</p>
+          <button type="button" key={kind} role="tab" aria-selected={preset === kind} className="ink-btn ink-btn--quiet" onClick={() => { setPreset(kind); setSelectedArt(null); setPickerSlot(null); setPreviewGearId(null); setEquipNotice(''); }}>{kind === 'normal' ? '普通配搭' : '對戰配搭'}</button>)}</div>
+        <p className="ink-note">{preset === 'normal' ? '演武台、江湖交手使用。' : '華山、多人挑戰及離線防守使用。'}配搭獨立保存，收藏與養成共用。</p>
       </div>}
 
+      {view === 'skills' && <div className="ink-tap-segments" role="tablist" aria-label="武學內容">
+        {([['loadout','配搭'],['library','收藏'],['rules','規則']] as const).map(([id,label])=><button key={id} type="button" role="tab" aria-selected={martialView===id} className="ink-btn ink-btn--quiet" onClick={()=>{setMartialView(id);setSelectedArt(null);}}>{label}</button>)}
+      </div>}
+      <div className="ink-person-detail-body" key={`${view}:${preset}:${martialView}:${skillSchool}`}>
+      {view === 'overview' && overviewContent}
       {view === 'cultivation' &&
         (() => {
           const tier = currentCultivationTier(state);
@@ -513,8 +433,13 @@ export function InkPersonPanel({
         <>
           <h3>武學</h3>
           {equipNotice && <p className="ink-note ink-loadout-notice" role="status">{equipNotice}</p>}
-          <InkMainArts state={displayState} selected={selectedArt} busy={busy} onEquip={equipArt} onCancel={() => setSelectedArt(null)} />
-          <p className="ink-note">演武台連招不耗內；其他交手每門外功起手只扣一次內力，已學卷次依序連出。每回合自然回內1%，另計已裝備內功；全部武學均無法使出時調息回復30%。藏本升階跨代保留，熟練由本代實戰及修煉累積。</p>
+          {martialView === 'loadout' && <InkMainArts state={displayState} selected={selectedArt} busy={busy} onEquip={equipArt} onCancel={() => setSelectedArt(null)} onChoose={slot => { setSelectedArt(null); setPickerSlot(slot); }} />}
+          {pickerSlot !== null && <InkMartialPicker state={displayState} collection={collection} slot={pickerSlot} preset={preset} busy={busy}
+            onEquip={id => equipArt(pickerSlot, id)} onClose={() => setPickerSlot(null)} />}
+          {martialView === 'rules' && <div className="ink-loadout-rules"><h4>連招、回內與養成規則</h4>
+            <p className="ink-note">演武台連招不耗內；其他交手每門外功起手只扣一次內力，已學卷次依序連出。每回合自然回內1%，另計已裝備內功；全部武學均無法使出時調息回復30%。藏本升階跨代保留，熟練由本代實戰及修煉累積。開戰後更改配搭，留待下一場生效。</p>
+          </div>}
+          {martialView === 'library' && <>
           <InkSchoolTabs value={skillSchool} onChange={setSkillSchool} allowAll label="武學流派分類" />
           {skillSchool !== 'all' && !availableArts.some(id => primarySchoolOfSkill(getSkillDef(id)) === skillSchool) && <p className="ink-note">此流派尚無可用武學。</p>}
           {listWeaponMasteries(state).length > 0 && (
@@ -536,7 +461,7 @@ export function InkPersonPanel({
                 const advancePct = skillAdvancePercent(c, id);
                 const isMain = mainArtIds.includes(id);
                 return (
-                  <li key={id} className={`ink-skill-card ink-skill-card--${kind}${isMain ? ' is-main' : ''}`}>
+                  <InkTapCard key={id} title={def?.name ?? id} subtitle={`${skillKindLabel(kind)} · ${isMain ? '已裝備' : c.skills.includes(id) ? '已習得' : '收藏待習得'}`} detailClassName={`ink-skill-card ink-skill-card--${kind}`} closeOnAction>
                     <div className="ink-skill-card-head">
                       <strong>{c.skills.includes(id) ? skillDisplay(c, id) : def?.name ?? id}</strong>
                       <span className="ink-skill-badge">{skillKindLabel(kind)}</span>
@@ -606,7 +531,7 @@ export function InkPersonPanel({
                         </span>
                       </div>
                     )}
-                  </li>
+                  </InkTapCard>
                 );
               })}
             </ul>
@@ -623,6 +548,7 @@ export function InkPersonPanel({
               </ul>
             </>
           )}
+          </>}
         </>
       )}
 
@@ -682,10 +608,7 @@ export function InkPersonPanel({
                 const preview = previewGearId === id ? previewEquipDelta(c, id) : null;
                 const affixes = listGearAffixes(def);
                 return (
-                  <li
-                    key={id}
-                    className={`ink-gear-card ink-gear-card--${def.rarity}${equipped ? ' ink-gear-card--on' : ''}`}
-                  >
+                  <InkTapCard key={id} title={displayGearName(def)} subtitle={`${SLOT_LABEL[def.slot]} · ${RARITY_SHORT[def.rarity]}${equipped?' · 已裝備':''}`} detailClassName={`ink-gear-card ink-gear-card--${def.rarity}`}>
                     <div className="ink-gear-card-head">
                       <strong className={`ink-gear-name ink-rarity-${def.rarity}`}>
                         {displayGearName(def)}
@@ -751,7 +674,7 @@ export function InkPersonPanel({
                         若披上：{preview.summary}
                       </p>
                     )}
-                  </li>
+                  </InkTapCard>
                 );
               })}
             </ul>
@@ -1004,6 +927,8 @@ export function InkPersonPanel({
           )}
         </>
       )}
+      </div>
     </section>
+    </InkPersonNativeContext.Provider>
   );
 }

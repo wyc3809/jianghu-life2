@@ -1,0 +1,58 @@
+{
+  "asset": "seated-hero",
+  "date": "2026-10-26",
+  "sourceType": "Original generated raster artwork",
+  "generator": "Built-in Image Gen",
+  "sourceOriginal": "/workspace/generated_images/exec-2529acc4-1c32-464f-be2a-a0427bb7b312.png",
+  "referenceImages": [
+    "/workspace/generated_images/exec-e73eb02c-cdfc-4dbd-aba4-958764a03db4.png",
+    "public/ink/art/portraits/wanderer.webp"
+  ],
+  "rightsNote": "Original generated asset, using the user-selected mockup and existing project portrait as references. No external stock assets. Use is subject to the image-generation provider terms and the project reference rights; no separate third-party stock license asserted.",
+  "prompt": "design/art/person-screen/seated-hero.prompt.txt",
+  "processingScript": "scripts/art/build_person_seated_hero.py",
+  "consumer": "人物主頁中央盤坐立繪",
+  "files": {
+    "source": {
+      "path": "design/art/person-screen/sources/seated-hero-source.png",
+      "bytes": 2368666,
+      "sha256": "a592bdc59e329286eff6db643e8f7590a94a90774fa4ea2c885c7e4eb38ea836",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "transparentFraction": 0.43338,
+      "partialAlphaPixels": 890713,
+      "cornersTransparent": true
+    },
+    "runtime": {
+      "path": "public/ink/art/person/seated-hero.webp",
+      "bytes": 206252,
+      "sha256": "25d101f2261e844217cc1a85aebb7c0690dbf68d41bc5580f9447d204c1a2eb7",
+      "dimensions": [
+        768,
+        768
+      ],
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "transparentFraction": 0.43431,
+      "partialAlphaPixels": 332659,
+      "cornersTransparent": true
+    }
+  },
+  "visualReview": {
+    "fullSeatedPose": true,
+    "faceAndHatMatchExistingPortrait": true,
+    "naturalVisibleHands": true,
+    "noUiTextOrBackground": true,
+    "alpha": true
+  }
+}
