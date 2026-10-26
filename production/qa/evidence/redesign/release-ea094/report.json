@@ -1,0 +1,134 @@
+{
+  "actualIphone": false,
+  "cloudRequestsBlocked": true,
+  "source": "design/art/person-screen/selected-third.png",
+  "cases": [
+    {
+      "engine": "chromium",
+      "viewport": [
+        320,
+        568
+      ],
+      "fixedMain": true,
+      "fullScreenNoDock": true,
+      "returnRestoresHomeDock": true,
+      "threeSlots": true,
+      "realAttributes": true,
+      "previewAndCancelNoMutation": true,
+      "confirmOnly": true,
+      "normalDuelSeparate": true,
+      "noExtraResultPopup": true,
+      "noDebit": true,
+      "filterAndSort": true,
+      "noPagination": true,
+      "targets44": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "chromium",
+      "viewport": [
+        390,
+        844
+      ],
+      "fixedMain": true,
+      "fullScreenNoDock": true,
+      "returnRestoresHomeDock": true,
+      "threeSlots": true,
+      "realAttributes": true,
+      "previewAndCancelNoMutation": true,
+      "confirmOnly": true,
+      "normalDuelSeparate": true,
+      "noExtraResultPopup": true,
+      "noDebit": true,
+      "filterAndSort": true,
+      "noPagination": true,
+      "targets44": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "chromium",
+      "viewport": [
+        430,
+        932
+      ],
+      "fixedMain": true,
+      "fullScreenNoDock": true,
+      "returnRestoresHomeDock": true,
+      "threeSlots": true,
+      "realAttributes": true,
+      "previewAndCancelNoMutation": true,
+      "confirmOnly": true,
+      "normalDuelSeparate": true,
+      "noExtraResultPopup": true,
+      "noDebit": true,
+      "filterAndSort": true,
+      "noPagination": true,
+      "targets44": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "viewport": [
+        320,
+        568
+      ],
+      "fixedMain": true,
+      "fullScreenNoDock": true,
+      "returnRestoresHomeDock": true,
+      "threeSlots": true,
+      "realAttributes": true,
+      "previewAndCancelNoMutation": true,
+      "confirmOnly": true,
+      "normalDuelSeparate": true,
+      "noExtraResultPopup": true,
+      "noDebit": true,
+      "filterAndSort": true,
+      "noPagination": true,
+      "targets44": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "viewport": [
+        390,
+        844
+      ],
+      "fixedMain": true,
+      "fullScreenNoDock": true,
+      "returnRestoresHomeDock": true,
+      "threeSlots": true,
+      "realAttributes": true,
+      "previewAndCancelNoMutation": true,
+      "confirmOnly": true,
+      "normalDuelSeparate": true,
+      "noExtraResultPopup": true,
+      "noDebit": true,
+      "filterAndSort": true,
+      "noPagination": true,
+      "targets44": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "viewport": [
+        430,
+        932
+      ],
+      "fixedMain": true,
+      "fullScreenNoDock": true,
+      "returnRestoresHomeDock": true,
+      "threeSlots": true,
+      "realAttributes": true,
+      "previewAndCancelNoMutation": true,
+      "confirmOnly": true,
+      "normalDuelSeparate": true,
+      "noExtraResultPopup": true,
+      "noDebit": true,
+      "filterAndSort": true,
+      "noPagination": true,
+      "targets44": true,
+      "pageerrors": []
+    }
+  ],
+  "video": "/workspace/jianghu-person-release-ea094/.local-online/tap-navigation/video/page@75008d7375802f137d2b345ae36f4846.webm"
+}

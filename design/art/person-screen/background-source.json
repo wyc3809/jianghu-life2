@@ -1,0 +1,11 @@
+{
+  "asset": "person-mountain-paper.webp",
+  "created": "2026-10-26",
+  "source": "Generated with built-in image generation",
+  "original": "design/art/person-screen/sources/person-mountain-paper-original.png",
+  "reference": "/workspace/generated_images/exec-e73eb02c-cdfc-4dbd-aba4-958764a03db4.png",
+  "originalGeneratedPath": "/workspace/generated_images/exec-73fce8b1-ca73-4644-bf6b-6214305de0a8.png",
+  "rights": "Original generated artwork; use subject to the image-generation provider terms. No external stock artwork incorporated.",
+  "prompt": "Generate ONLY a production raster BACKGROUND ASSET for a Chinese wuxia mobile game. Use the attached selected UI concept solely to extract its elegant watercolor and ink visual language. REMOVE ALL PEOPLE, ALL LETTERING, ALL UI, ALL EQUIPMENT, ALL ICONS, ALL PANELS, BORDERS, TITLES, BANNERS, AND SEALS. Output a tall portrait painting, target1024x1536 or equivalent. Warm very pale rice paper with delicate natural paper fibers, distant low-contrast misty blue-gray ink mountains mostly near the upper side edges and far background, extremely sparse slate leaves at the extreme left and right edges, and a subdued stone courtyard floor along the bottom 15%. The large central area and upper middle remain airy near-blank pale paper for a separately composited seated hero, labels and game information. Keep 80% of the image light and restrained. No gold, no neon, no cloud-pattern frames, no circular motif, no architecture dominating the center. Traditional Chinese ink with sophisticated controlled watercolor shading, fine detail near the bottom stones, edges fade gently to warm ivory paper. No written symbols or watermark. This must be an original clean environment-only background, not a screenshot.",
+  "processing": "Lossless original copy retained; WebP RGB quality90 method6; no crop, recolor or generated text."
+}
