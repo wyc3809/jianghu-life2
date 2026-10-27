@@ -1,0 +1,138 @@
+{
+  "actualIphone": false,
+  "cloudRequestsBlocked": true,
+  "cases": [
+    {
+      "engine": "chromium",
+      "viewport": [
+        320,
+        568
+      ],
+      "homeAndFullScreen": true,
+      "nativeDialog": true,
+      "ignoreDragHoldCancelRightClickBlankDisabledNonprimary": true,
+      "rapid30": true,
+      "idleStops": true,
+      "liveReducedMotion": true,
+      "noGameMutation": true,
+      "highlightSuppressed": true,
+      "probe": {
+        "draws": 2260,
+        "clears": 561,
+        "contexts": 1,
+        "alphaMax": 0.2620388897674928
+      },
+      "pageerrors": []
+    },
+    {
+      "engine": "chromium",
+      "viewport": [
+        390,
+        844
+      ],
+      "homeAndFullScreen": true,
+      "nativeDialog": true,
+      "ignoreDragHoldCancelRightClickBlankDisabledNonprimary": true,
+      "rapid30": true,
+      "idleStops": true,
+      "liveReducedMotion": true,
+      "noGameMutation": true,
+      "highlightSuppressed": true,
+      "probe": {
+        "draws": 3002,
+        "clears": 799,
+        "contexts": 1,
+        "alphaMax": 0.26215972854415476
+      },
+      "pageerrors": []
+    },
+    {
+      "engine": "chromium",
+      "viewport": [
+        430,
+        932
+      ],
+      "homeAndFullScreen": true,
+      "nativeDialog": true,
+      "ignoreDragHoldCancelRightClickBlankDisabledNonprimary": true,
+      "rapid30": true,
+      "idleStops": true,
+      "liveReducedMotion": true,
+      "noGameMutation": true,
+      "highlightSuppressed": true,
+      "probe": {
+        "draws": 2534,
+        "clears": 621,
+        "contexts": 1,
+        "alphaMax": 0.2608315239329451
+      },
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "viewport": [
+        320,
+        568
+      ],
+      "homeAndFullScreen": true,
+      "nativeDialog": true,
+      "ignoreDragHoldCancelRightClickBlankDisabledNonprimary": true,
+      "rapid30": true,
+      "idleStops": true,
+      "liveReducedMotion": true,
+      "noGameMutation": true,
+      "highlightSuppressed": true,
+      "probe": {
+        "draws": 2280,
+        "clears": 589,
+        "contexts": 1,
+        "alphaMax": 0.26167648488098866
+      },
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "viewport": [
+        390,
+        844
+      ],
+      "homeAndFullScreen": true,
+      "nativeDialog": true,
+      "ignoreDragHoldCancelRightClickBlankDisabledNonprimary": true,
+      "rapid30": true,
+      "idleStops": true,
+      "liveReducedMotion": true,
+      "noGameMutation": true,
+      "highlightSuppressed": true,
+      "probe": {
+        "draws": 1590,
+        "clears": 471,
+        "contexts": 1,
+        "alphaMax": 0.26167648488098866
+      },
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "viewport": [
+        430,
+        932
+      ],
+      "homeAndFullScreen": true,
+      "nativeDialog": true,
+      "ignoreDragHoldCancelRightClickBlankDisabledNonprimary": true,
+      "rapid30": true,
+      "idleStops": true,
+      "liveReducedMotion": true,
+      "noGameMutation": true,
+      "highlightSuppressed": true,
+      "probe": {
+        "draws": 1260,
+        "clears": 383,
+        "contexts": 1,
+        "alphaMax": 0.2628851510565805
+      },
+      "pageerrors": []
+    }
+  ]
+}
