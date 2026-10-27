@@ -1,0 +1,132 @@
+
+> jianghu-engine@0.96.0-ea test
+> vitest run
+
+
+ RUN  v3.2.7 /workspace/jianghu-person-release-ea094
+
+ ✓ tests/martial_poses.test.ts (12 tests) 2404ms
+   ✓ 武學實體姿勢與核心隔離 > test_martial_poses_enabled_assets_leave_every_settlement_and_enemy_action_unchanged  2232ms
+ ✓ tests/cloud-adversarial.test.ts (10 tests) 933ms
+ ✓ tests/ios_internal_build.test.ts (17 tests) 998ms
+ ✓ tests/token_scene.test.ts (3 tests) 890ms
+   ✓ 武學令剛性與懸穗 > test_token_轉面保留牌面結構_流蘇另有鉸點並收束  776ms
+ ✓ tests/choice_copy_intent.test.ts (1 test) 619ms
+   ✓ 選項顯示文字與既有玩法語意分離 > test_copy_三百個選項改名_心性關路數值旗標及RNG均沿用舊語意  614ms
+ ✓ tests/lifeEngine.test.ts (72 tests) 980ms
+ ✓ tests/tap_ink.test.ts (5 tests) 1178ms
+   ✓ 點按墨跡 > test_tap_ink_所有採樣墨跡_不超出清理範圍或遮黑文字  1095ms
+ ✓ tests/online_service.test.ts (11 tests) 636ms
+ ✓ tests/online_pair.test.ts (12 tests) 175ms
+ ✓ tests/spar_rounds.test.ts (12 tests) 643ms
+ ✓ tests/chest_scene.test.ts (4 tests) 723ms
+   ✓ 寶箱實體材質及批次繪製 > test_chest_箱蓋繞鉸鏈真實開啟且箱身不跟住改位  480ms
+ ✓ tests/familyLegacy.test.ts (6 tests) 591ms
+   ✓ succession card lines > test_succession_lines_pick_inheritance_lines_only  514ms
+ ✓ tests/bingpu.test.ts (7 tests) 426ms
+ ✓ tests/age_free.test.ts (9 tests) 311ms
+ ✓ tests/online_shared.test.ts (11 tests) 382ms
+ ✓ tests/injuries.test.ts (15 tests) 602ms
+   ✓ injury system (design/gdd/injury-system.md) > test_injury_combat_loss_rate_near_tuning_and_spar_never_cripples  399ms
+ ✓ tests/cultivation.test.ts (32 tests) 347ms
+ ✓ tests/persistence-adversarial.test.ts (6 tests) 134ms
+ ✓ tests/persistSchedule.test.ts (3 tests) 142ms
+ ✓ tests/martial_economy_v2.test.ts (33 tests) 219ms
+ ✓ tests/school_gacha.test.ts (9 tests) 196ms
+ ✓ tests/audit_ea091_fixes.test.ts (24 tests) 188ms
+ ✓ tests/spar_curve.test.ts (5 tests) 316ms
+ ✓ tests/martial_loadout.test.ts (12 tests) 127ms
+ ✓ tests/spar_art_engine.test.ts (2 tests) 86ms
+ ✓ tests/foe_traits.test.ts (18 tests) 166ms
+ ✓ tests/gacha_fragments.test.ts (12 tests) 133ms
+ ✓ tests/codex_scene.test.ts (11 tests) 82ms
+ ✓ tests/volumes_autocombat.test.ts (14 tests) 94ms
+ ✓ tests/combatDeathTuning.test.ts (6 tests) 836ms
+   ✓ combat death tuning > test_confirmed_life_or_death_loss_kills  533ms
+ ✓ tests/home_goals.test.ts (5 tests) 49ms
+ ✓ tests/battlePrototype.test.ts (4 tests) 46ms
+ ✓ tests/desperateReversal.test.ts (5 tests) 43ms
+ ✓ tests/jianghuPrestige.test.ts (5 tests) 17ms
+ ✓ tests/lifeVariance.test.ts (10 tests) 50ms
+ ✓ tests/culturalArtsAndSects.test.ts (9 tests) 26ms
+ ✓ tests/genealogy.test.ts (5 tests) 42ms
+ ✓ tests/actionPoints.test.ts (5 tests) 37ms
+ ✓ tests/online_pair_client.test.ts (1 test) 24ms
+ ✓ tests/martial_view.test.ts (5 tests) 12ms
+ ✓ tests/internalMode.test.ts (21 tests) 27ms
+ ✓ tests/highlight_mapping.test.ts (7 tests) 16ms
+ ✓ tests/titles.test.ts (7 tests) 13ms
+ ✓ tests/resultNarrate.test.ts (5 tests) 23ms
+ ✓ tests/art_choreo.test.ts (10 tests) 38ms
+ ✓ tests/playability.test.ts (6 tests) 21ms
+ ✓ tests/online_rules.test.ts (7 tests) 30ms
+ ✓ tests/spar_duel.test.ts (21 tests) 21ms
+ ✓ tests/ambient_fx.test.ts (10 tests) 18ms
+ ✓ tests/lifeArcsCatalog.test.ts (9 tests) 18ms
+ ✓ tests/foundedSect.test.ts (16 tests) 18ms
+ ✓ tests/hero_appearance.test.ts (9 tests) 13ms
+ ✓ tests/ladder_v2.test.ts (9 tests) 24ms
+ ✓ tests/ancestry.test.ts (8 tests) 21ms
+ ✓ tests/stanceVisualization.test.ts (4 tests) 17ms
+ ✓ tests/growthFeel.test.ts (13 tests) 14ms
+ ✓ tests/engine.test.ts (3 tests) 21ms
+ ✓ tests/comboSystem.test.ts (10 tests) 13ms
+ ✓ tests/moveStance.test.ts (4 tests) 12ms
+ ✓ tests/wineSystem.test.ts (5 tests) 10ms
+ ✓ tests/gacha.test.ts (7 tests) 12ms
+ ✓ tests/combatDifficulty.test.ts (3 tests) 9ms
+ ✓ tests/idle_harvest.test.ts (3 tests) 8ms
+ ✓ tests/sparPresentation.test.ts (5 tests) 20ms
+ ✓ tests/jianghuRank.test.ts (11 tests) 14ms
+ ✓ tests/ancestry_milestones.test.ts (4 tests) 13ms
+ ✓ tests/progression.test.ts (5 tests) 7ms
+ ✓ tests/sparPresentationSwitch.test.ts (1 test) 13ms
+ ✓ tests/encounters.test.ts (6 tests) 10ms
+ ✓ tests/inkBrush.test.ts (2 tests) 12ms
+ ✓ tests/gearCompare.test.ts (5 tests) 12ms
+ ✓ tests/audio.test.ts (2 tests) 9ms
+ ✓ tests/combat_full_hp.test.ts (6 tests) 12ms
+ ✓ tests/originChronicle.test.ts (5 tests) 10ms
+ ✓ tests/combatRating.test.ts (4 tests) 12ms
+ ✓ tests/schools.test.ts (3 tests) 12ms
+ ✓ tests/moments.test.ts (5 tests) 13ms
+ ✓ tests/sparApproach.test.ts (2 tests) 18ms
+ ✓ tests/gearSpecialEffects.test.ts (12 tests) 7ms
+ ✓ tests/natureArcs.test.ts (3 tests) 8ms
+ ✓ tests/leaderboard_score.test.ts (4 tests) 12ms
+ ✓ tests/cloud_sync.test.ts (4 tests) 9ms
+ ✓ tests/eventOverrides.test.ts (6 tests) 11ms
+ ✓ tests/gacha_highlight.test.ts (8 tests) 7ms
+ ✓ tests/foe_figure_scale.test.ts (3 tests) 11ms
+ ✓ tests/martial_identity_fx.test.ts (6 tests) 8ms
+ ✓ tests/person_equipment.test.ts (3 tests) 10ms
+ ✓ tests/spar_strip_rig.test.ts (8 tests) 6ms
+ ✓ tests/sparTypography.test.ts (1 test) 9ms
+ ✓ tests/event-reachability.test.ts (3 tests) 9ms
+ ✓ tests/result_format.test.ts (4 tests) 6ms
+ ✓ tests/inkSilhouettes.test.ts (6 tests) 11ms
+ ✓ tests/damageRebalance.test.ts (6 tests) 7ms
+ ✓ tests/gearOverrides.test.ts (9 tests) 8ms
+ ✓ tests/spar_move_sequence.test.ts (3 tests) 7ms
+ ✓ tests/choice_pick.test.ts (4 tests) 8ms
+ ✓ tests/narrateDiversity.test.ts (2 tests) 8ms
+ ✓ tests/combatInkFx.test.ts (5 tests) 7ms
+ ✓ tests/sceneVariants.test.ts (5 tests) 6ms
+ ✓ tests/sceneCopy.test.ts (3 tests) 12ms
+ ✓ tests/inkAiCatalog.test.ts (5 tests) 5ms
+ ✓ tests/sparAnimPolish.test.ts (3 tests) 7ms
+ ✓ tests/gearAffixes.test.ts (3 tests) 4ms
+ ✓ tests/service_error_copy.test.ts (5 tests) 4ms
+ ✓ tests/gacha_odds.test.ts (4 tests) 5ms
+ ✓ tests/moveCooldownTiers.test.ts (7 tests) 6ms
+ ✓ tests/settings_audio_account.test.ts (2 tests) 7ms
+ ✓ tests/sparSilhouette.test.ts (3 tests) 4ms
+ ✓ tests/eventEditorScope.test.ts (2 tests) 4ms
+ ✓ tests/duel_strokes.test.ts (4 tests) 7ms
+ ✓ tests/version.test.ts (1 test) 3ms
+ ✓ tests/highlight_visibility.test.ts (2 tests) 4ms
+
+ Test Files  112 passed (112)
+      Tests  860 passed (860)
+   Start at  15:33:40
+   Duration  98.73s (transform 9.56s, setup 0ms, collect 41.18s, tests 16.75s, environment 58ms, prepare 12.48s)

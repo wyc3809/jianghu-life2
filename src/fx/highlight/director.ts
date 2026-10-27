@@ -16,6 +16,7 @@ import { HighlightStage } from './scene/renderer';
 import { buildPedestal, buildSubject, type SubjectModel } from './scene/models';
 import { ParticleSystem } from './particles';
 import { initHighlightAudio, sfx } from './audio';
+import { createRng } from '../ambient/particles';
 
 export type Phase = 'idle' | 'upgrading' | 'charging' | 'bursting' | 'revealing' | 'settle' | 'claiming' | 'done';
 
@@ -90,6 +91,7 @@ export class Director {
     camK: 1,
     world: 0,
     pan: 0,
+    sway: 0,
   };
   /** 取景（resize 時按畫面比例計） */
   private cam = { dist: 9, lookY: 1, camY: 1.6 };
@@ -111,6 +113,7 @@ export class Director {
   private revealTarget = { pan: 0, camK: 1 };
   private renderBudget: CodexRenderBudget | null = null;
   private renderDpr = 1;
+  private visualRng = createRng(29);
 
   constructor(
     private refs: DirectorRefs,
@@ -120,9 +123,10 @@ export class Director {
   ) {
     this.reduce = opts.reduceMotion;
     this.stage = new HighlightStage({ canvas: refs.gl, lowPower: opts.reduceMotion || cfg.subject === 'codex',
-      direct: cfg.subject === 'codex', painted: cfg.subject === 'chest' });
+      direct: cfg.subject === 'codex', painted: cfg.subject === 'chest' || cfg.subject === 'token' });
     this.particles = new ParticleSystem(refs.fx);
     this.particles.density = this.reduce ? 0.35 : 1;
+    if (cfg.subject === 'token') this.particles.max = 96;
     this.model = buildSubject(cfg.subject, cfg.rewards.some(card => card.isPremium === true));
     this.model.root.userData.invalidate = () => { if (this.phase === 'settle') this.stage.render(); };
     const size = new THREE.Box3().setFromObject(this.model.root).getSize(new THREE.Vector3());
@@ -130,8 +134,9 @@ export class Director {
     this.model.root.scale.setScalar(this.norm);
     this.subH = size.y * this.norm;
     this.stage.subjectRoot.add(this.model.root);
-    this.pedestal = buildPedestal(cfg.subject === 'chest');
+    this.pedestal = buildPedestal(cfg.subject === 'chest' || cfg.subject === 'token');
     this.stage.props.add(this.pedestal);
+    if (cfg.subject === 'token') this.pedestal.visible = false;
     this.applyGrade(0, false);
     this.resize();
     this.tick = this.tick.bind(this);
@@ -155,7 +160,7 @@ export class Director {
     this.cssW = Math.max(1, r.width);
     this.cssH = Math.max(1, r.height);
     const dpr = Math.min(2, window.devicePixelRatio || 1);
-    this.renderBudget = this.cfg.subject === 'codex' ? new CodexRenderBudget(dpr) : null;
+    this.renderBudget = this.cfg.subject === 'codex' || this.cfg.subject === 'token' ? new CodexRenderBudget(dpr) : null;
     this.renderDpr = dpr;
     this.refs.root.dataset.renderDpr = String(dpr);
     this.stage.resize(this.cssW, this.cssH, dpr);
@@ -230,6 +235,13 @@ export class Director {
     s.setProperty('--bg-out', st.bgOuter);
     this.cb.onGrade(g);
     if (!fx) return;
+    if (this.cfg.subject === 'token') {
+      const c = this.centerScreen();
+      this.flash(.12, .3, c);
+      this.particles.sparks(c.x, c.y, 8, [st.main, GOLD_LEAF], 3, .08, this.subjectRadiusPx().rx);
+      sfx.levelUp(g);
+      return;
+    }
     // 閃一下光＋一圈粒子
     const c = this.centerScreen();
     this.flash(0.45, 0.35, c);
@@ -281,11 +293,12 @@ export class Director {
     const A = this.A;
     const r = this.stage.subjectRoot;
     const j = A.jitter;
-    r.position.set(j ? (Math.random() - 0.5) * 0.12 * j : 0, A.y, j ? (Math.random() - 0.5) * 0.06 * j : 0);
-    r.rotation.set(0, A.rotY + A.spin, A.rotZ + (j ? (Math.random() - 0.5) * 0.1 * j : 0));
+    r.position.set(j ? (this.visualRng() - 0.5) * 0.12 * j : 0, A.y, j ? (this.visualRng() - 0.5) * 0.06 * j : 0);
+    r.rotation.set(0, A.rotY + A.spin, A.rotZ + (j ? (this.visualRng() - 0.5) * 0.1 * j : 0));
     r.scale.set(A.sx, A.sy, A.sz);
     this.model.setOpen(A.open);
     this.model.setGlow(A.glow);
+    this.model.setSway?.(A.sway);
     const cam = this.stage.camera;
     // 翻開時逐步容納雙頁，取景中心跟住書脊展幅，避免左頁伸出手機邊界。
     const opening = this.cfg.subject === 'codex' ? THREE.MathUtils.smoothstep(A.open, .06, .8) : 0;
@@ -303,7 +316,7 @@ export class Director {
     sh.opacity = String(0.55 * k);
     // 震屏
     if (A.world) {
-      this.refs.world.style.transform = `translate(${(Math.random() - 0.5) * A.world}px, ${(Math.random() - 0.5) * A.world}px)`;
+      this.refs.world.style.transform = `translate(${(this.visualRng() - 0.5) * A.world}px, ${(this.visualRng() - 0.5) * A.world}px)`;
     } else if (this.refs.world.style.transform) {
       this.refs.world.style.transform = '';
     }
@@ -316,6 +329,10 @@ export class Director {
     const A = this.A;
     if (this.cfg.subject === 'codex' || this.reduce) {
       if (!this.reduce) this.loops.push(gsap.to(A, { y: .045, duration: 2.2, ease: 'sine.inOut', yoyo: true, repeat: -1 }));
+      return;
+    }
+    if (this.cfg.subject === 'token') {
+      this.loops.push(gsap.to(A, { y: .045, sway: .025, rotY: .14, duration: 2.4, ease: 'sine.inOut', yoyo: true, repeat: -1 }));
       return;
     }
     this.loops.push(
@@ -365,6 +382,7 @@ export class Director {
     gsap.killTweensOf(this.A, 'y,rotZ,jitter');
     this.A.rotZ = 0;
     this.A.jitter = 0;
+    this.A.sway = 0;
   }
 
   // ------------------------------------------------------------ 輸入 ---
@@ -383,6 +401,7 @@ export class Director {
   // ------------------------------------------------------------ 2 升級 ---
 
   private upgrade() {
+    if (this.cfg.subject === 'token') { this.upgradeToken(); return; }
     this.setPhase('upgrading');
     this.stopLoops();
     const A = this.A;
@@ -428,6 +447,7 @@ export class Director {
   // ------------------------------------------------------------ 3 蓄力 ---
 
   private charge() {
+    if (this.cfg.subject === 'token') { this.chargeToken(); return; }
     this.setPhase('charging');
     this.stopLoops();
     const A = this.A;
@@ -468,6 +488,7 @@ export class Director {
 
   private burst() {
     if (this.cfg.subject === 'codex') { this.burstCodex(); return; }
+    if (this.cfg.subject === 'token') { this.burstToken(); return; }
     this.setPhase('bursting');
     this.stopCharge?.();
     this.stopCharge = null;
@@ -490,8 +511,8 @@ export class Director {
         A,
         {
           open: 1,
-          duration: this.cfg.subject === 'token' ? 1.2 : 0.6,
-          ease: this.cfg.subject === 'token' ? 'power3.out' : 'back.out(2.4)',
+          duration: 0.6,
+          ease: 'back.out(2.4)',
         },
         0.02,
       )
@@ -562,6 +583,49 @@ export class Director {
       );
     }
     tl.to({}, { duration: TUNING.revealDelay }, 0.2);
+  }
+
+  /** 玉牌維持剛性；轉身時流蘇落後，再以小幅回擺收束。 */
+  private upgradeToken() {
+    this.setPhase('upgrading'); this.stopLoops();
+    const A=this.A,next=(this.grade+1) as Grade;
+    const tl=gsap.timeline({onComplete:()=>{this.setPhase('idle');this.startIdle();}});this.main=tl;
+    if(this.reduce){tl.to(A,{rotY:0,y:0,sway:0,duration:.12}).call(()=>this.applyGrade(next,false));return;}
+    sfx.jump();
+    tl.to(A,{y:.17,rotY:0,sway:.21,duration:.24,ease:'power2.out'},0)
+      .to(A,{spin:`+=${Math.PI*2}`,duration:.78,ease:'power2.inOut'},.06)
+      .call(()=>this.applyGrade(next),[],.42)
+      .to(A,{y:0,sway:-.07,duration:.36,ease:'power2.inOut'},.48)
+      .to(A,{sway:0,duration:.28,ease:'sine.out'},.79);
+  }
+
+  /** 沿牌面邊縫蓄光，只有少量墨塵；不壓扁玉牌或大範圍閃白。 */
+  private chargeToken() {
+    this.setPhase('charging');this.stopLoops();
+    const sec=this.reduce ? .16 : .7,A=this.A;
+    this.stopCharge=sfx.charge(sec);
+    const tl=gsap.timeline({onComplete:()=>this.burstToken()});this.main=tl;
+    tl.to(A,{y:.04,rotY:-.14,sway:.06,glow:.9,duration:sec,ease:'power2.inOut'},0);
+    if(!this.reduce)for(let at=0;at<sec-.1;at+=.18)tl.call(()=>{
+      const p=this.burstScreen();this.particles.attract(p.x,p.y,4,[INK_WASH,this.style.main],this.cssW*.35,this.subjectRadiusPx().rx*1.12);
+    },[],at);
+  }
+
+  /** 一圈揭面、微過衝與懸穗回擺；揭曉前先正面落定，演出不產生獎勵。 */
+  private burstToken() {
+    this.setPhase('bursting');this.stopCharge?.();this.stopCharge=null;
+    const A=this.A,b=this.burstScreen(),high=this.grade>=4,duration=this.reduce ? .16 : high ? 1.35 : 1.1;
+    A.jitter=0;this.refs.root.dataset.burst='1';
+    sfx.explode(high ? .8 : .5);
+    if(!this.reduce)this.flash(high ? .2 : .1,.35,b);
+    const tl=gsap.timeline({onComplete:()=>this.reveal()});this.main=tl;
+    tl.to(A,{open:1,rotY:0,y:.12,sway:this.reduce?0:-.2,duration:duration*.8,ease:'power2.inOut'},0)
+      .to(A,{y:0,sway:0,glow:.28,camK:1,duration:duration*.4,ease:'sine.out'},duration*.65);
+    if(!this.reduce){
+      tl.to(A,{camK:.97,duration:.25,ease:'power2.out'},.1);
+      tl.call(()=>{sfx.pop();this.particles.sparks(b.x,b.y,high?26:12,[this.style.main,GOLD_LEAF],4,.08,this.subjectRadiusPx().rx);},[],duration*.6);
+      if(high)tl.call(()=>{this.particles.stars(b.x,b.y,10,GOLD_LEAF,60,this.subjectRadiusPx().rx);sfx.land();},[],duration*.83);
+    }
   }
 
   /** 紙頁逐張繞書脊翻開；珍本增加第二段展頁、心願增加收印，唔改獎勵。 */
@@ -688,6 +752,7 @@ export class Director {
       glow: 0.75,
       camK: 0.96,
       world: 0,
+      sway: 0,
     });
     if (this.grade !== this.cfg.targetGrade) this.applyGrade(this.cfg.targetGrade, false);
     this.refs.root.dataset.burst = '1';

@@ -1,4 +1,5 @@
 import { InkPersonOverview } from './InkPersonOverview';
+import { inkArtUrl } from '../../ui/inkAssets';
 import { InkPersonNativeContext } from './InkPersonSheet';
 import { InkTapCard } from './InkTapCard';
 import { characterForPreset, type PresetKind } from '@core/life/loadoutPresets';
@@ -7,8 +8,8 @@ import { jianghuRank, JIANGHU_RANK_START } from '@core/life/jianghuRank';
 import { jianghuPrestige } from '@core/life/jianghuPrestige';
 import { InkMainArts } from './InkMainArts';
 import { InkMartialPicker } from './InkMartialPicker';
-import { VOLUME_COUNT, VOLUME_NUMERALS, artVolumeMoves, hasVolumes } from '@data/skills/volumes';
-import { ownedVolumes, collectionVolumes } from '@core/life/volumes';
+import { InkMartialVolumes } from './InkMartialDetails';
+import { codexCoverUrl } from '../../fx/highlight/codexAppearance';
 import { equippedMartialArts, INTERNAL_ART_SLOT, QINGGONG_ART_SLOT } from '@core/life/martialLoadout';
 import { useAncestryStore } from '../../store/ancestryStore';
 import { SCHOOLS, schoolOfGear, primarySchoolOfSkill, type SchoolId } from '@data/redesign/schools';
@@ -268,8 +269,8 @@ export function InkPersonPanel({
 
   return (
     <InkPersonNativeContext.Provider value={true}>
-    <section className="ink-panel ink-attrs ink-tab-pane ink-tap-screen" aria-label="人物詳情" ref={paneRef}>
-      <button
+    <section className={`ink-panel ink-attrs ink-tab-pane ink-tap-screen${view === 'skills' ? ' ink-martial-screen' : ''}`} data-martial-view={martialView} aria-label="人物詳情" ref={paneRef}>
+      {view === 'skills' ? <header className="ink-martial-page-title"><button type="button" aria-label="返回人物" onClick={() => onView('main')}><img src={inkArtUrl('art/parchment-ui/icon-back.webp')} alt="" width="32" height="32"/>返回</button><h2>武學</h2><span/></header> : <button
         type="button"
         className="ink-btn ink-btn--quiet ink-person-back"
         onClick={() => {
@@ -278,12 +279,12 @@ export function InkPersonPanel({
         }}
       >
         ← 返回人物
-      </button>
+      </button>}
 
       {(view === 'skills' || view === 'gear') && <div className="ink-preset-select">
         <div className="ink-preset-tabs" role="tablist" aria-label="配搭方案">{(['normal','duel'] as const).map(kind =>
           <button type="button" key={kind} role="tab" aria-selected={preset === kind} className="ink-btn ink-btn--quiet" onClick={() => { setPreset(kind); setSelectedArt(null); setPickerSlot(null); setPreviewGearId(null); setEquipNotice(''); }}>{kind === 'normal' ? '普通配搭' : '對戰配搭'}</button>)}</div>
-        <p className="ink-note">{preset === 'normal' ? '演武台、江湖交手使用。' : '華山、多人挑戰及離線防守使用。'}配搭獨立保存，收藏與養成共用。</p>
+        <p className="ink-note">{preset === 'normal' ? '演武台、江湖交手使用。' : '華山、多人挑戰及離線防守使用。'}{view !== 'skills' && '配搭獨立保存，收藏與養成共用。'}</p>
       </div>}
 
       {view === 'skills' && <div className="ink-tap-segments" role="tablist" aria-label="武學內容">
@@ -431,10 +432,9 @@ export function InkPersonPanel({
 
       {view === 'skills' && (
         <>
-          <h3>武學</h3>
           {equipNotice && <p className="ink-note ink-loadout-notice" role="status">{equipNotice}</p>}
-          {martialView === 'loadout' && <InkMainArts state={displayState} selected={selectedArt} busy={busy} onEquip={equipArt} onCancel={() => setSelectedArt(null)} onChoose={slot => { setSelectedArt(null); setPickerSlot(slot); }} />}
-          {pickerSlot !== null && <InkMartialPicker state={displayState} collection={collection} slot={pickerSlot} preset={preset} busy={busy}
+          {martialView === 'loadout' && <InkMainArts state={displayState} selected={selectedArt} busy={busy} onCancel={() => setSelectedArt(null)} onChoose={setPickerSlot} />}
+          {pickerSlot !== null && <InkMartialPicker key={`${preset}:${pickerSlot}`} state={displayState} collection={collection} slot={pickerSlot} preset={preset} busy={busy} initialSelection={selectedArt}
             onEquip={id => equipArt(pickerSlot, id)} onClose={() => setPickerSlot(null)} />}
           {martialView === 'rules' && <div className="ink-loadout-rules"><h4>連招、回內與養成規則</h4>
             <p className="ink-note">演武台連招不耗內；其他交手每門外功起手只扣一次內力，已學卷次依序連出。每回合自然回內1%，另計已裝備內功；全部武學均無法使出時調息回復30%。藏本升階跨代保留，熟練由本代實戰及修煉累積。開戰後更改配搭，留待下一場生效。</p>
@@ -461,7 +461,7 @@ export function InkPersonPanel({
                 const advancePct = skillAdvancePercent(c, id);
                 const isMain = mainArtIds.includes(id);
                 return (
-                  <InkTapCard key={id} title={def?.name ?? id} subtitle={`${skillKindLabel(kind)} · ${isMain ? '已裝備' : c.skills.includes(id) ? '已習得' : '收藏待習得'}`} detailClassName={`ink-skill-card ink-skill-card--${kind}`} closeOnAction>
+                  <InkTapCard key={id} title={def?.name ?? id} leading={<img className="ink-martial-library-cover" src={codexCoverUrl(def?.premium === true)} alt="" width="36" height="54"/>} subtitle={`${skillKindLabel(kind)} · ${isMain ? '已裝備' : c.skills.includes(id) ? '已習得' : '收藏待習得'}`} detailClassName={`ink-skill-card ink-skill-card--${kind}`} closeOnAction>
                     <div className="ink-skill-card-head">
                       <strong>{c.skills.includes(id) ? skillDisplay(c, id) : def?.name ?? id}</strong>
                       <span className="ink-skill-badge">{skillKindLabel(kind)}</span>
@@ -481,21 +481,7 @@ export function InkPersonPanel({
                         {def.move.power > 0 ? ` · 威×${def.move.power.toFixed(1)}` : ''}
                       </p>
                     ) : null}
-                    {hasVolumes(id) ? (
-                      <p className="ink-skill-vols" aria-label="七卷">
-                        {artVolumeMoves(id).map((m, i) => {
-                          const on = (c.skills.includes(id) ? ownedVolumes(c, id) : collectionVolumes(collection, id)).includes(i + 1);
-                          return (
-                            <i key={m.id} className={on ? 'is-on' : ''} title={on ? m.name : '未得'}>
-                              {VOLUME_NUMERALS[i]}
-                            </i>
-                          );
-                        })}
-                        <span>
-                          已得 {(c.skills.includes(id) ? ownedVolumes(c, id) : collectionVolumes(collection, id)).length}／{VOLUME_COUNT} 卷 · 裝備後可於自動交手逐卷出招
-                        </span>
-                      </p>
-                    ) : null}
+                    <InkMartialVolumes character={c} collection={collection} id={id}/>
                     <p className="ink-note">藏本升階 {manuals?.[id]?.stars ?? 0}／{MANUAL_MAX_STARS}{(manuals?.[id]?.stars ?? 0) > 0 ? ` · 效果＋${Math.round((manuals?.[id]?.stars ?? 0) * MANUAL_STAR_BONUS * 100)}%` : ''}</p>
                     <p className="ink-skill-fx">原始效果：{formatSkillEffects(id) || '尚無詳載'}</p>
                     <div className="ink-skill-school-row">

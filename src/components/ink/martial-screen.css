@@ -1,0 +1,129 @@
+/* 武學承接人物頁宣紙／朱砂，配搭一屏；只有冊頁及收藏內容區捲動。 */
+body .ink-martial-screen { padding:6px 10px 10px; background:var(--ui-fiber) center/384px,var(--ui-paper); border:0; box-shadow:none; gap:5px; }
+body .ink-martial-screen::before { display:none; }
+.ink-martial-page-title { display:grid; grid-template-columns:84px 1fr 84px; align-items:center; min-height:46px; flex:none; }
+.ink-martial-page-title h2 { margin:0; text-align:center; font:700 31px/1.2 var(--ui-title); padding-bottom:6px; background:var(--ui-underline) center bottom/100px 3px no-repeat; }
+.ink-martial-page-title>button { display:flex; align-items:center; gap:3px; min-height:44px; padding:0; border:0; background:none; font:700 14px/1.2 var(--game-ui-font); }
+.ink-martial-screen .ink-preset-select { margin:0; flex:none; }
+.ink-martial-screen .ink-preset-tabs { display:flex; gap:6px; }
+body .ink-martial-screen .ink-preset-tabs .ink-btn { flex:1; min-height:44px; padding:4px; font-size:16px; margin:0; }
+body .ink-martial-screen .ink-preset-tabs .ink-btn[aria-selected='true'] { background:var(--ui-brush) center/100% 100% no-repeat!important; color:#fff7e9; border-color:transparent; }
+.ink-martial-screen .ink-preset-select>.ink-note { margin:2px 0!important; text-align:center; font-size:12px!important; line-height:1.4!important; }
+body .ink-martial-screen .ink-tap-segments { margin:0; gap:6px; }
+body .ink-martial-screen .ink-tap-segments>.ink-btn { margin:0; min-height:44px; padding:4px; font-size:14px; }
+body .ink-martial-screen[data-martial-view='loadout'] .ink-person-detail-body { display:flex; flex-direction:column; overflow:hidden; padding:0; }
+.ink-martial-loadout { flex:1; min-height:0; display:flex; flex-direction:column; gap:8px; }
+.ink-martial-intro { display:flex; justify-content:space-between; align-items:center; gap:4px; min-height:26px; flex:none; }
+.ink-martial-intro>strong { font:700 18px/1.3 var(--ui-title); }
+.ink-martial-intro>span { color:#6e6556; font-size:12px; }
+.ink-martial-external,.ink-martial-support { list-style:none; margin:0; padding:0; display:grid; gap:8px; }
+.ink-martial-external { grid-template-columns:repeat(6,minmax(0,1fr)); flex:1; min-height:0; grid-template-rows:repeat(2,minmax(0,1fr)); }
+.ink-martial-external>.ink-martial-slot { grid-column:span 2; }
+.ink-martial-external>.ink-martial-slot:nth-child(4) { grid-column:2/span 2; }
+.ink-martial-support { grid-template-columns:repeat(2,minmax(0,1fr)); flex:none; }
+.ink-martial-slot { min-height:0; min-width:0; position:relative; background:var(--ui-card) center/cover; border:5px solid transparent; border-image:var(--ui-frame) 48/1/0 stretch; }
+.ink-martial-slot.is-empty { background:var(--ui-fiber) center/384px,#f6f0e3; }
+.ink-martial-slot button { position:relative; width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; background:transparent; color:var(--ui-ink); border:0; padding:10px 2px 8px; min-height:44px; font-family:var(--game-ui-font); }
+.ink-martial-slot-label { position:absolute; top:4px; left:3px; font-size:12px; line-height:1.3; color:#7f392f; white-space:nowrap; }
+.ink-martial-slot button>img { width:48px; height:72px; object-fit:contain; margin-top:13px; }
+.ink-martial-slot button>.ink-icon { margin-top:13px; opacity:.52; }
+.ink-martial-slot strong { font-size:16px; line-height:1.3; font-weight:700; overflow-wrap:anywhere; text-align:center; }
+.ink-martial-slot small { font-size:12px; line-height:1.3; color:#776c5c; text-align:center; }
+.ink-martial-support .ink-martial-slot button { min-height:84px; display:grid; grid-template-columns:36px minmax(0,1fr); grid-template-rows:auto auto; column-gap:8px; padding:17px 6px 5px; }
+.ink-martial-support .ink-martial-slot button>img,.ink-martial-support .ink-martial-slot button>.ink-icon { width:32px!important; height:48px!important; grid-row:1/span 2; margin:0; }
+.ink-martial-support .ink-martial-slot strong,.ink-martial-support .ink-martial-slot small { text-align:left; }
+.ink-martial-support .ink-martial-slot strong { font-size:14px; }
+.ink-martial-footer { display:grid; grid-template-columns:1.65fr 1fr; gap:8px; flex:none; }
+.ink-martial-footer>button { min-height:68px; padding:5px 8px; display:grid; gap:2px; text-align:left; background:var(--ui-fiber) center/384px,var(--ui-paper); color:var(--ui-ink); border:4px solid transparent; border-image:var(--ui-frame) 48/1/0 stretch; font-family:var(--game-ui-font); }
+.ink-martial-footer span,.ink-martial-footer small { font-size:12px; color:#776a57; }
+.ink-martial-footer strong { font-size:15px; line-height:1.3; }
+.ink-martial-selection { display:flex; gap:4px; align-items:center; justify-content:space-between; min-height:44px; color:#963c31; font-size:14px; flex:none; }
+.ink-martial-selection>button { min-width:44px; min-height:44px; background:none; border:0; color:inherit; }
+.ink-martial-target { color:#9d3e31; font-size:12px; }
+.ink-martial-slot button:disabled { opacity:.4; }
+body .ink-martial-screen .ink-loadout-notice { flex:none; margin:0; padding:4px 8px; font-size:12px; line-height:1.5; }
+body .ink-martial-sheet { height:min(90dvh,780px); padding:9px 12px max(10px,env(safe-area-inset-bottom,0px)); }
+.ink-martial-sheet .ink-martial-picker-context { margin:0; font:400 12px/1.5 var(--game-ui-font); color:#8c4434; flex:none; }
+.ink-martial-filters { display:flex; flex:none; gap:6px; }
+.ink-martial-filters>button { flex:1; min-height:44px; border:1px solid #c6baa5; border-radius:9px; background:#faf7ef; font-size:14px; }
+.ink-martial-filters>button[aria-pressed='true'] { background:var(--ui-caption) center/100% 100% no-repeat; color:#8e3c31; border-color:transparent; }
+.ink-martial-picker-body { overflow:auto; overscroll-behavior:contain; flex:1; min-height:0; padding:2px 1px 6px; scrollbar-color:#ab9a7c transparent; scrollbar-width:thin; }
+.ink-martial-candidates { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; align-content:start; }
+.ink-martial-candidates>button { min-height:136px; min-width:0; display:flex; flex-direction:column; align-items:center; gap:3px; padding:7px 5px; border:3px solid transparent; color:var(--ui-ink); background:var(--ui-card) center/cover; }
+.ink-martial-candidates>button[aria-pressed='true'] { border-image:var(--ui-selected) 13/1/0 stretch; }
+.ink-martial-candidates img { width:40px; height:60px; object-fit:contain; }
+.ink-martial-candidates strong { font-size:15px; line-height:1.35; overflow-wrap:anywhere; }
+.ink-martial-candidates span,.ink-martial-candidates small { font-size:12px; line-height:1.35; color:#726755; }
+.ink-martial-candidates em { font-size:12px; color:#953e31; font-style:normal; }
+.ink-martial-empty { grid-column:1/-1; font-size:15px; line-height:1.8; }
+.ink-martial-compare { display:grid; grid-template-columns:minmax(0,1fr) 24px minmax(0,1fr); gap:4px; flex:none; align-items:center; }
+.ink-martial-compare-column { min-width:0; }
+.ink-martial-compare-column h4 { font-size:13px; line-height:1.4; margin:0 0 3px; background:var(--ui-caption) left center/100% 100% no-repeat; padding:2px 5px; }
+.ink-martial-compare-column button { display:flex; align-items:center; gap:5px; width:100%; min-height:58px; background:none; border:0; padding:0; text-align:left; }
+.ink-martial-compare-column img { width:28px; height:42px; object-fit:contain; flex:none; }
+.ink-martial-compare-column strong { font-size:14px; display:block; line-height:1.4; overflow-wrap:anywhere; }
+.ink-martial-compare-column small { font-size:12px; display:block; line-height:1.4; }
+.ink-martial-compare-arrow { width:24px; height:24px; object-fit:contain; }
+.ink-martial-confirm-hint { flex:none; margin:0; font-size:12px; line-height:1.5; color:#8d4839; }
+.ink-martial-confirm-row { display:flex; gap:10px; flex:none; }
+.ink-martial-confirm { min-height:50px; flex:1; border:0; color:#fff7e8!important; background:var(--ui-brush) center/100% 100% no-repeat; font:700 24px/1.3 var(--ui-title)!important; }
+.ink-martial-confirm:disabled { opacity:.45; }
+.ink-martial-unequip { min-height:48px; min-width:60px; border:4px solid transparent; border-image:var(--ui-frame) 48/1/0 stretch; background:var(--ui-fiber) center/384px,var(--ui-paper); font-size:14px; }
+.ink-martial-detail-back { min-height:44px; padding:4px 10px; background:var(--ui-fiber) center/384px,var(--ui-paper); border:1px solid #b6a88d; font-size:14px; }
+.ink-martial-details { padding:3px 5px 10px; font-size:14px; line-height:1.7; }
+.ink-martial-details h3 { margin:8px 0 3px; font:700 24px/1.4 var(--ui-title); }
+.ink-martial-details h4 { margin:12px 0 3px; font-size:16px; }
+.ink-martial-details p { margin:5px 0; }
+.ink-martial-volume-heading { display:flex; flex-wrap:wrap; justify-content:space-between; gap:5px; margin-top:12px; font-size:13px; }
+.ink-martial-volume-list { list-style:none; margin:5px 0; padding:0; display:grid; gap:5px; }
+.ink-martial-volume-list>li { display:grid; grid-template-columns:44px minmax(0,1fr) 36px; align-items:center; gap:8px; min-height:44px; border:4px solid transparent; border-image:var(--ui-frame) 48/1/0 stretch; padding:3px 7px; background:var(--ui-card) center/cover; }
+.ink-martial-volume-number { white-space:nowrap; font:700 18px/1.4 var(--ui-title); }
+.ink-martial-volume-list strong { font-size:15px; line-height:1.5; }
+.ink-martial-volume-list>li>span:last-child { font-size:12px; color:#887b68; white-space:nowrap; }
+.ink-martial-volume-list>li[data-status='已學']>.ink-martial-volume-number,.ink-martial-volume-list>li[data-status='已學']>span:last-child { color:#a13f31; }
+.ink-martial-volume-list>li[data-status='未得'] { opacity:.65; }
+.ink-martial-info-body { flex:1; min-height:0; overflow:auto; padding:6px; font-size:15px; line-height:1.8; }
+.ink-martial-info-body h3 { font:700 22px/1.4 var(--ui-title); margin:12px 0 5px; }
+.ink-martial-info-body p { margin:6px 0; }
+@media(max-height:700px) {
+ body .ink-martial-screen { gap:3px; padding:3px 8px 6px; }
+ .ink-martial-page-title { min-height:44px; }
+ .ink-martial-page-title h2 { font-size:27px; }
+ .ink-martial-loadout { gap:5px; }
+ .ink-martial-intro { min-height:23px; }
+ .ink-martial-intro>strong { font-size:16px; }
+ .ink-martial-intro>span { font-size:11px; }
+ .ink-martial-external,.ink-martial-support { gap:5px; }
+ .ink-martial-slot button { gap:2px; padding:13px 1px 4px; }
+ .ink-martial-slot button>img { width:28px; height:42px; margin-top:0; }
+ .ink-martial-slot button>.ink-icon { width:28px!important; height:42px!important; margin-top:0; }
+ .ink-martial-slot-label { top:0; left:1px; font-size:11px; }
+ .ink-martial-slot strong { font-size:14px; line-height:1.2; }
+ .ink-martial-slot small { font-size:11px; }
+ .ink-martial-support .ink-martial-slot button { min-height:64px; padding:13px 3px 3px; gap:3px; grid-template-columns:26px minmax(0,1fr); }
+ .ink-martial-support .ink-martial-slot button>img,.ink-martial-support .ink-martial-slot button>.ink-icon { width:25px!important; height:37px!important; }
+ .ink-martial-footer>button { min-height:58px; padding:3px 5px; gap:0; }
+ .ink-martial-footer strong { font-size:13px; }
+ .ink-martial-footer span,.ink-martial-footer small { font-size:11px; }
+ body .ink-martial-sheet { height:95dvh; padding:6px 10px max(8px,env(safe-area-inset-bottom,0px)); }
+ .ink-martial-sheet>header h2 { font-size:25px!important; }
+ .ink-martial-candidates>button { min-height:116px; }
+ .ink-martial-candidates img { width:30px; height:45px; }
+ .ink-martial-compare-column h4 { margin-bottom:0; }
+ .ink-martial-compare-column button { min-height:48px; }
+ .ink-martial-confirm { min-height:46px; font-size:22px!important; }
+}
+/* 題字不受正文全域字體覆蓋；短屏保留名稱及成本行的空間。 */
+.ink-martial-page-title h2,.ink-martial-intro>strong,.ink-martial-details h3,.ink-martial-volume-number,.ink-martial-info-body h3 { font-family:var(--ui-title)!important; }
+@media(min-height:701px) { .ink-martial-external .ink-martial-slot button>img { width:60px; height:90px; } }
+@media(max-height:700px) {
+ .ink-martial-screen .ink-preset-select>.ink-note { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+ .ink-martial-slot button { padding:10px 1px 3px; gap:1px; }
+ .ink-martial-slot button>img,.ink-martial-slot button>.ink-icon { width:25px!important; height:36px!important; }
+ .ink-martial-slot small { white-space:nowrap; }
+ .ink-martial-support .ink-martial-slot button { min-height:58px; }
+ .ink-martial-footer>button { min-height:52px; }
+}
+.ink-martial-screen .ink-tap-card-open { gap:12px; }
+.ink-martial-library-cover { width:36px; height:54px; object-fit:contain; flex:none; }
+.ink-martial-screen .ink-tap-card-open>span:first-of-type { flex:1; min-width:0; }

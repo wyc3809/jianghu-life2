@@ -1,0 +1,15 @@
+{
+  "base": "http://127.0.0.1:5209/jianghu-life2/",
+  "viewport": [
+    390,
+    844
+  ],
+  "DPR": 2,
+  "actualIphone": false,
+  "fixedMain": true,
+  "realOwnedPreviewNoMutation": true,
+  "sevenVolumeDetail": true,
+  "confirmWorked": true,
+  "noDebit": true,
+  "pageerrors": []
+}

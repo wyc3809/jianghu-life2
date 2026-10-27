@@ -1,0 +1,42 @@
+[
+  {
+    "mode": "skip",
+    "viewport": [
+      320,
+      568
+    ],
+    "resultReached": true,
+    "claimVisible": true,
+    "pageerrors": []
+  },
+  {
+    "mode": "reduce",
+    "viewport": [
+      320,
+      568
+    ],
+    "resultReached": true,
+    "claimVisible": true,
+    "pageerrors": []
+  },
+  {
+    "mode": "missing-jade",
+    "viewport": [
+      320,
+      568
+    ],
+    "resultReached": true,
+    "claimVisible": true,
+    "pageerrors": []
+  },
+  {
+    "mode": "context-lost",
+    "viewport": [
+      320,
+      568
+    ],
+    "resultReached": true,
+    "claimVisible": true,
+    "pageerrors": []
+  }
+]

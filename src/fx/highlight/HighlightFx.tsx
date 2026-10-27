@@ -18,6 +18,7 @@ import { inkIconUrl } from '../../ui/inkIcons';
 import { gachaRewardImageUrl } from './codexAppearance';
 import { preloadCodexTextures } from './scene/codexTextures';
 import { preloadChestTextures } from './scene/chestMaterials';
+import { preloadTokenTexture } from './scene/tokenMaterials';
 import { holdHighlightVisibility } from '../../ui/highlightVisibility';
 
 /** 霞鶩文楷 TC（繁體毛筆楷書，同朱砂印同一字型） */
@@ -36,6 +37,7 @@ export function prefetchHighlightAssets(): void {
   ensureFonts();
   preloadChestTextures();
   preloadCodexTextures();
+  preloadTokenTexture();
 }
 
 function reduceMotionPref(): boolean {
@@ -424,7 +426,7 @@ export default function HighlightFx({ config, onDone, onUnavailable, renderRewar
   const st = GRADES[grade];
   const beforeReveal = !revealed;
   const titleText = beforeReveal
-    ? (codex ? '啟封秘笈' : config.titles?.[grade] ?? `${SUBJECT_NAME[config.subject]} · ${st.name}`)
+    ? (codex ? '啟封秘笈' : config.subject === 'token' ? '武學令' : config.titles?.[grade] ?? `${SUBJECT_NAME[config.subject]} · ${st.name}`)
     : config.revealTitle;
   const panelCard = config.rewards[panelIdx] ?? config.rewards[0];
   const showSkip = phase === 'idle' || phase === 'upgrading' || phase === 'charging' || phase === 'bursting';
@@ -511,7 +513,7 @@ export default function HighlightFx({ config, onDone, onUnavailable, renderRewar
 
       <div className={styles.titleWrap}>
         <div className={styles.titleRow}>
-          <Title text={titleText} gradeKey={beforeReveal ? `g${grade}` : 'reveal'} crisp={codex} />
+          <Title text={titleText} gradeKey={beforeReveal ? `g${grade}` : 'reveal'} crisp={codex || config.subject === 'token'} />
           {!beforeReveal && config.seal && sealUrlForText(config.seal) && (
             <img className={styles.seal} src={sealUrlForText(config.seal)!} alt={sealPhrase(config.seal)} />
           )}

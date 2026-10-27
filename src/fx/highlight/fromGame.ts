@@ -10,6 +10,7 @@ import type { BreakthroughResult } from '@core/life/cultivation';
 import { getGearDef, rarityLabel, type GearDef, type GearRarity } from '@data/equipment/catalog';
 import { jianghuPrestige } from '@core/life/jianghuPrestige';
 import { MARTIAL_RANKS } from '@core/life/martialRanks';
+import { getSkillDef } from '@data/skills/catalog';
 import type { CardPattern, Grade, HighlightConfig, IconKind, RewardStat } from './types';
 import { clampGrade } from './grades';
 
@@ -85,12 +86,15 @@ function tokenConfig(state: LifeGameState, m: Extract<LifeMoment, { kind: 'learn
   const rank = m.kind === 'rank' ? m.rank : 0;
   const g = RANK_GRADE[Math.max(0, Math.min(3, rank))]!;
   const learned = state.character.skills.length;
+  const skillId = state.character.skills.find(id => getSkillDef(id)?.name === m.name);
+  const def = skillId ? getSkillDef(skillId) : undefined;
   return {
     subject: 'token',
     targetGrade: g,
     revealTitle: m.kind === 'learn' ? '武學入懷' : rank >= 3 ? '神乎其技' : '武學精進',
     seal: m.kind === 'learn' ? '武' : '煉',
-    revealSub: m.kind === 'learn' ? `${m.name} · 秘笈到手` : `${m.name} · ${m.rankName}`,
+    revealSub: m.kind === 'learn' ? `${m.name} · 已習得` : `${m.name} · ${m.rankName}`,
+    claimLabel: '完成',
     balances: balances(state),
     rewards: [
       {
@@ -100,9 +104,11 @@ function tokenConfig(state: LifeGameState, m: Extract<LifeMoment, { kind: 'learn
         name: m.name,
         grade: g,
         isNew: m.kind === 'learn',
+        isPremium: def?.premium,
+        identityLabel: [def ? def.premium ? '珍本' : '江湖' : null, m.kind === 'learn' ? '新習得' : m.rankName].filter(Boolean).join(' · '),
         blurb:
           m.kind === 'learn'
-            ? '秘笈到手，招式初成。'
+            ? '已習得，可於武學頁調整配搭。'
             : `由「${MARTIAL_RANKS[rank - 1] ?? MARTIAL_RANKS[0]}」進至「${m.rankName}」。`,
         stats:
           m.kind === 'learn'

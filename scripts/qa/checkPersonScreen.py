@@ -63,7 +63,7 @@ with sync_playwright() as p:
    tap(page,'普通配搭');main_geometry(page)
    # Martial support/cancel remains a native sheet and has no old pagination.
    tap(page,'武學');page.get_by_role('button',name='選擇外功欄位2',exact=True).scroll_into_view_if_needed();tap(page,'選擇外功欄位2');d=page.get_by_role('dialog',name='選擇外功',exact=True);assert not d.get_by_role('button',name=re.compile('下一頁|上一頁')).count();close(page,'選擇外功')
-   tap(page,'← 返回人物');tap(page,'更多');tap(page,'屬性與心性詳解');assert page.locator('.ink-person-detail-body').count();tap(page,'← 返回人物')
+   tap(page,'返回人物');tap(page,'更多');tap(page,'屬性與心性詳解');assert page.locator('.ink-person-detail-body').count();tap(page,'← 返回人物')
    main_geometry(page)
    before_return=snapshots(page);tap(page,'返回鎮居');assert page.locator('.ink-bottom-dock').is_visible() and page.locator('.ink-nav-center').is_visible()
    assert snapshots(page)==before_return, 'returning must not advance a month or change equipment'

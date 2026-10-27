@@ -72,3 +72,25 @@ describe('highlight fx mapping (高光時刻)', () => {
     expect([...p].sort((a, b) => a - b)).toEqual(p);
   });
 });
+
+describe('武學令結果身份', () => {
+  it('test_highlight_一般武學升至頂階_不標成珍本且映射不改人物', async () => {
+    const {getSkillDef}=await import('../data/skills/catalog');
+    const state=fresh();state.character.skills=['art_river_fist'];
+    const before=structuredClone(state),name=getSkillDef('art_river_fist')!.name;
+    const config=momentHighlight(state,{kind:'rank',name,rank:3,rankName:'神乎其技'})!;
+    expect(config.targetGrade).toBe(5);
+    expect(config.rewards[0]!.identityLabel).toBe('江湖 · 神乎其技');
+    expect(config.rewards[0]!.isPremium).not.toBe(true);
+    expect(config.claimLabel).toBe('完成');expect(state).toEqual(before);
+  });
+  it('test_highlight_珍本新習得_沿用真名稱與永久身份', async () => {
+    const {SKILL_DEFS}=await import('../data/skills/catalog');
+    const def=Object.values(SKILL_DEFS).find(d=>d.premium)!;
+    const state=fresh();state.character.skills=[def.id];
+    const config=momentHighlight(state,{kind:'learn',name:def.name})!;
+    expect(config.targetGrade).toBe(1);expect(config.rewards[0]!.isPremium).toBe(true);
+    expect(config.rewards[0]!.identityLabel).toBe('珍本 · 新習得');
+    expect(config.rewards[0]!.name).toBe(def.name);
+  });
+});

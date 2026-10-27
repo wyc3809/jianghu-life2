@@ -1,0 +1,24 @@
+
+> jianghu-engine@0.96.0-ea audit:narrate
+> node scripts/auditNarrate.mjs --fail
+
+data/events/catalog.ts: templates=0 (allowed) bans=0
+data/events/jianghuExtra100.ts: templates=0 bans=0
+data/events/ordinary.ts: templates=0 bans=0
+data/events/practiceWander.ts: templates=0 bans=0
+data/events/secretArts.ts: templates=0 bans=0
+data/events/jinyongTropes.ts: templates=0 bans=0
+data/events/roadEncounters.ts: templates=0 bans=0
+data/events/natureArcs.ts: templates=0 bans=0
+data/events/bossEncounters.ts: templates=0 bans=0
+data/events/narrateOverrides.ts: templates=0 bans=0
+data/events/playabilityPack.ts: templates=0 bans=0
+core/life/choiceEnrich.ts: templates=0 bans=0
+core/life/flavor.ts: templates=0 bans=0
+core/life/arcs.ts: templates=0 bans=0
+core/life/summary.ts: templates=0 bans=0
+core/life/eventEngine.ts: templates=0 bans=0
+core/life/outcomeResolver.ts: templates=0 bans=0
+total templates: 0
+total ban-words: 0
+hard-fail count: 0

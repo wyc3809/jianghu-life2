@@ -1,0 +1,132 @@
+{
+  "actualIphone": false,
+  "cloudRequestsBlocked": true,
+  "cases": [
+    {
+      "engine": "chromium",
+      "viewport": [
+        320,
+        568
+      ],
+      "fixedSevenSlots": true,
+      "targets44": true,
+      "noOverflow": true,
+      "noPagination": true,
+      "previewCancelNoMutation": true,
+      "realSevenVolumeStates": true,
+      "filterPremium": true,
+      "confirmAndDoubleClickGate": true,
+      "collectionLearnOnlyOnConfirm": true,
+      "normalDuelSeparate": true,
+      "supportSeparate": true,
+      "noDebit": true,
+      "libraryVolumes": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "chromium",
+      "viewport": [
+        390,
+        844
+      ],
+      "fixedSevenSlots": true,
+      "targets44": true,
+      "noOverflow": true,
+      "noPagination": true,
+      "previewCancelNoMutation": true,
+      "realSevenVolumeStates": true,
+      "filterPremium": true,
+      "confirmAndDoubleClickGate": true,
+      "collectionLearnOnlyOnConfirm": true,
+      "normalDuelSeparate": true,
+      "supportSeparate": true,
+      "noDebit": true,
+      "libraryVolumes": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "chromium",
+      "viewport": [
+        430,
+        932
+      ],
+      "fixedSevenSlots": true,
+      "targets44": true,
+      "noOverflow": true,
+      "noPagination": true,
+      "previewCancelNoMutation": true,
+      "realSevenVolumeStates": true,
+      "filterPremium": true,
+      "confirmAndDoubleClickGate": true,
+      "collectionLearnOnlyOnConfirm": true,
+      "normalDuelSeparate": true,
+      "supportSeparate": true,
+      "noDebit": true,
+      "libraryVolumes": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "viewport": [
+        320,
+        568
+      ],
+      "fixedSevenSlots": true,
+      "targets44": true,
+      "noOverflow": true,
+      "noPagination": true,
+      "previewCancelNoMutation": true,
+      "realSevenVolumeStates": true,
+      "filterPremium": true,
+      "confirmAndDoubleClickGate": true,
+      "collectionLearnOnlyOnConfirm": true,
+      "normalDuelSeparate": true,
+      "supportSeparate": true,
+      "noDebit": true,
+      "libraryVolumes": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "viewport": [
+        390,
+        844
+      ],
+      "fixedSevenSlots": true,
+      "targets44": true,
+      "noOverflow": true,
+      "noPagination": true,
+      "previewCancelNoMutation": true,
+      "realSevenVolumeStates": true,
+      "filterPremium": true,
+      "confirmAndDoubleClickGate": true,
+      "collectionLearnOnlyOnConfirm": true,
+      "normalDuelSeparate": true,
+      "supportSeparate": true,
+      "noDebit": true,
+      "libraryVolumes": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "viewport": [
+        430,
+        932
+      ],
+      "fixedSevenSlots": true,
+      "targets44": true,
+      "noOverflow": true,
+      "noPagination": true,
+      "previewCancelNoMutation": true,
+      "realSevenVolumeStates": true,
+      "filterPremium": true,
+      "confirmAndDoubleClickGate": true,
+      "collectionLearnOnlyOnConfirm": true,
+      "normalDuelSeparate": true,
+      "supportSeparate": true,
+      "noDebit": true,
+      "libraryVolumes": true,
+      "pageerrors": []
+    }
+  ]
+}
