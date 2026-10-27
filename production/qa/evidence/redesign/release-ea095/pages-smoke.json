@@ -1,0 +1,35 @@
+{
+  "base": "http://127.0.0.1:5206/jianghu-life2/",
+  "viewport": [
+    390,
+    844
+  ],
+  "DPR": 2,
+  "actualIphone": false,
+  "isolatedSave": true,
+  "cloudRequestsBlocked": true,
+  "realOwnedPreviewNoMutation": true,
+  "paperBrushFontLoaded": true,
+  "dialogInkLocated": true,
+  "homeInk": true,
+  "returnRestoresDock": true,
+  "pageerrors": [],
+  "resources": [
+    "http://127.0.0.1:5206/jianghu-life2/ink/art/parchment-ui/paper-fiber.webp",
+    "http://127.0.0.1:5206/jianghu-life2/ink/art/parchment-ui/paper-rim.webp",
+    "http://127.0.0.1:5206/jianghu-life2/ink/art/parchment-ui/brush-confirm.webp",
+    "http://127.0.0.1:5206/jianghu-life2/ink/art/parchment-ui/brush-underline.webp",
+    "http://127.0.0.1:5206/jianghu-life2/assets/parchment-brush-RAJW9hgu.woff2",
+    "http://127.0.0.1:5206/jianghu-life2/ink/art/fx/tap-core.webp?v=art1",
+    "http://127.0.0.1:5206/jianghu-life2/ink/art/fx/tap-wash.webp?v=art1",
+    "http://127.0.0.1:5206/jianghu-life2/ink/art/fx/tap-speck.webp?v=art1",
+    "http://127.0.0.1:5206/jianghu-life2/ink/art/parchment-ui/icon-back.webp",
+    "http://127.0.0.1:5206/jianghu-life2/ink/art/parchment-ui/card-mountain-paper.webp",
+    "http://127.0.0.1:5206/jianghu-life2/ink/art/parchment-ui/brush-selected-reference.webp",
+    "http://127.0.0.1:5206/jianghu-life2/ink/art/parchment-ui/brush-caption.webp",
+    "http://127.0.0.1:5206/jianghu-life2/ink/art/parchment-ui/icon-close.webp?v=art1",
+    "http://127.0.0.1:5206/jianghu-life2/ink/art/parchment-ui/icon-caret.webp?v=art1",
+    "http://127.0.0.1:5206/jianghu-life2/ink/art/parchment-ui/icon-arrow.webp?v=art1",
+    "http://127.0.0.1:5206/jianghu-life2/ink/art/parchment-ui/brush-delta.webp"
+  ]
+}
