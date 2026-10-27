@@ -1,0 +1,81 @@
+{
+  "actualIphone": false,
+  "softwareChromium": true,
+  "cases": [
+    {
+      "grade": 0,
+      "DPR": 2,
+      "seenPhases": [
+        "charging"
+      ],
+      "idleDrawCallsMedian": 7.0,
+      "settleStops": true,
+      "pageerrors": []
+    },
+    {
+      "grade": 1,
+      "DPR": 2,
+      "seenPhases": [
+        "upgrading",
+        "charging"
+      ],
+      "idleDrawCallsMedian": 7.0,
+      "settleStops": true,
+      "pageerrors": []
+    },
+    {
+      "grade": 2,
+      "DPR": 2,
+      "seenPhases": [
+        "upgrading",
+        "upgrading",
+        "charging"
+      ],
+      "idleDrawCallsMedian": 7,
+      "settleStops": true,
+      "pageerrors": []
+    },
+    {
+      "grade": 3,
+      "DPR": 2,
+      "seenPhases": [
+        "upgrading",
+        "upgrading",
+        "upgrading",
+        "charging"
+      ],
+      "idleDrawCallsMedian": 7,
+      "settleStops": true,
+      "pageerrors": []
+    },
+    {
+      "grade": 4,
+      "DPR": 2,
+      "seenPhases": [
+        "upgrading",
+        "upgrading",
+        "upgrading",
+        "upgrading",
+        "charging"
+      ],
+      "idleDrawCallsMedian": 7,
+      "settleStops": true,
+      "pageerrors": []
+    },
+    {
+      "grade": 5,
+      "DPR": 2,
+      "seenPhases": [
+        "upgrading",
+        "upgrading",
+        "upgrading",
+        "upgrading",
+        "upgrading",
+        "charging"
+      ],
+      "idleDrawCallsMedian": 7,
+      "settleStops": true,
+      "pageerrors": []
+    }
+  ]
+}

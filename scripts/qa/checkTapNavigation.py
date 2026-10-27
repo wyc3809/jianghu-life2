@@ -43,7 +43,7 @@ def meta(page):return page.evaluate('JSON.parse(localStorage.getItem("jianghu_an
 def ch(page):return page.evaluate('JSON.parse(localStorage.getItem("jianghu_life_v1_ls")).state.character')
 def nav(page,name):
  if not page.get_by_role('navigation',name='分卷').count():
-  for label in ['← 返回人物','返回修煉','‹ 返回江湖','‹ 返回江湖風雲','返回鎮居']:
+  for label in ['返回人物','← 返回人物','返回修煉','‹ 返回江湖','‹ 返回江湖風雲','返回鎮居']:
    b=page.get_by_role('button',name=label,exact=True)
    if b.count() and b.first.is_visible():tap(page,label);break
  page.get_by_role('navigation',name='分卷').get_by_role('button',name=name,exact=True).click();stable(page)

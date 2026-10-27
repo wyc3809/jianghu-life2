@@ -13,6 +13,7 @@ import { toon } from './toon';
 import { buildCodex } from './codex';
 import { chestMaterial, watchChestTextures } from './chestMaterials';
 import { batchPaintedParts } from './paintedMesh';
+import { tokenMaterials, watchTokenTexture } from './tokenMaterials';
 
 export interface SubjectModel {
   root: THREE.Group;
@@ -22,6 +23,8 @@ export interface SubjectModel {
   setGlow(k: number): void;
   /** 活動部件：由 0（合）到 1（開） */
   setOpen(k: number): void;
+  /** 剛性器物的懸掛部件慣性，與主體縮放分開。 */
+  setSway?(k: number): void;
   /** 爆點（主體本地座標） */
   burstPoint: THREE.Vector3;
   /** 主體大約高度（投影、鏡頭用） */
@@ -75,7 +78,7 @@ function roundedRectShape(w: number, h: number, r: number): THREE.Shape {
 }
 
 /** 切面寶石：扁八面體，每面獨立法線（每個切面一個色階） */
-function gem(size: number, mat: THREE.MeshToonMaterial): THREE.Mesh {
+function gem(size: number, mat: THREE.Material): THREE.Mesh {
   const g = new THREE.OctahedronGeometry(size, 0);
   g.scale(1, 1.25, 0.55);
   // 非索引幾何＋重算法線＝每個切面一個法線（切面感）
@@ -283,13 +286,14 @@ function swordShape(): THREE.Shape {
 
 function buildToken(): SubjectModel {
   const root = new THREE.Group();
+  const unwatchJade = watchTokenTexture(() => root.userData.invalidate?.());
+  const unwatchMetal = watchChestTextures(() => root.userData.invalidate?.());
+  root.userData.dispose = () => { unwatchJade(); unwatchMetal(); };
   const spin = new THREE.Group();
   root.add(spin);
-  const metal = toon('#C9CCD6');
-  const jade = toon('#E4E8D6');
-  const relief = toon('#7A8B99');
-  const gemMat = toon('#FFFFFF');
-  const cord = toon('#A33A32');
+  const body = new THREE.Group();
+  spin.add(body);
+  const { metal, jade, relief, gem: gemMat, cord } = tokenMaterials();
   const core = new GlowCore();
   const CY = 1.15; // 牌心高度
   const FW = 1.5;
@@ -308,10 +312,10 @@ function buildToken(): SubjectModel {
     curveSegments: 16,
   });
   frameGeo.translate(0, 0, -DEPTH / 2);
-  spin.add(mesh(frameGeo, metal, 0, CY, 0));
+  body.add(mesh(frameGeo, metal, 0, CY, 0));
 
   // 發光核心：夾喺前後玉面之間，經玉面四周嘅縫透光
-  spin.add(mesh(new THREE.BoxGeometry(FW - 0.36, FH - 0.36, DEPTH * 0.5), core.mat, 0, CY, 0));
+  body.add(mesh(new THREE.BoxGeometry(FW - 0.36, FH - 0.36, DEPTH * 0.5), core.mat, 0, CY, 0));
 
   // 前後玉面（比洞細一圈 → 留縫）
   const plateGeo = new THREE.ExtrudeGeometry(roundedRectShape(FW - 0.44, FH - 0.44, 0.12), {
@@ -324,7 +328,7 @@ function buildToken(): SubjectModel {
   for (const sz of [1, -1]) {
     const p = mesh(plateGeo, jade, 0, CY, sz * (DEPTH / 2 - 0.02));
     if (sz < 0) p.rotation.y = Math.PI;
-    spin.add(p);
+    body.add(p);
   }
   // 正面浮雕劍、背面浮雕圓紋
   const sword = mesh(
@@ -340,11 +344,14 @@ function buildToken(): SubjectModel {
     CY,
     DEPTH / 2 + 0.03,
   );
-  spin.add(sword);
+  body.add(sword);
+  // 中脊與護手保留真正厚度；由燈光分出劍面，不以一整片黑剪影代替。
+  body.add(mesh(rbox(.025,.95,.025,.006),metal,0,CY+.08,DEPTH/2+.095));
+  body.add(mesh(rbox(.42,.035,.04,.01),metal,0,CY-.23,DEPTH/2+.09));
   const ringGeo = new THREE.TorusGeometry(0.34, 0.05, 10, 32);
   const backRing = mesh(ringGeo, relief, 0, CY, -DEPTH / 2 - 0.05);
-  spin.add(backRing);
-  spin.add(mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.06, 20), relief, 0, CY, -DEPTH / 2 - 0.05).rotateX(Math.PI / 2));
+  body.add(backRing);
+  body.add(mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.06, 20), relief, 0, CY, -DEPTH / 2 - 0.05).rotateX(Math.PI / 2));
 
   // 四角切面寶石（前後各四）
   const gx = FW / 2 - 0.17;
@@ -355,33 +362,57 @@ function buildToken(): SubjectModel {
         const g = gem(0.075, gemMat);
         g.position.set(sx * gx, CY + sy * gy, sz * (DEPTH / 2 + 0.07));
         g.rotation.z = Math.PI / 4;
-        spin.add(g);
+        body.add(g);
       }
     }
   }
   // 頂環
-  spin.add(mesh(new THREE.TorusGeometry(0.17, 0.055, 10, 24), metal, 0, CY + FH / 2 + 0.18, 0));
-  // 流蘇（底部）：繩＋結＋穗
-  spin.add(mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.28, 8), cord, 0, CY - FH / 2 - 0.14, 0));
-  spin.add(mesh(new THREE.SphereGeometry(0.07, 12, 10), cord, 0, CY - FH / 2 - 0.3, 0));
-  spin.add(mesh(new THREE.ConeGeometry(0.11, 0.34, 12), cord, 0, CY - FH / 2 - 0.5, 0).rotateX(Math.PI));
+  body.add(mesh(new THREE.TorusGeometry(0.17, 0.055, 10, 24), metal, 0, CY + FH / 2 + 0.18, 0));
+  // 繩結為真正活動鉸點；細穗逐條成形，不再是一整塊圓錐。
+  const tassel = new THREE.Group();
+  tassel.name = 'token-tassel-pivot';
+  tassel.position.set(0, CY - FH / 2, 0); spin.add(tassel);
+  tassel.add(mesh(new THREE.CylinderGeometry(.022,.022,.25,8),cord,0,-.125,0));
+  tassel.add(mesh(new THREE.SphereGeometry(.065,12,8),cord,0,-.275,0));
+  for(let i=0;i<9;i++) {
+    const a=i/9*Math.PI*2;
+    const thread=mesh(new THREE.CylinderGeometry(.011,.008,.31+(i%3)*.018,6),cord,Math.cos(a)*.045,-.46,Math.sin(a)*.045);
+    thread.rotation.z=Math.cos(a)*.1;thread.rotation.x=Math.sin(a)*.1;tassel.add(thread);
+  }
+  const ornaments=[new THREE.Group(),new THREE.Group()];
+  ornaments.forEach((group,index)=>{group.name=`token-engraving-${index}`;spin.add(group);});
+  for(const side of [-1,1])for(const y of [-1,1]) {
+    const plate=mesh(new THREE.TorusGeometry(.12,.013,6,16,Math.PI),metal,side*.51,CY+y*.76,.17);
+    plate.rotation.z=side*y*Math.PI/2;ornaments[0]!.add(plate);
+    const stud=mesh(new THREE.OctahedronGeometry(.045),gemMat,side*.49,CY+y*.62,.18);ornaments[1]!.add(stud);
+  }
+  // 前後玉面UV取實際牌面範圍，不把邊緣拉成一條模糊色帶。
+  const uv=plateGeo.getAttribute('uv'),pos=plateGeo.getAttribute('position'),normal=plateGeo.getAttribute('normal');
+  for(let i=0;i<uv.count;i++)if(Math.abs(normal.getZ(i))>.3)uv.setXY(i,pos.getX(i)/(FW-.44)+.5,pos.getY(i)/(FH-.44)+.5);
+  uv.needsUpdate=true;
+  batchPaintedParts(body);batchPaintedParts(tassel,false);
+  ornaments.forEach(group=>batchPaintedParts(group,false));
+  let open=0,sway=0;
+  const moveTassel=()=>{
+    const tail=Math.sin(Math.PI*Math.min(1,open));
+    tassel.rotation.z=sway+Math.sin(open*Math.PI*5)*tail*.22;
+    tassel.rotation.x=Math.sin(open*Math.PI*3)*tail*.12;
+  };
 
   return {
     root,
     burstPoint: new THREE.Vector3(0, CY, 0.2),
     height: CY + FH / 2 + 0.3,
     setGrade(g) {
-      metal.color.set(g.main);
-      relief.color.set(g.main).lerp(new THREE.Color('#1C1A17'), 0.35);
-      gemMat.color.set(g.glow);
-      core.setColor(g.glow);
+      metal.color.set('#fff2cf').lerp(new THREE.Color(g.main),.1);
+      relief.color.set('#d1d4c4').lerp(new THREE.Color(g.main),.1);
+      gemMat.color.set(g.glow);core.setColor(g.glow);
+      ornaments[0]!.visible=g.inlay!=='plain';ornaments[1]!.visible=g.inlay==='gold';
     },
-    setGlow(k) {
-      core.set(k);
-    },
+    setGlow(k) { core.set(k*.7); },
+    setSway(k) { sway=k;moveTassel(); },
     setOpen(k) {
-      // 揭曉：繞豎軸轉兩圈半（背面轉返正面）
-      spin.rotation.y = k * Math.PI * 4;
+      open=k;spin.rotation.y=k*Math.PI*2;moveTassel();
     },
   };
 }

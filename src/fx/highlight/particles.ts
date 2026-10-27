@@ -4,6 +4,8 @@
  * 每粒墨點帶一圈淡墨暈（化開）；衝擊波三層墨環（寬而淡、中墨、幼而濃）；星點＝旋轉金箔；彩帶＝花瓣。
  */
 
+import { createRng } from '../ambient/particles';
+
 export type ParticleShape = 'spark' | 'streak' | 'star' | 'confetti' | 'dust' | 'ring';
 export type ParticleMode = 'free' | 'attract' | 'curve' | 'orbit';
 
@@ -48,6 +50,7 @@ export interface Particle {
 
 export class ParticleSystem {
   private ctx: CanvasRenderingContext2D;
+  private visualRng = createRng(37);
   private list: Particle[] = [];
   private w = 1;
   private h = 1;
@@ -89,7 +92,7 @@ export class ParticleSystem {
       size: 3,
       gravity: 0,
       drag: 0.98,
-      rot: Math.random() * Math.PI * 2,
+      rot: this.visualRng() * Math.PI * 2,
       vr: 0,
       ...p,
     } as Particle);
@@ -102,9 +105,9 @@ export class ParticleSystem {
   /** 爆發火花：向外放射，帶重力 */
   sparks(x: number, y: number, count: number, colors: string[], speed = 9, gravity = 0.16, minR = 0) {
     for (let i = 0; i < this.n(count); i++) {
-      const a = Math.random() * Math.PI * 2;
-      const s = speed * (0.35 + Math.random() * 0.8);
-      const life = 0.7 + Math.random() * 0.7;
+      const a = this.visualRng() * Math.PI * 2;
+      const s = speed * (0.35 + this.visualRng() * 0.8);
+      const life = 0.7 + this.visualRng() * 0.7;
       // minR：由主體輪廓邊開始噴，唔喺主體正面
       this.add({
         x: x + Math.cos(a) * minR,
@@ -112,7 +115,7 @@ export class ParticleSystem {
         vx: Math.cos(a) * s,
         vy: Math.sin(a) * s - 2,
         color: colors[i % colors.length]!,
-        size: 2 + Math.random() * 3.2,
+        size: 2 + this.visualRng() * 3.2,
         gravity,
         drag: 0.955,
         life,
@@ -124,9 +127,9 @@ export class ParticleSystem {
   /** 細長流光：高速直線，拖長 */
   streaks(x: number, y: number, count: number, color: string, speed = 22, minR = 0) {
     for (let i = 0; i < this.n(count); i++) {
-      const a = (i / count) * Math.PI * 2 + Math.random() * 0.2;
-      const s = speed * (0.7 + Math.random() * 0.5);
-      const life = 0.45 + Math.random() * 0.3;
+      const a = (i / count) * Math.PI * 2 + this.visualRng() * 0.2;
+      const s = speed * (0.7 + this.visualRng() * 0.5);
+      const life = 0.45 + this.visualRng() * 0.3;
       this.add({
         shape: 'streak',
         x: x + Math.cos(a) * minR,
@@ -145,10 +148,10 @@ export class ParticleSystem {
   /** 旋轉閃光星點 */
   stars(x: number, y: number, count: number, color: string, spread = 180, minR = 0) {
     for (let i = 0; i < this.n(count); i++) {
-      const a = Math.random() * Math.PI * 2;
+      const a = this.visualRng() * Math.PI * 2;
       // 由 minR 開始散（唔喺主體正面閃）
-      const r = minR + spread * (0.3 + Math.random() * 0.7);
-      const life = 0.8 + Math.random() * 0.9;
+      const r = minR + spread * (0.3 + this.visualRng() * 0.7);
+      const life = 0.8 + this.visualRng() * 0.9;
       this.add({
         shape: 'star',
         x: x + Math.cos(a) * r,
@@ -156,9 +159,9 @@ export class ParticleSystem {
         vx: Math.cos(a) * 0.6,
         vy: Math.sin(a) * 0.6 - 0.4,
         color,
-        size: 7 + Math.random() * 9,
+        size: 7 + this.visualRng() * 9,
         drag: 0.97,
-        vr: (Math.random() - 0.5) * 0.25,
+        vr: (this.visualRng() - 0.5) * 0.25,
         life,
         maxLife: life,
       });
@@ -173,8 +176,8 @@ export class ParticleSystem {
   /** 吸入：由四周吸向中心，到 killRadius 內淡走 */
   attract(x: number, y: number, count: number, colors: string[], radius = 220, killRadius = 60) {
     for (let i = 0; i < this.n(count); i++) {
-      const a = Math.random() * Math.PI * 2;
-      const r = radius * (0.7 + Math.random() * 0.6);
+      const a = this.visualRng() * Math.PI * 2;
+      const r = radius * (0.7 + this.visualRng() * 0.6);
       const life = 1.4;
       this.add({
         mode: 'attract',
@@ -184,10 +187,10 @@ export class ParticleSystem {
         vy: Math.cos(a) * 2,
         tx: x,
         ty: y,
-        accel: 0.9 + Math.random() * 0.6,
+        accel: 0.9 + this.visualRng() * 0.6,
         killRadius,
         color: colors[i % colors.length]!,
-        size: 1.8 + Math.random() * 2,
+        size: 1.8 + this.visualRng() * 2,
         drag: 0.9,
         life,
         maxLife: life,
@@ -244,15 +247,15 @@ export class ParticleSystem {
   /** 光塵：光柱入面慢慢上飄 */
   dust(x: number, y: number, width: number, count: number, color: string) {
     for (let i = 0; i < this.n(count); i++) {
-      const life = 1.6 + Math.random() * 1.6;
+      const life = 1.6 + this.visualRng() * 1.6;
       this.add({
         shape: 'dust',
-        x: x + (Math.random() - 0.5) * width,
-        y: y - Math.random() * 40,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: -(0.6 + Math.random() * 0.9),
+        x: x + (this.visualRng() - 0.5) * width,
+        y: y - this.visualRng() * 40,
+        vx: (this.visualRng() - 0.5) * 0.3,
+        vy: -(0.6 + this.visualRng() * 0.9),
         color,
-        size: 1.2 + Math.random() * 1.8,
+        size: 1.2 + this.visualRng() * 1.8,
         drag: 1,
         life,
         maxLife: life,
@@ -263,9 +266,9 @@ export class ParticleSystem {
   /** 彩帶（只喺最高潮用一次） */
   confetti(x: number, y: number, count: number, colors: string[]) {
     for (let i = 0; i < this.n(count); i++) {
-      const a = -Math.PI / 2 + (Math.random() - 0.5) * 2.2;
-      const s = 10 + Math.random() * 9;
-      const life = 2.2 + Math.random() * 0.8;
+      const a = -Math.PI / 2 + (this.visualRng() - 0.5) * 2.2;
+      const s = 10 + this.visualRng() * 9;
+      const life = 2.2 + this.visualRng() * 0.8;
       this.add({
         shape: 'confetti',
         x,
@@ -273,10 +276,10 @@ export class ParticleSystem {
         vx: Math.cos(a) * s,
         vy: Math.sin(a) * s,
         color: colors[i % colors.length]!,
-        size: 5 + Math.random() * 4,
+        size: 5 + this.visualRng() * 4,
         gravity: 0.28,
         drag: 0.965,
-        vr: (Math.random() - 0.5) * 0.5,
+        vr: (this.visualRng() - 0.5) * 0.5,
         life,
         maxLife: life,
       });

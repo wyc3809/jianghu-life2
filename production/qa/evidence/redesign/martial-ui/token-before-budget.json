@@ -1,0 +1,17 @@
+{
+  "source": "9598e72 token code byte-identical to EA0.95.0",
+  "DPR": 1,
+  "drawCallsSamples": [
+    43,
+    43,
+    43,
+    43,
+    86,
+    43,
+    43,
+    43,
+    43
+  ],
+  "median": 43,
+  "actualIphone": false
+}
