@@ -1,12 +1,17 @@
 import type { LifeCharacter } from '@interfaces/lifeEngine';
 import { getGearDef, type GearDef, type GearRarity, type GearSlot } from '@data/equipment/catalog';
-import { previewEquipDelta } from '@core/life/equipment';
+import { combatPowerScore, previewEquipDelta } from '@core/life/equipment';
 import { inkArtUrl } from './inkAssets';
 
 export const EQUIPMENT_SLOTS: GearSlot[] = ['weapon', 'armor', 'accessory'];
 export const EQUIPMENT_LABEL: Record<GearSlot, string> = { weapon: '武器', armor: '護甲', accessory: '飾品' };
 export const EQUIPMENT_RARITIES: GearRarity[] = ['common', 'fine', 'rare', 'epic', 'mythic', 'divine'];
 export type EquipmentSort = 'power' | 'rarity' | 'name';
+
+/** 單件裝備戰意沿用現有公式；影子配搭不寫入人物、資源或存檔。 */
+export function equipmentPiecePower(c: LifeCharacter, def: GearDef): number {
+  return combatPowerScore({ ...c, gear: [...(c.gear ?? [])], equipment: { weapon: null, armor: null, accessory: null, [def.slot]: def.id } });
+}
 
 /** 只列真持有且類型相符的裝備；篩選與排序不回寫人物或存檔。 */
 export function equipmentCandidates(c: LifeCharacter, slot: GearSlot, rarity: GearRarity | 'all', sort: EquipmentSort): GearDef[] {

@@ -1,0 +1,231 @@
+@font-face {
+  font-family:'Jianghu Brush TC';
+  src:url('../../assets/fonts/parchment-brush.woff2') format('woff2');
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+}
+:root {
+  --ui-paper:#f8f1e3;
+  --ui-ink:#25241f;
+  --ui-red:#a43c30;
+  --ui-frame:url('/ink/art/parchment-ui/paper-rim.webp');
+  --ui-fiber:url('/ink/art/parchment-ui/paper-fiber.webp');
+  --ui-selected:url('/ink/art/parchment-ui/brush-selected-reference.webp');
+  --ui-brush:url('/ink/art/parchment-ui/brush-confirm.webp');
+  --ui-underline:url('/ink/art/parchment-ui/brush-underline.webp');
+  --ui-caption:url('/ink/art/parchment-ui/brush-caption.webp');
+  --ui-delta:url('/ink/art/parchment-ui/brush-delta.webp');
+  --ui-card:url('/ink/art/parchment-ui/card-mountain-paper.webp');
+  --ui-title:'Jianghu Brush TC','Jianghu Wuxia Titles','Noto Serif TC',serif;
+  --font-wuxia-title:var(--ui-title);
+  --wuxia-frame-neutral:var(--ui-frame);
+  --wuxia-frame-selected:var(--ui-selected);
+  --wuxia-frame-panel:var(--ui-frame);
+  --wuxia-frame-rare:var(--ui-frame);
+}
+.ink-visually-hidden { position:absolute!important; width:1px!important; height:1px!important; padding:0!important; margin:-1px!important; overflow:hidden!important; clip-path:inset(50%); white-space:nowrap; border:0!important; }
+
+/* 全遊戲紙框共用九宮格；不改原有版面高度及互動區域。 */
+body :is(.ink-panel,.ink-modal-card,.ink-codex-sheet,.ink-person-sheet,.ink-idle-dialog,.ink-offline-modal-card,.ink-task-bar,.ink-spar-explain,.ink-home-quick,.ink-enc-summary) {
+  position:relative;
+  isolation:isolate;
+  background:var(--ui-fiber) center/384px repeat,var(--ui-paper);
+  border-color:transparent;
+  box-shadow:none;
+  backdrop-filter:none;
+  color:var(--ui-ink);
+}
+body :is(.ink-codex-sheet,.ink-person-sheet,.ink-idle-dialog) { position:fixed; }
+body :is(.ink-panel,.ink-modal-card,.ink-codex-sheet,.ink-person-sheet,.ink-idle-dialog,.ink-offline-modal-card,.ink-task-bar,.ink-spar-explain,.ink-home-quick,.ink-enc-summary)::before {
+  content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
+  border:8px solid transparent; border-image:var(--ui-frame) 48 / 1 / 0 stretch;
+  background:none; opacity:1; border-radius:0;
+}
+body :is(.ink-panel,.ink-modal-card,.ink-person-sheet)::after { display:none; }
+body :is(.ink-school-pool,.ink-main-arts,.ink-main-slot,.ink-skill-card,.ink-shelf-row,.ink-pull-card,.ink-school-pool-preview li,.ink-tap-card-open,.ink-person-more button,.ink-person-native-menu > button,.ink-attr-grid > div,.ink-gear-slot,.ink-board-list li,.online-peer,.ink-bracket-match) {
+  background:var(--ui-fiber) center/384px repeat,var(--ui-paper);
+  border-color:transparent; box-shadow:none;
+}
+body .scroll-shell--play :is(.ink-school-tabs button,.ink-school-pool,.ink-school-pool-preview li,.ink-main-arts,.ink-main-slot,.ink-skill-card,.ink-shelf-row,.ink-pull-card,.ink-school-tag,.ink-school-seal)::before {
+  border-image-source:var(--ui-frame); border-image-slice:48; border-width:6px;
+  background:var(--ui-fiber) center/384px repeat,var(--ui-paper);
+}
+body .scroll-shell--play :is(.ink-school-tabs button[aria-pressed='true'],.ink-pull-card.is-wish,.ink-school-row.is-major .ink-school-seal)::before {
+  border-image-source:var(--ui-selected); border-image-slice:13; border-width:4px;
+}
+body :is(.ink-panel > h3,.ink-modal-card > h2,.ink-modal-card > h3,.ink-codex-sheet > header h3,.ink-person-sheet > header h2,.ink-idle-dialog > header h2,.ink-offline-modal-card > h2,.ink-person-top h2,.ink-codex-heading h3,.ink-gacha h3.ink-gacha-title) {
+  font-family:var(--ui-title)!important; font-weight:700; letter-spacing:.04em; color:#171916;
+  padding:0 0 8px; border:0;
+  background:var(--ui-underline) center bottom/150px 4px no-repeat;
+}
+body :is(.ink-panel > h3,.ink-modal-card > h3,.ink-modal-card > h2,.ink-codex-sheet > header h3) { font-size:27px; line-height:1.3; }
+body .ink-btn { position:relative; box-shadow:none; }
+body .ink-btn:not(.ink-btn--primary) { background:var(--ui-fiber) center/320px repeat,var(--ui-paper); border-color:#c6bba6; }
+body .ink-btn--primary { background:var(--ui-brush) center/100% 100% no-repeat; background-color:transparent; border-color:transparent; color:#fff9e9; }
+body .ink-btn--primary::before,body .ink-btn--primary::after { display:none; }
+body .ink-btn--primary:disabled { color:#fff7e9; }
+body :is(dialog,.ink-modal-card,.ink-offline-modal-card) button { touch-action:manipulation; }
+
+/* 人物上半幅使用原圖的題字及朱砂資訊牌。 */
+body .ink-person-top h2 { font-size:32px; line-height:1.25; }
+body .ink-person-top > button { display:flex; align-items:center; gap:5px; font-size:14px; font-weight:700; }
+body .ink-person-top > button::before { content:''; width:30px; height:34px; flex:none; background:url('/ink/art/parchment-ui/icon-back.webp') center/contain no-repeat; }
+body .ink-person-identity h3 { font-family:var(--ui-title)!important; font-size:35px; line-height:1.15; font-weight:700; }
+body .ink-person-identity p { font-family:var(--ui-title)!important; font-weight:700; font-size:17px; }
+body .ink-person-summary > div:first-child { background:var(--ui-brush) center/100% 100% no-repeat; padding:2px 14px; color:#fff8e9; }
+body .ink-person-summary > div:first-child strong { color:#fff8e9; font-size:22px; }
+body .ink-person-presets button { border:0; border-radius:0; padding:4px 8px; font-weight:700; }
+body .ink-person-presets button[aria-selected='true'] { background-image:var(--ui-brush); }
+body .ink-person-overview[data-equipment-open='true'] .ink-person-stage { overflow:visible; }
+body .ink-person-overview[data-equipment-open='true'] .ink-person-seated-hero { top:-32px; bottom:auto; height:min(390px,52dvh); object-position:center top; }
+body .ink-person-overview[data-equipment-open='true'] .ink-person-gear-slot--weapon { top:30px; }
+body .ink-person-overview[data-equipment-open='true'] .ink-person-gear-slot--armor { top:-5px; }
+body .ink-person-overview[data-equipment-open='true'] .ink-person-gear-slot--accessory { top:112px; bottom:auto; }
+
+/* 更換武器：原圖的底部宣紙、三欄器物格、雙欄比較及朱砂確認。 */
+body .ink-person-sheet { border:0; padding:8px 16px max(9px,env(safe-area-inset-bottom,0px)); }
+body .ink-person-sheet::before { border-width:7px; }
+body .ink-person-sheet > header { position:relative; flex:none; justify-content:center; border:0; min-height:44px; padding:0; }
+body .ink-person-sheet > header h2 { margin:0; font-size:29px; line-height:1.25; padding-bottom:6px; background-size:170px 4px; }
+body .ink-person-sheet > header > button { position:absolute; right:0; top:0; display:flex; justify-content:center; align-items:center; gap:4px; min-width:59px; min-height:44px; padding:0; border:0; background:transparent; font-size:13px; font-weight:700; }
+body .ink-person-sheet > header > button img { width:22px; height:22px; object-fit:contain; }
+body .ink-equipment-picker { height:60.5dvh; max-height:calc(100dvh - env(safe-area-inset-top,0px) - 6px); }
+body .ink-equipment-picker[open] { gap:5px; }
+body .ink-equipment-filters { width:72%; margin:0 auto; gap:14px; }
+body .ink-equipment-filters > button { display:flex; align-items:center; justify-content:center; gap:12px; min-height:44px; padding:3px 7px; border-radius:9px; border:1px solid #b9b4a9; background:#fcf8eee8; font-size:13px; font-weight:700; position:relative; }
+body .ink-equipment-filters > button::before { content:''; position:absolute; inset:-4px 0; }
+body .ink-equipment-filters img { width:10px; height:8px; object-fit:contain; }
+body .ink-equipment-bag { position:relative; min-height:75px; scrollbar-width:thin; scrollbar-color:#948c7c #ece5d5; padding-right:5px; }
+body .ink-equipment-grid { gap:6px; padding:1px 3px; align-content:start; }
+body .ink-equipment-item { position:relative; min-height:96px; height:96px; padding:2px 3px 3px; border:0; background:var(--ui-card) center/100% 100% no-repeat; gap:0; border-radius:3px; }
+body .ink-equipment-item[aria-pressed='true'] { outline:0; background:var(--ui-card) center/100% 100% no-repeat; }
+body .ink-equipment-item[aria-pressed='true']::after { content:''; position:absolute; inset:0; background:var(--ui-selected) center/100% 100% no-repeat; pointer-events:none; }
+body .ink-equipment-item > img { width:100%; max-width:110px; height:61px; flex:none; object-fit:contain; }
+body .ink-equipment-item > strong { display:block; flex:none; width:100%; font-size:12px; line-height:16px; font-weight:700; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#252822; }
+body .ink-equipment-item > span { font-size:12px; line-height:15px; color:#676258; }
+body .ink-equipment-item > span b { font-size:13px; }
+body .ink-equipment-item[aria-pressed='true'] > span b { color:var(--ui-red); }
+body .ink-equipment-options button { border:0; background:var(--ui-card) center/100% 100% no-repeat; }
+body .ink-equipment-options button[aria-pressed='true'] { outline:2px solid var(--ui-red); outline-offset:-2px; }
+body .ink-equipment-compare { display:grid; grid-template-columns:minmax(0,1fr) 28px minmax(0,1fr); gap:4px; align-items:center; border:0; padding-top:1px; }
+body .ink-equipment-column { min-width:0; align-self:start; }
+body .ink-equipment-column > h3 { margin:0 0 3px; padding:3px 7px; font-size:12px; line-height:17px; background:var(--ui-caption) center/100% 100% no-repeat; font-weight:700; color:#24261f; }
+body .ink-equipment-column-body { display:grid; grid-template-columns:46px minmax(0,1fr); gap:5px; align-items:start; }
+body .ink-equipment-column-body > img,body .ink-equipment-empty-art { width:46px; height:52px; object-fit:contain; background:var(--ui-card) center/100% 100%; border-radius:3px; }
+body .ink-equipment-empty-art { display:grid; place-items:center; color:#766f60; }
+body .ink-equipment-column-values { min-width:0; }
+body .ink-equipment-name { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; width:100%; min-height:23px; padding:0; margin:0 0 1px; border:0; background:transparent; font-size:12px; line-height:16px; font-weight:700; text-align:left; }
+body .ink-equipment-name::before { content:''; position:absolute; inset:0; }
+body .ink-equipment-column-values { position:relative; }
+body .ink-equipment-stat-deltas { display:block; margin:0; font-size:12px; line-height:17px; }
+body .ink-equipment-stat-deltas > div { display:flex; align-items:baseline; justify-content:space-between; gap:3px; }
+body .ink-equipment-stat-deltas dt { color:#5d584e; white-space:nowrap; }
+body .ink-equipment-stat-deltas dd { display:flex; align-items:baseline; justify-content:flex-end; gap:2px; margin:0; font-weight:700; }
+body .ink-equipment-stat-deltas dd > span { display:inline-block; min-width:25px; margin-left:3px; text-align:center; color:#fff8e9; font-size:11px; line-height:17px; background:var(--ui-delta) center/100% 100% no-repeat; }
+body .ink-equipment-stat-deltas dd > span.is-down { color:#514b40; background:var(--ui-caption) center/100% 100% no-repeat; }
+body .ink-equipment-arrow { width:28px; height:32px; object-fit:contain; margin-top:20px; }
+body .ink-equipment-confirm { align-self:center; width:88%; min-height:48px; height:48px; padding:2px 12px 7px; font:700 28px/1.3 var(--ui-title)!important; color:#fff8ec!important; background:var(--ui-brush) center/100% 100% no-repeat; }
+body .ink-equipment-confirm:disabled { opacity:.48; }
+body .ink-equipment-affixes { padding:2px 5px; }
+body .ink-equipment-affixes > button { border:0; background:var(--ui-caption) center/100% 90% no-repeat; }
+body .ink-equipment-affixes article { border-bottom:1px solid #c7baa2; padding:2px 0 8px; }
+body .ink-equipment-affixes h3 { font-size:18px; margin:6px 0; }
+body .ink-equipment-affixes p,body .ink-equipment-affixes ul { margin:5px 0; }
+body .ink-equipment-picker::backdrop { background:#25251e24; }
+@media(max-height:650px) {
+  body .ink-person-identity h3 { font-size:27px; }
+  body .ink-person-identity p { font-size:14px; }
+  body .ink-person-top h2 { font-size:29px; }
+  body .ink-equipment-picker { height:83dvh; }
+  body .ink-person-sheet { padding-inline:11px; }
+  body .ink-equipment-filters { width:78%; }
+  body .ink-equipment-item { height:88px; min-height:88px; }
+  body .ink-equipment-item > img { height:53px; }
+  body .ink-person-overview[data-equipment-open='true'] .ink-person-seated-hero { top:-10px; height:285px; }
+  body .ink-person-sheet > header h2 { font-size:26px; }
+}
+@media(min-height:900px) { body .ink-equipment-item { height:106px; min-height:106px; } body .ink-equipment-item > img { height:71px; } }
+
+/* 細節對照修正：黑墨名稱、白字朱砂增益、三列完整可閱。 */
+body .ink-equipment-picker .ink-equipment-item > strong { color:#252822; }
+body .ink-equipment-picker .ink-equipment-stat-deltas dd > span.is-up { color:#fff9ed; }
+body .ink-equipment-picker .ink-equipment-stat-deltas dd > span.is-down { color:#514b40; }
+body .ink-equipment-column > h3 { font-size:12px; line-height:15px; padding:1px 7px; margin-bottom:2px; }
+body .ink-equipment-name { min-height:18px; line-height:16px; }
+body .ink-equipment-item { height:85px; min-height:85px; }
+body .ink-equipment-item > img { height:50px; }
+body .ink-person-overview[data-equipment-open='true'] .ink-person-seated-hero { top:-72px; }
+body .ink-person-overview[data-equipment-open='true'] .ink-person-gear-slot--weapon { top:-10px; }
+body .ink-person-overview[data-equipment-open='true'] .ink-person-gear-slot--armor { top:-40px; }
+body .ink-person-overview[data-equipment-open='true'] .ink-person-gear-slot--accessory { top:48px; }
+body .ink-person-overview[data-equipment-open='true'] .ink-person-gear-slot > .ink-badge { width:56px!important; height:56px!important; }
+@media(max-height:650px) {
+  body .ink-equipment-item { height:82px; min-height:82px; }
+  body .ink-equipment-item > img { height:47px; }
+  body .ink-person-overview[data-equipment-open='true'] .ink-person-gear-slot--weapon { top:0; }
+  body .ink-person-overview[data-equipment-open='true'] .ink-person-gear-slot--armor { top:0; }
+  body .ink-person-overview[data-equipment-open='true'] .ink-person-gear-slot--accessory { top:78px; }
+}
+@media(min-height:900px) { body .ink-equipment-item { height:98px; min-height:98px; } body .ink-equipment-item > img { height:63px; } }
+
+/* 小冊、名冊、任務及中性操作亦沿用同一框邊，不為器物牌章另加外框。 */
+body :is(.ink-tap-card-open,.ink-person-more button,.ink-person-native-menu > button,.ink-attr-grid > div,.ink-gear-slot,.ink-board-list li,.online-peer,.ink-bracket-match,.ink-gear-compare-col,.ink-quick) { position:relative; isolation:isolate; background:var(--ui-fiber) center/384px repeat,var(--ui-paper); border-color:transparent; }
+body :is(.ink-tap-card-open,.ink-person-more button,.ink-person-native-menu > button,.ink-attr-grid > div,.ink-gear-slot,.ink-board-list li,.online-peer,.ink-bracket-match,.ink-gear-compare-col,.ink-quick)::before { content:''; position:absolute; inset:0; border:6px solid transparent; border-image:var(--ui-frame) 48 / 1 / 0 stretch; background:none; pointer-events:none; }
+body .ink-btn:not(.ink-btn--primary)::before { content:''; position:absolute; inset:0; border:4px solid transparent; border-image:var(--ui-frame) 48 / 1 / 0 stretch; pointer-events:none; background:none; }
+body :is(.ink-panel > h3,.ink-modal-card > h3,.ink-modal-card > h2,.ink-codex-sheet > header h3) { text-align:center; }
+body :is(.ink-modal-card,.ink-panel,.ink-codex-sheet) :is(input[type='text'],input[type='number'],input[type='password'],select,textarea) { border-color:#b7aa95; background:var(--ui-fiber) center/384px repeat,#fcf8ef; border-radius:5px; color:var(--ui-ink); }
+body :is(.ink-panel,.ink-modal-card,.ink-codex-sheet,.ink-person-sheet) :is(button,input,select,textarea):focus-visible { outline:2px solid var(--ui-red); outline-offset:2px; }
+body :is(.ink-modal-card,.ink-codex-sheet,.ink-idle-dialog,.ink-offline-modal-card) > header :is(h2,h3) { font-family:var(--ui-title)!important; font-size:27px; font-weight:700; padding-bottom:7px; background:var(--ui-underline) center bottom/130px 4px no-repeat; }
+body .ink-settings-label { background:var(--ui-caption) left center/160px 100% no-repeat; padding-left:7px; }
+
+/* 實際長姓名／未列名亦不會與右側裝備互蓋。 */
+body .ink-person-overview { position:relative; }
+body .ink-person-summary > div:last-child { position:absolute; right:18px; top:107px; width:84px; display:flex; flex-direction:column; align-items:center; gap:0; line-height:1.25; }
+body .ink-person-summary > div:last-child span { font-size:12px; }
+body .ink-person-summary > div:last-child strong { font-size:18px; }
+body .ink-person-summary > div:first-child { position:relative; z-index:2; }
+body .ink-equipment-item { height:82px; min-height:82px; padding:0 3px 1px; }
+body .ink-equipment-item > img { height:54px; }
+body .ink-equipment-item > strong { line-height:14px; }
+body .ink-equipment-item > span { line-height:13px; }
+body :is(.ink-modal-card,.ink-codex-sheet,.ink-person-sheet,.ink-idle-dialog,.ink-offline-modal-card) { font-family:var(--game-ui-font); }
+body :is(.ink-modal-card,.ink-codex-sheet,.ink-idle-dialog,.ink-offline-modal-card) :is(p,span,small,dt,dd,label,input,select,textarea,button) { font-family:var(--game-ui-font); }
+body :is(.ink-audio-row,.ink-cloud-account) { position:relative; isolation:isolate; background:var(--ui-fiber) center/384px repeat,var(--ui-paper); border-color:transparent; box-shadow:none; }
+body :is(.ink-audio-row,.ink-cloud-account)::before { content:''; position:absolute; inset:0; border:6px solid transparent; border-image:var(--ui-frame) 48 / 1 / 0 stretch; pointer-events:none; }
+body .ink-audio-toggle { background:var(--ui-caption) center/100% 100% no-repeat; border:0; color:var(--ui-ink); }
+body .ink-audio-toggle[aria-pressed='true'] { background-image:var(--ui-brush); color:#fff9ed; }
+@media(min-height:900px) { body .ink-equipment-item { height:95px; min-height:95px; } body .ink-equipment-item > img { height:67px; } }
+body .ink-audio-switch { background:var(--ui-caption) center/100% 100% no-repeat; min-height:44px; border:0; color:var(--ui-ink); }
+body .ink-audio-switch.is-on { background-image:var(--ui-brush); color:#fff9ed; }
+body :is(.ink-audio-row,.ink-cloud-card,.ink-ancestry-row) { position:relative; isolation:isolate; background:var(--ui-fiber) center/384px repeat,var(--ui-paper); border-color:transparent; box-shadow:none; }
+body :is(.ink-audio-row,.ink-cloud-card,.ink-ancestry-row)::before { content:''; position:absolute; inset:0; border:6px solid transparent; border-image:var(--ui-frame) 48 / 1 / 0 stretch; pointer-events:none; }
+body :is(.ink-codex-sheet > header > button,.ink-settings-head > .ink-icon-btn) { display:flex; align-items:center; justify-content:center; gap:4px; min-height:44px; min-width:64px; border:0; background:transparent; padding:0; font-size:14px; }
+body .ink-settings-toggle { background:var(--ui-caption) left/100% 100% no-repeat; border-color:transparent; }
+
+/* 逐頁實測後補齊：修煉選項、抽取按鈕、收成／任務及帳戶紙框。 */
+body :is(.ink-hud-settings,.ink-task-popover,.ink-person-attributes,.ink-person-actions button,.ink-practice-btn,.ink-account-rows,.ink-codex-heading-actions button,.ink-codex-banners button,.ink-codex-school-picker,.ink-codex-volume > button,.ink-codex-wish,.ink-codex-odds) { position:relative; isolation:isolate; background:var(--ui-fiber) center/384px repeat,var(--ui-paper); border-color:transparent; box-shadow:none; }
+body :is(.ink-hud-settings,.ink-task-popover,.ink-person-attributes,.ink-person-actions button,.ink-practice-btn,.ink-account-rows,.ink-codex-heading-actions button,.ink-codex-banners button,.ink-codex-school-picker,.ink-codex-volume > button,.ink-codex-wish,.ink-codex-odds)::before { content:''; position:absolute; inset:0; border:6px solid transparent; border-image:var(--ui-frame) 48 / 1 / 0 stretch; background:none; pointer-events:none; }
+body .ink-home-scene { border-image:var(--ui-frame) 48 / 6px / 0 stretch; box-shadow:none; }
+body .scroll-shell--play .ink-codex-banners button[aria-selected='true'] { color:#fff8e9; background:var(--ui-brush) center/100% 100% no-repeat; border-color:transparent; }
+body .scroll-shell--play .ink-codex-banners button[aria-selected='true']::before { display:none; }
+body .scroll-shell--play .ink-codex-pulls > button { position:relative; background:var(--ui-fiber) center/384px repeat,var(--ui-paper); color:var(--ui-red); border-color:transparent; border-image:var(--ui-frame) 48 / 6px / 0 stretch; box-shadow:none; }
+body .scroll-shell--play .ink-codex-pulls > button + button { background:var(--ui-brush) center/100% 100% no-repeat; color:#fff8e9; border-image:none; }
+body .ink-settings-toggle.is-on { background:var(--ui-caption) center/100% 100% no-repeat; border-color:transparent; color:var(--ui-ink); }
+/* 任務浮層保留原來的絕對定位，紙框不推動演武及主頁。 */
+body .ink-task-popover { position:absolute; }
+body .scroll-shell--play.scroll-shell--gacha .ink-panel.ink-codex-page { border-color:transparent; background:var(--ui-fiber) center/384px repeat,var(--ui-paper); }
+body .scroll-shell--play.scroll-shell--gacha .ink-panel.ink-codex-page::before { display:block; }
+body .ink-online .online-frame::before { border-width:6px; border-image:var(--ui-frame) 48 / 1 / 0 stretch; background:var(--ui-fiber) center/384px repeat,var(--ui-paper); }
+body .ink-online button.online-frame[aria-pressed='true']::before { border-image-source:var(--ui-selected); border-image-slice:13; }
+body .ink-online .online-loadout select { border-image:var(--ui-frame) 48 / 6px / 0 stretch; }
+/* 原稿的確認筆觸留出兩側紙邊，欄位題簽用相同磨邊紙材。 */
+body .ink-equipment-confirm { width:80%; }
+body .ink-person-presets { border-radius:22px; overflow:hidden; background:var(--ui-fiber) center/320px repeat,var(--ui-paper); }
+body .ink-person-gear-slot > strong { min-width:58px; padding:0 7px; border:1px solid transparent; border-image:var(--ui-frame) 48 / 4px / 0 stretch; background:var(--ui-fiber) center/320px repeat,var(--ui-paper); }
+body .ink-person-gear-slot > small { background:transparent; color:var(--ui-ink); font-weight:600; }
+/* 短屏讓立體主體按可用高度收縮；成本與抽取維持完整觸控範圍。 */
+@media(max-height:700px) {
+  body .scroll-shell--play.scroll-shell--gacha .ink-codex-theatre { flex:1 1 120px; min-height:60px; }
+  body .scroll-shell--play.scroll-shell--gacha .ink-codex-pulls { position:sticky; bottom:0; z-index:3; margin-block:6px; background:var(--ui-fiber) center/384px repeat,var(--ui-paper); }
+}

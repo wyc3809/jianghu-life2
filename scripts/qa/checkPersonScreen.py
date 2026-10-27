@@ -45,11 +45,12 @@ with sync_playwright() as p:
    if record:shot(page,'03-after-person.png')
    before=snapshots(page);d=picker(page,'武器');assert d.locator('[data-gear-id="plain-robe"]').count()==0
    select_item(page,'iron-blade');assert snapshots(page)==before
-   assert '4 → 10' in d.locator('.ink-equipment-stat-deltas').inner_text()
+   assert '4 → 10' in d.locator('.ink-equipment-compare').text_content()
+   assert d.locator('.ink-equipment-column').first.locator('dd').all_text_contents()==['4','0']
    if record:shot(page,'04-after-picker.png')
    close(page,'更換武器');assert snapshots(page)==before
-   d=picker(page,'武器');tap(page,'全部品質 ▾');tap(page,'良品');assert d.locator('.ink-equipment-item').evaluate_all('es=>es.every(e=>e.classList.contains("is-fine"))')
-   tap(page,'戰意優先 ▾');tap(page,'名稱排序');select_item(page,'iron-blade')
+   d=picker(page,'武器');tap(page,'全部品質');tap(page,'良品');assert d.locator('.ink-equipment-item').evaluate_all('es=>es.every(e=>e.classList.contains("is-fine"))')
+   tap(page,'戰力優先');tap(page,'名稱排序');select_item(page,'iron-blade')
    page.get_by_role('button',name='換上',exact=True).evaluate('e=>{e.click();e.click()}');stable(page)
    assert not page.locator('dialog[open]').count() and not page.get_by_role('dialog',name='結果',exact=True).count()
    after=snapshots(page);assert after['equipment']['weapon']=='iron-blade' and after['duel']==before['duel']

@@ -1,0 +1,76 @@
+{
+  "assets": [
+    {
+      "file": "public/ink/art/parchment-ui/brush-caption.webp",
+      "bytes": 44958,
+      "sha256": "a44378a111f45d5c4777cc1475ec14837a6cebab682a3524aa7b87d950426630"
+    },
+    {
+      "file": "public/ink/art/parchment-ui/brush-confirm.webp",
+      "bytes": 156326,
+      "sha256": "bd775d3beb30e488286b376998c416e9c279b4ed81b64cf2c04744cd438c166f"
+    },
+    {
+      "file": "public/ink/art/parchment-ui/brush-delta.webp",
+      "bytes": 18800,
+      "sha256": "5dd2a4c9ae752d847a7ef7f7fbfd6bb9d64b1e01bc1a4d516e22f7cad62d2b1c"
+    },
+    {
+      "file": "public/ink/art/parchment-ui/brush-selected-reference.webp",
+      "bytes": 20612,
+      "sha256": "d1229e371606e1ebd15012511cfeedd7c3bee7c589cdc92db18b9d8b4588141c"
+    },
+    {
+      "file": "public/ink/art/parchment-ui/brush-selected.webp",
+      "bytes": 33610,
+      "sha256": "4d5c2eb8bf9c6fe74aa9e05873710ac9e0f0e94a80e1f0be8b2effe22a23405a"
+    },
+    {
+      "file": "public/ink/art/parchment-ui/brush-underline.webp",
+      "bytes": 34390,
+      "sha256": "74b2a3a1b3ea432dc952b13b05552cecc1775630038446f0df5f194cf2fc5d84"
+    },
+    {
+      "file": "public/ink/art/parchment-ui/card-mountain-paper.webp",
+      "bytes": 89564,
+      "sha256": "c022cb4c7b43ecde4c7ea9c2df8561bad89fba9c4bade8250d8f9b0d737008b6"
+    },
+    {
+      "file": "public/ink/art/parchment-ui/icon-arrow.webp",
+      "bytes": 2628,
+      "sha256": "78f6da76561b197bdc119c4d35a6aeac215822f9d1d8cb300d984f354cbaef0b"
+    },
+    {
+      "file": "public/ink/art/parchment-ui/icon-back.webp",
+      "bytes": 3780,
+      "sha256": "7c3178bbb008486e3b1e4f979228541fbc601c94103d43c0e4e3dfb51acdc33e"
+    },
+    {
+      "file": "public/ink/art/parchment-ui/icon-caret.webp",
+      "bytes": 342,
+      "sha256": "b7f0159e55c03d76069563882887fa213206c84fa1e13d9d17d4fe48be736650"
+    },
+    {
+      "file": "public/ink/art/parchment-ui/icon-close.webp",
+      "bytes": 1236,
+      "sha256": "1d9c7310979ca254ec9d2f7c168acf3c1217812128ae4188ee81b0dc75e7952a"
+    },
+    {
+      "file": "public/ink/art/parchment-ui/paper-fiber.webp",
+      "bytes": 30622,
+      "sha256": "a9d550bd3be13993391725e5a74c59f871714b82bafa574c8f973e56fd72db10"
+    },
+    {
+      "file": "public/ink/art/parchment-ui/paper-panel.webp",
+      "bytes": 183496,
+      "sha256": "f9b45ee65b1b0780f21aa948b7649a13bd2fe235778b317e05e615ea40010526"
+    },
+    {
+      "file": "public/ink/art/parchment-ui/paper-rim.webp",
+      "bytes": 249896,
+      "sha256": "e47a272927856207e810142e3610d346f061c61b1fa099878618b8aa165e86b3"
+    }
+  ],
+  "totalRasterBytes": 870260,
+  "fontBytes": 1229532
+}

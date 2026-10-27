@@ -1,0 +1,113 @@
+{
+  "brush-confirm": {
+    "sourceCrop": [
+      20,
+      0,
+      1755,
+      300
+    ],
+    "runtimeSize": [
+      1536,
+      227
+    ],
+    "bytes": 156326,
+    "sha256": "bd775d3beb30e488286b376998c416e9c279b4ed81b64cf2c04744cd438c166f",
+    "alphaExtrema": [
+      0,
+      255
+    ]
+  },
+  "brush-underline": {
+    "sourceCrop": [
+      60,
+      299,
+      1720,
+      351
+    ],
+    "runtimeSize": [
+      1536,
+      42
+    ],
+    "bytes": 34390,
+    "sha256": "74b2a3a1b3ea432dc952b13b05552cecc1775630038446f0df5f194cf2fc5d84",
+    "alphaExtrema": [
+      0,
+      255
+    ]
+  },
+  "brush-caption": {
+    "sourceCrop": [
+      30,
+      355,
+      1750,
+      555
+    ],
+    "runtimeSize": [
+      1024,
+      108
+    ],
+    "bytes": 44958,
+    "sha256": "a44378a111f45d5c4777cc1475ec14837a6cebab682a3524aa7b87d950426630",
+    "alphaExtrema": [
+      0,
+      255
+    ]
+  },
+  "brush-delta": {
+    "sourceCrop": [
+      585,
+      552,
+      1190,
+      701
+    ],
+    "runtimeSize": [
+      384,
+      87
+    ],
+    "bytes": 18800,
+    "sha256": "5dd2a4c9ae752d847a7ef7f7fbfd6bb9d64b1e01bc1a4d516e22f7cad62d2b1c",
+    "alphaExtrema": [
+      0,
+      255
+    ]
+  },
+  "brush-selected": {
+    "sourceCrop": [
+      350,
+      697,
+      1406,
+      887
+    ],
+    "runtimeSize": [
+      1024,
+      173
+    ],
+    "bytes": 33610,
+    "sha256": "4d5c2eb8bf9c6fe74aa9e05873710ac9e0f0e94a80e1f0be8b2effe22a23405a",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "recommendedBorderImageSlice": 32
+  },
+  "brush-selected-reference": {
+    "source": "design/art/person-screen/selected-third.png",
+    "sourceCrop": [
+      35,
+      909,
+      297,
+      1132
+    ],
+    "runtimeSize": [
+      262,
+      223
+    ],
+    "recommendedBorderImageSlice": 13,
+    "bytes": 20612,
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "note": "Exact chosen reference pigment, center cleared; use as preferred card outline."
+  }
+}

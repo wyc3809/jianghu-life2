@@ -939,3 +939,57 @@
   padding-block: 6px; background: var(--paper-bright);
 }
 .root[data-subject='codex'][data-phase='settle'] .seal { opacity: 1; transform: none; filter: none; }
+
+/* 共用宣紙磨邊；獎勵身份、鏡頭及既有揭曉時序不變。 */
+.panel {
+  background:var(--ui-fiber) center/384px repeat,var(--ui-paper,#f8f1e3);
+  box-shadow:none;
+}
+.panel::before {
+  inset:0;
+  height:auto;
+  border:7px solid transparent;
+  border-image:var(--ui-frame) 48 / 1 / 0 stretch;
+  border-radius:0;
+  background:none;
+  pointer-events:none;
+}
+.panel::after { display:none; }
+.card {
+  border:5px solid transparent;
+  border-image:var(--ui-frame) 48 / 1 / 0 stretch;
+  background:var(--ui-card) center/100% 100% no-repeat,var(--ui-paper,#f8f1e3);
+  box-shadow:none;
+}
+.card[aria-pressed='true'] {
+  outline:none;
+  border-image-source:var(--ui-selected);
+  border-image-slice:13;
+}
+.inlay { display:none; }
+.title { font-family:var(--ui-title)!important; }
+.panelName { font-family:var(--game-ui-font,sans-serif); font-weight:700; }
+.root { --font:var(--game-ui-font,sans-serif); }
+.claim { background:var(--ui-brush) center/100% 100% no-repeat; font-family:var(--ui-title)!important; }
+.mode,.tag,.pill { background:var(--ui-fiber) center/384px repeat,var(--ui-paper,#f8f1e3); border-color:transparent; border-image:var(--ui-frame) 48 / 4px / 0 stretch; }
+/* 秘笈結果原有專用規則亦接紙框，保持短屏既有尺寸及固定完成區。 */
+.root[data-subject='codex'] .panel {
+  background:var(--ui-fiber) center/384px repeat,var(--ui-paper,#f8f1e3);
+  border-color:transparent;
+  box-shadow:none;
+}
+.root[data-subject='codex'] .panel::before { display:block; inset:0; height:auto; background:none; }
+.root[data-subject='codex'] .card {
+  background:var(--ui-card) center/100% 100% no-repeat,var(--ui-paper,#f8f1e3);
+  border-color:transparent;
+  border-image:var(--ui-frame) 48 / 5px / 0 stretch;
+  box-shadow:none;
+}
+.root[data-subject='codex'] .card[aria-pressed='true'] {
+  border-color:transparent;
+  border-image:var(--ui-selected) 13 / 4px / 0 stretch;
+  background:var(--ui-card) center/100% 100% no-repeat,var(--ui-paper,#f8f1e3);
+}
+.root[data-subject='codex'] :is(.title,.title span,.claim) { font-family:var(--ui-title)!important; }
+.root[data-subject='codex'] :is(.tag,.pill,.mute,.skip,:global(.ink-pull-equip-btn)) { background:var(--ui-fiber) center/384px repeat,var(--ui-paper,#f8f1e3); border-color:transparent; border-image:var(--ui-frame) 48 / 4px / 0 stretch; }
+.root[data-subject='codex'] .claimActions { background:var(--ui-fiber) center/384px repeat,var(--ui-paper,#f8f1e3); }

@@ -1,0 +1,47 @@
+{
+  "asset": "parchment-paper",
+  "reference": "design/art/person-screen/selected-third.png",
+  "reference_crop": [
+    0,
+    735,
+    853,
+    1844
+  ],
+  "generator": "built-in image generation tool",
+  "generated_original": "/workspace/generated_images/exec-3793ab52-40f0-4110-9da9-fedc47fc578c.png",
+  "source": "design/art/parchment-ui/sources/paper-panel-original.png",
+  "source_dimensions": [
+    1254,
+    1254
+  ],
+  "source_sha256": "7c10ecbe4537c1273ed2e4aa8375040e0b98387cc4adfeeab83dfc5c58d99c16",
+  "prompt": "design/art/parchment-ui/paper-panel.prompt.txt",
+  "processing": "design/art/parchment-ui/build-paper.py",
+  "runtime": {
+    "paper-panel.webp": {
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "use": "full quiet paper panel"
+    },
+    "paper-fiber.webp": {
+      "dimensions": [
+        768,
+        768
+      ],
+      "use": "cropped inner paper for reusable surface"
+    },
+    "paper-rim.webp": {
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "alpha": "true alpha; transparent center; 32px opaque edges +16px inner fade",
+      "nine_slice": 48,
+      "suggested_css_border_width_px": "7–10",
+      "use": "border-image, stretch or repeat sides"
+    }
+  },
+  "license": "Original generated game artwork; usage subject to provider terms. Reference is the selected design already preserved in this repository; no third-party stock incorporated."
+}

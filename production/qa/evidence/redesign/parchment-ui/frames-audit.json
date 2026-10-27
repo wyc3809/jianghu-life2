@@ -1,0 +1,60 @@
+{
+  "cases": [
+    {
+      "screen": "home",
+      "bordersWithoutNewMaterial": []
+    },
+    {
+      "screen": "settings",
+      "bordersWithoutNewMaterial": [
+        {
+          "tag": "DIV",
+          "cls": "ink-account-row",
+          "text": "最近存檔\n今日 17:35",
+          "border": "rgba(26, 26, 26, 0.14)",
+          "bg": "none"
+        },
+        {
+          "tag": "DIV",
+          "cls": "ink-account-row",
+          "text": "同步結果\n未同步 · 雲端服務未開通",
+          "border": "rgba(26, 26, 26, 0.14)",
+          "bg": "none"
+        }
+      ]
+    },
+    {
+      "screen": "person",
+      "bordersWithoutNewMaterial": []
+    },
+    {
+      "screen": "person-more",
+      "bordersWithoutNewMaterial": []
+    },
+    {
+      "screen": "skills",
+      "bordersWithoutNewMaterial": []
+    },
+    {
+      "screen": "skills-library",
+      "bordersWithoutNewMaterial": []
+    },
+    {
+      "screen": "practice",
+      "bordersWithoutNewMaterial": []
+    },
+    {
+      "screen": "gacha",
+      "bordersWithoutNewMaterial": []
+    },
+    {
+      "screen": "gacha-info",
+      "bordersWithoutNewMaterial": []
+    },
+    {
+      "screen": "family-library",
+      "bordersWithoutNewMaterial": []
+    }
+  ],
+  "pageerrors": []
+}

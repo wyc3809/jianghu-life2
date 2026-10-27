@@ -560,3 +560,10 @@
   opacity: 1;
 }
 
+
+/* 人物誌延用共用紙材；保留數值及原有展卷操作。 */
+.root { font-family:var(--game-ui-font,sans-serif); }
+.scroll { background:var(--ui-fiber) center/384px repeat,var(--ui-paper,#f8f1e3); box-shadow:none; }
+.scroll::before { content:''; position:absolute; inset:0; border:8px solid transparent; border-image:var(--ui-frame) 48 / 1 / 0 stretch; pointer-events:none; }
+.head h2 { font-family:var(--ui-title)!important; background:var(--ui-underline) center bottom/160px 4px no-repeat; padding-bottom:8px; }
+.corner { display:none; }

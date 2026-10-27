@@ -1,0 +1,63 @@
+{
+  "source": "design/art/person-screen/selected-third.png",
+  "sourceSha256": "515fa1cef11ed9b99e1d5045ee7449c0519324b891a3ed99645adf86c3b6a047",
+  "origin": "玩家選定的原創生成設計稿；只提取圖示，文字仍為可讀介面文字。",
+  "icons": [
+    {
+      "file": "public/ink/art/parchment-ui/icon-close.webp",
+      "sourceCrop": [
+        693,
+        766,
+        742,
+        813
+      ],
+      "dimensions": [
+        37,
+        35
+      ],
+      "sha256": "1d9c7310979ca254ec9d2f7c168acf3c1217812128ae4188ee81b0dc75e7952a"
+    },
+    {
+      "file": "public/ink/art/parchment-ui/icon-back.webp",
+      "sourceCrop": [
+        25,
+        18,
+        111,
+        120
+      ],
+      "dimensions": [
+        64,
+        64
+      ],
+      "sha256": "7c3178bbb008486e3b1e4f979228541fbc601c94103d43c0e4e3dfb51acdc33e"
+    },
+    {
+      "file": "public/ink/art/parchment-ui/icon-arrow.webp",
+      "sourceCrop": [
+        357,
+        1594,
+        443,
+        1684
+      ],
+      "dimensions": [
+        70,
+        46
+      ],
+      "sha256": "78f6da76561b197bdc119c4d35a6aeac215822f9d1d8cb300d984f354cbaef0b"
+    },
+    {
+      "file": "public/ink/art/parchment-ui/icon-caret.webp",
+      "sourceCrop": [
+        373,
+        861,
+        400,
+        885
+      ],
+      "dimensions": [
+        18,
+        12
+      ],
+      "sha256": "b7f0159e55c03d76069563882887fa213206c84fa1e13d9d17d4fe48be736650"
+    }
+  ]
+}

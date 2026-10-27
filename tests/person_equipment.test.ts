@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createNewLife } from '../core/life/gameState';
 import { getGearDef } from '../data/equipment/catalog';
-import { equipmentCandidates, equipmentStatRows } from '../src/ui/personEquipment';
+import { equipmentCandidates, equipmentPiecePower, equipmentStatRows } from '../src/ui/personEquipment';
 
 describe('人物換裝清單與比較',()=>{
   it('test_personEquipment_只顯示真持有同類裝備_排除其他欄位及重複',()=>{
@@ -21,5 +21,14 @@ describe('人物換裝清單與比較',()=>{
     expect(equipmentStatRows(blade,sword)).toContainEqual({label:'武學',before:2,after:0,delta:-2});
     expect(equipmentStatRows(null,null)).toEqual([]);
     expect(blade).toEqual(before);
+  });
+  it('test_personEquipment_單件戰力_沿用核心且不混入其他裝備或改動人物',()=>{
+    const c=createNewLife({seed:42}).character;
+    c.gear=['old-sword','iron-blade','pine-armor','cloud-boots'];
+    c.equipment={weapon:'old-sword',armor:'pine-armor',accessory:'cloud-boots'};
+    const before=structuredClone(c);
+    expect(equipmentPiecePower(c,getGearDef('iron-blade')!)).toBe(25);
+    expect(equipmentPiecePower(c,getGearDef('old-sword')!)).toBe(10);
+    expect(c).toEqual(before);
   });
 });
