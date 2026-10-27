@@ -615,6 +615,8 @@ export class Director {
   private burstToken() {
     this.setPhase('bursting');this.stopCharge?.();this.stopCharge=null;
     const A=this.A,b=this.burstScreen(),high=this.grade>=4,duration=this.reduce ? .16 : high ? 1.35 : 1.1;
+    // 減少動態直接用同一正面姿態，不能只加快整圈旋轉。
+    if (this.reduce) A.open = 1;
     A.jitter=0;this.refs.root.dataset.burst='1';
     sfx.explode(high ? .8 : .5);
     if(!this.reduce)this.flash(high ? .2 : .1,.35,b);
