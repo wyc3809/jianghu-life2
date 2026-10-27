@@ -1253,3 +1253,5 @@ iOS／Codemagic準備工程一併接入main，Apple版本保留1.0、build由App
 沒有更動core、data、content、interfaces、store、cloud、經濟、戰鬥、保底或存檔schema；不合併第46／47項未採用原型。實際前後圖、六組手機流程、六階正常演出、真修煉升階及抽取銜接見 `production/qa/evidence/redesign/martial-ui/README.md`。軟體GL繪製次數不等於真iPhone FPS；TestFlight已簽署上傳仍與網頁發布分開記錄。
 
 第51項驗收補充：112檔860項、正式Pages構建、narrate／copy通過；六組配搭手機流程、空／真長名稱、六階正常令牌、WebKit正常播放、320短屏減少動態／直接結果／缺圖／真正context失效均通過。真苦練升階及十連後導向比較確認亦通過，不重派或重扣。舊43與新7為待機GL呼叫（舊1DPR、新2DPR），不作真機FPS推論。玩家已授權此類完成後直接上線，EA0.96.0發布。
+
+第51項減少動態收尾（EA0.96.1）：最後覆核發現令牌揭面只縮短時間仍會整圈轉動，已改為在減少動態模式直接採用正面最終姿態，再短暫收束；一般演出與既有結算不變。補驗實際Director的open參數在bursting／revealing全程維持1，不只檢查能到結果。按既有授權直接補修發布。

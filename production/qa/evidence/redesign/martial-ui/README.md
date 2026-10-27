@@ -39,3 +39,7 @@ python3 scripts/qa/checkMartialToken.py
 真升階及抽取銜接亦可重跑`python3 scripts/qa/checkMartialPromotion.py`及`python3 scripts/qa/checkMartialGachaLink.py`，同樣使用隔離瀏覽器與真按鈕，不呼叫補派獎勵接口。
 
 EA0.96.0 Pages正式構建亦再走一次真苦練升階、完整令牌及連按完成，`promotion-pages.log`通過。版本字串升級沒有改學習、結算或升階觸發。
+
+## EA0.96.1 減少動態補修
+
+最終覆核發現0.96.0令牌揭面只將時間縮短，仍會快速轉一圈。0.96.1在減少動態時直接設定等價正面終姿，再作短收束；一般演出不變。`scripts/qa/checkTokenReduced.py`實例化真Director並記錄所有bursting／revealing的open寫入：一般模式有0–1中間值，減少動態全部為1；兩者牌身scale均為[1,1,1]。結果見`token-reduced-regression.json`，與舊的只檢查能到結果的測試分開。
