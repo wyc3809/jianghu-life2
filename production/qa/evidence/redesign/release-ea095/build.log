@@ -1,0 +1,40 @@
+
+> jianghu-engine@0.95.0-ea build
+> tsc --noEmit && vite build
+
+vite v6.4.3 building for production...
+transforming...
+✓ 518 modules transformed.
+rendering chunks...
+[plugin vite:reporter]
+(!) /workspace/jianghu-person-release-ea094/core/life/gameState.ts is dynamically imported by /workspace/jianghu-person-release-ea094/src/cloud/localBridge.ts but also statically imported by /workspace/jianghu-person-release-ea094/core/life/actions.ts, /workspace/jianghu-person-release-ea094/core/life/bonds.ts, /workspace/jianghu-person-release-ea094/core/life/combat.ts, /workspace/jianghu-person-release-ea094/core/life/cultivation.ts, /workspace/jianghu-person-release-ea094/core/life/eventEngine.ts, /workspace/jianghu-person-release-ea094/core/life/family.ts, /workspace/jianghu-person-release-ea094/core/life/foundedSect.ts, /workspace/jianghu-person-release-ea094/core/life/huashan.ts, /workspace/jianghu-person-release-ea094/core/life/jianghuEventRepository.ts, /workspace/jianghu-person-release-ea094/core/life/manualFragments.ts, /workspace/jianghu-person-release-ea094/core/life/outcomeResolver.ts, /workspace/jianghu-person-release-ea094/core/life/saveIndexedDb.ts, /workspace/jianghu-person-release-ea094/src/store/slices/progressionSlice.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter]
+(!) /workspace/jianghu-person-release-ea094/core/life/saveIndexedDb.ts is dynamically imported by /workspace/jianghu-person-release-ea094/src/cloud/localBridge.ts, /workspace/jianghu-person-release-ea094/src/cloud/localBridge.ts, /workspace/jianghu-person-release-ea094/src/cloud/localBridge.ts, /workspace/jianghu-person-release-ea094/src/components/ink/InkStartScreen.tsx but also statically imported by /workspace/jianghu-person-release-ea094/src/components/ink/InkCloudSection.tsx, /workspace/jianghu-person-release-ea094/src/components/ink/InkSaveStatus.tsx, /workspace/jianghu-person-release-ea094/src/store/lifeStore.ts, /workspace/jianghu-person-release-ea094/src/store/persistSchedule.ts, /workspace/jianghu-person-release-ea094/src/store/slices/progressionSlice.ts, dynamic import will not move module into another chunk.
+
+computing gzip size...
+dist/index.html                                 1.27 kB │ gzip:   0.59 kB
+dist/assets/wuxia-titles-DuK567Iq.woff2       210.12 kB
+dist/assets/parchment-brush-RAJW9hgu.woff2  1,229.53 kB
+dist/assets/InkOnlinePanel-DRfzmSAf.css         6.80 kB │ gzip:   1.87 kB
+dist/assets/DuelFx-C-t2mby_.css                 8.17 kB │ gzip:   2.43 kB
+dist/assets/HighlightFx-S__1fiPe.css           25.24 kB │ gzip:   5.51 kB
+dist/assets/index-aBHlLucu.css                275.76 kB │ gzip:  51.47 kB
+dist/assets/online-CR0V9DWu.js                  1.36 kB │ gzip:   0.87 kB
+dist/assets/HighlightDemo-BqTQNOQH.js           2.82 kB │ gzip:   1.52 kB
+dist/assets/CodexStage-J_OG2-rg.js              2.93 kB │ gzip:   1.51 kB
+dist/assets/codex-BqI5ACTX.js                   8.28 kB │ gzip:   3.39 kB
+dist/assets/InkOnlinePanel-D5dkgx-L.js         16.91 kB │ gzip:   6.51 kB
+dist/assets/DuelFx-DBGb3ENm.js                 34.63 kB │ gzip:  13.04 kB
+dist/assets/HighlightFx-CzTftQsk.js            58.49 kB │ gzip:  21.31 kB
+dist/assets/particles-CPZHKqCJ.js              76.32 kB │ gzip:  29.93 kB
+dist/assets/index-D5bMjAqh.js                 227.81 kB │ gzip:  59.26 kB
+dist/assets/vendor-BW_UMXlD.js                279.13 kB │ gzip:  84.43 kB
+dist/assets/three.module-B7jpce71.js          566.37 kB │ gzip: 143.31 kB
+dist/assets/index-DCzxlYq6.js               1,528.73 kB │ gzip: 560.02 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 11.57s

@@ -1,0 +1,7 @@
+CASE chromium 320 568
+CASE chromium 390 844
+CASE chromium 430 932
+CASE webkit 320 568
+CASE webkit 390 844
+CASE webkit 430 932
+TAP_INK_PASS 6

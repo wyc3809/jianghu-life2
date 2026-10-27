@@ -31,8 +31,8 @@ export function InkPersonOverview({ state, preset, busy, onPreset, onEquip, onVi
     {view:'attrs',label:'屬性與心性詳解'}, {view:'gear',label:'裝備與詞綴'}, {view:'genealogy',label:'族譜'},
     {view:'people',label:'人際'}, {view:'achievements',label:'成就'}, {view:'roots',label:'江湖根腳'},
   ];
-  return <section className="ink-person-overview" aria-label="人物與裝備">
-    <header className="ink-person-top"><button type="button" aria-label="返回鎮居" onClick={onBack}>‹ 返回</button><h2>人物</h2><span /></header>
+  return <section className="ink-person-overview" aria-label="人物與裝備" data-equipment-open={slot !== null}>
+    <header className="ink-person-top"><button type="button" aria-label="返回鎮居" onClick={onBack}>返回</button><h2>人物</h2><span /></header>
     <div className="ink-person-identity"><div><h3>{c.name}</h3><p>{currentCultivationTier(state).name}</p></div><div className="ink-person-presets" role="tablist" aria-label="配搭方案">{(['normal','duel'] as const).map(kind => <button key={kind} type="button" role="tab" aria-selected={preset === kind} onClick={() => {onPreset(kind);setNotice('');}}>{kind === 'normal' ? '普通配搭' : '對戰配搭'}</button>)}</div></div>
     <div className="ink-person-summary"><div><span>總戰力</span><strong>{combatRating(state).toLocaleString('zh-Hant')}</strong></div><div><span>江湖排名</span><strong>{rank >= JIANGHU_RANK_START ? '未列名' : rank.toLocaleString('zh-Hant')}</strong></div></div>
     <div className="ink-person-stage">

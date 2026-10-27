@@ -2,6 +2,7 @@
 import { Component, Suspense, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { InkPersonNativeContext } from './InkPersonSheet';
+import { inkArtUrl } from '../../ui/inkAssets';
 import { HighlightFxLazy, canUseWebGL, type HighlightConfig, type RewardCard } from '../../fx/highlight';
 import { gachaRewardImageUrl } from '../../fx/highlight/codexAppearance';
 
@@ -23,7 +24,7 @@ export function GachaSheet({ title, onClose, children }: { title: string; onClos
     return () => { el.close(); previous?.focus(); };
   }, []);
   return createPortal(<dialog ref={ref} className={`ink-codex-sheet${native ? ' ink-person-dialog' : ''}`} aria-label={title} onCancel={event => { event.preventDefault(); onClose(); }}>
-    <header><h3>{title}</h3><button type="button" aria-label={`關閉${title}`} onClick={onClose}>收起</button></header>
+    <header><h3>{title}</h3><button type="button" aria-label={`關閉${title}`} onClick={onClose}><img src={inkArtUrl('art/parchment-ui/icon-close.webp')} alt="" width="22" height="22" />收起</button></header>
     <div className="ink-codex-sheet-body">{children}</div>
   </dialog>, document.body);
 }

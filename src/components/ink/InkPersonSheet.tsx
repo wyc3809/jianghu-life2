@@ -1,6 +1,7 @@
 import { createContext, useEffect, useRef, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import './person-screen.css';
+import { inkArtUrl } from '../../ui/inkAssets';
 
 export const InkPersonNativeContext = createContext(false);
 
@@ -14,7 +15,7 @@ export function InkPersonSheet({ title, onClose, children, className = '' }: { t
   }, []);
   return createPortal(<dialog ref={ref} className={`ink-person-sheet ${className}`} aria-label={title}
     onCancel={event => { event.preventDefault(); onClose(); }}>
-    <header><h2>{title}</h2><button type="button" aria-label={`關閉${title}`} onClick={onClose}>收起</button></header>
+    <header><h2>{title}</h2><button type="button" aria-label={`關閉${title}`} onClick={onClose}><img src={inkArtUrl('art/parchment-ui/icon-close.webp')} alt="" width="24" height="24" />收起</button></header>
     {children}
   </dialog>, document.body);
 }

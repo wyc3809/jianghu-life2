@@ -1,0 +1,27 @@
+{
+  "asset": "card-mountain-paper",
+  "reference": "design/art/person-screen/selected-third.png",
+  "reference_crop": [
+    37,
+    914,
+    792,
+    1540
+  ],
+  "generator": "built-in image generation tool",
+  "generated_original": "/workspace/generated_images/exec-01e89c58-745b-44a9-9c38-0bc10f3e1367.png",
+  "source": "design/art/parchment-ui/sources/card-mountain-original.png",
+  "source_dimensions": [
+    1254,
+    1254
+  ],
+  "source_sha256": "35936480a0214cad26a9c2cdf04b9ab38fbe0047b973bd1ce6a6fe17a692b24a",
+  "prompt": "design/art/parchment-ui/card-mountain.prompt.txt",
+  "processing": "design/art/parchment-ui/build-card-mountain.py",
+  "runtime": "public/ink/art/parchment-ui/card-mountain-paper.webp",
+  "runtime_dimensions": [
+    1024,
+    1024
+  ],
+  "license": "Original generated game artwork; usage subject to provider terms; reference is the selected design preserved in repository. No stock imagery incorporated.",
+  "notes": "Low contrast warm-gray mountain watercolor, quiet ivory lower quarter for real item labels. No baked text, frame, people, trees or weapons."
+}

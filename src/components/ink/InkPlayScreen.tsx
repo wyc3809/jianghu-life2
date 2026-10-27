@@ -42,6 +42,7 @@ import {
 import { coachCopy, nextCoachStep } from '@core/life/tutorial';
 import { track } from '../../telemetry/events';
 import { InkAmbientFx } from './InkAmbientFx';
+import { InkTapFx } from './InkTapFx';
 import { seasonToInk, placeToInk, isInkNight, shouldReduceInkMotion } from './sceneVariants';
 import { InkScrollBackdrop, InkSealStamp, InkResultSeal, InkStaticSeal, InkAiWashLayer } from './InkDecor';
 import { inkAiUrl } from '../../ui/inkAiCatalog';
@@ -588,8 +589,9 @@ export function InkPlayScreen({ state }: Props) {
         omen={Boolean(state.pending?.kind === 'special')}
         night={useNightWash}
       />
-      {/* 墨韻：左右邊墨點、墨暈，點擊濺墨 */}
+      {/* 邊緣墨韻與點按回饋分開，人物全屏亦保留細墨點。 */}
       <InkAmbientFx mode="ink" paused={Boolean(combat) || onFullPage} />
+      <InkTapFx paused={Boolean(combat)} />
       {sealText && <InkSealStamp text={sealText} onDone={clearSeal} />}
 
       {succession && <InkSuccessionModal lines={succession} onClose={clearSuccession} />}

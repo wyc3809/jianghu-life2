@@ -93,6 +93,7 @@
 - 嗰兩套位圖同腳本已喺 2026-10-14 刪走；A／B 商業 UI 樣板（`?ui-preview`）亦已刪，**唔好再做返**。
 - `design/art/art-direction-b.md` 嘅 UI 框部分已經暫停；人物、場景、出圖規格仍然可以參考。
 - 唔准：紫色霓虹、科幻光效、網頁式表格同虛線格。
+- **全遊戲框架基準（2026-10-26）**：玩家指定 `design/art/person-screen/selected-third.png`「更換武器」作往後全部框框嘅品質基準：明亮宣紙、自然纖維與淡水墨、窄磨邊、朱砂乾筆選取及主按鈕、真正毛筆標題配清晰正文。共用規格及素材映射見 `design/art/parchment-ui/README.md`，執行樣式 `src/components/ink/parchment-ui.css`；唔好另起一套普通網頁卡片／細線方框或舊古銅重框。器物牌章保留本身造型；按用途決定全屏與否，唔改玩法或假造數值以遷就設計圖。
 
 ### 5.6 安全
 - **唔好 commit 任何 API key 或 token**。用環境變數（例：`HF_TOKEN`、`SPRITECOOK_API_KEY`），唔好寫入 repo。

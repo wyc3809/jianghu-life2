@@ -1,0 +1,19 @@
+/* 單一短時位圖畫布；移至原生dialog時仍屬同一層，不使用混色／模糊濾鏡。 */
+canvas.ink-tap-fx {
+  position:fixed; inset:0 auto auto 50%; transform:translateX(-50%);
+  display:block; width:min(100%,420px); height:100dvh;
+  z-index:2147483647; pointer-events:none!important;
+}
+/* 舊按壓態會把器物牌章填成黑圓，亦會換走新宣紙／朱砂材質。 */
+body .ink-bottom-dock .ink-tab:is(.is-pressed,:active) {
+  background:none!important; box-shadow:none!important;
+}
+body .ink-btn.ink-btn--primary:is(.is-pressed,:active) {
+  background:var(--ui-brush) center/100% 100% no-repeat!important;
+  box-shadow:none!important;
+}
+body .ink-btn:not(.ink-btn--primary):is(.is-pressed,:active) {
+  background:var(--ui-fiber) center/320px repeat,var(--ui-paper)!important;
+  box-shadow:none;
+}
+@media (prefers-reduced-motion:reduce) { canvas.ink-tap-fx { display:none; } }

@@ -116,7 +116,7 @@ export function InkSettingsPanel({
             title="關閉"
             aria-label="關閉設定"
           >
-            收
+            <img src={`${import.meta.env.BASE_URL}ink/art/parchment-ui/icon-close.webp`} alt="" width="22" height="22" />收起
           </button>
         </header>
 

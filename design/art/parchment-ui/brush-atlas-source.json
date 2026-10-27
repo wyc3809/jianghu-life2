@@ -1,0 +1,39 @@
+{
+  "kind": "original generated raster UI art",
+  "date": "2026-10-26",
+  "reference": "design/art/person-screen/selected-third.png",
+  "originalGeneratedPath": "/workspace/generated_images/exec-7c22d24f-b741-47bb-9fcb-a4085f15c6cb.png",
+  "preservedSource": "design/art/parchment-ui/sources/brush-atlas-original.png",
+  "sourceSize": [
+    1774,
+    887
+  ],
+  "sourceMode": "RGBA",
+  "sourceSha256": "c1ef1548afd626e97fca91986b0cce7c22e807c8f13f1abc406c875955aa991c",
+  "prompt": "design/art/parchment-ui/brush-atlas.prompt.txt",
+  "processingScript": "design/art/parchment-ui/build-brush-atlas.py",
+  "processingDependencies": [
+    "Pillow",
+    "numpy",
+    "scipy"
+  ],
+  "license": "Original generated asset for this project; use subject to generation provider terms. No external stock assets.",
+  "notes": [
+    "Runtime crops only; no source text baked into art.",
+    "Source selected outline is wide; use border-image-slice:32, not full-image stretching.",
+    "Detached generated pigment and accidental interior noise removed; original four frame edges preserved.",
+    "Low-alpha fringe RGB normalized to painted pigment to prevent saturated halos on warm paper."
+  ],
+  "additionalExactReferenceAsset": {
+    "path": "public/ink/art/parchment-ui/brush-selected-reference.webp",
+    "source": "design/art/person-screen/selected-third.png",
+    "crop": [
+      35,
+      909,
+      297,
+      1132
+    ],
+    "process": "Isolate existing cinnabar pigment in13px outer rim, clear center, correct paper matte on semitransparent edge only.",
+    "license": "Same project-owned selected generated reference; no new stock asset."
+  }
+}

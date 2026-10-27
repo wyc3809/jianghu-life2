@@ -3,6 +3,7 @@ import { StrictMode, Suspense, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import './styles.css';
+import './components/ink/parchment-ui.css';
 import { installPressFeedback } from './ui/pressFeedback';
 import { bootCloud } from './cloud/sync';
 import { readLocalSavedAt, writeLocal } from './cloud/localBridge';

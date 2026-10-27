@@ -2,7 +2,7 @@
  * 環境特效畫布（玩家 2026-10-10：「場景會動」＋「墨韻粒子」）。
  *
  * - `mode="scene"`：疊喺主畫面演武台上面——兩層流雲＋季節粒子（春花瓣、夏雨絲、秋落葉、冬雪）。
- * - `mode="ink"`：全畫面——左右邊墨點飄升、墨暈開，點擊任何位置濺墨。
+ * - `mode="ink"`：全畫面——左右邊墨點飄升、墨暈開。點按回饋獨立由InkTapFx處理。
  *
  * 只畫位圖（`public/ink/art/fx/`，`scripts/art/build_ink_fx.py`），唔用 SVG；
  * 粒子邏輯喺 `src/fx/ambient/particles.ts`。唔攔截點擊（pointer-events: none）；
@@ -19,7 +19,6 @@ import {
   particleSize,
   spawnInkMote,
   spawnSeasonParticle,
-  spawnSplash,
   stepParticles,
   type Particle,
   type ParticleKind,
@@ -75,7 +74,6 @@ export function InkAmbientFx({ mode, season = 'spring', paused = false, classNam
     let raf = 0;
     let last = performance.now();
     let t = 0;
-    let lastSplash = 0;
 
     const resize = () => {
       const r = canvas.getBoundingClientRect();
@@ -94,15 +92,6 @@ export function InkAmbientFx({ mode, season = 'spring', paused = false, classNam
     const spawn = (scatter: boolean) =>
       mode === 'scene' ? spawnSeasonParticle(season, w, h, rng, scatter) : spawnInkMote(w, h, rng);
     for (let i = 0; i < target; i++) parts.push(spawn(true));
-
-    const onDown = (e: PointerEvent) => {
-      const now = performance.now();
-      if (now - lastSplash < AMBIENT_TUNING.splash.cooldownMs) return;
-      lastSplash = now;
-      const r = canvas.getBoundingClientRect();
-      parts.push(...spawnSplash(e.clientX - r.left, e.clientY - r.top, rng));
-    };
-    if (mode === 'ink') window.addEventListener('pointerdown', onDown, { passive: true });
 
     const draw = (p: Particle) => {
       const img = sprite(p.kind);
@@ -152,7 +141,6 @@ export function InkAmbientFx({ mode, season = 'spring', paused = false, classNam
     return () => {
       cancelAnimationFrame(raf);
       ro?.disconnect();
-      if (mode === 'ink') window.removeEventListener('pointerdown', onDown);
       ctx.clearRect(0, 0, w, h);
     };
   }, [mode, season, paused]);
