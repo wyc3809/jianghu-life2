@@ -3,6 +3,7 @@ import type { LifeGameState } from '@interfaces/lifeEngine';
 import {
   canFoundSect,
   canRecruitDisciple,
+  canTeachDisciple,
   FOUND_SECT_COST,
   RECRUIT_COST,
 } from '@core/life/foundedSect';
@@ -62,7 +63,7 @@ export function InkSectFounderPanel({ state, onFound, onRecruit, onTeach }: Prop
       {sect && (
         <>
           <p className="ink-note">
-            <strong>{sect.name}</strong>　開山於{sect.foundedYear}年　門派聲望 {sect.fame}
+            <strong>{sect.name}</strong>　開山於{sect.foundedYear}年　門派聲望 {sect.fame} · 本月修煉餘 {state.practiceActionsLeft ?? 0} 次
           </p>
           <button
             type="button"
@@ -88,9 +89,10 @@ export function InkSectFounderPanel({ state, onFound, onRecruit, onTeach }: Prop
                     <button
                       type="button"
                       className="ink-btn ink-btn--quiet"
+                      disabled={!canTeachDisciple(state,d.id).ok}
                       onClick={() => onTeach(d.id)}
                     >
-                      親自指點
+                      親自指點 · 修煉1次
                     </button>
                   )}
                 </li>

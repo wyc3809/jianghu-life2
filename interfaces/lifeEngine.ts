@@ -452,6 +452,22 @@ export interface FoundedSect {
   maxDisciples: number;
 }
 
+/** 舊版滿階用Infinity，JSON會變null；只承接為不可再升的有限門檻。 */
+const savedAdvanceNeedSchema = z.preprocess(
+  value => value === null || value === Number.POSITIVE_INFINITY ? Number.MAX_SAFE_INTEGER : value,
+  z.number(),
+);
+
+/** 自立門派亦須經真驗證保存，不能被根狀態schema當未知欄位丟走。 */
+export const foundedSectSchema = z.object({
+  id:z.string(), name:z.string(), founderName:z.string(), foundedYear:z.number(), fame:z.number(), maxDisciples:z.number(),
+  disciples:z.array(z.object({
+    id:z.string(), name:z.string(), gender:z.enum(['male','female']), aptitude:z.number(), loyalty:z.number(),
+    skillId:z.string(), rank:z.number(), progress:z.number(), advanceNeed:savedAdvanceNeedSchema,
+    monthsWithSect:z.number(), status:z.enum(['training','graduated','left','died']),
+  })),
+}).nullable().optional();
+
 /** 值得全屏儀式特效嘅時刻（UI 逐個播放後由 store 移除） */
 export type LifeMoment =
   | { kind: 'learn'; name: string }
@@ -662,7 +678,7 @@ export const lifeCharacterSchema = z.object({
   skills: z.array(z.string()),
   skillRanks: z.record(z.string(), z.number()).default({}),
   skillProgress: z.record(z.string(), z.number()).default({}),
-  skillAdvanceNeed: z.record(z.string(), z.number()).default({}),
+  skillAdvanceNeed: z.record(z.string(), savedAdvanceNeedSchema).default({}),
   gear: z.array(z.string()).default(['old-sword', 'plain-robe']),
   equipment: z
     .object({
@@ -733,6 +749,7 @@ export const lifeGameStateSchema = z.object({
     }),
   ),
   sects: z.record(z.string(), z.object({ id: z.string(), name: z.string() })),
+  foundedSect: foundedSectSchema,
   world: z
     .object({
       order: z.number(),

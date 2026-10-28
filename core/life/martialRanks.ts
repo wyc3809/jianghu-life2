@@ -44,7 +44,8 @@ export function rollAdvanceNeed(
   rng: { nextInt: (a: number, b: number) => number },
 ): number {
   const band = ADVANCE_COMBAT_BANDS[currentRank];
-  if (!band) return Number.POSITIVE_INFINITY;
+  // 滿階不再成長；有限哨兵可經JSON／Zod保存，亦不消耗RNG。
+  if (!band) return Number.MAX_SAFE_INTEGER;
   return rng.nextInt(band.min, band.max);
 }
 

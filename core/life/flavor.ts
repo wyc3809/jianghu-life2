@@ -182,7 +182,7 @@ export function tryAdvanceSkill(
   c.skillProgress[skillId] = 0;
   const nextRank = rank + 1;
   c.skillAdvanceNeed[skillId] =
-    nextRank >= 3 ? Number.POSITIVE_INFINITY : rollAdvanceNeed(nextRank, rng);
+    rollAdvanceNeed(nextRank, rng);
   c.martial += 2 + rank;
   const name = skillLabel(skillId);
   const next = rankName(nextRank);

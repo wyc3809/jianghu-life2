@@ -1,0 +1,42 @@
+{
+  "actualIphone": false,
+  "cloudRequestsBlocked": true,
+  "cases": [
+    {
+      "engine": "chromium",
+      "state": "poor",
+      "passed": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "chromium",
+      "state": "founder",
+      "passed": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "chromium",
+      "state": "battle",
+      "passed": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "state": "poor",
+      "passed": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "state": "founder",
+      "passed": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "state": "battle",
+      "passed": true,
+      "pageerrors": []
+    }
+  ]
+}

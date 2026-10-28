@@ -17,18 +17,18 @@ export function InkAncestryPanel({ onClose }: { onClose: () => void }) {
   const buySecondSlot = useAncestryStore((s) => s.buySecondSlot);
   const toggleFamilyArt = useAncestryStore((s) => s.toggleFamilyArt);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const dialogRef=useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
-    closeRef.current?.focus();
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [onClose]);
+    const dialog=dialogRef.current!,previous=document.activeElement as HTMLElement|null;
+    dialog.showModal();closeRef.current?.focus();
+    return ()=>{dialog.close();previous?.focus({preventScroll:true});};
+  }, []);
 
   const arts = meta.artsSeen.map((id) => ({ id, def: getSkillDef(id) })).filter((a) => a.def);
 
   return createPortal(
-    <div className="ink-modal" role="dialog" aria-modal="true" aria-label="祖祠" onClick={onClose}>
+    <dialog ref={dialogRef} className="ink-modal" aria-label="祖祠" onCancel={event=>{event.preventDefault();onClose();}} onClick={onClose}>
       <div className="ink-modal-card ink-ancestry" onClick={(e) => e.stopPropagation()}>
         <header className="ink-ancestry-head">
           <h3>祖祠</h3>
@@ -138,7 +138,7 @@ export function InkAncestryPanel({ onClose }: { onClose: () => void }) {
           關閉
         </button>
       </div>
-    </div>,
+    </dialog>,
     document.body,
   );
 }

@@ -1,5 +1,5 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
-import { PRACTICE_ACTIONS, SECT_INNER_ACTIONS, SECT_DEFS, ART_DEFS, fineForgeCost, fullHealCost, sectDonateCost, type PracticeAction, type PracticeActionId } from '@core/life/actions';
+import { PRACTICE_ACTIONS, SECT_INNER_ACTIONS, SECT_DEFS, ART_DEFS, fineForgeCost, practiceBlockReason, fullHealCost, sectDonateCost, type PracticeAction, type PracticeActionId } from '@core/life/actions';
 import { natureGateHint } from '@core/life/nature';
 import { describeSectProgress } from '@core/life/sectStanding';
 import { artProficiency, ART_MASTERY_THRESHOLD } from '@core/life/arts';
@@ -23,6 +23,8 @@ const PRACTICE_ICON: Partial<Record<PracticeActionId, InkAiAssetId>> = {
 /** 有價錢嘅項目顯示實際費用（審計 B4） */
 function actionHint(act: PracticeAction, state: LifeGameState): string {
   const c = state.character;
+  const blocked=practiceBlockReason(state,act.id);
+  if(blocked)return blocked;
   if (act.id === 'heal_full') return `費銀${fullHealCost(c)}兩，氣血回滿`;
   if (act.id === 'forge_fine') return `費銀${fineForgeCost(state)}兩，境界越高越易出好兵器`;
   if (act.id === 'sect_donate') {
@@ -54,7 +56,7 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
         <>
           <h3>修煉</h3>
           <p className="ink-note">
-            本月可煉 {practiceLeft}/3 次。打聽消息可提高遇見奇人的機會；苦練、鑄兵與尋訪則隨月份推進。
+            本月可修煉 {practiceLeft}/3 次。苦練、運功與淬體可累積成長；不合條件的操作不扣次數。
           </p>
           <div className="ink-practice-grid">
             <button
@@ -90,7 +92,7 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
                 key={act.id}
                 type="button"
                 className="ink-practice-btn ink-practice-btn--icon"
-                disabled={busy}
+                disabled={busy || Boolean(practiceBlockReason(state,act.id))}
                 onClick={() => {
                   onPractice(act.id);
                 }}
@@ -126,7 +128,7 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
                     key={s.id}
                     type="button"
                     className="ink-practice-btn"
-                    disabled={busy}
+                    disabled={busy || Boolean(practiceBlockReason(state,'join_sect',{sectId:s.id}))}
                     onClick={() => {
                       onPractice('join_sect', { sectId: s.id });
                       onView('main');
@@ -134,7 +136,7 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
                   >
                     <strong>{s.name}</strong>
                     <span>
-                      {s.hint}
+                      {practiceBlockReason(state,'join_sect',{sectId:s.id}) ?? s.hint}
                       {natureGateHint(s.natureGate) ? ` · ${natureGateHint(s.natureGate)}` : ''}
                     </span>
                   </button>
@@ -155,7 +157,7 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
                     key={act.id}
                     type="button"
                     className="ink-practice-btn"
-                    disabled={busy}
+                    disabled={busy || Boolean(practiceBlockReason(state,act.id))}
                     onClick={() => {
                       onPractice(act.id);
                     }}
