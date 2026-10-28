@@ -1,0 +1,13 @@
+ROUTES chromium 320 568
+ROUTES chromium 390 844
+ROUTES chromium 430 932
+STATE chromium poor
+STATE chromium founder
+STATE chromium battle
+ROUTES webkit 320 568
+ROUTES webkit 390 844
+ROUTES webkit 430 932
+STATE webkit poor
+STATE webkit founder
+STATE webkit battle
+BUG_BROWSER_PASS 12

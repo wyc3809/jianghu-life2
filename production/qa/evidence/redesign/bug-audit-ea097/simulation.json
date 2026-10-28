@@ -1,0 +1,154 @@
+{
+  "seeds": 24,
+  "maxStepsPerSeed": 180,
+  "events": 1258,
+  "battles": 43,
+  "rounds": 359,
+  "saveRoundtripEveryStep": true,
+  "cases": [
+    {
+      "seed": 1,
+      "months": 92,
+      "phase": "playing",
+      "alive": true
+    },
+    {
+      "seed": 2,
+      "months": 23,
+      "phase": "summary",
+      "alive": false
+    },
+    {
+      "seed": 3,
+      "months": 90,
+      "phase": "playing",
+      "alive": true
+    },
+    {
+      "seed": 4,
+      "months": 39,
+      "phase": "summary",
+      "alive": false
+    },
+    {
+      "seed": 5,
+      "months": 91,
+      "phase": "playing",
+      "alive": true
+    },
+    {
+      "seed": 6,
+      "months": 31,
+      "phase": "summary",
+      "alive": false
+    },
+    {
+      "seed": 7,
+      "months": 91,
+      "phase": "playing",
+      "alive": true
+    },
+    {
+      "seed": 8,
+      "months": 64,
+      "phase": "summary",
+      "alive": false
+    },
+    {
+      "seed": 9,
+      "months": 7,
+      "phase": "summary",
+      "alive": false
+    },
+    {
+      "seed": 10,
+      "months": 8,
+      "phase": "summary",
+      "alive": false
+    },
+    {
+      "seed": 11,
+      "months": 23,
+      "phase": "summary",
+      "alive": false
+    },
+    {
+      "seed": 12,
+      "months": 91,
+      "phase": "playing",
+      "alive": true
+    },
+    {
+      "seed": 13,
+      "months": 4,
+      "phase": "summary",
+      "alive": false
+    },
+    {
+      "seed": 14,
+      "months": 28,
+      "phase": "summary",
+      "alive": false
+    },
+    {
+      "seed": 15,
+      "months": 78,
+      "phase": "summary",
+      "alive": false
+    },
+    {
+      "seed": 16,
+      "months": 48,
+      "phase": "summary",
+      "alive": false
+    },
+    {
+      "seed": 17,
+      "months": 78,
+      "phase": "summary",
+      "alive": false
+    },
+    {
+      "seed": 18,
+      "months": 74,
+      "phase": "summary",
+      "alive": false
+    },
+    {
+      "seed": 19,
+      "months": 60,
+      "phase": "summary",
+      "alive": false
+    },
+    {
+      "seed": 20,
+      "months": 94,
+      "phase": "playing",
+      "alive": true
+    },
+    {
+      "seed": 21,
+      "months": 62,
+      "phase": "summary",
+      "alive": false
+    },
+    {
+      "seed": 22,
+      "months": 95,
+      "phase": "playing",
+      "alive": true
+    },
+    {
+      "seed": 23,
+      "months": 61,
+      "phase": "summary",
+      "alive": false
+    },
+    {
+      "seed": 24,
+      "months": 39,
+      "phase": "summary",
+      "alive": false
+    }
+  ]
+}

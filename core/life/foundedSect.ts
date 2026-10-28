@@ -102,16 +102,28 @@ export function recruitDisciple(state: LifeGameState): string[] {
 
 const TEACH_PROGRESS_GAIN = 1;
 
+/** 指導沿用一次修煉行動的規則；不合資格不改進度、次數或RNG。 */
+export function canTeachDisciple(state: LifeGameState, discipleId: string): GateResult {
+  if (!state.character.alive || state.phase !== 'playing') return {ok:false,reason:'此刻無法指導弟子。'};
+  if (state.pending || state.pendingCombat) return {ok:false,reason:'尚有要事未了。'};
+  if (!state.foundedSect) return {ok:false,reason:'尚未開宗立派。'};
+  if (!state.foundedSect.disciples.some(d=>d.id===discipleId&&d.status==='training')) return {ok:false,reason:'此徒已不在門下受教。'};
+  if ((state.practiceActionsLeft??0)<=0) return {ok:false,reason:'本月修煉次數已盡，無法指導弟子。'};
+  return {ok:true};
+}
+
 /** 親自指導一名弟子：花一次修煉行動，保證有進度（唔靠月度隨機） */
 export function teachDisciple(state: LifeGameState, discipleId: string): string[] {
-  const sect = state.foundedSect;
-  if (!sect) return ['尚未開宗立派。'];
-  const disciple = sect.disciples.find((d) => d.id === discipleId && d.status === 'training');
-  if (!disciple) return ['此徒已不在門下受教。'];
+  const gate=canTeachDisciple(state,discipleId);
+  if(!gate.ok)return [gate.reason];
+  const disciple=state.foundedSect!.disciples.find(d=>d.id===discipleId)!;
+  state.practiceActionsLeft=(state.practiceActionsLeft??0)-1;
   syncRngFromState(state);
   const rng = getRng();
   const lines = advanceDisciple(state, disciple, TEACH_PROGRESS_GAIN + rng.nextFloat() * 0.5, '你親自指點');
   snapshotRng(state);
+  if (!lines.length) lines.push(`已指導「${disciple.name}」，修習進度增加。`);
+  lines.push(`本月尚餘修煉 ${state.practiceActionsLeft} 次。`);
   return lines;
 }
 
@@ -128,7 +140,7 @@ function advanceDisciple(
   if (disciple.progress < disciple.advanceNeed || disciple.rank >= 3) return lines;
   disciple.rank += 1;
   disciple.progress = 0;
-  disciple.advanceNeed = disciple.rank >= 3 ? Number.POSITIVE_INFINITY : rollAdvanceNeed(disciple.rank, rng);
+  disciple.advanceNeed = rollAdvanceNeed(disciple.rank, rng);
   sect.fame += 2 + disciple.rank;
   lines.push(`${narratePrefix}，「${disciple.name}」武學精進，已至「${rankName(disciple.rank)}」。`);
   if (disciple.rank >= 3) {

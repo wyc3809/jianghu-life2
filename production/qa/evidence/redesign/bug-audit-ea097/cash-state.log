@@ -1,0 +1,7 @@
+STATE chromium poor
+STATE chromium founder
+STATE chromium battle
+STATE webkit poor
+STATE webkit founder
+STATE webkit battle
+BUG_BROWSER_PASS 6

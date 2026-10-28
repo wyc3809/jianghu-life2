@@ -71,6 +71,7 @@ export function InkSettingsPanel({
   onOpenBoard,
 }: Props) {
   const closeRef = useRef<HTMLButtonElement | null>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const [hapticsOn, setHapticsOn] = useState(isHapticsEnabled);
   const [mix, setMix] = useState<AudioMix>(getAudioMix);
   const update = (patch: Partial<AudioMix>, ch: Channel) => {
@@ -82,25 +83,22 @@ export function InkSettingsPanel({
 
   useEffect(() => {
     if (!open) return;
+    const dialog=dialogRef.current!;
+    const previous=document.activeElement as HTMLElement|null;
+    dialog.showModal();
     closeRef.current?.focus();
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        onClose();
-      }
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [open, onClose]);
+    return () => { dialog.close(); previous?.focus({preventScroll:true}); };
+  }, [open]);
 
   if (!open) return null;
 
   return createPortal(
-    <div
-      className="ink-modal"
-      role="dialog"
+    <dialog
+      ref={dialogRef}
+      className="ink-modal ink-settings-dialog"
       aria-modal="true"
       aria-label="設定"
+      onCancel={event => { event.preventDefault(); onClose(); }}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
@@ -167,7 +165,7 @@ export function InkSettingsPanel({
           <p className="ink-settings-note">江湖一生 · Early Access</p>
         </footer>
       </div>
-    </div>,
+    </dialog>,
     document.body,
   );
 }

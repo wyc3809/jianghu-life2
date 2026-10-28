@@ -6,6 +6,7 @@ import {
   lookupEvent,
   resolvePendingEvent,
 } from '@core/life/eventEngine';
+import { meetsRequirements } from '@core/life/requirements';
 import { performPracticeAction, PRACTICE_ACTIONS, type PracticeActionId } from '@core/life/actions';
 import { buildLifeSummary } from '@core/life/summary';
 import {
@@ -42,6 +43,7 @@ export function createEventSlice(
         return;
       }
       const choice = event.choices.find((c) => c.id === choiceId);
+      if (!choice || !meetsRequirements(state,choice.requirements)) return;
 
       let resultLogs: string[] = [];
       let resultFeedback = '';
@@ -122,14 +124,14 @@ export function createEventSlice(
       if (!state || state.phase !== 'playing' || !state.character.alive) return;
       let logs: string[] = [];
       const next = produce(state, (draft) => {
-        if (!draft.character.flags.coach_practiced) draft.character.flags.coach_practiced = true;
         logs = performPracticeAction(draft, actionId, opts);
+        if (draft.practiceActionsLeft !== state.practiceActionsLeft) draft.character.flags.coach_practiced = true;
         if (!draft.character.alive) {
           draft.phase = 'summary';
           draft.summaryText = buildLifeSummary(draft);
         }
       });
-      void save(next);
+      if (next !== state) void save(next);
       const label =
         PRACTICE_ACTIONS.find((a) => a.id === actionId)?.label ??
         ({

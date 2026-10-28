@@ -1,0 +1,132 @@
+
+> jianghu-engine@0.97.1-ea test
+> vitest run
+
+
+ RUN  v3.2.7 /workspace/jianghu-person-release-ea094
+
+ ✓ tests/martial_poses.test.ts (12 tests) 3295ms
+   ✓ 武學實體姿勢與核心隔離 > test_martial_poses_enabled_assets_leave_every_settlement_and_enemy_action_unchanged  2857ms
+ ✓ tests/ios_internal_build.test.ts (17 tests) 1069ms
+ ✓ tests/cloud-adversarial.test.ts (10 tests) 2228ms
+   ✓ cloud safety acceptance checks > serializes overlapping writes so an older upload cannot finish last  310ms
+ ✓ tests/battlePrototype.test.ts (4 tests) 255ms
+ ✓ tests/token_scene.test.ts (3 tests) 2814ms
+   ✓ 武學令剛性與懸穗 > test_token_轉面保留牌面結構_流蘇另有鉸點並收束  2379ms
+ ✓ tests/injuries.test.ts (15 tests) 476ms
+ ✓ tests/choice_copy_intent.test.ts (1 test) 1020ms
+   ✓ 選項顯示文字與既有玩法語意分離 > test_copy_三百個選項改名_心性關路數值旗標及RNG均沿用舊語意  1017ms
+ ✓ tests/lifeEngine.test.ts (72 tests) 813ms
+ ✓ tests/online_pair_client.test.ts (1 test) 130ms
+ ✓ tests/chest_scene.test.ts (4 tests) 968ms
+   ✓ 寶箱實體材質及批次繪製 > test_chest_箱蓋繞鉸鏈真實開啟且箱身不跟住改位  442ms
+ ✓ tests/cultivation.test.ts (32 tests) 253ms
+ ✓ tests/foe_traits.test.ts (18 tests) 125ms
+ ✓ tests/tap_ink.test.ts (5 tests) 501ms
+   ✓ 點按墨跡 > test_tap_ink_所有採樣墨跡_不超出清理範圍或遮黑文字  489ms
+ ✓ tests/familyLegacy.test.ts (6 tests) 360ms
+ ✓ tests/bingpu.test.ts (7 tests) 306ms
+ ✓ tests/online_shared.test.ts (11 tests) 360ms
+ ✓ tests/martial_economy_v2.test.ts (33 tests) 211ms
+ ✓ tests/spar_rounds.test.ts (12 tests) 813ms
+ ✓ tests/persistSchedule.test.ts (3 tests) 168ms
+ ✓ tests/martial_loadout.test.ts (12 tests) 191ms
+ ✓ tests/online_service.test.ts (11 tests) 431ms
+ ✓ tests/spar_curve.test.ts (5 tests) 242ms
+ ✓ tests/combatDeathTuning.test.ts (6 tests) 177ms
+ ✓ tests/online_pair.test.ts (12 tests) 180ms
+ ✓ tests/persistence-adversarial.test.ts (6 tests) 155ms
+ ✓ tests/school_gacha.test.ts (9 tests) 527ms
+ ✓ tests/audit_ea091_fixes.test.ts (24 tests) 233ms
+ ✓ tests/volumes_autocombat.test.ts (14 tests) 176ms
+ ✓ tests/age_free.test.ts (9 tests) 309ms
+ ✓ tests/spar_art_engine.test.ts (2 tests) 87ms
+ ✓ tests/codex_scene.test.ts (11 tests) 136ms
+ ✓ tests/desperateReversal.test.ts (5 tests) 79ms
+ ✓ tests/comboSystem.test.ts (10 tests) 24ms
+ ✓ tests/online_rules.test.ts (7 tests) 77ms
+ ✓ tests/lifeVariance.test.ts (10 tests) 259ms
+ ✓ tests/bug_audit_ea097.test.ts (14 tests) 191ms
+ ✓ tests/foundedSect.test.ts (16 tests) 29ms
+ ✓ tests/gacha_fragments.test.ts (12 tests) 106ms
+ ✓ tests/home_goals.test.ts (5 tests) 82ms
+ ✓ tests/spar_duel.test.ts (21 tests) 58ms
+ ✓ tests/inkBrush.test.ts (2 tests) 20ms
+ ✓ tests/originChronicle.test.ts (5 tests) 20ms
+ ✓ tests/internalMode.test.ts (21 tests) 33ms
+ ✓ tests/genealogy.test.ts (5 tests) 33ms
+ ✓ tests/sparPresentation.test.ts (5 tests) 27ms
+ ✓ tests/art_choreo.test.ts (10 tests) 48ms
+ ✓ tests/ancestry_milestones.test.ts (4 tests) 24ms
+ ✓ tests/engine.test.ts (3 tests) 28ms
+ ✓ tests/playability.test.ts (6 tests) 53ms
+ ✓ tests/actionPoints.test.ts (5 tests) 38ms
+ ✓ tests/combatDifficulty.test.ts (3 tests) 23ms
+ ✓ tests/resultNarrate.test.ts (5 tests) 51ms
+ ✓ tests/sparPresentationSwitch.test.ts (1 test) 17ms
+ ✓ tests/ladder_v2.test.ts (9 tests) 21ms
+ ✓ tests/culturalArtsAndSects.test.ts (9 tests) 23ms
+ ✓ tests/jianghuRank.test.ts (11 tests) 13ms
+ ✓ tests/stanceVisualization.test.ts (4 tests) 21ms
+ ✓ tests/gacha.test.ts (7 tests) 27ms
+ ✓ tests/lifeArcsCatalog.test.ts (9 tests) 26ms
+ ✓ tests/titles.test.ts (7 tests) 17ms
+ ✓ tests/martial_view.test.ts (5 tests) 24ms
+ ✓ tests/ancestry.test.ts (8 tests) 19ms
+ ✓ tests/wineSystem.test.ts (5 tests) 15ms
+ ✓ tests/spar_move_sequence.test.ts (3 tests) 57ms
+ ✓ tests/moments.test.ts (5 tests) 13ms
+ ✓ tests/sparApproach.test.ts (2 tests) 10ms
+ ✓ tests/growthFeel.test.ts (13 tests) 25ms
+ ✓ tests/hero_appearance.test.ts (9 tests) 20ms
+ ✓ tests/encounters.test.ts (6 tests) 55ms
+ ✓ tests/ambient_fx.test.ts (10 tests) 110ms
+ ✓ tests/natureArcs.test.ts (3 tests) 11ms
+ ✓ tests/highlight_mapping.test.ts (7 tests) 69ms
+ ✓ tests/progression.test.ts (5 tests) 40ms
+ ✓ tests/gearCompare.test.ts (5 tests) 12ms
+ ✓ tests/spar_strip_rig.test.ts (8 tests) 7ms
+ ✓ tests/combat_full_hp.test.ts (6 tests) 19ms
+ ✓ tests/foe_figure_scale.test.ts (3 tests) 21ms
+ ✓ tests/moveStance.test.ts (4 tests) 34ms
+ ✓ tests/combatRating.test.ts (4 tests) 46ms
+ ✓ tests/jianghuPrestige.test.ts (5 tests) 17ms
+ ✓ tests/audio.test.ts (2 tests) 85ms
+ ✓ tests/inkSilhouettes.test.ts (6 tests) 31ms
+ ✓ tests/event-reachability.test.ts (3 tests) 45ms
+ ✓ tests/moveCooldownTiers.test.ts (7 tests) 5ms
+ ✓ tests/idle_harvest.test.ts (3 tests) 7ms
+ ✓ tests/schools.test.ts (3 tests) 14ms
+ ✓ tests/result_format.test.ts (4 tests) 7ms
+ ✓ tests/gacha_highlight.test.ts (8 tests) 11ms
+ ✓ tests/narrateDiversity.test.ts (2 tests) 14ms
+ ✓ tests/eventOverrides.test.ts (6 tests) 10ms
+ ✓ tests/duel_strokes.test.ts (4 tests) 5ms
+ ✓ tests/choice_pick.test.ts (4 tests) 7ms
+ ✓ tests/sparTypography.test.ts (1 test) 6ms
+ ✓ tests/highlight_visibility.test.ts (2 tests) 4ms
+ ✓ tests/person_equipment.test.ts (3 tests) 13ms
+ ✓ tests/cloud_sync.test.ts (4 tests) 7ms
+ ✓ tests/leaderboard_score.test.ts (4 tests) 10ms
+ ✓ tests/gearOverrides.test.ts (9 tests) 8ms
+ ✓ tests/gearSpecialEffects.test.ts (12 tests) 9ms
+ ✓ tests/eventEditorScope.test.ts (2 tests) 5ms
+ ✓ tests/sceneVariants.test.ts (5 tests) 6ms
+ ✓ tests/inkAiCatalog.test.ts (5 tests) 6ms
+ ✓ tests/gacha_odds.test.ts (4 tests) 209ms
+ ✓ tests/combatInkFx.test.ts (5 tests) 6ms
+ ✓ tests/martial_identity_fx.test.ts (6 tests) 7ms
+ ✓ tests/sceneCopy.test.ts (3 tests) 14ms
+ ✓ tests/damageRebalance.test.ts (6 tests) 6ms
+ ✓ tests/sparAnimPolish.test.ts (3 tests) 10ms
+ ✓ tests/settings_audio_account.test.ts (2 tests) 4ms
+ ✓ tests/gearAffixes.test.ts (3 tests) 7ms
+ ✓ tests/version.test.ts (1 test) 8ms
+ ✓ tests/service_error_copy.test.ts (5 tests) 5ms
+ ✓ tests/sparSilhouette.test.ts (3 tests) 5ms
+
+ Test Files  113 passed (113)
+      Tests  874 passed (874)
+   Start at  14:18:37
+   Duration  145.17s (transform 9.34s, setup 0ms, collect 62.95s, tests 21.69s, environment 49ms, prepare 17.24s)
+

@@ -1,0 +1,217 @@
+
+ RUN  v3.2.7 /workspace/jianghu-person-release-ea094
+
+ ❯ tests/bug_audit_ea097.test.ts (9 tests | 9 failed) 189ms
+   × 第53項：無效操作與真存檔重現 > test_practice_銀兩不足heal_不扣次數不動RNG或年譜 62ms
+     → expected { version: 1, seed: 42, …(20) } to deeply equal { version: 1, seed: 42, …(20) }
+   × 第53項：無效操作與真存檔重現 > test_practice_銀兩不足heal_full_不扣次數不動RNG或年譜 29ms
+     → expected { version: 1, seed: 42, …(20) } to deeply equal { version: 1, seed: 42, …(20) }
+   × 第53項：無效操作與真存檔重現 > test_practice_銀兩不足forge_fine_不扣次數不動RNG或年譜 24ms
+     → expected { version: 1, seed: 42, …(20) } to deeply equal { version: 1, seed: 42, …(20) }
+   × 第53項：無效操作與真存檔重現 > test_practice_重複捐獻_不扣次數 25ms
+     → expected { version: 1, seed: 42, …(20) } to deeply equal { version: 1, seed: 42, …(20) }
+   × 第53項：無效操作與真存檔重現 > test_save_自立門派及弟子_驗證後仍保留 19ms
+     → expected undefined to deeply equal { id: 'founded_18_1', …(6) }
+   × 第53項：無效操作與真存檔重現 > test_save_武學練滿_仍可驗證與JSON往返 14ms
+     → expected false to be true // Object.is equality
+   × 第53項：無效操作與真存檔重現 > test_save_出師弟子_真儲存層both重開不失門派 9ms
+     → expected undefined to deeply equal { id: 'founded_18_1', …(6) }
+   × 第53項：無效操作與真存檔重現 > test_save_出師弟子_真儲存層idb重開不失門派 3ms
+     → expected undefined to deeply equal { id: 'founded_18_1', …(6) }
+   × 第53項：無效操作與真存檔重現 > test_save_出師弟子_真儲存層local重開不失門派 2ms
+     → expected undefined to deeply equal { id: 'founded_18_1', …(6) }
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 9 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/bug_audit_ea097.test.ts > 第53項：無效操作與真存檔重現 > test_practice_銀兩不足heal_不扣次數不動RNG或年譜
+ FAIL  tests/bug_audit_ea097.test.ts > 第53項：無效操作與真存檔重現 > test_practice_銀兩不足heal_full_不扣次數不動RNG或年譜
+ FAIL  tests/bug_audit_ea097.test.ts > 第53項：無效操作與真存檔重現 > test_practice_銀兩不足forge_fine_不扣次數不動RNG或年譜
+AssertionError: expected { version: 1, seed: 42, …(20) } to deeply equal { version: 1, seed: 42, …(20) }
+
+- Expected
++ Received
+
+@@ -120,10 +120,12 @@
+      },
+    },
+    "combatEncounterCountdown": 7,
+    "completedEvents": [],
+    "lifeLog": [
++     "【18年1月】藥金不足，醫者只給你一碗清茶。",
++     "【18年1月】本月尚餘修煉 2 次。",
+      "【18年1月·千燈鎮】高秋水辭別父母，踏上江湖。",
+      "根骨 66 · 悟性 47 · 福緣 34 · 魅力 37 · 膽識 63",
+      "心性 俠12 · 邪8 · 狂10 · 惡6",
+      "氣血上限 325 · 內力上限 244",
+      "題眼·發財：銀兩進匣，比刀快。",
+@@ -518,11 +520,11 @@
+      },
+    },
+    "pending": null,
+    "pendingCombat": null,
+    "phase": "playing",
+-   "practiceActionsLeft": 3,
++   "practiceActionsLeft": 2,
+    "recentEvents": [],
+    "rngState": "961924838257512117",
+    "sects": {
+      "sect_emei": {
+        "id": "sect_emei",
+
+ ❯ tests/bug_audit_ea097.test.ts:18:52
+     16|   const s=life();s.character.money=0;const before=structuredClone(s);
+     17|   const logs=performPracticeAction(s,action);
+     18|   expect(logs.length).toBeGreaterThan(0);expect(s).toEqual(before);
+       |                                                    ^
+     19|  });
+     20|  it('test_practice_重複捐獻_不扣次數',()=>{
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/9]⎯
+
+ FAIL  tests/bug_audit_ea097.test.ts > 第53項：無效操作與真存檔重現 > test_practice_重複捐獻_不扣次數
+AssertionError: expected { version: 1, seed: 42, …(20) } to deeply equal { version: 1, seed: 42, …(20) }
+
+- Expected
++ Received
+
+@@ -121,10 +121,12 @@
+      },
+    },
+    "combatEncounterCountdown": 7,
+    "completedEvents": [],
+    "lifeLog": [
++     "【18年1月】本月已捐過，山門不收重禮。",
++     "【18年1月】本月尚餘修煉 1 次。",
+      "【18年1月】你捐出100兩修繕山門。",
+      "【18年1月】青雲劍派擢你為「外門弟子」。",
+      "【18年1月】本月尚餘修煉 2 次。",
+      "【18年1月·千燈鎮】高秋水辭別父母，踏上江湖。",
+      "根骨 66 · 悟性 47 · 福緣 34 · 魅力 37 · 膽識 63",
+@@ -522,11 +524,11 @@
+      },
+    },
+    "pending": null,
+    "pendingCombat": null,
+    "phase": "playing",
+-   "practiceActionsLeft": 2,
++   "practiceActionsLeft": 1,
+    "recentEvents": [],
+    "rngState": "13248644030663172306",
+    "sects": {
+      "sect_emei": {
+        "id": "sect_emei",
+
+ ❯ tests/bug_audit_ea097.test.ts:22:52
+     20|  it('test_practice_重複捐獻_不扣次數',()=>{
+     21|   const s=life();s.character.sectId=Object.keys(s.sects)[0]!;s.charact…
+     22|   performPracticeAction(s,'sect_donate');expect(s).toEqual(before);
+       |                                                    ^
+     23|  });
+     24|  it('test_save_自立門派及弟子_驗證後仍保留',()=>{
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/9]⎯
+
+ FAIL  tests/bug_audit_ea097.test.ts > 第53項：無效操作與真存檔重現 > test_save_自立門派及弟子_驗證後仍保留
+AssertionError: expected undefined to deeply equal { id: 'founded_18_1', …(6) }
+
+- Expected: 
+{
+  "disciples": [
+    {
+      "advanceNeed": 22,
+      "aptitude": 46,
+      "gender": "male",
+      "id": "d_0_4465",
+      "loyalty": 51,
+      "monthsWithSect": 0,
+      "name": "黃鐵手",
+      "progress": 0,
+      "rank": 0,
+      "skillId": "基礎吐納",
+      "status": "training",
+    },
+  ],
+  "fame": 0,
+  "foundedYear": 18,
+  "founderName": "高秋水",
+  "id": "founded_18_1",
+  "maxDisciples": 3,
+  "name": "青山門",
+}
+
++ Received: 
+undefined
+
+ ❯ tests/bug_audit_ea097.test.ts:26:30
+     24|  it('test_save_自立門派及弟子_驗證後仍保留',()=>{
+     25|   const s=founder();const parsed=lifeGameStateSchema.parse(JSON.parse(…
+     26|   expect(parsed.foundedSect).toEqual(s.foundedSect);
+       |                              ^
+     27|  });
+     28|  it('test_save_武學練滿_仍可驗證與JSON往返',()=>{
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/9]⎯
+
+ FAIL  tests/bug_audit_ea097.test.ts > 第53項：無效操作與真存檔重現 > test_save_武學練滿_仍可驗證與JSON往返
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/bug_audit_ea097.test.ts:30:95
+     28|  it('test_save_武學練滿_仍可驗證與JSON往返',()=>{
+     29|   const s=life(),id=s.character.skills[0]!;s.character.skillRanks[id]=…
+     30|   expect(s.character.skillRanks[id]).toBe(3);expect(lifeGameStateSchem…
+       |                                                                                               ^
+     31|  });
+     32|  it.each(['both','idb','local'] as const)('test_save_出師弟子_真儲存層%s重開不失門派…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/9]⎯
+
+ FAIL  tests/bug_audit_ea097.test.ts > 第53項：無效操作與真存檔重現 > test_save_出師弟子_真儲存層both重開不失門派
+ FAIL  tests/bug_audit_ea097.test.ts > 第53項：無效操作與真存檔重現 > test_save_出師弟子_真儲存層idb重開不失門派
+ FAIL  tests/bug_audit_ea097.test.ts > 第53項：無效操作與真存檔重現 > test_save_出師弟子_真儲存層local重開不失門派
+AssertionError: expected undefined to deeply equal { id: 'founded_18_1', …(6) }
+
+- Expected: 
+{
+  "disciples": [
+    {
+      "advanceNeed": Infinity,
+      "aptitude": 46,
+      "gender": "male",
+      "id": "d_0_4465",
+      "loyalty": 51,
+      "monthsWithSect": 0,
+      "name": "黃鐵手",
+      "progress": 0,
+      "rank": 3,
+      "skillId": "基礎吐納",
+      "status": "graduated",
+    },
+  ],
+  "fame": 27,
+  "foundedYear": 18,
+  "founderName": "高秋水",
+  "id": "founded_18_1",
+  "maxDisciples": 3,
+  "name": "青山門",
+}
+
++ Received: 
+undefined
+
+ ❯ tests/bug_audit_ea097.test.ts:35:53
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/9]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  9 failed (9)
+   Start at  13:55:19
+   Duration  2.04s (transform 909ms, setup 0ms, collect 1.44s, tests 189ms, environment 0ms, prepare 144ms)
+

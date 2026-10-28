@@ -1,0 +1,198 @@
+{
+  "actualIphone": false,
+  "cloudRequestsBlocked": true,
+  "cases": [
+    {
+      "engine": "chromium",
+      "viewport": [
+        320,
+        568
+      ],
+      "screens": [
+        "鎮居",
+        "設定",
+        "祖祠",
+        "人物與九項詳情",
+        "武學及欄位",
+        "秘笈閣池規／收藏／兌換",
+        "華山論劍",
+        "開宗立派",
+        "江湖風雲",
+        "修煉／雅藝／門派"
+      ],
+      "noPageErrors": true,
+      "noAssetErrors": true,
+      "noHorizontalOverflow": true,
+      "noRawValues": true,
+      "settingsAndAncestryNativeModal": true,
+      "settingsFocusSurvivesTicker": true,
+      "browsingNoChargeOrLearn": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": [
+        390,
+        844
+      ],
+      "screens": [
+        "鎮居",
+        "設定",
+        "祖祠",
+        "人物與九項詳情",
+        "武學及欄位",
+        "秘笈閣池規／收藏／兌換",
+        "華山論劍",
+        "開宗立派",
+        "江湖風雲",
+        "修煉／雅藝／門派"
+      ],
+      "noPageErrors": true,
+      "noAssetErrors": true,
+      "noHorizontalOverflow": true,
+      "noRawValues": true,
+      "settingsAndAncestryNativeModal": true,
+      "settingsFocusSurvivesTicker": true,
+      "browsingNoChargeOrLearn": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": [
+        430,
+        932
+      ],
+      "screens": [
+        "鎮居",
+        "設定",
+        "祖祠",
+        "人物與九項詳情",
+        "武學及欄位",
+        "秘笈閣池規／收藏／兌換",
+        "華山論劍",
+        "開宗立派",
+        "江湖風雲",
+        "修煉／雅藝／門派"
+      ],
+      "noPageErrors": true,
+      "noAssetErrors": true,
+      "noHorizontalOverflow": true,
+      "noRawValues": true,
+      "settingsAndAncestryNativeModal": true,
+      "settingsFocusSurvivesTicker": true,
+      "browsingNoChargeOrLearn": true
+    },
+    {
+      "engine": "chromium",
+      "state": "poor",
+      "passed": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "chromium",
+      "state": "founder",
+      "passed": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "chromium",
+      "state": "battle",
+      "passed": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "viewport": [
+        320,
+        568
+      ],
+      "screens": [
+        "鎮居",
+        "設定",
+        "祖祠",
+        "人物與九項詳情",
+        "武學及欄位",
+        "秘笈閣池規／收藏／兌換",
+        "華山論劍",
+        "開宗立派",
+        "江湖風雲",
+        "修煉／雅藝／門派"
+      ],
+      "noPageErrors": true,
+      "noAssetErrors": true,
+      "noHorizontalOverflow": true,
+      "noRawValues": true,
+      "settingsAndAncestryNativeModal": true,
+      "settingsFocusSurvivesTicker": true,
+      "browsingNoChargeOrLearn": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": [
+        390,
+        844
+      ],
+      "screens": [
+        "鎮居",
+        "設定",
+        "祖祠",
+        "人物與九項詳情",
+        "武學及欄位",
+        "秘笈閣池規／收藏／兌換",
+        "華山論劍",
+        "開宗立派",
+        "江湖風雲",
+        "修煉／雅藝／門派"
+      ],
+      "noPageErrors": true,
+      "noAssetErrors": true,
+      "noHorizontalOverflow": true,
+      "noRawValues": true,
+      "settingsAndAncestryNativeModal": true,
+      "settingsFocusSurvivesTicker": true,
+      "browsingNoChargeOrLearn": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": [
+        430,
+        932
+      ],
+      "screens": [
+        "鎮居",
+        "設定",
+        "祖祠",
+        "人物與九項詳情",
+        "武學及欄位",
+        "秘笈閣池規／收藏／兌換",
+        "華山論劍",
+        "開宗立派",
+        "江湖風雲",
+        "修煉／雅藝／門派"
+      ],
+      "noPageErrors": true,
+      "noAssetErrors": true,
+      "noHorizontalOverflow": true,
+      "noRawValues": true,
+      "settingsAndAncestryNativeModal": true,
+      "settingsFocusSurvivesTicker": true,
+      "browsingNoChargeOrLearn": true
+    },
+    {
+      "engine": "webkit",
+      "state": "poor",
+      "passed": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "state": "founder",
+      "passed": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "state": "battle",
+      "passed": true,
+      "pageerrors": []
+    }
+  ]
+}
