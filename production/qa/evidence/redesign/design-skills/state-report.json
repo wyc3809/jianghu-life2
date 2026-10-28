@@ -1,0 +1,22 @@
+[
+  {
+    "case": "empty",
+    "passed": true,
+    "pageerrors": []
+  },
+  {
+    "case": "large",
+    "passed": true,
+    "pageerrors": []
+  },
+  {
+    "case": "insufficient",
+    "passed": true,
+    "pageerrors": []
+  },
+  {
+    "case": "legacy",
+    "passed": true,
+    "pageerrors": []
+  }
+]

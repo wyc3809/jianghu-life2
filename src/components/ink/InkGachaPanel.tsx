@@ -1,4 +1,4 @@
-import { Suspense, useMemo, useRef, useState, type CSSProperties } from 'react';
+import { Suspense, useRef, useState, type CSSProperties } from 'react';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getSkillDef, skillKindLabel, skillLabel } from '@data/skills/catalog';
 import {
@@ -6,19 +6,15 @@ import {
   GACHA_ART_RATE,
   GACHA_PAGES_PER_PULL,
   GACHA_WISH_PITY,
-  MANUAL_MAX_STARS,
-  PAGES_PER_DUPLICATE,
   PAGES_PER_EXCHANGE,
   TEST_PAID_JADE_GRANT,
-  TEST_SILVER_SINKS,
 } from '@data/redesign/testParams';
-import { VOLUME_COUNT, hasVolumes, volumeLabel } from '@data/skills/volumes';
+import { volumeLabel } from '@data/skills/volumes';
 import { gachaBaseOdds } from '@core/life/gachaOdds';
-import { collectionVolumes } from '@core/life/volumes';
 import { equippedMartialArts } from '@core/life/martialLoadout';
 import { activeSchoolGachaPool, schoolGachaPools } from '@core/life/schoolGachaPools';
-import { primarySchoolOfSkill, SCHOOLS, type SchoolId } from '@data/redesign/schools';
-import { BANNERS, FREE_POOL, bannerState, spendableJade, wishPool, manualUpgradeCost, testPaidJadeClaimedToday, silverPagesLeft, type BannerId } from '@core/life/gacha';
+import { primarySchoolOfSkill, SCHOOLS } from '@data/redesign/schools';
+import { BANNERS, bannerState, spendableJade, wishPool, testPaidJadeClaimedToday, type BannerId } from '@core/life/gacha';
 import { useAncestryStore } from '../../store/ancestryStore';
 import { useLifeStore } from '../../store/lifeStore';
 import { playInkTap } from '../../audio/inkAudio';
@@ -28,7 +24,9 @@ import { gachaHighlight } from '../../fx/highlight/fromGame';
 import { codexCoverUrl } from '../../fx/highlight/codexAppearance';
 import { InkSchoolTabs, InkSkillSchools } from './InkSchoolTabs';
 import { GachaSheet, InkGachaReveal } from './InkGachaReveal';
+import { InkGachaCollection } from './InkGachaCollection';
 import './gachaCodex.css';
+import './gacha-ux.css';
 
 type Props = { state: LifeGameState; onEquipRequest: (id: string) => void };
 
@@ -45,25 +43,16 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
   const gachaPull = useAncestryStore((s) => s.gachaPull);
   const setWish = useAncestryStore((s) => s.setWish);
   const selectPool = useAncestryStore((s) => s.selectSchoolPool);
-  const upgrade = useAncestryStore((s) => s.upgradeManual);
-  const pulp = useAncestryStore((s) => s.pulpManual);
-  const exchange = useAncestryStore((s) => s.exchangePages);
   const grantTest = useAncestryStore((s) => s.grantTestJade);
   // meta 改咗（領完）會重新 render；跨日要重開秘笈閣先刷新，夠用
   const testClaimed = testPaidJadeClaimedToday(meta, Date.now());
-  const buySilverPages = useAncestryStore((s) => s.buySilverPages);
-  const silverLeft = silverPagesLeft(meta, Date.now());
-  const learn = useAncestryStore((s) => s.learnManual);
   const combatBusy = useLifeStore((s) => Boolean(s.state?.pendingCombat || s.combatReplay));
   const [banner, setBanner] = useState<BannerId>('jianghu');
   const [view, setView] = useState<'draw' | 'shelf'>('draw');
-  const [swapVolume, setSwapVolume] = useState(1);
-  const [swap, setSwap] = useState('');
   const [fx, setFx] = useState<HighlightConfig | null>(null);
-  const [sheet, setSheet] = useState<'info' | 'catalog' | 'wish' | 'results' | 'school' | null>(null);
+  const [sheet, setSheet] = useState<'info' | 'catalog' | 'wish' | 'results' | 'school' | 'pack' | null>(null);
   const pullGate = useRef(false);
   const closeFx = () => { setFx(null); pullGate.current = false; };
-  const [shelfSchool, setShelfSchool] = useState<SchoolId | 'all'>('all');
 
   const jade = meta.jade ?? { free: 0, paidTest: 0 };
   const b = bannerState(structuredClone(meta), banner);
@@ -75,18 +64,6 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
   const resultPool = lastPullSource ? schoolGachaPools(lastPullSource.banner).find(p => p.id === lastPullSource.poolId) : undefined;
   const canPay = (n: number) => spendableJade(meta, banner) >= GACHA_COST_PER_PULL * n;
   const manuals = meta.manuals ?? {};
-  const shelf = useMemo(
-    () =>
-      Object.entries(manuals).sort(
-        (a, b2) => Number(Boolean(getSkillDef(b2[0])?.premium)) - Number(Boolean(getSkillDef(a[0])?.premium)),
-      ),
-    [manuals],
-  );
-  const swapOptions = FREE_POOL.filter(id => hasVolumes(id) ? collectionVolumes(meta,id).length < VOLUME_COUNT : !manuals[id]);
-  const missingSwapVolumes = Array.from({length:VOLUME_COUNT},(_,i)=>i+1).filter(v => !collectionVolumes(meta,swap).includes(v));
-  const selectedSwapVolume = missingSwapVolumes.includes(swapVolume) ? swapVolume : undefined;
-  const visibleShelf = shelf.filter(([id]) => shelfSchool === 'all' || primarySchoolOfSkill(getSkillDef(id)) === shelfSchool);
-  const known = new Set(state.character.skills);
   const equippedArts = equippedMartialArts(state.character);
   const canEquip = state.phase === 'playing' && state.character.alive && !combatBusy;
 
@@ -118,10 +95,10 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
   return (
     <section id="ink-gacha" className={`ink-panel ink-gacha ink-codex-page is-${banner}`} aria-label="秘笈閣">
       <header className="ink-codex-heading">
-        <div><small>藏天下武學</small><h3>秘笈閣</h3></div>
+        <div><small>藏天下武學</small><h3>{view === 'shelf' ? '家族藏本' : '秘笈閣'}</h3></div>
         <div className="ink-codex-heading-actions">
           <button type="button" onClick={() => setSheet('info')} aria-label="卡池詳情">池規</button>
-          <button type="button" onClick={() => setView(view === 'shelf' ? 'draw' : 'shelf')} aria-pressed={view === 'shelf'}>家族收藏 <b>{shelf.length}</b><small>書頁 {(meta.pages ?? 0).toLocaleString('zh-Hant')}頁</small></button>
+          <button type="button" onClick={() => setView(view === 'shelf' ? 'draw' : 'shelf')} aria-pressed={view === 'shelf'}>{view === 'shelf' ? '返回抽取' : <>家族收藏 <b>{Object.keys(manuals).length}</b></>}<small>書頁 {(meta.pages ?? 0).toLocaleString('zh-Hant')}頁</small></button>
         </div>
       </header>
       <div className="ink-codex-wallet" aria-label="玉石餘額">
@@ -136,10 +113,8 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
           </button>)}
         </div>
         <div className="ink-codex-volume">
-          <button className="ink-codex-school-picker" type="button" aria-label="選擇抽卡流派" onClick={() => setSheet('school')}>{school.name} ⌄</button>
-          {schoolPacks.length > 1 ? <select aria-label="選擇流派小冊" value={pool.id} onChange={e => selectPool(banner, e.target.value)}>
-            {schoolPacks.map(pack => <option key={pack.id} value={pack.id}>第{pack.part}冊</option>)}
-          </select> : <span>第{pool.part}冊</span>}
+          <button className="ink-codex-school-picker" type="button" aria-label="選擇抽卡流派" onClick={() => setSheet('school')}><span>{school.name}</span><span aria-hidden="true">⌄</span></button>
+          {schoolPacks.length > 1 ? <button className="ink-codex-pack-picker" type="button" aria-label="選擇流派小冊" onClick={() => setSheet('pack')}>第{pool.part}冊 ⌄</button> : <span>第{pool.part}冊</span>}
           <button type="button" onClick={() => setSheet('catalog')}>本冊 {pool.arts.length} 門 ›</button>
         </div>
         <div className="ink-codex-theatre">
@@ -158,87 +133,16 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
         </button>
         <p className="ink-codex-probability">一般抽取：武學 {GACHA_ART_RATE*100}% · 書頁 {(1-GACHA_ART_RATE)*100}%（{GACHA_PAGES_PER_PULL}頁）</p>
         <div className="ink-codex-pulls">
-          {[1,10].map(n => <button key={n} type="button" disabled={!canPay(n) || !!fx || combatBusy} onClick={() => doPull(n)}>
+          {[1,10].map(n => <button key={n} type="button" aria-describedby="ink-codex-availability" disabled={!canPay(n) || !!fx || combatBusy} onClick={() => doPull(n)}>
             <span>{n === 1 ? '抽一次' : '抽十次'}</span><small><InkIcon name={banner === 'zhenben' ? 'jade-paid' : 'jade'} size={18} />{GACHA_COST_PER_PULL*n} 玉石</small>
           </button>)}
         </div>
+        <p id="ink-codex-availability" className="ink-codex-availability" role="status">{combatBusy ? '交手結束後可抽取' : !canPay(1) ? `單抽尚欠 ${(GACHA_COST_PER_PULL - spendableJade(meta, banner)).toLocaleString('zh-Hant')} ${banner === 'zhenben' ? '付費測試玉石' : '玉石'}` : !canPay(10) ? `十連尚欠 ${(GACHA_COST_PER_PULL * 10 - spendableJade(meta, banner)).toLocaleString('zh-Hant')} 玉石` : ''}</p>
         <p className="ink-codex-fineprint">{banner === 'jianghu' ? '優先使用免費玉石 · 本池不產出珍本' : '使用付費測試玉石 · 測試版不收取真實款項'}</p>
         {lastPull?.length ? <button type="button" className="ink-codex-last" onClick={() => setSheet('results')}>上次抽取 {lastPull.length} 份 · 查看結果 ›</button> : null}
       </div>}
-        {view === 'shelf' && (
-          <div className="ink-codex-shelf">
-            <button type="button" className="ink-btn ink-btn--quiet ink-gacha-back" onClick={() => setView('draw')}>
-              ← 返回抽取
-            </button>
-            <p className="ink-gacha-note">
-              外功分七卷（一卷＝一招），抽中外功時出一卷；重複秘笈會自動轉為 {PAGES_PER_DUPLICATE} 書頁。升階需依次消耗100／200／300書頁，每階效果＋10%，最多 {MANUAL_MAX_STARS} 階。收藏跨代保留，後世可從收藏重新學習。書頁為通用兌換材料，與人物頁的指定武學殘譜分開計算。
-            </p>
-            <div className="ink-pages">
-              <span>
-                書頁 <b>{(meta.pages ?? 0).toLocaleString('zh-Hant')}</b>／{PAGES_PER_EXCHANGE}
-              </span>
-              <select value={swap} onChange={(e) => { const id=e.target.value;setSwap(id);setSwapVolume(Array.from({length:VOLUME_COUNT},(_,i)=>i+1).find(v=>!collectionVolumes(meta,id).includes(v))??0); }} aria-label="選擇兌換武學">
-                <option value="">選擇一門江湖武學兌換</option>
-                {swapOptions.map((id) => (
-                  <option key={id} value={id}>
-                    {skillLabel(id)}
-                  </option>
-                ))}
-              </select>
-              {hasVolumes(swap) && <select aria-label="選擇兌換卷次" value={selectedSwapVolume ?? ""} onChange={e => setSwapVolume(Number(e.target.value))}><option value="" disabled>選擇卷次</option>{missingSwapVolumes.map(v => <option key={v} value={v}>{volumeLabel(swap,v)}</option>)}</select>}
-              <button type="button" className="ink-btn ink-btn--quiet" disabled={!swapOptions.includes(swap) || (hasVolumes(swap) && selectedSwapVolume === undefined) || (meta.pages ?? 0) < PAGES_PER_EXCHANGE} onClick={() => { exchange(swap, hasVolumes(swap) ? selectedSwapVolume : undefined); setSwap(''); }}>
-                兌換
-              </button>
-            </div>
-            <p className="ink-note">每200書頁可自選一卷未持有的江湖外功；內功及身法按整門兌換。已收錄的卷不會重複扣頁。</p>
-            <div className="ink-pages">
-              <span>今世銀兩 <b>{state.character.money.toLocaleString('zh-Hant')}</b>兩</span>
-              <button type="button" className="ink-btn ink-btn--quiet" disabled={silverLeft <= 0 || state.character.money < TEST_SILVER_SINKS.pagesSilverCost} onClick={buySilverPages}>
-                {silverLeft <= 0 ? '今日已換完' : `${TEST_SILVER_SINKS.pagesSilverCost}兩換${TEST_SILVER_SINKS.pagesPerExchange}頁（今日剩${silverLeft}次）`}
-              </button>
-            </div>
-            <InkSchoolTabs value={shelfSchool} onChange={setShelfSchool} allowAll label="收藏流派分類" />
-            {shelf.length === 0 ? (
-              <p className="ink-note">尚無收藏，可返回抽取或使用書頁兌換。</p>
-            ) : (
-              <ul className="ink-shelf">
-                {visibleShelf.map(([id, e]) => {
-                  const def = getSkillDef(id);
-                  return (
-                    <li key={id} className={`ink-shelf-row${def?.premium ? ' is-premium' : ''}`}>
-                      <div className="ink-shelf-main">
-                        <span className="ink-shelf-name">{skillLabel(id)}</span>
-                        <InkSkillSchools id={id} />
-                        <span className="ink-shelf-meta">
-                          {def ? skillKindLabel(def.kind) : ''}
-                          {def?.premium ? ' · 珍本' : ''}
-                          {hasVolumes(id) ? ` · ${collectionVolumes(meta, id).length}／${VOLUME_COUNT} 卷` : ''} · {'★'.repeat(e.stars)}
-                          {'☆'.repeat(MANUAL_MAX_STARS - e.stars)}
-                          {e.copies > 0 ? ` · 重複 ${e.copies} 本` : ''}
-                        </span>
-                      </div>
-                      <div className="ink-shelf-actions">
-                        {!known.has(id) && (
-                          <button type="button" className="ink-btn ink-btn--primary" onClick={() => learn(id)}>
-                            學習
-                          </button>
-                        )}
-                        <button type="button" className="ink-btn ink-btn--quiet" disabled={manualUpgradeCost(meta,id) === null || (meta.pages ?? 0) < (manualUpgradeCost(meta,id) ?? Infinity)} onClick={() => upgrade(id)}>
-                          升階{manualUpgradeCost(meta,id) !== null ? ` · ${manualUpgradeCost(meta,id)}頁` : ' · 已滿'}
-                        </button>
-                        <button type="button" className="ink-btn ink-btn--quiet" disabled={e.copies < 1} onClick={() => pulp(id)}>
-                          舊重複本轉頁
-                        </button>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
-            {shelf.length > 0 && visibleShelf.length === 0 && <p className="ink-note">此流派尚無藏本，可前往對應流派卡池獲取。</p>}
-          </div>
-        )}
-      {sheet && <GachaSheet title={sheet === 'info' ? '卡池詳情' : sheet === 'catalog' ? '本冊可得武學' : sheet === 'wish' ? '心願祈福' : sheet === 'school' ? '六派藏卷' : '上次入藏'} onClose={() => setSheet(null)}>
+      {view === 'shelf' && <InkGachaCollection state={state} onDraw={() => setView('draw')}/>}
+      {sheet && <GachaSheet title={sheet === 'info' ? '卡池詳情' : sheet === 'catalog' ? '本冊可得武學' : sheet === 'wish' ? '心願祈福' : sheet === 'school' ? '六派藏卷' : sheet === 'pack' ? '選擇流派小冊' : '上次入藏'} onClose={() => setSheet(null)}>
         {sheet === 'info' && <>
           {BANNER_IDS.map(id => <p key={id}><b>{BANNERS[id].name}</b>：{BANNERS[id].blurb}</p>)}
           <p>每抽 {GACHA_COST_PER_PULL} 玉石；設定心願後 {GACHA_WISH_PITY} 抽內必出心願。外功分七卷，抽中外功時出一卷。</p>
@@ -256,6 +160,7 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
           <button className="ink-btn" type="button" disabled={testClaimed} onClick={grantTest}>{testClaimed ? '今日已領測試額度' : `領測試額度＋${TEST_PAID_JADE_GRANT}（每日一次）`}</button>
         </>}
         {sheet === 'school' && <><InkSchoolTabs value={pool.school} label="抽卡流派" onChange={id => { if (id !== 'all') { selectPool(banner,schoolGachaPools(banner,id)[0]!.id); setSheet(null); } }} /><p>流派限定本冊抽取範圍，裝備可自由跨派配搭。</p></>}
+        {sheet === 'pack' && <><p>{school.name} · 更換小冊保留保底；不在新冊的心願須重新選擇。</p><div className="ink-codex-pack-options">{schoolPacks.map(pack => <button type="button" key={pack.id} aria-pressed={pack.id === pool.id} onClick={() => { selectPool(banner, pack.id); setSheet(null); }}><strong>第{pack.part}冊</strong><small>{pack.arts.length}門武學</small><span>{pack.id === pool.id ? '目前小冊' : '選擇此冊'}</span></button>)}</div></>}
         {sheet === 'catalog' && <><p>{school.name} · 第{pool.part}冊 · {pool.arts.length}門</p><p>{school.blurb}</p>
           <ul className="ink-codex-catalog">{pool.arts.map(id => <li key={id} data-premium={getSkillDef(id)?.premium ? '1' : undefined}><strong>{skillLabel(id)}</strong><small>{skillKindLabel(getSkillDef(id)!.kind)} · {getSkillDef(id)?.premium ? '珍本' : '江湖'}{primarySchoolOfSkill(getSkillDef(id)) !== pool.school ? ' · 兼修配套' : ''}</small><InkSkillSchools id={id} /></li>)}</ul>
         </>}
