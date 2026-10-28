@@ -1,0 +1,26 @@
+{
+  "actualIphone": false,
+  "cloudRequestsBlocked": true,
+  "cases": [
+    {
+      "engine": "chromium",
+      "viewport": [
+        390,
+        844
+      ],
+      "fixedDrawAndCollection": true,
+      "targets44": true,
+      "noSystemSelect": true,
+      "permanentPremiumCover": true,
+      "packAndSchoolNoCharge": true,
+      "paidPoolShortageClear": true,
+      "trueSevenVolumes": true,
+      "previewCancelNoMutation": true,
+      "doubleConfirmSingle200Debit": true,
+      "onlyChosenVolumeAdded": true,
+      "notAutoLearned": true,
+      "dialogHeaderFooterVisible": true,
+      "pageerrors": []
+    }
+  ]
+}

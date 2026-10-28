@@ -1,0 +1,5 @@
+STATE empty
+STATE large
+STATE insufficient
+STATE legacy
+DESIGN_STATES_PASS 4

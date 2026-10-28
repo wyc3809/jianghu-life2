@@ -15,17 +15,18 @@ class FxBoundary extends Component<{ fallback: ReactNode; children: ReactNode },
 }
 
 /** 原生dialog提供焦點圍欄、Escape及關閉後焦點復原。 */
-export function GachaSheet({ title, onClose, children }: { title: string; onClose: () => void; children: ReactNode }) {
+export function GachaSheet({ title, onClose, children, footer }: { title: string; onClose: () => void; children: ReactNode; footer?: ReactNode }) {
   const native = useContext(InkPersonNativeContext);
   const ref = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     const el = ref.current!; const previous = document.activeElement as HTMLElement | null;
     el.showModal();
-    return () => { el.close(); previous?.focus(); };
+    return () => { el.close(); previous?.focus({ preventScroll: true }); };
   }, []);
   return createPortal(<dialog ref={ref} className={`ink-codex-sheet${native ? ' ink-person-dialog' : ''}`} aria-label={title} onCancel={event => { event.preventDefault(); onClose(); }}>
     <header><h3>{title}</h3><button type="button" aria-label={`關閉${title}`} onClick={onClose}><img src={inkArtUrl('art/parchment-ui/icon-close.webp')} alt="" width="22" height="22" />收起</button></header>
     <div className="ink-codex-sheet-body">{children}</div>
+    {footer && <footer className="ink-codex-sheet-footer">{footer}</footer>}
   </dialog>, document.body);
 }
 

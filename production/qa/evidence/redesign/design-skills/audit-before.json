@@ -1,0 +1,71 @@
+{
+  "screens": [
+    {
+      "screen": "home",
+      "smallControls": [
+        {
+          "text": "玉石\n600",
+          "cls": "ink-jade-chip",
+          "width": 100,
+          "height": 30
+        },
+        {
+          "text": "設定",
+          "cls": "ink-icon-btn ink-icon-btn--wide ink-hud-settings",
+          "width": 100,
+          "height": 30
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "screen": "person",
+      "smallControls": [],
+      "horizontalOverflow": false
+    },
+    {
+      "screen": "person-more",
+      "smallControls": [],
+      "horizontalOverflow": false
+    },
+    {
+      "screen": "martial",
+      "smallControls": [],
+      "horizontalOverflow": false
+    },
+    {
+      "screen": "practice",
+      "smallControls": [
+        {
+          "text": "玉石\n600",
+          "cls": "ink-jade-chip",
+          "width": 100,
+          "height": 30
+        },
+        {
+          "text": "設定",
+          "cls": "ink-icon-btn ink-icon-btn--wide ink-hud-settings",
+          "width": 100,
+          "height": 30
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "screen": "gacha",
+      "smallControls": [],
+      "horizontalOverflow": false
+    },
+    {
+      "screen": "school",
+      "smallControls": [],
+      "horizontalOverflow": false
+    },
+    {
+      "screen": "gacha-shelf",
+      "smallControls": [],
+      "horizontalOverflow": false
+    }
+  ],
+  "errors": []
+}

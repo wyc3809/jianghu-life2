@@ -1,0 +1,99 @@
+/* 第52項：以現有宣紙與毛筆為設計值，先選內容，再進入獨立冊頁。 */
+body .ink-codex-sheet[open] { display:flex; flex-direction:column; overflow:hidden; max-height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px) - 24px); gap:12px; }
+body .ink-codex-sheet > header { display:grid; grid-template-columns:minmax(0,1fr) 64px; flex:none; gap:8px; align-items:center; }
+body .ink-codex-sheet > header h3 { text-align:left; font-size:24px; line-height:32px; overflow-wrap:anywhere; background-position:left bottom; }
+body .ink-codex-sheet > header button { min-height:44px; min-width:64px; }
+body .ink-codex-sheet-body { min-height:0; overflow-y:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; font-size:14px; line-height:24px; padding:2px; }
+body .ink-codex-sheet-footer { flex:none; min-width:0; }
+body .ink-codex-sheet-footer p { margin:4px 0; font-size:12px; line-height:16px; text-align:center; color:var(--ink-mid); }
+body .ink-codex-sheet :is(h4,strong),.ink-codex-page b { font-variant-numeric:tabular-nums; }
+body .ink-codex-sheet h4 { margin:12px 0 4px; font-size:16px; line-height:24px; }
+body .ink-codex-sheet p { text-wrap:pretty; }
+body .ink-codex-sheet :is(button,[role='button']):focus-visible { outline:2px solid var(--ui-red); outline-offset:-3px; }
+body .ink-person-sheet > header { display:grid; grid-template-columns:64px minmax(0,1fr) 64px; gap:4px; }
+body .ink-person-sheet > header h2 { grid-column:2; width:100%; overflow-wrap:anywhere; text-align:center; }
+body .ink-person-sheet > header > button { position:static; grid-column:3; grid-row:1; }
+body .ink-codex-page .ink-codex-pack-picker { flex:none; margin:0; min-width:64px; padding:4px 8px; font-size:14px; line-height:20px; }
+body .ink-codex-page .ink-codex-volume { gap:8px; }
+body .ink-codex-page .ink-codex-volume > .ink-codex-school-picker { font-size:16px; line-height:24px; }
+body .ink-codex-page .ink-codex-heading small { letter-spacing:.04em; }
+body .ink-codex-page .ink-codex-availability { min-height:0; margin:0; text-align:center; font-size:12px; line-height:16px; color:var(--ui-red); }
+body .ink-codex-page .ink-codex-availability:empty { display:none; }
+body .ink-codex-sheet :is(.ink-codex-pack-options,.ink-codex-exchange-options) { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+body .ink-codex-sheet :is(.ink-codex-pack-options,.ink-codex-exchange-options)>button { position:relative; min-width:0; min-height:80px; padding:12px 8px; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; background:var(--ui-card) center/cover; border:0; color:var(--ui-ink); text-align:left; }
+body .ink-codex-sheet .ink-codex-pack-options strong { font-family:var(--ui-title)!important; font-size:24px; line-height:32px; }
+body .ink-codex-sheet :is(.ink-codex-pack-options,.ink-codex-exchange-options) small { font-size:12px; line-height:16px; color:var(--ink-mid); }
+body .ink-codex-sheet :is(.ink-codex-pack-options,.ink-codex-exchange-options)>button[aria-pressed='true'] { color:var(--ui-red); }
+body .ink-codex-sheet :is(.ink-codex-pack-options,.ink-codex-exchange-options)>button[aria-pressed='true']::after { content:''; position:absolute; inset:0; pointer-events:none; background:var(--ui-selected) center/100% 100%; }
+.scroll-shell--gacha .ink-codex-collection { display:flex; flex-direction:column; flex:1 1 0; min-height:0; gap:8px; }
+body .ink-codex-collection-tools { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:8px; padding-top:8px; }
+body .ink-codex-collection-tools>button { display:flex; align-items:center; justify-content:center; gap:8px; padding:8px; min-height:56px; text-align:left; border:0; background:var(--ui-caption) center/100% 100%; }
+body .ink-codex-collection-tools>button:first-child { justify-content:flex-start; }
+body .ink-codex-collection-tools>button:first-child>span:nth-child(2) { min-width:0; flex:1; }
+body .ink-codex-collection-tools strong { display:block; font-size:16px; line-height:24px; }
+body .ink-codex-collection-tools small { display:block; font-size:12px; line-height:16px; font-variant-numeric:tabular-nums; }
+body .ink-codex-collection-heading { display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:44px; }
+body .ink-codex-collection-heading>strong { font-size:14px; line-height:20px; }
+body .ink-codex-collection-heading>button { min-height:44px; max-width:70%; padding:4px 8px; border:0; background:transparent; font-size:14px; line-height:20px; overflow-wrap:anywhere; }
+body .ink-codex-collection-list { flex:1 1 0; min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:2px 2px 8px; }
+body .ink-codex-library-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); list-style:none; padding:0; margin:0; gap:8px; }
+body .ink-codex-library-grid li { min-width:0; }
+body .ink-codex-library-grid button { display:flex; flex-direction:column; align-items:center; justify-content:flex-start; gap:4px; width:100%; min-width:0; min-height:164px; padding:12px 8px; border:0; background:var(--ui-card) center/cover; }
+body .ink-codex-library-grid img { object-fit:contain; width:40px; height:60px; flex:none; }
+body .ink-codex-library-grid strong { font-size:16px; line-height:24px; overflow-wrap:anywhere; text-wrap:balance; }
+body .ink-codex-library-grid span,body .ink-codex-library-grid small { font-size:12px; line-height:16px; color:var(--ink-mid); }
+body .ink-codex-library-grid span { margin-top:auto; }
+body .ink-codex-empty { text-align:center; padding:24px 12px; font-size:14px; }
+body .ink-codex-empty h4 { font-family:var(--ui-title)!important; font-size:24px; margin:12px 0; }
+body .ink-codex-empty p { line-height:24px; }
+body .ink-codex-manual-actions { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+body .ink-codex-manual-actions button { min-height:44px; min-width:0; font-size:14px; padding:8px; white-space:normal; }
+body .ink-codex-manual-actions button:first-child:nth-last-child(4),body .ink-codex-manual-actions p { grid-column:1/-1; }
+body .ink-codex-exchange-choose { display:flex; flex-direction:column; gap:4px; min-height:64px; width:100%; padding:8px 12px; color:var(--ui-ink); text-align:left; background:var(--ui-card) center/cover; }
+body .ink-codex-exchange-choose strong { font-size:18px; line-height:28px; }
+body .ink-codex-exchange-volumes { display:grid; gap:4px; margin-top:12px; }
+body .ink-codex-exchange-volumes button { display:flex; gap:8px; justify-content:space-between; align-items:center; min-height:44px; padding:8px; text-align:left; font-size:14px; line-height:20px; }
+body .ink-codex-exchange-volumes button small { white-space:nowrap; font-size:12px; line-height:16px; }
+body .ink-codex-exchange-volumes button[aria-pressed='true'] { outline:2px solid var(--ui-red); outline-offset:-2px; }
+body .ink-codex-exchange-confirm>button { display:block; width:100%; min-height:48px; font-family:var(--ui-title)!important; font-size:24px; line-height:32px; }
+body .ink-codex-exchange-confirm p { min-height:16px; }
+body .ink-codex-resource { font-variant-numeric:tabular-nums; }
+body .ink-codex-resource strong { font-size:24px; }
+body .ink-codex-silver { margin-top:16px; padding:8px; background:var(--ui-caption) center/100% 100%; }
+body .ink-codex-silver>small { display:block; color:var(--ui-red); }
+body .ink-codex-sheet .ink-martial-details h3 { display:none; }
+body .ink-codex-sheet :is(.ink-codex-manual-actions,.ink-codex-exchange-confirm) .ink-btn--primary { background:var(--ui-brush) center/100% 100%; color:#fff9e9; text-shadow:none; }
+@media(hover:hover) { body :is(.ink-codex-library-grid,.ink-codex-collection-tools,.ink-codex-pack-options,.ink-codex-exchange-options) button:hover:not(:disabled) { filter:brightness(.96); } }
+@media(max-height:650px) {
+ .scroll-shell--gacha .ink-codex-theatre { flex:1 1 64px; min-height:64px; }
+ body .ink-codex-page .ink-codex-banners button { min-height:48px; padding-block:4px; }
+ body .ink-codex-page .ink-codex-volume { padding-block:0; }
+ body .ink-codex-page .ink-codex-wish { min-height:56px; padding-block:6px; }
+ body .ink-codex-page .ink-codex-probability { font-size:12px; line-height:16px; margin:4px 0; }
+ body .ink-codex-page .ink-codex-pulls { margin:4px 0; gap:8px; }
+ body .ink-codex-page .ink-codex-pulls>button { min-height:48px; }
+ body .ink-codex-page .ink-codex-heading-actions button { padding:4px; font-size:12px; }
+ body .ink-codex-sheet[open] { gap:8px; padding:12px; }
+}
+body .ink-codex-page .ink-codex-volume > .ink-codex-school-picker { display:flex; align-items:center; justify-content:space-between; gap:4px; }
+body .ink-codex-school-picker>span:first-child { min-width:0; }
+body .ink-codex-school-picker>span:last-child { flex:none; }
+@media(max-height:650px) {
+ body .ink-codex-page .ink-codex-volume > .ink-codex-school-picker { font-size:14px; line-height:20px; padding-inline:4px; }
+ body .ink-codex-page .ink-codex-volume > :last-child { font-size:12px; padding-inline:4px; }
+ body .ink-codex-poem { display:none; }
+ body .ink-codex-edition { writing-mode:horizontal-tb; font-size:12px; top:8px; right:8px; letter-spacing:0; }
+ body .ink-codex-theatre-note { display:none; }
+ body .ink-codex-page .ink-codex-wish strong { font-size:14px; line-height:20px; }
+ body .ink-codex-page .ink-codex-wish .ink-codex-pity { max-width:112px; }
+}
+/* 操作框亦沿用磨邊紙材，避免新冊頁退回普通網頁方框。 */
+body .ink-codex-sheet :is(.ink-codex-exchange-volumes button,.ink-codex-exchange-choose,.ink-codex-manual-actions .ink-btn:not(.ink-btn--primary)) { position:relative; isolation:isolate; border-color:transparent; background:var(--ui-fiber) center/384px repeat,var(--ui-paper); }
+body .ink-codex-sheet :is(.ink-codex-exchange-volumes button,.ink-codex-exchange-choose,.ink-codex-manual-actions .ink-btn:not(.ink-btn--primary))::before { display:block; content:''; position:absolute; inset:0; pointer-events:none; border:4px solid transparent; border-image:var(--ui-frame) 48 / 1 / 0 stretch; background:none; }
+body .ink-codex-sheet .ink-codex-exchange-volumes button[aria-pressed='true'] { outline:0; }
+body .ink-codex-sheet .ink-codex-exchange-volumes button[aria-pressed='true']:not(:disabled)::before { border-image:var(--ui-selected) 13 / 1 / 0 stretch; }
+body .ink-codex-page .ink-codex-wallet { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr) 44px; gap:8px; }
+body .ink-codex-page .ink-codex-wallet>span { flex-wrap:wrap; min-width:0; gap:2px 4px; line-height:16px; }
+body .ink-codex-page .ink-codex-wallet>span b { max-width:100%; overflow-wrap:anywhere; }
+body .ink-codex-page .ink-codex-wallet>button { margin:0; }
+body .ink-codex-sheet .ink-codex-exchange-volumes button:focus-visible { outline:2px solid var(--ui-ink); outline-offset:-5px; }
