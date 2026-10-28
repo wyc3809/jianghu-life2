@@ -8,6 +8,7 @@ with sync_playwright() as p:
  option=page.locator('[data-exchange-art="'+ids['external'][0]+'"]');option.scroll_into_view_if_needed();option.click();stable(page);before=snapshot(page)
  page.keyboard.press('Tab');selected=page.locator('.ink-codex-exchange-volumes button[aria-pressed=true]');selected.focus();stable(page)
  assert selected.evaluate('e=>e.matches(":focus-visible")&&getComputedStyle(e).outlineWidth==="2px"&&getComputedStyle(e).outlineStyle==="solid"')
+ assert selected.evaluate('e=>getComputedStyle(e,"::before").borderImageSource.includes("brush-selected-reference.webp")')
  assert selected.evaluate('e=>getComputedStyle(e).outlineColor')=='rgb(37, 36, 31)';sheet_check(page);shot(page,'after-keyboard-focus.png')
  assert page.locator('dialog[open]').evaluate('e=>e.matches(":modal")')
  assert page.evaluate('()=>{const before=document.activeElement;document.querySelector(".ink-codex-heading-actions button").focus();return document.activeElement===before}')
@@ -17,4 +18,4 @@ with sync_playwright() as p:
  page.keyboard.press('Escape');stable(page);assert not page.locator('dialog[open]').count();assert snapshot(page)==before
  assert page.evaluate('document.activeElement===document.querySelector(".ink-codex-collection-tools>button")');assert not errors,errors
  c.close();b.close()
-(OUT/'focus-report.json').write_text(json.dumps({'selectedVolumeFocusVisible':True,'nativeFocusTrap':True,'escapeRestoresTriggerFocus':True,'noDebitOrLearn':True,'actualIphone':False,'pageerrors':errors},ensure_ascii=False,indent=2));print('DESIGN_FOCUS_PASS')
+(OUT/'focus-report.json').write_text(json.dumps({'selectedVolumeFocusVisible':True,'selectedVolumeUsesCinnabarFrame':True,'nativeFocusTrap':True,'escapeRestoresTriggerFocus':True,'noDebitOrLearn':True,'actualIphone':False,'pageerrors':errors},ensure_ascii=False,indent=2));print('DESIGN_FOCUS_PASS')
