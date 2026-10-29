@@ -1280,3 +1280,13 @@ iOS／Codemagic準備工程一併接入main，Apple版本保留1.0、build由App
 原碼新增重現9項全失敗，修正後新增14項回歸；完整113檔874項、正式Pages構建、narrate／copy、24種子（1,258事件／43戰／359回合）逐步存檔檢查、雙引擎三尺寸主要頁面、門派重開、真交手跳過／重開及銀兩不重派通過。前後圖、真儲存層與具體限制見 `production/qa/evidence/redesign/bug-audit-ea097/README.md`。
 
 沒有發布第46／47項原型，沒有改抽取價格／機率／保底、重做戰鬥或遷移存檔版本。未登入或改動玩家雲端帳戶；本次不是多人真帳號／資料庫及iPhone實機聯測，網頁發布與TestFlight上傳分開記錄。已被舊版覆蓋的資料須看備份是否仍保留，本輪不假造門派或弟子。
+
+### 第54項：修正TestFlight內測準備版本過期（2026-10-29，EA0.97.2）
+
+玩家回報Codemagic「內測內容版本與準備紀錄不同」。已確認遊戲EA0.97.1而release-readiness.json仍為EA0.91.0，版本守門因此正確停止；不是Apple會員、簽署或真機待辦造成此訊息。玩家已確認一般修正直接發布，本項按既有授權以EA0.97.2上線。
+
+- 同步遊戲、package／lockfile、內測準備與測試內容版本；每次CI永久核對這些版本，防止往後只升遊戲漏改準備紀錄。
+- 內測錯誤列明兩個版本及需同步檔案；明確區分待辦提示。App ID／Bundle ID及公開設定驗證保持，外測仍拒絕未完成事項，沒有改任何done為true。
+- 更新iOS操作文件，統一Codemagic選main與ios-internal-testflight；重跑舊commit不能取得新修正。Apple1.0與查詢後遞增build流程保持，未改簽署、後端或玩法。
+
+版本不一致回歸先重現失敗，再修正；完整測試、構建、文字檢查及Mac未簽名Archive結果見`production/qa/evidence/redesign/ios-readiness-ea0972/README.md`。本項發布程式及網頁，沒有代按Codemagic或宣稱已上傳新TestFlight；Apple權限、隱私、原生帳戶與完整真機驗收仍需實際證據。

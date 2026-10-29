@@ -11,7 +11,9 @@ if (!/^[1-9]\d+$/.test(appId) || appId !== readiness.appStoreAppId) {
 if (process.env.IOS_BUNDLE_ID !== readiness.candidateBundleId) {
   errors.push('IOS_BUNDLE_ID須與工程預定的Bundle ID一致。');
 }
-if (!version || version !== readiness.gameVersion) errors.push('內測內容版本與準備紀錄不同。');
+if (!version || version !== readiness.gameVersion) {
+  errors.push(`內測內容版本與準備紀錄不同：遊戲 ${version || '缺少版本'}，準備紀錄 ${readiness.gameVersion || '缺少版本'}。請同步 production/ios/release-readiness.json 後重新建置。`);
+}
 if (!/^\d+\.\d+(\.\d+)?$/.test(process.env.IOS_MARKETING_VERSION || '')) {
   errors.push('IOS_MARKETING_VERSION須是Apple數字版本。');
 }
@@ -44,6 +46,7 @@ if (errors.length) {
 } else {
   console.log(`${version}內測設定格式通過；Apple授權、App識別及簽署仍由實際建置核對。`);
 }
+console.log('以下未驗收項目僅作待辦紀錄，不會單獨阻擋此內測流程；外測發布仍會檢查。');
 for (const check of readiness.checks.filter(check => check.done !== true)) {
   console.log(`未驗收 ${check.id}：${check.detail}`);
 }

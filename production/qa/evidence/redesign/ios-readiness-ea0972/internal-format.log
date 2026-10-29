@@ -1,0 +1,12 @@
+此項只用明確假資料驗證格式，不代表真帳號／金鑰／連線已驗證。
+EA0.97.2內測設定格式通過；Apple授權、App識別及簽署仍由實際建置核對。
+以下未驗收項目僅作待辦紀錄，不會單獨阻擋此內測流程；外測發布仍會檢查。
+未驗收 apple-membership：確認已付費Apple Developer會員與App Store Connect權限
+未驗收 app-record：玩家已提供數字App ID 6826541114；仍須在Apple核對所屬App、Bundle ID、Apple版本及下一個build號
+未驗收 signing：在Mac或Codemagic配置Distribution憑證、profile及Apple整合
+未驗收 privacy-metadata：完成私隱政策公開網址、聯絡資料、App Privacy及內容分級
+未驗收 native-email-login：完成原生電郵登入／綁定回調、Supabase allowlist及雙裝置還原實測
+未驗收 account-deletion：App內可發起帳戶刪除，後端驗證身份並處理存檔、榜單與多人資料
+未驗收 device-save-upgrade：真iPhone前後台、離線重開、舊檔升級及效能驗收
+未驗收 beta-review：確認測試聯絡人、測試內容與必要的Beta App Review資料
+本流程僅供App Store Connect內部測試，不能當作外測、真機驗收或商店發布已完成。
