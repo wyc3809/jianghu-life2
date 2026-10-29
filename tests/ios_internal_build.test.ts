@@ -50,6 +50,26 @@ describe('iOS首次內測', () => {
   it('test_ios_內測接受公開publishable金鑰', () => {
     expect(check({ VITE_SUPABASE_ANON_KEY: 'sb_publishable_fixture' }).status).toBe(0);
   });
+  it('test_ios_準備版本過期會停止且不改待辦狀態', () => {
+    const before = fs.readFileSync(readinessFile, 'utf8');
+    try {
+      fs.writeFileSync(readinessFile, JSON.stringify({ ...readiness, gameVersion: 'EA0.88.0' }));
+      const result = check();
+      expect(result.status).toBe(1);
+      expect(result.stderr).toContain('內測內容版本與準備紀錄不同');
+      expect(result.stdout).toContain('未驗收 device-save-upgrade');
+      expect(JSON.parse(fs.readFileSync(readinessFile, 'utf8')).checks).toEqual(readiness.checks);
+    } finally {
+      fs.writeFileSync(readinessFile, before);
+    }
+  });
+  it('test_ios_外測仍拒絕未完成驗收', () => {
+    const result = spawnSync(process.execPath, [path.join(root, 'scripts/ios/release-check.mjs')], {
+      cwd: dir, env, encoding: 'utf8',
+    });
+    expect(result.status).toBe(1);
+    expect(result.stderr).toContain('device-save-upgrade');
+  });
   it.each([
     { APP_STORE_APP_ID: '9999999999' },
     { IOS_BUNDLE_ID: 'com.example.other' },

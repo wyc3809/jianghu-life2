@@ -1,0 +1,33 @@
+
+ RUN  v3.2.7 /workspace/jianghu-person-release-ea094
+
+ ✓ tests/ios_internal_build.test.ts (19 tests) 976ms
+ ❯ tests/version.test.ts (2 tests | 1 failed) 14ms
+   ✓ app version > exposes Early Access release EA0.97.1 2ms
+   × app version > test_ios_內測準備及套件版本必須跟隨遊戲版本 11ms
+     → expected 'EA0.91.0' to be 'EA0.97.1' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/version.test.ts > app version > test_ios_內測準備及套件版本必須跟隨遊戲版本
+AssertionError: expected 'EA0.91.0' to be 'EA0.97.1' // Object.is equality
+
+Expected: "EA0.97.1"
+Received: "EA0.91.0"
+
+ ❯ tests/version.test.ts:14:35
+     12| 
+     13|   it('test_ios_內測準備及套件版本必須跟隨遊戲版本', () => {
+     14|     expect(readiness.gameVersion).toBe(APP_VERSION);
+       |                                   ^
+     15|     const packageVersion = `${APP_VERSION.slice(2)}-ea`;
+     16|     expect(packageInfo.version).toBe(packageVersion);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 20 passed (21)
+   Start at  16:17:55
+   Duration  2.06s (transform 151ms, setup 0ms, collect 192ms, tests 990ms, environment 1ms, prepare 272ms)
+

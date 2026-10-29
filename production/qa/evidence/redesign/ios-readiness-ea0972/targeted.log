@@ -1,0 +1,11 @@
+
+ RUN  v3.2.7 /workspace/jianghu-person-release-ea094
+
+ ✓ tests/version.test.ts (2 tests) 3ms
+ ✓ tests/ios_internal_build.test.ts (19 tests) 772ms
+
+ Test Files  2 passed (2)
+      Tests  21 passed (21)
+   Start at  16:18:41
+   Duration  1.71s (transform 113ms, setup 0ms, collect 151ms, tests 775ms, environment 1ms, prepare 275ms)
+

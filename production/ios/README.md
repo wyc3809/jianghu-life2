@@ -1,16 +1,16 @@
-最新發布安排（2026-10-25）：玩家已確認第43、44項並要求上線，內容升至EA0.91.0，包含書頁養成、回內及雙配搭。沿用Apple版本1.0，Codemagic選main或已對齊的work/testflight-prep-ea088及ios-internal-testflight；本次未宣稱已上傳Apple。
-
 # 《江湖一生》iOS／TestFlight準備
 
-最新發布安排（2026-10-24）：玩家已確認第39至42項並要求上線，內容升至EA0.90.0。網頁發布及Mac工程驗證記錄見`production/qa/evidence/redesign/release-ea090/`；iOS仍沿用Apple版本1.0，真正上傳build由Codemagic查Apple後遞增。此環境沒有可操作的Codemagic／Apple連線，未觸發其上傳；擁有者可用原分支的「江湖一生 iOS 首次內測」建置新版。
+最新內測內容：**EA0.97.2**（2026-10-29）。Codemagic請選`main`、workflow **`ios-internal-testflight`（江湖一生 iOS 首次內測）**。Apple版本沿用`1.0`，build號仍由流程查詢Apple後遞增；遊戲EA版本不作Apple版本號。
 
-前次安裝與精修過程：玩家已回報透過TestFlight安裝並提供主頁實機畫面；首個安裝流程已由玩家走通。已依該畫面精修安全區與主頁高度（第39項），並依寶箱實機回報精修材質、開啟／旋轉繪製負荷與結果靜止（第40項）。秘笈閣亦已改為如江湖地圖的獨立全畫面（第41項），圖見`production/qa/evidence/redesign/gacha-fullscreen/`。前後圖／動態分別見`production/qa/evidence/redesign/ios-safe-area/`及`production/qa/evidence/redesign/chest-quality/`。秘笈書冊畫質、翻冊及主頁同款介面亦已完成原型（第42項），見`production/qa/evidence/redesign/codex-quality/`。精修仍是待檢視原型，未再次上傳；原生登入、帳戶刪除與完整真機清單維持待辦。
+本次修正：內測準備紀錄曾停留EA0.91.0，令較新內容被版本檢查擋住。已同步，並在每次CI比較遊戲、套件、lockfile與準備紀錄版本，版本不一致即失敗。`internal-check.mjs`仍拒絕錯誤App ID／Bundle ID／公開連線設定；列出的「未驗收」項目是待辦紀錄，不會單獨阻擋此內測流程。沒有將未完成事項改成已驗收。
 
-內容版本EA0.90.0，已接入main的完整回合連招及難度調整；本工作準備iOS工程，不發布新網頁版本。承接舊PR #115的Capacitor8.5.3／SwiftPM工程，接入目前完整遊戲、資源及多人入口。候選Bundle ID `com.wyc3809.jianghulife2`，Apple版本暫用1.0；兩者尚未獲Apple服務側資料確認。
+玩家已回報透過TestFlight安裝並提供實機畫面，表示曾完成安裝；不等於最新修正已上傳Apple，亦不等於完整真機／跨裝置／隱私驗收。此環境沒有可操作的Codemagic／Apple連線，不能代按建置或確認簽署上傳。網頁已發布與TestFlight已處理可安裝須分開核對。
+
+承接Capacitor8.5.3／SwiftPM工程，打包目前完整遊戲、資源及多人入口。Bundle ID `com.wyc3809.jianghulife2`、App Store Connect數字App ID `6826541114`；仍須以Apple服務側資料確認配對、授權及簽署。原生登入、帳戶刪除與完整真機清單維持待辦，詳見`release-readiness.json`。
 
 ## 已準備
 
-- 隨App打包完整Vite遊戲與793個public資源，非遠端Pages外殼。原生直版、安全區、紙色啟動畫面、1024px無透明App icon、App及SDK私隱manifest。
+- 隨App打包完整Vite遊戲與全部public資源（數量及hash以當次`ios:verify`輸出為準），非遠端Pages外殼。原生直版、安全區、紙色啟動畫面、1024px無透明App icon、App及SDK私隱manifest。
 - `npm run ios:sync`：mobile根路徑構建、同步Swift工程，再對齊App識別／版本。`npm run ios:verify`核對真正主bundle版本、全部public資源hash、Bundle ID、私隱資源及無開發server。
 - `npm run ios:package`：建立可交Mac重建的工程ZIP及SHA256資訊。含server型別／測試依賴；排除.env、憑證、私鑰、node_modules及私人存檔。ZIP不是IPA。
 - GitHub `iOS Package`：Mac實際未簽名Archive並驗證SDK、版本與資源，保留Archive、工程包及編譯記錄。這不會上傳Apple或邀請測試者。
@@ -33,7 +33,7 @@ GitHub PR會跑未簽名Mac Archive；亦可手動執行iOS Package。其Artifac
 
 ### 首次安裝：ios-internal-testflight
 
-玩家已回覆完成描述檔上傳、環境變數設定，並確認Apple整合名稱`jianghu-life2-app-store`；這是玩家回報，不等於本環境已登入Codemagic或驗證Apple簽署。Codemagic重新整理後，選分支`work/testflight-prep-ea088`及workflow「江湖一生 iOS 首次內測」（`ios-internal-testflight`）。分支名保留，但內容已是EA0.90.0。
+玩家已回覆完成描述檔上傳、環境變數設定，並確認Apple整合名稱`jianghu-life2-app-store`；這是玩家回報，不等於本環境已登入Codemagic或驗證Apple簽署。Codemagic重新整理後，選分支`main`及workflow「江湖一生 iOS 首次內測」（`ios-internal-testflight`）。重新建置前確認所選commit包含EA0.97.2，重跑舊build會沿用舊commit。
 
 - 檢查App ID、Bundle ID、內容版本、Apple數字版本及公開連線設定；拒絕漏填、Dashboard網址、不同專案的anon key及後端金鑰，不打印金鑰內容。
 - 列出未完成待辦，保持JSON中的`done:false`。先上傳內測版，再按真iPhone完成存檔、前後台、效能與升級測試，避免把真機驗收當首次安裝的前置條件。

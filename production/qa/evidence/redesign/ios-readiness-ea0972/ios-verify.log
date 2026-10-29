@@ -1,0 +1,5 @@
+
+> jianghu-engine@0.97.2-ea ios:verify
+> node scripts/ios/verify-package.mjs
+
+{"gameVersion":"EA0.97.2","appId":"com.wyc3809.jianghulife2","entryAssets":3,"publicFilesVerified":823,"localWebAssets":true,"signingVerified":false,"xcodeCompileVerified":false}

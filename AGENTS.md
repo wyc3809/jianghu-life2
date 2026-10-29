@@ -143,11 +143,12 @@ npm run audit:narrate   # CI 都會跑，hard-fail 要係 0
 
 ## 8. 上線流程（一般修改已授權直接發布；大型改動先確認）
 
-1. 升版本（四個位，格式 `EA0.xx.0` / `0.xx.0-ea`）：
+1. 升版本（以下位置，格式 `EA0.xx.0` / `0.xx.0-ea`）：
    - `src/version.ts` 嘅 `APP_VERSION`
    - `tests/version.test.ts`
    - `package.json` 嘅 `version`
    - `package-lock.json` 頭兩個 `version`
+   - `production/ios/release-readiness.json` 嘅 `gameVersion`（跟 `APP_VERSION`），並同步 `production/ios/testflight-metadata.zh-Hant.md`；版本測試會拒絕漏改，避免Codemagic內測被過期紀錄擋住。
 2. `production/redesign-scope.md` 對應項目標「玩家已確認，EA0.xx.0 上線」。
 3. 跑測試、build，commit（`chore: 版本 EA0.xx.0`），push 工作分支。
 4. 開 PR 去 `main`，標題格式：`江湖一生 · feat: <內容> EA0.xx.0`。內文寫摘要、改動、驗證。
