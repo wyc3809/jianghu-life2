@@ -1,0 +1,24 @@
+{
+  "version": "EA0.98.0",
+  "baseCommit": "8ff7e3be77dc2aeeb75bc31f0d1913c81ae4bff6",
+  "pagesBuildEntry": "index-D5bMjAqh.js",
+  "productionBase": "http://127.0.0.1:5242/jianghu-life2/",
+  "publicOnlineFlag": true,
+  "developmentDemoBase": "http://127.0.0.1:5240/",
+  "testFiles": 114,
+  "tests": 892,
+  "caseCounts": {
+    "guide-report.json": 12,
+    "gacha-motion-report.json": 4,
+    "after-animation-report.json": 9,
+    "chest/report.json": 2
+  },
+  "actualIphone": false,
+  "signedTestFlightUploaded": false,
+  "sha256": {
+    "guide-report.json": "f5d6a56ec899dc29e0c5807d676d74eb309fadb18bd9672f50547fd174135321",
+    "gacha-motion-report.json": "6923c2ed9fe9de6462e28daae1f45ae5f5393dc1c8cccb2a1d450e5a0d850554",
+    "after-animation-report.json": "14b2dfe61432b01dbe6e0def2fb3e361c74c304078c80970bfc97427270d257a",
+    "chest/report.json": "c4bbb7883642555786a476fcc337ce121ad152c9991cce20c3fb744f624926d7"
+  }
+}

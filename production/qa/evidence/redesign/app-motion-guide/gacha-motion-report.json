@@ -1,0 +1,54 @@
+[
+  {
+    "engine": "chromium",
+    "case": "ordinary",
+    "backgroundPhaseHeld": true,
+    "idleStopsBehindSheet": true,
+    "resumedFromSameResult": true,
+    "doubleDrawAndSkipNoReroll": true,
+    "realCoreResultMatches": true,
+    "claimPausesAndResumes": true,
+    "reloadNoExtraDebitOrReward": true,
+    "actualIphone": false,
+    "errors": []
+  },
+  {
+    "engine": "chromium",
+    "case": "ten",
+    "backgroundPhaseHeld": true,
+    "idleStopsBehindSheet": true,
+    "resumedFromSameResult": true,
+    "doubleDrawAndSkipNoReroll": true,
+    "realCoreResultMatches": true,
+    "claimPausesAndResumes": true,
+    "reloadNoExtraDebitOrReward": true,
+    "actualIphone": false,
+    "errors": []
+  },
+  {
+    "engine": "webkit",
+    "case": "ordinary",
+    "backgroundPhaseHeld": true,
+    "idleStopsBehindSheet": true,
+    "resumedFromSameResult": true,
+    "doubleDrawAndSkipNoReroll": true,
+    "realCoreResultMatches": true,
+    "claimPausesAndResumes": true,
+    "reloadNoExtraDebitOrReward": true,
+    "actualIphone": false,
+    "errors": []
+  },
+  {
+    "engine": "webkit",
+    "case": "ten",
+    "backgroundPhaseHeld": true,
+    "idleStopsBehindSheet": true,
+    "resumedFromSameResult": true,
+    "doubleDrawAndSkipNoReroll": true,
+    "realCoreResultMatches": true,
+    "claimPausesAndResumes": true,
+    "reloadNoExtraDebitOrReward": true,
+    "actualIphone": false,
+    "errors": []
+  }
+]

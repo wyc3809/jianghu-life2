@@ -1,0 +1,14 @@
+[
+  {
+    "subject": "chest",
+    "foregroundRafCallbacksObserved": 4,
+    "hiddenIdleRafCallbacks": 39,
+    "hiddenDraws": 0,
+    "chargingPhaseBefore": "charging",
+    "chargingPhaseWhileHidden": "bursting",
+    "resumedToResult": true,
+    "settleStops": true,
+    "actualIphone": false,
+    "pageErrors": []
+  }
+]

@@ -6,12 +6,16 @@ import { previewEquipDelta } from '@core/life/equipment';
 import { EQUIPMENT_LABEL, EQUIPMENT_RARITIES, equipmentArtUrl, equipmentCandidates, equipmentPiecePower, equipmentStatRows, type EquipmentSort } from '../../ui/personEquipment';
 import { inkArtUrl } from '../../ui/inkAssets';
 import { InkPersonSheet } from './InkPersonSheet';
+import { newbieGuide } from '@core/life/newbieGuide';
+import { NEWBIE_TRIAL } from '@data/redesign/newbie';
+import { InkNewbieGuide } from './InkNewbieGuide';
 
 /** 揀選只預覽；確認才交回既有換裝指令，不派獎、不消耗或改動另一套配搭。 */
 export function InkEquipmentPicker({ state, slot, preset, busy, onEquip, onClose }: {
   state: LifeGameState; slot: GearSlot; preset: 'normal' | 'duel'; busy: boolean; onEquip: (id: string) => boolean; onClose: () => void;
 }) {
   const c = state.character, currentId = c.equipment?.[slot];
+  const guiding = preset === 'normal' && slot === 'weapon' && newbieGuide(state)?.step === 'equip';
   const [selectedId, setSelectedId] = useState<string | null>(currentId ?? null);
   const [rarity, setRarity] = useState<GearRarity | 'all'>('all');
   const [sort, setSort] = useState<EquipmentSort>('power');
@@ -44,6 +48,7 @@ export function InkEquipmentPicker({ state, slot, preset, busy, onEquip, onClose
     </div>
   </div>;
   return <InkPersonSheet title={`更換${EQUIPMENT_LABEL[slot]}`} onClose={onClose} className="ink-equipment-picker">
+    {guiding && <InkNewbieGuide title="先比較，再換上">{selectedId === NEWBIE_TRIAL.rewardGearId ? '下方顯示目前與選中兵器的差異。確認後點「換上」。' : '點選標示「試煉所得」的兵器，查看下方攻擊變化。'}</InkNewbieGuide>}
     <p className="ink-equipment-context ink-visually-hidden">{preset === 'normal' ? '普通配搭' : '對戰配搭'}，符合條件 {candidates.length} 件。點選下方裝備名稱可檢視完整屬性與詞綴。</p>
     <div className="ink-equipment-filters">
       <button type="button" aria-expanded={chooser === 'rarity'} onClick={() => {setDetails(false);setChooser(chooser === 'rarity' ? null : 'rarity');}}>{rarity === 'all' ? '全部品質' : rarityLabel[rarity]}<img src={inkArtUrl('art/parchment-ui/icon-caret.webp')} alt="" width="12" height="8" /></button>
@@ -60,7 +65,7 @@ export function InkEquipmentPicker({ state, slot, preset, busy, onEquip, onClose
         {preview && <p>此套裝備戰力 {preview.powerBefore} → {preview.powerAfter}</p>}
       </div> : <>
         <div className="ink-equipment-grid">
-          {candidates.map(def => <button type="button" key={def.id} className={`ink-equipment-item is-${def.rarity}`} data-gear-id={def.id}
+          {candidates.map(def => <button type="button" key={def.id} className={`ink-equipment-item is-${def.rarity}`} data-gear-id={def.id} data-guide-target={guiding && def.id === NEWBIE_TRIAL.rewardGearId}
             aria-label={`預覽${displayGearName(def)}，${rarityLabel[def.rarity]}，裝備戰力${equipmentPiecePower(c,def)}${currentId === def.id ? '，目前已裝備' : ''}`} aria-pressed={selectedId === def.id} onClick={() => { setSelectedId(def.id); setDetails(false); }}>
             <img src={equipmentArtUrl(def)} alt="" width="96" height="72" /><strong>{displayGearName(def)}</strong><span>戰力 <b>{equipmentPiecePower(c,def)}</b></span>
           </button>)}

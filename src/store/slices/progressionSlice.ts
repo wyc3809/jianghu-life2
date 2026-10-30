@@ -64,6 +64,7 @@ export function createProgressionSlice(
   | 'advanceYear'
   | 'retire'
   | 'dismissCoach'
+  | 'resumeCoach'
   | 'ackMoment'
   | 'clearResult'
   | 'setTab'
@@ -240,6 +241,13 @@ export function createProgressionSlice(
       track('coach_dismiss');
       void save(next);
       set({ state: next });
+    },
+
+    resumeCoach: () => {
+      const { state } = get();
+      if (!state) return;
+      const next = produce(state, draft => { draft.character.flags.coach_done = false; });
+      void save(next); set({ state: next });
     },
 
     clearResult: () => set({ lastResult: null, flashLines: [] }),

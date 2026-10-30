@@ -67,6 +67,10 @@ export interface LifeStore {
   /** 無可選抉擇時暫避；label：顯示喺結果嘅所擇（例如「一笑置之」） */
   dismissEvent: (label?: string) => void;
   dismissCoach: () => void;
+  /** 只重開提示，不重設實際進度或已領獎勵。 */
+  resumeCoach: () => void;
+  /** 比較前修復舊版遺失的已得試煉兵器，不代玩家換裝。 */
+  prepareNewbieEquipment: () => void;
   /** 特效時刻播完：移出佇列（見 core/life/moments.ts） */
   ackMoment: () => void;
   practice: (actionId: PracticeActionId, opts?: { sectId?: string; artId?: string }) => void;

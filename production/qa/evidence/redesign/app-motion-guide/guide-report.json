@@ -1,0 +1,123 @@
+[
+  {
+    "engine": "chromium",
+    "viewport": [
+      320,
+      568
+    ],
+    "guideVisibleAndOperable": true,
+    "realCompareThenConfirm": true,
+    "cancelNoMutation": true,
+    "doubleConfirmOnce": true,
+    "normalDuelSeparate": true,
+    "reloadKeepsProgressAndSkip": true,
+    "reviewNoRewardsOrProgressReset": true,
+    "noPageErrors": true
+  },
+  {
+    "engine": "chromium",
+    "viewport": [
+      390,
+      844
+    ],
+    "guideVisibleAndOperable": true,
+    "realCompareThenConfirm": true,
+    "cancelNoMutation": true,
+    "doubleConfirmOnce": true,
+    "normalDuelSeparate": true,
+    "reloadKeepsProgressAndSkip": true,
+    "reviewNoRewardsOrProgressReset": true,
+    "noPageErrors": true,
+    "video": "/workspace/jianghu-person-release-ea094/.local-online/tap-navigation/video/page@f4f6a147882df1ed4afe2059d6d77e9c.webm"
+  },
+  {
+    "engine": "chromium",
+    "viewport": [
+      430,
+      932
+    ],
+    "guideVisibleAndOperable": true,
+    "realCompareThenConfirm": true,
+    "cancelNoMutation": true,
+    "doubleConfirmOnce": true,
+    "normalDuelSeparate": true,
+    "reloadKeepsProgressAndSkip": true,
+    "reviewNoRewardsOrProgressReset": true,
+    "noPageErrors": true
+  },
+  {
+    "engine": "chromium",
+    "entry": "trial",
+    "passed": true
+  },
+  {
+    "engine": "chromium",
+    "entry": "handoff",
+    "passed": true
+  },
+  {
+    "engine": "chromium",
+    "entry": "missing",
+    "passed": true
+  },
+  {
+    "engine": "webkit",
+    "viewport": [
+      320,
+      568
+    ],
+    "guideVisibleAndOperable": true,
+    "realCompareThenConfirm": true,
+    "cancelNoMutation": true,
+    "doubleConfirmOnce": true,
+    "normalDuelSeparate": true,
+    "reloadKeepsProgressAndSkip": true,
+    "reviewNoRewardsOrProgressReset": true,
+    "noPageErrors": true
+  },
+  {
+    "engine": "webkit",
+    "viewport": [
+      390,
+      844
+    ],
+    "guideVisibleAndOperable": true,
+    "realCompareThenConfirm": true,
+    "cancelNoMutation": true,
+    "doubleConfirmOnce": true,
+    "normalDuelSeparate": true,
+    "reloadKeepsProgressAndSkip": true,
+    "reviewNoRewardsOrProgressReset": true,
+    "noPageErrors": true
+  },
+  {
+    "engine": "webkit",
+    "viewport": [
+      430,
+      932
+    ],
+    "guideVisibleAndOperable": true,
+    "realCompareThenConfirm": true,
+    "cancelNoMutation": true,
+    "doubleConfirmOnce": true,
+    "normalDuelSeparate": true,
+    "reloadKeepsProgressAndSkip": true,
+    "reviewNoRewardsOrProgressReset": true,
+    "noPageErrors": true
+  },
+  {
+    "engine": "webkit",
+    "entry": "trial",
+    "passed": true
+  },
+  {
+    "engine": "webkit",
+    "entry": "handoff",
+    "passed": true
+  },
+  {
+    "engine": "webkit",
+    "entry": "missing",
+    "passed": true
+  }
+]

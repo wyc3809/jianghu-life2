@@ -1,0 +1,10 @@
+ANIMATION after chest
+ANIMATION after token
+ANIMATION after cauldron
+EDGE chest skip
+EDGE chest reduce
+EDGE chest context-lost
+EDGE token skip
+EDGE token reduce
+EDGE token context-lost
+ANIMATION_PASS after 9

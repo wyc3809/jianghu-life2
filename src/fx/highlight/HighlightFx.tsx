@@ -33,11 +33,11 @@ function ensureFonts() {
 }
 
 /** 遊戲閒時預載字體與箱體材質，避免首次旋轉中途才切換字型或解碼圖片。 */
-export function prefetchHighlightAssets(): void {
+export function prefetchHighlightAssets(subject: HighlightSubject = 'chest'): void {
   ensureFonts();
-  preloadChestTextures();
-  preloadCodexTextures();
-  preloadTokenTexture();
+  if (subject === 'codex') preloadCodexTextures();
+  else if (subject === 'token') { preloadTokenTexture(); preloadChestTextures(); }
+  else preloadChestTextures();
 }
 
 function reduceMotionPref(): boolean {
@@ -315,8 +315,9 @@ export default function HighlightFx({ config, onDone, onUnavailable, renderRewar
       setStatsFinal(true);
       d.revealSettled();
     });
+    const release = d.ownAnimation(tl);
     return () => {
-      tl.kill();
+      release(); tl.kill();
     };
   }, [revealed, topGrade]);
 
@@ -358,7 +359,8 @@ export default function HighlightFx({ config, onDone, onUnavailable, renderRewar
         const p = { t: 0 };
         flights.push(
           new Promise((resolve) => {
-            gsap.to(p, {
+            let release = () => {};
+            const flight = gsap.to(p, {
               t: 1,
               duration: 0.75,
               delay: 0.12 + ci * 0.25 + i * 0.07,
@@ -371,6 +373,7 @@ export default function HighlightFx({ config, onDone, onUnavailable, renderRewar
                 img.style.transform = `translate(${x - 15}px, ${y - 15}px) scale(${1 - 0.35 * t}) rotate(${t * 540}deg)`;
               },
               onComplete: () => {
+                release();
                 img.remove();
                 given += 1;
                 slot.v += given === n ? card.amount! - share * (n - 1) : share;
@@ -385,12 +388,13 @@ export default function HighlightFx({ config, onDone, onUnavailable, renderRewar
                 resolve();
               },
             });
+            release = d.ownAnimation(flight);
           }),
         );
       }
     });
     // 卡片收起
-    gsap.to(cardEls, {
+    d.ownAnimation(gsap.to(cardEls, {
       scale: 0.8,
       opacity: 0,
       y: 30,
@@ -398,8 +402,8 @@ export default function HighlightFx({ config, onDone, onUnavailable, renderRewar
       delay: flights.length ? 0.6 : 0.05,
       stagger: 0.05,
       ease: 'power2.in',
-    });
-    void Promise.all(flights).then(() => gsap.delayedCall(0.45, () => d.finish()));
+    }));
+    void Promise.all(flights).then(() => d.ownAnimation(gsap.delayedCall(0.45, () => d.finish())));
   }, [config]);
 
   // ------------------------------------------------ 輸入 ---

@@ -1,0 +1,75 @@
+[
+  {
+    "subject": "chest",
+    "foregroundRafCallbacksObserved": 3,
+    "hiddenIdleRafCallbacks": 0,
+    "hiddenDraws": 0,
+    "chargingPhaseBefore": "charging",
+    "chargingPhaseWhileHidden": "charging",
+    "resumedToResult": true,
+    "settleStops": true,
+    "actualIphone": false,
+    "pageErrors": [],
+    "video": "/workspace/jianghu-person-release-ea094/.local-online/app-motion-guide/video/page@fe091a6fefe37bddc15e93e8dd2bff85.webm"
+  },
+  {
+    "subject": "token",
+    "foregroundRafCallbacksObserved": 14,
+    "hiddenIdleRafCallbacks": 0,
+    "hiddenDraws": 0,
+    "chargingPhaseBefore": "charging",
+    "chargingPhaseWhileHidden": "charging",
+    "resumedToResult": true,
+    "settleStops": true,
+    "actualIphone": false,
+    "pageErrors": []
+  },
+  {
+    "subject": "cauldron",
+    "foregroundRafCallbacksObserved": 3,
+    "hiddenIdleRafCallbacks": 0,
+    "hiddenDraws": 0,
+    "chargingPhaseBefore": "charging",
+    "chargingPhaseWhileHidden": "charging",
+    "resumedToResult": true,
+    "settleStops": true,
+    "actualIphone": false,
+    "pageErrors": []
+  },
+  {
+    "subject": "chest",
+    "mode": "skip",
+    "sameResultAvailable": true,
+    "pageErrors": []
+  },
+  {
+    "subject": "chest",
+    "mode": "reduce",
+    "sameResultAvailable": true,
+    "pageErrors": []
+  },
+  {
+    "subject": "chest",
+    "mode": "context-lost",
+    "sameResultAvailable": true,
+    "pageErrors": []
+  },
+  {
+    "subject": "token",
+    "mode": "skip",
+    "sameResultAvailable": true,
+    "pageErrors": []
+  },
+  {
+    "subject": "token",
+    "mode": "reduce",
+    "sameResultAvailable": true,
+    "pageErrors": []
+  },
+  {
+    "subject": "token",
+    "mode": "context-lost",
+    "sameResultAvailable": true,
+    "pageErrors": []
+  }
+]

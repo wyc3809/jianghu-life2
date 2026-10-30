@@ -1,0 +1,13 @@
+GUIDE chromium 320 568
+GUIDE chromium 390 844
+GUIDE chromium 430 932
+ENTRY chromium trial
+ENTRY chromium handoff
+ENTRY chromium missing
+GUIDE webkit 320 568
+GUIDE webkit 390 844
+GUIDE webkit 430 932
+ENTRY webkit trial
+ENTRY webkit handoff
+ENTRY webkit missing
+GUIDE_PASS 12

@@ -9,7 +9,8 @@
  */
 import gsap from 'gsap';
 import * as THREE from 'three';
-import { CodexRenderBudget } from './scene/codexRenderBudget';
+import { HighlightRenderBudget } from './scene/highlightRenderBudget';
+import { watchVisualActivity } from '../../ui/visualActivity';
 import { GRADES, type GradeStyle } from './grades';
 import type { Grade, HighlightConfig } from './types';
 import { HighlightStage } from './scene/renderer';
@@ -111,7 +112,12 @@ export class Director {
   private beginTimer: gsap.core.Tween | null = null;
   private overlaysKey = '';
   private revealTarget = { pan: 0, camK: 1 };
-  private renderBudget: CodexRenderBudget | null = null;
+  private renderBudget: HighlightRenderBudget | null = null;
+  private visualActive = true;
+  private releaseActivity: (() => void) | null = null;
+  private suspended = new Set<gsap.core.Animation>();
+  private ownedAnimations = new Set<gsap.core.Animation>();
+  private disposed = false;
   private renderDpr = 1;
   private visualRng = createRng(29);
 
@@ -128,7 +134,7 @@ export class Director {
     this.particles.density = this.reduce ? 0.35 : 1;
     if (cfg.subject === 'token') this.particles.max = 96;
     this.model = buildSubject(cfg.subject, cfg.rewards.some(card => card.isPremium === true));
-    this.model.root.userData.invalidate = () => { if (this.phase === 'settle') this.stage.render(); };
+    this.model.root.userData.invalidate = () => { if (this.phase === 'settle' && this.visualActive) this.stage.render(); };
     const size = new THREE.Box3().setFromObject(this.model.root).getSize(new THREE.Vector3());
     this.norm = SUBJECT_SIZE / Math.max(size.x, size.y, size.z * 0.8);
     this.model.root.scale.setScalar(this.norm);
@@ -151,6 +157,38 @@ export class Director {
       this.applyGrade(cfg.targetGrade, false);
       this.beginTimer = gsap.delayedCall(.25, () => { if (this.phase === 'idle') this.charge(); });
     }
+    this.releaseActivity = watchVisualActivity(active => this.setVisualActive(active));
+  }
+
+  /** 只暫停本演出的時間線與繪製；不碰全局ticker或遊戲結算。 */
+  private setVisualActive(active: boolean) {
+    this.visualActive = active;
+    this.last = 0;
+    this.renderBudget?.sample(0);
+    if (!active) {
+      cancelAnimationFrame(this.raf); this.raf = 0;
+      const animations = [...this.loops, ...this.ownedAnimations, this.main, this.hintCall, this.beginTimer, this.dustTimer,
+        ...gsap.getTweensOf([this.A, ...Array.from(this.refs.root.querySelectorAll('*'))])];
+      for (const animation of animations) {
+        if (!animation) continue;
+        let root: gsap.core.Animation = animation;
+        while (root.parent && root.parent !== gsap.globalTimeline) root = root.parent;
+        if (!root.paused()) { root.pause(); this.suspended.add(root); }
+      }
+      this.stopCharge?.(); this.stopCharge = null;
+    } else {
+      this.suspended.forEach(animation => { if (animation.parent) animation.resume(); }); this.suspended.clear();
+      if (this.phase === 'settle') { this.syncScene(); this.stage.render(); }
+      else if (this.phase !== 'done' && !this.raf) this.raf = requestAnimationFrame(this.tick);
+    }
+  }
+
+  /** 登記UI代理物件／延遲回調；背景暫停、離場取消，不留下延後領取回調。 */
+  ownAnimation(animation: gsap.core.Animation): () => void {
+    if (this.disposed) { animation.kill(); return () => {}; }
+    this.ownedAnimations.add(animation);
+    if (!this.visualActive && !animation.paused()) { animation.pause(); this.suspended.add(animation); }
+    return () => { this.ownedAnimations.delete(animation); this.suspended.delete(animation); };
   }
 
   // ------------------------------------------------------------ 基礎 ---
@@ -160,10 +198,11 @@ export class Director {
     this.cssW = Math.max(1, r.width);
     this.cssH = Math.max(1, r.height);
     const dpr = Math.min(2, window.devicePixelRatio || 1);
-    this.renderBudget = this.cfg.subject === 'codex' || this.cfg.subject === 'token' ? new CodexRenderBudget(dpr) : null;
-    this.renderDpr = dpr;
-    this.refs.root.dataset.renderDpr = String(dpr);
-    this.stage.resize(this.cssW, this.cssH, dpr);
+    this.renderBudget ??= new HighlightRenderBudget(dpr);
+    const renderDpr = this.phase === 'settle' ? this.renderBudget.settle() : this.renderBudget.sample(0);
+    this.renderDpr = renderDpr;
+    this.refs.root.dataset.renderDpr = String(renderDpr);
+    this.stage.resize(this.cssW, this.cssH, renderDpr);
     // 取景：闊度要容得落主體＋台座，高度要容得落跳起
     const cam = this.stage.camera;
     const tanV = Math.tan(THREE.MathUtils.degToRad(cam.fov / 2));
@@ -172,9 +211,9 @@ export class Director {
     const visH = 2 * dist * tanV;
     const lookY = this.subH / 2 - (0.5 - SUBJECT_SCREEN_Y) * visH;
     this.cam = { dist, lookY, camY: lookY + 0.9 };
-    this.particles.resize(this.cssW, this.cssH, dpr);
+    this.particles.resize(this.cssW, this.cssH, Math.min(1.5, renderDpr));
     this.placeOverlays();
-    if (this.phase === 'settle') { this.syncScene(); this.stage.render(); }
+    if (this.phase === 'settle' && this.visualActive) { this.syncScene(); this.stage.render(); }
   }
 
   private get style(): GradeStyle {
@@ -266,6 +305,8 @@ export class Director {
   }
 
   private tick(now: number) {
+    this.raf = 0;
+    if (!this.visualActive) return;
     if (this.phase === 'settle') {
       this.syncScene(); this.placeOverlays(); this.stage.render(); this.particles.draw();
       return;
@@ -274,6 +315,8 @@ export class Director {
     if (document.hidden) { this.last = now; return; }
     if (this.renderBudget && this.last) {
       const dpr = this.renderBudget.sample(now - this.last);
+      this.particles.density = (this.reduce ? .35 : 1) * this.renderBudget.effects;
+      this.refs.root.dataset.renderEffects = String(this.renderBudget.effects);
       if (dpr !== this.renderDpr) {
         this.renderDpr = dpr; this.refs.root.dataset.renderDpr = String(dpr);
         this.stage.resize(this.cssW, this.cssH, dpr);
@@ -766,6 +809,10 @@ export class Director {
   sfx = sfx;
 
   dispose() {
+    this.disposed = true; this.phase = 'done';
+    this.visualActive = false;
+    this.releaseActivity?.(); this.suspended.clear();
+    this.ownedAnimations.forEach(animation => animation.kill()); this.ownedAnimations.clear();
     cancelAnimationFrame(this.raf);
     this.main?.kill();
     this.beginTimer?.kill();

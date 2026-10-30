@@ -9,9 +9,10 @@ type Props = {
   state: LifeGameState;
   onEquip: () => void;
   onKeep: () => void;
+  onCompare?: () => void;
 };
 
-export function InkGearCompareModal({ state, onEquip, onKeep }: Props) {
+export function InkGearCompareModal({ state, onEquip, onKeep, onCompare }: Props) {
   const gearId = state.pendingGearCompare?.gearId;
   if (!gearId) return null;
   const def = getGearDef(gearId);
@@ -63,8 +64,8 @@ export function InkGearCompareModal({ state, onEquip, onKeep }: Props) {
         )}
 
         <div className="ink-cta-stack">
-          <button type="button" className="ink-btn ink-btn--primary" onClick={onEquip}>
-            換上
+          <button type="button" className="ink-btn ink-btn--primary" onClick={onCompare ?? onEquip}>
+            {onCompare ? '前往人物換裝' : '換上'}
           </button>
           <button type="button" className="ink-btn ink-btn--ghost" onClick={onKeep}>
             先收好
