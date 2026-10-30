@@ -40,6 +40,7 @@ import {
   RANK_UP_MARKER,
 } from '@core/life/playerText';
 import { coachCopy, nextCoachStep } from '@core/life/tutorial';
+import { useOnceCoach } from '../../ui/useOnceCoach';
 import { track } from '../../telemetry/events';
 import { InkAmbientFx } from './InkAmbientFx';
 import { InkTapFx } from './InkTapFx';
@@ -496,6 +497,7 @@ export function InkPlayScreen({ state }: Props) {
     Boolean(coach) &&
     !c.flags.coach_done &&
     !newbieActive(state);
+  const showOnceCoach = useOnceCoach(state, showCoach && coachStep !== 'done' ? `legacy_${coachStep}` : null);
 
   const inkSeason = seasonToInk(month);
   const inkPlace = placeToInk(c.location);
@@ -788,7 +790,7 @@ export function InkPlayScreen({ state }: Props) {
 
           {/* 翻頁效果只套喺下面嘅提示，唔影響演武台 */}
           <div ref={flipRef}>
-          {showCoach && coach && (
+          {showOnceCoach && coach && (
             <section className="ink-coach" aria-live="polite">
               <h3>{coach.title}</h3>
               <p>{coach.body}</p>

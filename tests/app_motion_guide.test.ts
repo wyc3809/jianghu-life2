@@ -7,6 +7,7 @@ import { newbieGuide } from '../core/life/newbieGuide';
 import { lifeGameStateSchema } from '../interfaces/lifeEngine';
 import { createCharacterSlice } from '../src/store/slices/characterSlice';
 import { createProgressionSlice } from '../src/store/slices/progressionSlice';
+import { COACH_HINTS, coachHintFlag } from '../core/life/coachHints';
 import type { LifeStore } from '../src/store/lifeStore';
 
 function browser() {
@@ -85,6 +86,32 @@ describe('App動畫啟停與畫質', () => {
 });
 
 describe('試煉至真確認換裝引導', () => {
+  it('test_guide_首次已讀立即保存_連續記錄只寫一次_往返仍記得', () => {
+    let current={state:won()} as LifeStore;const save=vi.fn();
+    const actions=createProgressionSlice(patch=>{current={...current,...patch};},()=>current,save);
+    const before=structuredClone(current.state!);
+    actions.markCoachSeen('equip_person');actions.markCoachSeen('equip_person');
+    before.character.flags.coach_seen_equip_person=true;
+    expect(current.state).toEqual(before);expect(save).toHaveBeenCalledTimes(1);expect(save).toHaveBeenCalledWith(current.state,true);
+    const loaded=lifeGameStateSchema.parse(JSON.parse(JSON.stringify(current.state)));
+    expect(loaded.character.flags[coachHintFlag('equip_person')]).toBe(true);
+    expect(loaded.character.flags[coachHintFlag('equip_picker')]).toBeUndefined();
+  });
+  it('test_guide_手動重看只清提示已讀_任務配搭獎勵及其他旗標保留', () => {
+    const s=won();for(const hint of COACH_HINTS)s.character.flags[coachHintFlag(hint)]=true;
+    s.character.flags.coach_done=true;s.character.flags.coach_flipped=true;
+    let current={state:s} as LifeStore;const before=structuredClone(s);
+    const actions=createProgressionSlice(patch=>{current={...current,...patch};},()=>current,vi.fn());
+    actions.resumeCoach();before.character.flags.coach_done=false;
+    for(const hint of COACH_HINTS)delete before.character.flags[coachHintFlag(hint)];
+    expect(current.state).toEqual(before);
+  });
+  it('test_guide_略過及無存檔不記已讀_不重啟引導', () => {
+    let current={state:won()} as LifeStore;const save=vi.fn();current.state!.character.flags.coach_done=true;
+    const actions=createProgressionSlice(patch=>{current={...current,...patch};},()=>current,save);
+    actions.markCoachSeen('trial');expect(save).not.toHaveBeenCalled();expect(newbieGuide(current.state!)).toBeNull();
+    current={state:null} as LifeStore;actions.markCoachSeen('trial');expect(save).not.toHaveBeenCalled();
+  });
   it('test_guide_比較前修復舊版已得兵器_不換裝不重派_重按不再寫檔', () => {
     const s=won();s.character.gear=s.character.gear.filter(id=>id!=='iron-blade');
     const before=structuredClone(s);let current={state:s} as LifeStore;const save=vi.fn();

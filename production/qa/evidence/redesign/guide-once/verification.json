@@ -1,0 +1,18 @@
+{
+  "gameVersion": "EA0.98.1",
+  "baseCommit": "fc59be43b829262f4e0e030b9ba32d6a960be4a6",
+  "productionEntry": "/jianghu-life2/assets/index-D31WVgfH.js",
+  "onlinePublic": true,
+  "testFiles": 114,
+  "tests": 895,
+  "browserScenarios": 8,
+  "actualIphone": false,
+  "signedTestFlightUploaded": false,
+  "evidenceSha256": {
+    "report.json": "5319df16c1d3f8d441e8a56be7a57ae9fff1dfff84856590dc48100adf7e1127",
+    "tests.log": "f206c905c495d22fe7946c21a9ce1d938f817eb5d7c4560d6844e6747dc6a0c7",
+    "build.log": "94e7ff91fd75ce60996509e693e6aa3e5796358378f681d1eae75358c6a9e3e5",
+    "narrate.log": "a1003091a2bf1889c8bbe2e8261b5852f3bbb811ee6d1e13a53ded705c6936ae",
+    "copy.log": "1c39de22d8566b6f14f75ec66be0ecbefc33cfc06a923eb5187e9a008925eeaf"
+  }
+}
