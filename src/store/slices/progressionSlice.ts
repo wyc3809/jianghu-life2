@@ -1,4 +1,5 @@
 import { useAncestryStore } from '../ancestryStore';
+import { COACH_HINTS, coachHintFlag } from '@core/life/coachHints';
 import { BREAKTHROUGH_FIRST_JADE, BREAKTHROUGH_JADE_STEP } from '@data/redesign/martialEconomyParams';
 import { settleSparTraining } from '@core/life/sparTraining';
 import { accrueIdleSilver, harvestIdleSilver } from '@core/life/idleHarvest';
@@ -64,6 +65,7 @@ export function createProgressionSlice(
   | 'advanceYear'
   | 'retire'
   | 'dismissCoach'
+  | 'markCoachSeen'
   | 'resumeCoach'
   | 'ackMoment'
   | 'clearResult'
@@ -243,10 +245,21 @@ export function createProgressionSlice(
       set({ state: next });
     },
 
+    markCoachSeen: (hint) => {
+      const { state } = get();
+      if (!state || !COACH_HINTS.includes(hint) || state.character.flags.coach_done || state.character.flags[coachHintFlag(hint)]) return;
+      const next = produce(state, draft => { draft.character.flags[coachHintFlag(hint)] = true; });
+      void save(next, true);
+      set({ state: next });
+    },
+
     resumeCoach: () => {
       const { state } = get();
       if (!state) return;
-      const next = produce(state, draft => { draft.character.flags.coach_done = false; });
+      const next = produce(state, draft => {
+        draft.character.flags.coach_done = false;
+        for (const hint of COACH_HINTS) delete draft.character.flags[coachHintFlag(hint)];
+      });
       void save(next); set({ state: next });
     },
 

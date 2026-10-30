@@ -1,0 +1,88 @@
+[
+  {
+    "engine": "chromium",
+    "viewport": [
+      320,
+      568
+    ],
+    "firstVisibleUntilLeave": true,
+    "reentryNoHintOrHighlight": true,
+    "pickerFirstOnly": true,
+    "readyOnceAcrossHomeAndPerson": true,
+    "reloadNoHint": true,
+    "manualReviewOnly": true,
+    "skipPersists": true,
+    "noExtraRewardsOrDebit": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "chromium",
+    "viewport": [
+      390,
+      844
+    ],
+    "firstVisibleUntilLeave": true,
+    "reentryNoHintOrHighlight": true,
+    "pickerFirstOnly": true,
+    "readyOnceAcrossHomeAndPerson": true,
+    "reloadNoHint": true,
+    "manualReviewOnly": true,
+    "skipPersists": true,
+    "noExtraRewardsOrDebit": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "chromium",
+    "entry": "trial",
+    "reloadDoesNotRepeat": true,
+    "taskStillAvailable": true
+  },
+  {
+    "engine": "chromium",
+    "entry": "legacy",
+    "reloadDoesNotRepeat": true
+  },
+  {
+    "engine": "webkit",
+    "viewport": [
+      320,
+      568
+    ],
+    "firstVisibleUntilLeave": true,
+    "reentryNoHintOrHighlight": true,
+    "pickerFirstOnly": true,
+    "readyOnceAcrossHomeAndPerson": true,
+    "reloadNoHint": true,
+    "manualReviewOnly": true,
+    "skipPersists": true,
+    "noExtraRewardsOrDebit": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "webkit",
+    "viewport": [
+      390,
+      844
+    ],
+    "firstVisibleUntilLeave": true,
+    "reentryNoHintOrHighlight": true,
+    "pickerFirstOnly": true,
+    "readyOnceAcrossHomeAndPerson": true,
+    "reloadNoHint": true,
+    "manualReviewOnly": true,
+    "skipPersists": true,
+    "noExtraRewardsOrDebit": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "webkit",
+    "entry": "trial",
+    "reloadDoesNotRepeat": true,
+    "taskStillAvailable": true
+  },
+  {
+    "engine": "webkit",
+    "entry": "legacy",
+    "reloadDoesNotRepeat": true
+  }
+]

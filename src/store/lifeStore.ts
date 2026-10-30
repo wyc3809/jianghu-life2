@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import type { CombatReplay, LifeGameState } from '@interfaces/lifeEngine';
 import type { BreakthroughResult } from '@core/life/cultivation';
+import type { CoachHint } from '@core/life/coachHints';
 import { fullCatalog } from '@core/life/eventEngine';
 import { subscribeEventOverrides } from '@core/life/eventOverrides';
 import { clearLifeSave } from '@core/life/saveIndexedDb';
@@ -67,6 +68,8 @@ export interface LifeStore {
   /** 無可選抉擇時暫避；label：顯示喺結果嘅所擇（例如「一笑置之」） */
   dismissEvent: (label?: string) => void;
   dismissCoach: () => void;
+  /** 首次展示即保存已讀；不變更任務、裝備或獎勵。 */
+  markCoachSeen: (hint: CoachHint) => void;
   /** 只重開提示，不重設實際進度或已領獎勵。 */
   resumeCoach: () => void;
   /** 比較前修復舊版遺失的已得試煉兵器，不代玩家換裝。 */

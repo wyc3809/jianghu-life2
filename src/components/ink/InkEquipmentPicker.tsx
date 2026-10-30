@@ -9,13 +9,14 @@ import { InkPersonSheet } from './InkPersonSheet';
 import { newbieGuide } from '@core/life/newbieGuide';
 import { NEWBIE_TRIAL } from '@data/redesign/newbie';
 import { InkNewbieGuide } from './InkNewbieGuide';
+import { useOnceCoach } from '../../ui/useOnceCoach';
 
 /** 揀選只預覽；確認才交回既有換裝指令，不派獎、不消耗或改動另一套配搭。 */
 export function InkEquipmentPicker({ state, slot, preset, busy, onEquip, onClose }: {
   state: LifeGameState; slot: GearSlot; preset: 'normal' | 'duel'; busy: boolean; onEquip: (id: string) => boolean; onClose: () => void;
 }) {
   const c = state.character, currentId = c.equipment?.[slot];
-  const guiding = preset === 'normal' && slot === 'weapon' && newbieGuide(state)?.step === 'equip';
+  const guiding = useOnceCoach(state, preset === 'normal' && slot === 'weapon' && newbieGuide(state)?.step === 'equip' ? 'equip_picker' : null);
   const [selectedId, setSelectedId] = useState<string | null>(currentId ?? null);
   const [rarity, setRarity] = useState<GearRarity | 'all'>('all');
   const [sort, setSort] = useState<EquipmentSort>('power');

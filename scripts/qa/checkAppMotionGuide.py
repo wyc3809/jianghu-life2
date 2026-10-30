@@ -33,7 +33,8 @@ with sync_playwright() as p:
    after=snapshot(page);assert after['equipment']['weapon']=='iron-blade';assert after['duel']==before['duel'];assert {k:v for k,v in after.items() if k!='equipment'}=={k:v for k,v in before.items() if k!='equipment'}
    assert '4 → 10' in page.locator('.ink-newbie-guide').inner_text();geometry(page)
    if record:shot(page,'after-ready.png')
-   resume(page);nav(page,'人物');assert '4 → 10' in page.locator('.ink-newbie-guide').inner_text();assert snapshot(page)['equipment']['weapon']=='iron-blade'
+   resume(page);nav(page,'人物');assert not page.locator('.ink-newbie-guide').count();assert snapshot(page)['equipment']['weapon']=='iron-blade'
+   tap(page,'返回鎮居');tap(page,'開啟設定');settings=page.get_by_role('dialog',name='設定');button=settings.get_by_role('button',name='顯示目前提示');button.scroll_into_view_if_needed();button.click();stable(page)
    tap(page,'略過操作指引');assert not page.locator('.ink-newbie-guide').count();assert ch(page)['flags']['coach_done'] is True
    resume(page);nav(page,'人物');assert not page.locator('.ink-newbie-guide').count();tap(page,'返回鎮居');tap(page,'開啟設定');settings=page.get_by_role('dialog',name='設定');button=settings.get_by_role('button',name='顯示目前提示');button.scroll_into_view_if_needed();button.click();stable(page)
    assert ch(page)['flags']['coach_done'] is False;assert page.locator('.ink-newbie-guide').count()==1;geometry(page);assert meta(page)['economy']['guides']==before['guides'];assert not errors,errors
