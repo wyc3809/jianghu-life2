@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { buildCodex } from './scene/codex';
 import { codexCoverUrl } from './codexAppearance';
+import { watchVisualActivity } from '../../ui/visualActivity';
+import { highlightCoversPage } from '../../ui/highlightVisibility';
 
 export default function CodexStage({ premium }: { premium: boolean }) {
   const host = useRef<HTMLCanvasElement>(null);
@@ -22,11 +24,11 @@ export default function CodexStage({ premium }: { premium: boolean }) {
     renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.1;
     const motion = matchMedia('(prefers-reduced-motion: reduce)');
     const reduce = () => motion.matches || document.documentElement.dataset.inkMotion === 'reduce';
-    let visible = true, raf = 0, disposed = false;
-    const render = () => { if (!disposed && visible && !document.hidden) renderer.render(scene, camera); };
+    let active = false, raf = 0, disposed = false;
+    const render = () => { if (!disposed && !document.hidden && !highlightCoversPage() && !document.querySelector('dialog[open]')) renderer.render(scene, camera); };
     const draw = (now: number) => {
       raf = 0;
-      if (disposed || !visible || document.hidden || reduce()) return;
+      if (disposed || !active) return;
       // 對話框遮住書冊時只停繪畫，關閉即可接續；不搶抽卡或結果的GPU。
       if (!document.querySelector('dialog.ink-codex-sheet[open]')) {
         codex.root.rotation.y = Math.sin(now / 3700) * .08;
@@ -39,7 +41,7 @@ export default function CodexStage({ premium }: { premium: boolean }) {
       cancelAnimationFrame(raf); raf = 0;
       if (reduce()) { codex.root.rotation.y = -.08; codex.root.position.y = 0; }
       render();
-      if (visible && !document.hidden && !reduce()) raf = requestAnimationFrame(draw);
+      if (active) raf = requestAnimationFrame(draw);
     };
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
@@ -49,16 +51,13 @@ export default function CodexStage({ premium }: { premium: boolean }) {
       camera.position.z = Math.max(4.8, 3.1 / camera.aspect); render();
     };
     const ro = new ResizeObserver(resize); ro.observe(canvas);
-    const io = new IntersectionObserver(([entry]) => { visible = !!entry?.isIntersecting; resume(); }); io.observe(canvas);
-    const settings = new MutationObserver(resume); settings.observe(document.documentElement, { attributes: true, attributeFilter: ['data-ink-motion'] });
-    motion.addEventListener('change', resume); document.addEventListener('visibilitychange', resume);
+    const unwatch = watchVisualActivity(value => { active = value; resume(); }, { element: canvas, covered: true, reduced: true, dialogs: true });
     const lost = (event: Event) => { event.preventDefault(); setFailed(true); };
     canvas.addEventListener('webglcontextlost', lost);
     codex.root.userData.invalidate = render;
     resize(); resume();
     return () => {
-      disposed = true; cancelAnimationFrame(raf); ro.disconnect(); io.disconnect(); settings.disconnect();
-      motion.removeEventListener('change', resume); document.removeEventListener('visibilitychange', resume);
+      disposed = true; cancelAnimationFrame(raf); ro.disconnect(); unwatch();
       canvas.removeEventListener('webglcontextlost', lost);
       delete codex.root.userData.invalidate; codex.root.userData.dispose?.();
       const geometries = new Set<THREE.BufferGeometry>(), materials = new Set<THREE.Material>(), textures = new Set<THREE.Texture>();

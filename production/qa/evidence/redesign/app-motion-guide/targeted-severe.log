@@ -1,0 +1,10 @@
+
+ RUN  v3.2.7 /workspace/jianghu-person-release-ea094
+
+ ✓ tests/app_motion_guide.test.ts (12 tests) 100ms
+
+ Test Files  1 passed (1)
+      Tests  12 passed (12)
+   Start at  14:41:52
+   Duration  3.90s (transform 2.29s, setup 0ms, collect 3.40s, tests 100ms, environment 0ms, prepare 73ms)
+

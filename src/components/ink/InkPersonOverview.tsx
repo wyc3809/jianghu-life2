@@ -14,6 +14,9 @@ import { InkBrushBar, clampPct } from './InkBrush';
 import { InkIcon } from './InkIcon';
 import { InkEquipmentPicker } from './InkEquipmentPicker';
 import { InkPersonSheet } from './InkPersonSheet';
+import { newbieGuide } from '@core/life/newbieGuide';
+import { useLifeStore } from '../../store/lifeStore';
+import { InkNewbieGuide } from './InkNewbieGuide';
 import type { PersonView } from './InkPersonPanel';
 import './person-screen.css';
 
@@ -25,6 +28,8 @@ export function InkPersonOverview({ state, preset, busy, onPreset, onEquip, onVi
   const c = state.character, nature = ensureNature(c), rank = jianghuRank(state);
   const [slot, setSlot] = useState<(typeof EQUIPMENT_SLOTS)[number] | null>(null), [more, setMore] = useState(false);
   const [notice, setNotice] = useState('');
+  const guide = preset === 'normal' ? newbieGuide(state) : null;
+  const dismiss = useLifeStore(s => s.dismissCoach);
   useEffect(() => {if(!notice)return;const timer=window.setTimeout(()=>setNotice(''),2400);return()=>window.clearTimeout(timer);},[notice]);
   const entries: { view: PersonView; label: string }[] = [
     {view:'overview',label:'修行詳情'}, {view:'cultivation',label:'境界與傳承'}, {view:'combat',label:'戰力詳解'},
@@ -35,11 +40,15 @@ export function InkPersonOverview({ state, preset, busy, onPreset, onEquip, onVi
     <header className="ink-person-top"><button type="button" aria-label="返回鎮居" onClick={onBack}>返回</button><h2>人物</h2><span /></header>
     <div className="ink-person-identity"><div><h3>{c.name}</h3><p>{currentCultivationTier(state).name}</p></div><div className="ink-person-presets" role="tablist" aria-label="配搭方案">{(['normal','duel'] as const).map(kind => <button key={kind} type="button" role="tab" aria-selected={preset === kind} onClick={() => {onPreset(kind);setNotice('');}}>{kind === 'normal' ? '普通配搭' : '對戰配搭'}</button>)}</div></div>
     <div className="ink-person-summary"><div><span>總戰力</span><strong>{combatRating(state).toLocaleString('zh-Hant')}</strong></div><div><span>江湖排名</span><strong>{rank >= JIANGHU_RANK_START ? '未列名' : rank.toLocaleString('zh-Hant')}</strong></div></div>
+    {guide && guide.step !== 'trial' && <InkNewbieGuide title={guide.title} onDismiss={dismiss}
+      action={guide.step === 'ready' ? <button type="button" onClick={onBack}>返回鎮居</button> : undefined}>
+      {guide.step === 'equip' ? '點左側武器欄，選擇兵器查看比較。' : guide.body}
+    </InkNewbieGuide>}
     <div className="ink-person-stage">
       <img className="ink-person-seated-hero" src={inkArtUrl('art/person/seated-hero.webp')} alt="盤坐調息的江湖俠客" fetchPriority="high" width="768" height="768" />
       {EQUIPMENT_SLOTS.map(kind => {
         const id = c.equipment?.[kind], def = id ? getGearDef(id) : null;
-        return <button type="button" key={kind} className={`ink-person-gear-slot ink-person-gear-slot--${kind}${def ? '' : ' is-empty'}`} aria-label={`更換${EQUIPMENT_LABEL[kind]}`} aria-describedby={`person-gear-${kind}`} onClick={() => setSlot(kind)}>
+        return <button type="button" key={kind} data-guide-target={guide?.step === 'equip' && kind === 'weapon'} className={`ink-person-gear-slot ink-person-gear-slot--${kind}${def ? '' : ' is-empty'}`} aria-label={`更換${EQUIPMENT_LABEL[kind]}`} aria-describedby={`person-gear-${kind}`} onClick={() => setSlot(kind)}>
           <InkBadge src={equipmentArtUrl(def, kind)} size={66} tone="brown" /><strong>{EQUIPMENT_LABEL[kind]}</strong><small id={`person-gear-${kind}`} title={def ? displayGearName(def) : '空置'}>{def ? displayGearName(def) : '空置'}</small>
         </button>;
       })}

@@ -11,6 +11,7 @@ type Props = {
   /** 混音設定改咗（遙測用） */
   onAudioChange?: (mix: AudioMix) => void;
   onOpenBoard: () => void;
+  onReviewGuide?: () => void;
 };
 
 type Channel = 'music' | 'sfx';
@@ -69,6 +70,7 @@ export function InkSettingsPanel({
   onClose,
   onAudioChange,
   onOpenBoard,
+  onReviewGuide,
 }: Props) {
   const closeRef = useRef<HTMLButtonElement | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -156,6 +158,11 @@ export function InkSettingsPanel({
           </section>
         )}
 
+        <section className="ink-settings-block" aria-label="操作指引">
+          <p className="ink-settings-label">操作指引</p>
+          <p className="ink-settings-note">試煉獲得兵器後，進入人物點選武器欄，先比較再換上。武學亦由人物頁選擇欄位裝配。</p>
+          {onReviewGuide && <button type="button" className="ink-btn ink-btn--quiet" onClick={onReviewGuide}>顯示目前提示</button>}
+        </section>
         <InkCloudSection onOpenBoard={onOpenBoard} />
 
         <footer className="ink-settings-foot">

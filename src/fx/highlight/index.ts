@@ -3,6 +3,7 @@
  * prefetchHighlight() 喺開局後閒時預載，真正要播時唔使等。
  */
 import { lazy } from 'react';
+import type { HighlightSubject } from './types';
 
 const load = () => import('./HighlightFx');
 
@@ -25,12 +26,12 @@ export function canUseWebGL(): boolean {
   return webgl;
 }
 
-let prefetched = false;
-export function prefetchHighlight(): void {
-  if (prefetched) return;
-  prefetched = true;
-  void load().then(module => module.prefetchHighlightAssets()).catch(() => { /* 閒時預載失敗不阻止遊戲；顯示時沿用正常載入。 */ });
-  void loadDuel();
+const prefetched = new Set<HighlightSubject>();
+/** 按將進入的功能預載；自動交手仍維持真正使用時才載入。 */
+export function prefetchHighlight(subject: HighlightSubject = 'chest'): void {
+  if (prefetched.has(subject)) return;
+  prefetched.add(subject);
+  void load().then(module => module.prefetchHighlightAssets(subject)).catch(() => { prefetched.delete(subject); });
 }
 
 export type { HighlightConfig, RewardCard, Grade, HighlightSubject } from './types';

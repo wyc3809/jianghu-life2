@@ -16,7 +16,7 @@ def build():
     assert hashlib.sha256(SOURCE.read_bytes()).hexdigest() == SOURCE_SHA256
     font = TTFont(SOURCE, recalcTimestamp=False)
     text = '更換武器人物護甲飾品返回普通配搭對戰裝備秘笈閣華山論劍江湖修煉突破黃天一蔣潤天設定祖祠收藏換上目前選中0123456789＋−／，。！？'
-    for folder in ['src/components', 'data', 'content', 'interfaces']:
+    for folder in ['src/components', 'core', 'data', 'content', 'interfaces']:
         for path in (ROOT / folder).rglob('*'):
             if path.suffix in ['.tsx', '.ts', '.json']:
                 text += ''.join(re.findall(r'[\u3400-\u9fff]', path.read_text()))

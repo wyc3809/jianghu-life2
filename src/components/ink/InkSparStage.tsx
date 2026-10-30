@@ -15,6 +15,7 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { highlightCoversPage } from '../../ui/highlightVisibility';
+import { watchVisualActivity } from '../../ui/visualActivity';
 import { SparStage, loadSparImages, loadSparImage, loadSparUiImages, type SparCombatHooks } from '../../spar/engine';
 import { sparArtAt, sparArtOrder } from '../../spar/artCycle';
 import { SparDuel, formatSparNumber, sparHeroStats, sparRand, sparSavedStage, type SparDuelSnapshot } from '@core/life/sparDuel';
@@ -120,6 +121,8 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
   const bossRef = useRef(bossBattle); bossRef.current = bossBattle;
   const bossKeyRef = useRef(bossKey); bossKeyRef.current = bossKey;
   const homeRef = useRef(homeVisible); homeRef.current = homeVisible;
+  const resumeStageRef = useRef<(() => void) | null>(null);
+  useEffect(() => { resumeStageRef.current?.(); }, [homeVisible]);
   const enteredKeyRef = useRef('');
   const [enteredKey, setEnteredKey] = useState('');
   const [backdropKey, setBackdropKey] = useState('');
@@ -316,7 +319,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
       const dt = last ? (now - last) / 1000 : 0;
       last = now;
       if (!homeRef.current) {
-        if (running) raf = requestAnimationFrame(frame);
+        stopLoop();
         return;
       }
       const liveKey = duel?.foe?.boss ? `${duel.stage}:${duel.foe.name}` : '';
@@ -340,7 +343,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
     };
 
     const startLoop = () => {
-      if (running || !stage || !visible) return;
+      if (running || !stage || !visible || !homeRef.current || document.hidden) return;
       running = true;
       last = 0;
       raf = requestAnimationFrame(frame);
@@ -350,6 +353,8 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
       if (raf) cancelAnimationFrame(raf);
       raf = 0;
     };
+    resumeStageRef.current = () => { if (homeRef.current) startLoop(); else stopLoop(); };
+    const unwatchActivity = watchVisualActivity(active => { if (active) startLoop(); else stopLoop(); });
 
     loadSparImages(rig, enemies)
       .then(async (images) => {
@@ -431,6 +436,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
         if (qa.__sparStage === stage) delete qa.__sparStage;
       }
       stopLoop();
+      resumeStageRef.current = null; unwatchActivity();
       ro.disconnect();
       io.disconnect();
     };

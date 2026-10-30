@@ -91,6 +91,7 @@ const TAB_ICONS: Record<'home' | 'person' | 'jianghu' | 'practice', InkIconKey> 
 };
 import { useRollingNumber } from '../../hooks/useRollingNumber';
 import { HighlightFxLazy, canUseWebGL, prefetchHighlight } from '../../fx/highlight';
+import { scheduleVisualPreload } from '../../ui/visualActivity';
 import { breakthroughHighlight, momentHighlight } from '../../fx/highlight/fromGame';
 
 type Props = {
@@ -104,6 +105,7 @@ export function InkPlayScreen({ state }: Props) {
   const choose = useLifeStore((s) => s.choose);
   const dismissEvent = useLifeStore((s) => s.dismissEvent);
   const dismissCoach = useLifeStore((s) => s.dismissCoach);
+  const resumeCoach = useLifeStore((s) => s.resumeCoach);
   const advanceMonth = useLifeStore((s) => s.advanceMonth);
   const reincarnate = useLifeStore((s) => s.reincarnate);
   const practice = useLifeStore((s) => s.practice);
@@ -128,6 +130,7 @@ export function InkPlayScreen({ state }: Props) {
   const recruitDisciple = useLifeStore((s) => s.recruitDisciple);
   const teachDisciple = useLifeStore((s) => s.teachDisciple);
   const equipOwned = useLifeStore((s) => s.equipOwned);
+  const prepareNewbieEquipment = useLifeStore((s) => s.prepareNewbieEquipment);
   const sealText = useLifeStore((s) => s.sealText);
   const flashLines = useLifeStore((s) => s.flashLines);
   const clearSeal = useLifeStore((s) => s.clearSeal);
@@ -196,6 +199,10 @@ export function InkPlayScreen({ state }: Props) {
   const [jianghuView, setJianghuView] = useState<JianghuView>('main');
   const jianghuRef = useRef<HTMLDivElement>(null);
   const [requestedArt, setRequestedArt] = useState<string | null>(null);
+  const openNewbieEquipment = () => {
+    prepareNewbieEquipment();
+    setPersonPreset('normal'); setRequestedArt(null); setPersonView('main'); setTab('person');
+  };
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [boardOpen, setBoardOpen] = useState(false);
   const resultTitleRef = useRef<HTMLHeadingElement | null>(null);
@@ -325,11 +332,8 @@ export function InkPlayScreen({ state }: Props) {
   );
   useEffect(() => {
     if (state.phase !== 'playing' || !canUseWebGL()) return;
-    // 開局後閒時預載 Three.js／GSAP，真正要播時唔使等
-    const w = window as Window & { requestIdleCallback?: (cb: () => void) => number };
-    if (w.requestIdleCallback) w.requestIdleCallback(prefetchHighlight);
-    else window.setTimeout(prefetchHighlight, 3000);
-  }, [state.phase]);
+    return scheduleVisualPreload(() => prefetchHighlight(onGachaPage ? 'codex' : onPersonPage ? 'token' : 'chest'));
+  }, [state.phase, onGachaPage, onPersonPage]);
 
   // 銀兩增加時墨點飛入，數字沿用同一套介面字體。
   const moneyChipRef = useRef<HTMLSpanElement>(null);
@@ -507,7 +511,7 @@ export function InkPlayScreen({ state }: Props) {
   useLayoutEffect(() => {
     const root = document.documentElement;
     const nav = navRef.current;
-    const task = hasTask ? document.querySelector('.ink-task-dock .ink-task-bar') : null;
+    const task = hasTask ? document.querySelector('.ink-task-dock') : null;
     const measure = () => {
       root.style.setProperty('--ink-dock-height', `${nav?.getBoundingClientRect().height ?? 0}px`);
       root.style.setProperty('--ink-task-height', `${task?.getBoundingClientRect().height ?? 0}px`);
@@ -712,6 +716,8 @@ export function InkPlayScreen({ state }: Props) {
       {boardOpen && <InkLeaderboardPanel onClose={() => setBoardOpen(false)} />}
 
       <InkSettingsPanel
+        onReviewGuide={newbieActive(state) || nextCoachStep({ ...c.flags, coach_done: false }) !== 'done'
+          ? () => { resumeCoach(); setSettingsOpen(false); setTab('home'); } : undefined}
         open={settingsOpen}
         onClose={() => setSettingsOpen(false)}
         onOpenBoard={() => {
@@ -770,7 +776,7 @@ export function InkPlayScreen({ state }: Props) {
               }}
               onAction={(a) => {
                 if (a === 'trial') startNewbieTrial();
-                else if (a === 'equip') equipOwned(NEWBIE_TRIAL.rewardGearId);
+                else if (a === 'equip') openNewbieEquipment();
                 else if (a === 'breakthrough') attemptBreakthrough();
               }}
             />
@@ -1031,6 +1037,8 @@ export function InkPlayScreen({ state }: Props) {
           state={state}
           onEquip={() => resolveGearCompare('equip')}
           onKeep={() => resolveGearCompare('keep')}
+          onCompare={newbieActive(state) && c.flags.newbie_trial_won && state.pendingGearCompare.gearId === NEWBIE_TRIAL.rewardGearId
+            ? () => { resolveGearCompare('keep'); openNewbieEquipment(); } : undefined}
         />
       )}
 

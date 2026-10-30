@@ -4,6 +4,9 @@ import { useAncestryStore } from '../../store/ancestryStore';
 import { createPortal } from 'react-dom';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { currentGoal, type GoalAction } from '@core/life/goals';
+import { newbieGuide } from '@core/life/newbieGuide';
+import { useLifeStore } from '../../store/lifeStore';
+import { InkNewbieGuide } from './InkNewbieGuide';
 import { effectiveCultivationRate } from '@core/life/cultivation';
 import { formatSparNumber, sparSavedStage, sparStageClearXp, sparStageReward } from '@core/life/sparDuel';
 import { InkBrushBar } from './InkBrush';
@@ -27,6 +30,8 @@ export function InkHomeGoals({ state, onAction, onHarvest, busy, section }: Prop
   const [tasksOpen,setTasksOpen]=useState(false);
   const check=useAncestryStore(s=>s.checkMilestones);
   const goal = currentGoal(state);
+  const guide = newbieGuide(state);
+  const dismiss = useLifeStore(s => s.dismissCoach);
   const rate = effectiveCultivationRate(state);
   const stage = sparSavedStage(state);
   const reward = sparStageReward(stage);
@@ -35,6 +40,7 @@ export function InkHomeGoals({ state, onAction, onHarvest, busy, section }: Prop
   const pct = goal.progress ? Math.min(100, (goal.progress.cur / Math.max(1, goal.progress.max)) * 100) : 0;
   const content = (
     <section className="ink-home-goals" aria-label="當前目標與掛機收益">
+      {section === 'task' && guide && <InkNewbieGuide title={guide.title} onDismiss={dismiss}>{guide.body}</InkNewbieGuide>}
       {section !== 'harvest' && <div className="ink-goal ink-task-bar" aria-label="任務欄">
         <div className="ink-task-main">
           <details className="ink-task-details" key={goal.id}>
@@ -62,7 +68,7 @@ export function InkHomeGoals({ state, onAction, onHarvest, busy, section }: Prop
         {goal.action && (
           <button type="button" className="ink-goal-btn" disabled={busy}
             onClick={() => onAction(goal.action!)}>
-            {goal.actionLabel}
+            {goal.action === 'equip' ? '前往人物' : goal.actionLabel}
           </button>
         )}
       </div>}

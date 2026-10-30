@@ -4,7 +4,7 @@ from playwright.sync_api import sync_playwright
 import copy,json,re,os
 ROOT=Path(__file__).resolve().parents[2]
 LABEL=os.getenv('CHEST_GAME_LABEL','game')
-OUT=ROOT/'production/qa/evidence/redesign/chest-quality'/LABEL;OUT.mkdir(parents=True,exist_ok=True)
+OUT=Path(os.getenv('CHEST_GAME_OUT',str(ROOT/'production/qa/evidence/redesign/chest-quality'/LABEL)));OUT.mkdir(parents=True,exist_ok=True)
 BASE=os.getenv('CHEST_GAME_BASE','http://127.0.0.1:5176/')
 fixtures=json.loads((ROOT/'.local-online/chest-quality/fixtures.json').read_text())
 cases=[(g,'skip')for g in range(6)]+[(1,'normal'),(5,'reduce'),(1,'missing'),(1,'late'),(1,'contextlost')]

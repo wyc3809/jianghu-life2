@@ -1,0 +1,35 @@
+{
+  "base": "http://127.0.0.1:5242/jianghu-life2/",
+  "productionBuild": true,
+  "fixtureCoreGrantGear": true,
+  "nativeMarkerAndCssSafeAreaSimulation": true,
+  "actualIOS": false,
+  "cases": [
+    {
+      "grade": 1,
+      "mode": "normal",
+      "gear": "精鋼刀",
+      "settledDraws": 0,
+      "ownedCount": 1,
+      "autoEquipped": false,
+      "replayOnReload": false,
+      "backgroundDraws": 0,
+      "backgroundResumed": true,
+      "video": null,
+      "pageerrors": []
+    },
+    {
+      "grade": 5,
+      "mode": "reduce",
+      "gear": "玄鐵重劍",
+      "settledDraws": 0,
+      "ownedCount": 1,
+      "autoEquipped": false,
+      "replayOnReload": false,
+      "backgroundDraws": 0,
+      "backgroundResumed": true,
+      "video": null,
+      "pageerrors": []
+    }
+  ]
+}

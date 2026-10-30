@@ -9,6 +9,8 @@ import { equipGear, resolveGearCompare as resolveGearCompareAction } from '@core
 import { sanitizePlayerLine } from '@core/life/playerText';
 import { ensureNewbieReward, startNewbieTrial } from '@core/life/goals';
 import { NEWBIE_TRIAL } from '@data/redesign/newbie';
+import { getGearDef } from '@data/equipment/catalog';
+import { newbieActive } from '@core/life/goals';
 import { setMainArt } from '@core/life/schools';
 import type { SkillKind } from '@data/skills/catalog';
 import type { LifeStore } from '../lifeStore';
@@ -17,8 +19,15 @@ export function createCharacterSlice(
   set: (partial: Partial<LifeStore>) => void,
   get: () => LifeStore,
   save: (state: LifeGameState, immediate?: boolean) => void,
-): Pick<LifeStore, 'equipOwned' | 'resolveGearCompare' | 'startNewbieTrial' | 'setMainArt' | 'setMartialSlot'> {
+): Pick<LifeStore, 'equipOwned' | 'prepareNewbieEquipment' | 'resolveGearCompare' | 'startNewbieTrial' | 'setMainArt' | 'setMartialSlot'> {
   return {
+    prepareNewbieEquipment: () => {
+      const { state } = get();
+      if (!state || !state.character.alive || state.phase !== 'playing' || state.pendingCombat || !newbieActive(state)) return;
+      const next = produce(state, draft => { ensureNewbieReward(draft); });
+      if (next === state) return;
+      void save(next); set({ state: next });
+    },
     setMartialSlot: (slot, skillId, preset = 'normal') => {
       const { state, combatReplay } = get();
       if (!state || state.phase !== 'playing' || !state.character.alive || state.pendingCombat || combatReplay) return false;
@@ -78,10 +87,14 @@ export function createCharacterSlice(
       if (state.pendingCombat) return;
       let msg = '';
       const next = produce(state, (draft) => {
+        const before = getGearDef(draft.character.equipment.weapon ?? '')?.attack ?? 0;
+        const recordGuide = preset === 'normal' && newbieActive(draft) && draft.character.flags.newbie_trial_won
+          && gearId === NEWBIE_TRIAL.rewardGearId && draft.character.equipment.weapon !== gearId;
         if (gearId === NEWBIE_TRIAL.rewardGearId) ensureNewbieReward(draft);
         ensureCombatPreset(draft.character);
         if (preset === 'duel') msg = setDuelGear(draft.character, gearId) ? '已更新對戰裝備。' : '未能更換對戰裝備。';
         else msg = equipGear(draft, gearId);
+        if (recordGuide && draft.character.equipment.weapon === gearId) draft.character.flags.newbie_weapon_attack_before = before;
       });
       void save(next);
       set({

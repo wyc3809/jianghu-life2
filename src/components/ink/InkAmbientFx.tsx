@@ -10,7 +10,7 @@
  */
 import { useEffect, useRef } from 'react';
 import { inkArtUrl } from '../../ui/inkAssets';
-import { highlightCoversPage } from '../../ui/highlightVisibility';
+import { createVisualLoop, watchVisualActivity } from '../../ui/visualActivity';
 import { AMBIENT_TUNING, type AmbientSeason } from '../../fx/ambient/tuning';
 import {
   createRng,
@@ -46,10 +46,6 @@ function sprite(key: keyof typeof SPRITE_FILES): HTMLImageElement {
   return img;
 }
 
-function prefersReducedMotion(): boolean {
-  return typeof window !== 'undefined' && Boolean(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
-}
-
 export interface InkAmbientFxProps {
   mode: 'scene' | 'ink';
   season?: AmbientSeason;
@@ -63,7 +59,7 @@ export function InkAmbientFx({ mode, season = 'spring', paused = false, classNam
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas || paused || prefersReducedMotion()) return;
+    if (!canvas || paused) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
@@ -71,8 +67,6 @@ export function InkAmbientFx({ mode, season = 'spring', paused = false, classNam
     let w = 0;
     let h = 0;
     let parts: Particle[] = [];
-    let raf = 0;
-    let last = performance.now();
     let t = 0;
 
     const resize = () => {
@@ -121,10 +115,7 @@ export function InkAmbientFx({ mode, season = 'spring', paused = false, classNam
       });
     };
 
-    const frame = (now: number) => {
-      if (highlightCoversPage()) { last = now; raf = requestAnimationFrame(frame); return; }
-      const dt = Math.min(0.05, (now - last) / 1000);
-      last = now;
+    const loop = createVisualLoop((_now, dt) => {
       t += dt;
       parts = stepParticles(parts, dt, w, h);
       let alive = 0;
@@ -134,12 +125,14 @@ export function InkAmbientFx({ mode, season = 'spring', paused = false, classNam
       if (mode === 'scene') drawMist();
       for (const p of parts) draw(p);
       ctx.globalAlpha = 1;
-      raf = requestAnimationFrame(frame);
-    };
-    raf = requestAnimationFrame(frame);
+    });
+    const unwatch = watchVisualActivity(active => {
+      loop.setActive(active);
+      if (!active) ctx.clearRect(0, 0, w, h);
+    }, { element: canvas, covered: true, reduced: true, dialogs: true });
 
     return () => {
-      cancelAnimationFrame(raf);
+      unwatch(); loop.dispose();
       ro?.disconnect();
       ctx.clearRect(0, 0, w, h);
     };
