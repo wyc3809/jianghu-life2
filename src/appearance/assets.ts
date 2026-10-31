@@ -1,11 +1,11 @@
 import mapping from './asset-map.json';
 import fallback from './asset-fallback.json';
+import type { BodyFrame } from './pose';
 import type { CharacterAppearance } from '@interfaces/appearance';
 
-export type OutfitPart = 'torso'|'upperArm'|'forearm'|'thigh'|'shin'|'hem'|'seated';
 export interface AppearanceAssets {
   heads: Record<CharacterAppearance['head'], HTMLImageElement>;
-  outfits: Record<CharacterAppearance['outfit'],Record<OutfitPart,HTMLImageElement>>;
+  bodies: Record<CharacterAppearance['outfit'],Record<BodyFrame,HTMLImageElement>>;
   weapons: Record<string,HTMLImageElement>;
   simplified: boolean;
 }
@@ -27,13 +27,13 @@ export function loadAppearanceAssets(): Promise<AppearanceAssets> {
       catch { const embedded=(fallback as Record<string,string>)[path];if(!embedded)throw new Error('造型素材未能載入');simplified=true;return image(embedded); }
     };
     const heads=Object.fromEntries(await Promise.all(Object.entries(mapping.heads).map(async([key,path])=>[key,await load(path)]))) as AppearanceAssets['heads'];
-    const outfits=Object.fromEntries(await Promise.all(Object.entries(mapping.outfits).map(async([key,parts])=>[
+    const bodies=Object.fromEntries(await Promise.all(Object.entries(mapping.bodies).map(async([key,parts])=>[
       key,Object.fromEntries(await Promise.all(Object.entries(parts).map(async([part,path])=>[part,await load(path)]))),
-    ]))) as AppearanceAssets['outfits'];
+    ]))) as AppearanceAssets['bodies'];
     const weapons=Object.fromEntries(await Promise.all(WEAPONS.map(async key=>{
       try{return [key,await load(`ink/spar/weapon-${key}.webp`)];}catch{return [key,undefined];}
     }))) as AppearanceAssets['weapons'];
-    return {heads,outfits,weapons,simplified};
+    return {heads,bodies,weapons,simplified};
   })().catch(error=>{pending=null;throw error;});
   return pending;
 }

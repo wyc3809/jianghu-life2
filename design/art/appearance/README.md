@@ -15,3 +15,15 @@
 執行 `python3 scripts/art/build_appearance.py`，裁切、清透明邊、輸出29張WebP與同圖縮小後備，更新 `src/appearance/asset-map.json`、`asset-fallback.json`、`alpha-validation.json`。原圖不覆寫。短髮頭部裁除上格越界白髮；後備使用相同原圖，避免缺圖換臉。兵器沿用既有 `public/ink/spar/weapon-*.webp`，牌章與框沿用既有宣紙UI及素材來源紀錄。
 
 `src/appearance/model.ts` 使用同一套位圖關節與固定身高。藍布區按明度改色，保留膚色、皮革及墨線；調色結果快取，不逐幀讀取像素。走、攻、受擊、倒地只改關節，盤坐使用真正交叉腿部件。資料只供顯示；新戰報保存外觀快照，重播不讀衣櫥的新選擇。
+
+## EA0.99.1 肢體修正
+
+EA0.99.0獨立部件合成已停用：軀幹原圖包含袖臂，疊畫會出現重複與錯接，盤坐亦會與站姿軀幹不匹配。舊來源保留供追溯，執行繪圖只載入八款頭部與每套八格完整身體。
+
+新原始來源 `sources/poses-{traveller,scholar,cloak}-original.png` 分別對應生成輸出 `exec-7e87ecd8-6c93-4d2e-9262-e42457d5f34d.png`、`exec-cc86f168-adb3-4129-b8e7-f61bb72dc9e5.png`、`exec-55f5623a-d19e-4773-82a0-46196d226f48.png`。逐字製作提示在 `prompts/connected-*.txt`，工具原始檔完整保留，未冒認第三方素材或CC0。
+
+執行 `python3 scripts/art/build_appearance_poses.py`：以連通區分離完整姿勢，裁切不截斷手腳；輸出24張WebP、`pose-layout.json`原圖頸位／腳底／握點與固定倍率、`pose-validation.json`及同姿勢縮小後備。更新舊頭部來源時，原 `build_appearance.py` 會在最後接續此程序，避免丟失新映射。執行依賴為Pillow與numpy。
+
+`model.ts` 每次只畫一張完整身體、一個所選頭部及相應兵器；不再畫任何獨立上臂、前臂或腿。調色只變藍布，不改人體幾何，身體快取有96格上限（完整三套四配色八姿勢）；Three合成幀36格上限。
+
+人物頁盤坐另使用高解像完整來源 `sources/poses-seated-original.png`（輸出 `exec-dea2cbe7-a11b-456f-9392-1c76213f8ed3.png`，提示 `prompts/connected-seated.txt`）；處理器以固定來源密度對齊原本盤坐比例，不按動畫逐格縮放。頭部最後繪畫，頸位落在實際領口內，避免衣領蓋過頸部。
