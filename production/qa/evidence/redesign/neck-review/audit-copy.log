@@ -1,0 +1,5 @@
+
+> jianghu-engine@0.99.2-ea audit:copy
+> node scripts/auditPlayerCopy.mjs
+
+player-copy: 10208段中文字串；口語及禁句0處

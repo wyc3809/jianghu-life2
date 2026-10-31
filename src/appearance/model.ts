@@ -3,6 +3,7 @@ import { APPEARANCE_COLOURS } from '@data/appearances';
 import { WEAPON_SPRITES } from '../spar/rig';
 import { appearanceBodyFrame, appearanceComposition, type AppearancePose, type BodyFrame } from './pose';
 import type { AppearanceAssets } from './assets';
+import { appearanceHead, drawNeck } from './neck';
 export type { AppearancePose } from './pose';
 
 export interface AppearanceDraw {x:number;y:number;height:number;face?:number;pose?:AppearancePose;time?:number;family?:string;reduced?:boolean}
@@ -32,7 +33,9 @@ export function drawAppearance(ctx:CanvasRenderingContext2D,assets:AppearanceAss
     ctx.drawImage(weapon,-def.grip.x*scale,-def.grip.y*scale,def.w*scale,def.h*scale);ctx.restore();
   }
   ctx.drawImage(body,p.body.x,p.body.y,p.body.width,p.body.height);
-  ctx.save();ctx.translate(p.neck.x,p.neck.y);ctx.rotate(p.head.rotation);ctx.drawImage(head,p.head.x,p.head.y,p.head.width,p.head.height);ctx.restore();ctx.restore();
+  drawNeck(ctx,assets,a,p);
+  ctx.save();ctx.translate(p.neck.x,p.neck.y);ctx.rotate(p.head.rotation);ctx.drawImage(appearanceHead(assets,a,p),p.head.x,p.head.y,p.head.width,p.head.height);ctx.restore();
+  ctx.restore();
 }
 const frameUrls=new WeakMap<AppearanceAssets,Map<string,string>>();
 /** Three演出取同一個完整姿勢，快取上限36張，不重寫戰報。 */

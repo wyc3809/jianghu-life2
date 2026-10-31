@@ -1,8 +1,8 @@
 """共用繪圖器放大實播：完整身體姿勢，畫面不讀寫玩家存檔。"""
 from pathlib import Path
 from playwright.sync_api import sync_playwright
-import json,subprocess
-ROOT=Path(__file__).resolve().parents[2];LOCAL=ROOT/'.local-online/appearance-fix';OUT=ROOT/'production/qa/evidence/redesign/appearance-fix'
+import json,subprocess,os
+ROOT=Path(__file__).resolve().parents[2];LOCAL=ROOT/'.local-online/appearance-fix';OUT=ROOT/os.getenv('ANATOMY_OUT','production/qa/evidence/redesign/appearance-fix');OUT.mkdir(parents=True,exist_ok=True)
 (LOCAL/'playback.html').write_text('<html><body style="margin:0;background:#f7efdf"><canvas width="960" height="440"></canvas><script type="module" src="./playback.ts"></script></body></html>')
 (LOCAL/'playback.ts').write_text('''import {loadAppearanceAssets} from '../../src/appearance/assets';
 import {drawAppearance} from '../../src/appearance/model';

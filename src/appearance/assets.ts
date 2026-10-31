@@ -7,6 +7,7 @@ export interface AppearanceAssets {
   heads: Record<CharacterAppearance['head'], HTMLImageElement>;
   bodies: Record<CharacterAppearance['outfit'],Record<BodyFrame,HTMLImageElement>>;
   weapons: Record<string,HTMLImageElement>;
+  neck?: HTMLImageElement;
   simplified: boolean;
 }
 declare global { interface Window { __jianghuAppearanceAssets?: Record<string,string> } }
@@ -33,7 +34,8 @@ export function loadAppearanceAssets(): Promise<AppearanceAssets> {
     const weapons=Object.fromEntries(await Promise.all(WEAPONS.map(async key=>{
       try{return [key,await load(`ink/spar/weapon-${key}.webp`)];}catch{return [key,undefined];}
     }))) as AppearanceAssets['weapons'];
-    return {heads,bodies,weapons,simplified};
+    const neck=await load(mapping.neck);
+    return {heads,bodies,weapons,neck,simplified};
   })().catch(error=>{pending=null;throw error;});
   return pending;
 }
