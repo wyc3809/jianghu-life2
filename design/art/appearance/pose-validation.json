@@ -1,0 +1,242 @@
+[
+  {
+    "outfit": "traveller",
+    "pose": "idle",
+    "size": [
+      219,
+      482
+    ],
+    "transparentFraction": 0.436982511983933,
+    "sha256": "b4adce379b11ec9a28242b0a0f759f99f3ff182f868b12aa785f02a80659d859"
+  },
+  {
+    "outfit": "traveller",
+    "pose": "walkA",
+    "size": [
+      288,
+      478
+    ],
+    "transparentFraction": 0.5205718270571827,
+    "sha256": "35c076cad4a043f2cfd8f210fc9c1671f2529d3c1bdc738bfb850f8957928e5d"
+  },
+  {
+    "outfit": "traveller",
+    "pose": "walkB",
+    "size": [
+      320,
+      482
+    ],
+    "transparentFraction": 0.5599844398340249,
+    "sha256": "46280f3b56700db7da140494bc08a2f2727084baf9cad4eec026d7c17edeee35"
+  },
+  {
+    "outfit": "traveller",
+    "pose": "windup",
+    "size": [
+      344,
+      458
+    ],
+    "transparentFraction": 0.5813953488372093,
+    "sha256": "c0c676db3fd1f13ebe982067bfbe8ada5e8cc5636565c60ed828bdc9a3dee36b"
+  },
+  {
+    "outfit": "traveller",
+    "pose": "strike",
+    "size": [
+      432,
+      386
+    ],
+    "transparentFraction": 0.6134798982920745,
+    "sha256": "1b003a080ff887000af750a9a88d480c35f8b80be312b595d87e9b6f27511e55"
+  },
+  {
+    "outfit": "traveller",
+    "pose": "hurt",
+    "size": [
+      256,
+      388
+    ],
+    "transparentFraction": 0.48134463595360827,
+    "sha256": "81631a6f732b4e3ed167e99e672e00d0ce34516488b91393bc63148fb0709163"
+  },
+  {
+    "outfit": "traveller",
+    "pose": "down",
+    "size": [
+      469,
+      180
+    ],
+    "transparentFraction": 0.39619758351101636,
+    "sha256": "1eff32d79d22a28f29da32bd929718262a7ef179f07bfaa3dbb8207ede2f7a31"
+  },
+  {
+    "outfit": "traveller",
+    "pose": "seated",
+    "size": [
+      719,
+      577
+    ],
+    "transparentFraction": 0.41231683712454475,
+    "sha256": "8a816f874a1bde27e3600d86cbc52864640c3d0d32134c180aa6cc19ec67a28d"
+  },
+  {
+    "outfit": "scholar",
+    "pose": "idle",
+    "size": [
+      232,
+      455
+    ],
+    "transparentFraction": 0.34473285335354303,
+    "sha256": "3f4e49057845e97d08099092c29149ada942787f58b992c09fc5b003d145cc4e"
+  },
+  {
+    "outfit": "scholar",
+    "pose": "walkA",
+    "size": [
+      307,
+      455
+    ],
+    "transparentFraction": 0.43334645810215844,
+    "sha256": "fa6f3a9a4d31446684c45bbcc4d1a7a9353bda6454c3299ade7064cdd47a8ea3"
+  },
+  {
+    "outfit": "scholar",
+    "pose": "walkB",
+    "size": [
+      327,
+      454
+    ],
+    "transparentFraction": 0.44217219685028764,
+    "sha256": "1c79f81fa7c7607de2e01191927a79e184ee4127ea3bc28e00f1ca5f5b8ebb64"
+  },
+  {
+    "outfit": "scholar",
+    "pose": "windup",
+    "size": [
+      385,
+      432
+    ],
+    "transparentFraction": 0.4665103415103415,
+    "sha256": "bf7fd52aab27697506c696085efa0aa6797b4da79cbf028c7294f8e0dd07fed8"
+  },
+  {
+    "outfit": "scholar",
+    "pose": "strike",
+    "size": [
+      457,
+      396
+    ],
+    "transparentFraction": 0.4816767234710342,
+    "sha256": "c1b7519377752e3c9d3791127e2fda0b4460a2dc946a6bcfb6462a4650f1f5f4"
+  },
+  {
+    "outfit": "scholar",
+    "pose": "hurt",
+    "size": [
+      304,
+      398
+    ],
+    "transparentFraction": 0.4421036101560434,
+    "sha256": "4917fd6e8148c9f2a2a1e72ad2dadc47262f4a3aa1a0864927c67e0f6f36d29c"
+  },
+  {
+    "outfit": "scholar",
+    "pose": "down",
+    "size": [
+      509,
+      185
+    ],
+    "transparentFraction": 0.40326023469441935,
+    "sha256": "324db920269fdcb757c6830b43a21ebe4c53ad2d2dc5081e735e471950e7fc81"
+  },
+  {
+    "outfit": "scholar",
+    "pose": "seated",
+    "size": [
+      716,
+      583
+    ],
+    "transparentFraction": 0.37557614726371974,
+    "sha256": "cb7896b41287ab1b4718011d943a0b7eb7e39338ef8105634630a8f53be7622f"
+  },
+  {
+    "outfit": "cloak",
+    "pose": "idle",
+    "size": [
+      252,
+      450
+    ],
+    "transparentFraction": 0.3812257495590829,
+    "sha256": "cce13d4c73d161f3056c963090205f3d4eb1207540cd4fcb05d22a6bf6287368"
+  },
+  {
+    "outfit": "cloak",
+    "pose": "walkA",
+    "size": [
+      367,
+      452
+    ],
+    "transparentFraction": 0.5363326179740059,
+    "sha256": "769885a09e2ea03f7d75b56e8902a0d114d1d476496c08c449c8414703bc06db"
+  },
+  {
+    "outfit": "cloak",
+    "pose": "walkB",
+    "size": [
+      389,
+      450
+    ],
+    "transparentFraction": 0.5681748071979434,
+    "sha256": "9069242ebfa5079846903a7a89bcf89d295574fe38a6022d469874f8de7bdf8c"
+  },
+  {
+    "outfit": "cloak",
+    "pose": "windup",
+    "size": [
+      389,
+      443
+    ],
+    "transparentFraction": 0.5188565924086185,
+    "sha256": "02a73e8e7344dc4eeea308090f7c1eac865a30a749732de1928258f15bd9935c"
+  },
+  {
+    "outfit": "cloak",
+    "pose": "strike",
+    "size": [
+      488,
+      419
+    ],
+    "transparentFraction": 0.551136585938417,
+    "sha256": "184f9c29bbe31afa27f30a8591a5070bf07551d332d19b52497a7b6fc2e45e7f"
+  },
+  {
+    "outfit": "cloak",
+    "pose": "hurt",
+    "size": [
+      284,
+      419
+    ],
+    "transparentFraction": 0.4069296446939393,
+    "sha256": "5d1d8c92bccdee1153314dc41486df1fc35118889b68d010ffa4f81c678dadb7"
+  },
+  {
+    "outfit": "cloak",
+    "pose": "down",
+    "size": [
+      463,
+      174
+    ],
+    "transparentFraction": 0.32860405650306596,
+    "sha256": "eb14ca72cf55ef23a9570c1df26c8bb3b3b022ee4953b6876367764c200a057a"
+  },
+  {
+    "outfit": "cloak",
+    "pose": "seated",
+    "size": [
+      719,
+      584
+    ],
+    "transparentFraction": 0.37218263570026866,
+    "sha256": "0eac52c6c4bc7b2ee56d84aca0835577e7c9814b727fcd91551c68f22cfee320"
+  }
+]

@@ -3,6 +3,7 @@ import { appearanceOf, readAppearance, appearanceKey, APPEARANCE_HEADS, APPEARAN
 import { HEAD_LABELS, OUTFIT_LABELS, TONE_LABELS, APPEARANCE_COLOURS } from '@data/appearances';
 import { loadAppearanceAssets } from '../../appearance/assets';
 import { drawAppearance, type AppearancePose } from '../../appearance/model';
+import { appearanceBodyFrame, appearanceComposition } from '../../appearance/pose';
 import { InkPersonSheet } from './InkPersonSheet';
 import { inkArtUrl } from '../../ui/inkAssets';
 import './appearance.css';
@@ -20,7 +21,15 @@ export function AppearanceCanvas({ appearance, mode='figure', pose='idle', class
       const box=target.getBoundingClientRect(),w=Math.max(1,box.width),h=Math.max(1,box.height),dpr=Math.min(2,devicePixelRatio||1);
       target.width=Math.round(w*dpr);target.height=Math.round(h*dpr);const ctx=target.getContext('2d')!;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
       const side=Math.min(w,h);
-      drawAppearance(ctx,assets,readAppearance(appearance),mode==='portrait'?{x:w*.47,y:side*3+(h-side)*.5,height:side*3,pose:'idle',reduced:true}:{x:w*.5,y:h*.94,height:h*(pose==='seated'?1.1:.93),pose,reduced:true});
+      if(mode==='portrait')drawAppearance(ctx,assets,readAppearance(appearance),{x:w*.47,y:side*3+(h-side)*.5,height:side*3,pose:'idle',reduced:true});
+      else {
+        // 人物頁／衣櫥是靜態立繪：完整露出雙膝與雙靴；戰鬥仍沿用固定身高。
+        const a=readAppearance(appearance),im=assets.heads[a.head],p=appearanceComposition(a,appearanceBodyFrame(pose,0,true),im.naturalWidth/im.naturalHeight);
+        const left=Math.min(p.body.x,p.neck.x+p.head.x),right=Math.max(p.body.x+p.body.width,p.neck.x+p.head.x+p.head.width);
+        const top=Math.min(p.body.y,p.neck.y+p.head.y),bottom=Math.max(p.body.y+p.body.height,p.neck.y+p.head.y+p.head.height);
+        const scale=Math.min(w*.94/(right-left),h*.9/(bottom-top));
+        drawAppearance(ctx,assets,a,{x:w*.5-(left+right)*.5*scale,y:h*.95-bottom*scale,height:400*scale,pose,reduced:true});
+      }
       setFailed(false);
     }catch{if(!cancelled)setFailed(true);}};
     void paint();const observer=new ResizeObserver(()=>void paint());observer.observe(target);

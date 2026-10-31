@@ -37,5 +37,37 @@
       "hem": "ink/art/appearance/outfit-cloak-hem.webp",
       "seated": "ink/art/appearance/outfit-cloak-seated.webp"
     }
+  },
+  "bodies": {
+    "traveller": {
+      "idle": "ink/art/appearance/body-traveller-idle.webp",
+      "walkA": "ink/art/appearance/body-traveller-walkA.webp",
+      "walkB": "ink/art/appearance/body-traveller-walkB.webp",
+      "windup": "ink/art/appearance/body-traveller-windup.webp",
+      "strike": "ink/art/appearance/body-traveller-strike.webp",
+      "hurt": "ink/art/appearance/body-traveller-hurt.webp",
+      "down": "ink/art/appearance/body-traveller-down.webp",
+      "seated": "ink/art/appearance/body-traveller-seated.webp"
+    },
+    "scholar": {
+      "idle": "ink/art/appearance/body-scholar-idle.webp",
+      "walkA": "ink/art/appearance/body-scholar-walkA.webp",
+      "walkB": "ink/art/appearance/body-scholar-walkB.webp",
+      "windup": "ink/art/appearance/body-scholar-windup.webp",
+      "strike": "ink/art/appearance/body-scholar-strike.webp",
+      "hurt": "ink/art/appearance/body-scholar-hurt.webp",
+      "down": "ink/art/appearance/body-scholar-down.webp",
+      "seated": "ink/art/appearance/body-scholar-seated.webp"
+    },
+    "cloak": {
+      "idle": "ink/art/appearance/body-cloak-idle.webp",
+      "walkA": "ink/art/appearance/body-cloak-walkA.webp",
+      "walkB": "ink/art/appearance/body-cloak-walkB.webp",
+      "windup": "ink/art/appearance/body-cloak-windup.webp",
+      "strike": "ink/art/appearance/body-cloak-strike.webp",
+      "hurt": "ink/art/appearance/body-cloak-hurt.webp",
+      "down": "ink/art/appearance/body-cloak-down.webp",
+      "seated": "ink/art/appearance/body-cloak-seated.webp"
+    }
   }
 }

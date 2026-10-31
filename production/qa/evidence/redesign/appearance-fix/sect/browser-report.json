@@ -1,0 +1,36 @@
+[
+  {
+    "engine": "chromium",
+    "viewport": [
+      390,
+      844
+    ],
+    "allTwentyRoster": true,
+    "fixedFullScreen": true,
+    "pauseFreezesCanvas": true,
+    "backgroundFreezesAndResumes": true,
+    "nativeSheetPauses": true,
+    "selectFromRoster": true,
+    "skipReplaySameResult": true,
+    "fullPlayback": true,
+    "noSaveWrites": true,
+    "noExternalRequests": true,
+    "pageerrors": [],
+    "video": "/workspace/jianghu-person-release-ea094/.local-online/organization-wars/video/page@a0c1babca4c2bc8737211d4149b0f270.webm"
+  },
+  {
+    "engine": "chromium",
+    "edge": "reduced",
+    "passed": true
+  },
+  {
+    "engine": "chromium",
+    "edge": "partial",
+    "passed": true
+  },
+  {
+    "engine": "chromium",
+    "edge": "all",
+    "passed": true
+  }
+]

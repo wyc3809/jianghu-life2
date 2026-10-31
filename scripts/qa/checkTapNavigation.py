@@ -49,7 +49,10 @@ def nav(page,name):
  page.get_by_role('navigation',name='分卷').get_by_role('button',name=name,exact=True).click();stable(page)
 def start(browser,w,h,state=None,video=False):
  c=browser.new_context(viewport={'width':w,'height':h},device_scale_factor=2,is_mobile=True,has_touch=True,reduced_motion='reduce',**({'record_video_dir':str(ROOT/'.local-online/tap-navigation/video'),'record_video_size':{'width':390,'height':844}}if video else{}))
- for glob in ['**/*.supabase.co/**','**/fonts.googleapis.com/**','**/fonts.gstatic.com/**']:c.route(glob,lambda r:r.abort())
+ for glob in ['**/*.supabase.co/**','**/fonts.googleapis.com/**','**/fonts.gstatic.com/**']:
+  if glob=='**/*.supabase.co/**' and os.getenv('QA_CLOUD_REPLY')=='unavailable':
+   c.route(glob,lambda r:r.fulfill(status=204 if r.request.method=='OPTIONS' else 503,headers={'Access-Control-Allow-Origin':'*','Access-Control-Allow-Headers':'*,authorization,apikey,content-type,x-client-info,x-supabase-api-version','Access-Control-Allow-Methods':'GET,POST,OPTIONS'},content_type='application/json',body='{"code":"qa_offline","msg":"QA isolated offline"}'))
+  else:c.route(glob,lambda r:r.abort())
  value={'state':copy.deepcopy(state or f['state']),'meta':f['meta']}
  c.add_init_script('''(()=>{const f='''+json.dumps(value,ensure_ascii=False)+''';if(!localStorage.getItem('tap-qa')){localStorage.setItem('jianghu_life_v1_ls',JSON.stringify({version:1,savedAt:Date.now(),state:f.state}));localStorage.setItem('jianghu_ancestry_v1',JSON.stringify(f.meta));localStorage.setItem('jianghu_ancestry_saved_at_v1',String(Date.now()));localStorage.setItem('tap-qa','1');}})();''')
  page=c.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)));page.goto(BASE);tap(page,re.compile('^續寫前緣'),False);page.wait_for_timeout(1000)

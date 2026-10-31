@@ -68,3 +68,8 @@ for col,outfit in enumerate(['traveller','scholar','cloak']):
 (ROOT/'src/appearance/asset-fallback.json').write_text(json.dumps(fallback,ensure_ascii=False)+'\n')
 (ROOT/'design/art/appearance/alpha-validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
 print('APPEARANCE_ASSETS',len(report),'all real alpha')
+
+# 更新頭部或舊來源後，完整姿勢映射必須一併保留。
+if all((SRC/('poses-'+o+'-original.png')).exists() for o in ['traveller','scholar','cloak']) and (SRC/'poses-seated-original.png').exists():
+ import runpy
+ runpy.run_path(str(ROOT/'scripts/art/build_appearance_poses.py'),run_name='__main__')

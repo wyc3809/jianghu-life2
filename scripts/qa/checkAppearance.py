@@ -2,7 +2,7 @@
 from pathlib import Path
 __file__=str(Path('scripts/qa/checkPersonScreen.py').resolve());exec(compile(Path(__file__).read_text().rsplit('\nwith sync_playwright() as p:',1)[0],'person_helpers','exec'))
 BASE=os.getenv('APPEARANCE_BASE','http://127.0.0.1:5251/')
-OUT=ROOT/'production/qa/evidence/redesign/appearance';OUT.mkdir(parents=True,exist_ok=True)
+OUT=ROOT/os.getenv('APPEARANCE_OUT','production/qa/evidence/redesign/appearance');OUT.mkdir(parents=True,exist_ok=True)
 report=[]
 def wardrobe(page):
  tap(page,'造型');d=page.get_by_role('dialog',name='衣著與造型',exact=True);d.wait_for()
@@ -23,6 +23,7 @@ with sync_playwright() as p:
    if engine=='chromium' and w==390:shot(page,'wardrobe-390.png')
    d.get_by_role('button',name='換上',exact=True).evaluate('e=>{e.click();e.click()}');stable(page);assert not page.locator('dialog[open]').count()
    expected={'head':'silver','outfit':'scholar','tone':'jade'};assert ch(page)['appearance']==expected;assert snapshots(page)==before;assert look(page,'.ink-person-stage')=='silver:scholar:jade';main_geometry(page)
+   assert page.locator('.ink-person-seated-hero').evaluate('e=>{let d=e.getContext("2d").getImageData(0,0,e.width,e.height).data;for(let y=0;y<e.height;y++)for(let x of [0,1,e.width-2,e.width-1])if(d[(y*e.width+x)*4+3]>8)return false;return true}'),'seated body clipped at side'
    if engine=='chromium' and w==390:shot(page,'person-390.png')
    tap(page,'返回鎮居');assert look(page,'.ink-hud')=='silver:scholar:jade'
    if engine=='chromium' and w==390:shot(page,'home-390.png')
