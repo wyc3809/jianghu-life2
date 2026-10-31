@@ -1,0 +1,107 @@
+[
+  {
+    "engine": "chromium",
+    "viewport": [
+      320,
+      568
+    ],
+    "fixedMain": true,
+    "sheetControls44Visible": true,
+    "previewCancelNoMutation": true,
+    "confirmOnly": true,
+    "doubleConfirmNoDebit": true,
+    "normalDuelEquipmentUnchanged": true,
+    "hudMatchesPerson": true,
+    "reloadPersists": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "chromium",
+    "viewport": [
+      390,
+      844
+    ],
+    "fixedMain": true,
+    "sheetControls44Visible": true,
+    "previewCancelNoMutation": true,
+    "confirmOnly": true,
+    "doubleConfirmNoDebit": true,
+    "normalDuelEquipmentUnchanged": true,
+    "hudMatchesPerson": true,
+    "reloadPersists": true,
+    "pageerrors": [],
+    "video": "/workspace/jianghu-person-release-ea094/.local-online/tap-navigation/video/page@807361b471b06b2a2094c73624007b47.webm"
+  },
+  {
+    "engine": "chromium",
+    "viewport": [
+      430,
+      932
+    ],
+    "fixedMain": true,
+    "sheetControls44Visible": true,
+    "previewCancelNoMutation": true,
+    "confirmOnly": true,
+    "doubleConfirmNoDebit": true,
+    "normalDuelEquipmentUnchanged": true,
+    "hudMatchesPerson": true,
+    "reloadPersists": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "chromium",
+    "allAppearanceNetworkFailureSameIdentity": true
+  },
+  {
+    "engine": "webkit",
+    "viewport": [
+      320,
+      568
+    ],
+    "fixedMain": true,
+    "sheetControls44Visible": true,
+    "previewCancelNoMutation": true,
+    "confirmOnly": true,
+    "doubleConfirmNoDebit": true,
+    "normalDuelEquipmentUnchanged": true,
+    "hudMatchesPerson": true,
+    "reloadPersists": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "webkit",
+    "viewport": [
+      390,
+      844
+    ],
+    "fixedMain": true,
+    "sheetControls44Visible": true,
+    "previewCancelNoMutation": true,
+    "confirmOnly": true,
+    "doubleConfirmNoDebit": true,
+    "normalDuelEquipmentUnchanged": true,
+    "hudMatchesPerson": true,
+    "reloadPersists": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "webkit",
+    "viewport": [
+      430,
+      932
+    ],
+    "fixedMain": true,
+    "sheetControls44Visible": true,
+    "previewCancelNoMutation": true,
+    "confirmOnly": true,
+    "doubleConfirmNoDebit": true,
+    "normalDuelEquipmentUnchanged": true,
+    "hudMatchesPerson": true,
+    "reloadPersists": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "webkit",
+    "allAppearanceNetworkFailureSameIdentity": true
+  }
+]

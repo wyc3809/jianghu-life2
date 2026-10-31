@@ -69,5 +69,6 @@
       "down": "ink/art/appearance/body-cloak-down.webp",
       "seated": "ink/art/appearance/body-cloak-seated.webp"
     }
-  }
+  },
+  "neck": "ink/art/appearance/neck-bridge.webp"
 }

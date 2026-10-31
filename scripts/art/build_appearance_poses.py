@@ -69,3 +69,7 @@ for outfit_index,outfit in enumerate(['traveller','scholar','cloak']):
   report.append({'outfit':outfit,'pose':pose,'size':list(body.size),'transparentFraction':float((ar[:,:,3]==0).mean()),'sha256':hashlib.sha256(target.read_bytes()).hexdigest()})
  layout[outfit]['pixelsPerUnit']=reference/300
 (ROOT/'src/appearance/asset-map.json').write_text(json.dumps(mapping,ensure_ascii=False,indent=2)+'\n');(ROOT/'src/appearance/asset-fallback.json').write_text(json.dumps(fallback,ensure_ascii=False)+'\n');(ROOT/'src/appearance/pose-layout.json').write_text(json.dumps(layout,ensure_ascii=False,indent=2)+'\n');(ROOT/'design/art/appearance/pose-validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n');print('CONNECTED_POSES',len(report))
+# 重建身體圖時同時補回頸部原圖與內嵌後備，避免離線造型漏頸。
+if (SRC/'neck-bridge-original.png').exists():
+ import runpy
+ runpy.run_path(str(ROOT/'scripts/art/build_appearance_neck.py'))

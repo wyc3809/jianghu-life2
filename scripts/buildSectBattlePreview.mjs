@@ -8,7 +8,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const output = resolve(process.argv[2] || '.local-online/organization-wars/sect-battle-preview.html');
 const manifest = JSON.parse(readFileSync(resolve(root, 'src/prototypes/sectBattle/assets.json'), 'utf8'));
 const appearance = JSON.parse(readFileSync(resolve(root, 'src/appearance/asset-map.json'), 'utf8'));
-const paths = [...Object.values(manifest), ...Object.values(appearance.heads), ...Object.values(appearance.bodies).flatMap(Object.values), ...['sword','blade','spear','staff','whip','bow','hidden'].map(key => `ink/spar/weapon-${key}.webp`), 'ink/art/badges/slate.webp', 'ink/art/parchment-ui/icon-close.webp'];
+const paths = [...Object.values(manifest), appearance.neck, ...Object.values(appearance.heads), ...Object.values(appearance.bodies).flatMap(Object.values), ...['sword','blade','spear','staff','whip','bow','hidden'].map(key => `ink/spar/weapon-${key}.webp`), 'ink/art/badges/slate.webp', 'ink/art/parchment-ui/icon-close.webp'];
 const embedded = Object.fromEntries(paths.map(path => [path, `data:image/webp;base64,${readFileSync(resolve(root, 'public', path)).toString('base64')}`]));
 const result = await build({
   absWorkingDir: root, entryPoints: ['src/prototypes/sectBattleStandalone.tsx'],
