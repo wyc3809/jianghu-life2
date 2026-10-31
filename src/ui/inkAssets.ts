@@ -7,11 +7,14 @@
  * 見 `.claude/rules/no-svg-game-art.md`。
  */
 
+declare global { interface Window { __jianghuAssets?: Record<string,string> } }
+
 /** 相對 `public/ink/` 的路徑 → 帶 cache bust 的 URL */
 export function inkArtUrl(pathUnderInk: string): string {
   const base = import.meta.env.BASE_URL || '/';
   const cleaned = pathUnderInk.replace(/^\/+/, '');
-  return `${base}ink/${cleaned}?v=art1`;
+  const embedded = typeof window === 'undefined' ? undefined : window.__jianghuAssets?.[`ink/${cleaned}`];
+  return embedded ?? `${base}ink/${cleaned}?v=art1`;
 }
 
 /**

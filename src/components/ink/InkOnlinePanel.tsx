@@ -1,3 +1,4 @@
+import { AppearanceBadge } from './InkAppearance';
 import { onlineJadeProgress } from '@core/online/rules';
 import { useLifeStore } from '../../store/lifeStore';
 import { useAncestryStore } from '../../store/ancestryStore';
@@ -165,7 +166,7 @@ export default function InkOnlinePanel({ standalone = false, onBack, onPrepare }
         {snapshot.peers.length <= 1 && <p className="online-empty">尚無其他俠客入籍。可先離線，稍後返回查看；角色仍會留在試場。</p>}
         <div className="online-frame online-result"><h3>系統隨機配對</h3><p>同段位優先，全江湖均可能遇到；配對後直接開戰。</p><p>主動獎勵勝場 {jadeWins.attackWins}／3 · 防守 {jadeWins.defendWins}／3</p><p>累計免費玉石 {(me.jadeEarnedTotal??0).toLocaleString('zh-Hant')}</p><button type="button" className="online-frame online-enter" disabled={pending||!!me.busy||!connected||snapshot.peers.length<=1} onClick={()=>void run(async()=>{await onlineCommand('challenge',token,{});await refresh();setNotice('已配對，正在結算交手。');})}>隨機挑戰</button></div>
         {snapshot.peers.filter(p => p.id !== me.id).map(peer => <div className="online-frame online-opponent" key={peer.id} data-peer-id={peer.id} data-peer-online={peer.online}>
-          <div className="online-opponent-copy"><small>{peer.online ? '在線' : '離線 · 自動應戰'}</small><h3>{peer.name}</h3>
+          <AppearanceBadge character={peer} size={48}/><div className="online-opponent-copy"><small>{peer.online ? '在線' : '離線 · 自動應戰'}</small><h3>{peer.name}</h3>
             <p>江湖第 <b data-peer-rank={peer.rank}>{peer.rank}</b> 名{peer.protectedUntil > now ? ` · 保護 ${timeLeft(peer.protectedUntil, now)} 秒` : peer.busy ? ' · 交戰中' : ''}</p></div>
           <span className="online-note">隨機候選 · {peer.protectedUntil>now?'保護中':peer.busy?'交戰中':'可配對'}</span>
         </div>)}

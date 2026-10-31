@@ -1,18 +1,8 @@
 {
-  "background": "ink/art/battle-preview/autumn.webp",
-  "lifecycle": "ink/spar/hero-detail/lifecycle.webp",
   "bar": "ink/art/ui/brush-bar.webp",
   "rail": "ink/art/ui/brush-bar-rail.webp",
   "ring": "ink/art/ui/brush-ring.webp",
   "shadow": "ink/spar/commercial/shadow.webp",
   "slash": "ink/art/ui/slash-stroke.webp",
-  "spark": "ink/art/artfx/spark.webp",
-  "qy_cloud_sword": "ink/art/martial/qy_cloud_sword.webp",
-  "wd_sword_form": "ink/art/martial/wd_sword_form.webp",
-  "art_river_fist": "ink/art/martial/art_river_fist.webp",
-  "art_stone_palm": "ink/art/martial/art_stone_palm.webp",
-  "art_thunder_blade": "ink/art/martial/art_thunder_blade.webp",
-  "art_spear_cloud": "ink/art/martial/art_spear_cloud.webp",
-  "art_staff_iron": "ink/art/martial/art_staff_iron.webp",
-  "tm_flying_needle": "ink/art/martial/tm_flying_needle.webp"
+  "spark": "ink/art/artfx/spark.webp"
 }

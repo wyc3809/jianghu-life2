@@ -1,0 +1,17 @@
+.ink-appearance-canvas{display:block;width:100%;height:100%;object-fit:contain}
+.ink-appearance-badge{display:inline-block;position:relative;flex:none}
+.ink-appearance-badge>img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.ink-appearance-badge>canvas{position:absolute;inset:9%;width:82%;height:82%;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+.ink-person-sheet.ink-appearance-sheet{height:auto;display:flex;flex-direction:column;gap:8px;max-height:90dvh}
+.ink-appearance-preview{height:clamp(160px,27dvh,280px);flex:none;background:var(--ui-fiber) center/384px repeat,var(--ui-paper)}
+.ink-appearance-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;flex:none}
+.ink-appearance-tabs button{min-height:44px;font:inherit;border:0;background:var(--ui-fiber) center/384px repeat,var(--ui-paper);color:var(--ui-ink)}
+.ink-appearance-tabs [aria-selected=true]{background:var(--ui-brush) center/100% 100% no-repeat;color:#fff8e9}
+.ink-appearance-choices{flex:0 1 auto;max-height:32dvh;align-content:start;grid-auto-rows:max-content;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;overflow:auto;overscroll-behavior:contain;min-height:0}
+.ink-appearance-choices button{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;min-height:84px;padding:4px;font:inherit;font-size:12px;background:var(--ui-card) center/cover no-repeat,var(--ui-paper);border:5px solid transparent;border-image:var(--ui-frame) 48/1/0 stretch;color:var(--ui-ink)}
+.ink-appearance-choices [aria-pressed=true]{border-image-source:var(--ui-selected);border-image-slice:13}
+.ink-appearance-choices canvas{width:68px;max-width:100%;height:72px}
+.ink-appearance-choices i{display:block;width:40px;height:40px;border-radius:50%}
+.ink-appearance-note{font-size:12px;color:#877351;margin:0;flex:none}
+.ink-appearance-sheet>.ink-btn{flex:none;min-height:48px;font-size:22px}
+@media(max-height:650px){.ink-appearance-sheet{gap:4px}.ink-appearance-preview{height:148px}.ink-appearance-choices button{min-height:72px}.ink-appearance-choices canvas{height:56px}}

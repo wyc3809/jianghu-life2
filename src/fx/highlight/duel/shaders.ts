@@ -31,6 +31,7 @@ export function fighterMaterial(map: THREE.Texture, flip: boolean): THREE.Shader
       precision highp float;
       uniform sampler2D map;
       uniform float uFlip;
+      uniform float uFullColour;
       uniform float uDissolve;   // 0＝完整，1＝散晒
       uniform vec3 uInk;
       uniform vec3 uTint;
@@ -59,7 +60,7 @@ export function fighterMaterial(map: THREE.Texture, flip: boolean): THREE.Shader
         float rim = (1.0 - smoothstep(th + 0.04, th + 0.12, n)) * keep * step(0.001, uDissolve);
         // 衣帶：腰身一條點綴色（uv.y 由腳底計）
         float band = smoothstep(0.24, 0.31, uv.y) * (1.0 - smoothstep(0.38, 0.46, uv.y));
-        vec3 col = mix(uInk, uAccent, band * uAccentAmt);
+        vec3 col = mix(mix(uInk, uAccent, band * uAccentAmt), texture2D(map, uv).rgb, uFullColour);
         col = mix(col, uTint, uTintAmt);
         col = mix(col, uInk * 0.6, rim);
         float body = a * keep;
@@ -76,6 +77,7 @@ export function fighterMaterial(map: THREE.Texture, flip: boolean): THREE.Shader
     uniforms: {
       map: { value: map },
       uFlip: { value: flip ? 1 : 0 },
+      uFullColour: { value: 0 },
       uDissolve: { value: 0 },
       uInk: { value: new THREE.Color('#1C1A17') },
       uTint: { value: new THREE.Color('#A33A32') },

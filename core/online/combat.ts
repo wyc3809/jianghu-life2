@@ -1,5 +1,6 @@
 import type { CombatReplay, CombatReplayHit, LifeCharacter } from '@interfaces/lifeEngine';
 import { createRng } from '@core/random';
+import { appearanceOf } from '@interfaces/appearance';
 import { createNewLife } from '@core/life/gameState';
 import { buildPlayerFighter } from '@core/life/combat';
 import { resolveMartialTurn } from '@core/life/martialTurn';
@@ -20,6 +21,7 @@ export function simulateOnlineBattle(a: LifeCharacter, b: LifeCharacter, seed: n
   const rng = createRng(seed);
   const replay: CombatReplay = {
     title: '江湖切磋', playerName: a.name, foeName: b.name,
+    playerAppearance: appearanceOf(a), foeAppearance: appearanceOf(b),
     playerMaxHp: first.maxHp, foeMaxHp: second.maxHp,
     startPlayerHp: first.hp, startFoeHp: second.hp, rounds: [], outcome: 'ended',
   };
@@ -47,6 +49,7 @@ export function simulateOnlineBattle(a: LifeCharacter, b: LifeCharacter, seed: n
   };
   const forward: CombatReplay = { ...replay, ...forCharacter(states[0]!.character), outcome: winner === 0 ? 'won' : winner === 1 ? 'lost' : 'ended' };
   const reverse: CombatReplay = { ...replay, ...forCharacter(states[1]!.character), playerName: b.name, foeName: a.name,
+    playerAppearance: appearanceOf(b), foeAppearance: appearanceOf(a),
     playerMaxHp: second.maxHp, foeMaxHp: first.maxHp, startPlayerHp: second.maxHp, startFoeHp: first.maxHp,
     outcome: winner === 1 ? 'won' : winner === 0 ? 'lost' : 'ended',
     rounds: replay.rounds.map(r => ({ ...r, hits: r.hits.map(h => ({ ...h,

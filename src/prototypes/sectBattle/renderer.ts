@@ -1,5 +1,5 @@
 import type { SectBattleFigure, SectBattleReplay } from '@interfaces/sectBattle';
-import stanceScale from '../../fx/art/heroStanceScale.json';
+import { drawAppearance } from '../../appearance/model';
 import type { SectPreviewImages } from './assets';
 
 export interface SectBattleHitbox { id: string; x: number; y: number; radius: number }
@@ -31,33 +31,21 @@ export class SectBattleRenderer {
     this.canvas.width = Math.max(1, Math.round(this.width * this.dpr)); this.canvas.height = Math.max(1, Math.round(this.height * this.dpr));
   }
   point(figure: { x: number; y: number }): { x: number; y: number } {
-    return { x: figure.x / 1000 * (this.width - 16) + 8, y: this.height * .24 + figure.y / 620 * (this.height * .69) };
+    return { x: figure.x / 1000 * (this.width - 16) + 8, y: this.height * .62 };
   }
   /** 固定戰報取樣；拖動選人、暫停、跳結果只改播放游標。 */
   draw(replay: SectBattleReplay, seconds: number, selected: string | null, reduced = false): void {
     const ctx = this.canvas.getContext('2d'); if (!ctx) return;
     ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0); ctx.clearRect(0, 0, this.width, this.height);
-    const bg = this.assets.images.background;
-    ctx.fillStyle = '#eee8d7'; ctx.fillRect(0, 0, this.width, this.height);
-    if (bg) {
-      // 沿用山水原圖；下層獨立取原石庭地面，給二十人足夠的縱向活動空間。
-      ctx.drawImage(bg, 0, 0, bg.naturalWidth, bg.naturalHeight * .84, 0, 0, this.width, this.height * .32);
-      const floorTop = this.height * .32;
-      for (let row = 0; row < 16; row++) {
-        const start = row / 16, end = (row + 1) / 16;
-        const y = floorTop + start ** 1.35 * (this.height - floorTop);
-        const nextY = floorTop + end ** 1.35 * (this.height - floorTop);
-        const sourceW = 680 - start * 280;
-        ctx.drawImage(bg, (bg.naturalWidth - sourceW) / 2 + (row % 2 ? 12 : -12), 1132, sourceW, 28,
-          0, y, this.width, nextY - y + .5);
-      }
-    }
+    ctx.fillStyle = '#f6f0e3'; ctx.fillRect(0, 0, this.width, this.height);
+    // 只留一筆地線，所有人物共用同一落腳高度。
+    if (this.assets.images.rail) { ctx.globalAlpha = .6; ctx.drawImage(this.assets.images.rail, 4, this.height * .62, this.width - 8, 3); ctx.globalAlpha = 1; }
     const index = Math.min(replay.frames.length - 1, Math.max(0, Math.floor(seconds / .05)));
     const frame = replay.frames[index], next = replay.frames[Math.min(replay.frames.length - 1, index + 1)];
     const mix = reduced ? 0 : Math.max(0, Math.min(1, (seconds - frame.at) / .05));
     const figures = frame.figures.map((u, i) => ({ ...u, x: u.x + (next.figures[i].x - u.x) * mix, y: u.y + (next.figures[i].y - u.y) * mix }));
     this.hitboxes = [];
-    const size = Math.max(32, Math.min(47, this.width * .118));
+    const size = Math.max(29, Math.min(43, this.width * .095));
     for (const u of [...figures].sort((a, b) => a.y - b.y || a.id.localeCompare(b.id))) {
       const point = this.point(u), alive = u.hp > 0;
       if (this.assets.images.shadow) { ctx.globalAlpha = alive ? .36 : .14; ctx.drawImage(this.assets.images.shadow, point.x - size * .4, point.y - 4, size * .8, 9); ctx.globalAlpha = 1; }
@@ -68,15 +56,15 @@ export class SectBattleRenderer {
         ctx.globalAlpha = 1;
       }
       this.figure(ctx, u, seconds, size, reduced);
-      if (alive) {
+      if (alive && u.id === selected) {
         const barW = size * .7, top = point.y - size - 8;
         if (this.assets.images.rail) ctx.drawImage(this.assets.images.rail, point.x - barW / 2, top, barW, 4);
         ctx.save(); ctx.beginPath(); ctx.rect(point.x - barW / 2, top, barW * Math.max(0, u.hp / u.maxHp), 4); ctx.clip();
         ctx.drawImage(this.bars[u.side], point.x - barW / 2, top, barW, 4); ctx.restore();
         ctx.font = `${u.id === selected ? 'bold ' : ''}10px sans-serif`; ctx.textAlign = 'center'; ctx.fillStyle = COLOURS[u.side];
         ctx.fillText(String(u.rank), point.x, top - 3);
-        this.hitboxes.push({ id: u.id, x: point.x, y: point.y - size * .5, radius: Math.max(22, size * .65) });
       }
+      if (alive) this.hitboxes.push({ id: u.id, x: point.x, y: point.y - size * .5, radius: Math.max(22, size * .65) });
     }
     if (!reduced) {
       const recent = replay.events.filter(e => seconds >= e.at && seconds - e.at < .55);
@@ -108,22 +96,9 @@ export class SectBattleRenderer {
   }
   private figure(ctx: CanvasRenderingContext2D, u: SectBattleFigure, seconds: number, size: number, reduced: boolean): void {
     const point = this.point(u), elapsed = Math.max(0, seconds - u.poseAt);
-    const life = this.assets.images.lifecycle;
-    let im = this.assets.images[u.artId], sx = 0, sy = 0, scaleId: string | undefined = u.artId;
-    if (life && (u.pose === 'walk' || u.pose === 'hurt' || u.pose === 'down')) {
-      im = life; scaleId = undefined;
-      const frame = u.pose === 'walk' ? reduced ? 4 : Math.floor(seconds * 9 + u.rank) % 4
-        : u.pose === 'hurt' ? 6 : 8 + (reduced ? 3 : Math.min(3, Math.floor(elapsed * 6)));
-      sx = frame % 4 * 512; sy = Math.floor(frame / 4) * 352;
-    } else if (im && u.pose === 'attack' && !reduced) {
-      const sequence = [0, 1, 2, 3, 4, 5, 6, 7]; sx = sequence[Math.min(7, Math.floor(elapsed / .09))] * 512;
-    }
-    if (!im) { im = life ?? Object.values(this.assets.images).find(image => image.naturalWidth === 4096); sx = 0; sy = life && im === life ? 352 : 0; scaleId = undefined; }
-    if (!im) return;
-    const ratio = scaleId ? (stanceScale as Record<string, number>)[scaleId] ?? 1 : 1;
-    const unit = size / (218 * ratio);
-    ctx.save(); ctx.translate(point.x, point.y); ctx.scale(u.face, 1);
-    if (u.pose === 'down') ctx.globalAlpha = .32;
-    ctx.drawImage(im, sx, sy, 512, 352, -256 * unit, -328 * unit, 512 * unit, 352 * unit); ctx.restore();
+    const family = /sword/.test(u.artId) ? 'sword' : /blade/.test(u.artId) ? 'blade' : /spear/.test(u.artId) ? 'spear' : /staff/.test(u.artId) ? 'staff' : /needle/.test(u.artId) ? 'needle' : 'fist';
+    ctx.save(); if (u.pose === 'down') ctx.globalAlpha = .35;
+    drawAppearance(ctx, this.assets.wardrobe, u.appearance, { x: point.x, y: point.y, height: size, face: u.face, pose: u.pose, time: u.pose === 'walk' ? seconds : elapsed, family, reduced });
+    ctx.restore();
   }
 }

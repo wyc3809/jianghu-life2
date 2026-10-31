@@ -1,8 +1,8 @@
 """整理真錄影及截圖；不生成遊戲畫面、不插假戰鬥幀。"""
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
-import json, subprocess
-ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'production/qa/evidence/redesign/sect-battle-prototype'
+import json, subprocess, os
+ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/os.getenv('SECT_OUT','production/qa/evidence/redesign/sect-battle-prototype')
 video=json.loads((OUT/'showcase.json').read_text())['video']
 subprocess.run(['ffmpeg','-y','-i',video,'-t','18','-vf','fps=24,scale=390:844:flags=lanczos','-c:v','libx264','-preset','veryfast','-crf','23','-pix_fmt','yuv420p','-movflags','+faststart',str(OUT/'same-field-demo.mp4')],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 subprocess.run(['ffmpeg','-y','-i',video,'-t','16','-filter_complex','fps=8,scale=320:-1:flags=lanczos,split[a][b];[a]palettegen=stats_mode=diff[p];[b][p]paletteuse=dither=bayer:bayer_scale=3','-loop','0',str(OUT/'same-field-demo.gif')],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)

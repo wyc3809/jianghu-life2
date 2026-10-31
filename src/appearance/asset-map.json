@@ -1,0 +1,41 @@
+{
+  "heads": {
+    "master": "ink/art/appearance/head-master.webp",
+    "silver": "ink/art/appearance/head-silver.webp",
+    "ponytail": "ink/art/appearance/head-ponytail.webp",
+    "loose": "ink/art/appearance/head-loose.webp",
+    "bun": "ink/art/appearance/head-bun.webp",
+    "short": "ink/art/appearance/head-short.webp",
+    "bamboo": "ink/art/appearance/head-bamboo.webp",
+    "topknot": "ink/art/appearance/head-topknot.webp"
+  },
+  "outfits": {
+    "traveller": {
+      "torso": "ink/art/appearance/outfit-traveller-torso.webp",
+      "upperArm": "ink/art/appearance/outfit-traveller-upperArm.webp",
+      "forearm": "ink/art/appearance/outfit-traveller-forearm.webp",
+      "thigh": "ink/art/appearance/outfit-traveller-thigh.webp",
+      "shin": "ink/art/appearance/outfit-traveller-shin.webp",
+      "hem": "ink/art/appearance/outfit-traveller-hem.webp",
+      "seated": "ink/art/appearance/outfit-traveller-seated.webp"
+    },
+    "scholar": {
+      "torso": "ink/art/appearance/outfit-scholar-torso.webp",
+      "upperArm": "ink/art/appearance/outfit-scholar-upperArm.webp",
+      "forearm": "ink/art/appearance/outfit-scholar-forearm.webp",
+      "thigh": "ink/art/appearance/outfit-scholar-thigh.webp",
+      "shin": "ink/art/appearance/outfit-scholar-shin.webp",
+      "hem": "ink/art/appearance/outfit-scholar-hem.webp",
+      "seated": "ink/art/appearance/outfit-scholar-seated.webp"
+    },
+    "cloak": {
+      "torso": "ink/art/appearance/outfit-cloak-torso.webp",
+      "upperArm": "ink/art/appearance/outfit-cloak-upperArm.webp",
+      "forearm": "ink/art/appearance/outfit-cloak-forearm.webp",
+      "thigh": "ink/art/appearance/outfit-cloak-thigh.webp",
+      "shin": "ink/art/appearance/outfit-cloak-shin.webp",
+      "hem": "ink/art/appearance/outfit-cloak-hem.webp",
+      "seated": "ink/art/appearance/outfit-cloak-seated.webp"
+    }
+  }
+}

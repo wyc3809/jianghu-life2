@@ -43,6 +43,7 @@ function createAttributes(rng: ReturnType<typeof getRng>): Record<WuxiaAttribute
 }
 
 export interface CreateLifeOptions {
+  appearance?: import('@interfaces/appearance').CharacterAppearance;
   seed?: number;
   name?: string;
   gender?: 'male' | 'female';
@@ -90,6 +91,7 @@ export function createNewLife(options: CreateLifeOptions | number = {}): LifeGam
   const character: LifeCharacter = {
     name,
     gender,
+    ...(opts.appearance ? { appearance: { ...opts.appearance } } : {}),
     age: 16,
     alive: true,
     health: maxHealth,

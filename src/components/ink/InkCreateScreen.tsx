@@ -4,6 +4,8 @@ import { useLifeStore } from '../../store/lifeStore';
 import { useAncestryStore } from '../../store/ancestryStore';
 import { InkAncestryPanel } from './InkAncestryPanel';
 import { LIFE_THEMES } from '@core/life/lifeVariance';
+import { AppearanceBadge, InkAppearancePicker } from './InkAppearance';
+import { DEFAULT_APPEARANCE, type CharacterAppearance } from '@interfaces/appearance';
 import {
   ORIGIN_EVENTS,
   originRoundLabel,
@@ -21,6 +23,8 @@ export function InkCreateScreen() {
   const setAncestryOpen = useAncestryStore((s) => s.setPanelOpen);
   const [name, setName] = useState('');
   const [gender, setGender] = useState<'male' | 'female'>('male');
+  const [appearance,setAppearance]=useState<CharacterAppearance>({...DEFAULT_APPEARANCE});
+  const [appearanceOpen,setAppearanceOpen]=useState(false);
   const [step, setStep] = useState<Step>('identity');
   const [round, setRound] = useState(0);
   const [picks, setPicks] = useState<OriginPick[]>([]);
@@ -36,6 +40,7 @@ export function InkCreateScreen() {
     newLife({
       name: name.trim() || undefined,
       gender,
+      appearance,
       birthplace: '千燈鎮',
       lifeTheme: result.lifeTheme,
       originBonuses: {
@@ -96,6 +101,7 @@ export function InkCreateScreen() {
             <p className="ink-note">
               接下來將經歷數段童年往事。不同選擇會影響人物的初始屬性、心性與身世。
             </p>
+            <button type="button" className="ink-btn" onClick={()=>setAppearanceOpen(true)}><AppearanceBadge character={{appearance}} size={44}/>衣著與造型</button>
           </section>
           <div className="ink-cta-stack">
             <button
@@ -117,6 +123,7 @@ export function InkCreateScreen() {
             </button>
           </div>
           {ancestryOpen && <InkAncestryPanel onClose={() => setAncestryOpen(false)} />}
+          {appearanceOpen&&<InkAppearancePicker appearance={appearance} onConfirm={value=>{setAppearance(value);return true;}} onClose={()=>setAppearanceOpen(false)}/>}
         </>
       )}
 

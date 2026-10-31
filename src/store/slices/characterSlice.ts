@@ -14,13 +14,23 @@ import { newbieActive } from '@core/life/goals';
 import { setMainArt } from '@core/life/schools';
 import type { SkillKind } from '@data/skills/catalog';
 import type { LifeStore } from '../lifeStore';
+import { APPEARANCE_HEADS, APPEARANCE_OUTFITS, APPEARANCE_TONES, appearanceKey, appearanceOf, readAppearance } from '@interfaces/appearance';
 
 export function createCharacterSlice(
   set: (partial: Partial<LifeStore>) => void,
   get: () => LifeStore,
   save: (state: LifeGameState, immediate?: boolean) => void,
-): Pick<LifeStore, 'equipOwned' | 'prepareNewbieEquipment' | 'resolveGearCompare' | 'startNewbieTrial' | 'setMainArt' | 'setMartialSlot'> {
+): Pick<LifeStore, 'equipOwned' | 'prepareNewbieEquipment' | 'resolveGearCompare' | 'startNewbieTrial' | 'setMainArt' | 'setMartialSlot' | 'setAppearance'> {
   return {
+    setAppearance: value => {
+      const {state,combatReplay}=get();
+      if(!state||state.phase!=='playing'||!state.character.alive||state.pendingCombat||combatReplay)return false;
+      if(!value||!APPEARANCE_HEADS.includes(value.head)||!APPEARANCE_OUTFITS.includes(value.outfit)||!APPEARANCE_TONES.includes(value.tone))return false;
+      const nextValue=readAppearance(value);
+      if(appearanceKey(appearanceOf(state.character))===appearanceKey(nextValue))return true;
+      const next=produce(state,draft=>{draft.character.appearance=nextValue;});
+      void save(next,true);set({state:next});return true;
+    },
     prepareNewbieEquipment: () => {
       const { state } = get();
       if (!state || !state.character.alive || state.phase !== 'playing' || state.pendingCombat || !newbieActive(state)) return;

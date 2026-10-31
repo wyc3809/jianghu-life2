@@ -1,4 +1,5 @@
 import { createRng, type SeededRng } from '../random';
+import { appearanceOf } from '@interfaces/appearance';
 import type { CombatFighterState, LifeCharacter } from '@interfaces/lifeEngine';
 import type { SectBattleEntrant, SectBattleEvent, SectBattleFigure, SectBattleFrame, SectBattleReplay, SectBattleSide } from '@interfaces/sectBattle';
 import { SECT_BATTLE_TEST as P } from '@data/redesign/sectBattleTestParams';
@@ -37,11 +38,11 @@ function makeUnits(roster: readonly SectBattleEntrant[]): Unit[] {
   return [...roster].sort((a, b) => a.side - b.side || a.rank - b.rank).map(input => {
     const state = structuredClone(input.state);
     state.character = characterForPreset(state.character, 'duel');
-    const c = state.character, f = buildPlayerFighter(state), row = (input.rank - 1) % 5, column = Math.floor((input.rank - 1) / 5);
+    const c = state.character, f = buildPlayerFighter(state);
     const art = martialTurnPlan(c, f.qi, 1, f.maxQi).moves[0]?.skillId ?? 'art_river_fist';
     return { id: input.id, side: input.side, rank: input.rank, c, f,
-      x: input.side === 0 ? 100 + column * 140 : 900 - column * 140,
-      y: 94 + row * 104 + column * 18, face: input.side === 0 ? 1 : -1,
+      x: input.side === 0 ? 56 + (10-input.rank)*38 : 944 - (10-input.rank)*38,
+      y: P.depth/2, face: input.side === 0 ? 1 : -1,
       target: null, art, ready: .35 + input.rank * .045, turn: 0, hurtAt: -99,
       downAt: null, moving: false, cast: null };
   });
@@ -96,6 +97,7 @@ export function simulateSectBattle(roster: readonly SectBattleEntrant[], seed: n
   const living = () => [units.filter(u => u.side === 0 && u.f.hp > 0).length, units.filter(u => u.side === 1 && u.f.hp > 0).length] as [number, number];
   const capture = (now: number) => {
     const figures: SectBattleFigure[] = units.map(u => ({ id: u.id, side: u.side, rank: u.rank, name: u.c.name, artId: u.art,
+      appearance: appearanceOf(u.c),
       x: u.x, y: u.y, face: u.face, hp: u.f.hp, maxHp: u.f.maxHp, qi: u.f.qi, maxQi: u.f.maxQi, target: u.target,
       pose: u.f.hp <= 0 ? 'down' : now - u.hurtAt < P.hurtSeconds ? 'hurt' : u.cast ? 'attack' : u.moving ? 'walk' : 'idle',
       poseAt: u.f.hp <= 0 ? u.downAt ?? now : now - u.hurtAt < P.hurtSeconds ? u.hurtAt : u.cast?.started ?? 0 }));
@@ -115,18 +117,18 @@ export function simulateSectBattle(roster: readonly SectBattleEntrant[], seed: n
       u.face = Math.sign(target.x - u.x) || u.face;
       const reach = ranged(u.art) ? P.rangedReach : P.reach;
       let dx = 0, dy = 0;
-      const angle = Math.atan2(u.y - target.y, u.x - target.x) + (ranged(u.art) ? 0 : (u.rank % 2 ? P.flankAngle : -P.flankAngle));
+      const angle = Math.atan2(u.y - target.y, u.x - target.x);
       const orbit = reach * (ranged(u.art) ? .82 : .66);
       const goal = { x: target.x + Math.cos(angle) * orbit, y: target.y + Math.sin(angle) * orbit };
       const goalDistance = Math.hypot(goal.x - u.x, goal.y - u.y);
       if (goalDistance > 12) {
         dx = (goal.x - u.x) / goalDistance * P.speed * P.tick;
-        dy = (goal.y - u.y) / goalDistance * P.speed * P.tick;
+        dy = 0;
       }
       for (const other of units) {
         if (other === u || other.f.hp <= 0) continue;
         const x = u.x - other.x, y = u.y - other.y, gap = Math.hypot(x, y);
-        if (gap < P.separation && gap > .01) { const push = (P.separation - gap) * .1; dx += x / gap * push; dy += y / gap * push; }
+        if (other.side===u.side&&gap < P.lineSpacing && gap > .01) { const push = (P.lineSpacing - gap) * .1; dx += x / gap * push; }
       }
       moves.set(u.id, { x: clamp(u.x + dx, 48, P.width - 48), y: clamp(u.y + dy, 65, P.depth - 40) });
     }
@@ -162,6 +164,13 @@ export function simulateSectBattle(roster: readonly SectBattleEntrant[], seed: n
       if (cast.index >= cast.plan.moves.length || u.f.hp <= 0 || target.f.hp <= 0) {
         u.cast = null; u.ready = now + P.recovery; u.f.stunProtected = false;
       }
+    }
+    // 同一地線的實際碰撞間距：包括出招中的人物，避免整隊疊成一團。
+    const standing = units.filter(u => u.f.hp > 0).sort((a,b) => a.x-b.x || a.id.localeCompare(b.id));
+    for (let i=0;i<standing.length;i++) {
+      const unit=standing[i];
+      unit.x=clamp(unit.x,48+i*P.lineSpacing,P.width-48-(standing.length-1-i)*P.lineSpacing);
+      if(i>0)unit.x=Math.max(unit.x,standing[i-1].x+P.lineSpacing);
     }
     for (const u of units) if (u.f.hp <= 0) { u.downAt ??= now; u.cast = null; }
     capture(now);

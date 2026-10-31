@@ -127,6 +127,6 @@ it('test_profile_repository_舊新雲存檔標記_只讀指定身份且遷移不
   requests.push(String(input));return new Response(JSON.stringify([{payload:{life:state}}]),{status:200});
  });
  const old=await repo.profile!(a);expect(old!.flags.cloud_has_duel_preset).toBe(false);expect(old!.combatLoadout).toBeDefined();
- state.character.combatLoadout=normalPreset(state.character);expect((await repo.profile!(a))!.flags.cloud_has_duel_preset).toBe(true);
+ state.character.combatLoadout=normalPreset(state.character);state.character.appearance={head:'bun',outfit:'scholar',tone:'jade'};const styled=await repo.profile!(a);expect(styled!.flags.cloud_has_duel_preset).toBe(true);expect(styled!.appearance).toEqual(state.character.appearance);
  expect(requests.every(url=>url.includes('saves?user_id=eq.'+a+'&select=payload'))).toBe(true);
 });

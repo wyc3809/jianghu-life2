@@ -1,3 +1,4 @@
+import { appearanceOf } from '../../interfaces/appearance';
 import { DatabaseSync } from 'node:sqlite';
 import { createHash, randomBytes, randomUUID } from 'node:crypto';
 import { z } from 'zod';
@@ -52,7 +53,7 @@ export class OnlineService {
   }
   private snapshot(world: OnlineWorld, id: OnlineAccountId, now: number): OnlineSnapshot {
     return structuredClone({ serverNow: now, revision: world.revision + 1, me: world.players[id],
-      peers: Object.values(world.players).map(p => ({ id: p.id, name: p.character.name,
+      peers: Object.values(world.players).map(p => ({ id: p.id, name: p.character.name, appearance: appearanceOf(p.character),
         rank: p.rank, online: p.onlineUntil > now, protectedUntil: p.protectedUntil, busy: p.busy })),
       battles: world.battles.filter(b => b.attacker === id || b.defender === id).slice(-10).reverse(),
       confirmedRequests: (this.db.prepare('SELECT request_id FROM receipts WHERE account_id=? ORDER BY rowid DESC LIMIT 20').all(id) as { request_id: string }[]).map(row => row.request_id),

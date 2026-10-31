@@ -5,6 +5,8 @@ import { sectBattleFixture } from './sectBattle/fixtures';
 import { loadSectPreviewImages, type SectPreviewImages } from './sectBattle/assets';
 import { SectBattleRenderer } from './sectBattle/renderer';
 import type { SectBattleFigure } from '@interfaces/sectBattle';
+import { InkAppearancePicker } from '../components/ink/InkAppearance';
+import { readAppearance } from '@interfaces/appearance';
 import './sectBattle/sect-battle.css';
 
 type Status = 'ready' | 'playing' | 'paused' | 'result';
@@ -16,13 +18,16 @@ const TEAM_NAMES = ['青雲劍派', '武當派'];
 
 /** 第57項隔離同場原型：二十名人物共用時間軸，演出不接存檔、帳戶或獎勵。 */
 export default function SectBattlePreview() {
-  const replay = useMemo(() => simulateSectBattle(sectBattleFixture(), 5707), []);
+  const [roster, setRoster] = useState(sectBattleFixture);
+  const replay = useMemo(() => simulateSectBattle(roster, 5707), [roster]);
+  const [appearanceOpen, setAppearanceOpen] = useState(false);
   const canvas = useRef<HTMLCanvasElement>(null), controls = useRef<Controls | null>(null);
   const [pack, setPack] = useState<SectPreviewImages | null>(null), [error, setError] = useState(''), [retry, setRetry] = useState(0);
   const [reduced, setReduced] = useState(() => matchMedia('(prefers-reduced-motion: reduce)').matches);
   const reduceRef = useRef(reduced); reduceRef.current = reduced;
   const [rosterOpen, setRosterOpen] = useState(false);
   const [view, setView] = useState<PlayerView>({ seconds: 0, status: 'ready', selected: 'sect-demo-1', speed: 1 });
+  const selection = useRef(view.selected); selection.current = view.selected;
   const frame = replay.frames[Math.min(replay.frames.length - 1, Math.floor(view.seconds / .05))];
   const selected = frame.figures.find(u => u.id === view.selected)!;
   const latest = replay.events.filter(e => e.at <= view.seconds && e.actor === selected.id).at(-1);
@@ -43,7 +48,7 @@ export default function SectBattlePreview() {
   useEffect(() => {
     if (!pack || !canvas.current) return;
     const renderer = new SectBattleRenderer(canvas.current, pack);
-    let seconds = 0, status: Status = 'ready', selected = 'sect-demo-1', speed = 1, active = true, lastPublish = -1;
+    let seconds = 0, status: Status = 'ready', selected = selection.current, speed = 1, active = true, lastPublish = -1;
     const publish = () => { lastPublish = seconds; setView({ seconds, status, selected, speed }); };
     const draw = () => renderer.draw(replay, seconds, selected, reduceRef.current);
     const loop = createVisualLoop((_now, dt) => {
@@ -108,9 +113,15 @@ export default function SectBattlePreview() {
       <div><button type="button" disabled={!pack || view.status === 'ready' || view.status === 'result' || reduced} onClick={() => controls.current?.toggle()}>{view.status === 'paused' ? '繼續' : '暫停'}</button>
         <button type="button" disabled={!pack || reduced} onClick={() => controls.current?.speed()}>速度 ×{view.speed}</button>
         <button type="button" onClick={() => setRosterOpen(true)}>代表名冊</button>
+        <button type="button" disabled={view.status !== 'ready'} onClick={() => setAppearanceOpen(true)}>換造型</button>
         <button type="button" disabled={!pack || view.status === 'result'} onClick={() => controls.current?.result()}>直接結果</button></div>
       <div className="sect-battle-notes"><label><input type="checkbox" checked={reduced} onChange={event => setReduced(event.target.checked)}/>減少動態</label><span>{pack?.simplified ? '部分動作使用簡化演出' : '示範陣容，不派發獎勵'}</span></div>
     </footer>
+    {appearanceOpen && <InkAppearancePicker appearance={readAppearance(selected.appearance)} onClose={() => setAppearanceOpen(false)} onConfirm={appearance => {
+      if (view.status !== 'ready') return false;
+      setRoster(current => current.map(unit => unit.id === selected.id ? { ...unit, state: { ...unit.state, character: { ...unit.state.character, appearance } } } : unit));
+      return true;
+    }} />}
     {rosterOpen && <SectRoster figures={frame.figures} selected={selected.id} onSelect={id => { controls.current?.select(id); setRosterOpen(false); }} onClose={() => setRosterOpen(false)} />}
   </main>;
 }

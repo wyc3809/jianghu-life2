@@ -1,8 +1,8 @@
 """原型真瀏覽器錄影：固定列陣→自動混戰，不加速核心、不另製假戰報。"""
 from pathlib import Path
 from playwright.sync_api import sync_playwright
-import json
-ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'production/qa/evidence/redesign/sect-battle-prototype'
+import json,os
+ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/os.getenv('SECT_OUT','production/qa/evidence/redesign/sect-battle-prototype')
 with sync_playwright() as p:
  b=p.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox'])
  c=b.new_context(viewport={'width':390,'height':844},device_scale_factor=2,is_mobile=True,has_touch=True,reduced_motion='no-preference',record_video_dir=str(ROOT/'.local-online/organization-wars/showcase'),record_video_size={'width':390,'height':844})

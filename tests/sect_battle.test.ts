@@ -48,17 +48,14 @@ describe('門派同場二十人隔離原型', () => {
     expect(Math.max(...counts.values())).toBeLessThanOrEqual(SECT_BATTLE_TEST.maxSplash);
   });
   it('test_sect_battle_位置及氣血內力有限_不復活已退場人物或繼續出招', () => {
-    const down=new Map<string,number>();
+    const down=new Map<string,number>(),invalid:string[]=[];
     for(const frame of replay.frames)for(const u of frame.figures){
-      expect(Number.isFinite(u.x+u.y+u.hp+u.qi)).toBe(true);
-      expect(u.x).toBeGreaterThanOrEqual(48);expect(u.x).toBeLessThanOrEqual(952);
-      expect(u.y).toBeGreaterThanOrEqual(65);expect(u.y).toBeLessThanOrEqual(580);
-      expect(u.hp).toBeGreaterThanOrEqual(0);expect(u.hp).toBeLessThanOrEqual(u.maxHp);
-      expect(u.qi).toBeGreaterThanOrEqual(0);expect(u.qi).toBeLessThanOrEqual(u.maxQi);
-      if(down.has(u.id))expect(u.hp).toBe(0);
+      if(!Number.isFinite(u.x+u.y+u.hp+u.qi)||u.x<48||u.x>952||u.y<65||u.y>580||u.hp<0||u.hp>u.maxHp||u.qi<0||u.qi>u.maxQi)invalid.push(`${frame.at}:${u.id}:bounds`);
+      if(down.has(u.id)&&u.hp!==0)invalid.push(`${frame.at}:${u.id}:revived`);
       if(u.hp<=0)down.set(u.id,Math.min(down.get(u.id)??Infinity,frame.at));
     }
-    for(const e of replay.events)if(down.has(e.actor))expect(e.at).toBeLessThanOrEqual(down.get(e.actor)!);
+    for(const e of replay.events)if(down.has(e.actor)&&e.at>down.get(e.actor)!)invalid.push(`${e.at}:${e.actor}:after-down`);
+    expect(invalid).toEqual([]);
   });
   it('test_sect_battle_勝負只按全隊退場_時間到未清場則平手', () => {
     const remaining=[0,1].map(side=>replay.frames.at(-1)!.figures.filter(u=>u.side===side&&u.hp>0).length);

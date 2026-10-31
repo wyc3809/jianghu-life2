@@ -1,0 +1,71 @@
+[
+  {
+    "engine": "webkit",
+    "viewport": [
+      320,
+      568
+    ],
+    "allTwentyRoster": true,
+    "fixedFullScreen": true,
+    "pauseFreezesCanvas": true,
+    "backgroundFreezesAndResumes": true,
+    "nativeSheetPauses": true,
+    "selectFromRoster": true,
+    "skipReplaySameResult": true,
+    "fullPlayback": false,
+    "noSaveWrites": true,
+    "noExternalRequests": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "webkit",
+    "viewport": [
+      390,
+      844
+    ],
+    "allTwentyRoster": true,
+    "fixedFullScreen": true,
+    "pauseFreezesCanvas": true,
+    "backgroundFreezesAndResumes": true,
+    "nativeSheetPauses": true,
+    "selectFromRoster": true,
+    "skipReplaySameResult": true,
+    "fullPlayback": false,
+    "noSaveWrites": true,
+    "noExternalRequests": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "webkit",
+    "viewport": [
+      430,
+      932
+    ],
+    "allTwentyRoster": true,
+    "fixedFullScreen": true,
+    "pauseFreezesCanvas": true,
+    "backgroundFreezesAndResumes": true,
+    "nativeSheetPauses": true,
+    "selectFromRoster": true,
+    "skipReplaySameResult": true,
+    "fullPlayback": false,
+    "noSaveWrites": true,
+    "noExternalRequests": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "webkit",
+    "edge": "reduced",
+    "passed": true
+  },
+  {
+    "engine": "webkit",
+    "edge": "partial",
+    "passed": true
+  },
+  {
+    "engine": "webkit",
+    "edge": "all",
+    "passed": true
+  }
+]

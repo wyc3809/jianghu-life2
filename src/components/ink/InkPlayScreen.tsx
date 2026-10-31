@@ -18,7 +18,7 @@ import { InkSettingsPanel } from './InkSettingsPanel';
 import { InkLeaderboardPanel } from './InkLeaderboardPanel';
 import { inkGlint, inkHop, inkPageIn, inkPopIn, inkRevealChars } from '../../ui/inkMotion';
 import { InkIcon } from './InkIcon';
-import { InkBadge } from './InkBadge';
+import { AppearanceBadge } from './InkAppearance';
 import { deltaIconKey, type InkIconKey } from '../../ui/inkIcons';
 import { cloudConfigured } from '../../cloud/cloud';
 import { bestOwnedGear } from '@core/life/equipment';
@@ -27,7 +27,6 @@ import { lifeScore } from '@core/life/leaderboardScore';
 import { InkGearCompareModal } from './InkGearCompareModal';
 import { titleTierColorClass, topTitle, topTitles } from '@core/life/titles';
 import { combatRating, combatRatingTier } from '@core/life/combatRating';
-import { inkArtUrl } from '../../ui/inkAssets';
 import { InkCultivationHud } from './InkCultivationHud';
 import { InkBrushBar } from './InkBrush';
 import { InkOfflineGainModal } from './InkOfflineGainModal';
@@ -627,7 +626,7 @@ export function InkPlayScreen({ state }: Props) {
               setPersonView('main');
             }}
           >
-            <InkBadge src={inkArtUrl('art/portraits/wanderer.webp')} size={60} tone="slate" className="ink-hud-person-badge" />
+            <AppearanceBadge character={c} size={60} className="ink-hud-person-badge" />
           </button>
           <div className="ink-identity">
             <h2 className="ink-name">

@@ -1,3 +1,4 @@
+import { appearanceOf } from '../../interfaces/appearance';
 import { z } from 'zod';
 import type { OnlineAccountId, OnlineSnapshot, OnlineWorld } from '@interfaces/online';
 import { ONLINE_TEST } from '@data/redesign/onlineTestParams';
@@ -110,7 +111,7 @@ export function pairSnapshot(room: PairRoom, seat: OnlineAccountId, now: number)
   const { world, receipts } = room.payload;
   return structuredClone({ serverNow: now, revision: world.revision, me: world.players[seat],
     room: { id: room.id, invite: room.host_id && seat === 'river' ? room.invite : undefined, waiting: !room.guest_id },
-    peers: Object.values(world.players).filter(p => p.id === 'river' || room.guest_id).map(p => ({ id: p.id, name: p.character.name, rank: p.rank, online: p.onlineUntil > now, protectedUntil: p.protectedUntil, busy: p.busy })),
+    peers: Object.values(world.players).filter(p => p.id === 'river' || room.guest_id).map(p => ({ id: p.id, name: p.character.name, appearance: appearanceOf(p.character), rank: p.rank, online: p.onlineUntil > now, protectedUntil: p.protectedUntil, busy: p.busy })),
     battles: world.battles.slice(-10).reverse(),
     confirmedRequests: Object.keys(receipts).filter(k => k.startsWith(seat + ':')).map(k => k.slice(seat.length + 1)).slice(-20),
     params: { protectionMs: ONLINE_TEST.protectionMs, onlineSilverPerMinute: ONLINE_TEST.onlineSilverPerMinute, offlineSilverPerMinute: ONLINE_TEST.offlineSilverPerMinute, offlineCapMs: ONLINE_TEST.offlineCapMs },

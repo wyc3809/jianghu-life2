@@ -1,4 +1,4 @@
-import { SECT_PREVIEW_ARTS } from './fixtures';
+import { loadAppearanceAssets, type AppearanceAssets } from '../../appearance/assets';
 import manifest from './assets.json';
 
 declare global { interface Window { __sectPreviewAssets?: Record<string, string> } }
@@ -9,7 +9,7 @@ export function sectAssetUrl(path: string): string {
   return window.__sectPreviewAssets?.[path] ?? `${import.meta.env.BASE_URL}${path}`;
 }
 
-export interface SectPreviewImages { images: Record<string, HTMLImageElement>; simplified: boolean }
+export interface SectPreviewImages { images: Record<string, HTMLImageElement>; simplified: boolean; wardrobe: AppearanceAssets }
 /** 先等詳細人物解碼；個別動作缺圖仍用相同細節人物，全部人物缺失才提供重試。 */
 export async function loadSectPreviewImages(): Promise<SectPreviewImages> {
   const images: Record<string, HTMLImageElement> = {};
@@ -21,6 +21,6 @@ export async function loadSectPreviewImages(): Promise<SectPreviewImages> {
       });
     } catch { simplified = true; }
   }));
-  if (!images.lifecycle && !SECT_PREVIEW_ARTS.some(id => images[id])) throw new Error('人物圖未能載入，請重試。');
-  return { images, simplified };
+  const wardrobe = await loadAppearanceAssets();
+  return { images, wardrobe, simplified: simplified || wardrobe.simplified };
 }

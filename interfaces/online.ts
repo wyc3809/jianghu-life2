@@ -1,3 +1,4 @@
+import type { CharacterAppearance } from './appearance';
 import type { CombatReplay, LifeCharacter } from './lifeEngine';
 
 export type OnlineAccountId = string;
@@ -40,6 +41,7 @@ export interface OnlineWorld {
   battles: OnlineBattle[];
 }
 export interface OnlinePeer {
+  appearance?: CharacterAppearance;
   id: OnlineAccountId;
   name: string;
   rank: number;

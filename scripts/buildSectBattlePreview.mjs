@@ -7,7 +7,9 @@ import { fileURLToPath } from 'node:url';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const output = resolve(process.argv[2] || '.local-online/organization-wars/sect-battle-preview.html');
 const manifest = JSON.parse(readFileSync(resolve(root, 'src/prototypes/sectBattle/assets.json'), 'utf8'));
-const embedded = Object.fromEntries(Object.values(manifest).map(path => [path, `data:image/webp;base64,${readFileSync(resolve(root, 'public', path)).toString('base64')}`]));
+const appearance = JSON.parse(readFileSync(resolve(root, 'src/appearance/asset-map.json'), 'utf8'));
+const paths = [...Object.values(manifest), ...Object.values(appearance.heads), ...Object.values(appearance.outfits).flatMap(Object.values), ...['sword','blade','spear','staff','whip','bow','hidden'].map(key => `ink/spar/weapon-${key}.webp`), 'ink/art/badges/slate.webp', 'ink/art/parchment-ui/icon-close.webp'];
+const embedded = Object.fromEntries(paths.map(path => [path, `data:image/webp;base64,${readFileSync(resolve(root, 'public', path)).toString('base64')}`]));
 const result = await build({
   absWorkingDir: root, entryPoints: ['src/prototypes/sectBattleStandalone.tsx'],
   outfile: '.local-online/organization-wars/bundle.js', bundle: true, write: false, minify: true, format: 'iife',
@@ -25,6 +27,6 @@ for (const name of ['react', 'react-dom', 'scheduler', 'zod', 'immer']) {
   if (file) licences[name] = readFileSync(file, 'utf8');
 }
 const legal = JSON.stringify(licences).replace(/<\/script/gi, '<\\/script');
-const html = `<!doctype html><html lang="zh-Hant"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>江湖一生 · 門派同場會武原型</title><style>${css}</style><div id="root"></div><script type="application/json" id="bundled-licences">${legal}</script><script>window.__sectPreviewAssets=${JSON.stringify(embedded)};</script><script>${js}</script></html>`;
+const html = `<!doctype html><html lang="zh-Hant"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>江湖一生 · 門派同場會武原型</title><style>${css}</style><div id="root"></div><script type="application/json" id="bundled-licences">${legal}</script><script>window.__sectPreviewAssets=${JSON.stringify(embedded)};window.__jianghuAppearanceAssets=window.__sectPreviewAssets;window.__jianghuAssets=window.__sectPreviewAssets;</script><script>${js}</script></html>`;
 mkdirSync(dirname(output), { recursive: true }); writeFileSync(output, html);
 console.log(`Sect battle preview: ${output} (${Buffer.byteLength(html)} bytes; original bitmap assets embedded)`);
