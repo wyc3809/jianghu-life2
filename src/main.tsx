@@ -21,6 +21,8 @@ const isFxDemo = import.meta.env.DEV && new URLSearchParams(window.location.sear
 // 第26項：只供玩家先睇原型，唔替換正式交手入口。
 const BattlePreview = import.meta.env.DEV ? lazy(() => import('./prototypes/UnifiedBattlePreview')) : () => null;
 const isBattlePreview = import.meta.env.DEV && new URLSearchParams(window.location.search).get('battle-preview') === 'unified';
+const SectBattlePreview = import.meta.env.DEV ? lazy(() => import('./prototypes/SectBattlePreview')) : () => null;
+const isSectBattlePreview = import.meta.env.DEV && new URLSearchParams(window.location.search).get('sect-battle-preview') === '1';
 const MartialPreview = import.meta.env.DEV ? lazy(() => import('./prototypes/MartialIdentityPreview')) : () => null;
 const isMartialPreview = import.meta.env.DEV && new URLSearchParams(window.location.search).get('martial-preview') === '1';
 const OnlinePreview = import.meta.env.VITE_ONLINE_PUBLIC === '1' || (import.meta.env.DEV && import.meta.env.VITE_ONLINE_PROTOTYPE === '1')
@@ -28,7 +30,7 @@ const OnlinePreview = import.meta.env.VITE_ONLINE_PUBLIC === '1' || (import.meta
 const isOnlinePreview = Boolean(OnlinePreview) && new URLSearchParams(window.location.search).get('online') === '1';
 
 // 雲端：開機揾身份，雲端存檔較新就先寫返本機（最多等 2.5 秒）
-const boot = isFxDemo || isBattlePreview || isMartialPreview || isOnlinePreview ? Promise.resolve({ restored: false }) : bootCloud(readLocalSavedAt, writeLocal);
+const boot = isFxDemo || isBattlePreview || isSectBattlePreview || isMartialPreview || isOnlinePreview ? Promise.resolve({ restored: false }) : bootCloud(readLocalSavedAt, writeLocal);
 
 void boot.then(({ restored }) => {
   if (restored) useAncestryStore.setState({ meta: loadAncestry() });
@@ -40,6 +42,8 @@ function render() {
     <StrictMode>
       {isOnlinePreview && OnlinePreview ? (
         <Suspense fallback={null}><OnlinePreview standalone /></Suspense>
+      ) : isSectBattlePreview ? (
+        <Suspense fallback={null}><SectBattlePreview /></Suspense>
       ) : isMartialPreview ? (
         <Suspense fallback={null}><MartialPreview /></Suspense>
       ) : isBattlePreview ? (

@@ -1,5 +1,6 @@
 import { MARTIAL_LOADOUT_LIMIT } from '@data/redesign/testParams';
 import { z } from 'zod';
+import { characterAppearanceSchema, type CharacterAppearance } from './appearance';
 
 /** 根骨、悟性、福緣、魅力、膽識 */
 export const wuxiaAttributeKeys = ['genGu', 'wuXing', 'fuYuan', 'meiLi', 'danShi'] as const;
@@ -212,6 +213,8 @@ export interface MartialPreset {
 export interface LifeCharacter {
   name: string;
   gender: 'male' | 'female';
+  /** 純外觀：全系統共用，不提供能力或裝備加成。 */
+  appearance?: CharacterAppearance;
   /** 舊存檔相容欄位；不再增長、顯示或參與玩法。 */
   age: number;
   alive: boolean;
@@ -300,6 +303,7 @@ export interface PendingEvent {
 
 /** 華山論劍報名快照（可對戰、可存檔） */
 export interface ContestantBuild {
+  appearance?: CharacterAppearance;
   id: string;
   name: string;
   martial: number;
@@ -358,6 +362,8 @@ export interface CombatReplayHit {
 }
 
 export interface CombatReplay {
+  playerAppearance?: CharacterAppearance;
+  foeAppearance?: CharacterAppearance;
   title: string;
   playerName: string;
   foeName: string;
@@ -535,6 +541,7 @@ export interface CombatGearSpecial {
 }
 
 export interface CombatFighterState {
+  appearance?: CharacterAppearance;
   name: string;
   hp: number;
   maxHp: number;
@@ -634,6 +641,7 @@ export interface PendingCombat {
 export const lifeCharacterSchema = z.object({
   name: z.string(),
   gender: z.enum(['male', 'female']),
+  appearance: characterAppearanceSchema.optional().catch(undefined),
   age: z.number(),
   alive: z.boolean(),
   health: z.number(),

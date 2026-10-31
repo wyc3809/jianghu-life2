@@ -1,0 +1,71 @@
+{
+  "source": "existing game assets; no new artwork",
+  "items": {
+    "background": {
+      "path": "public/ink/art/battle-preview/autumn.webp",
+      "sha256": "aa5bd1cd4ca8cb28029648e5674fc8cc3d48e195e7958b6b077f857f7ca1e8bc"
+    },
+    "lifecycle": {
+      "path": "public/ink/spar/hero-detail/lifecycle.webp",
+      "sha256": "de06f1f633e3efd032ede2d367e950f4523ad8927c30e177f6772f254b81b2ce"
+    },
+    "bar": {
+      "path": "public/ink/art/ui/brush-bar.webp",
+      "sha256": "16c852797bb6628ce61e2c3dcd448a2005a27101343aac9dd1a3053d2ac347bb"
+    },
+    "rail": {
+      "path": "public/ink/art/ui/brush-bar-rail.webp",
+      "sha256": "c09b0ec4cdca1b7064e67d0ed64326defc0fe64572b150e9328bd51b1811c557"
+    },
+    "ring": {
+      "path": "public/ink/art/ui/brush-ring.webp",
+      "sha256": "e70162eb47582247380e9051c786c36c8b8da2aff4b8b7f78218728b693b969a"
+    },
+    "shadow": {
+      "path": "public/ink/spar/commercial/shadow.webp",
+      "sha256": "48e36f75c6a910455e0942a89e81cbde8a20b097a47c0ccecde68b5a0fb43cfc"
+    },
+    "slash": {
+      "path": "public/ink/art/ui/slash-stroke.webp",
+      "sha256": "5d84d00b918b67e8ce4b0a396300d6aead8db738a979ce7ac96f31ebd0dac0a0"
+    },
+    "spark": {
+      "path": "public/ink/art/artfx/spark.webp",
+      "sha256": "bc652b40bfe005ebd2047b5b3e62365345eaf3bb0603e0800b18f75b1388e128"
+    },
+    "qy_cloud_sword": {
+      "path": "public/ink/art/martial/qy_cloud_sword.webp",
+      "sha256": "fac2adf62fe8dc7a9c3a7174517511c668b39eb06b48e26bcf34eb779f510be0"
+    },
+    "wd_sword_form": {
+      "path": "public/ink/art/martial/wd_sword_form.webp",
+      "sha256": "d49fda41a4253017e28ec159ed1cb6cfed42467d6d54d2157502e6723cab146f"
+    },
+    "art_river_fist": {
+      "path": "public/ink/art/martial/art_river_fist.webp",
+      "sha256": "1b7eda220f46a6e529b620ea1658191d010d2b3802657bc12594d9f5f3c51cb7"
+    },
+    "art_stone_palm": {
+      "path": "public/ink/art/martial/art_stone_palm.webp",
+      "sha256": "5dcfd0c33f287af6d23d9ac8f8df42ad87e0fb67403d6b1df542b77301d13ebf"
+    },
+    "art_thunder_blade": {
+      "path": "public/ink/art/martial/art_thunder_blade.webp",
+      "sha256": "bef9e8359e82e1bf9ad89d3c67e40616e4506f6c6f97d19a92f2713e761fad1a"
+    },
+    "art_spear_cloud": {
+      "path": "public/ink/art/martial/art_spear_cloud.webp",
+      "sha256": "2b1b4dd4340f210f6ba4ff0f8a2509cfa15458cf2001711c17e56efa170233c2"
+    },
+    "art_staff_iron": {
+      "path": "public/ink/art/martial/art_staff_iron.webp",
+      "sha256": "a0866e0c4a3f2c9fe1ef5a06394362b22dd493f864164c8e3be9f34e560a0f19"
+    },
+    "tm_flying_needle": {
+      "path": "public/ink/art/martial/tm_flying_needle.webp",
+      "sha256": "5e486ab26c1e245ac7b11c6167cfd391e13946dccb6894485a74284508d5835e"
+    }
+  },
+  "fontSource": "design/art/parchment-ui/font-source.json",
+  "fontLicence": "design/art/parchment-ui/sources/OFL-yujiboku.txt"
+}

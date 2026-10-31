@@ -33,6 +33,7 @@ import {
 import { getGearDef } from '@data/equipment/catalog';
 import { FOE_TRAITS } from '@data/foes/traits';
 import { useLifeStore } from '../../store/lifeStore';
+import { appearanceOf, appearanceKey } from '@interfaces/appearance';
 import { type SparSeason } from '../../spar/presentation';
 import { InkUnifiedBattleFrame } from './InkUnifiedBattleFrame';
 import { InkBattleEntrance } from './InkBattleEntrance';
@@ -193,6 +194,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
     return getGearDef(id)?.weaponKind ?? null;
   });
   const martialIdsKey = useLifeStore(s => s.state ? equippedMartialArts(s.state.character).join('|') : '');
+  const appearanceFingerprint = useLifeStore(s=>appearanceKey(appearanceOf(s.state?.character??{})));
 
   // 身上狀態（流血不止之類）——顯示喺演武台左上角浮層
   const conditions = useLifeStore((s) => s.state?.character.conditions ?? NO_CONDITIONS);
@@ -374,6 +376,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
           combat,
         });
         stage.setMartialAssets(martialAssets, arts.filter(id => getSkillDef(id)?.kind !== 'external'));
+        stage.setCharacterAppearance(appearanceOf(useLifeStore.getState().state?.character??{}));
         sync();
         stageRef.current = stage;
         setStageReady(true);
@@ -469,6 +472,9 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
       .catch(() => { /* 載唔到保持現狀 */ });
     return () => { cancelled = true; };
   }, [weaponKind]);
+
+  // 造型只換繪圖資料，不重設演武、敵陣、氣血或派獎。
+  useEffect(()=>{stageRef.current?.setCharacterAppearance(appearanceOf(useLifeStore.getState().state?.character??{}));},[appearanceFingerprint,stageReady]);
 
   // 換季只切美術，唔重建Canvas／敵陣。
   useEffect(() => { stageRef.current?.setSeason(season); }, [season]);

@@ -1,4 +1,5 @@
 import { createRng } from '@core/random';
+import { appearanceOf } from '@interfaces/appearance';
 import { sumInternalPassives, sumEvasionBonus } from '@data/skills/catalog';
 import { gearTotals, ensureGear, sumGearCombatBonuses, equippedDefs } from './equipment';
 import type { CombatFighterState, LifeCharacter, WuxiaAttribute, CombatReplay, CombatReplayHit, ContestantBuild } from '@interfaces/lifeEngine';
@@ -11,6 +12,7 @@ function fakeCharacter(loadout: ContestantBuild): LifeCharacter {
   const c: LifeCharacter = {
     name: loadout.name,
     gender: 'male' as const,
+    appearance: loadout.appearance,
     age: loadout.age ?? 28,
     alive: true,
     health: loadout.maxHealth,
@@ -67,6 +69,7 @@ export function buildContestantFighter(loadout: ContestantBuild, isPlayerSide = 
   const maxQi = c.maxQi + (loadout.capsIncludeGear ? 0 : gear.maxQiBonus) + (passive.maxQi ?? 0);
   return {
     name: loadout.name,
+    appearance: appearanceOf(c),
     hp: maxHp,
     maxHp,
     qi: maxQi,
@@ -139,6 +142,8 @@ export function simulateContestDuel(opts: {
     title: opts.title,
     playerName: pF.name,
     foeName: fF.name,
+    playerAppearance: pF.appearance ? { ...pF.appearance } : undefined,
+    foeAppearance: fF.appearance ? { ...fF.appearance } : undefined,
     playerMaxHp: pF.maxHp,
     foeMaxHp: fF.maxHp,
     startPlayerHp: pF.hp,

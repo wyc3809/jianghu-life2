@@ -74,6 +74,8 @@ export interface LifeStore {
   resumeCoach: () => void;
   /** 比較前修復舊版遺失的已得試煉兵器，不代玩家換裝。 */
   prepareNewbieEquipment: () => void;
+  /** 免費保存純外觀，不改裝備、配搭、能力或獎勵。 */
+  setAppearance: (value: import('@interfaces/appearance').CharacterAppearance) => boolean;
   /** 特效時刻播完：移出佇列（見 core/life/moments.ts） */
   ackMoment: () => void;
   practice: (actionId: PracticeActionId, opts?: { sectId?: string; artId?: string }) => void;

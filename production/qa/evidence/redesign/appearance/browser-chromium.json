@@ -1,0 +1,55 @@
+[
+  {
+    "engine": "chromium",
+    "viewport": [
+      320,
+      568
+    ],
+    "fixedMain": true,
+    "sheetControls44Visible": true,
+    "previewCancelNoMutation": true,
+    "confirmOnly": true,
+    "doubleConfirmNoDebit": true,
+    "normalDuelEquipmentUnchanged": true,
+    "hudMatchesPerson": true,
+    "reloadPersists": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "chromium",
+    "viewport": [
+      390,
+      844
+    ],
+    "fixedMain": true,
+    "sheetControls44Visible": true,
+    "previewCancelNoMutation": true,
+    "confirmOnly": true,
+    "doubleConfirmNoDebit": true,
+    "normalDuelEquipmentUnchanged": true,
+    "hudMatchesPerson": true,
+    "reloadPersists": true,
+    "pageerrors": [],
+    "video": "/workspace/jianghu-person-release-ea094/.local-online/tap-navigation/video/page@de95cc79847c182e09f8c2c42f2fd546.webm"
+  },
+  {
+    "engine": "chromium",
+    "viewport": [
+      430,
+      932
+    ],
+    "fixedMain": true,
+    "sheetControls44Visible": true,
+    "previewCancelNoMutation": true,
+    "confirmOnly": true,
+    "doubleConfirmNoDebit": true,
+    "normalDuelEquipmentUnchanged": true,
+    "hudMatchesPerson": true,
+    "reloadPersists": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "chromium",
+    "allAppearanceNetworkFailureSameIdentity": true
+  }
+]

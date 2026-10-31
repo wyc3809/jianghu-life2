@@ -1,4 +1,5 @@
 import { internalQiRegen } from './martialTurn';
+import { appearanceOf } from '@interfaces/appearance';
 import { BOSS_CONTROL_RESISTANCE, MEDITATE_QI_RATIO, EVENT_FOE_HP_MULT, EVENT_FOE_CHAIN, EVENT_FOE_ATK_MULT, EVENT_FOE_BASELINE, EVENT_FOE_DIFFICULTY } from '@data/redesign/martialEconomyParams';
 import { equippedMartialArts } from './martialLoadout';
 import {
@@ -111,6 +112,7 @@ export function buildPlayerFighter(state: LifeGameState): CombatFighter {
     : [];
   return {
     name: c.name,
+    appearance: appearanceOf(c),
     hp: maxHp,
     maxHp,
     qi: c.maxQi + (c.flags.caps_include_internal ? 0 : passive.maxQi ?? 0),

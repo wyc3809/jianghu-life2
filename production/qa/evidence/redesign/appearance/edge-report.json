@@ -1,0 +1,18 @@
+{
+  "function": "jianghu-world",
+  "version": 3,
+  "verifyJwt": true,
+  "authChecks": [
+    {
+      "auth": "missing",
+      "http": 401
+    },
+    {
+      "auth": "invalid",
+      "http": 401
+    }
+  ],
+  "tableSchemaChanged": false,
+  "dataMutation": false,
+  "authenticatedAppearanceRoundtrip": "covered by local repository and battle snapshot tests; live player account not used"
+}

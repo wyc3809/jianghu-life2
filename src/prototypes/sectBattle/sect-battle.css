@@ -1,0 +1,37 @@
+@import '../../components/ink/parchment-ui.css';
+
+.sect-battle-preview,.sect-roster-sheet{--game-ui-font:'Noto Sans CJK TC','Microsoft JhengHei',sans-serif}
+
+.sect-battle-preview,.sect-battle-preview *,.sect-roster-sheet,.sect-roster-sheet *{box-sizing:border-box}
+.sect-battle-preview{position:fixed;inset:0;margin:auto;max-width:1000px;height:100dvh;display:flex;flex-direction:column;overflow:hidden;background:var(--ui-fiber) center/384px repeat,var(--ui-paper);color:var(--ui-ink);font-family:var(--game-ui-font,'Noto Serif TC',serif);padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);font-size:14px;line-height:1.4}
+.sect-battle-preview button,.sect-roster-sheet button{font:inherit;cursor:pointer;color:inherit;min-height:44px;touch-action:manipulation;border:6px solid transparent;border-image:var(--ui-frame) 48/1/0 stretch;background:var(--ui-fiber) center/384px repeat,var(--ui-paper);border-radius:0;box-shadow:none;padding:4px 8px}
+.sect-battle-preview button:active,.sect-roster-sheet button:active{transform:translateY(1px)}
+.sect-battle-preview button:disabled{opacity:.45;cursor:default}
+.sect-battle-preview button:focus-visible,.sect-roster-sheet button:focus-visible{outline:2px solid var(--ui-red);outline-offset:2px}
+.sect-battle-heading{display:grid;grid-template-columns:80px 1fr 80px;align-items:center;gap:8px;flex:none;padding:8px 12px 4px}
+.sect-battle-heading h1{font-family:var(--ui-title)!important;font-size:30px;line-height:1.2;text-align:center;margin:0;padding-bottom:8px;background:var(--ui-underline) center bottom/140px 4px no-repeat}
+.sect-battle-heading>button{border:0;background:none;padding:0;text-align:left}
+.sect-battle-heading>span{color:var(--ui-red);font-size:12px;text-align:right}
+.sect-battle-teams{display:grid;grid-template-columns:1fr 1fr;position:relative;gap:24px;padding:4px 16px 8px;flex:none;text-align:center}
+.sect-battle-teams h2{font:700 20px/1.25 var(--ui-title);margin:0 0 2px;color:#3f6868}
+.sect-battle-teams [data-side='1'] h2{color:var(--ui-red)}
+.sect-battle-teams p{margin:0;font-size:12px;font-variant-numeric:tabular-nums}.sect-battle-teams b{font-size:17px}
+.sect-battle-versus{position:absolute;left:50%;top:12px;transform:translateX(-50%);font-family:var(--ui-title);color:#877351;font-size:14px}
+.sect-battle-stage{position:relative;flex:1;min-height:0;overflow:hidden;border:6px solid transparent;border-image:var(--ui-frame) 48/1/0 stretch;margin:0 8px}
+.sect-battle-stage canvas{width:100%;height:100%;display:block;touch-action:manipulation}
+.sect-battle-clock{position:absolute;z-index:1;top:8px;left:50%;transform:translateX(-50%);text-align:center;pointer-events:none;padding:4px 16px;background:var(--ui-fiber) center/384px repeat,var(--ui-paper);color:#675c4a;font-size:12px}
+.sect-battle-clock b{display:block;font-variant-numeric:tabular-nums;font-size:16px;color:var(--ui-ink)}
+.sect-battle-ready{position:absolute;z-index:2;bottom:8px;left:50%;transform:translateX(-50%);width:200px;display:grid;gap:4px;text-align:center;font-size:12px;color:#554d41}
+.sect-battle-preview .sect-battle-primary{font-family:var(--ui-title)!important;font-size:24px;min-height:48px;background:var(--ui-brush) center/100% 100% no-repeat;border:0;color:#fff8e9;padding:8px 16px}
+.sect-battle-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;flex-direction:column;background:var(--ui-paper)}
+.sect-battle-result{position:absolute;left:50%;top:12%;transform:translateX(-50%);text-align:center;min-width:200px;padding:12px 20px;background:var(--ui-fiber) center/384px repeat,var(--ui-paper);border:8px solid transparent;border-image:var(--ui-frame) 48/1/0 stretch}
+.sect-battle-result h2{font:700 26px/1.3 var(--ui-title);margin:0 0 4px}.sect-battle-result p{margin:0 0 4px}
+.sect-battle-focus{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:76px;padding:8px 16px;flex:none}
+.sect-battle-focus>div{min-width:0;flex:1}.sect-battle-focus span{display:block;font-size:12px;color:#877351}.sect-battle-focus h3{font-size:17px;margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}.sect-battle-focus h3 small{font-weight:400;font-size:12px;color:#706352}
+.sect-battle-focus dl{margin:0;flex:none;font-variant-numeric:tabular-nums;font-size:12px}.sect-battle-focus dl>div{display:flex;gap:8px;justify-content:space-between}.sect-battle-focus dt{color:#706352}.sect-battle-focus dd{margin:0;text-align:right}
+.sect-battle-controls{flex:none;padding:0 12px 8px}.sect-battle-controls>div:first-child{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}.sect-battle-controls button{white-space:nowrap;font-size:13px;padding-inline:2px}
+.sect-battle-notes{display:flex;gap:8px;justify-content:space-between;align-items:center;font-size:11px;color:#877351;min-height:36px}.sect-battle-notes label{min-height:44px;display:flex;gap:4px;align-items:center;cursor:pointer;white-space:nowrap}.sect-battle-notes input{accent-color:var(--ui-red);width:16px;height:16px;margin:0}
+.sect-roster-sheet{position:fixed;inset:auto 8px max(8px,env(safe-area-inset-bottom));margin:auto;max-width:600px;width:calc(100% - 16px);max-height:88dvh;padding:16px;overflow:hidden;border:0;font-family:var(--game-ui-font,'Noto Serif TC',serif);color:var(--ui-ink);flex-direction:column;gap:8px}
+.sect-roster-sheet[open]{display:flex}.sect-roster-sheet::backdrop{background:rgba(37,36,31,.36)}.sect-roster-sheet>header{display:flex;align-items:center;justify-content:space-between;gap:8px;flex:none}.sect-roster-sheet h2{font:700 28px/1.3 var(--ui-title);margin:0}.sect-roster-scroll{min-height:0;overflow:auto;overscroll-behavior:contain;display:grid;grid-template-columns:1fr 1fr;gap:12px}.sect-roster-scroll h3{font:700 18px/1.4 var(--ui-title);margin:0 0 8px;color:#3f6868}.sect-roster-scroll section+section h3{color:var(--ui-red)}.sect-roster-scroll button{width:100%;text-align:left;display:flex;flex-direction:column;font-size:13px;min-height:52px;margin:0 0 4px}.sect-roster-scroll button[aria-pressed='true']{border-image-source:var(--ui-selected);border-image-slice:13}.sect-roster-scroll small{font-size:11px;color:#877351}.sect-roster-sheet>p{font-size:11px;margin:0;color:#877351;flex:none}
+@media(max-height:650px){.sect-battle-heading{padding-top:4px}.sect-battle-heading h1{font-size:26px}.sect-battle-teams{padding-bottom:4px}.sect-battle-teams h2{font-size:18px}.sect-battle-focus{min-height:62px;padding:4px 12px}.sect-battle-notes{min-height:28px}.sect-battle-notes label{min-height:44px}.sect-battle-controls{padding-bottom:4px}.sect-battle-clock{top:4px;padding:0 12px}}
+@media(prefers-reduced-motion:reduce){.sect-battle-preview button:active,.sect-roster-sheet button:active{transform:none}}

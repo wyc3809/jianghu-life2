@@ -1,0 +1,263 @@
+[
+  {
+    "name": "head-master",
+    "size": [
+      412,
+      452
+    ],
+    "transparentFraction": 0.580027278975857,
+    "sha256": "90a26dd2da54b53518a73a7aeffd453df982dc5bff7e6deb288de44e8edc1136"
+  },
+  {
+    "name": "head-silver",
+    "size": [
+      417,
+      447
+    ],
+    "transparentFraction": 0.3969656489573442,
+    "sha256": "3791165cf911d853b8741bebe33fa6b838d6f0eecc7c720c237b834ca9d482fe"
+  },
+  {
+    "name": "head-ponytail",
+    "size": [
+      436,
+      454
+    ],
+    "transparentFraction": 0.4187093319322637,
+    "sha256": "748bd5ad76765b02ddec03c1af3c178f19cdc3f40d08f79a96e9f77ea6ba9db0"
+  },
+  {
+    "name": "head-loose",
+    "size": [
+      416,
+      458
+    ],
+    "transparentFraction": 0.4485062562982869,
+    "sha256": "d9c005212411cb9f389e2e7cf7a27769e5981044bb7ec16d120578afab3e75a8"
+  },
+  {
+    "name": "head-bun",
+    "size": [
+      335,
+      442
+    ],
+    "transparentFraction": 0.4349091645843182,
+    "sha256": "4ab6ddebe625aecf8854acfa2be84e5f462f1f4290875810ccd66a8ca02f85f8"
+  },
+  {
+    "name": "head-short",
+    "size": [
+      367,
+      397
+    ],
+    "transparentFraction": 0.40283735646778634,
+    "sha256": "13a406f80a927334ea87159e77d6755e6dd8bc3ee841855aaaf415ec71eb7e84"
+  },
+  {
+    "name": "head-bamboo",
+    "size": [
+      576,
+      499
+    ],
+    "transparentFraction": 0.47269191160097973,
+    "sha256": "addb6acd5b330da945103fad990405e522cfda2b9e70e52916895a08e8a83a12"
+  },
+  {
+    "name": "head-topknot",
+    "size": [
+      456,
+      528
+    ],
+    "transparentFraction": 0.366423278841042,
+    "sha256": "2705721a84ddf74e63647fc57bc36dcd56f20d748e53a7809752566e68da123d"
+  },
+  {
+    "name": "outfit-traveller-torso",
+    "size": [
+      219,
+      331
+    ],
+    "transparentFraction": 0.42824428533984465,
+    "sha256": "17622224a0ba6ea4066209c3ad0b96d48a154fdc80a0d9aa8dbdc6b9869d85e3"
+  },
+  {
+    "name": "outfit-traveller-upperArm",
+    "size": [
+      116,
+      242
+    ],
+    "transparentFraction": 0.37649615275007126,
+    "sha256": "540f16b3b285d9b3107ce730c385239d3a9cbc39a0b55a279b1fd939ff2e5d8a"
+  },
+  {
+    "name": "outfit-traveller-forearm",
+    "size": [
+      115,
+      217
+    ],
+    "transparentFraction": 0.5574033259867762,
+    "sha256": "a9e4a19622ccbfdffbdefbaeb5cca825a239a0f7049b0d07b6eba86b539e9413"
+  },
+  {
+    "name": "outfit-traveller-thigh",
+    "size": [
+      189,
+      287
+    ],
+    "transparentFraction": 0.3966041701233339,
+    "sha256": "d8eba1e5e87b68eaea9efba047f574e6b12401394fb0d0ae88785a70858b6f9b"
+  },
+  {
+    "name": "outfit-traveller-shin",
+    "size": [
+      160,
+      247
+    ],
+    "transparentFraction": 0.5571356275303644,
+    "sha256": "f02d00b0a8188edb55c59ee66e1e289ea9a80ed0e1ac429677f20a3c6c1e1d53"
+  },
+  {
+    "name": "outfit-traveller-hem",
+    "size": [
+      251,
+      313
+    ],
+    "transparentFraction": 0.4406654532031618,
+    "sha256": "3ac370a4725eaee26ee315b1a3f7a1a55e1813eba459234db8fa0a1961f922ef"
+  },
+  {
+    "name": "outfit-scholar-torso",
+    "size": [
+      260,
+      331
+    ],
+    "transparentFraction": 0.36116662793399956,
+    "sha256": "0403946343ff9f8e0c5fbb5a193c6a4f8b5160d1f0c131b67f3647124d9daf61"
+  },
+  {
+    "name": "outfit-scholar-upperArm",
+    "size": [
+      165,
+      266
+    ],
+    "transparentFraction": 0.47646388699020276,
+    "sha256": "5b6ff556c924d8a02e470527d49eadba6879db4af85e06d88d2590dde949b8f9"
+  },
+  {
+    "name": "outfit-scholar-forearm",
+    "size": [
+      114,
+      216
+    ],
+    "transparentFraction": 0.5341130604288499,
+    "sha256": "8011a83813ac0cb17c6a24cff2a1deb9c7195f87bef234b79898aafe54ba9000"
+  },
+  {
+    "name": "outfit-scholar-thigh",
+    "size": [
+      207,
+      291
+    ],
+    "transparentFraction": 0.31196772747646795,
+    "sha256": "3f1563672fa4c2afde569bedac04dfe6a26cc4503671f10d8237359821acaf84"
+  },
+  {
+    "name": "outfit-scholar-shin",
+    "size": [
+      166,
+      241
+    ],
+    "transparentFraction": 0.5581162825576164,
+    "sha256": "b552de213b3a6ca316eccdf9c11d80db9969ded47e29e3e7db57493487a7937b"
+  },
+  {
+    "name": "outfit-scholar-hem",
+    "size": [
+      288,
+      365
+    ],
+    "transparentFraction": 0.36152016742770166,
+    "sha256": "b80a914ca56ef82c59d0a0145ea2fed69b4a4f224040d4231e52dc9c8f09d33c"
+  },
+  {
+    "name": "outfit-cloak-torso",
+    "size": [
+      237,
+      333
+    ],
+    "transparentFraction": 0.30492517834289984,
+    "sha256": "8d4eaf68f44b558abe194cf40238660d7e86ce570351264f1a4ab01fdddf0213"
+  },
+  {
+    "name": "outfit-cloak-upperArm",
+    "size": [
+      144,
+      263
+    ],
+    "transparentFraction": 0.3837399662019434,
+    "sha256": "629fe86b7d292c979af9fbe899143685fdd250d90e4dd4ea763f3f14bf1231fb"
+  },
+  {
+    "name": "outfit-cloak-forearm",
+    "size": [
+      129,
+      217
+    ],
+    "transparentFraction": 0.5703211517165006,
+    "sha256": "9dcbedd81f0fd4264ead889280d7e383f3d4b7438b515d07a7fc3931ee35da33"
+  },
+  {
+    "name": "outfit-cloak-thigh",
+    "size": [
+      200,
+      287
+    ],
+    "transparentFraction": 0.348815331010453,
+    "sha256": "882a0135efd4557064077d83bcc56c475449570c41b48023be74c39396d65d03"
+  },
+  {
+    "name": "outfit-cloak-shin",
+    "size": [
+      181,
+      247
+    ],
+    "transparentFraction": 0.548057351197799,
+    "sha256": "db55d129923ba5eb477979c983891358dcfc7e9b669195ff88d6dba2c0f6dfb8"
+  },
+  {
+    "name": "outfit-cloak-hem",
+    "size": [
+      281,
+      379
+    ],
+    "transparentFraction": 0.4674597883548202,
+    "sha256": "3678aa216552d1209cb468f3a45dbf6ebecb1d7f35e3d29708dfcb05e5f74083"
+  },
+  {
+    "name": "outfit-traveller-seated",
+    "size": [
+      576,
+      340
+    ],
+    "transparentFraction": 0.35123059640522875,
+    "sha256": "7751e48de44a8de48279e0e43feb0b859ec6a84548cd3344f2420606c0029379"
+  },
+  {
+    "name": "outfit-scholar-seated",
+    "size": [
+      576,
+      331
+    ],
+    "transparentFraction": 0.3114929506545821,
+    "sha256": "1e72938068266bab984607277e27e2e9bfe9d32bccd0329b249357481942c5b8"
+  },
+  {
+    "name": "outfit-cloak-seated",
+    "size": [
+      576,
+      333
+    ],
+    "transparentFraction": 0.32601872706039375,
+    "sha256": "9eba40acc00607fee911c0a42fb9a97c8da1e8436241cc51a4fb1f52b322a306"
+  }
+]

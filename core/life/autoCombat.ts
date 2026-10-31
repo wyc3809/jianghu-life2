@@ -45,6 +45,8 @@ export function runAutoCombat(state: LifeGameState): AutoCombatResult | null {
     title: combat.title,
     playerName: combat.player.name,
     foeName: combat.foe.name,
+    playerAppearance: combat.player.appearance ? { ...combat.player.appearance } : undefined,
+    foeAppearance: combat.foe.appearance ? { ...combat.foe.appearance } : undefined,
     playerMaxHp: combat.player.maxHp,
     foeMaxHp: combat.foe.maxHp,
     startPlayerHp: combat.player.hp,

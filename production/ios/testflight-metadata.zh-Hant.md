@@ -4,7 +4,7 @@
 
 App名稱：江湖一生
 語言：繁體中文
-遊戲內容版本：EA0.98.1
+遊戲內容版本：EA0.99.0
 Apple版本／build：以獲確認App紀錄及當次簽署為準；不能把EA版本直接填作build號。
 
 ## Beta App Description

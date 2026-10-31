@@ -9,6 +9,10 @@
  * 3D 用 Three.js（剪影位圖貼喺平面、筆觸同墨霧係 shader），粒子用高光嘅 Canvas 2D 粒子系統。
  */
 import gsap from 'gsap';
+import { loadAppearanceAssets } from '../../../appearance/assets';
+import { appearanceFrameUrl } from '../../../appearance/model';
+import { DEFAULT_APPEARANCE } from '@interfaces/appearance';
+import { martialPoseFor } from '../../art/martialPoses';
 import * as THREE from 'three';
 import type { CombatReplay, CombatReplayHit } from '@interfaces/lifeEngine';
 import { ParticleSystem } from '../particles';
@@ -193,6 +197,18 @@ export class DuelDirector {
         return t;
       });
     try {
+      const wardrobe = await loadAppearanceAssets();
+      if (this.disposed) return;
+      const appearance = this.replay.playerAppearance ?? DEFAULT_APPEARANCE;
+      const skill = this.replay.rounds.flatMap(r => r.hits).find(h => h.side === 'player')?.skillId ?? '';
+      const family = martialPoseFor(skill)?.family ?? this.assets.weapon?.src.match(/weapon-([\w-]+)\.webp/)?.[1] ?? 'fist';
+      const foeSkill = this.replay.rounds.flatMap(r => r.hits).find(h => h.side === 'foe')?.skillId;
+      const foeFamily = martialPoseFor(foeSkill)?.family ?? 'fist';
+      this.assets.heroIdle = appearanceFrameUrl(wardrobe, appearance, 'idle', 0, family);
+      this.assets.heroWindup = appearanceFrameUrl(wardrobe, appearance, 'attack', .02, family);
+      this.assets.heroStrike = appearanceFrameUrl(wardrobe, appearance, 'attack', .2, family);
+      this.assets.weapon = null;
+      if (this.replay.foeAppearance) this.assets.foe = appearanceFrameUrl(wardrobe, this.replay.foeAppearance, 'idle', 0, foeFamily);
       const [heroIdle, heroWindup, heroStrike, foe, splash] = await Promise.all([
         load(this.assets.heroIdle),
         load(this.assets.heroWindup),
@@ -203,8 +219,7 @@ export class DuelDirector {
       if (this.disposed) return;
       this.tex = { heroIdle, heroWindup, heroStrike, foe };
       this.splashTex = splash;
-      // 兵器圖載唔到就空手，唔影響演出
-      if (this.assets.weapon) this.weaponTex = await load(this.assets.weapon.src).catch(() => null);
+      // 造型位圖已連同手持兵器，避免重複掛上舊兵器。
       if (this.disposed) return;
     } catch {
       if (!this.disposed) this.cb.onFail();
@@ -229,7 +244,9 @@ export class DuelDirector {
 
     const boss = Boolean(this.replay.foeBoss);
     this.hero = this.makeFighter(this.tex.heroIdle, HERO_X, FIGHTER_H, false);
-    this.foe = this.makeFighter(this.tex.foe, FOE_X, FIGHTER_H * (boss ? 1.25 : 1), false);
+    this.foe = this.makeFighter(this.tex.foe, FOE_X, FIGHTER_H * (boss && !this.replay.foeAppearance ? 1.25 : 1), Boolean(this.replay.foeAppearance));
+    this.hero.mat.uniforms.uFullColour!.value = 1; this.hero.mat.uniforms.uBleed!.value = .08;
+    if (this.replay.foeAppearance) { this.foe.mat.uniforms.uFullColour!.value = 1; this.foe.mat.uniforms.uBleed!.value = .08; }
     this.hero.mat.uniforms.uDissolve!.value = 1;
     this.foe.mat.uniforms.uDissolve!.value = 1;
     this.dressFoe();
@@ -245,7 +262,7 @@ export class DuelDirector {
       (u.uRim!.value as THREE.Color).set(tier === 'boss' ? BOSS_RIM_HEX : ELITE_RIM_HEX);
       u.uRimAmt!.value = tier === 'boss' ? 1 : 0.85;
     }
-    if (this.assets.foeAccent) {
+    if (this.assets.foeAccent && !this.replay.foeAppearance) {
       (u.uAccent!.value as THREE.Color).set(rgbHex(this.assets.foeAccent));
       u.uAccentAmt!.value = 0.85;
     }
@@ -295,7 +312,7 @@ export class DuelDirector {
 
   private makeFighter(tex: THREE.Texture, x: number, h: number, flip: boolean): Fighter {
     const mat = fighterMaterial(tex, flip);
-    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(h * ASPECT, h), mat);
+    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(h * ((tex.image as {width?:number} | undefined)?.width === 512 ? 1 : ASPECT), h), mat);
     mesh.position.set(x, GROUND_Y + h / 2, 0);
     this.scene.add(mesh);
     return { mesh, mat, baseX: x, h };
@@ -466,7 +483,7 @@ export class DuelDirector {
     hero.mesh.position.x = hero.baseX + hs.x * hero.h + hs.g * this.artGap();
     hero.mesh.position.y = GROUND_Y + hero.h / 2 + hs.y * hero.h;
     hero.mesh.rotation.z = (-hs.rot * Math.PI) / 180;
-    hero.mesh.scale.set(hs.sx, hs.sy, 1);
+    hero.mesh.scale.set(1, 1, 1);
     hero.mat.uniforms.uDissolve!.value = 1 - Math.max(0, Math.min(1, hs.alpha));
     const tex = hs.pose === 'windup' ? this.tex.heroWindup : hs.pose === 'strike' ? this.tex.heroStrike : this.tex.heroIdle;
     if (hero.mat.uniforms.map!.value !== tex) this.setTex(hero, tex);
@@ -474,7 +491,7 @@ export class DuelDirector {
     foe.mesh.position.x = foe.baseX + fs.x * foe.h;
     foe.mesh.position.y = GROUND_Y + foe.h / 2 + fs.y * foe.h;
     foe.mesh.rotation.z = (-fs.rot * Math.PI) / 180;
-    foe.mesh.scale.y = fs.sy;
+    foe.mesh.scale.y = 1;
   }
 
   private endArt(run: ChoreoRun) {

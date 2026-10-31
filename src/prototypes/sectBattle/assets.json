@@ -1,0 +1,8 @@
+{
+  "bar": "ink/art/ui/brush-bar.webp",
+  "rail": "ink/art/ui/brush-bar-rail.webp",
+  "ring": "ink/art/ui/brush-ring.webp",
+  "shadow": "ink/spar/commercial/shadow.webp",
+  "slash": "ink/art/ui/slash-stroke.webp",
+  "spark": "ink/art/artfx/spark.webp"
+}

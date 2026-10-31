@@ -53,6 +53,9 @@ import { martialFootwork } from '../fx/art/footwork';
 import { MartialIdentityFx } from '../fx/art/identityFx';
 import { martialFallbackImage, MARTIAL_FALLBACK_ART } from '../fx/art/martialFallback';
 import { heroAppearanceFrame, heroFigureScale, HERO_VISUAL_SCALE, loadHeroAppearance, type HeroAppearance } from './heroAppearance';
+import { loadAppearanceAssets, type AppearanceAssets } from '../appearance/assets';
+import { drawAppearance } from '../appearance/model';
+import { readAppearance, type CharacterAppearance } from '@interfaces/appearance';
 import poseAnchors from '../fx/art/poseAnchors.json';
 import foeFigureMetrics from './foeFigureMetrics.json';
 import { playInkBlade, playInkHit, playInkTap, playInkSeal } from '../audio/inkAudio';
@@ -305,6 +308,10 @@ interface Afterimage {
 }
 
 export interface SparStageImages {
+  wardrobe?: AppearanceAssets;
+  characterAppearance?: CharacterAppearance;
+  opponentAppearance?: CharacterAppearance;
+  opponentFamily?: string;
   /** 主角待機／行路／受擊／倒地共用細節人物；與武學圖集同一腳底錨點。 */
   heroAppearance?: HeroAppearance;
   art?: SparArtImages;
@@ -526,6 +533,12 @@ export class SparStage {
         this.artSprites = { ...sp, ...this.artSprites };
       });
     }
+  }
+
+  /** 只切換人物繪圖資料，不重建演武或改動敵陣。 */
+  setCharacterAppearance(hero: CharacterAppearance, foe?: CharacterAppearance): void {
+    this.images.characterAppearance = readAppearance(hero);
+    this.images.opponentAppearance = foe ? readAppearance(foe) : undefined;
   }
 
   /** 全屏只改視覺比例；預設演武台所有座標倍率維持原有。 */
@@ -1740,6 +1753,18 @@ export class SparStage {
 
   /** 非出招階段維持同款人物；移動、受擊及倒地唔再讀舊黑影幀。 */
   private drawDetailedWarrior(g: ReturnType<SparStage['geom']>): boolean {
+    if(this.images.wardrobe&&this.images.characterAppearance){
+      const off=this.artHeroOffset(),down=this.heroDownT,hurt=this.heroHitT<.22;
+      const active=this.artRun!==null||this.attackT!==null||this.supportPose!==null;
+      const def=martialPoseFor(this.martialId);
+      const family=active?def?.family??'fist':this.weaponDef?.src.match(/weapon-([\w-]+)\.webp/)?.[1]??'fist';
+      drawAppearance(this.ctx,this.images.wardrobe,this.images.characterAppearance,{
+        x:g.heroX+off.dx,y:g.groundY-off.dy,height:this.heroVisualHeight(),face:1,
+        pose:down!==null?'down':hurt?'hurt':active?'attack':this.heroMoving?'walk':'idle',
+        time:down??(hurt?this.heroHitT:this.artRun?(this.artRun.hero().pose==='windup'?.02:this.artRun.hero().pose==='strike'?.2:.65):active?this.attackT??this.supportPose?.t??0:this.walkT),
+        family,reduced:this.quiet,
+      });return true;
+    }
     const appearance = this.images.heroAppearance;
     if (!appearance) return false;
     const active = this.poseInspection || this.attackT !== null || this.supportPose;
@@ -1990,6 +2015,14 @@ export class SparStage {
     const artOff = this.artFoeOffset(e);
     const footX = e.x + pose.x * this.enemyKe(e) + artOff.dx;
     const footY = g.groundY + pose.y * this.enemyKe(e) - artOff.dy;
+    if(this.images.wardrobe&&this.images.opponentAppearance){
+      this.ctx.save();this.ctx.globalAlpha=pose.alpha;
+      drawAppearance(this.ctx,this.images.wardrobe,this.images.opponentAppearance,{
+        x:footX,y:footY,height:this.heroVisualHeight(),face:-1,
+        pose:e.state==='dead'?'down':this.foeAttackActive?'attack':String(e.state)==='hurt'?'hurt':'idle',
+        time:e.t,family:this.images.opponentFamily??'fist',reduced:this.quiet,
+      });this.ctx.restore();return;
+    }
     pose.rot += artOff.rot;
     pose.sy *= artOff.sy;
     const idx = Math.max(0, this.enemyPool.indexOf(e.def));
@@ -2297,8 +2330,9 @@ export function loadSparImages(
     const enemyImgs = loaded.slice(i, i + enemies.length) as HTMLImageElement[];
     i += enemies.length;
     const splash = loaded[i++]!;
-    const [art, heroAppearance] = await Promise.all([loadSparArt().catch(() => undefined), loadHeroAppearance()]);
+    const [art, heroAppearance, wardrobe] = await Promise.all([loadSparArt().catch(() => undefined), loadHeroAppearance(),loadAppearanceAssets()]);
     return {
+      wardrobe,
       heroAppearance,
       heroIdle,
       heroAttack,

@@ -1,4 +1,6 @@
 import { queueAccountReward } from './accountEconomy';
+import { appearanceOf } from '@interfaces/appearance';
+import { appearanceForIndex } from '@data/appearances';
 import { HUASHAN_ROUND_JADE } from '@data/redesign/martialEconomyParams';
 import { characterForPreset } from './loadoutPresets';
 import { equippedMartialArts } from './martialLoadout';
@@ -129,6 +131,7 @@ export function snapshotContestantFromLife(state: LifeGameState): ContestantBuil
   for (const k of wuxiaAttributeKeys) attrs[k] = c.attributes[k];
   return {
     id: 'player',
+    appearance: appearanceOf(c),
     capsIncludeGear: true,
     name: c.name,
     martial: c.martial,
@@ -171,6 +174,7 @@ function buildGhost(id: string, templateIndex: number, playerMartial: number, rn
   return {
     id,
     name: t.name,
+    appearance: appearanceForIndex(templateIndex + 1),
     martial,
     reputation: Math.max(0, martial * 2 + rng.nextInt(0, 20)),
     age: rng.nextInt(22, 48),

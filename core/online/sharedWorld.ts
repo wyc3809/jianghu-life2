@@ -1,3 +1,4 @@
+import { appearanceOf } from '../../interfaces/appearance';
 import { duelPreset } from '../life/loadoutPresets';
 import { z } from 'zod';
 import type { OnlineBattle, OnlineSnapshot, OnlineWorld } from '@interfaces/online';
@@ -111,7 +112,7 @@ export class SharedWorldService {
 /** 只回傳自己戰報／收據及其他玩家可公開嘅身份與排名。 */
 export function sharedSnapshot(world: OnlineWorld, user: string, now: number, battles: OnlineBattle[], confirmedRequests: string[]): OnlineSnapshot {
   return structuredClone({ serverNow: now, revision: world.revision, me: world.players[user], population: Object.keys(world.players).length,
-    peers: Object.values(world.players).sort((a, b) => a.rank - b.rank).map(p => ({ id: p.id, name: p.character.name, rank: p.rank, online: p.onlineUntil > now, protectedUntil: p.protectedUntil, busy: p.busy })),
+    peers: Object.values(world.players).sort((a, b) => a.rank - b.rank).map(p => ({ id: p.id, name: p.character.name, appearance: appearanceOf(p.character), rank: p.rank, online: p.onlineUntil > now, protectedUntil: p.protectedUntil, busy: p.busy })),
     battles, confirmedRequests, params: { protectionMs: ONLINE_TEST.protectionMs, onlineSilverPerMinute: ONLINE_TEST.onlineSilverPerMinute, offlineSilverPerMinute: ONLINE_TEST.offlineSilverPerMinute, offlineCapMs: ONLINE_TEST.offlineCapMs },
   });
 }
