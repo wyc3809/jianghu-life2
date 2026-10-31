@@ -1,0 +1,141 @@
+[
+  {
+    "engine": "chromium",
+    "viewport": [
+      320,
+      568
+    ],
+    "allTwentyRoster": true,
+    "fixedFullScreen": true,
+    "pauseFreezesCanvas": true,
+    "backgroundFreezesAndResumes": true,
+    "nativeSheetPauses": true,
+    "selectFromRoster": true,
+    "skipReplaySameResult": true,
+    "fullPlayback": false,
+    "noSaveWrites": true,
+    "noExternalRequests": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "chromium",
+    "viewport": [
+      390,
+      844
+    ],
+    "allTwentyRoster": true,
+    "fixedFullScreen": true,
+    "pauseFreezesCanvas": true,
+    "backgroundFreezesAndResumes": true,
+    "nativeSheetPauses": true,
+    "selectFromRoster": true,
+    "skipReplaySameResult": true,
+    "fullPlayback": true,
+    "noSaveWrites": true,
+    "noExternalRequests": true,
+    "pageerrors": [],
+    "video": "/workspace/jianghu-person-release-ea094/.local-online/organization-wars/video/page@7af99ebbfe9b96cee0bcc0d0d0bdaae5.webm"
+  },
+  {
+    "engine": "chromium",
+    "viewport": [
+      430,
+      932
+    ],
+    "allTwentyRoster": true,
+    "fixedFullScreen": true,
+    "pauseFreezesCanvas": true,
+    "backgroundFreezesAndResumes": true,
+    "nativeSheetPauses": true,
+    "selectFromRoster": true,
+    "skipReplaySameResult": true,
+    "fullPlayback": false,
+    "noSaveWrites": true,
+    "noExternalRequests": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "chromium",
+    "edge": "reduced",
+    "passed": true
+  },
+  {
+    "engine": "chromium",
+    "edge": "partial",
+    "passed": true
+  },
+  {
+    "engine": "chromium",
+    "edge": "all",
+    "passed": true
+  },
+  {
+    "engine": "webkit",
+    "viewport": [
+      320,
+      568
+    ],
+    "allTwentyRoster": true,
+    "fixedFullScreen": true,
+    "pauseFreezesCanvas": true,
+    "backgroundFreezesAndResumes": true,
+    "nativeSheetPauses": true,
+    "selectFromRoster": true,
+    "skipReplaySameResult": true,
+    "fullPlayback": false,
+    "noSaveWrites": true,
+    "noExternalRequests": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "webkit",
+    "viewport": [
+      390,
+      844
+    ],
+    "allTwentyRoster": true,
+    "fixedFullScreen": true,
+    "pauseFreezesCanvas": true,
+    "backgroundFreezesAndResumes": true,
+    "nativeSheetPauses": true,
+    "selectFromRoster": true,
+    "skipReplaySameResult": true,
+    "fullPlayback": false,
+    "noSaveWrites": true,
+    "noExternalRequests": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "webkit",
+    "viewport": [
+      430,
+      932
+    ],
+    "allTwentyRoster": true,
+    "fixedFullScreen": true,
+    "pauseFreezesCanvas": true,
+    "backgroundFreezesAndResumes": true,
+    "nativeSheetPauses": true,
+    "selectFromRoster": true,
+    "skipReplaySameResult": true,
+    "fullPlayback": false,
+    "noSaveWrites": true,
+    "noExternalRequests": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "webkit",
+    "edge": "reduced",
+    "passed": true
+  },
+  {
+    "engine": "webkit",
+    "edge": "partial",
+    "passed": true
+  },
+  {
+    "engine": "webkit",
+    "edge": "all",
+    "passed": true
+  }
+]

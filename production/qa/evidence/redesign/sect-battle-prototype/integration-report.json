@@ -1,0 +1,10 @@
+{
+  "devEntryWorks": true,
+  "noHudOrDock": true,
+  "skipReachesSameResult": true,
+  "existingLifeSaveUnchanged": true,
+  "cloudRequests": [],
+  "pageerrors": [],
+  "baseline": "existing development-only unified single-duel demo; isolated fixture, not player combat",
+  "actualIphone": false
+}

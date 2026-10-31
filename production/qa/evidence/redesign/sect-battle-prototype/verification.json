@@ -1,0 +1,24 @@
+{
+  "formalAppVersion": "EA0.98.1",
+  "sourceBase": "872da3f2251fe809095e7e809e96a96151f2124f",
+  "status": "isolated development prototype; not merged or published",
+  "testFiles": 115,
+  "tests": 903,
+  "browserCases": 12,
+  "devEntryVerified": true,
+  "productionGated": true,
+  "actualIphone": false,
+  "realNetworkMultiplayer": false,
+  "rewardsConnected": false,
+  "signedTestFlightUploaded": false,
+  "standaloneBytes": 6359762,
+  "standaloneSha256": "0121b0f51f26513697fb978c3419cfa95dc53f3e0030285dd72dd6e564e4bd92",
+  "evidenceSha256": {
+    "tests.log": "a095fc473a1ac59b98e7e44463dd927b9a5dcfee5d8e4466dba9c0a48fbf9932",
+    "build.log": "c9b02a05345c4412798859fb544738ca9c608b08746a137495f36c45b06c8958",
+    "browser-report.json": "e2877bf8bfa17ba3559a48b650971f410e5bda43c9824b4c31743760a1f4a5ba",
+    "integration-report.json": "178bec33182dafcbaf6d95d9f0509a26a5fce2047f1aba8f2cce0562113a56e9",
+    "asset-map.json": "896f383b894be0e13405aa907fd25df758993d403190f630fcfefc37dda740bf",
+    "simulation.json": "f123fb9debaf54b59eeddc6771664b6f24488843a45f9b0e52cf6c4754d1df1a"
+  }
+}
