@@ -1,0 +1,81 @@
+{
+  "appearanceWarmRafMs": {
+    "samples": 7128,
+    "p50": 16.7,
+    "p95": 16.8,
+    "p99": 16.8,
+    "max": 216.7
+  },
+  "appearanceImages": {
+    "count": 40,
+    "decodedRgbaEstimate": 26868160
+  },
+  "localDevResponseEndMs": 908,
+  "appearanceTransferBytes": 2243566,
+  "heapSamples": [
+    {
+      "second": 20,
+      "usedSize": 4557620,
+      "totalSize": 6295552,
+      "embedderHeapUsedSize": 2775088,
+      "backingStorageSize": 17732234
+    },
+    {
+      "second": 40,
+      "usedSize": 4687752,
+      "totalSize": 5771264,
+      "embedderHeapUsedSize": 5291856,
+      "backingStorageSize": 1673590
+    },
+    {
+      "second": 60,
+      "usedSize": 5078172,
+      "totalSize": 6033408,
+      "embedderHeapUsedSize": 8218288,
+      "backingStorageSize": 1673590
+    },
+    {
+      "second": 80,
+      "usedSize": 4639676,
+      "totalSize": 5771264,
+      "embedderHeapUsedSize": 2488168,
+      "backingStorageSize": 1673590
+    },
+    {
+      "second": 100,
+      "usedSize": 4356452,
+      "totalSize": 5509120,
+      "embedderHeapUsedSize": 5183656,
+      "backingStorageSize": 1673590
+    },
+    {
+      "second": 120,
+      "usedSize": 4504180,
+      "totalSize": 5509120,
+      "embedderHeapUsedSize": 8466768,
+      "backingStorageSize": 1673590
+    }
+  ],
+  "battleUpdateMs": {
+    "samples": 2046,
+    "p50": 0.0,
+    "p95": 0.2,
+    "p99": 1.1,
+    "max": 93
+  },
+  "battleRenderMs": {
+    "samples": 1137,
+    "p50": 0.3,
+    "p95": 1.2,
+    "p99": 5.8,
+    "max": 108.5
+  },
+  "battleGapMs": {
+    "samples": 1136,
+    "p50": 16.7,
+    "p95": 21.6,
+    "p99": 35,
+    "max": 275.1
+  },
+  "pageErrors": []
+}

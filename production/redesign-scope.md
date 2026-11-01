@@ -1372,3 +1372,11 @@ iOS／Codemagic準備工程一併接入main，Apple版本保留1.0、build由App
 20個獨立匿名測試身份經真Edge、RLS、並發重試、反向挑戰及雙方相同戰報驗收；所有測試session已撤銷，帳戶／存檔／門派名冊已精確清除，沒有假裝是真人玩家或留下假活躍人口。120檔928項測試、正式構建及兩項文字檢查通過；正式構建雙引擎三尺寸10組、兩個真Edge觀看流程及兩個原生Blob Worker分支模擬通過。App來源接入完成，簽署TestFlight上傳與真iPhone幀率／VoiceOver仍待實機，不勾選Apple準備清單。幫會十城爭奪、資源分配及多人正式平衡仍屬後續，沒有藉本項宣稱全部完成。
 
 玩家已確認範圍，按完成直接發布授權以EA0.100.0上線。來源／映射見 `design/art/sect-battle/README.md`；規則及信任邊界見 `docs/online/sect-war.md`；畫面、GIF、測試及發布證據見 `production/qa/evidence/redesign/sect-war/README.md`。
+
+### 第60項：角色動畫／骨架階段一審查（2026-11-01，方案交付，未發布）
+
+玩家明確要求先審查單角色及現有單人戰鬥，再定統一骨架方案；本輪只完成階段一。另核對已暫停分支的59b／59c及design-qa，PR #156保持草稿，多人戰畫面與玩法擴充不重啟。主線審查基準EA0.100.0，不以舊視覺passed代表玩家接受。
+
+現況、實播、根因及原型驗收計畫見 `design/audits/character-animation-phase1.md`，影片與量測見 `production/qa/evidence/redesign/character-rig-audit/README.md`。確認主要人物是完整姿勢圖加頭頸／兵器，不是完整關節骨架；詳細敵人出招誤用e.t與不存在hurt state，跑步及起身動作缺失。建議保留Canvas，先一名角色的共享父子骨架、固定骨長、FK／IK、受限受擊及合格位圖分層，再接事件一對一重播；數值與經濟保持。
+
+本輪只有文件、隔離QA工具及修改前證據，沒有新骨架或多人功能接入，沒有改戰鬥／武學／耗內／回內／裝備／存檔或部署。120檔928項、構建及文字檢查通過，不當成人體或真iPhone驗收；新App單角色原型及TestFlight實機仍未完成。
