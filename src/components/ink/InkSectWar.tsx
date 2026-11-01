@@ -19,7 +19,6 @@ import { primeWarCharacters } from "../../sectBattle/character";
 import { buildWarReplay } from "../../sectBattle/replay";
 import { useWarPlayback } from "../../sectBattle/usePlayback";
 import { sectBattleFixture } from "../../prototypes/sectBattle/fixtures";
-import { AppearanceCanvas } from "./InkAppearance";
 import { readAppearance } from "@interfaces/appearance";
 import { sectAssetUrl } from "../../prototypes/sectBattle/assets";
 import mapping from "../../sectBattle/assets.json";
@@ -355,10 +354,7 @@ export default function InkSectWar({
       </div>
       <header className="war-header">
         <button type="button" className="war-back" onClick={onBack}>
-          <img
-            src={sectAssetUrl("ink/art/parchment-ui/icon-back.webp")}
-            alt=""
-          />
+          <img src={image("back")} alt="" />
           返回
         </button>
         <h1>門派會武</h1>
@@ -370,6 +366,9 @@ export default function InkSectWar({
         >
           {trial ? "正式會武" : "觀摩試演"}
         </button>
+        <p className="war-seal" role="status">
+          {title}
+        </p>
         <div className="war-teams" aria-label="雙方門派與在場人數">
           {sides.map((id, s) => (
             <button
@@ -406,9 +405,6 @@ export default function InkSectWar({
           ref={canvas}
           aria-label="二十人單線會武；可點人物或從代表名冊選取。"
         />
-        <p className="war-seal" role="status">
-          {title}
-        </p>
         {(!assets || building) && (
           <div className="war-loading" role="status">
             <p>{assetError || (building ? "正在展開戰報……" : "正在備戰……")}</p>
@@ -506,15 +502,10 @@ export default function InkSectWar({
             <strong>{selected?.name ?? own?.name ?? "江湖旅人"}</strong>
             <span>
               {selected
-                ? `${sectWarOffice(selected.rank)} · ${latest?.name ?? (view.status === "result" ? "會武已畢" : "候戰")}`
+                ? (latest?.name ??
+                  (view.status === "result" ? "會武已畢" : "候戰"))
                 : "點名冊查看門內選拔"}
             </span>
-            {replay && selected && (
-              <small>
-                氣血 {Math.round(selected.hp)}／{selected.maxHp} · 內力{" "}
-                {Math.round(selected.qi)}／{selected.maxQi}
-              </small>
-            )}
           </span>
         </button>
         <div className="war-actions">
@@ -597,9 +588,9 @@ export default function InkSectWar({
                           setSheet(null);
                         }}
                       >
-                        <AppearanceCanvas
-                          appearance={readAppearance(u.appearance)}
-                          mode="portrait"
+                        <WarPortrait
+                          assets={assets}
+                          appearance={u.appearance}
                         />
                         <span>
                           <b>

@@ -1,0 +1,27 @@
+Repaint and re-author the entire twelve-frame SCHOLAR ROBE body atlas in the EXACT DRAWN ART LANGUAGE of reference 1, the approved Chinese wuxia comic battle. Reference 1 is the ONLY STYLE TRUTH. Reference 2 is ONLY a pose/order/clothing-identity reference: its smooth digital-rendered shading is specifically REJECTED. Do not preserve that rejected rendering. The output must be VISIBLY a traditional hand-inked wuxia lianhuanhua comic, not a smooth 3D doll, not a rendered MMO character.
+
+MANDATORY STYLE CHANGE:
+- EXPRESSIVE VARIABLE-WIDTH BLACK BRUSH INK, tapered energetic strokes and dry-brush broken edges, evident hand pressure; outlines not uniform thin digital contours.
+- Dense hand-drawn crease marks, angled short hatch clusters and crosshatching in cloth shadow pockets. Dark ink anchor folds and graphic black negative shapes. Look closely at the blue fighters' clothes in reference 1 and match their line density and confident marks.
+- FLAT BLUE-GREY / INK-TEAL WATERCOLOR shapes with irregular pigment and paper-grain texture INSIDE the painted figure, limited warm ivory inner robe and muted dark trousers. Two-dimensional drawn value grouping, NOT sculpted glossy volume.
+- No airbrush, no soft rim light, no smooth color gradients, no photographic fabric bump mapping, no velvety 3D folds, no metallic/silky sheen on cloth. No polished card-game rendered character look. This rejection is central.
+- Athletic sweeping sleeves, loose long robe and attached ribbons respond to motion, as in the approved battle comic. Fine features within bold brush structure; no coarse black blob replacing detail.
+- The scholar identity is long blue-grey robe, pale overlapping V inner collar, dark cloth sash, cloth-bound boots; a few quiet hand-inked embroidered traces are okay, no ornate gold armor or dazzling brocade.
+
+PRODUCTION ATLAS: one square transparent image ideally 2048x2048, EXACTLY TWELVE separately painted complete headless bodies, four columns by three rows, row-major. Keep wide fully transparent gutters; no two figures touch; every hand, foot, sleeve and robe hem has safe margin. Comparable identical underlying body scale and costume throughout. 3/4 view facing RIGHT. Each is a SINGLE CONNECTED FULL BODY including both natural hands/arms, torso, legs and both boots; no separately detached limbs. NO head, face, hair, hat or weapon. Uppermost point is a clean open pale high V collar ready for a separate neck and head. Natural shoulders/elbows/wrists/pelvis/knees/ankles, no extra limbs. Give the forward hand a natural empty sword-gripping fist or relaxed grip with clear palm position.
+
+POSE ORDER, exact:
+1 idle martial guard, knees soft and sleeves hanging with weight.
+2 walkA forward left leg.
+3 walkB forward right leg.
+4 windup, torso drawn back, one hand held back and other guards.
+5 strikeA forward lunge/thrust, leading empty gripping hand extends right.
+6 followA low guard follow-through, weight settles forward.
+7 strikeB wide diagonal sweeping attack, leading grip right.
+8 followB recovery with raised knee/settling stance.
+9 hurt recoil backward, hand near chest, forward hand still visible.
+10 guard deep compact crouch.
+11 down lying on side, same body scale, whole torso/arms/boots, may angle slightly to fit.
+12 jump airborne strike, one tucked knee and one stretched leg, one forward grip.
+
+Really transparent alpha background: no white/grey matte, no checkerboard, no paper rectangle, no ground or shadow ellipse, no text, labels, grid, watermark, particles, flashes or scenery. Paper texture belongs only within watercolor paint. All twelve must be visibly DRAWN with traditional confident ink and flat watercolor, matching the approved battle reference rather than merely recoloring the rejected source atlas.

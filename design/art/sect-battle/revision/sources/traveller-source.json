@@ -1,0 +1,30 @@
+{
+  "sourceFile": "traveller-original.png",
+  "sourceId": "exec-e81ca2b5-66b6-4be1-b861-18abc07f5965.png",
+  "size": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "sha256": "b3658490c501c83f95df8d0f553f4e28ea7d41b4d0f4efd00db971186434f242",
+  "prompt": "../prompts/traveller.txt",
+  "references": [
+    "design/art/sect-battle/selected-portrait.png",
+    ".local-online/sect-revision-review/selected-blue-ink-style.png"
+  ],
+  "rejectedSource": "design/art/sect-battle/sources/traveller-original.png",
+  "transparentFraction": 0.5140055808653139,
+  "separateFullBodyComponentsAbove2000Pixels": 12,
+  "opaqueBorderPixelsAlphaAbove80": 0,
+  "borderMaxAlpha": 4,
+  "landmarkCoordinates": "native original-image pixels; row-major 4 columns x 3 rows; neck is inspected soft-neckline mount; grip is visible forward hand, not cuff; foot is visible lowest supporting boot edge, jump lowest boot edge",
+  "footSelection": "Each boot identified in enlarged source crop; lowest alpha>80 painted edge selected only within that boot crop. Down foot is not whole body ground contact.",
+  "styleObservations": [
+    "Compared with selected reference after compositing on warm paper and enlarging: blue-grey flat watercolor, broken variable ink contours, white inner robe and attached streamers replace old rounded leather rendering.",
+    "Some boot/trouser folds remain more regular and softer than the dense dry-brush crosshatching in the selected battle painting.",
+    "Small saturated red/green/yellow generation fringes remain around transparent edges; normal technical fringe cleanup is needed.",
+    "No head, weapon, game canvas or animation integration has been validated by this asset task.",
+    "Down-pose sleeve/cloth extends below the lowest boot: use separate body-ground alignment if needed; do not treat foot marker as lowest full-body pixel."
+  ],
+  "usageRights": "Generated original asset for this project; image-generation tool terms apply; no CC0 claim."
+}

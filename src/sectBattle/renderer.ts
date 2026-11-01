@@ -5,6 +5,7 @@ import type {
 import type { WarAssets, WarPose } from "./assets";
 import { drawWarCharacter } from "./character";
 import { getSkillDef } from "@data/skills/catalog";
+import { warBlocking } from "./blocking";
 export interface WarHitbox {
   id: string;
   x: number;
@@ -29,6 +30,7 @@ export class WarRenderer {
   private dpr = 1;
   private last = -1;
   private figures: SectBattleFigure[] = [];
+  private positions = new Map<string, ReturnType<typeof warBlocking>>();
   hitboxes: WarHitbox[] = [];
   constructor(
     private canvas: HTMLCanvasElement,
@@ -43,7 +45,7 @@ export class WarRenderer {
     this.canvas.height = Math.max(1, Math.round(b.height * this.dpr));
   }
   private point(u: SectBattleFigure) {
-    return { x: 26 + (u.x / 1000) * (this.width - 52), y: this.height - 3 };
+    return this.positions.get(u.id)!;
   }
   private pose(
     u: SectBattleFigure,
@@ -56,10 +58,11 @@ export class WarRenderer {
     if (u.pose === "down") return { frame: "down", lift: 0 };
     if (!reduced && flight > 0)
       return {
-        frame: "jump",
-        lift:
-          flight *
-          Math.min(290, this.height * 0.62, Math.max(0, this.height - 180)),
+        frame:
+          u.pose === "attack" && phase > 0.17 && phase < 0.38
+            ? "strikeA"
+            : "jump",
+        lift: flight * Math.min(26, this.height * 0.045),
       };
     if (u.pose === "hurt") return { frame: "hurt", lift: 0 };
     if (u.pose === "attack") {
@@ -104,92 +107,75 @@ export class WarRenderer {
         f = replay.frames[index],
         n = replay.frames[Math.min(replay.frames.length - 1, index + 1)],
         mix = reduced ? 0 : Math.max(0, Math.min(1, (seconds - f.at) / 0.05));
-      // 展示鏡頭以等距位置展開擠在一起的人物；只轉換畫面座標及遮擋，不縮放角色或更動命中距離。
-      const spread = (list: SectBattleFigure[]) => {
-        const sorted = [...list].sort(
-          (a, b) => a.x - b.x || a.id.localeCompare(b.id),
-        );
-        return new Map(
-          sorted.map((u, i) => [
-            u.id,
-            sorted.length === 1 ? 500 : 48 + (i / (sorted.length - 1)) * 904,
-          ]),
-        );
-      };
-      const a = spread(f.figures),
-        b = spread(n.figures);
       this.figures = f.figures.map((u, i) => {
-        const first = a.get(u.id) ?? u.x,
-          last = b.get(u.id) ?? first;
         return {
           ...u,
-          x: first + (last - first) * mix,
+          x: u.x + (n.figures[i].x - u.x) * mix,
           face: n.figures[i].face,
         };
       });
     } else this.figures = formation;
-    const flight = new Map<string, number>();
-    if (replay && !reduced) {
-      for (const e of replay.events.slice(
-        lowerBound(replay.events, seconds - 0.58),
-        lowerBound(replay.events, seconds + 0.42),
-      )) {
-        const u = this.figures.find((v) => v.id === e.actor);
-        if (u && u.rank % 2 === 0 && e.vol === 7 && !e.splash) {
-          const t = (seconds - e.at + 0.42) / 1.0;
-          if (t >= 0 && t <= 1)
-            flight.set(
-              u.id,
-              Math.max(flight.get(u.id) ?? 0, Math.sin(t * Math.PI)),
-            );
-        }
-      }
-    }
-    const size = Math.min(148, Math.max(100, this.width * 0.365)),
-      poses = new Map(
-        this.figures.map((u) => [
-          u.id,
-          this.pose(u, seconds, reduced, flight.get(u.id) ?? 0),
-        ]),
-      );
+    this.positions = new Map(
+      this.figures.map((u) => [
+        u.id,
+        warBlocking(u, this.width, this.height, seconds, reduced),
+      ]),
+    );
+    const poses = new Map(
+      this.figures.map((u) => [
+        u.id,
+        this.pose(
+          u,
+          seconds,
+          reduced,
+          this.point(u).aerial && u.hp > 0
+            ? 0.5 + 0.5 * Math.sin(seconds * 2.4 + u.side)
+            : 0,
+        ),
+      ]),
+    );
     this.hitboxes = [];
     const order = [...this.figures].sort(
-      (a, b) =>
-        Number(a.id === selected) - Number(b.id === selected) ||
-        poses.get(b.id)!.lift - poses.get(a.id)!.lift ||
-        b.rank - a.rank,
+      (a, b) => this.point(a).depth - this.point(b).depth || b.rank - a.rank,
     );
     for (const u of order) {
       const p = this.point(u),
+        size = p.size,
         pose = poses.get(u.id)!,
         alive = u.hp > 0,
         weaponKind = getSkillDef(u.artId)?.weaponKind,
         family = weaponKind === "hidden" ? "needle" : (weaponKind ?? "fist");
       const shadow = this.assets.common.images.shadow;
-      if (shadow) {
+      if (shadow && p.depth > 0.97) {
         ctx.globalAlpha = alive ? 0.23 : 0.1;
         ctx.drawImage(shadow, p.x - size * 0.24, p.y - 3, size * 0.48, 8);
         ctx.globalAlpha = 1;
       }
-      if (u.id === selected && alive) {
-        const ring = this.assets.common.images.ring;
-        if (ring) {
-          ctx.globalAlpha = 0.8;
-          ctx.drawImage(ring, p.x - size * 0.24, p.y - 5, size * 0.48, 11);
-          ctx.globalAlpha = 1;
-        }
-      }
       ctx.save();
       if (!alive) ctx.globalAlpha = 0.28;
+      ctx.translate(p.x, p.y - pose.lift);
+      const lean =
+        reduced || !alive
+          ? 0
+          : p.aerial
+            ? p.face * 0.08
+            : u.pose === "attack"
+              ? p.face *
+                Math.sin(Math.min(1, (seconds - u.poseAt) / 0.42) * Math.PI) *
+                0.065
+              : u.pose === "hurt"
+                ? -p.face * 0.045
+                : 0;
+      ctx.rotate(lean);
       drawWarCharacter(
         ctx,
         this.assets,
         u.appearance,
         pose.frame,
-        p.x,
-        p.y - pose.lift,
+        0,
+        0,
         size,
-        u.face,
+        p.face,
         family,
       );
       ctx.restore();
@@ -201,7 +187,7 @@ export class WarRenderer {
           radius: Math.max(23, size * 0.3),
         });
     }
-    if (replay && !reduced) {
+    if (replay && !reduced && seconds < replay.duration) {
       const events = replay.events,
         start = lowerBound(events, seconds - 0.48),
         end = lowerBound(events, seconds + 0.0001),
@@ -211,22 +197,19 @@ export class WarRenderer {
         if (!u) continue;
         const p = this.point(u),
           pose = poses.get(u.id)!,
+          size = p.size,
           age = seconds - e.at,
           hitY = p.y - pose.lift - size * 0.63;
         if (age < 0.2) {
           const sprite = this.assets.images.impact;
           if (sprite) {
+            const w = size * 0.55,
+              h = (w * sprite.naturalHeight) / sprite.naturalWidth;
             ctx.save();
-            ctx.globalAlpha = (1 - age / 0.2) * 0.44;
+            ctx.globalAlpha = (1 - age / 0.2) * 0.56;
             ctx.translate(p.x, hitY);
             ctx.rotate(((u.rank % 3) - 1) * 0.45);
-            ctx.drawImage(
-              sprite,
-              -size * 0.14,
-              -size * 0.14,
-              size * 0.28,
-              size * 0.28,
-            );
+            ctx.drawImage(sprite, -w / 2, -h / 2, w, h);
             ctx.restore();
           }
         }
@@ -239,6 +222,7 @@ export class WarRenderer {
         if (!u) return;
         const p = this.point(u),
           pose = poses.get(u.id)!,
+          size = p.size,
           age = seconds - e.at,
           text = String(Math.round(e.damage)),
           x = Math.min(this.width - 20, Math.max(20, p.x + (i ? 14 : -10))),

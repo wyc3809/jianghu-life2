@@ -1,0 +1,20 @@
+{
+  "sourceOutput": "/workspace/generated_images/exec-edf9941b-c0ce-4358-b6c9-ce7bf917733f.png",
+  "nativeSize": [
+    1536,
+    1024
+  ],
+  "origin": [
+    768,
+    512
+  ],
+  "prompt": "../prompts/ink-contact.txt",
+  "references": [
+    "../../selected-portrait.png",
+    "ink-contact-reference-crop.png"
+  ],
+  "fullyTransparentFraction": 0.9071776072184244,
+  "centerAlpha": 0,
+  "review": "已放大及縮至90px淺紙底檢視；主放射線清晰、長短不一，有乾筆斷紋及少量飛墨，中央留空，無灰霧墨團或發光。",
+  "preview": "../ink-contact-90-preview.png"
+}

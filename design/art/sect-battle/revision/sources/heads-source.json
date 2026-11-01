@@ -1,0 +1,16 @@
+{
+  "sourceId": "exec-5e3206e2-650d-424f-9609-02e4821b230e.png",
+  "size": [
+    1774,
+    887
+  ],
+  "mode": "RGBA",
+  "sha256": "7dc0d3ee25782406229788e539086874c12261bb36f3a27c7ebc5a38826c420f",
+  "prompt": "../prompts/heads.txt",
+  "references": [
+    "../../selected-portrait.png",
+    "../../../appearance/sources/heads-original.png"
+  ],
+  "generatedOriginal": true,
+  "license": "依生成服務及帳戶條款；不虛構CC0／第三方開源授權。"
+}

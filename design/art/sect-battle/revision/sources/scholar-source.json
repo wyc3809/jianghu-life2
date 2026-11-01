@@ -1,0 +1,61 @@
+{
+  "sourceOutput": "exec-20ab4f75-8fb6-4e03-81bc-72baca269abf.png",
+  "rejectedFirstOutput": "exec-38b00efe-30ef-4a29-9773-786c9453c07d.png",
+  "styleReference": "design/art/sect-battle/selected-portrait.png",
+  "referenceCrop": ".local-online/sect-production/revision-scholar/approved-ink-clothes.png",
+  "prompt": "revision/prompts/scholar.txt",
+  "firstPrompt": "revision/prompts/scholar-first-revision.txt",
+  "size": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "transparentFraction": 0.4743856342320205,
+  "sha256": "26e47db646b38ebcc7c52d7ae83641c513825ec5151ff6c67b857a8f92697688",
+  "poseOrder": [
+    "idle",
+    "walkA",
+    "walkB",
+    "windup",
+    "strikeA",
+    "followA",
+    "strikeB",
+    "followB",
+    "hurt",
+    "guard",
+    "down",
+    "jump"
+  ],
+  "landmarks": "revision/sources/scholar-landmarks.json",
+  "landmarkCoordinates": "original source pixels; hand-inspected collar and palm; foot is actual lowest boot sole, not character-root between boots",
+  "landmarkAlphaMinimum": 207,
+  "notes": [
+    "Second pass newly drawn from approved comic crop without old atlas as reference; variable-width ink, flat teal-grey washes and crease hatching are stronger than prior smooth source.",
+    "Not exact style equivalence: some boot/sash highlights remain relatively smooth, several guard/walk hands are open palms rather than fully closed sword grips.",
+    "Minor red/yellow/green bright transparent-edge pixels require technical alpha cleanup.",
+    "Down now lies with collar/head toward RIGHT and boots toward LEFT, unlike old source; do not reuse old negative down head rotation blindly.",
+    "Down cloth/ribbon extends below boots: using alpha bbox bottom would put feet at wrong baseline; use marked foot.",
+    "All 12 major bodies separately connected at alpha>40; use component extraction, not strict equal-cell crops.",
+    "Generated source only; no code, browser or deployment changes."
+  ],
+  "licence": "Generated for project; generation tool terms apply; no CC0 declaration.",
+  "weaponGripAudit": {
+    "sourceImageUnchanged": true,
+    "neckAndFootUnchanged": true,
+    "noWeaponPoses": [
+      "guard",
+      "hurt",
+      "idle",
+      "walkA",
+      "walkB"
+    ],
+    "gripMovedToRearClosedFist": [
+      "followA",
+      "followB"
+    ],
+    "alreadyRearClosedFist": [
+      "windup"
+    ],
+    "inspection": ".local-online/sect-production/revision-scholar/grip-review.png"
+  }
+}

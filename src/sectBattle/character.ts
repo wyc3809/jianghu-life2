@@ -142,6 +142,7 @@ export function drawWarCharacter(
     weapon = assets.weapons[kind],
     def = weaponLayout[kind];
   if (weapon && def && pose !== "down") {
+    const gripping = !("weaponGrip" in m) || m.weaponGrip !== false;
     const angle =
       pose === "windup"
         ? -2.45
@@ -150,7 +151,7 @@ export function drawWarCharacter(
           : pose === "strikeB"
             ? -1.1
             : pose === "jump"
-              ? -1.95
+              ? -1.0
               : pose === "guard"
                 ? -1.35
                 : -0.35;
@@ -165,8 +166,11 @@ export function drawWarCharacter(
               ? 110
               : 150) / Math.max(1, Math.hypot(dx, dy));
     ctx.save();
-    ctx.translate(p.grip.x, p.grip.y);
-    ctx.rotate(Math.PI / 2 + angle - Math.atan2(dy, dx));
+    ctx.translate(
+      gripping ? p.grip.x : p.neck.x - 10,
+      gripping ? p.grip.y : p.neck.y + 42,
+    );
+    ctx.rotate((gripping ? Math.PI / 2 + angle : -2.0) - Math.atan2(dy, dx));
     ctx.drawImage(
       weapon,
       -def.grip[0] * s,

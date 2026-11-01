@@ -1,0 +1,250 @@
+{
+  "idle": {
+    "neck": [
+      183,
+      99
+    ],
+    "grip": [
+      279,
+      149
+    ],
+    "foot": [
+      300,
+      414
+    ],
+    "weaponGrip": false,
+    "source_metadata": {
+      "gripHand": "none",
+      "gripReason": "兩手均張掌／劍指，沒有可實際握兵器的閉合拳；此姿勢不畫兵器。",
+      "coordinateNote": "保留原grip座標僅供追溯，不可用作持兵器點。"
+    }
+  },
+  "walkA": {
+    "neck": [
+      510,
+      98
+    ],
+    "grip": [
+      591,
+      132
+    ],
+    "foot": [
+      596,
+      420
+    ],
+    "weaponGrip": false,
+    "source_metadata": {
+      "gripHand": "none",
+      "gripReason": "兩手均張掌／劍指，沒有可實際握兵器的閉合拳；此姿勢不畫兵器。",
+      "coordinateNote": "保留原grip座標僅供追溯，不可用作持兵器點。"
+    }
+  },
+  "walkB": {
+    "neck": [
+      827,
+      110
+    ],
+    "grip": [
+      933,
+      178
+    ],
+    "foot": [
+      946,
+      419
+    ],
+    "weaponGrip": false,
+    "source_metadata": {
+      "gripHand": "none",
+      "gripReason": "兩手均張掌／劍指，沒有可實際握兵器的閉合拳；此姿勢不畫兵器。",
+      "coordinateNote": "保留原grip座標僅供追溯，不可用作持兵器點。"
+    }
+  },
+  "windup": {
+    "neck": [
+      1151,
+      121
+    ],
+    "grip": [
+      1075,
+      122
+    ],
+    "foot": [
+      1020,
+      421
+    ],
+    "weaponGrip": true,
+    "source_metadata": {
+      "gripHand": "rear-closed-fist",
+      "gripReason": "前手張掌，兵器掛於後手真正閉合拳心。",
+      "previousGrip": [
+        1075,
+        122
+      ],
+      "gripChanged": false
+    }
+  },
+  "strikeA": {
+    "neck": [
+      224,
+      507
+    ],
+    "grip": [
+      383,
+      524
+    ],
+    "foot": [
+      38,
+      777
+    ],
+    "weaponGrip": true,
+    "source_metadata": {
+      "gripHand": "front-closed-fist",
+      "gripReason": "掛接點位於可見閉合拳心，不是袖口或張掌。"
+    }
+  },
+  "followA": {
+    "neck": [
+      526,
+      533
+    ],
+    "grip": [
+      506,
+      583
+    ],
+    "foot": [
+      630,
+      788
+    ],
+    "weaponGrip": true,
+    "source_metadata": {
+      "gripHand": "rear-closed-fist",
+      "gripReason": "前手張掌，兵器掛於後手真正閉合拳心。",
+      "previousGrip": [
+        655,
+        605
+      ],
+      "gripChanged": true
+    }
+  },
+  "strikeB": {
+    "neck": [
+      816,
+      503
+    ],
+    "grip": [
+      1009,
+      516
+    ],
+    "foot": [
+      971,
+      797
+    ],
+    "weaponGrip": true,
+    "source_metadata": {
+      "gripHand": "front-closed-fist",
+      "gripReason": "掛接點位於可見閉合拳心，不是袖口或張掌。"
+    }
+  },
+  "followB": {
+    "neck": [
+      1128,
+      457
+    ],
+    "grip": [
+      1148,
+      507
+    ],
+    "foot": [
+      1139,
+      803
+    ],
+    "weaponGrip": true,
+    "source_metadata": {
+      "gripHand": "rear-closed-fist",
+      "gripReason": "前手張掌，兵器掛於後手真正閉合拳心。",
+      "previousGrip": [
+        1207,
+        482
+      ],
+      "gripChanged": true
+    }
+  },
+  "hurt": {
+    "neck": [
+      95,
+      842
+    ],
+    "grip": [
+      247,
+      871
+    ],
+    "foot": [
+      107,
+      1171
+    ],
+    "weaponGrip": false,
+    "source_metadata": {
+      "gripHand": "none",
+      "gripReason": "兩手均張掌／劍指，沒有可實際握兵器的閉合拳；此姿勢不畫兵器。",
+      "coordinateNote": "保留原grip座標僅供追溯，不可用作持兵器點。"
+    }
+  },
+  "guard": {
+    "neck": [
+      478,
+      908
+    ],
+    "grip": [
+      567,
+      933
+    ],
+    "foot": [
+      364,
+      1172
+    ],
+    "weaponGrip": false,
+    "source_metadata": {
+      "gripHand": "none",
+      "gripReason": "兩手均張掌／劍指，沒有可實際握兵器的閉合拳；此姿勢不畫兵器。",
+      "coordinateNote": "保留原grip座標僅供追溯，不可用作持兵器點。"
+    }
+  },
+  "down": {
+    "neck": [
+      884,
+      1049
+    ],
+    "grip": [
+      880,
+      1145
+    ],
+    "foot": [
+      563,
+      1161
+    ],
+    "weaponGrip": true,
+    "source_metadata": {
+      "gripHand": "front-closed-fist",
+      "gripReason": "掛接點位於可見閉合拳心，不是袖口或張掌。"
+    }
+  },
+  "jump": {
+    "neck": [
+      1114,
+      871
+    ],
+    "grip": [
+      1230,
+      886
+    ],
+    "foot": [
+      1212,
+      1186
+    ],
+    "weaponGrip": true,
+    "source_metadata": {
+      "gripHand": "front-closed-fist",
+      "gripReason": "掛接點位於可見閉合拳心，不是袖口或張掌。"
+    }
+  }
+}
