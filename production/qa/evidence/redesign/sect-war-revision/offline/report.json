@@ -1,0 +1,74 @@
+[
+  {
+    "engine": "chromium",
+    "viewport": [
+      390,
+      844
+    ],
+    "actualReactComponent": true,
+    "realWorkerAndRenderer": true,
+    "allAssetsEmbedded": true,
+    "singleDocumentServedOverHttp": true,
+    "fileSchemeBlockedByEnvironment": true,
+    "externalRequests": [],
+    "pauseStable": true,
+    "twentyRoster": true,
+    "skipReplaySameResult": true,
+    "pageerrors": [],
+    "actualIphone": false
+  },
+  {
+    "engine": "chromium",
+    "viewport": [
+      320,
+      568
+    ],
+    "actualReactComponent": true,
+    "realWorkerAndRenderer": true,
+    "allAssetsEmbedded": true,
+    "singleDocumentServedOverHttp": true,
+    "fileSchemeBlockedByEnvironment": true,
+    "externalRequests": [],
+    "pauseStable": true,
+    "twentyRoster": true,
+    "skipReplaySameResult": true,
+    "pageerrors": [],
+    "actualIphone": false
+  },
+  {
+    "engine": "webkit",
+    "viewport": [
+      390,
+      844
+    ],
+    "actualReactComponent": true,
+    "realWorkerAndRenderer": true,
+    "allAssetsEmbedded": true,
+    "singleDocumentServedOverHttp": true,
+    "fileSchemeBlockedByEnvironment": true,
+    "externalRequests": [],
+    "pauseStable": true,
+    "twentyRoster": true,
+    "skipReplaySameResult": true,
+    "pageerrors": [],
+    "actualIphone": false
+  },
+  {
+    "engine": "webkit",
+    "viewport": [
+      320,
+      568
+    ],
+    "actualReactComponent": true,
+    "realWorkerAndRenderer": true,
+    "allAssetsEmbedded": true,
+    "singleDocumentServedOverHttp": true,
+    "fileSchemeBlockedByEnvironment": true,
+    "externalRequests": [],
+    "pauseStable": true,
+    "twentyRoster": true,
+    "skipReplaySameResult": true,
+    "pageerrors": [],
+    "actualIphone": false
+  }
+]

@@ -1,0 +1,22 @@
+Create an entirely NEW hand-DRAWN traditional Chinese wuxia comic scholar-robe animation atlas directly in the visual language of the supplied approved comic battle. Do NOT reinterpret it as a game character render. We need a hand-inked lianhuanhua illustration asset. The provided reference is the ONLY artistic truth. Closely reproduce its blue fighters' expressive brush lines and DRAWN fabric.
+
+STYLE MUST BE OBVIOUS AT FIRST GLANCE: visible confident thick-to-thin black brush strokes; angular flowing sleeves built from drawn crease lines; dense clusters of short black hatching and crosshatching in folds; hand-scribbled small contour marks; graphic dark ink anchor shadows; flat two-or-three-tone BLUE-GREY / INK-TEAL watercolor areas with off-white irregular paper pigment breaks. Brush edges imperfect and alive. The marks follow cloth tension and anatomy, not random dirty speckling. The costume should feel like a page of a traditionally illustrated martial-arts comic. Deep muted teal-blue, pale ivory inner lapels and dark charcoal trousers. Never pale glossy silver-blue.
+NO 3D render, no airbrushed gradients, no rubber/plastic folds, no silky specular cloth, no photographic modeled fabric volume, no smooth digital MMO/polished card-character aesthetic. Do NOT take a smooth rendered figure and just add a speckle texture. It needs to be redrawn in ink with distinctly FLAT watercolor value shapes and visibly hand-drawn hatch lines. Natural warm hands are drawn with simple ink contour and limited flat shadow, not fleshy photographic skin. Boots likewise hand-drawn black/brown brush shapes with crosshatched wraps, no glossy 3D shine.
+
+ONE transparent square atlas, ideally 2048px, EXACTLY 12 COMPLETE HEADLESS BODIES arranged FOUR COLUMNS by THREE ROWS, row-major. Plenty of completely transparent gutters; ALL parts safely inside canvas, no bodies or cloth touch neighboring cells. Reduce figure size enough for comfortable 30px margins. Same anatomical scale and consistent costume in all 12 cells, 3/4 facing RIGHT. Wardrobe: martial scholar's long flowing blue-grey robe with WHITE overlapping high inner collar, plain DARK SASH, loose sleeves, long attached hem/ribbons and charcoal trousers/cloth-wrapped boots. A few restrained hand-inked trim marks, no ornate brocade, metal armor or huge decorative hardware. Each figure is ONE complete connected original drawing including two natural arms/hands, torso and two legs/boots; no modular limb cutouts. No head, hair or face: clean OPEN COLLAR at top ready for a separate head/neck. Hands have believable fingers and a clear natural empty gripping palm for a sword attached later. No weapon or background.
+
+CELL POSES IN ORDER:
+1 idle combat guard, two hands ready, soft knees, robe and sash weighted naturally.
+2 advancing left leg, arm ready and sleeve trails.
+3 advancing right leg, coherent counterpart of the walk cycle.
+4 windup, leading forearm and fist drawn back, other hand guards, shoulders twist.
+5 strikeA strong forward thrust lunge, gripping fist points right, rear foot grounded.
+6 followA thrust follow-through, low guard and weight settles.
+7 strikeB second sweeping strike, wide flowing sleeve, gripping fist extends diagonally right.
+8 followB recovery, weight returns and one knee slightly raises, arms withdraw.
+9 hurt recoil backward, one hand near chest and other forward, anatomy remains intact.
+10 guard compact deep crouch with both boots and knees naturally visible.
+11 down lying on side, both entire hands/arms/legs/boots included, same scale, angle slightly within cell if needed.
+12 jump airborne attacking pose, one tucked knee and one extended boot, forward gripping fist, athletic flowing robe.
+
+True transparent alpha background. NO grey/white matte, checkerboard, paper rectangle, shadows or ground, lettering, labels, grid, lines, particles or separate decorative fragments. Keep watercolor texture WITHIN each drawn body. Again: richly ink-DRAWN flat watercolor wuxia comic, visually matching supplied battle, not digital-rendered dolls.

@@ -1,0 +1,41 @@
+{
+  "sourceOutput": "/workspace/generated_images/exec-7223035d-de8d-45b4-8f30-b9bc4f288812.png",
+  "nativeSize": [
+    1536,
+    1024
+  ],
+  "prompt": "../prompts/cloak.txt",
+  "references": [
+    "../../selected-portrait.png",
+    "cloak-style-reference-crop.png"
+  ],
+  "oldSourcePreserved": "../../sources/cloak-original.png",
+  "alphaExtrema": [
+    0,
+    254
+  ],
+  "fullyTransparentFraction": 0.4751898447672526,
+  "poseOrder": [
+    "idle",
+    "walkA",
+    "walkB",
+    "windup",
+    "strikeA",
+    "followA",
+    "strikeB",
+    "followB",
+    "hurt",
+    "guard",
+    "down",
+    "jump"
+  ],
+  "footDefinition": "人工選定實際鞋靴區後，取該區最低有效鞋底像素；倒地不以較低披風邊當鞋底。",
+  "review": "已實際放大：羽毛甲與光滑立體質感已移除，改長破布披風、大塊青灰／白布色與較黑乾筆衣褶，更接近唯一原稿；未宣稱完全一致。",
+  "knownLimitations": [
+    "walkA／walkB腿型差異仍偏小，以手位和布料差異較明顯，不能稱完整交替步態。",
+    "破布尾及白內襯比原稿偏多，仍需在真場景對照墨線對比與密度。",
+    "原生1536×1024，非請求的2048方圖；4列3行及12個主連通人物存在。",
+    "新衣領較扁且姿勢間傾斜不同，接頭角度須按真繪圖器再驗，不以錨點JSON當人體美術已驗收。"
+  ],
+  "downDirection": "領口／頭在左，靴在右；頭部由直立向左逆時針旋轉-1.15 rad。"
+}

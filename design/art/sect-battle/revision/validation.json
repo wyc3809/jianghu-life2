@@ -1,0 +1,378 @@
+[
+  {
+    "path": "ink/art/sect-battle/revision/traveller-idle.webp",
+    "size": [
+      363,
+      303
+    ],
+    "sha256": "451d94c0c6ce10e263aed2667d6463bf4dcf62fd3c876ba2e80efdb45e4d68ab"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/traveller-walkA.webp",
+    "size": [
+      335,
+      322
+    ],
+    "sha256": "f083d402b36340b897655fb5ad62b74ff45a44a77030a8c65ae2d05c17d78981"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/traveller-walkB.webp",
+    "size": [
+      337,
+      336
+    ],
+    "sha256": "88c58047b12ff1e89ee46d1da35bedc6076b10c0ead9d2364bb114b82c9710bb"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/traveller-windup.webp",
+    "size": [
+      297,
+      366
+    ],
+    "sha256": "51aff1fb927360719224b9c13b09d194c0b50b46bbd5df9b22050d3e029eb7d2"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/traveller-strikeA.webp",
+    "size": [
+      409,
+      286
+    ],
+    "sha256": "de1e0e5bce5aa777847f01d7059764488b4ba12e87c754a88e3f63f8064b56d3"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/traveller-followA.webp",
+    "size": [
+      317,
+      299
+    ],
+    "sha256": "2b3521e220221383ab93803ece522960b20f52822e6876fe8475033ccea342b7"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/traveller-strikeB.webp",
+    "size": [
+      345,
+      328
+    ],
+    "sha256": "cc3dbb6133529f177541e743e6f8fba7ce82a21d45b7693a68d2148027f8dc9c"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/traveller-followB.webp",
+    "size": [
+      320,
+      316
+    ],
+    "sha256": "b04ce94ffe390bc55a2e5fbf493f396ed0b51c5b0f5a9f26efc8fe8a39f4c4be"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/traveller-hurt.webp",
+    "size": [
+      305,
+      338
+    ],
+    "sha256": "596f8f0cbeb13460711493c62bda8f2f252e062405c3961b69c85149f5d5fe7c"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/traveller-guard.webp",
+    "size": [
+      310,
+      238
+    ],
+    "sha256": "b3a937698e13f74c487f352d4cddc9a7ac8ea76e28785e4daae2d44f53ebadc9"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/traveller-down.webp",
+    "size": [
+      456,
+      171
+    ],
+    "sha256": "7d99dd29d7409f02c11d7d8d1c824e1308659321282e3b4edd85774b44405656"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/traveller-jump.webp",
+    "size": [
+      315,
+      380
+    ],
+    "sha256": "235b6568aa1c8af84f63daeddc8e9513c35a737ba32bff46b495ae55b6f4f3bc"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/scholar-idle.webp",
+    "size": [
+      320,
+      364
+    ],
+    "sha256": "93f02062144cef2b7d599b7574a51b7526d01f000ee46b105292706e3c65c0fe"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/scholar-walkA.webp",
+    "size": [
+      334,
+      369
+    ],
+    "sha256": "79fdfc73922e741205ef1cfde36a79e82661ddd3f79bec988d383e88ab02d763"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/scholar-walkB.webp",
+    "size": [
+      343,
+      361
+    ],
+    "sha256": "5b688d861423dbc675f36d4a7d7ac8fb1ee38791844fa47a7995bb665ed8a1a6"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/scholar-windup.webp",
+    "size": [
+      301,
+      369
+    ],
+    "sha256": "ee2398ce770496de972f4f6142c0bd5900669ac8655ffa6d85366a955b6a6d5a"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/scholar-strikeA.webp",
+    "size": [
+      404,
+      319
+    ],
+    "sha256": "8c64710b2d176bfd28119823ef2d80d0730d9d4399cf2ecf6db64c8e0b0e7fca"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/scholar-followA.webp",
+    "size": [
+      377,
+      305
+    ],
+    "sha256": "24e0ee8a0439bdcd1883e46e73e45e30fe1fe30277c7b36700571938a7dbb285"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/scholar-strikeB.webp",
+    "size": [
+      405,
+      339
+    ],
+    "sha256": "d9716bba7546e39f68422dd6d2b2956d7655242018f60fa6d8cfdbe51e5f5f8c"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/scholar-followB.webp",
+    "size": [
+      277,
+      393
+    ],
+    "sha256": "78bb09599d8024f67d8cfbd0d1ef97bf2faba532c58f1e922d5f2c6fb13d7bf1"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/scholar-hurt.webp",
+    "size": [
+      338,
+      368
+    ],
+    "sha256": "db74e564e6357402fdfaf9e9bc32444339a6791c8f7f4d4f3e67aa85bf77e574"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/scholar-guard.webp",
+    "size": [
+      286,
+      308
+    ],
+    "sha256": "2adb677a0280ed8e928c0eba9ba6c060649e7b227855d671cec4c8e1665eaeef"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/scholar-down.webp",
+    "size": [
+      461,
+      198
+    ],
+    "sha256": "48a5231b152b67ea1e3d4c9c289ef0f6e5e03d618eaf8b5d36706bbe575f1e6f"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/scholar-jump.webp",
+    "size": [
+      384,
+      383
+    ],
+    "sha256": "0b0d46473798194e493426ee8a42aaa1024ba96009cd2396e640ef5874d3d582"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/cloak-idle.webp",
+    "size": [
+      370,
+      317
+    ],
+    "sha256": "0e9a33735e5cc995dfb262c224e330887aa27f46745d5fe33777f7a067bf0054"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/cloak-walkA.webp",
+    "size": [
+      389,
+      315
+    ],
+    "sha256": "35b08d6f33bec17ebbc5043cada6e7121e2d19dcb3976ef209615f1dbada620b"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/cloak-walkB.webp",
+    "size": [
+      399,
+      299
+    ],
+    "sha256": "fe05d3e274aa1dbfd337601d1ed755d9ef095d24e4802e32a5bf287c95f4e979"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/cloak-windup.webp",
+    "size": [
+      363,
+      317
+    ],
+    "sha256": "bd9cb01902a37ac68c3c24e5773c871f6626dd17d95ab28b0593068d127d6271"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/cloak-strikeA.webp",
+    "size": [
+      446,
+      300
+    ],
+    "sha256": "99f341a716d6e48f276588045369327ca6be809bf0d0b2e8697ff6da78d1c8be"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/cloak-followA.webp",
+    "size": [
+      419,
+      288
+    ],
+    "sha256": "72d2a4506c79c5f73aab0999f2be7cd14fb04786ae5ea89fdd38280501f338ba"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/cloak-strikeB.webp",
+    "size": [
+      398,
+      318
+    ],
+    "sha256": "a1c24ecfe29975d292ab76997a9271afab2dd83623684e2d8d9518e9d9e18aab"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/cloak-followB.webp",
+    "size": [
+      384,
+      287
+    ],
+    "sha256": "fc0b75ba792d18a5f47a24f40a6c9a94d06711a9a7086554d014d15c4f75931f"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/cloak-hurt.webp",
+    "size": [
+      368,
+      295
+    ],
+    "sha256": "69199dc93408a4ec7cdb6851e05335f62f31aebea69ecad3dae0ed049e36242d"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/cloak-guard.webp",
+    "size": [
+      359,
+      238
+    ],
+    "sha256": "bc7385acdcd07dfc088322ae5c0245af74675e285585a513219e6542c941a1f6"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/cloak-down.webp",
+    "size": [
+      458,
+      181
+    ],
+    "sha256": "de711f61179fbd226a0132f0f23dbb471e8ff54a3024008cbcd07a9121c0337a"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/cloak-jump.webp",
+    "size": [
+      398,
+      365
+    ],
+    "sha256": "6cc326edd460aac47a80fbd2dbe3dd2d53c865048bd3fe9f8643b9c9f42b8c3d"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/head-bamboo.webp",
+    "size": [
+      480,
+      400
+    ],
+    "sha256": "41fd611ed18975d7a52776fd0a57da600d72574f51d7d341fd45181ed32d3bba"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/head-topknot.webp",
+    "size": [
+      464,
+      480
+    ],
+    "sha256": "b6351e490bb2b039b301a54585ac50a18bfcc6f948c6d03c187ed1361fb6f75c"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/head-master.webp",
+    "size": [
+      363,
+      474
+    ],
+    "sha256": "2d6b0a21199352fc1d6415145a169b0d5f061dc9ce26f314aea26b7e526a9f52"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/head-silver.webp",
+    "size": [
+      400,
+      480
+    ],
+    "sha256": "74cc87afffcc29449bde62e0aa88aba1e206c3d26d4268663c70a2ec1fc93c8f"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/head-ponytail.webp",
+    "size": [
+      479,
+      458
+    ],
+    "sha256": "7b3bb1063112b8292a70ab3eb56cbf29dd39741d4ff2eb526d2c1d049767169e"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/head-loose.webp",
+    "size": [
+      464,
+      451
+    ],
+    "sha256": "0f92911e4d61973bd1e2a6a7a2ae9b9862fb399edd51dee9e82153ba714c591d"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/head-bun.webp",
+    "size": [
+      370,
+      451
+    ],
+    "sha256": "cc5b929210393961e66d6ee34cee250f0f37174a6cbed17f000bd3a892481905"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/head-short.webp",
+    "size": [
+      408,
+      411
+    ],
+    "sha256": "c5d31e450cd8d6887c398ad61fdd8eb5d18eee83fb0950acae9aa6bc1e31b5c2"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/backdrop.webp",
+    "size": [
+      853,
+      1844
+    ],
+    "sha256": "4de8521c385d149b915c268f7b27fcfbd2f65a9a1c068983608146c3394bc495"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/ink-contact.webp",
+    "size": [
+      384,
+      245
+    ],
+    "sha256": "fb8df1bcff2fcfde3af85418a837446a2119a0ebeae802dca175b2199d1b84fa"
+  },
+  {
+    "path": "ink/art/sect-battle/revision/icon-back.webp",
+    "size": [
+      28,
+      45
+    ],
+    "sha256": "ee891cf8fb903b00bc7246eb3f783d77d3f1b022b3d82e44ec47ba4300b9637d"
+  }
+]

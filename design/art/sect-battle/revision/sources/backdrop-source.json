@@ -1,0 +1,15 @@
+{
+  "sourceId": "exec-d52ea054-3894-4e8d-97c8-60c820ef752d.png",
+  "size": [
+    853,
+    1844
+  ],
+  "mode": "RGB",
+  "sha256": "e2036e308ce7d63c157a0d7d7d8cdce706b128956118e8ee33bc8bca5c43ef70",
+  "prompt": "../prompts/backdrop.txt",
+  "references": [
+    "../../selected-portrait.png"
+  ],
+  "generatedOriginal": true,
+  "license": "依生成服務及帳戶條款；不虛構CC0／第三方開源授權。"
+}

@@ -56,7 +56,7 @@ export function loadWarAssets(): Promise<WarAssets> {
         return image((embedded as Record<string, string>)[path]);
       }
     };
-    const [common, images, bodies, weapons] = await Promise.all([
+    const [common, images, bodies, weapons, heads] = await Promise.all([
       loadSectPreviewImages(),
       Promise.all(
         Object.entries(mapping.images).map(async ([key, path]) => [
@@ -83,9 +83,21 @@ export function loadWarAssets(): Promise<WarAssets> {
           await load(path),
         ]),
       ),
+      Promise.all(
+        Object.entries(mapping.heads).map(async ([key, path]) => [
+          key,
+          await load(path),
+        ]),
+      ),
     ]);
     return {
-      common,
+      common: {
+        ...common,
+        wardrobe: {
+          ...common.wardrobe,
+          heads: Object.fromEntries(heads) as typeof common.wardrobe.heads,
+        },
+      },
       images: Object.fromEntries(images),
       bodies: Object.fromEntries(bodies),
       weapons: Object.fromEntries(weapons),
