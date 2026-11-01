@@ -1,0 +1,28 @@
+{
+  "source": "exec-bc45f0f7-d192-4300-b4a5-bb2399c14f90.png",
+  "size": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "transparentFraction": 0.5387754401227078,
+  "opaqueFraction": 0.3623358999208911,
+  "allOuterBorderTransparent": false,
+  "completeConnectedBodiesOver2000Pixels": 12,
+  "cellOrder": [
+    "guard",
+    "walkA",
+    "walkB",
+    "windup",
+    "strikeA",
+    "followA",
+    "strikeB",
+    "recover",
+    "hurt",
+    "crouch",
+    "down",
+    "jump"
+  ],
+  "sha256": "f9f629dc0c1c12257758f15d8c2be7fa24955ea71065badc05aa6888377d6407",
+  "cropNote": "Use connected-component extraction, not strict 4x3 cell cuts: extended sleeves/grips cross nominal cell boundaries without touching another body."
+}

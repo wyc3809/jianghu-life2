@@ -38,7 +38,7 @@ function makeUnits(roster: readonly SectBattleEntrant[]): Unit[] {
   return [...roster].sort((a, b) => a.side - b.side || a.rank - b.rank).map(input => {
     const state = structuredClone(input.state);
     state.character = characterForPreset(state.character, 'duel');
-    const c = state.character, f = buildPlayerFighter(state);
+    const c = state.character, f = input.fighter ? structuredClone(input.fighter) : buildPlayerFighter(state);
     const art = martialTurnPlan(c, f.qi, 1, f.maxQi).moves[0]?.skillId ?? 'art_river_fist';
     return { id: input.id, side: input.side, rank: input.rank, c, f,
       x: input.side === 0 ? 56 + (10-input.rank)*38 : 944 - (10-input.rank)*38,
@@ -90,12 +90,13 @@ function strike(u: Unit, target: Unit, move: MartialTurnPlan['moves'][number], n
 }
 
 /** 多人同一時間軸、自由尋敵／轉火；只產生不可變戰報，不入帳、不改玩家或全域RNG。 */
-export function simulateSectBattle(roster: readonly SectBattleEntrant[], seed: number): SectBattleReplay {
+export function simulateSectBattle(roster: readonly SectBattleEntrant[], seed: number, captureFrames = true, allowCrossing = false): SectBattleReplay {
   validateSectBattleRoster(roster);
   const units = makeUnits(roster), rng = createRng(seed), frames: SectBattleFrame[] = [], events: SectBattleEvent[] = [];
   const order = units.map((_, i) => ({ i, value: rng.nextFloat() })).sort((a, b) => a.value - b.value).map(v => v.i);
   const living = () => [units.filter(u => u.side === 0 && u.f.hp > 0).length, units.filter(u => u.side === 1 && u.f.hp > 0).length] as [number, number];
   const capture = (now: number) => {
+    if (!captureFrames) return;
     const figures: SectBattleFigure[] = units.map(u => ({ id: u.id, side: u.side, rank: u.rank, name: u.c.name, artId: u.art,
       appearance: appearanceOf(u.c),
       x: u.x, y: u.y, face: u.face, hp: u.f.hp, maxHp: u.f.maxHp, qi: u.f.qi, maxQi: u.f.maxQi, target: u.target,
@@ -166,7 +167,7 @@ export function simulateSectBattle(roster: readonly SectBattleEntrant[], seed: n
       }
     }
     // 同一地線的實際碰撞間距：包括出招中的人物，避免整隊疊成一團。
-    const standing = units.filter(u => u.f.hp > 0).sort((a,b) => a.x-b.x || a.id.localeCompare(b.id));
+    const standing = allowCrossing ? [] : units.filter(u => u.f.hp > 0).sort((a,b) => a.x-b.x || a.id.localeCompare(b.id));
     for (let i=0;i<standing.length;i++) {
       const unit=standing[i];
       unit.x=clamp(unit.x,48+i*P.lineSpacing,P.width-48-(standing.length-1-i)*P.lineSpacing);

@@ -1,0 +1,36 @@
+[
+  {
+    "engine": "chromium",
+    "actualDeployedEdge": true,
+    "canonicalTapeDecoded": true,
+    "sameServerRemaining": [
+      4,
+      0
+    ],
+    "replayNoMutationOrRerequest": true,
+    "actions": [
+      "overview",
+      "report"
+    ],
+    "workerBlobBranchEmulated": true,
+    "actualIphone": false,
+    "pageerrors": []
+  },
+  {
+    "engine": "webkit",
+    "actualDeployedEdge": true,
+    "canonicalTapeDecoded": true,
+    "sameServerRemaining": [
+      4,
+      0
+    ],
+    "replayNoMutationOrRerequest": true,
+    "actions": [
+      "overview",
+      "report"
+    ],
+    "workerBlobBranchEmulated": true,
+    "actualIphone": false,
+    "pageerrors": []
+  }
+]

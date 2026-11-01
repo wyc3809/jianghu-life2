@@ -1,8 +1,8 @@
-import type { LifeGameState } from './lifeEngine';
+import type { CombatFighterState, LifeGameState } from './lifeEngine';
 import type { CharacterAppearance } from './appearance';
 
 export type SectBattleSide = 0 | 1;
-export interface SectBattleEntrant { id: string; side: SectBattleSide; rank: number; state: LifeGameState }
+export interface SectBattleEntrant { id: string; side: SectBattleSide; rank: number; state: LifeGameState; fighter?: CombatFighterState }
 export interface SectBattleFigure {
   appearance?: CharacterAppearance;
   id: string; side: SectBattleSide; rank: number; name: string; artId: string;

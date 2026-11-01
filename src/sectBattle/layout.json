@@ -1,0 +1,839 @@
+{
+  "traveller": {
+    "idle": {
+      "width": 303,
+      "height": 393,
+      "neck": [
+        147,
+        34
+      ],
+      "grip": [
+        273,
+        113
+      ],
+      "origin": [
+        147,
+        381
+      ],
+      "sourceBox": [
+        24,
+        58,
+        315,
+        439
+      ],
+      "rotation": 0
+    },
+    "pixelsPerUnit": 1.1566666666666667,
+    "walkA": {
+      "width": 336,
+      "height": 403,
+      "neck": [
+        189,
+        35
+      ],
+      "grip": [
+        310,
+        121
+      ],
+      "origin": [
+        189,
+        390
+      ],
+      "sourceBox": [
+        318,
+        58,
+        642,
+        449
+      ],
+      "rotation": 0
+    },
+    "walkB": {
+      "width": 329,
+      "height": 387,
+      "neck": [
+        191,
+        38
+      ],
+      "grip": [
+        301,
+        144
+      ],
+      "origin": [
+        191,
+        374
+      ],
+      "sourceBox": [
+        629,
+        73,
+        946,
+        448
+      ],
+      "rotation": 0
+    },
+    "windup": {
+      "width": 341,
+      "height": 362,
+      "neck": [
+        200,
+        33
+      ],
+      "grip": [
+        309,
+        122
+      ],
+      "origin": [
+        200,
+        349
+      ],
+      "sourceBox": [
+        923,
+        85,
+        1252,
+        435
+      ],
+      "rotation": 0
+    },
+    "strikeA": {
+      "width": 410,
+      "height": 336,
+      "neck": [
+        240,
+        34
+      ],
+      "grip": [
+        382,
+        34
+      ],
+      "origin": [
+        240,
+        323
+      ],
+      "sourceBox": [
+        11,
+        500,
+        409,
+        824
+      ],
+      "rotation": -0.12
+    },
+    "followA": {
+      "width": 344,
+      "height": 315,
+      "neck": [
+        178,
+        36
+      ],
+      "grip": [
+        311,
+        79
+      ],
+      "origin": [
+        178,
+        302
+      ],
+      "sourceBox": [
+        356,
+        522,
+        688,
+        825
+      ],
+      "rotation": 0
+    },
+    "strikeB": {
+      "width": 368,
+      "height": 368,
+      "neck": [
+        192,
+        35
+      ],
+      "grip": [
+        333,
+        80
+      ],
+      "origin": [
+        192,
+        355
+      ],
+      "sourceBox": [
+        663,
+        483,
+        1019,
+        839
+      ],
+      "rotation": -0.12
+    },
+    "followB": {
+      "width": 302,
+      "height": 371,
+      "neck": [
+        168,
+        35
+      ],
+      "grip": [
+        258,
+        83
+      ],
+      "origin": [
+        168,
+        358
+      ],
+      "sourceBox": [
+        961,
+        480,
+        1251,
+        839
+      ],
+      "rotation": 0
+    },
+    "hurt": {
+      "width": 340,
+      "height": 376,
+      "neck": [
+        93,
+        23
+      ],
+      "grip": [
+        236,
+        57
+      ],
+      "origin": [
+        93,
+        363
+      ],
+      "sourceBox": [
+        10,
+        843,
+        338,
+        1207
+      ],
+      "rotation": 0
+    },
+    "guard": {
+      "width": 273,
+      "height": 296,
+      "neck": [
+        167,
+        39
+      ],
+      "grip": [
+        186,
+        71
+      ],
+      "origin": [
+        167,
+        283
+      ],
+      "sourceBox": [
+        343,
+        915,
+        604,
+        1199
+      ],
+      "rotation": 0
+    },
+    "down": {
+      "width": 408,
+      "height": 179,
+      "neck": [
+        72,
+        42
+      ],
+      "grip": [
+        189,
+        70
+      ],
+      "origin": [
+        72,
+        166
+      ],
+      "sourceBox": [
+        600,
+        1029,
+        996,
+        1196
+      ],
+      "rotation": -1.15
+    },
+    "jump": {
+      "width": 330,
+      "height": 381,
+      "neck": [
+        197,
+        40
+      ],
+      "grip": [
+        310,
+        105
+      ],
+      "origin": [
+        197,
+        368
+      ],
+      "sourceBox": [
+        936,
+        844,
+        1254,
+        1213
+      ],
+      "rotation": -0.12
+    }
+  },
+  "scholar": {
+    "idle": {
+      "width": 273,
+      "height": 342,
+      "neck": [
+        139,
+        35
+      ],
+      "grip": [
+        235,
+        87
+      ],
+      "origin": [
+        139,
+        329
+      ],
+      "sourceBox": [
+        32,
+        109,
+        293,
+        439
+      ],
+      "rotation": 0
+    },
+    "pixelsPerUnit": 0.98,
+    "walkA": {
+      "width": 314,
+      "height": 342,
+      "neck": [
+        200,
+        36
+      ],
+      "grip": [
+        281,
+        101
+      ],
+      "origin": [
+        200,
+        329
+      ],
+      "sourceBox": [
+        312,
+        111,
+        614,
+        441
+      ],
+      "rotation": 0
+    },
+    "walkB": {
+      "width": 297,
+      "height": 340,
+      "neck": [
+        171,
+        35
+      ],
+      "grip": [
+        263,
+        91
+      ],
+      "origin": [
+        171,
+        327
+      ],
+      "sourceBox": [
+        635,
+        113,
+        920,
+        441
+      ],
+      "rotation": 0
+    },
+    "windup": {
+      "width": 317,
+      "height": 335,
+      "neck": [
+        197,
+        35
+      ],
+      "grip": [
+        245,
+        91
+      ],
+      "origin": [
+        197,
+        322
+      ],
+      "sourceBox": [
+        936,
+        122,
+        1241,
+        445
+      ],
+      "rotation": 0
+    },
+    "strikeA": {
+      "width": 351,
+      "height": 305,
+      "neck": [
+        200,
+        37
+      ],
+      "grip": [
+        319,
+        40
+      ],
+      "origin": [
+        200,
+        292
+      ],
+      "sourceBox": [
+        6,
+        514,
+        345,
+        807
+      ],
+      "rotation": -0.12
+    },
+    "followA": {
+      "width": 320,
+      "height": 307,
+      "neck": [
+        202,
+        34
+      ],
+      "grip": [
+        296,
+        136
+      ],
+      "origin": [
+        202,
+        294
+      ],
+      "sourceBox": [
+        338,
+        517,
+        646,
+        812
+      ],
+      "rotation": 0
+    },
+    "strikeB": {
+      "width": 369,
+      "height": 327,
+      "neck": [
+        189,
+        36
+      ],
+      "grip": [
+        337,
+        37
+      ],
+      "origin": [
+        189,
+        314
+      ],
+      "sourceBox": [
+        643,
+        503,
+        1000,
+        818
+      ],
+      "rotation": -0.12
+    },
+    "followB": {
+      "width": 287,
+      "height": 334,
+      "neck": [
+        177,
+        37
+      ],
+      "grip": [
+        247,
+        124
+      ],
+      "origin": [
+        177,
+        321
+      ],
+      "sourceBox": [
+        966,
+        491,
+        1241,
+        813
+      ],
+      "rotation": 0
+    },
+    "hurt": {
+      "width": 299,
+      "height": 316,
+      "neck": [
+        91,
+        26
+      ],
+      "grip": [
+        250,
+        52
+      ],
+      "origin": [
+        91,
+        303
+      ],
+      "sourceBox": [
+        20,
+        885,
+        307,
+        1189
+      ],
+      "rotation": 0
+    },
+    "guard": {
+      "width": 305,
+      "height": 290,
+      "neck": [
+        161,
+        36
+      ],
+      "grip": [
+        176,
+        62
+      ],
+      "origin": [
+        161,
+        277
+      ],
+      "sourceBox": [
+        320,
+        912,
+        613,
+        1190
+      ],
+      "rotation": 0
+    },
+    "down": {
+      "width": 402,
+      "height": 169,
+      "neck": [
+        51,
+        37
+      ],
+      "grip": [
+        140,
+        129
+      ],
+      "origin": [
+        51,
+        156
+      ],
+      "sourceBox": [
+        608,
+        1028,
+        998,
+        1185
+      ],
+      "rotation": -1.15
+    },
+    "jump": {
+      "width": 355,
+      "height": 364,
+      "neck": [
+        229,
+        50
+      ],
+      "grip": [
+        330,
+        81
+      ],
+      "origin": [
+        229,
+        351
+      ],
+      "sourceBox": [
+        909,
+        847,
+        1252,
+        1199
+      ],
+      "rotation": -0.12
+    }
+  },
+  "cloak": {
+    "idle": {
+      "width": 312,
+      "height": 373,
+      "neck": [
+        191,
+        35
+      ],
+      "grip": [
+        258,
+        113
+      ],
+      "origin": [
+        191,
+        360
+      ],
+      "sourceBox": [
+        13,
+        94,
+        313,
+        455
+      ],
+      "rotation": 0
+    },
+    "pixelsPerUnit": 1.0833333333333333,
+    "walkA": {
+      "width": 334,
+      "height": 374,
+      "neck": [
+        207,
+        35
+      ],
+      "grip": [
+        298,
+        150
+      ],
+      "origin": [
+        207,
+        361
+      ],
+      "sourceBox": [
+        314,
+        96,
+        636,
+        458
+      ],
+      "rotation": 0
+    },
+    "walkB": {
+      "width": 356,
+      "height": 371,
+      "neck": [
+        211,
+        33
+      ],
+      "grip": [
+        301,
+        143
+      ],
+      "origin": [
+        211,
+        358
+      ],
+      "sourceBox": [
+        612,
+        98,
+        956,
+        457
+      ],
+      "rotation": 0
+    },
+    "windup": {
+      "width": 348,
+      "height": 364,
+      "neck": [
+        212,
+        33
+      ],
+      "grip": [
+        322,
+        123
+      ],
+      "origin": [
+        212,
+        351
+      ],
+      "sourceBox": [
+        917,
+        106,
+        1253,
+        458
+      ],
+      "rotation": 0
+    },
+    "strikeA": {
+      "width": 411,
+      "height": 338,
+      "neck": [
+        239,
+        30
+      ],
+      "grip": [
+        383,
+        46
+      ],
+      "origin": [
+        239,
+        325
+      ],
+      "sourceBox": [
+        3,
+        520,
+        402,
+        846
+      ],
+      "rotation": -0.12
+    },
+    "followA": {
+      "width": 321,
+      "height": 336,
+      "neck": [
+        220,
+        33
+      ],
+      "grip": [
+        276,
+        118
+      ],
+      "origin": [
+        220,
+        323
+      ],
+      "sourceBox": [
+        350,
+        529,
+        659,
+        853
+      ],
+      "rotation": 0
+    },
+    "strikeB": {
+      "width": 373,
+      "height": 349,
+      "neck": [
+        180,
+        29
+      ],
+      "grip": [
+        344,
+        62
+      ],
+      "origin": [
+        180,
+        336
+      ],
+      "sourceBox": [
+        657,
+        516,
+        1018,
+        853
+      ],
+      "rotation": -0.12
+    },
+    "followB": {
+      "width": 304,
+      "height": 352,
+      "neck": [
+        183,
+        32
+      ],
+      "grip": [
+        261,
+        76
+      ],
+      "origin": [
+        183,
+        339
+      ],
+      "sourceBox": [
+        962,
+        513,
+        1254,
+        853
+      ],
+      "rotation": 0
+    },
+    "hurt": {
+      "width": 334,
+      "height": 336,
+      "neck": [
+        95,
+        25
+      ],
+      "grip": [
+        214,
+        41
+      ],
+      "origin": [
+        95,
+        323
+      ],
+      "sourceBox": [
+        4,
+        867,
+        326,
+        1191
+      ],
+      "rotation": 0
+    },
+    "guard": {
+      "width": 285,
+      "height": 274,
+      "neck": [
+        167,
+        32
+      ],
+      "grip": [
+        239,
+        60
+      ],
+      "origin": [
+        167,
+        261
+      ],
+      "sourceBox": [
+        298,
+        923,
+        571,
+        1185
+      ],
+      "rotation": 0
+    },
+    "down": {
+      "width": 446,
+      "height": 153,
+      "neck": [
+        31,
+        52
+      ],
+      "grip": [
+        190,
+        114
+      ],
+      "origin": [
+        31,
+        140
+      ],
+      "sourceBox": [
+        568,
+        1049,
+        1002,
+        1190
+      ],
+      "rotation": -1.15
+    },
+    "jump": {
+      "width": 346,
+      "height": 360,
+      "neck": [
+        213,
+        32
+      ],
+      "grip": [
+        321,
+        53
+      ],
+      "origin": [
+        213,
+        347
+      ],
+      "sourceBox": [
+        920,
+        863,
+        1254,
+        1211
+      ],
+      "rotation": -0.12
+    }
+  }
+}
