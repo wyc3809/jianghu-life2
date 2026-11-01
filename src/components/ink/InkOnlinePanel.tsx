@@ -15,11 +15,12 @@ import { InkFeatureMenu, type InkFeatureEntry } from './InkFeatureMenu';
 import './online.css';
 
 const Battle = lazy(() => import('./InkAutoBattle').then(m => ({ default: m.InkAutoBattle })));
+const SectWar = lazy(() => import('./InkSectWar'));
 const SESSION = 'jianghu-online-session';
 const labels = { river: '沈雲舟', cloud: '謝清霜' };
 function readToken() { try { return publicOnline ? worldJoined() ? 'world' : null : sessionStorage.getItem(SESSION); } catch { return null; } }
-type OnlineView = 'main' | 'opponents' | 'loadout' | 'income' | 'history' | 'rules';
-const titles: Record<OnlineView, string> = { main: '江湖風雲', opponents: '對手名冊', loadout: '武學配搭', income: '修行所得', history: '江湖戰報', rules: '試場規則' };
+type OnlineView = 'main' | 'opponents' | 'loadout' | 'income' | 'history' | 'rules' | 'sectWar';
+const titles: Record<OnlineView, string> = { main: '江湖風雲', opponents: '對手名冊', loadout: '武學配搭', income: '修行所得', history: '江湖戰報', rules: '試場規則', sectWar:'門派會武' };
 function timeLeft(until: number, now: number) { return Math.max(0, Math.ceil((until - now) / 1000)); }
 
 /** 第32項共用江湖／本機真服務入口；正式模式使用人物雲存檔及帳戶獎勵，本機測試仍然隔離。 */
@@ -112,6 +113,7 @@ export default function InkOnlinePanel({ standalone = false, onBack, onPrepare }
     panelRef.current?.closest('.ink-play-body, .scroll-shell')?.scrollTo({ top: 0 });
   }, [view]);
   const entries: InkFeatureEntry<OnlineView>[] = [
+    { id: 'sectWar', title: '門派會武', icon: 'swords', hint: '十人代表同場交鋒 · 每週門內選拔' },
     { id: 'opponents', title: '隨機對戰', icon: 'banner', hint: '全江湖隨機配對 · 同段位優先', badge: snapshot ? `${Math.max(0, snapshot.peers.length - 1)}人` : undefined },
     { id: 'loadout', title: '對戰配搭', icon: 'scroll', hint: '前往人物頁 · 預先保存對戰配搭' },
     { id: 'income', title: '修行所得', icon: 'silver', hint: '查看在線與離線收成', badge: me && me.pendingOnline + me.pendingOffline > 0 ? '可領' : undefined },
@@ -119,6 +121,7 @@ export default function InkOnlinePanel({ standalone = false, onBack, onPrepare }
     { id: 'rules', title: '試場規則', icon: 'fan', hint: '排名換位 · 戰敗保護與收益' },
   ];
   const openView = (next: OnlineView) => { setError(''); setNotice(''); if (next === 'loadout') openLoadout(); else setView(next); };
+  if(view==='sectWar')return <Suspense fallback={<p role="status">正在翻開會武名冊……</p>}><SectWar onBack={()=>setView('main')} onPrepare={onPrepare}/></Suspense>;
   const content = <section className="ink-panel ink-online" aria-label="多人江湖" id="ink-online" ref={panelRef}>
     {(view !== 'main' || onBack) && <button type="button" className="ink-jianghu-back" onClick={() => view === 'main' ? onBack?.() : setView('main')}>
       ‹ {view === 'main' ? '返回江湖' : '返回江湖風雲'}
@@ -137,6 +140,7 @@ export default function InkOnlinePanel({ standalone = false, onBack, onPrepare }
       <button className="online-frame online-enter" disabled={pending || !name.trim()} onClick={() => void enterWorld()}>{worldJoined() ? '重返江湖' : '踏入江湖'}</button>
       <p className="online-note">使用目前人物及已保存的對戰配搭，江湖名次跟隨帳戶保留。可前往設定綁定電郵；免費玉石獎勵加入同一帳戶。</p>
       <button type="button" className="online-text-link" onClick={() => setView('rules')}>查看試場規則 ›</button>
+      <button type="button" className="online-frame" onClick={()=>setView('sectWar')}>門派會武 · 報名與觀摩</button>
     </div> : !token ? <div className="online-login">
       <p className="online-lead">選一位俠客入江湖</p><p>兩個獨立本機測試帳戶，與正式存檔分開。</p>
       <div className="online-accounts">{(['river', 'cloud'] as const).map(id => <button type="button" className="online-frame" key={id} disabled={pending} onClick={() => void login(id)}>

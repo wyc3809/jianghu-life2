@@ -1,0 +1,28 @@
+{
+  "sourceOutput": "exec-edc73fda-d375-4915-8c97-55a92c50c9dd.png",
+  "size": [
+    1660,
+    948
+  ],
+  "mode": "RGBA",
+  "transparentFraction": 0.8233204971785878,
+  "sha256": "2ab90def725f9379c11b0fb7f37243538d62ad8250c5f42828d5c637a0072e68",
+  "weapons": [
+    "sword",
+    "blade",
+    "spear",
+    "staff",
+    "whip",
+    "bow",
+    "hidden"
+  ],
+  "landmarks": "weapons-landmarks.json",
+  "boundsConvention": "source x0,y0 inclusive x1,y1 exclusive",
+  "notes": [
+    "All seven weapons are complete; no frame or text.",
+    "Each weapon is one main connected component at alpha>40; bow bbox includes its thin string and hanging cloth, whip bbox includes lash and handle tassel. If a higher-alpha cutoff splits them, use the supplied whole bbox rather than dropping detached fine parts.",
+    "Staff has no separate hilt: grip is the usable lower bamboo section. Bow grip is the true central wrapped handle, not bbox centre.",
+    "All tips point upward. hidden means the single flying needle.",
+    "Minor edge bright-red/yellow pixels and white watercolor edge spill remain in original; use normal technical alpha cleanup as needed."
+  ]
+}

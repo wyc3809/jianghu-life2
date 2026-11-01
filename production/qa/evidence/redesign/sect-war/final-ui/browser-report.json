@@ -1,0 +1,58 @@
+[
+  {
+    "engine": "chromium",
+    "viewport": [
+      390,
+      844
+    ],
+    "fixedScreen": true,
+    "touchControls44Visible": true,
+    "twentyRosterSelect": true,
+    "pausePixelStable": true,
+    "hiddenNoCatchup": true,
+    "nativeDialogPauses": true,
+    "skipReplaySameResult": true,
+    "lifeAndEconomyUnchanged": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "chromium",
+    "edge": "reduced",
+    "sameDetailedAssetsFallback": false,
+    "pageerrors": []
+  },
+  {
+    "engine": "chromium",
+    "edge": "asset_failure",
+    "sameDetailedAssetsFallback": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "webkit",
+    "viewport": [
+      390,
+      844
+    ],
+    "fixedScreen": true,
+    "touchControls44Visible": true,
+    "twentyRosterSelect": true,
+    "pausePixelStable": true,
+    "hiddenNoCatchup": true,
+    "nativeDialogPauses": true,
+    "skipReplaySameResult": true,
+    "lifeAndEconomyUnchanged": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "webkit",
+    "edge": "reduced",
+    "sameDetailedAssetsFallback": false,
+    "pageerrors": []
+  },
+  {
+    "engine": "webkit",
+    "edge": "asset_failure",
+    "sameDetailedAssetsFallback": true,
+    "pageerrors": []
+  }
+]

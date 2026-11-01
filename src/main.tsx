@@ -8,6 +8,7 @@ import { installPressFeedback } from './ui/pressFeedback';
 import { bootCloud } from './cloud/sync';
 import { readLocalSavedAt, writeLocal } from './cloud/localBridge';
 import { useAncestryStore } from './store/ancestryStore';
+import { useLifeStore } from './store/lifeStore';
 import { loadAncestry } from './store/ancestryMeta';
 
 // 原生安全區由獨立樣式處理；瀏覽器版本沿用現有排版。
@@ -23,6 +24,8 @@ const BattlePreview = import.meta.env.DEV ? lazy(() => import('./prototypes/Unif
 const isBattlePreview = import.meta.env.DEV && new URLSearchParams(window.location.search).get('battle-preview') === 'unified';
 const SectBattlePreview = import.meta.env.DEV ? lazy(() => import('./prototypes/SectBattlePreview')) : () => null;
 const isSectBattlePreview = import.meta.env.DEV && new URLSearchParams(window.location.search).get('sect-battle-preview') === '1';
+const SectWar = lazy(() => import('./components/ink/InkSectWar'));
+const isSectWar = new URLSearchParams(window.location.search).get('sect-war') === '1';
 const MartialPreview = import.meta.env.DEV ? lazy(() => import('./prototypes/MartialIdentityPreview')) : () => null;
 const isMartialPreview = import.meta.env.DEV && new URLSearchParams(window.location.search).get('martial-preview') === '1';
 const OnlinePreview = import.meta.env.VITE_ONLINE_PUBLIC === '1' || (import.meta.env.DEV && import.meta.env.VITE_ONLINE_PROTOTYPE === '1')
@@ -32,15 +35,16 @@ const isOnlinePreview = Boolean(OnlinePreview) && new URLSearchParams(window.loc
 // 雲端：開機揾身份，雲端存檔較新就先寫返本機（最多等 2.5 秒）
 const boot = isFxDemo || isBattlePreview || isSectBattlePreview || isMartialPreview || isOnlinePreview ? Promise.resolve({ restored: false }) : bootCloud(readLocalSavedAt, writeLocal);
 
-void boot.then(({ restored }) => {
+void boot.then(async ({ restored }) => {
   if (restored) useAncestryStore.setState({ meta: loadAncestry() });
+  if(isSectWar&&!useLifeStore.getState().state)await useLifeStore.getState().continueLife();
   render();
 });
 
 function render() {
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
-      {isOnlinePreview && OnlinePreview ? (
+      {isSectWar ? <Suspense fallback={null}><SectWar onBack={()=>window.location.assign(import.meta.env.BASE_URL)} initialTrial={new URLSearchParams(window.location.search).get('trial')==='1'}/></Suspense> : isOnlinePreview && OnlinePreview ? (
         <Suspense fallback={null}><OnlinePreview standalone /></Suspense>
       ) : isSectBattlePreview ? (
         <Suspense fallback={null}><SectBattlePreview /></Suspense>

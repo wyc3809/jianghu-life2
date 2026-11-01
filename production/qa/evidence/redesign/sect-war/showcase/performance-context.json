@@ -1,0 +1,20 @@
+{
+  "notADeviceBenchmark": true,
+  "notes": "錄影與其他瀏覽器驗收同時執行時，RAF可顯著變慢；不以最佳一次數字宣稱真iPhone幀率。",
+  "earlierRuns": [
+    {
+      "headlessRecording": true,
+      "samples": 194,
+      "p50Ms": 16.7,
+      "p95Ms": 50,
+      "over50ms": 4
+    },
+    {
+      "headlessRecordingAndConcurrentUiChecks": true,
+      "samples": 81,
+      "p50Ms": 50,
+      "p95Ms": 83.3,
+      "over50ms": 39
+    }
+  ]
+}

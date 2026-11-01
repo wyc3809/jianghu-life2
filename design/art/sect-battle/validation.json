@@ -1,0 +1,326 @@
+[
+  {
+    "outfit": "traveller",
+    "pose": "idle",
+    "size": [
+      303,
+      393
+    ],
+    "sha256": "bd714a5b8744ac05ea845333bfcc38eb99fdbd9aa06d474ec1768e069cef9c02"
+  },
+  {
+    "outfit": "traveller",
+    "pose": "walkA",
+    "size": [
+      336,
+      403
+    ],
+    "sha256": "9c906583771e15b4bda6b89df8a51b591ffc23e96cb2393e162aa562af76eac2"
+  },
+  {
+    "outfit": "traveller",
+    "pose": "walkB",
+    "size": [
+      329,
+      387
+    ],
+    "sha256": "7fdceaaf2ebff0179f4e417d333378283fa932d41bf36505457fc77603e44cbe"
+  },
+  {
+    "outfit": "traveller",
+    "pose": "windup",
+    "size": [
+      341,
+      362
+    ],
+    "sha256": "d6a5ffc4413a81353edc9da3ab0121418e6ceab7ddeda349f5e6b568978ff1e2"
+  },
+  {
+    "outfit": "traveller",
+    "pose": "strikeA",
+    "size": [
+      410,
+      336
+    ],
+    "sha256": "144516fdc264fc49aba2108dab9aee7c40e76793302ce71b2350f58dd6befa79"
+  },
+  {
+    "outfit": "traveller",
+    "pose": "followA",
+    "size": [
+      344,
+      315
+    ],
+    "sha256": "1133588fdf91fc486d4fcbb5f5a1e04b3101a8e38fa682ce7236f73e071adefd"
+  },
+  {
+    "outfit": "traveller",
+    "pose": "strikeB",
+    "size": [
+      368,
+      368
+    ],
+    "sha256": "43bc5616c52a371fb632467bead8232884fa83c88c438e035a53d6902437882a"
+  },
+  {
+    "outfit": "traveller",
+    "pose": "followB",
+    "size": [
+      302,
+      371
+    ],
+    "sha256": "c00b72ed2e49db8a6620175cab7235514e6456ff1e19f8d2b4e98e96dc5a1e78"
+  },
+  {
+    "outfit": "traveller",
+    "pose": "hurt",
+    "size": [
+      340,
+      376
+    ],
+    "sha256": "a478473a194bd75ef87b5ffb4ea9e0795ed03b4361a813450cda57e9b5a5225f"
+  },
+  {
+    "outfit": "traveller",
+    "pose": "guard",
+    "size": [
+      273,
+      296
+    ],
+    "sha256": "f1584113791cf1a28d1b57d4b46780cbcf1d02ae7cc63d209aed7d026051834a"
+  },
+  {
+    "outfit": "traveller",
+    "pose": "down",
+    "size": [
+      408,
+      179
+    ],
+    "sha256": "e1bb5b0da6435bd32f89a3a246f8038937bf8406cda29cceba321189472bde72"
+  },
+  {
+    "outfit": "traveller",
+    "pose": "jump",
+    "size": [
+      330,
+      381
+    ],
+    "sha256": "71d06f0d5cea891d45aa64f53f6dc8ab154e6de920bd23b1505c966edea63363"
+  },
+  {
+    "outfit": "scholar",
+    "pose": "idle",
+    "size": [
+      273,
+      342
+    ],
+    "sha256": "7ec42993630419c9dcd52c39ef865a0178ffc0556bacd40caed7847d6c7e9f53"
+  },
+  {
+    "outfit": "scholar",
+    "pose": "walkA",
+    "size": [
+      314,
+      342
+    ],
+    "sha256": "09a71903ddb5ee8b11803fe0da472a5bfc720ee69cd9e1e7f678547681180f72"
+  },
+  {
+    "outfit": "scholar",
+    "pose": "walkB",
+    "size": [
+      297,
+      340
+    ],
+    "sha256": "3c7bbdafcdefb9f673a2c9d9a4633a06662e2784c144d4a7201f1ab161f59885"
+  },
+  {
+    "outfit": "scholar",
+    "pose": "windup",
+    "size": [
+      317,
+      335
+    ],
+    "sha256": "f7cdb808859b88e0bb8710a4776b1bc0a763ace47b6287b2d56db63d690876df"
+  },
+  {
+    "outfit": "scholar",
+    "pose": "strikeA",
+    "size": [
+      351,
+      305
+    ],
+    "sha256": "41573dc39a2fccf75df23bc5504d341dad793bb58dc2c2cd1fbd0c610b5bd92d"
+  },
+  {
+    "outfit": "scholar",
+    "pose": "followA",
+    "size": [
+      320,
+      307
+    ],
+    "sha256": "83aa65cbd1c1d75802a1663469b571903a64d1e3d4820365cb245a3903219b01"
+  },
+  {
+    "outfit": "scholar",
+    "pose": "strikeB",
+    "size": [
+      369,
+      327
+    ],
+    "sha256": "7ca365b44e2c163db0a4b056dcffcf5b7582b93aff75ef08a2304da2ae18ccd0"
+  },
+  {
+    "outfit": "scholar",
+    "pose": "followB",
+    "size": [
+      287,
+      334
+    ],
+    "sha256": "04ca09ef7ba2cbec93f66bdf80dfda8eac624f15e8c681786c999b71184d59a0"
+  },
+  {
+    "outfit": "scholar",
+    "pose": "hurt",
+    "size": [
+      299,
+      316
+    ],
+    "sha256": "24119e9e084d57aff8c4bac0c17c6e5682f077dcbe8dc11190e1c3ce95d9d1a6"
+  },
+  {
+    "outfit": "scholar",
+    "pose": "guard",
+    "size": [
+      305,
+      290
+    ],
+    "sha256": "54d545a96352bee94f703e727b2ea1a90b0c028400fd3c355167c845d554264e"
+  },
+  {
+    "outfit": "scholar",
+    "pose": "down",
+    "size": [
+      402,
+      169
+    ],
+    "sha256": "b99eadffc82f5e5ddd2c6d121a527dc1e9e47e5ea671221f808cdb5525cd116e"
+  },
+  {
+    "outfit": "scholar",
+    "pose": "jump",
+    "size": [
+      355,
+      364
+    ],
+    "sha256": "ae07ad98a8794f8c7003277e0ddc51c923f557752634956de576fee17ff4131b"
+  },
+  {
+    "outfit": "cloak",
+    "pose": "idle",
+    "size": [
+      312,
+      373
+    ],
+    "sha256": "2b6b52de2262fcacb30aa5f8ca3432c90d5323dbb7abf3307248f8563feb7559"
+  },
+  {
+    "outfit": "cloak",
+    "pose": "walkA",
+    "size": [
+      334,
+      374
+    ],
+    "sha256": "6babb61326bcae617a697595404e13c1b0344ffcfc169fdbb6697b75cde2ccf6"
+  },
+  {
+    "outfit": "cloak",
+    "pose": "walkB",
+    "size": [
+      356,
+      371
+    ],
+    "sha256": "eb309ed7de498e88f5645d61b54335daf6681bb0414ede55fcda5a111fb943bb"
+  },
+  {
+    "outfit": "cloak",
+    "pose": "windup",
+    "size": [
+      348,
+      364
+    ],
+    "sha256": "ae24be2bf7493fcb85ef213f0c8c6379d27ea2cec4b0ce7d19527953318ddcc0"
+  },
+  {
+    "outfit": "cloak",
+    "pose": "strikeA",
+    "size": [
+      411,
+      338
+    ],
+    "sha256": "201623361dd22adf4dd95e42d4fdc12f6f4099ab9363fb78330e11a120bf7c07"
+  },
+  {
+    "outfit": "cloak",
+    "pose": "followA",
+    "size": [
+      321,
+      336
+    ],
+    "sha256": "9e5f31bd229218666675d3b8f8614a993d070d056b55d9e6fa96f25c3899adad"
+  },
+  {
+    "outfit": "cloak",
+    "pose": "strikeB",
+    "size": [
+      373,
+      349
+    ],
+    "sha256": "e5fdca149fbc76f03b61028d4e2e801f642cf96e1d6a936c1d99e6d40ef06dd3"
+  },
+  {
+    "outfit": "cloak",
+    "pose": "followB",
+    "size": [
+      304,
+      352
+    ],
+    "sha256": "752bc9dc0a896fa0f0b99fe05d1b597f4092c6ab22a2d18bcd5fcba33efedf65"
+  },
+  {
+    "outfit": "cloak",
+    "pose": "hurt",
+    "size": [
+      334,
+      336
+    ],
+    "sha256": "9d89046a29988d4e0b274c90a92414594422af72cae41b99c9a5b4df1d7d819d"
+  },
+  {
+    "outfit": "cloak",
+    "pose": "guard",
+    "size": [
+      285,
+      274
+    ],
+    "sha256": "d3bf11fa2102016daa73c5c2c5704e3e2803199cf80720f91bfc362a1d26f031"
+  },
+  {
+    "outfit": "cloak",
+    "pose": "down",
+    "size": [
+      446,
+      153
+    ],
+    "sha256": "502f611d0b1d8c86fe03e7b5591137948ca1e0c30e980ed4ce6a6a8555c0d945"
+  },
+  {
+    "outfit": "cloak",
+    "pose": "jump",
+    "size": [
+      346,
+      360
+    ],
+    "sha256": "78643450590182a19706641ce9759934212a54d79b194db5c77727864f228505"
+  }
+]

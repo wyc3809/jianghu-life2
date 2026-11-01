@@ -1,0 +1,14 @@
+{
+  "sourceOutput": "exec-5bce1bba-aef8-422e-80f6-f5d8902e441e.png",
+  "firstSourceOutput": "exec-e462bf76-6e10-49ec-a86f-1a67d242dbe8.png",
+  "size": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "transparentFraction": 0.5611879306792427,
+  "sha256": "c694b3cff480c75bac29b133c66e190fff00cb7deccb3971f3e23b193a6db2dc",
+  "frames": 12,
+  "layout": "4 columns x3 rows; connected-component extraction required, not strict equal-cell crops",
+  "notes": "All full hands and boots visible after packing repair. Minor bright edge artifacts need standard alpha cleanup in processing. No text, weapons, heads, ground or scenery."
+}

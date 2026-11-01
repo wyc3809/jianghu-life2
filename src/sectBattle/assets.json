@@ -1,0 +1,67 @@
+{
+  "bodies": {
+    "traveller": {
+      "idle": "ink/art/sect-battle/traveller-idle.webp",
+      "walkA": "ink/art/sect-battle/traveller-walkA.webp",
+      "walkB": "ink/art/sect-battle/traveller-walkB.webp",
+      "windup": "ink/art/sect-battle/traveller-windup.webp",
+      "strikeA": "ink/art/sect-battle/traveller-strikeA.webp",
+      "followA": "ink/art/sect-battle/traveller-followA.webp",
+      "strikeB": "ink/art/sect-battle/traveller-strikeB.webp",
+      "followB": "ink/art/sect-battle/traveller-followB.webp",
+      "hurt": "ink/art/sect-battle/traveller-hurt.webp",
+      "guard": "ink/art/sect-battle/traveller-guard.webp",
+      "down": "ink/art/sect-battle/traveller-down.webp",
+      "jump": "ink/art/sect-battle/traveller-jump.webp"
+    },
+    "scholar": {
+      "idle": "ink/art/sect-battle/scholar-idle.webp",
+      "walkA": "ink/art/sect-battle/scholar-walkA.webp",
+      "walkB": "ink/art/sect-battle/scholar-walkB.webp",
+      "windup": "ink/art/sect-battle/scholar-windup.webp",
+      "strikeA": "ink/art/sect-battle/scholar-strikeA.webp",
+      "followA": "ink/art/sect-battle/scholar-followA.webp",
+      "strikeB": "ink/art/sect-battle/scholar-strikeB.webp",
+      "followB": "ink/art/sect-battle/scholar-followB.webp",
+      "hurt": "ink/art/sect-battle/scholar-hurt.webp",
+      "guard": "ink/art/sect-battle/scholar-guard.webp",
+      "down": "ink/art/sect-battle/scholar-down.webp",
+      "jump": "ink/art/sect-battle/scholar-jump.webp"
+    },
+    "cloak": {
+      "idle": "ink/art/sect-battle/cloak-idle.webp",
+      "walkA": "ink/art/sect-battle/cloak-walkA.webp",
+      "walkB": "ink/art/sect-battle/cloak-walkB.webp",
+      "windup": "ink/art/sect-battle/cloak-windup.webp",
+      "strikeA": "ink/art/sect-battle/cloak-strikeA.webp",
+      "followA": "ink/art/sect-battle/cloak-followA.webp",
+      "strikeB": "ink/art/sect-battle/cloak-strikeB.webp",
+      "followB": "ink/art/sect-battle/cloak-followB.webp",
+      "hurt": "ink/art/sect-battle/cloak-hurt.webp",
+      "guard": "ink/art/sect-battle/cloak-guard.webp",
+      "down": "ink/art/sect-battle/cloak-down.webp",
+      "jump": "ink/art/sect-battle/cloak-jump.webp"
+    }
+  },
+  "images": {
+    "backdrop": "ink/art/sect-battle/backdrop.webp",
+    "flag0": "ink/art/sect-battle/flag-jade.webp",
+    "flag1": "ink/art/sect-battle/flag-red.webp",
+    "pause": "ink/art/sect-battle/control-pause.webp",
+    "play": "ink/art/sect-battle/control-play.webp",
+    "skip": "ink/art/sect-battle/control-skip.webp",
+    "roster": "ink/art/sect-battle/control-roster.webp",
+    "impact": "ink/art/sect-battle/impact.webp",
+    "thrust": "ink/art/sect-battle/thrust.webp",
+    "portraitRing": "ink/art/sect-battle/portrait-ring.webp"
+  },
+  "weapons": {
+    "sword": "ink/art/sect-battle/weapon-sword.webp",
+    "blade": "ink/art/sect-battle/weapon-blade.webp",
+    "spear": "ink/art/sect-battle/weapon-spear.webp",
+    "staff": "ink/art/sect-battle/weapon-staff.webp",
+    "whip": "ink/art/sect-battle/weapon-whip.webp",
+    "bow": "ink/art/sect-battle/weapon-bow.webp",
+    "hidden": "ink/art/sect-battle/weapon-hidden.webp"
+  }
+}

@@ -1,0 +1,770 @@
+@import "../components/ink/parchment-ui.css";
+
+.ink-sect-war,
+.ink-sect-war *,
+.war-sheet,
+.war-sheet * {
+  box-sizing: border-box;
+}
+.ink-sect-war {
+  position: fixed;
+  inset: 0;
+  z-index: 210;
+  margin: auto;
+  width: 100%;
+  max-width: 600px;
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: 20% minmax(0, 1fr) 20%;
+  overflow: hidden;
+  isolation: isolate;
+  padding: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px);
+  color: #24231f;
+  background:
+    var(--ui-fiber) center/384px repeat,
+    var(--ui-paper);
+  font:
+    15px/1.45 "Noto Serif TC",
+    "Noto Sans CJK TC",
+    "Microsoft JhengHei",
+    serif;
+  --war-jade: #365e59;
+  --war-red: #9c382d;
+}
+.war-paper {
+  position: absolute;
+  inset: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px);
+  z-index: -1;
+  pointer-events: none;
+}
+.war-paper > img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: fill;
+}
+.ink-sect-war button,
+.war-sheet button {
+  color: inherit;
+  font: inherit;
+  touch-action: manipulation;
+  cursor: pointer;
+  min-height: 44px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+.ink-sect-war button:disabled,
+.war-sheet button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.ink-sect-war button:focus-visible,
+.war-sheet button:focus-visible {
+  outline: 2px solid var(--war-red);
+  outline-offset: 2px;
+}
+.war-header {
+  position: relative;
+  min-height: 0;
+  padding: 22px 14px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.war-back {
+  position: absolute;
+  left: 12px;
+  top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 4px;
+  font-size: 16px !important;
+}
+.war-back > img {
+  width: 22px;
+  height: 25px;
+  object-fit: contain;
+}
+.war-mode {
+  position: absolute;
+  right: 12px;
+  top: 4px;
+  padding: 0 4px;
+  font-size: 12px !important;
+  color: var(--war-red) !important;
+  letter-spacing: 0.03em;
+}
+.war-header h1 {
+  font: 700 clamp(34px, 5.6dvh, 51px) / 1.12 var(--ui-title);
+  letter-spacing: 0.05em;
+  margin: 0 0 9px;
+  text-align: center;
+  padding: 0 0 8px;
+  background: var(--ui-underline) center bottom/200px 5px no-repeat;
+}
+.war-teams {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 58px;
+  position: relative;
+  min-height: 60px;
+  flex: none;
+  padding: 0 5px;
+}
+.war-teams > button {
+  position: relative;
+  text-align: center;
+  padding: 3px 0 4px;
+  min-width: 0;
+  isolation: isolate;
+}
+.war-teams > button > img {
+  position: absolute;
+  z-index: -1;
+  right: -18px;
+  top: -8px;
+  width: 45px;
+  height: 70px;
+  object-fit: contain;
+  opacity: 0.85;
+}
+.war-teams > button[data-side="1"] > img {
+  right: auto;
+  left: -20px;
+}
+.war-teams h2 {
+  font: 700 clamp(19px, 2.75dvh, 26px) / 1.1 var(--ui-title);
+  color: var(--war-jade);
+  margin: 0 0 4px;
+  overflow-wrap: anywhere;
+}
+.war-teams [data-side="1"] h2 {
+  color: var(--war-red);
+}
+.war-teams > button > span {
+  font-size: 13px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.war-teams b {
+  font-size: 17px;
+  line-height: 1;
+}
+.war-clock {
+  position: absolute;
+  left: 50%;
+  top: 10px;
+  transform: translateX(-50%);
+  padding: 4px 2px 6px;
+  background: var(--ui-underline) center bottom/54px 2px no-repeat;
+  font:
+    700 20px/1.1 "Noto Serif TC",
+    serif;
+  pointer-events: none;
+  white-space: nowrap;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+}
+.war-stage {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+}
+.war-stage > canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: manipulation;
+}
+.war-seal {
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  color: #7c6953;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.war-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background:
+    var(--ui-fiber) center/384px repeat,
+    var(--ui-paper);
+  z-index: 5;
+  color: #675942;
+}
+.war-loading p {
+  margin: 0;
+}
+.war-loading button,
+.war-lobby-note > button,
+.war-sheet-content > button {
+  border: 6px solid transparent;
+  border-image: var(--ui-frame) 48/1/0 stretch;
+  background:
+    var(--ui-fiber) center/384px repeat,
+    var(--ui-paper);
+  padding: 4px 14px;
+}
+.war-lobby-note {
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  top: 22%;
+  text-align: center;
+  color: #6c5d49;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.war-lobby-note h3 {
+  font: 700 27px/1.3 var(--ui-title);
+  margin: 0;
+  color: #35372e;
+}
+.war-lobby-note p {
+  margin: 0;
+  font-size: 14px;
+}
+.war-lobby-note small {
+  font-size: 12px;
+}
+.war-lobby-note > button {
+  font-family: var(--ui-title);
+  font-size: 24px;
+  color: var(--war-red);
+}
+.war-result {
+  position: absolute;
+  left: 50%;
+  top: 14%;
+  transform: translateX(-50%);
+  width: calc(100% - 50px);
+  max-width: 330px;
+  text-align: center;
+  background:
+    var(--ui-fiber) center/384px repeat,
+    var(--ui-paper);
+  border: 8px solid transparent;
+  border-image: var(--ui-frame) 48/1/0 stretch;
+  padding: 12px 10px;
+}
+.war-result h3 {
+  font: 700 29px/1.2 var(--ui-title);
+  margin: 0 0 6px;
+  color: var(--war-red);
+}
+.war-result p {
+  margin: 0 0 6px;
+}
+.war-result small {
+  font-size: 12px;
+  color: #6c5d49;
+}
+.war-feedback {
+  position: absolute;
+  top: 34px;
+  left: 14px;
+  right: 14px;
+  z-index: 6;
+  padding: 9px 9px 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background:
+    var(--ui-fiber) center/384px repeat,
+    var(--ui-paper);
+  border: 6px solid transparent;
+  border-image: var(--ui-frame) 48/1/0 stretch;
+  font-size: 13px;
+  box-shadow: 0 2px 10px #4c3e2922;
+}
+.war-feedback.is-error {
+  color: var(--war-red);
+}
+.war-feedback > button {
+  font-size: 12px;
+  flex: none;
+  padding: 0 4px;
+}
+.war-footer {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) 48px;
+  gap: 5px;
+  padding: 0 17px 12px;
+}
+.war-focus {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  padding: 0 9px;
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
+}
+.war-portrait {
+  position: relative;
+  display: block;
+  width: clamp(55px, 10dvh, 88px);
+  height: clamp(55px, 10dvh, 88px);
+  flex: none;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.war-portrait > canvas {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+.war-portrait > img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  inset: 0;
+  pointer-events: none;
+}
+.war-focus-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  flex: 1;
+}
+.war-focus-copy > strong {
+  font: 700 clamp(24px, 3.7dvh, 36px) / 1.12 var(--ui-title);
+  letter-spacing: 0.04em;
+  color: var(--war-jade);
+  overflow-wrap: anywhere;
+}
+.war-focus-copy > span {
+  font-size: 14px;
+  line-height: 1.3;
+  color: #766447;
+  overflow-wrap: anywhere;
+}
+.war-focus-copy > small {
+  font-size: 11px;
+  color: #655d4c;
+  line-height: 1.3;
+  white-space: normal;
+  font-variant-numeric: tabular-nums;
+}
+.war-focus-copy[data-long-name="true"] > strong {
+  font-size: 26px;
+}
+.war-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 11px;
+  min-height: 0;
+}
+.war-actions > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 3px 6px;
+  border: 6px solid transparent;
+  border-image: var(--ui-frame) 48/1/0 stretch;
+  background:
+    var(--ui-fiber) center/384px repeat,
+    var(--ui-paper);
+  font: 700 23px/1.1 var(--ui-title);
+  white-space: nowrap;
+}
+.war-actions img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  flex: none;
+}
+.war-actions button:active {
+  border-image-source: var(--ui-selected);
+  border-image-slice: 13;
+}
+.war-sheet {
+  position: fixed;
+  inset: auto 10px max(10px, env(safe-area-inset-bottom, 0px));
+  margin: auto;
+  width: calc(100% - 20px);
+  max-width: 560px;
+  max-height: 84dvh;
+  overflow: hidden;
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  font:
+    14px/1.5 "Noto Serif TC",
+    serif;
+  background:
+    var(--ui-fiber) center/384px repeat,
+    var(--ui-paper);
+  color: #28271f;
+  z-index: 300;
+  padding: 12px !important;
+}
+.war-sheet[open] {
+  display: flex;
+}
+.war-sheet::backdrop {
+  background: #27271f66;
+}
+.war-sheet > header {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 44px;
+}
+.war-sheet > header h2 {
+  font-family: var(--ui-title);
+  font-size: 30px !important;
+  margin: 0;
+}
+.war-sheet > header > button {
+  padding: 0 8px;
+  font-size: 14px;
+  flex: none;
+}
+.war-sheet-content {
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 0 5px 8px;
+  scrollbar-color: #9a8c74 transparent;
+  scrollbar-width: thin;
+}
+.war-sheet-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.war-sheet-tabs > button {
+  font: 700 22px/1.2 var(--ui-title);
+  padding: 6px 10px;
+  border: 6px solid transparent;
+  border-image: var(--ui-frame) 48/1/0 stretch;
+}
+.war-sheet-tabs > button[aria-selected="true"] {
+  color: var(--ui-red);
+  border-image-source: var(--ui-selected);
+  border-image-slice: 13;
+}
+.war-roster-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.war-roster-grid > button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  min-height: 62px;
+  padding: 5px;
+  border: 4px solid transparent;
+  border-image: var(--ui-frame) 48/1/0 stretch;
+  text-align: left;
+}
+.war-roster-grid > button[aria-pressed="true"] {
+  border-image-source: var(--ui-selected);
+  border-image-slice: 13;
+  color: var(--war-red);
+}
+.war-roster-grid canvas {
+  width: 40px;
+  height: 48px;
+  flex: none;
+  object-fit: contain;
+}
+.war-roster-grid button > span {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.war-roster-grid b {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.war-roster-grid small {
+  font-size: 10px;
+  color: #726751;
+  font-variant-numeric: tabular-nums;
+}
+.war-member-list > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 5px 0;
+  border-bottom: 1px solid #b8ad9855;
+}
+.war-member-list span {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.war-member-list small {
+  color: #75674e;
+  font-size: 12px;
+}
+.war-member-list button {
+  color: var(--war-red);
+  padding: 0 10px;
+  flex: none;
+}
+.war-sheet-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+.war-sheet-options button {
+  border: 5px solid transparent;
+  border-image: var(--ui-frame) 48/1/0 stretch;
+  padding: 3px 10px;
+  flex: 1;
+  min-width: 130px;
+  font-size: 13px;
+}
+.war-rivals,
+.war-history {
+  display: grid;
+  gap: 8px;
+}
+.war-rivals > button,
+.war-history > button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 58px;
+  padding: 8px;
+  border: 5px solid transparent;
+  border-image: var(--ui-frame) 48/1/0 stretch;
+}
+.war-rivals strong {
+  font: 700 22px/1.2 var(--ui-title);
+}
+.war-rivals span {
+  color: #7c6f56;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.war-history > button {
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+.war-history span {
+  font-size: 12px;
+  color: #75674e;
+}
+.war-rules p {
+  margin: 0 0 12px;
+}
+.war-rules > button {
+  width: 100%;
+  text-align: left;
+  min-height: 44px;
+  padding: 7px 10px;
+  border: 5px solid transparent;
+  border-image: var(--ui-frame) 48/1/0 stretch;
+  margin: 3px 0 8px;
+}
+.war-rules > label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+}
+.war-rules input {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--war-red);
+}
+@media (max-height: 660px) {
+  .war-header {
+    padding-top: 17px;
+  }
+  .war-header h1 {
+    font-size: 32px;
+    margin-bottom: 4px;
+    padding-bottom: 5px;
+    background-size: 150px 3px;
+  }
+  .war-back {
+    font-size: 13px !important;
+    top: 0;
+    left: 8px;
+  }
+  .war-back > img {
+    width: 18px;
+  }
+  .war-mode {
+    font-size: 10px !important;
+    top: 0;
+    right: 8px;
+  }
+  .war-teams {
+    gap: 48px;
+    min-height: 48px;
+    padding: 0 6px;
+  }
+  .war-teams h2 {
+    font-size: 18px;
+    margin-bottom: 2px;
+  }
+  .war-teams > button > img {
+    width: 30px;
+    height: 48px;
+    right: -13px;
+    top: 0;
+  }
+  .war-teams > button[data-side="1"] > img {
+    left: -13px;
+  }
+  .war-teams > button > span {
+    font-size: 10px;
+  }
+  .war-teams b {
+    font-size: 14px;
+  }
+  .war-clock {
+    font-size: 16px;
+    top: 6px;
+  }
+  .war-footer {
+    padding: 0 12px 5px;
+    grid-template-rows: minmax(0, 1fr) 44px;
+    gap: 2px;
+  }
+  .war-focus {
+    gap: 9px;
+    padding: 0 5px;
+  }
+  .war-focus-copy > strong {
+    font-size: 24px;
+  }
+  .war-focus-copy > span {
+    font-size: 11px;
+  }
+  .war-focus-copy > small {
+    font-size: 9px;
+  }
+  .war-actions {
+    gap: 8px;
+  }
+  .war-actions > button {
+    font-size: 20px;
+    gap: 5px;
+    padding: 1px 3px;
+  }
+  .war-actions img {
+    width: 17px;
+    height: 18px;
+  }
+  .war-seal {
+    font-size: 10px;
+    top: 4px;
+  }
+  .war-lobby-note {
+    top: 16%;
+    gap: 6px;
+  }
+  .war-lobby-note h3 {
+    font-size: 23px;
+  }
+  .war-lobby-note p {
+    font-size: 12px;
+  }
+  .war-lobby-note small {
+    font-size: 10px;
+  }
+}
+@media (min-width: 601px) {
+  .ink-sect-war {
+    box-shadow: 0 0 45px #352e2544;
+  }
+}
+@media (max-height: 480px) {
+  .ink-sect-war {
+    grid-template-rows: 96px minmax(0, 1fr) 92px;
+  }
+  .war-header {
+    padding-top: 9px;
+  }
+  .war-header h1 {
+    font-size: 28px;
+    margin-bottom: 2px;
+  }
+  .war-teams {
+    min-height: 44px;
+  }
+  .war-teams h2 {
+    font-size: 17px;
+  }
+  .war-footer {
+    grid-template-rows: minmax(44px, 1fr) 44px;
+    padding-bottom: 2px;
+    gap: 1px;
+  }
+  .war-portrait {
+    width: 44px;
+    height: 44px;
+  }
+  .war-focus-copy > strong {
+    font-size: 21px;
+  }
+  .war-focus-copy > span,
+  .war-focus-copy > small {
+    font-size: 10px;
+  }
+  .war-lobby-note {
+    top: 8%;
+    gap: 2px;
+  }
+  .war-lobby-note h3 {
+    font-size: 19px;
+  }
+  .war-lobby-note p {
+    font-size: 11px;
+  }
+  .war-lobby-note small {
+    font-size: 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .war-actions button:active {
+    transform: none;
+  }
+}
+@media (max-height: 660px) {
+  .war-focus-copy > small {
+    display: none;
+  }
+  .war-focus-copy[data-long-name="true"] > strong {
+    font-size: 20px;
+    line-height: 1.1;
+  }
+}

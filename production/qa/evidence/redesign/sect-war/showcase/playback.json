@@ -1,0 +1,18 @@
+{
+  "productionBuild": true,
+  "recording": "trial, no rewards or real players",
+  "viewport": [
+    390,
+    844
+  ],
+  "dpr": 2,
+  "actualIphone": false,
+  "engine": "headless Chromium",
+  "recordingOverhead": true,
+  "rafSamples": 209,
+  "p50FrameMs": 16.7,
+  "p95FrameMs": 33.4,
+  "over50ms": 4,
+  "sourceVideo": ".local-online/sect-production/video/page@87f79177ff5c755018957edd1ea3b94b.webm",
+  "pageerrors": []
+}

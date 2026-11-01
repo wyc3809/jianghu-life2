@@ -15,3 +15,10 @@ Deno.serve(createSharedHandler({ url: Deno.env.get('SUPABASE_URL'), anonKey: Den
   bundle: true, platform: 'neutral', format: 'esm', target: 'es2022', outfile: '.local-online/world-edge/index.ts', tsconfig: 'tsconfig.json', minify: false });
 await writeFile('.local-online/world-edge/deno.json', JSON.stringify({ compilerOptions: { lib: ['deno.ns', 'dom', 'esnext'] } }));
 console.log('共用江湖Edge bundle已建立（無憑證）。');
+
+await mkdir('.local-online/sect-edge', { recursive: true });
+await build({ stdin: { contents: `import { createSectWarHandler } from './server/online/sectHttp';
+Deno.serve(createSectWarHandler({ url: Deno.env.get('SUPABASE_URL'), anonKey: Deno.env.get('SUPABASE_ANON_KEY'), serviceKey: Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') }));`, resolveDir: process.cwd(), sourcefile: 'sect-edge-entry.ts' },
+  bundle: true, platform: 'neutral', format: 'esm', target: 'es2022', outfile: '.local-online/sect-edge/index.ts', tsconfig: 'tsconfig.json', minify: true });
+await writeFile('.local-online/sect-edge/deno.json', JSON.stringify({ compilerOptions: { lib: ['deno.ns', 'dom', 'esnext'] } }));
+console.log('門派會武Edge bundle已建立（無憑證）。');

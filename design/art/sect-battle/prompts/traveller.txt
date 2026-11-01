@@ -1,0 +1,21 @@
+Create ONE production-ready transparent sprite atlas for an original wuxia mobile game's traveller robe character. References 1 and 2 establish the approved fine ink-line, soft mineral-watercolor rendering, rich cloth folds, dynamic sleeves, warm ink and muted blue-jade palette. Reference 3 establishes the exact outfit identity and headless modular format: blue-grey traveller robe with textured leather shoulder mantle and bracers, layered skirt panels, trousers and boots, clean high pale collar. Improve gesture fluidity and cloth motion to the quality of the approved battle concept while preserving that traveller outfit.
+
+ATLAS GEOMETRY: square approximately 2048 x 2048 pixels, exactly FOUR equal columns and THREE equal rows, twelve isolated cells, row-major order. No drawn grid, no writing, no labels. Each cell has generous transparent margins and absolutely no contact with another cell. Consistent adult body proportions and the SAME world scale in all poses. Each cell contains one complete anatomically connected human BODY from the base of neck through both boots; both arms, two hands and two legs belong to that body. This is not a limb-parts sheet. All poses face three-quarter right except the natural lying pose.
+
+MODULAR HEAD RULE: absolutely NO head, face, hair, hat or floating head. Every standing or jumping body ends at a clean pale high collar opening, matching reference 3 so an existing head and skin-neck bridge can be mounted later. Do not draw exposed giant neck stalks. NO weapons of any kind: leave believable naturally curled empty gripping hands/fists for the game's separate weapon attachment. Show natural five-finger anatomy with only two hands per body, no extra limbs. No detached palms, boots, fabric shards or trails outside each connected body; flowing robe hems and scarves remain attached.
+
+TWELVE DISTINCT FRAMES, FOUR PER ROW:
+Row 1 column 1: combat idle guard, balanced knees, left hand loosely forward and right hand near ribs.
+Row 1 column 2: advancing step with left leg forward, subtle opposite arm counterbalance.
+Row 1 column 3: advancing step with right leg forward, coherent continuation of frame 2.
+Row 1 column 4: drawn-back windup, torso coiling, leading empty gripping hand ready to thrust.
+Row 2 column 1: long forward lunge thrust, front hand extended right, back hand held safely near ribs.
+Row 2 column 2: low follow-through guard, natural weight settling, cloth catching up.
+Row 2 column 3: sweeping second attack, forward empty gripping hand and turned waist, both arms coherent.
+Row 2 column 4: recovery stance, weight returning, trailing cloth settling.
+Row 3 column 1: recoil hurt, chest drawing back, feet still supporting body, both hands visible and natural.
+Row 3 column 2: compact guarded crouch, clearly bent knees, real connected lower legs and boots.
+Row 3 column 3: lying on ground at the SAME body scale, body naturally horizontal with bent near leg, arms relaxed, no injury or blood.
+Row 3 column 4: leaping strike pose, one knee tucked and other leg extended modestly, both arms clear and hands empty.
+
+All twelve cells must show a fully complete silhouette with all body extremities inside the cell. Do not crop sleeves, wrists, boots or knees. Muted blue cloth must retain enough blue channel for the game to tint it; preserve warm pale skin on hands, dark leather, subtle woven fibre, crisp fine ink contour and soft watercolor shading. Professional high-quality painted 2D game sprites, not photographic, not low-poly, not vector, not generic anime flat art. GENUINE transparent alpha background over the entire empty atlas area, no white matte, no colored backdrop, no checkerboard painting, no shadow floor, no baseline, no scenery, no text, watermark or signature.

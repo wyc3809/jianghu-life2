@@ -1,0 +1,12 @@
+{
+  "productionBuild": true,
+  "engine": "chromium",
+  "entry": "江湖→江湖風雲→門派會武",
+  "noGlobalDockInBattle": true,
+  "rootInertRestored": true,
+  "prepareOpensDuelPreset": true,
+  "returnToOriginalPanel": true,
+  "pageerrors": [],
+  "cloudBlocked": true,
+  "actualIphone": false
+}
