@@ -1,0 +1,10 @@
+Base editing request:
+Edit this rig atlas into a second costume variation for the SAME body and skeleton: [costume below] Keep EXACTLY the two-column five-row layout, all ten isolated pieces, every joint cap and attachment axis in the same positions, same lengths, same hand / neck skin, same boot foot direction. Detailed Chinese wuxia muted watercolor and fine ink outlines, high quality painted fabric. Preserve empty truly transparent gaps and margins. Main tintable cloth must remain BLUE-GREY. The first row torso is armless, sleeveless, headless; NEVER put extra arms or hands onto it. Pelvis is waist and hip skirts only; NO legs. Upper arm shoulder-to-elbow only. Forearm elbow-to-wrist only and NO HAND. Thigh only, calf shaft only, foot only, neck only, open hand only, closed gripping hand only. Clean natural overlap caps painted beyond each joint, not mechanical balls. No words, labels, handles, weapons, grid lines, full persons, backgrounds or fake checkerboard. Preserve transparency.
+
+Scholar costume:
+scholar with pale blue-grey Chinese scholar silk robes, elegant lighter cloud embroidery, wide hanging sleeves. Armless collar-and-waist torso, waist-and-hip skirt only in pelvis cell. Each sleeve stays on the separate upper arm / forearm segment, not on the torso. Do not extend any sleeve across another cell.
+
+Cloak costume:
+travelling warrior with short charcoal feathered shoulder cape, weathered blue-grey layered cloth and leather. The armless torso can have a narrow feathered mantle around its existing shoulder caps but NO full arms or sleeves. Hip piece has layered short cloak tail fabric only, no pants legs. Upper arm sleeve may have ragged outer cloth trim, preserving the existing capsule extent.
+
+Reference: traveller-original.png. Tool setting: transparent_background=true.

@@ -1,0 +1,75 @@
+{
+  "actualIphone": false,
+  "environment": "Linux Chromium headless Canvas2D,390x844,DPR2,Vite development",
+  "seconds": 120,
+  "readyObservedAtMs": 2882.599999997765,
+  "updateMs": {
+    "count": 7067,
+    "p50": 0.1,
+    "p95": 0.2,
+    "p99": 0.4,
+    "max": 406.9
+  },
+  "drawCpuMs": {
+    "count": 7067,
+    "p50": 0.1,
+    "p95": 0.3,
+    "p99": 0.8,
+    "max": 47.1
+  },
+  "rafGapMs": {
+    "count": 7066,
+    "p50": 16.7,
+    "p95": 16.8,
+    "p99": 16.8,
+    "max": 450.1
+  },
+  "images": 42,
+  "decodedRgbaEstimate": 18305340,
+  "heaps": [
+    {
+      "seconds": 20,
+      "usedSize": 23117964,
+      "totalSize": 33583104,
+      "embedderHeapUsedSize": 24606016,
+      "backingStorageSize": 11665683
+    },
+    {
+      "seconds": 40,
+      "usedSize": 24022532,
+      "totalSize": 34107392,
+      "embedderHeapUsedSize": 42951944,
+      "backingStorageSize": 11665683
+    },
+    {
+      "seconds": 60,
+      "usedSize": 25936552,
+      "totalSize": 34893824,
+      "embedderHeapUsedSize": 62342368,
+      "backingStorageSize": 11665683
+    },
+    {
+      "seconds": 80,
+      "usedSize": 22965988,
+      "totalSize": 33583104,
+      "embedderHeapUsedSize": 7388704,
+      "backingStorageSize": 11519124
+    },
+    {
+      "seconds": 100,
+      "usedSize": 23601912,
+      "totalSize": 33583104,
+      "embedderHeapUsedSize": 10970656,
+      "backingStorageSize": 11519124
+    },
+    {
+      "seconds": 120,
+      "usedSize": 25280120,
+      "totalSize": 47214592,
+      "embedderHeapUsedSize": 7983520,
+      "backingStorageSize": 11519124
+    }
+  ],
+  "invalidFrames": 0,
+  "pageerrors": []
+}

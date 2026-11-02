@@ -16,6 +16,9 @@ if (Capacitor.getPlatform() === 'ios') document.documentElement.classList.add('n
 
 installPressFeedback();
 
+const RigLab = import.meta.env.DEV || import.meta.env.VITE_CHARACTER_RIG_LAB === '1' ? lazy(() => import('./prototypes/rigLab/CharacterRigLab')) : null;
+const isRigLab = Boolean(RigLab) && new URLSearchParams(window.location.search).get('rig-lab') === '1';
+
 // 高光時刻示範頁：?fx=highlight，只限開發版（按需載入，唔影響遊戲首屏）
 const HighlightDemo = lazy(() => import('./fx/highlight/HighlightDemo'));
 const isFxDemo = import.meta.env.DEV && new URLSearchParams(window.location.search).get('fx') === 'highlight';
@@ -33,7 +36,7 @@ const OnlinePreview = import.meta.env.VITE_ONLINE_PUBLIC === '1' || (import.meta
 const isOnlinePreview = Boolean(OnlinePreview) && new URLSearchParams(window.location.search).get('online') === '1';
 
 // 雲端：開機揾身份，雲端存檔較新就先寫返本機（最多等 2.5 秒）
-const boot = isFxDemo || isBattlePreview || isSectBattlePreview || isMartialPreview || isOnlinePreview ? Promise.resolve({ restored: false }) : bootCloud(readLocalSavedAt, writeLocal);
+const boot = isRigLab || isFxDemo || isBattlePreview || isSectBattlePreview || isMartialPreview || isOnlinePreview ? Promise.resolve({ restored: false }) : bootCloud(readLocalSavedAt, writeLocal);
 
 void boot.then(async ({ restored }) => {
   if (restored) useAncestryStore.setState({ meta: loadAncestry() });
@@ -44,7 +47,7 @@ void boot.then(async ({ restored }) => {
 function render() {
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
-      {isSectWar ? <Suspense fallback={null}><SectWar onBack={()=>window.location.assign(import.meta.env.BASE_URL)} initialTrial={new URLSearchParams(window.location.search).get('trial')==='1'}/></Suspense> : isOnlinePreview && OnlinePreview ? (
+      {isRigLab && RigLab ? <Suspense fallback={null}><RigLab /></Suspense> : isSectWar ? <Suspense fallback={null}><SectWar onBack={()=>window.location.assign(import.meta.env.BASE_URL)} initialTrial={new URLSearchParams(window.location.search).get('trial')==='1'}/></Suspense> : isOnlinePreview && OnlinePreview ? (
         <Suspense fallback={null}><OnlinePreview standalone /></Suspense>
       ) : isSectBattlePreview ? (
         <Suspense fallback={null}><SectBattlePreview /></Suspense>

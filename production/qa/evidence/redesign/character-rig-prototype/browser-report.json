@@ -1,0 +1,125 @@
+{
+  "actualIphone": false,
+  "cases": [
+    {
+      "engine": "chromium",
+      "viewport": [
+        320,
+        568
+      ],
+      "normalAssets": true,
+      "allActions": true,
+      "pauseAndOneStep": true,
+      "turnAndDebug": true,
+      "outfitHeadToneWeapons": true,
+      "noStorageMutation": true,
+      "syntheticVisibility": true,
+      "invalidFrames": 0,
+      "pageerrors": []
+    },
+    {
+      "engine": "chromium",
+      "viewport": [
+        390,
+        844
+      ],
+      "normalAssets": true,
+      "allActions": true,
+      "pauseAndOneStep": true,
+      "turnAndDebug": true,
+      "outfitHeadToneWeapons": true,
+      "noStorageMutation": true,
+      "syntheticVisibility": true,
+      "invalidFrames": 0,
+      "pageerrors": []
+    },
+    {
+      "engine": "chromium",
+      "viewport": [
+        430,
+        932
+      ],
+      "normalAssets": true,
+      "allActions": true,
+      "pauseAndOneStep": true,
+      "turnAndDebug": true,
+      "outfitHeadToneWeapons": true,
+      "noStorageMutation": true,
+      "syntheticVisibility": true,
+      "invalidFrames": 0,
+      "pageerrors": []
+    },
+    {
+      "engine": "chromium",
+      "reduced": true,
+      "failure": false,
+      "pageerrors": []
+    },
+    {
+      "engine": "chromium",
+      "reduced": false,
+      "failure": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "viewport": [
+        320,
+        568
+      ],
+      "normalAssets": true,
+      "allActions": true,
+      "pauseAndOneStep": true,
+      "turnAndDebug": true,
+      "outfitHeadToneWeapons": true,
+      "noStorageMutation": true,
+      "syntheticVisibility": true,
+      "invalidFrames": 0,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "viewport": [
+        390,
+        844
+      ],
+      "normalAssets": true,
+      "allActions": true,
+      "pauseAndOneStep": true,
+      "turnAndDebug": true,
+      "outfitHeadToneWeapons": true,
+      "noStorageMutation": true,
+      "syntheticVisibility": true,
+      "invalidFrames": 0,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "viewport": [
+        430,
+        932
+      ],
+      "normalAssets": true,
+      "allActions": true,
+      "pauseAndOneStep": true,
+      "turnAndDebug": true,
+      "outfitHeadToneWeapons": true,
+      "noStorageMutation": true,
+      "syntheticVisibility": true,
+      "invalidFrames": 0,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "reduced": true,
+      "failure": false,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "reduced": false,
+      "failure": true,
+      "pageerrors": []
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "baseline": "9a07caf49b0b05b6d7b39def891a41925391bbed",
+  "stage": "single-character-prototype",
+  "actualIphone": false,
+  "deployed": false,
+  "inputs": {
+    "src/fx/actor/poses.ts": "72728b0755f91d31eff4f1adc6eb556276053eca3b4aa3053281aff57b2bff2f",
+    "src/fx/actor/asset-map.json": "d89b7b5318cbc39e83449cb81e3ab8678ea44317ee0a5436ec179557e7f0763e",
+    "src/fx/actor/assets.ts": "0a075fb5197d3ea8c570c2b88f2982a81f1b2f460aca33a2dc432683896ba2d0",
+    "src/fx/actor/rig.ts": "bc5cefc7239abc4b698bd25bbcbb5defae404e333101c887999ae42f55b5c7e6",
+    "src/fx/actor/animator.ts": "655987c7cd6d474ba7de411252abcf7d0a4e426b9d419248239ec48853b67564",
+    "src/fx/actor/renderer.ts": "e9dc6bfb456797d8176fba8d9e79d7f6dc9202e222beee3d6eb62fe4eef3a8bd",
+    "src/fx/actor/asset-fallback.json": "745e259d90018f3eac8f78780ba3892d033fe828a8b0692ef750a134c3fa6256",
+    "src/prototypes/rigLab/CharacterRigLab.tsx": "19ec6f7dde14d03f43b23a21ca44ee27eb11b3c1d96f2d257acbfbd3a336e2db",
+    "src/prototypes/rigLab/rig-lab.css": "4dddddb0bd8a02f5223bfde6ca62e906f2d1823bc33c219d12e877561f975100",
+    "src/main.tsx": "27ed19349584bb301470d8bbb161616c2700755b3a53ea495ea33e2bd3e87aa7",
+    "src/components/ink/InkSettingsPanel.tsx": "ecd946a361e55cb99dbd84e8adffc16fa973a0b07fe7ad6e9d0f52ee8ae69c4b"
+  },
+  "playableSha256": "910603ddaa626d499e960ac1b6be18e721d43e904964941854a08f9dc2d61d7c"
+}

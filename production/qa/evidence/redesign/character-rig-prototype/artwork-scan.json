@@ -1,0 +1,659 @@
+{
+  "ground": [
+    {
+      "head": "master",
+      "outfit": "traveller",
+      "face": 1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "master",
+      "outfit": "traveller",
+      "face": -1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "silver",
+      "outfit": "traveller",
+      "face": 1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "silver",
+      "outfit": "traveller",
+      "face": -1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "ponytail",
+      "outfit": "traveller",
+      "face": 1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "ponytail",
+      "outfit": "traveller",
+      "face": -1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "loose",
+      "outfit": "traveller",
+      "face": 1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "loose",
+      "outfit": "traveller",
+      "face": -1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "bun",
+      "outfit": "traveller",
+      "face": 1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "bun",
+      "outfit": "traveller",
+      "face": -1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "short",
+      "outfit": "traveller",
+      "face": 1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "short",
+      "outfit": "traveller",
+      "face": -1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "bamboo",
+      "outfit": "traveller",
+      "face": 1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "bamboo",
+      "outfit": "traveller",
+      "face": -1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "traveller",
+      "face": 1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "traveller",
+      "face": -1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "master",
+      "outfit": "scholar",
+      "face": 1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "master",
+      "outfit": "scholar",
+      "face": -1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "silver",
+      "outfit": "scholar",
+      "face": 1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "silver",
+      "outfit": "scholar",
+      "face": -1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "ponytail",
+      "outfit": "scholar",
+      "face": 1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "ponytail",
+      "outfit": "scholar",
+      "face": -1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "loose",
+      "outfit": "scholar",
+      "face": 1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "loose",
+      "outfit": "scholar",
+      "face": -1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "bun",
+      "outfit": "scholar",
+      "face": 1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "bun",
+      "outfit": "scholar",
+      "face": -1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "short",
+      "outfit": "scholar",
+      "face": 1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "short",
+      "outfit": "scholar",
+      "face": -1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "bamboo",
+      "outfit": "scholar",
+      "face": 1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "bamboo",
+      "outfit": "scholar",
+      "face": -1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "scholar",
+      "face": 1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "scholar",
+      "face": -1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "master",
+      "outfit": "cloak",
+      "face": 1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "master",
+      "outfit": "cloak",
+      "face": -1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "silver",
+      "outfit": "cloak",
+      "face": 1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "silver",
+      "outfit": "cloak",
+      "face": -1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "ponytail",
+      "outfit": "cloak",
+      "face": 1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "ponytail",
+      "outfit": "cloak",
+      "face": -1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "loose",
+      "outfit": "cloak",
+      "face": 1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "loose",
+      "outfit": "cloak",
+      "face": -1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "bun",
+      "outfit": "cloak",
+      "face": 1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "bun",
+      "outfit": "cloak",
+      "face": -1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "short",
+      "outfit": "cloak",
+      "face": 1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "short",
+      "outfit": "cloak",
+      "face": -1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "bamboo",
+      "outfit": "cloak",
+      "face": 1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "bamboo",
+      "outfit": "cloak",
+      "face": -1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "cloak",
+      "face": 1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "cloak",
+      "face": -1,
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "traveller",
+      "weapon": "sword",
+      "grip": "one",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "traveller",
+      "weapon": "sword",
+      "grip": "back",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "traveller",
+      "weapon": "blade",
+      "grip": "one",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "traveller",
+      "weapon": "blade",
+      "grip": "back",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "traveller",
+      "weapon": "spear",
+      "grip": "one",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "traveller",
+      "weapon": "spear",
+      "grip": "two",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "traveller",
+      "weapon": "spear",
+      "grip": "back",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "traveller",
+      "weapon": "staff",
+      "grip": "one",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "traveller",
+      "weapon": "staff",
+      "grip": "two",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "traveller",
+      "weapon": "staff",
+      "grip": "back",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "scholar",
+      "weapon": "sword",
+      "grip": "one",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "scholar",
+      "weapon": "sword",
+      "grip": "back",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "scholar",
+      "weapon": "blade",
+      "grip": "one",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "scholar",
+      "weapon": "blade",
+      "grip": "back",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "scholar",
+      "weapon": "spear",
+      "grip": "one",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "scholar",
+      "weapon": "spear",
+      "grip": "two",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "scholar",
+      "weapon": "spear",
+      "grip": "back",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "scholar",
+      "weapon": "staff",
+      "grip": "one",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "scholar",
+      "weapon": "staff",
+      "grip": "two",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "scholar",
+      "weapon": "staff",
+      "grip": "back",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 550,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "cloak",
+      "weapon": "sword",
+      "grip": "one",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "cloak",
+      "weapon": "sword",
+      "grip": "back",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "cloak",
+      "weapon": "blade",
+      "grip": "one",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "cloak",
+      "weapon": "blade",
+      "grip": "back",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "cloak",
+      "weapon": "spear",
+      "grip": "one",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "cloak",
+      "weapon": "spear",
+      "grip": "two",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "cloak",
+      "weapon": "spear",
+      "grip": "back",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "cloak",
+      "weapon": "staff",
+      "grip": "one",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "cloak",
+      "weapon": "staff",
+      "grip": "two",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    },
+    {
+      "head": "topknot",
+      "outfit": "cloak",
+      "weapon": "staff",
+      "grip": "back",
+      "pixelsBelowFloor": 0,
+      "lastOpaqueRow": 549,
+      "invalid": 0
+    }
+  ],
+  "lookCount": 96
+}

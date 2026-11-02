@@ -1,0 +1,272 @@
+[
+  {
+    "file": "ink/art/character-rig/traveller-torso.webp",
+    "size": [
+      321,
+      342
+    ],
+    "alphaZeroFraction": 0.24197955949062688,
+    "sha256": "cfe0a65a61d4603779fe531820bff57ba4b0f352e73ef6d892696bdbd3f7f4ed"
+  },
+  {
+    "file": "ink/art/character-rig/traveller-upperArm.webp",
+    "size": [
+      184,
+      326
+    ],
+    "alphaZeroFraction": 0.24594891971192318,
+    "sha256": "622ae5d4160f379bfe689c301f945e0a37c611e9c5a7f2752783eb112996c87b"
+  },
+  {
+    "file": "ink/art/character-rig/traveller-forearm.webp",
+    "size": [
+      173,
+      324
+    ],
+    "alphaZeroFraction": 0.38831799043745097,
+    "sha256": "4ab84ef944a022383fab28bbe624aa66f72b013955c5b9f08112f76867b3443f"
+  },
+  {
+    "file": "ink/art/character-rig/traveller-thigh.webp",
+    "size": [
+      235,
+      324
+    ],
+    "alphaZeroFraction": 0.2633963750985028,
+    "sha256": "96bed7b90da70334d69abc01b03039797254b4a6b99a26a71d4c1148b3363d1f"
+  },
+  {
+    "file": "ink/art/character-rig/traveller-shin.webp",
+    "size": [
+      136,
+      292
+    ],
+    "alphaZeroFraction": 0.2393483078162772,
+    "sha256": "bcae3c381ffb8058ee4f92676544e857dda50fe1eed4f8b83444c2a5eeb0d598"
+  },
+  {
+    "file": "ink/art/character-rig/traveller-foot.webp",
+    "size": [
+      324,
+      196
+    ],
+    "alphaZeroFraction": 0.4094702695893172,
+    "sha256": "7f80ba5b2e485c432e5e508fdd0e055241dbed0d919620d3f5d2e4d9ff6e8dab"
+  },
+  {
+    "file": "ink/art/character-rig/traveller-neck.webp",
+    "size": [
+      207,
+      159
+    ],
+    "alphaZeroFraction": 0.2944429252878802,
+    "sha256": "924ba86f5fd29722b902e79370dd24706e693b4067a29a1bc4b099303cdeeed5"
+  },
+  {
+    "file": "ink/art/character-rig/traveller-handOpen.webp",
+    "size": [
+      159,
+      259
+    ],
+    "alphaZeroFraction": 0.34797600835336684,
+    "sha256": "b5e2b78ff6dcc9b68bb1dbf2e9f45c3e30fe33e6ca9d981209b4e3993066beb8"
+  },
+  {
+    "file": "ink/art/character-rig/traveller-handGrip.webp",
+    "size": [
+      177,
+      207
+    ],
+    "alphaZeroFraction": 0.30770490460984196,
+    "sha256": "777547d84984cf9c5d5101138b966e0445e0c4a533e3301a43f32c19ca50292e"
+  },
+  {
+    "file": "ink/art/character-rig/scholar-torso.webp",
+    "size": [
+      336,
+      346
+    ],
+    "alphaZeroFraction": 0.2506623314065511,
+    "sha256": "686e6b2aa495275069163869748700d9e827e37ad9c5830f99956dc499a2fcfe"
+  },
+  {
+    "file": "ink/art/character-rig/scholar-upperArm.webp",
+    "size": [
+      220,
+      338
+    ],
+    "alphaZeroFraction": 0.27755513717052177,
+    "sha256": "a868aeaeb521e31673ae3e438c1f29d4cf586d2dcfb174fabe7d06b2de9266b9"
+  },
+  {
+    "file": "ink/art/character-rig/scholar-forearm.webp",
+    "size": [
+      295,
+      365
+    ],
+    "alphaZeroFraction": 0.5575296029719062,
+    "sha256": "16102f46adc4b0377b4637f2ce4d7dd41d02fced86fc55f193602875df7eb096"
+  },
+  {
+    "file": "ink/art/character-rig/scholar-thigh.webp",
+    "size": [
+      246,
+      330
+    ],
+    "alphaZeroFraction": 0.2522172949002217,
+    "sha256": "3b5bc1c59d7cf999de252276e62d8e0010b3d619e3a3fc0cb91262f25c072417"
+  },
+  {
+    "file": "ink/art/character-rig/scholar-shin.webp",
+    "size": [
+      245,
+      297
+    ],
+    "alphaZeroFraction": 0.40805332233903663,
+    "sha256": "f5cefce7a4f822774ee366eb4a6d6bf4709d5b4111c199df5dbdadc50daae7c7"
+  },
+  {
+    "file": "ink/art/character-rig/scholar-foot.webp",
+    "size": [
+      329,
+      200
+    ],
+    "alphaZeroFraction": 0.386322188449848,
+    "sha256": "8d0ef10343f450dbb50ca1a1313b984767a39b26634311f9f5eaaa99084b2e38"
+  },
+  {
+    "file": "ink/art/character-rig/scholar-neck.webp",
+    "size": [
+      210,
+      165
+    ],
+    "alphaZeroFraction": 0.30663780663780665,
+    "sha256": "fc81fc9acb0ba305fbb48f080ea7735dd5507e7f82efa2d6fd75386db9c586d2"
+  },
+  {
+    "file": "ink/art/character-rig/scholar-handOpen.webp",
+    "size": [
+      164,
+      268
+    ],
+    "alphaZeroFraction": 0.3486075718966145,
+    "sha256": "b2aa5e6c415d08309324add442e4fe7715ae99084645a6a1817c14d86eca2a85"
+  },
+  {
+    "file": "ink/art/character-rig/scholar-handGrip.webp",
+    "size": [
+      180,
+      211
+    ],
+    "alphaZeroFraction": 0.2920221169036335,
+    "sha256": "4de289646cc581f4467f4133dc9c1d3659be5f06de6f3a5be816db5bac5b9d34"
+  },
+  {
+    "file": "ink/art/character-rig/cloak-torso.webp",
+    "size": [
+      325,
+      356
+    ],
+    "alphaZeroFraction": 0.2672082973206569,
+    "sha256": "9357229076e72f2dedbe6f632805a66b2c0b87047d99cb73387d7d56650e441e"
+  },
+  {
+    "file": "ink/art/character-rig/cloak-upperArm.webp",
+    "size": [
+      215,
+      322
+    ],
+    "alphaZeroFraction": 0.30340892676585296,
+    "sha256": "065f86b70fcbfacb8b7e46a955895fe3e59caea054832accbed7c425439b6686"
+  },
+  {
+    "file": "ink/art/character-rig/cloak-forearm.webp",
+    "size": [
+      191,
+      327
+    ],
+    "alphaZeroFraction": 0.31546503994748387,
+    "sha256": "9a4cd5720f3162fd1332aa2431548aaa71847d5c216f04e4a06774ccf6fa88d3"
+  },
+  {
+    "file": "ink/art/character-rig/cloak-thigh.webp",
+    "size": [
+      248,
+      327
+    ],
+    "alphaZeroFraction": 0.24838463056131005,
+    "sha256": "bff0249488bd896bab230f9af29b191f8a5999ab0cf914740929d2e4bf6ad413"
+  },
+  {
+    "file": "ink/art/character-rig/cloak-shin.webp",
+    "size": [
+      168,
+      294
+    ],
+    "alphaZeroFraction": 0.23576692581794623,
+    "sha256": "549626fe15eacf58bb9718110922fbccdf9e5308e7df88e4d8f7a43110417aac"
+  },
+  {
+    "file": "ink/art/character-rig/cloak-foot.webp",
+    "size": [
+      341,
+      196
+    ],
+    "alphaZeroFraction": 0.3881141899575079,
+    "sha256": "be02240710506cdd385e3178fb0d6fe521a5cb660bdc436b3a612854a42ee146"
+  },
+  {
+    "file": "ink/art/character-rig/cloak-neck.webp",
+    "size": [
+      262,
+      182
+    ],
+    "alphaZeroFraction": 0.3391703716131197,
+    "sha256": "32c68c74893a6e61e9037ce13339afc56325c31073a895de93767e9576d366fb"
+  },
+  {
+    "file": "ink/art/character-rig/cloak-handOpen.webp",
+    "size": [
+      162,
+      264
+    ],
+    "alphaZeroFraction": 0.3520622895622896,
+    "sha256": "32b74f92403ea511929d710ae03973414aad95c9628cd5d505b7bf1246a98a49"
+  },
+  {
+    "file": "ink/art/character-rig/cloak-handGrip.webp",
+    "size": [
+      176,
+      213
+    ],
+    "alphaZeroFraction": 0.3014564660691421,
+    "sha256": "988381fc2f6e31aec8e2292d9a262b7c2b65e37227b67c675f5de86ae2f0b956"
+  },
+  {
+    "file": "ink/art/character-rig/traveller-pelvis.webp",
+    "size": [
+      654,
+      432
+    ],
+    "alphaZeroFraction": 0.24926732925586137,
+    "sha256": "1dee9d62a6cd5a93a5c8e0db6e8438d3d86ecd4df3a88760788dd825213fd84e"
+  },
+  {
+    "file": "ink/art/character-rig/scholar-pelvis.webp",
+    "size": [
+      694,
+      503
+    ],
+    "alphaZeroFraction": 0.330249053231046,
+    "sha256": "cd30409c3d57e4822ebc0130d610c907e25b75d97073fd1250de8da29380a2c7"
+  },
+  {
+    "file": "ink/art/character-rig/cloak-pelvis.webp",
+    "size": [
+      691,
+      495
+    ],
+    "alphaZeroFraction": 0.2839187826163224,
+    "sha256": "b0eb14f5ed21769b50fe1a2d5652ec9f1554148cdca0789f30ae4181694d3a0c"
+  }
+]

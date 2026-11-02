@@ -1380,3 +1380,11 @@ iOS／Codemagic準備工程一併接入main，Apple版本保留1.0、build由App
 現況、實播、根因及原型驗收計畫見 `design/audits/character-animation-phase1.md`，影片與量測見 `production/qa/evidence/redesign/character-rig-audit/README.md`。確認主要人物是完整姿勢圖加頭頸／兵器，不是完整關節骨架；詳細敵人出招誤用e.t與不存在hurt state，跑步及起身動作缺失。建議保留Canvas，先一名角色的共享父子骨架、固定骨長、FK／IK、受限受擊及合格位圖分層，再接事件一對一重播；數值與經濟保持。
 
 本輪只有文件、隔離QA工具及修改前證據，沒有新骨架或多人功能接入，沒有改戰鬥／武學／耗內／回內／裝備／存檔或部署。120檔928項、構建及文字檢查通過，不當成人體或真iPhone驗收；新App單角色原型及TestFlight實機仍未完成。
+
+### 第60b項：單角色App受控骨架原型（2026-11-01，內測待評閱，未發布）
+
+玩家接受階段一建議後，按階段二製作真父子骨架、固定骨長、FK／IK、受限重心反應及原創分層位圖。App開發／內測入口`?rig-lab=1`與設定按鈕；普通構建不啟用。八頭、三衣、四色、徒手／劍／刀／槍／棍及單雙手／背負可以操作；提供慢播、暫停、逐幀、蓄勢／收招定位、左右及除錯。造型只作此頁預覽，不覆寫玩家衣櫥。
+
+現有主線戰鬥、華山及非同步一對一尚未切換，沒有真戰果或發獎；原型不讀寫戰鬥核心或存檔。原始素材、提示、處理腳本、縮圖後備及映射保留。相同App元件另有完整素材的離線審閱HTML，不能當成新TestFlight已上傳。
+
+技術及限制見`design/audits/character-animation-phase2.md`；操作影片、前後圖、96組造型、伏地與持武像素檢查、941項測試、構建及量測見`production/qa/evidence/redesign/character-rig-prototype/README.md`。測試不代表玩家已接受比例或自然度，真iPhone、原生前後台、溫度／耗電及長跑仍待實測。新原型沒有升版本／main合併／Pages部署，多人及PR #156繼續暫停。下一階段先評閱人物，再接事件一對一的既有readonly replay，保留回退，不一次遷移全遊戲。
