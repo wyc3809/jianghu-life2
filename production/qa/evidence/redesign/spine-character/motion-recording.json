@@ -1,0 +1,34 @@
+{
+  "actualIphone": false,
+  "realTimeRecording": true,
+  "scriptedButtonTiming": true,
+  "manualFrameSynthesis": false,
+  "metrics": {
+    "maxGapMs": 177.5,
+    "frameCount": 102,
+    "invalidFrames": 0
+  },
+  "contextAttributes": {
+    "alpha": true,
+    "antialias": true,
+    "depth": true,
+    "desynchronized": false,
+    "failIfMajorPerformanceCaveat": false,
+    "powerPreference": "default",
+    "premultipliedAlpha": true,
+    "preserveDrawingBuffer": false,
+    "stencil": false,
+    "xrCompatible": false
+  },
+  "gifExcerpt": {
+    "startSeconds": 2.2,
+    "cropCssPixels": [
+      60,
+      120,
+      330,
+      530
+    ],
+    "exportFps": 12,
+    "fpsIsExportRateNotRuntimeGuarantee": true
+  }
+}

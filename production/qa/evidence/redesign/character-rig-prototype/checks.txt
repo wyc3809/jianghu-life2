@@ -1,0 +1,10 @@
+npx vitest run: 121 files / 941 tests passed (74.12s)
+npm run build: TypeScript + Vite passed; existing large chunk warning retained
+VITE_CHARACTER_RIG_LAB=1 VITE_BASE=/ vite build: passed
+audit:narrate: hard-fail 0
+audit:copy: 10415 Chinese strings; banned/colloquial 0
+Chromium + Linux WebKit UI cases: 10 passed
+Offline full-image preview: two engines passed
+Production default/internal query gates and actual settings entry: passed
+Actual iPhone / TestFlight / native profiling: pending
+No main merge / deploy / backend / economy / save migration

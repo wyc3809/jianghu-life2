@@ -1,0 +1,15 @@
+{
+  "skins": 24,
+  "framesChecked": 2064,
+  "clips": [
+    "idle",
+    "attack",
+    "hurt",
+    "walk"
+  ],
+  "alphaThreshold": 160,
+  "materialPointSearchRadius": 2,
+  "failures": [],
+  "actualIphone": false,
+  "scope": "檢查最終WebP中真臉部與胸口像素連通；不代替解剖及動作評閱。"
+}

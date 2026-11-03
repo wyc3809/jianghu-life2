@@ -1,0 +1,176 @@
+{
+  "actualIphone": false,
+  "pageerrors": [],
+  "history": [
+    {
+      "phase": "idle",
+      "frame": "idle",
+      "t": 0.006
+    },
+    {
+      "phase": "walk",
+      "frame": "idle",
+      "t": 0.01100000000000012
+    },
+    {
+      "phase": "walk",
+      "frame": "walkA",
+      "t": 0.16900000000000004
+    },
+    {
+      "phase": "walk",
+      "frame": "idle",
+      "t": 0.351
+    },
+    {
+      "phase": "walk",
+      "frame": "walkB",
+      "t": 0.51
+    },
+    {
+      "phase": "walk",
+      "frame": "idle",
+      "t": 0.6739999999999999
+    },
+    {
+      "phase": "walk",
+      "frame": "walkA",
+      "t": 0.8360000000000003
+    },
+    {
+      "phase": "walk",
+      "frame": "idle",
+      "t": 1.008
+    },
+    {
+      "phase": "walk",
+      "frame": "walkB",
+      "t": 1.1670000000000003
+    },
+    {
+      "phase": "walk",
+      "frame": "idle",
+      "t": 1.354
+    },
+    {
+      "phase": "attack",
+      "frame": "windup",
+      "t": 0.01200000000000001
+    },
+    {
+      "phase": "attack",
+      "frame": "strike",
+      "t": 0.15800000000000036
+    },
+    {
+      "phase": "attack",
+      "frame": "windup",
+      "t": 0.41900000000000004
+    },
+    {
+      "phase": "attack",
+      "frame": "idle",
+      "t": 0.5830000000000002
+    },
+    {
+      "phase": "hurt",
+      "frame": "hurt",
+      "t": 0.019000000000000572
+    },
+    {
+      "phase": "down",
+      "frame": "hurt",
+      "t": 0.012000000000000455
+    },
+    {
+      "phase": "down",
+      "frame": "down",
+      "t": 0.13100000000000023
+    },
+    {
+      "phase": "idle",
+      "frame": "idle",
+      "t": 0.015000000000000124
+    },
+    {
+      "phase": "walk",
+      "frame": "idle",
+      "t": 0.004000000000000448
+    },
+    {
+      "phase": "walk",
+      "frame": "walkA",
+      "t": 0.17799999999999994
+    },
+    {
+      "phase": "walk",
+      "frame": "idle",
+      "t": 0.3490000000000011
+    },
+    {
+      "phase": "walk",
+      "frame": "walkB",
+      "t": 0.5149999999999997
+    },
+    {
+      "phase": "walk",
+      "frame": "idle",
+      "t": 0.676000000000001
+    },
+    {
+      "phase": "walk",
+      "frame": "walkA",
+      "t": 0.8410000000000002
+    },
+    {
+      "phase": "walk",
+      "frame": "idle",
+      "t": 1.0120000000000013
+    },
+    {
+      "phase": "walk",
+      "frame": "walkB",
+      "t": 1.1700000000000008
+    },
+    {
+      "phase": "walk",
+      "frame": "idle",
+      "t": 1.3520000000000012
+    },
+    {
+      "phase": "attack",
+      "frame": "windup",
+      "t": 0.016000000000001346
+    },
+    {
+      "phase": "attack",
+      "frame": "strike",
+      "t": 0.1499999999999999
+    },
+    {
+      "phase": "attack",
+      "frame": "windup",
+      "t": 0.4080000000000008
+    },
+    {
+      "phase": "attack",
+      "frame": "idle",
+      "t": 0.5300000000000007
+    },
+    {
+      "phase": "hurt",
+      "frame": "hurt",
+      "t": 0
+    },
+    {
+      "phase": "down",
+      "frame": "down",
+      "t": 0.18000000000000016
+    },
+    {
+      "phase": "idle",
+      "frame": "idle",
+      "t": 0.013000000000000789
+    }
+  ]
+}

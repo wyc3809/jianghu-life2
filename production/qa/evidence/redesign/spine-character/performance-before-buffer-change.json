@@ -1,0 +1,40 @@
+{
+  "context": "Chromium headless / SwiftShader / 390x844 DPR2 / internal production build / one actor / three clips / warm after 2s",
+  "actualIphone": false,
+  "durationSeconds": 53.716,
+  "readyObservedAtMs": 2441.571176999787,
+  "rafGapMs": {
+    "count": 1166,
+    "p50": 37.700000000186265,
+    "p95": 94.79999999981374,
+    "p99": 136.09999999962747,
+    "max": 699.5999999996275
+  },
+  "fixedStepCallbackCpuMs": {
+    "count": 1167,
+    "p50": 0.09999999962747097,
+    "p95": 0.40000000037252903,
+    "p99": 1.1000000005587935,
+    "max": 38.69999999925494
+  },
+  "heapSamplesBytes": [
+    89639515,
+    27780685,
+    27831809,
+    61093734,
+    28042027
+  ],
+  "runtimeMetrics": {
+    "maxGapMs": 699.5999999996275,
+    "frameCount": 1227,
+    "invalidFrames": 0
+  },
+  "pageerrors": [],
+  "caveats": [
+    "Callback CPU does not include all WebGL draw/GPU work.",
+    "Ready time uses localhost; not native cold launch or mobile network.",
+    "30 seconds does not establish long-run memory, energy, temperature or stable iPhone FPS."
+  ],
+  "requestedWaitSeconds": 30,
+  "durationComputedFromRawGaps": true
+}

@@ -1,0 +1,30 @@
+2026-11-03 · v02連續頭頸表面修正；未接受、未發布。
+
+npx vitest run tests/spine_character.test.ts
+8 tests passed；含切斷頸面但骨節仍正常的拒絕負例。
+
+npx vitest run
+122 test files / 949 tests passed，92.22秒。
+
+npm run build
+passed，14.38秒；含TypeScript檢查，普通構建沒有SpineCharacterLab模組。
+
+VITE_CHARACTER_RIG_LAB=1 VITE_BASE=/ npx vite build --outDir .local-online/spine-ai/internal-dist
+passed，16.71秒；內測審閱chunk約6.23MB未壓縮。
+
+npm run audit:narrate
+hard-fail count 0。
+
+npm run audit:copy
+10416段中文字串，口語及禁句0處。
+
+python scripts/qa/checkSpineNeck.py
+SPINE_NECK_BROWSER_PASS；Chromium及Linux WebKit實際App，390×844、DPR2。
+實播三段、左右轉向、六姿勢、既存localStorage不變、invalidFrames 0、pageerrors []。
+另錄真App近鏡，1倍及0.25倍播放，非逐幀合成。
+此短錄影最大固定步回呼間隔259.5ms，不是穩定60fps或完整效能驗收。
+未驗iPhone／TestFlight／原生Spine Editor回合／長跑及耗電。
+
+python scripts/qa/packageSpineNeckEvidence.py --encode
+由原始webm轉mp4及分享GIF；只裁載入起點，不修改骨架或動畫。
+前後對照使用相同390×844 App鏡頭、DPR2、受擊0.19秒的截圖，相同裁切，沒有個別頭部縮放。

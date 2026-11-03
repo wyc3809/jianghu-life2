@@ -1,0 +1,398 @@
+{
+  "traveller": {
+    "torso": {
+      "src": "ink/art/character-rig/traveller-torso.webp",
+      "width": 321,
+      "height": 342,
+      "pivot": [
+        180,
+        319
+      ],
+      "tip": [
+        173,
+        84
+      ]
+    },
+    "upperArm": {
+      "src": "ink/art/character-rig/traveller-upperArm.webp",
+      "width": 184,
+      "height": 326,
+      "pivot": [
+        92,
+        41
+      ],
+      "tip": [
+        117,
+        307
+      ]
+    },
+    "forearm": {
+      "src": "ink/art/character-rig/traveller-forearm.webp",
+      "width": 173,
+      "height": 324,
+      "pivot": [
+        98,
+        33
+      ],
+      "tip": [
+        139,
+        326
+      ]
+    },
+    "thigh": {
+      "src": "ink/art/character-rig/traveller-thigh.webp",
+      "width": 235,
+      "height": 324,
+      "pivot": [
+        110,
+        27
+      ],
+      "tip": [
+        106,
+        303
+      ]
+    },
+    "shin": {
+      "src": "ink/art/character-rig/traveller-shin.webp",
+      "width": 136,
+      "height": 292,
+      "pivot": [
+        71,
+        17
+      ],
+      "tip": [
+        75,
+        273
+      ]
+    },
+    "foot": {
+      "src": "ink/art/character-rig/traveller-foot.webp",
+      "width": 324,
+      "height": 196,
+      "pivot": [
+        70,
+        34
+      ],
+      "tip": [
+        277,
+        34
+      ]
+    },
+    "neck": {
+      "src": "ink/art/character-rig/traveller-neck.webp",
+      "width": 207,
+      "height": 159,
+      "pivot": [
+        121,
+        129
+      ],
+      "tip": [
+        114,
+        29
+      ]
+    },
+    "handOpen": {
+      "src": "ink/art/character-rig/traveller-handOpen.webp",
+      "width": 159,
+      "height": 259,
+      "pivot": [
+        59,
+        25
+      ],
+      "tip": [
+        64,
+        170
+      ]
+    },
+    "handGrip": {
+      "src": "ink/art/character-rig/traveller-handGrip.webp",
+      "width": 177,
+      "height": 207,
+      "pivot": [
+        89,
+        30
+      ],
+      "tip": [
+        106,
+        153
+      ]
+    },
+    "pelvis": {
+      "src": "ink/art/character-rig/traveller-pelvis.webp",
+      "width": 654,
+      "height": 432,
+      "pivot": [
+        330.0,
+        24
+      ],
+      "tip": [
+        330.0,
+        124
+      ]
+    }
+  },
+  "scholar": {
+    "torso": {
+      "src": "ink/art/character-rig/scholar-torso.webp",
+      "width": 336,
+      "height": 346,
+      "pivot": [
+        186,
+        322
+      ],
+      "tip": [
+        179,
+        87
+      ]
+    },
+    "upperArm": {
+      "src": "ink/art/character-rig/scholar-upperArm.webp",
+      "width": 220,
+      "height": 338,
+      "pivot": [
+        120,
+        41
+      ],
+      "tip": [
+        145,
+        307
+      ]
+    },
+    "forearm": {
+      "src": "ink/art/character-rig/scholar-forearm.webp",
+      "width": 295,
+      "height": 365,
+      "pivot": [
+        99,
+        33
+      ],
+      "tip": [
+        140,
+        326
+      ]
+    },
+    "thigh": {
+      "src": "ink/art/character-rig/scholar-thigh.webp",
+      "width": 246,
+      "height": 330,
+      "pivot": [
+        117,
+        28
+      ],
+      "tip": [
+        113,
+        304
+      ]
+    },
+    "shin": {
+      "src": "ink/art/character-rig/scholar-shin.webp",
+      "width": 245,
+      "height": 297,
+      "pivot": [
+        76,
+        17
+      ],
+      "tip": [
+        80,
+        273
+      ]
+    },
+    "foot": {
+      "src": "ink/art/character-rig/scholar-foot.webp",
+      "width": 329,
+      "height": 200,
+      "pivot": [
+        71,
+        35
+      ],
+      "tip": [
+        278,
+        35
+      ]
+    },
+    "neck": {
+      "src": "ink/art/character-rig/scholar-neck.webp",
+      "width": 210,
+      "height": 165,
+      "pivot": [
+        120,
+        135
+      ],
+      "tip": [
+        113,
+        35
+      ]
+    },
+    "handOpen": {
+      "src": "ink/art/character-rig/scholar-handOpen.webp",
+      "width": 164,
+      "height": 268,
+      "pivot": [
+        60,
+        30
+      ],
+      "tip": [
+        65,
+        175
+      ]
+    },
+    "handGrip": {
+      "src": "ink/art/character-rig/scholar-handGrip.webp",
+      "width": 180,
+      "height": 211,
+      "pivot": [
+        88,
+        30
+      ],
+      "tip": [
+        105,
+        153
+      ]
+    },
+    "pelvis": {
+      "src": "ink/art/character-rig/scholar-pelvis.webp",
+      "width": 694,
+      "height": 503,
+      "pivot": [
+        353.0,
+        24
+      ],
+      "tip": [
+        353.0,
+        124
+      ]
+    }
+  },
+  "cloak": {
+    "torso": {
+      "src": "ink/art/character-rig/cloak-torso.webp",
+      "width": 325,
+      "height": 356,
+      "pivot": [
+        174,
+        319
+      ],
+      "tip": [
+        167,
+        84
+      ]
+    },
+    "upperArm": {
+      "src": "ink/art/character-rig/cloak-upperArm.webp",
+      "width": 215,
+      "height": 322,
+      "pivot": [
+        109,
+        37
+      ],
+      "tip": [
+        134,
+        303
+      ]
+    },
+    "forearm": {
+      "src": "ink/art/character-rig/cloak-forearm.webp",
+      "width": 191,
+      "height": 327,
+      "pivot": [
+        102,
+        33
+      ],
+      "tip": [
+        143,
+        326
+      ]
+    },
+    "thigh": {
+      "src": "ink/art/character-rig/cloak-thigh.webp",
+      "width": 248,
+      "height": 327,
+      "pivot": [
+        112,
+        28
+      ],
+      "tip": [
+        108,
+        304
+      ]
+    },
+    "shin": {
+      "src": "ink/art/character-rig/cloak-shin.webp",
+      "width": 168,
+      "height": 294,
+      "pivot": [
+        87,
+        17
+      ],
+      "tip": [
+        91,
+        273
+      ]
+    },
+    "foot": {
+      "src": "ink/art/character-rig/cloak-foot.webp",
+      "width": 341,
+      "height": 196,
+      "pivot": [
+        78,
+        33
+      ],
+      "tip": [
+        285,
+        33
+      ]
+    },
+    "neck": {
+      "src": "ink/art/character-rig/cloak-neck.webp",
+      "width": 262,
+      "height": 182,
+      "pivot": [
+        141,
+        140
+      ],
+      "tip": [
+        134,
+        40
+      ]
+    },
+    "handOpen": {
+      "src": "ink/art/character-rig/cloak-handOpen.webp",
+      "width": 162,
+      "height": 264,
+      "pivot": [
+        60,
+        30
+      ],
+      "tip": [
+        65,
+        175
+      ]
+    },
+    "handGrip": {
+      "src": "ink/art/character-rig/cloak-handGrip.webp",
+      "width": 176,
+      "height": 213,
+      "pivot": [
+        89,
+        35
+      ],
+      "tip": [
+        106,
+        158
+      ]
+    },
+    "pelvis": {
+      "src": "ink/art/character-rig/cloak-pelvis.webp",
+      "width": 691,
+      "height": 495,
+      "pivot": [
+        355.0,
+        28
+      ],
+      "tip": [
+        355.0,
+        128
+      ]
+    }
+  }
+}

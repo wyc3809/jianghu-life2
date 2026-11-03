@@ -1,0 +1,21 @@
+{
+  "actualIphone": false,
+  "cases": [
+    {
+      "internalFlag": false,
+      "queryGateCorrect": true,
+      "returnCorrect": false,
+      "pageerrors": []
+    },
+    {
+      "internalFlag": true,
+      "queryGateCorrect": true,
+      "returnCorrect": true,
+      "pageerrors": []
+    },
+    {
+      "internalSettingsEntry": true,
+      "existingSaveUnchangedInsideLab": true
+    }
+  ]
+}

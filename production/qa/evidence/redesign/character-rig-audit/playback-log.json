@@ -1,0 +1,204 @@
+{
+  "baseline": "9a07caf49b0b05b6d7b39def891a41925391bbed",
+  "actualIphone": false,
+  "browser": "Chromium Linux SwiftShader",
+  "viewport": [
+    390,
+    844
+  ],
+  "simplified": false,
+  "history": [
+    {
+      "phase": "idle",
+      "frame": "idle",
+      "t": -0.010200000000000046
+    },
+    {
+      "phase": "walk",
+      "frame": "idle",
+      "t": 0.005699999997764715
+    },
+    {
+      "phase": "walk",
+      "frame": "walkA",
+      "t": 0.172399999997765
+    },
+    {
+      "phase": "walk",
+      "frame": "idle",
+      "t": 0.3389999999977651
+    },
+    {
+      "phase": "walk",
+      "frame": "walkB",
+      "t": 0.5056999999977647
+    },
+    {
+      "phase": "walk",
+      "frame": "idle",
+      "t": 0.672399999997765
+    },
+    {
+      "phase": "walk",
+      "frame": "walkA",
+      "t": 0.8390999999977651
+    },
+    {
+      "phase": "walk",
+      "frame": "idle",
+      "t": 1.0056999999977654
+    },
+    {
+      "phase": "walk",
+      "frame": "walkB",
+      "t": 1.1722999999977648
+    },
+    {
+      "phase": "walk",
+      "frame": "idle",
+      "t": 1.3389999999977644
+    },
+    {
+      "phase": "attack",
+      "frame": "windup",
+      "t": 0.0056999999977653815
+    },
+    {
+      "phase": "attack",
+      "frame": "strike",
+      "t": 0.1556999999977653
+    },
+    {
+      "phase": "attack",
+      "frame": "windup",
+      "t": 0.4722999999977646
+    },
+    {
+      "phase": "attack",
+      "frame": "idle",
+      "t": 0.5389999999977646
+    },
+    {
+      "phase": "hurt",
+      "frame": "hurt",
+      "t": 0.0055999999977651704
+    },
+    {
+      "phase": "down",
+      "frame": "hurt",
+      "t": 0.0055999999977656145
+    },
+    {
+      "phase": "down",
+      "frame": "down",
+      "t": 0.12219999999776565
+    },
+    {
+      "phase": "idle",
+      "frame": "idle",
+      "t": 0.005499999997764515
+    },
+    {
+      "phase": "walk",
+      "frame": "idle",
+      "t": 0.005399999997764304
+    },
+    {
+      "phase": "walk",
+      "frame": "walkA",
+      "t": 0.17209999999776482
+    },
+    {
+      "phase": "walk",
+      "frame": "idle",
+      "t": 0.33869999999776557
+    },
+    {
+      "phase": "walk",
+      "frame": "walkB",
+      "t": 0.5053999999977643
+    },
+    {
+      "phase": "walk",
+      "frame": "idle",
+      "t": 0.6720999999977648
+    },
+    {
+      "phase": "walk",
+      "frame": "walkA",
+      "t": 0.8387999999977653
+    },
+    {
+      "phase": "walk",
+      "frame": "idle",
+      "t": 1.0053999999977643
+    },
+    {
+      "phase": "walk",
+      "frame": "walkB",
+      "t": 1.1720999999977648
+    },
+    {
+      "phase": "walk",
+      "frame": "idle",
+      "t": 1.3387999999977653
+    },
+    {
+      "phase": "attack",
+      "frame": "windup",
+      "t": 0.005399999997764748
+    },
+    {
+      "phase": "attack",
+      "frame": "strike",
+      "t": 0.1553999999977651
+    },
+    {
+      "phase": "attack",
+      "frame": "windup",
+      "t": 0.4053999999977651
+    },
+    {
+      "phase": "attack",
+      "frame": "idle",
+      "t": 0.5386999999977653
+    },
+    {
+      "phase": "hurt",
+      "frame": "hurt",
+      "t": 0.0052999999977654255
+    },
+    {
+      "phase": "down",
+      "frame": "hurt",
+      "t": 0.00529999999776587
+    },
+    {
+      "phase": "down",
+      "frame": "down",
+      "t": 0.12189999999776413
+    },
+    {
+      "phase": "idle",
+      "frame": "idle",
+      "t": 0.005199999997766547
+    },
+    {
+      "phase": "attack",
+      "frame": "windup",
+      "t": 0.002699999999254942
+    },
+    {
+      "phase": "attack",
+      "frame": "strike",
+      "t": 0.15060000000149013
+    },
+    {
+      "phase": "down",
+      "frame": "down",
+      "t": 0.5
+    }
+  ],
+  "pageerrors": [],
+  "note": "audit harness uses original drawAppearance; existing developer replay entry uses real core seeded fixture; neither is the new rig prototype"
+}

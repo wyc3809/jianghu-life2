@@ -34,6 +34,7 @@ import { getGearDef } from '@data/equipment/catalog';
 import { FOE_TRAITS } from '@data/foes/traits';
 import { useLifeStore } from '../../store/lifeStore';
 import { appearanceOf, appearanceKey } from '@interfaces/appearance';
+import { prepareAppearance } from '../../appearance/assets';
 import { type SparSeason } from '../../spar/presentation';
 import { InkUnifiedBattleFrame } from './InkUnifiedBattleFrame';
 import { InkBattleEntrance } from './InkBattleEntrance';
@@ -363,6 +364,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
         images.ui = await loadSparUiImages();
         images.coin = await loadSparImage(COIN_SRC).catch(() => null);
         const character = useLifeStore.getState().state?.character;
+        if(images.wardrobe)await prepareAppearance(images.wardrobe,appearanceOf(character??{}));
         const arts = character ? equippedMartialArts(character) : [];
         const martialAssets = await loadMartialAssets(arts);
         if (cancelled) return;

@@ -1,0 +1,74 @@
+{
+  "date": "2026-11-03",
+  "recording": "真App官方Runtime即時播放，整體鏡頭近鏡，非逐幀合成",
+  "sourceImage": "exec-9c066018-1fdb-4ebf-854d-e6597115ba1b.png",
+  "playerAccepted": false,
+  "deployed": false,
+  "actualIphone": false,
+  "files": {
+    "design/art/spine-character/parts/upper-body.png": {
+      "bytes": 1574265,
+      "sha256": "2a976b2bccb2dc7952ff9a78bb1ae0da823cf7b089e881f098cb72246595d7a1"
+    },
+    "design/art/spine-character/sources/upper-body-v02.png": {
+      "bytes": 1715976,
+      "sha256": "b95e18c9d84994257e006abbedb9b20155c66711496fbebffbe0d04fb8bbdfbd"
+    },
+    "production/qa/evidence/redesign/spine-character/app-hurt.png": {
+      "bytes": 1078660,
+      "sha256": "e2e60a1dfdcaf7dbbc5b3ca768e7e120ae1f17babf55fbce4b5f31bb5e2b9e95"
+    },
+    "production/qa/evidence/redesign/spine-neck-v02/README.md": {
+      "bytes": 2998,
+      "sha256": "a1f0285377dfaa802e601940a0494bdf707ebd7825b92ef31ef74f14837736ad"
+    },
+    "production/qa/evidence/redesign/spine-neck-v02/before-after.png": {
+      "bytes": 610782,
+      "sha256": "7c164835510b5ac9235bec57af0fa1b419b3c26b7ddbea46f70306403e41f29e"
+    },
+    "production/qa/evidence/redesign/spine-neck-v02/browser-report.json": {
+      "bytes": 899,
+      "sha256": "87773c9435d29eab11bbe3af4a0ca2efca24ec2e1aef4bdd8b2cafc83e7a0cc3"
+    },
+    "production/qa/evidence/redesign/spine-neck-v02/checks.txt": {
+      "bytes": 1326,
+      "sha256": "e05114422132d6a0318ccfd0c5eafaa759c73391567bbd2975a944134354ec39"
+    },
+    "production/qa/evidence/redesign/spine-neck-v02/left-attack.png": {
+      "bytes": 1066874,
+      "sha256": "b4f505acc37b0d9341ffcb927cd8e3e9400314634ee8babdd0ae991c5fc07eb9"
+    },
+    "production/qa/evidence/redesign/spine-neck-v02/left-hurt.png": {
+      "bytes": 1086554,
+      "sha256": "b29a9947d7e32a00c2216ea7b8588905558979f438fd62069a1e9a2b968d91d0"
+    },
+    "production/qa/evidence/redesign/spine-neck-v02/left-idle.png": {
+      "bytes": 1086240,
+      "sha256": "8c6eca4345e78e9b9e1dc17fba72886f2cb3d905b1cbbaffe4b336ddd7332a8d"
+    },
+    "production/qa/evidence/redesign/spine-neck-v02/neck-closeup.gif": {
+      "bytes": 6571882,
+      "sha256": "767fb97aee5e36900f1c394d8c041046c23d952b4eb9536e65107ad47f574f82"
+    },
+    "production/qa/evidence/redesign/spine-neck-v02/neck-closeup.mp4": {
+      "bytes": 1416318,
+      "sha256": "8ddc2d1ffa117f4e04cdf22bb73e501fafaabbdf4a37fe77c74ba0ba8a91e6cf"
+    },
+    "production/qa/evidence/redesign/spine-neck-v02/neck-closeup.webm": {
+      "bytes": 1562231,
+      "sha256": "e439a0e431993c650013dd7d4de16b52bff753a3a3d6f60a253d8bca698da87e"
+    },
+    "production/qa/evidence/redesign/spine-neck-v02/right-attack.png": {
+      "bytes": 1062425,
+      "sha256": "5046b84717e5c2631b26eba17bc4343d7138d51e74d830ce0252ee3572f74f69"
+    },
+    "production/qa/evidence/redesign/spine-neck-v02/right-hurt.png": {
+      "bytes": 1083287,
+      "sha256": "41f97df25c9b079bd8081d1454e2804eda1e9e23a5e1debee762c4c6e9d54d90"
+    },
+    "production/qa/evidence/redesign/spine-neck-v02/right-idle.png": {
+      "bytes": 1082720,
+      "sha256": "372719b774b4f0592eedee9aaed9c6e9795fa0eca50f3e42e957a59084f2e42e"
+    }
+  }
+}

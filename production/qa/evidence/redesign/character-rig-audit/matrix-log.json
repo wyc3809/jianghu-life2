@@ -1,0 +1,591 @@
+{
+  "actualIphone": false,
+  "renderCases": 288,
+  "cases": [
+    {
+      "head": "bamboo",
+      "pose": "idle",
+      "time": 0,
+      "face": 1
+    },
+    {
+      "head": "bamboo",
+      "pose": "idle",
+      "time": 0,
+      "face": -1
+    },
+    {
+      "head": "bamboo",
+      "pose": "walk",
+      "time": 0.2,
+      "face": 1
+    },
+    {
+      "head": "bamboo",
+      "pose": "walk",
+      "time": 0.2,
+      "face": -1
+    },
+    {
+      "head": "bamboo",
+      "pose": "attack",
+      "time": 0.02,
+      "face": 1
+    },
+    {
+      "head": "bamboo",
+      "pose": "attack",
+      "time": 0.02,
+      "face": -1
+    },
+    {
+      "head": "bamboo",
+      "pose": "attack",
+      "time": 0.2,
+      "face": 1
+    },
+    {
+      "head": "bamboo",
+      "pose": "attack",
+      "time": 0.2,
+      "face": -1
+    },
+    {
+      "head": "bamboo",
+      "pose": "hurt",
+      "time": 0.1,
+      "face": 1
+    },
+    {
+      "head": "bamboo",
+      "pose": "hurt",
+      "time": 0.1,
+      "face": -1
+    },
+    {
+      "head": "bamboo",
+      "pose": "down",
+      "time": 0.5,
+      "face": 1
+    },
+    {
+      "head": "bamboo",
+      "pose": "down",
+      "time": 0.5,
+      "face": -1
+    },
+    {
+      "head": "topknot",
+      "pose": "idle",
+      "time": 0,
+      "face": 1
+    },
+    {
+      "head": "topknot",
+      "pose": "idle",
+      "time": 0,
+      "face": -1
+    },
+    {
+      "head": "topknot",
+      "pose": "walk",
+      "time": 0.2,
+      "face": 1
+    },
+    {
+      "head": "topknot",
+      "pose": "walk",
+      "time": 0.2,
+      "face": -1
+    },
+    {
+      "head": "topknot",
+      "pose": "attack",
+      "time": 0.02,
+      "face": 1
+    },
+    {
+      "head": "topknot",
+      "pose": "attack",
+      "time": 0.02,
+      "face": -1
+    },
+    {
+      "head": "topknot",
+      "pose": "attack",
+      "time": 0.2,
+      "face": 1
+    },
+    {
+      "head": "topknot",
+      "pose": "attack",
+      "time": 0.2,
+      "face": -1
+    },
+    {
+      "head": "topknot",
+      "pose": "hurt",
+      "time": 0.1,
+      "face": 1
+    },
+    {
+      "head": "topknot",
+      "pose": "hurt",
+      "time": 0.1,
+      "face": -1
+    },
+    {
+      "head": "topknot",
+      "pose": "down",
+      "time": 0.5,
+      "face": 1
+    },
+    {
+      "head": "topknot",
+      "pose": "down",
+      "time": 0.5,
+      "face": -1
+    },
+    {
+      "head": "master",
+      "pose": "idle",
+      "time": 0,
+      "face": 1
+    },
+    {
+      "head": "master",
+      "pose": "idle",
+      "time": 0,
+      "face": -1
+    },
+    {
+      "head": "master",
+      "pose": "walk",
+      "time": 0.2,
+      "face": 1
+    },
+    {
+      "head": "master",
+      "pose": "walk",
+      "time": 0.2,
+      "face": -1
+    },
+    {
+      "head": "master",
+      "pose": "attack",
+      "time": 0.02,
+      "face": 1
+    },
+    {
+      "head": "master",
+      "pose": "attack",
+      "time": 0.02,
+      "face": -1
+    },
+    {
+      "head": "master",
+      "pose": "attack",
+      "time": 0.2,
+      "face": 1
+    },
+    {
+      "head": "master",
+      "pose": "attack",
+      "time": 0.2,
+      "face": -1
+    },
+    {
+      "head": "master",
+      "pose": "hurt",
+      "time": 0.1,
+      "face": 1
+    },
+    {
+      "head": "master",
+      "pose": "hurt",
+      "time": 0.1,
+      "face": -1
+    },
+    {
+      "head": "master",
+      "pose": "down",
+      "time": 0.5,
+      "face": 1
+    },
+    {
+      "head": "master",
+      "pose": "down",
+      "time": 0.5,
+      "face": -1
+    },
+    {
+      "head": "silver",
+      "pose": "idle",
+      "time": 0,
+      "face": 1
+    },
+    {
+      "head": "silver",
+      "pose": "idle",
+      "time": 0,
+      "face": -1
+    },
+    {
+      "head": "silver",
+      "pose": "walk",
+      "time": 0.2,
+      "face": 1
+    },
+    {
+      "head": "silver",
+      "pose": "walk",
+      "time": 0.2,
+      "face": -1
+    },
+    {
+      "head": "silver",
+      "pose": "attack",
+      "time": 0.02,
+      "face": 1
+    },
+    {
+      "head": "silver",
+      "pose": "attack",
+      "time": 0.02,
+      "face": -1
+    },
+    {
+      "head": "silver",
+      "pose": "attack",
+      "time": 0.2,
+      "face": 1
+    },
+    {
+      "head": "silver",
+      "pose": "attack",
+      "time": 0.2,
+      "face": -1
+    },
+    {
+      "head": "silver",
+      "pose": "hurt",
+      "time": 0.1,
+      "face": 1
+    },
+    {
+      "head": "silver",
+      "pose": "hurt",
+      "time": 0.1,
+      "face": -1
+    },
+    {
+      "head": "silver",
+      "pose": "down",
+      "time": 0.5,
+      "face": 1
+    },
+    {
+      "head": "silver",
+      "pose": "down",
+      "time": 0.5,
+      "face": -1
+    },
+    {
+      "head": "ponytail",
+      "pose": "idle",
+      "time": 0,
+      "face": 1
+    },
+    {
+      "head": "ponytail",
+      "pose": "idle",
+      "time": 0,
+      "face": -1
+    },
+    {
+      "head": "ponytail",
+      "pose": "walk",
+      "time": 0.2,
+      "face": 1
+    },
+    {
+      "head": "ponytail",
+      "pose": "walk",
+      "time": 0.2,
+      "face": -1
+    },
+    {
+      "head": "ponytail",
+      "pose": "attack",
+      "time": 0.02,
+      "face": 1
+    },
+    {
+      "head": "ponytail",
+      "pose": "attack",
+      "time": 0.02,
+      "face": -1
+    },
+    {
+      "head": "ponytail",
+      "pose": "attack",
+      "time": 0.2,
+      "face": 1
+    },
+    {
+      "head": "ponytail",
+      "pose": "attack",
+      "time": 0.2,
+      "face": -1
+    },
+    {
+      "head": "ponytail",
+      "pose": "hurt",
+      "time": 0.1,
+      "face": 1
+    },
+    {
+      "head": "ponytail",
+      "pose": "hurt",
+      "time": 0.1,
+      "face": -1
+    },
+    {
+      "head": "ponytail",
+      "pose": "down",
+      "time": 0.5,
+      "face": 1
+    },
+    {
+      "head": "ponytail",
+      "pose": "down",
+      "time": 0.5,
+      "face": -1
+    },
+    {
+      "head": "loose",
+      "pose": "idle",
+      "time": 0,
+      "face": 1
+    },
+    {
+      "head": "loose",
+      "pose": "idle",
+      "time": 0,
+      "face": -1
+    },
+    {
+      "head": "loose",
+      "pose": "walk",
+      "time": 0.2,
+      "face": 1
+    },
+    {
+      "head": "loose",
+      "pose": "walk",
+      "time": 0.2,
+      "face": -1
+    },
+    {
+      "head": "loose",
+      "pose": "attack",
+      "time": 0.02,
+      "face": 1
+    },
+    {
+      "head": "loose",
+      "pose": "attack",
+      "time": 0.02,
+      "face": -1
+    },
+    {
+      "head": "loose",
+      "pose": "attack",
+      "time": 0.2,
+      "face": 1
+    },
+    {
+      "head": "loose",
+      "pose": "attack",
+      "time": 0.2,
+      "face": -1
+    },
+    {
+      "head": "loose",
+      "pose": "hurt",
+      "time": 0.1,
+      "face": 1
+    },
+    {
+      "head": "loose",
+      "pose": "hurt",
+      "time": 0.1,
+      "face": -1
+    },
+    {
+      "head": "loose",
+      "pose": "down",
+      "time": 0.5,
+      "face": 1
+    },
+    {
+      "head": "loose",
+      "pose": "down",
+      "time": 0.5,
+      "face": -1
+    },
+    {
+      "head": "bun",
+      "pose": "idle",
+      "time": 0,
+      "face": 1
+    },
+    {
+      "head": "bun",
+      "pose": "idle",
+      "time": 0,
+      "face": -1
+    },
+    {
+      "head": "bun",
+      "pose": "walk",
+      "time": 0.2,
+      "face": 1
+    },
+    {
+      "head": "bun",
+      "pose": "walk",
+      "time": 0.2,
+      "face": -1
+    },
+    {
+      "head": "bun",
+      "pose": "attack",
+      "time": 0.02,
+      "face": 1
+    },
+    {
+      "head": "bun",
+      "pose": "attack",
+      "time": 0.02,
+      "face": -1
+    },
+    {
+      "head": "bun",
+      "pose": "attack",
+      "time": 0.2,
+      "face": 1
+    },
+    {
+      "head": "bun",
+      "pose": "attack",
+      "time": 0.2,
+      "face": -1
+    },
+    {
+      "head": "bun",
+      "pose": "hurt",
+      "time": 0.1,
+      "face": 1
+    },
+    {
+      "head": "bun",
+      "pose": "hurt",
+      "time": 0.1,
+      "face": -1
+    },
+    {
+      "head": "bun",
+      "pose": "down",
+      "time": 0.5,
+      "face": 1
+    },
+    {
+      "head": "bun",
+      "pose": "down",
+      "time": 0.5,
+      "face": -1
+    },
+    {
+      "head": "short",
+      "pose": "idle",
+      "time": 0,
+      "face": 1
+    },
+    {
+      "head": "short",
+      "pose": "idle",
+      "time": 0,
+      "face": -1
+    },
+    {
+      "head": "short",
+      "pose": "walk",
+      "time": 0.2,
+      "face": 1
+    },
+    {
+      "head": "short",
+      "pose": "walk",
+      "time": 0.2,
+      "face": -1
+    },
+    {
+      "head": "short",
+      "pose": "attack",
+      "time": 0.02,
+      "face": 1
+    },
+    {
+      "head": "short",
+      "pose": "attack",
+      "time": 0.02,
+      "face": -1
+    },
+    {
+      "head": "short",
+      "pose": "attack",
+      "time": 0.2,
+      "face": 1
+    },
+    {
+      "head": "short",
+      "pose": "attack",
+      "time": 0.2,
+      "face": -1
+    },
+    {
+      "head": "short",
+      "pose": "hurt",
+      "time": 0.1,
+      "face": 1
+    },
+    {
+      "head": "short",
+      "pose": "hurt",
+      "time": 0.1,
+      "face": -1
+    },
+    {
+      "head": "short",
+      "pose": "down",
+      "time": 0.5,
+      "face": 1
+    },
+    {
+      "head": "short",
+      "pose": "down",
+      "time": 0.5,
+      "face": -1
+    }
+  ],
+  "errors": [],
+  "webkitErrors": [],
+  "reduced": "attack \u2192 strike \u00b7 0.000s \u00b7 face -1",
+  "legacy": {
+    "fail": null,
+    "done": null,
+    "directorPresent": true
+  },
+  "allAppearanceRequestsFailSimplified": true
+}

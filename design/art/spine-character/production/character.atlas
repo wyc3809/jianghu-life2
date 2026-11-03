@@ -1,0 +1,47 @@
+atlas.png
+size: 1024,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+far-leg
+  rotate: false
+  xy: 2, 734
+  size: 214, 516
+  orig: 214, 516
+  offset: 0, 0
+  index: -1
+far-arm
+  rotate: false
+  xy: 396, 734
+  size: 200, 467
+  orig: 200, 467
+  offset: 0, 0
+  index: -1
+near-arm
+  rotate: false
+  xy: 218, 734
+  size: 176, 468
+  orig: 176, 468
+  offset: 0, 0
+  index: -1
+near-leg
+  rotate: false
+  xy: 644, 2
+  size: 173, 520
+  orig: 173, 520
+  offset: 0, 0
+  index: -1
+hip
+  rotate: false
+  xy: 598, 734
+  size: 312, 402
+  orig: 312, 402
+  offset: 0, 0
+  index: -1
+upper-body
+  rotate: false
+  xy: 2, 2
+  size: 640, 730
+  orig: 640, 730
+  offset: 0, 0
+  index: -1

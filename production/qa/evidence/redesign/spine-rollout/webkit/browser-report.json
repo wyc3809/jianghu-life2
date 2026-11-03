@@ -1,0 +1,54 @@
+[
+  {
+    "engine": "webkit",
+    "viewport": [
+      320,
+      568
+    ],
+    "fixedMain": true,
+    "sheetControls44Visible": true,
+    "previewCancelNoMutation": true,
+    "confirmOnly": true,
+    "doubleConfirmNoDebit": true,
+    "normalDuelEquipmentUnchanged": true,
+    "hudMatchesPerson": true,
+    "reloadPersists": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "webkit",
+    "viewport": [
+      390,
+      844
+    ],
+    "fixedMain": true,
+    "sheetControls44Visible": true,
+    "previewCancelNoMutation": true,
+    "confirmOnly": true,
+    "doubleConfirmNoDebit": true,
+    "normalDuelEquipmentUnchanged": true,
+    "hudMatchesPerson": true,
+    "reloadPersists": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "webkit",
+    "viewport": [
+      430,
+      932
+    ],
+    "fixedMain": true,
+    "sheetControls44Visible": true,
+    "previewCancelNoMutation": true,
+    "confirmOnly": true,
+    "doubleConfirmNoDebit": true,
+    "normalDuelEquipmentUnchanged": true,
+    "hudMatchesPerson": true,
+    "reloadPersists": true,
+    "pageerrors": []
+  },
+  {
+    "engine": "webkit",
+    "allAppearanceNetworkFailureSameIdentity": true
+  }
+]

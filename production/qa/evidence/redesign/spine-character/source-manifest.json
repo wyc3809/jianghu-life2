@@ -1,0 +1,29 @@
+{
+  "baseCommit": "f95b219",
+  "skillCommit": "702b71689cac826efee942ee4564fef9560d6ef8",
+  "player": "4.2.120",
+  "masterAccepted": true,
+  "animationAccepted": false,
+  "actualIphone": false,
+  "nativeEditorRoundTrip": false,
+  "deployed": false,
+  "inputs": {
+    "src/main.tsx": "866a15b051e2c78372a5254dae8b08054294a93600a32268d92025344b4b3c76",
+    "src/components/ink/InkSettingsPanel.tsx": "006b58ba573f5a821ad2fb3830f6f1b40f07c937cee882becb5c53a0aa6aa72c",
+    "src/prototypes/rigLab/SpineCharacterLab.tsx": "405f847ae67ba55870807a0dbc1f099371f16d70a10122607f2dfafab7ccb3ee",
+    "scripts/art/build_spine_review.py": "81db05fec5c67bdd25da0680e227f590577b3eec3fdd06c106caa2f61b890254",
+    "design/art/spine-character/review-template.html": "ddfd1435d791627e0aca00459b21f15428acddfc9364ebe44d9f3f7eb408a940",
+    "design/art/spine-character/layout.json": "7a687563d70cea11fbfa542ed1a2bcee153a3e5060b2c50e390db9eaa80dbdf7",
+    "design/art/spine-character/authoring.json": "d162854cdbb2333d4686d0341ff0e2c481b790f80e59058655d469af78017df1",
+    "design/art/spine-character/sources/master-v01.png": "034d68ec85643b344d075811dcb6982e01a2bff952bbde6ef58a3281f03ff95f",
+    "design/art/spine-character/sources/parts-v01.png": "07ceb3b7c9b5d06ae2803c2634261783bc8780c6756b16c0e0c64ed427570298",
+    "design/art/spine-character/runtime/character.json": "f67d224e1cd304b6170c98fb703d7159f1780de1d1311872c0ab1e7c4f7404ab",
+    "design/art/spine-character/runtime/character.atlas": "5f69dd7a8c885319b370e4d1b6761a047e69fec3ada39ecf86fb01fabccac206",
+    "design/art/spine-character/runtime/character.png": "5db124b23644718b39f72dfd3f0d710822cfe05d802903b37cd851300d0abb63",
+    "design/art/spine-character/runtime/review.html": "4510b8eb4633ef1498c91f2675d32e438fb381f046579f9411b3fcc1012998b1",
+    "tests/spine_character.test.ts": "97879c40b8a0fafb0c12aea778d774fefa2198f7cf02772dacb369e3c1bca557"
+  },
+  "internalReviewBundle": "SpineCharacterLab-D4sgjLSs.js",
+  "browserCases": 9,
+  "performanceAccepted": false
+}
