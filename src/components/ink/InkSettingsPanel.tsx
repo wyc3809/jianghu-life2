@@ -163,7 +163,7 @@ export function InkSettingsPanel({
           <p className="ink-settings-note">試煉獲得兵器後，進入人物點選武器欄，先比較再換上。武學亦由人物頁選擇欄位裝配。</p>
           {onReviewGuide && <button type="button" className="ink-btn ink-btn--quiet" onClick={onReviewGuide}>顯示目前提示</button>}
         </section>
-        {(import.meta.env.DEV || import.meta.env.VITE_CHARACTER_RIG_LAB === '1') && <section className="ink-settings-block" aria-label="動畫內測"><button className="ink-btn ink-btn--quiet" onClick={()=>location.assign(`${import.meta.env.BASE_URL}?rig-lab=1`)}>角色動畫驗收</button></section>}
+        {(import.meta.env.DEV || import.meta.env.VITE_CHARACTER_RIG_LAB === '1') && <section className="ink-settings-block" aria-label="動畫內測"><button className="ink-btn ink-btn--quiet" onClick={()=>location.assign(`${import.meta.env.BASE_URL}?spine-lab=1`)}>角色動畫驗收</button></section>}
         <InkCloudSection onOpenBoard={onOpenBoard} />
 
         <footer className="ink-settings-foot">

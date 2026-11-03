@@ -1,4 +1,4 @@
-"""普通／內測正式構建的入口隔離，以及設定進出原型。"""
+"""歷史第60b項／f95b219的入口驗證；現行Spine入口改用checkSpineBuilds.py。"""
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 import json

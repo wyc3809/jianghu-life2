@@ -1,0 +1,16 @@
+2026-11-03
+完整技能安裝：來源702b71689cac826efee942ee4564fef9560d6ef8；五個原始腳本SHA一致、--help及py_compile通過。
+素材／Spine輸出：18骨節、7加權網格、3動作；JSON使用../parts/相對圖片路徑，七件均存在。原圖與提示保留。
+npx vitest run --maxWorkers=1 --no-file-parallelism：122檔945項通過，78.19秒。沒有skip／disable／改容差或測試deadline。
+曾在環境重啟與並行構建期間，既有martial_poses測試出現5秒逾時；程式及門檻未改，最後完整串行重跑全部通過。
+npm run build：TypeScript及普通Vite構建通過，13.87秒；普通包沒有SpineCharacterLab chunk。
+VITE_CHARACTER_RIG_LAB=1 VITE_BASE=/ npx vite build：通過，16.98秒；最終還原為已通過UI的D4sgjLSs審閱bundle。
+npm run audit:narrate：hard-fail 0。
+npm run audit:copy：10416段中文字串，口語及禁句0處。
+瀏覽器：Chromium／Linux WebKit 320x568、390x844、430x932；減少動態兩例；WebGL失效後備一例，共9例通過。SVG DOM為0。非真iPhone。
+入口：普通query無審閱頁；內測query可操作及返回；真設定入口及既存QA存檔在審閱頁內不變，build-gates通過。
+獨立HTML：同一官方Runtime及資料，外部網絡請求0。
+圖像：實際App三姿勢、debug、前後圖及近鏡；實際UI完整錄影與定時按鈕真實播放片段。GIF為影片裁切，不是逐幀合成。
+效能：資料ready約2.4至2.8秒，非首次畫面呈現；量測仍有慢幀，未驗收。改動前後及撤回MSAA試驗詳見performance-experiment-notes.txt。
+尚未完成：原生Spine Editor儲存／重開／匯出、真iPhone／TestFlight、長跑／耗電／溫度、三動作玩家評閱。
+未合併、未部署、未上傳新TestFlight，沒有改戰鬥、經濟、裝備或存檔；多人及PR #156仍暫停。

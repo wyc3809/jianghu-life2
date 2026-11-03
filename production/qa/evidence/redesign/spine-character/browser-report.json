@@ -1,0 +1,114 @@
+{
+  "actualIphone": false,
+  "nativeEditorRoundTrip": false,
+  "cases": [
+    {
+      "engine": "chromium",
+      "viewport": [
+        320,
+        568
+      ],
+      "actions": true,
+      "pauseAndSingleStep": true,
+      "mirror": true,
+      "debug": true,
+      "noStorageMutation": true,
+      "noSvg": true,
+      "invalidFrames": 0,
+      "pageerrors": []
+    },
+    {
+      "engine": "chromium",
+      "viewport": [
+        390,
+        844
+      ],
+      "actions": true,
+      "pauseAndSingleStep": true,
+      "mirror": true,
+      "debug": true,
+      "noStorageMutation": true,
+      "noSvg": true,
+      "invalidFrames": 0,
+      "pageerrors": []
+    },
+    {
+      "engine": "chromium",
+      "viewport": [
+        430,
+        932
+      ],
+      "actions": true,
+      "pauseAndSingleStep": true,
+      "mirror": true,
+      "debug": true,
+      "noStorageMutation": true,
+      "noSvg": true,
+      "invalidFrames": 0,
+      "pageerrors": []
+    },
+    {
+      "engine": "chromium",
+      "reducedMotion": true,
+      "staticActionAndStep": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": [
+        320,
+        568
+      ],
+      "actions": true,
+      "pauseAndSingleStep": true,
+      "mirror": true,
+      "debug": true,
+      "noStorageMutation": true,
+      "noSvg": true,
+      "invalidFrames": 0,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "viewport": [
+        390,
+        844
+      ],
+      "actions": true,
+      "pauseAndSingleStep": true,
+      "mirror": true,
+      "debug": true,
+      "noStorageMutation": true,
+      "noSvg": true,
+      "invalidFrames": 0,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "viewport": [
+        430,
+        932
+      ],
+      "actions": true,
+      "pauseAndSingleStep": true,
+      "mirror": true,
+      "debug": true,
+      "noStorageMutation": true,
+      "noSvg": true,
+      "invalidFrames": 0,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "reducedMotion": true,
+      "staticActionAndStep": true
+    },
+    {
+      "engine": "chromium",
+      "webglFailureFallback": true
+    }
+  ],
+  "offlineReview": {
+    "externalRequests": [],
+    "actualSpine": true
+  }
+}

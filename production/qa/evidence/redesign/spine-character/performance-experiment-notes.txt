@@ -1,0 +1,9 @@
+2026-11-03：只供瀏覽器技術審閱，效能未驗收。
+
+1. preserveDrawingBuffer=true：原始資料及摘要保留為performance-before-buffer-change(-raw).json，量測區段由raw幀間隔加總53.72秒；p95約94.8ms、最大約699.6ms。
+2. preserveDrawingBuffer=false：performance.json及performance-before-msaa-change.json對應同一區段，raw加總63.75秒；p95約139.7ms、最大約1127.2ms。沒有觀察到可歸因的改善，不能把設定變更說成已提升幀率。保留false以免為截圖長期保留繪圖緩衝；截圖仍由實際瀏覽器取得。
+3. 嘗試指定antialias=false時，320×568操作在骨架按鈕出現點擊逾時，沒有完成效能量測。此試驗已撤回，沒有把Canvas getContext覆寫留在成品。原始失敗log保留於執行工作目錄.local-online/spine-ai/msaa-experiment-failure.log。
+4. 最終內測bundle還原為SpineCharacterLab-D4sgjLSs.js，與已通過九個情境的版本完全相同。三段完整影片及入口／存檔檢查另外重新執行。
+
+以上為Linux Chromium headless、SwiftShader、390×844 DPR2的一名角色，不是iPhone。各次負載及量測區段不同，未作統計上可歸因的A/B結論。fixed-step callback CPU不含全部WebGL繪製。JS heap樣本不能當作長跑或洩漏驗證。
+readyObservedAtMs是觀察到素材ready旗標的時間，不是首次畫面呈現或原生啟動時間。

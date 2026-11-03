@@ -1,0 +1,44 @@
+{
+  "source": "https://github.com/GenielabsOpenSource/spine-animation-ai",
+  "commit": "702b71689cac826efee942ee4564fef9560d6ef8",
+  "skillName": "spine-animation",
+  "skillInstalled": true,
+  "userReportedSkillCommercialLicense": true,
+  "userReportedSpineEditorLicense": true,
+  "spineRuntimeIntegrated": "App開發／內測審閱入口，正式戰鬥未切換",
+  "scripts": {
+    "build_spine_json.py": {
+      "sha256": "70b18ec5d54c935eb8f2c9b57c7359779b1d4834a2d62848f003126ba26327dd",
+      "helpExitCode": 0
+    },
+    "generate_spine_player.py": {
+      "sha256": "bb8bc5d9be1f47a3568d43e7b2d44a1a8287eec4e9881b8af0f24f4a338435f4",
+      "helpExitCode": 0
+    },
+    "make_atlas.py": {
+      "sha256": "739a96aa0e2d53c65c3678daa632838ba50342bfdb2e6aba63c884e3b71d8c64",
+      "helpExitCode": 0
+    },
+    "position_parts.py": {
+      "sha256": "2b25d96beaaf93b3b560e2a8531caf4ab35d589e1a45e99acb27af8cec51d95a",
+      "helpExitCode": 0
+    },
+    "split_character.py": {
+      "sha256": "c9ddea08c88021903cdbcfb606552835c420c749c3fd78bd28a855970ab25bea",
+      "helpExitCode": 0
+    }
+  },
+  "master": {
+    "path": "sources/master-v01.png",
+    "mode": "RGBA",
+    "size": [
+      1024,
+      1536
+    ],
+    "sha256": "034d68ec85643b344d075811dcb6982e01a2bff952bbde6ef58a3281f03ff95f",
+    "playerAccepted": true
+  },
+  "animationsProduced": true,
+  "deployed": false,
+  "nativeSpineEditorRoundTrip": false
+}
