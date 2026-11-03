@@ -40,5 +40,9 @@
   },
   "animationsProduced": true,
   "deployed": false,
-  "nativeSpineEditorRoundTrip": false
+  "nativeSpineEditorRoundTrip": false,
+  "rigRevision": "v02-continuous-upper-body",
+  "activeWeightedMeshes": 6,
+  "animationPlayerAccepted": false,
+  "headNeckPlayerAccepted": false
 }

@@ -1,0 +1,47 @@
+{
+  "actualIphone": false,
+  "animationAccepted": false,
+  "cameraOverrideOnlyForCloseup": true,
+  "cases": [
+    {
+      "engine": "chromium",
+      "viewport": [
+        390,
+        844
+      ],
+      "realTimeActions": true,
+      "bothDirections": true,
+      "allThreePoses": true,
+      "noStorageMutation": true,
+      "invalidFrames": 0,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "viewport": [
+        390,
+        844
+      ],
+      "realTimeActions": true,
+      "bothDirections": true,
+      "allThreePoses": true,
+      "noStorageMutation": true,
+      "invalidFrames": 0,
+      "pageerrors": []
+    }
+  ],
+  "closeup": {
+    "realTime": true,
+    "manualFrameSynthesis": false,
+    "sameWholeActorCamera": true,
+    "speeds": [
+      1,
+      0.25
+    ],
+    "metrics": {
+      "maxGapMs": 259.5,
+      "frameCount": 102,
+      "invalidFrames": 0
+    }
+  }
+}

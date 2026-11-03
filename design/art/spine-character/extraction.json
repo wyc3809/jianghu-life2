@@ -15,7 +15,8 @@
     "size": [
       325,
       385
-    ]
+    ],
+    "active": false
   },
   "torso": {
     "sourceCell": [
@@ -33,7 +34,8 @@
     "size": [
       280,
       360
-    ]
+    ],
+    "active": false
   },
   "hip": {
     "sourceCell": [
@@ -51,7 +53,8 @@
     "size": [
       312,
       402
-    ]
+    ],
+    "active": true
   },
   "near-arm": {
     "sourceCell": [
@@ -69,7 +72,8 @@
     "size": [
       176,
       468
-    ]
+    ],
+    "active": true
   },
   "far-arm": {
     "sourceCell": [
@@ -87,7 +91,8 @@
     "size": [
       200,
       467
-    ]
+    ],
+    "active": true
   },
   "near-leg": {
     "sourceCell": [
@@ -105,7 +110,8 @@
     "size": [
       173,
       520
-    ]
+    ],
+    "active": true
   },
   "far-leg": {
     "sourceCell": [
@@ -123,6 +129,21 @@
     "size": [
       214,
       516
-    ]
+    ],
+    "active": true
+  },
+  "upper-body": {
+    "source": "sources/upper-body-v02.png",
+    "alphaCrop": [
+      176,
+      7,
+      925,
+      1340
+    ],
+    "size": [
+      749,
+      1333
+    ],
+    "active": true
   }
 }

@@ -1,54 +1,47 @@
 character.png
-size: 2048,1024
+size: 1024,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-near-leg
+upper-body
   rotate: false
   xy: 2, 2
+  size: 749, 1333
+  orig: 749, 1333
+  offset: 0, 0
+  index: -1
+near-leg
+  rotate: false
+  xy: 753, 2
   size: 173, 520
   orig: 173, 520
   offset: 0, 0
   index: -1
 far-leg
   rotate: false
-  xy: 177, 2
+  xy: 2, 1337
   size: 214, 516
   orig: 214, 516
   offset: 0, 0
   index: -1
 near-arm
   rotate: false
-  xy: 393, 2
+  xy: 218, 1337
   size: 176, 468
   orig: 176, 468
   offset: 0, 0
   index: -1
 far-arm
   rotate: false
-  xy: 571, 2
+  xy: 396, 1337
   size: 200, 467
   orig: 200, 467
   offset: 0, 0
   index: -1
 hip
   rotate: false
-  xy: 773, 2
+  xy: 598, 1337
   size: 312, 402
   orig: 312, 402
-  offset: 0, 0
-  index: -1
-head
-  rotate: false
-  xy: 1087, 2
-  size: 325, 385
-  orig: 325, 385
-  offset: 0, 0
-  index: -1
-torso
-  rotate: false
-  xy: 1414, 2
-  size: 280, 360
-  orig: 280, 360
   offset: 0, 0
   index: -1

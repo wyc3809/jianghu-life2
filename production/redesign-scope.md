@@ -1389,7 +1389,7 @@ iOS／Codemagic準備工程一併接入main，Apple版本保留1.0、build由App
 
 技術及限制見`design/audits/character-animation-phase2.md`；操作影片、前後圖、96組造型、伏地與持武像素檢查、941項測試、構建及量測見`production/qa/evidence/redesign/character-rig-prototype/README.md`。測試不代表玩家已接受比例或自然度，真iPhone、原生前後台、溫度／耗電及長跑仍待實測。新原型沒有升版本／main合併／Pages部署，多人及PR #156繼續暫停。下一階段先評閱人物，再接事件一對一的既有readonly replay，保留回退，不一次遷移全遊戲。
 
-### 第60c項：Spine Animation AI與單角色三動作（2026-11-03，母版接受、動作待評閱）
+### 第60c項：Spine Animation AI與單角色三動作（2026-11-03，v01接點被否決、v02待評閱）
 
 玩家否決第60b項比例及接點後，指定改用 `GenielabsOpenSource/spine-animation-ai`，明確確認同時持有該skill商用授權與Spine編輯器授權。完整skill已安裝於執行環境，來源固定至 `702b71689cac826efee942ee4564fef9560d6ef8`，五個腳本及獨立依賴已檢查。
 
@@ -1398,3 +1398,7 @@ iOS／Codemagic準備工程一併接入main，Apple版本保留1.0、build由App
 已用所選skill產出真Spine 4.2骨架／圖集與三段動作，18骨節、七加權網格，使用官方4.2.120 Runtime在App開發／內測`?spine-lab=1`及設定入口播放。原始自動對位、人工修正、母版座標、權重與三段關鍵幀保留；動作未被玩家接受，不把母版接受延伸為動畫接受。舊原型維持未合格。普通構建不包含新審閱模組；沒有新增正式npm依賴。
 
 修正播放器自動推進造成雙重更新，以及肩部跨胸權重的三角形翻面；四項新測試用真正Runtime檢查120Hz全動作取樣、骨長／網格、支點、收束及中斷。完整122檔945項、普通及內測構建與兩項文字檢查通過；畫面／操作實測及限制見 `production/qa/evidence/redesign/spine-character/`。尚未啟動原生Spine編輯器作儲存／重開／匯出驗收，未有新TestFlight或真iPhone效能結論。未接實戰、未改玩法／經濟／裝備／存檔、未上線，多人及PR #156仍暫停。
+
+玩家其後指出「個頭都係甩咗」：上述v01骨長檢查沒有攔截頭頸與胸口兩個獨立表面的斷縫，不能當人體通過。v02補製從頭至腰的連續上半身原圖，整體等比對位，以同一加權網格連接頭／頸／胸，保留頭部相對胸口的轉動；不是鎖死頭或另加頸件。舊分件、JSON及證據保留為被否決版本。活躍網格由七件改六件；圖集僅無損重排，仍1024×2048。
+
+v02新增四項實質檢查：來源alpha走廊、網格連通、三段120Hz表面拉伸、臉部相對胸口轉動，包含刻意切斷頸面但骨節仍正常的拒絕負例。完整122檔949項、普通／內測構建與兩項文案檢查通過。Chromium及Linux WebKit實播三段、左右轉向、既存存檔不變；近鏡錄影為真App整體鏡頭放大，沒有改正常角色大小或逐幀合成。證據在 `production/qa/evidence/redesign/spine-neck-v02/`。畫面仍待玩家評閱；錄影有慢幀，未通過效能或真機驗收，不宣稱60fps。原生編輯器回合及新TestFlight仍未完成。PR #157保持草稿，不合併或發布。

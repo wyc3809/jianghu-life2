@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
+import { createHash } from 'node:crypto';
 
 const root = 'design/art/spine-character/runtime/';
 const html = readFileSync(root + 'review.html', 'utf8');
@@ -11,6 +12,26 @@ const runtime = context.spine;
 const json = JSON.parse(readFileSync(root + 'character.json', 'utf8'));
 const data = new runtime.SkeletonJson({ newMeshAttachment: (_skin: unknown, name: string) => new runtime.MeshAttachment(name) }).readSkeletonData(json);
 const make = () => new runtime.Skeleton(data);
+const surface = JSON.parse(readFileSync('design/art/spine-character/neck-surface.json', 'utf8'));
+function connectedNeck(attachment: any) {
+  const allowed = new Set<number>(surface.corridorVertices);
+  const edges = new Map<number, Set<number>>();
+  for (let i = 0; i < attachment.triangles.length; i += 3) {
+    const tri = Array.from(attachment.triangles.slice(i, i + 3)) as number[];
+    for (const a of tri) for (const b of tri) if (a !== b && allowed.has(a) && allowed.has(b)) {
+      if (!edges.has(a)) edges.set(a, new Set());
+      edges.get(a)!.add(b);
+    }
+  }
+  const seen = new Set<number>(), stack = [surface.bridge[0]];
+  while (stack.length) {
+    const a = stack.pop()!;
+    if (seen.has(a)) continue;
+    seen.add(a);
+    for (const b of edges.get(a) ?? []) stack.push(b);
+  }
+  return surface.bridge.every((i: number) => seen.has(i));
+}
 function pose(skeleton: any, name: string, time: number) {
   skeleton.setToSetupPose();
   data.findAnimation(name).apply(skeleton, 0, time, false, [], 1, runtime.MixBlend.setup, runtime.MixDirection.mixIn);
@@ -26,6 +47,59 @@ function vertices(skeleton: any) {
 }
 
 describe('Spine人物三動作', () => {
+  it('test_spine_頭頸皮膚到上胸_真圖像不透明且表面網格連通', () => {
+    const image = readFileSync('design/art/spine-character/parts/upper-body.png');
+    expect(createHash('sha256').update(image).digest('hex')).toBe(surface.sourceSha256);
+    expect(Math.min(...surface.bridgeAlphaSamples)).toBeGreaterThanOrEqual(200);
+    const skeleton = make();
+    pose(skeleton, 'idle', 0);
+    const { attachment } = vertices(skeleton).find(({ attachment }: any) => attachment.name === surface.attachment)!;
+    expect(connectedNeck(attachment)).toBe(true);
+  });
+
+  it('test_spine_三段動作的實際頸面_保持連通及有限拉伸', () => {
+    const skeleton = make();
+    pose(skeleton, 'idle', 0);
+    const get = () => vertices(skeleton).find(({ attachment }: any) => attachment.name === surface.attachment)!;
+    const base = get().out;
+    const distance = (v: Float32Array, a: number, b: number) => Math.hypot(v[a * 2] - v[b * 2], v[a * 2 + 1] - v[b * 2 + 1]);
+    let largestStrain = 0;
+    for (const animation of data.animations) for (let i = 0; i <= Math.ceil(animation.duration * 120); i++) {
+      pose(skeleton, animation.name, Math.min(i / 120, animation.duration));
+      const { out } = get();
+      for (let j = 1; j < surface.bridge.length; j++) {
+        const a = surface.bridge[j - 1], b = surface.bridge[j];
+        largestStrain = Math.max(largestStrain, Math.abs(distance(out, a, b) / distance(base, a, b) - 1));
+      }
+    }
+    expect(largestStrain).toBeLessThan(.08);
+  });
+
+  it('test_spine_頸面連通時_臉部材質仍相對胸口轉動而非鎖死', () => {
+    const skeleton = make();
+    pose(skeleton, 'hurt', .19);
+    const { out } = vertices(skeleton).find(({ attachment }: any) => attachment.name === surface.attachment)!;
+    const angle = ([a, b]: number[]) => Math.atan2(out[b * 2 + 1] - out[a * 2 + 1], out[b * 2] - out[a * 2]);
+    expect(Math.abs(angle(surface.faceTangent) - angle(surface.chestTangent)) * 180 / Math.PI).toBeGreaterThan(2);
+  });
+
+  it('test_spine_即使骨節仍正常但頸面被切斷_表面守門必須拒絕', () => {
+    const broken = structuredClone(json);
+    const attachment = broken.skins[0].attachments[surface.attachment][surface.attachment];
+    const kept: number[] = [];
+    for (let i = 0; i < attachment.triangles.length; i += 3) {
+      const tri = attachment.triangles.slice(i, i + 3);
+      const ys = tri.map((index: number) => surface.rect.y + attachment.uvs[index * 2 + 1] * surface.rect.height);
+      if (!(Math.min(...ys) < 307 && Math.max(...ys) > 307)) kept.push(...tri);
+    }
+    attachment.triangles = kept;
+    const brokenData = new runtime.SkeletonJson({ newMeshAttachment: (_skin: unknown, name: string) => new runtime.MeshAttachment(name) }).readSkeletonData(broken);
+    const skeleton = new runtime.Skeleton(brokenData); skeleton.updateWorldTransform(runtime.Physics.update);
+    const neck = skeleton.findBone('neck'), head = skeleton.findBone('head');
+    expect(Math.hypot(head.worldX - neck.worldX, head.worldY - neck.worldY)).toBeCloseTo(35, 4);
+    expect(skeleton.bones.every((bone: any) => [bone.worldX, bone.worldY].every(Number.isFinite))).toBe(true);
+    expect(connectedNeck(attachment)).toBe(false);
+  });
   it('test_spine_完整三段每秒120次採樣_骨長穩定且網格沒有翻面', () => {
     const skeleton = make();
     let samples = 0;

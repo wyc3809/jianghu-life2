@@ -2,19 +2,19 @@
   "skillCommit": "702b71689cac826efee942ee4564fef9560d6ef8",
   "player": "4.2.120",
   "bones": 18,
-  "weightedMeshes": 7,
+  "weightedMeshes": 6,
   "animations": [
     "idle",
     "attack",
     "hurt"
   ],
   "files": {
-    "review.html": "4510b8eb4633ef1498c91f2675d32e438fb381f046579f9411b3fcc1012998b1",
-    "character.json": "f67d224e1cd304b6170c98fb703d7159f1780de1d1311872c0ab1e7c4f7404ab",
+    "review.html": "643c6ce97d96c7902ddd6978fb34148fda804d4799593b28297a00ff5af2156e",
+    "character.json": "31e4c37bb26fd79a7e469c4309443ae209ddfa336d560a78146cae0bfce5d576",
     "master-fallback.webp": "ccff7c44e2df96c6da97c3ea9ea858c00ee54b74ca1f05b028a91cd942c70df4",
-    "character.png": "5db124b23644718b39f72dfd3f0d710822cfe05d802903b37cd851300d0abb63",
+    "character.png": "32b3e46cab4bca04ee7f0287ee50f49726530f455b32c19e449373b37838a382",
     "SPINE-RUNTIME-LICENSE.txt": "435774fb793b0f67892899fc934f98009e64fd90ad3ab964117274e279a0f50e",
     "OFL-YujiBoku.txt": "9391614f28bbbbf8a89b8acba2091e0a249a25d78240e93f39c05f0e9036208f",
-    "character.atlas": "5f69dd7a8c885319b370e4d1b6761a047e69fec3ada39ecf86fb01fabccac206"
+    "character.atlas": "8046f8c7ee970724e961bd9b8d0a0e632a46c60f1366a8bebd2f73537324c9fe"
   }
 }

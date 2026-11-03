@@ -37,23 +37,6 @@
       "z_index": 1,
       "depth_score": -120.0
     },
-    "head": {
-      "x": 340,
-      "y": 3,
-      "width": 297,
-      "height": 348,
-      "original_width": 325,
-      "original_height": 385,
-      "scale": 0.8841,
-      "rotation": 1.63,
-      "score": 0.8525,
-      "n_matches": 104,
-      "n_good": 122,
-      "n_keypoints": 940,
-      "method": "sift",
-      "z_index": 3,
-      "depth_score": 54.0
-    },
     "hip": {
       "x": 310,
       "y": 580,
@@ -105,36 +88,38 @@
       "z_index": 2,
       "depth_score": -12.0
     },
-    "torso": {
-      "x": 340,
-      "y": 255,
-      "width": 327,
-      "height": 390,
-      "original_width": 280,
-      "original_height": 360,
-      "scale": 1.166,
-      "rotation": -0.01,
-      "score": 0.6429,
-      "n_matches": 108,
-      "n_good": 168,
-      "n_keypoints": 1353,
+    "upper-body": {
+      "x": 308,
+      "y": 4,
+      "width": 372.5526,
+      "height": 663.0342,
+      "original_width": 749,
+      "original_height": 1333,
+      "scale": 0.4974,
+      "rotation": 0.51,
+      "score": 0.3307,
+      "n_matches": 125,
+      "n_good": 378,
+      "n_keypoints": 10751,
       "method": "sift",
-      "z_index": 4,
-      "depth_score": 72.0
+      "z_index": 0,
+      "depth_score": 0.0,
+      "globalUniformScale": true
     }
   },
   "z_order": [
     "far-leg",
     "near-leg",
     "far-arm",
-    "head",
-    "torso",
+    "upper-body",
     "hip",
     "near-arm"
   ],
   "manualReview": {
     "torso": "衣領下移15px，按母版腰線重校高度；不將SIFT結果直接當人體接點",
     "hip": "腰帶覆蓋torso原有腰帶，避免重複腰線",
-    "head": "保留單一頭頸圖，頸底由衣領遮擋；不另加頸圖"
-  }
+    "head": "保留單一頭頸圖，頸底由衣領遮擋；不另加頸圖",
+    "upper-body": "頭頸與衣領使用同一連續圖像；只作整體對位，不再獨立縮放頭和身。"
+  },
+  "revision": "neck-continuity-v02"
 }
