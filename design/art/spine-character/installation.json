@@ -5,7 +5,7 @@
   "skillInstalled": true,
   "userReportedSkillCommercialLicense": true,
   "userReportedSpineEditorLicense": true,
-  "spineRuntimeIntegrated": "App開發／內測審閱入口，正式戰鬥未切換",
+  "spineRuntimeIntegrated": "正式人物、演武、事件／華山／非同步一對一共用Spine離線動作幀；原型Runtime留作編輯驗收",
   "scripts": {
     "build_spine_json.py": {
       "sha256": "70b18ec5d54c935eb8f2c9b57c7359779b1d4834a2d62848f003126ba26327dd",
@@ -39,10 +39,12 @@
     "playerAccepted": true
   },
   "animationsProduced": true,
-  "deployed": false,
   "nativeSpineEditorRoundTrip": false,
-  "rigRevision": "v02-continuous-upper-body",
+  "rigRevision": "v02-continuous-production",
   "activeWeightedMeshes": 6,
-  "animationPlayerAccepted": false,
-  "headNeckPlayerAccepted": false
+  "animationPlayerAccepted": true,
+  "headNeckPlayerAccepted": true,
+  "productionRolloutAuthorized": true,
+  "productionRelease": "EA0.101.0",
+  "deploymentStatusSource": "以main版本、scope第60d項與Pages部署記錄為準"
 }

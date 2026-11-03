@@ -2,6 +2,7 @@ import mapping from './asset-map.json';
 import fallback from './asset-fallback.json';
 import type { BodyFrame } from './pose';
 import type { CharacterAppearance } from '@interfaces/appearance';
+import { createSpineTextures, type SpineTextures } from './spine/assets';
 
 export interface AppearanceAssets {
   heads: Record<CharacterAppearance['head'], HTMLImageElement>;
@@ -9,6 +10,7 @@ export interface AppearanceAssets {
   weapons: Record<string,HTMLImageElement>;
   neck?: HTMLImageElement;
   simplified: boolean;
+  spine?: SpineTextures;
 }
 declare global { interface Window { __jianghuAppearanceAssets?: Record<string,string> } }
 const WEAPONS = ['sword','blade','spear','staff','whip','bow','hidden'];
@@ -35,7 +37,12 @@ export function loadAppearanceAssets(): Promise<AppearanceAssets> {
       try{return [key,await load(`ink/spar/weapon-${key}.webp`)];}catch{return [key,undefined];}
     }))) as AppearanceAssets['weapons'];
     const neck=await load(mapping.neck);
-    return {heads,bodies,weapons,neck,simplified};
+    return {heads,bodies,weapons,neck,simplified,spine:createSpineTextures()};
   })().catch(error=>{pending=null;throw error;});
   return pending;
+}
+
+/** 進場前準備同身份的連續蒙皮圖集；失圖沿用同身份完整後備，不改存檔。 */
+export async function prepareAppearance(assets:AppearanceAssets,value:unknown):Promise<void> {
+  await assets.spine?.prepare(value,'atlas');
 }

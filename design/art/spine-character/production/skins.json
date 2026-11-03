@@ -1,0 +1,298 @@
+{
+  "upperRect": {
+    "x": 180,
+    "y": -30,
+    "width": 640,
+    "height": 730
+  },
+  "skins": [
+    {
+      "head": "bamboo",
+      "outfit": "traveller",
+      "minNeckAlpha": 253,
+      "source": "sheet-traveller.png",
+      "guide": [
+        215,
+        230,
+        490
+      ],
+      "scale": 1.373076923076923
+    },
+    {
+      "head": "topknot",
+      "outfit": "traveller",
+      "minNeckAlpha": 253,
+      "source": "sheet-traveller.png",
+      "guide": [
+        217,
+        230,
+        490
+      ],
+      "scale": 1.373076923076923
+    },
+    {
+      "head": "master",
+      "outfit": "traveller",
+      "minNeckAlpha": 249,
+      "source": "sheet-traveller.png",
+      "guide": [
+        217,
+        230,
+        490
+      ],
+      "scale": 1.373076923076923
+    },
+    {
+      "head": "silver",
+      "outfit": "traveller",
+      "minNeckAlpha": 253,
+      "source": "sheet-traveller.png",
+      "guide": [
+        217,
+        230,
+        490
+      ],
+      "scale": 1.373076923076923
+    },
+    {
+      "head": "ponytail",
+      "outfit": "traveller",
+      "minNeckAlpha": 253,
+      "source": "sheet-traveller.png",
+      "guide": [
+        217,
+        230,
+        490
+      ],
+      "scale": 1.373076923076923
+    },
+    {
+      "head": "loose",
+      "outfit": "traveller",
+      "minNeckAlpha": 252,
+      "source": "sheet-traveller.png",
+      "guide": [
+        217,
+        230,
+        490
+      ],
+      "scale": 1.373076923076923
+    },
+    {
+      "head": "bun",
+      "outfit": "traveller",
+      "minNeckAlpha": 253,
+      "source": "sheet-traveller.png",
+      "guide": [
+        217,
+        230,
+        490
+      ],
+      "scale": 1.373076923076923
+    },
+    {
+      "head": "short",
+      "outfit": "traveller",
+      "minNeckAlpha": 253,
+      "source": "sheet-traveller.png",
+      "guide": [
+        217,
+        230,
+        490
+      ],
+      "scale": 1.373076923076923
+    },
+    {
+      "head": "bamboo",
+      "outfit": "scholar",
+      "minNeckAlpha": 252,
+      "source": "sheet-scholar.png",
+      "guide": [
+        210,
+        247,
+        503
+      ],
+      "scale": 1.39453125
+    },
+    {
+      "head": "topknot",
+      "outfit": "scholar",
+      "minNeckAlpha": 253,
+      "source": "sheet-scholar.png",
+      "guide": [
+        210,
+        247,
+        503
+      ],
+      "scale": 1.39453125
+    },
+    {
+      "head": "master",
+      "outfit": "scholar",
+      "minNeckAlpha": 246,
+      "source": "sheet-scholar.png",
+      "guide": [
+        203,
+        247,
+        503
+      ],
+      "scale": 1.39453125
+    },
+    {
+      "head": "silver",
+      "outfit": "scholar",
+      "minNeckAlpha": 251,
+      "source": "sheet-scholar.png",
+      "guide": [
+        210,
+        247,
+        503
+      ],
+      "scale": 1.39453125
+    },
+    {
+      "head": "ponytail",
+      "outfit": "scholar",
+      "minNeckAlpha": 252,
+      "source": "sheet-scholar.png",
+      "guide": [
+        210,
+        247,
+        503
+      ],
+      "scale": 1.39453125
+    },
+    {
+      "head": "loose",
+      "outfit": "scholar",
+      "minNeckAlpha": 250,
+      "source": "sheet-scholar.png",
+      "guide": [
+        210,
+        247,
+        503
+      ],
+      "scale": 1.39453125
+    },
+    {
+      "head": "bun",
+      "outfit": "scholar",
+      "minNeckAlpha": 242,
+      "source": "sheet-scholar.png",
+      "guide": [
+        201,
+        247,
+        503
+      ],
+      "scale": 1.39453125
+    },
+    {
+      "head": "short",
+      "outfit": "scholar",
+      "minNeckAlpha": 244,
+      "source": "sheet-scholar.png",
+      "guide": [
+        204,
+        247,
+        503
+      ],
+      "scale": 1.39453125
+    },
+    {
+      "head": "bamboo",
+      "outfit": "cloak",
+      "minNeckAlpha": 253,
+      "source": "sheet-cloak.png",
+      "guide": [
+        210,
+        230,
+        490
+      ],
+      "scale": 1.373076923076923
+    },
+    {
+      "head": "topknot",
+      "outfit": "cloak",
+      "minNeckAlpha": 253,
+      "source": "sheet-cloak.png",
+      "guide": [
+        210,
+        230,
+        490
+      ],
+      "scale": 1.373076923076923
+    },
+    {
+      "head": "master",
+      "outfit": "cloak",
+      "minNeckAlpha": 252,
+      "source": "sheet-cloak.png",
+      "guide": [
+        210,
+        230,
+        490
+      ],
+      "scale": 1.373076923076923
+    },
+    {
+      "head": "silver",
+      "outfit": "cloak",
+      "minNeckAlpha": 252,
+      "source": "sheet-cloak.png",
+      "guide": [
+        210,
+        230,
+        490
+      ],
+      "scale": 1.373076923076923
+    },
+    {
+      "head": "ponytail",
+      "outfit": "cloak",
+      "minNeckAlpha": 252,
+      "source": "sheet-cloak.png",
+      "guide": [
+        210,
+        230,
+        490
+      ],
+      "scale": 1.373076923076923
+    },
+    {
+      "head": "loose",
+      "outfit": "cloak",
+      "minNeckAlpha": 253,
+      "source": "sheet-cloak.png",
+      "guide": [
+        210,
+        230,
+        490
+      ],
+      "scale": 1.373076923076923
+    },
+    {
+      "head": "bun",
+      "outfit": "cloak",
+      "minNeckAlpha": 251,
+      "source": "sheet-cloak.png",
+      "guide": [
+        210,
+        230,
+        490
+      ],
+      "scale": 1.373076923076923
+    },
+    {
+      "head": "short",
+      "outfit": "cloak",
+      "minNeckAlpha": 249,
+      "source": "sheet-cloak.png",
+      "guide": [
+        210,
+        230,
+        490
+      ],
+      "scale": 1.373076923076923
+    }
+  ]
+}

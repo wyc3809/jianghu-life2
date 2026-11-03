@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import type { CombatReplay, CombatReplayHit, LifeCharacter } from '@interfaces/lifeEngine';
 import { appearanceOf, readAppearance } from '@interfaces/appearance';
+import { prepareAppearance } from '../../appearance/assets';
 import { canonicalSkillId, getSkillDef } from '@data/skills/catalog';
 import { getGearDef } from '@data/equipment/catalog';
 import { VOLUME_COUNT, VOLUME_NUMERALS, artVolumeMoves, replayArtAt } from '@data/skills/volumes';
@@ -237,6 +238,8 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
         const actor = character ?? useLifeStore.getState().state?.character;
         images.characterAppearance = replay.playerAppearance ? readAppearance(replay.playerAppearance) : appearanceOf(actor ?? {});
         images.opponentAppearance = replay.foeAppearance ? readAppearance(replay.foeAppearance) : undefined;
+        if(images.wardrobe)await Promise.all([prepareAppearance(images.wardrobe,images.characterAppearance),
+          images.opponentAppearance?prepareAppearance(images.wardrobe,images.opponentAppearance):Promise.resolve()]);
         images.opponentFamily = martialPoseFor(hits.find(h=>h.side==='foe')?.skillId)?.family ?? 'fist';
         const supports = reviewRef.current?.supports ?? (actor ? equippedMartialArts(actor).filter(id => getSkillDef(id)?.kind !== 'external') : []);
         const requested = [...hits.flatMap(h => h.skillId ? [canonicalSkillId(h.skillId)] : []), ...supports];

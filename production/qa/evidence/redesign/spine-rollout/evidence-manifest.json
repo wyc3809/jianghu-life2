@@ -1,0 +1,73 @@
+{
+  "date": "2026-11-03",
+  "gameVersion": "EA0.101.0",
+  "actualIphone": false,
+  "userAcceptedV02": true,
+  "publicationAuthorized": true,
+  "files": {
+    "README.md": {
+      "bytes": 2964,
+      "sha256": "50914366fd2cce5c2d2a1db5e4c7920434cce109c13d7f489b119ea57dfdd015"
+    },
+    "battle-browser-report.json": {
+      "bytes": 1981,
+      "sha256": "a43c16aa1c6b321d81f73ebf97c55c53a05067a3b990d24b6d7757aacbc5dd61"
+    },
+    "battle-event-boss.png": {
+      "bytes": 1171341,
+      "sha256": "84185da92bdf6f886b43d31e78e92ca9fdb09fc92e5757fdf6d23cd3cf9a08ea"
+    },
+    "battle-event.png": {
+      "bytes": 1197959,
+      "sha256": "40616c5f104967405388c242bc86d2176de41b4ab9b884baf302d1d6a7ab3269"
+    },
+    "battle-operation.gif": {
+      "bytes": 2020755,
+      "sha256": "611ad8af2885f29d3bcd46ee8056d527336538f391a49293ee435897b62cdb3c"
+    },
+    "battle-operation.mp4": {
+      "bytes": 1244277,
+      "sha256": "1fedbb5cd771f96a7f0a746cda118b3fe7f1610036ff31ffbb556986cf5551e5"
+    },
+    "battle-operation.webm": {
+      "bytes": 1702663,
+      "sha256": "8bf83cf5d0f31c2aac7be295febe742af47bb737a0d7120d4a4b585b33259ff9"
+    },
+    "battle-spar.png": {
+      "bytes": 1072774,
+      "sha256": "f17af87c74f6eeb21b3e5e4d0b1d7c24c4cfef89cdb688be8fe4f2ee65441f78"
+    },
+    "before-after.png": {
+      "bytes": 222484,
+      "sha256": "fd37a4a79d8c7a8b2fb90c13ee5f0fa953eb44aeb7c2be4a9cf2ce0b51523c29"
+    },
+    "bitmap-connectivity.json": {
+      "bytes": 312,
+      "sha256": "db35127473e07fa3129a60fb0efa6dd1ccc1a4ca24c28cc876bfb07763edc77b"
+    },
+    "browser-report.json": {
+      "bytes": 569,
+      "sha256": "94ede1c5fb4627dc6b95560937342de47b0a73a758247df20f72fbf8a92a01b6"
+    },
+    "checks.txt": {
+      "bytes": 2315,
+      "sha256": "bd3af0c8a93de864069f24b4f58d09c277e1a292e352b29a2fccd3ff36c3dc45"
+    },
+    "home-390.png": {
+      "bytes": 1378194,
+      "sha256": "28630d6e22011e90e053b3d5fc80aba137298ecc73cdd0c7c7fcaf0aa04e6475"
+    },
+    "person-390.png": {
+      "bytes": 1493955,
+      "sha256": "ed2848ffe4db4fa35610d27b6b7fdc7ed77e25969a92ed35e306dbb1579e4fb5"
+    },
+    "wardrobe-390.png": {
+      "bytes": 1181505,
+      "sha256": "bb3cddad1e464f28970b29865de57a88501a01a00bef9f087aa00d09a2810b6b"
+    },
+    "webkit/browser-report.json": {
+      "bytes": 1152,
+      "sha256": "445549291108bd666506723d0e738cd802e4b42a1e65cb80db8726098480ac40"
+    }
+  }
+}

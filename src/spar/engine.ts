@@ -53,7 +53,8 @@ import { martialFootwork } from '../fx/art/footwork';
 import { MartialIdentityFx } from '../fx/art/identityFx';
 import { martialFallbackImage, MARTIAL_FALLBACK_ART } from '../fx/art/martialFallback';
 import { heroAppearanceFrame, heroFigureScale, HERO_VISUAL_SCALE, loadHeroAppearance, type HeroAppearance } from './heroAppearance';
-import { loadAppearanceAssets, type AppearanceAssets } from '../appearance/assets';
+import { loadAppearanceAssets, prepareAppearance, type AppearanceAssets } from '../appearance/assets';
+import { choreoSpineTime, contactSpineTime } from '../appearance/spine/frames';
 import { drawAppearance } from '../appearance/model';
 import { readAppearance, type CharacterAppearance } from '@interfaces/appearance';
 import poseAnchors from '../fx/art/poseAnchors.json';
@@ -539,6 +540,10 @@ export class SparStage {
   setCharacterAppearance(hero: CharacterAppearance, foe?: CharacterAppearance): void {
     this.images.characterAppearance = readAppearance(hero);
     this.images.opponentAppearance = foe ? readAppearance(foe) : undefined;
+    if(this.images.wardrobe){
+      void prepareAppearance(this.images.wardrobe,hero);
+      if(foe)void prepareAppearance(this.images.wardrobe,foe);
+    }
   }
 
   /** 全屏只改視覺比例；預設演武台所有座標倍率維持原有。 */
@@ -1761,7 +1766,8 @@ export class SparStage {
       drawAppearance(this.ctx,this.images.wardrobe,this.images.characterAppearance,{
         x:g.heroX+off.dx,y:g.groundY-off.dy,height:this.heroVisualHeight(),face:1,
         pose:down!==null?'down':hurt?'hurt':active?'attack':this.heroMoving?'walk':'idle',
-        time:down??(hurt?this.heroHitT:this.artRun?(this.artRun.hero().pose==='windup'?.02:this.artRun.hero().pose==='strike'?.2:.65):active?this.attackT??this.supportPose?.t??0:this.walkT),
+        time:down??(hurt?this.heroHitT:this.artRun?(this.artRun.hero().pose==='windup'?.02:this.artRun.hero().pose==='strike'?.2:.65):active?this.attackT??this.supportPose?.t??0:this.heroMoving?this.walkT:this.idleT),
+        motionTime:down===null&&!hurt&&this.artRun?choreoSpineTime(this.artRun.c,this.artRun.t):undefined,
         family,reduced:this.quiet,
       });return true;
     }
@@ -2019,8 +2025,10 @@ export class SparStage {
       this.ctx.save();this.ctx.globalAlpha=pose.alpha;
       drawAppearance(this.ctx,this.images.wardrobe,this.images.opponentAppearance,{
         x:footX,y:footY,height:this.heroVisualHeight(),face:-1,
-        pose:e.state==='dead'?'down':this.foeAttackActive?'attack':String(e.state)==='hurt'?'hurt':'idle',
-        time:e.t,family:this.images.opponentFamily??'fist',reduced:this.quiet,
+        pose:e.state==='dead'?'down':e.lungeT!==null?'attack':e.hitT<.26?'hurt':e.state==='walk'||e.state==='spawn'?'walk':'idle',
+        time:e.state==='dead'?e.t:e.hitT<.26?e.hitT:e.bob,
+        motionTime:e.state!=='dead'&&e.lungeT!==null?contactSpineTime(e.lungeT,LUNGE_HIT_AT,LUNGE_DUR):undefined,
+        family:this.images.opponentFamily??'fist',reduced:this.quiet,
       });this.ctx.restore();return;
     }
     pose.rot += artOff.rot;

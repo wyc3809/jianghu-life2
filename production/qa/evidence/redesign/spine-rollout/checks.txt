@@ -1,0 +1,47 @@
+2026-11-03 · EA0.101.0，玩家已接受v02並授權套用／發布。
+
+npm test
+第一次與瀏覽器／構建並行：952 passed / 3 timeout，三項均超過既有5000ms。
+停止畫面工作，沒有改門檻、skip、disable或刪測試，再跑原命令：
+123 files / 955 tests passed，98.52秒。
+
+npm run build
+passed，33.19秒（並行工作環境）。
+
+VITE_ONLINE_PUBLIC=1 npm run build:pages
+passed，21.54秒；包含TypeScript檢查及Pages BASE路徑。
+
+npm run audit:narrate
+hard-fail count 0。
+
+npm run audit:copy
+10418段中文字串，口語及禁句0處。
+
+python scripts/art/finalize_spine_catalog.py
+24套，99幀／套。裁透明邊的來源區與原畫布位置一致；全部人物在鏡頭內，無逐幀fit。
+編輯器圖片路徑editor-parts/，六件PNG存在，上半身640×730；未在原生Spine Editor完成回合。
+
+.local-online/spine-ai/venv/bin/python scripts/qa/checkSpineBitmap.py
+SPINE_BITMAP_CONNECTED 2064 frames / 24 skins。
+真正Runtime定位材質點，檢查最終WebP頭胸像素連通，詳bitmap-connectivity.json。
+
+python scripts/qa/checkSpineRollout.py
+SPINE_ROLLOUT_BROWSER_PASS 8。
+Chromium／Linux WebKit各三類交手、雙造型快照、加速、雙按略過、重播及localStorage不變。
+兩引擎另各實畫96外觀×兩朝向×六姿勢=1152次，無空白角色或降級，無pageerror。
+
+APPEARANCE_BASE=http://127.0.0.1:5281/ APPEARANCE_ENGINES='["chromium"]' APPEARANCE_SIZES='[[390,844]]' python scripts/qa/checkAppearance.py
+APPEARANCE_PASS 2；含預覽／取消／確認換上／重開／素材後備。
+
+APPEARANCE_ENGINES='["webkit"]' APPEARANCE_SIZES='[[320,568],[390,844],[430,932]]' python scripts/qa/checkAppearance.py
+APPEARANCE_PASS 4；三尺寸及失圖。WebKit使用既有Linux包裝器，不是Safari真機。
+
+python scripts/qa/compareSpineProduction.py
+同一造型ID、400px顯示身高、待機及高解像輸出。舊renderer固定main EA0.100.0的9a07caf。
+
+battle-operation.webm為真交手元件即時錄影。
+GIF：ffmpeg -ss 9 -t 8，10fps、320px寬、96色分享版；不能當作真機幀率。
+MP4：原錄影去頭5秒，H.264/yuv420p、CRF20、faststart。
+
+沒有真iPhone／WKWebView、長跑／溫度／耗電或新TestFlight驗收。
+沒有重啟幫會／門派戰，PR #156維持暫停。

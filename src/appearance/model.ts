@@ -4,9 +4,10 @@ import { WEAPON_SPRITES } from '../spar/rig';
 import { appearanceBodyFrame, appearanceComposition, type AppearancePose, type BodyFrame } from './pose';
 import type { AppearanceAssets } from './assets';
 import { appearanceHead, drawNeck } from './neck';
+import { drawSpineAppearance } from './spine/draw';
 export type { AppearancePose } from './pose';
 
-export interface AppearanceDraw {x:number;y:number;height:number;face?:number;pose?:AppearancePose;time?:number;family?:string;reduced?:boolean}
+export interface AppearanceDraw {x:number;y:number;height:number;face?:number;pose?:AppearancePose;time?:number;motionTime?:number;family?:string;reduced?:boolean;quality?:'portrait'}
 const coloured=new WeakMap<AppearanceAssets,Map<string,HTMLCanvasElement>>();
 function bodyFor(assets:AppearanceAssets,a:CharacterAppearance,frame:BodyFrame):HTMLCanvasElement {
   let cache=coloured.get(assets);if(!cache){cache=new Map();coloured.set(assets,cache);}
@@ -20,8 +21,9 @@ function bodyFor(assets:AppearanceAssets,a:CharacterAppearance,frame:BodyFrame):
 }
 const weaponFor=(family:string)=>({sword:'sword',blade:'blade',spear:'spear',halberd:'spear',hook:'sword',staff:'staff',flute:'staff',whip:'whip',bow:'bow',needle:'hidden',dart:'hidden',finger:'hidden'}as Record<string,string>)[family];
 
-/** 一張完整身體加同款頭部；手腳、衣袖、盤腿均在原姿勢圖內，不再拼接獨立肢體。 */
+/** 正式造型讀同一Spine輸出；舊資料適配器只供歷史回退，不再作正式接駁。 */
 export function drawAppearance(ctx:CanvasRenderingContext2D,assets:AppearanceAssets,value:unknown,opts:AppearanceDraw):void {
+  if(assets.spine){drawSpineAppearance(ctx,assets,value,opts);return;}
   const a=readAppearance(value),frame=appearanceBodyFrame(opts.pose??'idle',opts.time??0,opts.reduced??false);
   const head=assets.heads[a.head],body=bodyFor(assets,a,frame),p=appearanceComposition(a,frame,head.naturalWidth/head.naturalHeight);
   ctx.save();ctx.translate(opts.x,opts.y);ctx.scale((opts.face??1)*opts.height/400,opts.height/400);

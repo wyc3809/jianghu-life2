@@ -1,0 +1,21 @@
+{
+  "sources": {
+    "sheet-traveller.png": "50d333126e8e1af42a3eac90ac2de64c2056b156b1422d5b6e16dcac47a5e1ef",
+    "sheet-scholar.png": "3035cd0ac7cb6aef4542d8548dbca34043620e822c87f643900e81fd2b804e06",
+    "sheet-cloak.png": "c402f8c487d85805cdd5c8fd36c0447cd44eac4c4c45ac526890b3720597561d",
+    "upper-body-v02.png": "b95e18c9d84994257e006abbedb9b20155c66711496fbebffbe0d04fb8bbdfbd"
+  },
+  "generatedIds": {
+    "sheet-traveller.png": "exec-b03f06d6-5ee5-4e4a-aced-19163360bf8a.png",
+    "sheet-scholar.png": "exec-31e261ad-d9c4-4cf3-b18a-f8dc3341331e.png",
+    "sheet-cloak.png": "exec-36acaaa3-8976-4769-8dbf-491d2c40c7f0.png"
+  },
+  "originalsPreserved": true,
+  "prompt": "../prompts/production-skins.txt",
+  "license": "按生成服務條款；未宣稱CC0。玩家已確認Spine工具及編輯器授權。",
+  "catalogSha256": "5f013e374d4241271c089503a58349d854ef434265a4d41c8eea9ee4a797ceee",
+  "runtime": "4.2.120",
+  "nativeEditorRoundTrip": false,
+  "skins": 24,
+  "framesPerSkin": 99
+}

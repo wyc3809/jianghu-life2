@@ -9,7 +9,7 @@
  * 3D 用 Three.js（剪影位圖貼喺平面、筆觸同墨霧係 shader），粒子用高光嘅 Canvas 2D 粒子系統。
  */
 import gsap from 'gsap';
-import { loadAppearanceAssets } from '../../../appearance/assets';
+import { loadAppearanceAssets, prepareAppearance } from '../../../appearance/assets';
 import { appearanceFrameUrl } from '../../../appearance/model';
 import { DEFAULT_APPEARANCE } from '@interfaces/appearance';
 import { martialPoseFor } from '../../art/martialPoses';
@@ -200,6 +200,8 @@ export class DuelDirector {
       const wardrobe = await loadAppearanceAssets();
       if (this.disposed) return;
       const appearance = this.replay.playerAppearance ?? DEFAULT_APPEARANCE;
+      await Promise.all([prepareAppearance(wardrobe,appearance),this.replay.foeAppearance?prepareAppearance(wardrobe,this.replay.foeAppearance):Promise.resolve()]);
+      if(this.disposed)return;
       const skill = this.replay.rounds.flatMap(r => r.hits).find(h => h.side === 'player')?.skillId ?? '';
       const family = martialPoseFor(skill)?.family ?? this.assets.weapon?.src.match(/weapon-([\w-]+)\.webp/)?.[1] ?? 'fist';
       const foeSkill = this.replay.rounds.flatMap(r => r.hits).find(h => h.side === 'foe')?.skillId;
