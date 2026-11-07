@@ -92,7 +92,7 @@ export default function MartialIdentityPreview() {
       <div><label><input type="checkbox" checked={effectsOff} onChange={e => setEffectsOff(e.target.checked)} />關閉附加特效</label>{' '}
         <label><input type="checkbox" checked={mono} onChange={e => setMono(e.target.checked)} />統一墨色</label>{' '}
         <label><input type="checkbox" checked={inspection} onChange={e => setInspection(e.target.checked)} />只看肢體</label></div>
-      <small>{support || inspection ? '姿勢時間線檢視，沒有結算攻擊。' : '真實核心戰報，沿用產品同一呈現器。'} {martialPoseFor(id)?.premium ? '珍本變體仍待完整重製及驗收。' : ''} seed42 · 不寫存檔</small>
+      <small>{support || inspection ? '原人物獨立姿勢檢視，未套用所選面孔及衣著，沒有結算攻擊。' : '真實核心戰報，沿用產品同一呈現器。'} {martialPoseFor(id)?.premium ? '珍本變體仍待完整重製及驗收。' : ''} seed42 · 不寫存檔</small>
     </aside>}
   </>;
 }

@@ -81,6 +81,15 @@ describe('武學實體姿勢與核心隔離', () => {
       expect(e.draws.some(d => d[0] === e.weapon)).toBe(false);
     }
   });
+  it('test_martial_poses_逐門檢視有衣櫥亦必須畫所選原圖_不能用共用出拳冒充',()=>{
+    for(const id of MARTIAL_POSES.map(d=>d.id)){
+      const e=engine(id,true);
+      const raw=e.stage as unknown as {images:{wardrobe:unknown;characterAppearance:unknown};drawWarrior(g:{k:number;groundY:number;heroX:number}):void};
+      raw.images.wardrobe={};raw.images.characterAppearance={head:'topknot',outfit:'traveller',tone:'jade'};
+      e.stage.inspectMartialPose(id,.4);raw.drawWarrior({k:.1,groundY:220,heroX:100});
+      expect(e.draws).toHaveLength(1);expect(e.draws[0][0]).toBe(e.atlas);
+    }
+  });
   it('test_martial_poses_bow_release_and_long_palm_match_actual_contact_frame', () => {
     for (const [id, frame] of [['art_bow_star', 5], ['art_cold_palm', 4], ['tm_poison_dart', 4]] as const) {
       const def = martialPoseFor(id)!;

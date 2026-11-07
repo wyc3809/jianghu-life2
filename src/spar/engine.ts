@@ -1775,6 +1775,8 @@ export class SparStage {
 
   /** 非出招階段維持同款人物；移動、受擊及倒地唔再讀舊黑影幀。 */
   private drawDetailedWarrior(g: ReturnType<SparStage['geom']>): boolean {
+    // 開發版逐門原圖檢視必須真選圖集；不能被正式衣櫥共用姿勢蓋過。
+    if(this.poseInspection&&this.drawMartialWarrior(g))return true;
     if(this.images.wardrobe&&this.images.characterAppearance){
       drawAppearance(this.ctx,this.images.wardrobe,this.images.characterAppearance,this.heroAppearanceOptions(g));return true;
     }
