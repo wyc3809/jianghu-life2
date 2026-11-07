@@ -1,0 +1,22 @@
+{
+  "baseline": "EA0.101.1",
+  "formalIndependentAnimationsComplete": false,
+  "appearanceDirectionPending": true,
+  "vitest": {
+    "files": 124,
+    "tests": 960,
+    "passed": true
+  },
+  "tsc": true,
+  "build": true,
+  "narrateHardFail": 0,
+  "copyViolations": 0,
+  "sourceInspection": {
+    "canonical": 103,
+    "families": 19,
+    "draws": 1648,
+    "appearanceCompatible": false
+  },
+  "actualIphone": false,
+  "published": false
+}
