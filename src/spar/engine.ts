@@ -54,7 +54,7 @@ import { MartialIdentityFx } from '../fx/art/identityFx';
 import { martialFallbackImage, MARTIAL_FALLBACK_ART } from '../fx/art/martialFallback';
 import { heroAppearanceFrame, heroFigureScale, HERO_VISUAL_SCALE, loadHeroAppearance, type HeroAppearance } from './heroAppearance';
 import { loadAppearanceAssets, prepareAppearance, type AppearanceAssets } from '../appearance/assets';
-import { choreoSpineTime, contactSpineTime } from '../appearance/spine/frames';
+import { combatAppearanceSample, combatContactTime } from '../appearance/combat';
 import { drawAppearance } from '../appearance/model';
 import { readAppearance, type CharacterAppearance } from '@interfaces/appearance';
 import poseAnchors from '../fx/art/poseAnchors.json';
@@ -1345,6 +1345,11 @@ export class SparStage {
         y: g.groundY - ho.dy - .6 * this.heroVisualHeight() };
       anchors.between.y = (anchors.hero.y + anchors.foe.y) / 2;
     }
+    if(this.images.wardrobe&&this.images.characterAppearance){
+      const opts=this.heroAppearanceOptions(g),{p}=combatAppearanceSample(this.images.wardrobe,this.images.characterAppearance,opts);
+      anchors.heroHand={x:opts.x+p.grip.x*opts.height/400,y:opts.y+p.grip.y*opts.height/400};
+      return anchors;
+    }
     const def = martialPoseFor(this.martialId);
     if (def && this.artRun) {
       const contact = this.artRun.c.events.find(e => e.kind === 'hit')?.t ?? .36;
@@ -1756,20 +1761,22 @@ export class SparStage {
     return true;
   }
 
+  private heroAppearanceOptions(g:ReturnType<SparStage['geom']>) {
+    const off=this.artHeroOffset(),down=this.heroDownT,hurt=this.heroHitT<.22;
+    const active=this.artRun!==null||this.attackT!==null||this.supportPose!==null;
+    const def=martialPoseFor(this.martialId);
+    return {
+      x:g.heroX+off.dx,y:g.groundY-off.dy,height:this.heroVisualHeight(),face:1,
+      pose:(down!==null?'down':hurt?'hurt':active?'attack':this.heroMoving?'walk':'idle') as import('../appearance/pose').AppearancePose,
+      time:down??(hurt?this.heroHitT:this.artRun?(this.artRun.hero().pose==='windup'?.02:this.artRun.hero().pose==='strike'?.2:.65):active?this.attackT??this.supportPose?.t??0:this.heroMoving?this.walkT:this.idleT),
+      family:active?def?.family??'fist':this.weaponDef?.src.match(/weapon-([\w-]+)\.webp/)?.[1]??'fist',reduced:this.quiet,
+    };
+  }
+
   /** 非出招階段維持同款人物；移動、受擊及倒地唔再讀舊黑影幀。 */
   private drawDetailedWarrior(g: ReturnType<SparStage['geom']>): boolean {
     if(this.images.wardrobe&&this.images.characterAppearance){
-      const off=this.artHeroOffset(),down=this.heroDownT,hurt=this.heroHitT<.22;
-      const active=this.artRun!==null||this.attackT!==null||this.supportPose!==null;
-      const def=martialPoseFor(this.martialId);
-      const family=active?def?.family??'fist':this.weaponDef?.src.match(/weapon-([\w-]+)\.webp/)?.[1]??'fist';
-      drawAppearance(this.ctx,this.images.wardrobe,this.images.characterAppearance,{
-        x:g.heroX+off.dx,y:g.groundY-off.dy,height:this.heroVisualHeight(),face:1,
-        pose:down!==null?'down':hurt?'hurt':active?'attack':this.heroMoving?'walk':'idle',
-        time:down??(hurt?this.heroHitT:this.artRun?(this.artRun.hero().pose==='windup'?.02:this.artRun.hero().pose==='strike'?.2:.65):active?this.attackT??this.supportPose?.t??0:this.heroMoving?this.walkT:this.idleT),
-        motionTime:down===null&&!hurt&&this.artRun?choreoSpineTime(this.artRun.c,this.artRun.t):undefined,
-        family,reduced:this.quiet,
-      });return true;
+      drawAppearance(this.ctx,this.images.wardrobe,this.images.characterAppearance,this.heroAppearanceOptions(g));return true;
     }
     const appearance = this.images.heroAppearance;
     if (!appearance) return false;
@@ -2026,8 +2033,7 @@ export class SparStage {
       drawAppearance(this.ctx,this.images.wardrobe,this.images.opponentAppearance,{
         x:footX,y:footY,height:this.heroVisualHeight(),face:-1,
         pose:e.state==='dead'?'down':e.lungeT!==null?'attack':e.hitT<.26?'hurt':e.state==='walk'||e.state==='spawn'?'walk':'idle',
-        time:e.state==='dead'?e.t:e.hitT<.26?e.hitT:e.bob,
-        motionTime:e.state!=='dead'&&e.lungeT!==null?contactSpineTime(e.lungeT,LUNGE_HIT_AT,LUNGE_DUR):undefined,
+        time:e.state==='dead'?e.t:e.lungeT!==null?combatContactTime(e.lungeT,LUNGE_HIT_AT,LUNGE_DUR):e.hitT<.26?e.hitT:e.bob,
         family:this.images.opponentFamily??'fist',reduced:this.quiet,
       });this.ctx.restore();return;
     }

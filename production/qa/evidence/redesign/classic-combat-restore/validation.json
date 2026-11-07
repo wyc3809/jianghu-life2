@@ -1,0 +1,17 @@
+{
+  "version": "EA0.101.1",
+  "vitest": {
+    "files": 124,
+    "tests": 959,
+    "passed": true
+  },
+  "productionBuild": true,
+  "pagesBuild": true,
+  "narrateHardFails": 0,
+  "copyViolations": 0,
+  "battleBrowserCases": 6,
+  "poseRenders": 1536,
+  "wardrobeAndFallback": true,
+  "actualIphone": false,
+  "testflightUpload": false
+}

@@ -1,0 +1,23 @@
+[
+  {
+    "engine": "chromium",
+    "viewport": [
+      390,
+      844
+    ],
+    "fixedMain": true,
+    "sheetControls44Visible": true,
+    "previewCancelNoMutation": true,
+    "confirmOnly": true,
+    "doubleConfirmNoDebit": true,
+    "normalDuelEquipmentUnchanged": true,
+    "hudMatchesPerson": true,
+    "reloadPersists": true,
+    "pageerrors": [],
+    "video": "/workspace/jianghu-rig-audit/.local-online/tap-navigation/video/page@deb7079c1d3a86623cddd3bd2b6ca7f5.webm"
+  },
+  {
+    "engine": "chromium",
+    "allAppearanceNetworkFailureSameIdentity": true
+  }
+]
