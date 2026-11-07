@@ -1,0 +1,1069 @@
+[
+  {
+    "id": "基礎吐納",
+    "name": "基礎吐納",
+    "kind": "internal",
+    "family": "internal",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "art_river_fist",
+    "name": "長河拳",
+    "kind": "external",
+    "family": "fist",
+    "duration": 1.15,
+    "contacts": [
+      0.24,
+      0.44,
+      0.68
+    ],
+    "premium": false
+  },
+  {
+    "id": "art_stone_palm",
+    "name": "裂石殘掌",
+    "kind": "external",
+    "family": "palm",
+    "duration": 1.25,
+    "contacts": [
+      0.6
+    ],
+    "premium": false
+  },
+  {
+    "id": "art_bridge_step",
+    "name": "斷橋步",
+    "kind": "external",
+    "family": "step",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "art_tomb_sword",
+    "name": "無銘劍意",
+    "kind": "external",
+    "family": "sword",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "art_lake_breath",
+    "name": "寒湖吐納",
+    "kind": "internal",
+    "family": "internal",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "art_rain_sword",
+    "name": "聽雨劍意",
+    "kind": "external",
+    "family": "sword",
+    "duration": 1.35,
+    "contacts": [
+      0.58,
+      0.7,
+      0.82
+    ],
+    "premium": false
+  },
+  {
+    "id": "art_nine_shadow",
+    "name": "九影迷踪步",
+    "kind": "external",
+    "family": "step",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "art_cold_palm",
+    "name": "寒霜掌",
+    "kind": "external",
+    "family": "palm",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "art_iron_body",
+    "name": "鐵布衫",
+    "kind": "internal",
+    "family": "internal",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "art_moon_sword",
+    "name": "弄月劍法",
+    "kind": "external",
+    "family": "sword",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "art_void_breath",
+    "name": "空冥吐納",
+    "kind": "internal",
+    "family": "internal",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "art_silk_hand",
+    "name": "柔絲手",
+    "kind": "external",
+    "family": "palm",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "art_thunder_blade",
+    "name": "驚雷刀",
+    "kind": "external",
+    "family": "blade",
+    "duration": 1.4,
+    "contacts": [
+      0.68
+    ],
+    "premium": false
+  },
+  {
+    "id": "art_wind_chase",
+    "name": "追風腿",
+    "kind": "external",
+    "family": "kick",
+    "duration": 1.45,
+    "contacts": [
+      0.37,
+      0.6,
+      0.79
+    ],
+    "premium": false
+  },
+  {
+    "id": "art_hook_silk",
+    "name": "鐵線鉤法",
+    "kind": "external",
+    "family": "hook",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "art_meteor_palm",
+    "name": "流星掌",
+    "kind": "external",
+    "family": "palm",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "art_tiger_breath",
+    "name": "虎嘯內勁",
+    "kind": "internal",
+    "family": "internal",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "art_spring_well",
+    "name": "涌泉訣",
+    "kind": "internal",
+    "family": "internal",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "art_shadow_needle",
+    "name": "無影針訣",
+    "kind": "external",
+    "family": "needle",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "qg_snow_track",
+    "name": "踏雪無痕",
+    "kind": "qinggong",
+    "family": "step",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "qg_swallow_turn",
+    "name": "燕子三轉",
+    "kind": "qinggong",
+    "family": "step",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "qg_feiyan",
+    "name": "飛燕功",
+    "kind": "qinggong",
+    "family": "step",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "qg_canopy_void",
+    "name": "凌虛步",
+    "kind": "qinggong",
+    "family": "step",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "qg_broken_bridge",
+    "name": "斷橋步",
+    "kind": "qinggong",
+    "family": "step",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "art_spear_cloud",
+    "name": "穿雲槍",
+    "kind": "external",
+    "family": "spear",
+    "duration": 1.4,
+    "contacts": [
+      0.5
+    ],
+    "premium": false
+  },
+  {
+    "id": "art_staff_iron",
+    "name": "鐵杖訣",
+    "kind": "external",
+    "family": "staff",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "art_whip_silk",
+    "name": "柔絲鞭法",
+    "kind": "external",
+    "family": "whip",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "art_bow_star",
+    "name": "逐星箭意",
+    "kind": "external",
+    "family": "bow",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "qg_reed_drift",
+    "name": "蘆花身法",
+    "kind": "qinggong",
+    "family": "step",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "qg_wall_cat",
+    "name": "壁虎遊牆",
+    "kind": "qinggong",
+    "family": "step",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "art_sand_palm",
+    "name": "流沙掌",
+    "kind": "external",
+    "family": "palm",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "jy_ash_manual",
+    "name": "灰中拳",
+    "kind": "external",
+    "family": "fist",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "art_mirror_breath",
+    "name": "澄心鏡息",
+    "kind": "internal",
+    "family": "internal",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "qg_lotus_steps",
+    "name": "踏蓮步",
+    "kind": "qinggong",
+    "family": "step",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "art_heavy_halberd",
+    "name": "開山戟意",
+    "kind": "external",
+    "family": "halberd",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "qy_cloud_sword",
+    "name": "青雲初劍",
+    "kind": "external",
+    "family": "sword",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "qy_mist_step",
+    "name": "雲中步",
+    "kind": "external",
+    "family": "finger",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "qy_piercing_needle",
+    "name": "破雲刺",
+    "kind": "external",
+    "family": "sword",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "qy_sky_intent",
+    "name": "青冥劍意",
+    "kind": "external",
+    "family": "sword",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "td_open_blade",
+    "name": "天刀開山",
+    "kind": "external",
+    "family": "blade",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "td_wind_slash",
+    "name": "裂風斬",
+    "kind": "external",
+    "family": "blade",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "td_thunder_combo",
+    "name": "雷鳴連刀",
+    "kind": "external",
+    "family": "blade",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "td_no_return",
+    "name": "天刀無回",
+    "kind": "external",
+    "family": "blade",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "em_soft_palm",
+    "name": "峨嵋柔掌",
+    "kind": "external",
+    "family": "palm",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "em_silk_wrap",
+    "name": "繞指柔",
+    "kind": "external",
+    "family": "finger",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "em_golden_palm",
+    "name": "金頂綿掌",
+    "kind": "external",
+    "family": "palm",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "em_heart_breath",
+    "name": "峨嵋心法",
+    "kind": "internal",
+    "family": "internal",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "sl_luohan_fist",
+    "name": "羅漢拳",
+    "kind": "external",
+    "family": "fist",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "sl_weituo",
+    "name": "韋陀杖意",
+    "kind": "external",
+    "family": "staff",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "sl_iron_shirt",
+    "name": "鐵布衫功",
+    "kind": "internal",
+    "family": "internal",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "sl_yijin",
+    "name": "易筋吐納",
+    "kind": "internal",
+    "family": "internal",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "wd_sword_form",
+    "name": "武當劍式",
+    "kind": "external",
+    "family": "sword",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "wd_tai_push",
+    "name": "太極推手",
+    "kind": "external",
+    "family": "palm",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "wd_pure_yang",
+    "name": "純陽吐納",
+    "kind": "internal",
+    "family": "internal",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "wd_wuji_sword",
+    "name": "無極劍意",
+    "kind": "external",
+    "family": "sword",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "tm_flying_needle",
+    "name": "唐門飛針",
+    "kind": "external",
+    "family": "needle",
+    "duration": 1.35,
+    "contacts": [
+      0.62,
+      0.7,
+      0.78
+    ],
+    "premium": false
+  },
+  {
+    "id": "tm_shadow_step",
+    "name": "影步",
+    "kind": "qinggong",
+    "family": "step",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "tm_poison_dart",
+    "name": "淬毒鏢",
+    "kind": "external",
+    "family": "dart",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "tm_thousand_mech",
+    "name": "千機手",
+    "kind": "external",
+    "family": "mechanism",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "mj_blood_palm",
+    "name": "血影掌",
+    "kind": "external",
+    "family": "palm",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "mj_devil_breath",
+    "name": "魔息吐納",
+    "kind": "internal",
+    "family": "internal",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "mj_soul_drain",
+    "name": "吸脈指",
+    "kind": "external",
+    "family": "finger",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "mj_asura_slash",
+    "name": "修羅斬",
+    "kind": "external",
+    "family": "blade",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "hs_pine_sword",
+    "name": "松風劍",
+    "kind": "external",
+    "family": "sword",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "hs_cloud_step",
+    "name": "雲臺步",
+    "kind": "external",
+    "family": "sword",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "hs_split_peak",
+    "name": "劈岳劍",
+    "kind": "external",
+    "family": "sword",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "hs_yue_breath",
+    "name": "華嶽吐納",
+    "kind": "internal",
+    "family": "internal",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "art_drunken_fist",
+    "name": "醉八仙拳",
+    "kind": "external",
+    "family": "fist",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "th_finger_flick",
+    "name": "彈指神通",
+    "kind": "external",
+    "family": "finger",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "th_flute_sword",
+    "name": "玉簫劍法",
+    "kind": "external",
+    "family": "flute",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "th_falling_petals",
+    "name": "落英神劍掌",
+    "kind": "external",
+    "family": "palm",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "th_qimen_array",
+    "name": "奇門一氣",
+    "kind": "internal",
+    "family": "internal",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "wg_embroidery_needle",
+    "name": "繡花奪命針",
+    "kind": "external",
+    "family": "needle",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "wg_silent_step",
+    "name": "無聲遁跡",
+    "kind": "qinggong",
+    "family": "step",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "wg_yin_soft_palm",
+    "name": "陰柔化勁掌",
+    "kind": "external",
+    "family": "palm",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "wg_root_severed_creed",
+    "name": "忘根訣",
+    "kind": "internal",
+    "family": "internal",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "art_guqin_song",
+    "name": "廣陵絕響",
+    "kind": "internal",
+    "family": "internal",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "art_weiqi_trap",
+    "name": "珍瓏棋局",
+    "kind": "external",
+    "family": "weiqi",
+    "duration": 1.55,
+    "contacts": [
+      0.92
+    ],
+    "premium": false
+  },
+  {
+    "id": "art_poetry_sword",
+    "name": "詩劍風流",
+    "kind": "external",
+    "family": "sword",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "art_ink_illusion",
+    "name": "潑墨迷蹤",
+    "kind": "qinggong",
+    "family": "step",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "art_buddha_heart",
+    "name": "金剛不壞",
+    "kind": "internal",
+    "family": "internal",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "art_dao_breath",
+    "name": "太乙玄清",
+    "kind": "internal",
+    "family": "internal",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": false
+  },
+  {
+    "id": "art_heretic_scripture",
+    "name": "天魔邪功",
+    "kind": "external",
+    "family": "fist",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": false
+  },
+  {
+    "id": "pr_blood_lotus",
+    "name": "血蓮千刃",
+    "kind": "external",
+    "family": "blade",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": true
+  },
+  {
+    "id": "pr_crimson_moon",
+    "name": "赤月飲血劍",
+    "kind": "external",
+    "family": "sword",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": true
+  },
+  {
+    "id": "pr_nine_chain",
+    "name": "九連環掌",
+    "kind": "external",
+    "family": "palm",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": true
+  },
+  {
+    "id": "pr_wind_thread",
+    "name": "穿風引線劍",
+    "kind": "external",
+    "family": "sword",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": true
+  },
+  {
+    "id": "pr_mountain_split",
+    "name": "裂嶽神拳",
+    "kind": "external",
+    "family": "fist",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": true
+  },
+  {
+    "id": "pr_heaven_spear",
+    "name": "貫日神槍",
+    "kind": "external",
+    "family": "spear",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": true
+  },
+  {
+    "id": "pr_soul_lock",
+    "name": "鎖魂指",
+    "kind": "external",
+    "family": "finger",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": true
+  },
+  {
+    "id": "pr_mist_blind",
+    "name": "迷蹤散霧手",
+    "kind": "external",
+    "family": "palm",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": true
+  },
+  {
+    "id": "pr_vajra_palm",
+    "name": "金剛不壞掌",
+    "kind": "external",
+    "family": "palm",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": true
+  },
+  {
+    "id": "pr_floating_blade",
+    "name": "飄絮刀",
+    "kind": "external",
+    "family": "blade",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": true
+  },
+  {
+    "id": "pr_star_fall",
+    "name": "流星墜月",
+    "kind": "external",
+    "family": "dart",
+    "duration": 0.72,
+    "contacts": [
+      0.36
+    ],
+    "premium": true
+  },
+  {
+    "id": "pr_blood_sea",
+    "name": "血海心經",
+    "kind": "internal",
+    "family": "internal",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": true
+  },
+  {
+    "id": "pr_thunder_heart",
+    "name": "雷動心法",
+    "kind": "internal",
+    "family": "internal",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": true
+  },
+  {
+    "id": "pr_diamond_body",
+    "name": "金剛不壞體",
+    "kind": "internal",
+    "family": "internal",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": true
+  },
+  {
+    "id": "pr_seal_meridian",
+    "name": "封脈真經",
+    "kind": "internal",
+    "family": "internal",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": true
+  },
+  {
+    "id": "pr_void_breath",
+    "name": "太虛吐納",
+    "kind": "internal",
+    "family": "internal",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": true
+  },
+  {
+    "id": "pr_cloud_step",
+    "name": "踏雲九霄",
+    "kind": "qinggong",
+    "family": "step",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": true
+  },
+  {
+    "id": "pr_shadow_flash",
+    "name": "鬼影閃",
+    "kind": "qinggong",
+    "family": "step",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": true
+  },
+  {
+    "id": "pr_tide_step",
+    "name": "觀潮步",
+    "kind": "qinggong",
+    "family": "step",
+    "duration": 1.1,
+    "contacts": [],
+    "premium": true
+  }
+]

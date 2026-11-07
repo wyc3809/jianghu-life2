@@ -1,0 +1,213 @@
+{
+  "cases": [
+    {
+      "engine": "chromium",
+      "viewport": [
+        320,
+        568
+      ],
+      "mode": "normal",
+      "data": {
+        "appearance": {
+          "head": "bun",
+          "outfit": "scholar",
+          "tone": "jade"
+        },
+        "cache": {
+          "clips": 15,
+          "pixels": 22575104,
+          "uppers": 3,
+          "pending": 0,
+          "failures": 0
+        },
+        "rootHeight": 47.84000000000001,
+        "drawing": true
+      },
+      "pageerrors": [],
+      "storageUnchanged": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": [
+        430,
+        932
+      ],
+      "mode": "normal",
+      "data": {
+        "appearance": {
+          "head": "bun",
+          "outfit": "scholar",
+          "tone": "jade"
+        },
+        "cache": {
+          "clips": 16,
+          "pixels": 23785472,
+          "uppers": 3,
+          "pending": 0,
+          "failures": 0
+        },
+        "rootHeight": 62.790000000000006,
+        "drawing": true
+      },
+      "pageerrors": [],
+      "storageUnchanged": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": [
+        390,
+        844
+      ],
+      "mode": "reduce",
+      "data": {
+        "appearance": {
+          "head": "bun",
+          "outfit": "scholar",
+          "tone": "jade"
+        },
+        "cache": {
+          "clips": 16,
+          "pixels": 23747584,
+          "uppers": 3,
+          "pending": 0,
+          "failures": 0
+        },
+        "rootHeight": 58.30500000000001,
+        "drawing": true
+      },
+      "pageerrors": [],
+      "storageUnchanged": true
+    },
+    {
+      "engine": "chromium",
+      "viewport": [
+        390,
+        844
+      ],
+      "mode": "failure",
+      "data": {
+        "appearance": {
+          "head": "bun",
+          "outfit": "scholar",
+          "tone": "jade"
+        },
+        "cache": {
+          "clips": 0,
+          "pixels": 0,
+          "uppers": 0,
+          "pending": 0,
+          "failures": 22
+        },
+        "rootHeight": 58.30500000000001,
+        "drawing": true
+      },
+      "pageerrors": [],
+      "storageUnchanged": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": [
+        320,
+        568
+      ],
+      "mode": "normal",
+      "data": {
+        "appearance": {
+          "head": "bun",
+          "outfit": "scholar",
+          "tone": "jade"
+        },
+        "cache": {
+          "clips": 15,
+          "pixels": 23930880,
+          "uppers": 3,
+          "pending": 0,
+          "failures": 0
+        },
+        "rootHeight": 47.84000000000001,
+        "drawing": true
+      },
+      "pageerrors": [],
+      "storageUnchanged": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": [
+        430,
+        932
+      ],
+      "mode": "normal",
+      "data": {
+        "appearance": {
+          "head": "bun",
+          "outfit": "scholar",
+          "tone": "jade"
+        },
+        "cache": {
+          "clips": 15,
+          "pixels": 23930880,
+          "uppers": 3,
+          "pending": 0,
+          "failures": 0
+        },
+        "rootHeight": 62.790000000000006,
+        "drawing": true
+      },
+      "pageerrors": [],
+      "storageUnchanged": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": [
+        390,
+        844
+      ],
+      "mode": "reduce",
+      "data": {
+        "appearance": {
+          "head": "bun",
+          "outfit": "scholar",
+          "tone": "jade"
+        },
+        "cache": {
+          "clips": 15,
+          "pixels": 23930880,
+          "uppers": 3,
+          "pending": 0,
+          "failures": 0
+        },
+        "rootHeight": 58.30500000000001,
+        "drawing": true
+      },
+      "pageerrors": [],
+      "storageUnchanged": true
+    },
+    {
+      "engine": "webkit",
+      "viewport": [
+        390,
+        844
+      ],
+      "mode": "failure",
+      "data": {
+        "appearance": {
+          "head": "bun",
+          "outfit": "scholar",
+          "tone": "jade"
+        },
+        "cache": {
+          "clips": 0,
+          "pixels": 0,
+          "uppers": 0,
+          "pending": 0,
+          "failures": 22
+        },
+        "rootHeight": 58.30500000000001,
+        "drawing": true
+      },
+      "pageerrors": [],
+      "storageUnchanged": true
+    }
+  ],
+  "actualIphone": false
+}

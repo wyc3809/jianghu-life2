@@ -3,6 +3,8 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import type { CombatReplay, CombatReplayHit, LifeCharacter } from '@interfaces/lifeEngine';
 import { appearanceOf, readAppearance } from '@interfaces/appearance';
+import { watchVisualActivity } from '../../ui/visualActivity';
+import { appearanceForIndex } from '@data/appearances';
 import { prepareAppearance } from '../../appearance/assets';
 import { canonicalSkillId, getSkillDef } from '@data/skills/catalog';
 import { getGearDef } from '@data/equipment/catalog';
@@ -35,7 +37,7 @@ type Props = {
   rewardCoins?: number;
   /** 只限 DEV 驗收；正式入口永遠唔傳，唔寫存檔。 */
   review?: { speed: number; effectsOff: boolean; monochrome: boolean; legacy: boolean;
-    supports?: string[]; onStage?: (stage: SparStage) => void; inspect?: { id: string; t: number } };
+    supports?: string[]; onStage?: (stage: SparStage) => void; inspect?: { id: string; t: number; source?:boolean } };
   /** 第26項原型開關，正式入口預設仍維持原畫面。 */
   unified?: boolean;
   season?: SparSeason;
@@ -114,6 +116,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
     let raf = 0;
     let last = 0;
     let cancelled = false;
+    let visualActive=!document.hidden;
     let endTimer: ReturnType<typeof setTimeout> | null = null;
     let i = 0;
     let ended = false;
@@ -134,6 +137,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
       heroMayAttack: () => !ended && supportHold<=0 && hits[i]?.side === 'player' && !passiveAction(hits[i]),
       // 第 25 項：今回合用邊套外功就播嗰套專屬動畫
       nextArt: () => (hits[i]?.side === 'player' ? (hits[i]?.skillId ?? null) : null),
+      nextFoeArt: () => (hits[i]?.side==='foe'?hits[i]?.skillId??null:null),
       foeMayAttack: () => !ended && supportHold<=0 && hits[i]?.side === 'foe' && !passiveAction(hits[i]),
       heroStrike: () => {
         const h = hits[i];
@@ -195,11 +199,11 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
       }
     };
     const frame = (now: number) => {
-      if (!stage || cancelled || doneRef.current) return;
+      if (!stage || cancelled || doneRef.current||!visualActive) return;
       const qa = reviewRef.current;
       if (qa) stage.setMartialReview(qa.effectsOff, qa.monochrome);
       if (qa?.inspect) {
-        stage.inspectMartialPose(qa.inspect.id, qa.inspect.t);
+        stage.inspectMartialPose(qa.inspect.id, qa.inspect.t,null,qa.inspect.source);
         stage.render(); last = now; raf = requestAnimationFrame(frame); return;
       }
       stage.inspectMartialPose(null);
@@ -229,6 +233,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
       raf = requestAnimationFrame(frame);
     };
 
+    const unwatchActivity=watchVisualActivity(active=>{visualActive=active;last=0;if(raf)cancelAnimationFrame(raf);raf=0;if(active&&stage&&!cancelled&&!doneRef.current)raf=requestAnimationFrame(frame);});
     const rig = rigForSect(sectId);
     loadSparImages(rig, ENEMY_POOL)
       .then(async (images) => {
@@ -237,13 +242,12 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
         const battleBackdrop = unified && battleBackdropSrc ? await loadSparImage(battleBackdropSrc).catch(() => null) : null;
         const actor = character ?? useLifeStore.getState().state?.character;
         images.characterAppearance = replay.playerAppearance ? readAppearance(replay.playerAppearance) : appearanceOf(actor ?? {});
-        images.opponentAppearance = replay.foeAppearance ? readAppearance(replay.foeAppearance) : undefined;
-        if(images.wardrobe)await Promise.all([prepareAppearance(images.wardrobe,images.characterAppearance),
-          images.opponentAppearance?prepareAppearance(images.wardrobe,images.opponentAppearance):Promise.resolve()]);
+        images.opponentAppearance = replay.foeAppearance ? readAppearance(replay.foeAppearance) : appearanceForIndex(foeLook(replay.foeName,replay.foeBoss??false));
         images.opponentFamily = martialPoseFor(hits.find(h=>h.side==='foe')?.skillId)?.family ?? 'fist';
         const supports = reviewRef.current?.supports ?? (actor ? equippedMartialArts(actor).filter(id => getSkillDef(id)?.kind !== 'external') : []);
         const requested = [...hits.flatMap(h => h.skillId ? [canonicalSkillId(h.skillId)] : []), ...supports];
-        const martialAssets = await loadMartialAssets(reviewRef.current?.legacy ? [] : requested);
+        if(images.wardrobe)await Promise.all([prepareAppearance(images.wardrobe,images.characterAppearance,[...hits.filter(h=>h.side==='player').flatMap(h=>h.skillId?[canonicalSkillId(h.skillId)]:[]),...supports],weaponId?getGearDef(weaponId)?.weaponKind??'fist':'fist'),images.opponentAppearance?prepareAppearance(images.wardrobe,images.opponentAppearance,hits.filter(h=>h.side==='foe').flatMap(h=>h.skillId?[canonicalSkillId(h.skillId)]:[]),images.opponentFamily):Promise.resolve()]);
+        const martialAssets = await loadMartialAssets(reviewRef.current?.legacy ? [] : requested,{actor:reviewRef.current?.inspect?.source===true||!images.wardrobe});
         if (cancelled) return;
         stage = new SparStage({ canvas, images, rig, enemies: ENEMY_POOL, combat, uiFontFamily: unified ? getComputedStyle(canvas).fontFamily : undefined, presentation: unified ? 'battle' : 'stage', battleBackdrop });
         stage.setMartialAssets(martialAssets, supports);
@@ -263,7 +267,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
         stage.settleIntro();
         if (unified) { stage.render(); setSceneReady(true); }
         if (!hits.length) end(800);
-        raf = requestAnimationFrame(frame);
+        if(visualActive)raf = requestAnimationFrame(frame);
       })
       .catch(() => {
         if (!cancelled) { setFailed(true); if (unified) setSceneReady(true); }
@@ -277,6 +281,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
     const cap = setTimeout(finish, reviewRef.current ? 10 * 60_000 : AUTO_BATTLE_MAX_MS);
     return () => {
       cancelled = true;
+      unwatchActivity();
       if (raf) cancelAnimationFrame(raf);
       if (endTimer) clearTimeout(endTimer);
       clearTimeout(cap);

@@ -1,0 +1,192 @@
+{
+  "hook": {
+    "src": "ink/art/independent/props/hook.webp",
+    "w": 126,
+    "h": 577,
+    "grip": [
+      50,
+      102
+    ],
+    "tip": [
+      39,
+      566
+    ],
+    "ratio": 0.53,
+    "source": "design/art/independent-animation/sources/weapons-v01.png",
+    "sourceBox": [
+      160,
+      0,
+      400,
+      620
+    ],
+    "sha256": "7c8739db730fb660da8860bd9b27e083adb194cb86ea0830bff644950e829b67",
+    "sourceSha256": "ab1d4a6c36df9797de2ac1d495f71d8256a27ee73a1c7d5696cdd20dc9d1d082"
+  },
+  "halberd": {
+    "src": "ink/art/independent/props/halberd.webp",
+    "w": 125,
+    "h": 601,
+    "grip": [
+      48,
+      278
+    ],
+    "tip": [
+      44,
+      598
+    ],
+    "ratio": 0.68,
+    "source": "design/art/independent-animation/sources/weapons-v01.png",
+    "sourceBox": [
+      650,
+      0,
+      900,
+      630
+    ],
+    "sha256": "5f8d8b685e06d16996a30ded44e21ee1909c1a93e651b88f5ca848c5cdfc153f",
+    "sourceSha256": "ab1d4a6c36df9797de2ac1d495f71d8256a27ee73a1c7d5696cdd20dc9d1d082"
+  },
+  "flute": {
+    "src": "ink/art/independent/props/flute.webp",
+    "w": 481,
+    "h": 249,
+    "grip": [
+      249,
+      29
+    ],
+    "tip": [
+      476,
+      29
+    ],
+    "ratio": 0.26,
+    "source": "design/art/independent-animation/sources/weapons-v01.png",
+    "sourceBox": [
+      0,
+      630,
+      530,
+      1020
+    ],
+    "sha256": "ae8ad205befb736754dddc82ae8a54aacd6a8b24114daa21518dbeb4147155c4",
+    "sourceSha256": "ab1d4a6c36df9797de2ac1d495f71d8256a27ee73a1c7d5696cdd20dc9d1d082"
+  },
+  "mechanism": {
+    "src": "ink/art/independent/props/mechanism.webp",
+    "w": 373,
+    "h": 263,
+    "grip": [
+      239,
+      144
+    ],
+    "tip": [
+      18,
+      103
+    ],
+    "ratio": 0.16,
+    "source": "design/art/independent-animation/sources/weapons-v01.png",
+    "sourceBox": [
+      540,
+      625,
+      1024,
+      1020
+    ],
+    "sha256": "2c1ff08707d10aa10777d0e66fee742d6b19526c6cdc4b4c762fc2e3a0785e75",
+    "sourceSha256": "ab1d4a6c36df9797de2ac1d495f71d8256a27ee73a1c7d5696cdd20dc9d1d082"
+  },
+  "dart": {
+    "src": "ink/art/independent/props/dart.webp",
+    "w": 76,
+    "h": 473,
+    "grip": [
+      45,
+      148
+    ],
+    "tip": [
+      40,
+      451
+    ],
+    "ratio": 0.11,
+    "source": "design/art/independent-animation/sources/weapons-v01.png",
+    "sourceBox": [
+      650,
+      1020,
+      900,
+      1536
+    ],
+    "sha256": "f74fbcfd07c8c09a5e8dc1d2d386b213b61eeebbd3337368d07ebd0ce47d63e5",
+    "sourceSha256": "ab1d4a6c36df9797de2ac1d495f71d8256a27ee73a1c7d5696cdd20dc9d1d082"
+  },
+  "needle": {
+    "src": "ink/art/independent/props/needle.webp",
+    "w": 22,
+    "h": 1024,
+    "grip": [
+      11.0,
+      225.28
+    ],
+    "tip": [
+      11.0,
+      1003.52
+    ],
+    "ratio": 0.055,
+    "source": "design/art/independent-animation/sources/needle-v01.png",
+    "sha256": "3bbec3366747c07a7f1cee3c6b5200c2451e40454a936c199d8b9f70dd3df5ac",
+    "sourceSha256": "22eaf35f55ea4642322bd750740083146fa0d6a9b8283f4d0df7f47ef8a18f6d"
+  },
+  "rejectedSourceCell": {
+    "file": "design/art/independent-animation/sources/weapons-v01.png",
+    "cell": "左下",
+    "reason": "生成成短刃而非細針，不投入遊戲；細針另製"
+  },
+  "bow": {
+    "src": "ink/art/independent/props/bow.webp",
+    "w": 105,
+    "h": 768,
+    "grip": [
+      35,
+      350
+    ],
+    "tip": [
+      86,
+      745
+    ],
+    "ratio": 0.42,
+    "flipX": -1,
+    "source": "public/ink/spar/weapon-bow.webp",
+    "processing": "按逐行原畫指引去除烘入弦及箭；同幀獨立播放",
+    "sha256": "878601a455081fc9eba5f91dba05fa2a657ccde1b3fc9f26bd719859cb70fd6c",
+    "sourceSha256": "ac381cf226ff4ed76ff6c83ca932dd4f4fe40047f6243d23144e1d8cf22f652e"
+  },
+  "cord": {
+    "src": "ink/art/independent/props/bow-cord.webp",
+    "w": 3,
+    "h": 470,
+    "grip": [
+      1.5,
+      0
+    ],
+    "tip": [
+      1.5,
+      470
+    ],
+    "ratio": 0.4,
+    "source": "public/ink/spar/weapon-bow.webp",
+    "sha256": "c78d96fdc35104b6845a3bb340b7901239290a5fb89a6846fdf7abe31113fd76",
+    "sourceSha256": "ac381cf226ff4ed76ff6c83ca932dd4f4fe40047f6243d23144e1d8cf22f652e"
+  },
+  "arrow": {
+    "src": "ink/art/independent/props/arrow.webp",
+    "w": 38,
+    "h": 450,
+    "grip": [
+      21,
+      405
+    ],
+    "tip": [
+      21,
+      5
+    ],
+    "ratio": 0.4,
+    "source": "public/ink/spar/weapon-bow.webp",
+    "sha256": "1d91524f4276613ae78ba181e2a57cb2a9127be6ac9283ae206a7f8388bffff7",
+    "sourceSha256": "ac381cf226ff4ed76ff6c83ca932dd4f4fe40047f6243d23144e1d8cf22f652e"
+  }
+}

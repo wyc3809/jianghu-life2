@@ -55,6 +55,8 @@ import { martialFallbackImage, MARTIAL_FALLBACK_ART } from '../fx/art/martialFal
 import { heroAppearanceFrame, heroFigureScale, HERO_VISUAL_SCALE, loadHeroAppearance, type HeroAppearance } from './heroAppearance';
 import { loadAppearanceAssets, prepareAppearance, type AppearanceAssets } from '../appearance/assets';
 import { combatAppearanceSample, combatContactTime } from '../appearance/combat';
+import { independentContact } from '../appearance/independent/draw';
+import { opponentMotionTime } from '../appearance/independent/frames';
 import { drawAppearance } from '../appearance/model';
 import { readAppearance, type CharacterAppearance } from '@interfaces/appearance';
 import poseAnchors from '../fx/art/poseAnchors.json';
@@ -277,6 +279,7 @@ interface SplashFx { x: number; y: number; rot: number; age: number; dur: number
 
 type EnemyState = 'spawn' | 'walk' | 'hold' | 'dead';
 interface EnemyInst {
+  martialId?: string | null;
   x: number; // 畫面 css px（敵人企定唔郁、望左；主角行過去）
   state: EnemyState;
   t: number; // 狀態計時
@@ -375,6 +378,8 @@ export interface SparCombatHooks {
    * 冇就照舊揮擊。只影響演出，傷害照 heroStrike 結算。
    */
   nextArt?(): string | null | undefined;
+  /** 只讀下一個真戰報招式，不消費事件。 */
+  nextFoeArt?(): string | null | undefined;
 }
 
 /** 血條等 DOM 浮層嘅錨點（css px） */
@@ -492,7 +497,7 @@ export class SparStage {
   private poseResult: ReturnType<SparCombatHooks['heroStrike']> | null = null;
   private supportIds: readonly string[] = [];
   private supportPose: { id: string; t: number } | null = null;
-  private poseInspection: { id: string; t: number; result: ReturnType<SparCombatHooks['heroStrike']> | null } | null = null;
+  private poseInspection: { id: string; t: number; source: boolean; result: ReturnType<SparCombatHooks['heroStrike']> | null } | null = null;
   private reviewEffectsOff = false;
   private reviewMonochrome = false;
   private artTarget: EnemyInst | null = null;
@@ -539,10 +544,10 @@ export class SparStage {
   /** 只切換人物繪圖資料，不重建演武或改動敵陣。 */
   setCharacterAppearance(hero: CharacterAppearance, foe?: CharacterAppearance): void {
     this.images.characterAppearance = readAppearance(hero);
-    this.images.opponentAppearance = foe ? readAppearance(foe) : undefined;
+    if(foe)this.images.opponentAppearance=readAppearance(foe);
     if(this.images.wardrobe){
-      void prepareAppearance(this.images.wardrobe,hero);
-      if(foe)void prepareAppearance(this.images.wardrobe,foe);
+      void prepareAppearance(this.images.wardrobe,hero,[...this.martialAssets.keys()],this.weaponDef?.src.match(/weapon-([\w-]+)\.webp/)?.[1]??'fist');
+      if(foe)void prepareAppearance(this.images.wardrobe,foe,[...this.martialAssets.keys()]);
     }
   }
 
@@ -564,8 +569,8 @@ export class SparStage {
   }
 
   /** 開發驗收逐格檢視；依然用產品人物呈現器，唔執行戰鬥或派獎。 */
-  inspectMartialPose(id: string | null, t = 0, result: ReturnType<SparCombatHooks['heroStrike']> | null = null) {
-    this.poseInspection = id ? { id, t, result } : null;
+  inspectMartialPose(id: string | null, t = 0, result: ReturnType<SparCombatHooks['heroStrike']> | null = null, source = true) {
+    this.poseInspection = id ? { id, t, result, source } : null;
   }
 
   /** 敵人撲擊及收勢未完成時，不開始主角下一回合。 */
@@ -1008,6 +1013,7 @@ export class SparStage {
       e.atkTimer -= dt;
       if (e.atkTimer <= 0) {
         e.lungeT = 0;
+        const id=this.combat?.nextFoeArt?.();e.martialId=id?canonicalSkillId(id):null;
         e.lungeHit = false;
       }
       return;
@@ -1346,8 +1352,9 @@ export class SparStage {
       anchors.between.y = (anchors.hero.y + anchors.foe.y) / 2;
     }
     if(this.images.wardrobe&&this.images.characterAppearance){
-      const opts=this.heroAppearanceOptions(g),{p}=combatAppearanceSample(this.images.wardrobe,this.images.characterAppearance,opts);
-      anchors.heroHand={x:opts.x+p.grip.x*opts.height/400,y:opts.y+p.grip.y*opts.height/400};
+      const opts=this.heroAppearanceOptions(g),contact=independentContact(this.images.wardrobe,this.images.characterAppearance,opts);
+      if(contact)anchors.heroHand=contact;
+      else{const {p}=combatAppearanceSample(this.images.wardrobe,this.images.characterAppearance,opts);anchors.heroHand={x:opts.x+p.grip.x*opts.height/400,y:opts.y+p.grip.y*opts.height/400};}
       return anchors;
     }
     const def = martialPoseFor(this.martialId);
@@ -1763,12 +1770,14 @@ export class SparStage {
 
   private heroAppearanceOptions(g:ReturnType<SparStage['geom']>) {
     const off=this.artHeroOffset(),down=this.heroDownT,hurt=this.heroHitT<.22;
-    const active=this.artRun!==null||this.attackT!==null||this.supportPose!==null;
-    const def=martialPoseFor(this.martialId);
+    const inspection=this.poseInspection,active=!!inspection||this.artRun!==null||this.attackT!==null||this.supportPose!==null;
+    const id=inspection?.id??(this.supportPose&&this.attackT===null?this.supportPose.id:this.martialId),def=martialPoseFor(id);
     return {
       x:g.heroX+off.dx,y:g.groundY-off.dy,height:this.heroVisualHeight(),face:1,
       pose:(down!==null?'down':hurt?'hurt':active?'attack':this.heroMoving?'walk':'idle') as import('../appearance/pose').AppearancePose,
       time:down??(hurt?this.heroHitT:this.artRun?(this.artRun.hero().pose==='windup'?.02:this.artRun.hero().pose==='strike'?.2:.65):active?this.attackT??this.supportPose?.t??0:this.heroMoving?this.walkT:this.idleT),
+      backFamily:active&&['fist','palm','kick','internal','step','finger','weiqi'].includes(def?.family??'fist')?this.weaponDef?.src.match(/weapon-([\w-]+)\.webp/)?.[1]:undefined,
+      martialId:id,motionTime:inspection?.t??down??(hurt?this.heroHitT:this.artRun?.t??this.attackT??this.supportPose?.t??(this.heroMoving?this.walkT:this.idleT)),
       family:active?def?.family??'fist':this.weaponDef?.src.match(/weapon-([\w-]+)\.webp/)?.[1]??'fist',reduced:this.quiet,
     };
   }
@@ -1776,7 +1785,7 @@ export class SparStage {
   /** 非出招階段維持同款人物；移動、受擊及倒地唔再讀舊黑影幀。 */
   private drawDetailedWarrior(g: ReturnType<SparStage['geom']>): boolean {
     // 開發版逐門原圖檢視必須真選圖集；不能被正式衣櫥共用姿勢蓋過。
-    if(this.poseInspection&&this.drawMartialWarrior(g))return true;
+    if(this.poseInspection?.source&&this.drawMartialWarrior(g))return true;
     if(this.images.wardrobe&&this.images.characterAppearance){
       drawAppearance(this.ctx,this.images.wardrobe,this.images.characterAppearance,this.heroAppearanceOptions(g));return true;
     }
@@ -2036,7 +2045,8 @@ export class SparStage {
         x:footX,y:footY,height:this.heroVisualHeight(),face:-1,
         pose:e.state==='dead'?'down':e.lungeT!==null?'attack':e.hitT<.26?'hurt':e.state==='walk'||e.state==='spawn'?'walk':'idle',
         time:e.state==='dead'?e.t:e.lungeT!==null?combatContactTime(e.lungeT,LUNGE_HIT_AT,LUNGE_DUR):e.hitT<.26?e.hitT:e.bob,
-        family:this.images.opponentFamily??'fist',reduced:this.quiet,
+        martialId:e.martialId,motionTime:e.state==='dead'?e.t:e.lungeT!==null?opponentMotionTime(e.martialId,e.lungeT,LUNGE_HIT_AT,LUNGE_DUR):e.hitT<.26?e.hitT:e.bob,
+        family:martialPoseFor(e.martialId)?.family??this.images.opponentFamily??'fist',reduced:this.quiet,
       });this.ctx.restore();return;
     }
     pose.rot += artOff.rot;

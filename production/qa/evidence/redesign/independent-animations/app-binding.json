@@ -1,0 +1,3272 @@
+{
+  "rows": [
+    {
+      "id": "基礎吐納",
+      "outfit": "traveller",
+      "head": "bamboo",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 10568,
+      "reducedInk": 10484
+    },
+    {
+      "id": "art_river_fist",
+      "outfit": "traveller",
+      "head": "topknot",
+      "tone": "ink",
+      "frames": 42,
+      "mirrorInk": 10066,
+      "reducedInk": 10066
+    },
+    {
+      "id": "art_stone_palm",
+      "outfit": "traveller",
+      "head": "master",
+      "tone": "ink",
+      "frames": 45,
+      "mirrorInk": 9062,
+      "reducedInk": 9062
+    },
+    {
+      "id": "art_bridge_step",
+      "outfit": "traveller",
+      "head": "silver",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 9244,
+      "reducedInk": 9244
+    },
+    {
+      "id": "art_tomb_sword",
+      "outfit": "traveller",
+      "head": "ponytail",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 11340,
+      "reducedInk": 11340
+    },
+    {
+      "id": "art_lake_breath",
+      "outfit": "traveller",
+      "head": "loose",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 11166,
+      "reducedInk": 10304
+    },
+    {
+      "id": "art_rain_sword",
+      "outfit": "traveller",
+      "head": "bun",
+      "tone": "ink",
+      "frames": 48,
+      "mirrorInk": 10768,
+      "reducedInk": 10768
+    },
+    {
+      "id": "art_nine_shadow",
+      "outfit": "traveller",
+      "head": "short",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 9085,
+      "reducedInk": 9085
+    },
+    {
+      "id": "art_cold_palm",
+      "outfit": "traveller",
+      "head": "bamboo",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 10495,
+      "reducedInk": 10495
+    },
+    {
+      "id": "art_iron_body",
+      "outfit": "traveller",
+      "head": "topknot",
+      "tone": "jade",
+      "frames": 40,
+      "mirrorInk": 10948,
+      "reducedInk": 10284
+    },
+    {
+      "id": "art_moon_sword",
+      "outfit": "traveller",
+      "head": "master",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 11047,
+      "reducedInk": 11047
+    },
+    {
+      "id": "art_void_breath",
+      "outfit": "traveller",
+      "head": "silver",
+      "tone": "jade",
+      "frames": 40,
+      "mirrorInk": 10504,
+      "reducedInk": 10361
+    },
+    {
+      "id": "art_silk_hand",
+      "outfit": "traveller",
+      "head": "ponytail",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 10893,
+      "reducedInk": 10893
+    },
+    {
+      "id": "art_thunder_blade",
+      "outfit": "traveller",
+      "head": "loose",
+      "tone": "jade",
+      "frames": 49,
+      "mirrorInk": 10101,
+      "reducedInk": 10101
+    },
+    {
+      "id": "art_wind_chase",
+      "outfit": "traveller",
+      "head": "bun",
+      "tone": "jade",
+      "frames": 51,
+      "mirrorInk": 10337,
+      "reducedInk": 10337
+    },
+    {
+      "id": "art_hook_silk",
+      "outfit": "traveller",
+      "head": "short",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 11510,
+      "reducedInk": 11510
+    },
+    {
+      "id": "art_meteor_palm",
+      "outfit": "traveller",
+      "head": "bamboo",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 9643,
+      "reducedInk": 9643
+    },
+    {
+      "id": "art_tiger_breath",
+      "outfit": "traveller",
+      "head": "topknot",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 10654,
+      "reducedInk": 10284
+    },
+    {
+      "id": "art_spring_well",
+      "outfit": "traveller",
+      "head": "master",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 9975,
+      "reducedInk": 9888
+    },
+    {
+      "id": "art_shadow_needle",
+      "outfit": "traveller",
+      "head": "silver",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 10335,
+      "reducedInk": 10335
+    },
+    {
+      "id": "qg_snow_track",
+      "outfit": "traveller",
+      "head": "ponytail",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 10302,
+      "reducedInk": 10764
+    },
+    {
+      "id": "qg_swallow_turn",
+      "outfit": "traveller",
+      "head": "loose",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 10770,
+      "reducedInk": 10499
+    },
+    {
+      "id": "qg_feiyan",
+      "outfit": "traveller",
+      "head": "bun",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 10746,
+      "reducedInk": 10361
+    },
+    {
+      "id": "qg_canopy_void",
+      "outfit": "traveller",
+      "head": "short",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 9210,
+      "reducedInk": 10425
+    },
+    {
+      "id": "qg_broken_bridge",
+      "outfit": "traveller",
+      "head": "bamboo",
+      "tone": "sand",
+      "frames": 40,
+      "mirrorInk": 11126,
+      "reducedInk": 10705
+    },
+    {
+      "id": "art_spear_cloud",
+      "outfit": "traveller",
+      "head": "topknot",
+      "tone": "sand",
+      "frames": 48,
+      "mirrorInk": 11091,
+      "reducedInk": 11221
+    },
+    {
+      "id": "art_staff_iron",
+      "outfit": "traveller",
+      "head": "master",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 11269,
+      "reducedInk": 11269
+    },
+    {
+      "id": "art_whip_silk",
+      "outfit": "traveller",
+      "head": "silver",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 10872,
+      "reducedInk": 11186
+    },
+    {
+      "id": "art_bow_star",
+      "outfit": "traveller",
+      "head": "ponytail",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 11861,
+      "reducedInk": 11861
+    },
+    {
+      "id": "qg_reed_drift",
+      "outfit": "traveller",
+      "head": "loose",
+      "tone": "sand",
+      "frames": 40,
+      "mirrorInk": 10239,
+      "reducedInk": 10499
+    },
+    {
+      "id": "qg_wall_cat",
+      "outfit": "traveller",
+      "head": "bun",
+      "tone": "sand",
+      "frames": 40,
+      "mirrorInk": 9133,
+      "reducedInk": 10361
+    },
+    {
+      "id": "art_sand_palm",
+      "outfit": "traveller",
+      "head": "short",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 11252,
+      "reducedInk": 11252
+    },
+    {
+      "id": "jy_ash_manual",
+      "outfit": "traveller",
+      "head": "bamboo",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 10755,
+      "reducedInk": 10755
+    },
+    {
+      "id": "art_mirror_breath",
+      "outfit": "traveller",
+      "head": "topknot",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 10934,
+      "reducedInk": 10284
+    },
+    {
+      "id": "qg_lotus_steps",
+      "outfit": "traveller",
+      "head": "master",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 9368,
+      "reducedInk": 10108
+    },
+    {
+      "id": "art_heavy_halberd",
+      "outfit": "traveller",
+      "head": "silver",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 13451,
+      "reducedInk": 13451
+    },
+    {
+      "id": "qy_cloud_sword",
+      "outfit": "traveller",
+      "head": "ponytail",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 11147,
+      "reducedInk": 11147
+    },
+    {
+      "id": "qy_mist_step",
+      "outfit": "traveller",
+      "head": "loose",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 10231,
+      "reducedInk": 10231
+    },
+    {
+      "id": "qy_piercing_needle",
+      "outfit": "traveller",
+      "head": "bun",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 10964,
+      "reducedInk": 10964
+    },
+    {
+      "id": "qy_sky_intent",
+      "outfit": "traveller",
+      "head": "short",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 10833,
+      "reducedInk": 10833
+    },
+    {
+      "id": "td_open_blade",
+      "outfit": "traveller",
+      "head": "bamboo",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 10659,
+      "reducedInk": 10659
+    },
+    {
+      "id": "td_wind_slash",
+      "outfit": "traveller",
+      "head": "topknot",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 11681,
+      "reducedInk": 11681
+    },
+    {
+      "id": "td_thunder_combo",
+      "outfit": "traveller",
+      "head": "master",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 9681,
+      "reducedInk": 9681
+    },
+    {
+      "id": "td_no_return",
+      "outfit": "traveller",
+      "head": "silver",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 10162,
+      "reducedInk": 10162
+    },
+    {
+      "id": "em_soft_palm",
+      "outfit": "traveller",
+      "head": "ponytail",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 10529,
+      "reducedInk": 10529
+    },
+    {
+      "id": "em_silk_wrap",
+      "outfit": "traveller",
+      "head": "loose",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 10231,
+      "reducedInk": 10231
+    },
+    {
+      "id": "em_golden_palm",
+      "outfit": "traveller",
+      "head": "bun",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 10157,
+      "reducedInk": 10157
+    },
+    {
+      "id": "em_heart_breath",
+      "outfit": "traveller",
+      "head": "short",
+      "tone": "jade",
+      "frames": 40,
+      "mirrorInk": 10300,
+      "reducedInk": 10225
+    },
+    {
+      "id": "sl_luohan_fist",
+      "outfit": "traveller",
+      "head": "bamboo",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 10355,
+      "reducedInk": 10355
+    },
+    {
+      "id": "sl_weituo",
+      "outfit": "traveller",
+      "head": "topknot",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 11300,
+      "reducedInk": 11457
+    },
+    {
+      "id": "sl_iron_shirt",
+      "outfit": "traveller",
+      "head": "master",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 10184,
+      "reducedInk": 9888
+    },
+    {
+      "id": "sl_yijin",
+      "outfit": "traveller",
+      "head": "silver",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 11198,
+      "reducedInk": 10361
+    },
+    {
+      "id": "wd_sword_form",
+      "outfit": "traveller",
+      "head": "ponytail",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 11340,
+      "reducedInk": 11340
+    },
+    {
+      "id": "wd_tai_push",
+      "outfit": "traveller",
+      "head": "loose",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 10652,
+      "reducedInk": 10652
+    },
+    {
+      "id": "wd_pure_yang",
+      "outfit": "traveller",
+      "head": "bun",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 10655,
+      "reducedInk": 10158
+    },
+    {
+      "id": "wd_wuji_sword",
+      "outfit": "traveller",
+      "head": "short",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 10833,
+      "reducedInk": 10833
+    },
+    {
+      "id": "tm_flying_needle",
+      "outfit": "traveller",
+      "head": "bamboo",
+      "tone": "sand",
+      "frames": 48,
+      "mirrorInk": 10433,
+      "reducedInk": 10433
+    },
+    {
+      "id": "tm_shadow_step",
+      "outfit": "traveller",
+      "head": "topknot",
+      "tone": "sand",
+      "frames": 40,
+      "mirrorInk": 9327,
+      "reducedInk": 10511
+    },
+    {
+      "id": "tm_poison_dart",
+      "outfit": "traveller",
+      "head": "master",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 9746,
+      "reducedInk": 9746
+    },
+    {
+      "id": "tm_thousand_mech",
+      "outfit": "traveller",
+      "head": "silver",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 11235,
+      "reducedInk": 11235
+    },
+    {
+      "id": "mj_blood_palm",
+      "outfit": "traveller",
+      "head": "ponytail",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 10529,
+      "reducedInk": 10529
+    },
+    {
+      "id": "mj_devil_breath",
+      "outfit": "traveller",
+      "head": "loose",
+      "tone": "sand",
+      "frames": 40,
+      "mirrorInk": 10564,
+      "reducedInk": 10304
+    },
+    {
+      "id": "mj_soul_drain",
+      "outfit": "traveller",
+      "head": "bun",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 10099,
+      "reducedInk": 10099
+    },
+    {
+      "id": "mj_asura_slash",
+      "outfit": "traveller",
+      "head": "short",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 11435,
+      "reducedInk": 11435
+    },
+    {
+      "id": "hs_pine_sword",
+      "outfit": "traveller",
+      "head": "bamboo",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 11312,
+      "reducedInk": 11312
+    },
+    {
+      "id": "hs_cloud_step",
+      "outfit": "traveller",
+      "head": "topknot",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 10241,
+      "reducedInk": 10241
+    },
+    {
+      "id": "hs_split_peak",
+      "outfit": "traveller",
+      "head": "master",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 9793,
+      "reducedInk": 9793
+    },
+    {
+      "id": "hs_yue_breath",
+      "outfit": "traveller",
+      "head": "silver",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 10785,
+      "reducedInk": 10361
+    },
+    {
+      "id": "art_drunken_fist",
+      "outfit": "traveller",
+      "head": "ponytail",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 10800,
+      "reducedInk": 10800
+    },
+    {
+      "id": "th_finger_flick",
+      "outfit": "traveller",
+      "head": "loose",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 10231,
+      "reducedInk": 10231
+    },
+    {
+      "id": "th_flute_sword",
+      "outfit": "traveller",
+      "head": "bun",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 11231,
+      "reducedInk": 11231
+    },
+    {
+      "id": "th_falling_petals",
+      "outfit": "traveller",
+      "head": "short",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 10209,
+      "reducedInk": 10209
+    },
+    {
+      "id": "th_qimen_array",
+      "outfit": "traveller",
+      "head": "bamboo",
+      "tone": "jade",
+      "frames": 40,
+      "mirrorInk": 11439,
+      "reducedInk": 10484
+    },
+    {
+      "id": "wg_embroidery_needle",
+      "outfit": "traveller",
+      "head": "topknot",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 10244,
+      "reducedInk": 10244
+    },
+    {
+      "id": "wg_silent_step",
+      "outfit": "traveller",
+      "head": "master",
+      "tone": "jade",
+      "frames": 40,
+      "mirrorInk": 10512,
+      "reducedInk": 10108
+    },
+    {
+      "id": "wg_yin_soft_palm",
+      "outfit": "traveller",
+      "head": "silver",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 10392,
+      "reducedInk": 10392
+    },
+    {
+      "id": "wg_root_severed_creed",
+      "outfit": "traveller",
+      "head": "ponytail",
+      "tone": "jade",
+      "frames": 40,
+      "mirrorInk": 10988,
+      "reducedInk": 10566
+    },
+    {
+      "id": "art_guqin_song",
+      "outfit": "traveller",
+      "head": "loose",
+      "tone": "jade",
+      "frames": 40,
+      "mirrorInk": 10779,
+      "reducedInk": 10304
+    },
+    {
+      "id": "art_weiqi_trap",
+      "outfit": "traveller",
+      "head": "bun",
+      "tone": "jade",
+      "frames": 54,
+      "mirrorInk": 10160,
+      "reducedInk": 10160
+    },
+    {
+      "id": "art_poetry_sword",
+      "outfit": "traveller",
+      "head": "short",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 11173,
+      "reducedInk": 11173
+    },
+    {
+      "id": "art_ink_illusion",
+      "outfit": "traveller",
+      "head": "bamboo",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 9385,
+      "reducedInk": 10705
+    },
+    {
+      "id": "art_buddha_heart",
+      "outfit": "traveller",
+      "head": "topknot",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 10934,
+      "reducedInk": 10284
+    },
+    {
+      "id": "art_dao_breath",
+      "outfit": "traveller",
+      "head": "master",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 10867,
+      "reducedInk": 9888
+    },
+    {
+      "id": "art_heretic_scripture",
+      "outfit": "traveller",
+      "head": "silver",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 10240,
+      "reducedInk": 10240
+    },
+    {
+      "id": "pr_blood_lotus",
+      "outfit": "traveller",
+      "head": "ponytail",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 11909,
+      "reducedInk": 11909
+    },
+    {
+      "id": "pr_crimson_moon",
+      "outfit": "traveller",
+      "head": "loose",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 11244,
+      "reducedInk": 11244
+    },
+    {
+      "id": "pr_nine_chain",
+      "outfit": "traveller",
+      "head": "bun",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 10501,
+      "reducedInk": 10501
+    },
+    {
+      "id": "pr_wind_thread",
+      "outfit": "traveller",
+      "head": "short",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 10640,
+      "reducedInk": 10640
+    },
+    {
+      "id": "pr_mountain_split",
+      "outfit": "traveller",
+      "head": "bamboo",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 10191,
+      "reducedInk": 10191
+    },
+    {
+      "id": "pr_heaven_spear",
+      "outfit": "traveller",
+      "head": "topknot",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 11056,
+      "reducedInk": 11192
+    },
+    {
+      "id": "pr_soul_lock",
+      "outfit": "traveller",
+      "head": "master",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 9897,
+      "reducedInk": 9897
+    },
+    {
+      "id": "pr_mist_blind",
+      "outfit": "traveller",
+      "head": "silver",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 11385,
+      "reducedInk": 11385
+    },
+    {
+      "id": "pr_vajra_palm",
+      "outfit": "traveller",
+      "head": "ponytail",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 10893,
+      "reducedInk": 10893
+    },
+    {
+      "id": "pr_floating_blade",
+      "outfit": "traveller",
+      "head": "loose",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 11662,
+      "reducedInk": 11662
+    },
+    {
+      "id": "pr_star_fall",
+      "outfit": "traveller",
+      "head": "bun",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 10185,
+      "reducedInk": 10185
+    },
+    {
+      "id": "pr_blood_sea",
+      "outfit": "traveller",
+      "head": "short",
+      "tone": "sand",
+      "frames": 40,
+      "mirrorInk": 11243,
+      "reducedInk": 10225
+    },
+    {
+      "id": "pr_thunder_heart",
+      "outfit": "traveller",
+      "head": "bamboo",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 10756,
+      "reducedInk": 10484
+    },
+    {
+      "id": "pr_diamond_body",
+      "outfit": "traveller",
+      "head": "topknot",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 10673,
+      "reducedInk": 10284
+    },
+    {
+      "id": "pr_seal_meridian",
+      "outfit": "traveller",
+      "head": "master",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 10018,
+      "reducedInk": 9888
+    },
+    {
+      "id": "pr_void_breath",
+      "outfit": "traveller",
+      "head": "silver",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 10718,
+      "reducedInk": 10361
+    },
+    {
+      "id": "pr_cloud_step",
+      "outfit": "traveller",
+      "head": "ponytail",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 9615,
+      "reducedInk": 10764
+    },
+    {
+      "id": "pr_shadow_flash",
+      "outfit": "traveller",
+      "head": "loose",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 9109,
+      "reducedInk": 10499
+    },
+    {
+      "id": "pr_tide_step",
+      "outfit": "traveller",
+      "head": "bun",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 10143,
+      "reducedInk": 10361
+    },
+    {
+      "id": "基礎吐納",
+      "outfit": "scholar",
+      "head": "bamboo",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 15559,
+      "reducedInk": 15589
+    },
+    {
+      "id": "art_river_fist",
+      "outfit": "scholar",
+      "head": "topknot",
+      "tone": "ink",
+      "frames": 42,
+      "mirrorInk": 14780,
+      "reducedInk": 14780
+    },
+    {
+      "id": "art_stone_palm",
+      "outfit": "scholar",
+      "head": "master",
+      "tone": "ink",
+      "frames": 45,
+      "mirrorInk": 12772,
+      "reducedInk": 12772
+    },
+    {
+      "id": "art_bridge_step",
+      "outfit": "scholar",
+      "head": "silver",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 15590,
+      "reducedInk": 15590
+    },
+    {
+      "id": "art_tomb_sword",
+      "outfit": "scholar",
+      "head": "ponytail",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 16034,
+      "reducedInk": 16034
+    },
+    {
+      "id": "art_lake_breath",
+      "outfit": "scholar",
+      "head": "loose",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 15886,
+      "reducedInk": 15316
+    },
+    {
+      "id": "art_rain_sword",
+      "outfit": "scholar",
+      "head": "bun",
+      "tone": "ink",
+      "frames": 48,
+      "mirrorInk": 15531,
+      "reducedInk": 15531
+    },
+    {
+      "id": "art_nine_shadow",
+      "outfit": "scholar",
+      "head": "short",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 15327,
+      "reducedInk": 15327
+    },
+    {
+      "id": "art_cold_palm",
+      "outfit": "scholar",
+      "head": "bamboo",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 15012,
+      "reducedInk": 15012
+    },
+    {
+      "id": "art_iron_body",
+      "outfit": "scholar",
+      "head": "topknot",
+      "tone": "jade",
+      "frames": 40,
+      "mirrorInk": 16332,
+      "reducedInk": 15581
+    },
+    {
+      "id": "art_moon_sword",
+      "outfit": "scholar",
+      "head": "master",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 16246,
+      "reducedInk": 16246
+    },
+    {
+      "id": "art_void_breath",
+      "outfit": "scholar",
+      "head": "silver",
+      "tone": "jade",
+      "frames": 40,
+      "mirrorInk": 15478,
+      "reducedInk": 15536
+    },
+    {
+      "id": "art_silk_hand",
+      "outfit": "scholar",
+      "head": "ponytail",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 16218,
+      "reducedInk": 16218
+    },
+    {
+      "id": "art_thunder_blade",
+      "outfit": "scholar",
+      "head": "loose",
+      "tone": "jade",
+      "frames": 49,
+      "mirrorInk": 16297,
+      "reducedInk": 16297
+    },
+    {
+      "id": "art_wind_chase",
+      "outfit": "scholar",
+      "head": "bun",
+      "tone": "jade",
+      "frames": 51,
+      "mirrorInk": 17663,
+      "reducedInk": 17663
+    },
+    {
+      "id": "art_hook_silk",
+      "outfit": "scholar",
+      "head": "short",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 15831,
+      "reducedInk": 15831
+    },
+    {
+      "id": "art_meteor_palm",
+      "outfit": "scholar",
+      "head": "bamboo",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 13350,
+      "reducedInk": 13350
+    },
+    {
+      "id": "art_tiger_breath",
+      "outfit": "scholar",
+      "head": "topknot",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 15861,
+      "reducedInk": 15581
+    },
+    {
+      "id": "art_spring_well",
+      "outfit": "scholar",
+      "head": "master",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 14979,
+      "reducedInk": 15008
+    },
+    {
+      "id": "art_shadow_needle",
+      "outfit": "scholar",
+      "head": "silver",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 14825,
+      "reducedInk": 14825
+    },
+    {
+      "id": "qg_snow_track",
+      "outfit": "scholar",
+      "head": "ponytail",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 15713,
+      "reducedInk": 15832
+    },
+    {
+      "id": "qg_swallow_turn",
+      "outfit": "scholar",
+      "head": "loose",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 16787,
+      "reducedInk": 15438
+    },
+    {
+      "id": "qg_feiyan",
+      "outfit": "scholar",
+      "head": "bun",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 17418,
+      "reducedInk": 15383
+    },
+    {
+      "id": "qg_canopy_void",
+      "outfit": "scholar",
+      "head": "short",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 15226,
+      "reducedInk": 15377
+    },
+    {
+      "id": "qg_broken_bridge",
+      "outfit": "scholar",
+      "head": "bamboo",
+      "tone": "sand",
+      "frames": 40,
+      "mirrorInk": 17307,
+      "reducedInk": 15722
+    },
+    {
+      "id": "art_spear_cloud",
+      "outfit": "scholar",
+      "head": "topknot",
+      "tone": "sand",
+      "frames": 48,
+      "mirrorInk": 16816,
+      "reducedInk": 16946
+    },
+    {
+      "id": "art_staff_iron",
+      "outfit": "scholar",
+      "head": "master",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 17374,
+      "reducedInk": 17374
+    },
+    {
+      "id": "art_whip_silk",
+      "outfit": "scholar",
+      "head": "silver",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 16652,
+      "reducedInk": 16966
+    },
+    {
+      "id": "art_bow_star",
+      "outfit": "scholar",
+      "head": "ponytail",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 17005,
+      "reducedInk": 17005
+    },
+    {
+      "id": "qg_reed_drift",
+      "outfit": "scholar",
+      "head": "loose",
+      "tone": "sand",
+      "frames": 40,
+      "mirrorInk": 15772,
+      "reducedInk": 15438
+    },
+    {
+      "id": "qg_wall_cat",
+      "outfit": "scholar",
+      "head": "bun",
+      "tone": "sand",
+      "frames": 40,
+      "mirrorInk": 15249,
+      "reducedInk": 15383
+    },
+    {
+      "id": "art_sand_palm",
+      "outfit": "scholar",
+      "head": "short",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 17006,
+      "reducedInk": 17006
+    },
+    {
+      "id": "jy_ash_manual",
+      "outfit": "scholar",
+      "head": "bamboo",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 16235,
+      "reducedInk": 16235
+    },
+    {
+      "id": "art_mirror_breath",
+      "outfit": "scholar",
+      "head": "topknot",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 15805,
+      "reducedInk": 15581
+    },
+    {
+      "id": "qg_lotus_steps",
+      "outfit": "scholar",
+      "head": "master",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 14962,
+      "reducedInk": 15125
+    },
+    {
+      "id": "art_heavy_halberd",
+      "outfit": "scholar",
+      "head": "silver",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 19525,
+      "reducedInk": 19525
+    },
+    {
+      "id": "qy_cloud_sword",
+      "outfit": "scholar",
+      "head": "ponytail",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 15996,
+      "reducedInk": 15996
+    },
+    {
+      "id": "qy_mist_step",
+      "outfit": "scholar",
+      "head": "loose",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 14800,
+      "reducedInk": 14800
+    },
+    {
+      "id": "qy_piercing_needle",
+      "outfit": "scholar",
+      "head": "bun",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 15579,
+      "reducedInk": 15579
+    },
+    {
+      "id": "qy_sky_intent",
+      "outfit": "scholar",
+      "head": "short",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 15526,
+      "reducedInk": 15526
+    },
+    {
+      "id": "td_open_blade",
+      "outfit": "scholar",
+      "head": "bamboo",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 16944,
+      "reducedInk": 16944
+    },
+    {
+      "id": "td_wind_slash",
+      "outfit": "scholar",
+      "head": "topknot",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 17099,
+      "reducedInk": 17099
+    },
+    {
+      "id": "td_thunder_combo",
+      "outfit": "scholar",
+      "head": "master",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 15978,
+      "reducedInk": 15978
+    },
+    {
+      "id": "td_no_return",
+      "outfit": "scholar",
+      "head": "silver",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 16519,
+      "reducedInk": 16519
+    },
+    {
+      "id": "em_soft_palm",
+      "outfit": "scholar",
+      "head": "ponytail",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 15137,
+      "reducedInk": 15137
+    },
+    {
+      "id": "em_silk_wrap",
+      "outfit": "scholar",
+      "head": "loose",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 14800,
+      "reducedInk": 14800
+    },
+    {
+      "id": "em_golden_palm",
+      "outfit": "scholar",
+      "head": "bun",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 14577,
+      "reducedInk": 14577
+    },
+    {
+      "id": "em_heart_breath",
+      "outfit": "scholar",
+      "head": "short",
+      "tone": "jade",
+      "frames": 40,
+      "mirrorInk": 15233,
+      "reducedInk": 15257
+    },
+    {
+      "id": "sl_luohan_fist",
+      "outfit": "scholar",
+      "head": "bamboo",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 15459,
+      "reducedInk": 15459
+    },
+    {
+      "id": "sl_weituo",
+      "outfit": "scholar",
+      "head": "topknot",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 16926,
+      "reducedInk": 17083
+    },
+    {
+      "id": "sl_iron_shirt",
+      "outfit": "scholar",
+      "head": "master",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 15651,
+      "reducedInk": 15008
+    },
+    {
+      "id": "sl_yijin",
+      "outfit": "scholar",
+      "head": "silver",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 15928,
+      "reducedInk": 15536
+    },
+    {
+      "id": "wd_sword_form",
+      "outfit": "scholar",
+      "head": "ponytail",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 16034,
+      "reducedInk": 16034
+    },
+    {
+      "id": "wd_tai_push",
+      "outfit": "scholar",
+      "head": "loose",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 15833,
+      "reducedInk": 15833
+    },
+    {
+      "id": "wd_pure_yang",
+      "outfit": "scholar",
+      "head": "bun",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 15419,
+      "reducedInk": 15259
+    },
+    {
+      "id": "wd_wuji_sword",
+      "outfit": "scholar",
+      "head": "short",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 15526,
+      "reducedInk": 15526
+    },
+    {
+      "id": "tm_flying_needle",
+      "outfit": "scholar",
+      "head": "bamboo",
+      "tone": "sand",
+      "frames": 48,
+      "mirrorInk": 14859,
+      "reducedInk": 14859
+    },
+    {
+      "id": "tm_shadow_step",
+      "outfit": "scholar",
+      "head": "topknot",
+      "tone": "sand",
+      "frames": 40,
+      "mirrorInk": 15433,
+      "reducedInk": 15702
+    },
+    {
+      "id": "tm_poison_dart",
+      "outfit": "scholar",
+      "head": "master",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 14185,
+      "reducedInk": 14185
+    },
+    {
+      "id": "tm_thousand_mech",
+      "outfit": "scholar",
+      "head": "silver",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 16642,
+      "reducedInk": 16642
+    },
+    {
+      "id": "mj_blood_palm",
+      "outfit": "scholar",
+      "head": "ponytail",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 15137,
+      "reducedInk": 15137
+    },
+    {
+      "id": "mj_devil_breath",
+      "outfit": "scholar",
+      "head": "loose",
+      "tone": "sand",
+      "frames": 40,
+      "mirrorInk": 15970,
+      "reducedInk": 15316
+    },
+    {
+      "id": "mj_soul_drain",
+      "outfit": "scholar",
+      "head": "bun",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 14712,
+      "reducedInk": 14712
+    },
+    {
+      "id": "mj_asura_slash",
+      "outfit": "scholar",
+      "head": "short",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 16410,
+      "reducedInk": 16410
+    },
+    {
+      "id": "hs_pine_sword",
+      "outfit": "scholar",
+      "head": "bamboo",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 15937,
+      "reducedInk": 15937
+    },
+    {
+      "id": "hs_cloud_step",
+      "outfit": "scholar",
+      "head": "topknot",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 16329,
+      "reducedInk": 16329
+    },
+    {
+      "id": "hs_split_peak",
+      "outfit": "scholar",
+      "head": "master",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 16203,
+      "reducedInk": 16203
+    },
+    {
+      "id": "hs_yue_breath",
+      "outfit": "scholar",
+      "head": "silver",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 15803,
+      "reducedInk": 15536
+    },
+    {
+      "id": "art_drunken_fist",
+      "outfit": "scholar",
+      "head": "ponytail",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 16366,
+      "reducedInk": 16366
+    },
+    {
+      "id": "th_finger_flick",
+      "outfit": "scholar",
+      "head": "loose",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 14800,
+      "reducedInk": 14800
+    },
+    {
+      "id": "th_flute_sword",
+      "outfit": "scholar",
+      "head": "bun",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 16152,
+      "reducedInk": 16152
+    },
+    {
+      "id": "th_falling_petals",
+      "outfit": "scholar",
+      "head": "short",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 14660,
+      "reducedInk": 14660
+    },
+    {
+      "id": "th_qimen_array",
+      "outfit": "scholar",
+      "head": "bamboo",
+      "tone": "jade",
+      "frames": 40,
+      "mirrorInk": 16130,
+      "reducedInk": 15589
+    },
+    {
+      "id": "wg_embroidery_needle",
+      "outfit": "scholar",
+      "head": "topknot",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 14851,
+      "reducedInk": 14851
+    },
+    {
+      "id": "wg_silent_step",
+      "outfit": "scholar",
+      "head": "master",
+      "tone": "jade",
+      "frames": 40,
+      "mirrorInk": 16419,
+      "reducedInk": 15125
+    },
+    {
+      "id": "wg_yin_soft_palm",
+      "outfit": "scholar",
+      "head": "silver",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 14887,
+      "reducedInk": 14887
+    },
+    {
+      "id": "wg_root_severed_creed",
+      "outfit": "scholar",
+      "head": "ponytail",
+      "tone": "jade",
+      "frames": 40,
+      "mirrorInk": 16313,
+      "reducedInk": 15706
+    },
+    {
+      "id": "art_guqin_song",
+      "outfit": "scholar",
+      "head": "loose",
+      "tone": "jade",
+      "frames": 40,
+      "mirrorInk": 15787,
+      "reducedInk": 15316
+    },
+    {
+      "id": "art_weiqi_trap",
+      "outfit": "scholar",
+      "head": "bun",
+      "tone": "jade",
+      "frames": 54,
+      "mirrorInk": 15459,
+      "reducedInk": 15459
+    },
+    {
+      "id": "art_poetry_sword",
+      "outfit": "scholar",
+      "head": "short",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 16153,
+      "reducedInk": 16153
+    },
+    {
+      "id": "art_ink_illusion",
+      "outfit": "scholar",
+      "head": "bamboo",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 15320,
+      "reducedInk": 15722
+    },
+    {
+      "id": "art_buddha_heart",
+      "outfit": "scholar",
+      "head": "topknot",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 15805,
+      "reducedInk": 15581
+    },
+    {
+      "id": "art_dao_breath",
+      "outfit": "scholar",
+      "head": "master",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 15560,
+      "reducedInk": 15008
+    },
+    {
+      "id": "art_heretic_scripture",
+      "outfit": "scholar",
+      "head": "silver",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 15440,
+      "reducedInk": 15440
+    },
+    {
+      "id": "pr_blood_lotus",
+      "outfit": "scholar",
+      "head": "ponytail",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 17215,
+      "reducedInk": 17215
+    },
+    {
+      "id": "pr_crimson_moon",
+      "outfit": "scholar",
+      "head": "loose",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 16287,
+      "reducedInk": 16287
+    },
+    {
+      "id": "pr_nine_chain",
+      "outfit": "scholar",
+      "head": "bun",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 15759,
+      "reducedInk": 15759
+    },
+    {
+      "id": "pr_wind_thread",
+      "outfit": "scholar",
+      "head": "short",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 15825,
+      "reducedInk": 15825
+    },
+    {
+      "id": "pr_mountain_split",
+      "outfit": "scholar",
+      "head": "bamboo",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 14804,
+      "reducedInk": 14804
+    },
+    {
+      "id": "pr_heaven_spear",
+      "outfit": "scholar",
+      "head": "topknot",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 16752,
+      "reducedInk": 16888
+    },
+    {
+      "id": "pr_soul_lock",
+      "outfit": "scholar",
+      "head": "master",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 14477,
+      "reducedInk": 14477
+    },
+    {
+      "id": "pr_mist_blind",
+      "outfit": "scholar",
+      "head": "silver",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 17242,
+      "reducedInk": 17242
+    },
+    {
+      "id": "pr_vajra_palm",
+      "outfit": "scholar",
+      "head": "ponytail",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 16218,
+      "reducedInk": 16218
+    },
+    {
+      "id": "pr_floating_blade",
+      "outfit": "scholar",
+      "head": "loose",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 16833,
+      "reducedInk": 16833
+    },
+    {
+      "id": "pr_star_fall",
+      "outfit": "scholar",
+      "head": "bun",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 14973,
+      "reducedInk": 14973
+    },
+    {
+      "id": "pr_blood_sea",
+      "outfit": "scholar",
+      "head": "short",
+      "tone": "sand",
+      "frames": 40,
+      "mirrorInk": 15951,
+      "reducedInk": 15257
+    },
+    {
+      "id": "pr_thunder_heart",
+      "outfit": "scholar",
+      "head": "bamboo",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 15691,
+      "reducedInk": 15589
+    },
+    {
+      "id": "pr_diamond_body",
+      "outfit": "scholar",
+      "head": "topknot",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 15765,
+      "reducedInk": 15581
+    },
+    {
+      "id": "pr_seal_meridian",
+      "outfit": "scholar",
+      "head": "master",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 14935,
+      "reducedInk": 15008
+    },
+    {
+      "id": "pr_void_breath",
+      "outfit": "scholar",
+      "head": "silver",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 15618,
+      "reducedInk": 15536
+    },
+    {
+      "id": "pr_cloud_step",
+      "outfit": "scholar",
+      "head": "ponytail",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 15816,
+      "reducedInk": 15832
+    },
+    {
+      "id": "pr_shadow_flash",
+      "outfit": "scholar",
+      "head": "loose",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 15341,
+      "reducedInk": 15438
+    },
+    {
+      "id": "pr_tide_step",
+      "outfit": "scholar",
+      "head": "bun",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 15618,
+      "reducedInk": 15383
+    },
+    {
+      "id": "基礎吐納",
+      "outfit": "cloak",
+      "head": "bamboo",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 15961,
+      "reducedInk": 15905
+    },
+    {
+      "id": "art_river_fist",
+      "outfit": "cloak",
+      "head": "topknot",
+      "tone": "ink",
+      "frames": 42,
+      "mirrorInk": 16213,
+      "reducedInk": 16213
+    },
+    {
+      "id": "art_stone_palm",
+      "outfit": "cloak",
+      "head": "master",
+      "tone": "ink",
+      "frames": 45,
+      "mirrorInk": 13291,
+      "reducedInk": 13291
+    },
+    {
+      "id": "art_bridge_step",
+      "outfit": "cloak",
+      "head": "silver",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 15136,
+      "reducedInk": 15136
+    },
+    {
+      "id": "art_tomb_sword",
+      "outfit": "cloak",
+      "head": "ponytail",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 17271,
+      "reducedInk": 17271
+    },
+    {
+      "id": "art_lake_breath",
+      "outfit": "cloak",
+      "head": "loose",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 17349,
+      "reducedInk": 15745
+    },
+    {
+      "id": "art_rain_sword",
+      "outfit": "cloak",
+      "head": "bun",
+      "tone": "ink",
+      "frames": 48,
+      "mirrorInk": 16883,
+      "reducedInk": 16883
+    },
+    {
+      "id": "art_nine_shadow",
+      "outfit": "cloak",
+      "head": "short",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 15085,
+      "reducedInk": 15085
+    },
+    {
+      "id": "art_cold_palm",
+      "outfit": "cloak",
+      "head": "bamboo",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 16133,
+      "reducedInk": 16133
+    },
+    {
+      "id": "art_iron_body",
+      "outfit": "cloak",
+      "head": "topknot",
+      "tone": "jade",
+      "frames": 40,
+      "mirrorInk": 16388,
+      "reducedInk": 16003
+    },
+    {
+      "id": "art_moon_sword",
+      "outfit": "cloak",
+      "head": "master",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 16517,
+      "reducedInk": 16517
+    },
+    {
+      "id": "art_void_breath",
+      "outfit": "cloak",
+      "head": "silver",
+      "tone": "jade",
+      "frames": 40,
+      "mirrorInk": 16063,
+      "reducedInk": 15827
+    },
+    {
+      "id": "art_silk_hand",
+      "outfit": "cloak",
+      "head": "ponytail",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 16466,
+      "reducedInk": 16466
+    },
+    {
+      "id": "art_thunder_blade",
+      "outfit": "cloak",
+      "head": "loose",
+      "tone": "jade",
+      "frames": 49,
+      "mirrorInk": 15614,
+      "reducedInk": 15614
+    },
+    {
+      "id": "art_wind_chase",
+      "outfit": "cloak",
+      "head": "bun",
+      "tone": "jade",
+      "frames": 51,
+      "mirrorInk": 16991,
+      "reducedInk": 16991
+    },
+    {
+      "id": "art_hook_silk",
+      "outfit": "cloak",
+      "head": "short",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 16967,
+      "reducedInk": 16967
+    },
+    {
+      "id": "art_meteor_palm",
+      "outfit": "cloak",
+      "head": "bamboo",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 13621,
+      "reducedInk": 13621
+    },
+    {
+      "id": "art_tiger_breath",
+      "outfit": "cloak",
+      "head": "topknot",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 16768,
+      "reducedInk": 16003
+    },
+    {
+      "id": "art_spring_well",
+      "outfit": "cloak",
+      "head": "master",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 15645,
+      "reducedInk": 15603
+    },
+    {
+      "id": "art_shadow_needle",
+      "outfit": "cloak",
+      "head": "silver",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 15821,
+      "reducedInk": 15821
+    },
+    {
+      "id": "qg_snow_track",
+      "outfit": "cloak",
+      "head": "ponytail",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 16194,
+      "reducedInk": 16234
+    },
+    {
+      "id": "qg_swallow_turn",
+      "outfit": "cloak",
+      "head": "loose",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 16152,
+      "reducedInk": 16059
+    },
+    {
+      "id": "qg_feiyan",
+      "outfit": "cloak",
+      "head": "bun",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 17330,
+      "reducedInk": 16107
+    },
+    {
+      "id": "qg_canopy_void",
+      "outfit": "cloak",
+      "head": "short",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 15964,
+      "reducedInk": 16113
+    },
+    {
+      "id": "qg_broken_bridge",
+      "outfit": "cloak",
+      "head": "bamboo",
+      "tone": "sand",
+      "frames": 40,
+      "mirrorInk": 16593,
+      "reducedInk": 16222
+    },
+    {
+      "id": "art_spear_cloud",
+      "outfit": "cloak",
+      "head": "topknot",
+      "tone": "sand",
+      "frames": 48,
+      "mirrorInk": 17233,
+      "reducedInk": 17363
+    },
+    {
+      "id": "art_staff_iron",
+      "outfit": "cloak",
+      "head": "master",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 16454,
+      "reducedInk": 16454
+    },
+    {
+      "id": "art_whip_silk",
+      "outfit": "cloak",
+      "head": "silver",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 16201,
+      "reducedInk": 16515
+    },
+    {
+      "id": "art_bow_star",
+      "outfit": "cloak",
+      "head": "ponytail",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 17469,
+      "reducedInk": 17469
+    },
+    {
+      "id": "qg_reed_drift",
+      "outfit": "cloak",
+      "head": "loose",
+      "tone": "sand",
+      "frames": 40,
+      "mirrorInk": 15949,
+      "reducedInk": 16059
+    },
+    {
+      "id": "qg_wall_cat",
+      "outfit": "cloak",
+      "head": "bun",
+      "tone": "sand",
+      "frames": 40,
+      "mirrorInk": 15956,
+      "reducedInk": 16107
+    },
+    {
+      "id": "art_sand_palm",
+      "outfit": "cloak",
+      "head": "short",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 16699,
+      "reducedInk": 16699
+    },
+    {
+      "id": "jy_ash_manual",
+      "outfit": "cloak",
+      "head": "bamboo",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 16619,
+      "reducedInk": 16619
+    },
+    {
+      "id": "art_mirror_breath",
+      "outfit": "cloak",
+      "head": "topknot",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 17162,
+      "reducedInk": 16003
+    },
+    {
+      "id": "qg_lotus_steps",
+      "outfit": "cloak",
+      "head": "master",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 15724,
+      "reducedInk": 15913
+    },
+    {
+      "id": "art_heavy_halberd",
+      "outfit": "cloak",
+      "head": "silver",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 18298,
+      "reducedInk": 18298
+    },
+    {
+      "id": "qy_cloud_sword",
+      "outfit": "cloak",
+      "head": "ponytail",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 17017,
+      "reducedInk": 17017
+    },
+    {
+      "id": "qy_mist_step",
+      "outfit": "cloak",
+      "head": "loose",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 15922,
+      "reducedInk": 15922
+    },
+    {
+      "id": "qy_piercing_needle",
+      "outfit": "cloak",
+      "head": "bun",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 17154,
+      "reducedInk": 17154
+    },
+    {
+      "id": "qy_sky_intent",
+      "outfit": "cloak",
+      "head": "short",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 16886,
+      "reducedInk": 16886
+    },
+    {
+      "id": "td_open_blade",
+      "outfit": "cloak",
+      "head": "bamboo",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 16469,
+      "reducedInk": 16469
+    },
+    {
+      "id": "td_wind_slash",
+      "outfit": "cloak",
+      "head": "topknot",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 17206,
+      "reducedInk": 17206
+    },
+    {
+      "id": "td_thunder_combo",
+      "outfit": "cloak",
+      "head": "master",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 15448,
+      "reducedInk": 15448
+    },
+    {
+      "id": "td_no_return",
+      "outfit": "cloak",
+      "head": "silver",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 15702,
+      "reducedInk": 15702
+    },
+    {
+      "id": "em_soft_palm",
+      "outfit": "cloak",
+      "head": "ponytail",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 16143,
+      "reducedInk": 16143
+    },
+    {
+      "id": "em_silk_wrap",
+      "outfit": "cloak",
+      "head": "loose",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 15922,
+      "reducedInk": 15922
+    },
+    {
+      "id": "em_golden_palm",
+      "outfit": "cloak",
+      "head": "bun",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 16017,
+      "reducedInk": 16017
+    },
+    {
+      "id": "em_heart_breath",
+      "outfit": "cloak",
+      "head": "short",
+      "tone": "jade",
+      "frames": 40,
+      "mirrorInk": 15856,
+      "reducedInk": 15799
+    },
+    {
+      "id": "sl_luohan_fist",
+      "outfit": "cloak",
+      "head": "bamboo",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 15873,
+      "reducedInk": 15873
+    },
+    {
+      "id": "sl_weituo",
+      "outfit": "cloak",
+      "head": "topknot",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 17393,
+      "reducedInk": 17550
+    },
+    {
+      "id": "sl_iron_shirt",
+      "outfit": "cloak",
+      "head": "master",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 15845,
+      "reducedInk": 15603
+    },
+    {
+      "id": "sl_yijin",
+      "outfit": "cloak",
+      "head": "silver",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 17448,
+      "reducedInk": 15827
+    },
+    {
+      "id": "wd_sword_form",
+      "outfit": "cloak",
+      "head": "ponytail",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 17271,
+      "reducedInk": 17271
+    },
+    {
+      "id": "wd_tai_push",
+      "outfit": "cloak",
+      "head": "loose",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 16286,
+      "reducedInk": 16286
+    },
+    {
+      "id": "wd_pure_yang",
+      "outfit": "cloak",
+      "head": "bun",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 16732,
+      "reducedInk": 15796
+    },
+    {
+      "id": "wd_wuji_sword",
+      "outfit": "cloak",
+      "head": "short",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 16886,
+      "reducedInk": 16886
+    },
+    {
+      "id": "tm_flying_needle",
+      "outfit": "cloak",
+      "head": "bamboo",
+      "tone": "sand",
+      "frames": 48,
+      "mirrorInk": 15905,
+      "reducedInk": 15905
+    },
+    {
+      "id": "tm_shadow_step",
+      "outfit": "cloak",
+      "head": "topknot",
+      "tone": "sand",
+      "frames": 40,
+      "mirrorInk": 15945,
+      "reducedInk": 16317
+    },
+    {
+      "id": "tm_poison_dart",
+      "outfit": "cloak",
+      "head": "master",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 15594,
+      "reducedInk": 15594
+    },
+    {
+      "id": "tm_thousand_mech",
+      "outfit": "cloak",
+      "head": "silver",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 16493,
+      "reducedInk": 16493
+    },
+    {
+      "id": "mj_blood_palm",
+      "outfit": "cloak",
+      "head": "ponytail",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 16143,
+      "reducedInk": 16143
+    },
+    {
+      "id": "mj_devil_breath",
+      "outfit": "cloak",
+      "head": "loose",
+      "tone": "sand",
+      "frames": 40,
+      "mirrorInk": 15992,
+      "reducedInk": 15745
+    },
+    {
+      "id": "mj_soul_drain",
+      "outfit": "cloak",
+      "head": "bun",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 15983,
+      "reducedInk": 15983
+    },
+    {
+      "id": "mj_asura_slash",
+      "outfit": "cloak",
+      "head": "short",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 17210,
+      "reducedInk": 17210
+    },
+    {
+      "id": "hs_pine_sword",
+      "outfit": "cloak",
+      "head": "bamboo",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 17264,
+      "reducedInk": 17264
+    },
+    {
+      "id": "hs_cloud_step",
+      "outfit": "cloak",
+      "head": "topknot",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 16876,
+      "reducedInk": 16876
+    },
+    {
+      "id": "hs_split_peak",
+      "outfit": "cloak",
+      "head": "master",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 15968,
+      "reducedInk": 15968
+    },
+    {
+      "id": "hs_yue_breath",
+      "outfit": "cloak",
+      "head": "silver",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 16160,
+      "reducedInk": 15827
+    },
+    {
+      "id": "art_drunken_fist",
+      "outfit": "cloak",
+      "head": "ponytail",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 16650,
+      "reducedInk": 16650
+    },
+    {
+      "id": "th_finger_flick",
+      "outfit": "cloak",
+      "head": "loose",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 15922,
+      "reducedInk": 15922
+    },
+    {
+      "id": "th_flute_sword",
+      "outfit": "cloak",
+      "head": "bun",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 16810,
+      "reducedInk": 16810
+    },
+    {
+      "id": "th_falling_petals",
+      "outfit": "cloak",
+      "head": "short",
+      "tone": "ink",
+      "frames": 28,
+      "mirrorInk": 16013,
+      "reducedInk": 16013
+    },
+    {
+      "id": "th_qimen_array",
+      "outfit": "cloak",
+      "head": "bamboo",
+      "tone": "jade",
+      "frames": 40,
+      "mirrorInk": 16276,
+      "reducedInk": 15905
+    },
+    {
+      "id": "wg_embroidery_needle",
+      "outfit": "cloak",
+      "head": "topknot",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 15999,
+      "reducedInk": 15999
+    },
+    {
+      "id": "wg_silent_step",
+      "outfit": "cloak",
+      "head": "master",
+      "tone": "jade",
+      "frames": 40,
+      "mirrorInk": 16140,
+      "reducedInk": 15913
+    },
+    {
+      "id": "wg_yin_soft_palm",
+      "outfit": "cloak",
+      "head": "silver",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 16050,
+      "reducedInk": 16050
+    },
+    {
+      "id": "wg_root_severed_creed",
+      "outfit": "cloak",
+      "head": "ponytail",
+      "tone": "jade",
+      "frames": 40,
+      "mirrorInk": 16294,
+      "reducedInk": 15925
+    },
+    {
+      "id": "art_guqin_song",
+      "outfit": "cloak",
+      "head": "loose",
+      "tone": "jade",
+      "frames": 40,
+      "mirrorInk": 16143,
+      "reducedInk": 15745
+    },
+    {
+      "id": "art_weiqi_trap",
+      "outfit": "cloak",
+      "head": "bun",
+      "tone": "jade",
+      "frames": 54,
+      "mirrorInk": 15974,
+      "reducedInk": 15974
+    },
+    {
+      "id": "art_poetry_sword",
+      "outfit": "cloak",
+      "head": "short",
+      "tone": "jade",
+      "frames": 28,
+      "mirrorInk": 16949,
+      "reducedInk": 16949
+    },
+    {
+      "id": "art_ink_illusion",
+      "outfit": "cloak",
+      "head": "bamboo",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 15874,
+      "reducedInk": 16222
+    },
+    {
+      "id": "art_buddha_heart",
+      "outfit": "cloak",
+      "head": "topknot",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 17162,
+      "reducedInk": 16003
+    },
+    {
+      "id": "art_dao_breath",
+      "outfit": "cloak",
+      "head": "master",
+      "tone": "cinnabar",
+      "frames": 40,
+      "mirrorInk": 15979,
+      "reducedInk": 15603
+    },
+    {
+      "id": "art_heretic_scripture",
+      "outfit": "cloak",
+      "head": "silver",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 15802,
+      "reducedInk": 15802
+    },
+    {
+      "id": "pr_blood_lotus",
+      "outfit": "cloak",
+      "head": "ponytail",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 17115,
+      "reducedInk": 17115
+    },
+    {
+      "id": "pr_crimson_moon",
+      "outfit": "cloak",
+      "head": "loose",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 16903,
+      "reducedInk": 16903
+    },
+    {
+      "id": "pr_nine_chain",
+      "outfit": "cloak",
+      "head": "bun",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 16320,
+      "reducedInk": 16320
+    },
+    {
+      "id": "pr_wind_thread",
+      "outfit": "cloak",
+      "head": "short",
+      "tone": "cinnabar",
+      "frames": 28,
+      "mirrorInk": 16184,
+      "reducedInk": 16184
+    },
+    {
+      "id": "pr_mountain_split",
+      "outfit": "cloak",
+      "head": "bamboo",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 16159,
+      "reducedInk": 16159
+    },
+    {
+      "id": "pr_heaven_spear",
+      "outfit": "cloak",
+      "head": "topknot",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 17217,
+      "reducedInk": 17353
+    },
+    {
+      "id": "pr_soul_lock",
+      "outfit": "cloak",
+      "head": "master",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 15778,
+      "reducedInk": 15778
+    },
+    {
+      "id": "pr_mist_blind",
+      "outfit": "cloak",
+      "head": "silver",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 16769,
+      "reducedInk": 16769
+    },
+    {
+      "id": "pr_vajra_palm",
+      "outfit": "cloak",
+      "head": "ponytail",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 16466,
+      "reducedInk": 16466
+    },
+    {
+      "id": "pr_floating_blade",
+      "outfit": "cloak",
+      "head": "loose",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 16940,
+      "reducedInk": 16940
+    },
+    {
+      "id": "pr_star_fall",
+      "outfit": "cloak",
+      "head": "bun",
+      "tone": "sand",
+      "frames": 28,
+      "mirrorInk": 15593,
+      "reducedInk": 15593
+    },
+    {
+      "id": "pr_blood_sea",
+      "outfit": "cloak",
+      "head": "short",
+      "tone": "sand",
+      "frames": 40,
+      "mirrorInk": 17333,
+      "reducedInk": 15799
+    },
+    {
+      "id": "pr_thunder_heart",
+      "outfit": "cloak",
+      "head": "bamboo",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 16110,
+      "reducedInk": 15905
+    },
+    {
+      "id": "pr_diamond_body",
+      "outfit": "cloak",
+      "head": "topknot",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 16653,
+      "reducedInk": 16003
+    },
+    {
+      "id": "pr_seal_meridian",
+      "outfit": "cloak",
+      "head": "master",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 15830,
+      "reducedInk": 15603
+    },
+    {
+      "id": "pr_void_breath",
+      "outfit": "cloak",
+      "head": "silver",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 16319,
+      "reducedInk": 15827
+    },
+    {
+      "id": "pr_cloud_step",
+      "outfit": "cloak",
+      "head": "ponytail",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 16201,
+      "reducedInk": 16234
+    },
+    {
+      "id": "pr_shadow_flash",
+      "outfit": "cloak",
+      "head": "loose",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 15627,
+      "reducedInk": 16059
+    },
+    {
+      "id": "pr_tide_step",
+      "outfit": "cloak",
+      "head": "bun",
+      "tone": "ink",
+      "frames": 40,
+      "mirrorInk": 15934,
+      "reducedInk": 16107
+    }
+  ],
+  "looks": [
+    {
+      "outfit": "traveller",
+      "head": "bamboo",
+      "tone": "ink"
+    },
+    {
+      "outfit": "traveller",
+      "head": "bamboo",
+      "tone": "jade"
+    },
+    {
+      "outfit": "traveller",
+      "head": "bamboo",
+      "tone": "cinnabar"
+    },
+    {
+      "outfit": "traveller",
+      "head": "bamboo",
+      "tone": "sand"
+    },
+    {
+      "outfit": "traveller",
+      "head": "topknot",
+      "tone": "ink"
+    },
+    {
+      "outfit": "traveller",
+      "head": "topknot",
+      "tone": "jade"
+    },
+    {
+      "outfit": "traveller",
+      "head": "topknot",
+      "tone": "cinnabar"
+    },
+    {
+      "outfit": "traveller",
+      "head": "topknot",
+      "tone": "sand"
+    },
+    {
+      "outfit": "traveller",
+      "head": "master",
+      "tone": "ink"
+    },
+    {
+      "outfit": "traveller",
+      "head": "master",
+      "tone": "jade"
+    },
+    {
+      "outfit": "traveller",
+      "head": "master",
+      "tone": "cinnabar"
+    },
+    {
+      "outfit": "traveller",
+      "head": "master",
+      "tone": "sand"
+    },
+    {
+      "outfit": "traveller",
+      "head": "silver",
+      "tone": "ink"
+    },
+    {
+      "outfit": "traveller",
+      "head": "silver",
+      "tone": "jade"
+    },
+    {
+      "outfit": "traveller",
+      "head": "silver",
+      "tone": "cinnabar"
+    },
+    {
+      "outfit": "traveller",
+      "head": "silver",
+      "tone": "sand"
+    },
+    {
+      "outfit": "traveller",
+      "head": "ponytail",
+      "tone": "ink"
+    },
+    {
+      "outfit": "traveller",
+      "head": "ponytail",
+      "tone": "jade"
+    },
+    {
+      "outfit": "traveller",
+      "head": "ponytail",
+      "tone": "cinnabar"
+    },
+    {
+      "outfit": "traveller",
+      "head": "ponytail",
+      "tone": "sand"
+    },
+    {
+      "outfit": "traveller",
+      "head": "loose",
+      "tone": "ink"
+    },
+    {
+      "outfit": "traveller",
+      "head": "loose",
+      "tone": "jade"
+    },
+    {
+      "outfit": "traveller",
+      "head": "loose",
+      "tone": "cinnabar"
+    },
+    {
+      "outfit": "traveller",
+      "head": "loose",
+      "tone": "sand"
+    },
+    {
+      "outfit": "traveller",
+      "head": "bun",
+      "tone": "ink"
+    },
+    {
+      "outfit": "traveller",
+      "head": "bun",
+      "tone": "jade"
+    },
+    {
+      "outfit": "traveller",
+      "head": "bun",
+      "tone": "cinnabar"
+    },
+    {
+      "outfit": "traveller",
+      "head": "bun",
+      "tone": "sand"
+    },
+    {
+      "outfit": "traveller",
+      "head": "short",
+      "tone": "ink"
+    },
+    {
+      "outfit": "traveller",
+      "head": "short",
+      "tone": "jade"
+    },
+    {
+      "outfit": "traveller",
+      "head": "short",
+      "tone": "cinnabar"
+    },
+    {
+      "outfit": "traveller",
+      "head": "short",
+      "tone": "sand"
+    },
+    {
+      "outfit": "scholar",
+      "head": "bamboo",
+      "tone": "ink"
+    },
+    {
+      "outfit": "scholar",
+      "head": "bamboo",
+      "tone": "jade"
+    },
+    {
+      "outfit": "scholar",
+      "head": "bamboo",
+      "tone": "cinnabar"
+    },
+    {
+      "outfit": "scholar",
+      "head": "bamboo",
+      "tone": "sand"
+    },
+    {
+      "outfit": "scholar",
+      "head": "topknot",
+      "tone": "ink"
+    },
+    {
+      "outfit": "scholar",
+      "head": "topknot",
+      "tone": "jade"
+    },
+    {
+      "outfit": "scholar",
+      "head": "topknot",
+      "tone": "cinnabar"
+    },
+    {
+      "outfit": "scholar",
+      "head": "topknot",
+      "tone": "sand"
+    },
+    {
+      "outfit": "scholar",
+      "head": "master",
+      "tone": "ink"
+    },
+    {
+      "outfit": "scholar",
+      "head": "master",
+      "tone": "jade"
+    },
+    {
+      "outfit": "scholar",
+      "head": "master",
+      "tone": "cinnabar"
+    },
+    {
+      "outfit": "scholar",
+      "head": "master",
+      "tone": "sand"
+    },
+    {
+      "outfit": "scholar",
+      "head": "silver",
+      "tone": "ink"
+    },
+    {
+      "outfit": "scholar",
+      "head": "silver",
+      "tone": "jade"
+    },
+    {
+      "outfit": "scholar",
+      "head": "silver",
+      "tone": "cinnabar"
+    },
+    {
+      "outfit": "scholar",
+      "head": "silver",
+      "tone": "sand"
+    },
+    {
+      "outfit": "scholar",
+      "head": "ponytail",
+      "tone": "ink"
+    },
+    {
+      "outfit": "scholar",
+      "head": "ponytail",
+      "tone": "jade"
+    },
+    {
+      "outfit": "scholar",
+      "head": "ponytail",
+      "tone": "cinnabar"
+    },
+    {
+      "outfit": "scholar",
+      "head": "ponytail",
+      "tone": "sand"
+    },
+    {
+      "outfit": "scholar",
+      "head": "loose",
+      "tone": "ink"
+    },
+    {
+      "outfit": "scholar",
+      "head": "loose",
+      "tone": "jade"
+    },
+    {
+      "outfit": "scholar",
+      "head": "loose",
+      "tone": "cinnabar"
+    },
+    {
+      "outfit": "scholar",
+      "head": "loose",
+      "tone": "sand"
+    },
+    {
+      "outfit": "scholar",
+      "head": "bun",
+      "tone": "ink"
+    },
+    {
+      "outfit": "scholar",
+      "head": "bun",
+      "tone": "jade"
+    },
+    {
+      "outfit": "scholar",
+      "head": "bun",
+      "tone": "cinnabar"
+    },
+    {
+      "outfit": "scholar",
+      "head": "bun",
+      "tone": "sand"
+    },
+    {
+      "outfit": "scholar",
+      "head": "short",
+      "tone": "ink"
+    },
+    {
+      "outfit": "scholar",
+      "head": "short",
+      "tone": "jade"
+    },
+    {
+      "outfit": "scholar",
+      "head": "short",
+      "tone": "cinnabar"
+    },
+    {
+      "outfit": "scholar",
+      "head": "short",
+      "tone": "sand"
+    },
+    {
+      "outfit": "cloak",
+      "head": "bamboo",
+      "tone": "ink"
+    },
+    {
+      "outfit": "cloak",
+      "head": "bamboo",
+      "tone": "jade"
+    },
+    {
+      "outfit": "cloak",
+      "head": "bamboo",
+      "tone": "cinnabar"
+    },
+    {
+      "outfit": "cloak",
+      "head": "bamboo",
+      "tone": "sand"
+    },
+    {
+      "outfit": "cloak",
+      "head": "topknot",
+      "tone": "ink"
+    },
+    {
+      "outfit": "cloak",
+      "head": "topknot",
+      "tone": "jade"
+    },
+    {
+      "outfit": "cloak",
+      "head": "topknot",
+      "tone": "cinnabar"
+    },
+    {
+      "outfit": "cloak",
+      "head": "topknot",
+      "tone": "sand"
+    },
+    {
+      "outfit": "cloak",
+      "head": "master",
+      "tone": "ink"
+    },
+    {
+      "outfit": "cloak",
+      "head": "master",
+      "tone": "jade"
+    },
+    {
+      "outfit": "cloak",
+      "head": "master",
+      "tone": "cinnabar"
+    },
+    {
+      "outfit": "cloak",
+      "head": "master",
+      "tone": "sand"
+    },
+    {
+      "outfit": "cloak",
+      "head": "silver",
+      "tone": "ink"
+    },
+    {
+      "outfit": "cloak",
+      "head": "silver",
+      "tone": "jade"
+    },
+    {
+      "outfit": "cloak",
+      "head": "silver",
+      "tone": "cinnabar"
+    },
+    {
+      "outfit": "cloak",
+      "head": "silver",
+      "tone": "sand"
+    },
+    {
+      "outfit": "cloak",
+      "head": "ponytail",
+      "tone": "ink"
+    },
+    {
+      "outfit": "cloak",
+      "head": "ponytail",
+      "tone": "jade"
+    },
+    {
+      "outfit": "cloak",
+      "head": "ponytail",
+      "tone": "cinnabar"
+    },
+    {
+      "outfit": "cloak",
+      "head": "ponytail",
+      "tone": "sand"
+    },
+    {
+      "outfit": "cloak",
+      "head": "loose",
+      "tone": "ink"
+    },
+    {
+      "outfit": "cloak",
+      "head": "loose",
+      "tone": "jade"
+    },
+    {
+      "outfit": "cloak",
+      "head": "loose",
+      "tone": "cinnabar"
+    },
+    {
+      "outfit": "cloak",
+      "head": "loose",
+      "tone": "sand"
+    },
+    {
+      "outfit": "cloak",
+      "head": "bun",
+      "tone": "ink"
+    },
+    {
+      "outfit": "cloak",
+      "head": "bun",
+      "tone": "jade"
+    },
+    {
+      "outfit": "cloak",
+      "head": "bun",
+      "tone": "cinnabar"
+    },
+    {
+      "outfit": "cloak",
+      "head": "bun",
+      "tone": "sand"
+    },
+    {
+      "outfit": "cloak",
+      "head": "short",
+      "tone": "ink"
+    },
+    {
+      "outfit": "cloak",
+      "head": "short",
+      "tone": "jade"
+    },
+    {
+      "outfit": "cloak",
+      "head": "short",
+      "tone": "cinnabar"
+    },
+    {
+      "outfit": "cloak",
+      "head": "short",
+      "tone": "sand"
+    }
+  ],
+  "visualFrames": 10467,
+  "desktopBrowser": "Chromium",
+  "actualIphone": false,
+  "pageerrors": [],
+  "storageUnchanged": true
+}

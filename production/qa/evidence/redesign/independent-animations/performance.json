@@ -1,0 +1,36 @@
+{
+  "firstPaintMs": 3.300000000745058,
+  "warmPaintMs": {
+    "median": 0,
+    "p95": 0.20000000298023224,
+    "max": 1
+  },
+  "classicPaintMs": {
+    "median": 0.09999999776482582,
+    "p95": 0.3999999985098839,
+    "max": 2070.599999997765
+  },
+  "longRunRenders": 10000,
+  "longRunMs": 46336.89999999851,
+  "cache": {
+    "clips": 14,
+    "pixels": 23575552,
+    "uppers": 3,
+    "pending": 0,
+    "failures": 0
+  },
+  "jsHeapBefore": 118071549,
+  "jsHeapAfter": 37613389,
+  "animationResources": 36,
+  "coldDevStageReadyMs": 4968.77994299939,
+  "viewport": [
+    390,
+    844
+  ],
+  "dpr": 2,
+  "browser": "desktop Chromium",
+  "canvasSubmissionNotGpuCompletionOrDisplayFps": true,
+  "actualIphone": false,
+  "pageerrors": [],
+  "storageUnchanged": true
+}
