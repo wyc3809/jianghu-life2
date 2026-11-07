@@ -31,12 +31,12 @@ describe('完整姿勢肢體回歸',()=>{
   });
   it('test_appearance_pose_繪製盤坐行走與出招_每次只有一個完整身體不重複畫袖手腿',()=>{
     const body={naturalWidth:4,naturalHeight:4},head={naturalWidth:100,naturalHeight:100,marker:'head'},canvases:unknown[]=[];
-    vi.stubGlobal('document',{createElement:()=>{const canvas={width:4,height:4,marker:'whole-body',getContext:()=>({drawImage(){},getImageData:()=>({data:new Uint8ClampedArray(64)}),putImageData(){}})};canvases.push(canvas);return canvas;}});
+    vi.stubGlobal('document',{createElement:()=>{const canvas={width:4,height:4,marker:'whole-body',getContext:()=>new Proxy({drawImage(){},getImageData:()=>({data:new Uint8ClampedArray(64)}),putImageData(){}},{get:(target,key)=>key in target?target[key as keyof typeof target]:()=>{}})};canvases.push(canvas);return canvas;}});
     const assets={heads:{topknot:head},bodies:{scholar:Object.fromEntries(BODY_FRAMES.map(frame=>[frame,body]))},weapons:{},simplified:false}as unknown as AppearanceAssets;
     const draws:unknown[][]=[];const ctx=new Proxy({drawImage:(...args:unknown[])=>draws.push(args)},{get:(target,key)=>key in target?target[key as keyof typeof target]:()=>{}})as unknown as CanvasRenderingContext2D;
     for(const pose of ['idle','walk','attack','hurt','down','seated']as const){
       draws.length=0;drawAppearance(ctx,assets,a,{x:100,y:400,height:350,pose,time:.2});
-      expect(draws.filter(args=>canvases.includes(args[0]))).toHaveLength(1);expect(draws.filter(args=>args[0]===head)).toHaveLength(1);expect(draws).toHaveLength(2);
+      expect(draws.filter(args=>canvases.includes(args[0]))).toHaveLength(1);expect(draws.filter(args=>args[0]===head)).toHaveLength(0);expect(draws).toHaveLength(1);
     }
   });
 });

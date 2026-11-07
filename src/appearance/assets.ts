@@ -1,3 +1,4 @@
+import { prepareCombatAppearance } from './combat';
 import mapping from './asset-map.json';
 import fallback from './asset-fallback.json';
 import type { BodyFrame } from './pose';
@@ -42,7 +43,7 @@ export function loadAppearanceAssets(): Promise<AppearanceAssets> {
   return pending;
 }
 
-/** 進場前準備同身份的連續蒙皮圖集；失圖沿用同身份完整後備，不改存檔。 */
+/** 進場前預合成舊版完整姿勢；失圖沿用同身份後備，不改存檔。 */
 export async function prepareAppearance(assets:AppearanceAssets,value:unknown):Promise<void> {
-  await assets.spine?.prepare(value,'atlas');
+  prepareCombatAppearance(assets,value);
 }
