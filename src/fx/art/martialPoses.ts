@@ -99,17 +99,18 @@ const effectKeys: Record<MartialFamily, readonly ArtSpriteKey[]> = {
   finger: [], staff: [], whip: [], bow: [], hook: [], halberd: [], flute: [], mechanism: [], dart: [],
 };
 /** 只載當前用到嘅武學；最多保留七門加一門正在切換嘅快取。失敗唔永久快取。 */
-export async function loadMartialAssets(ids: readonly string[]): Promise<Map<string, MartialAsset>> {
+export async function loadMartialAssets(ids: readonly string[],options:{actor?:boolean}={}): Promise<Map<string, MartialAsset>> {
   const entries = await Promise.all([...new Set(ids.map(canonicalSkillId))].filter(id => byId.has(id)).map(async id => {
-    let pending = cache.get(id);
+    const cacheKey=id+':'+(options.actor===false?'fx':'actor');
+    let pending = cache.get(cacheKey);
     if (!pending) {
       pending = (async () => {
         const art = byId.get(id)!;
-        const actor = await image(`${base()}${id}.webp`).then(atlas => ({ atlas, guard: false, scaleId: id }))
+        const actor = options.actor===false?await image(MARTIAL_FALLBACK[art.family]).then(atlas=>({atlas,guard:true,scaleId:MARTIAL_FALLBACK_ART[art.family]})).catch(()=>null):await image(`${base()}${id}.webp`).then(atlas => ({ atlas, guard: false, scaleId: id }))
           .catch(() => image(`${base()}${id}-guard.webp`).then(atlas => ({ atlas, guard: true, scaleId: id }))
             .catch(() => image(MARTIAL_FALLBACK[art.family]).then(atlas => ({ atlas, guard: true, scaleId: MARTIAL_FALLBACK_ART[art.family] })).catch(() => null)));
         if (!actor) return null;
-        const variantNames = art.critRecovery ? ['crit', 'kill'] : art.premium && (art.family === 'internal' || art.family === 'step') ? ['detail'] : [];
+        const variantNames = options.actor===false?[]:art.critRecovery ? ['crit', 'kill'] : art.premium && (art.family === 'internal' || art.family === 'step') ? ['detail'] : [];
         const variantEntries = await Promise.all(variantNames.map(async key =>
           [key, await image(`${base()}${id}-${key}.webp`).catch(() => null)] as const));
         const entries = await Promise.all(effectKeys[art.family].map(async key =>
@@ -118,11 +119,11 @@ export async function loadMartialAssets(ids: readonly string[]): Promise<Map<str
           [key, await image(`${base()}${id}-fx-${key}.webp`).catch(() => null)] as const));
         return { ...actor, identityEffects: Object.fromEntries(identityEntries.filter(([, im]) => im)), variants: Object.fromEntries(variantEntries.filter(([, im]) => im)), effects: Object.fromEntries(entries.filter(([, im]) => im)) };
       })();
-      cache.set(id, pending);
+      cache.set(cacheKey, pending);
       while (cache.size > 8) cache.delete(cache.keys().next().value!);
     }
     const asset = await pending;
-    if (!asset) cache.delete(id);
+    if (!asset) cache.delete(cacheKey);
     return [id, asset] as const;
   }));
   return new Map(entries.filter((e): e is readonly [string, MartialAsset] => e[1] !== null));

@@ -1,0 +1,1702 @@
+{
+  "cases": [
+    {
+      "id": "art_river_fist",
+      "atlas": "art_river_fist.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_river_fist.webp:0",
+        "art_river_fist.webp:1",
+        "art_river_fist.webp:2",
+        "art_river_fist.webp:3",
+        "art_river_fist.webp:4",
+        "art_river_fist.webp:5",
+        "art_river_fist.webp:6",
+        "art_river_fist.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "sl_luohan_fist",
+      "atlas": "sl_luohan_fist.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "sl_luohan_fist.webp:0",
+        "sl_luohan_fist.webp:1",
+        "sl_luohan_fist.webp:2",
+        "sl_luohan_fist.webp:3",
+        "sl_luohan_fist.webp:4",
+        "sl_luohan_fist.webp:5",
+        "sl_luohan_fist.webp:6",
+        "sl_luohan_fist.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "pr_mountain_split",
+      "atlas": "pr_mountain_split.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "pr_mountain_split.webp:0",
+        "pr_mountain_split.webp:1",
+        "pr_mountain_split.webp:2",
+        "pr_mountain_split.webp:3",
+        "pr_mountain_split.webp:4",
+        "pr_mountain_split.webp:5",
+        "pr_mountain_split.webp:6",
+        "pr_mountain_split.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_stone_palm",
+      "atlas": "art_stone_palm.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_stone_palm.webp:0",
+        "art_stone_palm.webp:1",
+        "art_stone_palm.webp:2",
+        "art_stone_palm.webp:3",
+        "art_stone_palm.webp:4",
+        "art_stone_palm.webp:5",
+        "art_stone_palm.webp:6",
+        "art_stone_palm.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_wind_chase",
+      "atlas": "art_wind_chase.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_wind_chase.webp:0",
+        "art_wind_chase.webp:1",
+        "art_wind_chase.webp:2",
+        "art_wind_chase.webp:3",
+        "art_wind_chase.webp:4",
+        "art_wind_chase.webp:5",
+        "art_wind_chase.webp:6",
+        "art_wind_chase.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "tm_flying_needle",
+      "atlas": "tm_flying_needle.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "tm_flying_needle.webp:0",
+        "tm_flying_needle.webp:1",
+        "tm_flying_needle.webp:2",
+        "tm_flying_needle.webp:3",
+        "tm_flying_needle.webp:4",
+        "tm_flying_needle.webp:5",
+        "tm_flying_needle.webp:6",
+        "tm_flying_needle.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_rain_sword",
+      "atlas": "art_rain_sword.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_rain_sword.webp:0",
+        "art_rain_sword.webp:1",
+        "art_rain_sword.webp:2",
+        "art_rain_sword.webp:3",
+        "art_rain_sword.webp:5",
+        "art_rain_sword.webp:6",
+        "art_rain_sword.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "pr_wind_thread",
+      "atlas": "pr_wind_thread.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "pr_wind_thread.webp:0",
+        "pr_wind_thread.webp:1",
+        "pr_wind_thread.webp:2",
+        "pr_wind_thread.webp:3",
+        "pr_wind_thread.webp:4",
+        "pr_wind_thread.webp:5",
+        "pr_wind_thread.webp:6",
+        "pr_wind_thread.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_thunder_blade",
+      "atlas": "art_thunder_blade.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_thunder_blade.webp:0",
+        "art_thunder_blade.webp:1",
+        "art_thunder_blade.webp:2",
+        "art_thunder_blade.webp:3",
+        "art_thunder_blade.webp:4",
+        "art_thunder_blade.webp:5",
+        "art_thunder_blade.webp:6",
+        "art_thunder_blade.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_spear_cloud",
+      "atlas": "art_spear_cloud.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_spear_cloud.webp:0",
+        "art_spear_cloud.webp:1",
+        "art_spear_cloud.webp:2",
+        "art_spear_cloud.webp:3",
+        "art_spear_cloud.webp:4",
+        "art_spear_cloud.webp:5",
+        "art_spear_cloud.webp:6",
+        "art_spear_cloud.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_iron_body",
+      "atlas": "art_iron_body.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_iron_body.webp:0",
+        "art_iron_body.webp:1",
+        "art_iron_body.webp:2",
+        "art_iron_body.webp:3",
+        "art_iron_body.webp:4",
+        "art_iron_body.webp:5",
+        "art_iron_body.webp:6",
+        "art_iron_body.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "pr_diamond_body",
+      "atlas": "pr_diamond_body.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "pr_diamond_body.webp:0",
+        "pr_diamond_body-detail.webp:0",
+        "pr_diamond_body.webp:1",
+        "pr_diamond_body-detail.webp:1",
+        "pr_diamond_body.webp:2",
+        "pr_diamond_body-detail.webp:2",
+        "pr_diamond_body.webp:3",
+        "pr_diamond_body-detail.webp:3",
+        "pr_diamond_body.webp:4",
+        "pr_diamond_body.webp:5",
+        "pr_diamond_body-detail.webp:5",
+        "pr_diamond_body.webp:6",
+        "pr_diamond_body-detail.webp:6",
+        "pr_diamond_body.webp:7",
+        "pr_diamond_body-detail.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "qg_broken_bridge",
+      "atlas": "qg_broken_bridge.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "qg_broken_bridge.webp:0",
+        "qg_broken_bridge.webp:1",
+        "qg_broken_bridge.webp:2",
+        "qg_broken_bridge.webp:3",
+        "qg_broken_bridge.webp:4",
+        "qg_broken_bridge.webp:5",
+        "qg_broken_bridge.webp:6",
+        "qg_broken_bridge.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "pr_cloud_step",
+      "atlas": "pr_cloud_step.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "pr_cloud_step.webp:0",
+        "pr_cloud_step-detail.webp:0",
+        "pr_cloud_step.webp:1",
+        "pr_cloud_step-detail.webp:1",
+        "pr_cloud_step.webp:2",
+        "pr_cloud_step-detail.webp:2",
+        "pr_cloud_step.webp:3",
+        "pr_cloud_step-detail.webp:3",
+        "pr_cloud_step.webp:4",
+        "pr_cloud_step.webp:5",
+        "pr_cloud_step-detail.webp:5",
+        "pr_cloud_step.webp:6",
+        "pr_cloud_step-detail.webp:6",
+        "pr_cloud_step.webp:7",
+        "pr_cloud_step-detail.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_weiqi_trap",
+      "atlas": "art_weiqi_trap.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_weiqi_trap.webp:0",
+        "art_weiqi_trap.webp:1",
+        "art_weiqi_trap.webp:2",
+        "art_weiqi_trap.webp:3",
+        "art_weiqi_trap.webp:4",
+        "art_weiqi_trap.webp:5",
+        "art_weiqi_trap.webp:6",
+        "art_weiqi_trap.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "基礎吐納",
+      "atlas": "基礎吐納.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "基礎吐納.webp:0",
+        "基礎吐納.webp:1",
+        "基礎吐納.webp:2",
+        "基礎吐納.webp:3",
+        "基礎吐納.webp:4",
+        "基礎吐納.webp:5",
+        "基礎吐納.webp:6",
+        "基礎吐納.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_bridge_step",
+      "atlas": "art_bridge_step.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_bridge_step.webp:0",
+        "art_bridge_step.webp:1",
+        "art_bridge_step.webp:2",
+        "art_bridge_step.webp:3",
+        "art_bridge_step.webp:4",
+        "art_bridge_step.webp:5",
+        "art_bridge_step.webp:6",
+        "art_bridge_step.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_tomb_sword",
+      "atlas": "art_tomb_sword.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_tomb_sword.webp:0",
+        "art_tomb_sword.webp:1",
+        "art_tomb_sword.webp:2",
+        "art_tomb_sword.webp:3",
+        "art_tomb_sword.webp:4",
+        "art_tomb_sword.webp:5",
+        "art_tomb_sword.webp:6",
+        "art_tomb_sword.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_lake_breath",
+      "atlas": "art_lake_breath.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_lake_breath.webp:0",
+        "art_lake_breath.webp:1",
+        "art_lake_breath.webp:2",
+        "art_lake_breath.webp:3",
+        "art_lake_breath.webp:4",
+        "art_lake_breath.webp:5",
+        "art_lake_breath.webp:6",
+        "art_lake_breath.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_nine_shadow",
+      "atlas": "art_nine_shadow.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_nine_shadow.webp:0",
+        "art_nine_shadow.webp:1",
+        "art_nine_shadow.webp:2",
+        "art_nine_shadow.webp:3",
+        "art_nine_shadow.webp:4",
+        "art_nine_shadow.webp:5",
+        "art_nine_shadow.webp:6",
+        "art_nine_shadow.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_cold_palm",
+      "atlas": "art_cold_palm.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_cold_palm.webp:0",
+        "art_cold_palm.webp:1",
+        "art_cold_palm.webp:2",
+        "art_cold_palm.webp:3",
+        "art_cold_palm.webp:4",
+        "art_cold_palm.webp:5",
+        "art_cold_palm.webp:6",
+        "art_cold_palm.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_moon_sword",
+      "atlas": "art_moon_sword.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_moon_sword.webp:0",
+        "art_moon_sword.webp:1",
+        "art_moon_sword.webp:2",
+        "art_moon_sword.webp:3",
+        "art_moon_sword.webp:4",
+        "art_moon_sword.webp:5",
+        "art_moon_sword.webp:6",
+        "art_moon_sword.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_void_breath",
+      "atlas": "art_void_breath.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_void_breath.webp:0",
+        "art_void_breath.webp:1",
+        "art_void_breath.webp:2",
+        "art_void_breath.webp:3",
+        "art_void_breath.webp:4",
+        "art_void_breath.webp:5",
+        "art_void_breath.webp:6",
+        "art_void_breath.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_silk_hand",
+      "atlas": "art_silk_hand.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_silk_hand.webp:0",
+        "art_silk_hand.webp:1",
+        "art_silk_hand.webp:2",
+        "art_silk_hand.webp:3",
+        "art_silk_hand.webp:4",
+        "art_silk_hand.webp:5",
+        "art_silk_hand.webp:6",
+        "art_silk_hand.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_hook_silk",
+      "atlas": "art_hook_silk.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_hook_silk.webp:0",
+        "art_hook_silk.webp:1",
+        "art_hook_silk.webp:2",
+        "art_hook_silk.webp:3",
+        "art_hook_silk.webp:4",
+        "art_hook_silk.webp:5",
+        "art_hook_silk.webp:6",
+        "art_hook_silk.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_meteor_palm",
+      "atlas": "art_meteor_palm.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_meteor_palm.webp:0",
+        "art_meteor_palm.webp:1",
+        "art_meteor_palm.webp:2",
+        "art_meteor_palm.webp:3",
+        "art_meteor_palm.webp:4",
+        "art_meteor_palm.webp:5",
+        "art_meteor_palm.webp:6",
+        "art_meteor_palm.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_tiger_breath",
+      "atlas": "art_tiger_breath.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_tiger_breath.webp:0",
+        "art_tiger_breath.webp:1",
+        "art_tiger_breath.webp:2",
+        "art_tiger_breath.webp:3",
+        "art_tiger_breath.webp:4",
+        "art_tiger_breath.webp:5",
+        "art_tiger_breath.webp:6",
+        "art_tiger_breath.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_spring_well",
+      "atlas": "art_spring_well.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_spring_well.webp:0",
+        "art_spring_well.webp:1",
+        "art_spring_well.webp:2",
+        "art_spring_well.webp:3",
+        "art_spring_well.webp:4",
+        "art_spring_well.webp:5",
+        "art_spring_well.webp:6",
+        "art_spring_well.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_shadow_needle",
+      "atlas": "art_shadow_needle.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_shadow_needle.webp:0",
+        "art_shadow_needle.webp:1",
+        "art_shadow_needle.webp:2",
+        "art_shadow_needle.webp:3",
+        "art_shadow_needle.webp:4",
+        "art_shadow_needle.webp:5",
+        "art_shadow_needle.webp:6",
+        "art_shadow_needle.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "qg_snow_track",
+      "atlas": "qg_snow_track.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "qg_snow_track.webp:0",
+        "qg_snow_track.webp:1",
+        "qg_snow_track.webp:2",
+        "qg_snow_track.webp:3",
+        "qg_snow_track.webp:4",
+        "qg_snow_track.webp:5",
+        "qg_snow_track.webp:6",
+        "qg_snow_track.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "qg_swallow_turn",
+      "atlas": "qg_swallow_turn.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "qg_swallow_turn.webp:0",
+        "qg_swallow_turn.webp:1",
+        "qg_swallow_turn.webp:2",
+        "qg_swallow_turn.webp:3",
+        "qg_swallow_turn.webp:4",
+        "qg_swallow_turn.webp:5",
+        "qg_swallow_turn.webp:6",
+        "qg_swallow_turn.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "qg_feiyan",
+      "atlas": "qg_feiyan.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "qg_feiyan.webp:0",
+        "qg_feiyan.webp:1",
+        "qg_feiyan.webp:2",
+        "qg_feiyan.webp:3",
+        "qg_feiyan.webp:4",
+        "qg_feiyan.webp:5",
+        "qg_feiyan.webp:6",
+        "qg_feiyan.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "qg_canopy_void",
+      "atlas": "qg_canopy_void.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "qg_canopy_void.webp:0",
+        "qg_canopy_void.webp:1",
+        "qg_canopy_void.webp:2",
+        "qg_canopy_void.webp:3",
+        "qg_canopy_void.webp:4",
+        "qg_canopy_void.webp:5",
+        "qg_canopy_void.webp:6",
+        "qg_canopy_void.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_staff_iron",
+      "atlas": "art_staff_iron.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_staff_iron.webp:0",
+        "art_staff_iron.webp:1",
+        "art_staff_iron.webp:2",
+        "art_staff_iron.webp:3",
+        "art_staff_iron.webp:4",
+        "art_staff_iron.webp:5",
+        "art_staff_iron.webp:6",
+        "art_staff_iron.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_whip_silk",
+      "atlas": "art_whip_silk.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_whip_silk.webp:0",
+        "art_whip_silk.webp:1",
+        "art_whip_silk.webp:2",
+        "art_whip_silk.webp:3",
+        "art_whip_silk.webp:4",
+        "art_whip_silk.webp:5",
+        "art_whip_silk.webp:6",
+        "art_whip_silk.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_bow_star",
+      "atlas": "art_bow_star.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_bow_star.webp:0",
+        "art_bow_star.webp:1",
+        "art_bow_star.webp:2",
+        "art_bow_star.webp:3",
+        "art_bow_star.webp:4",
+        "art_bow_star.webp:5",
+        "art_bow_star.webp:6",
+        "art_bow_star.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "qg_reed_drift",
+      "atlas": "qg_reed_drift.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "qg_reed_drift.webp:0",
+        "qg_reed_drift.webp:1",
+        "qg_reed_drift.webp:2",
+        "qg_reed_drift.webp:3",
+        "qg_reed_drift.webp:4",
+        "qg_reed_drift.webp:5",
+        "qg_reed_drift.webp:6",
+        "qg_reed_drift.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "qg_wall_cat",
+      "atlas": "qg_wall_cat.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "qg_wall_cat.webp:0",
+        "qg_wall_cat.webp:1",
+        "qg_wall_cat.webp:2",
+        "qg_wall_cat.webp:3",
+        "qg_wall_cat.webp:4",
+        "qg_wall_cat.webp:5",
+        "qg_wall_cat.webp:6",
+        "qg_wall_cat.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_sand_palm",
+      "atlas": "art_sand_palm.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_sand_palm.webp:0",
+        "art_sand_palm.webp:1",
+        "art_sand_palm.webp:2",
+        "art_sand_palm.webp:3",
+        "art_sand_palm.webp:4",
+        "art_sand_palm.webp:5",
+        "art_sand_palm.webp:6",
+        "art_sand_palm.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "jy_ash_manual",
+      "atlas": "jy_ash_manual.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "jy_ash_manual.webp:0",
+        "jy_ash_manual.webp:1",
+        "jy_ash_manual.webp:2",
+        "jy_ash_manual.webp:3",
+        "jy_ash_manual.webp:4",
+        "jy_ash_manual.webp:5",
+        "jy_ash_manual.webp:6",
+        "jy_ash_manual.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_mirror_breath",
+      "atlas": "art_mirror_breath.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_mirror_breath.webp:0",
+        "art_mirror_breath.webp:1",
+        "art_mirror_breath.webp:2",
+        "art_mirror_breath.webp:3",
+        "art_mirror_breath.webp:4",
+        "art_mirror_breath.webp:5",
+        "art_mirror_breath.webp:6",
+        "art_mirror_breath.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "qg_lotus_steps",
+      "atlas": "qg_lotus_steps.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "qg_lotus_steps.webp:0",
+        "qg_lotus_steps.webp:1",
+        "qg_lotus_steps.webp:2",
+        "qg_lotus_steps.webp:3",
+        "qg_lotus_steps.webp:4",
+        "qg_lotus_steps.webp:5",
+        "qg_lotus_steps.webp:6",
+        "qg_lotus_steps.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_heavy_halberd",
+      "atlas": "art_heavy_halberd.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_heavy_halberd.webp:0",
+        "art_heavy_halberd.webp:1",
+        "art_heavy_halberd.webp:2",
+        "art_heavy_halberd.webp:3",
+        "art_heavy_halberd.webp:4",
+        "art_heavy_halberd.webp:5",
+        "art_heavy_halberd.webp:6",
+        "art_heavy_halberd.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "qy_cloud_sword",
+      "atlas": "qy_cloud_sword.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "qy_cloud_sword.webp:0",
+        "qy_cloud_sword.webp:1",
+        "qy_cloud_sword.webp:2",
+        "qy_cloud_sword.webp:3",
+        "qy_cloud_sword.webp:4",
+        "qy_cloud_sword.webp:5",
+        "qy_cloud_sword.webp:6",
+        "qy_cloud_sword.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "qy_mist_step",
+      "atlas": "qy_mist_step.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "qy_mist_step.webp:0",
+        "qy_mist_step.webp:1",
+        "qy_mist_step.webp:2",
+        "qy_mist_step.webp:3",
+        "qy_mist_step.webp:4",
+        "qy_mist_step.webp:5",
+        "qy_mist_step.webp:6",
+        "qy_mist_step.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "qy_piercing_needle",
+      "atlas": "qy_piercing_needle.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "qy_piercing_needle.webp:0",
+        "qy_piercing_needle.webp:1",
+        "qy_piercing_needle.webp:2",
+        "qy_piercing_needle.webp:3",
+        "qy_piercing_needle.webp:5",
+        "qy_piercing_needle.webp:6",
+        "qy_piercing_needle.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "qy_sky_intent",
+      "atlas": "qy_sky_intent.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "qy_sky_intent.webp:0",
+        "qy_sky_intent.webp:1",
+        "qy_sky_intent.webp:2",
+        "qy_sky_intent.webp:3",
+        "qy_sky_intent.webp:4",
+        "qy_sky_intent.webp:5",
+        "qy_sky_intent.webp:6",
+        "qy_sky_intent.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "td_open_blade",
+      "atlas": "td_open_blade.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "td_open_blade.webp:0",
+        "td_open_blade.webp:1",
+        "td_open_blade.webp:2",
+        "td_open_blade.webp:3",
+        "td_open_blade.webp:4",
+        "td_open_blade.webp:5",
+        "td_open_blade.webp:6",
+        "td_open_blade.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "td_wind_slash",
+      "atlas": "td_wind_slash.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "td_wind_slash.webp:0",
+        "td_wind_slash.webp:1",
+        "td_wind_slash.webp:2",
+        "td_wind_slash.webp:3",
+        "td_wind_slash.webp:4",
+        "td_wind_slash.webp:5",
+        "td_wind_slash.webp:6",
+        "td_wind_slash.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "td_thunder_combo",
+      "atlas": "td_thunder_combo.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "td_thunder_combo.webp:0",
+        "td_thunder_combo.webp:1",
+        "td_thunder_combo.webp:2",
+        "td_thunder_combo.webp:3",
+        "td_thunder_combo.webp:4",
+        "td_thunder_combo.webp:5",
+        "td_thunder_combo.webp:6",
+        "td_thunder_combo.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "td_no_return",
+      "atlas": "td_no_return.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "td_no_return.webp:0",
+        "td_no_return.webp:1",
+        "td_no_return.webp:2",
+        "td_no_return.webp:3",
+        "td_no_return.webp:5",
+        "td_no_return.webp:6",
+        "td_no_return.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "em_soft_palm",
+      "atlas": "em_soft_palm.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "em_soft_palm.webp:0",
+        "em_soft_palm.webp:1",
+        "em_soft_palm.webp:2",
+        "em_soft_palm.webp:3",
+        "em_soft_palm.webp:4",
+        "em_soft_palm.webp:5",
+        "em_soft_palm.webp:6",
+        "em_soft_palm.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "em_silk_wrap",
+      "atlas": "em_silk_wrap.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "em_silk_wrap.webp:0",
+        "em_silk_wrap.webp:1",
+        "em_silk_wrap.webp:2",
+        "em_silk_wrap.webp:3",
+        "em_silk_wrap.webp:4",
+        "em_silk_wrap.webp:5",
+        "em_silk_wrap.webp:6",
+        "em_silk_wrap.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "em_golden_palm",
+      "atlas": "em_golden_palm.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "em_golden_palm.webp:0",
+        "em_golden_palm.webp:1",
+        "em_golden_palm.webp:2",
+        "em_golden_palm.webp:3",
+        "em_golden_palm.webp:4",
+        "em_golden_palm.webp:5",
+        "em_golden_palm.webp:6",
+        "em_golden_palm.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "em_heart_breath",
+      "atlas": "em_heart_breath.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "em_heart_breath.webp:0",
+        "em_heart_breath.webp:1",
+        "em_heart_breath.webp:2",
+        "em_heart_breath.webp:3",
+        "em_heart_breath.webp:4",
+        "em_heart_breath.webp:5",
+        "em_heart_breath.webp:6",
+        "em_heart_breath.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "sl_weituo",
+      "atlas": "sl_weituo.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "sl_weituo.webp:0",
+        "sl_weituo.webp:1",
+        "sl_weituo.webp:2",
+        "sl_weituo.webp:3",
+        "sl_weituo.webp:4",
+        "sl_weituo.webp:5",
+        "sl_weituo.webp:6",
+        "sl_weituo.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "sl_iron_shirt",
+      "atlas": "sl_iron_shirt.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "sl_iron_shirt.webp:0",
+        "sl_iron_shirt.webp:1",
+        "sl_iron_shirt.webp:2",
+        "sl_iron_shirt.webp:3",
+        "sl_iron_shirt.webp:4",
+        "sl_iron_shirt.webp:5",
+        "sl_iron_shirt.webp:6",
+        "sl_iron_shirt.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "sl_yijin",
+      "atlas": "sl_yijin.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "sl_yijin.webp:0",
+        "sl_yijin.webp:1",
+        "sl_yijin.webp:2",
+        "sl_yijin.webp:3",
+        "sl_yijin.webp:4",
+        "sl_yijin.webp:5",
+        "sl_yijin.webp:6",
+        "sl_yijin.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "wd_sword_form",
+      "atlas": "wd_sword_form.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "wd_sword_form.webp:0",
+        "wd_sword_form.webp:1",
+        "wd_sword_form.webp:2",
+        "wd_sword_form.webp:3",
+        "wd_sword_form.webp:4",
+        "wd_sword_form.webp:5",
+        "wd_sword_form.webp:6",
+        "wd_sword_form.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "wd_tai_push",
+      "atlas": "wd_tai_push.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "wd_tai_push.webp:0",
+        "wd_tai_push.webp:1",
+        "wd_tai_push.webp:2",
+        "wd_tai_push.webp:3",
+        "wd_tai_push.webp:4",
+        "wd_tai_push.webp:5",
+        "wd_tai_push.webp:6",
+        "wd_tai_push.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "wd_pure_yang",
+      "atlas": "wd_pure_yang.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "wd_pure_yang.webp:0",
+        "wd_pure_yang.webp:1",
+        "wd_pure_yang.webp:2",
+        "wd_pure_yang.webp:3",
+        "wd_pure_yang.webp:4",
+        "wd_pure_yang.webp:5",
+        "wd_pure_yang.webp:6",
+        "wd_pure_yang.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "wd_wuji_sword",
+      "atlas": "wd_wuji_sword.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "wd_wuji_sword.webp:0",
+        "wd_wuji_sword.webp:1",
+        "wd_wuji_sword.webp:2",
+        "wd_wuji_sword.webp:3",
+        "wd_wuji_sword.webp:4",
+        "wd_wuji_sword.webp:5",
+        "wd_wuji_sword.webp:6",
+        "wd_wuji_sword.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "tm_shadow_step",
+      "atlas": "tm_shadow_step.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "tm_shadow_step.webp:0",
+        "tm_shadow_step.webp:1",
+        "tm_shadow_step.webp:2",
+        "tm_shadow_step.webp:3",
+        "tm_shadow_step.webp:4",
+        "tm_shadow_step.webp:5",
+        "tm_shadow_step.webp:6",
+        "tm_shadow_step.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "tm_poison_dart",
+      "atlas": "tm_poison_dart.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "tm_poison_dart.webp:0",
+        "tm_poison_dart.webp:1",
+        "tm_poison_dart.webp:2",
+        "tm_poison_dart.webp:3",
+        "tm_poison_dart.webp:4",
+        "tm_poison_dart.webp:5",
+        "tm_poison_dart.webp:6",
+        "tm_poison_dart.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "tm_thousand_mech",
+      "atlas": "tm_thousand_mech.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "tm_thousand_mech.webp:0",
+        "tm_thousand_mech.webp:1",
+        "tm_thousand_mech.webp:2",
+        "tm_thousand_mech.webp:3",
+        "tm_thousand_mech.webp:4",
+        "tm_thousand_mech.webp:5",
+        "tm_thousand_mech.webp:6",
+        "tm_thousand_mech.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "mj_blood_palm",
+      "atlas": "mj_blood_palm.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "mj_blood_palm.webp:0",
+        "mj_blood_palm.webp:1",
+        "mj_blood_palm.webp:2",
+        "mj_blood_palm.webp:3",
+        "mj_blood_palm.webp:4",
+        "mj_blood_palm.webp:5",
+        "mj_blood_palm.webp:6",
+        "mj_blood_palm.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "mj_devil_breath",
+      "atlas": "mj_devil_breath.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "mj_devil_breath.webp:0",
+        "mj_devil_breath.webp:1",
+        "mj_devil_breath.webp:2",
+        "mj_devil_breath.webp:3",
+        "mj_devil_breath.webp:4",
+        "mj_devil_breath.webp:5",
+        "mj_devil_breath.webp:6",
+        "mj_devil_breath.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "mj_soul_drain",
+      "atlas": "mj_soul_drain.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "mj_soul_drain.webp:0",
+        "mj_soul_drain.webp:1",
+        "mj_soul_drain.webp:2",
+        "mj_soul_drain.webp:3",
+        "mj_soul_drain.webp:4",
+        "mj_soul_drain.webp:5",
+        "mj_soul_drain.webp:6",
+        "mj_soul_drain.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "mj_asura_slash",
+      "atlas": "mj_asura_slash.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "mj_asura_slash.webp:0",
+        "mj_asura_slash.webp:1",
+        "mj_asura_slash.webp:2",
+        "mj_asura_slash.webp:3",
+        "mj_asura_slash.webp:4",
+        "mj_asura_slash.webp:5",
+        "mj_asura_slash.webp:6",
+        "mj_asura_slash.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "hs_pine_sword",
+      "atlas": "hs_pine_sword.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "hs_pine_sword.webp:0",
+        "hs_pine_sword.webp:1",
+        "hs_pine_sword.webp:2",
+        "hs_pine_sword.webp:3",
+        "hs_pine_sword.webp:4",
+        "hs_pine_sword.webp:5",
+        "hs_pine_sword.webp:6",
+        "hs_pine_sword.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "hs_cloud_step",
+      "atlas": "hs_cloud_step.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "hs_cloud_step.webp:0",
+        "hs_cloud_step.webp:1",
+        "hs_cloud_step.webp:2",
+        "hs_cloud_step.webp:3",
+        "hs_cloud_step.webp:4",
+        "hs_cloud_step.webp:5",
+        "hs_cloud_step.webp:6",
+        "hs_cloud_step.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "hs_split_peak",
+      "atlas": "hs_split_peak.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "hs_split_peak.webp:0",
+        "hs_split_peak.webp:1",
+        "hs_split_peak.webp:2",
+        "hs_split_peak.webp:3",
+        "hs_split_peak.webp:5",
+        "hs_split_peak.webp:6",
+        "hs_split_peak.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "hs_yue_breath",
+      "atlas": "hs_yue_breath.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "hs_yue_breath.webp:0",
+        "hs_yue_breath.webp:1",
+        "hs_yue_breath.webp:2",
+        "hs_yue_breath.webp:3",
+        "hs_yue_breath.webp:4",
+        "hs_yue_breath.webp:5",
+        "hs_yue_breath.webp:6",
+        "hs_yue_breath.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_drunken_fist",
+      "atlas": "art_drunken_fist.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_drunken_fist.webp:0",
+        "art_drunken_fist.webp:1",
+        "art_drunken_fist.webp:2",
+        "art_drunken_fist.webp:3",
+        "art_drunken_fist.webp:4",
+        "art_drunken_fist.webp:5",
+        "art_drunken_fist.webp:6",
+        "art_drunken_fist.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "th_finger_flick",
+      "atlas": "th_finger_flick.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "th_finger_flick.webp:0",
+        "th_finger_flick.webp:1",
+        "th_finger_flick.webp:2",
+        "th_finger_flick.webp:3",
+        "th_finger_flick.webp:4",
+        "th_finger_flick.webp:5",
+        "th_finger_flick.webp:6",
+        "th_finger_flick.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "th_flute_sword",
+      "atlas": "th_flute_sword.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "th_flute_sword.webp:0",
+        "th_flute_sword.webp:1",
+        "th_flute_sword.webp:2",
+        "th_flute_sword.webp:3",
+        "th_flute_sword.webp:4",
+        "th_flute_sword.webp:5",
+        "th_flute_sword.webp:6",
+        "th_flute_sword.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "th_falling_petals",
+      "atlas": "th_falling_petals.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "th_falling_petals.webp:0",
+        "th_falling_petals.webp:1",
+        "th_falling_petals.webp:2",
+        "th_falling_petals.webp:3",
+        "th_falling_petals.webp:4",
+        "th_falling_petals.webp:5",
+        "th_falling_petals.webp:6",
+        "th_falling_petals.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "th_qimen_array",
+      "atlas": "th_qimen_array.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "th_qimen_array.webp:0",
+        "th_qimen_array.webp:1",
+        "th_qimen_array.webp:2",
+        "th_qimen_array.webp:3",
+        "th_qimen_array.webp:4",
+        "th_qimen_array.webp:5",
+        "th_qimen_array.webp:6",
+        "th_qimen_array.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "wg_embroidery_needle",
+      "atlas": "wg_embroidery_needle.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "wg_embroidery_needle.webp:0",
+        "wg_embroidery_needle.webp:1",
+        "wg_embroidery_needle.webp:2",
+        "wg_embroidery_needle.webp:3",
+        "wg_embroidery_needle.webp:4",
+        "wg_embroidery_needle.webp:5",
+        "wg_embroidery_needle.webp:6",
+        "wg_embroidery_needle.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "wg_silent_step",
+      "atlas": "wg_silent_step.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "wg_silent_step.webp:0",
+        "wg_silent_step.webp:1",
+        "wg_silent_step.webp:2",
+        "wg_silent_step.webp:3",
+        "wg_silent_step.webp:4",
+        "wg_silent_step.webp:5",
+        "wg_silent_step.webp:6",
+        "wg_silent_step.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "wg_yin_soft_palm",
+      "atlas": "wg_yin_soft_palm.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "wg_yin_soft_palm.webp:0",
+        "wg_yin_soft_palm.webp:1",
+        "wg_yin_soft_palm.webp:2",
+        "wg_yin_soft_palm.webp:3",
+        "wg_yin_soft_palm.webp:4",
+        "wg_yin_soft_palm.webp:5",
+        "wg_yin_soft_palm.webp:6",
+        "wg_yin_soft_palm.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "wg_root_severed_creed",
+      "atlas": "wg_root_severed_creed.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "wg_root_severed_creed.webp:0",
+        "wg_root_severed_creed.webp:1",
+        "wg_root_severed_creed.webp:2",
+        "wg_root_severed_creed.webp:3",
+        "wg_root_severed_creed.webp:4",
+        "wg_root_severed_creed.webp:5",
+        "wg_root_severed_creed.webp:6",
+        "wg_root_severed_creed.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_guqin_song",
+      "atlas": "art_guqin_song.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_guqin_song.webp:0",
+        "art_guqin_song.webp:1",
+        "art_guqin_song.webp:2",
+        "art_guqin_song.webp:3",
+        "art_guqin_song.webp:4",
+        "art_guqin_song.webp:5",
+        "art_guqin_song.webp:6",
+        "art_guqin_song.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_poetry_sword",
+      "atlas": "art_poetry_sword.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_poetry_sword.webp:0",
+        "art_poetry_sword.webp:1",
+        "art_poetry_sword.webp:2",
+        "art_poetry_sword.webp:3",
+        "art_poetry_sword.webp:4",
+        "art_poetry_sword.webp:5",
+        "art_poetry_sword.webp:6",
+        "art_poetry_sword.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_ink_illusion",
+      "atlas": "art_ink_illusion.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_ink_illusion.webp:0",
+        "art_ink_illusion.webp:1",
+        "art_ink_illusion.webp:2",
+        "art_ink_illusion.webp:3",
+        "art_ink_illusion.webp:4",
+        "art_ink_illusion.webp:5",
+        "art_ink_illusion.webp:6",
+        "art_ink_illusion.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_buddha_heart",
+      "atlas": "art_buddha_heart.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_buddha_heart.webp:0",
+        "art_buddha_heart.webp:1",
+        "art_buddha_heart.webp:2",
+        "art_buddha_heart.webp:3",
+        "art_buddha_heart.webp:4",
+        "art_buddha_heart.webp:5",
+        "art_buddha_heart.webp:6",
+        "art_buddha_heart.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_dao_breath",
+      "atlas": "art_dao_breath.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_dao_breath.webp:0",
+        "art_dao_breath.webp:1",
+        "art_dao_breath.webp:2",
+        "art_dao_breath.webp:3",
+        "art_dao_breath.webp:4",
+        "art_dao_breath.webp:5",
+        "art_dao_breath.webp:6",
+        "art_dao_breath.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "art_heretic_scripture",
+      "atlas": "art_heretic_scripture.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "art_heretic_scripture.webp:0",
+        "art_heretic_scripture.webp:1",
+        "art_heretic_scripture.webp:2",
+        "art_heretic_scripture.webp:3",
+        "art_heretic_scripture.webp:4",
+        "art_heretic_scripture.webp:5",
+        "art_heretic_scripture.webp:6",
+        "art_heretic_scripture.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "pr_blood_lotus",
+      "atlas": "pr_blood_lotus.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "pr_blood_lotus.webp:0",
+        "pr_blood_lotus.webp:1",
+        "pr_blood_lotus.webp:2",
+        "pr_blood_lotus.webp:3",
+        "pr_blood_lotus.webp:4",
+        "pr_blood_lotus.webp:5",
+        "pr_blood_lotus.webp:6",
+        "pr_blood_lotus.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "pr_crimson_moon",
+      "atlas": "pr_crimson_moon.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "pr_crimson_moon.webp:0",
+        "pr_crimson_moon.webp:1",
+        "pr_crimson_moon.webp:2",
+        "pr_crimson_moon.webp:3",
+        "pr_crimson_moon.webp:4",
+        "pr_crimson_moon.webp:5",
+        "pr_crimson_moon.webp:6",
+        "pr_crimson_moon.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "pr_nine_chain",
+      "atlas": "pr_nine_chain.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "pr_nine_chain.webp:0",
+        "pr_nine_chain.webp:1",
+        "pr_nine_chain.webp:2",
+        "pr_nine_chain.webp:3",
+        "pr_nine_chain.webp:4",
+        "pr_nine_chain.webp:5",
+        "pr_nine_chain.webp:6",
+        "pr_nine_chain.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "pr_heaven_spear",
+      "atlas": "pr_heaven_spear.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "pr_heaven_spear.webp:0",
+        "pr_heaven_spear.webp:1",
+        "pr_heaven_spear.webp:2",
+        "pr_heaven_spear.webp:3",
+        "pr_heaven_spear.webp:4",
+        "pr_heaven_spear.webp:5",
+        "pr_heaven_spear.webp:6",
+        "pr_heaven_spear.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "pr_soul_lock",
+      "atlas": "pr_soul_lock.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "pr_soul_lock.webp:0",
+        "pr_soul_lock.webp:1",
+        "pr_soul_lock.webp:2",
+        "pr_soul_lock.webp:3",
+        "pr_soul_lock.webp:5",
+        "pr_soul_lock.webp:6",
+        "pr_soul_lock.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "pr_mist_blind",
+      "atlas": "pr_mist_blind.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "pr_mist_blind.webp:0",
+        "pr_mist_blind.webp:1",
+        "pr_mist_blind.webp:2",
+        "pr_mist_blind.webp:3",
+        "pr_mist_blind.webp:4",
+        "pr_mist_blind.webp:5",
+        "pr_mist_blind.webp:6",
+        "pr_mist_blind.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "pr_vajra_palm",
+      "atlas": "pr_vajra_palm.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "pr_vajra_palm.webp:0",
+        "pr_vajra_palm.webp:1",
+        "pr_vajra_palm.webp:2",
+        "pr_vajra_palm.webp:3",
+        "pr_vajra_palm.webp:5",
+        "pr_vajra_palm.webp:6",
+        "pr_vajra_palm.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "pr_floating_blade",
+      "atlas": "pr_floating_blade.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "pr_floating_blade.webp:0",
+        "pr_floating_blade.webp:1",
+        "pr_floating_blade.webp:2",
+        "pr_floating_blade.webp:3",
+        "pr_floating_blade.webp:4",
+        "pr_floating_blade.webp:5",
+        "pr_floating_blade.webp:6",
+        "pr_floating_blade.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "pr_star_fall",
+      "atlas": "pr_star_fall.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "pr_star_fall.webp:0",
+        "pr_star_fall.webp:1",
+        "pr_star_fall.webp:2",
+        "pr_star_fall.webp:3",
+        "pr_star_fall.webp:4",
+        "pr_star_fall.webp:5",
+        "pr_star_fall.webp:6",
+        "pr_star_fall.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "pr_blood_sea",
+      "atlas": "pr_blood_sea.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "pr_blood_sea.webp:0",
+        "pr_blood_sea-detail.webp:0",
+        "pr_blood_sea.webp:1",
+        "pr_blood_sea.webp:2",
+        "pr_blood_sea-detail.webp:2",
+        "pr_blood_sea-detail.webp:3",
+        "pr_blood_sea.webp:4",
+        "pr_blood_sea-detail.webp:4",
+        "pr_blood_sea.webp:5",
+        "pr_blood_sea-detail.webp:5",
+        "pr_blood_sea.webp:6",
+        "pr_blood_sea-detail.webp:6",
+        "pr_blood_sea.webp:7",
+        "pr_blood_sea-detail.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "pr_thunder_heart",
+      "atlas": "pr_thunder_heart.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "pr_thunder_heart.webp:0",
+        "pr_thunder_heart-detail.webp:0",
+        "pr_thunder_heart.webp:1",
+        "pr_thunder_heart.webp:2",
+        "pr_thunder_heart-detail.webp:2",
+        "pr_thunder_heart-detail.webp:3",
+        "pr_thunder_heart.webp:4",
+        "pr_thunder_heart-detail.webp:4",
+        "pr_thunder_heart.webp:5",
+        "pr_thunder_heart-detail.webp:5",
+        "pr_thunder_heart.webp:6",
+        "pr_thunder_heart-detail.webp:6",
+        "pr_thunder_heart.webp:7",
+        "pr_thunder_heart-detail.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "pr_seal_meridian",
+      "atlas": "pr_seal_meridian.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "pr_seal_meridian.webp:0",
+        "pr_seal_meridian-detail.webp:0",
+        "pr_seal_meridian.webp:1",
+        "pr_seal_meridian.webp:2",
+        "pr_seal_meridian-detail.webp:2",
+        "pr_seal_meridian-detail.webp:3",
+        "pr_seal_meridian.webp:4",
+        "pr_seal_meridian-detail.webp:4",
+        "pr_seal_meridian.webp:5",
+        "pr_seal_meridian-detail.webp:5",
+        "pr_seal_meridian.webp:6",
+        "pr_seal_meridian-detail.webp:6",
+        "pr_seal_meridian.webp:7",
+        "pr_seal_meridian-detail.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "pr_void_breath",
+      "atlas": "pr_void_breath.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "pr_void_breath.webp:0",
+        "pr_void_breath-detail.webp:0",
+        "pr_void_breath.webp:1",
+        "pr_void_breath.webp:2",
+        "pr_void_breath-detail.webp:2",
+        "pr_void_breath-detail.webp:3",
+        "pr_void_breath.webp:4",
+        "pr_void_breath-detail.webp:4",
+        "pr_void_breath.webp:5",
+        "pr_void_breath-detail.webp:5",
+        "pr_void_breath.webp:6",
+        "pr_void_breath-detail.webp:6",
+        "pr_void_breath.webp:7",
+        "pr_void_breath-detail.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "pr_shadow_flash",
+      "atlas": "pr_shadow_flash.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "pr_shadow_flash.webp:0",
+        "pr_shadow_flash-detail.webp:0",
+        "pr_shadow_flash.webp:1",
+        "pr_shadow_flash.webp:2",
+        "pr_shadow_flash-detail.webp:2",
+        "pr_shadow_flash-detail.webp:3",
+        "pr_shadow_flash.webp:4",
+        "pr_shadow_flash-detail.webp:4",
+        "pr_shadow_flash.webp:5",
+        "pr_shadow_flash-detail.webp:5",
+        "pr_shadow_flash.webp:6",
+        "pr_shadow_flash-detail.webp:6",
+        "pr_shadow_flash.webp:7",
+        "pr_shadow_flash-detail.webp:7"
+      ],
+      "wardrobePresent": true
+    },
+    {
+      "id": "pr_tide_step",
+      "atlas": "pr_tide_step.webp",
+      "sampledDraws": 16,
+      "sourceCells": [
+        "pr_tide_step.webp:0",
+        "pr_tide_step-detail.webp:0",
+        "pr_tide_step.webp:1",
+        "pr_tide_step.webp:2",
+        "pr_tide_step-detail.webp:2",
+        "pr_tide_step-detail.webp:3",
+        "pr_tide_step.webp:4",
+        "pr_tide_step-detail.webp:4",
+        "pr_tide_step.webp:5",
+        "pr_tide_step-detail.webp:5",
+        "pr_tide_step.webp:6",
+        "pr_tide_step-detail.webp:6",
+        "pr_tide_step.webp:7",
+        "pr_tide_step-detail.webp:7"
+      ],
+      "wardrobePresent": true
+    }
+  ],
+  "families": 19,
+  "formalGameChanged": false,
+  "appearanceCompatible": false,
+  "device": "desktop Chromium",
+  "actualIphone": false,
+  "pageerrors": []
+}

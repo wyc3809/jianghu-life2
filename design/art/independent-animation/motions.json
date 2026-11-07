@@ -1,0 +1,4736 @@
+{
+  "schema": 1,
+  "designHeight": 1533,
+  "poses": {
+    "guard": {
+      "near": [
+        40,
+        -210
+      ],
+      "far": [
+        190,
+        -200
+      ],
+      "hip": [
+        0,
+        -35
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 0,
+      "head": 0,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "rest": {
+      "near": [
+        -162,
+        -434
+      ],
+      "far": [
+        198,
+        -430
+      ],
+      "hip": [
+        0,
+        0
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 0,
+      "head": 0,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "draw": {
+      "near": [
+        -90,
+        -120
+      ],
+      "far": [
+        180,
+        -150
+      ],
+      "hip": [
+        0,
+        -35
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 6,
+      "head": -2,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "draw-deep": {
+      "near": [
+        -140,
+        -140
+      ],
+      "far": [
+        150,
+        -160
+      ],
+      "hip": [
+        -30,
+        -105
+      ],
+      "nearFoot": [
+        -70,
+        0
+      ],
+      "farFoot": [
+        70,
+        0
+      ],
+      "lean": 10,
+      "head": -3,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "punch": {
+      "near": [
+        240,
+        -55
+      ],
+      "far": [
+        100,
+        -230
+      ],
+      "hip": [
+        35,
+        -55
+      ],
+      "nearFoot": [
+        100,
+        0
+      ],
+      "farFoot": [
+        -15,
+        0
+      ],
+      "lean": -9,
+      "head": 2,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "punch-left": {
+      "near": [
+        65,
+        -180
+      ],
+      "far": [
+        460,
+        -55
+      ],
+      "hip": [
+        15,
+        -65
+      ],
+      "nearFoot": [
+        40,
+        0
+      ],
+      "farFoot": [
+        70,
+        0
+      ],
+      "lean": -6,
+      "head": 2,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "punch-long": {
+      "near": [
+        245,
+        -25
+      ],
+      "far": [
+        90,
+        -230
+      ],
+      "hip": [
+        65,
+        -110
+      ],
+      "nearFoot": [
+        140,
+        0
+      ],
+      "farFoot": [
+        -30,
+        0
+      ],
+      "lean": -14,
+      "head": 3,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "punch-short": {
+      "near": [
+        100,
+        -90
+      ],
+      "far": [
+        155,
+        -205
+      ],
+      "hip": [
+        10,
+        -130
+      ],
+      "nearFoot": [
+        -30,
+        0
+      ],
+      "farFoot": [
+        80,
+        0
+      ],
+      "lean": -4,
+      "head": 0,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "uppercut": {
+      "near": [
+        100,
+        180
+      ],
+      "far": [
+        110,
+        -200
+      ],
+      "hip": [
+        10,
+        -65
+      ],
+      "nearFoot": [
+        80,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": -7,
+      "head": 0,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 75,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "elbow": {
+      "near": [
+        -40,
+        -90
+      ],
+      "far": [
+        100,
+        -220
+      ],
+      "hip": [
+        30,
+        -95
+      ],
+      "nearFoot": [
+        100,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": -12,
+      "head": 2,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "backfist": {
+      "near": [
+        210,
+        -120
+      ],
+      "far": [
+        210,
+        -240
+      ],
+      "hip": [
+        -30,
+        -80
+      ],
+      "nearFoot": [
+        -35,
+        0
+      ],
+      "farFoot": [
+        100,
+        0
+      ],
+      "lean": 8,
+      "head": 0,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": -35,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "hammer": {
+      "near": [
+        150,
+        -275
+      ],
+      "far": [
+        90,
+        -150
+      ],
+      "hip": [
+        65,
+        -220
+      ],
+      "nearFoot": [
+        140,
+        0
+      ],
+      "farFoot": [
+        -30,
+        0
+      ],
+      "lean": -15,
+      "head": 0,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "pole-crouch": {
+      "near": [
+        100,
+        -150
+      ],
+      "far": [
+        190,
+        -200
+      ],
+      "hip": [
+        -10,
+        -220
+      ],
+      "nearFoot": [
+        -80,
+        0
+      ],
+      "farFoot": [
+        80,
+        0
+      ],
+      "lean": 10,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "grip",
+      "aim": 10,
+      "two": 250,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "pole-wide": {
+      "near": [
+        180,
+        -120
+      ],
+      "far": [
+        190,
+        -200
+      ],
+      "hip": [
+        -25,
+        -180
+      ],
+      "nearFoot": [
+        -170,
+        0
+      ],
+      "farFoot": [
+        180,
+        0
+      ],
+      "lean": 8,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "grip",
+      "aim": 10,
+      "two": 260,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "cross": {
+      "near": [
+        160,
+        -120
+      ],
+      "far": [
+        -15,
+        -180
+      ],
+      "hip": [
+        0,
+        -100
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 0,
+      "head": 0,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": false
+    },
+    "stagger-left": {
+      "near": [
+        -90,
+        -220
+      ],
+      "far": [
+        220,
+        -310
+      ],
+      "hip": [
+        -60,
+        -115
+      ],
+      "nearFoot": [
+        -90,
+        0
+      ],
+      "farFoot": [
+        -20,
+        0
+      ],
+      "lean": 13,
+      "head": -4,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "stagger-right": {
+      "near": [
+        160,
+        -240
+      ],
+      "far": [
+        310,
+        -240
+      ],
+      "hip": [
+        65,
+        -85
+      ],
+      "nearFoot": [
+        70,
+        0
+      ],
+      "farFoot": [
+        100,
+        0
+      ],
+      "lean": -12,
+      "head": 3,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "palm-low": {
+      "near": [
+        40,
+        -320
+      ],
+      "far": [
+        170,
+        -270
+      ],
+      "hip": [
+        -10,
+        -100
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 0,
+      "head": 0,
+      "hand": "palm",
+      "farHand": "palm",
+      "aim": -70,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "palm-up": {
+      "near": [
+        110,
+        170
+      ],
+      "far": [
+        175,
+        -180
+      ],
+      "hip": [
+        0,
+        -60
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 5,
+      "head": 0,
+      "hand": "palm",
+      "farHand": "palm",
+      "aim": 75,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "palm-front": {
+      "near": [
+        235,
+        -65
+      ],
+      "far": [
+        110,
+        -210
+      ],
+      "hip": [
+        35,
+        -75
+      ],
+      "nearFoot": [
+        100,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": -7,
+      "head": 0,
+      "hand": "palm",
+      "farHand": "palm",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "palm-ground": {
+      "near": [
+        50,
+        -170
+      ],
+      "far": [
+        395,
+        -300
+      ],
+      "hip": [
+        35,
+        -460
+      ],
+      "nearFoot": [
+        -120,
+        0
+      ],
+      "farFoot": [
+        160,
+        0
+      ],
+      "lean": -45,
+      "head": 0,
+      "hand": "palm",
+      "farHand": "palm",
+      "aim": -70,
+      "two": 0,
+      "cloth": 0,
+      "contact": "far",
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "palm-back": {
+      "near": [
+        -85,
+        -160
+      ],
+      "far": [
+        330,
+        -110
+      ],
+      "hip": [
+        -40,
+        -75
+      ],
+      "nearFoot": [
+        -60,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 10,
+      "head": 0,
+      "hand": "palm",
+      "farHand": "palm",
+      "aim": 110,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "palm-double": {
+      "near": [
+        210,
+        -90
+      ],
+      "far": [
+        395,
+        -105
+      ],
+      "hip": [
+        35,
+        -130
+      ],
+      "nearFoot": [
+        110,
+        0
+      ],
+      "farFoot": [
+        50,
+        0
+      ],
+      "lean": -10,
+      "head": 0,
+      "hand": "palm",
+      "farHand": "palm",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "palm-cover": {
+      "near": [
+        20,
+        140
+      ],
+      "far": [
+        175,
+        -160
+      ],
+      "hip": [
+        -10,
+        -60
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 5,
+      "head": 0,
+      "hand": "palm",
+      "farHand": "palm",
+      "aim": 100,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "palm-cross": {
+      "near": [
+        180,
+        -120
+      ],
+      "far": [
+        -20,
+        -170
+      ],
+      "hip": [
+        -10,
+        -85
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 4,
+      "head": 0,
+      "hand": "palm",
+      "farHand": "palm",
+      "aim": 30,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "palm-circle": {
+      "near": [
+        -90,
+        35
+      ],
+      "far": [
+        420,
+        -90
+      ],
+      "hip": [
+        -20,
+        -100
+      ],
+      "nearFoot": [
+        -55,
+        0
+      ],
+      "farFoot": [
+        60,
+        0
+      ],
+      "lean": 6,
+      "head": 0,
+      "hand": "palm",
+      "farHand": "palm",
+      "aim": 120,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "palm-turn": {
+      "near": [
+        180,
+        60
+      ],
+      "far": [
+        70,
+        -220
+      ],
+      "hip": [
+        25,
+        -90
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": -5,
+      "head": 0,
+      "hand": "palm",
+      "farHand": "palm",
+      "aim": 55,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "knee": {
+      "near": [
+        40,
+        -120
+      ],
+      "far": [
+        190,
+        -170
+      ],
+      "hip": [
+        15,
+        -20
+      ],
+      "nearFoot": [
+        170,
+        400
+      ],
+      "farFoot": [
+        -15,
+        0
+      ],
+      "lean": 6,
+      "head": 0,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "kick": {
+      "near": [
+        -60,
+        -170
+      ],
+      "far": [
+        240,
+        -170
+      ],
+      "hip": [
+        -20,
+        -30
+      ],
+      "nearFoot": [
+        665,
+        615
+      ],
+      "farFoot": [
+        -15,
+        0
+      ],
+      "lean": 12,
+      "head": -2,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "kick-far": {
+      "near": [
+        100,
+        -170
+      ],
+      "far": [
+        260,
+        -180
+      ],
+      "hip": [
+        10,
+        -40
+      ],
+      "nearFoot": [
+        -40,
+        0
+      ],
+      "farFoot": [
+        540,
+        510
+      ],
+      "lean": 8,
+      "head": 0,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "sweep": {
+      "near": [
+        150,
+        -110
+      ],
+      "far": [
+        340,
+        -180
+      ],
+      "hip": [
+        -15,
+        -245
+      ],
+      "nearFoot": [
+        510,
+        0
+      ],
+      "farFoot": [
+        -40,
+        0
+      ],
+      "lean": -12,
+      "head": 0,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "crouch": {
+      "near": [
+        -30,
+        -180
+      ],
+      "far": [
+        180,
+        -180
+      ],
+      "hip": [
+        0,
+        -220
+      ],
+      "nearFoot": [
+        -80,
+        0
+      ],
+      "farFoot": [
+        80,
+        0
+      ],
+      "lean": 10,
+      "head": 0,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "step-front": {
+      "near": [
+        50,
+        -210
+      ],
+      "far": [
+        200,
+        -220
+      ],
+      "hip": [
+        50,
+        -60
+      ],
+      "nearFoot": [
+        200,
+        90
+      ],
+      "farFoot": [
+        -20,
+        0
+      ],
+      "lean": -4,
+      "head": 0,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "step-back": {
+      "near": [
+        10,
+        -180
+      ],
+      "far": [
+        210,
+        -230
+      ],
+      "hip": [
+        -70,
+        -70
+      ],
+      "nearFoot": [
+        -90,
+        0
+      ],
+      "farFoot": [
+        -60,
+        80
+      ],
+      "lean": 5,
+      "head": 0,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "step-cross": {
+      "near": [
+        120,
+        -230
+      ],
+      "far": [
+        220,
+        -150
+      ],
+      "hip": [
+        25,
+        -110
+      ],
+      "nearFoot": [
+        220,
+        80
+      ],
+      "farFoot": [
+        -130,
+        0
+      ],
+      "lean": -5,
+      "head": 0,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "step-wide": {
+      "near": [
+        -40,
+        -170
+      ],
+      "far": [
+        310,
+        -180
+      ],
+      "hip": [
+        -25,
+        -180
+      ],
+      "nearFoot": [
+        -170,
+        0
+      ],
+      "farFoot": [
+        180,
+        0
+      ],
+      "lean": 8,
+      "head": 0,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "step-high": {
+      "near": [
+        120,
+        30
+      ],
+      "far": [
+        200,
+        -140
+      ],
+      "hip": [
+        0,
+        -15
+      ],
+      "nearFoot": [
+        280,
+        530
+      ],
+      "farFoot": [
+        -15,
+        0
+      ],
+      "lean": 4,
+      "head": 0,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "step-fold": {
+      "near": [
+        30,
+        -110
+      ],
+      "far": [
+        200,
+        -165
+      ],
+      "hip": [
+        -20,
+        -225
+      ],
+      "nearFoot": [
+        250,
+        270
+      ],
+      "farFoot": [
+        -20,
+        0
+      ],
+      "lean": 13,
+      "head": 0,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "step-tip": {
+      "near": [
+        20,
+        -170
+      ],
+      "far": [
+        220,
+        -230
+      ],
+      "hip": [
+        0,
+        40
+      ],
+      "nearFoot": [
+        50,
+        80
+      ],
+      "farFoot": [
+        0,
+        65
+      ],
+      "lean": -2,
+      "head": 0,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "step-side": {
+      "near": [
+        -90,
+        -140
+      ],
+      "far": [
+        320,
+        -210
+      ],
+      "hip": [
+        -65,
+        -90
+      ],
+      "nearFoot": [
+        -180,
+        0
+      ],
+      "farFoot": [
+        100,
+        0
+      ],
+      "lean": 11,
+      "head": 0,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "shoulder": {
+      "near": [
+        -50,
+        -160
+      ],
+      "far": [
+        130,
+        -190
+      ],
+      "hip": [
+        80,
+        -150
+      ],
+      "nearFoot": [
+        230,
+        0
+      ],
+      "farFoot": [
+        -20,
+        0
+      ],
+      "lean": -18,
+      "head": 0,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": false,
+      "farHandSpecified": false
+    },
+    "weapon-guard": {
+      "near": [
+        40,
+        -160
+      ],
+      "far": [
+        190,
+        -220
+      ],
+      "hip": [
+        0,
+        -35
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 0,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "fist",
+      "aim": 30,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": false
+    },
+    "weapon-low": {
+      "near": [
+        60,
+        -290
+      ],
+      "far": [
+        190,
+        -190
+      ],
+      "hip": [
+        -30,
+        -80
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 4,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "fist",
+      "aim": -55,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": false
+    },
+    "weapon-draw": {
+      "near": [
+        -100,
+        -120
+      ],
+      "far": [
+        200,
+        -200
+      ],
+      "hip": [
+        0,
+        -35
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 7,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "fist",
+      "aim": 120,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": false
+    },
+    "weapon-high": {
+      "near": [
+        80,
+        220
+      ],
+      "far": [
+        190,
+        -210
+      ],
+      "hip": [
+        -20,
+        -65
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 6,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "fist",
+      "aim": 75,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": false
+    },
+    "stab": {
+      "near": [
+        240,
+        -60
+      ],
+      "far": [
+        100,
+        -230
+      ],
+      "hip": [
+        45,
+        -90
+      ],
+      "nearFoot": [
+        140,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": -8,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": false
+    },
+    "stab-recoil": {
+      "near": [
+        120,
+        -65
+      ],
+      "far": [
+        110,
+        -220
+      ],
+      "hip": [
+        25,
+        -70
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": -4,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": false
+    },
+    "stab-high": {
+      "near": [
+        210,
+        65
+      ],
+      "far": [
+        100,
+        -220
+      ],
+      "hip": [
+        30,
+        -75
+      ],
+      "nearFoot": [
+        100,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": -6,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "fist",
+      "aim": 20,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": false
+    },
+    "stab-low": {
+      "near": [
+        180,
+        -245
+      ],
+      "far": [
+        150,
+        -150
+      ],
+      "hip": [
+        55,
+        -150
+      ],
+      "nearFoot": [
+        140,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": -13,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "fist",
+      "aim": -35,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": false
+    },
+    "slash-down": {
+      "near": [
+        145,
+        -300
+      ],
+      "far": [
+        170,
+        -140
+      ],
+      "hip": [
+        55,
+        -150
+      ],
+      "nearFoot": [
+        140,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": -14,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "fist",
+      "aim": -65,
+      "two": 0,
+      "cloth": -6,
+      "handSpecified": true,
+      "farHandSpecified": false
+    },
+    "slash-up": {
+      "near": [
+        160,
+        130
+      ],
+      "far": [
+        180,
+        -230
+      ],
+      "hip": [
+        35,
+        -70
+      ],
+      "nearFoot": [
+        110,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": -6,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "fist",
+      "aim": 60,
+      "two": 0,
+      "cloth": 5,
+      "handSpecified": true,
+      "farHandSpecified": false
+    },
+    "slash-level": {
+      "near": [
+        220,
+        -140
+      ],
+      "far": [
+        170,
+        -230
+      ],
+      "hip": [
+        -25,
+        -95
+      ],
+      "nearFoot": [
+        -45,
+        0
+      ],
+      "farFoot": [
+        110,
+        0
+      ],
+      "lean": 6,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "fist",
+      "aim": -10,
+      "two": 0,
+      "cloth": 8,
+      "handSpecified": true,
+      "farHandSpecified": false
+    },
+    "parry": {
+      "near": [
+        -80,
+        70
+      ],
+      "far": [
+        200,
+        -170
+      ],
+      "hip": [
+        -45,
+        -60
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 10,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "fist",
+      "aim": 115,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": false
+    },
+    "blade-settle": {
+      "near": [
+        -60,
+        -180
+      ],
+      "far": [
+        190,
+        -200
+      ],
+      "hip": [
+        -15,
+        -65
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 4,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "grip",
+      "aim": 90,
+      "two": 140,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "blade-raise": {
+      "near": [
+        80,
+        220
+      ],
+      "far": [
+        190,
+        -200
+      ],
+      "hip": [
+        -25,
+        -100
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 8,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "grip",
+      "aim": 75,
+      "two": 140,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "blade-heavy": {
+      "near": [
+        150,
+        -275
+      ],
+      "far": [
+        190,
+        -200
+      ],
+      "hip": [
+        65,
+        -190
+      ],
+      "nearFoot": [
+        180,
+        0
+      ],
+      "farFoot": [
+        -30,
+        0
+      ],
+      "lean": -15,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "grip",
+      "aim": -65,
+      "two": 130,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "pole-guard": {
+      "near": [
+        150,
+        -120
+      ],
+      "far": [
+        190,
+        -200
+      ],
+      "hip": [
+        0,
+        -85
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 0,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "grip",
+      "aim": 10,
+      "two": 260,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "pole-draw": {
+      "near": [
+        20,
+        -150
+      ],
+      "far": [
+        190,
+        -200
+      ],
+      "hip": [
+        -50,
+        -110
+      ],
+      "nearFoot": [
+        -60,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 8,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "grip",
+      "aim": 10,
+      "two": 230,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "pole-thrust": {
+      "near": [
+        240,
+        -80
+      ],
+      "far": [
+        190,
+        -200
+      ],
+      "hip": [
+        55,
+        -135
+      ],
+      "nearFoot": [
+        180,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": -12,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "grip",
+      "aim": 0,
+      "two": 270,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "pole-up": {
+      "near": [
+        180,
+        120
+      ],
+      "far": [
+        190,
+        -200
+      ],
+      "hip": [
+        -10,
+        -70
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 4,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "grip",
+      "aim": 90,
+      "two": 300,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "pole-sweep": {
+      "near": [
+        140,
+        -220
+      ],
+      "far": [
+        190,
+        -200
+      ],
+      "hip": [
+        30,
+        -150
+      ],
+      "nearFoot": [
+        130,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": -8,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "grip",
+      "aim": -25,
+      "two": 260,
+      "cloth": 7,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "hook-out": {
+      "near": [
+        200,
+        -50
+      ],
+      "far": [
+        100,
+        -220
+      ],
+      "hip": [
+        35,
+        -90
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": -5,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "fist",
+      "aim": 25,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": false
+    },
+    "hook-pull": {
+      "near": [
+        -20,
+        -90
+      ],
+      "far": [
+        250,
+        -220
+      ],
+      "hip": [
+        -55,
+        -110
+      ],
+      "nearFoot": [
+        -100,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 12,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "fist",
+      "aim": 80,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": false
+    },
+    "whip-back": {
+      "near": [
+        -100,
+        80
+      ],
+      "far": [
+        190,
+        -220
+      ],
+      "hip": [
+        -30,
+        -70
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 10,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "fist",
+      "aim": 115,
+      "two": 0,
+      "cloth": -5,
+      "handSpecified": true,
+      "farHandSpecified": false
+    },
+    "whip-cast": {
+      "near": [
+        230,
+        -70
+      ],
+      "far": [
+        100,
+        -230
+      ],
+      "hip": [
+        45,
+        -110
+      ],
+      "nearFoot": [
+        140,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": -10,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 8,
+      "handSpecified": true,
+      "farHandSpecified": false
+    },
+    "bow-raise": {
+      "near": [
+        180,
+        -50
+      ],
+      "far": [
+        80,
+        -170
+      ],
+      "hip": [
+        -20,
+        -60
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 0,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "draw",
+      "aim": 10,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "bow-draw": {
+      "near": [
+        240,
+        -40
+      ],
+      "far": [
+        30,
+        65
+      ],
+      "hip": [
+        10,
+        -100
+      ],
+      "nearFoot": [
+        -50,
+        0
+      ],
+      "farFoot": [
+        100,
+        0
+      ],
+      "lean": 3,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "draw",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "bow-release": {
+      "near": [
+        245,
+        -35
+      ],
+      "far": [
+        -30,
+        70
+      ],
+      "hip": [
+        10,
+        -100
+      ],
+      "nearFoot": [
+        -50,
+        0
+      ],
+      "farFoot": [
+        100,
+        0
+      ],
+      "lean": 1,
+      "head": 0,
+      "hand": "grip",
+      "farHand": "finger",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "needle-hide": {
+      "near": [
+        -30,
+        -190
+      ],
+      "far": [
+        160,
+        -180
+      ],
+      "hip": [
+        -30,
+        -75
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 7,
+      "head": 0,
+      "hand": "pinch",
+      "farHand": "pinch",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "needle-front": {
+      "near": [
+        225,
+        -95
+      ],
+      "far": [
+        100,
+        -200
+      ],
+      "hip": [
+        20,
+        -75
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": -4,
+      "head": 0,
+      "hand": "pinch",
+      "farHand": "pinch",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "needle-left": {
+      "near": [
+        60,
+        -170
+      ],
+      "far": [
+        445,
+        -110
+      ],
+      "hip": [
+        10,
+        -75
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": -3,
+      "head": 0,
+      "hand": "pinch",
+      "farHand": "pinch",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "throw-high": {
+      "near": [
+        60,
+        170
+      ],
+      "far": [
+        170,
+        -180
+      ],
+      "hip": [
+        -35,
+        -80
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 9,
+      "head": 0,
+      "hand": "pinch",
+      "farHand": "fist",
+      "aim": 60,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": false
+    },
+    "throw-release": {
+      "near": [
+        235,
+        -100
+      ],
+      "far": [
+        100,
+        -210
+      ],
+      "hip": [
+        40,
+        -90
+      ],
+      "nearFoot": [
+        90,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": -8,
+      "head": 0,
+      "hand": "pinch",
+      "farHand": "fist",
+      "aim": -15,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": false
+    },
+    "throw-low": {
+      "near": [
+        150,
+        -300
+      ],
+      "far": [
+        240,
+        -130
+      ],
+      "hip": [
+        20,
+        -135
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": -8,
+      "head": 0,
+      "hand": "pinch",
+      "farHand": "fist",
+      "aim": -50,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": false
+    },
+    "finger": {
+      "near": [
+        235,
+        -100
+      ],
+      "far": [
+        110,
+        -210
+      ],
+      "hip": [
+        30,
+        -95
+      ],
+      "nearFoot": [
+        80,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": -6,
+      "head": 0,
+      "hand": "finger",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": false
+    },
+    "finger-high": {
+      "near": [
+        190,
+        80
+      ],
+      "far": [
+        140,
+        -220
+      ],
+      "hip": [
+        15,
+        -75
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": -3,
+      "head": 0,
+      "hand": "finger",
+      "farHand": "fist",
+      "aim": 35,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": false
+    },
+    "finger-lock": {
+      "near": [
+        100,
+        -130
+      ],
+      "far": [
+        70,
+        -180
+      ],
+      "hip": [
+        -20,
+        -95
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 5,
+      "head": 0,
+      "hand": "finger",
+      "farHand": "pinch",
+      "aim": 25,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "finger-pull": {
+      "near": [
+        -60,
+        -120
+      ],
+      "far": [
+        190,
+        -180
+      ],
+      "hip": [
+        -55,
+        -110
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 12,
+      "head": 0,
+      "hand": "pinch",
+      "farHand": "finger",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "flute-guard": {
+      "near": [
+        100,
+        -140
+      ],
+      "far": [
+        190,
+        -200
+      ],
+      "hip": [
+        0,
+        -45
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 0,
+      "head": 0,
+      "hand": "flute",
+      "farHand": "flute",
+      "aim": 0,
+      "two": 150,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "flute-point": {
+      "near": [
+        215,
+        -180
+      ],
+      "far": [
+        190,
+        -200
+      ],
+      "hip": [
+        35,
+        -80
+      ],
+      "nearFoot": [
+        80,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": -5,
+      "head": 0,
+      "hand": "flute",
+      "farHand": "flute",
+      "aim": 10,
+      "two": 160,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "stone-think": {
+      "near": [
+        20,
+        80
+      ],
+      "far": [
+        180,
+        -220
+      ],
+      "hip": [
+        -20,
+        -35
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 3,
+      "head": 0,
+      "hand": "stone",
+      "farHand": "stone",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "stone-drop": {
+      "near": [
+        170,
+        -230
+      ],
+      "far": [
+        190,
+        -130
+      ],
+      "hip": [
+        -35,
+        -110
+      ],
+      "nearFoot": [
+        -60,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 8,
+      "head": 0,
+      "hand": "stone",
+      "farHand": "stone",
+      "aim": -70,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "stone-left": {
+      "near": [
+        10,
+        -170
+      ],
+      "far": [
+        380,
+        -220
+      ],
+      "hip": [
+        -15,
+        -80
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": -2,
+      "head": 0,
+      "hand": "stone",
+      "farHand": "stone",
+      "aim": -70,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "qi-low": {
+      "near": [
+        20,
+        -290
+      ],
+      "far": [
+        130,
+        -290
+      ],
+      "hip": [
+        0,
+        -70
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 0,
+      "head": 0,
+      "hand": "palm",
+      "farHand": "palm",
+      "aim": -50,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "qi-mid": {
+      "near": [
+        30,
+        -150
+      ],
+      "far": [
+        100,
+        -170
+      ],
+      "hip": [
+        0,
+        -25
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 0,
+      "head": -1,
+      "hand": "palm",
+      "farHand": "palm",
+      "aim": 30,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "qi-high": {
+      "near": [
+        50,
+        160
+      ],
+      "far": [
+        210,
+        180
+      ],
+      "hip": [
+        0,
+        0
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 0,
+      "head": -2,
+      "hand": "palm",
+      "farHand": "palm",
+      "aim": 80,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "qi-wide": {
+      "near": [
+        -200,
+        100
+      ],
+      "far": [
+        450,
+        -80
+      ],
+      "hip": [
+        0,
+        -45
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 0,
+      "head": 2,
+      "hand": "palm",
+      "farHand": "palm",
+      "aim": 145,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "qi-prayer": {
+      "near": [
+        70,
+        -180
+      ],
+      "far": [
+        85,
+        -190
+      ],
+      "hip": [
+        0,
+        -40
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 0,
+      "head": 0,
+      "hand": "palm",
+      "farHand": "palm",
+      "aim": 70,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "qi-fist": {
+      "near": [
+        -80,
+        -280
+      ],
+      "far": [
+        200,
+        -280
+      ],
+      "hip": [
+        0,
+        -105
+      ],
+      "nearFoot": [
+        -60,
+        0
+      ],
+      "farFoot": [
+        80,
+        0
+      ],
+      "lean": -2,
+      "head": 0,
+      "hand": "fist",
+      "farHand": "fist",
+      "aim": 0,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "qi-seal": {
+      "near": [
+        45,
+        -130
+      ],
+      "far": [
+        105,
+        -150
+      ],
+      "hip": [
+        -5,
+        -75
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 0,
+      "head": 0,
+      "hand": "finger",
+      "farHand": "pinch",
+      "aim": 45,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "qi-round": {
+      "near": [
+        -60,
+        -70
+      ],
+      "far": [
+        290,
+        -90
+      ],
+      "hip": [
+        0,
+        -45
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 0,
+      "head": 0,
+      "hand": "palm",
+      "farHand": "palm",
+      "aim": 110,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "qi-press": {
+      "near": [
+        70,
+        -345
+      ],
+      "far": [
+        215,
+        -350
+      ],
+      "hip": [
+        0,
+        -130
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 0,
+      "head": 2,
+      "hand": "palm",
+      "farHand": "palm",
+      "aim": -70,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "qi-invert": {
+      "near": [
+        80,
+        20
+      ],
+      "far": [
+        220,
+        -300
+      ],
+      "hip": [
+        5,
+        -50
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 0,
+      "head": 0,
+      "hand": "palm",
+      "farHand": "palm",
+      "aim": 70,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "qi-alternate": {
+      "near": [
+        0,
+        -300
+      ],
+      "far": [
+        240,
+        20
+      ],
+      "hip": [
+        -5,
+        -60
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 0,
+      "head": 0,
+      "hand": "palm",
+      "farHand": "palm",
+      "aim": -60,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "qi-string-left": {
+      "near": [
+        30,
+        -250
+      ],
+      "far": [
+        280,
+        -190
+      ],
+      "hip": [
+        0,
+        -55
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 0,
+      "head": 0,
+      "hand": "flute",
+      "farHand": "flute",
+      "aim": -20,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    },
+    "qi-string-right": {
+      "near": [
+        170,
+        -190
+      ],
+      "far": [
+        100,
+        -250
+      ],
+      "hip": [
+        0,
+        -45
+      ],
+      "nearFoot": [
+        0,
+        0
+      ],
+      "farFoot": [
+        0,
+        0
+      ],
+      "lean": 0,
+      "head": 0,
+      "hand": "flute",
+      "farHand": "flute",
+      "aim": 20,
+      "two": 0,
+      "cloth": 0,
+      "handSpecified": true,
+      "farHandSpecified": true
+    }
+  },
+  "clips": {
+    "基礎吐納": {
+      "name": "基礎吐納",
+      "kind": "internal",
+      "family": "internal",
+      "poses": [
+        "qi-low",
+        "qi-low",
+        "qi-mid",
+        "qi-low",
+        "qi-mid",
+        "qi-press",
+        "qi-low",
+        "qi-low"
+      ],
+      "direction": "平掌收至丹田，直立微沉再舒展；慢吸慢吐",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_river_fist": {
+      "name": "長河拳",
+      "kind": "external",
+      "family": "fist",
+      "poses": [
+        "guard",
+        "draw",
+        "punch",
+        "draw",
+        "punch-left",
+        "draw-deep",
+        "punch-long",
+        "guard"
+      ],
+      "direction": "收拳轉胯逐步推進，三記長距離崩拳由小至大；短短長",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_stone_palm": {
+      "name": "裂石殘掌",
+      "kind": "external",
+      "family": "palm",
+      "poses": [
+        "guard",
+        "palm-low",
+        "palm-up",
+        "palm-ground",
+        "palm-ground",
+        "palm-low",
+        "palm-front",
+        "guard"
+      ],
+      "direction": "開掌沉腰後抬掌，躍起將掌心壓向地面；蓄、躍、重落",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_bridge_step": {
+      "name": "斷橋步",
+      "kind": "external",
+      "family": "step",
+      "poses": [
+        "guard",
+        "step-front",
+        "crouch",
+        "shoulder",
+        "step-cross",
+        "shoulder",
+        "step-back",
+        "guard"
+      ],
+      "direction": "側身探步後踏隙欺近，以肩身迫入近距離；探、停、進",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_tomb_sword": {
+      "name": "無銘劍意",
+      "kind": "external",
+      "family": "sword",
+      "poses": [
+        "weapon-low",
+        "step-side",
+        "parry",
+        "stab-high",
+        "slash-up",
+        "weapon-draw",
+        "step-back",
+        "weapon-low"
+      ],
+      "direction": "劍尖低藏，側步挑開破綻後斜刺回身；靜、挑、刺",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_lake_breath": {
+      "name": "寒湖吐納",
+      "kind": "internal",
+      "family": "internal",
+      "poses": [
+        "qi-low",
+        "qi-mid",
+        "qi-round",
+        "qi-wide",
+        "qi-wide",
+        "qi-round",
+        "qi-mid",
+        "qi-low"
+      ],
+      "direction": "兩掌由腹向兩側平展，肩胸凝定；長吐短停",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_rain_sword": {
+      "name": "聽雨劍意",
+      "kind": "external",
+      "family": "sword",
+      "poses": [
+        "weapon-guard",
+        "weapon-draw",
+        "stab",
+        "stab-recoil",
+        "stab-high",
+        "stab-recoil",
+        "stab",
+        "weapon-guard"
+      ],
+      "direction": "直劍守中靜候，短促收腕後連續三刺；靜、點點點、歸靜",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_nine_shadow": {
+      "name": "九影迷踪步",
+      "kind": "external",
+      "family": "step",
+      "poses": [
+        "crouch",
+        "step-cross",
+        "step-side",
+        "shoulder",
+        "step-cross",
+        "step-wide",
+        "step-tip",
+        "crouch"
+      ],
+      "direction": "低身交叉步穿行左右再欺近，肩線連換方向；左右左急停",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_cold_palm": {
+      "name": "寒霜掌",
+      "kind": "external",
+      "family": "palm",
+      "poses": [
+        "guard",
+        "step-back",
+        "palm-up",
+        "palm-front",
+        "palm-front",
+        "palm-turn",
+        "palm-low",
+        "guard"
+      ],
+      "direction": "豎掌護胸，退半步後平推封住中線；退、緩送、凝定",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_iron_body": {
+      "name": "鐵布衫",
+      "kind": "internal",
+      "family": "internal",
+      "poses": [
+        "qi-fist",
+        "crouch",
+        "cross",
+        "qi-round",
+        "qi-fist",
+        "palm-double",
+        "qi-press",
+        "qi-fist"
+      ],
+      "direction": "馬步收拳於腰，前臂交叉受力再展胸沉掌；沉、架、放",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_moon_sword": {
+      "name": "弄月劍法",
+      "kind": "external",
+      "family": "sword",
+      "poses": [
+        "weapon-low",
+        "step-cross",
+        "weapon-draw",
+        "slash-level",
+        "slash-up",
+        "parry",
+        "step-back",
+        "weapon-low"
+      ],
+      "direction": "劍藏側腰，斜步轉身以弧線削向側脅；藏、弧削、挽回",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_void_breath": {
+      "name": "空冥吐納",
+      "kind": "internal",
+      "family": "internal",
+      "poses": [
+        "qi-low",
+        "qi-round",
+        "qi-low",
+        "qi-mid",
+        "qi-round",
+        "qi-mid",
+        "qi-low",
+        "qi-low"
+      ],
+      "direction": "鬆肩垂肘環抱氣海，緩慢展掌；低緩連續",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_silk_hand": {
+      "name": "柔絲手",
+      "kind": "external",
+      "family": "palm",
+      "poses": [
+        "qi-round",
+        "palm-cross",
+        "palm-circle",
+        "palm-double",
+        "palm-turn",
+        "qi-round",
+        "qi-mid",
+        "qi-round"
+      ],
+      "direction": "雙手鬆圓搭接，隨來勢轉腕引開再回送；接、引、送",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_thunder_blade": {
+      "name": "驚雷刀",
+      "kind": "external",
+      "family": "blade",
+      "poses": [
+        "weapon-guard",
+        "draw-deep",
+        "blade-raise",
+        "blade-heavy",
+        "slash-down",
+        "weapon-low",
+        "weapon-draw",
+        "weapon-guard"
+      ],
+      "direction": "雙手提厚刃過頂，蹬地前壓後重劈；長蓄、重落、拖刃收",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_wind_chase": {
+      "name": "追風腿",
+      "kind": "external",
+      "family": "kick",
+      "poses": [
+        "guard",
+        "knee",
+        "kick",
+        "knee",
+        "kick-far",
+        "crouch",
+        "sweep",
+        "guard"
+      ],
+      "direction": "後足支撐提膝，伸腿側踢後收膝轉身再踢；挑、轉、落",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_hook_silk": {
+      "name": "鐵線鉤法",
+      "kind": "external",
+      "family": "hook",
+      "poses": [
+        "weapon-guard",
+        "parry",
+        "hook-out",
+        "hook-out",
+        "hook-pull",
+        "step-back",
+        "weapon-low",
+        "weapon-guard"
+      ],
+      "direction": "鉤刃偏架，腕翻牽鎖後側腰拉回；鉤、纏、拉",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_meteor_palm": {
+      "name": "流星掌",
+      "kind": "external",
+      "family": "palm",
+      "poses": [
+        "guard",
+        "palm-up",
+        "palm-front",
+        "palm-ground",
+        "palm-up",
+        "palm-double",
+        "palm-low",
+        "guard"
+      ],
+      "direction": "抬肘換掌逐次下壓，前腳隨掌墜進；連落、末掌停",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_tiger_breath": {
+      "name": "虎嘯內勁",
+      "kind": "internal",
+      "family": "internal",
+      "poses": [
+        "qi-fist",
+        "crouch",
+        "qi-fist",
+        "qi-wide",
+        "qi-fist",
+        "qi-press",
+        "qi-mid",
+        "qi-fist"
+      ],
+      "direction": "闊胸收腹握拳腰側，抬胸後吐息；深吸沉吐",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_spring_well": {
+      "name": "涌泉訣",
+      "kind": "internal",
+      "family": "internal",
+      "poses": [
+        "qi-low",
+        "crouch",
+        "qi-press",
+        "qi-low",
+        "qi-mid",
+        "qi-high",
+        "qi-mid",
+        "qi-low"
+      ],
+      "direction": "掌心交疊於腹，屈膝後徐徐提掌；下沉上湧",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_shadow_needle": {
+      "name": "無影針訣",
+      "kind": "external",
+      "family": "needle",
+      "poses": [
+        "needle-hide",
+        "crouch",
+        "draw",
+        "needle-front",
+        "needle-hide",
+        "step-back",
+        "needle-hide",
+        "guard"
+      ],
+      "direction": "指尖藏針於袖，縮肘後貼身直彈；藏、彈、即收",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "qg_snow_track": {
+      "name": "踏雪無痕",
+      "kind": "qinggong",
+      "family": "step",
+      "poses": [
+        "guard",
+        "step-tip",
+        "step-front",
+        "step-tip",
+        "step-cross",
+        "step-tip",
+        "step-back",
+        "guard"
+      ],
+      "direction": "足尖輕點交替提踵，保持身體中線；輕點連移",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "qg_swallow_turn": {
+      "name": "燕子三轉",
+      "kind": "qinggong",
+      "family": "step",
+      "poses": [
+        "guard",
+        "step-side",
+        "step-cross",
+        "step-wide",
+        "step-cross",
+        "step-front",
+        "step-side",
+        "guard"
+      ],
+      "direction": "單足側立後連換朝向，肩腰先轉腳跟隨；轉轉折返",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "qg_feiyan": {
+      "name": "飛燕功",
+      "kind": "qinggong",
+      "family": "step",
+      "poses": [
+        "guard",
+        "crouch",
+        "step-high",
+        "kick-far",
+        "step-front",
+        "step-high",
+        "step-tip",
+        "guard"
+      ],
+      "direction": "低蹬前膝高提，雙臂平衡長距離落步；蹬飛落",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "qg_canopy_void": {
+      "name": "凌虛步",
+      "kind": "qinggong",
+      "family": "step",
+      "poses": [
+        "guard",
+        "step-tip",
+        "step-high",
+        "step-tip",
+        "step-high",
+        "step-cross",
+        "step-tip",
+        "guard"
+      ],
+      "direction": "挺身腳尖連點，提步後輕輕收足；點起懸落",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "qg_broken_bridge": {
+      "name": "斷橋步",
+      "kind": "qinggong",
+      "family": "step",
+      "poses": [
+        "guard",
+        "step-back",
+        "step-cross",
+        "step-side",
+        "step-back",
+        "step-front",
+        "step-cross",
+        "guard"
+      ],
+      "direction": "窄步鬆架，後移重心再交叉錯步避讓；探、錯、收",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_spear_cloud": {
+      "name": "穿雲槍",
+      "kind": "external",
+      "family": "spear",
+      "poses": [
+        "pole-guard",
+        "pole-draw",
+        "pole-crouch",
+        "pole-thrust",
+        "pole-thrust",
+        "pole-sweep",
+        "pole-draw",
+        "pole-guard"
+      ],
+      "direction": "雙手分握長槍，後抽槍桿後蹬地平刺；收、沉、爆刺",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_staff_iron": {
+      "name": "鐵杖訣",
+      "kind": "external",
+      "family": "staff",
+      "poses": [
+        "pole-guard",
+        "pole-up",
+        "pole-draw",
+        "pole-sweep",
+        "pole-sweep",
+        "pole-up",
+        "pole-draw",
+        "pole-guard"
+      ],
+      "direction": "雙手守中持杖，橫掃開架後回杖護身；掃、頓、回架",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_whip_silk": {
+      "name": "柔絲鞭法",
+      "kind": "external",
+      "family": "whip",
+      "poses": [
+        "weapon-low",
+        "draw",
+        "whip-back",
+        "whip-cast",
+        "slash-level",
+        "whip-back",
+        "hook-pull",
+        "weapon-low"
+      ],
+      "direction": "鞭握腰側，肩腕依次帶動鞭梢繞出再捲回；放、梢響、收",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_bow_star": {
+      "name": "逐星箭意",
+      "kind": "external",
+      "family": "bow",
+      "poses": [
+        "weapon-guard",
+        "bow-raise",
+        "bow-draw",
+        "bow-release",
+        "bow-release",
+        "bow-raise",
+        "weapon-low",
+        "weapon-guard"
+      ],
+      "direction": "前臂持弓後手引弦，穩住肩線後鬆指；引、定、放",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "qg_reed_drift": {
+      "name": "蘆花身法",
+      "kind": "qinggong",
+      "family": "step",
+      "poses": [
+        "guard",
+        "step-side",
+        "step-back",
+        "step-front",
+        "step-side",
+        "step-wide",
+        "step-cross",
+        "guard"
+      ],
+      "direction": "側腰鬆肩，重心左右換足如隨風；緩擺錯步",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "qg_wall_cat": {
+      "name": "壁虎遊牆",
+      "kind": "qinggong",
+      "family": "step",
+      "poses": [
+        "crouch",
+        "step-fold",
+        "step-high",
+        "knee",
+        "step-cross",
+        "step-fold",
+        "step-side",
+        "crouch"
+      ],
+      "direction": "縮身屈膝手足交替借力，沿窄面換步；貼攀轉落",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_sand_palm": {
+      "name": "流沙掌",
+      "kind": "external",
+      "family": "palm",
+      "poses": [
+        "palm-low",
+        "step-front",
+        "palm-cover",
+        "palm-back",
+        "palm-front",
+        "step-back",
+        "palm-low",
+        "guard"
+      ],
+      "direction": "掌心低藏，前手遮掩視線後反掌平抹；遮、抹、撤",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "jy_ash_manual": {
+      "name": "灰中拳",
+      "kind": "external",
+      "family": "fist",
+      "poses": [
+        "guard",
+        "stagger-left",
+        "draw",
+        "backfist",
+        "elbow",
+        "punch-short",
+        "stagger-right",
+        "guard"
+      ],
+      "direction": "低垂拳背誘近，扭腰以反手崩拳送出；緩藏、急崩",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_mirror_breath": {
+      "name": "澄心鏡息",
+      "kind": "internal",
+      "family": "internal",
+      "poses": [
+        "qi-mid",
+        "qi-round",
+        "qi-mid",
+        "qi-wide",
+        "qi-round",
+        "qi-mid",
+        "qi-prayer",
+        "qi-mid"
+      ],
+      "direction": "雙掌相對平移至胸，肩肘維持對稱；舒展澄定",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "qg_lotus_steps": {
+      "name": "踏蓮步",
+      "kind": "qinggong",
+      "family": "step",
+      "poses": [
+        "guard",
+        "step-tip",
+        "step-side",
+        "step-front",
+        "step-tip",
+        "step-cross",
+        "step-back",
+        "guard"
+      ],
+      "direction": "腳尖先落再展腳掌，雙足沿弧線換位；點展換",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_heavy_halberd": {
+      "name": "開山戟意",
+      "kind": "external",
+      "family": "halberd",
+      "poses": [
+        "pole-guard",
+        "pole-up",
+        "pole-wide",
+        "pole-sweep",
+        "blade-heavy",
+        "pole-draw",
+        "step-back",
+        "pole-guard"
+      ],
+      "direction": "長戟斜扛肩側，轉胯帶戟刃由上向外砍開；扛、開、回桿",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "qy_cloud_sword": {
+      "name": "青雲初劍",
+      "kind": "external",
+      "family": "sword",
+      "poses": [
+        "weapon-guard",
+        "step-front",
+        "weapon-draw",
+        "stab",
+        "stab",
+        "weapon-draw",
+        "step-back",
+        "weapon-guard"
+      ],
+      "direction": "正身中平劍，前進直刺後原路收劍；穩定一進一收",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "qy_mist_step": {
+      "name": "雲中步",
+      "kind": "external",
+      "family": "finger",
+      "poses": [
+        "guard",
+        "step-side",
+        "finger-lock",
+        "finger",
+        "finger-high",
+        "step-cross",
+        "finger",
+        "guard"
+      ],
+      "direction": "縮肩入側隙，以步帶雙指連點穴位；錯步、雙點",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "qy_piercing_needle": {
+      "name": "破雲刺",
+      "kind": "external",
+      "family": "sword",
+      "poses": [
+        "weapon-low",
+        "crouch",
+        "weapon-draw",
+        "stab-high",
+        "stab-high",
+        "weapon-low",
+        "step-back",
+        "weapon-guard"
+      ],
+      "direction": "細劍點線貼胸蓄勢，身體沿同一線穿刺；收窄、急穿",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "qy_sky_intent": {
+      "name": "青冥劍意",
+      "kind": "external",
+      "family": "sword",
+      "poses": [
+        "weapon-guard",
+        "parry",
+        "stab-high",
+        "stab",
+        "step-cross",
+        "stab-low",
+        "slash-up",
+        "weapon-guard"
+      ],
+      "direction": "高劍架轉腕相接，前後腳連換令刺勢不斷；密刺無長停",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "td_open_blade": {
+      "name": "天刀開山",
+      "kind": "external",
+      "family": "blade",
+      "poses": [
+        "weapon-guard",
+        "step-wide",
+        "blade-raise",
+        "slash-down",
+        "blade-heavy",
+        "weapon-low",
+        "step-back",
+        "weapon-guard"
+      ],
+      "direction": "寬步持刀於肩後，以肩腰帶動大幅斜斬；開架、斬、沉刀",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "td_wind_slash": {
+      "name": "裂風斬",
+      "kind": "external",
+      "family": "blade",
+      "poses": [
+        "weapon-low",
+        "step-side",
+        "weapon-draw",
+        "slash-level",
+        "slash-level",
+        "parry",
+        "step-back",
+        "weapon-low"
+      ],
+      "direction": "刀鋒平架腰際，滑步橫割後回刃護肋；滑、橫割、收",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "td_thunder_combo": {
+      "name": "雷鳴連刀",
+      "kind": "external",
+      "family": "blade",
+      "poses": [
+        "weapon-guard",
+        "blade-raise",
+        "blade-raise",
+        "blade-heavy",
+        "slash-down",
+        "weapon-low",
+        "blade-settle",
+        "weapon-guard"
+      ],
+      "direction": "刀背靠肩先壓步，交替三斬逐次縮短間隔；斬、斬斬",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "td_no_return": {
+      "name": "天刀無回",
+      "kind": "external",
+      "family": "blade",
+      "poses": [
+        "weapon-low",
+        "draw-deep",
+        "blade-raise",
+        "blade-heavy",
+        "blade-heavy",
+        "slash-down",
+        "step-back",
+        "weapon-low"
+      ],
+      "direction": "重心完全後蓄，全身送前完成單次長斬；長蓄、單爆、低收",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "em_soft_palm": {
+      "name": "峨嵋柔掌",
+      "kind": "external",
+      "family": "palm",
+      "poses": [
+        "qi-round",
+        "palm-cross",
+        "palm-circle",
+        "palm-front",
+        "palm-turn",
+        "palm-back",
+        "qi-round",
+        "guard"
+      ],
+      "direction": "雙掌柔架，轉腰接勢後前掌平送；卸、送、回圓",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "em_silk_wrap": {
+      "name": "繞指柔",
+      "kind": "external",
+      "family": "finger",
+      "poses": [
+        "guard",
+        "palm-cross",
+        "finger-lock",
+        "finger",
+        "finger-pull",
+        "palm-turn",
+        "qi-round",
+        "guard"
+      ],
+      "direction": "指掌相纏沿對手前臂繞入，以小幅腕轉點脈；纏、鎖、鬆",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "em_golden_palm": {
+      "name": "金頂綿掌",
+      "kind": "external",
+      "family": "palm",
+      "poses": [
+        "guard",
+        "palm-low",
+        "palm-up",
+        "palm-turn",
+        "palm-front",
+        "palm-double",
+        "qi-mid",
+        "guard"
+      ],
+      "direction": "掌心向上托起再翻送，身形保持穩定中正；托、翻、送",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "em_heart_breath": {
+      "name": "峨嵋心法",
+      "kind": "internal",
+      "family": "internal",
+      "poses": [
+        "qi-mid",
+        "qi-prayer",
+        "qi-round",
+        "qi-low",
+        "qi-mid",
+        "qi-round",
+        "qi-prayer",
+        "qi-mid"
+      ],
+      "direction": "圓掌守心轉掌至腹，前後肘緩沉；圓轉穩息",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "sl_luohan_fist": {
+      "name": "羅漢拳",
+      "kind": "external",
+      "family": "fist",
+      "poses": [
+        "guard",
+        "crouch",
+        "cross",
+        "punch-short",
+        "elbow",
+        "punch-left",
+        "cross",
+        "guard"
+      ],
+      "direction": "低馬步交臂護胸，近身短拳交替發力；沉架、短短、收架",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "sl_weituo": {
+      "name": "韋陀杖意",
+      "kind": "external",
+      "family": "staff",
+      "poses": [
+        "pole-guard",
+        "pole-up",
+        "pole-draw",
+        "pole-thrust",
+        "pole-draw",
+        "pole-sweep",
+        "pole-up",
+        "pole-guard"
+      ],
+      "direction": "直杖護身，前手導杖點穴後回抽杖根；架、點、抽",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "sl_iron_shirt": {
+      "name": "鐵布衫功",
+      "kind": "internal",
+      "family": "internal",
+      "poses": [
+        "qi-fist",
+        "cross",
+        "crouch",
+        "qi-fist",
+        "qi-wide",
+        "cross",
+        "qi-press",
+        "qi-fist"
+      ],
+      "direction": "闊步肘臂貼肋，肩背受力後展開；受震歸定",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "sl_yijin": {
+      "name": "易筋吐納",
+      "kind": "internal",
+      "family": "internal",
+      "poses": [
+        "qi-low",
+        "qi-round",
+        "qi-high",
+        "qi-wide",
+        "qi-high",
+        "qi-round",
+        "qi-press",
+        "qi-low"
+      ],
+      "direction": "舒指引臂抬升，背脊逐節伸展再沉肩；展筋落息",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "wd_sword_form": {
+      "name": "武當劍式",
+      "kind": "external",
+      "family": "sword",
+      "poses": [
+        "weapon-guard",
+        "parry",
+        "step-side",
+        "stab-high",
+        "slash-level",
+        "parry",
+        "step-cross",
+        "weapon-guard"
+      ],
+      "direction": "圓形劍架起手，腳步繞側配合腕花送刺；圓轉、刺、回圓",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "wd_tai_push": {
+      "name": "太極推手",
+      "kind": "external",
+      "family": "palm",
+      "poses": [
+        "qi-round",
+        "palm-cross",
+        "palm-circle",
+        "palm-double",
+        "palm-double",
+        "qi-round",
+        "palm-low",
+        "qi-round"
+      ],
+      "direction": "前後掌相抱，以腰帶臂引開後雙掌緩推；接、引、推",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "wd_pure_yang": {
+      "name": "純陽吐納",
+      "kind": "internal",
+      "family": "internal",
+      "poses": [
+        "qi-low",
+        "qi-mid",
+        "qi-round",
+        "qi-wide",
+        "qi-mid",
+        "qi-prayer",
+        "qi-low",
+        "qi-low"
+      ],
+      "direction": "雙掌相對氣海，隨吐息抬胸展肩；悠長平穩",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "wd_wuji_sword": {
+      "name": "無極劍意",
+      "kind": "external",
+      "family": "sword",
+      "poses": [
+        "weapon-guard",
+        "weapon-high",
+        "parry",
+        "stab",
+        "slash-up",
+        "stab-high",
+        "parry",
+        "weapon-guard"
+      ],
+      "direction": "劍鋒立於中線，連續轉腕接刺後退劍守中；循環不斷",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "tm_flying_needle": {
+      "name": "唐門飛針",
+      "kind": "external",
+      "family": "needle",
+      "poses": [
+        "needle-hide",
+        "draw",
+        "needle-front",
+        "needle-hide",
+        "needle-left",
+        "draw",
+        "needle-front",
+        "needle-hide"
+      ],
+      "direction": "袖底夾針，手腕短促前彈並左右手接續；三次細密彈指",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "tm_shadow_step": {
+      "name": "影步",
+      "kind": "qinggong",
+      "family": "step",
+      "poses": [
+        "crouch",
+        "step-side",
+        "step-fold",
+        "step-cross",
+        "step-back",
+        "step-side",
+        "step-tip",
+        "crouch"
+      ],
+      "direction": "壓低肩線側足入暗，短距離換位再挺身；隱錯現",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "tm_poison_dart": {
+      "name": "淬毒鏢",
+      "kind": "external",
+      "family": "dart",
+      "poses": [
+        "needle-hide",
+        "step-back",
+        "throw-high",
+        "throw-release",
+        "throw-low",
+        "needle-hide",
+        "step-side",
+        "guard"
+      ],
+      "direction": "拈鏢於肩側，肘帶腕拋出後指尖順勢下收；蓄鏢、拋、收",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "tm_thousand_mech": {
+      "name": "千機手",
+      "kind": "external",
+      "family": "mechanism",
+      "poses": [
+        "guard",
+        "needle-hide",
+        "needle-front",
+        "needle-left",
+        "needle-front",
+        "needle-left",
+        "qi-seal",
+        "guard"
+      ],
+      "direction": "袖口朝前交替抬臂，以短促指扣逐次放射；扣、扣扣、合袖",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "mj_blood_palm": {
+      "name": "血影掌",
+      "kind": "external",
+      "family": "palm",
+      "poses": [
+        "palm-low",
+        "draw-deep",
+        "palm-up",
+        "palm-front",
+        "finger-pull",
+        "palm-turn",
+        "palm-low",
+        "guard"
+      ],
+      "direction": "掌根低蓄，向前拍送後掌心翻回胸前；拍、回帶",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "mj_devil_breath": {
+      "name": "魔息吐納",
+      "kind": "internal",
+      "family": "internal",
+      "poses": [
+        "qi-fist",
+        "crouch",
+        "qi-low",
+        "qi-fist",
+        "qi-wide",
+        "qi-press",
+        "qi-fist",
+        "qi-fist"
+      ],
+      "direction": "拳背貼腹俯身聚氣，抬胸再吐息；壓聚吐",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "mj_soul_drain": {
+      "name": "吸脈指",
+      "kind": "external",
+      "family": "finger",
+      "poses": [
+        "guard",
+        "step-front",
+        "finger-lock",
+        "finger",
+        "finger-lock",
+        "finger-pull",
+        "step-back",
+        "guard"
+      ],
+      "direction": "兩指內扣，貼近後直探經脈再彎指收回；探、扣、抽",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "mj_asura_slash": {
+      "name": "修羅斬",
+      "kind": "external",
+      "family": "blade",
+      "poses": [
+        "weapon-low",
+        "crouch",
+        "weapon-draw",
+        "slash-up",
+        "slash-level",
+        "slash-down",
+        "weapon-low",
+        "weapon-guard"
+      ],
+      "direction": "反握刀架守低位，轉腰向上斜斬再沉刃；低、逆斬、收",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "hs_pine_sword": {
+      "name": "松風劍",
+      "kind": "external",
+      "family": "sword",
+      "poses": [
+        "weapon-guard",
+        "weapon-high",
+        "draw",
+        "stab-high",
+        "stab-high",
+        "weapon-draw",
+        "step-back",
+        "weapon-guard"
+      ],
+      "direction": "高腕直劍，挺身送出乾淨直刺再收肩；穩、刺、回",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "hs_cloud_step": {
+      "name": "雲臺步",
+      "kind": "external",
+      "family": "sword",
+      "poses": [
+        "weapon-guard",
+        "step-high",
+        "stab-high",
+        "step-cross",
+        "stab-low",
+        "step-high",
+        "stab",
+        "weapon-guard"
+      ],
+      "direction": "持劍交叉踏高步，換足同時連刺兩側隙；踏、連刺、落步",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "hs_split_peak": {
+      "name": "劈岳劍",
+      "kind": "external",
+      "family": "sword",
+      "poses": [
+        "weapon-guard",
+        "step-front",
+        "weapon-high",
+        "slash-down",
+        "slash-down",
+        "blade-heavy",
+        "weapon-low",
+        "weapon-guard"
+      ],
+      "direction": "劍舉過肩後沿脊線壓落，以前足承重停住；舉、劈、定",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "hs_yue_breath": {
+      "name": "華嶽吐納",
+      "kind": "internal",
+      "family": "internal",
+      "poses": [
+        "qi-low",
+        "qi-high",
+        "qi-high",
+        "qi-round",
+        "qi-mid",
+        "qi-prayer",
+        "qi-low",
+        "qi-low"
+      ],
+      "direction": "掌勢如承山，挺背後合掌於腹；托立合",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_drunken_fist": {
+      "name": "醉八仙拳",
+      "kind": "external",
+      "family": "fist",
+      "poses": [
+        "guard",
+        "stagger-left",
+        "stagger-right",
+        "backfist",
+        "stagger-left",
+        "elbow",
+        "stagger-right",
+        "guard"
+      ],
+      "direction": "腰身搖晃佯失平衡，反向扭腰以肘拳補入；晃、頓、反打",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "th_finger_flick": {
+      "name": "彈指神通",
+      "kind": "external",
+      "family": "finger",
+      "poses": [
+        "guard",
+        "qi-seal",
+        "finger-lock",
+        "finger",
+        "finger-pull",
+        "qi-low",
+        "step-back",
+        "guard"
+      ],
+      "direction": "拇指扣中指於胸前，鬆腕彈出小石後收指；靜、彈、垂",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "th_flute_sword": {
+      "name": "玉簫劍法",
+      "kind": "external",
+      "family": "flute",
+      "poses": [
+        "flute-guard",
+        "step-side",
+        "flute-guard",
+        "flute-point",
+        "slash-level",
+        "flute-guard",
+        "step-back",
+        "flute-guard"
+      ],
+      "direction": "玉簫橫架胸前，以腕帶簫身點刺後橫收；橫、點、滑收",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "th_falling_petals": {
+      "name": "落英神劍掌",
+      "kind": "external",
+      "family": "palm",
+      "poses": [
+        "qi-round",
+        "palm-cover",
+        "palm-turn",
+        "palm-front",
+        "palm-back",
+        "palm-double",
+        "palm-circle",
+        "qi-round"
+      ],
+      "direction": "掌心交替向外翻花，側步中連送開掌；翻、送、換掌",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "th_qimen_array": {
+      "name": "奇門一氣",
+      "kind": "internal",
+      "family": "internal",
+      "poses": [
+        "qi-low",
+        "qi-invert",
+        "qi-wide",
+        "qi-alternate",
+        "qi-round",
+        "qi-high",
+        "qi-mid",
+        "qi-low"
+      ],
+      "direction": "雙掌依身側五位轉動，腳下換向再歸中；五向循環",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "wg_embroidery_needle": {
+      "name": "繡花奪命針",
+      "kind": "external",
+      "family": "needle",
+      "poses": [
+        "needle-hide",
+        "qi-seal",
+        "finger-pull",
+        "needle-front",
+        "needle-left",
+        "needle-hide",
+        "step-back",
+        "needle-hide"
+      ],
+      "direction": "垂袖遮手，以繡線般小幅拈指牽放細針；拈、牽、放",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "wg_silent_step": {
+      "name": "無聲遁跡",
+      "kind": "qinggong",
+      "family": "step",
+      "poses": [
+        "guard",
+        "crouch",
+        "step-back",
+        "step-side",
+        "step-cross",
+        "step-back",
+        "step-tip",
+        "guard"
+      ],
+      "direction": "腳掌外沿先落，屈膝吸力再換窄步；低緩不頓",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "wg_yin_soft_palm": {
+      "name": "陰柔化勁掌",
+      "kind": "external",
+      "family": "palm",
+      "poses": [
+        "qi-round",
+        "palm-low",
+        "palm-back",
+        "palm-turn",
+        "palm-front",
+        "palm-circle",
+        "qi-low",
+        "guard"
+      ],
+      "direction": "鬆掌受壓後沿腕轉向，以反掌將來力卸還；受、柔化、還",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "wg_root_severed_creed": {
+      "name": "忘根訣",
+      "kind": "internal",
+      "family": "internal",
+      "poses": [
+        "qi-prayer",
+        "qi-prayer",
+        "qi-mid",
+        "qi-press",
+        "qi-wide",
+        "qi-press",
+        "qi-low",
+        "qi-prayer"
+      ],
+      "direction": "兩掌合於胸前，沉肩向下分掌；靜定再放",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_guqin_song": {
+      "name": "廣陵絕響",
+      "kind": "internal",
+      "family": "internal",
+      "poses": [
+        "qi-low",
+        "qi-string-left",
+        "qi-string-right",
+        "qi-string-left",
+        "qi-string-right",
+        "qi-mid",
+        "qi-low",
+        "qi-low"
+      ],
+      "direction": "雙手作撫弦指勢，左右指尖輪替後平息；勾挑息",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_weiqi_trap": {
+      "name": "珍瓏棋局",
+      "kind": "external",
+      "family": "weiqi",
+      "poses": [
+        "stone-think",
+        "step-back",
+        "stone-think",
+        "stone-drop",
+        "qi-low",
+        "stone-left",
+        "qi-seal",
+        "stone-think"
+      ],
+      "direction": "袖中拈棋，退半步後前後手先後落子；思、落、再落、合袖",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_poetry_sword": {
+      "name": "詩劍風流",
+      "kind": "external",
+      "family": "sword",
+      "poses": [
+        "weapon-low",
+        "weapon-draw",
+        "parry",
+        "slash-up",
+        "slash-level",
+        "stab-low",
+        "weapon-draw",
+        "weapon-low"
+      ],
+      "direction": "劍勢先抑後揚，提腕如書寫長短筆勢；頓、長劃、收鋒",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_ink_illusion": {
+      "name": "潑墨迷蹤",
+      "kind": "qinggong",
+      "family": "step",
+      "poses": [
+        "guard",
+        "step-wide",
+        "step-side",
+        "step-cross",
+        "step-front",
+        "step-wide",
+        "step-back",
+        "guard"
+      ],
+      "direction": "斜側閃開，雙足沿寬窄相間曲線移位；潑斷轉",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_buddha_heart": {
+      "name": "金剛不壞",
+      "kind": "internal",
+      "family": "internal",
+      "poses": [
+        "qi-prayer",
+        "qi-mid",
+        "qi-round",
+        "qi-wide",
+        "qi-round",
+        "qi-mid",
+        "qi-prayer",
+        "qi-prayer"
+      ],
+      "direction": "合掌凝神，前臂緩分護胸再回掌；合開歸",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_dao_breath": {
+      "name": "太乙玄清",
+      "kind": "internal",
+      "family": "internal",
+      "poses": [
+        "qi-low",
+        "qi-invert",
+        "qi-round",
+        "qi-alternate",
+        "qi-round",
+        "qi-invert",
+        "qi-low",
+        "qi-low"
+      ],
+      "direction": "掌心一上一下交替轉動，脊背自然伸縮；陰陽相續",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "art_heretic_scripture": {
+      "name": "天魔邪功",
+      "kind": "external",
+      "family": "fist",
+      "poses": [
+        "crouch",
+        "step-front",
+        "draw-deep",
+        "punch-short",
+        "elbow",
+        "finger-pull",
+        "step-back",
+        "crouch"
+      ],
+      "direction": "俯身藏拳後貼身狠打，反肘收身而非持兵器；急近、狠打、抽身",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "pr_blood_lotus": {
+      "name": "血蓮千刃",
+      "kind": "external",
+      "family": "blade",
+      "poses": [
+        "weapon-low",
+        "step-cross",
+        "slash-up",
+        "slash-level",
+        "step-cross",
+        "slash-down",
+        "hook-pull",
+        "weapon-low"
+      ],
+      "direction": "低刀向外翻刃，交叉換足完成瓣狀連斬；展、層斬、合",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "pr_crimson_moon": {
+      "name": "赤月飲血劍",
+      "kind": "external",
+      "family": "sword",
+      "poses": [
+        "weapon-low",
+        "weapon-draw",
+        "step-cross",
+        "slash-up",
+        "stab-high",
+        "weapon-draw",
+        "slash-level",
+        "weapon-low"
+      ],
+      "direction": "劍身貼臂藏鋒，回身月弧挑刺後帶劍收腰；藏、弧刺、回飲",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "pr_nine_chain": {
+      "name": "九連環掌",
+      "kind": "external",
+      "family": "palm",
+      "poses": [
+        "qi-round",
+        "palm-cross",
+        "palm-front",
+        "palm-double",
+        "palm-turn",
+        "palm-front",
+        "palm-double",
+        "qi-round"
+      ],
+      "direction": "交臂開掌接續換手，九重掌勢由腰向前傳遞；密接層推",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "pr_wind_thread": {
+      "name": "穿風引線劍",
+      "kind": "external",
+      "family": "sword",
+      "poses": [
+        "weapon-guard",
+        "step-cross",
+        "parry",
+        "stab-low",
+        "weapon-draw",
+        "stab-high",
+        "stab",
+        "weapon-guard"
+      ],
+      "direction": "低交叉步盤劍，側身弧進後轉足引出三刺；繞、刺刺刺、盤收",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "pr_mountain_split": {
+      "name": "裂嶽神拳",
+      "kind": "external",
+      "family": "fist",
+      "poses": [
+        "guard",
+        "crouch",
+        "draw-deep",
+        "uppercut",
+        "hammer",
+        "palm-ground",
+        "draw",
+        "guard"
+      ],
+      "direction": "深蹲縮拳聚力，蹬起升拳後轉肩重落；長蓄、升、墜、沉收",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "pr_heaven_spear": {
+      "name": "貫日神槍",
+      "kind": "external",
+      "family": "spear",
+      "poses": [
+        "pole-guard",
+        "pole-crouch",
+        "pole-up",
+        "pole-thrust",
+        "pole-thrust",
+        "pole-sweep",
+        "pole-draw",
+        "pole-guard"
+      ],
+      "direction": "槍尾沉地後雙手托起，以背腰帶槍尖長距離貫刺；沉、托、貫",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "pr_soul_lock": {
+      "name": "鎖魂指",
+      "kind": "external",
+      "family": "finger",
+      "poses": [
+        "guard",
+        "finger-lock",
+        "qi-seal",
+        "finger",
+        "finger",
+        "finger-lock",
+        "finger-pull",
+        "guard"
+      ],
+      "direction": "雙指夾緊護胸，點出後保持短暫定勢再收指；定、點、定、鬆",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "pr_mist_blind": {
+      "name": "迷蹤散霧手",
+      "kind": "external",
+      "family": "palm",
+      "poses": [
+        "qi-round",
+        "palm-cover",
+        "palm-cross",
+        "palm-back",
+        "palm-front",
+        "palm-circle",
+        "step-side",
+        "qi-round"
+      ],
+      "direction": "雙掌交錯遮掩後側身反推，手路虛實互換；遮、換、推",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "pr_vajra_palm": {
+      "name": "金剛不壞掌",
+      "kind": "external",
+      "family": "palm",
+      "poses": [
+        "guard",
+        "step-wide",
+        "palm-up",
+        "palm-double",
+        "palm-double",
+        "palm-circle",
+        "qi-round",
+        "guard"
+      ],
+      "direction": "闊步直掌護胸，背脊挺立送掌後圓收雙臂；沉、山推、回護",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "pr_floating_blade": {
+      "name": "飄絮刀",
+      "kind": "external",
+      "family": "blade",
+      "poses": [
+        "weapon-low",
+        "step-side",
+        "weapon-draw",
+        "slash-level",
+        "step-cross",
+        "slash-down",
+        "weapon-low",
+        "weapon-guard"
+      ],
+      "direction": "鬆腕垂刀以曲步繞側，刀刃沿意外斜角輕落；飄、折、落",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "pr_star_fall": {
+      "name": "流星墜月",
+      "kind": "external",
+      "family": "dart",
+      "poses": [
+        "needle-hide",
+        "throw-high",
+        "throw-release",
+        "throw-low",
+        "needle-left",
+        "throw-high",
+        "needle-hide",
+        "guard"
+      ],
+      "direction": "雙手先高後低交替撒出暗器，身體隨手轉側；高撒、低撒、回袖",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "pr_blood_sea": {
+      "name": "血海心經",
+      "kind": "internal",
+      "family": "internal",
+      "poses": [
+        "qi-low",
+        "qi-fist",
+        "qi-mid",
+        "qi-wide",
+        "qi-wide",
+        "qi-round",
+        "qi-press",
+        "qi-low"
+      ],
+      "direction": "掌根貼腹聚息，翻掌擴胸再收息；聚擴收潮",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "pr_thunder_heart": {
+      "name": "雷動心法",
+      "kind": "internal",
+      "family": "internal",
+      "poses": [
+        "qi-mid",
+        "qi-seal",
+        "qi-fist",
+        "qi-mid",
+        "qi-fist",
+        "qi-wide",
+        "qi-press",
+        "qi-mid"
+      ],
+      "direction": "交掌貼胸連續短吐，肘肩隨息微震；短短長吐",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "pr_diamond_body": {
+      "name": "金剛不壞體",
+      "kind": "internal",
+      "family": "internal",
+      "poses": [
+        "qi-low",
+        "qi-seal",
+        "qi-prayer",
+        "qi-round",
+        "qi-wide",
+        "qi-mid",
+        "qi-press",
+        "qi-low"
+      ],
+      "direction": "結印沉身，旋掌至胸後展前臂成圓架，再慢壓收息；印、展、圓、壓",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "pr_seal_meridian": {
+      "name": "封脈真經",
+      "kind": "internal",
+      "family": "internal",
+      "poses": [
+        "qi-low",
+        "qi-seal",
+        "qi-prayer",
+        "qi-mid",
+        "qi-round",
+        "qi-wide",
+        "qi-mid",
+        "qi-low"
+      ],
+      "direction": "平掌於腹逐指閉合，雙手展開至胸；逐指收整體放",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "pr_void_breath": {
+      "name": "太虛吐納",
+      "kind": "internal",
+      "family": "internal",
+      "poses": [
+        "qi-low",
+        "crouch",
+        "qi-press",
+        "qi-mid",
+        "qi-high",
+        "qi-round",
+        "qi-low",
+        "qi-low"
+      ],
+      "direction": "屈膝吸氣後舒身，實抱轉為虛托；沉輕起虛收",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "pr_cloud_step": {
+      "name": "踏雲九霄",
+      "kind": "qinggong",
+      "family": "step",
+      "poses": [
+        "guard",
+        "step-high",
+        "crouch",
+        "step-high",
+        "step-cross",
+        "kick-far",
+        "step-tip",
+        "guard"
+      ],
+      "direction": "單足高立，深屈膝後提膝騰起，交腿換向再單足輕落；蓄、騰、轉、落",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "pr_shadow_flash": {
+      "name": "鬼影閃",
+      "kind": "qinggong",
+      "family": "step",
+      "poses": [
+        "crouch",
+        "step-fold",
+        "step-side",
+        "step-cross",
+        "step-fold",
+        "step-back",
+        "step-side",
+        "crouch"
+      ],
+      "direction": "極低縮身後反向換足，軀幹先隱再現；壓閃反閃",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    },
+    "pr_tide_step": {
+      "name": "觀潮步",
+      "kind": "qinggong",
+      "family": "step",
+      "poses": [
+        "guard",
+        "step-front",
+        "step-front",
+        "step-back",
+        "step-cross",
+        "step-front",
+        "step-back",
+        "guard"
+      ],
+      "direction": "前足探出後後足拖回，重心前後循環；進緩回再進",
+      "sourceBody": "同一所選面孔／衣著；獨立關鍵姿勢序列"
+    }
+  }
+}

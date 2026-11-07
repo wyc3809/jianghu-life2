@@ -1,0 +1,29 @@
+{
+  "version": "EA0.102.0",
+  "tests": {
+    "files": 128,
+    "passed": 975,
+    "command": "npx vitest run --maxWorkers=1"
+  },
+  "ordinaryBuild": true,
+  "pagesBuild": true,
+  "narrateHardFail": 0,
+  "playerCopyViolations": 0,
+  "canonicalArts": 103,
+  "families": 19,
+  "threeOutfitClips": 393,
+  "allOutputFrames": 13224,
+  "productArtOutfitCases": 309,
+  "productSampledMartialFrames": 10467,
+  "appearanceCombinations": 96,
+  "combatBrowserCases": 6,
+  "deviceBrowserCases": 8,
+  "allAssetsFailureSkipReplayCases": 2,
+  "productionOldSaveCases": 2,
+  "coreEconomySaveSchemasChanged": false,
+  "pausedWarsReactivated": false,
+  "playerVisualAcceptance": false,
+  "actualIphone": false,
+  "testFlightUploaded": false,
+  "notes": "JS／Canvas提交時間不是GPU完成或裝置幀率；玩家畫面回饋獨立記錄。公開部署待PR #159及Pages檢查。"
+}

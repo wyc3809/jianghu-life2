@@ -5,6 +5,9 @@ import { createNewLife } from '@core/life/gameState';
 import { startCombat } from '@core/life/combat';
 import { runAutoCombat } from '@core/life/autoCombat';
 import { SparDuel, sparHeroStats, sparRand } from '@core/life/sparDuel';
+import { readAppearance, APPEARANCE_HEADS, APPEARANCE_OUTFITS, APPEARANCE_TONES } from '@interfaces/appearance';
+import { HEAD_LABELS,OUTFIT_LABELS,TONE_LABELS } from '@data/appearances';
+import { INDEPENDENT_INDEX } from '../appearance/independent/frames';
 import { getSkillDef } from '@data/skills/catalog';
 import type { CombatReplay } from '@interfaces/lifeEngine';
 import { InkAutoBattle } from '../components/ink/InkAutoBattle';
@@ -56,6 +59,9 @@ export default function MartialIdentityPreview() {
   const [mono, setMono] = useState(q.get('mono') === '1');
   const [inspection, setInspection] = useState(q.get('pose') === '1' || getSkillDef(id)?.kind !== 'external');
   const [time, setTime] = useState(0);
+  const [paused,setPaused]=useState(false);
+  const [appearance,setAppearance]=useState(readAppearance({head:q.get('head')??'bamboo',outfit:q.get('outfit')??'cloak',tone:q.get('tone')??'ink'}));
+  const source=q.get('actor')==='source';
   const [finished, setFinished] = useState(false);
   const legacy = q.get('legacy') === '1';
   const reduced = q.get('reduced') === '1' || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -63,36 +69,39 @@ export default function MartialIdentityPreview() {
   const rotation = q.get('rotation') === '1' ? ['art_rain_sword', 'art_river_fist', 'art_stone_palm', 'art_wind_chase', 'art_rain_sword'] : null;
   const replay = useMemo(() => makeMartialReplay(rotation ?? (support ? ['art_river_fist', id] : [id]), q.get('source') === 'spar' ? 'spar' : q.get('source') === 'weak' ? 'weak' : 'event', Math.max(1, Math.min(12, Number(q.get('stage') ?? 12)))), [id, attempt]);
   useEffect(() => {
-    if (!inspection) return;
-    let raf = 0, prev = 0, total = 0;
+    if (!inspection||paused) return;
+    let raf = 0, prev = 0, total = time;
     const tick = (now: number) => {
       if (prev) total += Math.min(.05, (now - prev) / 1000) * speed;
-      prev = now; setTime(total % (support ? 1.1 : 1.6)); raf = requestAnimationFrame(tick);
+      prev = now; setTime(total % ((INDEPENDENT_INDEX.clips[id]?.duration??1.1)+.25)); raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick); return () => cancelAnimationFrame(raf);
-  }, [inspection, speed, support]);
+  }, [inspection, speed, support,paused,id]);
   const ready = async (stage: SparStage) => {
     // 正式裝備仍係產品自己讀；呢度只喺獨立動畫驗收掛劍驗證空手招式唔帶劍。
+    stage.setCharacterAppearance(appearance);
     const def = WEAPON_SPRITES.sword;
     if (def) stage.setWeapon(def, await loadSparImage(def.src));
     (window as unknown as { __martialQa?: unknown }).__martialQa = { stage, replay, id, seed: 42 };
   };
+  useEffect(()=>{const stage=(window as unknown as{__martialQa?:{stage:SparStage}}).__martialQa?.stage;if(stage)stage.setCharacterAppearance(appearance);},[appearance]);
   const clean = q.get('clean') === '1';
   return <>
     <InkAutoBattle key={`${id}-${attempt}`} replay={replay} unified season="autumn" reduceMotion={reduced}
       battleBackdropSrc={`${import.meta.env.BASE_URL || '/'}ink/art/battle-preview/autumn.webp`}
       review={{ speed, effectsOff, monochrome: mono, legacy, supports: support ? [id] : [], onStage: ready,
-        inspect: inspection ? { id, t: time } : undefined }} onDone={() => { if (!clean) setFinished(true); }}
+        inspect: inspection ? { id, t: time,source } : undefined }} onDone={() => { if (!clean) setFinished(true); }}
       notice={finished ? <><h2>演出結束</h2><button onClick={() => { setAttempt(n => n + 1); setFinished(false); }}>重新播放</button></> : undefined} />
     {!clean && <aside style={{ position: 'fixed', zIndex: 99999, bottom: 0, left: 0, right: 0, padding: '8px 12px', background: '#faf5e8', borderTop: '1px solid #9c7154', fontSize: 13 }}>
-      <label>武學動畫 <select value={id} onChange={e => { setId(e.target.value); setInspection(getSkillDef(e.target.value)?.kind !== 'external'); setFinished(false); }}>
+      <label>武學動畫 <select value={id} onChange={e => { setId(e.target.value);setTime(0); setInspection(getSkillDef(e.target.value)?.kind !== 'external'); setFinished(false); }}>
         {MARTIAL_POSES.map(d => <option key={d.id} value={d.id}>{getSkillDef(d.id)?.name} · {d.premium ? '珍本' : '一般'}</option>)}
       </select></label>{' '}
       <label>速度 <select value={speed} onChange={e => setSpeed(Number(e.target.value))}><option value={1}>正常</option><option value={.25}>四分一慢速</option></select></label>
       <div><label><input type="checkbox" checked={effectsOff} onChange={e => setEffectsOff(e.target.checked)} />關閉附加特效</label>{' '}
         <label><input type="checkbox" checked={mono} onChange={e => setMono(e.target.checked)} />統一墨色</label>{' '}
         <label><input type="checkbox" checked={inspection} onChange={e => setInspection(e.target.checked)} />只看肢體</label></div>
-      <small>{support || inspection ? '姿勢時間線檢視，沒有結算攻擊。' : '真實核心戰報，沿用產品同一呈現器。'} {martialPoseFor(id)?.premium ? '珍本變體仍待完整重製及驗收。' : ''} seed42 · 不寫存檔</small>
+      <div>{(['head','outfit','tone'] as const).map(key=><label key={key}>{key==='head'?'面孔':key==='outfit'?'衣著':'配色'} <select value={appearance[key]} onChange={e=>setAppearance(a=>({...a,[key]:e.target.value}))}>{(key==='head'?APPEARANCE_HEADS:key==='outfit'?APPEARANCE_OUTFITS:APPEARANCE_TONES).map(v=><option key={v} value={v}>{({...HEAD_LABELS,...OUTFIT_LABELS,...TONE_LABELS} as Record<string,string>)[v]}</option>)}</select></label>)} <button onClick={()=>setPaused(p=>!p)}>{paused?'播放':'暫停'}</button> <button onClick={()=>{setPaused(true);setTime(t=>t+1/30)}}>逐幀</button></div>
+      <small>{source ? '原人物獨立姿勢檢視，未套用所選面孔及衣著，沒有結算攻擊。' : '所選面孔、衣著及配色；沿用產品呈現器與真時計。'} {martialPoseFor(id)?.premium ? '珍本動作編排。' : ''} seed42 · 不寫存檔</small>
     </aside>}
   </>;
 }

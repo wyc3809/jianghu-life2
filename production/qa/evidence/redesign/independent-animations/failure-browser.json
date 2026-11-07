@@ -1,0 +1,19 @@
+{
+  "cases": [
+    {
+      "engine": "chromium",
+      "allNewMotionAssetsFailed": true,
+      "doubleSkipAndReplay": true,
+      "storageUnchanged": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "allNewMotionAssetsFailed": true,
+      "doubleSkipAndReplay": true,
+      "storageUnchanged": true,
+      "pageerrors": []
+    }
+  ],
+  "actualIphone": false
+}

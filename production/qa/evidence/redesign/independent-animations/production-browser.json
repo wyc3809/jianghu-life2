@@ -1,0 +1,41 @@
+{
+  "cases": [
+    {
+      "engine": "chromium",
+      "base": "http://127.0.0.1:5295/jianghu-life2/",
+      "realOldSaveLoaded": true,
+      "appearanceAndEquipmentKept": true,
+      "personAndReturn": true,
+      "reloadKeepsAppearance": true,
+      "independentActorDraws": {
+        "draws": 35,
+        "sources": [
+          "traveller/_idle_grip.webp",
+          "traveller/_upper-silver.webp",
+          "traveller/_walk_grip.webp",
+          "traveller/art_river_fist.webp"
+        ]
+      },
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "base": "http://127.0.0.1:5295/jianghu-life2/",
+      "realOldSaveLoaded": true,
+      "appearanceAndEquipmentKept": true,
+      "personAndReturn": true,
+      "reloadKeepsAppearance": true,
+      "independentActorDraws": {
+        "draws": 17,
+        "sources": [
+          "traveller/_idle_grip.webp",
+          "traveller/_upper-silver.webp",
+          "traveller/_walk_grip.webp"
+        ]
+      },
+      "pageerrors": []
+    }
+  ],
+  "cloudBlocked": true,
+  "actualIphone": false
+}

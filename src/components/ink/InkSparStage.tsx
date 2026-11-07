@@ -364,9 +364,9 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
         images.ui = await loadSparUiImages();
         images.coin = await loadSparImage(COIN_SRC).catch(() => null);
         const character = useLifeStore.getState().state?.character;
-        if(images.wardrobe)await prepareAppearance(images.wardrobe,appearanceOf(character??{}));
         const arts = character ? equippedMartialArts(character) : [];
-        const martialAssets = await loadMartialAssets(arts);
+        if(images.wardrobe)await prepareAppearance(images.wardrobe,appearanceOf(character??{}),arts,character?.equipment.weapon?getGearDef(character.equipment.weapon)?.weaponKind??'fist':'fist');
+        const martialAssets = await loadMartialAssets(arts,{actor:!images.wardrobe});
         if (cancelled) return;
         stage = new SparStage({
           canvas,

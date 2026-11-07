@@ -1,3 +1,4 @@
+import { IndependentTextures } from './independent/assets';
 import { prepareCombatAppearance } from './combat';
 import mapping from './asset-map.json';
 import fallback from './asset-fallback.json';
@@ -12,6 +13,7 @@ export interface AppearanceAssets {
   neck?: HTMLImageElement;
   simplified: boolean;
   spine?: SpineTextures;
+  independent?: IndependentTextures;
 }
 declare global { interface Window { __jianghuAppearanceAssets?: Record<string,string> } }
 const WEAPONS = ['sword','blade','spear','staff','whip','bow','hidden'];
@@ -38,12 +40,13 @@ export function loadAppearanceAssets(): Promise<AppearanceAssets> {
       try{return [key,await load(`ink/spar/weapon-${key}.webp`)];}catch{return [key,undefined];}
     }))) as AppearanceAssets['weapons'];
     const neck=await load(mapping.neck);
-    return {heads,bodies,weapons,neck,simplified,spine:createSpineTextures()};
+    return {heads,bodies,weapons,neck,simplified,spine:createSpineTextures(),independent:new IndependentTextures()};
   })().catch(error=>{pending=null;throw error;});
   return pending;
 }
 
-/** 進場前預合成舊版完整姿勢；失圖沿用同身份後備，不改存檔。 */
-export async function prepareAppearance(assets:AppearanceAssets,value:unknown):Promise<void> {
+/** 進場前預備同身份完整後備及當場獨立動作；不改存檔或預載全目錄。 */
+export async function prepareAppearance(assets:AppearanceAssets,value:unknown,ids:readonly string[]=[],family='fist'):Promise<void> {
   prepareCombatAppearance(assets,value);
+  await assets.independent?.prepare(value,ids,family);
 }
