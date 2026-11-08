@@ -1,0 +1,113 @@
+{
+  "status": "上一版已被玩家否決；本輪只交自然站姿；未動畫驗收／未合併／未發布",
+  "source": "design/art/spine-character/sources/master-v01.png",
+  "sourceSha256": "034d68ec85643b344d075811dcb6982e01a2bff952bbde6ef58a3281f03ff95f",
+  "sourceUnmodified": true,
+  "sourceOrigin": [
+    512,
+    1520
+  ],
+  "worldUnitsPerSourcePixel": 1,
+  "landmarks": {
+    "hip": [
+      520,
+      790
+    ],
+    "torso": [
+      520,
+      650
+    ],
+    "chest": [
+      520,
+      390
+    ],
+    "neck": [
+      539,
+      304
+    ],
+    "head": [
+      538,
+      246
+    ],
+    "near-upper-arm": [
+      360,
+      385
+    ],
+    "near-lower-arm": [
+      280,
+      580
+    ],
+    "near-hand": [
+      335,
+      756
+    ],
+    "near-knuckles": [
+      350,
+      814
+    ],
+    "far-upper-arm": [
+      647,
+      398
+    ],
+    "far-lower-arm": [
+      697,
+      590
+    ],
+    "far-hand": [
+      725,
+      758
+    ],
+    "far-knuckles": [
+      724,
+      814
+    ],
+    "near-upper-leg": [
+      445,
+      900
+    ],
+    "near-lower-leg": [
+      389,
+      1160
+    ],
+    "near-foot": [
+      380,
+      1405
+    ],
+    "near-toes": [
+      354,
+      1494
+    ],
+    "far-upper-leg": [
+      585,
+      900
+    ],
+    "far-lower-leg": [
+      606,
+      1154
+    ],
+    "far-foot": [
+      608,
+      1401
+    ],
+    "far-toes": [
+      725,
+      1480
+    ]
+  },
+  "boneCount": 18,
+  "surfaceCount": 1,
+  "previousGuardKneeAngles": {
+    "near": -39.49037181386158,
+    "far": -39.829171273547054
+  },
+  "standingKneeAngles": {
+    "near": 10.05114475037116,
+    "far": -4.26237999431435
+  },
+  "maxBindDisagreement": 1.2537147662190283e-08,
+  "limitations": [
+    "使用已接受完整母版，唔係新畫或新出拳",
+    "只重建自然站姿初始綁定；大動作及交叉遮擋要另行處理",
+    "尚未連續動畫、換裝、持武或真機驗收"
+  ]
+}

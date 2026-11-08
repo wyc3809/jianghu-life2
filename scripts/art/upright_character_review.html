@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-Hant">
+<meta charset="utf-8">
+<title>自然站姿 · 隔離評閱</title>
+<style>
+  * { margin: 0; box-sizing: border-box; }
+  body { background: #eee8dd; }
+  #stage { position: relative; width: 780px; height: 920px; }
+  #player, #debug { position: absolute; inset: 0; }
+  #debug { pointer-events: none; }
+  canvas { display: block; }
+  nav { position: absolute; top: 12px; left: 12px; display: flex; gap: 12px; }
+  button { padding: 12px; font-size: 18px; }
+</style>
+<div id="stage"><div id="player"></div><canvas id="debug" width="780" height="920"></canvas></div>
+<nav><button id="stand">自然站姿</button><button id="bones" aria-pressed="false">檢查骨架</button></nav>
+<script src="runtime.js"></script>
+<script>
+  let player, debug = false;
+  const viewport = {x:-700,y:-70,width:1400,height:1651.282,padLeft:0,padRight:0,padTop:0,padBottom:0,transitionTime:0};
+  const debugCanvas = document.getElementById('debug');
+  function drawDebug() {
+    const c = debugCanvas.getContext('2d');
+    c.clearRect(0,0,780,920);
+    if (!debug || !player?.skeleton) return;
+    const point = b => [(b.worldX-viewport.x)/viewport.width*780,920-(b.worldY-viewport.y)/viewport.height*920];
+    c.lineWidth=2;c.strokeStyle='#a43028';c.fillStyle='#a43028';
+    for(const bone of player.skeleton.bones) {
+      if(bone.data.name==='root')continue;
+      const p=point(bone);
+      if(bone.parent && bone.parent.data.name!=='root') {
+        const q=point(bone.parent);c.beginPath();c.moveTo(...q);c.lineTo(...p);c.stroke();
+      }
+      c.beginPath();c.arc(...p,3,0,Math.PI*2);c.fill();
+    }
+  }
+  function stand() {
+    // 只有自然站姿，無戰鬥IK、壓低重心、步伐或自動動畫更新。
+    player.pause();player.stopRendering();player.animationState.clearTracks();
+    const s=player.skeleton;s.setToSetupPose();s.x=s.y=0;
+    s.updateWorldTransform(spine.Physics.update);player.drawFrame(false);drawDebug();
+    return player.canvas.toDataURL().split(',')[1];
+  }
+  window.ready = new Promise(async(resolve,reject) => {
+    try {
+      const json=await(await fetch('character.json')).text();
+      const atlas=await(await fetch('character.atlas')).text();
+      const blob=await(await fetch('atlas.png')).blob();
+      const uri=await new Promise(r=>{const reader=new FileReader();reader.onload=()=>r(reader.result);reader.readAsDataURL(blob)});
+      player=new spine.SpinePlayer('player',{
+        jsonUrl:'character.json',atlasUrl:'character.atlas',
+        rawDataURIs:{'character.json':'data:application/json;base64,'+btoa(json),'character.atlas':'data:text/plain;base64,'+btoa(atlas),'atlas.png':uri},
+        animation:'stand',showControls:false,showLoading:false,interactive:false,
+        alpha:true,backgroundColor:'00000000',preserveDrawingBuffer:true,premultipliedAlpha:false,viewport,
+        success(p){player=p;setTimeout(()=>{stand();resolve(true)},50)},
+        error(p,error){reject(Error(error))}
+      });
+    } catch(error) { reject(error); }
+  });
+  document.getElementById('stand').onclick=stand;
+  document.getElementById('bones').onclick=()=>{debug=!debug;document.getElementById('bones').setAttribute('aria-pressed',String(debug));drawDebug()};
+  window.__standingReview={stand,setDebug(value){debug=value;drawDebug()},get player(){return player}};
+</script>
+</html>
