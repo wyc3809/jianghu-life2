@@ -3,7 +3,7 @@ import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
 
 const read = (path: string) => JSON.parse(readFileSync(path, 'utf8'));
-const original = read('design/art/independent-animation/rig/traveller.json');
+const original = read('design/art/character-bind-review/rejected-baseline.json');
 const review = read('design/art/character-bind-review/traveller-review.json');
 const measurements = read('design/art/character-bind-review/measurements.json');
 const context = vm.createContext({});

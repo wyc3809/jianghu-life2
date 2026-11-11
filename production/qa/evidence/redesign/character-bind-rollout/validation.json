@@ -1,0 +1,46 @@
+{
+  "date": "2026-11-11",
+  "version": "EA0.103.0",
+  "tests": {
+    "files": 133,
+    "tests": 996,
+    "passed": 996
+  },
+  "pagesBuild": {
+    "passed": true,
+    "existingLargeChunkWarnings": true
+  },
+  "narrateHardFails": 0,
+  "playerCopyFindings": 0,
+  "artifacts": {
+    "canonicalArts": 103,
+    "bodyClips": 393,
+    "families": 19,
+    "upperSheets": 24,
+    "frames": 14850,
+    "bodyBytes": 160534282,
+    "actualIphone": false,
+    "playerVisualAcceptance": false
+  },
+  "productBinding": {
+    "canonicalOutfitCases": 309,
+    "appearanceCombinations": 96,
+    "artFramesDrawn": 11307
+  },
+  "combatBrowserCases": 6,
+  "deviceBrowserCases": 8,
+  "failureBrowserCases": 2,
+  "productionOldSaveBrowserCases": 2,
+  "nativeSpineEditorRoundTrip": false,
+  "actualIphone": false,
+  "testFlightUploaded": false,
+  "liveVerification": "在合併後另核對GitHub Pages部署及公開版本，不預先當通過",
+  "performance": {
+    "longRunRenders": 10000,
+    "cachePixels": 22665216,
+    "cacheLimitPixels": 24000000,
+    "failures": 0,
+    "storageUnchanged": true,
+    "desktopCanvasSubmissionOnly": true
+  }
+}

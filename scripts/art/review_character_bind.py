@@ -86,7 +86,7 @@ def build():
     """產出隔離資料；只供兩張靜態驗收，唔改App入口。"""
     OUT.mkdir(exist_ok=True)
     BUILD.mkdir(exist_ok=True, parents=True)
-    original = json.loads((ART / 'rig/traveller.json').read_text())
+    original = json.loads((OUT / 'rejected-baseline.json').read_text())
     rig = copy.deepcopy(original)
     bones = rig['bones']
     frames = world_of(bones)

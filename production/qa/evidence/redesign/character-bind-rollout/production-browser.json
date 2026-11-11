@@ -1,0 +1,43 @@
+{
+  "cases": [
+    {
+      "engine": "chromium",
+      "base": "http://127.0.0.1:5295/jianghu-life2/",
+      "realOldSaveLoaded": true,
+      "appearanceAndEquipmentKept": true,
+      "personAndReturn": true,
+      "reloadKeepsAppearance": true,
+      "existingDebouncedSaveCompletedBeforeReload": true,
+      "independentActorDraws": {
+        "draws": 82,
+        "sources": [
+          "traveller/_idle_grip.webp?v=03e6825481be48ec89ea47cdd1a20c3b44bc476544d8254ce7760360272d0c09",
+          "traveller/_upper-silver.webp?v=590d17d840dd12df4ee591e91be4ba1b473f427599d86bb2ad387b96ba8db0f3",
+          "traveller/_walk_grip.webp?v=f24c0e800f3db46ce3382fcf09243c9d7a891fefcf21bae48852c72de0b7a7bb",
+          "traveller/art_river_fist.webp?v=f4affe76e8a58de235427b488519676ff8247e85dd2823744c69a4146a166a0c"
+        ]
+      },
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "base": "http://127.0.0.1:5295/jianghu-life2/",
+      "realOldSaveLoaded": true,
+      "appearanceAndEquipmentKept": true,
+      "personAndReturn": true,
+      "reloadKeepsAppearance": true,
+      "existingDebouncedSaveCompletedBeforeReload": true,
+      "independentActorDraws": {
+        "draws": 27,
+        "sources": [
+          "traveller/_idle_grip.webp?v=03e6825481be48ec89ea47cdd1a20c3b44bc476544d8254ce7760360272d0c09",
+          "traveller/_upper-silver.webp?v=590d17d840dd12df4ee591e91be4ba1b473f427599d86bb2ad387b96ba8db0f3",
+          "traveller/_walk_grip.webp?v=f24c0e800f3db46ce3382fcf09243c9d7a891fefcf21bae48852c72de0b7a7bb"
+        ]
+      },
+      "pageerrors": []
+    }
+  ],
+  "cloudBlocked": true,
+  "actualIphone": false
+}

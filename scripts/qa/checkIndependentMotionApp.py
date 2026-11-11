@@ -2,7 +2,7 @@
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 import json,base64,os
-ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'production/qa/evidence/redesign/independent-animations';BASE=os.getenv('MARTIAL_BASE','http://127.0.0.1:5292/');TMP=Path('/tmp/full-martial-animations/app-frames');TMP.mkdir(exist_ok=True)
+ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/os.getenv('MARTIAL_QA_OUT','production/qa/evidence/redesign/independent-animations');BASE=os.getenv('MARTIAL_BASE','http://127.0.0.1:5292/');TMP=Path('/tmp/full-martial-animations/app-frames');TMP.mkdir(parents=True,exist_ok=True)
 with sync_playwright()as pw:
  b=pw.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox']);page=b.new_page(viewport={'width':390,'height':844},device_scale_factor=2);errors=[];page.on('pageerror',lambda e:errors.append(str(e)));page.route('**/*.supabase.co/**',lambda r:r.abort());page.add_init_script('''const ids=new Set(),raf=requestAnimationFrame.bind(window);window.requestAnimationFrame=f=>{const id=raf(t=>{ids.delete(id);f(t)});ids.add(id);return id};window.stopQa=()=>{for(const id of ids)cancelAnimationFrame(id);window.requestAnimationFrame=()=>0}''');page.goto(BASE+'?martial-preview=1&art=art_river_fist&pose=1&clean=1');page.wait_for_function('!!window.__martialQa',timeout=90000);page.evaluate('stopQa()');before=page.evaluate('JSON.stringify(localStorage)')
  result=page.evaluate('''async()=>{

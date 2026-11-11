@@ -1,0 +1,79 @@
+{
+  "actualIphone": false,
+  "nativeEditorRoundTrip": false,
+  "productionRenderer": true,
+  "cases": [
+    {
+      "engine": "chromium",
+      "kind": "spar",
+      "viewport": [
+        390,
+        844
+      ],
+      "twoAppearanceSnapshots": true,
+      "speedAndDoubleSkip": true,
+      "replayNoSaveWrite": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "chromium",
+      "kind": "event",
+      "viewport": [
+        390,
+        844
+      ],
+      "twoAppearanceSnapshots": true,
+      "speedAndDoubleSkip": true,
+      "replayNoSaveWrite": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "chromium",
+      "kind": "event-boss",
+      "viewport": [
+        390,
+        844
+      ],
+      "twoAppearanceSnapshots": true,
+      "speedAndDoubleSkip": true,
+      "replayNoSaveWrite": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "kind": "spar",
+      "viewport": [
+        390,
+        844
+      ],
+      "twoAppearanceSnapshots": true,
+      "speedAndDoubleSkip": true,
+      "replayNoSaveWrite": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "kind": "event",
+      "viewport": [
+        390,
+        844
+      ],
+      "twoAppearanceSnapshots": true,
+      "speedAndDoubleSkip": true,
+      "replayNoSaveWrite": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "webkit",
+      "kind": "event-boss",
+      "viewport": [
+        390,
+        844
+      ],
+      "twoAppearanceSnapshots": true,
+      "speedAndDoubleSkip": true,
+      "replayNoSaveWrite": true,
+      "pageerrors": []
+    }
+  ]
+}

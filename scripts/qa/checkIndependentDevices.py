@@ -2,7 +2,7 @@
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 import os,json
-ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'production/qa/evidence/redesign/independent-animations';BASE=os.getenv('MARTIAL_BASE','http://127.0.0.1:5292/');rows=[]
+ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/os.getenv('MARTIAL_QA_OUT','production/qa/evidence/redesign/independent-animations');BASE=os.getenv('MARTIAL_BASE','http://127.0.0.1:5292/');rows=[]
 with sync_playwright()as pw:
  for engine in ['chromium','webkit']:
   b=pw.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox'])if engine=='chromium'else pw.webkit.launch(executable_path=os.getenv('MARTIAL_WEBKIT_EXECUTABLE'))

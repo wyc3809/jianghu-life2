@@ -24,7 +24,7 @@ describe('所選造型的同幀整體繪圖',()=>{
   const body={meta:json('public/ink/art/independent/traveller/art_stone_palm.json'),image:{}},assets={independent:{getClip:()=>body}}as unknown as AppearanceAssets;
   const t=body.meta.contacts[0],f=independentFrame(body.meta,t).frame;expect(f.contact).toBe('far');
   const a={head:'topknot',outfit:'traveller',tone:'ink'},o={x:100,y:200,height:191.625,pose:'attack' as const,martialId:'art_stone_palm',motionTime:t,family:'palm'};
-  expect(independentContact(assets,a,o)).toEqual({x:100+f.farGrip[0]-192,y:200+f.farGrip[1]-272});
+  const contact=independentContact(assets,a,o)!;expect(contact.x).toBeCloseTo(100+f.farGrip[0]-192,10);expect(contact.y).toBeCloseTo(200+f.farGrip[1]-272,10);
   expect(independentContact(assets,a,{...o,face:-1})?.x).toBeCloseTo(100-(f.farGrip[0]-192),8);
  });
  it('test_independent_draw_未接真時計的舊預覽_不暗中切換暫停的多人呈現器',()=>{
