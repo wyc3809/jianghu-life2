@@ -3,10 +3,10 @@ import{readFileSync}from'node:fs';
 import{IndependentTextures}from'../src/appearance/independent/assets';
 import{INDEPENDENT_INDEX}from'../src/appearance/independent/frames';
 function fixture(size=256){
- const made:{width:number;height:number}[]=[];
- vi.stubGlobal('window',{});vi.stubGlobal('Image',class{naturalWidth=size;naturalHeight=size;onload:(()=>void)|null=null;onerror:(()=>void)|null=null;set src(_:string){queueMicrotask(()=>this.onload?.());}});
+ const made:{width:number;height:number}[]=[],sources:string[]=[];
+ vi.stubGlobal('window',{});vi.stubGlobal('Image',class{naturalWidth=size;naturalHeight=size;onload:(()=>void)|null=null;onerror:(()=>void)|null=null;set src(value:string){sources.push(value);queueMicrotask(()=>this.onload?.());}});
  vi.stubGlobal('document',{createElement:()=>{const c={width:0,height:0,getContext:()=>({drawImage(){},getImageData:()=>({data:new Uint8ClampedArray(16)}),putImageData(){}})};made.push(c);return c;}});
- const fetch=vi.fn(async(url:string)=>({ok:true,json:async()=>JSON.parse(readFileSync('public/'+decodeURIComponent(url.replace(/^\//,'')),'utf8'))}));vi.stubGlobal('fetch',fetch);return{made,fetch};
+ const fetch=vi.fn(async(url:string,_options?:RequestInit)=>({ok:true,json:async()=>JSON.parse(readFileSync('public/'+decodeURIComponent(url.replace(/^\//,'')),'utf8'))}));vi.stubGlobal('fetch',fetch);return{made,fetch,sources};
 }
 afterEach(()=>vi.unstubAllGlobals());
 describe('獨立動作的手機素材生命週期',()=>{
@@ -24,4 +24,15 @@ describe('獨立動作的手機素材生命週期',()=>{
   const{fetch}=fixture(),s=new IndependentTextures(),a={head:'bun',outfit:'scholar',tone:'sand'};fetch.mockImplementation(async()=>{throw Error('失圖測試')});await s.prepareClip(a,'art_rain_sword');
   for(let i=0;i<20;i++)expect(s.getClip(a,'art_rain_sword')).toBeUndefined();expect(fetch).toHaveBeenCalledTimes(1);expect(s.stats().failures).toBe(1);expect(s.stats().clips).toBe(0);
  });
+ it('test_independent_assets_同路徑新圖集_以實際hash避開舊瀏覽器快取',async()=>{
+  const {sources,fetch}=fixture(),a={head:'topknot',outfit:'traveller',tone:'ink'};
+  const meta=JSON.parse(readFileSync('public/ink/art/independent/traveller/art_river_fist.json','utf8'));
+  await new IndependentTextures().prepareClip(a,'art_river_fist');
+  expect(sources[0]).toContain('?v='+meta.sha256);
+  expect(fetch.mock.calls[0][1]).toMatchObject({cache:'no-cache'});
+  fetch.mockImplementation(async()=>({ok:true,json:async()=>({...meta,sha256:'replaced-image-hash'})}));
+  await new IndependentTextures().prepareClip(a,'art_river_fist');
+  expect(sources[1]).toContain('?v=replaced-image-hash');expect(sources[1]).not.toBe(sources[0]);
+ });
+
 });

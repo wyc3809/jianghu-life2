@@ -89,3 +89,6 @@ build/
 *.mobileprovision
 *.xcarchive/
 *.ipa
+
+# 逐衣材質修形的可重建原始JSON；提交同源gzip及製作腳本。
+design/art/independent-animation/rig/animations-*.json

@@ -2,7 +2,7 @@
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 import json,os
-ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'production/qa/evidence/redesign/independent-animations';OUT.mkdir(parents=True,exist_ok=True)
+ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/os.getenv('MARTIAL_QA_OUT','production/qa/evidence/redesign/independent-animations');OUT.mkdir(parents=True,exist_ok=True)
 BASE=os.getenv('MARTIAL_BASE','http://127.0.0.1:5292/')
 report={'actualIphone':False,'nativeEditorRoundTrip':False,'productionRenderer':True,'cases':[]}
 with sync_playwright() as pw:

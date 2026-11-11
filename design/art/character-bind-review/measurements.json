@@ -1,0 +1,92 @@
+{
+  "scope": "單人旅裝／束髮／徒手；兩個靜態姿勢；未發布／未經玩家驗收",
+  "beforeBindError": {
+    "near-arm": 16.091048151023468,
+    "far-arm": 11.020539183515117,
+    "near-leg": 36.79914091026712,
+    "far-leg": 35.32649446864445,
+    "upper-body": 2.842170943040401e-14,
+    "hip": 0.0,
+    "near-hand": 0.0,
+    "far-hand": 0.0
+  },
+  "afterBindError": {
+    "near-arm": 9.83636042067871e-08,
+    "near-leg": 1.091290104169334e-07,
+    "far-leg": 1.1546697458301148e-07,
+    "upper-body": 5.329070518200751e-15,
+    "hip": 0.0,
+    "near-hand": 0.0,
+    "far-hand": 0.0,
+    "far-upper": 1.0325255530791299e-07,
+    "far-forearm": 1.0325255530791299e-07
+  },
+  "sockets": {
+    "near": {
+      "sourceCuff": [
+        300,
+        632
+      ],
+      "textureCuff": [
+        166,
+        621
+      ],
+      "restCuff": [
+        -162.00000000000009,
+        749.0
+      ],
+      "correction": [
+        -11.37887392247137,
+        3.5209724686308164
+      ],
+      "handSourceWrist": [
+        100,
+        100
+      ],
+      "handScale": 0.45,
+      "textureWrist": [
+        64,
+        91
+      ]
+    },
+    "far": {
+      "sourceCuff": [
+        759,
+        624
+      ],
+      "textureCuff": [
+        134,
+        594
+      ],
+      "restCuff": [
+        205.99999999999991,
+        753.0
+      ],
+      "correction": [
+        -1.8038793642870417,
+        1.0853040183501435
+      ],
+      "handSourceWrist": [
+        407,
+        100
+      ],
+      "handScale": 0.53,
+      "textureWrist": [
+        48,
+        82
+      ]
+    }
+  },
+  "sources": {
+    "design/art/independent-animation/sources/traveller-v01.png": "8beab9970fb455540629e31c1b1cfa9e5283653a90ebca95aab34c5daeb65428",
+    "design/art/independent-animation/sources/hands-v01.png": "f974a0b7ee7482cc5df051a7462b7d31232d1dd0d7a1e250c2105eb9c928bd6b",
+    "design/art/spine-character/production/upper-topknot-traveller.png": "73364fe4dceb9e99f26d544029d43d3ac1207f253b3005b4c5fa5c46d942e221",
+    "design/art/spine-character/parts/hip.png": "acb0484d26c2dedb72ee56ed42b364fc24a8771848a9b12045f7b8c2b28024c2"
+  },
+  "limitations": [
+    "尚未動畫驗收",
+    "尚未其他頭／衣／武器",
+    "尚未真機",
+    "原生Spine編輯器回合待驗收"
+  ]
+}

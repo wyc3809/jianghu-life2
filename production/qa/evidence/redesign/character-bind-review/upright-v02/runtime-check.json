@@ -1,0 +1,154 @@
+{
+  "browser": "156.0.8078.79",
+  "positions": [
+    {
+      "name": "root",
+      "x": 0,
+      "y": 0,
+      "rotation": 0,
+      "scaleX": 1,
+      "scaleY": 1
+    },
+    {
+      "name": "hip",
+      "x": 7.999983060274567,
+      "y": 729.9999999999999,
+      "rotation": 0,
+      "scaleX": 1,
+      "scaleY": 1
+    },
+    {
+      "name": "torso",
+      "x": 7.999976562845633,
+      "y": 869.9999999999998,
+      "rotation": 90,
+      "scaleX": 1,
+      "scaleY": 1
+    },
+    {
+      "name": "chest",
+      "x": 7.999958462865018,
+      "y": 1129.9999999999995,
+      "rotation": -90,
+      "scaleX": 1,
+      "scaleY": 1
+    },
+    {
+      "name": "neck",
+      "x": 26.999952475948323,
+      "y": 1216.0000004408964,
+      "rotation": 90.98776039963981,
+      "scaleX": 1,
+      "scaleY": 1
+    },
+    {
+      "name": "head",
+      "x": 25.999947077592985,
+      "y": 1274.0000003942314,
+      "rotation": -90.98776039963981,
+      "scaleX": 1,
+      "scaleY": 1
+    },
+    {
+      "name": "near-upper-arm",
+      "x": -152.00004188521126,
+      "y": 1134.999996287183,
+      "rotation": -112.30620505490764,
+      "scaleX": 1,
+      "scaleY": 1
+    },
+    {
+      "name": "near-lower-arm",
+      "x": -232.0000339567262,
+      "y": 939.9999967472877,
+      "rotation": 39.660229691168965,
+      "scaleX": 1,
+      "scaleY": 1
+    },
+    {
+      "name": "near-hand",
+      "x": -177.00002396448585,
+      "y": 763.9999995199452,
+      "rotation": -2.853857869708757,
+      "scaleX": 1,
+      "scaleY": 1
+    },
+    {
+      "name": "near-upper-leg",
+      "x": -67.00001183460269,
+      "y": 619.9999999999999,
+      "rotation": -102.15494169722223,
+      "scaleX": 1,
+      "scaleY": 1
+    },
+    {
+      "name": "near-lower-leg",
+      "x": -123.0000066161063,
+      "y": 360.0000014749878,
+      "rotation": 10.05114475037116,
+      "scaleX": 1,
+      "scaleY": 1
+    },
+    {
+      "name": "near-foot",
+      "x": -132.0000008546906,
+      "y": 115.00000265935677,
+      "rotation": -14.181125525032332,
+      "scaleX": 1,
+      "scaleY": 1
+    },
+    {
+      "name": "far-upper-arm",
+      "x": 134.99995901978727,
+      "y": 1122.0000029470477,
+      "rotation": -75.40342447450583,
+      "scaleX": 1,
+      "scaleY": 1
+    },
+    {
+      "name": "far-lower-arm",
+      "x": 184.99996865313898,
+      "y": 930.0000031352229,
+      "rotation": -5.134253317468564,
+      "scaleX": 1,
+      "scaleY": 1
+    },
+    {
+      "name": "far-hand",
+      "x": 212.99997694905795,
+      "y": 762.0000028612661,
+      "rotation": -10.48535239669345,
+      "scaleX": 1,
+      "scaleY": 1
+    },
+    {
+      "name": "far-upper-leg",
+      "x": 72.99998816539731,
+      "y": 619.9999999999999,
+      "rotation": -85.27369670705957,
+      "scaleX": 1,
+      "scaleY": 1
+    },
+    {
+      "name": "far-lower-leg",
+      "x": 93.99999436901894,
+      "y": 365.9999995382836,
+      "rotation": -4.26237999431435,
+      "scaleX": 1,
+      "scaleY": 1
+    },
+    {
+      "name": "far-foot",
+      "x": 96.00000016532628,
+      "y": 118.99999906754769,
+      "rotation": 55.508316939185555,
+      "scaleX": 1,
+      "scaleY": 1
+    }
+  ],
+  "staticReplayIdentical": true,
+  "animations": [
+    "stand"
+  ],
+  "scope": "Linux Chromium靜態實畫；唔係App實戰／iPhone／TestFlight驗收"
+}

@@ -14,10 +14,10 @@ export function independentProp(family:string):PropDef|null {
 }
 function trim<K,V>(map:Map<K,V>,max:number,dispose?:(v:V)=>void){while(map.size>max){const key=map.keys().next().value!;dispose?.(map.get(key)!);map.delete(key);}}
 function releaseCanvas(v:{image:HTMLCanvasElement}){v.image.width=0;v.image.height=0;}
-function image(path:string):Promise<HTMLImageElement>{
-  return new Promise((resolve,reject)=>{const im=new Image(),timer=setTimeout(()=>{im.onload=null;im.onerror=null;reject(Error('動作素材載入逾時'));},6000);im.onload=()=>{clearTimeout(timer);resolve(im)};im.onerror=()=>{clearTimeout(timer);reject(Error('動作素材載入失敗'))};im.src=window.__jianghuAppearanceAssets?.[path]??(path.startsWith(import.meta.env.BASE_URL)&&import.meta.env.BASE_URL!=='/'?path:path.startsWith('/')?path:import.meta.env.BASE_URL+path);});
+function image(path:string,revision?:string):Promise<HTMLImageElement>{
+  return new Promise((resolve,reject)=>{const im=new Image(),timer=setTimeout(()=>{im.onload=null;im.onerror=null;reject(Error('動作素材載入逾時'));},6000);im.onload=()=>{clearTimeout(timer);resolve(im)};im.onerror=()=>{clearTimeout(timer);reject(Error('動作素材載入失敗'))};const resolved=window.__jianghuAppearanceAssets?.[path]??(path.startsWith(import.meta.env.BASE_URL)&&import.meta.env.BASE_URL!=='/'?path:path.startsWith('/')?path:import.meta.env.BASE_URL+path);im.src=revision&&!resolved.startsWith('data:')&&!resolved.startsWith('blob:')?resolved+(resolved.includes('?')?'&':'?')+'v='+encodeURIComponent(revision):resolved;});
 }
-async function json<T>(path:string):Promise<T>{const abort=new AbortController(),timer=setTimeout(()=>abort.abort(),6000);try{const r=await fetch(import.meta.env.BASE_URL+path,{signal:abort.signal});if(!r.ok)throw Error('動作資料未能載入');return await r.json()as T;}finally{clearTimeout(timer);}}
+async function json<T>(path:string):Promise<T>{const abort=new AbortController(),timer=setTimeout(()=>abort.abort(),6000);try{const r=await fetch(import.meta.env.BASE_URL+path,{signal:abort.signal,cache:'no-cache'});if(!r.ok)throw Error('動作資料未能載入');return await r.json()as T;}finally{clearTimeout(timer);}}
 function colour(im:HTMLImageElement,tone:CharacterAppearance['tone']):HTMLCanvasElement {
   const c=document.createElement('canvas');c.width=im.naturalWidth;c.height=im.naturalHeight;const x=c.getContext('2d',{willReadFrequently:true})!;x.drawImage(im,0,0);const p=x.getImageData(0,0,c.width,c.height),d=p.data,rgb=APPEARANCE_COLOURS[tone];
   for(let i=0;i<d.length;i+=4)if(d[i+3]&&d[i+2]-d[i]>5&&d[i+2]>=d[i+1]){const v=(d[i]*.2126+d[i+1]*.7152+d[i+2]*.0722)/92;for(let k=0;k<3;k++)d[i+k]=Math.min(247,rgb[k]*v);}
@@ -37,12 +37,12 @@ export class IndependentTextures {
   /** 按武學身份預載一段，來源失敗由同身份後備承接。 */
   async prepareClip(value:unknown,id:string):Promise<void>{
     const a=readAppearance(value),key=`${a.outfit}:${a.tone}:${id}`;if(this.clips.has(key))return;
-    return this.run('clip:'+key,async()=>{const meta=await json<MotionClip>(`ink/art/independent/${a.outfit}/${encodeURIComponent(id)}.json`);if(meta.id!==id||meta.outfit!==a.outfit||!meta.frames.length)throw Error('動作身份不符');const im=await image(meta.atlas),tinted=colour(im,a.tone);this.clips.set(key,{meta,image:tinted});this.trimClips();this.failed.delete('clip:'+key);});
+    return this.run('clip:'+key,async()=>{const meta=await json<MotionClip>(`ink/art/independent/${a.outfit}/${encodeURIComponent(id)}.json`);if(meta.id!==id||meta.outfit!==a.outfit||!meta.frames.length)throw Error('動作身份不符');const im=await image(meta.atlas,meta.sha256),tinted=colour(im,a.tone);this.clips.set(key,{meta,image:tinted});this.trimClips();this.failed.delete('clip:'+key);});
   }
   /** 載入連續頭頸胸材質與所選配色，不分件換頭。 */
   async prepareUpper(value:unknown):Promise<void>{
     const a=readAppearance(value),key=`${a.head}:${a.outfit}:${a.tone}`;if(this.uppers.has(key))return;
-    return this.run('upper:'+key,async()=>{const meta=await json<UpperSheet>(`ink/art/independent/${a.outfit}/_upper-${a.head}.json`);if(meta.head!==a.head||meta.outfit!==a.outfit)throw Error('人物身份不符');const im=await image(meta.atlas);this.uppers.set(key,{meta,image:colour(im,a.tone)});trim(this.uppers,4,releaseCanvas);this.failed.delete('upper:'+key);});
+    return this.run('upper:'+key,async()=>{const meta=await json<UpperSheet>(`ink/art/independent/${a.outfit}/_upper-${a.head}.json`);if(meta.head!==a.head||meta.outfit!==a.outfit)throw Error('人物身份不符');const im=await image(meta.atlas,meta.sha256);this.uppers.set(key,{meta,image:colour(im,a.tone)});trim(this.uppers,4,releaseCanvas);this.failed.delete('upper:'+key);});
   }
   /** 載入真正持武類別及弦／箭部件。 */
   async prepareProp(family:string):Promise<void>{

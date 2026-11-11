@@ -1,0 +1,16 @@
+{
+  "beforeCommit": "bdabe7558f440ec3db067a4219f8c33d2b183d8a",
+  "appearance": {
+    "head": "topknot",
+    "outfit": "traveller",
+    "tone": "jade"
+  },
+  "martialId": "art_river_fist",
+  "sampleTimes": [
+    0,
+    0.24,
+    0.8
+  ],
+  "sameProductRenderer": true,
+  "artOnlyNoSaveWrites": true
+}

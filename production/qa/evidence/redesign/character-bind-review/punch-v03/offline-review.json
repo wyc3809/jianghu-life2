@@ -1,0 +1,7 @@
+{
+  "sameContactPixelsAsDevelopmentReview": true,
+  "externalAssetRequests": 0,
+  "selfContainedHttpReview": true,
+  "localFileCheck": "本環境file://遭Chromium管理政策ERR_BLOCKED_BY_ADMINISTRATOR阻擋，未驗收直接開檔",
+  "scope": "自含HTML透過localhost載入及同幀比較；唔係App實戰"
+}

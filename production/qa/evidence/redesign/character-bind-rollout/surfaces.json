@@ -1,0 +1,42 @@
+{
+  "officialRuntime": "4.2.120",
+  "rows": [
+    {
+      "outfit": "traveller",
+      "samples": 4950,
+      "maxWristError": 0.00006215191561415473,
+      "worst": {
+        "id": "art_thunder_blade",
+        "t": 1.2,
+        "name": "near-arm",
+        "triangle": 767,
+        "ratio": 0.001620847820447233
+      }
+    },
+    {
+      "outfit": "scholar",
+      "samples": 4950,
+      "maxWristError": 0.00006215191561415473,
+      "worst": {
+        "id": "art_thunder_blade",
+        "t": 1.2,
+        "name": "near-arm",
+        "triangle": 639,
+        "ratio": 0.0011936322990192432
+      }
+    },
+    {
+      "outfit": "cloak",
+      "samples": 4950,
+      "maxWristError": 0.00006215191561415473,
+      "worst": {
+        "id": "art_thunder_blade",
+        "t": 0.25,
+        "name": "near-arm",
+        "triangle": 735,
+        "ratio": 0.0011624786457959117
+      }
+    }
+  ],
+  "actualIphone": false
+}
