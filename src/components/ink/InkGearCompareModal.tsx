@@ -1,3 +1,4 @@
+import { InkModal } from './InkModal';
 import { createPortal } from 'react-dom';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getGearDef, rarityLabel, RARITY_COLOR_CLASS } from '@data/equipment/catalog';
@@ -24,7 +25,7 @@ export function InkGearCompareModal({ state, onEquip, onKeep, onCompare }: Props
   const preview = previewEquipDelta(c, gearId);
 
   return createPortal(
-    <div className="ink-modal" role="dialog" aria-modal="true" aria-label="獲得新裝備">
+    <InkModal className="ink-modal" aria-label="獲得新裝備" onDismiss={onKeep}>
       <div className="ink-modal-card ink-gear-compare-card">
         <header className="ink-settings-head">
           <h3>獲得新裝備</h3>
@@ -72,7 +73,7 @@ export function InkGearCompareModal({ state, onEquip, onKeep, onCompare }: Props
           </button>
         </div>
       </div>
-    </div>,
+    </InkModal>,
     document.body,
   );
 }

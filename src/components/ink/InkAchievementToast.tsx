@@ -10,7 +10,7 @@ import { shouldReduceInkMotion } from './sceneVariants';
 /** 每條成就之間嘅間隔（ms），要同 CSS 嘅 --gap 一致 */
 const GAP_MS = 1400;
 
-export function InkAchievementToast({ names, seal = '成就' }: { names: string[]; seal?: string }) {
+export function InkAchievementToast({ names, seal = '成就', inline = false }: { names: string[]; seal?: string; inline?: boolean }) {
   useEffect(() => {
     if (!names.length) return;
     const reduce = shouldReduceInkMotion();
@@ -20,7 +20,7 @@ export function InkAchievementToast({ names, seal = '成就' }: { names: string[
   }, [names]);
 
   if (!names.length) return null;
-  return createPortal(
+  const content = (
     <div className="ink-achv-stack" aria-live="polite">
       {names.map((name, i) => (
         <div
@@ -42,7 +42,7 @@ export function InkAchievementToast({ names, seal = '成就' }: { names: string[
           </span>
         </div>
       ))}
-    </div>,
-    document.body,
+    </div>
   );
+  return inline ? content : createPortal(content, document.body);
 }

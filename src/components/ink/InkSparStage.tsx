@@ -113,6 +113,9 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const stageRef = useRef<SparStage | null>(null);
+  const quietRef = useRef(reduceMotion);
+  quietRef.current = reduceMotion;
+  useEffect(() => { stageRef.current?.setQuiet(reduceMotion); }, [reduceMotion]);
   const [failed, setFailed] = useState(false);
 
   // 對打狀態（純邏輯）＋血條浮層
@@ -338,7 +341,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
           }
         } else stage.update(dt);
       }
-      if (!highlightCoversPage()) {
+      if (!highlightCoversPage() && drawVisible) {
         stage.render();
         placeBars();
       }
@@ -357,6 +360,9 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
       raf = 0;
     };
     resumeStageRef.current = () => { if (homeRef.current) startLoop(); else stopLoop(); };
+    // 彈窗只停背後繪圖；演武真時計與入帳繼續沿用原規則。
+    let drawVisible = true;
+    const unwatchDraw = watchVisualActivity(active => { drawVisible = active; }, { covered: true, dialogs: true });
     const unwatchActivity = watchVisualActivity(active => { if (active) startLoop(); else stopLoop(); });
 
     loadSparImages(rig, enemies)
@@ -404,11 +410,11 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
         stage.setAmbience(lastSceneRef.current);
         if (bgDef) {
           loadSparImage(bgDef.src)
-            .then((img) => { if (!cancelled) { stage?.setBackground(img, bgDef.opacity ?? 1); if (reduceMotion) stage?.render(); } })
+            .then((img) => { if (!cancelled) { stage?.setBackground(img, bgDef.opacity ?? 1); if (quietRef.current) stage?.render(); } })
             .catch(() => { /* 背景載唔到就用淨色舞台 */ });
         }
         // 先擺好右邊望左敵人；減少動態仍播慢速行過去（唔再凍格，否則好似壞咗）
-        stage.setQuiet(reduceMotion);
+        stage.setQuiet(quietRef.current);
         stage.settleIntro();
         startLoop();
       })
@@ -420,7 +426,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
       if (!stage) return;
       const rect = wrap.getBoundingClientRect();
       stage.resize(rect.width, rect.height || STAGE_HEIGHT, Math.min(window.devicePixelRatio || 1, 2.5));
-      if (reduceMotion) stage.render();
+      if (quietRef.current) stage.render();
     });
     ro.observe(wrap);
 
@@ -441,11 +447,11 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
         if (qa.__sparStage === stage) delete qa.__sparStage;
       }
       stopLoop();
-      resumeStageRef.current = null; unwatchActivity();
+      resumeStageRef.current = null; unwatchActivity(); unwatchDraw();
       ro.disconnect();
       io.disconnect();
     };
-  }, [reduceMotion, rig, enemies]);
+  }, [rig, enemies]);
 
   // 換裝備 → 換武器貼圖
   useEffect(() => {

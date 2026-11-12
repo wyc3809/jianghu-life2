@@ -1,0 +1,14 @@
+{
+  "realSupabaseSdk": true,
+  "isolatedHttpResponses": true,
+  "noExternalWrites": true,
+  "manualLatestSnapshot": true,
+  "failedUploadRetry": true,
+  "disabledWhileUploading": true,
+  "doubleClickSingleUpload": true,
+  "ancestryIncluded": true,
+  "settingsAndBoardHeadersFixed": true,
+  "switchBoardClearsStaleNumbers": true,
+  "sameBoardTabKeepsRows": true,
+  "pageerrors": []
+}

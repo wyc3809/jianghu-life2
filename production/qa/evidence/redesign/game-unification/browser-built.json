@@ -1,0 +1,74 @@
+{
+  "actualIphone": false,
+  "cloudRequestsBlocked": true,
+  "cases": [
+    {
+      "engine": "chromium",
+      "viewport": [
+        390,
+        844
+      ],
+      "routes": [
+        "鎮居",
+        "人物",
+        "裝備比較",
+        "武學七欄",
+        "外功選擇",
+        "設定",
+        "祖祠",
+        "修煉",
+        "單機門派",
+        "雅藝",
+        "江湖地圖",
+        "華山論劍",
+        "開宗立派",
+        "江湖風雲",
+        "秘笈閣",
+        "卡池詳情",
+        "家族收藏",
+        "書頁兌換",
+        "結果",
+        "修行詳情",
+        "境界與傳承",
+        "戰力詳解",
+        "屬性與心性詳解",
+        "裝備與詞綴",
+        "族譜",
+        "人際",
+        "成就",
+        "江湖根腳"
+      ],
+      "nativeModalsAndFocusReturn": true,
+      "previewCancelNoMutation": true,
+      "actualEquipNormalOnly": true,
+      "browsingNoChargeOrLearn": true,
+      "practiceSingleDebit": true,
+      "ancestryHeaderAndPointsVisible": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "chromium",
+      "state": "poor",
+      "passed": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "chromium",
+      "state": "founder",
+      "passed": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "chromium",
+      "state": "battle",
+      "passed": true,
+      "pageerrors": []
+    },
+    {
+      "engine": "chromium",
+      "state": "danger",
+      "passed": true,
+      "pageerrors": []
+    }
+  ]
+}

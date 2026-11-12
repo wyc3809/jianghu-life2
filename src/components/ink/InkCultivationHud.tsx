@@ -10,6 +10,8 @@ import { useStillMode, usePrefersReducedMotion } from '../../hooks/useStillMode'
 import { InkBrushBar } from './InkBrush';
 import { InkBadge } from './InkBadge';
 import { inkIconUrl } from '../../ui/inkIcons';
+import { watchVisualActivity } from '../../ui/visualActivity';
+import { createRng } from '../../fx/ambient/particles';
 
 /** 墨跡粒子：修為入賬時由數字中心向外擴散 */
 type XpParticle = {
@@ -24,20 +26,21 @@ type XpParticle = {
   delay: number;
 };
 
-function spawnXpParticles(): XpParticle[] {
+function spawnXpParticles(seed: number): XpParticle[] {
+  const random = createRng(seed);
   // 8–12 粒，向外擴散＋輕微隨機偏移（UI 層隨機，唔入遊戲邏輯）
-  const count = 8 + Math.floor(Math.random() * 5);
+  const count = 8 + Math.floor(random() * 5);
   const stamp = Date.now();
   return Array.from({ length: count }, (_, i) => {
-    const angle = Math.random() * Math.PI * 2;
-    const dist = 24 + Math.random() * 30;
+    const angle = random() * Math.PI * 2;
+    const dist = 24 + random() * 30;
     return {
       id: stamp + i,
       dx: Math.cos(angle) * dist,
       dy: Math.sin(angle) * dist - 6,
-      size: 4 + Math.random() * 7,
-      dur: 800 + Math.random() * 400,
-      delay: Math.random() * 120,
+      size: 4 + random() * 7,
+      dur: 800 + random() * 400,
+      delay: random() * 120,
     };
   });
 }
@@ -65,10 +68,14 @@ export function InkCultivationHud({ state, onAdvance, onBreakthrough, disabled, 
   const canBreak = canAttemptBreakthrough(state);
   const still = useStillMode();
   const reduceMotion = usePrefersReducedMotion();
+  const rootRef = useRef<HTMLSpanElement>(null);
+  const [visualActive, setVisualActive] = useState(false);
+  useEffect(() => watchVisualActivity(setVisualActive, {
+    element: rootRef.current ?? undefined, covered: true, dialogs: true,
+  }), []);
 
   const [displayXp, setDisplayXp] = useState(committedXp);
-  const baseRef = useRef({ xp: committedXp, at: 0 });
-  const rafRef = useRef<number | null>(null);
+  const baseRef = useRef({ xp: committedXp, at: performance.now() });
   const rollRef = useRef<number | null>(null);
   const rollingRef = useRef(false);
   const displayXpRef = useRef(committedXp);
@@ -88,7 +95,7 @@ export function InkCultivationHud({ state, onAdvance, onBreakthrough, disabled, 
     const to = committedXp;
     const now = performance.now();
     if (rollRef.current !== null) cancelAnimationFrame(rollRef.current);
-    if (still || reduceMotion || Math.abs(to - from) < 0.5) {
+    if (still || reduceMotion || !visualActive || Math.abs(to - from) < 0.5) {
       rollingRef.current = false;
       baseRef.current = { xp: to, at: now };
       setDisplayXp(to);
@@ -112,59 +119,54 @@ export function InkCultivationHud({ state, onAdvance, onBreakthrough, disabled, 
     return () => {
       if (rollRef.current !== null) cancelAnimationFrame(rollRef.current);
     };
-  }, [committedXp, still, reduceMotion]);
+  }, [committedXp, still, reduceMotion, visualActive, rate]);
 
   useEffect(() => {
-    if (still || capped || rate <= 0) return;
-    // 減少動態效果：每秒更新一次數字（唔停止累積，只係少啲跳動）
-    const throttleMs = reduceMotion ? 1000 : 0;
-    let lastPaint = 0;
-    function frame(now: number) {
-      if (rollingRef.current) {
-        // 滾動動畫期間交由滾動器更新
-        rafRef.current = requestAnimationFrame(frame);
-        return;
-      }
-      if (throttleMs === 0 || now - lastPaint >= throttleMs) {
-        lastPaint = now;
-        const elapsedSec = (now - baseRef.current.at) / 1000;
-        setDisplayXp(baseRef.current.xp + rate * elapsedSec);
-      }
-      rafRef.current = requestAnimationFrame(frame);
-    }
-    rafRef.current = requestAnimationFrame(frame);
-    return () => {
-      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
-    };
-  }, [rate, capped, still, reduceMotion]);
+    if (still || capped || rate <= 0 || !visualActive) return;
+    // 數字每100ms已足夠；減少動態每秒一次。隱藏／彈窗遮住時不輪詢。
+    // 真修為仍由useCultivationTicker入帳，呢度只作有上限嘅視覺預估。
+    const timer = window.setInterval(() => {
+      if (rollingRef.current) return;
+      const elapsedSec = Math.max(0, (performance.now() - baseRef.current.at) / 1000);
+      setDisplayXp(Math.min(tier.cap, baseRef.current.xp + rate * elapsedSec));
+    }, reduceMotion ? 1000 : 100);
+    return () => window.clearInterval(timer);
+  }, [rate, capped, still, reduceMotion, visualActive, tier.cap]);
 
   // 修為入賬（事件回饋／閉關所得）時數字跳一跳＋墨跡粒子擴散
   useEffect(() => {
+    if (still || reduceMotion || !visualActive) {
+      prevCommittedRef.current = committedXp;
+      setXpPop(false); setParticles([]); return;
+    }
     if (prevCommittedRef.current === committedXp) return;
     const increased = committedXp > prevCommittedRef.current;
     prevCommittedRef.current = committedXp;
-    if (!increased || still || reduceMotion) return;
+    if (!increased) return;
     setXpPop(true);
-    setParticles(spawnXpParticles());
+    setParticles(spawnXpParticles(state.seed + Math.floor(committedXp)));
     const timer = window.setTimeout(() => setXpPop(false), 650);
     const clearTimer = window.setTimeout(() => setParticles([]), 1400);
     return () => {
       window.clearTimeout(timer);
       window.clearTimeout(clearTimer);
     };
-  }, [committedXp, still, reduceMotion]);
+  }, [committedXp, still, reduceMotion, visualActive, state.seed]);
 
   // 境界躍升時墨光一閃
   useEffect(() => {
+    if (still || reduceMotion || !visualActive) {
+      prevTierRef.current = tier.level;
+      setGlow(false); return;
+    }
     if (prevTierRef.current === tier.level) return;
     prevTierRef.current = tier.level;
-    if (still || reduceMotion) return;
     setGlow(true);
     const timer = window.setTimeout(() => setGlow(false), 900);
     return () => window.clearTimeout(timer);
-  }, [tier.level, still, reduceMotion]);
+  }, [tier.level, still, reduceMotion, visualActive]);
 
-  const shownXp = still ? committedXp : displayXp;
+  const shownXp = Math.min(tier.cap, still || !visualActive ? committedXp : displayXp);
   const shownPct = Number.isFinite(tier.cap)
     ? Math.max(0, Math.min(100, (shownXp / tier.cap) * 100))
     : 100;
@@ -173,12 +175,12 @@ export function InkCultivationHud({ state, onAdvance, onBreakthrough, disabled, 
   const blockedByExhaustion = exhausted && !isBreakthroughReady;
 
   return (
-    <span className="ink-nav-center-wrap">
+    <span ref={rootRef} className="ink-nav-center-wrap">
       <span
         className={`ink-nav-center-xp${xpPop ? ' ink-nav-center-xp--pop' : ''}`}
-        aria-live="polite"
+        aria-label={`修為 ${Math.floor(committedXp).toLocaleString('zh-Hant')}`}
       >
-        修為 {Math.floor(shownXp).toLocaleString('zh-Hant')}
+        <span aria-hidden="true">修為 {Math.floor(shownXp).toLocaleString('zh-Hant')}</span>
         {particles.map((p) => (
           <span
             key={p.id}

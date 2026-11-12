@@ -233,3 +233,34 @@ body .ink-person-gear-slot > small { background:transparent; color:var(--ui-ink)
 /* 設定採原生modal，背景不可獲焦；外觀沿用同一全屏遮罩與宣紙。 */
 body dialog.ink-modal { width:100%; height:100%; max-width:none; max-height:none; margin:0; border:0; }
 body dialog.ink-modal::backdrop { background:transparent; }
+
+/* 共用彈窗保留宣紙外觀；原生top layer負責背景隔離，短螢幕仍可讀完整內容。 */
+:where(dialog.ink-native-modal) {
+  width:100%; height:100%; max-width:none; max-height:none;
+  margin:0; border:0; padding:0; color:inherit; background:transparent;
+  font:inherit; overscroll-behavior:contain;
+}
+:where(dialog.ink-native-modal)::backdrop { background:transparent; }
+dialog.ink-native-modal:not([open]) { display:none; }
+body .ink-offline-modal-card {
+  max-height:calc(100dvh - max(32px,env(safe-area-inset-top)) - max(24px,env(safe-area-inset-bottom)));
+  display:flex; flex-direction:column; overflow:hidden;
+}
+body .ink-offline-modal-card > :not(.ink-offline-modal-body) { flex:none; }
+body .ink-offline-modal-body { min-height:0; overflow-y:auto; overscroll-behavior:contain; }
+body .ink-offline-modal-btn { min-height:44px; }
+body .ink-offline-modal-card :is(button,a):focus-visible {
+  outline:2px solid var(--ui-ink); outline-offset:3px;
+}
+body .ink-ancestry { overflow:hidden; }
+body .ink-ancestry > :is(header,button) { flex:none; }
+body .ink-ancestry .ink-settings-head { margin-bottom:0; }
+body .ink-ancestry-content { min-height:0; overflow-y:auto; overscroll-behavior:contain; }
+body .ink-result { display:flex; flex-direction:column; overflow:hidden; }
+body .ink-result > :not(.ink-result-content) { flex-shrink:0; }
+body .ink-result-content { min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:0 2px 3px; margin-inline:-2px; }
+body .ink-result > .ink-btn--ack { flex:none; min-height:44px; margin-top:12px; }
+body .ink-settings-card { display:flex; flex-direction:column; overflow:hidden; }
+body .ink-settings-card > :is(header,footer) { flex:none; }
+body .ink-settings-content { min-height:0; overflow-y:auto; overscroll-behavior:contain; }
+body .ink-cloud-actions > button { min-height:44px; }

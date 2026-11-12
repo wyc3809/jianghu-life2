@@ -1,4 +1,6 @@
-# Systems Index — 江湖一生（Leap 1–5）
+# Systems Index — 江湖一生
+
+現行功能／介面／演出對照更新至EA0.104.0，見[全遊戲同步檢查](../audits/game-unification-ea0104.md)。以下保留原系統來源，詳細人物動畫已由玩家要求改回斗笠黑影。
 
 | System | Owner module | Status |
 |--------|----------------|--------|
@@ -10,11 +12,11 @@
 | Foe AI styles | `core/life/foeAi.ts` | active |
 | Combat presentation | `core/life/combatPresentation.ts` | opening / aftermath UI |
 | Combat ink FX | `core/life/combatInkFx.ts` · `design/gdd/combat-ink-fx.md` | 旁註／血條墨滲／站位筆勢 |
-| Injury (部位傷勢) | `core/life/injuries.ts`（預定）· `design/gdd/injury-system.md` | approved · 實作中 |
+| Injury (部位傷勢) | `core/life/injuries.ts`· `design/gdd/injury-system.md` | active |
 | Ancestral merit (祖蔭) | `core/life/ancestry.ts` · `design/gdd/ancestral-merit.md` | active |
 | Spar duel (演武台對打) | `core/life/sparDuel.ts` · `design/gdd/spar-duel.md` | active |
 | Foe roster & boss traits (敵人圖鑑／首領特性) | `data/foes/*` · `core/life/foeTraits.ts` · `design/gdd/foe-roster.md` | active |
-| External art animations (外功專屬動畫) | `src/fx/art/*` · `design/gdd/art-animations.md` | active |
+| Combat visuals (黑影／外功特效) | `src/spar/`、`src/fx/art/*` | 黑影人物；原武學特效保留；細節人體暫停 |
 | Ink scene variants | `src/components/ink/sceneVariants.ts` | season + place |
 | Legacy / death / coach | `legacy.ts` / `death.ts` / `tutorial.ts` | stable |
 | Story chapters | — | **cancelled** |

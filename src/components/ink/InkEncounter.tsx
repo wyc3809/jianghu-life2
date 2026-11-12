@@ -1,3 +1,4 @@
+import { InkModal } from './InkModal';
 import { createPortal } from 'react-dom';
 import { getSkillDef, skillKindLabel, skillLabel } from '@data/skills/catalog';
 import { volumeLabel } from '@data/skills/volumes';
@@ -27,7 +28,7 @@ export function InkEncounterModal({ onLearn }: { onLearn: (id: string) => void }
   if (reward) {
     const def = getSkillDef(reward);
     return createPortal(
-      <div className="ink-modal ink-enc" role="dialog" aria-modal="true" aria-label="奇遇傳承" onClick={close}>
+      <InkModal className="ink-modal ink-enc" aria-label="奇遇傳承" onDismiss={close} onClick={close}>
         <div className="ink-modal-card ink-enc-card is-reward" onClick={(ev) => ev.stopPropagation()}>
           <p className="ink-enc-kicker">奇遇 · 得傳承</p>
           <h3 className="ink-enc-title">
@@ -47,7 +48,7 @@ export function InkEncounterModal({ onLearn }: { onLearn: (id: string) => void }
             </button>
           </div>
         </div>
-      </div>,
+      </InkModal>,
       document.body,
     );
   }
@@ -55,7 +56,7 @@ export function InkEncounterModal({ onLearn }: { onLearn: (id: string) => void }
   const tpl = encounterTemplate(e?.offer?.tpl);
   if (!e?.offer || !tpl) return null;
   return createPortal(
-    <div className="ink-modal ink-enc" role="dialog" aria-modal="true" aria-label={`奇遇：${tpl.title}`} onClick={() => setOpen(false)}>
+    <InkModal className="ink-modal ink-enc" aria-label={`奇遇：${tpl.title}`} onDismiss={() => setOpen(false)} onClick={() => setOpen(false)}>
       <div className="ink-modal-card ink-enc-card" onClick={(ev) => ev.stopPropagation()}>
         {seal && <img className="ink-enc-seal" src={seal} alt="" draggable={false} />}
         <p className="ink-enc-kicker">奇遇</p>
@@ -85,7 +86,7 @@ export function InkEncounterModal({ onLearn }: { onLearn: (id: string) => void }
           </button>
         </div>
       </div>
-    </div>,
+    </InkModal>,
     document.body,
   );
 }
