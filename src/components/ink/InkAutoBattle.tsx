@@ -86,6 +86,10 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
   const enteredRef = useRef(!unified);
   const speedRef = useRef(1);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const stageRef = useRef<SparStage | null>(null);
+  const quietRef = useRef(reduceMotion);
+  quietRef.current = reduceMotion;
+  useEffect(() => { stageRef.current?.setQuiet(reduceMotion); }, [reduceMotion]);
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const heroBarRef = useRef<HTMLDivElement | null>(null);
   const foeBarRef = useRef<HTMLDivElement | null>(null);
@@ -250,6 +254,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
         const martialAssets = await loadMartialAssets(reviewRef.current?.legacy ? [] : requested,{actor:images.actorStyle!=='silhouette'&&(reviewRef.current?.inspect?.source===true||!images.wardrobe)});
         if (cancelled) return;
         stage = new SparStage({ canvas, images, rig, enemies: ENEMY_POOL, combat, uiFontFamily: unified ? getComputedStyle(canvas).fontFamily : undefined, presentation: unified ? 'battle' : 'stage', battleBackdrop });
+        stageRef.current = stage;
         stage.setMartialAssets(martialAssets, supports);
         reviewRef.current?.onStage?.(stage);
         if (import.meta.env.DEV) (window as unknown as { __martialBattleStage?: SparStage }).__martialBattleStage = stage;
@@ -263,7 +268,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
         const bg = SPAR_BACKGROUNDS[scene];
         stage.setAmbience(scene);
         if (bg) loadSparImage(bg.src).then((img) => { if (!cancelled) stage?.setBackground(img, bg.opacity ?? 1); }).catch(() => {});
-        stage.setQuiet(reduceMotion);
+        stage.setQuiet(quietRef.current);
         stage.settleIntro();
         if (unified) { stage.render(); setSceneReady(true); }
         if (!hits.length) end(800);
@@ -287,6 +292,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
       clearTimeout(cap);
       observer.disconnect();
       stage?.releaseMartialAssets();
+      if (stageRef.current === stage) stageRef.current = null;
       if (import.meta.env.DEV) {
         const qa = window as unknown as { __martialBattleStage?: SparStage };
         if (qa.__martialBattleStage === stage) delete qa.__martialBattleStage;

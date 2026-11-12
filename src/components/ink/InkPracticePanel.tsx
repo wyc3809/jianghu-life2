@@ -62,6 +62,7 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
             <button
               type="button"
               className="ink-practice-btn ink-practice-btn--sect ink-practice-btn--icon"
+              aria-label="門派"
               disabled={busy}
               onClick={() => {
                 onView('sect');
@@ -76,6 +77,7 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
             <button
               type="button"
               className="ink-practice-btn ink-practice-btn--sect ink-practice-btn--icon"
+              aria-label="修習雅藝"
               disabled={busy}
               onClick={() => {
                 onView('arts');
@@ -92,6 +94,7 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
                 key={act.id}
                 type="button"
                 className="ink-practice-btn ink-practice-btn--icon"
+                aria-label={`${act.label}：${actionHint(act, state)}`}
                 disabled={busy || Boolean(practiceBlockReason(state,act.id))}
                 onClick={() => {
                   onPractice(act.id);

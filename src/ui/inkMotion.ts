@@ -11,7 +11,7 @@
 import { animate, splitText, stagger, type JSAnimation } from 'animejs';
 
 /** 節奏（毫秒）：同 CSS --motion-* 對齊 */
-export const INK_MS = { quick: 220, base: 420, slow: 640, ritual: 1100 } as const;
+export const INK_MS = { quick: 200, base: 360, slow: 700, ritual: 1200 } as const;
 
 /** 緩動：落筆（回彈少少）、蓋印（彈性）、墨散（慢收） */
 export const INK_EASE = {
@@ -26,7 +26,8 @@ type Els = El | ArrayLike<Element> | null | undefined;
 
 export function motionReduced(): boolean {
   try {
-    return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+    return document.documentElement.dataset.inkMotion === 'reduce'
+      || (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false);
   } catch {
     return false;
   }
@@ -66,7 +67,7 @@ export function inkPopIn(targets: Els, opts: { delay?: number; step?: number; y?
 export function inkRevealChars(target: El, opts: { delay?: number; step?: number } = {}): (() => void) | null {
   if (!target || motionReduced()) return null;
   const splitter = splitText(target as HTMLElement, { chars: true });
-  animate(splitter.chars, {
+  const animation = animate(splitter.chars, {
     opacity: [0, 1],
     y: ['0.5em', '0em'],
     scale: [1.35, 1],
@@ -75,7 +76,7 @@ export function inkRevealChars(target: El, opts: { delay?: number; step?: number
     duration: INK_MS.slow,
     ease: INK_EASE.brush,
   });
-  return () => splitter.revert();
+  return () => { animation.revert(); splitter.revert(); };
 }
 
 /** 蓋印：由大縮落、彈一彈 */

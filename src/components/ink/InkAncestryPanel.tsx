@@ -21,7 +21,7 @@ export function InkAncestryPanel({ onClose }: { onClose: () => void }) {
 
   useEffect(() => {
     const dialog=dialogRef.current!,previous=document.activeElement as HTMLElement|null;
-    dialog.showModal();closeRef.current?.focus();
+    dialog.showModal();closeRef.current?.focus({preventScroll:true});
     return ()=>{dialog.close();previous?.focus({preventScroll:true});};
   }, []);
 
@@ -31,7 +31,12 @@ export function InkAncestryPanel({ onClose }: { onClose: () => void }) {
     <dialog ref={dialogRef} className="ink-modal" aria-label="祖祠" onCancel={event=>{event.preventDefault();onClose();}} onClick={onClose}>
       <div className="ink-modal-card ink-ancestry" onClick={(e) => e.stopPropagation()}>
         <header className="ink-ancestry-head">
-          <h3>祖祠</h3>
+          <div className="ink-settings-head">
+            <h3>祖祠</h3>
+            <button ref={closeRef} type="button" autoFocus className="ink-icon-btn" aria-label="關閉祖祠" onClick={onClose}>
+              <img src={`${import.meta.env.BASE_URL}ink/art/parchment-ui/icon-close.webp`} alt="" width="22" height="22" />收起
+            </button>
+          </div>
           <p className="ink-ancestry-points">
             祖蔭 <b>{meta.points}</b> 點
             <span>
@@ -40,6 +45,7 @@ export function InkAncestryPanel({ onClose }: { onClose: () => void }) {
           </p>
         </header>
 
+        <div className="ink-ancestry-content">
         <section aria-label="天賦加點">
           <p className="ink-ancestry-label">天賦 · 每級開局＋{TALENT_STEP}</p>
           {wuxiaAttributeKeys.map((k) => {
@@ -134,7 +140,8 @@ export function InkAncestryPanel({ onClose }: { onClose: () => void }) {
         </section>
 
         <p className="ink-note ink-note--center">祖蔭跨代保留，後世開局時自動生效。</p>
-        <button ref={closeRef} type="button" className="ink-btn ink-btn--ghost" onClick={onClose}>
+        </div>
+        <button type="button" className="ink-btn ink-btn--ghost" onClick={onClose}>
           關閉
         </button>
       </div>

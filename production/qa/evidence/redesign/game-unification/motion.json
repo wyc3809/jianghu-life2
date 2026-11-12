@@ -1,0 +1,12 @@
+{
+  "normalDrawsIn350ms": 1027,
+  "coveredDrawsIn400ms": 0,
+  "liveSystemPreference": true,
+  "sameHomeEngine": true,
+  "noEquipmentChange": true,
+  "reducedLongStoryNoAutoScroll": true,
+  "longResultActionVisible": true,
+  "nativeOfflineSuccessionBreakthrough": true,
+  "actualIphone": false,
+  "pageerrors": []
+}

@@ -1,4 +1,6 @@
 import { InkSaveStatus } from './InkSaveStatus';
+import { InkModal } from './InkModal';
+import { usePrefersReducedMotion } from '../../hooks/useStillMode';
 import { lazy, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { LifeGameState } from '@interfaces/lifeEngine';
@@ -43,7 +45,7 @@ import { useOnceCoach } from '../../ui/useOnceCoach';
 import { track } from '../../telemetry/events';
 import { InkAmbientFx } from './InkAmbientFx';
 import { InkTapFx } from './InkTapFx';
-import { seasonToInk, placeToInk, isInkNight, shouldReduceInkMotion } from './sceneVariants';
+import { seasonToInk, placeToInk, isInkNight } from './sceneVariants';
 import { InkScrollBackdrop, InkSealStamp, InkResultSeal, InkStaticSeal, InkAiWashLayer } from './InkDecor';
 import { inkAiUrl } from '../../ui/inkAiCatalog';
 import { InkHuashanPanel } from './InkHuashanPanel';
@@ -91,7 +93,7 @@ const TAB_ICONS: Record<'home' | 'person' | 'jianghu' | 'practice', InkIconKey> 
 };
 import { useRollingNumber } from '../../hooks/useRollingNumber';
 import { HighlightFxLazy, canUseWebGL, prefetchHighlight } from '../../fx/highlight';
-import { scheduleVisualPreload } from '../../ui/visualActivity';
+import { createVisualLoop, scheduleVisualPreload, watchVisualActivity } from '../../ui/visualActivity';
 import { breakthroughHighlight, momentHighlight } from '../../fx/highlight/fromGame';
 
 type Props = {
@@ -209,8 +211,7 @@ export function InkPlayScreen({ state }: Props) {
   const deltaListRef = useRef<HTMLUListElement | null>(null);
   const flipRef = useRef<HTMLDivElement | null>(null);
   const navRef = useRef<HTMLElement | null>(null);
-  /** 字級同動態已固定（標準字、全動態），唔再畀玩家揀 */
-  const reduceMotion = false;
+  const reduceMotion = usePrefersReducedMotion();
   const [monthTurning, setMonthTurning] = useState(false);
   const [choicesReady, setChoicesReady] = useState(false);
   /** 結果匣：先經過，點擊後再揭消長 */
@@ -230,16 +231,16 @@ export function InkPlayScreen({ state }: Props) {
     return () => window.clearTimeout(t);
   }, [sealText, clearSeal]);
 
-  // 舊版設定（字級／減少動態）已取消：清走殘留值，一律標準字、全動態
+  // 清走舊版自選設定；跟隨系統即時更新，CSS與Canvas用同一偏好。
   useEffect(() => {
-    document.documentElement.dataset.inkMotion = 'full';
+    document.documentElement.dataset.inkMotion = reduceMotion ? 'reduce' : 'full';
     try {
       localStorage.removeItem('ink_text_scale');
       localStorage.removeItem('ink_reduce_motion');
     } catch {
       /* ignore */
     }
-  }, []);
+  }, [reduceMotion]);
 
   useEffect(() => {
     const ym = `${state.year}-${state.month ?? 1}`;
@@ -249,12 +250,12 @@ export function InkPlayScreen({ state }: Props) {
     }
     if (prevYearMonth.current === ym) return;
     prevYearMonth.current = ym;
-    if (shouldReduceInkMotion()) return;
+    if (reduceMotion) { setMonthTurning(false); return; }
     setMonthTurning(true);
     // 同 CSS 翻頁動畫（--motion-slow 0.7s）對齊，略長少少等佢播完
     const t = window.setTimeout(() => setMonthTurning(false), 760);
     return () => window.clearTimeout(t);
-  }, [state.year, state.month]);
+  }, [state.year, state.month, reduceMotion]);
 
   useEffect(() => {
     if ((state.tab ?? 'home') !== 'practice') setPracticeView('main');
@@ -400,36 +401,42 @@ export function InkPlayScreen({ state }: Props) {
     const el = resultStoryRef.current;
     if (!el || !resultStory.long) return;
     el.scrollTop = 0;
-    let raf = 0;
-    let last = 0;
+    if (reduceMotion) return;
     let pos = 0;
     let stopped = false;
+    let ready = false;
+    let active = false;
+    const loop = createVisualLoop((_now, dt) => {
+      pos += dt * RESULT_STORY_SCROLL_PX_PER_SEC;
+      el.scrollTop = pos;
+      if (pos >= el.scrollHeight - el.clientHeight) loop.setActive(false);
+    });
     const stop = () => {
       stopped = true;
+      loop.setActive(false);
     };
     // 玩家自己掂／捲就交返畀佢
     el.addEventListener('pointerdown', stop);
     el.addEventListener('wheel', stop, { passive: true });
     el.addEventListener('touchstart', stop, { passive: true });
-    const step = (now: number) => {
-      if (stopped) return;
-      const dt = last ? (now - last) / 1000 : 0;
-      last = now;
-      pos += dt * RESULT_STORY_SCROLL_PX_PER_SEC;
-      el.scrollTop = pos;
-      if (pos < el.scrollHeight - el.clientHeight) raf = requestAnimationFrame(step);
-    };
+    el.addEventListener('keydown', stop);
+    const unwatch = watchVisualActivity(value => {
+      active = value;
+      loop.setActive(active && ready && !stopped);
+    }, { element: el, covered: true, reduced: true });
     const start = window.setTimeout(() => {
-      raf = requestAnimationFrame(step);
+      ready = true;
+      loop.setActive(active && !stopped);
     }, RESULT_STORY_SCROLL_DELAY_MS);
     return () => {
       window.clearTimeout(start);
-      cancelAnimationFrame(raf);
+      unwatch(); loop.dispose();
       el.removeEventListener('pointerdown', stop);
       el.removeEventListener('wheel', stop);
       el.removeEventListener('touchstart', stop);
+      el.removeEventListener('keydown', stop);
     };
-  }, [lastResult, resultStory.long]);
+  }, [lastResult, resultStory.long, reduceMotion]);
   // 成就改做頂部動畫；其餘（威望、稱號）留喺結果頁做細籤
   const achievementNames = useMemo(
     () => resultStory.notices.filter((n) => n.label === '成就').map((n) => n.text),
@@ -446,18 +453,7 @@ export function InkPlayScreen({ state }: Props) {
       return;
     }
     setResultDeltasReady(false);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') clearResult();
-    };
-    window.addEventListener('keydown', onKey);
-    window.requestAnimationFrame(() => resultAckRef.current?.focus());
-    return () => {
-      document.body.style.overflow = prev;
-      window.removeEventListener('keydown', onKey);
-    };
-  }, [showResult, lastResult?.title, lastResult?.feedback, clearResult]);
+  }, [showResult, lastResult?.title, lastResult?.feedback]);
 
   useEffect(() => {
     if (eventFocus && tab !== 'home') setTab('home');
@@ -903,11 +899,11 @@ export function InkPlayScreen({ state }: Props) {
           <InkMomentFx key={momentKey} moment={headMoment} onDone={ackMoment} sectId={state.character.sectId} />
         ))}
 
-      {showResult && lastResult && <InkAchievementToast key={lastResult.feedback} names={achievementNames} />}
       {showResult &&
         lastResult &&
         createPortal(
-          <div className="ink-modal" role="dialog" aria-modal="true" aria-label="結果">
+          <InkModal className="ink-modal" aria-label="結果" onDismiss={clearResult}>
+            <InkAchievementToast key={lastResult.feedback} names={achievementNames} inline />
             <div
               className={`ink-modal-card ink-result ink-result--staged${
                 lastResult.deltas.some(isLearnSkillDeltaLine) ? ' ink-result--learn-skill' : ''
@@ -957,6 +953,7 @@ export function InkPlayScreen({ state }: Props) {
                   {lastResult.choiceText}
                 </p>
               )}
+              <div className="ink-result-content">
               <div
                 ref={resultStoryRef}
                 className={`ink-result-story${resultStory.long ? ' ink-result-story--scroll' : ''}`}
@@ -1012,8 +1009,10 @@ export function InkPlayScreen({ state }: Props) {
                   </ul>
                 </div>
               )}
+              </div>
               <button
                 type="button"
+                autoFocus
                 className="ink-btn ink-btn--primary ink-btn--ack"
                 ref={resultAckRef}
                 onClick={() => {
@@ -1029,7 +1028,7 @@ export function InkPlayScreen({ state }: Props) {
                   : '繼續'}
               </button>
             </div>
-          </div>,
+          </InkModal>,
           document.body,
         )}
 

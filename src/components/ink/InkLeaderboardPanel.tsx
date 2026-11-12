@@ -1,3 +1,4 @@
+import { InkModal } from './InkModal';
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { CULTIVATION_TIERS } from '@core/life/cultivation';
@@ -48,14 +49,6 @@ export function InkLeaderboardPanel({ onClose }: Props) {
   const closeRef = useRef<HTMLButtonElement | null>(null);
   const demo = import.meta.env.DEV && new URLSearchParams(window.location.search).has('cloudDemo');
 
-  useEffect(() => {
-    closeRef.current?.focus();
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [onClose]);
 
   useEffect(() => {
     if (demo) {
@@ -69,6 +62,7 @@ export function InkLeaderboardPanel({ onClose }: Props) {
     let alive = true;
     if (demo) {
       setRows(demoRows(kind));
+      setLoading(false);
       return;
     }
     setLoading(true);
@@ -85,10 +79,9 @@ export function InkLeaderboardPanel({ onClose }: Props) {
   const tab = TABS.find((t) => t.kind === kind)!;
 
   return createPortal(
-    <div
+    <InkModal
       className="ink-modal"
-      role="dialog"
-      aria-modal="true"
+      onDismiss={onClose}
       aria-label="排行榜"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
@@ -97,10 +90,11 @@ export function InkLeaderboardPanel({ onClose }: Props) {
       <div className="ink-modal-card ink-settings-card ink-board-card">
         <header className="ink-settings-head">
           <h3>江湖榜</h3>
-          <button ref={closeRef} type="button" className="ink-icon-btn" onClick={onClose} aria-label="關閉排行榜">
-            ✕
+          <button ref={closeRef} type="button" autoFocus className="ink-icon-btn" onClick={onClose} aria-label="關閉排行榜">
+            <img src={`${import.meta.env.BASE_URL}ink/art/parchment-ui/icon-close.webp`} alt="" width="22" height="22" />收起
           </button>
         </header>
+        <div className="ink-settings-content">
         <div className="ink-settings-seg" role="tablist" aria-label="榜單">
           {TABS.map((t) => (
             <button
@@ -109,7 +103,10 @@ export function InkLeaderboardPanel({ onClose }: Props) {
               role="tab"
               aria-selected={kind === t.kind}
               className={`ink-settings-seg-btn${kind === t.kind ? ' is-on' : ''}`}
-              onClick={() => setKind(t.kind)}
+              onClick={() => {
+                if (kind === t.kind) return;
+                setRows(null); setLoading(true); setKind(t.kind);
+              }}
             >
               {t.label}
             </button>
@@ -141,8 +138,9 @@ export function InkLeaderboardPanel({ onClose }: Props) {
             ))}
           </ol>
         )}
+        </div>
       </div>
-    </div>,
+    </InkModal>,
     document.body,
   );
 }

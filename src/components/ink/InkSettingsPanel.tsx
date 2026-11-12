@@ -120,6 +120,7 @@ export function InkSettingsPanel({
           </button>
         </header>
 
+        <div className="ink-settings-content">
         <section className="ink-settings-block" aria-label="聲音">
           <p className="ink-settings-label">聲音</p>
           <AudioChannelRow
@@ -165,6 +166,7 @@ export function InkSettingsPanel({
         </section>
         {(import.meta.env.DEV || import.meta.env.VITE_CHARACTER_RIG_LAB === '1') && <section className="ink-settings-block" aria-label="動畫內測"><button className="ink-btn ink-btn--quiet" onClick={()=>location.assign(`${import.meta.env.BASE_URL}?spine-lab=1`)}>角色動畫驗收</button></section>}
         <InkCloudSection onOpenBoard={onOpenBoard} />
+        </div>
 
         <footer className="ink-settings-foot">
           <p className="ink-settings-version" title={APP_VERSION_LABEL}>

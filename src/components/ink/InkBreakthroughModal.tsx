@@ -1,3 +1,4 @@
+import { InkModal } from './InkModal';
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import type { BreakthroughResult } from '@core/life/cultivation';
@@ -28,19 +29,11 @@ export function InkBreakthroughModal({ result, onClose }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- 開彈窗播一次
   }, []);
 
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' || e.key === 'Enter') onClose();
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [onClose]);
 
   return createPortal(
-    <div
+    <InkModal
+      onDismiss={onClose}
       className={`${styles.root} ${ok ? styles.rootSuccess : styles.rootFail}`}
-      role="dialog"
-      aria-modal="true"
       aria-label={ok ? `突破關口：${result.oldTierName}進至${bigText}` : '突破未成，修為受損'}
       onClick={onClose}
     >
@@ -107,7 +100,7 @@ export function InkBreakthroughModal({ result, onClose }: Props) {
           </button>
         </div>
       </div>
-    </div>,
+    </InkModal>,
     document.body,
   );
 }

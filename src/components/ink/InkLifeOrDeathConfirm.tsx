@@ -1,3 +1,4 @@
+import { InkModal } from './InkModal';
 import { createPortal } from 'react-dom';
 import type { PendingCombat } from '@interfaces/lifeEngine';
 import { sealUrlForText } from '../../ui/inkAssets';
@@ -15,7 +16,7 @@ type Props = {
 export function InkLifeOrDeathConfirm({ combat, onConfirm, onDecline }: Props) {
   const seal = sealUrlForText('危');
   return createPortal(
-    <div className="ink-modal ink-lod" role="alertdialog" aria-modal="true" aria-labelledby="ink-lod-title">
+    <InkModal className="ink-modal ink-lod" role="alertdialog" aria-labelledby="ink-lod-title" onDismiss={onDecline}>
       <div className="ink-modal-card ink-lod-card">
         {seal && <img className="ink-lod-seal" src={seal} alt="" draggable={false} />}
         <p className="ink-lod-kicker">生死戰</p>
@@ -35,7 +36,7 @@ export function InkLifeOrDeathConfirm({ combat, onConfirm, onDecline }: Props) {
           </button>
         </div>
       </div>
-    </div>,
+    </InkModal>,
     document.body,
   );
 }

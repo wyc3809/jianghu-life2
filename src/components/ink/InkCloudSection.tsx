@@ -14,7 +14,9 @@ import {
   getCloudSyncStatus,
   getCloudLastSyncedAt,
   subscribeCloudSyncStatus,
+  queueCloudSync,
 } from '../../cloud/sync';
+import { useLifeStore } from '../../store/lifeStore';
 import { writeLocal } from '../../cloud/localBridge';
 import { getLastLocalSaveAt, subscribeLifeSaveStatus } from '@core/life/saveIndexedDb';
 import { formatSaveTime } from '../../ui/formatSaveTime';
@@ -107,9 +109,20 @@ export function InkCloudSection({ onOpenBoard }: Props) {
         </div>
       </dl>
       {configured && (
+        <div className="ink-cloud-actions">
+          <button type="button" className="ink-settings-seg-btn"
+            disabled={checking || !id || busy || syncStatus === 'uploading'}
+            onClick={() => {
+              if (getCloudSyncStatus() === 'uploading') return;
+              queueCloudSync(useLifeStore.getState().state);
+              flushCloudSync();
+            }}>
+            {syncStatus === 'retrying' ? '重試同步' : syncStatus === 'uploading' ? '同步中……' : '立即同步'}
+          </button>
         <button type="button" className="ink-settings-toggle is-on" onClick={onOpenBoard}>
-          開江湖榜 · 江湖排名／修為境界／一生總結
+          開江湖榜
         </button>
+        </div>
       )}
       {id && (
         <>
@@ -119,6 +132,7 @@ export function InkCloudSection({ onOpenBoard }: Props) {
             inputMode="email"
             autoComplete="email"
             placeholder="電郵（綁定或換機登入）"
+            aria-label="電郵（綁定或換機登入）"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -165,7 +179,7 @@ export function InkCloudSection({ onOpenBoard }: Props) {
           </div>
         </>
       )}
-      {msg && <p className="ink-cloud-msg">{msg}</p>}
+      {msg && <p className="ink-cloud-msg" role="status">{msg}</p>}
     </section>
   );
 }
