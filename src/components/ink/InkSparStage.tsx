@@ -366,7 +366,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
         const character = useLifeStore.getState().state?.character;
         const arts = character ? equippedMartialArts(character) : [];
         if(images.wardrobe)await prepareAppearance(images.wardrobe,appearanceOf(character??{}),arts,character?.equipment.weapon?getGearDef(character.equipment.weapon)?.weaponKind??'fist':'fist');
-        const martialAssets = await loadMartialAssets(arts,{actor:!images.wardrobe});
+        const martialAssets = await loadMartialAssets(arts,{actor:images.actorStyle!=='silhouette'&&!images.wardrobe});
         if (cancelled) return;
         stage = new SparStage({
           canvas,
@@ -453,7 +453,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
     if (!stage) return;
     let cancelled = false;
     const ids = martialIdsKey.split('|').filter(Boolean);
-    void loadMartialAssets(ids).then(assets => {
+    void loadMartialAssets(ids,{actor:!stage.usesSilhouetteActors}).then(assets => {
       if (!cancelled) stage.setMartialAssets(assets, ids.filter(id => getSkillDef(id)?.kind !== 'external'));
     });
     return () => { cancelled = true; };
