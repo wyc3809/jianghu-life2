@@ -1,0 +1,67 @@
+{
+  "cases": [
+    {
+      "kind": "home",
+      "sources": [
+        "http://127.0.0.1:5292/ink/spar/commercial/season-spring.webp",
+        "http://127.0.0.1:5292/ink/spar/commercial/season-winter.webp",
+        "http://127.0.0.1:5292/ink/spar/commercial/mist.webp",
+        "http://127.0.0.1:5292/ink/spar/commercial/shadow.webp",
+        "http://127.0.0.1:5292/ink/spar/sil/enemy-daoke.webp",
+        "http://127.0.0.1:5292/ink/spar/commercial/impact.webp",
+        "http://127.0.0.1:5292/ink/spar/sil/hero-idle.webp",
+        "http://127.0.0.1:5292/ink/spar/commercial/snow.webp",
+        "http://127.0.0.1:5292/ink/spar/commercial/hero-walk-0.webp",
+        "http://127.0.0.1:5292/ink/spar/weapon-sword.webp",
+        "http://127.0.0.1:5292/ink/spar/commercial/hero-walk-1.webp",
+        "http://127.0.0.1:5292/ink/spar/commercial/step-dust.webp",
+        "http://127.0.0.1:5292/ink/spar/commercial/hero-walk-2.webp",
+        "http://127.0.0.1:5292/ink/spar/commercial/hero-walk-3.webp"
+      ],
+      "pageerrors": [],
+      "viewport": [
+        390,
+        844
+      ],
+      "doubleSkipAndReplay": false,
+      "existingAppearanceAndEquipmentKept": true
+    },
+    {
+      "kind": "event",
+      "sources": [
+        "http://127.0.0.1:5292/ink/art/battle-preview/spring.webp",
+        "http://127.0.0.1:5292/ink/spar/commercial/mist.webp",
+        "http://127.0.0.1:5292/ink/spar/commercial/shadow.webp",
+        "http://127.0.0.1:5292/ink/spar/sil/enemy-daoke.webp",
+        "http://127.0.0.1:5292/ink/spar/commercial/impact.webp",
+        "http://127.0.0.1:5292/ink/spar/sil/hero-idle.webp"
+      ],
+      "pageerrors": [],
+      "viewport": [
+        390,
+        844
+      ],
+      "doubleSkipAndReplay": true,
+      "existingAppearanceAndEquipmentKept": false
+    },
+    {
+      "kind": "event-boss",
+      "sources": [
+        "http://127.0.0.1:5292/ink/art/battle-preview/spring.webp",
+        "http://127.0.0.1:5292/ink/spar/commercial/mist.webp",
+        "http://127.0.0.1:5292/ink/spar/commercial/shadow.webp",
+        "http://127.0.0.1:5292/ink/spar/sil/enemy-town_boss.webp",
+        "http://127.0.0.1:5292/ink/spar/commercial/impact.webp",
+        "http://127.0.0.1:5292/ink/spar/sil/hero-idle.webp"
+      ],
+      "pageerrors": [],
+      "viewport": [
+        390,
+        844
+      ],
+      "doubleSkipAndReplay": true,
+      "existingAppearanceAndEquipmentKept": false
+    }
+  ],
+  "actualIphone": false
+}

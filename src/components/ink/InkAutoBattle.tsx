@@ -235,7 +235,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
 
     const unwatchActivity=watchVisualActivity(active=>{visualActive=active;last=0;if(raf)cancelAnimationFrame(raf);raf=0;if(active&&stage&&!cancelled&&!doneRef.current)raf=requestAnimationFrame(frame);});
     const rig = rigForSect(sectId);
-    loadSparImages(rig, ENEMY_POOL)
+    loadSparImages(rig, ENEMY_POOL,undefined,reviewRef.current?.inspect?'detailed':'silhouette')
       .then(async (images) => {
         images.ui = await loadSparUiImages();
         images.coin = await loadSparImage(COIN_SRC).catch(() => null);
@@ -247,7 +247,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
         const supports = reviewRef.current?.supports ?? (actor ? equippedMartialArts(actor).filter(id => getSkillDef(id)?.kind !== 'external') : []);
         const requested = [...hits.flatMap(h => h.skillId ? [canonicalSkillId(h.skillId)] : []), ...supports];
         if(images.wardrobe)await Promise.all([prepareAppearance(images.wardrobe,images.characterAppearance,[...hits.filter(h=>h.side==='player').flatMap(h=>h.skillId?[canonicalSkillId(h.skillId)]:[]),...supports],weaponId?getGearDef(weaponId)?.weaponKind??'fist':'fist'),images.opponentAppearance?prepareAppearance(images.wardrobe,images.opponentAppearance,hits.filter(h=>h.side==='foe').flatMap(h=>h.skillId?[canonicalSkillId(h.skillId)]:[]),images.opponentFamily):Promise.resolve()]);
-        const martialAssets = await loadMartialAssets(reviewRef.current?.legacy ? [] : requested,{actor:reviewRef.current?.inspect?.source===true||!images.wardrobe});
+        const martialAssets = await loadMartialAssets(reviewRef.current?.legacy ? [] : requested,{actor:images.actorStyle!=='silhouette'&&(reviewRef.current?.inspect?.source===true||!images.wardrobe)});
         if (cancelled) return;
         stage = new SparStage({ canvas, images, rig, enemies: ENEMY_POOL, combat, uiFontFamily: unified ? getComputedStyle(canvas).fontFamily : undefined, presentation: unified ? 'battle' : 'stage', battleBackdrop });
         stage.setMartialAssets(martialAssets, supports);

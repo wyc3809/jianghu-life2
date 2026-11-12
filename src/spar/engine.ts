@@ -312,6 +312,8 @@ interface Afterimage {
 }
 
 export interface SparStageImages {
+  /** 正式交手恢復原本斗笠黑影；細節人物只供隔離原型。 */
+  actorStyle?: 'silhouette' | 'detailed';
   wardrobe?: AppearanceAssets;
   characterAppearance?: CharacterAppearance;
   opponentAppearance?: CharacterAppearance;
@@ -541,11 +543,14 @@ export class SparStage {
     }
   }
 
+  /** 黑影顯示政策唔受存檔造型或遲到素材覆蓋。 */
+  get usesSilhouetteActors(): boolean { return this.images.actorStyle === 'silhouette'; }
+
   /** 只切換人物繪圖資料，不重建演武或改動敵陣。 */
   setCharacterAppearance(hero: CharacterAppearance, foe?: CharacterAppearance): void {
     this.images.characterAppearance = readAppearance(hero);
     if(foe)this.images.opponentAppearance=readAppearance(foe);
-    if(this.images.wardrobe){
+    if(!this.usesSilhouetteActors&&this.images.wardrobe){
       void prepareAppearance(this.images.wardrobe,hero,[...this.martialAssets.keys()],this.weaponDef?.src.match(/weapon-([\w-]+)\.webp/)?.[1]??'fist');
       if(foe)void prepareAppearance(this.images.wardrobe,foe,[...this.martialAssets.keys()]);
     }
@@ -747,7 +752,7 @@ export class SparStage {
 
   /** 細人物嘅畫面身高；只供血條／受擊／回復提示定位。 */
   private heroVisualHeight(): number {
-    return this.images.heroAppearance ? this.heroArtHeight() * HERO_VISUAL_SCALE : SILHOUETTE_DESIGN_H * this.geom().k;
+    return !this.usesSilhouetteActors && this.images.heroAppearance ? this.heroArtHeight() * HERO_VISUAL_SCALE : SILHOUETTE_DESIGN_H * this.geom().k;
   }
 
   /** 跟手機闊度固定人物比例，演武台轉全屏時唔再跟畫布高度縮放。 */
@@ -759,12 +764,12 @@ export class SparStage {
 
   /** 生命週期待機圖實測身高204／設計218；敵人跟同一人物身高，唔跟畫布高度。 */
   private enemyVisualHeight(e: EnemyInst): number {
-    return this.images.heroAppearance ? this.heroVisualHeight() * 204 / 218 : SILHOUETTE_DESIGN_H * this.enemyKe(e);
+    return !this.usesSilhouetteActors && this.images.heroAppearance ? this.heroVisualHeight() * 204 / 218 : SILHOUETTE_DESIGN_H * this.enemyKe(e);
   }
 
   /** 原圖留白／腳底校準；只供繪圖，enemyKe仍處理原有企位與時間。 */
   private enemyFigure(e: EnemyInst): { k: number; dy: number; footOffset: number; downK: number } {
-    if (!this.images.heroAppearance) return { k: this.enemyKe(e), dy: e.def.part.dy, footOffset: 0, downK: this.enemyKe(e) };
+    if (this.usesSilhouetteActors || !this.images.heroAppearance) return { k: this.enemyKe(e), dy: e.def.part.dy, footOffset: 0, downK: this.enemyKe(e) };
     const key = e.def.part.src.split('/').pop()?.replace(/^enemy-|\.webp$/g, '') ?? '';
     const metric = (foeFigureMetrics as Record<string, { sourceHeight: number; bodyHeight: number; footY: number; downBodyHeight: number }>)[key];
     const height = this.enemyVisualHeight(e);
@@ -1344,6 +1349,7 @@ export class SparStage {
       foeScale: foe ? this.enemyVisualHeight(foe) / H : 1,
       skyMinY: 8,
     });
+    if (this.usesSilhouetteActors) return anchors;
     if (this.images.heroAppearance) {
       // 只移主角身體錨點；敵方尺寸同特效單位唔跟住縮。
       anchors.hero.y = g.groundY - ho.dy - .55 * this.heroVisualHeight();
@@ -1720,6 +1726,7 @@ export class SparStage {
 
   /** 圖集已畫好手形／持武：呢一層完全唔疊裝備武器或舊劍影。 */
   private drawMartialWarrior(g: ReturnType<SparStage['geom']>): boolean {
+    if (this.usesSilhouetteActors) return false;
     const inspection = this.poseInspection;
     const attacking = this.attackT !== null;
     const id = inspection?.id ?? (attacking ? this.martialId : this.supportPose?.id);
@@ -1784,6 +1791,7 @@ export class SparStage {
 
   /** 非出招階段維持同款人物；移動、受擊及倒地唔再讀舊黑影幀。 */
   private drawDetailedWarrior(g: ReturnType<SparStage['geom']>): boolean {
+    if (this.usesSilhouetteActors) return false;
     // 開發版逐門原圖檢視必須真選圖集；不能被正式衣櫥共用姿勢蓋過。
     if(this.poseInspection?.source&&this.drawMartialWarrior(g))return true;
     if(this.images.wardrobe&&this.images.characterAppearance){
@@ -2039,7 +2047,7 @@ export class SparStage {
     const artOff = this.artFoeOffset(e);
     const footX = e.x + pose.x * this.enemyKe(e) + artOff.dx;
     const footY = g.groundY + pose.y * this.enemyKe(e) - artOff.dy;
-    if(this.images.wardrobe&&this.images.opponentAppearance){
+    if(!this.usesSilhouetteActors&&this.images.wardrobe&&this.images.opponentAppearance){
       this.ctx.save();this.ctx.globalAlpha=pose.alpha;
       drawAppearance(this.ctx,this.images.wardrobe,this.images.opponentAppearance,{
         x:footX,y:footY,height:this.heroVisualHeight(),face:-1,
@@ -2308,6 +2316,7 @@ export function loadSparImages(
   _rig: AnyWarriorRig = WARRIOR,
   enemies: EnemyDef[] = [ENEMY_SHADOW],
   splashSrc?: string,
+  actorStyle: 'silhouette' | 'detailed' = 'silhouette',
 ): Promise<SparStageImages> {
   const loadOptional = (src: string) =>
     new Promise<HTMLImageElement>((resolve) => {
@@ -2356,8 +2365,9 @@ export function loadSparImages(
     const enemyImgs = loaded.slice(i, i + enemies.length) as HTMLImageElement[];
     i += enemies.length;
     const splash = loaded[i++]!;
-    const [art, heroAppearance, wardrobe] = await Promise.all([loadSparArt().catch(() => undefined), loadHeroAppearance(),loadAppearanceAssets()]);
+    const [art, heroAppearance, wardrobe] = await Promise.all([loadSparArt().catch(() => undefined), actorStyle==='detailed'?loadHeroAppearance():Promise.resolve(undefined),actorStyle==='detailed'?loadAppearanceAssets():Promise.resolve(undefined)]);
     return {
+      actorStyle,
       wardrobe,
       heroAppearance,
       heroIdle,
