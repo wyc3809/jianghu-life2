@@ -56,6 +56,7 @@
 .ink-equipment-item { display:flex; flex-direction:column; align-items:center; justify-content:flex-start; min-height:116px; padding:5px 3px; min-width:0; border:1px solid #c8bea7; background:#eee7d888; box-sizing:border-box; }
 .ink-equipment-item[aria-pressed='true'] { outline:2px solid #a34839; outline-offset:-2px; background:#f4e4d8; }
 .ink-equipment-item img { width:58px; height:58px; object-fit:contain; }
+.ink-equipment-detail-art { display:block; width:128px; height:128px; object-fit:contain; margin:8px auto; }
 .ink-equipment-item strong { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; font-size:14px; line-height:1.4; overflow-wrap:anywhere; }
 .ink-equipment-item > span { font-size:12px; line-height:1.5; color:#716753; }
 .ink-equipment-item.is-fine strong { color:#406752; }.ink-equipment-item.is-rare strong { color:#365d72; }.ink-equipment-item.is-epic strong { color:#68517c; }.ink-equipment-item.is-mythic strong { color:#986029; }.ink-equipment-item.is-divine strong { color:#963f35; }

@@ -37,6 +37,8 @@ export interface RewardStat {
 export interface RewardCard {
   id: string;
   icon: IconKind;
+  /** 真裝備漫畫圖；展示欄位，不更動獎勵身份、數值或存檔。 */
+  equipmentArt?: string;
   pattern: CardPattern;
   name: string;
   /** 卡面品階（決定框同鑲嵌件） */

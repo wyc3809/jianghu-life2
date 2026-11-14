@@ -5,6 +5,7 @@ import { getGearDef, rarityLabel, RARITY_COLOR_CLASS } from '@data/equipment/cat
 import { SLOT_LABEL, displayGearName } from '@data/equipment/affixes';
 import { formatGearFullSummary } from '@data/equipment/catalog';
 import { previewEquipDelta } from '@core/life/equipment';
+import { equipmentArtUrl } from '../../ui/equipmentArt';
 
 type Props = {
   state: LifeGameState;
@@ -31,6 +32,7 @@ export function InkGearCompareModal({ state, onEquip, onKeep, onCompare }: Props
           <h3>獲得新裝備</h3>
         </header>
 
+        <div className="ink-gear-compare-body">
         <p className="ink-gear-compare-slot">{SLOT_LABEL[def.slot]}</p>
 
         <div className="ink-gear-compare-cols">
@@ -38,6 +40,7 @@ export function InkGearCompareModal({ state, onEquip, onKeep, onCompare }: Props
             <p className="ink-gear-compare-label">現有</p>
             {equippedDef ? (
               <>
+                <img className="ink-gear-compare-art" src={equipmentArtUrl(equippedDef)} alt={`${displayGearName(equippedDef)}立繪`} width="80" height="80"/>
                 <strong className={`ink-gear-name ${RARITY_COLOR_CLASS[equippedDef.rarity]}`}>
                   {displayGearName(equippedDef)}
                 </strong>
@@ -50,6 +53,7 @@ export function InkGearCompareModal({ state, onEquip, onKeep, onCompare }: Props
           </div>
           <div className="ink-gear-compare-col">
             <p className="ink-gear-compare-label">新獲</p>
+            <img className="ink-gear-compare-art" src={equipmentArtUrl(def)} alt={`${displayGearName(def)}立繪`} width="80" height="80"/>
             <strong className={`ink-gear-name ${RARITY_COLOR_CLASS[def.rarity]}`}>
               {displayGearName(def)}
             </strong>
@@ -64,6 +68,7 @@ export function InkGearCompareModal({ state, onEquip, onKeep, onCompare }: Props
           </p>
         )}
 
+        </div>
         <div className="ink-cta-stack">
           <button type="button" className="ink-btn ink-btn--primary" onClick={onCompare ?? onEquip}>
             {onCompare ? '前往人物換裝' : '換上'}

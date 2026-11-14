@@ -1,0 +1,605 @@
+{
+  "ok": true,
+  "assets": [
+    {
+      "path": "public/ink/art/manhua/weapons/armorbreaker-bow-a3b55a7a3e65.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 146844,
+      "color_count": 45855,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 188439,
+      "content_bounds": [
+        28,
+        38,
+        484,
+        473
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/autumnwater-sword-f7df04f9ade2.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 48460,
+      "color_count": 16824,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 236622,
+      "content_bounds": [
+        43,
+        28,
+        468,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/bonepierce-nails-2368855fe890.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 103072,
+      "color_count": 28190,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 209558,
+      "content_bounds": [
+        47,
+        28,
+        464,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/crescent-blade-88bb84b383c3.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 59494,
+      "color_count": 17497,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 230748,
+      "content_bounds": [
+        33,
+        28,
+        479,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/demonquell-staff-4a43b56809ae.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 68522,
+      "color_count": 21643,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 230503,
+      "content_bounds": [
+        44,
+        28,
+        468,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/divine-xuan-sword-e8af423cb1d7.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 73236,
+      "color_count": 17452,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 220359,
+      "content_bounds": [
+        56,
+        28,
+        455,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/dogbeat-staff-fae86da4c589.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 52178,
+      "color_count": 16214,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 232028,
+      "content_bounds": [
+        44,
+        28,
+        467,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/dragonbind-staff-86dfa50a7eba.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 79382,
+      "color_count": 25413,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 223171,
+      "content_bounds": [
+        41,
+        28,
+        471,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/dragoncall-spear-790231564e97.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 54146,
+      "color_count": 16964,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 233172,
+      "content_bounds": [
+        33,
+        28,
+        478,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/dragonswim-whip-b771506816ea.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 88832,
+      "color_count": 26607,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 218204,
+      "content_bounds": [
+        29,
+        28,
+        482,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/goosedrop-bow-72aae303220c.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 79038,
+      "color_count": 20088,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 227045,
+      "content_bounds": [
+        52,
+        28,
+        459,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/hundredfold-blade-818f6303749d.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 69750,
+      "color_count": 20683,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 226774,
+      "content_bounds": [
+        45,
+        28,
+        466,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/inkrain-sword-bc32af2a33e8.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 46810,
+      "color_count": 14177,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 238247,
+      "content_bounds": [
+        65,
+        28,
+        447,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/meteor-whip-e2b334462f6a.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 114832,
+      "color_count": 34865,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 205794,
+      "content_bounds": [
+        72,
+        28,
+        439,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/peakbreaker-sword-521409074a07.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 62604,
+      "color_count": 19924,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 224128,
+      "content_bounds": [
+        37,
+        28,
+        475,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/phoenix-blood-blade-efc283629ff4.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 78146,
+      "color_count": 24561,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 214744,
+      "content_bounds": [
+        46,
+        28,
+        466,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/prairie-spear-53f3466a32ad.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 48242,
+      "color_count": 15417,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 238462,
+      "content_bounds": [
+        33,
+        28,
+        479,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/redbronze-blade-97c41d17bd41.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 100962,
+      "color_count": 33243,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 207821,
+      "content_bounds": [
+        28,
+        30,
+        484,
+        482
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/shadowless-knives-4b2a4ecd9c33.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 113246,
+      "color_count": 33710,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 205659,
+      "content_bounds": [
+        58,
+        28,
+        453,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/sleeve-darts-cf68fd8120f1.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 120650,
+      "color_count": 36739,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 194966,
+      "content_bounds": [
+        65,
+        28,
+        446,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/snowstream-sword-a0f471dd0955.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 49702,
+      "color_count": 15467,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 237165,
+      "content_bounds": [
+        37,
+        28,
+        475,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/streamcut-blade-f9969ec96a47.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 47412,
+      "color_count": 16934,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 238167,
+      "content_bounds": [
+        32,
+        28,
+        479,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/sunshot-bow-1b0b70b05251.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 129806,
+      "color_count": 37482,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 205783,
+      "content_bounds": [
+        37,
+        28,
+        474,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/taiya-sword-881016a261f7.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 65556,
+      "color_count": 24323,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 229368,
+      "content_bounds": [
+        43,
+        28,
+        469,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/thousandworks-box-7cf71389ae9f.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 235554,
+      "color_count": 61688,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 131278,
+      "content_bounds": [
+        28,
+        35,
+        484,
+        476
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/turnback-spear-801d5201c2be.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 44858,
+      "color_count": 13790,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 237696,
+      "content_bounds": [
+        37,
+        29,
+        475,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/twin-hooks-3424a7e29e1d.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 99894,
+      "color_count": 28727,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 210698,
+      "content_bounds": [
+        40,
+        28,
+        471,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/wavebreaker-blade-e1a46d1fa219.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 92204,
+      "color_count": 29685,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 213928,
+      "content_bounds": [
+        28,
+        29,
+        484,
+        483
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/wolffang-whip-fe9ee863bd35.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 79678,
+      "color_count": 23222,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 220990,
+      "content_bounds": [
+        39,
+        28,
+        473,
+        484
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/weapons/yama-whip-10f20f0e0ee2.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 512,
+      "bytes": 113686,
+      "color_count": 29301,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 202736,
+      "content_bounds": [
+        31,
+        28,
+        480,
+        484
+      ],
+      "problems": []
+    }
+  ]
+}

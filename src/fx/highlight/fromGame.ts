@@ -8,6 +8,7 @@ import { VOLUME_NUMERALS } from '@data/skills/volumes';
 import type { LifeGameState, LifeMoment } from '@interfaces/lifeEngine';
 import type { BreakthroughResult } from '@core/life/cultivation';
 import { getGearDef, rarityLabel, type GearDef, type GearRarity } from '@data/equipment/catalog';
+import { equipmentArtUrl } from '../../ui/equipmentArt';
 import { jianghuPrestige } from '@core/life/jianghuPrestige';
 import { MARTIAL_RANKS } from '@core/life/martialRanks';
 import { getSkillDef } from '@data/skills/catalog';
@@ -71,6 +72,7 @@ function lootConfig(state: LifeGameState, gearId: string): HighlightConfig | nul
       {
         id: def.id,
         icon: gearIcon(def),
+        equipmentArt: equipmentArtUrl(def),
         pattern: gearPattern(def),
         name: def.name,
         grade: g,

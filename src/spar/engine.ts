@@ -1895,6 +1895,12 @@ export class SparStage {
         heroImg = this.images.heroAttack;
         part = HERO_SIL.attack;
         frameKey = 'attack';
+      } else if (this.usesSilhouetteActors && this.heroMoving) {
+        // 原黑影待機／交手的身體約605du；商用行路圖約788du，混用會出場突然大三成。
+        const fi=gaitFrame(this.walkT);
+        heroImg=this.images.heroWalk?.[fi]??this.images.heroIdle;
+        part=this.images.heroWalk?.[fi]?HERO_WALK_FRAMES[fi]!:HERO_SIL.idle;
+        frameKey=this.images.heroWalk?.[fi]?`walk-${fi}`:'idle';
       } else if (this.art && this.heroMoving) {
         const fi = gaitFrame(this.walkT);
         heroImg = this.art.walk[fi]!;
@@ -1917,6 +1923,11 @@ export class SparStage {
           heroImg = this.images.heroAtk[2];
           part = HERO_ATK_FRAMES[2]!;
           frameKey = 'atk-2';
+        } else if (artS.pose === 'walk' && this.usesSilhouetteActors) {
+          const fi=gaitFrame(this.walkT+(this.artRun?.t??0)*2.4);
+          heroImg=this.images.heroWalk?.[fi]??this.images.heroIdle;
+          part=this.images.heroWalk?.[fi]?HERO_WALK_FRAMES[fi]!:HERO_SIL.idle;
+          frameKey=this.images.heroWalk?.[fi]?`walk-${fi}`:'idle';
         } else if (artS.pose === 'walk' && this.art) {
           const fi = gaitFrame(this.walkT + (this.artRun?.t ?? 0) * 2.4);
           heroImg = this.art.walk[fi]!;
@@ -1990,8 +2001,10 @@ export class SparStage {
       void head;
       const gripDef = frameKey === 'generated-walk' ? { x: 495, y: 490, angle: 38 } : HERO_WEAPON_GRIPS[frameKey] ?? HERO_WEAPON_GRIPS.idle!;
       // 握點跟住條帶變形一齊郁，兵器唔會同手分家
-      const gx = (gripDef.x + HERO_SIL.idle.dx + this.heroRig.offsetAt(gripDef.y / SILHOUETTE_DESIGN_H)) * g.k;
-      const gy = (gripDef.y + HERO_SIL.idle.dy) * g.k;
+      const sourceScale=frameKey==='generated-walk'?1:part.h/SILHOUETTE_DESIGN_H;
+      const gripOrigin=frameKey==='generated-walk'?HERO_SIL.idle:part;
+      const gx = (gripDef.x*sourceScale + gripOrigin.dx + this.heroRig.offsetAt(gripDef.y / SILHOUETTE_DESIGN_H)) * g.k;
+      const gy = (gripDef.y*sourceScale + gripOrigin.dy) * g.k;
       // 待機時兵器隨呼吸輕晃
       const ang = gripDef.angle * DEG + (striking ? wep.rot * DEG * 0.15 : Math.sin(this.idleT * 2.2) * 0.03);
       const len = (WEAPON_SIL_LENGTH[weaponKind] ?? WEAPON_SIL_LENGTH.fist!) * g.k;

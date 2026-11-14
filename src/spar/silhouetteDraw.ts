@@ -20,9 +20,11 @@ export const HERO_SIL = {
 } as const;
 
 /** A：行路循環 4 幀（腳底錨點全身） */
+// 第1幀原圖本體727px，其餘幀及待機約605px；整幅校準，不分件拉伸。
+const WALK_ONE_SCALE=605/727;
 export const HERO_WALK_FRAMES = [
   { src: `${SIL_FRAMES}hero-walk-0.webp`, w: 616, h: 788, dx: -308, dy: -788 },
-  { src: `${SIL_FRAMES}hero-walk-1.webp`, w: 616, h: 788, dx: -308, dy: -788 },
+  { src: `${SIL_FRAMES}hero-walk-1.webp`, w: 616*WALK_ONE_SCALE, h: 788*WALK_ONE_SCALE, dx: -308*WALK_ONE_SCALE, dy: -785*WALK_ONE_SCALE-3 },
   { src: `${SIL_FRAMES}hero-walk-2.webp`, w: 616, h: 788, dx: -308, dy: -788 },
   { src: `${SIL_FRAMES}hero-walk-3.webp`, w: 616, h: 788, dx: -308, dy: -788 },
 ] as const;
@@ -51,7 +53,7 @@ export const HERO_LAYERS = {
 export const HERO_WEAPON_GRIPS: Readonly<Record<string, { x: number; y: number; angle: number }>> = {
   idle: { x: 398, y: 490, angle: 37.9 },
   'walk-0': { x: 398, y: 494, angle: 37.3 },
-  'walk-1': { x: 430, y: 468, angle: 37.8 },
+  'walk-1': { x: 430, y: 390, angle: 37.8 },
   'walk-2': { x: 398, y: 494, angle: 37.3 },
   'walk-3': { x: 406, y: 497, angle: 38.2 },
   attack: { x: 425, y: 262, angle: -154.2 },

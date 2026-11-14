@@ -82,6 +82,7 @@ function CardArt({ card, size }: { card: RewardCard; size: number }) {
     <img src={gachaRewardImageUrl(card)} data-reward-kind={card.rewardKind ?? 'art'} data-codex-rarity={card.rewardKind === 'pages' ? undefined : card.isPremium ? 'premium' : 'ordinary'} alt="" />
     {card.rewardKind !== 'pages' && <b>{card.name.split('·')[0]}</b>}
   </div>;
+  if(card.equipmentArt)return <div className={`${styles.art} ${styles.equipmentCardArt}`} style={{width:size,height:size}} aria-hidden><img src={card.equipmentArt} data-equipment-art={card.id} alt="" decoding="async"/></div>;
   return <div ref={ref} className={styles.art} style={{ width: size, height: size }} aria-hidden />;
 }
 

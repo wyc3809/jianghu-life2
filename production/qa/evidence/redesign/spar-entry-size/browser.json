@@ -1,0 +1,402 @@
+{
+  "cases": [
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "before": {
+        "width": 290,
+        "height": 197.828125,
+        "poses": [
+          {
+            "pose": "idle",
+            "bounds": [
+              113,
+              128,
+              138,
+              167
+            ],
+            "height": 39,
+            "pixels": 454
+          },
+          {
+            "pose": "walk-0",
+            "bounds": [
+              110,
+              116,
+              151,
+              167
+            ],
+            "height": 51,
+            "pixels": 904
+          },
+          {
+            "pose": "walk-1",
+            "bounds": [
+              113,
+              117,
+              149,
+              167
+            ],
+            "height": 50,
+            "pixels": 841
+          },
+          {
+            "pose": "walk-2",
+            "bounds": [
+              110,
+              116,
+              151,
+              167
+            ],
+            "height": 51,
+            "pixels": 893
+          },
+          {
+            "pose": "walk-3",
+            "bounds": [
+              112,
+              116,
+              149,
+              167
+            ],
+            "height": 51,
+            "pixels": 859
+          }
+        ]
+      },
+      "after": {
+        "width": 290,
+        "height": 197.828125,
+        "poses": [
+          {
+            "pose": "idle",
+            "bounds": [
+              113,
+              128,
+              138,
+              167
+            ],
+            "height": 39,
+            "pixels": 454
+          },
+          {
+            "pose": "walk-0",
+            "bounds": [
+              113,
+              128,
+              138,
+              167
+            ],
+            "height": 39,
+            "pixels": 441
+          },
+          {
+            "pose": "walk-1",
+            "bounds": [
+              117,
+              128,
+              145,
+              167
+            ],
+            "height": 39,
+            "pixels": 484
+          },
+          {
+            "pose": "walk-2",
+            "bounds": [
+              113,
+              127,
+              139,
+              167
+            ],
+            "height": 40,
+            "pixels": 451
+          },
+          {
+            "pose": "walk-3",
+            "bounds": [
+              114,
+              127,
+              140,
+              167
+            ],
+            "height": 40,
+            "pixels": 464
+          }
+        ]
+      },
+      "sourceSameAsCombat": true,
+      "noEntryScaleJump": true,
+      "sameFootAnchor": true,
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "before": {
+        "width": 360,
+        "height": 409.609375,
+        "poses": [
+          {
+            "pose": "idle",
+            "bounds": [
+              126,
+              264,
+              177,
+              346
+            ],
+            "height": 82,
+            "pixels": 1965
+          },
+          {
+            "pose": "walk-0",
+            "bounds": [
+              119,
+              240,
+              205,
+              346
+            ],
+            "height": 106,
+            "pixels": 3838
+          },
+          {
+            "pose": "walk-1",
+            "bounds": [
+              123,
+              240,
+              201,
+              346
+            ],
+            "height": 106,
+            "pixels": 3599
+          },
+          {
+            "pose": "walk-2",
+            "bounds": [
+              120,
+              240,
+              204,
+              346
+            ],
+            "height": 106,
+            "pixels": 3800
+          },
+          {
+            "pose": "walk-3",
+            "bounds": [
+              124,
+              240,
+              200,
+              346
+            ],
+            "height": 106,
+            "pixels": 3711
+          }
+        ]
+      },
+      "after": {
+        "width": 360,
+        "height": 409.609375,
+        "poses": [
+          {
+            "pose": "idle",
+            "bounds": [
+              126,
+              264,
+              177,
+              346
+            ],
+            "height": 82,
+            "pixels": 1965
+          },
+          {
+            "pose": "walk-0",
+            "bounds": [
+              126,
+              264,
+              177,
+              346
+            ],
+            "height": 82,
+            "pixels": 1911
+          },
+          {
+            "pose": "walk-1",
+            "bounds": [
+              132,
+              264,
+              192,
+              346
+            ],
+            "height": 82,
+            "pixels": 2063
+          },
+          {
+            "pose": "walk-2",
+            "bounds": [
+              126,
+              264,
+              180,
+              346
+            ],
+            "height": 82,
+            "pixels": 1941
+          },
+          {
+            "pose": "walk-3",
+            "bounds": [
+              126,
+              264,
+              182,
+              346
+            ],
+            "height": 82,
+            "pixels": 1989
+          }
+        ]
+      },
+      "sourceSameAsCombat": true,
+      "noEntryScaleJump": true,
+      "sameFootAnchor": true,
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        430,
+        932
+      ],
+      "before": {
+        "width": 400,
+        "height": 497.609375,
+        "poses": [
+          {
+            "pose": "idle",
+            "bounds": [
+              136,
+              321,
+              198,
+              420
+            ],
+            "height": 99,
+            "pixels": 2895
+          },
+          {
+            "pose": "walk-0",
+            "bounds": [
+              127,
+              292,
+              233,
+              421
+            ],
+            "height": 129,
+            "pixels": 5682
+          },
+          {
+            "pose": "walk-1",
+            "bounds": [
+              133,
+              292,
+              227,
+              421
+            ],
+            "height": 129,
+            "pixels": 5314
+          },
+          {
+            "pose": "walk-2",
+            "bounds": [
+              129,
+              291,
+              231,
+              421
+            ],
+            "height": 130,
+            "pixels": 5595
+          },
+          {
+            "pose": "walk-3",
+            "bounds": [
+              134,
+              291,
+              226,
+              421
+            ],
+            "height": 130,
+            "pixels": 5479
+          }
+        ]
+      },
+      "after": {
+        "width": 400,
+        "height": 497.609375,
+        "poses": [
+          {
+            "pose": "idle",
+            "bounds": [
+              136,
+              321,
+              198,
+              420
+            ],
+            "height": 99,
+            "pixels": 2895
+          },
+          {
+            "pose": "walk-0",
+            "bounds": [
+              137,
+              321,
+              199,
+              420
+            ],
+            "height": 99,
+            "pixels": 2786
+          },
+          {
+            "pose": "walk-1",
+            "bounds": [
+              144,
+              321,
+              216,
+              420
+            ],
+            "height": 99,
+            "pixels": 3022
+          },
+          {
+            "pose": "walk-2",
+            "bounds": [
+              137,
+              320,
+              202,
+              420
+            ],
+            "height": 100,
+            "pixels": 2851
+          },
+          {
+            "pose": "walk-3",
+            "bounds": [
+              137,
+              320,
+              205,
+              420
+            ],
+            "height": 100,
+            "pixels": 2907
+          }
+        ]
+      },
+      "sourceSameAsCombat": true,
+      "noEntryScaleJump": true,
+      "sameFootAnchor": true,
+      "pageerrors": []
+    }
+  ],
+  "cloudBlocked": true,
+  "actualIphone": false
+}
