@@ -20,12 +20,6 @@ import { useLifeStore } from '../../store/lifeStore';
 import { canRetire } from '@core/life/retire';
 import { inkCountTo, inkPopIn, inkSurfaceIn } from '../../ui/inkMotion';
 import type { LifeGameState } from '@interfaces/lifeEngine';
-import {
-  natureKeys,
-  natureLabels,
-  wuxiaAttributeKeys,
-  wuxiaAttributeLabels,
-} from '@interfaces/lifeEngine';
 import { getGearDef, WEAPON_KIND_LABEL } from '@data/equipment/catalog';
 import {
   RARITY_SHORT,
@@ -41,7 +35,6 @@ import { MOVE_STANCE_LABEL, resolveMoveStance } from '@core/life/moveStance';
 import { skillDisplay } from '@core/life/flavor';
 import { rankName, skillAdvanceHint, skillAdvancePercent } from '@core/life/martialRanks';
 import { formatSkillEffects, getSkillDef, skillKindLabel } from '@data/skills/catalog';
-import { ensureNature, dominantNature, natureSummary } from '@core/life/nature';
 import { playerEvasionPercent } from '@core/life/jianghuHints';
 import { listWeaponMasteries } from '@core/life/weaponMastery';
 import { careerLabel, getCareer } from '@core/life/careers';
@@ -199,8 +192,6 @@ export function InkPersonPanel({
   const c = displayState.character;
   const mainArtIds = equippedMartialArts(c);
   const availableArts = [...new Set([...c.skills, ...Object.keys(manuals ?? {})])].filter(id => getSkillDef(id));
-  const nature = ensureNature(c);
-  const dominant = dominantNature(c);
   const lover = c.loverId ? state.npcs[c.loverId] : null;
   const sect = c.sectId ? state.sects[c.sectId] : null;
   const gearIds = c.gear ?? [];
@@ -396,33 +387,7 @@ export function InkPersonPanel({
 
       {view === 'attrs' && (
         <>
-          <h3>五維心性</h3>
-          <div className="ink-attr-grid">
-            {wuxiaAttributeKeys.map((k) => (
-              <div key={k} className="ink-attr">
-                <span className="ink-attr-label">{wuxiaAttributeLabels[k]}</span>
-                <strong>{c.attributes[k]}</strong>
-              </div>
-            ))}
-          </div>
-          <h3 className="ink-subhead">心性</h3>
-          <div className="ink-attr-grid">
-            {natureKeys.map((k) => (
-              <div
-                key={k}
-                className={`ink-attr ink-nature-card ink-nature--${k}${
-                  k === dominant ? ' ink-nature--dominant' : ''
-                }`}
-              >
-                <span className="ink-attr-label">
-                  {natureLabels[k]}
-                  {k === dominant ? ' · 獨顯' : ''}
-                </span>
-                <strong>{nature[k]}</strong>
-              </div>
-            ))}
-          </div>
-          <p className="ink-note">{natureSummary(c)}</p>
+          <h3>身世與身法</h3>
           <p className="ink-note">
             閃避約 {playerEvasionPercent(state)}%
           </p>

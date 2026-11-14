@@ -1,0 +1,175 @@
+{
+  "cases": [
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "onlyHighestBesideName": true,
+      "removedFiveStatsAndNatureTable": true,
+      "footerAndGearWithinScreen": true,
+      "presetsPreviewAndDetails": true,
+      "keyboardAndInk": true,
+      "unchangedGameData": true,
+      "geometry": {
+        "name": {
+          "x": 10,
+          "y": 57.71875,
+          "width": 82.921875,
+          "height": 31.046875
+        },
+        "mark": {
+          "x": 98.921875,
+          "y": 53.25,
+          "width": 40,
+          "height": 40
+        },
+        "stage": {
+          "x": 10,
+          "y": 170.4375,
+          "width": 300,
+          "height": 246.46875
+        },
+        "footer": {
+          "x": 10,
+          "y": 419.90625,
+          "width": 300,
+          "height": 136.09375
+        }
+      },
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "onlyHighestBesideName": true,
+      "removedFiveStatsAndNatureTable": true,
+      "footerAndGearWithinScreen": true,
+      "presetsPreviewAndDetails": true,
+      "keyboardAndInk": true,
+      "unchangedGameData": true,
+      "geometry": {
+        "name": {
+          "x": 14,
+          "y": 62.875,
+          "width": 106.921875,
+          "height": 40.25
+        },
+        "mark": {
+          "x": 129.921875,
+          "y": 59,
+          "width": 48,
+          "height": 48
+        },
+        "stage": {
+          "x": 14,
+          "y": 193.28125,
+          "width": 362,
+          "height": 485.625
+        },
+        "footer": {
+          "x": 14,
+          "y": 683.90625,
+          "width": 362,
+          "height": 148.09375
+        }
+      },
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        430,
+        932
+      ],
+      "onlyHighestBesideName": true,
+      "removedFiveStatsAndNatureTable": true,
+      "footerAndGearWithinScreen": true,
+      "presetsPreviewAndDetails": true,
+      "keyboardAndInk": true,
+      "unchangedGameData": true,
+      "geometry": {
+        "name": {
+          "x": 14,
+          "y": 62.875,
+          "width": 106.921875,
+          "height": 40.25
+        },
+        "mark": {
+          "x": 129.921875,
+          "y": 59,
+          "width": 48,
+          "height": 48
+        },
+        "stage": {
+          "x": 14,
+          "y": 193.28125,
+          "width": 402,
+          "height": 573.625
+        },
+        "footer": {
+          "x": 14,
+          "y": 771.90625,
+          "width": 402,
+          "height": 148.09375
+        }
+      },
+      "pageerrors": []
+    },
+    {
+      "nature": "xia",
+      "highest": 78,
+      "label": "俠",
+      "color": "rgb(53, 98, 84)",
+      "passed": true
+    },
+    {
+      "nature": "xie",
+      "highest": 78,
+      "label": "邪",
+      "color": "rgb(72, 86, 106)",
+      "passed": true
+    },
+    {
+      "nature": "kuang",
+      "highest": 78,
+      "label": "狂",
+      "color": "rgb(147, 96, 44)",
+      "passed": true
+    },
+    {
+      "nature": "e",
+      "highest": 78,
+      "label": "惡",
+      "color": "rgb(147, 59, 55)",
+      "passed": true
+    },
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "longNameAndStableTie": true,
+      "passed": true
+    },
+    {
+      "viewport": [
+        320,
+        844
+      ],
+      "longNameAndStableTie": true,
+      "passed": true
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "longNameAndStableTie": true,
+      "passed": true
+    }
+  ],
+  "cloudBlocked": true,
+  "actualIphoneTested": false
+}

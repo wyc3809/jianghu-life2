@@ -32,7 +32,7 @@ with sync_playwright() as p:
    if engine=='chromium' and w==390:tap(page,'開啟設定');shot(page,'after-settings.png');page.keyboard.press('Escape')
    page.locator('.ink-quick').get_by_role('button',name='祖祠',exact=True).click();d=page.get_by_role('dialog',name='祖祠');assert d.evaluate('e=>e.matches(":modal")');page.keyboard.press('Escape');stable(page)
    nav(page,'人物');main_geometry(page)
-   for label in ['修行詳情','境界與傳承','戰力詳解','屬性與心性詳解','裝備與詞綴','族譜','人際','成就','江湖根腳']:
+   for label in ['修行詳情','境界與傳承','戰力詳解','身世與身法','裝備與詞綴','族譜','人際','成就','江湖根腳']:
     tap(page,'更多');tap(page,label);check(page,label);click(page,'← 返回人物')
    tap(page,'武學');assert page.locator('.ink-martial-slot').count()==7;page.locator('.ink-martial-slot button').first.click();page.keyboard.press('Escape');tap(page,'返回人物');tap(page,'返回鎮居')
    page.locator('.ink-quick').get_by_role('button',name='秘笈閣',exact=True).click();tap(page,'卡池詳情');check(page,'gacha-info');close(page,'卡池詳情');tap(page,re.compile('^家族收藏'),False);check(page,'collection');tap(page,'書頁兌換',False);check(page,'exchange');close(page,'書頁兌換');tap(page,'‹ 返回江湖')
