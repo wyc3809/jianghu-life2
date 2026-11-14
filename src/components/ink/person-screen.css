@@ -146,3 +146,27 @@
 .ink-codex-sheet.ink-person-dialog > header { flex:none; }
 .ink-codex-sheet.ink-person-dialog .ink-codex-sheet-body { flex:1 1 0; min-height:0; max-height:none; }
 .ink-person-school-choice { width:100%; display:flex; align-items:center; justify-content:space-between; min-height:44px; }
+
+/* 姓名題字與最高心性小印；原配搭切換移到下方，長姓名亦有完整空間。 */
+.ink-person-name { display:flex; align-items:center; gap:9px; min-width:0; }
+.ink-person-name h3 { min-width:0; }
+.ink-person-identity > div:first-child { width:100%; }
+.ink-person-nature { --nature-ink:#356254; position:relative; display:inline-grid; place-items:center; width:48px; height:48px; flex:none; color:var(--nature-ink); }
+.ink-person-nature--xie { --nature-ink:#48566a; }
+.ink-person-nature--kuang { --nature-ink:#93602c; }
+.ink-person-nature--e { --nature-ink:#933b37; }
+.ink-person-nature img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; }
+.ink-person-nature > span { font-family:var(--ui-title,var(--game-ui-font))!important; position:relative; padding-bottom:2px; font:700 25px/1 var(--ui-title,var(--game-ui-font)); }
+.ink-person-footer { display:grid; gap:8px; flex:none; padding:9px 0 0; background:var(--ui-underline) center top/100% 3px no-repeat; }
+.ink-person-footer .ink-person-vitals { gap:16px; padding-inline:3px; }
+body .ink-person-footer .ink-person-presets { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-self:stretch; border-radius:3px; }
+body .ink-person-footer .ink-person-presets button { min-height:44px; font-size:14px; background-size:100% 100%; }
+.ink-person-footer .ink-person-actions { gap:8px; }
+.ink-person-footer .ink-person-actions button { min-height:48px; }
+@media (max-height:650px) {
+  .ink-person-name { gap:6px; }
+  .ink-person-nature { width:40px; height:40px; }
+  .ink-person-nature > span { font-size:22px; }
+  .ink-person-footer { gap:5px; padding-top:7px; }
+  .ink-person-footer .ink-person-actions button { min-height:44px; }
+}

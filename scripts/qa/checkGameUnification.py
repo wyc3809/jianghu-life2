@@ -7,7 +7,7 @@ OUT=ROOT/'production/qa/evidence/redesign/game-unification';OUT.mkdir(parents=Tr
 BASE=os.getenv('UNIFICATION_BASE','http://127.0.0.1:5294/')
 fixtures=json.loads((ROOT/'.local-online/unify-game/fixtures.json').read_text())
 rows=[]
-ROUTE_LABELS=['鎮居','人物','裝備比較','武學七欄','外功選擇','設定','祖祠','修煉','單機門派','雅藝','江湖地圖','華山論劍','開宗立派','江湖風雲','秘笈閣','卡池詳情','家族收藏','書頁兌換','結果','修行詳情','境界與傳承','戰力詳解','屬性與心性詳解','裝備與詞綴','族譜','人際','成就','江湖根腳']
+ROUTE_LABELS=['鎮居','人物','裝備比較','武學七欄','外功選擇','設定','祖祠','修煉','單機門派','雅藝','江湖地圖','華山論劍','開宗立派','江湖風雲','秘笈閣','卡池詳情','家族收藏','書頁兌換','結果','修行詳情','境界與傳承','戰力詳解','身世與身法','裝備與詞綴','族譜','人際','成就','江湖根腳']
 def start(browser,w=390,h=844,kind='full',record=False):
  c=browser.new_context(viewport={'width':w,'height':h},device_scale_factor=2,is_mobile=True,has_touch=True,reduced_motion='reduce',**({'record_video_dir':str(ROOT/'.local-online/unify-game/videos'),'record_video_size':{'width':390,'height':844}} if record else {}))
  f=fixtures[kind]
@@ -44,7 +44,7 @@ with sync_playwright() as pw:
    tap(p,'更換武器');d=modal(p,'更換武器');p.keyboard.press('Escape');assert resources(p)==before
    tap(p,'更換武器');p.locator('[data-gear-id="iron-blade"]').scroll_into_view_if_needed();p.locator('[data-gear-id="iron-blade"]').click();assert resources(p)==before
    tap(p,'換上');p.wait_for_timeout(300);after=resources(p);assert after['equipment']['weapon']=='iron-blade' and after['combatLoadout']==before['combatLoadout'] and after['jade']==before['jade'];before=after
-   for label in ['修行詳情','境界與傳承','戰力詳解','屬性與心性詳解','裝備與詞綴','族譜','人際','成就','江湖根腳']:
+   for label in ['修行詳情','境界與傳承','戰力詳解','身世與身法','裝備與詞綴','族譜','人際','成就','江湖根腳']:
     tap(p,'更多');tap(p,label);assets(p);tap(p,'← 返回人物')
    tap(p,'武學');assert p.locator('.ink-martial-slot').count()==7
    tap(p,'選擇外功欄位2');modal(p,'選擇外功');p.keyboard.press('Escape');tap(p,'返回人物');tap(p,'返回鎮居')
