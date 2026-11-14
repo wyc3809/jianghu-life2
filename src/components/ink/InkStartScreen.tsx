@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { inkAiUrl } from '../../ui/inkAiCatalog';
+import { inkArtUrl } from '../../ui/inkAssets';
+import { AppearanceCanvas } from './InkAppearance';
 
 type Props = {
   onStart: () => void;
@@ -9,41 +10,34 @@ type Props = {
   onOpenEditor?: () => void;
 };
 
-/**
- * 開卷首屏：夜嶺風雲滿底 + 古銅印 + 金字品牌 + 金線 + 卷首三句 + CTA。
- * 深色系獨立配色（見 styles.css .ink-start 段），唔影響入面宣紙主題。
- */
+/** 明亮宣紙與既有完整漫畫立繪；封面只作裝飾，不更改玩家造型。 */
 export function InkStartScreen({ onStart, onContinue, resumeHint, onSeedDebug, onOpenEditor }: Props) {
   return (
     <div className="scroll-shell ink-enter ink-start">
       <div className="ink-start-bg" aria-hidden>
-        <img src={inkAiUrl('backdrop-title-night')} alt="" decoding="async" />
+        <img src={inkArtUrl('art/theme/daylight-landscape.webp')} alt="" decoding="async" />
       </div>
       <header className="ink-hero">
-        <img
-          className="ink-start-seal"
-          src={inkAiUrl('seal-bronze-title')}
-          alt=""
-          aria-hidden
-          decoding="async"
-        />
         <p className="ink-eyebrow">武俠人生</p>
         <h1 className="ink-brand">江湖一生</h1>
-        <span className="ink-gold-rule" aria-hidden />
+        <span className="ink-start-rule" aria-hidden />
         <p className="ink-tagline">習武、闖蕩、傳承</p>
       </header>
 
+      <div className="ink-start-keyart">
+        <div className="ink-start-figure" aria-hidden="true"><AppearanceCanvas appearance={{head:'silver',outfit:'traveller',tone:'jade'}} label="封面立繪"/></div>
       <section className="ink-verse" aria-label="卷首">
         <p>少年起於千燈鎮</p>
         <p>拜師學藝，行走江湖</p>
         <p>將所學傳給後人</p>
       </section>
+      </div>
 
       <div className="ink-cta-stack">
         {resumeHint && (
           <button
             type="button"
-            className="ink-btn ink-btn--primary ink-btn--scroll"
+            className="ink-btn ink-btn--primary"
             onClick={() => {
               onContinue();
             }}
@@ -55,7 +49,7 @@ export function InkStartScreen({ onStart, onContinue, resumeHint, onSeedDebug, o
         <button
           type="button"
           className={
-            resumeHint ? 'ink-btn ink-btn--ghost ink-btn--scroll' : 'ink-btn ink-btn--primary ink-btn--scroll'
+            resumeHint ? 'ink-btn ink-btn--ghost' : 'ink-btn ink-btn--primary'
           }
           onClick={() => {
             onStart();

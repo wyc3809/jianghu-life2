@@ -6,7 +6,7 @@
   inset: 0;
   z-index: 190;
   overflow: auto;
-  background: linear-gradient(#f0e9d8, #e7ddc6);
+  background: var(--art-paper,#fffaf2);
   color: #16130f;
   font-family:
     'Noto Serif CJK TC',
@@ -19,8 +19,8 @@
 .bg {
   position: absolute;
   inset: 0;
-  background: url('/art/art-landscape.png') center/cover no-repeat;
-  opacity: 0.34;
+  background: var(--art-landscape) center/cover no-repeat;
+  opacity: 0.9;
 }
 
 .wrap {
@@ -59,7 +59,7 @@
 .banner {
   margin: 0 calc(-1 * clamp(22px, 4vw, 52px)) 20px;
   height: clamp(120px, 20vh, 190px);
-  background: url('/art/art-landscape.png') center 32% / cover no-repeat;
+  background: var(--art-landscape) center 32% / cover no-repeat;
   -webkit-mask-image: linear-gradient(#000 55%, transparent);
   mask-image: linear-gradient(#000 55%, transparent);
   clip-path: inset(0 100% 0 0);
@@ -567,3 +567,16 @@
 .scroll::before { content:''; position:absolute; inset:0; border:8px solid transparent; border-image:var(--ui-frame) 48 / 1 / 0 stretch; pointer-events:none; }
 .head h2 { font-family:var(--ui-title)!important; background:var(--ui-underline) center bottom/160px 4px no-repeat; padding-bottom:8px; }
 .corner { display:none; }
+
+/* 卷首亦沿用真造型漫畫頭像與共用日景，避免另一套黑影封面。 */
+.heroSil { width:150px; height:100%; right:8%; animation:heroSilIn .3s ease-out .15s forwards; }
+.heroSilStill { animation:none; opacity:1; }
+
+/* 同一冊頁題字與留白；關閉入口放在畫幅外，避免遮住真造型頭像。 */
+.close { top:-54px; right:0; min-width:64px; min-height:44px; padding:7px 12px; background:var(--ui-paper); letter-spacing:.1em; }
+.banner { height:128px; margin-bottom:14px; }
+.heroSil { width:128px; right:6%; }
+.head { align-items:center; justify-content:space-between; gap:12px; border:0; padding-bottom:6px; }
+.head h2 { font-size:30px; letter-spacing:.1em; white-space:nowrap; }
+.miniSeal { flex:none; }
+.vital { grid-template-columns:42px minmax(0,1fr) 74px; gap:9px; }

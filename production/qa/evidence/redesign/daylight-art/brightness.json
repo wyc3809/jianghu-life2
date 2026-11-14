@@ -1,0 +1,59 @@
+{
+  "metric": "JPEG mean luma 0–255; no screen luminance or colour calibration",
+  "viewport": [
+    390,
+    844
+  ],
+  "cases": {
+    "opening": {
+      "before": 54.06,
+      "after": 215.11,
+      "change": 161.06
+    },
+    "create": {
+      "before": 225.68,
+      "after": 236.09,
+      "change": 10.41
+    },
+    "home": {
+      "before": 190.31,
+      "after": 194.85,
+      "change": 4.54
+    },
+    "person": {
+      "before": 188.11,
+      "after": 213.55,
+      "change": 25.44
+    },
+    "wardrobe": {
+      "before": 187.34,
+      "after": 211.23,
+      "change": 23.9
+    },
+    "martial": {
+      "before": 222.42,
+      "after": 232.15,
+      "change": 9.73
+    },
+    "chronicle": {
+      "before": 221.38,
+      "after": 238.22,
+      "change": 16.84
+    },
+    "practice": {
+      "before": 223.49,
+      "after": 232.2,
+      "change": 8.71
+    },
+    "map": {
+      "before": 202.47,
+      "after": 209.64,
+      "change": 7.17
+    },
+    "codex": {
+      "before": 206.47,
+      "after": 212.99,
+      "change": 6.52
+    }
+  }
+}

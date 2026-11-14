@@ -1,7 +1,6 @@
 /** 宣紙底圖、朱砂印、事件橫幅 — 全為 WebP 位圖（無 SVG 手繪） */
 import type { InkPlace, InkSeason } from './sceneVariants';
-import { sealPhrase, sealUrlForText } from '../../ui/inkAssets';
-import { inkAiUrl } from '../../ui/inkAiCatalog';
+import { sealPhrase, sealUrlForText, inkArtUrl } from '../../ui/inkAssets';
 
 /** 裝飾用位圖：外層 span 承接尺寸／動畫 class，內層 img 撐滿 */
 export function InkArt({ className, src }: { className?: string; src: string }) {
@@ -25,7 +24,7 @@ export function InkScrollBackdrop({
   season?: InkSeason;
   place?: InkPlace;
   omen?: boolean;
-  /** 夜雨／奇遇時改用夜山底圖 */
+  /** 保留夜雨／奇遇標記，介面仍沿用共用淺色日景。 */
   night?: boolean;
 }) {
   const useNight = night || omen;
@@ -45,7 +44,7 @@ export function InkScrollBackdrop({
     >
       <img
         className="ink-backdrop-ai"
-        src={inkAiUrl(useNight ? 'backdrop-night-mountains' : 'backdrop-play-main')}
+        src={inkArtUrl('art/theme/daylight-landscape.webp')}
         alt=""
         aria-hidden
         decoding="async"

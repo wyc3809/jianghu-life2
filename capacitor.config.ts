@@ -5,6 +5,7 @@ const config: CapacitorConfig = {
   appId: process.env.IOS_BUNDLE_ID || 'com.wyc3809.jianghulife2',
   appName: '江湖一生',
   webDir: 'dist',
+  backgroundColor: '#fffaf2',
   ios: { contentInset: 'never' },
 };
 

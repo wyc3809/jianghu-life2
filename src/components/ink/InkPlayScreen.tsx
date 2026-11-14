@@ -47,6 +47,7 @@ import { InkAmbientFx } from './InkAmbientFx';
 import { seasonToInk, placeToInk, isInkNight } from './sceneVariants';
 import { InkScrollBackdrop, InkSealStamp, InkResultSeal, InkStaticSeal, InkAiWashLayer } from './InkDecor';
 import { inkAiUrl } from '../../ui/inkAiCatalog';
+import { inkArtUrl } from '../../ui/inkAssets';
 import { InkHuashanPanel } from './InkHuashanPanel';
 import { InkSectFounderPanel } from './InkSectFounderPanel';
 import { InkPersonPanel, type PersonView } from './InkPersonPanel';
@@ -586,7 +587,7 @@ export function InkPlayScreen({ state }: Props) {
       {useNightWash && (
         <InkAiWashLayer
           className="ink-ai-wash ink-ai-wash--play"
-          src={inkAiUrl('backdrop-night-mountains')}
+          src={inkArtUrl('art/theme/daylight-landscape.webp')}
         />
       )}
       <InkScrollBackdrop
