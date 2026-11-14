@@ -1,0 +1,1925 @@
+{
+  "ok": true,
+  "assets": [
+    {
+      "path": "public/ink/art/wardrobe/bamboo-fashion-feast.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 101328,
+      "color_count": 62438,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 368470,
+      "content_bounds": [
+        98,
+        253,
+        414,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/bamboo-fashion-gold.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 100972,
+      "color_count": 56477,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 377958,
+      "content_bounds": [
+        105,
+        260,
+        406,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/bamboo-fashion-night.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 79208,
+      "color_count": 35821,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 383036,
+      "content_bounds": [
+        105,
+        253,
+        406,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/bamboo-fashion-snow.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 91842,
+      "color_count": 46104,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 373019,
+      "content_bounds": [
+        98,
+        255,
+        414,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/bamboo-uniform-qingyun-0.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 77802,
+      "color_count": 42050,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 397734,
+      "content_bounds": [
+        119,
+        252,
+        393,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/bamboo-uniform-qingyun-1.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 91214,
+      "color_count": 50938,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 384674,
+      "content_bounds": [
+        116,
+        250,
+        396,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/bamboo-uniform-qingyun-2.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 93232,
+      "color_count": 53737,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 379457,
+      "content_bounds": [
+        111,
+        249,
+        400,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/bamboo-uniform-qingyun-3.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 114840,
+      "color_count": 60943,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 334630,
+      "content_bounds": [
+        78,
+        253,
+        433,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/bamboo-uniform-qingyun-4.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 88300,
+      "color_count": 53632,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 389665,
+      "content_bounds": [
+        117,
+        271,
+        395,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/bamboo-uniform-qingyun-5.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 90250,
+      "color_count": 50260,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 382120,
+      "content_bounds": [
+        116,
+        255,
+        396,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/bamboo-uniform-qingyun-6.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 110972,
+      "color_count": 52360,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 340069,
+      "content_bounds": [
+        82,
+        262,
+        429,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/bamboo-uniform-qingyun-7.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 127156,
+      "color_count": ">65535",
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 329185,
+      "content_bounds": [
+        36,
+        248,
+        475,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/bun-fashion-feast.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 86676,
+      "color_count": 52261,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 388485,
+      "content_bounds": [
+        101,
+        243,
+        411,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/bun-fashion-gold.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 88096,
+      "color_count": 47975,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 398796,
+      "content_bounds": [
+        117,
+        260,
+        394,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/bun-fashion-night.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 67912,
+      "color_count": 27706,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 399999,
+      "content_bounds": [
+        113,
+        250,
+        398,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/bun-fashion-snow.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 88854,
+      "color_count": 36842,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 382045,
+      "content_bounds": [
+        105,
+        245,
+        407,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/bun-uniform-qingyun-0.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 62646,
+      "color_count": 31417,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 415040,
+      "content_bounds": [
+        148,
+        251,
+        363,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/bun-uniform-qingyun-1.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 68804,
+      "color_count": 36511,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 409732,
+      "content_bounds": [
+        132,
+        250,
+        380,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/bun-uniform-qingyun-2.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 81082,
+      "color_count": 46120,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 394113,
+      "content_bounds": [
+        112,
+        256,
+        399,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/bun-uniform-qingyun-3.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 101506,
+      "color_count": 52475,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 370015,
+      "content_bounds": [
+        81,
+        250,
+        430,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/bun-uniform-qingyun-4.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 73408,
+      "color_count": 42218,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 406240,
+      "content_bounds": [
+        134,
+        246,
+        378,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/bun-uniform-qingyun-5.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 78954,
+      "color_count": 43869,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 403323,
+      "content_bounds": [
+        127,
+        249,
+        385,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/bun-uniform-qingyun-6.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 91154,
+      "color_count": 44813,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 375459,
+      "content_bounds": [
+        98,
+        261,
+        413,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/bun-uniform-qingyun-7.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 110366,
+      "color_count": 51487,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 351969,
+      "content_bounds": [
+        43,
+        252,
+        469,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/loose-fashion-feast.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 88896,
+      "color_count": 51381,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 381950,
+      "content_bounds": [
+        99,
+        266,
+        412,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/loose-fashion-gold.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 91516,
+      "color_count": 47276,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 389198,
+      "content_bounds": [
+        117,
+        281,
+        395,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/loose-fashion-night.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 72004,
+      "color_count": 28369,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 393157,
+      "content_bounds": [
+        114,
+        268,
+        398,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/loose-fashion-snow.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 88340,
+      "color_count": 37566,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 379715,
+      "content_bounds": [
+        104,
+        265,
+        408,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/loose-uniform-qingyun-0.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 68846,
+      "color_count": 33697,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 405437,
+      "content_bounds": [
+        125,
+        270,
+        386,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/loose-uniform-qingyun-1.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 73182,
+      "color_count": 38146,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 402163,
+      "content_bounds": [
+        123,
+        275,
+        388,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/loose-uniform-qingyun-2.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 84418,
+      "color_count": 45012,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 388151,
+      "content_bounds": [
+        111,
+        278,
+        401,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/loose-uniform-qingyun-3.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 103894,
+      "color_count": 52423,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 366781,
+      "content_bounds": [
+        80,
+        274,
+        431,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/loose-uniform-qingyun-4.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 79374,
+      "color_count": 41748,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 396401,
+      "content_bounds": [
+        118,
+        266,
+        394,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/loose-uniform-qingyun-5.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 83754,
+      "color_count": 42418,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 395494,
+      "content_bounds": [
+        121,
+        273,
+        391,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/loose-uniform-qingyun-6.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 94398,
+      "color_count": 46064,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 370603,
+      "content_bounds": [
+        99,
+        280,
+        413,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/loose-uniform-qingyun-7.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 113572,
+      "color_count": 51163,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 345925,
+      "content_bounds": [
+        43,
+        274,
+        468,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/master-fashion-feast.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 91132,
+      "color_count": 58215,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 379815,
+      "content_bounds": [
+        98,
+        252,
+        414,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/master-fashion-gold.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 94284,
+      "color_count": 52137,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 386002,
+      "content_bounds": [
+        106,
+        256,
+        406,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/master-fashion-night.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 70328,
+      "color_count": 30513,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 393828,
+      "content_bounds": [
+        105,
+        251,
+        406,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/master-fashion-snow.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 85530,
+      "color_count": 39832,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 383353,
+      "content_bounds": [
+        98,
+        251,
+        414,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/master-uniform-qingyun-0.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 70536,
+      "color_count": 36773,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 408401,
+      "content_bounds": [
+        138,
+        251,
+        373,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/master-uniform-qingyun-1.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 81158,
+      "color_count": 45176,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 397785,
+      "content_bounds": [
+        128,
+        254,
+        384,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/master-uniform-qingyun-2.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 87056,
+      "color_count": 49108,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 387769,
+      "content_bounds": [
+        111,
+        247,
+        400,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/master-uniform-qingyun-3.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 106366,
+      "color_count": 55066,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 345135,
+      "content_bounds": [
+        79,
+        249,
+        432,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/master-uniform-qingyun-4.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 77952,
+      "color_count": 48347,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 399338,
+      "content_bounds": [
+        130,
+        263,
+        382,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/master-uniform-qingyun-5.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 83308,
+      "color_count": 46834,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 391870,
+      "content_bounds": [
+        117,
+        256,
+        394,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/master-uniform-qingyun-6.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 102844,
+      "color_count": 47990,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 349628,
+      "content_bounds": [
+        82,
+        260,
+        429,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/master-uniform-qingyun-7.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 118416,
+      "color_count": 60929,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 339629,
+      "content_bounds": [
+        36,
+        248,
+        475,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/ponytail-fashion-feast.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 100402,
+      "color_count": 56258,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 376655,
+      "content_bounds": [
+        100,
+        245,
+        412,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/ponytail-fashion-gold.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 97124,
+      "color_count": 52532,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 385489,
+      "content_bounds": [
+        119,
+        262,
+        393,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/ponytail-fashion-night.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 75956,
+      "color_count": 31394,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 388446,
+      "content_bounds": [
+        113,
+        250,
+        398,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/ponytail-fashion-snow.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 96310,
+      "color_count": 42661,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 371550,
+      "content_bounds": [
+        105,
+        246,
+        407,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/ponytail-uniform-qingyun-0.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 72582,
+      "color_count": 36599,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 400993,
+      "content_bounds": [
+        124,
+        251,
+        387,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/ponytail-uniform-qingyun-1.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 78858,
+      "color_count": 42841,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 397015,
+      "content_bounds": [
+        120,
+        254,
+        392,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/ponytail-uniform-qingyun-2.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 92342,
+      "color_count": 51397,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 381101,
+      "content_bounds": [
+        107,
+        256,
+        404,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/ponytail-uniform-qingyun-3.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 110170,
+      "color_count": 58397,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 359525,
+      "content_bounds": [
+        81,
+        253,
+        431,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/ponytail-uniform-qingyun-4.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 83234,
+      "color_count": 47739,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 394321,
+      "content_bounds": [
+        119,
+        246,
+        392,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/ponytail-uniform-qingyun-5.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 89140,
+      "color_count": 48444,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 391054,
+      "content_bounds": [
+        121,
+        253,
+        391,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/ponytail-uniform-qingyun-6.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 102072,
+      "color_count": 49837,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 365084,
+      "content_bounds": [
+        99,
+        260,
+        413,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/ponytail-uniform-qingyun-7.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 119058,
+      "color_count": 56690,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 338514,
+      "content_bounds": [
+        43,
+        254,
+        469,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/short-fashion-feast.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 84474,
+      "color_count": 51362,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 388723,
+      "content_bounds": [
+        99,
+        267,
+        413,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/short-fashion-gold.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 85842,
+      "color_count": 45831,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 399364,
+      "content_bounds": [
+        117,
+        285,
+        395,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/short-fashion-night.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 65462,
+      "color_count": 26195,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 401832,
+      "content_bounds": [
+        113,
+        272,
+        398,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/short-fashion-snow.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 85022,
+      "color_count": 36282,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 385633,
+      "content_bounds": [
+        104,
+        268,
+        408,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/short-uniform-qingyun-0.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 61384,
+      "color_count": 30918,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 415915,
+      "content_bounds": [
+        148,
+        272,
+        363,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/short-uniform-qingyun-1.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 66500,
+      "color_count": 35390,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 411917,
+      "content_bounds": [
+        132,
+        277,
+        380,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/short-uniform-qingyun-2.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 79070,
+      "color_count": 44359,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 396833,
+      "content_bounds": [
+        111,
+        281,
+        400,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/short-uniform-qingyun-3.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 98516,
+      "color_count": 51027,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 374458,
+      "content_bounds": [
+        78,
+        275,
+        433,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/short-uniform-qingyun-4.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 72128,
+      "color_count": 41233,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 405994,
+      "content_bounds": [
+        132,
+        271,
+        379,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/short-uniform-qingyun-5.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 77134,
+      "color_count": 40701,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 405389,
+      "content_bounds": [
+        127,
+        272,
+        385,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/short-uniform-qingyun-6.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 89566,
+      "color_count": 44472,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 375872,
+      "content_bounds": [
+        97,
+        284,
+        415,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/short-uniform-qingyun-7.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 108480,
+      "color_count": 49138,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 354058,
+      "content_bounds": [
+        43,
+        276,
+        468,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/silver-fashion-feast.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 107640,
+      "color_count": ">65535",
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 365007,
+      "content_bounds": [
+        97,
+        248,
+        414,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/silver-fashion-gold.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 109088,
+      "color_count": 62130,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 370110,
+      "content_bounds": [
+        105,
+        254,
+        407,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/silver-fashion-night.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 88742,
+      "color_count": 37779,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 378125,
+      "content_bounds": [
+        95,
+        250,
+        416,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/silver-fashion-snow.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 99188,
+      "color_count": 46065,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 371207,
+      "content_bounds": [
+        97,
+        251,
+        414,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/silver-uniform-qingyun-0.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 82914,
+      "color_count": 42976,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 394922,
+      "content_bounds": [
+        110,
+        249,
+        401,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/silver-uniform-qingyun-1.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 101226,
+      "color_count": 52378,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 380545,
+      "content_bounds": [
+        98,
+        254,
+        413,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/silver-uniform-qingyun-2.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 101962,
+      "color_count": 54799,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 373840,
+      "content_bounds": [
+        103,
+        247,
+        408,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/silver-uniform-qingyun-3.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 122056,
+      "color_count": 63221,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 328936,
+      "content_bounds": [
+        79,
+        250,
+        433,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/silver-uniform-qingyun-4.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 93710,
+      "color_count": 53046,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 384719,
+      "content_bounds": [
+        100,
+        266,
+        412,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/silver-uniform-qingyun-5.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 100582,
+      "color_count": 52012,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 377979,
+      "content_bounds": [
+        101,
+        255,
+        410,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/silver-uniform-qingyun-6.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 117046,
+      "color_count": 53700,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 335554,
+      "content_bounds": [
+        82,
+        258,
+        429,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/silver-uniform-qingyun-7.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 134272,
+      "color_count": ">65535",
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 324410,
+      "content_bounds": [
+        36,
+        248,
+        475,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/topknot-fashion-feast.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 92988,
+      "color_count": 58465,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 379252,
+      "content_bounds": [
+        98,
+        251,
+        413,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/topknot-fashion-gold.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 95072,
+      "color_count": 53975,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 387752,
+      "content_bounds": [
+        106,
+        257,
+        406,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/topknot-fashion-night.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 70896,
+      "color_count": 29870,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 392982,
+      "content_bounds": [
+        105,
+        252,
+        406,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/topknot-fashion-snow.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 85098,
+      "color_count": 40947,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 383075,
+      "content_bounds": [
+        97,
+        252,
+        414,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/topknot-uniform-qingyun-0.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 71782,
+      "color_count": 36627,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 407515,
+      "content_bounds": [
+        133,
+        251,
+        378,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/topknot-uniform-qingyun-1.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 85162,
+      "color_count": 47343,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 394942,
+      "content_bounds": [
+        129,
+        250,
+        382,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/topknot-uniform-qingyun-2.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 87098,
+      "color_count": 49472,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 388206,
+      "content_bounds": [
+        111,
+        244,
+        400,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/topknot-uniform-qingyun-3.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 108642,
+      "color_count": 56665,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 344658,
+      "content_bounds": [
+        79,
+        250,
+        433,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/topknot-uniform-qingyun-4.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 80218,
+      "color_count": 49081,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 398464,
+      "content_bounds": [
+        126,
+        268,
+        385,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/topknot-uniform-qingyun-5.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 84696,
+      "color_count": 46619,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 389790,
+      "content_bounds": [
+        118,
+        253,
+        394,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/topknot-uniform-qingyun-6.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 105482,
+      "color_count": 48660,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 348739,
+      "content_bounds": [
+        82,
+        259,
+        429,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/wardrobe/topknot-uniform-qingyun-7.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 121650,
+      "color_count": 60894,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 337339,
+      "content_bounds": [
+        36,
+        247,
+        475,
+        992
+      ],
+      "problems": []
+    }
+  ]
+}

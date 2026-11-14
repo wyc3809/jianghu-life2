@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { costumeIdSchema,fashionIdSchema,canWearCostume,type CostumeIdentity } from './costumes';
 
 export const APPEARANCE_HEADS = ['bamboo','topknot','master','silver','ponytail','loose','bun','short'] as const;
 export const APPEARANCE_OUTFITS = ['traveller','scholar','cloak'] as const;
@@ -7,6 +8,10 @@ export const characterAppearanceSchema = z.object({
   head: z.enum(APPEARANCE_HEADS).catch('bamboo'),
   outfit: z.enum(APPEARANCE_OUTFITS).catch('cloak'),
   tone: z.enum(APPEARANCE_TONES).catch('ink'),
+  /** 省略表示沿用原常服；新增欄位不重設舊存檔。 */
+  costume: costumeIdSchema.optional().catch(undefined),
+  /** 穿制服期間保留最近選定時裝，失去制服資格時用作後備。 */
+  fashion: fashionIdSchema.optional().catch(undefined),
 });
 export type CharacterAppearance = z.infer<typeof characterAppearanceSchema>;
 export const DEFAULT_APPEARANCE: Readonly<CharacterAppearance> = { head: 'bamboo', outfit: 'cloak', tone: 'ink' };
@@ -19,12 +24,14 @@ export function readAppearance(value: unknown): CharacterAppearance {
 
 /** 僅供素材快取／比較，不含名稱、戰力或玩家身份。 */
 export function appearanceKey(value: unknown): string {
-  const a = readAppearance(value); return `${a.head}:${a.outfit}:${a.tone}`;
+  const a = readAppearance(value); return `${a.head}:${a.outfit}:${a.tone}${a.costume?`:${a.costume}`:''}`;
 }
 
 /** 缺少造型的舊人物依原身份取固定預設，沒有隨機換臉。 */
-export function appearanceOf(character: { appearance?: unknown; gender?: string }): CharacterAppearance {
-  return character.appearance === undefined
+export function appearanceOf(character: { appearance?: unknown; gender?: string } & CostumeIdentity): CharacterAppearance {
+  const a:CharacterAppearance=character.appearance === undefined
     ? { ...DEFAULT_APPEARANCE, head: character.gender === 'female' ? 'ponytail' : 'bamboo' }
     : readAppearance(character.appearance);
+  if(a.costume&&!canWearCostume(character,a.costume))return {...a,costume:a.fashion};
+  return a;
 }

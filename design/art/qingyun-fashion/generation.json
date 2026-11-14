@@ -1,0 +1,162 @@
+[
+  {
+    "key": "uniform-0-male",
+    "id": "uniform-qingyun-0",
+    "rank": 0,
+    "sex": "male",
+    "file": "sources/exec-5106b016-4c2f-49d5-8620-7ba00704e939.png"
+  },
+  {
+    "key": "uniform-1-male",
+    "id": "uniform-qingyun-1",
+    "rank": 1,
+    "sex": "male",
+    "file": "sources/exec-9c5c6b0b-c0f5-4fc9-b4a8-33dd0aa0ea72.png"
+  },
+  {
+    "key": "uniform-2-male",
+    "id": "uniform-qingyun-2",
+    "rank": 2,
+    "sex": "male",
+    "file": "sources/exec-2f021d4b-e444-4a19-9f11-8fd3ef174540.png"
+  },
+  {
+    "key": "uniform-0-female",
+    "id": "uniform-qingyun-0",
+    "rank": 0,
+    "sex": "female",
+    "file": "sources/exec-62cf1827-20b2-4fd9-86ea-1103015f31ff.png"
+  },
+  {
+    "key": "uniform-1-female",
+    "id": "uniform-qingyun-1",
+    "rank": 1,
+    "sex": "female",
+    "file": "sources/exec-e432ca5f-2d7c-4236-9324-87d3d786ca68.png"
+  },
+  {
+    "key": "uniform-3-female",
+    "id": "uniform-qingyun-3",
+    "rank": 3,
+    "sex": "female",
+    "file": "sources/exec-090f86b5-9793-430e-8fd2-8c965a0b7965.png"
+  },
+  {
+    "key": "uniform-2-female",
+    "id": "uniform-qingyun-2",
+    "rank": 2,
+    "sex": "female",
+    "file": "sources/exec-0c2e6d55-93c1-4ad6-8d0d-19632477d878.png"
+  },
+  {
+    "key": "uniform-4-male",
+    "id": "uniform-qingyun-4",
+    "rank": 4,
+    "sex": "male",
+    "file": "sources/exec-98032c5c-17de-4daf-9a90-5e93ed218108.png"
+  },
+  {
+    "key": "uniform-4-female",
+    "id": "uniform-qingyun-4",
+    "rank": 4,
+    "sex": "female",
+    "file": "sources/exec-6d7c1226-121f-445d-8c00-56add5800fa6.png"
+  },
+  {
+    "key": "uniform-3-male",
+    "id": "uniform-qingyun-3",
+    "rank": 3,
+    "sex": "male",
+    "file": "sources/exec-731bd253-d012-44bb-84ce-cdec25515bdf.png"
+  },
+  {
+    "key": "uniform-5-male",
+    "id": "uniform-qingyun-5",
+    "rank": 5,
+    "sex": "male",
+    "file": "sources/exec-89f571d9-67c8-48ff-a84d-ac90d516dbde.png"
+  },
+  {
+    "key": "uniform-5-female",
+    "id": "uniform-qingyun-5",
+    "rank": 5,
+    "sex": "female",
+    "file": "sources/exec-034b23b7-a1fc-4d40-8450-227e0f570515.png"
+  },
+  {
+    "key": "uniform-6-male",
+    "id": "uniform-qingyun-6",
+    "rank": 6,
+    "sex": "male",
+    "file": "sources/exec-24143ed0-1fca-42ce-837b-ecb2a37f92b2.png"
+  },
+  {
+    "key": "fashion-0-male",
+    "id": "fashion-night",
+    "sex": "male",
+    "file": "sources/exec-f426866d-1d62-49b6-ab4c-a249bff22403.png"
+  },
+  {
+    "key": "uniform-6-female",
+    "id": "uniform-qingyun-6",
+    "rank": 6,
+    "sex": "female",
+    "file": "sources/exec-233f64ac-402d-4059-9bc7-75c8f008d5a1.png"
+  },
+  {
+    "key": "fashion-0-female",
+    "id": "fashion-night",
+    "sex": "female",
+    "file": "sources/exec-44a2d21d-7aa9-4796-bca7-d7e6bb9baca0.png"
+  },
+  {
+    "key": "uniform-7-male",
+    "id": "uniform-qingyun-7",
+    "rank": 7,
+    "sex": "male",
+    "file": "sources/exec-60325189-d063-4cd7-8a63-caa8d52478a0.png"
+  },
+  {
+    "key": "fashion-1-male",
+    "id": "fashion-feast",
+    "sex": "male",
+    "file": "sources/exec-559499fa-fbd6-4fe2-8f0c-15237e81cef7.png"
+  },
+  {
+    "key": "uniform-7-female",
+    "id": "uniform-qingyun-7",
+    "rank": 7,
+    "sex": "female",
+    "file": "sources/exec-bd7be99c-c2ab-48fa-aa07-c4b9ff91fab3.png"
+  },
+  {
+    "key": "fashion-2-female",
+    "id": "fashion-snow",
+    "sex": "female",
+    "file": "sources/exec-e89ad4f2-d50a-4392-8a2a-f68e8412fa22.png"
+  },
+  {
+    "key": "fashion-1-female",
+    "id": "fashion-feast",
+    "sex": "female",
+    "file": "sources/exec-ff7870cb-5291-4ea9-8229-cdf88e01dcc6.png"
+  },
+  {
+    "key": "fashion-2-male",
+    "id": "fashion-snow",
+    "sex": "male",
+    "file": "sources/exec-01400caa-385b-4692-9d18-5d4a49c145c8.png"
+  },
+  {
+    "key": "fashion-3-male",
+    "id": "fashion-gold",
+    "sex": "male",
+    "file": "sources/exec-4d08d4e5-9eb1-454d-b2fe-a786474e8eb2.png"
+  },
+  {
+    "key": "fashion-3-female",
+    "id": "fashion-gold",
+    "sex": "female",
+    "file": "sources/exec-5bac42a0-6409-4753-ac85-448cdfd51a12.png"
+  }
+]

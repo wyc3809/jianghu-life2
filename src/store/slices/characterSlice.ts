@@ -15,6 +15,7 @@ import { setMainArt } from '@core/life/schools';
 import type { SkillKind } from '@data/skills/catalog';
 import type { LifeStore } from '../lifeStore';
 import { APPEARANCE_HEADS, APPEARANCE_OUTFITS, APPEARANCE_TONES, appearanceKey, appearanceOf, readAppearance } from '@interfaces/appearance';
+import { canWearCostume,isCostumeId,isFashionId } from '@interfaces/costumes';
 
 export function createCharacterSlice(
   set: (partial: Partial<LifeStore>) => void,
@@ -26,8 +27,13 @@ export function createCharacterSlice(
       const {state,combatReplay}=get();
       if(!state||state.phase!=='playing'||!state.character.alive||state.pendingCombat||combatReplay)return false;
       if(!value||!APPEARANCE_HEADS.includes(value.head)||!APPEARANCE_OUTFITS.includes(value.outfit)||!APPEARANCE_TONES.includes(value.tone))return false;
+      if(value.costume!==undefined&&(!isCostumeId(value.costume)||!canWearCostume(state.character,value.costume)))return false;
+      if(value.fashion!==undefined&&!isFashionId(value.fashion))return false;
+      const previous=readAppearance(state.character.appearance??appearanceOf(state.character));
       const nextValue=readAppearance(value);
-      if(appearanceKey(appearanceOf(state.character))===appearanceKey(nextValue))return true;
+      if(isFashionId(nextValue.costume))nextValue.fashion=nextValue.costume;
+      else if(nextValue.costume&&nextValue.fashion===undefined)nextValue.fashion=previous.fashion;
+      if(appearanceKey(previous)===appearanceKey(nextValue)&&previous.fashion===nextValue.fashion)return true;
       const next=produce(state,draft=>{draft.character.appearance=nextValue;});
       void save(next,true);set({state:next});return true;
     },

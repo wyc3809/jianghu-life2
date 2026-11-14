@@ -260,7 +260,7 @@ export interface LifeCharacter {
   /** 外功七卷：已得嘅卷號（1–7）；冇記錄＝只有卷一 */
   volumes?: Record<string, number[]>;
   sectId: string | null;
-  /** 門中地位 0外門–3執事 */
+  /** 門中地位 0記名弟子–7掌門；名稱依 content/sects/sects.json。 */
   sectStanding: number;
   loverId: string | null;
   /** 已有子女數 */
