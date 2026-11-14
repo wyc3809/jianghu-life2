@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { appendTapInk, createTapInk, isInkTap, TAP_INK, tapInkPose } from '../src/fx/ambient/tapInk';
+import { appendTapInk, cancelTapInk, createTapInk, isInkTap, TAP_INK, tapInkPose } from '../src/fx/ambient/tapInk';
 
 describe('點按墨跡', () => {
   it('test_tap_ink_同seed重現_不使用遊戲隨機狀態', () => {
@@ -18,21 +18,27 @@ describe('點按墨跡', () => {
     expect(list.map(b => b.x)).toEqual([18, 19, 20]);
     expect(appendTapInk(list, createTapInk(21, 0, 5000, 21))).toHaveLength(1);
   });
+  it('test_tap_ink_拖動只移除按下當次_保留之前已完成的淡出', () => {
+    const previous = createTapInk(10, 20, 0, 1), pressed = createTapInk(30, 40, 60, 2);
+    expect(cancelTapInk([previous, pressed], pressed)).toEqual([previous]);
+    expect(cancelTapInk([previous], pressed)).toEqual([previous]);
+    expect(cancelTapInk([pressed], pressed)).toEqual([]);
+  });
   it('test_tap_ink_首幀落墨且暈染稍後_全部在520ms結束', () => {
     const burst = createTapInk(0, 0, 0, 2);
-    expect(tapInkPose(burst.particles[0], 0)?.alpha).toBeGreaterThan(0);
+    expect(tapInkPose(burst.particles[0], 0)?.alpha).toBeGreaterThan(.25);
     expect(tapInkPose(burst.particles[1], 0)).toBeNull();
     expect(tapInkPose(burst.particles[1], 80)?.size).toBeGreaterThan(burst.particles[1].size);
     expect(burst.particles.every(p => tapInkPose(p, TAP_INK.durationMs) === null)).toBe(true);
   });
-  it('test_tap_ink_所有採樣墨跡_不超出清理範圍或遮黑文字', () => {
+  it('test_tap_ink_所有採樣墨跡_不超出清理範圍且透明度有界', () => {
     for (let seed = 0; seed < 30; seed++) for (const particle of createTapInk(0, 0, 0, seed).particles) {
       for (let ms = 0; ms < TAP_INK.durationMs; ms += 8) {
         const pose = tapInkPose(particle, ms);
         if (!pose) continue;
         expect(Math.hypot(pose.x, pose.y) + pose.size / 2).toBeLessThan(TAP_INK.radius);
         expect(pose.alpha).toBeGreaterThanOrEqual(0);
-        expect(pose.alpha).toBeLessThanOrEqual(.28);
+        expect(pose.alpha).toBeLessThanOrEqual(.46);
       }
     }
   });

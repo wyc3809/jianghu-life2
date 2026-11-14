@@ -1,0 +1,79 @@
+{
+  "cases": [
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "inkBeforePointerup": true,
+      "pointerBounds": {
+        "cx": 207.75,
+        "cy": 76.5,
+        "n": 3451
+      },
+      "singleBurstAfterRelease": true,
+      "dragAndCancelClear": true,
+      "holdDoesNotRepeat": true,
+      "rapidClicksExactlyThree": true,
+      "keyboard": true,
+      "nativeTouchDown": true,
+      "invalidAndHighlightSuppressed": true,
+      "idleRenderingStops": true,
+      "systemAndGameReducedMotionClear": true,
+      "nativeDialogHostAndClose": true,
+      "equipmentAppearanceCollectionUnchanged": true,
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "inkBeforePointerup": true,
+      "pointerBounds": {
+        "cx": 273.75,
+        "cy": 82.25,
+        "n": 3771
+      },
+      "singleBurstAfterRelease": true,
+      "dragAndCancelClear": true,
+      "holdDoesNotRepeat": true,
+      "rapidClicksExactlyThree": true,
+      "keyboard": true,
+      "nativeTouchDown": true,
+      "invalidAndHighlightSuppressed": true,
+      "idleRenderingStops": true,
+      "systemAndGameReducedMotionClear": true,
+      "nativeDialogHostAndClose": true,
+      "equipmentAppearanceCollectionUnchanged": true,
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        430,
+        932
+      ],
+      "inkBeforePointerup": true,
+      "pointerBounds": {
+        "cx": 313.25,
+        "cy": 82.5,
+        "n": 4585
+      },
+      "singleBurstAfterRelease": true,
+      "dragAndCancelClear": true,
+      "holdDoesNotRepeat": true,
+      "rapidClicksExactlyThree": true,
+      "keyboard": true,
+      "nativeTouchDown": true,
+      "invalidAndHighlightSuppressed": true,
+      "idleRenderingStops": true,
+      "systemAndGameReducedMotionClear": true,
+      "nativeDialogHostAndClose": true,
+      "equipmentAppearanceCollectionUnchanged": true,
+      "pageerrors": []
+    }
+  ],
+  "startAndCreateCovered": true,
+  "cloudBlockedForFixtures": true,
+  "actualIphoneTested": false
+}

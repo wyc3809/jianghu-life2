@@ -3,6 +3,7 @@ import { useLifeStore, resetLifeSave } from './store/lifeStore';
 import { InkPlayScreen } from './components/ink/InkPlayScreen';
 import { InkStartGate, InkStartScreen } from './components/ink/InkStartScreen';
 import { InkCreateScreen } from './components/ink/InkCreateScreen';
+import { InkTapFx } from './components/ink/InkTapFx';
 import { loadEventOverrides } from '@core/life/eventOverrides';
 
 /** 事件編輯器只限開發版（正式版唔打包，#editor 亦唔生效） */
@@ -16,7 +17,7 @@ function readHashRoute(): 'editor' | 'home' {
   return h === 'editor' || h.startsWith('editor/') ? 'editor' : 'home';
 }
 
-export default function App() {
+function AppContent() {
   const state = useLifeStore((s) => s.state);
   const creating = useLifeStore((s) => s.creating);
   const newLife = useLifeStore((s) => s.newLife);
@@ -102,4 +103,10 @@ export default function App() {
       />
     </>
   );
+}
+
+/** 開卷、創角及遊戲共用一次點墨；切換畫面不重建回饋層。 */
+export default function App() {
+  const paused = useLifeStore(s => Boolean(s.state?.pendingCombat || s.combatReplay));
+  return <><InkTapFx paused={paused}/><AppContent/></>;
 }

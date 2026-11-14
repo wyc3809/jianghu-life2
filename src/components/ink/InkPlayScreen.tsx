@@ -44,7 +44,6 @@ import { coachCopy, nextCoachStep } from '@core/life/tutorial';
 import { useOnceCoach } from '../../ui/useOnceCoach';
 import { track } from '../../telemetry/events';
 import { InkAmbientFx } from './InkAmbientFx';
-import { InkTapFx } from './InkTapFx';
 import { seasonToInk, placeToInk, isInkNight } from './sceneVariants';
 import { InkScrollBackdrop, InkSealStamp, InkResultSeal, InkStaticSeal, InkAiWashLayer } from './InkDecor';
 import { inkAiUrl } from '../../ui/inkAiCatalog';
@@ -600,7 +599,6 @@ export function InkPlayScreen({ state }: Props) {
       />
       {/* 邊緣墨韻與點按回饋分開，人物全屏亦保留細墨點。 */}
       <InkAmbientFx mode="ink" paused={Boolean(combat) || onFullPage} />
-      <InkTapFx paused={Boolean(combat)} />
       {sealText && <InkSealStamp text={sealText} onDone={clearSeal} />}
 
       {succession && <InkSuccessionModal lines={succession} onClose={clearSuccession} />}
