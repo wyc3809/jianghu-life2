@@ -1,8 +1,8 @@
 # 《江湖一生》iOS／TestFlight準備
 
-最新內測內容：**EA0.98.0**（2026-10-30）。Codemagic請選`main`、workflow **`ios-internal-testflight`（江湖一生 iOS 首次內測）**。Apple版本沿用`1.0`，build號仍由流程查詢Apple後遞增；遊戲EA版本不作Apple版本號。
+最新內測內容：**EA0.109.0**（2026-11-14）。Codemagic請選`main`、workflow **`ios-internal-testflight`（江湖一生 iOS 首次內測）**。Apple版本沿用`1.0`，build號仍由流程查詢Apple後遞增；遊戲EA版本不作Apple版本號。
 
-本次更新：動畫背景暫停／恢復、按功能閒時預載、先減粒子再調整3D解像度，以及試煉至比較確認換裝引導。完整iPhone效能仍需此版TestFlight驗收。
+本次更新：手機按壓、次頁與冊頁動效統一，設定／玉石及裝備詳情入口增大，重複說明精簡，武學規則分段。包含EA0.108.0的30件珍品以上獨有兵器圖及演武出場比例修正。完整iPhone效能與舊檔升級仍需此版TestFlight驗收。
 
 先前修正：內測準備紀錄曾停留EA0.91.0，令較新內容被版本檢查擋住。已同步，並在每次CI比較遊戲、套件、lockfile與準備紀錄版本，版本不一致即失敗。`internal-check.mjs`仍拒絕錯誤App ID／Bundle ID／公開連線設定；列出的「未驗收」項目是待辦紀錄，不會單獨阻擋此內測流程。沒有將未完成事項改成已驗收。
 
@@ -35,7 +35,7 @@ GitHub PR會跑未簽名Mac Archive；亦可手動執行iOS Package。其Artifac
 
 ### 首次安裝：ios-internal-testflight
 
-玩家已回覆完成描述檔上傳、環境變數設定，並確認Apple整合名稱`jianghu-life2-app-store`；這是玩家回報，不等於本環境已登入Codemagic或驗證Apple簽署。Codemagic重新整理後，選分支`main`及workflow「江湖一生 iOS 首次內測」（`ios-internal-testflight`）。重新建置前確認所選commit包含EA0.98.0，重跑舊build會沿用舊commit。
+玩家已回覆完成描述檔上傳、環境變數設定，並確認Apple整合名稱`jianghu-life2-app-store`；這是玩家回報，不等於本環境已登入Codemagic或驗證Apple簽署。Codemagic重新整理後，選分支`main`及workflow「江湖一生 iOS 首次內測」（`ios-internal-testflight`）。重新建置前確認所選commit包含EA0.109.0，重跑舊build會沿用舊commit。
 
 - 檢查App ID、Bundle ID、內容版本、Apple數字版本及公開連線設定；拒絕漏填、Dashboard網址、不同專案的anon key及後端金鑰，不打印金鑰內容。
 - 列出未完成待辦，保持JSON中的`done:false`。先上傳內測版，再按真iPhone完成存檔、前後台、效能與升級測試，避免把真機驗收當首次安裝的前置條件。

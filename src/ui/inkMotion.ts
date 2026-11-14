@@ -9,6 +9,40 @@
  * 設計見 docs/architecture/adr-004-anime-js-ui-motion.md。
  */
 import { animate, splitText, stagger, type JSAnimation } from 'animejs';
+import { watchVisualActivity } from './visualActivity';
+
+const enteringSurfaces = new WeakMap<HTMLElement, () => void>();
+
+/** 次頁／冊頁短促揭開；不延遲操作，離場或減少動態立即還原原樣式。 */
+export function inkSurfaceIn(target: HTMLElement | null, kind: 'page' | 'sheet' = 'page'): () => void {
+  if (!target) return () => {};
+  enteringSurfaces.get(target)?.();
+  if (motionReduced() || document.hidden) return () => {};
+  let stopped = false;
+  let animation: JSAnimation | null = null;
+  let unwatch = () => {};
+  const stop = () => {
+    if (stopped) return;
+    stopped = true;
+    animation?.revert();
+    delete target.dataset.inkEntering;
+    unwatch();
+    enteringSurfaces.delete(target);
+  };
+  target.classList.add('ink-surface-managed');
+  target.dataset.inkEntering = kind;
+  enteringSurfaces.set(target, stop);
+  animation = animate(target, {
+    opacity: [.62, 1],
+    y: [kind === 'sheet' ? 22 : 10, 0],
+    duration: kind === 'sheet' ? 260 : 220,
+    ease: 'outCubic',
+    onComplete: stop,
+  });
+  unwatch = watchVisualActivity(active => { if (!active) stop(); }, { reduced: true });
+  if (stopped) unwatch();
+  return stop;
+}
 
 /** 節奏（毫秒）：同 CSS --motion-* 對齊 */
 export const INK_MS = { quick: 200, base: 360, slow: 700, ritual: 1200 } as const;

@@ -1,3 +1,4 @@
+import { inkSurfaceIn } from '../../ui/inkMotion';
 import { AppearanceBadge } from './InkAppearance';
 import { onlineJadeProgress } from '@core/online/rules';
 import { useLifeStore } from '../../store/lifeStore';
@@ -81,6 +82,8 @@ export default function InkOnlinePanel({ standalone = false, onBack, onPrepare }
     return () => { active = false; clearInterval(interval); window.removeEventListener('pagehide', leave); document.removeEventListener('visibilitychange', visibility); leave(); };
   }, [token, accept, reportError]);
 
+  useLayoutEffect(()=>inkSurfaceIn(panelRef.current),[view]);
+
   const run = async (fn: () => Promise<void>) => {
     if (gate.current) return;
     gate.current = true; setPending(true); setError(''); setNotice('');
@@ -126,7 +129,7 @@ export default function InkOnlinePanel({ standalone = false, onBack, onPrepare }
     {(view !== 'main' || onBack) && <button type="button" className="ink-jianghu-back" onClick={() => view === 'main' ? onBack?.() : setView('main')}>
       ‹ {view === 'main' ? '返回江湖' : '返回江湖風雲'}
     </button>}
-    <header className="online-heading"><h2>{titles[view]}</h2><span className="online-test-seal">{publicOnline ? '共用封測' : '本機試玩'}</span></header>
+    <header className="online-heading"><h2>{titles[view]}</h2>{!publicOnline&&<span className="online-test-seal">本機試玩</span>}</header>
     <div className="online-feedback" aria-live="polite">{error ? <p role="alert">{error}</p> : notice && <p>{notice}</p>}</div>
     {view === 'rules' ? <div className="online-rules">
       <p className="online-lead">各自隨時入江湖，離線亦會自動應戰。</p>
@@ -135,10 +138,10 @@ export default function InkOnlinePanel({ standalone = false, onBack, onPrepare }
       <h3>修行所得</h3><p>在線每分鐘 {ONLINE_TEST.onlineSilverPerMinute}、離線每分鐘 {ONLINE_TEST.offlineSilverPerMinute} 試場銀兩。離線最多累積48小時，返回試場後可領取。</p>
       <p className="online-note">以上為封測數值，日後可能調整。離開試場頁面或斷線後，系統會在約8秒內判定離線。試場角色與銀兩獨立保存。</p>
     </div> : !token && publicOnline ? <div className="online-login">
-      <p className="online-lead">留名江湖，隨時論劍。</p><p>系統隨機派發對手，同段位優先；對方離線時亦會自動應戰。</p>
+      <p className="online-lead">留名江湖，隨時論劍。</p><p>同段位俠客優先，離線亦可應戰。</p>
       <label className="online-name-label">俠名<span className="online-frame online-name-field"><input value={name} readOnly maxLength={12} autoComplete="nickname" placeholder="輸入2至12字俠名" disabled={pending} /></span></label>
       <button className="online-frame online-enter" disabled={pending || !name.trim()} onClick={() => void enterWorld()}>{worldJoined() ? '重返江湖' : '踏入江湖'}</button>
-      <p className="online-note">使用目前人物及已保存的對戰配搭，江湖名次跟隨帳戶保留。可前往設定綁定電郵；免費玉石獎勵加入同一帳戶。</p>
+      <p className="online-note">以對戰配搭應戰，名次與玉石隨帳戶保留。</p>
       <button type="button" className="online-text-link" onClick={() => setView('rules')}>查看試場規則 ›</button>
       <button type="button" className="online-frame" onClick={()=>setView('sectWar')}>門派會武 · 報名與觀摩</button>
     </div> : !token ? <div className="online-login">

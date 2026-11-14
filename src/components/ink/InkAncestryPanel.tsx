@@ -1,3 +1,4 @@
+import { inkSurfaceIn } from '../../ui/inkMotion';
 /**
  * 祖祠：花祖蔭點（天賦加點、家傳武學）。規則見 design/gdd/ancestral-merit.md。
  */
@@ -21,8 +22,9 @@ export function InkAncestryPanel({ onClose }: { onClose: () => void }) {
 
   useEffect(() => {
     const dialog=dialogRef.current!,previous=document.activeElement as HTMLElement|null;
-    dialog.showModal();closeRef.current?.focus({preventScroll:true});
-    return ()=>{dialog.close();previous?.focus({preventScroll:true});};
+    dialog.showModal();
+    const stopMotion=inkSurfaceIn(dialog.querySelector<HTMLElement>('.ink-modal-card'),'sheet');closeRef.current?.focus({preventScroll:true});
+    return ()=>{stopMotion();dialog.close();previous?.focus({preventScroll:true});};
   }, []);
 
   const arts = meta.artsSeen.map((id) => ({ id, def: getSkillDef(id) })).filter((a) => a.def);

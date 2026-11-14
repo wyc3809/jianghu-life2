@@ -37,7 +37,7 @@ export function InkMainArts({ state, selected, busy, onCancel, onChoose }: Props
   };
   return <section className="ink-martial-loadout ink-loadout" aria-label="武學裝備">
     {chosen?<div className="ink-martial-selection" role="status"><span>為「{chosen.name}」選擇欄位</span><button type="button" onClick={onCancel}>取消</button></div>:
-      <div className="ink-martial-intro"><strong>五門外功</strong><span>{slots.filter(Boolean).length}／5 已配搭 · 每門扣內一次</span></div>}
+      <div className="ink-martial-intro"><strong>五門外功</strong><span>{slots.filter(Boolean).length}／5 已配搭</span></div>}
     <ol className="ink-martial-external" aria-label="五門外功">{slots.map((id,index)=>slotCard(id,index,['一','二','三','四','五'][index]!,'external'))}</ol>
     <ul className="ink-martial-support" aria-label="內功與身法獨立欄位">
       {slotCard(support.internal,INTERNAL_ART_SLOT,'內功','internal')}{slotCard(support.qinggong,QINGGONG_ART_SLOT,'身法','qinggong')}

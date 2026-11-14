@@ -56,7 +56,7 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
         <>
           <h3>修煉</h3>
           <p className="ink-note">
-            本月可修煉 {practiceLeft}/3 次。苦練、運功與淬體可累積成長；不合條件的操作不扣次數。
+            本月尚可修煉 {practiceLeft}／3 次。
           </p>
           <div className="ink-practice-grid">
             <button
@@ -109,7 +109,7 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
             ))}
           </div>
           {practiceLeft <= 0 && (
-            <p className="ink-note ink-note--warn">本月修煉已盡，按下方圓鈕過一月。</p>
+            <p className="ink-note ink-note--warn">本月修煉已盡，過月後可再修行。</p>
           )}
         </>
       )}
@@ -219,7 +219,6 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
         </>
       )}
 
-      <p className="ink-note">披掛與武學詳情，請至「人物」分頁點入查看。</p>
     </section>
   );
 }

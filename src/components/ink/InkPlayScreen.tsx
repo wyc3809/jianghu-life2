@@ -18,7 +18,7 @@ import {
 } from '../../audio/inkAudio';
 import { InkSettingsPanel } from './InkSettingsPanel';
 import { InkLeaderboardPanel } from './InkLeaderboardPanel';
-import { inkGlint, inkHop, inkPageIn, inkPopIn, inkRevealChars } from '../../ui/inkMotion';
+import { inkGlint, inkHop, inkPageIn, inkPopIn, inkRevealChars, inkSurfaceIn } from '../../ui/inkMotion';
 import { InkIcon } from './InkIcon';
 import { AppearanceBadge } from './InkAppearance';
 import { deltaIconKey, type InkIconKey } from '../../ui/inkIcons';
@@ -199,6 +199,7 @@ export function InkPlayScreen({ state }: Props) {
   const [personPreset,setPersonPreset]=useState<'normal'|'duel'>('normal');
   const [personView, setPersonView] = useState<PersonView>('main');
   const [jianghuView, setJianghuView] = useState<JianghuView>('main');
+  const playBodyRef = useRef<HTMLDivElement>(null);
   const jianghuRef = useRef<HTMLDivElement>(null);
   const [requestedArt, setRequestedArt] = useState<string | null>(null);
   const openNewbieEquipment = () => {
@@ -567,6 +568,13 @@ export function InkPlayScreen({ state }: Props) {
     }
     inkPageIn(flipRef.current);
   }, [monthKey]);
+  // 只跟導覽變化揭頁；修為／氣血ticker不重播，演武畫布不縮放。
+  useLayoutEffect(() => {
+    if (tab === 'home' || combat || eventFocus) return;
+    const selector = tab === 'person' ? '.ink-person-overview,.ink-attrs'
+      : tab === 'practice' ? '.ink-practice' : '.ink-jianghu-map,.ink-jianghu-detail,.ink-online';
+    return inkSurfaceIn(playBodyRef.current?.querySelector<HTMLElement>(selector) ?? null);
+  }, [tab, personView, practiceView, jianghuView, Boolean(combat), eventFocus]);
   // 導航：切 tab 時新 tab 圖示跳一跳
   useEffect(() => {
     inkHop(navRef.current?.querySelector('.ink-tab--active .ink-tab-icon'));
@@ -726,7 +734,7 @@ export function InkPlayScreen({ state }: Props) {
         }}
       />
 
-      <div className="ink-play-body">
+      <div className="ink-play-body" ref={playBodyRef}>
 
       {/* 待決事件：專注版面，選項固定在可視區底部 */}
       {eventFocus && pendingEvent && (
@@ -935,21 +943,9 @@ export function InkPlayScreen({ state }: Props) {
                   }
                 />
               )}
-              <p className="ink-event-year">
-                {isRankUpStoryLine(lastResult.feedback)
-                  ? '階位精進'
-                  : resultKind === 'practice'
-                    ? '修煉已定'
-                    : lastResult.title === '整裝'
-                      ? '披掛已定'
-                      : lastResult.deltas.some(isLearnSkillDeltaLine)
-                        ? '武學入懷'
-                        : '本月際遇'}
-              </p>
               <h3 ref={resultTitleRef}>{lastResult.title}</h3>
               {lastResult.choiceText && (
                 <p className="ink-result-choice">
-                  <span className="ink-result-choice-tag">所擇</span>
                   {lastResult.choiceText}
                 </p>
               )}
@@ -980,9 +976,9 @@ export function InkPlayScreen({ state }: Props) {
               {lastResult.deltas.length > 0 && resultDeltasReady && (
                 <div className="ink-result-deltas">
                   <p className="ink-result-delta-label">
-                    {lastResult.deltas.some(isLearnSkillDeltaLine) ? '新學武學' : '此番消長'}
+                    {lastResult.deltas.some(isLearnSkillDeltaLine) ? '新學武學' : '變化'}
                   </p>
-                  <ul className="ink-delta-chips is-anime" aria-label="此番消長" ref={deltaListRef}>
+                  <ul className="ink-delta-chips is-anime" aria-label="變化" ref={deltaListRef}>
                     {lastResult.deltas.map((d, i) => {
                       if (isLearnSkillDeltaLine(d)) {
                         return (
@@ -1090,12 +1086,6 @@ export function InkPlayScreen({ state }: Props) {
         </section>
       )}
 
-      {onPracticeTab && !combat && !showResult && !eventFocus && (
-        <p className="ink-note ink-note--center">修煉不催歲月——按下方圓鈕過一月。</p>
-      )}
-      {(tab === 'jianghu' && !onFullPage) && !combat && !showResult && !eventFocus && (
-        <p className="ink-note ink-note--center">按下方圓鈕即可過一月。</p>
-      )}
 
       </div>
 

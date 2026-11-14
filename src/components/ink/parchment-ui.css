@@ -264,3 +264,11 @@ body .ink-settings-card { display:flex; flex-direction:column; overflow:hidden; 
 body .ink-settings-card > :is(header,footer) { flex:none; }
 body .ink-settings-content { min-height:0; overflow-y:auto; overscroll-behavior:contain; }
 body .ink-cloud-actions > button { min-height:44px; }
+
+/* 第68項：手機入口保留原器物外觀，實際按壓範圍至少44px。 */
+body .scroll-shell--play .ink-hud-wallet :is(.ink-jade-chip,.ink-hud-settings) { min-height:44px; }
+body .ink-equipment-name { min-height:44px; display:flex; align-items:center; }
+body .ink-loadout-rules { font-size:15px; line-height:1.75; }
+body .ink-loadout-rules h4 { margin:18px 0 6px; color:var(--ui-ink); font:700 21px/1.4 var(--ui-title); }
+body .ink-loadout-rules h4:first-child { margin-top:6px; }
+body .ink-loadout-rules p { margin:0 0 12px; color:var(--ui-ink); }

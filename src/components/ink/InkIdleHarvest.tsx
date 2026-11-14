@@ -1,3 +1,4 @@
+import { inkSurfaceIn } from '../../ui/inkMotion';
 import { useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { LifeGameState } from '@interfaces/lifeEngine';
@@ -22,7 +23,8 @@ export function InkIdleHarvest({ state, onHarvest, busy }: {
     const dialog = dialogRef.current;
     if (!open || !dialog) return;
     dialog.showModal();
-    return () => dialog.close();
+    const stopMotion=inkSurfaceIn(dialog,'sheet');
+    return () => {stopMotion();dialog.close();};
   }, [open]);
 
   return <>

@@ -1,3 +1,4 @@
+import { inkSurfaceIn } from '../../ui/inkMotion';
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { APP_VERSION_LABEL } from '../../version';
@@ -88,8 +89,9 @@ export function InkSettingsPanel({
     const dialog=dialogRef.current!;
     const previous=document.activeElement as HTMLElement|null;
     dialog.showModal();
+    const stopMotion=inkSurfaceIn(dialog.querySelector<HTMLElement>('.ink-modal-card'),'sheet');
     closeRef.current?.focus();
-    return () => { dialog.close(); previous?.focus({preventScroll:true}); };
+    return () => { stopMotion(); dialog.close(); previous?.focus({preventScroll:true}); };
   }, [open]);
 
   if (!open) return null;
@@ -125,7 +127,7 @@ export function InkSettingsPanel({
           <p className="ink-settings-label">聲音</p>
           <AudioChannelRow
             label="音樂"
-            hint="目前尚未提供配樂，可預先設定音量。"
+            hint="配樂籌備中。"
             on={mix.musicOn}
             level={mix.musicLevel}
             onToggle={() => update({ musicOn: !mix.musicOn }, 'music')}

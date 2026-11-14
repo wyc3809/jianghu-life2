@@ -1,3 +1,4 @@
+import { inkSurfaceIn } from '../../ui/inkMotion';
 import { useLayoutEffect, useRef, type ComponentPropsWithoutRef } from 'react';
 
 type Props = ComponentPropsWithoutRef<'dialog'> & { onDismiss?: () => void };
@@ -9,7 +10,9 @@ export function InkModal({ children, onDismiss, className = '', ...props }: Prop
     const dialog = ref.current!;
     const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     dialog.showModal();
+    const stopMotion=inkSurfaceIn(dialog.querySelector<HTMLElement>('.ink-modal-card,.ink-offline-modal-card')??dialog.firstElementChild as HTMLElement|null,'sheet');
     return () => {
+      stopMotion();
       dialog.close();
       if (previous?.isConnected) previous.focus({ preventScroll: true });
     };
