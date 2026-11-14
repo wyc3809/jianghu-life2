@@ -1,3 +1,4 @@
+# 歷史點墨契約：第71項已改為pointerdown。現行驗證請用checkPressInk.py；保留本檔供舊版重現。
 """第50項：真畫面點按／拖動／連點／原生dialog／減少動態；封鎖雲端。"""
 from pathlib import Path
 exec(compile(Path('scripts/qa/checkPersonScreen.py').read_text().rsplit('\nwith sync_playwright() as p:',1)[0],'person_helpers','exec'))

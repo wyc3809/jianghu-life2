@@ -17,3 +17,5 @@ body .ink-btn:not(.ink-btn--primary):is(.is-pressed,:active) {
   box-shadow:none;
 }
 @media (prefers-reduced-motion:reduce) { canvas.ink-tap-fx { display:none; } }
+
+html[data-ink-motion='reduce'] canvas.ink-tap-fx { display:none; }

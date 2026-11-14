@@ -3,7 +3,7 @@ import { createRng } from './particles';
 /** 點墨只屬操作回饋；參數不參與遊戲RNG或結算。 */
 export const TAP_INK = {
   durationMs: 520,
-  cooldownMs: 90,
+  cooldownMs: 45,
   maxBursts: 3,
   maxTravel: 9,
   maxHoldMs: 650,
@@ -34,8 +34,8 @@ export function createTapInk(x: number, y: number, started: number, seed: number
   const rng = createRng(seed);
   const rotation = rng() * Math.PI * 2;
   const particles: TapInkParticle[] = [
-    { sprite: 'core', angle: 0, distance: 0, size: 15, grow: 1.18, alpha: .28, delay: 0, duration: 340, rotation },
-    { sprite: 'wash', angle: 0, distance: 0, size: 22, grow: 1.8, alpha: .17, delay: 22, duration: 498, rotation: rotation + .7 },
+    { sprite: 'core', angle: 0, distance: 0, size: 28, grow: 1.18, alpha: .46, delay: 0, duration: 340, rotation },
+    { sprite: 'wash', angle: 0, distance: 0, size: 34, grow: 1.9, alpha: .24, delay: 14, duration: 498, rotation: rotation + .7 },
   ];
   for (let i = 0; i < 4; i++) particles.push({
     sprite: 'speck', angle: rotation + i * Math.PI / 2 + rng() * .5,
@@ -51,7 +51,7 @@ export function tapInkPose(p: TapInkParticle, elapsedMs: number) {
   if (t < 0 || t >= 1) return null;
   const spread = 1 - (1 - t) ** 3;
   const travel = p.distance * (1 - Math.exp(-5 * t));
-  const attack = Math.min(1, (elapsedMs - p.delay + 8) / 22);
+  const attack = Math.min(1, (elapsedMs - p.delay + 18) / 22);
   return {
     x: Math.cos(p.angle) * travel,
     y: Math.sin(p.angle) * travel,
@@ -68,4 +68,9 @@ export function appendTapInk(bursts: TapInkBurst[], next: TapInkBurst): TapInkBu
 /** 拖曳、長按及非主按鍵不作點擊；只讀事件資料。 */
 export function isInkTap(dx: number, dy: number, heldMs: number): boolean {
   return Math.hypot(dx, dy) <= TAP_INK.maxTravel && heldMs >= 0 && heldMs <= TAP_INK.maxHoldMs;
+}
+
+/** 拖動只取消當次按下的墨點，不清除已完成點按仍在淡出的其他墨跡。 */
+export function cancelTapInk(bursts: TapInkBurst[], pressed: TapInkBurst): TapInkBurst[] {
+  return bursts.filter(burst => burst !== pressed);
 }

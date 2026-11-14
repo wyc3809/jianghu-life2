@@ -1,8 +1,8 @@
 # 《江湖一生》iOS／TestFlight準備
 
-最新內測內容：**EA0.110.0**（2026-11-14）。Codemagic請選`main`、workflow **`ios-testflight`（江湖一生 iOS TestFlight 內測更新）**。Apple版本沿用`1.0`，build號仍由流程查詢Apple後遞增；遊戲EA版本不作Apple版本號。
+最新內測內容：**EA0.110.1**（2026-11-14）。Codemagic請選`main`、workflow **`ios-testflight`（江湖一生 iOS TestFlight 內測更新）**。Apple版本沿用`1.0`，build號仍由流程查詢Apple後遞增；遊戲EA版本不作Apple版本號。
 
-本次更新：按鍵改為壓下／短回彈、木印落紙聲，原生iPhone使用Capacitor Haptics；主要確認鍵與普通入口有不同觸覺份量，沿用設定的音量／震動開關及減少動態。網頁版不冒稱iOS Safari支援原生觸覺；須重新建置／安裝此版TestFlight才能驗證硬件回饋。舊TestFlight內測入口修正保持，遊戲、存檔及戰鬥不改。
+本次更新：按下即在指尖位置落墨，短暈染後淡出；拖動／取消即收走當次墨跡，開卷與創角亦共用。沿用壓下／短回彈、木印落紙聲，原生iPhone使用Capacitor Haptics；主要確認鍵與普通入口有不同觸覺份量，沿用設定的音量／震動開關及減少動態。網頁版不冒稱iOS Safari支援原生觸覺；須重新建置／安裝此版TestFlight才能驗證硬件回饋。舊TestFlight內測入口修正保持，遊戲、存檔及戰鬥不改。
 
 先前修正：內測準備紀錄曾停留EA0.91.0，令較新內容被版本檢查擋住。已同步，並在每次CI比較遊戲、套件、lockfile與準備紀錄版本，版本不一致即失敗。`internal-check.mjs`仍拒絕錯誤App ID／Bundle ID／公開連線設定；列出的「未驗收」項目是待辦紀錄，不會單獨阻擋此內測流程。沒有將未完成事項改成已驗收。
 
@@ -35,7 +35,7 @@ GitHub PR會跑未簽名Mac Archive；亦可手動執行iOS Package。其Artifac
 
 ### 內部TestFlight更新：ios-testflight
 
-玩家已回覆完成描述檔上傳、環境變數設定，並確認Apple整合名稱`jianghu-life2-app-store`；這是玩家回報，不等於本環境已登入Codemagic或驗證Apple簽署。Codemagic重新整理後，選分支`main`及workflow「江湖一生 iOS TestFlight 內測更新」（`ios-testflight`）。重新建置前確認所選commit包含EA0.110.0，重跑舊build會沿用舊commit。
+玩家已回覆完成描述檔上傳、環境變數設定，並確認Apple整合名稱`jianghu-life2-app-store`；這是玩家回報，不等於本環境已登入Codemagic或驗證Apple簽署。Codemagic重新整理後，選分支`main`及workflow「江湖一生 iOS TestFlight 內測更新」（`ios-testflight`）。重新建置前確認所選commit包含EA0.110.1，重跑舊build會沿用舊commit。
 
 - 檢查App ID、Bundle ID、內容版本、Apple數字版本及公開連線設定；拒絕漏填、Dashboard網址、不同專案的anon key及後端金鑰，不打印金鑰內容。
 - 列出未完成待辦，保持JSON中的`done:false`。先上傳內測版，再按真iPhone完成存檔、前後台、效能與升級測試，避免把真機驗收當首次安裝的前置條件。
@@ -46,7 +46,7 @@ GitHub PR會跑未簽名Mac Archive；亦可手動執行iOS Package。其Artifac
 
 EA0.109.0或更早的`ios-testflight`其實是外測入口，會把未完成的真機／私隱／帳戶待辦當發布阻擋。EA0.109.1將這個常用ID及第一個入口改為內測更新，`ios-internal-testflight`保留為相同內測流程的相容入口；外測移至`ios-external-testflight`，發布檢查完整保留。
 
-在Codemagic重新整理App，再按**Start new build → main → ios-testflight**，確認來源commit包含EA0.110.0。不要Restart舊build：它可能仍使用舊commit與舊YAML。若畫面仍顯示「核對TestFlight準備狀態」，代表尚未選到更新後流程；新內測步驟名為「核對內測設定（待辦不阻擋內測）」。
+在Codemagic重新整理App，再按**Start new build → main → ios-testflight**，確認來源commit包含EA0.110.1。不要Restart舊build：它可能仍使用舊commit與舊YAML。若畫面仍顯示「核對TestFlight準備狀態」，代表尚未選到更新後流程；新內測步驟名為「核對內測設定（待辦不阻擋內測）」。
 
 待辦仍然`done:false`，不把尚未驗收項目當作完成；錯誤App ID、Bundle ID、過期版本、缺失公開設定、Apple查詢／簽署錯誤仍會停止。新的內測入口只允許內部群組用IPA，沒有自動送外測審核或正式商店審核。
 

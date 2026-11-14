@@ -1563,3 +1563,11 @@ v02新增四項實質檢查：來源alpha走廊、網格連通、三段120Hz表�
 修正縮放導致邊位漏按：透明命中層反向補償並在連按時重用，保留原生click與React操作，不人工補點擊；動畫結束命中層display:none，拖動／背景／偏好立即取消回饋。三尺寸真25ms短按均到約.94→1.022→原位，三連按、鼠標與觸控邊位、觸控切配搭、名單滑動不誤觸、鍵盤、減少動態、預覽取消資料保持通過。
 
 144檔1,049項、Pages構建、敘事hard-fail 0、禁句0處及diff通過；原生同步核對HapticsPlugin與2,617資源，真修煉一次扣次及掛機焦點保持。實畫、正常速度GIF、真WebAudio錄音及逐幀報告見production/qa/evidence/redesign/button-feel/README.md；分析見design/audits/button-feel-ea0110.md。玩家已確認續做，按一般授權發布EA0.110.0。沒有改玩法、經濟、存檔或黑影；原生硬件感受需新TestFlight真iPhone驗收，不將Mac Archive當硬件已通過，Apple上傳與網頁發布分開。
+
+### 第71項：按下即落墨與短暈染（2026-11-14，EA0.110.1）
+
+玩家要求「按落去嘅時候會有墨跡嘅觸感反饋」。舊點墨在pointerup才繪；改為主指針pointerdown同步畫第一幀，28px墨心、短吸水暈染及四點飛墨，520ms內淡出。放手不再追加一組；長按亦只落一次，移動超9px或pointercancel即取消當次墨跡，保留其他已完成點按的淡出。連點最多三組、單一短時畫布，停止後不跑RAF，沿用原位圖與獨立seed，不攔點擊、不重發指令。
+
+回饋層移到App共用一次，補開卷及創角；原生dialog將同一畫布移入頂層，不被背景遮住。系統／遊戲減少動態、高光遮蔽、背景、捲動及離場清理保持；保留EA0.110.0壓感、木印聲、原生Haptics及各設定。沒有改玩法、數值、存檔或斗笠黑影。
+
+144檔1,050項、Pages構建、敘事hard-fail 0、禁句0處及diff通過。三手機尺寸實測按下／放手、墨點座標、連按、拖動／取消、長按、鍵盤、原生觸控、彈窗及減少動態；隔離存檔／雲端，預覽不改裝備、外觀、武學或收藏。實畫、正常速度GIF及前後對照見production/qa/evidence/redesign/press-ink/README.md；現行驗證checkPressInk.py取代歷史checkTapInk.py的放手契約。玩家已確認需求，按一般授權EA0.110.1上線；遠端狀態以PR／Pages紀錄為準，沒有新TestFlight簽署上傳或真iPhone驗收結論。
