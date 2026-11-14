@@ -28,10 +28,12 @@ export function equipmentCandidates(c: LifeCharacter, slot: GearSlot, rarity: Ge
     });
 }
 
-/** 同類物品沿用同一器物圖；名稱、品階及全部詞綴始終來自真實裝備。 */
+/** 兵器按七類共用漫畫圖，護甲及飾品對應真物品；名稱、品階及詞綴仍讀真資料。 */
 export function equipmentArtUrl(def?: GearDef | null, slot: GearSlot = 'weapon'): string {
-  const kind = def?.slot === 'weapon' ? def.weaponKind ?? 'sword' : def?.slot ?? slot;
-  return inkArtUrl(`art/person/gear-${kind === 'weapon' ? 'sword' : kind}.webp`);
+  const actual=def?.slot??slot;
+  const known=['plain-robe','pine-armor','stormcloud-armor','divine-silk-armor','cloud-boots','jade-token','divine-moon-pendant'];
+  const kind=actual==='weapon'?def?.weaponKind??'sword':def&&known.includes(def.id)?def.id:actual==='armor'?'plain-robe':'jade-token';
+  return inkArtUrl(`art/manhua/icons/${kind}.webp`);
 }
 
 /** 比較候選與目前底材；不隱藏負差值，完整詞綴另外保留。 */

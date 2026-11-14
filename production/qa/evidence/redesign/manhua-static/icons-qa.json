@@ -1,0 +1,285 @@
+{
+  "ok": true,
+  "assets": [
+    {
+      "path": "public/ink/art/manhua/icons/blade.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 256,
+      "height": 256,
+      "bytes": 27594,
+      "color_count": 9096,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 51688,
+      "content_bounds": [
+        14,
+        20,
+        242,
+        236
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/icons/bow.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 256,
+      "height": 256,
+      "bytes": 20678,
+      "color_count": 5458,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 57039,
+      "content_bounds": [
+        14,
+        17,
+        242,
+        238
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/icons/cloud-boots.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 256,
+      "height": 256,
+      "bytes": 45986,
+      "color_count": 14318,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 39643,
+      "content_bounds": [
+        30,
+        14,
+        225,
+        242
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/icons/divine-moon-pendant.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 256,
+      "height": 256,
+      "bytes": 36492,
+      "color_count": 12498,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 48182,
+      "content_bounds": [
+        19,
+        14,
+        237,
+        242
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/icons/divine-silk-armor.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 256,
+      "height": 256,
+      "bytes": 49742,
+      "color_count": 19066,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 39431,
+      "content_bounds": [
+        16,
+        14,
+        240,
+        242
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/icons/hidden.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 256,
+      "height": 256,
+      "bytes": 28390,
+      "color_count": 8383,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 53675,
+      "content_bounds": [
+        26,
+        14,
+        223,
+        242
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/icons/jade-token.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 256,
+      "height": 256,
+      "bytes": 41758,
+      "color_count": 14994,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 44804,
+      "content_bounds": [
+        14,
+        23,
+        242,
+        232
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/icons/pine-armor.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 256,
+      "height": 256,
+      "bytes": 53530,
+      "color_count": 17636,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 35532,
+      "content_bounds": [
+        26,
+        14,
+        229,
+        242
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/icons/plain-robe.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 256,
+      "height": 256,
+      "bytes": 59424,
+      "color_count": 19319,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 29910,
+      "content_bounds": [
+        14,
+        15,
+        242,
+        240
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/icons/spear.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 256,
+      "height": 256,
+      "bytes": 19732,
+      "color_count": 5454,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 57477,
+      "content_bounds": [
+        17,
+        14,
+        238,
+        242
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/icons/staff.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 256,
+      "height": 256,
+      "bytes": 16278,
+      "color_count": 4640,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 58395,
+      "content_bounds": [
+        14,
+        17,
+        242,
+        239
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/icons/stormcloud-armor.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 256,
+      "height": 256,
+      "bytes": 60646,
+      "color_count": 21174,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 33576,
+      "content_bounds": [
+        17,
+        14,
+        240,
+        242
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/icons/sword.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 256,
+      "height": 256,
+      "bytes": 25734,
+      "color_count": 7507,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 54533,
+      "content_bounds": [
+        14,
+        25,
+        242,
+        230
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/icons/whip.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 256,
+      "height": 256,
+      "bytes": 39534,
+      "color_count": 12226,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "transparent_pixels": 48290,
+      "content_bounds": [
+        14,
+        20,
+        242,
+        236
+      ],
+      "problems": []
+    }
+  ]
+}
