@@ -15,10 +15,10 @@ import { useAncestryStore } from '../../store/ancestryStore';
 import { SCHOOLS, schoolOfGear, primarySchoolOfSkill, type SchoolId } from '@data/redesign/schools';
 import { InkSkillSchools } from './InkSchoolTabs';
 import { InkPersonSchoolTabs as InkSchoolTabs } from './InkPersonSchoolTabs';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useLifeStore } from '../../store/lifeStore';
 import { canRetire } from '@core/life/retire';
-import { inkCountTo, inkPopIn } from '../../ui/inkMotion';
+import { inkCountTo, inkPopIn, inkSurfaceIn } from '../../ui/inkMotion';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import {
   natureKeys,
@@ -178,6 +178,8 @@ export function InkPersonPanel({
   };
   // anime.js：入頁時列表／格仔錯開落筆出場；戰力數字由 0 滾到現值
   const paneRef = useRef<HTMLElement | null>(null);
+  const detailBodyRef=useRef<HTMLDivElement>(null);
+  useLayoutEffect(()=>inkSurfaceIn(detailBodyRef.current),[view,preset,martialView,skillSchool]);
   useEffect(() => {
     const pane = paneRef.current;
     if (!pane) return;
@@ -284,13 +286,13 @@ export function InkPersonPanel({
       {(view === 'skills' || view === 'gear') && <div className="ink-preset-select">
         <div className="ink-preset-tabs" role="tablist" aria-label="配搭方案">{(['normal','duel'] as const).map(kind =>
           <button type="button" key={kind} role="tab" aria-selected={preset === kind} className="ink-btn ink-btn--quiet" onClick={() => { setPreset(kind); setSelectedArt(null); setPickerSlot(null); setPreviewGearId(null); setEquipNotice(''); }}>{kind === 'normal' ? '普通配搭' : '對戰配搭'}</button>)}</div>
-        <p className="ink-note">{preset === 'normal' ? '演武台、江湖交手使用。' : '華山、多人挑戰及離線防守使用。'}{view !== 'skills' && '配搭獨立保存，收藏與養成共用。'}</p>
+        <p className="ink-note">{preset === 'normal' ? '演武台、江湖交手使用。' : '華山、多人挑戰及離線防守使用。'}</p>
       </div>}
 
       {view === 'skills' && <div className="ink-tap-segments" role="tablist" aria-label="武學內容">
         {([['loadout','配搭'],['library','收藏'],['rules','規則']] as const).map(([id,label])=><button key={id} type="button" role="tab" aria-selected={martialView===id} className="ink-btn ink-btn--quiet" onClick={()=>{setMartialView(id);setSelectedArt(null);}}>{label}</button>)}
       </div>}
-      <div className="ink-person-detail-body" key={`${view}:${preset}:${martialView}:${skillSchool}`}>
+      <div className="ink-person-detail-body" ref={detailBodyRef} key={`${view}:${preset}:${martialView}:${skillSchool}`}>
       {view === 'overview' && overviewContent}
       {view === 'cultivation' &&
         (() => {
@@ -436,8 +438,10 @@ export function InkPersonPanel({
           {martialView === 'loadout' && <InkMainArts state={displayState} selected={selectedArt} busy={busy} onCancel={() => setSelectedArt(null)} onChoose={setPickerSlot} />}
           {pickerSlot !== null && <InkMartialPicker key={`${preset}:${pickerSlot}`} state={displayState} collection={collection} slot={pickerSlot} preset={preset} busy={busy} initialSelection={selectedArt}
             onEquip={id => equipArt(pickerSlot, id)} onClose={() => setPickerSlot(null)} />}
-          {martialView === 'rules' && <div className="ink-loadout-rules"><h4>連招、回內與養成規則</h4>
-            <p className="ink-note">演武台連招不耗內；其他交手每門外功起手只扣一次內力，已學卷次依序連出。每回合自然回內1%，另計已裝備內功；全部武學均無法使出時調息回復30%。藏本升階跨代保留，熟練由本代實戰及修煉累積。開戰後更改配搭，留待下一場生效。</p>
+          {martialView === 'rules' && <div className="ink-loadout-rules"><h4>出招與內力</h4>
+            <p>演武台不耗內。其他交手每門外功起手扣一次內力，已學卷次依序連出。</p>
+            <h4>調息回內</h4><p>每回合自然回內1%，另加內功回復。內力不足以使出任何外功時，調息回復30%。</p>
+            <h4>養成與換招</h4><p>藏本升階跨代保留；熟練靠本代實戰及修煉累積。交手中更改配搭，下一場生效。</p>
           </div>}
           {martialView === 'library' && <>
           <InkSchoolTabs value={skillSchool} onChange={setSkillSchool} allowAll label="武學流派分類" />
@@ -740,7 +744,7 @@ export function InkPersonPanel({
           <h3>戰力 {combatRating(state).toLocaleString('zh-Hant')} · {combatRatingTier(combatRating(state))}</h3>
           <p className="ink-note">江湖排名：{jianghuRank(state) >= JIANGHU_RANK_START ? '未列名' : `第${jianghuRank(state)}位`} · 威望 {jianghuPrestige(state)}</p>
           <p className="ink-note">
-            演武台實戰數值，由已裝備武學、修為境界、氣血上限及裝備計算。目前進度為第 {sparSavedStage(state)} 關。
+            演武進度 · 第 {sparSavedStage(state)} 關
           </p>
 
           <h3 className="ink-subhead">總覽</h3>

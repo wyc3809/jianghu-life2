@@ -1,3 +1,4 @@
+import { inkSurfaceIn } from '../../ui/inkMotion';
 import { createContext, useEffect, useRef, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import './person-screen.css';
@@ -11,7 +12,8 @@ export function InkPersonSheet({ title, onClose, children, className = '' }: { t
   useEffect(() => {
     const dialog = ref.current!, previous = document.activeElement as HTMLElement | null;
     dialog.showModal();
-    return () => { dialog.close(); previous?.focus({ preventScroll: true }); };
+    const stopMotion=inkSurfaceIn(dialog,'sheet');
+    return () => { stopMotion(); dialog.close(); previous?.focus({ preventScroll: true }); };
   }, []);
   return createPortal(<dialog ref={ref} className={`ink-person-sheet ${className}`} aria-label={title}
     onCancel={event => { event.preventDefault(); onClose(); }}>

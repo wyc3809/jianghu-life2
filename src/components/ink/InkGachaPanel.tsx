@@ -1,3 +1,5 @@
+import { useLayoutEffect } from 'react';
+import { inkSurfaceIn } from '../../ui/inkMotion';
 import { Suspense, useRef, useState, type CSSProperties } from 'react';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getSkillDef, skillKindLabel, skillLabel } from '@data/skills/catalog';
@@ -51,6 +53,8 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
   const [view, setView] = useState<'draw' | 'shelf'>('draw');
   const [fx, setFx] = useState<HighlightConfig | null>(null);
   const [sheet, setSheet] = useState<'info' | 'catalog' | 'wish' | 'results' | 'school' | 'pack' | null>(null);
+  const surfaceRef=useRef<HTMLElement>(null);
+  useLayoutEffect(()=>inkSurfaceIn(surfaceRef.current),[view,banner]);
   const pullGate = useRef(false);
   const closeFx = () => { setFx(null); pullGate.current = false; };
 
@@ -93,7 +97,7 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
   };
 
   return (
-    <section id="ink-gacha" className={`ink-panel ink-gacha ink-codex-page is-${banner}`} aria-label="秘笈閣">
+    <section ref={surfaceRef} id="ink-gacha" className={`ink-panel ink-gacha ink-codex-page is-${banner}`} aria-label="秘笈閣">
       <header className="ink-codex-heading">
         <div><small>藏天下武學</small><h3>{view === 'shelf' ? '家族藏本' : '秘笈閣'}</h3></div>
         <div className="ink-codex-heading-actions">

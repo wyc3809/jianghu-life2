@@ -1,0 +1,540 @@
+{
+  "cases": [
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "events": [
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-modal-card ink-settings-card ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-person-overview ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-person-sheet ink-equipment-picker ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-person-sheet ink-equipment-picker ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-person-sheet ink-equipment-picker ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-appearance-choices ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-person-sheet ink-appearance-sheet ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-appearance-choices ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-person-sheet ink-appearance-sheet ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-appearance-choices ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-person-sheet ink-appearance-sheet ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-appearance-choices ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-person-detail-body ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-panel ink-attrs ink-tab-pane ink-tap-screen ink-martial-screen ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-person-detail-body ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-person-overview ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-panel ink-practice ink-tab-pane ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-panel ink-practice ink-tab-pane ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-panel ink-practice ink-tab-pane ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-jianghu-map ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-panel ink-gacha ink-codex-page is-jianghu ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-jianghu-detail ink-jianghu-detail--gacha ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-panel ink-gacha ink-codex-page is-jianghu ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-panel ink-gacha ink-codex-page is-jianghu ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-codex-sheet ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-codex-sheet ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-codex-sheet ink-surface-managed"
+        }
+      ],
+      "touchTargets44": true,
+      "pressRetainsColourAndPosition": true,
+      "touchScrollCancelledPress": true,
+      "sheetFocusFenceAndReturn": true,
+      "unchangedEquipmentAppearanceCollection": true,
+      "systemAndGameReducedMotion": true,
+      "noLeftoverAnimation": true,
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "events": [
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-modal-card ink-settings-card ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-person-overview ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-person-sheet ink-equipment-picker ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-person-sheet ink-equipment-picker ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-person-sheet ink-equipment-picker ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-appearance-choices ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-person-sheet ink-appearance-sheet ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-appearance-choices ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-person-sheet ink-appearance-sheet ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-appearance-choices ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-person-sheet ink-appearance-sheet ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-appearance-choices ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-person-detail-body ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-panel ink-attrs ink-tab-pane ink-tap-screen ink-martial-screen ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-person-detail-body ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-person-overview ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-panel ink-practice ink-tab-pane ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-panel ink-practice ink-tab-pane ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-panel ink-practice ink-tab-pane ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-jianghu-map ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-panel ink-gacha ink-codex-page is-jianghu ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-jianghu-detail ink-jianghu-detail--gacha ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-panel ink-gacha ink-codex-page is-jianghu ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-panel ink-gacha ink-codex-page is-jianghu ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-codex-sheet ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-codex-sheet ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-codex-sheet ink-surface-managed"
+        }
+      ],
+      "touchTargets44": true,
+      "pressRetainsColourAndPosition": true,
+      "touchScrollCancelledPress": true,
+      "sheetFocusFenceAndReturn": true,
+      "unchangedEquipmentAppearanceCollection": true,
+      "systemAndGameReducedMotion": true,
+      "noLeftoverAnimation": true,
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        430,
+        932
+      ],
+      "events": [
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-modal-card ink-settings-card ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-person-overview ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-person-sheet ink-equipment-picker ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-person-sheet ink-equipment-picker ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-person-sheet ink-equipment-picker ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-appearance-choices ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-person-sheet ink-appearance-sheet ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-appearance-choices ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-person-sheet ink-appearance-sheet ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-appearance-choices ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-person-sheet ink-appearance-sheet ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-appearance-choices ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-person-detail-body ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-panel ink-attrs ink-tab-pane ink-tap-screen ink-martial-screen ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-person-detail-body ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-person-overview ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-panel ink-practice ink-tab-pane ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-panel ink-practice ink-tab-pane ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-panel ink-practice ink-tab-pane ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-jianghu-map ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-panel ink-gacha ink-codex-page is-jianghu ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-jianghu-detail ink-jianghu-detail--gacha ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-panel ink-gacha ink-codex-page is-jianghu ink-surface-managed"
+        },
+        {
+          "kind": "page",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 10)",
+          "tag": "ink-panel ink-gacha ink-codex-page is-jianghu ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-codex-sheet ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-codex-sheet ink-surface-managed"
+        },
+        {
+          "kind": "sheet",
+          "opacity": 0.62,
+          "transform": "matrix(1, 0, 0, 1, 0, 22)",
+          "tag": "ink-codex-sheet ink-surface-managed"
+        }
+      ],
+      "touchTargets44": true,
+      "pressRetainsColourAndPosition": true,
+      "touchScrollCancelledPress": true,
+      "sheetFocusFenceAndReturn": true,
+      "unchangedEquipmentAppearanceCollection": true,
+      "systemAndGameReducedMotion": true,
+      "noLeftoverAnimation": true,
+      "pageerrors": []
+    }
+  ],
+  "actualIphone": false,
+  "cloudBlocked": true
+}

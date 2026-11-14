@@ -1,3 +1,4 @@
+import { inkSurfaceIn } from '../../ui/inkMotion';
 /** 抽卡高光載入／WebGL失敗時仍可讀完整結果；所有操作只呈現已入帳結果。 */
 import { Component, Suspense, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
@@ -21,7 +22,8 @@ export function GachaSheet({ title, onClose, children, footer }: { title: string
   useEffect(() => {
     const el = ref.current!; const previous = document.activeElement as HTMLElement | null;
     el.showModal();
-    return () => { el.close(); previous?.focus({ preventScroll: true }); };
+    const stopMotion=inkSurfaceIn(el,'sheet');
+    return () => { stopMotion(); el.close(); previous?.focus({ preventScroll: true }); };
   }, []);
   return createPortal(<dialog ref={ref} className={`ink-codex-sheet${native ? ' ink-person-dialog' : ''}`} aria-label={title} onCancel={event => { event.preventDefault(); onClose(); }}>
     <header><h3>{title}</h3><button type="button" aria-label={`關閉${title}`} onClick={onClose}><img src={inkArtUrl('art/parchment-ui/icon-close.webp')} alt="" width="22" height="22" />收起</button></header>
