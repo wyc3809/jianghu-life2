@@ -3137,6 +3137,9 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
 .ink-gear-compare-card {
   width: min(460px, 100%);
 }
+body .ink-gear-compare-card { display:flex; flex-direction:column; overflow:hidden; }
+.ink-gear-compare-card > header,.ink-gear-compare-card > .ink-cta-stack { flex:none; }
+.ink-gear-compare-body { min-height:0; overflow-y:auto; overscroll-behavior:contain; }
 
 .ink-gear-compare-slot {
   margin: 0 0 10px;
@@ -3151,6 +3154,7 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
   gap: 10px;
   margin-bottom: 10px;
 }
+.ink-gear-compare-art { display:block; max-width:100%; object-fit:contain; margin:4px auto 8px; }
 
 .ink-gear-compare-col {
   padding: 10px;
@@ -6815,6 +6819,9 @@ html[data-ink-motion='reduce'] .ink-combat-slash {
   padding: 36px 40px 44px;
   min-width: 240px;
 }
+.ink-moment--loot .ink-moment__stage { min-width:0; max-width:min(88vw,380px); padding:24px; box-sizing:border-box; }
+.ink-moment__loot-art { width:min(45vw,180px); height:min(45vw,180px); object-fit:contain; }
+.ink-moment--loot .ink-moment__name { flex-direction:row; flex-wrap:wrap; justify-content:center; gap:.06em; font-size:clamp(1.5rem,7vw,2.25rem); }
 
 /* 紙卷（學武）／題簽（稱號）底：由中間向兩邊展開 */
 .ink-moment__paper {

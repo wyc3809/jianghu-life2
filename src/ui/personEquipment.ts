@@ -1,7 +1,7 @@
 import type { LifeCharacter } from '@interfaces/lifeEngine';
 import { getGearDef, type GearDef, type GearRarity, type GearSlot } from '@data/equipment/catalog';
 import { combatPowerScore, previewEquipDelta } from '@core/life/equipment';
-import { inkArtUrl } from './inkAssets';
+export { equipmentArtUrl } from './equipmentArt';
 
 export const EQUIPMENT_SLOTS: GearSlot[] = ['weapon', 'armor', 'accessory'];
 export const EQUIPMENT_LABEL: Record<GearSlot, string> = { weapon: '武器', armor: '護甲', accessory: '飾品' };
@@ -26,14 +26,6 @@ export function equipmentCandidates(c: LifeCharacter, slot: GearSlot, rarity: Ge
       }
       return (previewEquipDelta(snapshot, b.id)?.powerAfter ?? 0) - (previewEquipDelta(snapshot, a.id)?.powerAfter ?? 0) || a.id.localeCompare(b.id);
     });
-}
-
-/** 兵器按七類共用漫畫圖，護甲及飾品對應真物品；名稱、品階及詞綴仍讀真資料。 */
-export function equipmentArtUrl(def?: GearDef | null, slot: GearSlot = 'weapon'): string {
-  const actual=def?.slot??slot;
-  const known=['plain-robe','pine-armor','stormcloud-armor','divine-silk-armor','cloud-boots','jade-token','divine-moon-pendant'];
-  const kind=actual==='weapon'?def?.weaponKind??'sword':def&&known.includes(def.id)?def.id:actual==='armor'?'plain-robe':'jade-token';
-  return inkArtUrl(`art/manhua/icons/${kind}.webp`);
 }
 
 /** 比較候選與目前底材；不隱藏負差值，完整詞綴另外保留。 */

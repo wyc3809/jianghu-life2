@@ -1,0 +1,268 @@
+{
+  "version": "EA0.108.0",
+  "authorized": "玩家要求rare或以上逐件獨有繪圖，較低稀有度可通用，2026-11-14",
+  "threshold": "rare",
+  "uniqueCount": 30,
+  "genericCount": 33,
+  "sheetCount": 8,
+  "style": "延續已接受武俠漫畫器物：粗細墨線、暖中性光、乾淨賽璐璐陰影；透明背景，獨特刀形／材質／護手／機關，低階七類圖保持。",
+  "output": {
+    "width": 512,
+    "height": 512,
+    "format": "WebP",
+    "alpha": true
+  },
+  "jobs": [
+    {
+      "key": "weapons-1",
+      "items": [
+        {
+          "id": "inkrain-sword",
+          "name": "墨雨劍",
+          "rarity": "epic",
+          "kind": "sword",
+          "design": "slender straight blackened jian, ink-dark blade with one pale steel rain-line fuller, small angular silver cloud guard, black cord grip and short charcoal tassel; elegant narrow silhouette"
+        },
+        {
+          "id": "hundredfold-blade",
+          "name": "百煉百折刀",
+          "rarity": "epic",
+          "kind": "blade",
+          "design": "broad slightly curved forged dao with visibly layered folded-steel wave striations, squared brass D-shaped guard, dark brown grip, heavy ring pommel; rugged folded steel character"
+        },
+        {
+          "id": "divine-xuan-sword",
+          "name": "玄鐵重劍",
+          "rarity": "divine",
+          "kind": "sword",
+          "design": "massive long blunt-ended dark meteoric-iron greatsword, very broad nearly rectangular rounded-tip blade, minimal stout crossguard, coarse black leather hilt; immense weight, matte black iron, no glowing rune"
+        },
+        {
+          "id": "crescent-blade",
+          "name": "月牙彎刀",
+          "rarity": "rare",
+          "kind": "blade",
+          "design": "strongly crescent-curved silver single-edged saber with dramatically hooked crescent tip, round pale brass guard, ivory-brown leather hilt and small moon-shaped pommel"
+        }
+      ]
+    },
+    {
+      "key": "weapons-2",
+      "items": [
+        {
+          "id": "meteor-whip",
+          "name": "流星軟鞭",
+          "rarity": "rare",
+          "kind": "whip",
+          "design": "traditional flexible meteor-chain weapon: looped fine dark steel chain attached to one distinct small eight-point bronze meteor weight, wrapped wooden hand grip, entire chain and weight neatly contained in a loose S coil"
+        },
+        {
+          "id": "sleeve-darts",
+          "name": "袖裡飛針",
+          "rarity": "rare",
+          "kind": "hidden",
+          "design": "sleeve concealed needle kit: compact brown leather wrist cartridge holding six very thin pointed silver needles in a fan; no knife blades, clearly delicate needles with a small brass clasp"
+        },
+        {
+          "id": "twin-hooks",
+          "name": "鴛鴦雙鉤",
+          "rarity": "epic",
+          "kind": "blade",
+          "design": "a matched PAIR of traditional Chinese tiger-hook swords, long steel shafts with deeply hooked tips, crescent hand guards and pointed pommels; both full hooked weapons arranged apart, one equipment set"
+        },
+        {
+          "id": "phoenix-blood-blade",
+          "name": "鳳血刀",
+          "rarity": "mythic",
+          "kind": "blade",
+          "design": "elegant long crimson-tinted steel dao with fiery phoenix-wing-shaped gold guard, dark red wrapped hilt, split feather-shaped pommel and refined gold feather inlay along the spine; no fire or glow"
+        }
+      ]
+    },
+    {
+      "key": "weapons-3",
+      "items": [
+        {
+          "id": "autumnwater-sword",
+          "name": "秋水長劍",
+          "rarity": "rare",
+          "kind": "sword",
+          "design": "thin long polished silver straight jian, pale blue-green reflective center, simple flowing water-shaped silver crossguard, jade-blue oval pommel and pale blue short tassel; smooth autumn-water silhouette"
+        },
+        {
+          "id": "peakbreaker-sword",
+          "name": "斷岳重劍",
+          "rarity": "rare",
+          "kind": "sword",
+          "design": "broad heavy slate-grey straight sword with a steep mountain-peak pointed tip, thick raised spine, square iron crossguard and wide brown wrapped grip; geometric massive sword distinct from blunt black greatsword"
+        },
+        {
+          "id": "snowstream-sword",
+          "name": "流光飛雪劍",
+          "rarity": "epic",
+          "kind": "sword",
+          "design": "long narrow bright silver straight jian with snow-crystal-shaped silver crossguard, shallow frost etching along blade, white wrapped hilt, small blue jewel pommel and twin short white ribbons; no snow particles"
+        },
+        {
+          "id": "taiya-sword",
+          "name": "太阿遺鋒",
+          "rarity": "mythic",
+          "kind": "sword",
+          "design": "ancient bronze-and-steel ceremonial straight sword, broad tapered blade with antique gold central ridge, symmetrical archaic bronze crossguard, jade-studded round pommel and dark green handle; dignified ancient relic"
+        }
+      ]
+    },
+    {
+      "key": "weapons-4",
+      "items": [
+        {
+          "id": "streamcut-blade",
+          "name": "斷水快刀",
+          "rarity": "rare",
+          "kind": "blade",
+          "design": "very slender long nearly straight single-edged silver dao, razor-thin pale blue edge and long pointed tip, small teardrop steel guard and tight black wrap hilt; quick lightweight silhouette"
+        },
+        {
+          "id": "redbronze-blade",
+          "name": "赤銅砍刀",
+          "rarity": "rare",
+          "kind": "blade",
+          "design": "broad squat chopping dao with distinctive RED COPPER thick spine and bright steel cutting edge, angular cleaver-like blade nose, stout riveted copper guard and dark brown grip"
+        },
+        {
+          "id": "wavebreaker-blade",
+          "name": "斷浪狂刀",
+          "rarity": "epic",
+          "kind": "blade",
+          "design": "large long swept-back dao with broad ocean-wave-shaped spine and flared upturned cutting tip, engraved silver wave relief, deep blue cord grip and heavy ring pommel; powerful storm-wave shape"
+        },
+        {
+          "id": "prairie-spear",
+          "name": "燎原火槍",
+          "rarity": "rare",
+          "kind": "spear",
+          "design": "long red-lacquered wooden SPEAR with a bronze flame-shaped leaf spearhead and short scarlet horsehair tuft below it, black bound hand grip; traditional polearm, NOT a gun"
+        }
+      ]
+    },
+    {
+      "key": "weapons-5",
+      "items": [
+        {
+          "id": "turnback-spear",
+          "name": "回馬槍",
+          "rarity": "rare",
+          "kind": "spear",
+          "design": "long pale ash-wood spear with slim hooked backwards-sweeping steel spearhead, subtle side return hook near blade base, dark brown wrapped midshaft grip and small dark blue tassel"
+        },
+        {
+          "id": "dragoncall-spear",
+          "name": "龍膽亮銀槍",
+          "rarity": "epic",
+          "kind": "spear",
+          "design": "long polished bright SILVER spear with a dragon-shaped collar beneath an elegant broad leaf-shaped point, segmented silver shaft with blue silk grip and short royal-blue tassel"
+        },
+        {
+          "id": "demonquell-staff",
+          "name": "降魔禪杖",
+          "rarity": "rare",
+          "kind": "staff",
+          "design": "Buddhist monk's heavy dark-wood staff with distinct large bronze crescent-moon head and hanging six loose metal rings, aged brass ferrules, thick leather midshaft grip; whole crescent staff"
+        },
+        {
+          "id": "dogbeat-staff",
+          "name": "打狗青竹杖",
+          "rarity": "rare",
+          "kind": "staff",
+          "design": "a simple but masterfully shaped green BAMBOO staff with very clear bamboo nodes and a naturally gnarled root-end knob, pale worn handgrip section and small dark green cord; no metal blade"
+        }
+      ]
+    },
+    {
+      "key": "weapons-6",
+      "items": [
+        {
+          "id": "dragonbind-staff",
+          "name": "伏龍鐵杖",
+          "rarity": "epic",
+          "kind": "staff",
+          "design": "massive black IRON staff with a sculpted coiling dragon-head finial and raised dragon scales on the upper third, broad dark bronze bands and thick black leather handle; blunt heavy staff"
+        },
+        {
+          "id": "dragonswim-whip",
+          "name": "游龍長鞭",
+          "rarity": "rare",
+          "kind": "whip",
+          "design": "long flexible dark brown leather whip arranged in a smooth loose dragon-like double coil, carved emerald-jade dragon pommel and braided green handle, thin tapering tail intact"
+        },
+        {
+          "id": "wolffang-whip",
+          "name": "倒鉤狼牙鞭",
+          "rarity": "rare",
+          "kind": "whip",
+          "design": "short articulated heavy iron chain whip with SIX distinct thick segments studded with outward small hooked wolf-tooth barbs, rough brown wrapped wooden grip and iron ring pommel; short chunky barbed silhouette"
+        },
+        {
+          "id": "yama-whip",
+          "name": "閻羅索命鞭",
+          "rarity": "epic",
+          "kind": "whip",
+          "design": "long black braided cord whip in an elegant spiral, dark iron hooked crescent weight on tail, black-and-burgundy wrapped grip with antique silver collar, restrained funerary-knot pommel; no skulls or gore"
+        }
+      ]
+    },
+    {
+      "key": "weapons-7",
+      "items": [
+        {
+          "id": "goosedrop-bow",
+          "name": "落雁弓",
+          "rarity": "rare",
+          "kind": "bow",
+          "design": "a full traditional ash-wood longbow with slim pale wooden limbs and subtle wing-tip carvings, dark brown central wrapped grip, clearly visible taut bowstring, one slim feathered arrow beside it"
+        },
+        {
+          "id": "armorbreaker-bow",
+          "name": "破甲重弩",
+          "rarity": "rare",
+          "kind": "bow",
+          "design": "a traditional HEAVY CROSSBOW, broad dark iron transverse bow limbs mounted on a thick walnut wooden stock, chunky bronze trigger mechanism and one thick armor-piercing bolt; clearly crossbow NOT ordinary bow, no firearm"
+        },
+        {
+          "id": "sunshot-bow",
+          "name": "射日神臂弓",
+          "rarity": "epic",
+          "kind": "bow",
+          "design": "a majestic ebony and antique gold composite recurve BOW with thick strongly curved limbs shaped like sun rays, gold sun-disc central ornament, red leather central grip, taut bowstring, one gold-tipped arrow beside it"
+        },
+        {
+          "id": "bonepierce-nails",
+          "name": "透骨釘",
+          "rarity": "rare",
+          "kind": "hidden",
+          "design": "THREE short thick dark iron throwing NAILS with long sharp points and distinct flat square nail heads, rough longitudinal forging facets, simple small brown leather carrying loop; not needles or knives"
+        }
+      ]
+    },
+    {
+      "key": "weapons-8",
+      "items": [
+        {
+          "id": "shadowless-knives",
+          "name": "無影飛刀",
+          "rarity": "rare",
+          "kind": "hidden",
+          "design": "THREE small slim leaf-shaped silver throwing KNIVES with distinct cutting blades, dark brown cord-wrapped small handles and round pommel holes, arranged in a clear fan, short muted grey cloth strip"
+        },
+        {
+          "id": "thousandworks-box",
+          "name": "千機暴雨匣",
+          "rarity": "epic",
+          "kind": "hidden",
+          "design": "intricate rectangular rosewood concealed-weapon mechanism BOX shown three-quarter open, brass hinges and a front array of tiny needle launch ports, visible tidy brass internal spring mechanism and a few silver needles; compact Chinese mechanical relic, no gun"
+        }
+      ]
+    }
+  ],
+  "status": "30張獨有器物完成，透明／邊界／接觸表及實際遊戲檢查通過"
+}

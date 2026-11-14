@@ -1,0 +1,734 @@
+{
+  "width": 512,
+  "height": 512,
+  "threshold": "rare",
+  "weapons": {
+    "inkrain-sword": {
+      "src": "art/manhua/weapons/inkrain-sword-bc32af2a33e8.webp",
+      "sha256": "bc32af2a33e834061f05628581782a3f770734b6f7243b0e349b84a3d7f7dff4",
+      "bounds": [
+        67,
+        29,
+        446,
+        482
+      ],
+      "source": "sources/exec-ab771e93-34b5-4138-af50-7b648027580f.png",
+      "cell": 0,
+      "sourceRect": [
+        0,
+        0,
+        622,
+        624
+      ],
+      "rarity": "epic",
+      "name": "墨雨劍",
+      "technical_checks_passed": true
+    },
+    "hundredfold-blade": {
+      "src": "art/manhua/weapons/hundredfold-blade-818f6303749d.webp",
+      "sha256": "818f6303749d6ed0cdd4527258f5876d1d8e9777d6925a0939572c368a247901",
+      "bounds": [
+        46,
+        29,
+        464,
+        483
+      ],
+      "source": "sources/exec-ab771e93-34b5-4138-af50-7b648027580f.png",
+      "cell": 1,
+      "sourceRect": [
+        622,
+        0,
+        1254,
+        625
+      ],
+      "rarity": "epic",
+      "name": "百煉百折刀",
+      "technical_checks_passed": true
+    },
+    "divine-xuan-sword": {
+      "src": "art/manhua/weapons/divine-xuan-sword-e8af423cb1d7.webp",
+      "sha256": "e8af423cb1d771290597c4f67a92f52cbcacd5fc049d2ec91eac22bcfcb02181",
+      "bounds": [
+        58,
+        29,
+        454,
+        482
+      ],
+      "source": "sources/exec-ab771e93-34b5-4138-af50-7b648027580f.png",
+      "cell": 2,
+      "sourceRect": [
+        0,
+        624,
+        622,
+        1254
+      ],
+      "rarity": "divine",
+      "name": "玄鐵重劍",
+      "technical_checks_passed": true
+    },
+    "crescent-blade": {
+      "src": "art/manhua/weapons/crescent-blade-88bb84b383c3.webp",
+      "sha256": "88bb84b383c394005b4ebbf05c88482ce2b0187164fc6beba4b04265f21053cc",
+      "bounds": [
+        35,
+        30,
+        478,
+        482
+      ],
+      "source": "sources/exec-ab771e93-34b5-4138-af50-7b648027580f.png",
+      "cell": 3,
+      "sourceRect": [
+        622,
+        625,
+        1254,
+        1254
+      ],
+      "rarity": "rare",
+      "name": "月牙彎刀",
+      "technical_checks_passed": true
+    },
+    "meteor-whip": {
+      "src": "art/manhua/weapons/meteor-whip-e2b334462f6a.webp",
+      "sha256": "e2b334462f6adc1d48e63782e18e8a00017b5b5e1a3c23c724f4ddc683b7c52d",
+      "bounds": [
+        73,
+        30,
+        437,
+        483
+      ],
+      "source": "sources/exec-a17846b6-6e9b-4178-8209-f35ea8178f4e.png",
+      "cell": 0,
+      "sourceRect": [
+        0,
+        0,
+        621,
+        615
+      ],
+      "rarity": "rare",
+      "name": "流星軟鞭",
+      "technical_checks_passed": true
+    },
+    "sleeve-darts": {
+      "src": "art/manhua/weapons/sleeve-darts-cf68fd8120f1.webp",
+      "sha256": "cf68fd8120f106c091a5ec737e8b318fadcfb263878f0ed5ea59bdd82afed5aa",
+      "bounds": [
+        67,
+        30,
+        444,
+        482
+      ],
+      "source": "sources/exec-a17846b6-6e9b-4178-8209-f35ea8178f4e.png",
+      "cell": 1,
+      "sourceRect": [
+        621,
+        0,
+        1254,
+        599
+      ],
+      "rarity": "rare",
+      "name": "袖裡飛針",
+      "technical_checks_passed": true
+    },
+    "twin-hooks": {
+      "src": "art/manhua/weapons/twin-hooks-3424a7e29e1d.webp",
+      "sha256": "3424a7e29e1da93117720606b692247400f2cd3fc2d547fe315a67b63613a0ff",
+      "bounds": [
+        42,
+        30,
+        469,
+        483
+      ],
+      "source": "sources/exec-a17846b6-6e9b-4178-8209-f35ea8178f4e.png",
+      "cell": 2,
+      "sourceRect": [
+        0,
+        615,
+        621,
+        1254
+      ],
+      "rarity": "epic",
+      "name": "鴛鴦雙鉤",
+      "technical_checks_passed": true
+    },
+    "phoenix-blood-blade": {
+      "src": "art/manhua/weapons/phoenix-blood-blade-efc283629ff4.webp",
+      "sha256": "efc283629ff4e6605760ee9e22eb21515462e0bc678631d07c40c6749bfd629f",
+      "bounds": [
+        47,
+        29,
+        465,
+        482
+      ],
+      "source": "sources/exec-a17846b6-6e9b-4178-8209-f35ea8178f4e.png",
+      "cell": 3,
+      "sourceRect": [
+        621,
+        599,
+        1254,
+        1254
+      ],
+      "rarity": "mythic",
+      "name": "鳳血刀",
+      "technical_checks_passed": true
+    },
+    "autumnwater-sword": {
+      "src": "art/manhua/weapons/autumnwater-sword-f7df04f9ade2.webp",
+      "sha256": "f7df04f9ade2b5fcddab46074726c3c09279a112333db51697705fbc9146984a",
+      "bounds": [
+        44,
+        29,
+        467,
+        482
+      ],
+      "source": "sources/exec-96a32d81-3fa3-43b9-b204-d924bef956b9.png",
+      "cell": 0,
+      "sourceRect": [
+        0,
+        0,
+        637,
+        621
+      ],
+      "rarity": "rare",
+      "name": "秋水長劍",
+      "technical_checks_passed": true
+    },
+    "peakbreaker-sword": {
+      "src": "art/manhua/weapons/peakbreaker-sword-521409074a07.webp",
+      "sha256": "521409074a070bd0ee578a1f3852c223c4caf528736744386407539817956987",
+      "bounds": [
+        39,
+        29,
+        474,
+        483
+      ],
+      "source": "sources/exec-96a32d81-3fa3-43b9-b204-d924bef956b9.png",
+      "cell": 1,
+      "sourceRect": [
+        637,
+        0,
+        1254,
+        621
+      ],
+      "rarity": "rare",
+      "name": "斷岳重劍",
+      "technical_checks_passed": true
+    },
+    "snowstream-sword": {
+      "src": "art/manhua/weapons/snowstream-sword-a0f471dd0955.webp",
+      "sha256": "a0f471dd0955c7d17986c42910235329653d4c9c04726785138363807cef92a2",
+      "bounds": [
+        38,
+        30,
+        474,
+        482
+      ],
+      "source": "sources/exec-96a32d81-3fa3-43b9-b204-d924bef956b9.png",
+      "cell": 2,
+      "sourceRect": [
+        0,
+        621,
+        637,
+        1254
+      ],
+      "rarity": "epic",
+      "name": "流光飛雪劍",
+      "technical_checks_passed": true
+    },
+    "taiya-sword": {
+      "src": "art/manhua/weapons/taiya-sword-881016a261f7.webp",
+      "sha256": "881016a261f7f9acb482d3bf8a2d3847789abecbf3168d496a928e9e525045ba",
+      "bounds": [
+        45,
+        30,
+        467,
+        482
+      ],
+      "source": "sources/exec-96a32d81-3fa3-43b9-b204-d924bef956b9.png",
+      "cell": 3,
+      "sourceRect": [
+        637,
+        621,
+        1254,
+        1254
+      ],
+      "rarity": "mythic",
+      "name": "太阿遺鋒",
+      "technical_checks_passed": true
+    },
+    "streamcut-blade": {
+      "src": "art/manhua/weapons/streamcut-blade-f9969ec96a47.webp",
+      "sha256": "f9969ec96a47785100310808ba0f986a0427e668140e34b8e4a28488b63bc676",
+      "bounds": [
+        34,
+        30,
+        478,
+        483
+      ],
+      "source": "sources/exec-eea9243f-8d95-4b59-a6d1-a27ac55f37b9.png",
+      "cell": 0,
+      "sourceRect": [
+        0,
+        0,
+        626,
+        609
+      ],
+      "rarity": "rare",
+      "name": "斷水快刀",
+      "technical_checks_passed": true
+    },
+    "redbronze-blade": {
+      "src": "art/manhua/weapons/redbronze-blade-97c41d17bd41.webp",
+      "sha256": "97c41d17bd41981f402d5a3568a774d9db93fdd885346223b380bee04a9e0df3",
+      "bounds": [
+        29,
+        32,
+        482,
+        481
+      ],
+      "source": "sources/exec-eea9243f-8d95-4b59-a6d1-a27ac55f37b9.png",
+      "cell": 1,
+      "sourceRect": [
+        626,
+        0,
+        1254,
+        601
+      ],
+      "rarity": "rare",
+      "name": "赤銅砍刀",
+      "technical_checks_passed": true
+    },
+    "wavebreaker-blade": {
+      "src": "art/manhua/weapons/wavebreaker-blade-e1a46d1fa219.webp",
+      "sha256": "e1a46d1fa219bab90caf08771ed0a3a93ae1aadfe3f6945b1e81835def32f3f9",
+      "bounds": [
+        30,
+        30,
+        483,
+        482
+      ],
+      "source": "sources/exec-eea9243f-8d95-4b59-a6d1-a27ac55f37b9.png",
+      "cell": 2,
+      "sourceRect": [
+        0,
+        609,
+        626,
+        1254
+      ],
+      "rarity": "epic",
+      "name": "斷浪狂刀",
+      "technical_checks_passed": true
+    },
+    "prairie-spear": {
+      "src": "art/manhua/weapons/prairie-spear-53f3466a32ad.webp",
+      "sha256": "53f3466a32ad1bc70e4816e2bd58ff2165f3385bd03d9fd4efde33b5b3900adb",
+      "bounds": [
+        34,
+        30,
+        477,
+        482
+      ],
+      "source": "sources/exec-eea9243f-8d95-4b59-a6d1-a27ac55f37b9.png",
+      "cell": 3,
+      "sourceRect": [
+        626,
+        601,
+        1254,
+        1254
+      ],
+      "rarity": "rare",
+      "name": "燎原火槍",
+      "technical_checks_passed": true
+    },
+    "turnback-spear": {
+      "src": "art/manhua/weapons/turnback-spear-801d5201c2be.webp",
+      "sha256": "801d5201c2be1bd066459acff21b6bc4b8eb79ae8d4fe7d26347c3b8af13da7e",
+      "bounds": [
+        38,
+        30,
+        474,
+        482
+      ],
+      "source": "sources/exec-6540261a-50c9-4057-b98d-c4072f87f153.png",
+      "cell": 0,
+      "sourceRect": [
+        0,
+        0,
+        634,
+        623
+      ],
+      "rarity": "rare",
+      "name": "回馬槍",
+      "technical_checks_passed": true
+    },
+    "dragoncall-spear": {
+      "src": "art/manhua/weapons/dragoncall-spear-790231564e97.webp",
+      "sha256": "790231564e97dd8951484237d5097d025b923337a58fef387d0c2f8dd8af2568",
+      "bounds": [
+        34,
+        29,
+        477,
+        482
+      ],
+      "source": "sources/exec-6540261a-50c9-4057-b98d-c4072f87f153.png",
+      "cell": 1,
+      "sourceRect": [
+        634,
+        0,
+        1254,
+        628
+      ],
+      "rarity": "epic",
+      "name": "龍膽亮銀槍",
+      "technical_checks_passed": true
+    },
+    "demonquell-staff": {
+      "src": "art/manhua/weapons/demonquell-staff-4a43b56809ae.webp",
+      "sha256": "4a43b56809aeb07c26d03bd0d9af2f1d243c6346921b2fd827ee907cb296f3a9",
+      "bounds": [
+        45,
+        30,
+        467,
+        482
+      ],
+      "source": "sources/exec-6540261a-50c9-4057-b98d-c4072f87f153.png",
+      "cell": 2,
+      "sourceRect": [
+        0,
+        623,
+        634,
+        1254
+      ],
+      "rarity": "rare",
+      "name": "降魔禪杖",
+      "technical_checks_passed": true
+    },
+    "dogbeat-staff": {
+      "src": "art/manhua/weapons/dogbeat-staff-fae86da4c589.webp",
+      "sha256": "fae86da4c589f9b56401a7dc312ee98d9cc3df9d118516d89bf4e810ac83b66d",
+      "bounds": [
+        45,
+        29,
+        465,
+        483
+      ],
+      "source": "sources/exec-6540261a-50c9-4057-b98d-c4072f87f153.png",
+      "cell": 3,
+      "sourceRect": [
+        634,
+        628,
+        1254,
+        1254
+      ],
+      "rarity": "rare",
+      "name": "打狗青竹杖",
+      "technical_checks_passed": true
+    },
+    "dragonbind-staff": {
+      "src": "art/manhua/weapons/dragonbind-staff-86dfa50a7eba.webp",
+      "sha256": "86dfa50a7ebaa7c08df9923e9475f4111b47266ae54f21b1a4a8e4d76ae74166",
+      "bounds": [
+        42,
+        29,
+        470,
+        483
+      ],
+      "source": "sources/exec-c45d294d-0ddb-4588-a1fc-f60d31263113.png",
+      "cell": 0,
+      "sourceRect": [
+        0,
+        0,
+        623,
+        623
+      ],
+      "rarity": "epic",
+      "name": "伏龍鐵杖",
+      "technical_checks_passed": true
+    },
+    "dragonswim-whip": {
+      "src": "art/manhua/weapons/dragonswim-whip-b771506816ea.webp",
+      "sha256": "b771506816ea8deabb3aecaaab8a803880f0f20033bb18201ff5ed4b2085c2cb",
+      "bounds": [
+        30,
+        29,
+        481,
+        482
+      ],
+      "source": "sources/exec-c45d294d-0ddb-4588-a1fc-f60d31263113.png",
+      "cell": 1,
+      "sourceRect": [
+        623,
+        0,
+        1254,
+        627
+      ],
+      "rarity": "rare",
+      "name": "游龍長鞭",
+      "technical_checks_passed": true
+    },
+    "wolffang-whip": {
+      "src": "art/manhua/weapons/wolffang-whip-fe9ee863bd35.webp",
+      "sha256": "fe9ee863bd354df0de2e0431bdc58fba335f2eebe3c42694377cb45e128848e7",
+      "bounds": [
+        40,
+        30,
+        471,
+        483
+      ],
+      "source": "sources/exec-c45d294d-0ddb-4588-a1fc-f60d31263113.png",
+      "cell": 2,
+      "sourceRect": [
+        0,
+        623,
+        623,
+        1254
+      ],
+      "rarity": "rare",
+      "name": "倒鉤狼牙鞭",
+      "technical_checks_passed": true
+    },
+    "yama-whip": {
+      "src": "art/manhua/weapons/yama-whip-10f20f0e0ee2.webp",
+      "sha256": "10f20f0e0ee282be08a822b5a78077966dbe02df830d7899337998fb2daa1169",
+      "bounds": [
+        32,
+        29,
+        478,
+        483
+      ],
+      "source": "sources/exec-c45d294d-0ddb-4588-a1fc-f60d31263113.png",
+      "cell": 3,
+      "sourceRect": [
+        623,
+        627,
+        1254,
+        1254
+      ],
+      "rarity": "epic",
+      "name": "閻羅索命鞭",
+      "technical_checks_passed": true
+    },
+    "goosedrop-bow": {
+      "src": "art/manhua/weapons/goosedrop-bow-72aae303220c.webp",
+      "sha256": "72aae303220c5650d367e0cce5c05390a7b79f914ece1ab5f5602ed6bf329cac",
+      "bounds": [
+        54,
+        29,
+        457,
+        482
+      ],
+      "source": "sources/exec-a1433211-8903-4566-a0d1-4a3c42a4f4f2.png",
+      "cell": 0,
+      "sourceRect": [
+        0,
+        0,
+        619,
+        611
+      ],
+      "rarity": "rare",
+      "name": "落雁弓",
+      "technical_checks_passed": true
+    },
+    "armorbreaker-bow": {
+      "src": "art/manhua/weapons/armorbreaker-bow-a3b55a7a3e65.webp",
+      "sha256": "a3b55a7a3e6585335c282ecce80e9bc4aeda573f9900cd6116be03bbbd6bc61b",
+      "bounds": [
+        30,
+        40,
+        482,
+        472
+      ],
+      "source": "sources/exec-a1433211-8903-4566-a0d1-4a3c42a4f4f2.png",
+      "cell": 1,
+      "sourceRect": [
+        619,
+        0,
+        1254,
+        636
+      ],
+      "rarity": "rare",
+      "name": "破甲重弩",
+      "technical_checks_passed": true
+    },
+    "sunshot-bow": {
+      "src": "art/manhua/weapons/sunshot-bow-1b0b70b05251.webp",
+      "sha256": "1b0b70b052517bc24c53a0555c31d4860b993b57a362be8f47befff5128be791",
+      "bounds": [
+        39,
+        29,
+        472,
+        482
+      ],
+      "source": "sources/exec-a1433211-8903-4566-a0d1-4a3c42a4f4f2.png",
+      "cell": 2,
+      "sourceRect": [
+        0,
+        611,
+        619,
+        1254
+      ],
+      "rarity": "epic",
+      "name": "射日神臂弓",
+      "technical_checks_passed": true
+    },
+    "bonepierce-nails": {
+      "src": "art/manhua/weapons/bonepierce-nails-2368855fe890.webp",
+      "sha256": "2368855fe8900b2a99de3697afe2fb5d070186ad7ea76e7ea5ee0efa255c1051",
+      "bounds": [
+        49,
+        29,
+        462,
+        482
+      ],
+      "source": "sources/exec-a1433211-8903-4566-a0d1-4a3c42a4f4f2.png",
+      "cell": 3,
+      "sourceRect": [
+        619,
+        636,
+        1254,
+        1254
+      ],
+      "rarity": "rare",
+      "name": "透骨釘",
+      "technical_checks_passed": true
+    },
+    "shadowless-knives": {
+      "src": "art/manhua/weapons/shadowless-knives-4b2a4ecd9c33.webp",
+      "sha256": "4b2a4ecd9c336757faf8e17720b45af2f86e42c8a9d7d1c3d720d1802c19da8e",
+      "bounds": [
+        60,
+        29,
+        451,
+        483
+      ],
+      "source": "sources/exec-4f1b5d89-d904-4344-b0ee-aca689ec07e5.png",
+      "cell": 0,
+      "sourceRect": [
+        0,
+        0,
+        616,
+        1254
+      ],
+      "rarity": "rare",
+      "name": "無影飛刀",
+      "technical_checks_passed": true
+    },
+    "thousandworks-box": {
+      "src": "art/manhua/weapons/thousandworks-box-7cf71389ae9f.webp",
+      "sha256": "7cf71389ae9fa6872fb964495010c5e355390491d01dfdecd669874804ba0d43",
+      "bounds": [
+        29,
+        37,
+        482,
+        475
+      ],
+      "source": "sources/exec-4f1b5d89-d904-4344-b0ee-aca689ec07e5.png",
+      "cell": 1,
+      "sourceRect": [
+        616,
+        0,
+        1254,
+        1254
+      ],
+      "rarity": "epic",
+      "name": "千機暴雨匣",
+      "technical_checks_passed": true
+    }
+  },
+  "sources": [
+    {
+      "file": "sources/exec-ab771e93-34b5-4138-af50-7b648027580f.png",
+      "sha256": "645c110e39c4d4b94e463ae13e3473e75eb66b3b6c790677f905f3df002c2801",
+      "tool": "image_gen.imagegen",
+      "items": [
+        "inkrain-sword",
+        "hundredfold-blade",
+        "divine-xuan-sword",
+        "crescent-blade"
+      ],
+      "rights": "玩家授權AI生成的遊戲器物；依工具條款使用，參照既有獲接受原創漫畫器物風格。"
+    },
+    {
+      "file": "sources/exec-a17846b6-6e9b-4178-8209-f35ea8178f4e.png",
+      "sha256": "34351edd345db3021e77f1685effec2d8af5c99b54d7c29fdb74c54ba2b1fceb",
+      "tool": "image_gen.imagegen",
+      "items": [
+        "meteor-whip",
+        "sleeve-darts",
+        "twin-hooks",
+        "phoenix-blood-blade"
+      ],
+      "rights": "玩家授權AI生成的遊戲器物；依工具條款使用，參照既有獲接受原創漫畫器物風格。"
+    },
+    {
+      "file": "sources/exec-96a32d81-3fa3-43b9-b204-d924bef956b9.png",
+      "sha256": "3a85b4b9bc7f8a85ad164b63da8a99241d025ee350a47c011f2c0e5d90413318",
+      "tool": "image_gen.imagegen",
+      "items": [
+        "autumnwater-sword",
+        "peakbreaker-sword",
+        "snowstream-sword",
+        "taiya-sword"
+      ],
+      "rights": "玩家授權AI生成的遊戲器物；依工具條款使用，參照既有獲接受原創漫畫器物風格。"
+    },
+    {
+      "file": "sources/exec-eea9243f-8d95-4b59-a6d1-a27ac55f37b9.png",
+      "sha256": "b0cfbcf34b04641dffe5798a3e00e816d75b6997b442701b33c41b29abb21347",
+      "tool": "image_gen.imagegen",
+      "items": [
+        "streamcut-blade",
+        "redbronze-blade",
+        "wavebreaker-blade",
+        "prairie-spear"
+      ],
+      "rights": "玩家授權AI生成的遊戲器物；依工具條款使用，參照既有獲接受原創漫畫器物風格。"
+    },
+    {
+      "file": "sources/exec-6540261a-50c9-4057-b98d-c4072f87f153.png",
+      "sha256": "ca3bce5437009a8f5064ad26eca6d58bd1fd873f3e595e2b9c1859018f71b7fd",
+      "tool": "image_gen.imagegen",
+      "items": [
+        "turnback-spear",
+        "dragoncall-spear",
+        "demonquell-staff",
+        "dogbeat-staff"
+      ],
+      "rights": "玩家授權AI生成的遊戲器物；依工具條款使用，參照既有獲接受原創漫畫器物風格。"
+    },
+    {
+      "file": "sources/exec-c45d294d-0ddb-4588-a1fc-f60d31263113.png",
+      "sha256": "2a2d035cb4211ed3afaaf9dcb870c59084d7cff0aa905898c4e7f7a5ae124932",
+      "tool": "image_gen.imagegen",
+      "items": [
+        "dragonbind-staff",
+        "dragonswim-whip",
+        "wolffang-whip",
+        "yama-whip"
+      ],
+      "rights": "玩家授權AI生成的遊戲器物；依工具條款使用，參照既有獲接受原創漫畫器物風格。"
+    },
+    {
+      "file": "sources/exec-a1433211-8903-4566-a0d1-4a3c42a4f4f2.png",
+      "sha256": "956f960ac4177ef9a125603f6f9c51fe1ede40ac37b0e65a460f888707990e6c",
+      "tool": "image_gen.imagegen",
+      "items": [
+        "goosedrop-bow",
+        "armorbreaker-bow",
+        "sunshot-bow",
+        "bonepierce-nails"
+      ],
+      "rights": "玩家授權AI生成的遊戲器物；依工具條款使用，參照既有獲接受原創漫畫器物風格。"
+    },
+    {
+      "file": "sources/exec-4f1b5d89-d904-4344-b0ee-aca689ec07e5.png",
+      "sha256": "19feb6a294fc8ff789ba067b05a1a212d3ce169e0f9bf57625cda2d62935c1fd",
+      "tool": "image_gen.imagegen",
+      "items": [
+        "shadowless-knives",
+        "thousandworks-box"
+      ],
+      "rights": "玩家授權AI生成的遊戲器物；依工具條款使用，參照既有獲接受原創漫畫器物風格。"
+    }
+  ],
+  "technicalChecksPassed": true
+}

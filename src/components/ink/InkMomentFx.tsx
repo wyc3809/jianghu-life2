@@ -9,6 +9,7 @@ import { createPortal } from 'react-dom';
 import type { LifeMoment } from '@interfaces/lifeEngine';
 import { INJURY_PART_LABEL } from '@data/injuries/tuning';
 import { getGearDef, rarityLabel } from '@data/equipment/catalog';
+import { equipmentArtUrl } from '../../ui/equipmentArt';
 import { injuryEffectText } from '@core/life/injuryMath';
 import { inkArtUrl, sealUrlForText } from '../../ui/inkAssets';
 import { heroSilhouetteUrl } from '../../ui/inkSilhouettes';
@@ -104,6 +105,7 @@ type Props = { moment: LifeMoment; onDone: () => void; sectId?: string | null };
 export function InkMomentFx({ moment, onDone, sectId }: Props) {
   const reduce = shouldReduceInkMotion();
   const view = viewOf(moment);
+  const loot=moment.kind==='loot'?getGearDef(moment.gearId):undefined;
   // 撳一下同自動收起可能同時觸發：只准結束一次，否則會一次過跳走兩個時刻
   const doneRef = useRef(false);
   const finish = useCallback(() => {
@@ -139,7 +141,7 @@ export function InkMomentFx({ moment, onDone, sectId }: Props) {
   const anchor = moment.kind === 'injury' ? INJURY_ANCHOR[moment.part] : null;
   return createPortal(
     <div
-      className={`ink-moment ink-moment--${view.variant}${moment.kind === 'injury' ? ` ink-moment--${moment.tier}` : ''}`}
+      className={`ink-moment ink-moment--${view.variant}${moment.kind === 'injury' ? ` ink-moment--${moment.tier}` : moment.kind==='loot'?' ink-moment--loot':''}`}
       role="button"
       tabIndex={0}
       aria-live="polite"
@@ -162,6 +164,7 @@ export function InkMomentFx({ moment, onDone, sectId }: Props) {
           </span>
         )}
         <p className="ink-moment__kicker">{view.kicker}</p>
+        {loot&&<img className="ink-moment__loot-art" src={equipmentArtUrl(loot)} data-gear-art={loot.id} alt=""/>}
         {/* 逐字直排（唔用 writing-mode：部分瀏覽器字型直書度量唔穩） */}
         <p className="ink-moment__name">
           {Array.from(view.name).map((ch, i) => (

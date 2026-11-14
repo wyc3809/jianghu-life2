@@ -22,6 +22,7 @@ export function InkEquipmentPicker({ state, slot, preset, busy, onEquip, onClose
   const [sort, setSort] = useState<EquipmentSort>('power');
   const [chooser, setChooser] = useState<'rarity' | 'sort' | null>(null);
   const [details, setDetails] = useState(false);
+  const [detailTarget,setDetailTarget]=useState<'current'|'selected'>('selected');
   const [error, setError] = useState('');
   const gate = useRef(false), grid = useRef<HTMLDivElement>(null);
   const candidates = useMemo(() => equipmentCandidates(c, slot, rarity, sort), [c, slot, rarity, sort]);
@@ -41,7 +42,7 @@ export function InkEquipmentPicker({ state, slot, preset, busy, onEquip, onClose
       {def ? <img src={equipmentArtUrl(def)} alt="" width="72" height="72" /> : <span className="ink-equipment-empty-art">空</span>}
       <div className="ink-equipment-column-values">
         <button type="button" className="ink-equipment-name" disabled={!def} title={def ? displayGearName(def) : undefined}
-          aria-label={candidate ? '查看選中裝備詳情' : '查看目前裝備詳情'} onClick={() => {setDetails(true);setChooser(null);grid.current?.scrollTo({top:0});}}>
+          aria-label={candidate ? '查看選中裝備詳情' : '查看目前裝備詳情'} onClick={() => {setDetailTarget(candidate?'selected':'current');setDetails(true);setChooser(null);grid.current?.scrollTo({top:0});}}>
           {def ? displayGearName(def) : candidate ? '尚未選擇' : '空置'}
         </button>
         <dl className="ink-equipment-stat-deltas">{rows.map(row => <div key={row.label}><dt>{row.label}</dt><dd>{candidate ? row.after : row.before}{candidate && row.delta !== 0 && <span className={row.delta < 0 ? 'is-down' : 'is-up'}>{row.delta > 0 ? '+' : '−'}{Math.abs(row.delta)}</span>}</dd></div>)}</dl>
@@ -60,7 +61,8 @@ export function InkEquipmentPicker({ state, slot, preset, busy, onEquip, onClose
         {(chooser === 'rarity' ? [{ id: 'all', label: '全部品質' }, ...EQUIPMENT_RARITIES.map(id => ({ id, label: rarityLabel[id] }))] : [{ id: 'power', label: '戰力優先' }, { id: 'rarity', label: '品質優先' }, { id: 'name', label: '名稱排序' }]).map(item => <button type="button" key={item.id} aria-pressed={(chooser === 'rarity' ? rarity : sort) === item.id} onClick={() => chooseFilter(item.id)}>{item.label}</button>)}
       </div> : details ? <div className="ink-equipment-affixes">
         <button type="button" onClick={() => setDetails(false)}>返回裝備列表</button>
-        {([current,selected].filter((def,index,all): def is GearDef => Boolean(def && all.findIndex(d=>d?.id===def.id)===index))).map(def => <article key={def.id}>
+        {((detailTarget==='current'?[current,selected]:[selected,current]).filter((def,index,all): def is GearDef => Boolean(def && all.findIndex(d=>d?.id===def.id)===index))).map(def => <article key={def.id}>
+          <img className="ink-equipment-detail-art" src={equipmentArtUrl(def)} alt={`${displayGearName(def)}立繪`} width="128" height="128" />
           <h3>{displayGearName(def)}</h3><p>{rarityLabel[def.rarity]} · 裝備戰力 {equipmentPiecePower(c,def)}</p><p>{def.description}</p><ul>{listGearAffixes(def).map((line,i)=><li key={i}>{formatAffixDisplay(line)}</li>)}</ul>
         </article>)}
         {preview && <p>此套裝備戰力 {preview.powerBefore} → {preview.powerAfter}</p>}

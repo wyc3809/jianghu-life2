@@ -1,0 +1,710 @@
+{
+  "images": [
+    {
+      "id": "divine-xuan-sword",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/divine-xuan-sword-e8af423cb1d7.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 3086400200,
+      "pixels": 2438,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "taiya-sword",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/taiya-sword-881016a261f7.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 911038821,
+      "pixels": 1820,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "phoenix-blood-blade",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/phoenix-blood-blade-efc283629ff4.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 3092561324,
+      "pixels": 1768,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "dragoncall-spear",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/dragoncall-spear-790231564e97.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 2494811277,
+      "pixels": 1233,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "hundredfold-blade",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/hundredfold-blade-818f6303749d.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 2125466696,
+      "pixels": 2078,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "sunshot-bow",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/sunshot-bow-1b0b70b05251.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 1901117595,
+      "pixels": 2664,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "snowstream-sword",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/snowstream-sword-a0f471dd0955.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 278546248,
+      "pixels": 1316,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "dragonbind-staff",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/dragonbind-staff-86dfa50a7eba.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 4144994161,
+      "pixels": 2035,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "twin-hooks",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/twin-hooks-3424a7e29e1d.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 3438869148,
+      "pixels": 2286,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "wavebreaker-blade",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/wavebreaker-blade-e1a46d1fa219.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 316102457,
+      "pixels": 2685,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "thousandworks-box",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/thousandworks-box-7cf71389ae9f.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 315323392,
+      "pixels": 8043,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "yama-whip",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/yama-whip-10f20f0e0ee2.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 1143736027,
+      "pixels": 2882,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "inkrain-sword",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/inkrain-sword-bc32af2a33e8.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 4074780140,
+      "pixels": 1355,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "goosedrop-bow",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/goosedrop-bow-72aae303220c.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 252056916,
+      "pixels": 1447,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "armorbreaker-bow",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/armorbreaker-bow-a3b55a7a3e65.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 4204246030,
+      "pixels": 4063,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "dragonswim-whip",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/dragonswim-whip-b771506816ea.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 1557548208,
+      "pixels": 2088,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "peakbreaker-sword",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/peakbreaker-sword-521409074a07.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 1301163097,
+      "pixels": 2118,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "meteor-whip",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/meteor-whip-e2b334462f6a.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 2184983748,
+      "pixels": 2707,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "autumnwater-sword",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/autumnwater-sword-f7df04f9ade2.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 3569722075,
+      "pixels": 1319,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "demonquell-staff",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/demonquell-staff-4a43b56809ae.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 343154362,
+      "pixels": 1569,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "redbronze-blade",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/redbronze-blade-97c41d17bd41.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 2145515675,
+      "pixels": 3159,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "shadowless-knives",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/shadowless-knives-4b2a4ecd9c33.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 3338051516,
+      "pixels": 3252,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "crescent-blade",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/crescent-blade-88bb84b383c3.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 3100623826,
+      "pixels": 1832,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "prairie-spear",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/prairie-spear-53f3466a32ad.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 3783487486,
+      "pixels": 1078,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "turnback-spear",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/turnback-spear-801d5201c2be.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 752985798,
+      "pixels": 977,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "dogbeat-staff",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/dogbeat-staff-fae86da4c589.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 4216447098,
+      "pixels": 1143,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "streamcut-blade",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/streamcut-blade-f9969ec96a47.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 1098462794,
+      "pixels": 1273,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "wolffang-whip",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/wolffang-whip-fe9ee863bd35.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 1589338253,
+      "pixels": 2005,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "birch-bow",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/bow.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 3342294949,
+      "pixels": 1372,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "bonepierce-nails",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/bonepierce-nails-2368855fe890.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 469512542,
+      "pixels": 2816,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "sleeve-darts",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/weapons/sleeve-darts-cf68fd8120f1.webp?v=art1",
+      "width": 512,
+      "height": 512,
+      "hash": 1177675544,
+      "pixels": 3230,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "hunter-bow",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/bow.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 3342294949,
+      "pixels": 1372,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "snakespine-spear",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/spear.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 2571023718,
+      "pixels": 1384,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "bronze-spear",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/spear.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 2571023718,
+      "pixels": 1384,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "pearflower-spear",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/spear.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 2571023718,
+      "pixels": 1384,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "repeater-bow",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/bow.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 3342294949,
+      "pixels": 1372,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "frostvein-sword",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/sword.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 594948042,
+      "pixels": 1975,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "iron-blade",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/blade.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 1588599614,
+      "pixels": 2517,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "iron-lotus",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/hidden.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 2892421105,
+      "pixels": 2247,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "pinewind-sword",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/sword.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 594948042,
+      "pixels": 1975,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "silverbell-whip",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/whip.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 4292892915,
+      "pixels": 3170,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "vajra-staff",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/staff.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 3438534706,
+      "pixels": 1220,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "yanling-blade",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/blade.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 1588599614,
+      "pixels": 2517,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "nightwalk-blade",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/blade.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 1588599614,
+      "pixels": 2517,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "madmonk-staff",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/staff.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 3438534706,
+      "pixels": 1220,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "pine-staff",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/staff.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 3438534706,
+      "pixels": 1220,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "snakebone-whip",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/whip.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 4292892915,
+      "pixels": 3170,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "plum-needles",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/hidden.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 2892421105,
+      "pixels": 2247,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "hunter-shortbow",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/bow.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 3342294949,
+      "pixels": 1372,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "wanderer-sword",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/sword.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 594948042,
+      "pixels": 1975,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "mulberry-bow",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/bow.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 3342294949,
+      "pixels": 1372,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "qingfeng-sword",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/sword.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 594948042,
+      "pixels": 1975,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "waxwood-spear",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/spear.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 2571023718,
+      "pixels": 1384,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "bambootip-spear",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/spear.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 2571023718,
+      "pixels": 1384,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "elm-staff",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/staff.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 3438534706,
+      "pixels": 1220,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "locust-stones",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/hidden.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 2892421105,
+      "pixels": 2247,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "old-sword",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/sword.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 594948042,
+      "pixels": 1975,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "oxhide-whip",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/whip.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 4292892915,
+      "pixels": 3170,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "rustring-blade",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/blade.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 1588599614,
+      "pixels": 2517,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "firestick-staff",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/staff.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 3438534706,
+      "pixels": 1220,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "firewood-blade",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/blade.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 1588599614,
+      "pixels": 2517,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "sleeve-arrow",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/hidden.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 2892421105,
+      "pixels": 2247,
+      "edge": 0,
+      "objectFit": "contain"
+    },
+    {
+      "id": "hemp-whip",
+      "src": "http://127.0.0.1:5300/ink/art/manhua/icons/whip.webp?v=art1",
+      "width": 256,
+      "height": 256,
+      "hash": 4292892915,
+      "pixels": 3170,
+      "edge": 0,
+      "objectFit": "contain"
+    }
+  ],
+  "cases": [
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "all63ImagesLoaded": true,
+      "unique30RenderHashes": true,
+      "previewCancelUnchanged": true,
+      "normalAndDuelSeparateAndReloaded": true,
+      "currencyGearAndRngUnchanged": true,
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "newGearCompareDistinctArt": true,
+      "keepDidNotDuplicateReward": true,
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "all63ImagesLoaded": true,
+      "unique30RenderHashes": false,
+      "previewCancelUnchanged": true,
+      "normalAndDuelSeparateAndReloaded": true,
+      "currencyGearAndRngUnchanged": true,
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "newGearCompareDistinctArt": true,
+      "keepDidNotDuplicateReward": true,
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        430,
+        932
+      ],
+      "all63ImagesLoaded": true,
+      "unique30RenderHashes": false,
+      "previewCancelUnchanged": true,
+      "normalAndDuelSeparateAndReloaded": true,
+      "currencyGearAndRngUnchanged": true,
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        430,
+        932
+      ],
+      "newGearCompareDistinctArt": true,
+      "keepDidNotDuplicateReward": true,
+      "pageerrors": []
+    },
+    {
+      "actualLootHighlightUniqueArt": true,
+      "claimNoDuplicateReward": true,
+      "pageerrors": []
+    },
+    {
+      "forcedNoWebglUniqueArt": true,
+      "pageerrors": []
+    }
+  ],
+  "cloudBlocked": true,
+  "actualIphone": false
+}
