@@ -31,5 +31,7 @@ for (const file of fs.readdirSync('public', { recursive: true, withFileTypes: tr
   count++;
 }
 if (!fs.existsSync('ios/App/CapApp-SPM/Package.swift')) fail('缺少Swift package工程');
+const spm = fs.readFileSync('ios/App/CapApp-SPM/Package.swift', 'utf8');
+if (!spm.includes('CapacitorHaptics') || !config.packageClassList?.includes('HapticsPlugin')) fail('iPhone原生觸覺插件未完成同步');
 console.log(JSON.stringify({ gameVersion: expected, appId: config.appId, entryAssets: assets.length,
   publicFilesVerified: count, localWebAssets: true, signingVerified: false, xcodeCompileVerified: false }));

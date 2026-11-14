@@ -1554,3 +1554,12 @@ v02新增四項實質檢查：來源alpha走廊、網格連通、三段120Hz表�
 玩家附Codemagic「核對TestFlight準備狀態」失敗截圖，要求fix。步名與待辦輸出指向舊ios-testflight外測release-check；內測尚未開始安裝／編譯。將常用及第一個ios-testflight改為「TestFlight內測更新」，保留ios-internal-testflight相容ID，外測另用ios-external-testflight並完整保留release-check與Beta提交。內測使用同一真App／Bundle／版本／公開設定檢查及內部專用IPA，不送Beta或商店審核；不把待辦改成完成，Apple版本1.0與查詢後遞增build保持。
 
 新增以真正YAML解析anchor及merge、執行各入口實際檢查的三項回歸：兩個內測入口在未完成驗收fixture通過，外測仍拒絕並指向內測；簽署與提交旗標／build腳本亦驗證。完整141檔1,036項、Pages構建、敘事hard-fail 0、禁句0處及diff通過。證據見production/qa/evidence/redesign/testflight-workflow-fix/README.md。玩家已確認修復，按一般授權EA0.109.1上線；遊戲內容沿用EA0.109.0，沒有UI或玩法修改。Codemagic需從最新main建立新build；此環境未有Apple操作連線，簽署／上傳及可安裝以新build結果為準，不把Mac Archive或網頁發布當TestFlight成功。
+
+
+### 第70項：按鍵份量感、聲音與原生iPhone觸覺（2026-11-14，EA0.110.0）
+
+玩家表示現有按鍵仍欠質感並要求繼續。實測舊版僅縮3%、即還原，部分CSS覆蓋scale過渡；原生iPhone亦未接真正觸覺。按game-feel共用事件層加壓下約6%／下沉2px、240ms短回彈約2.2%與暖陰影，配短木印聲及官方Capacitor Haptics，主要確認／一般入口分中／輕級。原配色及transform定位保留，不延遲／重發指令；滑動不播tap，同次共用／局部聲音合併，關閉／減少動態保持。
+
+修正縮放導致邊位漏按：透明命中層反向補償並在連按時重用，保留原生click與React操作，不人工補點擊；動畫結束命中層display:none，拖動／背景／偏好立即取消回饋。三尺寸真25ms短按均到約.94→1.022→原位，三連按、鼠標與觸控邊位、觸控切配搭、名單滑動不誤觸、鍵盤、減少動態、預覽取消資料保持通過。
+
+144檔1,049項、Pages構建、敘事hard-fail 0、禁句0處及diff通過；原生同步核對HapticsPlugin與2,617資源，真修煉一次扣次及掛機焦點保持。實畫、正常速度GIF、真WebAudio錄音及逐幀報告見production/qa/evidence/redesign/button-feel/README.md；分析見design/audits/button-feel-ea0110.md。玩家已確認續做，按一般授權發布EA0.110.0。沒有改玩法、經濟、存檔或黑影；原生硬件感受需新TestFlight真iPhone驗收，不將Mac Archive當硬件已通過，Apple上傳與網頁發布分開。

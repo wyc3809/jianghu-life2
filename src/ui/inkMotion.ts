@@ -44,6 +44,61 @@ export function inkSurfaceIn(target: HTMLElement | null, kind: 'page' | 'sheet' 
   return stop;
 }
 
+export type InkPressResponse = { release: () => void; cancel: () => void };
+const pressResponses = new WeakMap<HTMLElement, InkPressResponse>();
+const PRESS_VARS = ['--ink-key-scale','--ink-key-y','--ink-key-light','--ink-key-shadow','position'] as const;
+
+/** 壓下／放手分開播，獨立CSS縮放不覆蓋原定位；快速點按仍有完整短回彈。 */
+export function inkControlPress(target: HTMLElement, onSettled: () => void = () => {}): InkPressResponse {
+  pressResponses.get(target)?.cancel();
+  if (motionReduced() || document.hidden) {
+    let settled = false;
+    const finish = () => { if (!settled) { settled = true; onSettled(); } };
+    return { release: finish, cancel: finish };
+  }
+  const previous = PRESS_VARS.map(name => [name,target.style.getPropertyValue(name),target.style.getPropertyPriority(name)] as const);
+  // 透明命中層反向補償外觀縮放，保留原生按鈕click；不包裹或重排既有子元素。
+  let hit = target.querySelector<HTMLElement>(':scope > .ink-key-hit');
+  if (!hit) {
+    hit = document.createElement('span'); hit.className = 'ink-key-hit'; hit.setAttribute('aria-hidden','true');
+    target.appendChild(hit);
+  }
+  if (getComputedStyle(target).position === 'static') target.style.setProperty('position','relative');
+  let animation: JSAnimation | null = null, stopped = false, released = false;
+  let unwatch = () => {};
+  const stop = () => {
+    if (stopped) return;
+    stopped = true; animation?.revert(); unwatch();
+    for (const [name,value,priority] of previous) {
+      if (value) target.style.setProperty(name,value,priority); else target.style.removeProperty(name);
+    }
+    target.classList.remove('ink-key-response'); delete target.dataset.inkPress;
+    pressResponses.delete(target); onSettled();
+  };
+  const response: InkPressResponse = { cancel: stop, release: () => {
+    if (stopped || released) return;
+    released = true; animation?.cancel(); target.dataset.inkPress = 'release';
+    // 短按亦先到壓低位置，畫面回饋不等待或重發真正click。
+    animation = animate(target, {
+      '--ink-key-scale': [{to:.94,duration:25},{to:1.022,duration:110},{to:1,duration:105}],
+      '--ink-key-y': [{to:'2px',duration:25},{to:'-1px',duration:110},{to:'0px',duration:105}],
+      '--ink-key-light': [{to:.9,duration:25},{to:1.035,duration:110},{to:1,duration:105}],
+      '--ink-key-shadow': [{to:'0px',duration:25},{to:'3px',duration:110},{to:'0px',duration:105}],
+      ease: 'outCubic', onComplete: stop,
+    });
+  }};
+  target.classList.add('ink-key-response'); target.dataset.inkPress = 'down';
+  for (const [name,value] of [['--ink-key-scale','1'],['--ink-key-y','0px'],['--ink-key-light','1'],['--ink-key-shadow','0px']]) target.style.setProperty(name!,value!);
+  pressResponses.set(target,response);
+  animation = animate(target, {
+    '--ink-key-scale': .94, '--ink-key-y': '2px', '--ink-key-light': .9,
+    duration: 55, ease: 'outQuad',
+  });
+  unwatch = watchVisualActivity(active => { if (!active) stop(); }, { reduced: true });
+  if (stopped) unwatch();
+  return response;
+}
+
 /** 節奏（毫秒）：同 CSS --motion-* 對齊 */
 export const INK_MS = { quick: 200, base: 360, slow: 700, ritual: 1200 } as const;
 
