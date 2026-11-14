@@ -3347,6 +3347,23 @@ html[data-ink-motion='reduce'] .ink-delta-row {
   :where(button,[role='button'],[role='tab'],summary,a[href]).is-pressed { scale: none; }
 }
 html[data-ink-motion='reduce'] :where(button,[role='button'],[role='tab'],summary,a[href]).is-pressed { scale: none; }
+/* 短壓與回彈由inkMotion共用時鐘控制；保留按鈕原圖、框、文字及transform定位。 */
+.ink-key-response {
+  scale: var(--ink-key-scale,1) !important;
+  translate: 0 var(--ink-key-y,0px) !important;
+  filter: brightness(var(--ink-key-light,1)) drop-shadow(0 var(--ink-key-shadow,0px) 1px #593b2440) !important;
+  transition: none !important;
+  will-change: scale,translate,filter;
+}
+.ink-key-hit { display: none !important; }
+.ink-key-response > .ink-key-hit {
+  position: absolute !important; inset: 0 !important; z-index: 20;
+  display: block !important; opacity: 0 !important; margin: 0 !important;
+  padding: 0 !important; border: 0 !important; pointer-events: auto;
+  scale: calc(1.05 / var(--ink-key-scale,1));
+  translate: 0 calc(-1 * var(--ink-key-y,0px) / var(--ink-key-scale,1));
+  touch-action: inherit;
+}
 .ink-surface-managed { animation: none !important; }
 [data-ink-entering] { will-change: transform,opacity; }
 

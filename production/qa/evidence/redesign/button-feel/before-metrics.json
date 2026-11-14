@@ -1,0 +1,6 @@
+{
+  "scale": "0.97",
+  "translate": "none",
+  "filter": "brightness(0.94)",
+  "transition": "background 0.08s, color 0.08s, border-color 0.08s, transform 0.06s"
+}

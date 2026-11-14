@@ -257,13 +257,20 @@ export function setAmbientEnabled(next: boolean) {
 }
 
 // ===== UI 音效 =====
-export function playInkTap() {
-  haptic('light');
+let lastTapAt = -Infinity;
+/** 短木印落紙聲；同一次原生click的共用及局部回饋合併，避免疊聲／重震。 */
+export function playInkTap(weight: 'light' | 'firm' = 'light') {
+  const now = typeof performance === 'undefined' ? Date.now() : performance.now();
+  const elapsed = now - lastTapAt;
+  if (elapsed >= 0 && elapsed < 65) return;
+  lastTapAt = now;
+  haptic(weight === 'firm' ? 'medium' : 'light');
   const audioCtx = getAC();
   if (!audioCtx) return;
   const t = audioCtx.currentTime;
-  synth({ freq: 800, dur: 0.02, type: 'square', gain: 0.015, when: t });
-  synth({ freq: 440, dur: 0.025, type: 'triangle', gain: 0.012, when: t + 0.01 });
+  synth({ freq:540,dur:.016,type:'triangle',gain:.04,freqSlide:2,slideTarget:360,
+    harmonics:[2.2],harmonicGain:.09,adsr:{attack:.001,decay:.018,sustain:.07,release:.035},when:t });
+  synth({ freq:185,dur:.018,gain:weight === 'firm' ? .034 : .026,adsr:{attack:.001,decay:.022,sustain:.05,release:.045},when:t });
 }
 
 export function playInkSeal() {

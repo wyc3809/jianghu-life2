@@ -1,7 +1,7 @@
 {
   "name": "jianghu-engine",
   "private": true,
-  "version": "0.109.1-ea",
+  "version": "0.110.0-ea",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@capacitor/core": "8.5.3",
+    "@capacitor/haptics": "^8.0.2",
     "@capacitor/ios": "8.5.3",
     "@supabase/supabase-js": "^2.117.2",
     "animejs": "^4.5.0",

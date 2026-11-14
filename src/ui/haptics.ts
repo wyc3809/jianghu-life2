@@ -1,5 +1,8 @@
+import { Capacitor } from '@capacitor/core';
+import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
+
 /**
- * 震動回饋（手機）：用 navigator.vibrate，唔支援（iOS Safari、桌面）就靜靜略過。
+ * 震動回饋（手機）：原生App用Capacitor Haptics，支援的瀏覽器用navigator.vibrate；iOS Safari不冒稱有原生觸覺。
  * 設定「震動」可關（localStorage `ink_haptics`）；減少動態時亦唔震。
  * 由 src/audio/inkAudio.ts 各音效入口順手觸發——聲同震同一刻。
  */
@@ -25,7 +28,8 @@ try {
 }
 
 export function hapticsSupported(): boolean {
-  return typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function';
+  return Capacitor.isNativePlatform() && Capacitor.isPluginAvailable('Haptics')
+    || typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function';
 }
 
 export function isHapticsEnabled(): boolean {
@@ -50,7 +54,12 @@ function reduceMotion(): boolean {
 export function haptic(kind: HapticKind): void {
   if (!enabled || !hapticsSupported() || reduceMotion()) return;
   try {
-    navigator.vibrate(PATTERN[kind]);
+    if (Capacitor.isNativePlatform() && Capacitor.isPluginAvailable('Haptics')) {
+      const feedback = kind === 'ritual' || kind === 'fail'
+        ? Haptics.notification({type:kind === 'ritual' ? NotificationType.Success : NotificationType.Error})
+        : Haptics.impact({style:kind === 'heavy' ? ImpactStyle.Heavy : kind === 'medium' ? ImpactStyle.Medium : ImpactStyle.Light});
+      void feedback.catch(() => {});
+    } else navigator.vibrate(PATTERN[kind]);
   } catch {
     /* 部分瀏覽器喺未有用戶手勢前會拋錯 */
   }
