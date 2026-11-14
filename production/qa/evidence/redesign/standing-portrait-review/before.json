@@ -1,0 +1,28 @@
+{
+  "scope": "silver:traveller:jade only",
+  "actualIphone": false,
+  "cloudBlocked": true,
+  "cases": [
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "label": "盤坐調息的人物造型",
+      "appearance": "silver:traveller:jade",
+      "canvas": [
+        724,
+        932
+      ],
+      "opaqueBounds": [
+        23,
+        64,
+        673,
+        856
+      ],
+      "unclipped": true,
+      "previewCancelKeptEquipmentAndAppearance": true,
+      "pageerrors": []
+    }
+  ]
+}

@@ -23,7 +23,7 @@ with sync_playwright() as p:
    if engine=='chromium' and w==390:shot(page,'wardrobe-390.png')
    d.get_by_role('button',name='換上',exact=True).evaluate('e=>{e.click();e.click()}');stable(page);assert not page.locator('dialog[open]').count()
    expected={'head':'silver','outfit':'scholar','tone':'jade'};assert ch(page)['appearance']==expected;assert snapshots(page)==before;assert look(page,'.ink-person-stage')=='silver:scholar:jade';main_geometry(page)
-   assert page.locator('.ink-person-seated-hero').evaluate('e=>{let d=e.getContext("2d").getImageData(0,0,e.width,e.height).data;for(let y=0;y<e.height;y++)for(let x of [0,1,e.width-2,e.width-1])if(d[(y*e.width+x)*4+3]>8)return false;return true}'),'seated body clipped at side'
+   assert page.locator('.ink-person-figure').evaluate('e=>{let d=e.getContext("2d").getImageData(0,0,e.width,e.height).data;for(let y=0;y<e.height;y++)for(let x=0;x<e.width;x++)if((x<2||y<2||x>=e.width-2||y>=e.height-2)&&d[(y*e.width+x)*4+3]>8)return false;return true}'),'full standing figure clipped at edge'
    if engine=='chromium' and w==390:shot(page,'person-390.png')
    tap(page,'返回鎮居');assert look(page,'.ink-hud')=='silver:scholar:jade'
    if engine=='chromium' and w==390:shot(page,'home-390.png')
@@ -36,7 +36,7 @@ with sync_playwright() as p:
   f=copy.deepcopy(fixtures['full']);f['state']['character']['appearance']={'head':'bun','outfit':'traveller','tone':'cinnabar'};c,page,errors=start(b,390,844)
   c.route('**/ink/art/appearance/**',lambda r:r.abort());page.reload();tap(page,re.compile('^續寫前緣'),False);page.wait_for_timeout(600)
   if page.locator('.ink-offline-modal-btn').count():tap(page,'領受')
-  nav(page,'人物');page.wait_for_timeout(600);assert look(page,'.ink-person-stage')=='bun:traveller:cinnabar';assert page.locator('.ink-person-seated-hero').get_attribute('aria-label')=='盤坐調息的人物造型'
-  assert page.locator('.ink-person-seated-hero').evaluate('e=>{let d=e.getContext("2d").getImageData(0,0,e.width,e.height).data;let n=0;for(let i=3;i<d.length;i+=4)if(d[i]>100)n++;return n>500}');assert not errors,errors;c.close();report.append({'engine':engine,'allAppearanceNetworkFailureSameIdentity':True})
+  nav(page,'人物');page.wait_for_timeout(600);assert look(page,'.ink-person-stage')=='bun:traveller:cinnabar';assert page.locator('.ink-person-figure').get_attribute('aria-label')=='自然站姿的人物造型'
+  assert page.locator('.ink-person-figure').evaluate('e=>{let d=e.getContext("2d").getImageData(0,0,e.width,e.height).data;let n=0;for(let i=3;i<d.length;i+=4)if(d[i]>100)n++;return n>500}');assert not errors,errors;c.close();report.append({'engine':engine,'allAppearanceNetworkFailureSameIdentity':True})
   b.close()
 (OUT/'browser-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2));print('APPEARANCE_PASS',len(report),flush=True)

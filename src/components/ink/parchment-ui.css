@@ -78,7 +78,7 @@ body .ink-person-summary > div:first-child strong { color:#fff8e9; font-size:22p
 body .ink-person-presets button { border:0; border-radius:0; padding:4px 8px; font-weight:700; }
 body .ink-person-presets button[aria-selected='true'] { background-image:var(--ui-brush); }
 body .ink-person-overview[data-equipment-open='true'] .ink-person-stage { overflow:visible; }
-body .ink-person-overview[data-equipment-open='true'] .ink-person-seated-hero { top:-32px; bottom:auto; height:min(390px,52dvh); object-position:center top; }
+body .ink-person-overview[data-equipment-open='true'] .ink-person-figure { top:-32px; bottom:auto; height:min(390px,52dvh); }
 body .ink-person-overview[data-equipment-open='true'] .ink-person-gear-slot--weapon { top:30px; }
 body .ink-person-overview[data-equipment-open='true'] .ink-person-gear-slot--armor { top:-5px; }
 body .ink-person-overview[data-equipment-open='true'] .ink-person-gear-slot--accessory { top:112px; bottom:auto; }
@@ -142,7 +142,7 @@ body .ink-equipment-picker::backdrop { background:#25251e24; }
   body .ink-equipment-filters { width:78%; }
   body .ink-equipment-item { height:88px; min-height:88px; }
   body .ink-equipment-item > img { height:53px; }
-  body .ink-person-overview[data-equipment-open='true'] .ink-person-seated-hero { top:-10px; height:285px; }
+  body .ink-person-overview[data-equipment-open='true'] .ink-person-figure { top:-10px; height:285px; }
   body .ink-person-sheet > header h2 { font-size:26px; }
 }
 @media(min-height:900px) { body .ink-equipment-item { height:106px; min-height:106px; } body .ink-equipment-item > img { height:71px; } }
@@ -155,7 +155,7 @@ body .ink-equipment-column > h3 { font-size:12px; line-height:15px; padding:1px 
 body .ink-equipment-name { min-height:18px; line-height:16px; }
 body .ink-equipment-item { height:85px; min-height:85px; }
 body .ink-equipment-item > img { height:50px; }
-body .ink-person-overview[data-equipment-open='true'] .ink-person-seated-hero { top:-72px; }
+body .ink-person-overview[data-equipment-open='true'] .ink-person-figure { top:-72px; }
 body .ink-person-overview[data-equipment-open='true'] .ink-person-gear-slot--weapon { top:-10px; }
 body .ink-person-overview[data-equipment-open='true'] .ink-person-gear-slot--armor { top:-40px; }
 body .ink-person-overview[data-equipment-open='true'] .ink-person-gear-slot--accessory { top:48px; }

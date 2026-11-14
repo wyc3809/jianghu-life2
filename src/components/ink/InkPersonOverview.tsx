@@ -50,7 +50,7 @@ export function InkPersonOverview({ state, preset, busy, onPreset, onEquip, onVi
       {guide.step === 'equip' ? '點左側武器欄，選擇兵器查看比較。' : guide.body}
     </InkNewbieGuide>}
     <div className="ink-person-stage">
-      <AppearanceCanvas className="ink-person-seated-hero" appearance={appearanceOf(c)} pose="seated" label="盤坐調息的人物造型"/>
+      <AppearanceCanvas className="ink-person-figure" appearance={appearanceOf(c)} pose="idle" label="自然站姿的人物造型"/>
       {EQUIPMENT_SLOTS.map(kind => {
         const id = c.equipment?.[kind], def = id ? getGearDef(id) : null;
         return <button type="button" key={kind} data-guide-target={showGuide && guide?.step === 'equip' && kind === 'weapon'} className={`ink-person-gear-slot ink-person-gear-slot--${kind}${def ? '' : ' is-empty'}`} aria-label={`更換${EQUIPMENT_LABEL[kind]}`} aria-describedby={`person-gear-${kind}`} onClick={() => setSlot(kind)}>
