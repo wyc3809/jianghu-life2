@@ -10,6 +10,8 @@
 .ink-appearance-tabs button{font-size:14px;padding:4px 1px;white-space:nowrap}
 .ink-appearance-empty{grid-column:1/-1;margin:6px;font-size:14px;line-height:1.6}
 .ink-appearance-group-label{grid-column:1/-1;margin:0;font-size:13px;line-height:1.5;color:var(--ui-ink)}
+.ink-appearance-sects{grid-column:1/-1;display:flex;gap:6px;overflow-x:auto;overscroll-behavior-x:contain;padding:0 0 4px;scrollbar-width:thin}
+.ink-appearance-choices .ink-appearance-sects button{flex:none;min-height:44px;padding:4px 8px;white-space:nowrap;font-size:13px}
 .ink-appearance-choices small{font-size:11px;color:#74634b}
 .ink-appearance-choices{flex:0 1 auto;max-height:32dvh;align-content:start;grid-auto-rows:max-content;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;overflow:auto;overscroll-behavior:contain;min-height:0}
 .ink-appearance-choices button{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;min-height:84px;padding:4px;font:inherit;font-size:12px;background:var(--ui-card) center/cover no-repeat,var(--ui-paper);border:5px solid transparent;border-image:var(--ui-frame) 48/1/0 stretch;color:var(--ui-ink)}

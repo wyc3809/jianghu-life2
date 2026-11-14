@@ -1,0 +1,1155 @@
+{
+  "version": "EA0.107.0",
+  "status": "576張新增完整立繪、來源透明分格、672張出貨WebP及18份實畫檢視通過；十派三尺寸衣櫥／保存及入口通過。",
+  "approval": "玩家要求完成九派並選保留入派條件，2026-11-14",
+  "sheetCount": 144,
+  "figureCount": 576,
+  "designs": [
+    {
+      "key": "tiandao",
+      "name": "天刀門",
+      "base": "rust-red and charcoal, rugged leather and heavy woven cloth, angular hems, brass fasteners, martial saber-school uniforms",
+      "detail": [
+        "plain rust-red short cross-collar training jacket, charcoal trousers, cloth belt",
+        "rust-red fitted long tunic with black leather cuff guards and broad cloth sash",
+        "dark red split riding coat, charcoal shoulder panels, reinforced leather belt",
+        "vermilion tailored long coat, black broad lapels, fine blade-line embroidery, fitted bracers",
+        "charcoal fitted overcoat over rust robes, double belt and square brass buckles",
+        "red and black protective leather shoulder mantle, broad split coat and heavy bracers",
+        "layered oxblood long robes, short black cape and antique gold trim",
+        "majestic crimson and charcoal greatcoat, broad black shoulder cape, ornate gold flame stitching and wide leather sash"
+      ]
+    },
+    {
+      "key": "emei",
+      "name": "峨嵋派",
+      "base": "ivory and pale celadon, graceful structured layers of linen and silk, lotus seams and jade toggles; same dignified school garments for men and women",
+      "detail": [
+        "plain ivory short wrap jacket with celadon sash and practical trousers",
+        "ivory knee-length tunic with pale jade collar and wrist ties",
+        "fitted celadon long wrap coat over ivory inner robe, narrow lotus border",
+        "ivory long flowing robe with celadon split overskirt and embroidered cuffs",
+        "structured pale jade sleeveless outer vest over ivory robes and broad silk belt",
+        "ivory martial robes with celadon shoulder drape and reinforced fitted sleeves",
+        "layered ivory silk robes, celadon long stole and silver lotus edging",
+        "regal white and pale jade layered ceremonial martial robes, broad embroidered shoulder mantle and jade clasp"
+      ]
+    },
+    {
+      "key": "shaolin",
+      "name": "少林派",
+      "base": "saffron, ochre, warm grey cotton and hemp, sturdy Buddhist lay-disciple martial robes, simple cloth shoes or wrapped boots; preserve all existing hair identities, no shaving, no new headdresses",
+      "detail": [
+        "plain grey short hemp wrap jacket, ochre sash, loose trousers and calf wraps",
+        "ochre knee-length training robe, grey collar and sturdy hemp belt",
+        "saffron split long training robe, dark grey wrist wraps and wide cloth sash",
+        "burnt saffron robes with an ochre diagonal cloth panel and rope belt",
+        "grey outer utility vest over ochre long robe, square cloth belt and simple bead bracelet",
+        "deep ochre padded martial robe, dark brown short shoulder mantle and broad bracers",
+        "layered saffron and grey robes with dark brown diagonal stole, modest wooden bead necklace",
+        "dignified golden ochre ceremonial martial robes, broad red-brown draped outer mantle, dark edging and wooden beads"
+      ]
+    },
+    {
+      "key": "wudang",
+      "name": "武當派",
+      "base": "slate blue, mist grey and white, Taoist martial robes, clean cloud-and-water seams, black cloth belts and pale jade toggles",
+      "detail": [
+        "plain mist-grey short wrap jacket, slate blue sash and loose trousers",
+        "slate blue knee-length robe with white cross collar and narrow belt",
+        "mist-grey long robe with slate blue split outer panels and fitted cuffs",
+        "white martial long robe under a slate blue sleeveless cloud-edged coat",
+        "slate blue structured over-vest, grey long sleeves and double black belt",
+        "blue-grey flowing long coat, white shoulder drape and black bracers",
+        "layered white and slate blue Taoist robes, broad dark collar and long cloud-edged stole",
+        "regal flowing slate and white Taoist robes, broad structured dark blue shoulder mantle with silver cloud embroidery"
+      ]
+    },
+    {
+      "key": "tangmen",
+      "name": "唐門",
+      "base": "ink navy and muted violet, light fitted sleeves, layered wrap panels, discreet geometric stitching and utility pouches, silver fasteners; no held weapons",
+      "detail": [
+        "plain navy short wrap jacket, violet narrow sash and fitted trousers",
+        "navy knee-length split tunic, violet cuffs and slim leather belt",
+        "fitted dark violet long coat over navy layers, cross-wrap utility belt",
+        "tailored navy split coat with violet angular lapels, silver seam embroidery and wrist guards",
+        "structured indigo utility vest over violet robes, two belts and small closed pouches",
+        "ink navy protective shoulder mantle, fitted violet coat and silver wrist bracers",
+        "layered dark indigo silk coat, violet shoulder stole, subtle silver geometric embroidery",
+        "commanding ink-navy and violet long coat, broad angular shoulder cape, elaborate silver geometric seams and layered waist sashes"
+      ]
+    },
+    {
+      "key": "mojiao",
+      "name": "魔教",
+      "base": "ink black and cinnabar crimson, sharp fitted silhouettes, flowing split outer robes, dark leather and restrained red flame embroidery, antique gold accents",
+      "detail": [
+        "plain black short cross-wrap tunic with crimson sash and dark trousers",
+        "black knee-length tunic, crimson broad collar and leather belt",
+        "deep crimson split long coat over black robes, fitted leather cuffs",
+        "black tailored long coat, dramatic crimson split panels and fine flame embroidery",
+        "structured black leather outer vest over crimson robes and broad dual belt",
+        "crimson and black protective shoulder cape, long split robes and dark bracers",
+        "layered black silk robes, dark crimson long mantle with antique gold seams",
+        "regal black and crimson greatcoat, broad crimson-lined shoulder cape, rich antique gold flame embroidery, commanding but natural posture"
+      ]
+    },
+    {
+      "key": "huashan",
+      "name": "華山",
+      "base": "pine green and ivory, narrow sleeve sword-school uniforms, crisp mountain-shaped hems, modest dark brown belts and pine-needle embroidery",
+      "detail": [
+        "plain pale green short jacket, ivory collar, brown cloth sash and charcoal trousers",
+        "ivory knee-length sword tunic with pine-green cuff bands and fitted sleeves",
+        "pine-green split long coat over ivory robe, clean narrow cuffs and leather belt",
+        "ivory tailored long robe with green angular overskirt and pine embroidery",
+        "dark green structured outer vest over ivory sleeves, broad brown sash",
+        "green and ivory martial coat, short dark green shoulder mantle and fitted bracers",
+        "layered pale green robes with dark pine-green long stole and silver pine stitching",
+        "majestic ivory and deep pine-green sword robes, broad embroidered shoulder mantle, silver mountain and pine seams, elegant long split coat"
+      ]
+    },
+    {
+      "key": "taohua",
+      "name": "桃花島",
+      "base": "peach pink and willow green, airy layered silk martial robes, refined floral embroidery and small jade fasteners, artistic but practical",
+      "detail": [
+        "plain pale willow-green short wrap jacket, muted peach sash and trousers",
+        "pale peach knee-length tunic with willow-green collar and tied cuffs",
+        "willow-green long split coat over ivory layers, peach embroidered sleeve borders",
+        "peach silk long coat with green split skirt panels and fine flowering branch embroidery",
+        "structured green silk outer vest over peach robes, double jade-fastened sash",
+        "peach and green protective shoulder drape, fitted long sleeves and flowing split robe",
+        "layered pale peach silk robes, willow-green embroidered stole and jade belt",
+        "regal peach and willow-green long ceremonial martial robes, broad flowering-branch shoulder mantle and jade clasp, dignified full-length layered silhouette"
+      ]
+    },
+    {
+      "key": "wugen",
+      "name": "無根門",
+      "base": "silver grey and muted ink purple, fitted sleeves and secretive patterned silk, sharp clean hems, dark plum belts and fine silver abstract stitching; preserve all eight identities",
+      "detail": [
+        "plain silver-grey short wrap jacket, plum sash, charcoal trousers and calf boots",
+        "grey knee-length fitted tunic, ink-purple collar and narrow belt",
+        "ink-purple split long coat over silver grey layers, fine silver sleeve seams",
+        "silver-grey tailored long coat, purple layered side panels and subtle abstract brocade",
+        "structured dark purple sleeveless outer vest over grey robes, dual silver-fastened belts",
+        "silver-grey protective shoulder drape, fitted purple long coat and dark wrist guards",
+        "layered silver silk robes, ink-purple long stole with delicate silver abstract stitching",
+        "regal silver-grey and ink-purple full-length robes, broad angular patterned shoulder cape, ornate silver brocade edging and dark plum sash"
+      ]
+    }
+  ],
+  "jobs": [
+    {
+      "sect": "tiandao",
+      "id": "uniform-tiandao-0",
+      "rank": 0,
+      "sex": "male",
+      "key": "tiandao-0-male"
+    },
+    {
+      "sect": "tiandao",
+      "id": "uniform-tiandao-0",
+      "rank": 0,
+      "sex": "female",
+      "key": "tiandao-0-female"
+    },
+    {
+      "sect": "tiandao",
+      "id": "uniform-tiandao-1",
+      "rank": 1,
+      "sex": "male",
+      "key": "tiandao-1-male"
+    },
+    {
+      "sect": "tiandao",
+      "id": "uniform-tiandao-1",
+      "rank": 1,
+      "sex": "female",
+      "key": "tiandao-1-female"
+    },
+    {
+      "sect": "tiandao",
+      "id": "uniform-tiandao-2",
+      "rank": 2,
+      "sex": "male",
+      "key": "tiandao-2-male"
+    },
+    {
+      "sect": "tiandao",
+      "id": "uniform-tiandao-2",
+      "rank": 2,
+      "sex": "female",
+      "key": "tiandao-2-female"
+    },
+    {
+      "sect": "tiandao",
+      "id": "uniform-tiandao-3",
+      "rank": 3,
+      "sex": "male",
+      "key": "tiandao-3-male"
+    },
+    {
+      "sect": "tiandao",
+      "id": "uniform-tiandao-3",
+      "rank": 3,
+      "sex": "female",
+      "key": "tiandao-3-female"
+    },
+    {
+      "sect": "tiandao",
+      "id": "uniform-tiandao-4",
+      "rank": 4,
+      "sex": "male",
+      "key": "tiandao-4-male"
+    },
+    {
+      "sect": "tiandao",
+      "id": "uniform-tiandao-4",
+      "rank": 4,
+      "sex": "female",
+      "key": "tiandao-4-female"
+    },
+    {
+      "sect": "tiandao",
+      "id": "uniform-tiandao-5",
+      "rank": 5,
+      "sex": "male",
+      "key": "tiandao-5-male"
+    },
+    {
+      "sect": "tiandao",
+      "id": "uniform-tiandao-5",
+      "rank": 5,
+      "sex": "female",
+      "key": "tiandao-5-female"
+    },
+    {
+      "sect": "tiandao",
+      "id": "uniform-tiandao-6",
+      "rank": 6,
+      "sex": "male",
+      "key": "tiandao-6-male"
+    },
+    {
+      "sect": "tiandao",
+      "id": "uniform-tiandao-6",
+      "rank": 6,
+      "sex": "female",
+      "key": "tiandao-6-female"
+    },
+    {
+      "sect": "tiandao",
+      "id": "uniform-tiandao-7",
+      "rank": 7,
+      "sex": "male",
+      "key": "tiandao-7-male"
+    },
+    {
+      "sect": "tiandao",
+      "id": "uniform-tiandao-7",
+      "rank": 7,
+      "sex": "female",
+      "key": "tiandao-7-female"
+    },
+    {
+      "sect": "emei",
+      "id": "uniform-emei-0",
+      "rank": 0,
+      "sex": "male",
+      "key": "emei-0-male"
+    },
+    {
+      "sect": "emei",
+      "id": "uniform-emei-0",
+      "rank": 0,
+      "sex": "female",
+      "key": "emei-0-female"
+    },
+    {
+      "sect": "emei",
+      "id": "uniform-emei-1",
+      "rank": 1,
+      "sex": "male",
+      "key": "emei-1-male"
+    },
+    {
+      "sect": "emei",
+      "id": "uniform-emei-1",
+      "rank": 1,
+      "sex": "female",
+      "key": "emei-1-female"
+    },
+    {
+      "sect": "emei",
+      "id": "uniform-emei-2",
+      "rank": 2,
+      "sex": "male",
+      "key": "emei-2-male"
+    },
+    {
+      "sect": "emei",
+      "id": "uniform-emei-2",
+      "rank": 2,
+      "sex": "female",
+      "key": "emei-2-female"
+    },
+    {
+      "sect": "emei",
+      "id": "uniform-emei-3",
+      "rank": 3,
+      "sex": "male",
+      "key": "emei-3-male"
+    },
+    {
+      "sect": "emei",
+      "id": "uniform-emei-3",
+      "rank": 3,
+      "sex": "female",
+      "key": "emei-3-female"
+    },
+    {
+      "sect": "emei",
+      "id": "uniform-emei-4",
+      "rank": 4,
+      "sex": "male",
+      "key": "emei-4-male"
+    },
+    {
+      "sect": "emei",
+      "id": "uniform-emei-4",
+      "rank": 4,
+      "sex": "female",
+      "key": "emei-4-female"
+    },
+    {
+      "sect": "emei",
+      "id": "uniform-emei-5",
+      "rank": 5,
+      "sex": "male",
+      "key": "emei-5-male"
+    },
+    {
+      "sect": "emei",
+      "id": "uniform-emei-5",
+      "rank": 5,
+      "sex": "female",
+      "key": "emei-5-female"
+    },
+    {
+      "sect": "emei",
+      "id": "uniform-emei-6",
+      "rank": 6,
+      "sex": "male",
+      "key": "emei-6-male"
+    },
+    {
+      "sect": "emei",
+      "id": "uniform-emei-6",
+      "rank": 6,
+      "sex": "female",
+      "key": "emei-6-female"
+    },
+    {
+      "sect": "emei",
+      "id": "uniform-emei-7",
+      "rank": 7,
+      "sex": "male",
+      "key": "emei-7-male"
+    },
+    {
+      "sect": "emei",
+      "id": "uniform-emei-7",
+      "rank": 7,
+      "sex": "female",
+      "key": "emei-7-female"
+    },
+    {
+      "sect": "shaolin",
+      "id": "uniform-shaolin-0",
+      "rank": 0,
+      "sex": "male",
+      "key": "shaolin-0-male"
+    },
+    {
+      "sect": "shaolin",
+      "id": "uniform-shaolin-0",
+      "rank": 0,
+      "sex": "female",
+      "key": "shaolin-0-female"
+    },
+    {
+      "sect": "shaolin",
+      "id": "uniform-shaolin-1",
+      "rank": 1,
+      "sex": "male",
+      "key": "shaolin-1-male"
+    },
+    {
+      "sect": "shaolin",
+      "id": "uniform-shaolin-1",
+      "rank": 1,
+      "sex": "female",
+      "key": "shaolin-1-female"
+    },
+    {
+      "sect": "shaolin",
+      "id": "uniform-shaolin-2",
+      "rank": 2,
+      "sex": "male",
+      "key": "shaolin-2-male"
+    },
+    {
+      "sect": "shaolin",
+      "id": "uniform-shaolin-2",
+      "rank": 2,
+      "sex": "female",
+      "key": "shaolin-2-female"
+    },
+    {
+      "sect": "shaolin",
+      "id": "uniform-shaolin-3",
+      "rank": 3,
+      "sex": "male",
+      "key": "shaolin-3-male"
+    },
+    {
+      "sect": "shaolin",
+      "id": "uniform-shaolin-3",
+      "rank": 3,
+      "sex": "female",
+      "key": "shaolin-3-female"
+    },
+    {
+      "sect": "shaolin",
+      "id": "uniform-shaolin-4",
+      "rank": 4,
+      "sex": "male",
+      "key": "shaolin-4-male"
+    },
+    {
+      "sect": "shaolin",
+      "id": "uniform-shaolin-4",
+      "rank": 4,
+      "sex": "female",
+      "key": "shaolin-4-female"
+    },
+    {
+      "sect": "shaolin",
+      "id": "uniform-shaolin-5",
+      "rank": 5,
+      "sex": "male",
+      "key": "shaolin-5-male"
+    },
+    {
+      "sect": "shaolin",
+      "id": "uniform-shaolin-5",
+      "rank": 5,
+      "sex": "female",
+      "key": "shaolin-5-female"
+    },
+    {
+      "sect": "shaolin",
+      "id": "uniform-shaolin-6",
+      "rank": 6,
+      "sex": "male",
+      "key": "shaolin-6-male"
+    },
+    {
+      "sect": "shaolin",
+      "id": "uniform-shaolin-6",
+      "rank": 6,
+      "sex": "female",
+      "key": "shaolin-6-female"
+    },
+    {
+      "sect": "shaolin",
+      "id": "uniform-shaolin-7",
+      "rank": 7,
+      "sex": "male",
+      "key": "shaolin-7-male"
+    },
+    {
+      "sect": "shaolin",
+      "id": "uniform-shaolin-7",
+      "rank": 7,
+      "sex": "female",
+      "key": "shaolin-7-female"
+    },
+    {
+      "sect": "wudang",
+      "id": "uniform-wudang-0",
+      "rank": 0,
+      "sex": "male",
+      "key": "wudang-0-male"
+    },
+    {
+      "sect": "wudang",
+      "id": "uniform-wudang-0",
+      "rank": 0,
+      "sex": "female",
+      "key": "wudang-0-female"
+    },
+    {
+      "sect": "wudang",
+      "id": "uniform-wudang-1",
+      "rank": 1,
+      "sex": "male",
+      "key": "wudang-1-male"
+    },
+    {
+      "sect": "wudang",
+      "id": "uniform-wudang-1",
+      "rank": 1,
+      "sex": "female",
+      "key": "wudang-1-female"
+    },
+    {
+      "sect": "wudang",
+      "id": "uniform-wudang-2",
+      "rank": 2,
+      "sex": "male",
+      "key": "wudang-2-male"
+    },
+    {
+      "sect": "wudang",
+      "id": "uniform-wudang-2",
+      "rank": 2,
+      "sex": "female",
+      "key": "wudang-2-female"
+    },
+    {
+      "sect": "wudang",
+      "id": "uniform-wudang-3",
+      "rank": 3,
+      "sex": "male",
+      "key": "wudang-3-male"
+    },
+    {
+      "sect": "wudang",
+      "id": "uniform-wudang-3",
+      "rank": 3,
+      "sex": "female",
+      "key": "wudang-3-female"
+    },
+    {
+      "sect": "wudang",
+      "id": "uniform-wudang-4",
+      "rank": 4,
+      "sex": "male",
+      "key": "wudang-4-male"
+    },
+    {
+      "sect": "wudang",
+      "id": "uniform-wudang-4",
+      "rank": 4,
+      "sex": "female",
+      "key": "wudang-4-female"
+    },
+    {
+      "sect": "wudang",
+      "id": "uniform-wudang-5",
+      "rank": 5,
+      "sex": "male",
+      "key": "wudang-5-male"
+    },
+    {
+      "sect": "wudang",
+      "id": "uniform-wudang-5",
+      "rank": 5,
+      "sex": "female",
+      "key": "wudang-5-female"
+    },
+    {
+      "sect": "wudang",
+      "id": "uniform-wudang-6",
+      "rank": 6,
+      "sex": "male",
+      "key": "wudang-6-male"
+    },
+    {
+      "sect": "wudang",
+      "id": "uniform-wudang-6",
+      "rank": 6,
+      "sex": "female",
+      "key": "wudang-6-female"
+    },
+    {
+      "sect": "wudang",
+      "id": "uniform-wudang-7",
+      "rank": 7,
+      "sex": "male",
+      "key": "wudang-7-male"
+    },
+    {
+      "sect": "wudang",
+      "id": "uniform-wudang-7",
+      "rank": 7,
+      "sex": "female",
+      "key": "wudang-7-female"
+    },
+    {
+      "sect": "tangmen",
+      "id": "uniform-tangmen-0",
+      "rank": 0,
+      "sex": "male",
+      "key": "tangmen-0-male"
+    },
+    {
+      "sect": "tangmen",
+      "id": "uniform-tangmen-0",
+      "rank": 0,
+      "sex": "female",
+      "key": "tangmen-0-female"
+    },
+    {
+      "sect": "tangmen",
+      "id": "uniform-tangmen-1",
+      "rank": 1,
+      "sex": "male",
+      "key": "tangmen-1-male"
+    },
+    {
+      "sect": "tangmen",
+      "id": "uniform-tangmen-1",
+      "rank": 1,
+      "sex": "female",
+      "key": "tangmen-1-female"
+    },
+    {
+      "sect": "tangmen",
+      "id": "uniform-tangmen-2",
+      "rank": 2,
+      "sex": "male",
+      "key": "tangmen-2-male"
+    },
+    {
+      "sect": "tangmen",
+      "id": "uniform-tangmen-2",
+      "rank": 2,
+      "sex": "female",
+      "key": "tangmen-2-female"
+    },
+    {
+      "sect": "tangmen",
+      "id": "uniform-tangmen-3",
+      "rank": 3,
+      "sex": "male",
+      "key": "tangmen-3-male"
+    },
+    {
+      "sect": "tangmen",
+      "id": "uniform-tangmen-3",
+      "rank": 3,
+      "sex": "female",
+      "key": "tangmen-3-female"
+    },
+    {
+      "sect": "tangmen",
+      "id": "uniform-tangmen-4",
+      "rank": 4,
+      "sex": "male",
+      "key": "tangmen-4-male"
+    },
+    {
+      "sect": "tangmen",
+      "id": "uniform-tangmen-4",
+      "rank": 4,
+      "sex": "female",
+      "key": "tangmen-4-female"
+    },
+    {
+      "sect": "tangmen",
+      "id": "uniform-tangmen-5",
+      "rank": 5,
+      "sex": "male",
+      "key": "tangmen-5-male"
+    },
+    {
+      "sect": "tangmen",
+      "id": "uniform-tangmen-5",
+      "rank": 5,
+      "sex": "female",
+      "key": "tangmen-5-female"
+    },
+    {
+      "sect": "tangmen",
+      "id": "uniform-tangmen-6",
+      "rank": 6,
+      "sex": "male",
+      "key": "tangmen-6-male"
+    },
+    {
+      "sect": "tangmen",
+      "id": "uniform-tangmen-6",
+      "rank": 6,
+      "sex": "female",
+      "key": "tangmen-6-female"
+    },
+    {
+      "sect": "tangmen",
+      "id": "uniform-tangmen-7",
+      "rank": 7,
+      "sex": "male",
+      "key": "tangmen-7-male"
+    },
+    {
+      "sect": "tangmen",
+      "id": "uniform-tangmen-7",
+      "rank": 7,
+      "sex": "female",
+      "key": "tangmen-7-female"
+    },
+    {
+      "sect": "mojiao",
+      "id": "uniform-mojiao-0",
+      "rank": 0,
+      "sex": "male",
+      "key": "mojiao-0-male"
+    },
+    {
+      "sect": "mojiao",
+      "id": "uniform-mojiao-0",
+      "rank": 0,
+      "sex": "female",
+      "key": "mojiao-0-female"
+    },
+    {
+      "sect": "mojiao",
+      "id": "uniform-mojiao-1",
+      "rank": 1,
+      "sex": "male",
+      "key": "mojiao-1-male"
+    },
+    {
+      "sect": "mojiao",
+      "id": "uniform-mojiao-1",
+      "rank": 1,
+      "sex": "female",
+      "key": "mojiao-1-female"
+    },
+    {
+      "sect": "mojiao",
+      "id": "uniform-mojiao-2",
+      "rank": 2,
+      "sex": "male",
+      "key": "mojiao-2-male"
+    },
+    {
+      "sect": "mojiao",
+      "id": "uniform-mojiao-2",
+      "rank": 2,
+      "sex": "female",
+      "key": "mojiao-2-female"
+    },
+    {
+      "sect": "mojiao",
+      "id": "uniform-mojiao-3",
+      "rank": 3,
+      "sex": "male",
+      "key": "mojiao-3-male"
+    },
+    {
+      "sect": "mojiao",
+      "id": "uniform-mojiao-3",
+      "rank": 3,
+      "sex": "female",
+      "key": "mojiao-3-female"
+    },
+    {
+      "sect": "mojiao",
+      "id": "uniform-mojiao-4",
+      "rank": 4,
+      "sex": "male",
+      "key": "mojiao-4-male"
+    },
+    {
+      "sect": "mojiao",
+      "id": "uniform-mojiao-4",
+      "rank": 4,
+      "sex": "female",
+      "key": "mojiao-4-female"
+    },
+    {
+      "sect": "mojiao",
+      "id": "uniform-mojiao-5",
+      "rank": 5,
+      "sex": "male",
+      "key": "mojiao-5-male"
+    },
+    {
+      "sect": "mojiao",
+      "id": "uniform-mojiao-5",
+      "rank": 5,
+      "sex": "female",
+      "key": "mojiao-5-female"
+    },
+    {
+      "sect": "mojiao",
+      "id": "uniform-mojiao-6",
+      "rank": 6,
+      "sex": "male",
+      "key": "mojiao-6-male"
+    },
+    {
+      "sect": "mojiao",
+      "id": "uniform-mojiao-6",
+      "rank": 6,
+      "sex": "female",
+      "key": "mojiao-6-female"
+    },
+    {
+      "sect": "mojiao",
+      "id": "uniform-mojiao-7",
+      "rank": 7,
+      "sex": "male",
+      "key": "mojiao-7-male"
+    },
+    {
+      "sect": "mojiao",
+      "id": "uniform-mojiao-7",
+      "rank": 7,
+      "sex": "female",
+      "key": "mojiao-7-female"
+    },
+    {
+      "sect": "huashan",
+      "id": "uniform-huashan-0",
+      "rank": 0,
+      "sex": "male",
+      "key": "huashan-0-male"
+    },
+    {
+      "sect": "huashan",
+      "id": "uniform-huashan-0",
+      "rank": 0,
+      "sex": "female",
+      "key": "huashan-0-female"
+    },
+    {
+      "sect": "huashan",
+      "id": "uniform-huashan-1",
+      "rank": 1,
+      "sex": "male",
+      "key": "huashan-1-male"
+    },
+    {
+      "sect": "huashan",
+      "id": "uniform-huashan-1",
+      "rank": 1,
+      "sex": "female",
+      "key": "huashan-1-female"
+    },
+    {
+      "sect": "huashan",
+      "id": "uniform-huashan-2",
+      "rank": 2,
+      "sex": "male",
+      "key": "huashan-2-male"
+    },
+    {
+      "sect": "huashan",
+      "id": "uniform-huashan-2",
+      "rank": 2,
+      "sex": "female",
+      "key": "huashan-2-female"
+    },
+    {
+      "sect": "huashan",
+      "id": "uniform-huashan-3",
+      "rank": 3,
+      "sex": "male",
+      "key": "huashan-3-male"
+    },
+    {
+      "sect": "huashan",
+      "id": "uniform-huashan-3",
+      "rank": 3,
+      "sex": "female",
+      "key": "huashan-3-female"
+    },
+    {
+      "sect": "huashan",
+      "id": "uniform-huashan-4",
+      "rank": 4,
+      "sex": "male",
+      "key": "huashan-4-male"
+    },
+    {
+      "sect": "huashan",
+      "id": "uniform-huashan-4",
+      "rank": 4,
+      "sex": "female",
+      "key": "huashan-4-female"
+    },
+    {
+      "sect": "huashan",
+      "id": "uniform-huashan-5",
+      "rank": 5,
+      "sex": "male",
+      "key": "huashan-5-male"
+    },
+    {
+      "sect": "huashan",
+      "id": "uniform-huashan-5",
+      "rank": 5,
+      "sex": "female",
+      "key": "huashan-5-female"
+    },
+    {
+      "sect": "huashan",
+      "id": "uniform-huashan-6",
+      "rank": 6,
+      "sex": "male",
+      "key": "huashan-6-male"
+    },
+    {
+      "sect": "huashan",
+      "id": "uniform-huashan-6",
+      "rank": 6,
+      "sex": "female",
+      "key": "huashan-6-female"
+    },
+    {
+      "sect": "huashan",
+      "id": "uniform-huashan-7",
+      "rank": 7,
+      "sex": "male",
+      "key": "huashan-7-male"
+    },
+    {
+      "sect": "huashan",
+      "id": "uniform-huashan-7",
+      "rank": 7,
+      "sex": "female",
+      "key": "huashan-7-female"
+    },
+    {
+      "sect": "taohua",
+      "id": "uniform-taohua-0",
+      "rank": 0,
+      "sex": "male",
+      "key": "taohua-0-male"
+    },
+    {
+      "sect": "taohua",
+      "id": "uniform-taohua-0",
+      "rank": 0,
+      "sex": "female",
+      "key": "taohua-0-female"
+    },
+    {
+      "sect": "taohua",
+      "id": "uniform-taohua-1",
+      "rank": 1,
+      "sex": "male",
+      "key": "taohua-1-male"
+    },
+    {
+      "sect": "taohua",
+      "id": "uniform-taohua-1",
+      "rank": 1,
+      "sex": "female",
+      "key": "taohua-1-female"
+    },
+    {
+      "sect": "taohua",
+      "id": "uniform-taohua-2",
+      "rank": 2,
+      "sex": "male",
+      "key": "taohua-2-male"
+    },
+    {
+      "sect": "taohua",
+      "id": "uniform-taohua-2",
+      "rank": 2,
+      "sex": "female",
+      "key": "taohua-2-female"
+    },
+    {
+      "sect": "taohua",
+      "id": "uniform-taohua-3",
+      "rank": 3,
+      "sex": "male",
+      "key": "taohua-3-male"
+    },
+    {
+      "sect": "taohua",
+      "id": "uniform-taohua-3",
+      "rank": 3,
+      "sex": "female",
+      "key": "taohua-3-female"
+    },
+    {
+      "sect": "taohua",
+      "id": "uniform-taohua-4",
+      "rank": 4,
+      "sex": "male",
+      "key": "taohua-4-male"
+    },
+    {
+      "sect": "taohua",
+      "id": "uniform-taohua-4",
+      "rank": 4,
+      "sex": "female",
+      "key": "taohua-4-female"
+    },
+    {
+      "sect": "taohua",
+      "id": "uniform-taohua-5",
+      "rank": 5,
+      "sex": "male",
+      "key": "taohua-5-male"
+    },
+    {
+      "sect": "taohua",
+      "id": "uniform-taohua-5",
+      "rank": 5,
+      "sex": "female",
+      "key": "taohua-5-female"
+    },
+    {
+      "sect": "taohua",
+      "id": "uniform-taohua-6",
+      "rank": 6,
+      "sex": "male",
+      "key": "taohua-6-male"
+    },
+    {
+      "sect": "taohua",
+      "id": "uniform-taohua-6",
+      "rank": 6,
+      "sex": "female",
+      "key": "taohua-6-female"
+    },
+    {
+      "sect": "taohua",
+      "id": "uniform-taohua-7",
+      "rank": 7,
+      "sex": "male",
+      "key": "taohua-7-male"
+    },
+    {
+      "sect": "taohua",
+      "id": "uniform-taohua-7",
+      "rank": 7,
+      "sex": "female",
+      "key": "taohua-7-female"
+    },
+    {
+      "sect": "wugen",
+      "id": "uniform-wugen-0",
+      "rank": 0,
+      "sex": "male",
+      "key": "wugen-0-male"
+    },
+    {
+      "sect": "wugen",
+      "id": "uniform-wugen-0",
+      "rank": 0,
+      "sex": "female",
+      "key": "wugen-0-female"
+    },
+    {
+      "sect": "wugen",
+      "id": "uniform-wugen-1",
+      "rank": 1,
+      "sex": "male",
+      "key": "wugen-1-male"
+    },
+    {
+      "sect": "wugen",
+      "id": "uniform-wugen-1",
+      "rank": 1,
+      "sex": "female",
+      "key": "wugen-1-female"
+    },
+    {
+      "sect": "wugen",
+      "id": "uniform-wugen-2",
+      "rank": 2,
+      "sex": "male",
+      "key": "wugen-2-male"
+    },
+    {
+      "sect": "wugen",
+      "id": "uniform-wugen-2",
+      "rank": 2,
+      "sex": "female",
+      "key": "wugen-2-female"
+    },
+    {
+      "sect": "wugen",
+      "id": "uniform-wugen-3",
+      "rank": 3,
+      "sex": "male",
+      "key": "wugen-3-male"
+    },
+    {
+      "sect": "wugen",
+      "id": "uniform-wugen-3",
+      "rank": 3,
+      "sex": "female",
+      "key": "wugen-3-female"
+    },
+    {
+      "sect": "wugen",
+      "id": "uniform-wugen-4",
+      "rank": 4,
+      "sex": "male",
+      "key": "wugen-4-male"
+    },
+    {
+      "sect": "wugen",
+      "id": "uniform-wugen-4",
+      "rank": 4,
+      "sex": "female",
+      "key": "wugen-4-female"
+    },
+    {
+      "sect": "wugen",
+      "id": "uniform-wugen-5",
+      "rank": 5,
+      "sex": "male",
+      "key": "wugen-5-male"
+    },
+    {
+      "sect": "wugen",
+      "id": "uniform-wugen-5",
+      "rank": 5,
+      "sex": "female",
+      "key": "wugen-5-female"
+    },
+    {
+      "sect": "wugen",
+      "id": "uniform-wugen-6",
+      "rank": 6,
+      "sex": "male",
+      "key": "wugen-6-male"
+    },
+    {
+      "sect": "wugen",
+      "id": "uniform-wugen-6",
+      "rank": 6,
+      "sex": "female",
+      "key": "wugen-6-female"
+    },
+    {
+      "sect": "wugen",
+      "id": "uniform-wugen-7",
+      "rank": 7,
+      "sex": "male",
+      "key": "wugen-7-male"
+    },
+    {
+      "sect": "wugen",
+      "id": "uniform-wugen-7",
+      "rank": 7,
+      "sex": "female",
+      "key": "wugen-7-female"
+    }
+  ],
+  "technical_checks_passed": true
+}

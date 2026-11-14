@@ -1,0 +1,1010 @@
+[
+  {
+    "key": "tiandao-0-male",
+    "id": "uniform-tiandao-0",
+    "rank": 0,
+    "sex": "male",
+    "file": "sources/exec-c4cade5b-27a7-40a4-9d32-414a410c170e.png"
+  },
+  {
+    "key": "tiandao-0-female",
+    "id": "uniform-tiandao-0",
+    "rank": 0,
+    "sex": "female",
+    "file": "sources/exec-695d3a1d-8142-4ac3-8374-80aaa192462d.png"
+  },
+  {
+    "key": "tiandao-1-male",
+    "id": "uniform-tiandao-1",
+    "rank": 1,
+    "sex": "male",
+    "file": "sources/exec-ee04dbad-b042-40c7-afcb-c3d7e1245f6c.png"
+  },
+  {
+    "key": "tiandao-1-female",
+    "id": "uniform-tiandao-1",
+    "rank": 1,
+    "sex": "female",
+    "file": "sources/exec-4d86f6c4-8f64-47de-9d0c-b5b7d9e8fe9c.png"
+  },
+  {
+    "key": "tiandao-2-male",
+    "id": "uniform-tiandao-2",
+    "rank": 2,
+    "sex": "male",
+    "file": "sources/exec-b4dc14e6-a247-41ee-b3f3-58a5cfd500b5.png"
+  },
+  {
+    "key": "tiandao-2-female",
+    "id": "uniform-tiandao-2",
+    "rank": 2,
+    "sex": "female",
+    "file": "sources/exec-f462feb5-247d-4090-813d-8b95387cfafb.png"
+  },
+  {
+    "key": "tiandao-3-male",
+    "id": "uniform-tiandao-3",
+    "rank": 3,
+    "sex": "male",
+    "file": "sources/exec-0c5abcfb-3e5c-4cf2-afd5-72cc11da8d83.png"
+  },
+  {
+    "key": "tiandao-3-female",
+    "id": "uniform-tiandao-3",
+    "rank": 3,
+    "sex": "female",
+    "file": "sources/exec-da01b869-56f2-48b6-ab3f-e6c4ddd7a8a4.png"
+  },
+  {
+    "key": "tiandao-4-male",
+    "id": "uniform-tiandao-4",
+    "rank": 4,
+    "sex": "male",
+    "file": "sources/exec-378bc97f-3a09-48c9-b7fd-f7e73c394a27.png"
+  },
+  {
+    "key": "tiandao-4-female",
+    "id": "uniform-tiandao-4",
+    "rank": 4,
+    "sex": "female",
+    "file": "sources/exec-ab42e731-4a7b-49b1-8437-613c28d6682c.png"
+  },
+  {
+    "key": "tiandao-5-male",
+    "id": "uniform-tiandao-5",
+    "rank": 5,
+    "sex": "male",
+    "file": "sources/exec-c88bd633-eb99-4dd3-8386-c0e2acb4fac1.png"
+  },
+  {
+    "key": "tiandao-5-female",
+    "id": "uniform-tiandao-5",
+    "rank": 5,
+    "sex": "female",
+    "file": "sources/exec-785a7d70-92a5-427e-be26-e093c9e77a4d.png"
+  },
+  {
+    "key": "tiandao-6-male",
+    "id": "uniform-tiandao-6",
+    "rank": 6,
+    "sex": "male",
+    "file": "sources/exec-2f2b9b86-f750-4de0-9838-b55269f33b96.png"
+  },
+  {
+    "key": "tiandao-6-female",
+    "id": "uniform-tiandao-6",
+    "rank": 6,
+    "sex": "female",
+    "file": "sources/exec-50c3b934-85ff-4e24-bce4-077184788123.png"
+  },
+  {
+    "key": "tiandao-7-male",
+    "id": "uniform-tiandao-7",
+    "rank": 7,
+    "sex": "male",
+    "file": "sources/exec-ed66d31e-49dd-4dae-a812-a7c80b49f5cf.png"
+  },
+  {
+    "key": "tiandao-7-female",
+    "id": "uniform-tiandao-7",
+    "rank": 7,
+    "sex": "female",
+    "file": "sources/exec-00cee372-2a1f-4609-a7b9-714c48abca02.png"
+  },
+  {
+    "key": "emei-0-male",
+    "id": "uniform-emei-0",
+    "rank": 0,
+    "sex": "male",
+    "file": "sources/exec-4f1b9c4d-3048-4c5e-98a9-bd738dc2df7a.png"
+  },
+  {
+    "key": "emei-0-female",
+    "id": "uniform-emei-0",
+    "rank": 0,
+    "sex": "female",
+    "file": "sources/exec-e0af17e6-072b-4221-b4a4-73103e01f346.png"
+  },
+  {
+    "key": "emei-1-male",
+    "id": "uniform-emei-1",
+    "rank": 1,
+    "sex": "male",
+    "file": "sources/exec-2499c215-5c70-4c7c-874b-0a4e0428bfc3.png"
+  },
+  {
+    "key": "emei-1-female",
+    "id": "uniform-emei-1",
+    "rank": 1,
+    "sex": "female",
+    "file": "sources/exec-f32b43d8-64ff-4313-9f45-0400a7d27220.png"
+  },
+  {
+    "key": "emei-2-male",
+    "id": "uniform-emei-2",
+    "rank": 2,
+    "sex": "male",
+    "file": "sources/exec-b5ff9b1b-a2f9-4040-bcaf-e68dec01b92f.png"
+  },
+  {
+    "key": "emei-2-female",
+    "id": "uniform-emei-2",
+    "rank": 2,
+    "sex": "female",
+    "file": "sources/exec-2939c152-4bdd-4b4b-a444-8bd20a416b04.png"
+  },
+  {
+    "key": "emei-3-male",
+    "id": "uniform-emei-3",
+    "rank": 3,
+    "sex": "male",
+    "file": "sources/exec-4d73372c-0453-4fe9-b170-e022a8d41dd5.png"
+  },
+  {
+    "key": "emei-3-female",
+    "id": "uniform-emei-3",
+    "rank": 3,
+    "sex": "female",
+    "file": "sources/exec-a3354503-2f78-4c41-b6b7-ad9cb7268551.png"
+  },
+  {
+    "key": "emei-4-male",
+    "id": "uniform-emei-4",
+    "rank": 4,
+    "sex": "male",
+    "file": "sources/exec-dad8d496-2e0c-4f7e-a354-56e9a4b570be.png"
+  },
+  {
+    "key": "emei-4-female",
+    "id": "uniform-emei-4",
+    "rank": 4,
+    "sex": "female",
+    "file": "sources/exec-0610e0b6-6374-4b42-81d7-1fc4a524de66.png"
+  },
+  {
+    "key": "emei-5-male",
+    "id": "uniform-emei-5",
+    "rank": 5,
+    "sex": "male",
+    "file": "sources/exec-87b88f5a-aef4-4417-90db-8e5579422c38.png"
+  },
+  {
+    "key": "emei-5-female",
+    "id": "uniform-emei-5",
+    "rank": 5,
+    "sex": "female",
+    "file": "sources/exec-4415936e-1631-4d8a-90f0-9794bea279e4.png"
+  },
+  {
+    "key": "emei-6-male",
+    "id": "uniform-emei-6",
+    "rank": 6,
+    "sex": "male",
+    "file": "sources/exec-0f1aa952-3f10-4c06-ac6c-d79b8c7ad493.png"
+  },
+  {
+    "key": "emei-6-female",
+    "id": "uniform-emei-6",
+    "rank": 6,
+    "sex": "female",
+    "file": "sources/exec-6f6fa51e-3b19-4b38-8692-81c97e988a2e.png"
+  },
+  {
+    "key": "emei-7-male",
+    "id": "uniform-emei-7",
+    "rank": 7,
+    "sex": "male",
+    "file": "sources/exec-6598125a-9658-457c-8d27-e19a8bdf079e.png"
+  },
+  {
+    "key": "emei-7-female",
+    "id": "uniform-emei-7",
+    "rank": 7,
+    "sex": "female",
+    "file": "sources/exec-d187b1fa-d14c-4aa4-a3c1-f1e15bab44d0.png"
+  },
+  {
+    "key": "shaolin-0-male",
+    "id": "uniform-shaolin-0",
+    "rank": 0,
+    "sex": "male",
+    "file": "sources/exec-5142d941-f35c-40e5-b68c-bacf7941aa7e.png"
+  },
+  {
+    "key": "shaolin-0-female",
+    "id": "uniform-shaolin-0",
+    "rank": 0,
+    "sex": "female",
+    "file": "sources/exec-3adff62c-2b2d-4782-bc3e-97e449816bae.png"
+  },
+  {
+    "key": "shaolin-1-male",
+    "id": "uniform-shaolin-1",
+    "rank": 1,
+    "sex": "male",
+    "file": "sources/exec-3bf4898a-f6a1-45fd-9c47-94f20ad218cc.png"
+  },
+  {
+    "key": "shaolin-1-female",
+    "id": "uniform-shaolin-1",
+    "rank": 1,
+    "sex": "female",
+    "file": "sources/exec-91dcc234-08c3-42b2-a01f-2530a603769d.png"
+  },
+  {
+    "key": "shaolin-2-male",
+    "id": "uniform-shaolin-2",
+    "rank": 2,
+    "sex": "male",
+    "file": "sources/exec-20407918-824d-4f1f-8335-b7ac32a17de7.png"
+  },
+  {
+    "key": "shaolin-2-female",
+    "id": "uniform-shaolin-2",
+    "rank": 2,
+    "sex": "female",
+    "file": "sources/exec-00058ff6-e15a-4081-8cb1-bae6b2f2a5e4.png"
+  },
+  {
+    "key": "shaolin-3-male",
+    "id": "uniform-shaolin-3",
+    "rank": 3,
+    "sex": "male",
+    "file": "sources/exec-5137e12b-d2c0-4aed-a3fd-022698e05d13.png"
+  },
+  {
+    "key": "shaolin-3-female",
+    "id": "uniform-shaolin-3",
+    "rank": 3,
+    "sex": "female",
+    "file": "sources/exec-7ed874a8-4d8b-4e7b-b94f-74508419502a.png"
+  },
+  {
+    "key": "shaolin-4-male",
+    "id": "uniform-shaolin-4",
+    "rank": 4,
+    "sex": "male",
+    "file": "sources/exec-98b100cf-b1dd-4c8f-9a9f-5fdf0160e709.png"
+  },
+  {
+    "key": "shaolin-4-female",
+    "id": "uniform-shaolin-4",
+    "rank": 4,
+    "sex": "female",
+    "file": "sources/exec-8d7a4c0e-4fe5-48a8-813b-647045d53dbc.png"
+  },
+  {
+    "key": "shaolin-5-male",
+    "id": "uniform-shaolin-5",
+    "rank": 5,
+    "sex": "male",
+    "file": "sources/exec-aec2b25c-5e14-45ef-8358-77b423a78212.png"
+  },
+  {
+    "key": "shaolin-5-female",
+    "id": "uniform-shaolin-5",
+    "rank": 5,
+    "sex": "female",
+    "file": "sources/exec-b4b8dd18-15b8-45be-88ac-34921b1fe018.png"
+  },
+  {
+    "key": "shaolin-6-male",
+    "id": "uniform-shaolin-6",
+    "rank": 6,
+    "sex": "male",
+    "file": "sources/exec-8ce98549-3ecf-4b63-b636-f2d2f15d23aa.png"
+  },
+  {
+    "key": "shaolin-6-female",
+    "id": "uniform-shaolin-6",
+    "rank": 6,
+    "sex": "female",
+    "file": "sources/exec-7773c1b1-1dd3-43d4-ab1e-f9eedc2ca385.png"
+  },
+  {
+    "key": "shaolin-7-male",
+    "id": "uniform-shaolin-7",
+    "rank": 7,
+    "sex": "male",
+    "file": "sources/exec-66a74789-2722-4de9-bcbc-d948063054be.png"
+  },
+  {
+    "key": "shaolin-7-female",
+    "id": "uniform-shaolin-7",
+    "rank": 7,
+    "sex": "female",
+    "file": "sources/exec-cba38347-672d-40aa-891d-9c1e80e0d364.png"
+  },
+  {
+    "key": "wudang-0-male",
+    "id": "uniform-wudang-0",
+    "rank": 0,
+    "sex": "male",
+    "file": "sources/exec-501831a0-a34a-4071-b870-2793bd2f6179.png"
+  },
+  {
+    "key": "wudang-0-female",
+    "id": "uniform-wudang-0",
+    "rank": 0,
+    "sex": "female",
+    "file": "sources/exec-dc9ca578-1a50-4cc3-a491-ce59ead1c5d4.png"
+  },
+  {
+    "key": "wudang-1-male",
+    "id": "uniform-wudang-1",
+    "rank": 1,
+    "sex": "male",
+    "file": "sources/exec-5a89dea0-3d67-4d2b-99c8-507843bb87eb.png"
+  },
+  {
+    "key": "wudang-1-female",
+    "id": "uniform-wudang-1",
+    "rank": 1,
+    "sex": "female",
+    "file": "sources/exec-3e35f684-9894-4477-b73a-f0d3d7acf99b.png"
+  },
+  {
+    "key": "wudang-2-male",
+    "id": "uniform-wudang-2",
+    "rank": 2,
+    "sex": "male",
+    "file": "sources/exec-249e7262-69dc-40bd-bdf7-6fbbf3fbdae3.png"
+  },
+  {
+    "key": "wudang-2-female",
+    "id": "uniform-wudang-2",
+    "rank": 2,
+    "sex": "female",
+    "file": "sources/exec-8d837925-b04b-4776-9034-ebaa0193dbc9.png"
+  },
+  {
+    "key": "wudang-3-male",
+    "id": "uniform-wudang-3",
+    "rank": 3,
+    "sex": "male",
+    "file": "sources/exec-f221398f-4950-4c20-8bfd-38e2a8ee4285.png"
+  },
+  {
+    "key": "wudang-3-female",
+    "id": "uniform-wudang-3",
+    "rank": 3,
+    "sex": "female",
+    "file": "sources/exec-ad9e1aec-0932-4961-960d-7f83ecb8cc69.png"
+  },
+  {
+    "key": "wudang-4-male",
+    "id": "uniform-wudang-4",
+    "rank": 4,
+    "sex": "male",
+    "file": "sources/exec-4f1b6fb6-dfc7-44bf-9999-6453c8d7cc3c.png"
+  },
+  {
+    "key": "wudang-4-female",
+    "id": "uniform-wudang-4",
+    "rank": 4,
+    "sex": "female",
+    "file": "sources/exec-6921c7de-7dd9-402e-b10d-f42904876770.png"
+  },
+  {
+    "key": "wudang-5-male",
+    "id": "uniform-wudang-5",
+    "rank": 5,
+    "sex": "male",
+    "file": "sources/exec-551584da-18a9-4ca4-97d5-09e84054f51f.png"
+  },
+  {
+    "key": "wudang-5-female",
+    "id": "uniform-wudang-5",
+    "rank": 5,
+    "sex": "female",
+    "file": "sources/exec-6e91ef43-6597-4512-9cd4-ade7ab90a6de.png"
+  },
+  {
+    "key": "wudang-6-male",
+    "id": "uniform-wudang-6",
+    "rank": 6,
+    "sex": "male",
+    "file": "sources/exec-91f919c0-404b-4b25-af51-3ebfeda3a2ba.png"
+  },
+  {
+    "key": "wudang-6-female",
+    "id": "uniform-wudang-6",
+    "rank": 6,
+    "sex": "female",
+    "file": "sources/exec-3a96dfba-b57e-4c62-ae27-6600c53995b7.png"
+  },
+  {
+    "key": "wudang-7-male",
+    "id": "uniform-wudang-7",
+    "rank": 7,
+    "sex": "male",
+    "file": "sources/exec-71c6a0e9-5695-4419-8e1b-2d8397b1d930.png"
+  },
+  {
+    "key": "wudang-7-female",
+    "id": "uniform-wudang-7",
+    "rank": 7,
+    "sex": "female",
+    "file": "sources/exec-4eaf8e99-e31d-4a2e-b280-b250f453a8b1.png"
+  },
+  {
+    "key": "tangmen-0-male",
+    "id": "uniform-tangmen-0",
+    "rank": 0,
+    "sex": "male",
+    "file": "sources/exec-306ad41e-c43f-4c3f-bc80-d084938eb8fa.png"
+  },
+  {
+    "key": "tangmen-0-female",
+    "id": "uniform-tangmen-0",
+    "rank": 0,
+    "sex": "female",
+    "file": "sources/exec-b820cbf9-34f7-4f26-ae42-d7ebfcacdbad.png"
+  },
+  {
+    "key": "tangmen-1-male",
+    "id": "uniform-tangmen-1",
+    "rank": 1,
+    "sex": "male",
+    "file": "sources/exec-ccbbc6f2-5d83-437b-9036-fa54d51a1631.png"
+  },
+  {
+    "key": "tangmen-1-female",
+    "id": "uniform-tangmen-1",
+    "rank": 1,
+    "sex": "female",
+    "file": "sources/exec-f925be4d-658e-434e-9c68-5fb604c22c21.png"
+  },
+  {
+    "key": "tangmen-2-male",
+    "id": "uniform-tangmen-2",
+    "rank": 2,
+    "sex": "male",
+    "file": "sources/exec-4f6bb036-724c-4477-9dac-06c2513f9982.png"
+  },
+  {
+    "key": "tangmen-2-female",
+    "id": "uniform-tangmen-2",
+    "rank": 2,
+    "sex": "female",
+    "file": "sources/exec-39d4caa7-3e3d-46bc-826b-010aa767b399.png"
+  },
+  {
+    "key": "tangmen-3-male",
+    "id": "uniform-tangmen-3",
+    "rank": 3,
+    "sex": "male",
+    "file": "sources/exec-0f582751-e7e0-4619-8459-ede456348d18.png"
+  },
+  {
+    "key": "tangmen-3-female",
+    "id": "uniform-tangmen-3",
+    "rank": 3,
+    "sex": "female",
+    "file": "sources/exec-1b340266-175a-4218-a1eb-6c6ed7c7d764.png"
+  },
+  {
+    "key": "tangmen-4-male",
+    "id": "uniform-tangmen-4",
+    "rank": 4,
+    "sex": "male",
+    "file": "sources/exec-8095c3ce-c3b7-4187-aeaa-47ff3afeefb4.png"
+  },
+  {
+    "key": "tangmen-4-female",
+    "id": "uniform-tangmen-4",
+    "rank": 4,
+    "sex": "female",
+    "file": "sources/exec-948504d6-a74c-4ab4-a062-08224d1082a8.png"
+  },
+  {
+    "key": "tangmen-5-male",
+    "id": "uniform-tangmen-5",
+    "rank": 5,
+    "sex": "male",
+    "file": "sources/exec-d5724e69-9425-4139-b2d6-0f2460de7a29.png"
+  },
+  {
+    "key": "tangmen-5-female",
+    "id": "uniform-tangmen-5",
+    "rank": 5,
+    "sex": "female",
+    "file": "sources/exec-5d88c124-0124-4dad-9ddc-cd63809f3bff.png"
+  },
+  {
+    "key": "tangmen-6-male",
+    "id": "uniform-tangmen-6",
+    "rank": 6,
+    "sex": "male",
+    "file": "sources/exec-97b341ac-0cf3-42c2-9c08-7a19e8e9d87e.png"
+  },
+  {
+    "key": "tangmen-6-female",
+    "id": "uniform-tangmen-6",
+    "rank": 6,
+    "sex": "female",
+    "file": "sources/exec-0fb6061f-6f2f-4ecb-86c0-052d7300ba75.png"
+  },
+  {
+    "key": "tangmen-7-male",
+    "id": "uniform-tangmen-7",
+    "rank": 7,
+    "sex": "male",
+    "file": "sources/exec-9e478e42-9345-43ac-8dde-453c03adb71f.png"
+  },
+  {
+    "key": "tangmen-7-female",
+    "id": "uniform-tangmen-7",
+    "rank": 7,
+    "sex": "female",
+    "file": "sources/exec-d785b4ed-a9e2-4257-a09e-5d40466d449e.png"
+  },
+  {
+    "key": "mojiao-0-male",
+    "id": "uniform-mojiao-0",
+    "rank": 0,
+    "sex": "male",
+    "file": "sources/exec-3ceb8d92-8175-4d66-844d-9185c83673f7.png"
+  },
+  {
+    "key": "mojiao-0-female",
+    "id": "uniform-mojiao-0",
+    "rank": 0,
+    "sex": "female",
+    "file": "sources/exec-5216caa3-dd00-49ed-808c-7db5974f24fd.png"
+  },
+  {
+    "key": "mojiao-1-male",
+    "id": "uniform-mojiao-1",
+    "rank": 1,
+    "sex": "male",
+    "file": "sources/exec-b5e52fbf-b6f2-4097-9bfd-d215d206dd72.png"
+  },
+  {
+    "key": "mojiao-1-female",
+    "id": "uniform-mojiao-1",
+    "rank": 1,
+    "sex": "female",
+    "file": "sources/exec-60d8cf52-0b7b-45c7-90c4-771567d9f7a2.png"
+  },
+  {
+    "key": "mojiao-2-male",
+    "id": "uniform-mojiao-2",
+    "rank": 2,
+    "sex": "male",
+    "file": "sources/exec-c13de0ed-2bc5-43b7-b5a0-edf8b00971e5.png"
+  },
+  {
+    "key": "mojiao-2-female",
+    "id": "uniform-mojiao-2",
+    "rank": 2,
+    "sex": "female",
+    "file": "sources/exec-e65113a8-c10e-4ac6-a854-9a40b0565fe9.png"
+  },
+  {
+    "key": "mojiao-3-male",
+    "id": "uniform-mojiao-3",
+    "rank": 3,
+    "sex": "male",
+    "file": "sources/exec-f270d26d-798b-46c8-b7eb-06d46af9ac50.png"
+  },
+  {
+    "key": "mojiao-3-female",
+    "id": "uniform-mojiao-3",
+    "rank": 3,
+    "sex": "female",
+    "file": "sources/exec-d907b962-d1c9-4724-8ed0-9c7a8ae0947a.png"
+  },
+  {
+    "key": "mojiao-4-male",
+    "id": "uniform-mojiao-4",
+    "rank": 4,
+    "sex": "male",
+    "file": "sources/exec-6111f4ad-6d0d-4218-a474-5e8c45484229.png"
+  },
+  {
+    "key": "mojiao-4-female",
+    "id": "uniform-mojiao-4",
+    "rank": 4,
+    "sex": "female",
+    "file": "sources/exec-b82d7b6f-4cee-449c-87e3-a65a706396df.png"
+  },
+  {
+    "key": "mojiao-5-male",
+    "id": "uniform-mojiao-5",
+    "rank": 5,
+    "sex": "male",
+    "file": "sources/exec-8a8ce458-0324-4ff9-8197-c24ffdea0fb4.png"
+  },
+  {
+    "key": "mojiao-5-female",
+    "id": "uniform-mojiao-5",
+    "rank": 5,
+    "sex": "female",
+    "file": "sources/exec-c3bd357c-538f-4e14-af64-6d4d6ffaee6d.png"
+  },
+  {
+    "key": "mojiao-6-male",
+    "id": "uniform-mojiao-6",
+    "rank": 6,
+    "sex": "male",
+    "file": "sources/exec-fd09b1f5-a3bf-4067-aab6-12a8348d75ac.png"
+  },
+  {
+    "key": "mojiao-6-female",
+    "id": "uniform-mojiao-6",
+    "rank": 6,
+    "sex": "female",
+    "file": "sources/exec-b69b86fa-70f5-4011-af52-e5d5d7f5e2d4.png"
+  },
+  {
+    "key": "mojiao-7-male",
+    "id": "uniform-mojiao-7",
+    "rank": 7,
+    "sex": "male",
+    "file": "sources/exec-5d7bad22-06cc-47bc-9d57-0bf3633f5330.png"
+  },
+  {
+    "key": "mojiao-7-female",
+    "id": "uniform-mojiao-7",
+    "rank": 7,
+    "sex": "female",
+    "file": "sources/exec-0ef96983-34fe-4e4b-82c4-4d725559969e.png"
+  },
+  {
+    "key": "huashan-0-male",
+    "id": "uniform-huashan-0",
+    "rank": 0,
+    "sex": "male",
+    "file": "sources/exec-f61ed7bd-ce2b-4d76-a274-6d4206905a90.png"
+  },
+  {
+    "key": "huashan-0-female",
+    "id": "uniform-huashan-0",
+    "rank": 0,
+    "sex": "female",
+    "file": "sources/exec-0bbc21fe-0bea-47f9-a671-2c603efdcf90.png"
+  },
+  {
+    "key": "huashan-1-male",
+    "id": "uniform-huashan-1",
+    "rank": 1,
+    "sex": "male",
+    "file": "sources/exec-5a3b30ae-b641-430d-8ca8-3ca4afc7c20f.png"
+  },
+  {
+    "key": "huashan-1-female",
+    "id": "uniform-huashan-1",
+    "rank": 1,
+    "sex": "female",
+    "file": "sources/exec-163b08a3-bf64-4e76-85a5-9fee75485a4c.png"
+  },
+  {
+    "key": "huashan-2-male",
+    "id": "uniform-huashan-2",
+    "rank": 2,
+    "sex": "male",
+    "file": "sources/exec-9eaec59a-e956-4dc0-a6b4-ec1be65af8ac.png"
+  },
+  {
+    "key": "huashan-2-female",
+    "id": "uniform-huashan-2",
+    "rank": 2,
+    "sex": "female",
+    "file": "sources/exec-dc7193db-5fdf-40b9-9736-ad244a1c84d8.png"
+  },
+  {
+    "key": "huashan-3-male",
+    "id": "uniform-huashan-3",
+    "rank": 3,
+    "sex": "male",
+    "file": "sources/exec-eadcf971-279e-466f-80b2-d32789f8a177.png"
+  },
+  {
+    "key": "huashan-3-female",
+    "id": "uniform-huashan-3",
+    "rank": 3,
+    "sex": "female",
+    "file": "sources/exec-434d47dc-d880-4340-8c7e-e0094c0a56ed.png"
+  },
+  {
+    "key": "huashan-4-male",
+    "id": "uniform-huashan-4",
+    "rank": 4,
+    "sex": "male",
+    "file": "sources/exec-b26d7960-acba-495f-bf92-fb37ebac5df1.png"
+  },
+  {
+    "key": "huashan-4-female",
+    "id": "uniform-huashan-4",
+    "rank": 4,
+    "sex": "female",
+    "file": "sources/exec-be349cfc-fcb0-41e6-b13f-e50953eb9320.png"
+  },
+  {
+    "key": "huashan-5-male",
+    "id": "uniform-huashan-5",
+    "rank": 5,
+    "sex": "male",
+    "file": "sources/exec-f978efeb-f742-40a8-978e-5435cbcc03f4.png"
+  },
+  {
+    "key": "huashan-5-female",
+    "id": "uniform-huashan-5",
+    "rank": 5,
+    "sex": "female",
+    "file": "sources/exec-9089b42f-52d6-40c0-901a-dabffd0c7172.png"
+  },
+  {
+    "key": "huashan-6-male",
+    "id": "uniform-huashan-6",
+    "rank": 6,
+    "sex": "male",
+    "file": "sources/exec-30688878-e859-4d40-8cb2-2def1c1c87b2.png"
+  },
+  {
+    "key": "huashan-6-female",
+    "id": "uniform-huashan-6",
+    "rank": 6,
+    "sex": "female",
+    "file": "sources/exec-ed774144-235b-4b44-8f1d-2087e8cbfccd.png"
+  },
+  {
+    "key": "huashan-7-male",
+    "id": "uniform-huashan-7",
+    "rank": 7,
+    "sex": "male",
+    "file": "sources/exec-e8489ada-cde6-4cef-aec7-3b545ac22b3b.png"
+  },
+  {
+    "key": "huashan-7-female",
+    "id": "uniform-huashan-7",
+    "rank": 7,
+    "sex": "female",
+    "file": "sources/exec-5b992a5b-83c1-4104-89ac-a2ca248aa814.png"
+  },
+  {
+    "key": "taohua-0-male",
+    "id": "uniform-taohua-0",
+    "rank": 0,
+    "sex": "male",
+    "file": "sources/exec-c1f6cf3b-7826-4f75-83a7-283f86080a39.png"
+  },
+  {
+    "key": "taohua-0-female",
+    "id": "uniform-taohua-0",
+    "rank": 0,
+    "sex": "female",
+    "file": "sources/exec-c86af2ec-945f-4014-9eaa-3c5f3925248a.png"
+  },
+  {
+    "key": "taohua-1-male",
+    "id": "uniform-taohua-1",
+    "rank": 1,
+    "sex": "male",
+    "file": "sources/exec-3289f0d2-2a7e-418b-8229-8e805d65b666.png"
+  },
+  {
+    "key": "taohua-1-female",
+    "id": "uniform-taohua-1",
+    "rank": 1,
+    "sex": "female",
+    "file": "sources/exec-4aeb6b92-eb61-486f-9d0b-fbefc6a0ffdf.png"
+  },
+  {
+    "key": "taohua-2-male",
+    "id": "uniform-taohua-2",
+    "rank": 2,
+    "sex": "male",
+    "file": "sources/exec-c5d59b2c-7c54-4892-9529-a71068247a6c.png"
+  },
+  {
+    "key": "taohua-2-female",
+    "id": "uniform-taohua-2",
+    "rank": 2,
+    "sex": "female",
+    "file": "sources/exec-43ce6ddc-8ef1-4f7c-b7db-3740f538ce57.png"
+  },
+  {
+    "key": "taohua-3-male",
+    "id": "uniform-taohua-3",
+    "rank": 3,
+    "sex": "male",
+    "file": "sources/exec-2df59acc-b900-4ea8-b33f-3046fff45f0a.png"
+  },
+  {
+    "key": "taohua-3-female",
+    "id": "uniform-taohua-3",
+    "rank": 3,
+    "sex": "female",
+    "file": "sources/exec-21cf0d66-0675-414a-ba1e-d88f4627dab3.png"
+  },
+  {
+    "key": "taohua-4-male",
+    "id": "uniform-taohua-4",
+    "rank": 4,
+    "sex": "male",
+    "file": "sources/exec-e96d8c0e-a4a8-4c93-986f-c1c0cbd2aa45.png"
+  },
+  {
+    "key": "taohua-4-female",
+    "id": "uniform-taohua-4",
+    "rank": 4,
+    "sex": "female",
+    "file": "sources/exec-c8237d52-2689-4bb5-8849-1a6cd6ab8aaa.png"
+  },
+  {
+    "key": "taohua-5-male",
+    "id": "uniform-taohua-5",
+    "rank": 5,
+    "sex": "male",
+    "file": "sources/exec-2bc504cc-f479-4029-8dc9-a9ed221a99ec.png"
+  },
+  {
+    "key": "taohua-5-female",
+    "id": "uniform-taohua-5",
+    "rank": 5,
+    "sex": "female",
+    "file": "sources/exec-e67366b6-3814-481a-af41-a4779ce87794.png"
+  },
+  {
+    "key": "taohua-6-male",
+    "id": "uniform-taohua-6",
+    "rank": 6,
+    "sex": "male",
+    "file": "sources/exec-04fdf14f-3570-4c43-ae24-d96ae7a444f4.png"
+  },
+  {
+    "key": "taohua-6-female",
+    "id": "uniform-taohua-6",
+    "rank": 6,
+    "sex": "female",
+    "file": "sources/exec-b7d324e3-5a84-47d6-b2a2-70c5617d3cfb.png"
+  },
+  {
+    "key": "taohua-7-male",
+    "id": "uniform-taohua-7",
+    "rank": 7,
+    "sex": "male",
+    "file": "sources/exec-91513c88-05c0-4e10-b025-812148d31c1f.png"
+  },
+  {
+    "key": "taohua-7-female",
+    "id": "uniform-taohua-7",
+    "rank": 7,
+    "sex": "female",
+    "file": "sources/exec-31504558-540b-4fcb-a220-46202d6c047d.png"
+  },
+  {
+    "key": "wugen-0-male",
+    "id": "uniform-wugen-0",
+    "rank": 0,
+    "sex": "male",
+    "file": "sources/exec-d9db6205-0cdd-4695-84eb-38cb57977818.png"
+  },
+  {
+    "key": "wugen-0-female",
+    "id": "uniform-wugen-0",
+    "rank": 0,
+    "sex": "female",
+    "file": "sources/exec-e7050fb1-4f59-4c1b-a74f-3f943db70407.png"
+  },
+  {
+    "key": "wugen-1-male",
+    "id": "uniform-wugen-1",
+    "rank": 1,
+    "sex": "male",
+    "file": "sources/exec-6b32089e-eb8d-42cf-b652-2db61f023557.png"
+  },
+  {
+    "key": "wugen-1-female",
+    "id": "uniform-wugen-1",
+    "rank": 1,
+    "sex": "female",
+    "file": "sources/exec-32ac73d6-2c36-41ab-ba71-e842066337bd.png"
+  },
+  {
+    "key": "wugen-2-male",
+    "id": "uniform-wugen-2",
+    "rank": 2,
+    "sex": "male",
+    "file": "sources/exec-5cf3564b-cdd0-4ce9-85c6-5c6e9aefd859.png"
+  },
+  {
+    "key": "wugen-2-female",
+    "id": "uniform-wugen-2",
+    "rank": 2,
+    "sex": "female",
+    "file": "sources/exec-acbd2181-f927-4330-9de6-ad111d2549d1.png"
+  },
+  {
+    "key": "wugen-3-male",
+    "id": "uniform-wugen-3",
+    "rank": 3,
+    "sex": "male",
+    "file": "sources/exec-652d5434-7308-4868-a2ba-d98b4c6ec4ad.png"
+  },
+  {
+    "key": "wugen-3-female",
+    "id": "uniform-wugen-3",
+    "rank": 3,
+    "sex": "female",
+    "file": "sources/exec-379a538c-6787-4dee-a98d-bb85b795d34b.png"
+  },
+  {
+    "key": "wugen-4-male",
+    "id": "uniform-wugen-4",
+    "rank": 4,
+    "sex": "male",
+    "file": "sources/exec-0232b518-bf96-4a9a-b6ce-0215dee792ee.png"
+  },
+  {
+    "key": "wugen-4-female",
+    "id": "uniform-wugen-4",
+    "rank": 4,
+    "sex": "female",
+    "file": "sources/exec-63f165a9-f8b3-4cb2-916e-53973f60cc5e.png"
+  },
+  {
+    "key": "wugen-5-male",
+    "id": "uniform-wugen-5",
+    "rank": 5,
+    "sex": "male",
+    "file": "sources/exec-7caf733c-f140-4f07-a6df-1edaba447c46.png"
+  },
+  {
+    "key": "wugen-5-female",
+    "id": "uniform-wugen-5",
+    "rank": 5,
+    "sex": "female",
+    "file": "sources/exec-9f57f9e2-47d3-405d-9944-a055e82a1ee6.png"
+  },
+  {
+    "key": "wugen-6-male",
+    "id": "uniform-wugen-6",
+    "rank": 6,
+    "sex": "male",
+    "file": "sources/exec-d71b3a8a-1ee1-4474-aa6a-42b80b3db09c.png"
+  },
+  {
+    "key": "wugen-6-female",
+    "id": "uniform-wugen-6",
+    "rank": 6,
+    "sex": "female",
+    "file": "sources/exec-eab4199f-c60c-4075-9f67-0d917da3ba1f.png"
+  },
+  {
+    "key": "wugen-7-male",
+    "id": "uniform-wugen-7",
+    "rank": 7,
+    "sex": "male",
+    "file": "sources/exec-69e1a8c5-3e5e-4c31-8988-481d62820937.png"
+  },
+  {
+    "key": "wugen-7-female",
+    "id": "uniform-wugen-7",
+    "rank": 7,
+    "sex": "female",
+    "file": "sources/exec-bc1eb10f-eaf3-4d09-8331-e6c307f8979b.png"
+  }
+]

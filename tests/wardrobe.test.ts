@@ -1,5 +1,6 @@
 import { describe,it,expect,vi } from 'vitest';
-import { COSTUME_IDS,FASHION_COSTUME_IDS,UNIFORM_COSTUME_IDS,canWearCostume } from '../interfaces/costumes';
+import { COSTUME_IDS,FASHION_COSTUME_IDS,UNIFORM_COSTUME_IDS,UNIFORM_SECT_KEYS,canWearCostume } from '../interfaces/costumes';
+import { SECT_UNIFORM_GROUPS,uniformsForSect } from '../data/wardrobe';
 import { appearanceOf,appearanceKey,readAppearance } from '../interfaces/appearance';
 import { SECT_RANKS,SECT_CONTENT } from '../data/content/packs';
 import { createNewLife,migrateLifeState } from '../core/life/gameState';
@@ -12,12 +13,33 @@ const look={head:'silver',outfit:'traveller',tone:'jade'} as const;
 function life(){const s=createNewLife({seed:9642,skipCoach:true});s.pending=null;s.character.sectId='sect_qingyun';s.character.sectStanding=2;return s;}
 describe('門派服及免費時裝',()=>{
   it('test_wardrobe_真身份及已達職位_不可跨派或越級但可穿較低階制服',()=>{
-    expect(UNIFORM_COSTUME_IDS).toHaveLength(SECT_RANKS.length);
-    for(const sect of SECT_CONTENT)for(let standing=0;standing<SECT_RANKS.length;standing++)for(const [rank,id] of UNIFORM_COSTUME_IDS.entries()){
-      expect(canWearCostume({sectId:sect.id,sectStanding:standing},id)).toBe(sect.id==='sect_qingyun'&&rank<=standing);
+    expect(UNIFORM_COSTUME_IDS).toHaveLength(SECT_RANKS.length*SECT_CONTENT.length);
+    expect(UNIFORM_SECT_KEYS.map(key=>`sect_${key}`)).toEqual(SECT_CONTENT.map(sect=>sect.id));
+    expect(SECT_UNIFORM_GROUPS.map(sect=>sect.id)).toEqual(SECT_CONTENT.map(sect=>sect.id));
+    for(const sect of SECT_CONTENT){
+      expect(uniformsForSect(sect.id)).toHaveLength(SECT_RANKS.length);
+      for(let standing=0;standing<SECT_RANKS.length;standing++)for(const id of UNIFORM_COSTUME_IDS){
+        const [,key,rank]=id.split('-');
+        expect(canWearCostume({sectId:sect.id,sectStanding:standing},id)).toBe(sect.id===`sect_${key}`&&Number(rank)<=standing);
+      }
     }
     for(const invalid of [NaN,Infinity,-1,1.5,8,99])expect(canWearCostume({sectId:'sect_qingyun',sectStanding:invalid},UNIFORM_COSTUME_IDS[0])).toBe(false);
     expect(canWearCostume({sectId:null,sectStanding:7},UNIFORM_COSTUME_IDS[7])).toBe(false);
+  });
+  it('test_wardrobe_十派真指令_本派可換而其他九派不可越權且轉派回退',()=>{
+    for(const sect of SECT_CONTENT){
+      const state=life();state.character.sectId=sect.id;state.character.sectStanding=1;
+      let current={state,combatReplay:null} as LifeStore;
+      const actions=createCharacterSlice(p=>{current={...current,...p};},()=>current,vi.fn());
+      for(const target of SECT_CONTENT){
+        const costume=uniformsForSect(target.id)[1].id;
+        expect(actions.setAppearance({...look,costume})).toBe(target.id===sect.id);
+      }
+      expect(actions.setAppearance({...look,costume:uniformsForSect(sect.id)[7].id})).toBe(false);
+      expect(actions.setAppearance({...look,costume:uniformsForSect(sect.id)[1].id,fashion:'fashion-snow'})).toBe(true);
+      expect(appearanceOf(current.state!.character).costume).toBe(uniformsForSect(sect.id)[1].id);
+      expect(appearanceOf({...current.state!.character,sectId:'unregistered'}).costume).toBe('fashion-snow');
+    }
   });
   it('test_wardrobe_免費時裝_無門派也能穿且未知網址不獲資格',()=>{
     for(const id of FASHION_COSTUME_IDS)expect(canWearCostume({sectId:null},id)).toBe(true);
