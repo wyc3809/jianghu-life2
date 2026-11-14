@@ -1,6 +1,6 @@
 workflows:
-  ios-testflight: &ios-release
-    name: 江湖一生 iOS 外測發布
+  ios-testflight: &ios-internal
+    name: 江湖一生 iOS TestFlight 內測更新
     instance_type: mac_mini_m2
     max_build_duration: 60
     integrations:
@@ -21,10 +21,10 @@ workflows:
         # 玩家提供的App Store Connect數字App ID，從此App的最新TestFlight build加一。
         APP_STORE_APP_ID: '6826541114'
     scripts:
-      - name: 核對TestFlight準備狀態
+      - name: 核對內測設定（待辦不阻擋內測）
         script: |
           set -euo pipefail
-          node scripts/ios/release-check.mjs
+          node scripts/ios/internal-check.mjs
           bash scripts/ios/check-xcode.sh
       - &install-and-test
         name: 安裝及驗證
@@ -42,8 +42,10 @@ workflows:
           export IOS_BUILD_NUMBER
           npm run ios:sync
           npm run ios:verify
-      - name: 套用Apple簽名
-        script: xcode-project use-profiles
+      - name: 套用僅供內測的Apple簽名
+        script: |
+          xcode-project use-profiles \
+            --custom-export-options='{"testFlightInternalTestingOnly": true}'
       - &build-ipa
         name: 編譯已簽名IPA
         script: |
@@ -57,28 +59,31 @@ workflows:
     publishing:
       app_store_connect:
         auth: integration
-        submit_to_testflight: true
+        # 上傳到App Store Connect供內部群組使用；不送Beta或正式商店審核。
+        submit_to_testflight: false
         submit_to_app_store: false
 
+  # 保留已在Codemagic使用的舊內測ID，與預設入口有相同簽署與上傳限制。
   ios-internal-testflight:
-    <<: *ios-release
-    name: 江湖一生 iOS 首次內測
+    <<: *ios-internal
+    name: 江湖一生 iOS 內測更新（相容舊入口）
+
+  ios-external-testflight:
+    <<: *ios-internal
+    name: 江湖一生 iOS 外測（需完成發布清單）
     scripts:
-      - name: 核對內測設定及列出已知限制
+      - name: 核對外測發布條件
         script: |
           set -euo pipefail
-          node scripts/ios/internal-check.mjs
+          node scripts/ios/release-check.mjs
           bash scripts/ios/check-xcode.sh
       - *install-and-test
       - *package-game
-      - name: 套用僅供內測的Apple簽名
-        script: |
-          xcode-project use-profiles \
-            --custom-export-options='{"testFlightInternalTestingOnly": true}'
+      - name: 套用外測Apple簽名
+        script: xcode-project use-profiles
       - *build-ipa
     publishing:
       app_store_connect:
         auth: integration
-        # 上傳後由擁有者手動加入內測；不提交Beta審核或正式商店審核。
-        submit_to_testflight: false
+        submit_to_testflight: true
         submit_to_app_store: false

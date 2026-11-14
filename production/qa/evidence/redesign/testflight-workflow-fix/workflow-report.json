@@ -1,0 +1,45 @@
+{
+  "version": "EA0.109.1",
+  "cases": [
+    {
+      "id": "ios-testflight",
+      "name": "江湖一生 iOS TestFlight 內測更新",
+      "preflight": "set -euo pipefail\nnode scripts/ios/internal-check.mjs\nbash scripts/ios/check-xcode.sh\n",
+      "internalOnly": true,
+      "publishing": {
+        "auth": "integration",
+        "submit_to_testflight": false,
+        "submit_to_app_store": false
+      },
+      "app": "6826541114",
+      "bundle": "com.wyc3809.jianghulife2"
+    },
+    {
+      "id": "ios-internal-testflight",
+      "name": "江湖一生 iOS 內測更新（相容舊入口）",
+      "preflight": "set -euo pipefail\nnode scripts/ios/internal-check.mjs\nbash scripts/ios/check-xcode.sh\n",
+      "internalOnly": true,
+      "publishing": {
+        "auth": "integration",
+        "submit_to_testflight": false,
+        "submit_to_app_store": false
+      },
+      "app": "6826541114",
+      "bundle": "com.wyc3809.jianghulife2"
+    },
+    {
+      "id": "ios-external-testflight",
+      "name": "江湖一生 iOS 外測（需完成發布清單）",
+      "preflight": "set -euo pipefail\nnode scripts/ios/release-check.mjs\nbash scripts/ios/check-xcode.sh\n",
+      "internalOnly": false,
+      "publishing": {
+        "auth": "integration",
+        "submit_to_testflight": true,
+        "submit_to_app_store": false
+      },
+      "app": "6826541114",
+      "bundle": "com.wyc3809.jianghulife2"
+    }
+  ],
+  "appleUploadVerified": false
+}

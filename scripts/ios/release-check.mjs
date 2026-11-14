@@ -4,7 +4,7 @@ const readiness = JSON.parse(fs.readFileSync('production/ios/release-readiness.j
 const open = readiness.checks.filter(check => check.done !== true);
 if (open.length) {
   for (const check of open) console.error(`${check.id}：${check.detail}`);
-  console.error('工程可編譯；TestFlight上傳條件尚未齊備。');
+  console.error('工程可編譯；外測發布條件尚未齊備。內部TestFlight更新請選ios-testflight（或相容入口ios-internal-testflight），再以最新main建立新build。');
   process.exitCode = 1;
 }
 if (!/^\d+$/.test(process.env.APP_STORE_APP_ID || '')) {

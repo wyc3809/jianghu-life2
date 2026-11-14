@@ -1547,3 +1547,10 @@ v02新增四項實質檢查：來源alpha走廊、網格連通、三段120Hz表�
 設定／玉石及裝備詳情入口增至至少44px，修正舊短屏CSS覆蓋。刪去多頁重複「按下方圓鈕過一月」、衣櫥長篇外觀免責、公開入口「共用封測」及結果「修煉已定／披掛已定／所擇」等標注；武學規則分為出招、回內、養成，保留概率、消耗、資格、存檔及必要錯誤提示。沒有刪玩法或改經濟／戰果／裝備／存檔schema。
 
 141檔1,033項、Pages構建、敘事hard-fail 0及禁句0處通過。22步前後實畫、三手機尺寸真正動畫／按壓、原生觸控捲動、焦點／返回、短屏按鈕、預覽取消不改資料及系統／遊戲減少動態通過；前後圖、正常速度GIF與度量見production/qa/evidence/redesign/mobile-ui-polish/README.md。玩家已確認需求，按一般授權EA0.109.0上線；合併及正式站結果以PR／Pages紀錄為準。沒有真iPhone、VoiceOver或新TestFlight結論，多人門派戰仍暫停。
+
+
+### 第69項：TestFlight預設入口誤走外測清單（2026-11-14，EA0.109.1）
+
+玩家附Codemagic「核對TestFlight準備狀態」失敗截圖，要求fix。步名與待辦輸出指向舊ios-testflight外測release-check；內測尚未開始安裝／編譯。將常用及第一個ios-testflight改為「TestFlight內測更新」，保留ios-internal-testflight相容ID，外測另用ios-external-testflight並完整保留release-check與Beta提交。內測使用同一真App／Bundle／版本／公開設定檢查及內部專用IPA，不送Beta或商店審核；不把待辦改成完成，Apple版本1.0與查詢後遞增build保持。
+
+新增以真正YAML解析anchor及merge、執行各入口實際檢查的三項回歸：兩個內測入口在未完成驗收fixture通過，外測仍拒絕並指向內測；簽署與提交旗標／build腳本亦驗證。完整141檔1,036項、Pages構建、敘事hard-fail 0、禁句0處及diff通過。證據見production/qa/evidence/redesign/testflight-workflow-fix/README.md。玩家已確認修復，按一般授權EA0.109.1上線；遊戲內容沿用EA0.109.0，沒有UI或玩法修改。Codemagic需從最新main建立新build；此環境未有Apple操作連線，簽署／上傳及可安裝以新build結果為準，不把Mac Archive或網頁發布當TestFlight成功。
