@@ -1,0 +1,249 @@
+{
+  "source": "design/art/manhua/sources/exec-81290d3d-3963-4e7c-8720-6762f897eb85.png",
+  "source_sha256": "d125af18ecab4ecb92b8fbc0ab2556ac902b22235de35df6b23ed2bb172c1540",
+  "style_reference": "approved silver-haired jade traveller concept, 2026-11-14",
+  "source_size": [
+    1254,
+    1254
+  ],
+  "assets": [
+    {
+      "id": "sword",
+      "path": "public/ink/art/manhua/icons/sword.webp",
+      "source_cell": [
+        0,
+        0
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "source_kind": "ai-generated",
+      "source_tool": "image_gen.imagegen",
+      "status": "validated",
+      "sha256": "858fadd05cc8dab134c5092ca1292c5eab176fdf3105d7b217bb9541308cf823",
+      "technical_checks_passed": true
+    },
+    {
+      "id": "blade",
+      "path": "public/ink/art/manhua/icons/blade.webp",
+      "source_cell": [
+        1,
+        0
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "source_kind": "ai-generated",
+      "source_tool": "image_gen.imagegen",
+      "status": "validated",
+      "sha256": "4bfe34eee3162225e1774aea97bc57fe0f303e81b82108f1a00734725e4ae94d",
+      "technical_checks_passed": true
+    },
+    {
+      "id": "spear",
+      "path": "public/ink/art/manhua/icons/spear.webp",
+      "source_cell": [
+        2,
+        0
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "source_kind": "ai-generated",
+      "source_tool": "image_gen.imagegen",
+      "status": "validated",
+      "sha256": "7fdb23306f754b0bfb4523fed9c7058f6e5ce9a2d6e0ca32f4d951fe4fa2fd87",
+      "technical_checks_passed": true
+    },
+    {
+      "id": "staff",
+      "path": "public/ink/art/manhua/icons/staff.webp",
+      "source_cell": [
+        3,
+        0
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "source_kind": "ai-generated",
+      "source_tool": "image_gen.imagegen",
+      "status": "validated",
+      "sha256": "ff4c598074be82ddc8e20802261437d0636ca763056367b6142ab1ece68a21fa",
+      "technical_checks_passed": true
+    },
+    {
+      "id": "whip",
+      "path": "public/ink/art/manhua/icons/whip.webp",
+      "source_cell": [
+        0,
+        1
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "source_kind": "ai-generated",
+      "source_tool": "image_gen.imagegen",
+      "status": "validated",
+      "sha256": "5bb789f20525a9e4d458314abca2677df3304c263a045ccc69bc5140ab2a113a",
+      "technical_checks_passed": true
+    },
+    {
+      "id": "bow",
+      "path": "public/ink/art/manhua/icons/bow.webp",
+      "source_cell": [
+        1,
+        1
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "source_kind": "ai-generated",
+      "source_tool": "image_gen.imagegen",
+      "status": "validated",
+      "sha256": "097e50874d5676ad1dbc3b9974fd895bfe91c21fc9896722ae0dcd106f07e68d",
+      "technical_checks_passed": true
+    },
+    {
+      "id": "hidden",
+      "path": "public/ink/art/manhua/icons/hidden.webp",
+      "source_cell": [
+        2,
+        1
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "source_kind": "ai-generated",
+      "source_tool": "image_gen.imagegen",
+      "status": "validated",
+      "sha256": "f8f3502ed8145501770df318fb207705b5063ae74f80b2407c299dae566077b9",
+      "technical_checks_passed": true
+    },
+    {
+      "id": "plain-robe",
+      "path": "public/ink/art/manhua/icons/plain-robe.webp",
+      "source_cell": [
+        3,
+        1
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "source_kind": "ai-generated",
+      "source_tool": "image_gen.imagegen",
+      "status": "validated",
+      "sha256": "bde28e3504d3dc5a7a391151799bc0f5a8a9220a4967226f538571f881085810",
+      "technical_checks_passed": true
+    },
+    {
+      "id": "pine-armor",
+      "path": "public/ink/art/manhua/icons/pine-armor.webp",
+      "source_cell": [
+        0,
+        2
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "source_kind": "ai-generated",
+      "source_tool": "image_gen.imagegen",
+      "status": "validated",
+      "sha256": "454c71adace438e8c3421decba33e58d74ff682a048c984ad972c9806fdd910e",
+      "technical_checks_passed": true
+    },
+    {
+      "id": "stormcloud-armor",
+      "path": "public/ink/art/manhua/icons/stormcloud-armor.webp",
+      "source_cell": [
+        1,
+        2
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "source_kind": "ai-generated",
+      "source_tool": "image_gen.imagegen",
+      "status": "validated",
+      "sha256": "41ddd60f1fde8d123d383889be8e7a145dceb03d68c14a40befcbf923186d1f6",
+      "technical_checks_passed": true
+    },
+    {
+      "id": "divine-silk-armor",
+      "path": "public/ink/art/manhua/icons/divine-silk-armor.webp",
+      "source_cell": [
+        2,
+        2
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "source_kind": "ai-generated",
+      "source_tool": "image_gen.imagegen",
+      "status": "validated",
+      "sha256": "6e508ec315b36d87788611d25e8a3f1f64b8bb531fbfc2daa3680894e0d86b2f",
+      "technical_checks_passed": true
+    },
+    {
+      "id": "cloud-boots",
+      "path": "public/ink/art/manhua/icons/cloud-boots.webp",
+      "source_cell": [
+        3,
+        2
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "source_kind": "ai-generated",
+      "source_tool": "image_gen.imagegen",
+      "status": "validated",
+      "sha256": "a01908245349a5c1022dbba8bf275bb13d4e5e1db28d8ddb58e00548c2b472c2",
+      "technical_checks_passed": true
+    },
+    {
+      "id": "jade-token",
+      "path": "public/ink/art/manhua/icons/jade-token.webp",
+      "source_cell": [
+        0,
+        3
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "source_kind": "ai-generated",
+      "source_tool": "image_gen.imagegen",
+      "status": "validated",
+      "sha256": "2f28110130875c812d779b384c85cc5a7d3a6e28afc73107f0fc798e9d1c71fe",
+      "technical_checks_passed": true
+    },
+    {
+      "id": "divine-moon-pendant",
+      "path": "public/ink/art/manhua/icons/divine-moon-pendant.webp",
+      "source_cell": [
+        1,
+        3
+      ],
+      "size": [
+        256,
+        256
+      ],
+      "source_kind": "ai-generated",
+      "source_tool": "image_gen.imagegen",
+      "status": "validated",
+      "sha256": "503cff788300e9e011a808669e431644876702fb9b6edbf0a59852f61fa532fd",
+      "technical_checks_passed": true
+    }
+  ]
+}

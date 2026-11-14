@@ -1,0 +1,485 @@
+{
+  "ok": true,
+  "assets": [
+    {
+      "path": "public/ink/art/manhua/figures/bamboo-cloak.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 88058,
+      "color_count": 37969,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 347018,
+      "content_bounds": [
+        63,
+        252,
+        449,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/figures/bamboo-scholar.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 77650,
+      "color_count": 38672,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 370994,
+      "content_bounds": [
+        109,
+        249,
+        403,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/figures/bamboo-traveller.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 90894,
+      "color_count": 50182,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 376182,
+      "content_bounds": [
+        98,
+        252,
+        414,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/figures/bun-cloak.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 71282,
+      "color_count": 29878,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 378190,
+      "content_bounds": [
+        88,
+        253,
+        424,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/figures/bun-scholar.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 65850,
+      "color_count": 33143,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 401848,
+      "content_bounds": [
+        108,
+        241,
+        404,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/figures/bun-traveller.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 63904,
+      "color_count": 33580,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 410506,
+      "content_bounds": [
+        129,
+        247,
+        383,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/figures/loose-cloak.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 73182,
+      "color_count": 30063,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 372988,
+      "content_bounds": [
+        88,
+        285,
+        424,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/figures/loose-scholar.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 67930,
+      "color_count": 32823,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 395110,
+      "content_bounds": [
+        108,
+        270,
+        404,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/figures/loose-traveller.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 65538,
+      "color_count": 31943,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 403136,
+      "content_bounds": [
+        128,
+        269,
+        383,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/figures/master-cloak.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 77994,
+      "color_count": 31942,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 359990,
+      "content_bounds": [
+        63,
+        257,
+        448,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/figures/master-scholar.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 66546,
+      "color_count": 30941,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 384462,
+      "content_bounds": [
+        110,
+        246,
+        402,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/figures/master-traveller.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 87016,
+      "color_count": 44431,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 382424,
+      "content_bounds": [
+        98,
+        249,
+        414,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/figures/ponytail-cloak.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 77976,
+      "color_count": 33262,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 369056,
+      "content_bounds": [
+        88,
+        260,
+        424,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/figures/ponytail-scholar.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 73752,
+      "color_count": 37747,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 392663,
+      "content_bounds": [
+        107,
+        251,
+        404,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/figures/ponytail-traveller.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 71654,
+      "color_count": 38271,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 398203,
+      "content_bounds": [
+        126,
+        249,
+        386,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/figures/short-cloak.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 68366,
+      "color_count": 28979,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 380320,
+      "content_bounds": [
+        88,
+        279,
+        424,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/figures/short-scholar.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 63816,
+      "color_count": 31566,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 404030,
+      "content_bounds": [
+        108,
+        270,
+        404,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/figures/short-traveller.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 61722,
+      "color_count": 31607,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 411888,
+      "content_bounds": [
+        129,
+        272,
+        383,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/figures/silver-cloak.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 90896,
+      "color_count": 38976,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 344661,
+      "content_bounds": [
+        63,
+        252,
+        449,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/figures/silver-scholar.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 84310,
+      "color_count": 39388,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 368965,
+      "content_bounds": [
+        102,
+        246,
+        409,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/figures/silver-traveller.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 99350,
+      "color_count": 52333,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 369406,
+      "content_bounds": [
+        98,
+        248,
+        414,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/figures/topknot-cloak.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 81022,
+      "color_count": 33203,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 357214,
+      "content_bounds": [
+        63,
+        253,
+        449,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/figures/topknot-scholar.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 69966,
+      "color_count": 34265,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 382905,
+      "content_bounds": [
+        108,
+        249,
+        403,
+        992
+      ],
+      "problems": []
+    },
+    {
+      "path": "public/ink/art/manhua/figures/topknot-traveller.webp",
+      "format": "WEBP",
+      "mode": "RGBA",
+      "width": 512,
+      "height": 1024,
+      "bytes": 88946,
+      "color_count": 46100,
+      "has_alpha": true,
+      "alpha_min": 0,
+      "alpha_max": 254,
+      "transparent_pixels": 382269,
+      "content_bounds": [
+        98,
+        249,
+        414,
+        992
+      ],
+      "problems": []
+    }
+  ]
+}

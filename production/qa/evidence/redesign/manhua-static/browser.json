@@ -1,0 +1,585 @@
+{
+  "cases": [
+    {
+      "key": "bamboo:traveller:ink",
+      "pixels": 166394,
+      "edge": 0,
+      "hash": 2259228217
+    },
+    {
+      "key": "bamboo:traveller:jade",
+      "pixels": 166394,
+      "edge": 0,
+      "hash": 1429517468
+    },
+    {
+      "key": "bamboo:traveller:cinnabar",
+      "pixels": 166394,
+      "edge": 0,
+      "hash": 3102740144
+    },
+    {
+      "key": "bamboo:traveller:sand",
+      "pixels": 166394,
+      "edge": 0,
+      "hash": 1549969186
+    },
+    {
+      "key": "bamboo:scholar:ink",
+      "pixels": 179132,
+      "edge": 0,
+      "hash": 2781011781
+    },
+    {
+      "key": "bamboo:scholar:jade",
+      "pixels": 179132,
+      "edge": 0,
+      "hash": 2693957776
+    },
+    {
+      "key": "bamboo:scholar:cinnabar",
+      "pixels": 179132,
+      "edge": 0,
+      "hash": 1796649093
+    },
+    {
+      "key": "bamboo:scholar:sand",
+      "pixels": 179132,
+      "edge": 0,
+      "hash": 8612052
+    },
+    {
+      "key": "bamboo:cloak:ink",
+      "pixels": 215237,
+      "edge": 0,
+      "hash": 2380062763
+    },
+    {
+      "key": "bamboo:cloak:jade",
+      "pixels": 215237,
+      "edge": 0,
+      "hash": 1369148506
+    },
+    {
+      "key": "bamboo:cloak:cinnabar",
+      "pixels": 215237,
+      "edge": 0,
+      "hash": 4291460711
+    },
+    {
+      "key": "bamboo:cloak:sand",
+      "pixels": 215237,
+      "edge": 0,
+      "hash": 1296503856
+    },
+    {
+      "key": "topknot:traveller:ink",
+      "pixels": 154538,
+      "edge": 0,
+      "hash": 2750458759
+    },
+    {
+      "key": "topknot:traveller:jade",
+      "pixels": 154538,
+      "edge": 0,
+      "hash": 2575943122
+    },
+    {
+      "key": "topknot:traveller:cinnabar",
+      "pixels": 154538,
+      "edge": 0,
+      "hash": 3813516142
+    },
+    {
+      "key": "topknot:traveller:sand",
+      "pixels": 154538,
+      "edge": 0,
+      "hash": 2350875298
+    },
+    {
+      "key": "topknot:scholar:ink",
+      "pixels": 164913,
+      "edge": 0,
+      "hash": 169152597
+    },
+    {
+      "key": "topknot:scholar:jade",
+      "pixels": 164913,
+      "edge": 0,
+      "hash": 1590949413
+    },
+    {
+      "key": "topknot:scholar:cinnabar",
+      "pixels": 164913,
+      "edge": 0,
+      "hash": 228361940
+    },
+    {
+      "key": "topknot:scholar:sand",
+      "pixels": 164913,
+      "edge": 0,
+      "hash": 1017537523
+    },
+    {
+      "key": "topknot:cloak:ink",
+      "pixels": 203269,
+      "edge": 0,
+      "hash": 700174749
+    },
+    {
+      "key": "topknot:cloak:jade",
+      "pixels": 203269,
+      "edge": 0,
+      "hash": 1900581416
+    },
+    {
+      "key": "topknot:cloak:cinnabar",
+      "pixels": 203269,
+      "edge": 0,
+      "hash": 3974112962
+    },
+    {
+      "key": "topknot:cloak:sand",
+      "pixels": 203269,
+      "edge": 0,
+      "hash": 749442783
+    },
+    {
+      "key": "master:traveller:ink",
+      "pixels": 154298,
+      "edge": 0,
+      "hash": 80389076
+    },
+    {
+      "key": "master:traveller:jade",
+      "pixels": 154298,
+      "edge": 0,
+      "hash": 1764790473
+    },
+    {
+      "key": "master:traveller:cinnabar",
+      "pixels": 154298,
+      "edge": 0,
+      "hash": 2069716521
+    },
+    {
+      "key": "master:traveller:sand",
+      "pixels": 154298,
+      "edge": 0,
+      "hash": 3413956047
+    },
+    {
+      "key": "master:scholar:ink",
+      "pixels": 163633,
+      "edge": 0,
+      "hash": 3281522509
+    },
+    {
+      "key": "master:scholar:jade",
+      "pixels": 163633,
+      "edge": 0,
+      "hash": 3546791471
+    },
+    {
+      "key": "master:scholar:cinnabar",
+      "pixels": 163633,
+      "edge": 0,
+      "hash": 2289449658
+    },
+    {
+      "key": "master:scholar:sand",
+      "pixels": 163633,
+      "edge": 0,
+      "hash": 1808717323
+    },
+    {
+      "key": "master:cloak:ink",
+      "pixels": 202781,
+      "edge": 0,
+      "hash": 3679555483
+    },
+    {
+      "key": "master:cloak:jade",
+      "pixels": 202781,
+      "edge": 0,
+      "hash": 1305321780
+    },
+    {
+      "key": "master:cloak:cinnabar",
+      "pixels": 202781,
+      "edge": 0,
+      "hash": 4235750787
+    },
+    {
+      "key": "master:cloak:sand",
+      "pixels": 202781,
+      "edge": 0,
+      "hash": 497539816
+    },
+    {
+      "key": "silver:traveller:ink",
+      "pixels": 166933,
+      "edge": 0,
+      "hash": 184051755
+    },
+    {
+      "key": "silver:traveller:jade",
+      "pixels": 166933,
+      "edge": 0,
+      "hash": 308596679
+    },
+    {
+      "key": "silver:traveller:cinnabar",
+      "pixels": 166933,
+      "edge": 0,
+      "hash": 1022888721
+    },
+    {
+      "key": "silver:traveller:sand",
+      "pixels": 166933,
+      "edge": 0,
+      "hash": 2951602814
+    },
+    {
+      "key": "silver:scholar:ink",
+      "pixels": 178919,
+      "edge": 0,
+      "hash": 406114376
+    },
+    {
+      "key": "silver:scholar:jade",
+      "pixels": 178919,
+      "edge": 0,
+      "hash": 2422226672
+    },
+    {
+      "key": "silver:scholar:cinnabar",
+      "pixels": 178919,
+      "edge": 0,
+      "hash": 2013150801
+    },
+    {
+      "key": "silver:scholar:sand",
+      "pixels": 178919,
+      "edge": 0,
+      "hash": 1260027561
+    },
+    {
+      "key": "silver:cloak:ink",
+      "pixels": 213665,
+      "edge": 0,
+      "hash": 103993533
+    },
+    {
+      "key": "silver:cloak:jade",
+      "pixels": 213665,
+      "edge": 0,
+      "hash": 3586750017
+    },
+    {
+      "key": "silver:cloak:cinnabar",
+      "pixels": 213665,
+      "edge": 0,
+      "hash": 86572408
+    },
+    {
+      "key": "silver:cloak:sand",
+      "pixels": 213665,
+      "edge": 0,
+      "hash": 3995336331
+    },
+    {
+      "key": "ponytail:traveller:ink",
+      "pixels": 143986,
+      "edge": 0,
+      "hash": 605206483
+    },
+    {
+      "key": "ponytail:traveller:jade",
+      "pixels": 143986,
+      "edge": 0,
+      "hash": 2438969631
+    },
+    {
+      "key": "ponytail:traveller:cinnabar",
+      "pixels": 143986,
+      "edge": 0,
+      "hash": 3667597205
+    },
+    {
+      "key": "ponytail:traveller:sand",
+      "pixels": 143986,
+      "edge": 0,
+      "hash": 3181535059
+    },
+    {
+      "key": "ponytail:scholar:ink",
+      "pixels": 158155,
+      "edge": 0,
+      "hash": 2511980680
+    },
+    {
+      "key": "ponytail:scholar:jade",
+      "pixels": 158155,
+      "edge": 0,
+      "hash": 1331153581
+    },
+    {
+      "key": "ponytail:scholar:cinnabar",
+      "pixels": 158155,
+      "edge": 0,
+      "hash": 1851788696
+    },
+    {
+      "key": "ponytail:scholar:sand",
+      "pixels": 158155,
+      "edge": 0,
+      "hash": 4274572890
+    },
+    {
+      "key": "ponytail:cloak:ink",
+      "pixels": 190262,
+      "edge": 0,
+      "hash": 3729332005
+    },
+    {
+      "key": "ponytail:cloak:jade",
+      "pixels": 190262,
+      "edge": 0,
+      "hash": 2789688429
+    },
+    {
+      "key": "ponytail:cloak:cinnabar",
+      "pixels": 190262,
+      "edge": 0,
+      "hash": 3311696099
+    },
+    {
+      "key": "ponytail:cloak:sand",
+      "pixels": 190262,
+      "edge": 0,
+      "hash": 4255991041
+    },
+    {
+      "key": "loose:traveller:ink",
+      "pixels": 149583,
+      "edge": 0,
+      "hash": 2309214356
+    },
+    {
+      "key": "loose:traveller:jade",
+      "pixels": 149583,
+      "edge": 0,
+      "hash": 1830250387
+    },
+    {
+      "key": "loose:traveller:cinnabar",
+      "pixels": 149583,
+      "edge": 0,
+      "hash": 2988440337
+    },
+    {
+      "key": "loose:traveller:sand",
+      "pixels": 149583,
+      "edge": 0,
+      "hash": 2433190112
+    },
+    {
+      "key": "loose:scholar:ink",
+      "pixels": 165705,
+      "edge": 0,
+      "hash": 3534071782
+    },
+    {
+      "key": "loose:scholar:jade",
+      "pixels": 165705,
+      "edge": 0,
+      "hash": 1901295652
+    },
+    {
+      "key": "loose:scholar:cinnabar",
+      "pixels": 165705,
+      "edge": 0,
+      "hash": 2864033834
+    },
+    {
+      "key": "loose:scholar:sand",
+      "pixels": 165705,
+      "edge": 0,
+      "hash": 2759853356
+    },
+    {
+      "key": "loose:cloak:ink",
+      "pixels": 200697,
+      "edge": 0,
+      "hash": 695668404
+    },
+    {
+      "key": "loose:cloak:jade",
+      "pixels": 200697,
+      "edge": 0,
+      "hash": 749132521
+    },
+    {
+      "key": "loose:cloak:cinnabar",
+      "pixels": 200697,
+      "edge": 0,
+      "hash": 550095769
+    },
+    {
+      "key": "loose:cloak:sand",
+      "pixels": 200697,
+      "edge": 0,
+      "hash": 4285690169
+    },
+    {
+      "key": "bun:traveller:ink",
+      "pixels": 130741,
+      "edge": 0,
+      "hash": 1381266273
+    },
+    {
+      "key": "bun:traveller:jade",
+      "pixels": 130741,
+      "edge": 0,
+      "hash": 902478758
+    },
+    {
+      "key": "bun:traveller:cinnabar",
+      "pixels": 130741,
+      "edge": 0,
+      "hash": 1501232065
+    },
+    {
+      "key": "bun:traveller:sand",
+      "pixels": 130741,
+      "edge": 0,
+      "hash": 3593460906
+    },
+    {
+      "key": "bun:scholar:ink",
+      "pixels": 143490,
+      "edge": 0,
+      "hash": 1280007199
+    },
+    {
+      "key": "bun:scholar:jade",
+      "pixels": 143490,
+      "edge": 0,
+      "hash": 3405050509
+    },
+    {
+      "key": "bun:scholar:cinnabar",
+      "pixels": 143490,
+      "edge": 0,
+      "hash": 1581445958
+    },
+    {
+      "key": "bun:scholar:sand",
+      "pixels": 143490,
+      "edge": 0,
+      "hash": 591632516
+    },
+    {
+      "key": "bun:cloak:ink",
+      "pixels": 176007,
+      "edge": 0,
+      "hash": 2577469342
+    },
+    {
+      "key": "bun:cloak:jade",
+      "pixels": 176007,
+      "edge": 0,
+      "hash": 4152164914
+    },
+    {
+      "key": "bun:cloak:cinnabar",
+      "pixels": 176007,
+      "edge": 0,
+      "hash": 1143285441
+    },
+    {
+      "key": "bun:cloak:sand",
+      "pixels": 176007,
+      "edge": 0,
+      "hash": 1258783897
+    },
+    {
+      "key": "short:traveller:ink",
+      "pixels": 139130,
+      "edge": 0,
+      "hash": 385140333
+    },
+    {
+      "key": "short:traveller:jade",
+      "pixels": 139130,
+      "edge": 0,
+      "hash": 994852472
+    },
+    {
+      "key": "short:traveller:cinnabar",
+      "pixels": 139130,
+      "edge": 0,
+      "hash": 185942649
+    },
+    {
+      "key": "short:traveller:sand",
+      "pixels": 139130,
+      "edge": 0,
+      "hash": 1111067107
+    },
+    {
+      "key": "short:scholar:ink",
+      "pixels": 154208,
+      "edge": 0,
+      "hash": 2223093549
+    },
+    {
+      "key": "short:scholar:jade",
+      "pixels": 154208,
+      "edge": 0,
+      "hash": 1252857382
+    },
+    {
+      "key": "short:scholar:cinnabar",
+      "pixels": 154208,
+      "edge": 0,
+      "hash": 25228764
+    },
+    {
+      "key": "short:scholar:sand",
+      "pixels": 154208,
+      "edge": 0,
+      "hash": 3826042084
+    },
+    {
+      "key": "short:cloak:ink",
+      "pixels": 187767,
+      "edge": 0,
+      "hash": 3226243340
+    },
+    {
+      "key": "short:cloak:jade",
+      "pixels": 187767,
+      "edge": 0,
+      "hash": 1869045252
+    },
+    {
+      "key": "short:cloak:cinnabar",
+      "pixels": 187767,
+      "edge": 0,
+      "hash": 2456094062
+    },
+    {
+      "key": "short:cloak:sand",
+      "pixels": 187767,
+      "edge": 0,
+      "hash": 3690349906
+    }
+  ],
+  "count": 96,
+  "cloudBlocked": true,
+  "equipmentUnchanged": true,
+  "pageerrors": [],
+  "actualIphone": false
+}

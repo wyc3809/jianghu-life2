@@ -1,0 +1,10 @@
+{
+  "actualGearConfirmation": true,
+  "previewNoMutation": true,
+  "appearanceConfirmation": true,
+  "reloadKeptAppearanceAndEquipment": true,
+  "normalEquipDidNotChangeDuel": true,
+  "sameIdentityImageFallback": true,
+  "cloudBlocked": true,
+  "pageerrors": []
+}

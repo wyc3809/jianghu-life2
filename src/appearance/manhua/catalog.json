@@ -1,0 +1,516 @@
+{
+  "width": 512,
+  "height": 1024,
+  "baseTone": "jade",
+  "figures": {
+    "bamboo-traveller": {
+      "src": "ink/art/manhua/figures/bamboo-traveller.webp",
+      "bounds": [
+        100,
+        254,
+        412,
+        990
+      ],
+      "portrait": [
+        153,
+        254,
+        221,
+        221
+      ],
+      "source": "exec-cb93f5cb-dc9e-4720-95b6-ef54b9febd93.png",
+      "cell": 0,
+      "sha256": "690791180e6d57ca601fe5e2dc7ee7827a38102b7776aba7c68f056469d25111"
+    },
+    "topknot-traveller": {
+      "src": "ink/art/manhua/figures/topknot-traveller.webp",
+      "bounds": [
+        100,
+        251,
+        412,
+        990
+      ],
+      "portrait": [
+        158,
+        251,
+        222,
+        222
+      ],
+      "source": "exec-cb93f5cb-dc9e-4720-95b6-ef54b9febd93.png",
+      "cell": 1,
+      "sha256": "d8a7e0a6d6a2ecbaf0293fd282d68cf346b861456146e6f21d69f445818676e2"
+    },
+    "master-traveller": {
+      "src": "ink/art/manhua/figures/master-traveller.webp",
+      "bounds": [
+        100,
+        251,
+        412,
+        990
+      ],
+      "portrait": [
+        164,
+        251,
+        222,
+        222
+      ],
+      "source": "exec-cb93f5cb-dc9e-4720-95b6-ef54b9febd93.png",
+      "cell": 2,
+      "sha256": "dc8ea718c187117a36b7796a5d488f019454f54785aa916e85664bd08a969fcf"
+    },
+    "silver-traveller": {
+      "src": "ink/art/manhua/figures/silver-traveller.webp",
+      "bounds": [
+        100,
+        250,
+        412,
+        990
+      ],
+      "portrait": [
+        135,
+        250,
+        222,
+        222
+      ],
+      "source": "exec-cb93f5cb-dc9e-4720-95b6-ef54b9febd93.png",
+      "cell": 3,
+      "sha256": "0b6af12b319c4fb06087896db9bbd3a2286e3d8e0d24ed8cdc5de4fb9e930d9e"
+    },
+    "ponytail-traveller": {
+      "src": "ink/art/manhua/figures/ponytail-traveller.webp",
+      "bounds": [
+        128,
+        251,
+        384,
+        990
+      ],
+      "portrait": [
+        120,
+        251,
+        222,
+        222
+      ],
+      "source": "exec-79caeef6-255d-443f-86c1-e370c2f5ee59.png",
+      "cell": 0,
+      "sha256": "b2d2256dda0dc1fa63788e9fdbad5b4833323c67d7b430a10116fbaa18802a3c"
+    },
+    "loose-traveller": {
+      "src": "ink/art/manhua/figures/loose-traveller.webp",
+      "bounds": [
+        130,
+        271,
+        381,
+        990
+      ],
+      "portrait": [
+        127,
+        271,
+        216,
+        216
+      ],
+      "source": "exec-79caeef6-255d-443f-86c1-e370c2f5ee59.png",
+      "cell": 1,
+      "sha256": "1b08b01f497a581e537aeb3dbd98d0c39d1f302c4f9a20daf5d1d9fffd6d9c78"
+    },
+    "bun-traveller": {
+      "src": "ink/art/manhua/figures/bun-traveller.webp",
+      "bounds": [
+        131,
+        249,
+        381,
+        990
+      ],
+      "portrait": [
+        150,
+        249,
+        222,
+        222
+      ],
+      "source": "exec-79caeef6-255d-443f-86c1-e370c2f5ee59.png",
+      "cell": 2,
+      "sha256": "85cf44e4cd2b19c5f009331e6364f2360208e7de8107e74acf8aa7ca64d95051"
+    },
+    "short-traveller": {
+      "src": "ink/art/manhua/figures/short-traveller.webp",
+      "bounds": [
+        131,
+        274,
+        381,
+        990
+      ],
+      "portrait": [
+        152,
+        274,
+        215,
+        215
+      ],
+      "source": "exec-79caeef6-255d-443f-86c1-e370c2f5ee59.png",
+      "cell": 3,
+      "sha256": "cd3591b63ac15d0136573b679d1280c0579f06b9f9affd9df8a26547e10f399d"
+    },
+    "bamboo-scholar": {
+      "src": "ink/art/manhua/figures/bamboo-scholar.webp",
+      "bounds": [
+        111,
+        251,
+        401,
+        990
+      ],
+      "portrait": [
+        138,
+        251,
+        222,
+        222
+      ],
+      "source": "exec-9ea9a38d-fa85-469e-9b2c-dd248d924a5c.png",
+      "cell": 0,
+      "sha256": "c294e1dfc7a4bf451fc0f3f53e3264d7d1531822f6effc7bb912a12c586549f9"
+    },
+    "topknot-scholar": {
+      "src": "ink/art/manhua/figures/topknot-scholar.webp",
+      "bounds": [
+        110,
+        251,
+        401,
+        990
+      ],
+      "portrait": [
+        132,
+        251,
+        222,
+        222
+      ],
+      "source": "exec-9ea9a38d-fa85-469e-9b2c-dd248d924a5c.png",
+      "cell": 1,
+      "sha256": "5f639a02c5d7b57cafad6e40460ae2956624069ab96867a81d156c11c16c6795"
+    },
+    "master-scholar": {
+      "src": "ink/art/manhua/figures/master-scholar.webp",
+      "bounds": [
+        112,
+        248,
+        400,
+        990
+      ],
+      "portrait": [
+        136,
+        248,
+        223,
+        223
+      ],
+      "source": "exec-9ea9a38d-fa85-469e-9b2c-dd248d924a5c.png",
+      "cell": 2,
+      "sha256": "94b000251917b0ac5edc1690a7c65f9abbc5fb8d9aa148b2a534a76f1130ac3e"
+    },
+    "silver-scholar": {
+      "src": "ink/art/manhua/figures/silver-scholar.webp",
+      "bounds": [
+        104,
+        248,
+        407,
+        990
+      ],
+      "portrait": [
+        112,
+        248,
+        223,
+        223
+      ],
+      "source": "exec-9ea9a38d-fa85-469e-9b2c-dd248d924a5c.png",
+      "cell": 3,
+      "sha256": "18d1c5482c5bfb0edf0e0ca8b8a47534d07b19c485945ffc82a370093353df46"
+    },
+    "ponytail-scholar": {
+      "src": "ink/art/manhua/figures/ponytail-scholar.webp",
+      "bounds": [
+        109,
+        253,
+        402,
+        990
+      ],
+      "portrait": [
+        134,
+        253,
+        221,
+        221
+      ],
+      "source": "exec-fbbf5916-6d06-4089-b30c-087c9d55c4e5.png",
+      "cell": 0,
+      "sha256": "ab132d2d02dc307ce0ec2cc39f6f47395de5989522296fb37dc9e86711781b0b"
+    },
+    "loose-scholar": {
+      "src": "ink/art/manhua/figures/loose-scholar.webp",
+      "bounds": [
+        110,
+        272,
+        402,
+        990
+      ],
+      "portrait": [
+        137,
+        272,
+        215,
+        215
+      ],
+      "source": "exec-fbbf5916-6d06-4089-b30c-087c9d55c4e5.png",
+      "cell": 1,
+      "sha256": "cf53143593c3021582c26cc4b5b6702fb1c481bb3ec0aa4980657b726cba519f"
+    },
+    "bun-scholar": {
+      "src": "ink/art/manhua/figures/bun-scholar.webp",
+      "bounds": [
+        110,
+        243,
+        402,
+        990
+      ],
+      "portrait": [
+        155,
+        243,
+        224,
+        224
+      ],
+      "source": "exec-fbbf5916-6d06-4089-b30c-087c9d55c4e5.png",
+      "cell": 2,
+      "sha256": "8ff09d90f6074a3ff584f5e486986f11daabe58f83e92a747fc21c454bb3e290"
+    },
+    "short-scholar": {
+      "src": "ink/art/manhua/figures/short-scholar.webp",
+      "bounds": [
+        110,
+        272,
+        402,
+        990
+      ],
+      "portrait": [
+        164,
+        272,
+        215,
+        215
+      ],
+      "source": "exec-fbbf5916-6d06-4089-b30c-087c9d55c4e5.png",
+      "cell": 3,
+      "sha256": "f9f2b1dde0c574fbe73956335ba0dab79282eb24d2d04e650e4bf2f50ee781e0"
+    },
+    "bamboo-cloak": {
+      "src": "ink/art/manhua/figures/bamboo-cloak.webp",
+      "bounds": [
+        65,
+        254,
+        447,
+        990
+      ],
+      "portrait": [
+        143,
+        254,
+        221,
+        221
+      ],
+      "source": "exec-2cc91bfd-50d0-4eea-97ed-02aa644c360b.png",
+      "cell": 0,
+      "sha256": "38e21d13a5d7833f36c8df34652df5cf593d82791c0a2fff731b4a287ee960ab"
+    },
+    "topknot-cloak": {
+      "src": "ink/art/manhua/figures/topknot-cloak.webp",
+      "bounds": [
+        65,
+        255,
+        447,
+        990
+      ],
+      "portrait": [
+        146,
+        255,
+        220,
+        220
+      ],
+      "source": "exec-2cc91bfd-50d0-4eea-97ed-02aa644c360b.png",
+      "cell": 1,
+      "sha256": "c90fe26074de2d83f826d009f4256713dfbf3a463bec226e574bb7ad662179ec"
+    },
+    "master-cloak": {
+      "src": "ink/art/manhua/figures/master-cloak.webp",
+      "bounds": [
+        65,
+        259,
+        446,
+        990
+      ],
+      "portrait": [
+        151,
+        259,
+        219,
+        219
+      ],
+      "source": "exec-2cc91bfd-50d0-4eea-97ed-02aa644c360b.png",
+      "cell": 2,
+      "sha256": "8e1554e763469cffe48abed8b188e8a79277e02e8c5d1d2e65286dc1298c715f"
+    },
+    "silver-cloak": {
+      "src": "ink/art/manhua/figures/silver-cloak.webp",
+      "bounds": [
+        65,
+        254,
+        447,
+        990
+      ],
+      "portrait": [
+        127,
+        254,
+        221,
+        221
+      ],
+      "source": "exec-2cc91bfd-50d0-4eea-97ed-02aa644c360b.png",
+      "cell": 3,
+      "sha256": "d2132b93468827389a83b834db4da4b366807409e4b087196f5b8616b6ef45e8"
+    },
+    "ponytail-cloak": {
+      "src": "ink/art/manhua/figures/ponytail-cloak.webp",
+      "bounds": [
+        90,
+        262,
+        422,
+        990
+      ],
+      "portrait": [
+        128,
+        262,
+        218,
+        218
+      ],
+      "source": "exec-f888d924-8f96-4015-961c-a8196d677c63.png",
+      "cell": 0,
+      "sha256": "786327d3979703079eb0ec1605a49ee3dd95ebbd8388fb19bad6d096ea87b5af"
+    },
+    "loose-cloak": {
+      "src": "ink/art/manhua/figures/loose-cloak.webp",
+      "bounds": [
+        90,
+        287,
+        422,
+        990
+      ],
+      "portrait": [
+        134,
+        287,
+        211,
+        211
+      ],
+      "source": "exec-f888d924-8f96-4015-961c-a8196d677c63.png",
+      "cell": 1,
+      "sha256": "a09415ece8f38c2ae0185c2351b1e552f330705f373ee1dfd717756144b1c249"
+    },
+    "bun-cloak": {
+      "src": "ink/art/manhua/figures/bun-cloak.webp",
+      "bounds": [
+        90,
+        255,
+        422,
+        990
+      ],
+      "portrait": [
+        156,
+        255,
+        220,
+        220
+      ],
+      "source": "exec-f888d924-8f96-4015-961c-a8196d677c63.png",
+      "cell": 2,
+      "sha256": "aa9f4293060caf297a508dd6edcc047160c30cf5f9866aa8c4142a8e4bbda2ec"
+    },
+    "short-cloak": {
+      "src": "ink/art/manhua/figures/short-cloak.webp",
+      "bounds": [
+        90,
+        281,
+        422,
+        990
+      ],
+      "portrait": [
+        159,
+        281,
+        213,
+        213
+      ],
+      "source": "exec-f888d924-8f96-4015-961c-a8196d677c63.png",
+      "cell": 3,
+      "sha256": "2cb7e72849922da9c58a7840b01300892ad32236df5695e4ae9986bfb1a9daef"
+    }
+  },
+  "sources": [
+    {
+      "file": "exec-cb93f5cb-dc9e-4720-95b6-ef54b9febd93.png",
+      "sha256": "c7f2f731cb620c297294638d8ec06504e99d852a4cfc238e216a8b7ddc1addfd",
+      "tool": "image_gen.imagegen",
+      "outfit": "traveller",
+      "heads": [
+        "bamboo",
+        "topknot",
+        "master",
+        "silver"
+      ]
+    },
+    {
+      "file": "exec-79caeef6-255d-443f-86c1-e370c2f5ee59.png",
+      "sha256": "53709d21b7bc712309209b5304545160b5083e2ab0e693acff2be4a25662c566",
+      "tool": "image_gen.imagegen",
+      "outfit": "traveller",
+      "heads": [
+        "ponytail",
+        "loose",
+        "bun",
+        "short"
+      ]
+    },
+    {
+      "file": "exec-9ea9a38d-fa85-469e-9b2c-dd248d924a5c.png",
+      "sha256": "9b56ca51ae9ab4b42b148f11b6e2b9564a4697c196fe2be8aed95bcda35d6805",
+      "tool": "image_gen.imagegen",
+      "outfit": "scholar",
+      "heads": [
+        "bamboo",
+        "topknot",
+        "master",
+        "silver"
+      ]
+    },
+    {
+      "file": "exec-fbbf5916-6d06-4089-b30c-087c9d55c4e5.png",
+      "sha256": "05b9c8475948cdecbe77db26638f3a1b163417d54177ca7e42d04ce10a4d48b7",
+      "tool": "image_gen.imagegen",
+      "outfit": "scholar",
+      "heads": [
+        "ponytail",
+        "loose",
+        "bun",
+        "short"
+      ]
+    },
+    {
+      "file": "exec-2cc91bfd-50d0-4eea-97ed-02aa644c360b.png",
+      "sha256": "bbaac87ff4cbf9426e9f681082b0e7968a7c3092f92e8d1d2185ae9aa7eb8a50",
+      "tool": "image_gen.imagegen",
+      "outfit": "cloak",
+      "heads": [
+        "bamboo",
+        "topknot",
+        "master",
+        "silver"
+      ]
+    },
+    {
+      "file": "exec-f888d924-8f96-4015-961c-a8196d677c63.png",
+      "sha256": "55cdf51dec93b468337c60b7570cc23566b2f5e0d1b91f04e5efb0dcf8391143",
+      "tool": "image_gen.imagegen",
+      "outfit": "cloak",
+      "heads": [
+        "ponytail",
+        "loose",
+        "bun",
+        "short"
+      ]
+    }
+  ],
+  "sourceKind": "ai-generated",
+  "styleApproval": "玩家確認2026-11-14武俠漫畫小樣並要求套用",
+  "technicalChecksPassed": true
+}

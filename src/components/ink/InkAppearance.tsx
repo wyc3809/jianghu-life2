@@ -8,6 +8,7 @@ import { spineAppearanceBounds } from '../../appearance/spine/frames';
 import { InkPersonSheet } from './InkPersonSheet';
 import { inkArtUrl } from '../../ui/inkAssets';
 import './appearance.css';
+import { loadManhuaFigure, drawManhuaFigure } from '../../appearance/manhua/figures';
 
 /** 靜態頭像／全身立繪同樣由角色造型組合，沒有獨立的預設男俠圖。 */
 export function AppearanceCanvas({ appearance, mode='figure', pose='idle', className='', label='人物造型' }: {
@@ -18,6 +19,13 @@ export function AppearanceCanvas({ appearance, mode='figure', pose='idle', class
   useEffect(()=>{
     let cancelled=false;const target=ref.current;if(!target)return;
     const paint=async()=>{try{
+      const illustration=await loadManhuaFigure(appearance).catch(()=>null);if(cancelled)return;
+      if(illustration){
+        const box=target.getBoundingClientRect(),w=Math.max(1,box.width),h=Math.max(1,box.height),dpr=Math.min(2,devicePixelRatio||1);
+        target.width=Math.round(w*dpr);target.height=Math.round(h*dpr);
+        const ctx=target.getContext('2d')!;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
+        drawManhuaFigure(ctx,illustration,appearance,w,h,mode==='portrait');target.dataset.artStyle='manhua';target.dataset.renderedAppearance=key;setFailed(false);return;
+      }
       const assets=await loadAppearanceAssets();
       await assets.spine?.prepare(appearance,pose==='seated'?'seated':'idle');if(cancelled)return;
       const box=target.getBoundingClientRect(),w=Math.max(1,box.width),h=Math.max(1,box.height),dpr=Math.min(2,devicePixelRatio||1);
@@ -33,7 +41,7 @@ export function AppearanceCanvas({ appearance, mode='figure', pose='idle', class
         const scale=Math.min(w*.94/(right-left),h*.9/(bottom-top));
         drawAppearance(ctx,assets,a,{x:w*.5-(left+right)*.5*scale,y:h*.95-bottom*scale,height:400*scale,pose,reduced:true,quality:'portrait'});
       }
-      setFailed(false);
+      target.dataset.artStyle='legacy-fallback';target.dataset.renderedAppearance=key;setFailed(false);
     }catch{if(!cancelled)setFailed(true);}};
     void paint();const observer=new ResizeObserver(()=>void paint());observer.observe(target);
     return()=>{cancelled=true;observer.disconnect();};
