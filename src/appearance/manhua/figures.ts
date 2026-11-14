@@ -1,9 +1,12 @@
 import catalog from './catalog.json';
+import wardrobe from './wardrobe-catalog.json';
 import { appearanceKey, readAppearance } from '@interfaces/appearance';
 import { APPEARANCE_COLOURS } from '@data/appearances';
 
 type Figure = { src:string; bounds:number[]; portrait:number[]; sha256:string };
 const figures = catalog.figures as Record<string,Figure>;
+const costumes = wardrobe.figures as Record<string,Figure>;
+const specFor=(a:ReturnType<typeof readAppearance>):Figure=>a.costume?costumes[`${a.head}-${a.costume}`]:figures[`${a.head}-${a.outfit}`];
 const cache = new Map<string,CanvasImageSource>();
 const pending = new Map<string,Promise<CanvasImageSource>>();
 
@@ -33,14 +36,14 @@ export function loadManhuaFigure(value:unknown):Promise<CanvasImageSource>{
   if(existing){cache.delete(key);cache.set(key,existing);return Promise.resolve(existing);}
   const waiting=pending.get(key);if(waiting)return waiting;
   const task=(async()=>{
-    const spec=figures[`${a.head}-${a.outfit}`];
+    const spec=specFor(a);if(!spec)throw Error('服飾素材尚未提供');
     const image=await new Promise<HTMLImageElement>((resolve,reject)=>{
       const im=new Image(),timer=window.setTimeout(()=>{im.onload=im.onerror=null;reject(Error('立繪載入逾時'));},6000);
       im.onload=()=>{clearTimeout(timer);resolve(im);};im.onerror=()=>{clearTimeout(timer);reject(Error('立繪未能載入'));};
       im.src=`${import.meta.env.BASE_URL}${spec.src}?v=${spec.sha256.slice(0,12)}`;
     });
     let result:CanvasImageSource=image;
-    if(a.tone!=='jade'){
+    if(!a.costume&&a.tone!=='jade'){
       const canvas=document.createElement('canvas');canvas.width=image.naturalWidth;canvas.height=image.naturalHeight;
       const ctx=canvas.getContext('2d',{willReadFrequently:true})!;ctx.drawImage(image,0,0);
       const pixels=ctx.getImageData(0,0,canvas.width,canvas.height);tintManhuaCloth(pixels.data,APPEARANCE_COLOURS[a.tone],canvas.width);ctx.putImageData(pixels,0,0);result=canvas;
@@ -52,7 +55,7 @@ export function loadManhuaFigure(value:unknown):Promise<CanvasImageSource>{
 
 /** 完整圖等比例顯示；頭像只裁上半幅，不對頭身分件或改變雙腳比例。 */
 export function drawManhuaFigure(ctx:CanvasRenderingContext2D,image:CanvasImageSource,value:unknown,w:number,h:number,portrait:boolean):void{
-  const a=readAppearance(value),spec=figures[`${a.head}-${a.outfit}`];
+  const a=readAppearance(value),spec=specFor(a);
   if(portrait){const [x,y,cw,ch]=spec.portrait;const size=Math.min(w,h);ctx.drawImage(image,x,y,cw,ch,(w-size)/2,(h-size)/2,size,size);return;}
   const [left,top,right,bottom]=spec.bounds;
   const scale=Math.min(w*.94/(right-left),h*.9/(bottom-top));

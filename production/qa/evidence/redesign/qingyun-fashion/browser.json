@@ -1,0 +1,821 @@
+{
+  "figures": [
+    {
+      "head": "bamboo",
+      "costume": "uniform-qingyun-0",
+      "pixels": 148584,
+      "edge": 0,
+      "hash": 1309615753,
+      "style": "manhua"
+    },
+    {
+      "head": "bamboo",
+      "costume": "uniform-qingyun-1",
+      "pixels": 156459,
+      "edge": 0,
+      "hash": 939392504,
+      "style": "manhua"
+    },
+    {
+      "head": "bamboo",
+      "costume": "uniform-qingyun-2",
+      "pixels": 166374,
+      "edge": 0,
+      "hash": 1070391715,
+      "style": "manhua"
+    },
+    {
+      "head": "bamboo",
+      "costume": "uniform-qingyun-3",
+      "pixels": 180166,
+      "edge": 0,
+      "hash": 2339966189,
+      "style": "manhua"
+    },
+    {
+      "head": "bamboo",
+      "costume": "uniform-qingyun-4",
+      "pixels": 162278,
+      "edge": 0,
+      "hash": 1375045205,
+      "style": "manhua"
+    },
+    {
+      "head": "bamboo",
+      "costume": "uniform-qingyun-5",
+      "pixels": 167187,
+      "edge": 0,
+      "hash": 359820154,
+      "style": "manhua"
+    },
+    {
+      "head": "bamboo",
+      "costume": "uniform-qingyun-6",
+      "pixels": 218603,
+      "edge": 0,
+      "hash": 4282333055,
+      "style": "manhua"
+    },
+    {
+      "head": "bamboo",
+      "costume": "uniform-qingyun-7",
+      "pixels": 232255,
+      "edge": 0,
+      "hash": 1772965362,
+      "style": "manhua"
+    },
+    {
+      "head": "bamboo",
+      "costume": "fashion-night",
+      "pixels": 166549,
+      "edge": 0,
+      "hash": 3699212529,
+      "style": "manhua"
+    },
+    {
+      "head": "bamboo",
+      "costume": "fashion-feast",
+      "pixels": 182202,
+      "edge": 0,
+      "hash": 2510688561,
+      "style": "manhua"
+    },
+    {
+      "head": "bamboo",
+      "costume": "fashion-snow",
+      "pixels": 181882,
+      "edge": 0,
+      "hash": 3134625154,
+      "style": "manhua"
+    },
+    {
+      "head": "bamboo",
+      "costume": "fashion-gold",
+      "pixels": 170898,
+      "edge": 0,
+      "hash": 382019822,
+      "style": "manhua"
+    },
+    {
+      "head": "topknot",
+      "costume": "uniform-qingyun-0",
+      "pixels": 136226,
+      "edge": 0,
+      "hash": 1181620877,
+      "style": "manhua"
+    },
+    {
+      "head": "topknot",
+      "costume": "uniform-qingyun-1",
+      "pixels": 143596,
+      "edge": 0,
+      "hash": 674102185,
+      "style": "manhua"
+    },
+    {
+      "head": "topknot",
+      "costume": "uniform-qingyun-2",
+      "pixels": 152990,
+      "edge": 0,
+      "hash": 3471419465,
+      "style": "manhua"
+    },
+    {
+      "head": "topknot",
+      "costume": "uniform-qingyun-3",
+      "pixels": 166925,
+      "edge": 0,
+      "hash": 916435027,
+      "style": "manhua"
+    },
+    {
+      "head": "topknot",
+      "costume": "uniform-qingyun-4",
+      "pixels": 149226,
+      "edge": 0,
+      "hash": 1316035834,
+      "style": "manhua"
+    },
+    {
+      "head": "topknot",
+      "costume": "uniform-qingyun-5",
+      "pixels": 155248,
+      "edge": 0,
+      "hash": 1569536112,
+      "style": "manhua"
+    },
+    {
+      "head": "topknot",
+      "costume": "uniform-qingyun-6",
+      "pixels": 204181,
+      "edge": 0,
+      "hash": 3516238325,
+      "style": "manhua"
+    },
+    {
+      "head": "topknot",
+      "costume": "uniform-qingyun-7",
+      "pixels": 221208,
+      "edge": 0,
+      "hash": 2655121306,
+      "style": "manhua"
+    },
+    {
+      "head": "topknot",
+      "costume": "fashion-night",
+      "pixels": 153316,
+      "edge": 0,
+      "hash": 73429275,
+      "style": "manhua"
+    },
+    {
+      "head": "topknot",
+      "costume": "fashion-feast",
+      "pixels": 169469,
+      "edge": 0,
+      "hash": 4001270399,
+      "style": "manhua"
+    },
+    {
+      "head": "topknot",
+      "costume": "fashion-snow",
+      "pixels": 168043,
+      "edge": 0,
+      "hash": 2533942904,
+      "style": "manhua"
+    },
+    {
+      "head": "topknot",
+      "costume": "fashion-gold",
+      "pixels": 157117,
+      "edge": 0,
+      "hash": 3087434614,
+      "style": "manhua"
+    },
+    {
+      "head": "master",
+      "costume": "uniform-qingyun-0",
+      "pixels": 136031,
+      "edge": 0,
+      "hash": 3842109385,
+      "style": "manhua"
+    },
+    {
+      "head": "master",
+      "costume": "uniform-qingyun-1",
+      "pixels": 144987,
+      "edge": 0,
+      "hash": 97337312,
+      "style": "manhua"
+    },
+    {
+      "head": "master",
+      "costume": "uniform-qingyun-2",
+      "pixels": 153292,
+      "edge": 0,
+      "hash": 543841461,
+      "style": "manhua"
+    },
+    {
+      "head": "master",
+      "costume": "uniform-qingyun-3",
+      "pixels": 166199,
+      "edge": 0,
+      "hash": 2656127426,
+      "style": "manhua"
+    },
+    {
+      "head": "master",
+      "costume": "uniform-qingyun-4",
+      "pixels": 147922,
+      "edge": 0,
+      "hash": 1111063724,
+      "style": "manhua"
+    },
+    {
+      "head": "master",
+      "costume": "uniform-qingyun-5",
+      "pixels": 155935,
+      "edge": 0,
+      "hash": 321641013,
+      "style": "manhua"
+    },
+    {
+      "head": "master",
+      "costume": "uniform-qingyun-6",
+      "pixels": 204136,
+      "edge": 0,
+      "hash": 3877410545,
+      "style": "manhua"
+    },
+    {
+      "head": "master",
+      "costume": "uniform-qingyun-7",
+      "pixels": 221030,
+      "edge": 0,
+      "hash": 680988706,
+      "style": "manhua"
+    },
+    {
+      "head": "master",
+      "costume": "fashion-night",
+      "pixels": 152678,
+      "edge": 0,
+      "hash": 990212220,
+      "style": "manhua"
+    },
+    {
+      "head": "master",
+      "costume": "fashion-feast",
+      "pixels": 169012,
+      "edge": 0,
+      "hash": 2726721441,
+      "style": "manhua"
+    },
+    {
+      "head": "master",
+      "costume": "fashion-snow",
+      "pixels": 167285,
+      "edge": 0,
+      "hash": 1394924169,
+      "style": "manhua"
+    },
+    {
+      "head": "master",
+      "costume": "fashion-gold",
+      "pixels": 156132,
+      "edge": 0,
+      "hash": 1136320992,
+      "style": "manhua"
+    },
+    {
+      "head": "silver",
+      "costume": "uniform-qingyun-0",
+      "pixels": 147227,
+      "edge": 0,
+      "hash": 1934812316,
+      "style": "manhua"
+    },
+    {
+      "head": "silver",
+      "costume": "uniform-qingyun-1",
+      "pixels": 161137,
+      "edge": 0,
+      "hash": 2077921558,
+      "style": "manhua"
+    },
+    {
+      "head": "silver",
+      "costume": "uniform-qingyun-2",
+      "pixels": 167007,
+      "edge": 0,
+      "hash": 1840194553,
+      "style": "manhua"
+    },
+    {
+      "head": "silver",
+      "costume": "uniform-qingyun-3",
+      "pixels": 180934,
+      "edge": 0,
+      "hash": 279406682,
+      "style": "manhua"
+    },
+    {
+      "head": "silver",
+      "costume": "uniform-qingyun-4",
+      "pixels": 163985,
+      "edge": 0,
+      "hash": 1179065983,
+      "style": "manhua"
+    },
+    {
+      "head": "silver",
+      "costume": "uniform-qingyun-5",
+      "pixels": 167976,
+      "edge": 0,
+      "hash": 898424494,
+      "style": "manhua"
+    },
+    {
+      "head": "silver",
+      "costume": "uniform-qingyun-6",
+      "pixels": 218236,
+      "edge": 0,
+      "hash": 355806006,
+      "style": "manhua"
+    },
+    {
+      "head": "silver",
+      "costume": "uniform-qingyun-7",
+      "pixels": 234475,
+      "edge": 0,
+      "hash": 454265993,
+      "style": "manhua"
+    },
+    {
+      "head": "silver",
+      "costume": "fashion-night",
+      "pixels": 167480,
+      "edge": 0,
+      "hash": 3924267915,
+      "style": "manhua"
+    },
+    {
+      "head": "silver",
+      "costume": "fashion-feast",
+      "pixels": 181633,
+      "edge": 0,
+      "hash": 3769948865,
+      "style": "manhua"
+    },
+    {
+      "head": "silver",
+      "costume": "fashion-snow",
+      "pixels": 180439,
+      "edge": 0,
+      "hash": 3983328965,
+      "style": "manhua"
+    },
+    {
+      "head": "silver",
+      "costume": "fashion-gold",
+      "pixels": 171637,
+      "edge": 0,
+      "hash": 3115787593,
+      "style": "manhua"
+    },
+    {
+      "head": "ponytail",
+      "costume": "uniform-qingyun-0",
+      "pixels": 139795,
+      "edge": 0,
+      "hash": 2247337371,
+      "style": "manhua"
+    },
+    {
+      "head": "ponytail",
+      "costume": "uniform-qingyun-1",
+      "pixels": 148486,
+      "edge": 0,
+      "hash": 4284942957,
+      "style": "manhua"
+    },
+    {
+      "head": "ponytail",
+      "costume": "uniform-qingyun-2",
+      "pixels": 165141,
+      "edge": 0,
+      "hash": 3746254470,
+      "style": "manhua"
+    },
+    {
+      "head": "ponytail",
+      "costume": "uniform-qingyun-3",
+      "pixels": 179759,
+      "edge": 0,
+      "hash": 2045987623,
+      "style": "manhua"
+    },
+    {
+      "head": "ponytail",
+      "costume": "uniform-qingyun-4",
+      "pixels": 146485,
+      "edge": 0,
+      "hash": 4275795676,
+      "style": "manhua"
+    },
+    {
+      "head": "ponytail",
+      "costume": "uniform-qingyun-5",
+      "pixels": 154347,
+      "edge": 0,
+      "hash": 2958180792,
+      "style": "manhua"
+    },
+    {
+      "head": "ponytail",
+      "costume": "uniform-qingyun-6",
+      "pixels": 194022,
+      "edge": 0,
+      "hash": 2593021908,
+      "style": "manhua"
+    },
+    {
+      "head": "ponytail",
+      "costume": "uniform-qingyun-7",
+      "pixels": 221523,
+      "edge": 0,
+      "hash": 3424439639,
+      "style": "manhua"
+    },
+    {
+      "head": "ponytail",
+      "costume": "fashion-night",
+      "pixels": 157158,
+      "edge": 0,
+      "hash": 79395273,
+      "style": "manhua"
+    },
+    {
+      "head": "ponytail",
+      "costume": "fashion-feast",
+      "pixels": 170565,
+      "edge": 0,
+      "hash": 3059291009,
+      "style": "manhua"
+    },
+    {
+      "head": "ponytail",
+      "costume": "fashion-snow",
+      "pixels": 169372,
+      "edge": 0,
+      "hash": 343084819,
+      "style": "manhua"
+    },
+    {
+      "head": "ponytail",
+      "costume": "fashion-gold",
+      "pixels": 157821,
+      "edge": 0,
+      "hash": 3255178522,
+      "style": "manhua"
+    },
+    {
+      "head": "loose",
+      "costume": "uniform-qingyun-0",
+      "pixels": 145715,
+      "edge": 0,
+      "hash": 2052920459,
+      "style": "manhua"
+    },
+    {
+      "head": "loose",
+      "costume": "uniform-qingyun-1",
+      "pixels": 154046,
+      "edge": 0,
+      "hash": 1747140769,
+      "style": "manhua"
+    },
+    {
+      "head": "loose",
+      "costume": "uniform-qingyun-2",
+      "pixels": 170711,
+      "edge": 0,
+      "hash": 2832936929,
+      "style": "manhua"
+    },
+    {
+      "head": "loose",
+      "costume": "uniform-qingyun-3",
+      "pixels": 185524,
+      "edge": 0,
+      "hash": 3139777006,
+      "style": "manhua"
+    },
+    {
+      "head": "loose",
+      "costume": "uniform-qingyun-4",
+      "pixels": 154074,
+      "edge": 0,
+      "hash": 2478885982,
+      "style": "manhua"
+    },
+    {
+      "head": "loose",
+      "costume": "uniform-qingyun-5",
+      "pixels": 159439,
+      "edge": 0,
+      "hash": 2218357922,
+      "style": "manhua"
+    },
+    {
+      "head": "loose",
+      "costume": "uniform-qingyun-6",
+      "pixels": 199782,
+      "edge": 0,
+      "hash": 2627886935,
+      "style": "manhua"
+    },
+    {
+      "head": "loose",
+      "costume": "uniform-qingyun-7",
+      "pixels": 229937,
+      "edge": 0,
+      "hash": 115643842,
+      "style": "manhua"
+    },
+    {
+      "head": "loose",
+      "costume": "fashion-night",
+      "pixels": 161244,
+      "edge": 0,
+      "hash": 3936554870,
+      "style": "manhua"
+    },
+    {
+      "head": "loose",
+      "costume": "fashion-feast",
+      "pixels": 177371,
+      "edge": 0,
+      "hash": 2054515628,
+      "style": "manhua"
+    },
+    {
+      "head": "loose",
+      "costume": "fashion-snow",
+      "pixels": 173446,
+      "edge": 0,
+      "hash": 2267765768,
+      "style": "manhua"
+    },
+    {
+      "head": "loose",
+      "costume": "fashion-gold",
+      "pixels": 163140,
+      "edge": 0,
+      "hash": 507765526,
+      "style": "manhua"
+    },
+    {
+      "head": "bun",
+      "costume": "uniform-qingyun-0",
+      "pixels": 126163,
+      "edge": 0,
+      "hash": 22435018,
+      "style": "manhua"
+    },
+    {
+      "head": "bun",
+      "costume": "uniform-qingyun-1",
+      "pixels": 133922,
+      "edge": 0,
+      "hash": 727499003,
+      "style": "manhua"
+    },
+    {
+      "head": "bun",
+      "costume": "uniform-qingyun-2",
+      "pixels": 149586,
+      "edge": 0,
+      "hash": 1340250924,
+      "style": "manhua"
+    },
+    {
+      "head": "bun",
+      "costume": "uniform-qingyun-3",
+      "pixels": 164145,
+      "edge": 0,
+      "hash": 2091658241,
+      "style": "manhua"
+    },
+    {
+      "head": "bun",
+      "costume": "uniform-qingyun-4",
+      "pixels": 133702,
+      "edge": 0,
+      "hash": 3051152631,
+      "style": "manhua"
+    },
+    {
+      "head": "bun",
+      "costume": "uniform-qingyun-5",
+      "pixels": 139779,
+      "edge": 0,
+      "hash": 714175379,
+      "style": "manhua"
+    },
+    {
+      "head": "bun",
+      "costume": "uniform-qingyun-6",
+      "pixels": 181680,
+      "edge": 0,
+      "hash": 1561118742,
+      "style": "manhua"
+    },
+    {
+      "head": "bun",
+      "costume": "uniform-qingyun-7",
+      "pixels": 206240,
+      "edge": 0,
+      "hash": 2197003990,
+      "style": "manhua"
+    },
+    {
+      "head": "bun",
+      "costume": "fashion-night",
+      "pixels": 144273,
+      "edge": 0,
+      "hash": 314302161,
+      "style": "manhua"
+    },
+    {
+      "head": "bun",
+      "costume": "fashion-feast",
+      "pixels": 157873,
+      "edge": 0,
+      "hash": 316600734,
+      "style": "manhua"
+    },
+    {
+      "head": "bun",
+      "costume": "fashion-snow",
+      "pixels": 156848,
+      "edge": 0,
+      "hash": 4073468094,
+      "style": "manhua"
+    },
+    {
+      "head": "bun",
+      "costume": "fashion-gold",
+      "pixels": 143289,
+      "edge": 0,
+      "hash": 2381017359,
+      "style": "manhua"
+    },
+    {
+      "head": "short",
+      "costume": "uniform-qingyun-0",
+      "pixels": 133626,
+      "edge": 0,
+      "hash": 2131602395,
+      "style": "manhua"
+    },
+    {
+      "head": "short",
+      "costume": "uniform-qingyun-1",
+      "pixels": 142980,
+      "edge": 0,
+      "hash": 529997364,
+      "style": "manhua"
+    },
+    {
+      "head": "short",
+      "costume": "uniform-qingyun-2",
+      "pixels": 159937,
+      "edge": 0,
+      "hash": 1680716046,
+      "style": "manhua"
+    },
+    {
+      "head": "short",
+      "costume": "uniform-qingyun-3",
+      "pixels": 175509,
+      "edge": 0,
+      "hash": 413780788,
+      "style": "manhua"
+    },
+    {
+      "head": "short",
+      "costume": "uniform-qingyun-4",
+      "pixels": 143535,
+      "edge": 0,
+      "hash": 753533123,
+      "style": "manhua"
+    },
+    {
+      "head": "short",
+      "costume": "uniform-qingyun-5",
+      "pixels": 148055,
+      "edge": 0,
+      "hash": 1114753691,
+      "style": "manhua"
+    },
+    {
+      "head": "short",
+      "costume": "uniform-qingyun-6",
+      "pixels": 194922,
+      "edge": 0,
+      "hash": 2869061441,
+      "style": "manhua"
+    },
+    {
+      "head": "short",
+      "costume": "uniform-qingyun-7",
+      "pixels": 220156,
+      "edge": 0,
+      "hash": 3085637866,
+      "style": "manhua"
+    },
+    {
+      "head": "short",
+      "costume": "fashion-night",
+      "pixels": 152535,
+      "edge": 0,
+      "hash": 398054170,
+      "style": "manhua"
+    },
+    {
+      "head": "short",
+      "costume": "fashion-feast",
+      "pixels": 168936,
+      "edge": 0,
+      "hash": 3200590427,
+      "style": "manhua"
+    },
+    {
+      "head": "short",
+      "costume": "fashion-snow",
+      "pixels": 166628,
+      "edge": 0,
+      "hash": 2413086183,
+      "style": "manhua"
+    },
+    {
+      "head": "short",
+      "costume": "fashion-gold",
+      "pixels": 153431,
+      "edge": 0,
+      "hash": 514022895,
+      "style": "manhua"
+    }
+  ],
+  "checks": [
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "lockedPreviewNoSave": true,
+      "qualifiedUniformConfirm": true,
+      "fashionPreviewCancel": true,
+      "lastFashionRetained": true,
+      "reloadKeptUniform": true,
+      "simulatedDepartureFallbackAndReload": true,
+      "forgedUniformRejected": true,
+      "resourcesUnchanged": true,
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "lockedPreviewNoSave": true,
+      "qualifiedUniformConfirm": true,
+      "fashionPreviewCancel": true,
+      "lastFashionRetained": true,
+      "reloadKeptUniform": true,
+      "simulatedDepartureFallbackAndReload": true,
+      "forgedUniformRejected": true,
+      "resourcesUnchanged": true,
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        430,
+        932
+      ],
+      "lockedPreviewNoSave": true,
+      "qualifiedUniformConfirm": true,
+      "fashionPreviewCancel": true,
+      "lastFashionRetained": true,
+      "reloadKeptUniform": true,
+      "simulatedDepartureFallbackAndReload": true,
+      "forgedUniformRejected": true,
+      "resourcesUnchanged": true,
+      "pageerrors": []
+    }
+  ],
+  "cloudBlocked": true,
+  "actualIphone": false
+}

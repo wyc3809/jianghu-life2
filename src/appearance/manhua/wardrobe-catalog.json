@@ -1,0 +1,2025 @@
+{
+  "width": 512,
+  "height": 1024,
+  "figures": {
+    "bamboo-uniform-qingyun-0": {
+      "src": "ink/art/wardrobe/bamboo-uniform-qingyun-0.webp",
+      "bounds": [
+        121,
+        254,
+        391,
+        990
+      ],
+      "portrait": [
+        136,
+        254,
+        221,
+        221
+      ],
+      "sha256": "e853ade1d66fa3a992c6e990709fe701dccac641aaf3096f8969f6699142ecb3",
+      "source": "exec-5106b016-4c2f-49d5-8620-7ba00704e939.png",
+      "cell": 0
+    },
+    "topknot-uniform-qingyun-0": {
+      "src": "ink/art/wardrobe/topknot-uniform-qingyun-0.webp",
+      "bounds": [
+        135,
+        253,
+        376,
+        990
+      ],
+      "portrait": [
+        120,
+        253,
+        221,
+        221
+      ],
+      "sha256": "54455a0d2aee8af9228ff39757e665cc8af87bcf47b10819241fef6a2b18047e",
+      "source": "exec-5106b016-4c2f-49d5-8620-7ba00704e939.png",
+      "cell": 1
+    },
+    "master-uniform-qingyun-0": {
+      "src": "ink/art/wardrobe/master-uniform-qingyun-0.webp",
+      "bounds": [
+        140,
+        253,
+        371,
+        990
+      ],
+      "portrait": [
+        121,
+        253,
+        221,
+        221
+      ],
+      "sha256": "63d2aac283df36f969024adbe3608cc9ef11ec7c04de3342ba0848eff520de43",
+      "source": "exec-5106b016-4c2f-49d5-8620-7ba00704e939.png",
+      "cell": 2
+    },
+    "silver-uniform-qingyun-0": {
+      "src": "ink/art/wardrobe/silver-uniform-qingyun-0.webp",
+      "bounds": [
+        112,
+        251,
+        399,
+        990
+      ],
+      "portrait": [
+        128,
+        251,
+        222,
+        222
+      ],
+      "sha256": "469c0a92d00d9adf614740cfeb255e645abc9a27e65626fa1fd11d3ecba0ef15",
+      "source": "exec-5106b016-4c2f-49d5-8620-7ba00704e939.png",
+      "cell": 3
+    },
+    "bamboo-uniform-qingyun-1": {
+      "src": "ink/art/wardrobe/bamboo-uniform-qingyun-1.webp",
+      "bounds": [
+        118,
+        252,
+        394,
+        990
+      ],
+      "portrait": [
+        136,
+        252,
+        221,
+        221
+      ],
+      "sha256": "85864ffcb033594783bb40e9e9558d60d81ecf13036e324593ca01d622f7e7c6",
+      "source": "exec-9c5c6b0b-c0f5-4fc9-b4a8-33dd0aa0ea72.png",
+      "cell": 0
+    },
+    "topknot-uniform-qingyun-1": {
+      "src": "ink/art/wardrobe/topknot-uniform-qingyun-1.webp",
+      "bounds": [
+        131,
+        252,
+        380,
+        990
+      ],
+      "portrait": [
+        124,
+        252,
+        221,
+        221
+      ],
+      "sha256": "cba8b601466025804f4814785239f9db4731162895e2f9e432ead897d8016955",
+      "source": "exec-9c5c6b0b-c0f5-4fc9-b4a8-33dd0aa0ea72.png",
+      "cell": 1
+    },
+    "master-uniform-qingyun-1": {
+      "src": "ink/art/wardrobe/master-uniform-qingyun-1.webp",
+      "bounds": [
+        130,
+        256,
+        382,
+        990
+      ],
+      "portrait": [
+        130,
+        256,
+        220,
+        220
+      ],
+      "sha256": "e67e6673f6db73f040a26f6d4bb6174831bb2b04aafe13306b3e0a1d2f16e7c6",
+      "source": "exec-9c5c6b0b-c0f5-4fc9-b4a8-33dd0aa0ea72.png",
+      "cell": 2
+    },
+    "silver-uniform-qingyun-1": {
+      "src": "ink/art/wardrobe/silver-uniform-qingyun-1.webp",
+      "bounds": [
+        100,
+        256,
+        411,
+        990
+      ],
+      "portrait": [
+        130,
+        256,
+        220,
+        220
+      ],
+      "sha256": "c650e2f9631a8b5b8d962fe1cd25f9a6dc23ec3cc48b9b5e7000c2932e56e5a9",
+      "source": "exec-9c5c6b0b-c0f5-4fc9-b4a8-33dd0aa0ea72.png",
+      "cell": 3
+    },
+    "bamboo-uniform-qingyun-2": {
+      "src": "ink/art/wardrobe/bamboo-uniform-qingyun-2.webp",
+      "bounds": [
+        113,
+        251,
+        398,
+        990
+      ],
+      "portrait": [
+        136,
+        251,
+        222,
+        222
+      ],
+      "sha256": "5186581f88345edba335488ea450b4d77bcef89f678b068e9c07d62a1b2ac74b",
+      "source": "exec-2f021d4b-e444-4a19-9f11-8fd3ef174540.png",
+      "cell": 0
+    },
+    "topknot-uniform-qingyun-2": {
+      "src": "ink/art/wardrobe/topknot-uniform-qingyun-2.webp",
+      "bounds": [
+        113,
+        246,
+        398,
+        990
+      ],
+      "portrait": [
+        140,
+        246,
+        223,
+        223
+      ],
+      "sha256": "9b0cf45dd3e8dfc4becf0e4d7a76c0a2dbbe2f926bc17f00a9a0ae2e710d3f92",
+      "source": "exec-2f021d4b-e444-4a19-9f11-8fd3ef174540.png",
+      "cell": 1
+    },
+    "master-uniform-qingyun-2": {
+      "src": "ink/art/wardrobe/master-uniform-qingyun-2.webp",
+      "bounds": [
+        113,
+        249,
+        398,
+        990
+      ],
+      "portrait": [
+        148,
+        249,
+        222,
+        222
+      ],
+      "sha256": "3211bbb4f00f1ea6c62495af5dd167f0a638d8015605e1898c5fc15fb1b34967",
+      "source": "exec-2f021d4b-e444-4a19-9f11-8fd3ef174540.png",
+      "cell": 2
+    },
+    "silver-uniform-qingyun-2": {
+      "src": "ink/art/wardrobe/silver-uniform-qingyun-2.webp",
+      "bounds": [
+        105,
+        249,
+        406,
+        990
+      ],
+      "portrait": [
+        128,
+        249,
+        222,
+        222
+      ],
+      "sha256": "256390083832e22519333c48725dc68cc5f378c53d00d9c0952d888aa8f51866",
+      "source": "exec-2f021d4b-e444-4a19-9f11-8fd3ef174540.png",
+      "cell": 3
+    },
+    "ponytail-uniform-qingyun-0": {
+      "src": "ink/art/wardrobe/ponytail-uniform-qingyun-0.webp",
+      "bounds": [
+        126,
+        253,
+        385,
+        990
+      ],
+      "portrait": [
+        122,
+        253,
+        221,
+        221
+      ],
+      "sha256": "e5a5318511ddd9ecf3b0ef382ce9e7a2d2130151958be0f4ef4b07598701789b",
+      "source": "exec-62cf1827-20b2-4fd9-86ea-1103015f31ff.png",
+      "cell": 0
+    },
+    "loose-uniform-qingyun-0": {
+      "src": "ink/art/wardrobe/loose-uniform-qingyun-0.webp",
+      "bounds": [
+        127,
+        272,
+        384,
+        990
+      ],
+      "portrait": [
+        128,
+        272,
+        215,
+        215
+      ],
+      "sha256": "cf5882c8d53104c6e756f183cdffbdfeea78a47d4c4cf91b8a1a2ec80a1df1c4",
+      "source": "exec-62cf1827-20b2-4fd9-86ea-1103015f31ff.png",
+      "cell": 1
+    },
+    "bun-uniform-qingyun-0": {
+      "src": "ink/art/wardrobe/bun-uniform-qingyun-0.webp",
+      "bounds": [
+        150,
+        253,
+        361,
+        990
+      ],
+      "portrait": [
+        130,
+        253,
+        221,
+        221
+      ],
+      "sha256": "2c8be5ead3b1ac61036f4f49ce211cabbf31a59bd611682e3b03f21d596d6dda",
+      "source": "exec-62cf1827-20b2-4fd9-86ea-1103015f31ff.png",
+      "cell": 2
+    },
+    "short-uniform-qingyun-0": {
+      "src": "ink/art/wardrobe/short-uniform-qingyun-0.webp",
+      "bounds": [
+        150,
+        274,
+        361,
+        990
+      ],
+      "portrait": [
+        134,
+        274,
+        215,
+        215
+      ],
+      "sha256": "8df9da350274022072a562922277b2288fd8bbefa0b350c7127b60f892e9b921",
+      "source": "exec-62cf1827-20b2-4fd9-86ea-1103015f31ff.png",
+      "cell": 3
+    },
+    "ponytail-uniform-qingyun-1": {
+      "src": "ink/art/wardrobe/ponytail-uniform-qingyun-1.webp",
+      "bounds": [
+        122,
+        256,
+        390,
+        990
+      ],
+      "portrait": [
+        120,
+        256,
+        220,
+        220
+      ],
+      "sha256": "ddd0d643a4a70ace510a69ad42d85b4cf14be69e7a5a92eab9819ad2fe379a62",
+      "source": "exec-e432ca5f-2d7c-4236-9324-87d3d786ca68.png",
+      "cell": 0
+    },
+    "loose-uniform-qingyun-1": {
+      "src": "ink/art/wardrobe/loose-uniform-qingyun-1.webp",
+      "bounds": [
+        125,
+        277,
+        386,
+        990
+      ],
+      "portrait": [
+        127,
+        277,
+        214,
+        214
+      ],
+      "sha256": "df862797b61ec467d5c6a59e79c2249ee64b89d68eefb4dc3a58e3847d26c344",
+      "source": "exec-e432ca5f-2d7c-4236-9324-87d3d786ca68.png",
+      "cell": 1
+    },
+    "bun-uniform-qingyun-1": {
+      "src": "ink/art/wardrobe/bun-uniform-qingyun-1.webp",
+      "bounds": [
+        134,
+        252,
+        378,
+        990
+      ],
+      "portrait": [
+        136,
+        252,
+        221,
+        221
+      ],
+      "sha256": "18bcd820824a4eded804b9cfd5687905127828efe91be5b4da5db4008530b03a",
+      "source": "exec-e432ca5f-2d7c-4236-9324-87d3d786ca68.png",
+      "cell": 2
+    },
+    "short-uniform-qingyun-1": {
+      "src": "ink/art/wardrobe/short-uniform-qingyun-1.webp",
+      "bounds": [
+        134,
+        279,
+        378,
+        990
+      ],
+      "portrait": [
+        146,
+        279,
+        213,
+        213
+      ],
+      "sha256": "ec842db7afea72d6d595c0fe7c1006fde91925bc24e2883938b23e437fbe45c2",
+      "source": "exec-e432ca5f-2d7c-4236-9324-87d3d786ca68.png",
+      "cell": 3
+    },
+    "ponytail-uniform-qingyun-3": {
+      "src": "ink/art/wardrobe/ponytail-uniform-qingyun-3.webp",
+      "bounds": [
+        83,
+        255,
+        429,
+        990
+      ],
+      "portrait": [
+        135,
+        255,
+        220,
+        220
+      ],
+      "sha256": "01e23039125ea36e067232213cabe52a6c5f24d73ad841c3e98d7761146ae53d",
+      "source": "exec-090f86b5-9793-430e-8fd2-8c965a0b7965.png",
+      "cell": 0
+    },
+    "loose-uniform-qingyun-3": {
+      "src": "ink/art/wardrobe/loose-uniform-qingyun-3.webp",
+      "bounds": [
+        82,
+        276,
+        429,
+        990
+      ],
+      "portrait": [
+        145,
+        276,
+        214,
+        214
+      ],
+      "sha256": "3f4ac45fece9dbd23a17230b2c9eea4a0b9fc7bee2e66644462d38041ed01a4e",
+      "source": "exec-090f86b5-9793-430e-8fd2-8c965a0b7965.png",
+      "cell": 1
+    },
+    "bun-uniform-qingyun-3": {
+      "src": "ink/art/wardrobe/bun-uniform-qingyun-3.webp",
+      "bounds": [
+        83,
+        252,
+        428,
+        990
+      ],
+      "portrait": [
+        166,
+        252,
+        221,
+        221
+      ],
+      "sha256": "851ed9919377973a42edec1895412a9a14cf8d6c7035ba82671c68ebb685da00",
+      "source": "exec-090f86b5-9793-430e-8fd2-8c965a0b7965.png",
+      "cell": 2
+    },
+    "short-uniform-qingyun-3": {
+      "src": "ink/art/wardrobe/short-uniform-qingyun-3.webp",
+      "bounds": [
+        80,
+        277,
+        431,
+        990
+      ],
+      "portrait": [
+        172,
+        277,
+        214,
+        214
+      ],
+      "sha256": "7e34a9b7a15d0048d1474f1af7f928d9e009a7bb65110519d06d5f4c7031c811",
+      "source": "exec-090f86b5-9793-430e-8fd2-8c965a0b7965.png",
+      "cell": 3
+    },
+    "ponytail-uniform-qingyun-2": {
+      "src": "ink/art/wardrobe/ponytail-uniform-qingyun-2.webp",
+      "bounds": [
+        109,
+        258,
+        402,
+        990
+      ],
+      "portrait": [
+        114,
+        258,
+        220,
+        220
+      ],
+      "sha256": "3a3153f1516385e37ac25e6f38e26f1941a2a44bc445f38c4bcd92842411e650",
+      "source": "exec-0c2e6d55-93c1-4ad6-8d0d-19632477d878.png",
+      "cell": 0
+    },
+    "loose-uniform-qingyun-2": {
+      "src": "ink/art/wardrobe/loose-uniform-qingyun-2.webp",
+      "bounds": [
+        113,
+        280,
+        399,
+        990
+      ],
+      "portrait": [
+        128,
+        280,
+        213,
+        213
+      ],
+      "sha256": "c99b153333de4448e00dd5b5c1f0685b17a9f18dfb5faaca98166968fcc36613",
+      "source": "exec-0c2e6d55-93c1-4ad6-8d0d-19632477d878.png",
+      "cell": 1
+    },
+    "bun-uniform-qingyun-2": {
+      "src": "ink/art/wardrobe/bun-uniform-qingyun-2.webp",
+      "bounds": [
+        114,
+        258,
+        397,
+        990
+      ],
+      "portrait": [
+        140,
+        258,
+        220,
+        220
+      ],
+      "sha256": "5fc4eede6d257ceac5577401a48e4c4865e72242b5e5aaa189e5429e8d7be198",
+      "source": "exec-0c2e6d55-93c1-4ad6-8d0d-19632477d878.png",
+      "cell": 2
+    },
+    "short-uniform-qingyun-2": {
+      "src": "ink/art/wardrobe/short-uniform-qingyun-2.webp",
+      "bounds": [
+        113,
+        283,
+        398,
+        990
+      ],
+      "portrait": [
+        153,
+        283,
+        212,
+        212
+      ],
+      "sha256": "201694d232d681b98051a06cf29f6c483bcf42d161bc31bee595005f078f375b",
+      "source": "exec-0c2e6d55-93c1-4ad6-8d0d-19632477d878.png",
+      "cell": 3
+    },
+    "bamboo-uniform-qingyun-4": {
+      "src": "ink/art/wardrobe/bamboo-uniform-qingyun-4.webp",
+      "bounds": [
+        119,
+        273,
+        393,
+        990
+      ],
+      "portrait": [
+        136,
+        273,
+        215,
+        215
+      ],
+      "sha256": "8bce261fd79281130bf5ab919520eb50a37fe863a1983aeaf04984a3c542199e",
+      "source": "exec-98032c5c-17de-4daf-9a90-5e93ed218108.png",
+      "cell": 0
+    },
+    "topknot-uniform-qingyun-4": {
+      "src": "ink/art/wardrobe/topknot-uniform-qingyun-4.webp",
+      "bounds": [
+        128,
+        270,
+        383,
+        990
+      ],
+      "portrait": [
+        122,
+        270,
+        216,
+        216
+      ],
+      "sha256": "60bdf70ddf2482c10e59e0f649982840a9bf07e8e8d2704a688da8a0d9118caa",
+      "source": "exec-98032c5c-17de-4daf-9a90-5e93ed218108.png",
+      "cell": 1
+    },
+    "master-uniform-qingyun-4": {
+      "src": "ink/art/wardrobe/master-uniform-qingyun-4.webp",
+      "bounds": [
+        132,
+        265,
+        380,
+        990
+      ],
+      "portrait": [
+        132,
+        265,
+        218,
+        218
+      ],
+      "sha256": "715449fb25a15d7b368efcb6b05ba4db0d10ff7856f80a97ffde56240c853125",
+      "source": "exec-98032c5c-17de-4daf-9a90-5e93ed218108.png",
+      "cell": 2
+    },
+    "silver-uniform-qingyun-4": {
+      "src": "ink/art/wardrobe/silver-uniform-qingyun-4.webp",
+      "bounds": [
+        102,
+        268,
+        410,
+        990
+      ],
+      "portrait": [
+        132,
+        268,
+        217,
+        217
+      ],
+      "sha256": "46d421c1480200f779362907435e00405db362ee977f19df8f031a506860dd78",
+      "source": "exec-98032c5c-17de-4daf-9a90-5e93ed218108.png",
+      "cell": 3
+    },
+    "ponytail-uniform-qingyun-4": {
+      "src": "ink/art/wardrobe/ponytail-uniform-qingyun-4.webp",
+      "bounds": [
+        121,
+        248,
+        390,
+        990
+      ],
+      "portrait": [
+        116,
+        248,
+        223,
+        223
+      ],
+      "sha256": "d98de4c956aca7a6bb19358fdd41c939d1d9c885d5000c45c05367036ff21b4d",
+      "source": "exec-6d7c1226-121f-445d-8c00-56add5800fa6.png",
+      "cell": 0
+    },
+    "loose-uniform-qingyun-4": {
+      "src": "ink/art/wardrobe/loose-uniform-qingyun-4.webp",
+      "bounds": [
+        120,
+        268,
+        392,
+        990
+      ],
+      "portrait": [
+        122,
+        268,
+        217,
+        217
+      ],
+      "sha256": "b9e25954406f262a61590642c919724704a082217321501e35a4051780ad2b21",
+      "source": "exec-6d7c1226-121f-445d-8c00-56add5800fa6.png",
+      "cell": 1
+    },
+    "bun-uniform-qingyun-4": {
+      "src": "ink/art/wardrobe/bun-uniform-qingyun-4.webp",
+      "bounds": [
+        136,
+        248,
+        376,
+        990
+      ],
+      "portrait": [
+        132,
+        248,
+        223,
+        223
+      ],
+      "sha256": "544b715b96239c19d94e43a6a2ec164dbe40444bbc45265a452c9503f9adb239",
+      "source": "exec-6d7c1226-121f-445d-8c00-56add5800fa6.png",
+      "cell": 2
+    },
+    "short-uniform-qingyun-4": {
+      "src": "ink/art/wardrobe/short-uniform-qingyun-4.webp",
+      "bounds": [
+        134,
+        273,
+        377,
+        990
+      ],
+      "portrait": [
+        136,
+        273,
+        215,
+        215
+      ],
+      "sha256": "b20d48ddc011a69fdb28f6e7409e5eec7bf91d5854b5fef881c444858b2ad692",
+      "source": "exec-6d7c1226-121f-445d-8c00-56add5800fa6.png",
+      "cell": 3
+    },
+    "bamboo-uniform-qingyun-3": {
+      "src": "ink/art/wardrobe/bamboo-uniform-qingyun-3.webp",
+      "bounds": [
+        80,
+        255,
+        431,
+        990
+      ],
+      "portrait": [
+        162,
+        255,
+        220,
+        220
+      ],
+      "sha256": "66c53a6d6a4318b9dfc682e9a051dcf9ea6c9842db4b25f56acd1b2dd4f56488",
+      "source": "exec-731bd253-d012-44bb-84ce-cdec25515bdf.png",
+      "cell": 0
+    },
+    "topknot-uniform-qingyun-3": {
+      "src": "ink/art/wardrobe/topknot-uniform-qingyun-3.webp",
+      "bounds": [
+        81,
+        252,
+        431,
+        990
+      ],
+      "portrait": [
+        168,
+        252,
+        221,
+        221
+      ],
+      "sha256": "3e955413853a086f61569bcccf0c8da67445eb638d56b1e357d26380e750b663",
+      "source": "exec-731bd253-d012-44bb-84ce-cdec25515bdf.png",
+      "cell": 1
+    },
+    "master-uniform-qingyun-3": {
+      "src": "ink/art/wardrobe/master-uniform-qingyun-3.webp",
+      "bounds": [
+        81,
+        251,
+        430,
+        990
+      ],
+      "portrait": [
+        170,
+        251,
+        222,
+        222
+      ],
+      "sha256": "ac4d3e8ba25de31e998b3e95778c99126038a43c3d39e97b4f73bec75a17b9cb",
+      "source": "exec-731bd253-d012-44bb-84ce-cdec25515bdf.png",
+      "cell": 2
+    },
+    "silver-uniform-qingyun-3": {
+      "src": "ink/art/wardrobe/silver-uniform-qingyun-3.webp",
+      "bounds": [
+        81,
+        252,
+        431,
+        990
+      ],
+      "portrait": [
+        146,
+        252,
+        221,
+        221
+      ],
+      "sha256": "5e55a2111ee75b1b03e7ef6c231d90431e0a1bd735e8ff32dbfc9ceb5720a118",
+      "source": "exec-731bd253-d012-44bb-84ce-cdec25515bdf.png",
+      "cell": 3
+    },
+    "bamboo-uniform-qingyun-5": {
+      "src": "ink/art/wardrobe/bamboo-uniform-qingyun-5.webp",
+      "bounds": [
+        118,
+        257,
+        394,
+        990
+      ],
+      "portrait": [
+        134,
+        257,
+        220,
+        220
+      ],
+      "sha256": "835938341f796de52f4297a4a6516d05d058a7fbafefb4d8437c9f25c8edf466",
+      "source": "exec-89f571d9-67c8-48ff-a84d-ac90d516dbde.png",
+      "cell": 0
+    },
+    "topknot-uniform-qingyun-5": {
+      "src": "ink/art/wardrobe/topknot-uniform-qingyun-5.webp",
+      "bounds": [
+        120,
+        255,
+        392,
+        990
+      ],
+      "portrait": [
+        137,
+        255,
+        220,
+        220
+      ],
+      "sha256": "b6e1d0d5656f318bc2261fed3e4f2c4547fa0440b70d75c847286667537344b0",
+      "source": "exec-89f571d9-67c8-48ff-a84d-ac90d516dbde.png",
+      "cell": 1
+    },
+    "master-uniform-qingyun-5": {
+      "src": "ink/art/wardrobe/master-uniform-qingyun-5.webp",
+      "bounds": [
+        119,
+        258,
+        392,
+        990
+      ],
+      "portrait": [
+        142,
+        258,
+        220,
+        220
+      ],
+      "sha256": "b358f6125d36935877c3024b56615a4ec299311a5b5f24689c91b71bf4bcdd56",
+      "source": "exec-89f571d9-67c8-48ff-a84d-ac90d516dbde.png",
+      "cell": 2
+    },
+    "silver-uniform-qingyun-5": {
+      "src": "ink/art/wardrobe/silver-uniform-qingyun-5.webp",
+      "bounds": [
+        103,
+        257,
+        408,
+        990
+      ],
+      "portrait": [
+        128,
+        257,
+        220,
+        220
+      ],
+      "sha256": "ce4c299e8b964409ec3e82ad8963399f21d71253802de2b769728cdf061f2b92",
+      "source": "exec-89f571d9-67c8-48ff-a84d-ac90d516dbde.png",
+      "cell": 3
+    },
+    "ponytail-uniform-qingyun-5": {
+      "src": "ink/art/wardrobe/ponytail-uniform-qingyun-5.webp",
+      "bounds": [
+        123,
+        255,
+        389,
+        990
+      ],
+      "portrait": [
+        130,
+        255,
+        220,
+        220
+      ],
+      "sha256": "a02342cf8556d1c44137f6999894b2e2c2640ea5d6ddc8676943740b3bf3d763",
+      "source": "exec-034b23b7-a1fc-4d40-8450-227e0f570515.png",
+      "cell": 0
+    },
+    "loose-uniform-qingyun-5": {
+      "src": "ink/art/wardrobe/loose-uniform-qingyun-5.webp",
+      "bounds": [
+        123,
+        275,
+        389,
+        990
+      ],
+      "portrait": [
+        136,
+        275,
+        214,
+        214
+      ],
+      "sha256": "ed542366815d467fbb940826d8cbfa62e5bcf831db5fabb8a74dc00332df6d85",
+      "source": "exec-034b23b7-a1fc-4d40-8450-227e0f570515.png",
+      "cell": 1
+    },
+    "bun-uniform-qingyun-5": {
+      "src": "ink/art/wardrobe/bun-uniform-qingyun-5.webp",
+      "bounds": [
+        129,
+        251,
+        383,
+        990
+      ],
+      "portrait": [
+        149,
+        251,
+        222,
+        222
+      ],
+      "sha256": "c5d05c987cfb6c7adf292c18757e219126da1edc12c21ee64b564c06a28722aa",
+      "source": "exec-034b23b7-a1fc-4d40-8450-227e0f570515.png",
+      "cell": 2
+    },
+    "short-uniform-qingyun-5": {
+      "src": "ink/art/wardrobe/short-uniform-qingyun-5.webp",
+      "bounds": [
+        129,
+        274,
+        383,
+        990
+      ],
+      "portrait": [
+        152,
+        274,
+        215,
+        215
+      ],
+      "sha256": "4be6fccf14373279933f39847ab0938d7752a37065f3402ba1e19e7c9af1980b",
+      "source": "exec-034b23b7-a1fc-4d40-8450-227e0f570515.png",
+      "cell": 3
+    },
+    "bamboo-uniform-qingyun-6": {
+      "src": "ink/art/wardrobe/bamboo-uniform-qingyun-6.webp",
+      "bounds": [
+        84,
+        264,
+        427,
+        990
+      ],
+      "portrait": [
+        134,
+        264,
+        218,
+        218
+      ],
+      "sha256": "c4f61e19d49a2da71fb6154c7e2ad83f1d7e7c08069faa9c2b9239d1fd213d4a",
+      "source": "exec-24143ed0-1fca-42ce-837b-ecb2a37f92b2.png",
+      "cell": 0
+    },
+    "topknot-uniform-qingyun-6": {
+      "src": "ink/art/wardrobe/topknot-uniform-qingyun-6.webp",
+      "bounds": [
+        84,
+        261,
+        427,
+        990
+      ],
+      "portrait": [
+        139,
+        261,
+        219,
+        219
+      ],
+      "sha256": "aa786e880cfd4a4bc607d817c32a280f436c3256eb1d61b0ef979c002c0db448",
+      "source": "exec-24143ed0-1fca-42ce-837b-ecb2a37f92b2.png",
+      "cell": 1
+    },
+    "master-uniform-qingyun-6": {
+      "src": "ink/art/wardrobe/master-uniform-qingyun-6.webp",
+      "bounds": [
+        84,
+        262,
+        427,
+        990
+      ],
+      "portrait": [
+        144,
+        262,
+        218,
+        218
+      ],
+      "sha256": "efb1d75927f4aa2401103a888b825f1eb56260b05415a7ee7e608840d7a26272",
+      "source": "exec-24143ed0-1fca-42ce-837b-ecb2a37f92b2.png",
+      "cell": 2
+    },
+    "silver-uniform-qingyun-6": {
+      "src": "ink/art/wardrobe/silver-uniform-qingyun-6.webp",
+      "bounds": [
+        84,
+        260,
+        427,
+        990
+      ],
+      "portrait": [
+        115,
+        260,
+        219,
+        219
+      ],
+      "sha256": "92b186b4c8d0276bbf8adc89e374067a8cffd765b6dd41f56321980882cc1806",
+      "source": "exec-24143ed0-1fca-42ce-837b-ecb2a37f92b2.png",
+      "cell": 3
+    },
+    "bamboo-fashion-night": {
+      "src": "ink/art/wardrobe/bamboo-fashion-night.webp",
+      "bounds": [
+        107,
+        255,
+        404,
+        990
+      ],
+      "portrait": [
+        134,
+        255,
+        220,
+        220
+      ],
+      "sha256": "cec8bd83472bb4475da106d03af3d05d04167d99c5da2a8154395b9638e03f84",
+      "source": "exec-f426866d-1d62-49b6-ab4c-a249bff22403.png",
+      "cell": 0
+    },
+    "topknot-fashion-night": {
+      "src": "ink/art/wardrobe/topknot-fashion-night.webp",
+      "bounds": [
+        107,
+        254,
+        404,
+        990
+      ],
+      "portrait": [
+        134,
+        254,
+        221,
+        221
+      ],
+      "sha256": "e6eb0e05e0cdb450ab6e76eb6ef3d5bfc4add9f3a051a4cb63f0a736cbf07a5f",
+      "source": "exec-f426866d-1d62-49b6-ab4c-a249bff22403.png",
+      "cell": 1
+    },
+    "master-fashion-night": {
+      "src": "ink/art/wardrobe/master-fashion-night.webp",
+      "bounds": [
+        107,
+        253,
+        404,
+        990
+      ],
+      "portrait": [
+        140,
+        253,
+        221,
+        221
+      ],
+      "sha256": "4f9a1f3df6fc66ddf9f47cf32159ffc6bcd4ba6046f61dc92913c97e0db94840",
+      "source": "exec-f426866d-1d62-49b6-ab4c-a249bff22403.png",
+      "cell": 2
+    },
+    "silver-fashion-night": {
+      "src": "ink/art/wardrobe/silver-fashion-night.webp",
+      "bounds": [
+        97,
+        252,
+        414,
+        990
+      ],
+      "portrait": [
+        116,
+        252,
+        221,
+        221
+      ],
+      "sha256": "1afb0b235eb58263fb9ac44d7c7fb5e6d7c7bf47aa0b06fa7a8c8377797d9eab",
+      "source": "exec-f426866d-1d62-49b6-ab4c-a249bff22403.png",
+      "cell": 3
+    },
+    "ponytail-uniform-qingyun-6": {
+      "src": "ink/art/wardrobe/ponytail-uniform-qingyun-6.webp",
+      "bounds": [
+        101,
+        262,
+        411,
+        990
+      ],
+      "portrait": [
+        116,
+        262,
+        218,
+        218
+      ],
+      "sha256": "a2101ce0fa8adc89963eadce569197213e319329f657d554d4d5503b6ea424d5",
+      "source": "exec-233f64ac-402d-4059-9bc7-75c8f008d5a1.png",
+      "cell": 0
+    },
+    "loose-uniform-qingyun-6": {
+      "src": "ink/art/wardrobe/loose-uniform-qingyun-6.webp",
+      "bounds": [
+        101,
+        282,
+        411,
+        990
+      ],
+      "portrait": [
+        126,
+        282,
+        212,
+        212
+      ],
+      "sha256": "b7fbd008a934ae1a12f1f5f44a53a406bedc8c4737d9e9a3f189c58fcc6bc292",
+      "source": "exec-233f64ac-402d-4059-9bc7-75c8f008d5a1.png",
+      "cell": 1
+    },
+    "bun-uniform-qingyun-6": {
+      "src": "ink/art/wardrobe/bun-uniform-qingyun-6.webp",
+      "bounds": [
+        100,
+        263,
+        411,
+        990
+      ],
+      "portrait": [
+        142,
+        263,
+        218,
+        218
+      ],
+      "sha256": "7832c04d5e4ed0164a71336010c38b67cf414836e136d316b72b79e53a4044d1",
+      "source": "exec-233f64ac-402d-4059-9bc7-75c8f008d5a1.png",
+      "cell": 2
+    },
+    "short-uniform-qingyun-6": {
+      "src": "ink/art/wardrobe/short-uniform-qingyun-6.webp",
+      "bounds": [
+        99,
+        286,
+        413,
+        990
+      ],
+      "portrait": [
+        152,
+        286,
+        211,
+        211
+      ],
+      "sha256": "830e99179edd17db5bdcb3b4a96dc6e7adf94362130382b8e4be4738c9244f1e",
+      "source": "exec-233f64ac-402d-4059-9bc7-75c8f008d5a1.png",
+      "cell": 3
+    },
+    "ponytail-fashion-night": {
+      "src": "ink/art/wardrobe/ponytail-fashion-night.webp",
+      "bounds": [
+        115,
+        252,
+        396,
+        990
+      ],
+      "portrait": [
+        116,
+        252,
+        221,
+        221
+      ],
+      "sha256": "c8423ddd53bdb8d0a7b170f05eaa45173dd80fd19358ed5600d18b5a25e00a2b",
+      "source": "exec-44a2d21d-7aa9-4796-bca7-d7e6bb9baca0.png",
+      "cell": 0
+    },
+    "loose-fashion-night": {
+      "src": "ink/art/wardrobe/loose-fashion-night.webp",
+      "bounds": [
+        116,
+        270,
+        396,
+        990
+      ],
+      "portrait": [
+        126,
+        270,
+        216,
+        216
+      ],
+      "sha256": "cbbc2965712e1e2b4892534cd91e3a95aed37c0e1e3909d48d08e68c8d58e838",
+      "source": "exec-44a2d21d-7aa9-4796-bca7-d7e6bb9baca0.png",
+      "cell": 1
+    },
+    "bun-fashion-night": {
+      "src": "ink/art/wardrobe/bun-fashion-night.webp",
+      "bounds": [
+        115,
+        252,
+        396,
+        990
+      ],
+      "portrait": [
+        148,
+        252,
+        221,
+        221
+      ],
+      "sha256": "12c1c65823a65be5779e9e88123e01b60dc9d5ac0dc318af03cf54d0cb975d36",
+      "source": "exec-44a2d21d-7aa9-4796-bca7-d7e6bb9baca0.png",
+      "cell": 2
+    },
+    "short-fashion-night": {
+      "src": "ink/art/wardrobe/short-fashion-night.webp",
+      "bounds": [
+        115,
+        274,
+        396,
+        990
+      ],
+      "portrait": [
+        150,
+        274,
+        215,
+        215
+      ],
+      "sha256": "3cb22351d1d6fc10ee5cacacdee830fdac46a4435046bf3cf506be2b83e75e1a",
+      "source": "exec-44a2d21d-7aa9-4796-bca7-d7e6bb9baca0.png",
+      "cell": 3
+    },
+    "bamboo-uniform-qingyun-7": {
+      "src": "ink/art/wardrobe/bamboo-uniform-qingyun-7.webp",
+      "bounds": [
+        38,
+        250,
+        473,
+        990
+      ],
+      "portrait": [
+        124,
+        250,
+        222,
+        222
+      ],
+      "sha256": "5c3367f1ea3501f8c0a2b0db78e4d13e2655617c1ea2d3a99969ea7e4eed216c",
+      "source": "exec-60325189-d063-4cd7-8a63-caa8d52478a0.png",
+      "cell": 0
+    },
+    "topknot-uniform-qingyun-7": {
+      "src": "ink/art/wardrobe/topknot-uniform-qingyun-7.webp",
+      "bounds": [
+        38,
+        249,
+        473,
+        990
+      ],
+      "portrait": [
+        129,
+        249,
+        222,
+        222
+      ],
+      "sha256": "2d02cc50f6d7499e0987c60d91202fbd16a3efb0cefe9c25c03beea5b81e88b8",
+      "source": "exec-60325189-d063-4cd7-8a63-caa8d52478a0.png",
+      "cell": 1
+    },
+    "master-uniform-qingyun-7": {
+      "src": "ink/art/wardrobe/master-uniform-qingyun-7.webp",
+      "bounds": [
+        38,
+        250,
+        473,
+        990
+      ],
+      "portrait": [
+        139,
+        250,
+        222,
+        222
+      ],
+      "sha256": "01bf84aeb3b8b9068d9fde2c2a51f40f057df1029154a91c1ed462e961d60087",
+      "source": "exec-60325189-d063-4cd7-8a63-caa8d52478a0.png",
+      "cell": 2
+    },
+    "silver-uniform-qingyun-7": {
+      "src": "ink/art/wardrobe/silver-uniform-qingyun-7.webp",
+      "bounds": [
+        38,
+        250,
+        473,
+        990
+      ],
+      "portrait": [
+        104,
+        250,
+        222,
+        222
+      ],
+      "sha256": "fee85d381c0a7c72d2aaf57a7124be018b6926e7a4efe36569acbaa27b8eb18e",
+      "source": "exec-60325189-d063-4cd7-8a63-caa8d52478a0.png",
+      "cell": 3
+    },
+    "bamboo-fashion-feast": {
+      "src": "ink/art/wardrobe/bamboo-fashion-feast.webp",
+      "bounds": [
+        100,
+        255,
+        412,
+        990
+      ],
+      "portrait": [
+        140,
+        255,
+        220,
+        220
+      ],
+      "sha256": "d1450501fb471b9f3349df1697eae8d0375ae1695d0b56f243435eb87f75e174",
+      "source": "exec-559499fa-fbd6-4fe2-8f0c-15237e81cef7.png",
+      "cell": 0
+    },
+    "topknot-fashion-feast": {
+      "src": "ink/art/wardrobe/topknot-fashion-feast.webp",
+      "bounds": [
+        100,
+        253,
+        411,
+        990
+      ],
+      "portrait": [
+        140,
+        253,
+        221,
+        221
+      ],
+      "sha256": "fadba63baf394b93cc7d6ddf49fcc451d57205df7f4c8d13297d88a1a48daf8f",
+      "source": "exec-559499fa-fbd6-4fe2-8f0c-15237e81cef7.png",
+      "cell": 1
+    },
+    "master-fashion-feast": {
+      "src": "ink/art/wardrobe/master-fashion-feast.webp",
+      "bounds": [
+        100,
+        254,
+        412,
+        990
+      ],
+      "portrait": [
+        146,
+        254,
+        221,
+        221
+      ],
+      "sha256": "d138a3559cefb9f3133cc3febaf72bc5d9c4d266f1c627c243319248c60646ff",
+      "source": "exec-559499fa-fbd6-4fe2-8f0c-15237e81cef7.png",
+      "cell": 2
+    },
+    "silver-fashion-feast": {
+      "src": "ink/art/wardrobe/silver-fashion-feast.webp",
+      "bounds": [
+        99,
+        250,
+        412,
+        990
+      ],
+      "portrait": [
+        118,
+        250,
+        222,
+        222
+      ],
+      "sha256": "128cbfc01efc222b9f51184f9541e5412ad7ce4358e7fbb4e45c66bf8d54c440",
+      "source": "exec-559499fa-fbd6-4fe2-8f0c-15237e81cef7.png",
+      "cell": 3
+    },
+    "ponytail-uniform-qingyun-7": {
+      "src": "ink/art/wardrobe/ponytail-uniform-qingyun-7.webp",
+      "bounds": [
+        45,
+        256,
+        467,
+        990
+      ],
+      "portrait": [
+        112,
+        256,
+        220,
+        220
+      ],
+      "sha256": "61101f33fcef2119b6a99715995fd330722fa4226ef6933ab18c943779d7d7cc",
+      "source": "exec-bd7be99c-c2ab-48fa-aa07-c4b9ff91fab3.png",
+      "cell": 0
+    },
+    "loose-uniform-qingyun-7": {
+      "src": "ink/art/wardrobe/loose-uniform-qingyun-7.webp",
+      "bounds": [
+        45,
+        276,
+        466,
+        990
+      ],
+      "portrait": [
+        124,
+        276,
+        214,
+        214
+      ],
+      "sha256": "2134a5d11190ec6409d939f168917c2a122613ac12fb6bdbf5bb4ec20fe7c89b",
+      "source": "exec-bd7be99c-c2ab-48fa-aa07-c4b9ff91fab3.png",
+      "cell": 1
+    },
+    "bun-uniform-qingyun-7": {
+      "src": "ink/art/wardrobe/bun-uniform-qingyun-7.webp",
+      "bounds": [
+        45,
+        254,
+        467,
+        990
+      ],
+      "portrait": [
+        142,
+        254,
+        221,
+        221
+      ],
+      "sha256": "7cd9dcd30b33ac47d633165213e041fbb6d6e0c48e489f462ab0eb184a49f817",
+      "source": "exec-bd7be99c-c2ab-48fa-aa07-c4b9ff91fab3.png",
+      "cell": 2
+    },
+    "short-uniform-qingyun-7": {
+      "src": "ink/art/wardrobe/short-uniform-qingyun-7.webp",
+      "bounds": [
+        45,
+        278,
+        466,
+        990
+      ],
+      "portrait": [
+        150,
+        278,
+        214,
+        214
+      ],
+      "sha256": "1c5ec2d6beae6b28a2e4de2f5934985f6559ab69fc559b5cd6eae78162dcccfe",
+      "source": "exec-bd7be99c-c2ab-48fa-aa07-c4b9ff91fab3.png",
+      "cell": 3
+    },
+    "ponytail-fashion-snow": {
+      "src": "ink/art/wardrobe/ponytail-fashion-snow.webp",
+      "bounds": [
+        107,
+        248,
+        405,
+        990
+      ],
+      "portrait": [
+        118,
+        248,
+        223,
+        223
+      ],
+      "sha256": "129717e3cb6bb11d1e70c039d6988e392df31069b060c2364fb3b2cfc03ed853",
+      "source": "exec-e89ad4f2-d50a-4392-8a2a-f68e8412fa22.png",
+      "cell": 0
+    },
+    "loose-fashion-snow": {
+      "src": "ink/art/wardrobe/loose-fashion-snow.webp",
+      "bounds": [
+        106,
+        267,
+        406,
+        990
+      ],
+      "portrait": [
+        125,
+        267,
+        217,
+        217
+      ],
+      "sha256": "d7c9f02e2b69556317c6f47b9d736a2de7e4ea53e2225396be583f3c5e26a94e",
+      "source": "exec-e89ad4f2-d50a-4392-8a2a-f68e8412fa22.png",
+      "cell": 1
+    },
+    "bun-fashion-snow": {
+      "src": "ink/art/wardrobe/bun-fashion-snow.webp",
+      "bounds": [
+        107,
+        247,
+        405,
+        990
+      ],
+      "portrait": [
+        144,
+        247,
+        223,
+        223
+      ],
+      "sha256": "89dafb7f83f8754f41e8bd122122b245b7fa55551fcaa8e6909b474a995bbbdf",
+      "source": "exec-e89ad4f2-d50a-4392-8a2a-f68e8412fa22.png",
+      "cell": 2
+    },
+    "short-fashion-snow": {
+      "src": "ink/art/wardrobe/short-fashion-snow.webp",
+      "bounds": [
+        106,
+        270,
+        406,
+        990
+      ],
+      "portrait": [
+        148,
+        270,
+        216,
+        216
+      ],
+      "sha256": "c90adafd60373bfdd37574ff23d3f32cde3f7e08e045f98b65ea2f3c2c85c1f2",
+      "source": "exec-e89ad4f2-d50a-4392-8a2a-f68e8412fa22.png",
+      "cell": 3
+    },
+    "ponytail-fashion-feast": {
+      "src": "ink/art/wardrobe/ponytail-fashion-feast.webp",
+      "bounds": [
+        102,
+        247,
+        410,
+        990
+      ],
+      "portrait": [
+        119,
+        247,
+        223,
+        223
+      ],
+      "sha256": "20f9be6df448000303fa42b885823d21cfb9886e07d7d04cc8ca23598abe6040",
+      "source": "exec-ff7870cb-5291-4ea9-8229-cdf88e01dcc6.png",
+      "cell": 0
+    },
+    "loose-fashion-feast": {
+      "src": "ink/art/wardrobe/loose-fashion-feast.webp",
+      "bounds": [
+        101,
+        268,
+        410,
+        990
+      ],
+      "portrait": [
+        127,
+        268,
+        217,
+        217
+      ],
+      "sha256": "29f81c542439423e77cddd0db7610dd20caad233b23df6f597c0834f58bda3e9",
+      "source": "exec-ff7870cb-5291-4ea9-8229-cdf88e01dcc6.png",
+      "cell": 1
+    },
+    "bun-fashion-feast": {
+      "src": "ink/art/wardrobe/bun-fashion-feast.webp",
+      "bounds": [
+        103,
+        245,
+        409,
+        990
+      ],
+      "portrait": [
+        148,
+        245,
+        224,
+        224
+      ],
+      "sha256": "2c1b663ba6fe605837de86eea41c41eb1a4252c58bc8e4ee89d5b772442a9898",
+      "source": "exec-ff7870cb-5291-4ea9-8229-cdf88e01dcc6.png",
+      "cell": 2
+    },
+    "short-fashion-feast": {
+      "src": "ink/art/wardrobe/short-fashion-feast.webp",
+      "bounds": [
+        101,
+        269,
+        411,
+        990
+      ],
+      "portrait": [
+        148,
+        269,
+        216,
+        216
+      ],
+      "sha256": "6ffdfb5bb9019c95e2ff5f105b9abfaa23d41285e81893841bdd6d30d005446f",
+      "source": "exec-ff7870cb-5291-4ea9-8229-cdf88e01dcc6.png",
+      "cell": 3
+    },
+    "bamboo-fashion-snow": {
+      "src": "ink/art/wardrobe/bamboo-fashion-snow.webp",
+      "bounds": [
+        100,
+        257,
+        412,
+        990
+      ],
+      "portrait": [
+        138,
+        257,
+        220,
+        220
+      ],
+      "sha256": "5489d9fef3f982e98bacae5150e6b455bd422dfe02de045ac976ed28c2599033",
+      "source": "exec-01400caa-385b-4692-9d18-5d4a49c145c8.png",
+      "cell": 0
+    },
+    "topknot-fashion-snow": {
+      "src": "ink/art/wardrobe/topknot-fashion-snow.webp",
+      "bounds": [
+        99,
+        254,
+        412,
+        990
+      ],
+      "portrait": [
+        145,
+        254,
+        221,
+        221
+      ],
+      "sha256": "0cb33180362c05fe9bab33c24735c80aab97912c3b6d0de275fd50177269aa8d",
+      "source": "exec-01400caa-385b-4692-9d18-5d4a49c145c8.png",
+      "cell": 1
+    },
+    "master-fashion-snow": {
+      "src": "ink/art/wardrobe/master-fashion-snow.webp",
+      "bounds": [
+        100,
+        253,
+        412,
+        990
+      ],
+      "portrait": [
+        154,
+        253,
+        221,
+        221
+      ],
+      "sha256": "f2b9cce556faf6b98e81b5821e53b4619199cca8254d54133e0237adba874459",
+      "source": "exec-01400caa-385b-4692-9d18-5d4a49c145c8.png",
+      "cell": 2
+    },
+    "silver-fashion-snow": {
+      "src": "ink/art/wardrobe/silver-fashion-snow.webp",
+      "bounds": [
+        99,
+        253,
+        412,
+        990
+      ],
+      "portrait": [
+        124,
+        253,
+        221,
+        221
+      ],
+      "sha256": "01d5850bc9258e96b27dea7b758e587302e4e31ea5130a121f4abb0068735df0",
+      "source": "exec-01400caa-385b-4692-9d18-5d4a49c145c8.png",
+      "cell": 3
+    },
+    "bamboo-fashion-gold": {
+      "src": "ink/art/wardrobe/bamboo-fashion-gold.webp",
+      "bounds": [
+        107,
+        262,
+        404,
+        990
+      ],
+      "portrait": [
+        148,
+        262,
+        218,
+        218
+      ],
+      "sha256": "77b6ee8767fc0aa5da0461fdbdb00b7b2b9426da297355b90cd37236da35a8c3",
+      "source": "exec-4d08d4e5-9eb1-454d-b2fe-a786474e8eb2.png",
+      "cell": 0
+    },
+    "topknot-fashion-gold": {
+      "src": "ink/art/wardrobe/topknot-fashion-gold.webp",
+      "bounds": [
+        108,
+        259,
+        404,
+        990
+      ],
+      "portrait": [
+        150,
+        259,
+        219,
+        219
+      ],
+      "sha256": "87c0bb3e2362ff679100ce9f3fee81e8154d9ad4cccabf2fd88f385a716ace3e",
+      "source": "exec-4d08d4e5-9eb1-454d-b2fe-a786474e8eb2.png",
+      "cell": 1
+    },
+    "master-fashion-gold": {
+      "src": "ink/art/wardrobe/master-fashion-gold.webp",
+      "bounds": [
+        108,
+        258,
+        404,
+        990
+      ],
+      "portrait": [
+        157,
+        258,
+        220,
+        220
+      ],
+      "sha256": "1a34cb74c596ae00de1d67e7715955162fd44e23f9a641070da1c7b4dfdae858",
+      "source": "exec-4d08d4e5-9eb1-454d-b2fe-a786474e8eb2.png",
+      "cell": 2
+    },
+    "silver-fashion-gold": {
+      "src": "ink/art/wardrobe/silver-fashion-gold.webp",
+      "bounds": [
+        107,
+        256,
+        405,
+        990
+      ],
+      "portrait": [
+        126,
+        256,
+        220,
+        220
+      ],
+      "sha256": "e56b50ab634a3c540bbe09f8519699c5174966bb6837afafca2816851e683f81",
+      "source": "exec-4d08d4e5-9eb1-454d-b2fe-a786474e8eb2.png",
+      "cell": 3
+    },
+    "ponytail-fashion-gold": {
+      "src": "ink/art/wardrobe/ponytail-fashion-gold.webp",
+      "bounds": [
+        121,
+        264,
+        391,
+        990
+      ],
+      "portrait": [
+        124,
+        264,
+        218,
+        218
+      ],
+      "sha256": "26fab8175634706c3045cbf7b7e2a617705b363e9a614a3c83c18ec5289eeee9",
+      "source": "exec-5bac42a0-6409-4753-ac85-448cdfd51a12.png",
+      "cell": 0
+    },
+    "loose-fashion-gold": {
+      "src": "ink/art/wardrobe/loose-fashion-gold.webp",
+      "bounds": [
+        119,
+        283,
+        393,
+        990
+      ],
+      "portrait": [
+        135,
+        283,
+        212,
+        212
+      ],
+      "sha256": "58ad798ef89d603afdc7d27351aa2cfe051f9fddf3699f101985ec7c6496c100",
+      "source": "exec-5bac42a0-6409-4753-ac85-448cdfd51a12.png",
+      "cell": 1
+    },
+    "bun-fashion-gold": {
+      "src": "ink/art/wardrobe/bun-fashion-gold.webp",
+      "bounds": [
+        119,
+        262,
+        392,
+        990
+      ],
+      "portrait": [
+        153,
+        262,
+        218,
+        218
+      ],
+      "sha256": "3fc2a040d5c7816d144a1effecd0749f841ad1cb68b0af54bcc5c74832877ace",
+      "source": "exec-5bac42a0-6409-4753-ac85-448cdfd51a12.png",
+      "cell": 2
+    },
+    "short-fashion-gold": {
+      "src": "ink/art/wardrobe/short-fashion-gold.webp",
+      "bounds": [
+        119,
+        287,
+        393,
+        990
+      ],
+      "portrait": [
+        159,
+        287,
+        211,
+        211
+      ],
+      "sha256": "22b54082174abc7ed13a1f2fea9ba7ecce20a1010a7175663a54cdd481d1d3b1",
+      "source": "exec-5bac42a0-6409-4753-ac85-448cdfd51a12.png",
+      "cell": 3
+    }
+  },
+  "sources": [
+    {
+      "file": "exec-5106b016-4c2f-49d5-8620-7ba00704e939.png",
+      "sha256": "ce21305721bfb909bf413890e9fcb3db23f6fac4f5ae364aed6c04098b88cfa9",
+      "costume": "uniform-qingyun-0",
+      "heads": [
+        "bamboo",
+        "topknot",
+        "master",
+        "silver"
+      ],
+      "tool": "image_gen.imagegen"
+    },
+    {
+      "file": "exec-9c5c6b0b-c0f5-4fc9-b4a8-33dd0aa0ea72.png",
+      "sha256": "1bb8b48733d2bc3ac09d98b6b5eb0d0ddc7fcf8611e0474e1746d10209ce260c",
+      "costume": "uniform-qingyun-1",
+      "heads": [
+        "bamboo",
+        "topknot",
+        "master",
+        "silver"
+      ],
+      "tool": "image_gen.imagegen"
+    },
+    {
+      "file": "exec-2f021d4b-e444-4a19-9f11-8fd3ef174540.png",
+      "sha256": "c4b0ac15ac48e16fe2cbda5f0d81c85dd4a04562da56bd2067f66f6da3fe7fda",
+      "costume": "uniform-qingyun-2",
+      "heads": [
+        "bamboo",
+        "topknot",
+        "master",
+        "silver"
+      ],
+      "tool": "image_gen.imagegen"
+    },
+    {
+      "file": "exec-62cf1827-20b2-4fd9-86ea-1103015f31ff.png",
+      "sha256": "aeb707da4627966fc68a415089b24a48561065237de67df78858cac4e2b948ae",
+      "costume": "uniform-qingyun-0",
+      "heads": [
+        "ponytail",
+        "loose",
+        "bun",
+        "short"
+      ],
+      "tool": "image_gen.imagegen"
+    },
+    {
+      "file": "exec-e432ca5f-2d7c-4236-9324-87d3d786ca68.png",
+      "sha256": "657f3e064b3432afe765390af04f945dd337094b7804c7f9548f07d67d959f09",
+      "costume": "uniform-qingyun-1",
+      "heads": [
+        "ponytail",
+        "loose",
+        "bun",
+        "short"
+      ],
+      "tool": "image_gen.imagegen"
+    },
+    {
+      "file": "exec-090f86b5-9793-430e-8fd2-8c965a0b7965.png",
+      "sha256": "2f9ef6463a2ef4e90ac9128e5e09ee088ce7f2f2da846120ab9c51fd8b01fc86",
+      "costume": "uniform-qingyun-3",
+      "heads": [
+        "ponytail",
+        "loose",
+        "bun",
+        "short"
+      ],
+      "tool": "image_gen.imagegen"
+    },
+    {
+      "file": "exec-0c2e6d55-93c1-4ad6-8d0d-19632477d878.png",
+      "sha256": "74c286baa81cd4463eab399993cf16651a2fe694b3ed11122b7e6101f7fcba02",
+      "costume": "uniform-qingyun-2",
+      "heads": [
+        "ponytail",
+        "loose",
+        "bun",
+        "short"
+      ],
+      "tool": "image_gen.imagegen"
+    },
+    {
+      "file": "exec-98032c5c-17de-4daf-9a90-5e93ed218108.png",
+      "sha256": "a99a89bd8406e53d955cdc77cdc6e9665bb6b2364249397f78c8e768acad8b41",
+      "costume": "uniform-qingyun-4",
+      "heads": [
+        "bamboo",
+        "topknot",
+        "master",
+        "silver"
+      ],
+      "tool": "image_gen.imagegen"
+    },
+    {
+      "file": "exec-6d7c1226-121f-445d-8c00-56add5800fa6.png",
+      "sha256": "805e46535e0a426ed7c101701e46d69c88eef27323a91e7fbb17d30125ed3a94",
+      "costume": "uniform-qingyun-4",
+      "heads": [
+        "ponytail",
+        "loose",
+        "bun",
+        "short"
+      ],
+      "tool": "image_gen.imagegen"
+    },
+    {
+      "file": "exec-731bd253-d012-44bb-84ce-cdec25515bdf.png",
+      "sha256": "282fdf1a5519c3b124139849b29fa85240b5e12cb131114168c71d138e6d83ce",
+      "costume": "uniform-qingyun-3",
+      "heads": [
+        "bamboo",
+        "topknot",
+        "master",
+        "silver"
+      ],
+      "tool": "image_gen.imagegen"
+    },
+    {
+      "file": "exec-89f571d9-67c8-48ff-a84d-ac90d516dbde.png",
+      "sha256": "3b6b89c405c3c7707ffec5ad49767c056eb5019ebca2180cb4ba713d777de4b0",
+      "costume": "uniform-qingyun-5",
+      "heads": [
+        "bamboo",
+        "topknot",
+        "master",
+        "silver"
+      ],
+      "tool": "image_gen.imagegen"
+    },
+    {
+      "file": "exec-034b23b7-a1fc-4d40-8450-227e0f570515.png",
+      "sha256": "70e0e9edda9d0d7d9919903c6c789f8fbc8c2172f841ea05665e5045050dff1b",
+      "costume": "uniform-qingyun-5",
+      "heads": [
+        "ponytail",
+        "loose",
+        "bun",
+        "short"
+      ],
+      "tool": "image_gen.imagegen"
+    },
+    {
+      "file": "exec-24143ed0-1fca-42ce-837b-ecb2a37f92b2.png",
+      "sha256": "306e1444a1fc327029909ed5917b6928c2540bb02062135a33580ef61260e08d",
+      "costume": "uniform-qingyun-6",
+      "heads": [
+        "bamboo",
+        "topknot",
+        "master",
+        "silver"
+      ],
+      "tool": "image_gen.imagegen"
+    },
+    {
+      "file": "exec-f426866d-1d62-49b6-ab4c-a249bff22403.png",
+      "sha256": "ac7bd5162889ec360d00af4d91f6e35042efc6776941df6a721484f1e15785b3",
+      "costume": "fashion-night",
+      "heads": [
+        "bamboo",
+        "topknot",
+        "master",
+        "silver"
+      ],
+      "tool": "image_gen.imagegen"
+    },
+    {
+      "file": "exec-233f64ac-402d-4059-9bc7-75c8f008d5a1.png",
+      "sha256": "ca38ddca20f385730e2a35cbc785a46de48fe75ddeb11976cb9af7745b58b2e7",
+      "costume": "uniform-qingyun-6",
+      "heads": [
+        "ponytail",
+        "loose",
+        "bun",
+        "short"
+      ],
+      "tool": "image_gen.imagegen"
+    },
+    {
+      "file": "exec-44a2d21d-7aa9-4796-bca7-d7e6bb9baca0.png",
+      "sha256": "9e63afe73b16c4ec59b31cb50c3330c9656d867b8e5a001d53de6de168d421d5",
+      "costume": "fashion-night",
+      "heads": [
+        "ponytail",
+        "loose",
+        "bun",
+        "short"
+      ],
+      "tool": "image_gen.imagegen"
+    },
+    {
+      "file": "exec-60325189-d063-4cd7-8a63-caa8d52478a0.png",
+      "sha256": "f587c3c8a8f4c3203fbb8a3f4748a62d8ad4f2af27a89a64815249eec5693e02",
+      "costume": "uniform-qingyun-7",
+      "heads": [
+        "bamboo",
+        "topknot",
+        "master",
+        "silver"
+      ],
+      "tool": "image_gen.imagegen"
+    },
+    {
+      "file": "exec-559499fa-fbd6-4fe2-8f0c-15237e81cef7.png",
+      "sha256": "226a43d61f76ea609b21be6fd70c1cde7568a1c966ea41917d4f86e1d808db8a",
+      "costume": "fashion-feast",
+      "heads": [
+        "bamboo",
+        "topknot",
+        "master",
+        "silver"
+      ],
+      "tool": "image_gen.imagegen"
+    },
+    {
+      "file": "exec-bd7be99c-c2ab-48fa-aa07-c4b9ff91fab3.png",
+      "sha256": "442fae85a1083c74c693a8ae8c965a5b645be5b3ddee997d0f440e5c47d29f48",
+      "costume": "uniform-qingyun-7",
+      "heads": [
+        "ponytail",
+        "loose",
+        "bun",
+        "short"
+      ],
+      "tool": "image_gen.imagegen"
+    },
+    {
+      "file": "exec-e89ad4f2-d50a-4392-8a2a-f68e8412fa22.png",
+      "sha256": "afd4b35ded26b92095ddbbf976290a4c5c44c286b510088e781bda49e41d6de7",
+      "costume": "fashion-snow",
+      "heads": [
+        "ponytail",
+        "loose",
+        "bun",
+        "short"
+      ],
+      "tool": "image_gen.imagegen"
+    },
+    {
+      "file": "exec-ff7870cb-5291-4ea9-8229-cdf88e01dcc6.png",
+      "sha256": "a05d061aceff98b0948a5c4e75977d94e0b7aa4c44f4143450de648c136946b6",
+      "costume": "fashion-feast",
+      "heads": [
+        "ponytail",
+        "loose",
+        "bun",
+        "short"
+      ],
+      "tool": "image_gen.imagegen"
+    },
+    {
+      "file": "exec-01400caa-385b-4692-9d18-5d4a49c145c8.png",
+      "sha256": "e2ae6f52de48633c38ec22cad91fdd415024bab653001bcdee115f015b04f4cc",
+      "costume": "fashion-snow",
+      "heads": [
+        "bamboo",
+        "topknot",
+        "master",
+        "silver"
+      ],
+      "tool": "image_gen.imagegen"
+    },
+    {
+      "file": "exec-4d08d4e5-9eb1-454d-b2fe-a786474e8eb2.png",
+      "sha256": "b772fdd4f034d1e59f748439d6f54cc2259e64512ee805cc599fe3dd238f6006",
+      "costume": "fashion-gold",
+      "heads": [
+        "bamboo",
+        "topknot",
+        "master",
+        "silver"
+      ],
+      "tool": "image_gen.imagegen"
+    },
+    {
+      "file": "exec-5bac42a0-6409-4753-ac85-448cdfd51a12.png",
+      "sha256": "ad40a9141e01b91115f3f9e33407f83f28f91da296acaad9eb448afc6c6cdd9e",
+      "costume": "fashion-gold",
+      "heads": [
+        "ponytail",
+        "loose",
+        "bun",
+        "short"
+      ],
+      "tool": "image_gen.imagegen"
+    }
+  ],
+  "technicalChecksPassed": true
+}
