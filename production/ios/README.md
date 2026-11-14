@@ -1,8 +1,8 @@
 # 《江湖一生》iOS／TestFlight準備
 
-最新內測內容：**EA0.109.0**（2026-11-14）。Codemagic請選`main`、workflow **`ios-internal-testflight`（江湖一生 iOS 首次內測）**。Apple版本沿用`1.0`，build號仍由流程查詢Apple後遞增；遊戲EA版本不作Apple版本號。
+最新內測內容：**EA0.109.1**（2026-11-14）。Codemagic請選`main`、workflow **`ios-testflight`（江湖一生 iOS TestFlight 內測更新）**。Apple版本沿用`1.0`，build號仍由流程查詢Apple後遞增；遊戲EA版本不作Apple版本號。
 
-本次更新：手機按壓、次頁與冊頁動效統一，設定／玉石及裝備詳情入口增大，重複說明精簡，武學規則分段。包含EA0.108.0的30件珍品以上獨有兵器圖及演武出場比例修正。完整iPhone效能與舊檔升級仍需此版TestFlight驗收。
+本次修正TestFlight預設入口誤走外測檢查；遊戲內容沿用上一版。上一版更新：手機按壓、次頁與冊頁動效統一，設定／玉石及裝備詳情入口增大，重複說明精簡，武學規則分段。包含EA0.108.0的30件珍品以上獨有兵器圖及演武出場比例修正。完整iPhone效能與舊檔升級仍需此版TestFlight驗收。
 
 先前修正：內測準備紀錄曾停留EA0.91.0，令較新內容被版本檢查擋住。已同步，並在每次CI比較遊戲、套件、lockfile與準備紀錄版本，版本不一致即失敗。`internal-check.mjs`仍拒絕錯誤App ID／Bundle ID／公開連線設定；列出的「未驗收」項目是待辦紀錄，不會單獨阻擋此內測流程。沒有將未完成事項改成已驗收。
 
@@ -16,7 +16,7 @@
 - `npm run ios:sync`：mobile根路徑構建、同步Swift工程，再對齊App識別／版本。`npm run ios:verify`核對真正主bundle版本、全部public資源hash、Bundle ID、私隱資源及無開發server。
 - `npm run ios:package`：建立可交Mac重建的工程ZIP及SHA256資訊。含server型別／測試依賴；排除.env、憑證、私鑰、node_modules及私人存檔。ZIP不是IPA。
 - GitHub `iOS Package`：Mac實際未簽名Archive並驗證SDK、版本與資源，保留Archive、工程包及編譯記錄。這不會上傳Apple或邀請測試者。
-- `codemagic.yaml`：分開首次內測及外測發布；查詢正確App的歷史build後加一，首次無build才從1開始，查詢錯誤立即停止。兩者均不自動提交正式商店審核。
+- `codemagic.yaml`：內測入口與外測發布分開；查詢正確App的歷史build後加一，首次無build才從1開始，查詢錯誤立即停止。兩者均不自動提交正式商店審核。
 - 測試資訊草稿、私隱資料盤點、真機驗收清單及待辦狀態，見本目錄。沒有虛構聯絡人、Apple App ID或「不收集資料」聲明。
 
 目前程式使用`AbortSignal.any`等Web API，原生最低系統暫定iOS／iPadOS17.4；相對舊工程iOS15提高，避免明知不支援API仍宣稱可執行。iPhone／iPad直版Target保留，iPad與iPhone真機仍待驗證。此最低系統是本次準備值，須依測試裝置再確認；不是Apple上傳SDK要求。Apple自2026-04-28要求Xcode26／iOS26 SDK以上，本工程另檢查實際SDK。
@@ -33,22 +33,30 @@ GitHub PR會跑未簽名Mac Archive；亦可手動執行iOS Package。其Artifac
 
 玩家已提供App Store Connect數字App ID `6826541114`，已填入Codemagic的`APP_STORE_APP_ID`。這是玩家提供的App識別資料，尚未以Apple API核實其Bundle ID、版本、簽署或授權；其餘待辦保持未完成。
 
-### 首次安裝：ios-internal-testflight
+### 內部TestFlight更新：ios-testflight
 
-玩家已回覆完成描述檔上傳、環境變數設定，並確認Apple整合名稱`jianghu-life2-app-store`；這是玩家回報，不等於本環境已登入Codemagic或驗證Apple簽署。Codemagic重新整理後，選分支`main`及workflow「江湖一生 iOS 首次內測」（`ios-internal-testflight`）。重新建置前確認所選commit包含EA0.109.0，重跑舊build會沿用舊commit。
+玩家已回覆完成描述檔上傳、環境變數設定，並確認Apple整合名稱`jianghu-life2-app-store`；這是玩家回報，不等於本環境已登入Codemagic或驗證Apple簽署。Codemagic重新整理後，選分支`main`及workflow「江湖一生 iOS TestFlight 內測更新」（`ios-testflight`）。重新建置前確認所選commit包含EA0.109.1，重跑舊build會沿用舊commit。
 
 - 檢查App ID、Bundle ID、內容版本、Apple數字版本及公開連線設定；拒絕漏填、Dashboard網址、不同專案的anon key及後端金鑰，不打印金鑰內容。
 - 列出未完成待辦，保持JSON中的`done:false`。先上傳內測版，再按真iPhone完成存檔、前後台、效能與升級測試，避免把真機驗收當首次安裝的前置條件。
 - 使用`testFlightInternalTestingOnly:true`匯出。`submit_to_testflight:false`表示不自動送Beta審核，`submit_to_app_store:false`表示不送正式商店審核；IPA仍上傳App Store Connect。此包只能加進內部群組，不能用作外測或商店發布。
 - Apple處理完成後，由擁有者在App Store Connect的TestFlight建立內部群組、加入自己及此build，填測試內容，再用iPhone TestFlight安裝。只測已具備條件的功能；電郵回調、跨裝置還原及帳戶刪除仍是未完成項目。
 
-### 外測發布：ios-testflight
+### 停在「核對TestFlight準備狀態」時
+
+EA0.109.0或更早的`ios-testflight`其實是外測入口，會把未完成的真機／私隱／帳戶待辦當發布阻擋。EA0.109.1將這個常用ID及第一個入口改為內測更新，`ios-internal-testflight`保留為相同內測流程的相容入口；外測移至`ios-external-testflight`，發布檢查完整保留。
+
+在Codemagic重新整理App，再按**Start new build → main → ios-testflight**，確認來源commit包含EA0.109.1。不要Restart舊build：它可能仍使用舊commit與舊YAML。若畫面仍顯示「核對TestFlight準備狀態」，代表尚未選到更新後流程；新內測步驟名為「核對內測設定（待辦不阻擋內測）」。
+
+待辦仍然`done:false`，不把尚未驗收項目當作完成；錯誤App ID、Bundle ID、過期版本、缺失公開設定、Apple查詢／簽署錯誤仍會停止。新的內測入口只允許內部群組用IPA，沒有自動送外測審核或正式商店審核。
+
+### 外測發布：ios-external-testflight
 
 1. 確認付費Apple Developer會員、App Store Connect權限、已存在App的Bundle ID及數字App ID。已有App不要另建另一個同名App；維持`capacitor://localhost`儲存origin。
 2. 先完成`release-readiness.json`的實際待辦，逐項有證據才改done。`npm run ios:release-check`目前應明確失敗：它表示仍有已知缺項，不是編譯失敗。
 3. 在Mac或Codemagic安全設定Distribution憑證及App Store profile。使用Codemagic時，建立`jianghu-life2-app-store` Apple整合，將p8放服務的整合設定；不要貼入聊天或提交Git。GitHub登入不等於Apple已授權。
 4. Codemagic的`jianghu-public-config`環境group只需公開`VITE_SUPABASE_URL`／`VITE_SUPABASE_ANON_KEY`，沿用現有遊戲專案；不可放service_role。核對YAML中Bundle ID，填`APP_STORE_APP_ID`，保留`VITE_ONLINE_PUBLIC=1`。
-5. 完成真機／登入／隱私準備後，執行「江湖一生 iOS 外測發布」（ios-testflight）。完整`release-check`仍會拒絕未完成項目；需重新建置可供外測的已簽署IPA，不能沿用僅供內測的IPA。必須等Apple處理完成才算TestFlight可用。
+5. 完成真機／登入／隱私準備後，執行「江湖一生 iOS 外測（需完成發布清單）」（ios-external-testflight）。完整`release-check`仍會拒絕未完成項目；需重新建置可供外測的已簽署IPA，不能沿用僅供內測的IPA。必須等Apple處理完成才算TestFlight可用。
 6. 先加內部測試員；外部測試須提供Beta App Review資料，首個外測build通常需Apple審核，不能將上傳成功當外測已批准。正式App Store發布另行提交。
 
 未有Mac可使用GitHub取得未簽名Archive，再用Codemagic簽署與上傳；Apple帳戶仍必需。這個Linux工作環境不具Xcode或Apple簽署身份。

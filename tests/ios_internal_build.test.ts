@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
+import { parse } from 'yaml';
 
 const root = process.cwd();
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'jianghu-ios-internal-'));
@@ -11,7 +12,7 @@ fs.mkdirSync(path.join(dir, 'src'));
 fs.mkdirSync(path.join(dir, 'bin'));
 const readinessFile = path.join(dir, 'production/ios/release-readiness.json');
 const readiness = {
-  gameVersion: 'EA0.89.0', candidateBundleId: 'com.example.jianghu', appStoreAppId: '1234567890',
+  gameVersion: 'EA0.89.0', candidateBundleId: 'com.wyc3809.jianghulife2', appStoreAppId: '6826541114',
   checks: [{ id: 'device-save-upgrade', done: false, detail: '真機驗收未完成' }],
 };
 fs.writeFileSync(readinessFile, JSON.stringify(readiness));
@@ -39,7 +40,39 @@ const buildNumber = (latest: string, status = '0') => spawnSync('bash',
   });
 afterAll(() => fs.rmSync(dir, { recursive: true, force: true }));
 
-describe('iOS首次內測', () => {
+describe('iOS內測及外測入口', () => {
+  it.each(['ios-testflight', 'ios-internal-testflight'])('test_ios_實際YAML內測入口可通過未驗收清單且只匯出內部包_%s', id => {
+    // 解析真正YAML合併／anchor，執行該入口選中的檢查，不只檢查文字是否出現。
+    const workflows = parse(fs.readFileSync(path.join(root, 'codemagic.yaml'), 'utf8'), { merge: true }).workflows;
+    expect(Object.keys(workflows)[0]).toBe('ios-testflight');
+    const workflow = workflows[id];
+    expect(workflow.name).toContain('內測');
+    const checker = workflow.scripts[0].script.match(/^\s*node (scripts\/ios\/[\w-]+\.mjs)\s*$/m)?.[1];
+    expect(checker).toBeTruthy();
+    const before = fs.readFileSync(readinessFile, 'utf8');
+    const result = spawnSync(process.execPath, [path.join(root, checker)], {
+      cwd: dir, env: { ...env, ...workflow.environment.vars }, encoding: 'utf8',
+    });
+    expect(result.status, result.stderr).toBe(0);
+    expect(fs.readFileSync(readinessFile, 'utf8')).toBe(before);
+    const signing = workflow.scripts.find((step: { script: string }) => step.script.includes('xcode-project use-profiles'));
+    expect(signing.script).toContain('"testFlightInternalTestingOnly": true');
+    expect(workflow.publishing.app_store_connect).toMatchObject({ auth: 'integration', submit_to_testflight: false, submit_to_app_store: false });
+    expect(workflow.scripts.some((step: { script: string }) => step.script.includes('next-build-number.sh'))).toBe(true);
+  });
+  it('test_ios_實際YAML外測入口仍拒絕未完成清單而且提供內測入口', () => {
+    const workflow = parse(fs.readFileSync(path.join(root, 'codemagic.yaml'), 'utf8'), { merge: true }).workflows['ios-external-testflight'];
+    const checker = workflow.scripts[0].script.match(/^\s*node (scripts\/ios\/[\w-]+\.mjs)\s*$/m)?.[1];
+    expect(checker).toBeTruthy();
+    const result = spawnSync(process.execPath, [path.join(root, checker)], { cwd: dir, env: { ...env, ...workflow.environment.vars }, encoding: 'utf8' });
+    expect(result.status).toBe(1);
+    expect(result.stderr).toContain('device-save-upgrade');
+    expect(result.stderr).toContain('ios-testflight');
+    expect(workflow.publishing.app_store_connect).toMatchObject({ submit_to_testflight: true, submit_to_app_store: false });
+    const signing = workflow.scripts.find((step: { script: string }) => step.script.includes('xcode-project use-profiles'));
+    expect(signing.script).not.toContain('testFlightInternalTestingOnly');
+  });
+
   it('test_ios_內測可開始但真機待辦不會被標為完成', () => {
     const before = fs.readFileSync(readinessFile, 'utf8');
     const result = check();
