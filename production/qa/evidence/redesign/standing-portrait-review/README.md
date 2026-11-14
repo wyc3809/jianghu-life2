@@ -1,6 +1,6 @@
 # 人物腳位：單角色站姿預覽
 
-2026-11-14。**待玩家確認，未合併／發布，正式版本仍是 EA0.104.0。**
+2026-11-14。**玩家看過前後圖後明確回覆「上線」，確認站姿修正；發布版本 EA0.104.1，實際合併及部署以 PR #163／Pages 紀錄為準。**
 
 玩家指出人物頁盤坐截圖的腳位有誤，並同意先用完整自然站姿、交一角實際手機圖確認再擴展。本輪使用霜髮／旅裝／青玉同一存檔；沒有製作新人體或動畫。
 
@@ -24,6 +24,8 @@ Chromium，觸控模擬，DPR 2；隔離測試存檔，Supabase 請求封鎖。�
 
 相關檢查：完整134檔998項 Vitest 通過；`npm run build` 通過；`npm run audit:narrate` hard-fail 0；`git diff --check` 通過。既有 build chunk 體積提示仍存在，與這次腳位預覽無關。
 
+EA0.104.1發布前再次執行完整134檔998項測試、`npm run build:pages`、敘事及文案檢查，全部通過（hard-fail 0、禁句0處）；同一角色三個手機尺寸複驗均無裁切、取消預覽未改裝備及造型，沒有pageerror。這次複驗保存在本機 `.local-online/standing-release/`，原先評閱畫面不覆寫。
+
 ## 重現
 
 開 Vite 後執行：
@@ -35,4 +37,4 @@ STANDING_BASE=http://127.0.0.1:5300/ python3 scripts/qa/checkStandingPortrait.py
 
 腳本沿用既有本機 fixture `.local-online/unify-game/fixtures.json`（不含真人雲端資料）；缺少該檔時要先按第61項驗證流程建立 fixture。`before` 模式用於原版本擷取，不能將改後的圖當成修正前。可直接在本機HTTP開 `compare.html` 檢視保存的前後原圖。
 
-下一步由玩家先檢視這一角的比例、腳向及衣層；確認後才檢查其餘既有造型，盤坐另需完整姿勢處理。這一稿不作新版本、TestFlight 或上線驗收。
+這一角的站姿修正已獲玩家確認及發布授權，沿用同造型既有完整站姿；未擴製新人體或盤坐素材。上面前後圖保留原先評閱時的標籤，不能把舊「待確認」標籤當成最新發布狀態。沒有新TestFlight或真iPhone驗收。
