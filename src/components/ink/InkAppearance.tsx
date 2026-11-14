@@ -9,7 +9,7 @@ import { InkPersonSheet } from './InkPersonSheet';
 import { inkArtUrl } from '../../ui/inkAssets';
 import './appearance.css';
 import { loadManhuaFigure, drawManhuaFigure } from '../../appearance/manhua/figures';
-import { QINGYUN_UNIFORMS,FREE_FASHIONS,costumeLabel } from '@data/wardrobe';
+import { SECT_UNIFORM_GROUPS,uniformsForSect,FREE_FASHIONS,costumeLabel } from '@data/wardrobe';
 import { canWearCostume,type CostumeIdentity } from '@interfaces/costumes';
 
 /** 靜態頭像／全身立繪同樣由角色造型組合，沒有獨立的預設男俠圖。 */
@@ -61,7 +61,15 @@ export function AppearanceBadge({ character,size=60,className='' }:{character:{a
 /** 本窗只預覽；確認才保存，取消不換裝、不改能力或收費。 */
 export function InkAppearancePicker({ appearance,onConfirm,onClose,busy=false,sectId=null,sectStanding=0 }:{appearance:CharacterAppearance;onConfirm(value:CharacterAppearance):boolean;onClose():void;busy?:boolean}&CostumeIdentity) {
   const [draft,setDraft]=useState(()=>readAppearance(appearance)),[tab,setTab]=useState<'head'|'outfit'|'tone'|'uniform'|'fashion'>('head');
-  const [error,setError]=useState('');const gate=useRef(false);
+  const [error,setError]=useState('');const gate=useRef(false),sectsRef=useRef<HTMLDivElement>(null);
+  const [uniformSect,setUniformSect]=useState(()=>SECT_UNIFORM_GROUPS.some(s=>s.id===sectId)?sectId!:'sect_qingyun');
+  useEffect(()=>{
+    if(tab!=='uniform')return;
+    const row=sectsRef.current,active=row?.querySelector<HTMLButtonElement>('[aria-pressed=true]');
+    if(!row||!active)return;
+    const outer=row.getBoundingClientRect(),selected=active.getBoundingClientRect();
+    row.scrollLeft+=selected.left-outer.left-(outer.width-selected.width)/2;
+  },[tab,uniformSect]);
   const identity={sectId,sectStanding},allowed=!draft.costume||canWearCostume(identity,draft.costume);
   const name=draft.costume?costumeLabel(draft.costume):OUTFIT_LABELS[draft.outfit];
   return <InkPersonSheet title="衣著與造型" onClose={onClose} className="ink-appearance-sheet">
@@ -71,7 +79,13 @@ export function InkAppearancePicker({ appearance,onConfirm,onClose,busy=false,se
       {tab==='head'&&APPEARANCE_HEADS.map(head=><button type="button" key={head} aria-label={HEAD_LABELS[head]} aria-pressed={draft.head===head} onClick={()=>setDraft({...draft,head})}><AppearanceCanvas appearance={{...draft,head}} mode="portrait"/><span>{HEAD_LABELS[head]}</span></button>)}
       {tab==='outfit'&&APPEARANCE_OUTFITS.map(outfit=><button type="button" key={outfit} aria-label={OUTFIT_LABELS[outfit]} aria-pressed={!draft.costume&&draft.outfit===outfit} onClick={()=>setDraft({...draft,outfit,costume:undefined,fashion:undefined})}><AppearanceCanvas appearance={{...draft,outfit,costume:undefined}}/><span>{OUTFIT_LABELS[outfit]}</span></button>)}
       {tab==='tone'&&(draft.costume?<p className="ink-appearance-empty">{name}使用固定配色；常服可自由配色。</p>:APPEARANCE_TONES.map(tone=><button type="button" key={tone} aria-label={TONE_LABELS[tone]} aria-pressed={draft.tone===tone} onClick={()=>setDraft({...draft,tone})}><i style={{backgroundColor:`rgb(${APPEARANCE_COLOURS[tone].join(',')})`}} aria-hidden="true"/><span>{TONE_LABELS[tone]}</span></button>))}
-      {tab==='uniform'&&(sectId==='sect_qingyun'?<><p className="ink-appearance-group-label">青雲劍派 · 按職位開放</p>{QINGYUN_UNIFORMS.map(item=><button type="button" key={item.id} aria-label={`預覽${item.name}`} aria-pressed={draft.costume===item.id} onClick={()=>setDraft({...draft,costume:item.id})}><AppearanceCanvas appearance={{...draft,costume:item.id}}/><span>{item.name.split('・')[1]}</span>{!canWearCostume(identity,item.id)&&<small>需{item.name.split('・')[1]}</small>}</button>)}</>:<p className="ink-appearance-empty">{sectId?'目前沒有可穿的門派服。':'加入門派後可查看對應制服。'}青雲八職位服已開放，其他門派會陸續加入。</p>)}
+      {tab==='uniform'&&<>
+        <div className="ink-appearance-sects" role="group" aria-label="門派制服目錄" ref={sectsRef}>
+          {SECT_UNIFORM_GROUPS.map(sect=><button type="button" key={sect.id} aria-pressed={uniformSect===sect.id} onClick={()=>{setUniformSect(sect.id);setDraft(current=>({...current,costume:uniformsForSect(sect.id)[0].id}));setError('');}}>{sect.name}</button>)}
+        </div>
+        <p className="ink-appearance-group-label">{SECT_UNIFORM_GROUPS.find(s=>s.id===uniformSect)?.name} · {uniformSect===sectId?'按職位開放':sectId?'其他門派，只供預覽':'入派後按職位開放'}</p>
+        {uniformsForSect(uniformSect).map(item=><button type="button" key={item.id} aria-label={`預覽${item.name}`} aria-pressed={draft.costume===item.id} onClick={()=>setDraft({...draft,costume:item.id})}><AppearanceCanvas appearance={{...draft,costume:item.id}}/><span>{item.rankName}</span>{!canWearCostume(identity,item.id)&&<small>{uniformSect===sectId?`需${item.rankName}`:'只供預覽'}</small>}</button>)}
+      </>}
       {tab==='fashion'&&FREE_FASHIONS.map(item=><button type="button" key={item.id} aria-label={item.name} aria-pressed={draft.costume===item.id} onClick={()=>setDraft({...draft,costume:item.id,fashion:item.id})}><AppearanceCanvas appearance={{...draft,costume:item.id}}/><span>{item.name}</span><small>免費時裝</small></button>)}
     </div>
     <p className="ink-appearance-note">{allowed?'只改外觀，不影響裝備與能力。制服限目前門派及已達職位，時裝免費。':`${name}尚未符合門派或職位資格，可預覽但不能換上。`}</p>

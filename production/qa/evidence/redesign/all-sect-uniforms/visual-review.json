@@ -1,0 +1,31 @@
+{
+  "review": "已逐份檢視九派男女18份接觸表：同一面孔髮型、自然完整站姿、連續頭頸、雙手與雙靴、衣層及職位差異。再檢視實際390衣櫥及320越級禁用畫面。",
+  "contacts": [
+    "emei-female.jpg",
+    "emei-male.jpg",
+    "huashan-female.jpg",
+    "huashan-male.jpg",
+    "mojiao-female.jpg",
+    "mojiao-male.jpg",
+    "shaolin-female.jpg",
+    "shaolin-male.jpg",
+    "tangmen-female.jpg",
+    "tangmen-male.jpg",
+    "taohua-female.jpg",
+    "taohua-male.jpg",
+    "tiandao-female.jpg",
+    "tiandao-male.jpg",
+    "wudang-female.jpg",
+    "wudang-male.jpg",
+    "wugen-female.jpg",
+    "wugen-male.jpg"
+  ],
+  "agentVisualReview": true,
+  "playerHasReviewedThisFullBatch": false,
+  "previous96CatalogRecordsUnchanged": true,
+  "portraitCropOpaqueAreaCheck": {
+    "count": 672,
+    "minimumAreaRatio": 0.08,
+    "failures": []
+  }
+}

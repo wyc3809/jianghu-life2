@@ -1,0 +1,40 @@
+{
+  "reason": "四圖集背景殘留被alpha與分格留白守門拒絕；已重生成並保留舊來源。",
+  "rejected": [
+    "exec-2515c25d-b072-4348-9883-02dbd3d92840.png",
+    "exec-3a5e717d-038c-4e88-bdd9-9d13cca14165.png",
+    "exec-15336b24-9fac-4a0b-b814-141161e4f052.png",
+    "exec-9c799bfd-0e4a-4ddd-a64e-7d20a4b1a4f1.png"
+  ],
+  "replacements": [
+    {
+      "key": "shaolin-6-male",
+      "id": "uniform-shaolin-6",
+      "rank": 6,
+      "sex": "male",
+      "file": "sources/exec-8ce98549-3ecf-4b63-b636-f2d2f15d23aa.png"
+    },
+    {
+      "key": "wudang-5-male",
+      "id": "uniform-wudang-5",
+      "rank": 5,
+      "sex": "male",
+      "file": "sources/exec-551584da-18a9-4ca4-97d5-09e84054f51f.png"
+    },
+    {
+      "key": "mojiao-6-male",
+      "id": "uniform-mojiao-6",
+      "rank": 6,
+      "sex": "male",
+      "file": "sources/exec-fd09b1f5-a3bf-4067-aab6-12a8348d75ac.png"
+    },
+    {
+      "key": "taohua-6-female",
+      "id": "uniform-taohua-6",
+      "rank": 6,
+      "sex": "female",
+      "file": "sources/exec-b7d324e3-5a84-47d6-b2a2-70c5617d3cfb.png"
+    }
+  ],
+  "abortedRecordingAttempt": 1
+}

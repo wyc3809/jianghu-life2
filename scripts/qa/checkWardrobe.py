@@ -36,7 +36,7 @@ with sync_playwright() as pw:
  assert resources(p)==before;assert not errors,errors;c.close()
  for w,h in [[320,568],[390,844],[430,932]]:
   c,p,errors=boot(b,w,h,rank=1);nav(p,'人物');before=resources(p)
-  d=opened(p);d.get_by_role('tab',name='門派服',exact=True).click();d.get_by_role('button',name='預覽青雲・掌門',exact=True).click()
+  d=opened(p);d.get_by_role('tab',name='門派服',exact=True).click();d.get_by_role('button',name='預覽青雲劍派・掌門',exact=True).click()
   d.locator('.ink-appearance-preview canvas').wait_for();p.wait_for_timeout(250)
   assert d.get_by_role('button',name='換上',exact=True).is_disabled()
   assert data(p)['character']['appearance'].get('costume') is None
@@ -44,12 +44,12 @@ with sync_playwright() as pw:
   assert d.evaluate('e=>e.scrollHeight<=e.clientHeight+1'),(w,h,'dialog overflow')
   assert not p.evaluate('document.documentElement.scrollWidth>innerWidth+1')
   if w==320:shot(p,'locked-320')
-  d.get_by_role('button',name='預覽青雲・外門弟子',exact=True).click();d.get_by_role('button',name='換上',exact=True).click();ready(p,'uniform-qingyun-1')
+  d.get_by_role('button',name='預覽青雲劍派・外門弟子',exact=True).click();d.get_by_role('button',name='換上',exact=True).click();ready(p,'uniform-qingyun-1')
   d=opened(p);d.get_by_role('tab',name='時裝',exact=True).click();d.get_by_role('button',name='朱霞宴服',exact=True).click();p.wait_for_timeout(250)
   if w==390:shot(p,'fashion-picker')
   assert data(p)['character']['appearance']['costume']=='uniform-qingyun-1';p.keyboard.press('Escape');ready(p,'uniform-qingyun-1')
   d=opened(p);d.get_by_role('tab',name='時裝',exact=True).click();d.get_by_role('button',name='朱霞宴服',exact=True).click();d.get_by_role('button',name='換上',exact=True).click();ready(p,'fashion-feast')
-  d=opened(p);d.get_by_role('tab',name='門派服',exact=True).click();d.get_by_role('button',name='預覽青雲・外門弟子',exact=True).click()
+  d=opened(p);d.get_by_role('tab',name='門派服',exact=True).click();d.get_by_role('button',name='預覽青雲劍派・外門弟子',exact=True).click()
   if w==390:shot(p,'uniform-picker')
   d.get_by_role('button',name='換上',exact=True).click();ready(p,'uniform-qingyun-1')
   p.wait_for_function("JSON.parse(localStorage.getItem('jianghu_life_v1_ls')).state.character.appearance.costume==='uniform-qingyun-1'")
