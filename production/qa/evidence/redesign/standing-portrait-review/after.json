@@ -1,0 +1,70 @@
+{
+  "scope": "silver:traveller:jade only",
+  "actualIphone": false,
+  "cloudBlocked": true,
+  "cases": [
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "label": "自然站姿的人物造型",
+      "appearance": "silver:traveller:jade",
+      "canvas": [
+        600,
+        454
+      ],
+      "opaqueBounds": [
+        228,
+        24,
+        371,
+        430
+      ],
+      "unclipped": true,
+      "previewCancelKeptEquipmentAndAppearance": true,
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "label": "自然站姿的人物造型",
+      "appearance": "silver:traveller:jade",
+      "canvas": [
+        724,
+        932
+      ],
+      "opaqueBounds": [
+        214,
+        49,
+        509,
+        885
+      ],
+      "unclipped": true,
+      "previewCancelKeptEquipmentAndAppearance": true,
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        430,
+        932
+      ],
+      "label": "自然站姿的人物造型",
+      "appearance": "silver:traveller:jade",
+      "canvas": [
+        804,
+        1108
+      ],
+      "opaqueBounds": [
+        226,
+        58,
+        577,
+        1052
+      ],
+      "unclipped": true,
+      "previewCancelKeptEquipmentAndAppearance": true,
+      "pageerrors": []
+    }
+  ]
+}

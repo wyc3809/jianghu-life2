@@ -9,7 +9,7 @@ import { InkPersonSheet } from './InkPersonSheet';
 import { inkArtUrl } from '../../ui/inkAssets';
 import './appearance.css';
 
-/** 靜態頭像／盤坐立繪同樣由角色造型組合，沒有獨立的預設男俠圖。 */
+/** 靜態頭像／全身立繪同樣由角色造型組合，沒有獨立的預設男俠圖。 */
 export function AppearanceCanvas({ appearance, mode='figure', pose='idle', className='', label='人物造型' }: {
   appearance: CharacterAppearance; mode?:'figure'|'portrait';pose?:AppearancePose;className?:string;label?:string;
 }) {
@@ -25,7 +25,7 @@ export function AppearanceCanvas({ appearance, mode='figure', pose='idle', class
       const side=Math.min(w,h);
       if(mode==='portrait')drawAppearance(ctx,assets,readAppearance(appearance),{x:w*.47,y:side*3+(h-side)*.5,height:side*3,pose:'idle',reduced:true,quality:'portrait'});
       else {
-        // 人物頁／衣櫥是靜態立繪：完整露出雙膝與雙靴；戰鬥仍沿用固定身高。
+        // 人物頁／衣櫥等比例容納整張靜態立繪，保留頭頂與雙靴；戰鬥仍沿用固定身高。
         const a=readAppearance(appearance),im=assets.heads[a.head],p=appearanceComposition(a,appearanceBodyFrame(pose,0,true),im.naturalWidth/im.naturalHeight);
         const bounds=assets.spine?spineAppearanceBounds(a,pose):null;
         const left=bounds?.left??Math.min(p.body.x,p.neck.x+p.head.x),right=bounds?.right??Math.max(p.body.x+p.body.width,p.neck.x+p.head.x+p.head.width);

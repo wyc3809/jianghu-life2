@@ -19,7 +19,7 @@
 .ink-person-summary strong { font-size:24px; color:#8d3c30; font-variant-numeric:tabular-nums; }
 .ink-person-summary > div:last-child strong { font-size:18px; color:#343a31; }
 .ink-person-stage { position:relative; flex:1 1 0; min-height:118px; isolation:isolate; }
-.ink-person-seated-hero { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; object-position:50% 100%; pointer-events:none; }
+.ink-person-figure { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
 .ink-person-gear-slot { position:absolute; z-index:1; width:78px; min-height:88px; padding:0; border:0; background:transparent; color:#282b25; display:flex; flex-direction:column; align-items:center; gap:0; }
 .ink-person-gear-slot--weapon { left:0; top:25%; }
 .ink-person-gear-slot--armor { right:0; top:0; }
