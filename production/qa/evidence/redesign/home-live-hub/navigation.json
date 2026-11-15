@@ -1,0 +1,24 @@
+{
+  "mode": "explicitOfflineNoAuthOrCloudWrites",
+  "homeShrineRemoved": true,
+  "homeLiveSameSlot": true,
+  "homeDirectLiveAndReturnHome": true,
+  "liveGuildAndSectSharedRoutes": true,
+  "mapLiveReturnMapHub": true,
+  "viewports": [
+    [
+      320,
+      568
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      430,
+      932
+    ]
+  ],
+  "oldCharacterAndInvestedTalentsKept": true,
+  "pageerrors": []
+}

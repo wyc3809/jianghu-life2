@@ -12,7 +12,7 @@ const Battle=lazy(()=>import('./InkAutoBattle').then(m=>({default:m.InkAutoBattl
 const roles:Record<GuildRole,string>={leader:'幫主',elder:'長老',member:'幫眾'};
 type Tab='hall'|'cities'|'treasury'|'chat';
 /** 真人幫會及十城；只展示服務端名冊／戰果，操作不修改私人數值。 */
-export default function InkGuildWorld({onBack}:{onBack:()=>void}){
+export default function InkGuildWorld({onBack,backLabel='返回江湖風雲'}:{onBack:()=>void;backLabel?:string}){
  const [view,setView]=useState<GuildSnapshot|null>(null),[tab,setTab]=useState<Tab>('hall'),[name,setName]=useState(''),[intro,setIntro]=useState(''),[error,setError]=useState(''),[network,setNetwork]=useState(''),[notice,setNotice]=useState(''),[busy,setBusy]=useState(false),[report,setReport]=useState<GuildReport|null>(null),[now,setNow]=useState(Date.now());
  const [confirm,setConfirm]=useState<{text:string;action:string;data:Record<string,unknown>}|null>(null);
  const alive=useRef(true),gate=useRef(false),loading=useRef(false),again=useRef(false),offset=useRef(0);
@@ -40,7 +40,7 @@ export default function InkGuildWorld({onBack}:{onBack:()=>void}){
  const me=view?.me,guild=view?.guild,manage=me&&me.role!=='member',leader=me?.role==='leader';
  const actionButton=(label:string,action:string,data:Record<string,unknown>,question?:string)=><button type="button" className="online-frame" disabled={busy} onClick={()=>question?ask(question,action,data):void run(action,data)}>{label}</button>;
  return <section className="ink-panel ink-online ink-guild" aria-label="江湖幫會">
-  <button type="button" className="ink-jianghu-back" onClick={onBack}>‹ 返回江湖風雲</button>
+  <button type="button" className="ink-jianghu-back" onClick={onBack}>‹ {backLabel}</button>
   <h2>江湖幫會</h2><div className="guild-scene"><p>{guild?.name??'四海同心'}</p><small>{guild?`總堂${guild.level}級 · ${view!.members.length}／${view!.capacity}人`:'聚義結盟，共守十城。'}</small></div>
   {(error||network)&&<p role="alert" className="guild-feedback">{error||network} {network&&actionButton('重新連線','overview',{})}</p>}{notice&&<p role="status" className="guild-feedback">{notice}</p>}
   {!view?<p role="status">正在展開幫會名冊……</p>:!guild?<>

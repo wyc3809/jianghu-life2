@@ -1,0 +1,25 @@
+from pathlib import Path
+from playwright.sync_api import sync_playwright
+import json,copy,os,re
+ROOT=Path.cwd();OUT=ROOT/'.local-online/home-live-hub';OUT.mkdir(exist_ok=True);BASE=os.getenv('HOME_HUB_BASE','http://127.0.0.1:5315/jianghu-life2/');before=os.getenv('HOME_HUB_BEFORE')=='1';fixture=json.loads((ROOT/'design/art/manhua/fixtures.json').read_text())['full']
+s=copy.deepcopy(fixture['state']);s['character']['flags']['newbie_done']=True;s['pending']=None;s['tab']='home';meta=copy.deepcopy(fixture['meta']);meta['points']=37;meta['talents']['genGu']=2;meta['unlockedArts']=['art_river_fist'];meta['artsSeen']=['art_river_fist'];meta['familyArts']=['art_river_fist']
+init="localStorage.setItem('jianghu_life_v1_ls',JSON.stringify({version:1,savedAt:Date.now()+100000,state:"+json.dumps(s,ensure_ascii=False)+"}));localStorage.setItem('jianghu_ancestry_v1',JSON.stringify("+json.dumps(meta,ensure_ascii=False)+"));localStorage.setItem('jianghu_ancestry_saved_at_v1',String(Date.now()+100000));"
+with sync_playwright() as pw:
+ b=pw.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox']);c=b.new_context(viewport={'width':390,'height':844},device_scale_factor=2,is_mobile=True,has_touch=True,reduced_motion='reduce',**({} if before else {'record_video_dir':str(OUT/'videos'),'record_video_size':{'width':390,'height':844}}));c.add_init_script(init);c.route('**/*.supabase.co/**',lambda r:r.fulfill(status=503,content_type='application/json',body='{"error":"離線導航驗收"}'));p=c.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)));p.goto(BASE);p.get_by_role('button',name=re.compile('^續寫前緣')).click();p.wait_for_timeout(500)
+ if p.get_by_role('button',name='領受',exact=True).count():p.get_by_role('button',name='領受',exact=True).click()
+ nav=p.get_by_role('navigation',name='功能入口');nav.wait_for();p.screenshot(path=str(OUT/('before.jpg' if before else 'home-390.jpg')),type='jpeg',quality=94)
+ if before:assert nav.get_by_role('button',name='祖祠',exact=True).count()==1
+ else:
+  assert not p.get_by_role('button',name=re.compile('祖祠')).count();assert nav.get_by_role('button',name='同遊江湖',exact=True).count()==1
+  original=p.evaluate('()=>{const c=JSON.parse(localStorage.getItem("jianghu_life_v1_ls")).state.character;return JSON.stringify([c.attributes,c.nature,c.equipment,c.appearance,c.skills,Object.fromEntries(["talents","familyArts","unlockedArts","points","manuals"].map(k=>[k,JSON.parse(localStorage.getItem("jianghu_ancestry_v1"))[k]]))])}')
+  for w,h in [(320,568),(430,932)]:
+   p.set_viewport_size({'width':w,'height':h});assert not p.evaluate('document.documentElement.scrollWidth>innerWidth+1');p.screenshot(path=str(OUT/f'home-{w}.jpg'),type='jpeg',quality=94)
+  p.set_viewport_size({'width':390,'height':844});nav.get_by_role('button',name='同遊江湖',exact=True).click();p.locator('.ink-live').wait_for();p.get_by_role('button',name='‹ 返回鎮居',exact=True).wait_for();assert not p.locator('.ink-hud,.ink-bottom-dock').count();p.screenshot(path=str(OUT/'live-390.jpg'),type='jpeg',quality=94)
+  p.get_by_role('button',name='江湖幫會',exact=True).click();p.locator('.ink-guild').wait_for();p.get_by_role('button',name='‹ 返回同遊江湖',exact=True).click();p.locator('.ink-live').wait_for()
+  p.get_by_role('button',name='門派會武',exact=True).click();p.locator('.ink-sect-war').wait_for();p.get_by_role('button',name='返回',exact=True).click();p.locator('.ink-live').wait_for();p.get_by_role('button',name='‹ 返回鎮居',exact=True).click();nav.wait_for()
+  p.get_by_role('navigation',name='分卷').get_by_role('button',name='江湖',exact=True).click();p.get_by_role('button',name='江湖風雲',exact=True).click();p.locator('.ink-live').wait_for();p.get_by_role('button',name='‹ 返回江湖',exact=True).click();p.get_by_role('button',name='江湖風雲',exact=True).wait_for()
+  current=p.evaluate('()=>{const c=JSON.parse(localStorage.getItem("jianghu_life_v1_ls")).state.character;return JSON.stringify([c.attributes,c.nature,c.equipment,c.appearance,c.skills,Object.fromEntries(["talents","familyArts","unlockedArts","points","manuals"].map(k=>[k,JSON.parse(localStorage.getItem("jianghu_ancestry_v1"))[k]]))])}');assert original==current
+  creation=b.new_context(viewport={'width':390,'height':844},device_scale_factor=2);creation.route('**/*.supabase.co/**',lambda r:r.fulfill(status=503,content_type='application/json',body='{}'));q=creation.new_page();q.goto(BASE);q.get_by_role('button',name='開卷',exact=True).click();q.get_by_role('button',name='翻開少時',exact=True).wait_for();assert not q.get_by_role('button',name=re.compile('祖祠')).count();q.screenshot(path=str(OUT/'create-390.jpg'),type='jpeg',quality=94);creation.close()
+  assert not errors,errors
+  (OUT/'navigation.json').write_text(json.dumps({'mode':'explicitOfflineNoAuthOrCloudWrites','homeShrineRemoved':True,'homeLiveSameSlot':True,'homeDirectLiveAndReturnHome':True,'liveGuildAndSectSharedRoutes':True,'mapLiveReturnMapHub':True,'viewports':[[320,568],[390,844],[430,932]],'oldCharacterAndInvestedTalentsKept':True,'pageerrors':errors},indent=2)+'\n')
+ c.close();b.close();print('HOME_HUB_PASS', 'before' if before else 'after')

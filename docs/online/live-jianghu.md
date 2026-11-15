@@ -46,3 +46,5 @@ migration 20261115024037_live_jianghu及20261115090053_live_resilience已套用�
 對話補讀不鎖全服world行，變更仍保持資格鎖與每發言者advisory鎖。新消息以取得鎖後的clock_timestamp記時，兩秒限頻轉HTTP429；斷線／5xx／429均保留同內容requestId，成功或確定拒絕才清除，已提交重試回原消息。權限、300字、私訊與屏蔽規則保持。
 
 驗證工具新增scripts/qa/checkLiveResilience.py及checkLiveReconnect.py，先跑雲端工具再跑瀏覽器，不並行輪替同一身份。讀取與限頻測試只代表固定測試群，不是100／1000玩家負載保證。證據見production/qa/evidence/redesign/live-resilience/README.md。
+
+EA0.115.0導航：首頁原祖祠位置直達同遊，返回鎮居；江湖風雲亦直達同一同遊頁，返回地圖。幫會、會武、隨機對戰、修行與戰報集中同遊活動列，沒有第二套玩法。
