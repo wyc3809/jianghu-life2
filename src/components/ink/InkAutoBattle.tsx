@@ -31,6 +31,9 @@ const COIN_SRC = `${import.meta.env.BASE_URL || '/'}ink/spar/fx-coin.webp`;
 export const AUTO_BATTLE_MAX_MS = 45_000;
 
 type Props = {
+  /** 同遊以伺服器共同起點追播；不接受本機加速改動時間軸。 */
+  liveClock?: {startedAt:number;endsAt:number;offsetMs:number};
+  actorLook?: {sectId:string|null;weaponId:string|null};
   /** 多人戰報用伺服器快照，唔借用或寫入本機人生角色。 */
   character?: LifeCharacter;
   /** 只有真實核心已派嘅獎勵先顯示；多人排名切磋傳0。 */
@@ -73,7 +76,8 @@ function sceneOf(replay: CombatReplay): string {
  * 出招次序同傷害照自動戰鬥紀錄（core/life/autoCombat.ts）逐招播。
  * 下面主修外功七卷：已得嘅卷亮起，輪到嗰卷發紅；頭頂彈「卷幾・招名」。
  */
-export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = false, season = 'spring', notice, battleBackdropSrc, review, character, rewardCoins = 6 }: Props) {
+export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = false, season = 'spring', notice, battleBackdropSrc, review, character, rewardCoins = 6, liveClock, actorLook }: Props) {
+  const liveClockRef=useRef(liveClock);liveClockRef.current=liveClock;
   const reviewRef = useRef(import.meta.env.DEV ? review : undefined);
   reviewRef.current = import.meta.env.DEV ? review : undefined;
   const hits = useMemo<Hit[]>(
@@ -82,8 +86,8 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
   );
   const [fast, setFast] = useState(false);
   const [sceneReady, setSceneReady] = useState(false);
-  const [entered, setEntered] = useState(!unified);
-  const enteredRef = useRef(!unified);
+  const [entered, setEntered] = useState(!unified||Boolean(liveClock));
+  const enteredRef = useRef(!unified||Boolean(liveClock));
   const speedRef = useRef(1);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const stageRef = useRef<SparStage | null>(null);
@@ -109,8 +113,8 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
 
   const localSectId = useLifeStore((s) => s.state?.character.sectId ?? null);
   const localWeaponId = useLifeStore((s) => s.state?.character.equipment.weapon ?? null);
-  const sectId = character ? character.sectId ?? null : localSectId;
-  const weaponId = character ? character.equipment.weapon ?? null : localWeaponId;
+  const sectId = actorLook?actorLook.sectId:character ? character.sectId ?? null : localSectId;
+  const weaponId = actorLook?actorLook.weaponId:character ? character.equipment.weapon ?? null : localWeaponId;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -126,12 +130,13 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
     let ended = false;
     let enraged = false;
     let supportHold = 0;
+    let simulatedTime=0;
     const end = (ms: number) => {
       if (ended) return;
       ended = true;
       if (replay.outcome === 'lost') playInkDefeat();
       else if (replay.outcome !== 'ended') playInkVictory();
-      endTimer = setTimeout(finish, ms);
+      endTimer = setTimeout(finish, liveClockRef.current?Math.max(0,liveClockRef.current.endsAt-Date.now()-liveClockRef.current.offsetMs):ms);
     };
     const show = (h: Hit) => {
       setCur({ hit: h, n: i });
@@ -220,18 +225,37 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
       // 全屏喺低幀率裝置亦追返播放時間；更新仍分小步，唔跳過命中。
       const dt = last ? Math.min(unified ? 0.15 : 0.05, (now - last) / 1000) : 0;
       last = now;
-      supportHold = Math.max(0,supportHold-dt*speedRef.current);
-      const pending=hits[i];
-      if(!ended && pending && passiveAction(pending) && supportHold<=0 && !stage.heroAttackActive && !stage.foeAttackActive) {
-        i++;show(pending);supportHold=.9;
-        if(pending.foeHp<=0)stage.foeFellFromStatus();
-        if(i>=hits.length)end(900);
+      const tick=(step:number)=>{
+        supportHold=Math.max(0,supportHold-step);
+        const pending=hits[i];
+        if(!ended&&pending&&passiveAction(pending)&&supportHold<=0&&!stage!.heroAttackActive&&!stage!.foeAttackActive){
+          i++;show(pending);supportHold=.9;
+          if(pending.foeHp<=0)stage!.foeFellFromStatus();
+          if(i>=hits.length)end(900);
+        }
+        stage!.update(step);
+      };
+      const clock=liveClockRef.current;
+      if(clock){
+        const target=Math.max(0,Math.min(AUTO_BATTLE_MAX_MS,(Date.now()+clock.offsetMs-clock.startedAt)))/1000;
+        // 用相同小步追到共同時間，包括遲入場及背景恢復；不跳過任何命中。
+        let steps=0;
+        while(simulatedTime+1/60<=target&&steps++<3000){tick(1/60);simulatedTime+=1/60;}
+        if(Date.now()+clock.offsetMs>=clock.endsAt){finish();return;}
+      }else{
+        supportHold = Math.max(0,supportHold-dt*speedRef.current);
+        const pending=hits[i];
+        if(!ended && pending && passiveAction(pending) && supportHold<=0 && !stage.heroAttackActive && !stage.foeAttackActive) {
+          i++;show(pending);supportHold=.9;
+          if(pending.foeHp<=0)stage.foeFellFromStatus();
+          if(i>=hits.length)end(900);
+        }
+        // 兩倍播放推相同小步，唔因dt夾值令加速冇效或改命中結算。
+        if (unified) {
+          let budget = dt * (qa?.speed ?? speedRef.current);
+          while (budget > 1e-9) { const step = Math.min(1 / 60, budget); stage.update(step); budget -= step; }
+        } else stage.update(dt);
       }
-      // 兩倍播放推相同小步，唔因dt夾值令加速冇效或改命中結算。
-      if (unified) {
-        let budget = dt * (qa?.speed ?? speedRef.current);
-        while (budget > 1e-9) { const step = Math.min(1 / 60, budget); stage.update(step); budget -= step; }
-      } else stage.update(dt);
       stage.render();
       placeBars();
       raf = requestAnimationFrame(frame);
@@ -248,7 +272,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
         images.characterAppearance = replay.playerAppearance ? readAppearance(replay.playerAppearance) : appearanceOf(actor ?? {});
         images.opponentAppearance = replay.foeAppearance ? readAppearance(replay.foeAppearance) : appearanceForIndex(foeLook(replay.foeName,replay.foeBoss??false));
         images.opponentFamily = martialPoseFor(hits.find(h=>h.side==='foe')?.skillId)?.family ?? 'fist';
-        const supports = reviewRef.current?.supports ?? (actor ? equippedMartialArts(actor).filter(id => getSkillDef(id)?.kind !== 'external') : []);
+        const supports = reviewRef.current?.supports ?? (actorLook?[]:actor ? equippedMartialArts(actor).filter(id => getSkillDef(id)?.kind !== 'external') : []);
         const requested = [...hits.flatMap(h => h.skillId ? [canonicalSkillId(h.skillId)] : []), ...supports];
         if(images.wardrobe)await Promise.all([prepareAppearance(images.wardrobe,images.characterAppearance,[...hits.filter(h=>h.side==='player').flatMap(h=>h.skillId?[canonicalSkillId(h.skillId)]:[]),...supports],weaponId?getGearDef(weaponId)?.weaponKind??'fist':'fist'),images.opponentAppearance?prepareAppearance(images.wardrobe,images.opponentAppearance,hits.filter(h=>h.side==='foe').flatMap(h=>h.skillId?[canonicalSkillId(h.skillId)]:[]),images.opponentFamily):Promise.resolve()]);
         const martialAssets = await loadMartialAssets(reviewRef.current?.legacy ? [] : requested,{actor:images.actorStyle!=='silhouette'&&(reviewRef.current?.inspect?.source===true||!images.wardrobe)});
@@ -283,7 +307,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
       stage.resize(rect.width, unified ? rect.height : STAGE_HEIGHT, Math.min(window.devicePixelRatio || 1, 2.5));
     });
     if (unified) observer.observe(wrap);
-    const cap = setTimeout(finish, reviewRef.current ? 10 * 60_000 : AUTO_BATTLE_MAX_MS);
+    const cap = setTimeout(finish, liveClockRef.current?Math.max(0,liveClockRef.current.endsAt-Date.now()-liveClockRef.current.offsetMs)+1500:reviewRef.current ? 10 * 60_000 : AUTO_BATTLE_MAX_MS);
     return () => {
       cancelled = true;
       unwatchActivity();
@@ -326,7 +350,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
     entering={!entered}
     entrance={!entered ? <InkBattleEntrance ready={sceneReady} reduceMotion={reduceMotion} onEntered={() => { enteredRef.current = true; setEntered(true); }} /> : undefined}
     title={replay.title} round={h?.round ?? 1} fast={fast}
-    onSpeed={() => { const next = !fast; setFast(next); speedRef.current = next ? 2 : 1; }}
+    onSpeed={liveClock?undefined:() => { const next = !fast; setFast(next); speedRef.current = next ? 2 : 1; }}
     onSkip={finish} notice={notice}
     hero={{ name: replay.playerName, hp: playerHp, maxHp: replay.playerMaxHp }}
     foe={{ name: replay.foeName, hp: foeHp, maxHp: replay.foeMaxHp }} boss={replay.foeBoss}

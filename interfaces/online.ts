@@ -18,6 +18,7 @@ export interface OnlinePlayer {
   silver: number;
   /** 服務端累計已派免費玉石，帳戶以來源高水位收據接收。 */
   jadeEarnedTotal?: number;
+  live?: { joined: boolean; red: boolean };
   jadeDay?: { day: string; attackWins: number; defendWins: number; opponents: string[] };
 }
 export interface OnlineBattle {
@@ -32,6 +33,8 @@ export interface OnlineBattle {
   after: Record<OnlineAccountId, number> | null;
   replays: Record<OnlineAccountId, CombatReplay>;
   characters: Record<OnlineAccountId, LifeCharacter>;
+  mode?: 'red';
+  hitMs?: number;
   jadeAwards?: Record<OnlineAccountId, number>;
 }
 export interface OnlineWorld {
@@ -41,6 +44,7 @@ export interface OnlineWorld {
   battles: OnlineBattle[];
 }
 export interface OnlinePeer {
+  live?: { joined:boolean; red:boolean };
   appearance?: CharacterAppearance;
   id: OnlineAccountId;
   name: string;
@@ -51,6 +55,7 @@ export interface OnlinePeer {
 }
 export interface OnlineSnapshot {
   population?: number;
+  liveBattles?: {id:string;attacker:string;defender:string;startedAt:number;endsAt:number;names:string[]}[];
   room?: { id: string; invite?: string; waiting: boolean };
   serverNow: number;
   revision: number;

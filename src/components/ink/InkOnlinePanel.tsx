@@ -16,16 +16,17 @@ import { InkFeatureMenu, type InkFeatureEntry } from './InkFeatureMenu';
 import './online.css';
 
 const Battle = lazy(() => import('./InkAutoBattle').then(m => ({ default: m.InkAutoBattle })));
+const LiveWorld=lazy(()=>import('./InkLiveWorld'));
 const SectWar = lazy(() => import('./InkSectWar'));
 const SESSION = 'jianghu-online-session';
 const labels = { river: '沈雲舟', cloud: '謝清霜' };
 function readToken() { try { return publicOnline ? worldJoined() ? 'world' : null : sessionStorage.getItem(SESSION); } catch { return null; } }
-type OnlineView = 'main' | 'opponents' | 'loadout' | 'income' | 'history' | 'rules' | 'sectWar';
-const titles: Record<OnlineView, string> = { main: '江湖風雲', opponents: '對手名冊', loadout: '武學配搭', income: '修行所得', history: '江湖戰報', rules: '試場規則', sectWar:'門派會武' };
+type OnlineView = 'main' | 'opponents' | 'loadout' | 'income' | 'history' | 'rules' | 'sectWar' | 'live';
+const titles: Record<OnlineView, string> = { main: '江湖風雲', opponents: '對手名冊', loadout: '武學配搭', income: '修行所得', history: '江湖戰報', rules: '試場規則', sectWar:'門派會武',live:'同遊江湖' };
 function timeLeft(until: number, now: number) { return Math.max(0, Math.ceil((until - now) / 1000)); }
 
 /** 第32項共用江湖／本機真服務入口；正式模式使用人物雲存檔及帳戶獎勵，本機測試仍然隔離。 */
-export default function InkOnlinePanel({ standalone = false, onBack, onPrepare }: { standalone?: boolean; onBack?: () => void; onPrepare?:()=>void }) {
+export default function InkOnlinePanel({ standalone = false, onBack, onPrepare, onFocusChange }: { standalone?: boolean; onFocusChange?:(focused:boolean)=>void; onBack?: () => void; onPrepare?:()=>void }) {
   const [token, setToken] = useState(readToken);
   const [snapshot, setSnapshot] = useState<OnlineSnapshot | null>(null);
   const [error, setError] = useState('');
@@ -35,6 +36,7 @@ export default function InkOnlinePanel({ standalone = false, onBack, onPrepare }
   const [connected, setConnected] = useState(false);
   const [replay, setReplay] = useState<OnlineBattle | null>(null);
   const [view, setView] = useState<OnlineView>('main');
+  useEffect(()=>{onFocusChange?.(view==='live');return()=>onFocusChange?.(false);},[view,onFocusChange]);
   const panelRef = useRef<HTMLElement>(null);
   const [name] = useState(()=>useLifeStore.getState().state?.character.name ?? '江湖旅人');
   const [external, setExternal] = useState<string[]>([]);
@@ -47,7 +49,7 @@ export default function InkOnlinePanel({ standalone = false, onBack, onPrepare }
     setSnapshot(next); setConnected(true);
     if(publicOnline&&!standalone)useAncestryStore.getState().receiveOnlineJade(`public:${next.me.id}`,next.me.jadeEarnedTotal??0);
     setError(current => current.startsWith('暫時無法連接江湖') ? '' : current);
-    const settled = next.battles.filter(b => b.settledAt !== null);
+    const settled = next.battles.filter(b => b.settledAt !== null&&b.mode!=='red');
     if (!seen.current) seen.current = new Set(settled.map(b => b.id));
     else {
       const fresh = settled.find(b => !seen.current!.has(b.id));
@@ -63,7 +65,7 @@ export default function InkOnlinePanel({ standalone = false, onBack, onPrepare }
   }, []);
 
   useEffect(() => {
-    if (!token) return;
+    if (!token||view==='live') return;
     let active = true, polling = false;
     const refresh = async () => {
       if (polling || document.visibilityState === 'hidden') return;
@@ -80,7 +82,7 @@ export default function InkOnlinePanel({ standalone = false, onBack, onPrepare }
     const interval = setInterval(() => void refresh(), ONLINE_TEST.heartbeatMs);
     window.addEventListener('pagehide', leave); document.addEventListener('visibilitychange', visibility);
     return () => { active = false; clearInterval(interval); window.removeEventListener('pagehide', leave); document.removeEventListener('visibilitychange', visibility); leave(); };
-  }, [token, accept, reportError]);
+  }, [token, accept, reportError,view]);
 
   useLayoutEffect(()=>inkSurfaceIn(panelRef.current),[view]);
 
@@ -116,6 +118,7 @@ export default function InkOnlinePanel({ standalone = false, onBack, onPrepare }
     panelRef.current?.closest('.ink-play-body, .scroll-shell')?.scrollTo({ top: 0 });
   }, [view]);
   const entries: InkFeatureEntry<OnlineView>[] = [
+    {id:'live',title:'同遊江湖',icon:'fan',hint:'即時對話 · 同場交鋒 · 戰敗保護'},
     { id: 'sectWar', title: '門派會武', icon: 'swords', hint: '十人代表同場交鋒 · 每週門內選拔' },
     { id: 'opponents', title: '隨機對戰', icon: 'banner', hint: '全江湖隨機配對 · 同段位優先', badge: snapshot ? `${Math.max(0, snapshot.peers.length - 1)}人` : undefined },
     { id: 'loadout', title: '對戰配搭', icon: 'scroll', hint: '前往人物頁 · 預先保存對戰配搭' },
@@ -124,6 +127,7 @@ export default function InkOnlinePanel({ standalone = false, onBack, onPrepare }
     { id: 'rules', title: '試場規則', icon: 'fan', hint: '排名換位 · 戰敗保護與收益' },
   ];
   const openView = (next: OnlineView) => { setError(''); setNotice(''); if (next === 'loadout') openLoadout(); else setView(next); };
+  if(view==='live')return <Suspense fallback={<p role="status">正在走入茶樓……</p>}><LiveWorld onBack={()=>setView('main')}/></Suspense>;
   if(view==='sectWar')return <Suspense fallback={<p role="status">正在翻開會武名冊……</p>}><SectWar onBack={()=>setView('main')} onPrepare={onPrepare}/></Suspense>;
   const content = <section className="ink-panel ink-online" aria-label="多人江湖" id="ink-online" ref={panelRef}>
     {(view !== 'main' || onBack) && <button type="button" className="ink-jianghu-back" onClick={() => view === 'main' ? onBack?.() : setView('main')}>
@@ -138,6 +142,7 @@ export default function InkOnlinePanel({ standalone = false, onBack, onPrepare }
       <h3>修行所得</h3><p>在線每分鐘 {ONLINE_TEST.onlineSilverPerMinute}、離線每分鐘 {ONLINE_TEST.offlineSilverPerMinute} 試場銀兩。離線最多累積48小時，返回試場後可領取。</p>
       <p className="online-note">以上為封測數值，日後可能調整。離開試場頁面或斷線後，系統會在約8秒內判定離線。試場角色與銀兩獨立保存。</p>
     </div> : !token && publicOnline ? <div className="online-login">
+      <button type="button" className="online-frame online-enter" onClick={()=>setView('live')}>同遊江湖 · 對話與交鋒</button>
       <p className="online-lead">留名江湖，隨時論劍。</p><p>同段位俠客優先，離線亦可應戰。</p>
       <label className="online-name-label">俠名<span className="online-frame online-name-field"><input value={name} readOnly maxLength={12} autoComplete="nickname" placeholder="輸入2至12字俠名" disabled={pending} /></span></label>
       <button className="online-frame online-enter" disabled={pending || !name.trim()} onClick={() => void enterWorld()}>{worldJoined() ? '重返江湖' : '踏入江湖'}</button>

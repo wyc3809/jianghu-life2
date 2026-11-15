@@ -1,0 +1,15 @@
+{
+  "accounts": 3,
+  "join": true,
+  "publicChat": true,
+  "privateNoThirdPartyLeak": true,
+  "idempotentMessageAndAttack": true,
+  "directTableDenied": true,
+  "blockAndReport": true,
+  "threeClientsSameBattle": true,
+  "busyExitDenied": true,
+  "defeatProtection": true,
+  "protectionSurvivesRejoin": true,
+  "noNewJadeAward": true,
+  "actualIphoneTested": false
+}

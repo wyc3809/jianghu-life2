@@ -1,0 +1,2 @@
+import {createNewLife} from '../../core/life/gameState';import{writeFileSync,mkdirSync}from'node:fs';mkdirSync('.local-online/live-qa',{recursive:true});
+const states=[0,1,2].map(i=>{const s=createNewLife({seed:42+i,name:['測試赤甲','測試青乙','測試茶丙'][i],skipCoach:true});s.character.flags.newbie_done=true;s.pending=null;s.character.martial=i===0?600:5;return s;});writeFileSync('.local-online/live-qa/states.json',JSON.stringify(states));

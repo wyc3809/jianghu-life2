@@ -49,6 +49,9 @@ function client(): Promise<SupabaseClient> {
   return clientPromise;
 }
 
+/** 同遊沿用同一SDK連線及Auth自動續期，不另存身份。 */
+export function cloudRealtimeClient():Promise<SupabaseClient>{return client();}
+
 export interface CloudIdentity {
   userId: string;
   /** 已綁定（確認咗）嘅電郵；匿名身份為 null */

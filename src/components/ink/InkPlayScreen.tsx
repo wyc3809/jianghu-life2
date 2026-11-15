@@ -198,6 +198,7 @@ export function InkPlayScreen({ state }: Props) {
   const [practiceView, setPracticeView] = useState<PracticeView>('main');
   const [personPreset,setPersonPreset]=useState<'normal'|'duel'>('normal');
   const [personView, setPersonView] = useState<PersonView>('main');
+  const [onlineFocused,setOnlineFocused]=useState(false);
   const [jianghuView, setJianghuView] = useState<JianghuView>('main');
   const playBodyRef = useRef<HTMLDivElement>(null);
   const jianghuRef = useRef<HTMLDivElement>(null);
@@ -310,7 +311,8 @@ export function InkPlayScreen({ state }: Props) {
   const onJianghuMap = tab === 'jianghu' && jianghuView === 'main' && !combat && !eventFocus;
   const onGachaPage = tab === 'jianghu' && jianghuView === 'gacha' && !combat && !eventFocus;
   const onPersonPage = tab === 'person' && !combat && !eventFocus;
-  const onFullPage = onJianghuMap || onGachaPage || onPersonPage;
+  const onLivePage=tab==='jianghu'&&jianghuView==='online'&&onlineFocused&&!combat&&!eventFocus;
+  const onFullPage = onJianghuMap || onGachaPage || onPersonPage || onLivePage;
   /** 交手中隱藏全局氣血條，避免與戰鬥血條重複 */
   // 有重傷／傷殘：名字旁朱砂點（撳入人物欄）
   const worstInjury = (c.injuries ?? []).reduce<'heavy' | 'crippled' | null>(
@@ -540,6 +542,7 @@ export function InkPlayScreen({ state }: Props) {
     onJianghuMap ? 'scroll-shell--jianghu-map' : '',
     onGachaPage ? 'scroll-shell--gacha' : '',
     onPersonPage ? 'scroll-shell--person' : '',
+    onLivePage ? 'scroll-shell--live' : '',
     onPersonPage && personView !== 'main' ? 'scroll-shell--tap-detail' : '',
     hasTask ? 'scroll-shell--has-task' : '',
     monthTurning ? 'ink-month-turn' : '',
@@ -816,7 +819,7 @@ export function InkPlayScreen({ state }: Props) {
       {tab === 'jianghu' && !combat && !eventFocus && <div className="ink-jianghu-view" ref={jianghuRef}>
         {jianghuView === 'main' ? <InkJianghuHub online={Boolean(InkOnlinePanel)} onOpen={setJianghuView} onBack={() => setTab('home')} />
           : jianghuView === 'online' && InkOnlinePanel ? <Suspense fallback={<p role="status">正在翻開江湖名冊……</p>}>
-            <InkOnlinePanel onBack={() => setJianghuView('main')} onPrepare={()=>{setPersonPreset('duel');setRequestedArt(null);setTab('person');setPersonView('skills');}} />
+            <InkOnlinePanel onFocusChange={setOnlineFocused} onBack={() => setJianghuView('main')} onPrepare={()=>{setPersonPreset('duel');setRequestedArt(null);setTab('person');setPersonView('skills');}} />
           </Suspense> : <div className={`ink-jianghu-detail${onGachaPage ? ' ink-jianghu-detail--gacha' : ''}`}>
             <button type="button" className={`ink-jianghu-back${onGachaPage ? ' ink-codex-back' : ''}`} onClick={() => setJianghuView('main')}>‹ 返回江湖</button>
             {jianghuView === 'gacha' && <InkGachaPanel state={state} onEquipRequest={id => {
