@@ -1,8 +1,9 @@
 import { motionReduced } from '../../ui/inkMotion';
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import type { OnlinePeer, OnlineSnapshot } from '@interfaces/online';
-import type { LiveMessages, LiveWatch } from '@interfaces/live';
+import type { LiveMessages, LiveWatch, LiveView } from '@interfaces/live';
 import { liveCommand, liveRequest, watchLiveUpdates } from '../../cloud/live';
+import { OnlineApiError } from '../../online/client';
 import { useLifeStore } from '../../store/lifeStore';
 import { AppearanceBadge } from './InkAppearance';
 import { InkModal } from './InkModal';
@@ -14,25 +15,31 @@ const Battle=lazy(()=>import('./InkAutoBattle').then(m=>({default:m.InkAutoBattl
 export default function InkLiveWorld({onBack}:{onBack:()=>void}){
  const name=useLifeStore(s=>s.state?.character.name??'江湖旅人');
  const [snapshot,setSnapshot]=useState<OnlineSnapshot|null>(null),[chat,setChat]=useState<LiveMessages>({messages:[],blocked:[]});
- const [target,setTarget]=useState(''),[draft,setDraft]=useState(''),[error,setError]=useState(''),[notice,setNotice]=useState('');
+ const [target,setTarget]=useState(''),[draft,setDraft]=useState(''),[error,setError]=useState(''),[networkError,setNetworkError]=useState(''),[notice,setNotice]=useState('');
  const [pending,setPending]=useState(false),[ready,setReady]=useState(false),[connected,setConnected]=useState(false);
  const [confirm,setConfirm]=useState<OnlinePeer|null>(null),[watch,setWatch]=useState<LiveWatch|null>(null),[now,setNow]=useState(Date.now());
  const busy=useRef(false),refreshing=useRef(false),refreshAgain=useRef(false),alive=useRef(true),targetRef=useRef(target),epoch=useRef(0),offset=useRef(0);
+ const joinedRef=useRef(false),renewRequested=useRef(false);
  const watchId=useRef<string|null>(null),dismissed=useRef(new Set<string>()),logRef=useRef<HTMLDivElement>(null),inputRef=useRef<HTMLTextAreaElement>(null);
  const reduced=usePrefersReducedMotion();targetRef.current=target;
  const me=snapshot?.me,joined=Boolean(me?.live?.joined);
- const refresh=useCallback(async()=>{
+ joinedRef.current=joined;
+ const refresh=useCallback(async(renew=false)=>{
+  if(renew)renewRequested.current=true;
   if(document.hidden)return;
   if(refreshing.current){refreshAgain.current=true;return;}
   refreshing.current=true;
   try{
    do{
     refreshAgain.current=false;const sent=Date.now(),channel=targetRef.current,generation=epoch.current;
-    const s=await liveRequest<OnlineSnapshot>('world');if(!alive.current)break;
+    const renewNow=renewRequested.current;renewRequested.current=false;
+    const view=joinedRef.current?await liveRequest<LiveView>('view',{...channel?{target:channel}:{},...renewNow?{renew:true}:{}}):null;
+    const s=view?.snapshot??await liveRequest<OnlineSnapshot>('world');if(!alive.current)break;
     if(generation!==epoch.current){refreshAgain.current=true;continue;}
-    offset.current=s.serverNow-(sent+Date.now())/2;setSnapshot(previous=>!previous||s.revision>=previous.revision?s:previous);setConnected(true);setReady(true);
+    joinedRef.current=Boolean(s.me.live?.joined);
+    offset.current=s.serverNow-(sent+Date.now())/2;setSnapshot(previous=>!previous||s.revision>=previous.revision?s:previous);setConnected(true);setReady(true);setNetworkError('');
     if(s.me.live?.joined){
-     const messages=await liveRequest<LiveMessages>('messages',channel?{target:channel}:{});
+     const messages=view?.chat??await liveRequest<LiveMessages>('messages',channel?{target:channel}:{});
      if(alive.current&&generation===epoch.current)setChat(messages);
      const current=s.liveBattles?.find(b=>b.attacker===s.me.id||b.defender===s.me.id);
      if(current&&!dismissed.current.has(current.id)&&watchId.current!==current.id){
@@ -41,7 +48,7 @@ export default function InkLiveWorld({onBack}:{onBack:()=>void}){
      }
     }
    }while(refreshAgain.current&&alive.current);
-  }catch(e){if(alive.current){setReady(true);setConnected(false);if(!(e instanceof Error&&'status'in e&&e.status===404))setError(e instanceof Error?e.message:'同遊暫時未能連線。');}}
+  }catch(e){if(alive.current){setReady(true);setConnected(false);if(!(e instanceof Error&&'status'in e&&e.status===404))setNetworkError(e instanceof Error?e.message:'同遊暫時未能連線。');}}
   finally{refreshing.current=false;}
  },[]);
  useEffect(()=>{alive.current=true;void refresh();const timer=setInterval(()=>setNow(Date.now()+offset.current),1000);return()=>{alive.current=false;clearInterval(timer);};},[refresh]);
@@ -49,16 +56,19 @@ export default function InkLiveWorld({onBack}:{onBack:()=>void}){
   if(!joined)return;
   let disposed=false,stop=()=>{};
   void watchLiveUpdates(()=>void refresh()).then(clean=>{if(disposed)clean();else stop=clean;}).catch(()=>{});
-  const heartbeat=()=>{if(!document.hidden)void liveRequest('liveHeartbeat').then(()=>refresh()).catch(()=>{if(alive.current)setConnected(false);});};
-  const timer=setInterval(heartbeat,5000),visibility=()=>{if(!document.hidden){heartbeat();void refresh();}};
-  document.addEventListener('visibilitychange',visibility);
-  return()=>{disposed=true;stop();clearInterval(timer);document.removeEventListener('visibilitychange',visibility);void liveRequest('leave').catch(()=>{});};
+  const heartbeat=()=>{if(!document.hidden)void refresh(true);};
+  const timer=setInterval(heartbeat,5000),visibility=()=>{if(!document.hidden)heartbeat();};
+  document.addEventListener('visibilitychange',visibility);window.addEventListener('online',heartbeat);
+  return()=>{disposed=true;stop();clearInterval(timer);document.removeEventListener('visibilitychange',visibility);window.removeEventListener('online',heartbeat);void liveRequest('leave').catch(()=>{});};
  },[joined,refresh]);
  useEffect(()=>{epoch.current++;setChat(previous=>({messages:[],blocked:previous.blocked}));if(joined)void refresh();},[target,joined,refresh]);
  useEffect(()=>{const el=logRef.current;if(el&&el.scrollHeight-el.scrollTop-el.clientHeight<180)el.scrollTop=el.scrollHeight;},[chat.messages]);
  const run=async(fn:()=>Promise<void>)=>{
   if(busy.current)return;busy.current=true;setPending(true);setError('');setNotice('');
-  try{await fn();await refresh();}catch(e){if(alive.current)setError(e instanceof Error?e.message:'暫時未能處理。');}
+  try{await fn();await refresh();}catch(e){if(alive.current){
+   if(e instanceof OnlineApiError&&(!e.status||e.status>=500)){setNetworkError(e.message);setConnected(false);}
+   else setError(e instanceof Error?e.message:'暫時未能處理。');
+  }}
   finally{busy.current=false;if(alive.current)setPending(false);}
  };
  const peers=snapshot?.peers.filter(p=>p.live?.joined)??[];
@@ -68,7 +78,7 @@ export default function InkLiveWorld({onBack}:{onBack:()=>void}){
   <button type="button" className="ink-jianghu-back" onClick={onBack}>‹ 返回江湖風雲</button>
   <header className="live-heading"><h2>同遊江湖</h2>{joined&&<small role="status">{connected?'已連線':'重新連線中'}</small>}</header>
   <div className="live-scene"><div><p>千燈鎮 · 水榭茶樓</p><small>{joined?`${peers.length}位俠客參與 · ${peers.filter(p=>p.online).length}人在線`:'同場對話 · 交鋒觀戰'}</small></div></div>
-  {error&&<p role="alert" className="live-feedback">{error} <button type="button" onClick={()=>void refresh()}>重新連線</button></p>}
+  {(error||networkError)&&<p role="alert" className="live-feedback">{error||networkError} <button type="button" onClick={()=>void refresh()}>重新連線</button></p>}
   {notice&&<p role="status" className="live-feedback">{notice}</p>}
   {!joined?<div className="live-intro"><p>以本世人物及對戰配搭加入。所有參與者均可互相交手，離線仍會自動應戰；主動退出後停止參與。</p><p>戰敗後保護30秒，主動出擊即解除。交手只論名次，不受傷、不死亡、不掉裝。</p><button type="button" className="ink-btn ink-btn--primary" disabled={pending||!ready} onClick={()=>void run(async()=>{const next=await liveRequest<OnlineSnapshot>('liveEnter',{name});setSnapshot(next);})}>{pending?'正在入席……':'加入同遊'}</button></div>:<>
    <div className="live-status"><strong>{me!.character.name} · 第{me!.rank}名</strong><span>{protection?`戰敗保護 ${protection}秒`:me!.busy?'交手中':me!.live?.red?'開紅中':'收刀中'}</span></div>

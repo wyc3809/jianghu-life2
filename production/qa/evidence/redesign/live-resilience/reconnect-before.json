@@ -1,0 +1,14 @@
+{
+  "legacy": true,
+  "offlineDraftKept": true,
+  "missedMessageBackfilled": true,
+  "staleNetworkErrorCleared": false,
+  "recoveryActions": [
+    "world",
+    "messages",
+    "world"
+  ],
+  "otherTabExitRecovered": false,
+  "pageerrors": [],
+  "actualIphoneTested": false
+}

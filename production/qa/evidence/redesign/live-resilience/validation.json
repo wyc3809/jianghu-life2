@@ -1,0 +1,13 @@
+{
+  "version": "EA0.113.1",
+  "testFiles": 148,
+  "tests": 1067,
+  "pagesBuild": true,
+  "narrateHardFail": 0,
+  "copyBans": 0,
+  "worldEdgeVersion": 5,
+  "liveEdgeVersion": 2,
+  "migration": "20261115090053_live_resilience",
+  "actualIphoneTested": false,
+  "signedUpload": false
+}

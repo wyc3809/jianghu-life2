@@ -7,7 +7,7 @@ import type { OnlineBattle, OnlineSnapshot } from '../interfaces/online';
 const a='00000000-0000-4000-8000-000000000001', b='00000000-0000-4000-8000-000000000002', c='00000000-0000-4000-8000-000000000003';
 const client='10000000-0000-4000-8000-000000000001', second='10000000-0000-4000-8000-000000000002';
 function fixture(profiles?:Record<string,LifeCharacter|null>) {
- let state:SharedWorld={ revision:0,payload:{world:{version:1,revision:0,players:{},battles:[]},presence:{}} }, now=100_000, fails=0;
+ let state:SharedWorld={ revision:0,payload:{world:{version:1,revision:0,players:{},battles:[]},presence:{}} }, now=100_000, fails=0,commits=0;
  const receipts=new Map<string,WorldReceipt>(),battles=new Map<string,OnlineBattle>();
  const repo:SharedRepository={
   ...(profiles?{profile:async(user:string)=>structuredClone(profiles[user]??null)}:{}),
@@ -18,7 +18,7 @@ function fixture(profiles?:Record<string,LifeCharacter|null>) {
   save:async(next,expected,updates,receipt)=>{
    if(fails>0){fails--;return false;}
    if(state.revision!==expected)return false;
-   state=structuredClone(next);
+   commits++;state=structuredClone(next);
    for(const battle of updates)battles.set(battle.id,structuredClone(battle));
    if(receipt)receipts.set(receipt.user_id+':'+receipt.request_id,structuredClone(receipt));
    return true;
@@ -27,7 +27,7 @@ function fixture(profiles?:Record<string,LifeCharacter|null>) {
  const service=new SharedWorldService(repo,()=>now,()=>({seed:42,battleId:'battle-'+now}));
  const call=(user:string,action:string,data:unknown={},clientId=client)=>service.execute(user,{action,clientId,data});
  const setup=async()=>{await call(a,'register',{name:'甲俠客'});await call(b,'register',{name:'乙俠客'});await call(c,'register',{name:'丙俠客'});};
- return{call,setup,receipts,battles,state:()=>state,advance:(ms:number)=>{now+=ms;},fail:(n:number)=>{fails=n;}};
+ return{call,setup,receipts,battles,commits:()=>commits,state:()=>state,advance:(ms:number)=>{now+=ms;},fail:(n:number)=>{fails=n;}};
 }
 it('test_shared_三人各自入籍_同一世界唔需要房間邀請',async()=>{
  const f=fixture();await Promise.all([f.call(a,'register',{name:'甲俠客'}),f.call(b,'register',{name:'乙俠客'}),f.call(c,'register',{name:'丙俠客'})]);
@@ -129,4 +129,30 @@ it('test_profile_repository_舊新雲存檔標記_只讀指定身份且遷移不
  const old=await repo.profile!(a);expect(old!.flags.cloud_has_duel_preset).toBe(false);expect(old!.combatLoadout).toBeDefined();
  state.character.combatLoadout=normalPreset(state.character);state.character.appearance={head:'bun',outfit:'scholar',tone:'jade'};const styled=await repo.profile!(a);expect(styled!.flags.cloud_has_duel_preset).toBe(true);expect(styled!.appearance).toEqual(state.character.appearance);
  expect(requests.every(url=>url.includes('saves?user_id=eq.'+a+'&select=payload'))).toBe(true);
+});
+
+
+it('test_shared_一千個並發名冊讀取_零持久寫入且收成只領一次',async()=>{
+ const f=fixture();await f.setup();f.advance(120000);
+ const before=structuredClone(f.state()),commits=f.commits();
+ const rows=await Promise.all(Array.from({length:1000},()=>f.call(a,'world') as Promise<OnlineSnapshot>));
+ expect(f.state()).toEqual(before);expect(f.commits()).toBe(commits);
+ expect(new Set(rows.map(r=>r.revision)).size).toBe(1);
+ const projected=rows[0].me.pendingOffline+rows[0].me.pendingOnline;
+ expect(projected).toBeGreaterThan(0);
+ const claim={requestId:'readonly-claim-1'};
+ expect(await f.call(a,'claim',claim)).toMatchObject({total:projected});
+ await f.call(a,'claim',claim);
+ expect((await f.call(a,'world') as OnlineSnapshot).me.silver).toBe(projected);
+});
+it('test_shared_一百個同時讀取到期戰鬥_只提交一次戰果與敗方保護',async()=>{
+ const f=fixture();await f.setup();const p=f.state().payload.world.players;
+ p[c].protectedUntil=1000000;p[b].character.martial=500;p[a].character.martial=1;
+ await f.call(b,'challenge',{requestId:'settle-read-1'});f.advance(2000);
+ const before=f.commits(),revision=f.state().revision;
+ const rows=await Promise.all(Array.from({length:100},()=>f.call(a,'world') as Promise<OnlineSnapshot>));
+ expect(f.commits()).toBe(before+1);expect(f.state().revision).toBe(revision+1);
+ expect(new Set(rows.map(r=>r.battles[0].id)).size).toBe(1);
+ expect(rows.every(r=>r.me.protectedUntil===rows[0].me.protectedUntil)).toBe(true);
+ expect(f.battles.size).toBe(1);
 });

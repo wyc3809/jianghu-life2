@@ -1,4 +1,4 @@
-# 同遊江湖 · EA0.113.0
+# 同遊江湖 · EA0.113.1
 
 入口：江湖地圖→江湖風雲→同遊江湖。沿用目前雲端身份、本世人物、人物頁的對戰配搭與原共用公式；新頁為專注全屏，返回原江湖風雲恢復頂欄／導航。首頁及已確認的漫畫美術不重做。
 
@@ -17,9 +17,9 @@
 
 ## 服務及資料
 
-沿用Supabase專案jianghu-life（seuocqrmyljjzndgbynt）。既有jianghu-world已以相容版v4支援新戰鬥種類，避免舊輪詢結算新交鋒時多派獎；新jianghu-live v1提供身份驗證後的同遊／消息／觀戰入口，兩個Edge verify_jwt均保持true，入口再以Auth驗身份。由scripts/buildOnlineEdge.mjs從受測源碼產生；沒有抄另一套雲端傷害公式或金鑰入前端。
+沿用Supabase專案jianghu-life（seuocqrmyljjzndgbynt）。既有jianghu-world已以相容版v5支援新戰鬥種類，避免舊輪詢結算新交鋒時多派獎；新jianghu-live v2提供身份驗證後的同遊／消息／觀戰入口，兩個Edge verify_jwt均保持true，入口再以Auth驗身份。由scripts/buildOnlineEdge.mjs從受測源碼產生；沒有抄另一套雲端傷害公式或金鑰入前端。
 
-migration 20261115024037_live_jianghu已套用。CLI先建立檔案，再與實際MCP migration版本對齊；DDL先在交易內完整試跑ROLLBACK後部署。新增消息、屏蔽、舉報三表只准service_role存取；RLS開啟、瀏覽器表讀／RPC執行皆拒絕。通知表本人只能讀自己的revision，沒有聊天正文。Realtime只送本人通知，收到後走Edge按身份／會員／對話權限補讀；不把私訊廣播給全服再前端遮掩。
+migration 20261115024037_live_jianghu及20261115090053_live_resilience已套用。CLI先建立檔案，再與實際MCP migration版本對齊；DDL先在交易內完整試跑ROLLBACK後部署。新增消息、屏蔽、舉報三表只准service_role存取；RLS開啟、瀏覽器表讀／RPC執行皆拒絕。通知表本人只能讀自己的revision，沒有聊天正文。Realtime只送本人通知，收到後走Edge按身份／會員／對話權限補讀；不把私訊廣播給全服再前端遮掩。
 
 新消息不塞入世界JSON。排名、忙碌、保護與已參與旗標仍在原世界CAS／收據交易中，保持舊隨機模式相容；所有開戰指令requestId固定內容重試，兩個人同時打同一人只可成功一場。world更新觸發器只在名次／忙碌／保護／同遊狀態變化時通知，普通收益／租約更新不觸發無限通知。
 
@@ -36,3 +36,13 @@ migration 20261115024037_live_jianghu已套用。CLI先建立檔案，再與實�
 在repo root設定只含公開URL／anon key的.env.local（不提交），npx vite-node scripts/qa/prepareLiveQa.mts建立隔離fixture；python3 scripts/qa/checkLiveCloud.py建立／驗收三個匿名測試身份，憑證只寫ignored .local-online/live-qa/accounts.json且chmod600。依次跑python3 scripts/qa/checkLiveWorld.py及python3 scripts/qa/checkLiveControls.py；需先有Pages正式構建preview5315，LIVE_BASE可指向正式站。不要同時跑會輪替同一refresh_token的身份工具。
 
 工具的真人物／消息均為測試身份，不能用真玩家存檔。發布前清除測試公頻，最終驗收後只按記錄的三個UID清理測試世界／戰報／收據／Auth資料，保留真玩家。證據及工具修正記錄見production/qa/evidence/redesign/live-jianghu/README.md。
+
+## EA0.113.1穩定性
+
+沒有到期戰鬥的world只投影當前收益／在線狀態，不持久寫世界或爭CAS；到期戰鬥仍先完成原子結算。收益在心跳／領取等原指令真正入帳，補讀不重派。歷史與收據並行讀取。
+
+參與後以view一次已驗身份請求合併名冊及目前對話頻道；五秒心跳用view renew續租，避免原心跳／world／messages三次往返。Realtime通知及回前景只補讀，沒有自動重發發言或攻擊；回前景／網絡online會立即補讀，失聯後原草稿保留，成功恢復清除網絡錯誤。另一分頁退出同遊後，舊分頁正常回到加入畫面。
+
+對話補讀不鎖全服world行，變更仍保持資格鎖與每發言者advisory鎖。新消息以取得鎖後的clock_timestamp記時，兩秒限頻轉HTTP429；斷線／5xx／429均保留同內容requestId，成功或確定拒絕才清除，已提交重試回原消息。權限、300字、私訊與屏蔽規則保持。
+
+驗證工具新增scripts/qa/checkLiveResilience.py及checkLiveReconnect.py，先跑雲端工具再跑瀏覽器，不並行輪替同一身份。讀取與限頻測試只代表固定測試群，不是100／1000玩家負載保證。證據見production/qa/evidence/redesign/live-resilience/README.md。

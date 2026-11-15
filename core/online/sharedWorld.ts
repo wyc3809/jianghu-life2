@@ -45,6 +45,7 @@ export class SharedWorldService {
     for (let attempt = 0; attempt < 10; attempt++) {
       const state = await this.repo.load(), expected = state.revision, now = this.now();
       const { world, presence } = state.payload;
+      const dueBattle=world.battles.some(b=>b.settledAt===null&&b.endsAt<=now);
       settleOnlineWorld(world, now);
       if (input.action === 'register'||input.action === 'liveEnter') {
         const { name } = registration.parse(data);
@@ -77,6 +78,12 @@ export class SharedWorldService {
       } else if (input.action === 'leave' || input.action === 'logout') { empty.parse(data); delete presence[key]; }
       else if (input.action === 'world') empty.parse(data);
       for (const p of Object.values(world.players)) p.onlineUntil = Math.max(now, ...Object.values(presence).filter(v => v.user === p.id).map(v => v.until));
+      // 名冊／收成預覽只投影目前時間；有到期戰鬥才走原子結算。
+      // 收成只在claim／心跳等寫入指令真正保存，避免每次讀名冊競爭全服CAS。
+      if(input.action==='world'&&!dueBattle){
+        const [history,confirmed]=await Promise.all([this.repo.history(user),this.repo.confirmed(user)]);
+        return sharedSnapshot(world,user,now,history,confirmed);
+      }
       let result: unknown, receipt: WorldReceipt | null = null;
       if (input.action === 'challenge' || input.action === 'claim' || input.action === 'loadout'||input.action==='red'||input.action==='attack') {
         const command = input.action==='red'?z.object({requestId:z.string().uuid(),enabled:z.boolean()}).strict().parse(data):input.action==='attack'?z.object({requestId:z.string().uuid(),target:z.string().uuid()}).strict().parse(data):parseOnlineCommand(input.action, data), signature = JSON.stringify({ action: input.action, ...command });
@@ -116,7 +123,7 @@ export class SharedWorldService {
       if (!await this.repo.save(state, expected, battles, receipt)) continue;
       if (input.action === 'leave' || input.action === 'logout') return { ok: true };
       if (result !== undefined) return result;
-      const history = await this.repo.history(user), confirmed = await this.repo.confirmed(user);
+      const [history,confirmed]=await Promise.all([this.repo.history(user),this.repo.confirmed(user)]);
       return sharedSnapshot(world, user, now, history, confirmed);
     }
     throw new OnlineError(503, '江湖消息繁忙，稍後可用同一指令重試。');
