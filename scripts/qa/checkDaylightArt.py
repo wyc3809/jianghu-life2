@@ -1,4 +1,4 @@
-# 第74項後開卷改千燈鎮晨景；其他共用淺色藝術檢查沿用第73項。
+# 第75項後開卷改青綠暖金漫畫晨景；其他共用淺色藝術檢查沿用第73項。
 """共用淺色藝術：正式構建三尺寸、開卷續寫、冊頁與夜間事件；隔離存檔。"""
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2];__file__=str(ROOT/'scripts/qa/checkGameUnification.py')
@@ -15,7 +15,7 @@ def shot(p,name):
  healthy(p);path=OUT/f'{name}.jpg';p.screenshot(path=str(path),type='jpeg',quality=93);return round(ImageStat.Stat(Image.open(path).convert('L')).mean[0],2)
 def opening(p,w):
  p.get_by_role('button',name=re.compile('^續寫前緣')).wait_for();p.wait_for_function('document.querySelector(".ink-start-bg img")?.complete && document.querySelector(".ink-start-bg img")?.naturalWidth>0');assert not p.locator('.ink-start canvas,.ink-start-figure').count()
- assert p.locator('.ink-start-bg img').get_attribute('src').split('?')[0].endswith('theme/town-opening.webp')
+ assert p.locator('.ink-start-bg img').get_attribute('src').split('?')[0].endswith('theme/town-manhua.webp')
  assert not p.locator('.ink-start-seal').count();assert p.evaluate('getComputedStyle(document.documentElement).colorScheme')=='light'
  assert p.locator('.ink-start').evaluate('e=>e.scrollHeight<=e.clientHeight+1'),'opening overflow'
  for name in ['續寫前緣','開卷新篇']:

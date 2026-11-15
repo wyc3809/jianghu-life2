@@ -1,15 +1,15 @@
-"""已選第三款晨景：無首頁人物、開卷／續寫、短屏及墨跡；隔離存檔。"""
+"""第75項青綠暖金漫畫晨景：無首頁人物、開卷／續寫、短屏及墨跡；隔離存檔。"""
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2];__file__=str(ROOT/'scripts/qa/checkGameUnification.py')
 exec(compile(Path(__file__).read_text().split('\nwith sync_playwright() as pw:')[0].replace("ROOT/'.local-online/unify-game/fixtures.json'","ROOT/'design/art/manhua/fixtures.json'"),'helpers','exec'))
-BASE=os.getenv('TOWN_OPENING_BASE','http://127.0.0.1:5315/jianghu-life2/');OUT=ROOT/'.local-online/town-opening/qa';OUT.mkdir(parents=True,exist_ok=True);rows=[]
+BASE=os.getenv('TOWN_OPENING_BASE','http://127.0.0.1:5315/jianghu-life2/');OUT=ROOT/os.getenv('TOWN_OPENING_OUT','.local-online/town-manhua/qa');OUT.mkdir(parents=True,exist_ok=True);rows=[]
 def saved(p):
  c=data(p)['character'];m=p.evaluate('JSON.parse(localStorage.getItem("jianghu_ancestry_v1"))');return {k:copy.deepcopy(c.get(k)) for k in ['attributes','nature','equipment','combatLoadout','appearance','gear','skills','volumes']}|{k:copy.deepcopy(m.get(k)) for k in ['jade','pages','manuals']}
 def opening(p,w,h):
  p.wait_for_function('document.querySelector(".ink-start-bg img")?.complete&&document.querySelector(".ink-start-bg img")?.naturalWidth===852')
  assert not p.locator('.ink-start canvas,.ink-start-figure,.ink-start .ink-appearance-canvas').count(),'homepage character returned'
  assert p.locator('.ink-start img').count()==1
- assert p.locator('.ink-start-bg img').get_attribute('src').split('?')[0].endswith('town-opening.webp')
+ assert p.locator('.ink-start-bg img').get_attribute('src').split('?')[0].endswith('town-manhua.webp')
  assert p.locator('.ink-verse').inner_text()=='少年起於千燈鎮'
  assert p.locator('.ink-start-bg img').evaluate('e=>getComputedStyle(e).objectFit')=='cover'
  assert p.locator('.ink-start').evaluate('e=>e.scrollHeight<=e.clientHeight+1')
@@ -40,5 +40,5 @@ with sync_playwright() as pw:
   c=browser.new_context(viewport={'width':w,'height':h},device_scale_factor=2,is_mobile=True,has_touch=True,reduced_motion='reduce');c.add_init_script("const nativeFetch=window.fetch.bind(window);window.fetch=(i,o)=>String(i?.url??i).includes('.supabase.co')?Promise.resolve(new Response('{}',{status:503})):nativeFetch(i,o)");p=c.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)));p.goto(BASE);p.get_by_role('button',name='開卷',exact=True).wait_for();opening(p,w,h);assert p.locator('.ink-start .ink-cta-stack button').count()==1;p.screenshot(path=str(OUT/f'fresh-{w}.jpg'),type='jpeg',quality=92);p.get_by_role('button',name='開卷',exact=True).click();p.get_by_role('textbox',name='姓名',exact=True).fill('林清風');assert p.locator('canvas[data-appearance="bamboo:cloak:ink"]').count()>0;assert not p.evaluate('localStorage.getItem("jianghu_life_v1_ls")');assert not errors;rows.append({'viewport':[w,h],'freshOnePrimaryAndActualCreate':True,'defaultAppearanceAndNoPrematureSave':True,'pageerrors':errors});c.close()
  # 本世已結束的長提示仍可顯示，短屏主／次鍵不出界。
  f=copy.deepcopy(fixtures['full']);f['state']['phase']='summary';f['state']['character']['alive']=False;fixtures['summary']=f
- c=browser.new_context(viewport={'width':320,'height':568},device_scale_factor=2,is_mobile=True,has_touch=True,reduced_motion='reduce');c.add_init_script('localStorage.setItem("jianghu_life_v1_ls",JSON.stringify('+json.dumps({'version':1,'savedAt':0,'state':f['state']},ensure_ascii=False)+'))');p=c.new_page();p.goto(BASE);p.get_by_role('button',name=re.compile('^續寫前緣')).wait_for();opening(p,320,568);p.screenshot(path=str(OUT/'summary-320.jpg'),type='jpeg',quality=92);rows.append({'summaryLongHintOnShortScreen':True,'passed':True});c.close();browser.close()
+ c=browser.new_context(viewport={'width':320,'height':568},device_scale_factor=2,is_mobile=True,has_touch=True,reduced_motion='reduce');c.add_init_script("const nativeFetch=window.fetch.bind(window);window.fetch=(i,o)=>String(i?.url??i).includes('.supabase.co')?Promise.resolve(new Response('{}',{status:503})):nativeFetch(i,o)");c.add_init_script('localStorage.setItem("jianghu_life_v1_ls",JSON.stringify('+json.dumps({'version':1,'savedAt':0,'state':f['state']},ensure_ascii=False)+'))');p=c.new_page();p.goto(BASE);p.get_by_role('button',name=re.compile('^續寫前緣')).wait_for();opening(p,320,568);p.screenshot(path=str(OUT/'summary-320.jpg'),type='jpeg',quality=92);rows.append({'summaryLongHintOnShortScreen':True,'passed':True});c.close();browser.close()
 (OUT/'browser.json').write_text(json.dumps({'cases':rows,'cloudBlockedForFixtureAndFreshContexts':True,'actualIphoneTested':False},ensure_ascii=False,indent=2)+'\n');print('TOWN_OPENING_PASS',len(rows),flush=True)

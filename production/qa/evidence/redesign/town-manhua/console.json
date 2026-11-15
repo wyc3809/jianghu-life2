@@ -1,0 +1,113 @@
+{
+  "consoleErrors": [],
+  "pageerrors": [],
+  "typography": [
+    {
+      "text": "武俠人生",
+      "font": "\"Noto Serif TC\", \"Songti TC\", STSong, SimSun, serif",
+      "size": "15px",
+      "weight": "600",
+      "color": "rgb(163, 67, 56)",
+      "bounds": {
+        "x": 20,
+        "y": 22,
+        "width": 350,
+        "height": 21,
+        "top": 22,
+        "right": 370,
+        "bottom": 43,
+        "left": 20
+      }
+    },
+    {
+      "text": "江湖一生",
+      "font": "\"Jianghu Brush TC\", \"Jianghu Wuxia Titles\", \"Noto Serif TC\", serif",
+      "size": "60.06px",
+      "weight": "400",
+      "color": "rgb(36, 45, 44)",
+      "bounds": {
+        "x": 20,
+        "y": 47,
+        "width": 350,
+        "height": 70.859375,
+        "top": 47,
+        "right": 370,
+        "bottom": 117.859375,
+        "left": 20
+      }
+    },
+    {
+      "text": "習武、闖蕩、傳承",
+      "font": "\"Noto Serif TC\", \"Songti TC\", STSong, SimSun, serif",
+      "size": "14px",
+      "weight": "600",
+      "color": "rgb(75, 93, 78)",
+      "bounds": {
+        "x": 20,
+        "y": 134.859375,
+        "width": 350,
+        "height": 23.796875,
+        "top": 134.859375,
+        "right": 370,
+        "bottom": 158.65625,
+        "left": 20
+      }
+    },
+    {
+      "text": "少年起於千燈鎮",
+      "font": "\"Jianghu Brush TC\", \"Jianghu Wuxia Titles\", \"Noto Serif TC\", serif",
+      "size": "15px",
+      "weight": "400",
+      "color": "rgb(52, 76, 70)",
+      "bounds": {
+        "x": 27,
+        "y": 173.65625,
+        "width": 115.515625,
+        "height": 33,
+        "top": 173.65625,
+        "right": 142.515625,
+        "bottom": 206.65625,
+        "left": 27
+      }
+    },
+    {
+      "text": "續寫前緣黃天一",
+      "font": "\"Noto Serif TC\", \"Songti TC\", STSong, SimSun, serif",
+      "size": "26px",
+      "weight": "700",
+      "color": "rgb(255, 253, 247)",
+      "bounds": {
+        "x": 30,
+        "y": 685.609375,
+        "width": 330,
+        "height": 65.390625,
+        "top": 685.609375,
+        "right": 360,
+        "bottom": 751,
+        "left": 30
+      }
+    },
+    {
+      "text": "開卷新篇",
+      "font": "\"Noto Serif TC\", \"Songti TC\", STSong, SimSun, serif",
+      "size": "20px",
+      "weight": "700",
+      "color": "rgb(36, 45, 44)",
+      "bounds": {
+        "x": 55,
+        "y": 760,
+        "width": 280,
+        "height": 54,
+        "top": 760,
+        "right": 335,
+        "bottom": 814,
+        "left": 55
+      }
+    }
+  ],
+  "flows": [
+    "opening",
+    "realContinue",
+    "person"
+  ]
+}
