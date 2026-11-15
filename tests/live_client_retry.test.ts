@@ -11,7 +11,7 @@ function transport(statuses:(number|'offline')[]){
  const saved=new Map<string,string>(),ids:string[]=[];
  vi.stubGlobal('sessionStorage',{getItem:(k:string)=>saved.get(k)??null,setItem:(k:string,v:string)=>saved.set(k,v),removeItem:(k:string)=>saved.delete(k)});
  vi.stubGlobal('fetch',async(_url:string,init:RequestInit)=>{
-  ids.push(JSON.parse(init.body as string).data.requestId);
+  const envelope=JSON.parse(init.body as string);ids.push((envelope.data??envelope).requestId);
   const status=statuses.shift()!;
   if(status==='offline')throw new TypeError('Failed to fetch');
   return new Response(JSON.stringify(status===200?{ok:true}:{error:'請稍候再試。'}),{status});

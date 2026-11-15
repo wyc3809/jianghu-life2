@@ -13,6 +13,8 @@
 
 後端先備份world v4／live v1，再發布world v5／live v2，verify_jwt保持true；migration 20261115090053先BEGIN／ROLLBACK驗整段SQL及authenticated無EXECUTE，再套用。聊天／world私有表RLS保持，沒有新增前端表讀權限。原本匿名身份policy與刻意RLS無前端policy的advisor狀態保持，沒有新SECURITY DEFINER。
 
+首輪CI指出新重試測試只懂雲端data包裝、沒有讀本機直接payload；修正測試transport取法，另以VITE_ONLINE_PUBLIC=0／1各跑三項重試，再以預設本機模式完整回歸，沒有刪除或跳過測試。
+
 本機清快取時誤移除依賴，已npm ci恢復且重跑最終全套；預覽忘設Pages base，瀏覽器載入失敗後已更正VITE_BASE並重跑，失敗沒有算通過。測試憑證／備份只放ignored .local-online，不提交；最終按三個測試UID清資料，保留真玩家。
 
 這些是固定測試群的正確性與請求減省，並非大規模容量、完整反作弊、真iPhone或Apple上傳驗收。原生Archive及正式站版本以PR／部署實錄另核。
