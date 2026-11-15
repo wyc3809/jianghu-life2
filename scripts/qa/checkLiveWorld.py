@@ -20,7 +20,7 @@ def tap(p,label):p.get_by_role('button',name=label,exact=True).click()
 def enter(p):
  p.goto(BASE);p.get_by_role('button',name=re.compile('^續寫前緣')).click();p.wait_for_timeout(400)
  if p.get_by_role('button',name='領受',exact=True).count():tap(p,'領受')
- p.get_by_role('navigation',name='分卷').get_by_role('button',name='江湖',exact=True).click();p.get_by_role('button',name='江湖風雲',exact=True).click();p.get_by_role('button',name=re.compile('^同遊江湖')).first.click() if not p.locator('.ink-live').count() else None;p.wait_for_function('Boolean(document.querySelector(".live-compose"))||Boolean(document.querySelector(".live-intro button:not(:disabled)"))');
+ p.get_by_role('navigation',name='分卷').get_by_role('button',name='江湖',exact=True).click();p.get_by_role('button',name='江湖風雲',exact=True).click();p.locator('.ink-live').wait_for(timeout=30000);p.wait_for_function('Boolean(document.querySelector(".live-compose"))||Boolean(document.querySelector(".live-intro button:not(:disabled)"))');
  if not p.locator('.live-compose').count():tap(p,'加入同遊')
  p.locator('.live-compose').wait_for(timeout=30000)
 def healthy(p):
