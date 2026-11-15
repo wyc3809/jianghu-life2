@@ -3,7 +3,7 @@ import { duelPreset } from '../life/loadoutPresets';
 import { z } from 'zod';
 import type { OnlineBattle, OnlineSnapshot, OnlineWorld } from '@interfaces/online';
 import { ONLINE_TEST } from '@data/redesign/onlineTestParams';
-import { applyOnlineCommand, parseOnlineCommand, compatibleReceiptInput, OnlineError, selectOnlineOpponent } from './commands';
+import { applyOnlineCommand, parseOnlineCommand, compatibleReceiptInput, OnlineError, selectOnlineOpponent, startOnlineBattle } from './commands';
 import { createOnlineFixture } from './fixtures';
 import { settleOnlineWorld } from './rules';
 import type { LifeCharacter } from '@interfaces/lifeEngine';
@@ -23,7 +23,7 @@ export interface SharedRepository {
   /** 世界、戰報及收據喺同一Postgres交易CAS提交。 */
   save(state: SharedWorld, expected: number, battles: OnlineBattle[], receipt: WorldReceipt | null): Promise<boolean>;
 }
-const envelope = z.object({ action: z.enum(['register', 'world', 'heartbeat', 'leave', 'logout', 'challenge', 'claim', 'loadout']), clientId: z.uuid(), data: z.unknown().optional() }).strict();
+const envelope = z.object({ action: z.enum(['register', 'world', 'heartbeat', 'leave', 'logout', 'challenge', 'claim', 'loadout', 'liveEnter', 'liveLeave', 'liveHeartbeat', 'red', 'attack']), clientId: z.uuid(), data: z.unknown().optional() }).strict();
 const empty = z.object({}).strict();
 const registration = z.object({ name: z.string().trim().min(1).max(12).regex(/^[\p{L}\p{N}·]+$/u) }).strict();
 
@@ -46,7 +46,7 @@ export class SharedWorldService {
       const state = await this.repo.load(), expected = state.revision, now = this.now();
       const { world, presence } = state.payload;
       settleOnlineWorld(world, now);
-      if (input.action === 'register') {
+      if (input.action === 'register'||input.action === 'liveEnter') {
         const { name } = registration.parse(data);
         const profile=this.repo.profile ? await this.repo.profile(user) : undefined;
         if(this.repo.profile && !profile)throw new OnlineError(409,'請先建立並保存人物，再踏入江湖。');
@@ -64,24 +64,37 @@ export class SharedWorldService {
       }
       const me = world.players[user];
       if (!me) throw new OnlineError(404, '未有江湖身份，請先入籍。');
+      if(input.action==='liveEnter')me.live={joined:true,red:me.live?.red??false};
+      if(input.action==='liveLeave'){empty.parse(data);if(me.busy)throw new OnlineError(409,'交手結束後才可退出同遊。');me.live={joined:false,red:false};}
+      if(input.action==='liveHeartbeat'&&!me.live?.joined)throw new OnlineError(409,'請先加入同遊江湖。');
       for (const [key, value] of Object.entries(presence)) if (value.until <= now) delete presence[key];
       const key = `${user}:${input.clientId}`;
-      if (input.action === 'register' || input.action === 'heartbeat') {
-        if (input.action !== 'register') empty.parse(data);
+      if (input.action === 'register' || input.action === 'liveEnter' || input.action === 'heartbeat' || input.action === 'liveHeartbeat') {
+        if (input.action !== 'register'&&input.action!=='liveEnter') empty.parse(data);
         if (me.onlineUntil <= now) me.offlineAccruedMs = 0;
         if (!presence[key] && Object.values(presence).filter(p => p.user === user).length >= 10) throw new OnlineError(429, '請先關閉其他江湖分頁。');
-        presence[key] = { user, until: now + ONLINE_TEST.presenceLeaseMs };
+        presence[key] = { user, until: now + (input.action==='liveEnter'||input.action==='liveHeartbeat'?15000:ONLINE_TEST.presenceLeaseMs) };
       } else if (input.action === 'leave' || input.action === 'logout') { empty.parse(data); delete presence[key]; }
       else if (input.action === 'world') empty.parse(data);
       for (const p of Object.values(world.players)) p.onlineUntil = Math.max(now, ...Object.values(presence).filter(v => v.user === p.id).map(v => v.until));
       let result: unknown, receipt: WorldReceipt | null = null;
-      if (input.action === 'challenge' || input.action === 'claim' || input.action === 'loadout') {
-        const command = parseOnlineCommand(input.action, data), signature = JSON.stringify({ action: input.action, ...command });
+      if (input.action === 'challenge' || input.action === 'claim' || input.action === 'loadout'||input.action==='red'||input.action==='attack') {
+        const command = input.action==='red'?z.object({requestId:z.string().uuid(),enabled:z.boolean()}).strict().parse(data):input.action==='attack'?z.object({requestId:z.string().uuid(),target:z.string().uuid()}).strict().parse(data):parseOnlineCommand(input.action, data), signature = JSON.stringify({ action: input.action, ...command });
         const old = await this.repo.receipt(user, command.requestId);
         if (old) {
           if (compatibleReceiptInput(old.input) !== signature) throw new OnlineError(409, '同一指令編號不可變更內容。');
           result = old.result;
         } else {
+          if(input.action==='red'){
+            if(!me.live?.joined||me.busy)throw new OnlineError(409,'此刻無法更改開紅狀態。');
+            me.live.red=z.object({enabled:z.boolean()}).parse(data).enabled;result={ok:true};
+          }else if(input.action==='attack'){
+            const target=z.object({target:z.string().uuid()}).parse(data).target;
+            if(!me.live?.joined||!me.live.red||!world.players[target]?.live?.joined)throw new OnlineError(409,'對方未有參與同遊，或你尚未開紅。');
+            if(me.busy||world.players[target].busy)throw new OnlineError(409,'其中一方仍在交戰。');
+            if(this.repo.profile){const [a,b]=await Promise.all([this.repo.profile(user),this.repo.profile(target)]);if(!a||!b)throw new OnlineError(409,'尚未取得雙方本世人物，請重新保存配搭。');me.character=refreshedProfile(a,me.character);world.players[target].character=refreshedProfile(b,world.players[target].character);}
+            result=startOnlineBattle(world,now,user,target,entropy,true);
+          }else {
           if(input.action==='challenge' && this.repo.profile) {
             if(me.busy)throw new OnlineError(409,'交手仍在結算。');
             const profile=await this.repo.profile(user);
@@ -92,6 +105,7 @@ export class SharedWorldService {
             if(defense)opponent.character=refreshedProfile(defense,opponent.character);
           }
           result = applyOnlineCommand(world, now, user, input.action, command, entropy);
+          }
           receipt = { user_id: user, request_id: command.requestId, input: signature, result };
         }
       }
@@ -112,7 +126,8 @@ export class SharedWorldService {
 /** 只回傳自己戰報／收據及其他玩家可公開嘅身份與排名。 */
 export function sharedSnapshot(world: OnlineWorld, user: string, now: number, battles: OnlineBattle[], confirmedRequests: string[]): OnlineSnapshot {
   return structuredClone({ serverNow: now, revision: world.revision, me: world.players[user], population: Object.keys(world.players).length,
-    peers: Object.values(world.players).sort((a, b) => a.rank - b.rank).map(p => ({ id: p.id, name: p.character.name, appearance: appearanceOf(p.character), rank: p.rank, online: p.onlineUntil > now, protectedUntil: p.protectedUntil, busy: p.busy })),
-    battles, confirmedRequests, params: { protectionMs: ONLINE_TEST.protectionMs, onlineSilverPerMinute: ONLINE_TEST.onlineSilverPerMinute, offlineSilverPerMinute: ONLINE_TEST.offlineSilverPerMinute, offlineCapMs: ONLINE_TEST.offlineCapMs },
+    peers: Object.values(world.players).sort((a, b) => a.rank - b.rank).map(p => ({ id: p.id, name: p.character.name, appearance: appearanceOf(p.character), live:p.live, rank: p.rank, online: p.onlineUntil > now, protectedUntil: p.protectedUntil, busy: p.busy })),
+    liveBattles: world.battles.filter(b=>b.mode==='red').map(b=>({id:b.id,attacker:b.attacker,defender:b.defender,startedAt:b.startedAt,endsAt:b.endsAt,names:[b.characters[b.attacker].name,b.characters[b.defender].name]})),
+    battles: [...world.battles.filter(b=>b.attacker===user||b.defender===user),...battles].filter((b,i,a)=>a.findIndex(x=>x.id===b.id)===i), confirmedRequests, params: { protectionMs: ONLINE_TEST.protectionMs, onlineSilverPerMinute: ONLINE_TEST.onlineSilverPerMinute, offlineSilverPerMinute: ONLINE_TEST.offlineSilverPerMinute, offlineCapMs: ONLINE_TEST.offlineCapMs },
   });
 }

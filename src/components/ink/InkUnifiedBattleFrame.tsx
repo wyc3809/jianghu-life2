@@ -13,7 +13,7 @@ type Props = {
   title: string;
   round: number;
   fast: boolean;
-  onSpeed: () => void;
+  onSpeed?: () => void;
   onSkip: () => void;
   hero: BattleVitals;
   foe: BattleVitals;
@@ -57,7 +57,7 @@ export function InkUnifiedBattleFrame({ title, round, fast, onSpeed, onSkip, her
         <div className="ink-unified-controls">
           <span className="ink-unified-round">第 {round} 回合</span>
           <div>
-            <button type="button" disabled={entering} className={fast ? 'is-fast' : ''} aria-pressed={fast} onClick={onSpeed}>加速 ×2</button>
+            {onSpeed&&<button type="button" disabled={entering} className={fast ? 'is-fast' : ''} aria-pressed={fast} onClick={onSpeed}>加速 ×2</button>}
             <button type="button" disabled={entering} onClick={onSkip}>跳過 ›</button>
           </div>
         </div>

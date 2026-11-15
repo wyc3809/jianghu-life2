@@ -55,17 +55,7 @@ export function applyOnlineCommand(world: OnlineWorld, now: number, id: OnlineAc
     challengeSchema.parse(raw);
     const a = world.players[id];
     const b = selectOnlineOpponent(world, now, id, entropy.seed);
-    const result = simulateOnlineBattle(a.character, b.character, entropy.seed);
-    const battleId = entropy.battleId;
-    a.protectedUntil = 0; a.busy = battleId; b.busy = battleId;
-    world.battles.push({ id: battleId, attacker: id, defender: b.id,
-      winner: result.winner === 0 ? id : result.winner === 1 ? b.id : null,
-      startedAt: now, endsAt: now + ONLINE_TEST.battleMs, settledAt: null,
-      before: { [id]: a.rank, [b.id]: b.rank }, after: null,
-      replays: { [id]: result.forward, [b.id]: result.reverse } as typeof world.battles[number]['replays'],
-      characters: { [id]: characterForPreset(structuredClone(a.character),'duel'), [b.id]: characterForPreset(structuredClone(b.character),'duel') },
-    });
-    return { battleId };
+    return startOnlineBattle(world, now, a.id, b.id, entropy);
   }
   if (kind === 'claim') {
     claimSchema.parse(raw);
@@ -87,4 +77,24 @@ export function applyOnlineCommand(world: OnlineWorld, now: number, id: OnlineAc
   c.combatLoadout!.internal = input.internal; c.combatLoadout!.qinggong = input.qinggong;
   c.flags.duel_loadout_saved = true;
   return { ok: true };
+}
+
+
+/** 指定目標只供同遊開紅使用；普通隨機挑戰仍由伺服器抽選。 */
+export function startOnlineBattle(world: OnlineWorld, now: number, attacker: string, defender: string, entropy: { seed:number; battleId:string }, red = false) {
+  const a=world.players[attacker], b=world.players[defender];
+  if(!a||!b||a===b)throw new OnlineError(409,'此刻無法與這位俠客交手。');
+  if(a.busy||b.busy)throw new OnlineError(409,'其中一方仍在交戰，請稍後再試。');
+  if(b.protectedUntil>now)throw new OnlineError(409,'對方正受戰敗保護。');
+  if(red&&(!a.live?.joined||!b.live?.joined||!a.live.red))throw new OnlineError(409,'雙方須已加入同遊，並由出手者開紅。');
+  const result=simulateOnlineBattle(a.character,b.character,entropy.seed),battleId=entropy.battleId;
+  const hitCount=result.forward.rounds.reduce((n,r)=>n+r.hits.length,0);
+  const startedAt=red?now+1200:now;
+  a.protectedUntil=0;a.busy=b.busy=battleId;
+  world.battles.push({id:battleId,attacker,defender,winner:result.winner===0?attacker:result.winner===1?defender:null,
+    startedAt,endsAt:startedAt+(red?Math.min(45000,6000+hitCount*1500):ONLINE_TEST.battleMs),settledAt:null,
+    ...(red?{mode:'red' as const,hitMs:1500}:{}),before:{[attacker]:a.rank,[defender]:b.rank},after:null,
+    replays:{[attacker]:{...result.forward,title:red?'同遊交鋒':result.forward.title},[defender]:{...result.reverse,title:red?'同遊交鋒':result.reverse.title}},
+    characters:{[attacker]:characterForPreset(structuredClone(a.character),'duel'),[defender]:characterForPreset(structuredClone(b.character),'duel')}});
+  return {battleId};
 }

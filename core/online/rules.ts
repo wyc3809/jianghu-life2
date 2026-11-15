@@ -35,6 +35,7 @@ export function settleOnlineWorld(world: OnlineWorld, now: number): void {
       const winner = world.players[battle.winner], loser = world.players[loserId];
       if (winner.rank > loser.rank) [winner.rank, loser.rank] = [loser.rank, winner.rank];
       loser.protectedUntil = battle.endsAt + ONLINE_TEST.protectionMs;
+      if(battle.mode!=='red') {
       const day = economyDay(battle.endsAt);
       if(!winner.jadeDay || day>winner.jadeDay.day)winner.jadeDay={day,attackWins:0,defendWins:0,opponents:[]};
       const d=winner.jadeDay,role=battle.winner===battle.attacker?'attackWins':'defendWins';
@@ -42,6 +43,7 @@ export function settleOnlineWorld(world: OnlineWorld, now: number): void {
         const jade=role==='attackWins'?ONLINE_ATTACK_WIN_JADE:ONLINE_DEFEND_WIN_JADE;
         d[role]++;d.opponents.push(loserId);winner.jadeEarnedTotal=(winner.jadeEarnedTotal??0)+jade;
         battle.jadeAwards={ [winner.id]:jade };
+      }
       }
     }
     for (const id of [battle.attacker, battle.defender]) {
