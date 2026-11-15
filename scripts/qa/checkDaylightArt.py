@@ -1,3 +1,4 @@
+# 第74項後開卷改千燈鎮晨景；其他共用淺色藝術檢查沿用第73項。
 """共用淺色藝術：正式構建三尺寸、開卷續寫、冊頁與夜間事件；隔離存檔。"""
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2];__file__=str(ROOT/'scripts/qa/checkGameUnification.py')
@@ -13,13 +14,13 @@ def healthy(p):
 def shot(p,name):
  healthy(p);path=OUT/f'{name}.jpg';p.screenshot(path=str(path),type='jpeg',quality=93);return round(ImageStat.Stat(Image.open(path).convert('L')).mean[0],2)
 def opening(p,w):
- p.get_by_role('button',name=re.compile('^續寫前緣')).wait_for();p.wait_for_function('document.querySelector(".ink-start-figure canvas")?.dataset.artStyle==="manhua"')
- assert p.locator('.ink-start-bg img').get_attribute('src').split('?')[0].endswith('theme/daylight-landscape.webp')
+ p.get_by_role('button',name=re.compile('^續寫前緣')).wait_for();p.wait_for_function('document.querySelector(".ink-start-bg img")?.complete && document.querySelector(".ink-start-bg img")?.naturalWidth>0');assert not p.locator('.ink-start canvas,.ink-start-figure').count()
+ assert p.locator('.ink-start-bg img').get_attribute('src').split('?')[0].endswith('theme/town-opening.webp')
  assert not p.locator('.ink-start-seal').count();assert p.evaluate('getComputedStyle(document.documentElement).colorScheme')=='light'
  assert p.locator('.ink-start').evaluate('e=>e.scrollHeight<=e.clientHeight+1'),'opening overflow'
  for name in ['續寫前緣','開卷新篇']:
   r=p.get_by_role('button',name=re.compile('^'+name)).bounding_box();assert r['height']>=44 and r['y']+r['height']<=p.viewport_size['height'],r
- assert not p.locator('.ink-start-bg,.ink-start-figure').evaluate_all('es=>es.some(e=>getComputedStyle(e).pointerEvents!=="none")')
+ assert not p.locator('.ink-start-bg,.ink-start-keyart').evaluate_all('es=>es.some(e=>getComputedStyle(e).pointerEvents!=="none")')
  return shot(p,f'opening-{w}')
 with sync_playwright() as pw:
  browser=pw.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox'])
@@ -48,7 +49,7 @@ with sync_playwright() as pw:
   print('DAYLIGHT_ART',w,flush=True)
  # 全新開卷：封面不設定／覆寫玩家造型，創角與取消保持原入口。
  for w,h in [[320,568],[390,844],[430,932]]:
-  c=browser.new_context(viewport={'width':w,'height':h},device_scale_factor=2,is_mobile=True,has_touch=True,reduced_motion='reduce');p=c.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)));p.goto(BASE);p.get_by_role('button',name='開卷',exact=True).wait_for();p.wait_for_function('document.querySelector(".ink-start-figure canvas")?.dataset.artStyle==="manhua"');assert not p.get_by_role('button',name=re.compile('^續寫前緣')).count();healthy(p)
+  c=browser.new_context(viewport={'width':w,'height':h},device_scale_factor=2,is_mobile=True,has_touch=True,reduced_motion='reduce');p=c.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)));p.goto(BASE);p.get_by_role('button',name='開卷',exact=True).wait_for();p.wait_for_function('document.querySelector(".ink-start-bg img")?.complete && document.querySelector(".ink-start-bg img")?.naturalWidth>0');assert not p.locator('.ink-start canvas,.ink-start-figure').count();assert not p.get_by_role('button',name=re.compile('^續寫前緣')).count();healthy(p)
   p.get_by_role('button',name='開卷',exact=True).click();p.get_by_role('textbox',name='姓名',exact=True).fill('林清風');p.wait_for_timeout(150);shot(p,f'create-{w}');assert not p.evaluate('localStorage.getItem("jianghu_life_v1_ls")');assert p.locator('canvas[data-appearance="bamboo:cloak:ink"]').count()>0;assert not errors;rows.append({'viewport':[w,h],'freshCreateDoesNotAdoptCoverAppearance':True,'nameInputAndNoPrematureSave':True,'pageerrors':errors});c.close()
  # 真夜雨事件仍保留語境／標記，但頁面不再使用舊黑底。
  night=copy.deepcopy(fixtures['full']);night['state']['pending']={'eventId':'ord_rain','year':night['state']['year'],'month':night['state']['month'],'kind':'ordinary'};fixtures['night']=night

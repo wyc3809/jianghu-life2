@@ -1,0 +1,25 @@
+{
+  "ok": true,
+  "assets": [
+    {
+      "path": "public/ink/art/theme/town-opening.webp",
+      "format": "WEBP",
+      "mode": "RGB",
+      "width": 852,
+      "height": 1846,
+      "bytes": 305634,
+      "color_count": ">65535",
+      "has_alpha": false,
+      "alpha_min": 255,
+      "alpha_max": 255,
+      "transparent_pixels": 0,
+      "content_bounds": [
+        0,
+        0,
+        852,
+        1846
+      ],
+      "problems": []
+    }
+  ]
+}
