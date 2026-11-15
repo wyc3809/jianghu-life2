@@ -5,7 +5,8 @@ import { useStillMode } from '../../hooks/useStillMode';
 import { stillClassName } from './inkStillClass';
 import { InkBrushBar, clampPct } from './InkBrush';
 import { inkArtUrl } from '../../ui/inkAssets';
-import { heroSilhouetteUrl } from '../../ui/inkSilhouettes';
+import { AppearanceCanvas } from './InkAppearance';
+import { appearanceOf } from '@interfaces/appearance';
 import styles from './InkStatsPanel.module.css';
 
 type Props = {
@@ -28,7 +29,7 @@ export function InkStatsPanel({ state, onClose }: Props) {
   const cornerSrc = inkArtUrl('art/ui/corner-bracket.webp');
 
   return createPortal(
-    <div className={styles.root}>
+    <div className={`${styles.root} ink-stats-scroll`}>
       <div className={styles.bg} aria-hidden />
       <div className={styles.wrap}>
         <div className={styles.scroll}>
@@ -36,12 +37,7 @@ export function InkStatsPanel({ state, onClose }: Props) {
             關閉
           </button>
           <div className={cls(styles.banner, styles.bannerStill)} aria-hidden>
-            <img
-              className={`${styles.heroSil} ${still ? styles.heroSilStill : ''}`}
-              src={heroSilhouetteUrl(c.sectId)}
-              alt=""
-              draggable={false}
-            />
+            <AppearanceCanvas className={`${styles.heroSil} ${still ? styles.heroSilStill : ''}`} appearance={appearanceOf(c)} mode="portrait"/>
           </div>
           <span className={`${styles.corner} ${styles.tl} ${still ? styles.cornerStill : ''}`} aria-hidden>
             <img src={cornerSrc} alt="" draggable={false} />
@@ -58,7 +54,6 @@ export function InkStatsPanel({ state, onClose }: Props) {
 
           <header className={cls(styles.head, styles.headStill)}>
             <h2>人物誌</h2>
-            <span className={styles.headEn}>CHARACTER · SCROLL</span>
             <span className={styles.miniSeal}>墨</span>
           </header>
 

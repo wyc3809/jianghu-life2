@@ -1,0 +1,114 @@
+{
+  "cases": [
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "openingAndRealContinue": true,
+      "entryInkAndSingleNativeClick": false,
+      "openingFitsAndButtons44px": true,
+      "darkSystemLightPaper": true,
+      "sharedPersonWardrobeMartialChroniclePracticeMapCodex": true,
+      "nativeDialogsAndBack": true,
+      "unchangedEquipmentAppearanceAttributesNatureAndCollection": true,
+      "meanLuma255": {
+        "opening": 219.11,
+        "home": 201.73,
+        "person": 217.17,
+        "wardrobe": 211.23,
+        "martial": 228.88,
+        "chronicle": 233.97,
+        "practice": 231.24,
+        "map": 200.61,
+        "codex": 227.44
+      },
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "openingAndRealContinue": true,
+      "entryInkAndSingleNativeClick": true,
+      "openingFitsAndButtons44px": true,
+      "darkSystemLightPaper": true,
+      "sharedPersonWardrobeMartialChroniclePracticeMapCodex": true,
+      "nativeDialogsAndBack": true,
+      "unchangedEquipmentAppearanceAttributesNatureAndCollection": true,
+      "meanLuma255": {
+        "opening": 215.11,
+        "home": 194.85,
+        "person": 213.55,
+        "wardrobe": 211.23,
+        "martial": 232.15,
+        "chronicle": 238.22,
+        "practice": 232.2,
+        "map": 209.64,
+        "codex": 212.99
+      },
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        430,
+        932
+      ],
+      "openingAndRealContinue": true,
+      "entryInkAndSingleNativeClick": false,
+      "openingFitsAndButtons44px": true,
+      "darkSystemLightPaper": true,
+      "sharedPersonWardrobeMartialChroniclePracticeMapCodex": true,
+      "nativeDialogsAndBack": true,
+      "unchangedEquipmentAppearanceAttributesNatureAndCollection": true,
+      "meanLuma255": {
+        "opening": 213.58,
+        "home": 192.23,
+        "person": 212.78,
+        "wardrobe": 210.74,
+        "martial": 234.52,
+        "chronicle": 239.17,
+        "practice": 233.13,
+        "map": 211.63,
+        "codex": 207.52
+      },
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "freshCreateDoesNotAdoptCoverAppearance": true,
+      "nameInputAndNoPrematureSave": true,
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "freshCreateDoesNotAdoptCoverAppearance": true,
+      "nameInputAndNoPrematureSave": true,
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        430,
+        932
+      ],
+      "freshCreateDoesNotAdoptCoverAppearance": true,
+      "nameInputAndNoPrematureSave": true,
+      "pageerrors": []
+    },
+    {
+      "realNightEvent": "ord_rain",
+      "nightFlagPreserved": true,
+      "sharedLightBackdropAndPaper": true,
+      "pageerrors": []
+    }
+  ],
+  "cloudBlockedForFixtures": true,
+  "actualIphoneTested": false
+}

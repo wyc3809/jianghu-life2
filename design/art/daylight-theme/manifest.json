@@ -1,0 +1,19 @@
+{
+  "style": "明亮宣紙、淡青山水、桃色草木、漫畫細墨線",
+  "sourceTool": "OpenAI image_gen",
+  "sourceFile": "source.png",
+  "sourceSha256": "392e7edabdbab054c40498fdcd032a9fe762d5f07cff8f9ad703690ba6bea3e7",
+  "reference": "public/ink/art/person/person-mountain-paper.webp",
+  "generationNote": "依本遊戲既有山水構圖重新生成明亮日景；未新增人物或改立繪。",
+  "rightsNote": "AI生成項目美術；參考既有本遊戲背景，沒有外部藝術家／IP素材。",
+  "dimensions": [
+    1024,
+    1536
+  ],
+  "alphaRequired": false,
+  "output": "public/ink/art/theme/daylight-landscape.webp",
+  "outputSha256": "ca2c29f37f39624dc31a48a3feb903a5ccb85345188515e2f19b28099a4f39f2",
+  "normalization": "僅轉WebP，沒有裁切、拉伸或改色。",
+  "technical_checks_passed": true,
+  "contextPreview": "production/qa/evidence/redesign/daylight-art/"
+}

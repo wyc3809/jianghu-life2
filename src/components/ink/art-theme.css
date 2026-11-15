@@ -1,0 +1,63 @@
+/* 明亮漫畫宣紙：開卷、人物與各冊頁共用；舊夜景素材保留供歷史原型。 */
+:root {
+  color-scheme:light;
+  --art-paper:#fffaf2;
+  --art-landscape:url('/ink/art/theme/daylight-landscape.webp');
+  --paper:#fcf8f0;
+  --paper-aged:#f6f0e5;
+  --paper-bright:#fffdf7;
+  --ui-paper:#fffaf2;
+  --ui-fiber:linear-gradient(#fffdf7bf,#fffdf7bf),url('/ink/art/parchment-ui/paper-fiber.webp');
+  --ui-card:linear-gradient(#fffdf7b8,#fffdf7b8),url('/ink/art/parchment-ui/card-mountain-paper.webp');
+}
+html,body { background:var(--art-paper); }
+body::before { opacity:.025; }
+body .scroll-shell { background:var(--art-paper); }
+body .scroll-shell.scroll-shell--play { --paper:#fcf8f0; --paper-aged:#f6f0e5; --paper-bright:#fffdf7; --paper-scene:#fcf8f0; --bg-panel:#fffdf7eb; }
+body .ink-backdrop { inset:0; height:100%; mask-image:none; filter:none; box-shadow:none; }
+body .ink-backdrop .ink-backdrop-ai { object-position:center; opacity:.78; filter:none; }
+body .ink-ai-wash--play { opacity:.14; }
+body .scroll-shell.scroll-shell--person { background:var(--art-paper); }
+body .ink-person-overview { background:var(--art-landscape) center/cover,var(--art-paper); }
+body .scroll-shell--person.scroll-shell--tap-detail { background:var(--art-landscape) center/cover,var(--art-paper); }
+body .ink-codex-page { background:var(--art-paper); }
+body .ink-codex-theatre { background:radial-gradient(ellipse at 54% 58%,#edf1e6 0%,#faf9f1 52%,#fffaf2 80%); }
+body .scroll-shell.scroll-shell--jianghu-map { background:var(--art-paper); }
+body .ink-jianghu-map-art { opacity:.88; }
+body .ink-map-destination-dot { background:var(--ui-red); box-shadow:none; }
+body .ink-map-destination-light { filter:none; }
+body .ink-person-sheet::backdrop { background:#3c514638; }
+
+/* 開卷：毛筆黑字、現有完整漫畫立繪、朱砂主鍵；所有文字保持真正DOM。 */
+body .scroll-shell.ink-start { padding:22px max(20px,env(safe-area-inset-right,0px)) max(20px,env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px)); gap:10px; color:var(--ui-ink); }
+.ink-start-bg { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+.ink-start-bg img { display:block; width:100%; height:100%; object-fit:cover; }
+body .ink-start .ink-hero { padding:8px 0 0; text-align:center; flex:none; }
+body .ink-start .ink-eyebrow { color:var(--ui-red); font-size:12px; letter-spacing:.35em; text-shadow:none; }
+body .ink-start .ink-brand { margin:7px 0 0; font:400 clamp(40px,12vw,54px)/1.18 var(--ui-title); letter-spacing:.12em; color:var(--ui-ink); background:none; text-shadow:none; filter:none; }
+.ink-start-rule { display:block; width:190px; height:5px; margin:12px auto 10px; background:var(--ui-underline) center/100% 100% no-repeat; }
+body .ink-start .ink-tagline { color:#4b5d4e; font-size:14px; letter-spacing:.14em; text-shadow:none; }
+.ink-start-keyart { position:relative; flex:1 0 200px; min-height:200px; }
+.ink-start-figure { position:absolute; inset:0 0 0 16%; pointer-events:none; }
+.ink-start-figure canvas { width:100%; height:100%; display:block; }
+.ink-start-keyart::after { content:''; position:absolute; left:30%; right:9%; bottom:4%; height:4px; background:var(--ui-underline) center/100% 100% no-repeat; opacity:.14; pointer-events:none; }
+body .ink-start .ink-verse { position:absolute; top:20%; left:2px; margin:0; height:210px; writing-mode:vertical-rl; text-align:start; font-size:13px; line-height:1.85; letter-spacing:.12em; color:#4d5e50; text-shadow:none; }
+body .ink-start .ink-verse p { margin:0 5px; }
+body .ink-start .ink-cta-stack { flex:none; margin:0; padding:0; gap:9px; }
+body .ink-start .ink-btn { min-height:54px; padding:10px 14px; box-shadow:none; }
+body .ink-start .ink-btn--primary { color:#fffdf7; background:var(--ui-brush) center/100% 100% no-repeat; text-shadow:none; }
+body .ink-start .ink-btn--primary .ink-btn-sub { color:#fff7e8; font-size:12px; }
+body .ink-start .ink-btn--ghost { color:var(--ui-ink); background:var(--ui-fiber) center/384px repeat,var(--ui-paper); border-color:transparent; text-shadow:none; }
+body .ink-start .ink-btn--scroll::after { display:none; }
+body .ink-start .ink-btn--quiet { min-height:44px; color:var(--ink-mid); padding:5px 8px; }
+@media(max-height:650px) {
+  body .scroll-shell.ink-start { padding:12px max(16px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px)); gap:6px; }
+  body .ink-start .ink-hero { padding-top:0; }
+  body .ink-start .ink-brand { font-size:39px; }
+  .ink-start-rule { margin:7px auto; }
+  .ink-start-keyart { flex-basis:170px; min-height:170px; }
+  body .ink-start .ink-verse { top:13%; font-size:11px; height:160px; }
+  body .ink-start .ink-verse p { margin-inline:3px; }
+  body .ink-start .ink-tagline { font-size:12px; }
+  body .ink-start .ink-btn { min-height:48px; padding-block:7px; }
+}
