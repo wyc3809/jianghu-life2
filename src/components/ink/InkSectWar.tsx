@@ -15,10 +15,11 @@ import type {
 import { useLifeStore } from "../../store/lifeStore";
 import { sectWarRequest } from "../../cloud/sectWar";
 import { loadWarAssets, type WarAssets } from "../../sectBattle/assets";
-import { primeWarCharacters } from "../../sectBattle/character";
 import { buildWarReplay } from "../../sectBattle/replay";
 import { useWarPlayback } from "../../sectBattle/usePlayback";
 import { sectBattleFixture } from "../../prototypes/sectBattle/fixtures";
+import {InkOrganizationChat} from "./InkOrganizationChat";
+import "./organizations.css";
 import { AppearanceCanvas } from "./InkAppearance";
 import { readAppearance } from "@interfaces/appearance";
 import { sectAssetUrl } from "../../prototypes/sectBattle/assets";
@@ -31,7 +32,7 @@ const Duel = lazy(() =>
 const nameOf = (id: string) =>
   SECT_CONTENT.find((s) => s.id === id)?.name ?? "尚未選派";
 const dummyFormation: SectBattleFigure[] = [];
-type Sheet = "roster" | "rivals" | "history" | "rules" | null;
+type Sheet = "roster" | "rivals" | "history" | "rules" | "chat" | null;
 
 /** 真人門派會武入口及獨立試演；所有正式戰果由伺服器快照取得，不以示範人物補位。 */
 export default function InkSectWar({
@@ -179,12 +180,7 @@ export default function InkSectWar({
     try {
       const value = await next.promise;
       if (!mounted.current || job.current !== next) return;
-      const pack = assets ?? (await loadWarAssets());
-      await primeWarCharacters(
-        pack,
-        value.frames[0].figures.map((u) => u.appearance),
-        () => !mounted.current || job.current !== next,
-      );
+      if(!assets)await loadWarAssets();
       if (mounted.current && job.current === next) setReplay(value);
     } finally {
       if (mounted.current && job.current === next) setBuilding(false);
@@ -445,7 +441,8 @@ export default function InkSectWar({
                   : "參選者"}
               </p>
             )}
-            <small>未齊人不代填角色；可先觀摩試演。</small>
+            <small>本屆鎖定十席；下屆依門內比武排名換屆。</small>
+            {snapshot?.me&&<button type="button" onClick={()=>setSheet("chat")}>門派對話</button>}
           </div>
         )}
         {view.status === "result" && replay && (
@@ -554,7 +551,7 @@ export default function InkSectWar({
       {sheet && (
         <WarSheet
           title={
-            sheet === "rivals"
+            sheet === "chat" ? "門派對話" : sheet === "rivals"
               ? "對陣門派"
               : sheet === "history"
                 ? "會武戰報"
@@ -564,6 +561,7 @@ export default function InkSectWar({
           }
           onClose={() => setSheet(null)}
         >
+          {sheet === "chat" && snapshot?.me && <InkOrganizationChat key={snapshot.me.sectId} kind="sect" group={snapshot.me.sectId} userId={snapshot.me.id} title={nameOf(snapshot.me.sectId)+"同門對話"}/>}
           {sheet === "roster" && (
             <>
               <div
@@ -847,33 +845,8 @@ function WarSheet({
     </dialog>
   );
 }
-function WarPortrait({
-  assets,
-  appearance,
-}: {
-  assets: WarAssets | null;
-  appearance: unknown;
-}) {
-  const ref = useRef<HTMLCanvasElement>(null),
-    a = readAppearance(appearance);
-  useEffect(() => {
-    if (!assets || !ref.current) return;
-    const canvas = ref.current,
-      image = assets.common.wardrobe.heads[a.head],
-      ctx = canvas.getContext("2d")!;
-    canvas.width = 200;
-    canvas.height = 200;
-    ctx.clearRect(0, 0, 200, 200);
-    const scale = 210 / image.naturalHeight;
-    ctx.drawImage(
-      image,
-      100 - image.naturalWidth * scale * 0.5,
-      -3,
-      image.naturalWidth * scale,
-      210,
-    );
-  }, [assets, a.head]);
-  return <canvas ref={ref} aria-label="選中代表肖像" />;
+function WarPortrait({appearance}:{assets:WarAssets|null;appearance:unknown}) {
+  return <AppearanceCanvas appearance={readAppearance(appearance)} mode="portrait"/>;
 }
 function readReducedMotion(): boolean {
   return (

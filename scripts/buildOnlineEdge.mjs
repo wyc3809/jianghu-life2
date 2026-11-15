@@ -28,3 +28,9 @@ await build({stdin:{contents:`import { createLiveHandler } from './server/online
 Deno.serve(createLiveHandler({url:Deno.env.get('SUPABASE_URL'),anonKey:Deno.env.get('SUPABASE_ANON_KEY'),serviceKey:Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')}));`,resolveDir:process.cwd(),sourcefile:'live-entry.ts'},bundle:true,platform:'neutral',format:'esm',target:'es2022',outfile:'.local-online/live-edge/index.ts',tsconfig:'tsconfig.json',minify:true});
 await writeFile('.local-online/live-edge/deno.json',JSON.stringify({compilerOptions:{lib:['deno.ns','dom','esnext']}}));
 console.log('同遊Edge bundle已建立（無憑證）。');
+
+await mkdir('.local-online/organization-edge',{recursive:true});
+await build({stdin:{contents:`import { createOrganizationHandler } from './server/online/organizationHttp';
+Deno.serve(createOrganizationHandler({url:Deno.env.get('SUPABASE_URL'),anonKey:Deno.env.get('SUPABASE_ANON_KEY'),serviceKey:Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')}));`,resolveDir:process.cwd(),sourcefile:'organization-entry.ts'},bundle:true,platform:'neutral',format:'esm',target:'es2022',outfile:'.local-online/organization-edge/index.ts',tsconfig:'tsconfig.json',minify:true});
+await writeFile('.local-online/organization-edge/deno.json',JSON.stringify({compilerOptions:{lib:['deno.ns','dom','esnext']}}));
+console.log('幫會／組織Edge bundle已建立（無憑證）。');

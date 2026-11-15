@@ -3,7 +3,7 @@ import type {
   SectBattleReplay,
 } from "@interfaces/sectBattle";
 import type { WarAssets, WarPose } from "./assets";
-import { drawWarCharacter } from "./character";
+import { drawWarSilhouette } from "./character";
 import { getSkillDef } from "@data/skills/catalog";
 export interface WarHitbox {
   id: string;
@@ -22,7 +22,7 @@ function lowerBound(events: { at: number }[], at: number): number {
   }
   return lo;
 }
-/** 直版水彩單線會武：真完整身體、固定比例、局部墨擊及可選人物；不讀寫戰果。 */
+/** 直版水彩單線會武：原斗笠黑影完整位圖、固定比例、局部墨擊及可選人物；不讀寫戰果。 */
 export class WarRenderer {
   private width = 390;
   private height = 480;
@@ -43,8 +43,10 @@ export class WarRenderer {
     this.canvas.height = Math.max(1, Math.round(b.height * this.dpr));
   }
   private point(u: SectBattleFigure) {
-    return { x: 26 + (u.x / 1000) * (this.width - 52), y: this.height - 3 };
+    const size=this.figureSize(),top=size+Math.min(42,this.height*.08)+8,bottom=this.height-22;
+    return {x:26+(u.x/1000)*(this.width-52),y:top+((u.rank-1)%5)*(bottom-top)/4};
   }
+  private figureSize(){return Math.min(76,Math.max(45,this.width*.16),(this.height-28)/6.2);}
   private pose(
     u: SectBattleFigure,
     seconds: number,
@@ -59,7 +61,7 @@ export class WarRenderer {
         frame: "jump",
         lift:
           flight *
-          Math.min(290, this.height * 0.62, Math.max(0, this.height - 180)),
+          Math.min(42,this.height*.08),
       };
     if (u.pose === "hurt") return { frame: "hurt", lift: 0 };
     if (u.pose === "attack") {
@@ -104,17 +106,14 @@ export class WarRenderer {
         f = replay.frames[index],
         n = replay.frames[Math.min(replay.frames.length - 1, index + 1)],
         mix = reduced ? 0 : Math.max(0, Math.min(1, (seconds - f.at) / 0.05));
-      // 展示鏡頭以等距位置展開擠在一起的人物；只轉換畫面座標及遮擋，不縮放角色或更動命中距離。
-      const spread = (list: SectBattleFigure[]) => {
-        const sorted = [...list].sort(
-          (a, b) => a.x - b.x || a.id.localeCompare(b.id),
-        );
-        return new Map(
-          sorted.map((u, i) => [
-            u.id,
-            sorted.length === 1 ? 500 : 48 + (i / (sorted.length - 1)) * 904,
-          ]),
-        );
+      // 五列舞台投影保留同列先後及部分真位移；不改模擬座標、命中或戰報。
+      const spread=(list:SectBattleFigure[])=>{
+        const result=new Map<string,number>();
+        for(let lane=0;lane<5;lane++){
+          const row=list.filter(u=>(u.rank-1)%5===lane).sort((a,b)=>a.x-b.x||a.id.localeCompare(b.id));
+          row.forEach((u,i)=>{const slot=row.length===1?500:48+i/(row.length-1)*904;result.set(u.id,u.x*.4+slot*.6);});
+        }
+        return result;
       };
       const a = spread(f.figures),
         b = spread(n.figures);
@@ -145,7 +144,7 @@ export class WarRenderer {
         }
       }
     }
-    const size = Math.min(148, Math.max(100, this.width * 0.365)),
+    const size = this.figureSize(),
       poses = new Map(
         this.figures.map((u) => [
           u.id,
@@ -157,7 +156,7 @@ export class WarRenderer {
       (a, b) =>
         Number(a.id === selected) - Number(b.id === selected) ||
         poses.get(b.id)!.lift - poses.get(a.id)!.lift ||
-        b.rank - a.rank,
+        this.point(a).y-this.point(b).y || b.rank - a.rank,
     );
     for (const u of order) {
       const p = this.point(u),
@@ -181,10 +180,9 @@ export class WarRenderer {
       }
       ctx.save();
       if (!alive) ctx.globalAlpha = 0.28;
-      drawWarCharacter(
+      drawWarSilhouette(
         ctx,
         this.assets,
-        u.appearance,
         pose.frame,
         p.x,
         p.y - pose.lift,
@@ -193,6 +191,8 @@ export class WarRenderer {
         family,
       );
       ctx.restore();
+      ctx.save();ctx.fillStyle=COLOURS[u.side];ctx.font="10px 'Noto Serif TC',serif";ctx.textAlign='center';ctx.globalAlpha=alive?1:.45;
+      const short=Array.from(u.name).slice(0,4).join('')+(Array.from(u.name).length>4?'…':'');ctx.fillText(`${u.rank}·${short}`,p.x,p.y+13,Math.min(78,this.width*.22));ctx.restore();
       if (alive)
         this.hitboxes.push({
           id: u.id,

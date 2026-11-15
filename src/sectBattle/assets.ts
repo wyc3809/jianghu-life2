@@ -1,4 +1,6 @@
 import mapping from "./assets.json";
+import shadowFallback from "./shadow-fallback.json";
+import {HERO_SIL,HERO_WALK_FRAMES,HERO_ATK_FRAMES} from "../spar/silhouetteDraw";
 import embedded from "./fallback.json";
 import {
   loadSectPreviewImages,
@@ -26,7 +28,7 @@ export interface WarAssets {
   simplified: boolean;
 }
 let pending: Promise<WarAssets> | null = null;
-/** 同一張原畫解碼一次；網絡失效用同姿勢縮圖，不換人或改用黑影。 */
+/** 既有素材及正式斗笠黑影只解碼一次；缺幀用同尺寸黑影待機後備。 */
 export function loadWarAssets(): Promise<WarAssets> {
   return (pending ??= (async () => {
     let simplified = false;
@@ -56,7 +58,7 @@ export function loadWarAssets(): Promise<WarAssets> {
         return image((embedded as Record<string, string>)[path]);
       }
     };
-    const [common, images, bodies, weapons] = await Promise.all([
+    const [common, images, bodies, weapons, silhouettes] = await Promise.all([
       loadSectPreviewImages(),
       Promise.all(
         Object.entries(mapping.images).map(async ([key, path]) => [
@@ -83,10 +85,14 @@ export function loadWarAssets(): Promise<WarAssets> {
           await load(path),
         ]),
       ),
+      Promise.all(Object.entries({idle:HERO_SIL.idle,walkA:HERO_WALK_FRAMES[0],walkB:HERO_WALK_FRAMES[2],windup:HERO_ATK_FRAMES[0],strikeA:HERO_ATK_FRAMES[1],followA:HERO_ATK_FRAMES[2],strikeB:HERO_ATK_FRAMES[1],followB:HERO_ATK_FRAMES[2]}).map(async([key,spec])=>{
+        let im:HTMLImageElement;try{im=await image(spec.src);}catch{simplified=true;im=await image(shadowFallback.idle);}
+        return ['sil-'+key,im] as const;
+      })),
     ]);
     return {
       common,
-      images: Object.fromEntries(images),
+      images: Object.fromEntries([...images,...silhouettes]),
       bodies: Object.fromEntries(bodies),
       weapons: Object.fromEntries(weapons),
       simplified: simplified || common.simplified,

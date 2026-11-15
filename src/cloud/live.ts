@@ -27,6 +27,6 @@ export async function watchLiveUpdates(refresh:()=>void):Promise<()=>void>{
  const sb=await cloudRealtimeClient();
  const {data}=await sb.auth.getSession();const user=data.session?.user.id;
  if(!user)return()=>{};
- const channel=sb.channel('live-'+clientId).on('postgres_changes',{event:'*',schema:'public',table:'jianghu_live_notifications',filter:`user_id=eq.${user}`},refresh).subscribe(status=>{if(status==='SUBSCRIBED')refresh();});
+ const channel=sb.channel('live-'+crypto.randomUUID()).on('postgres_changes',{event:'*',schema:'public',table:'jianghu_live_notifications',filter:`user_id=eq.${user}`},refresh).subscribe(status=>{if(status==='SUBSCRIBED')refresh();});
  return()=>{void sb.removeChannel(channel);};
 }

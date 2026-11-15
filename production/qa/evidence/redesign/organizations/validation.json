@@ -1,0 +1,15 @@
+{
+  "version": "EA0.114.0",
+  "testFiles": 150,
+  "tests": 1076,
+  "pagesBuild": true,
+  "narrateHardFail": 0,
+  "copyBans": 0,
+  "migration": "20261115100505_organizations",
+  "organizationEdge": 1,
+  "sectEdgeUnchanged": 3,
+  "actualIphoneTested": false,
+  "signedUpload": false,
+  "gifVideoSeconds": 24.966,
+  "gifDuration": 4
+}
