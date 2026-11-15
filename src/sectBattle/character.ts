@@ -1,4 +1,5 @@
 import atlas from "./layout.json";
+import {HERO_WEAPON_GRIPS,WEAPON_SIL_LENGTH} from "../spar/silhouetteDraw";
 import type { WarAssets, WarPose } from "./assets";
 import {
   readAppearance,
@@ -217,4 +218,20 @@ export async function primeWarCharacters(
     }
     await new Promise((resolve) => setTimeout(resolve, 0));
   }
+}
+
+/** 正式會武沿用原斗笠完整位圖及同幀握點；造型只留名冊／靜態立繪。 */
+export function drawWarSilhouette(ctx:CanvasRenderingContext2D,assets:WarAssets,pose:WarPose,x:number,y:number,height:number,face:number,family:string){
+ const key=['guard','hurt','down','jump'].includes(pose)?'idle':pose;
+ const frame=assets.images['sil-'+key]??assets.images['sil-idle'];if(!frame)return;
+ const grips:Record<string,string>={idle:'idle',walkA:'walk-0',walkB:'walk-2',windup:'atk-0',strikeA:'atk-1',strikeB:'atk-1',followA:'atk-2',followB:'atk-2'};
+ const grip=HERO_WEAPON_GRIPS[grips[key]??'idle'];
+ ctx.save();ctx.translate(x,y);ctx.scale(face*height/605,height/605);
+ if(pose==='down')ctx.rotate(-Math.PI/2);
+ const kind=({sword:'sword',blade:'blade',spear:'spear',staff:'staff',needle:'hidden',bow:'bow',whip:'whip'} as Record<string,keyof typeof weaponLayout>)[family],weapon=assets.weapons[kind],def=weaponLayout[kind];
+ if(weapon&&def&&pose!=='down'){
+  const length=WEAPON_SIL_LENGTH[kind]??240,scale=length/Math.max(1,Math.hypot(def.tip[0]-def.grip[0],def.tip[1]-def.grip[1]));
+  ctx.save();ctx.translate(grip.x-308,grip.y-788);ctx.rotate(grip.angle*Math.PI/180-Math.atan2(def.tip[1]-def.grip[1],def.tip[0]-def.grip[0]));ctx.drawImage(weapon,-def.grip[0]*scale,-def.grip[1]*scale,def.width*scale,def.height*scale);ctx.restore();
+ }
+ ctx.drawImage(frame,-308,-788,616,788);ctx.restore();
 }

@@ -1,0 +1,33 @@
+{
+  "actualCloudBrowserContexts": 3,
+  "guildRealtimeWhilePollingExtended60Seconds": true,
+  "pushSeconds": 1.436,
+  "otherGuildCannotSeeMessage": true,
+  "nativeManagementConfirmationCancel": true,
+  "guildFullScreen": true,
+  "guildAndBattleViewports": [
+    [
+      320,
+      568
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      430,
+      932
+    ]
+  ],
+  "sectOwnChannel": true,
+  "actualPersisted20PersonReplay": true,
+  "originalHatSilhouettes": true,
+  "pausePixelStable": true,
+  "resumeAndSkipReadOnly": true,
+  "oldCharacterFieldsKept": true,
+  "backRestoresHud": true,
+  "pageerrors": [],
+  "consoleErrors": [],
+  "failedResponses": [],
+  "actualIphoneTested": false
+}

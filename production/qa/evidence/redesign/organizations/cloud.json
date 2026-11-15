@@ -1,0 +1,23 @@
+{
+  "anonymousTestIdentities": 20,
+  "actualHumanPlayers": false,
+  "guildCreateApplyAccept": true,
+  "membershipUniqueAndPermissions": true,
+  "transferAndRoles": true,
+  "sameIdAcceptanceAndCityBattleAndUpgrade": true,
+  "guildAndSectChatIsolation": true,
+  "blockAndReport": true,
+  "directTablesDenied": true,
+  "readOnlyOverview24Concurrent": true,
+  "cityProtectionRejectedBeforeFixture": true,
+  "adminFixtureOnlyOwnTestCityBackdated": true,
+  "cityUsesRealFormula": true,
+  "oldOwnerAccrualAndUpgradeSpendOnce": true,
+  "twentyRealProfilesSameSectReport": true,
+  "allCloudLifeSavesUnchanged": true,
+  "capacityGuarantee": false,
+  "actualIphoneTested": false,
+  "fourConcurrentSendsOneAcceptedThree429": true,
+  "committedSendRetry200": true,
+  "rateLimitedSameIdRetry200": true
+}

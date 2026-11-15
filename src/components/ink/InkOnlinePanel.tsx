@@ -17,12 +17,13 @@ import './online.css';
 
 const Battle = lazy(() => import('./InkAutoBattle').then(m => ({ default: m.InkAutoBattle })));
 const LiveWorld=lazy(()=>import('./InkLiveWorld'));
+const GuildWorld=lazy(()=>import('./InkGuildWorld'));
 const SectWar = lazy(() => import('./InkSectWar'));
 const SESSION = 'jianghu-online-session';
 const labels = { river: '沈雲舟', cloud: '謝清霜' };
 function readToken() { try { return publicOnline ? worldJoined() ? 'world' : null : sessionStorage.getItem(SESSION); } catch { return null; } }
-type OnlineView = 'main' | 'opponents' | 'loadout' | 'income' | 'history' | 'rules' | 'sectWar' | 'live';
-const titles: Record<OnlineView, string> = { main: '江湖風雲', opponents: '對手名冊', loadout: '武學配搭', income: '修行所得', history: '江湖戰報', rules: '試場規則', sectWar:'門派會武',live:'同遊江湖' };
+type OnlineView = 'main' | 'opponents' | 'loadout' | 'income' | 'history' | 'rules' | 'sectWar' | 'live' | 'guild';
+const titles: Record<OnlineView, string> = { main: '江湖風雲', opponents: '對手名冊', loadout: '武學配搭', income: '修行所得', history: '江湖戰報', rules: '試場規則', sectWar:'門派會武',live:'同遊江湖',guild:'江湖幫會' };
 function timeLeft(until: number, now: number) { return Math.max(0, Math.ceil((until - now) / 1000)); }
 
 /** 第32項共用江湖／本機真服務入口；正式模式使用人物雲存檔及帳戶獎勵，本機測試仍然隔離。 */
@@ -36,7 +37,7 @@ export default function InkOnlinePanel({ standalone = false, onBack, onPrepare, 
   const [connected, setConnected] = useState(false);
   const [replay, setReplay] = useState<OnlineBattle | null>(null);
   const [view, setView] = useState<OnlineView>('main');
-  useEffect(()=>{onFocusChange?.(view==='live');return()=>onFocusChange?.(false);},[view,onFocusChange]);
+  useEffect(()=>{onFocusChange?.((view==='live'||view==='guild'||view==='sectWar'));return()=>onFocusChange?.(false);},[view,onFocusChange]);
   const panelRef = useRef<HTMLElement>(null);
   const [name] = useState(()=>useLifeStore.getState().state?.character.name ?? '江湖旅人');
   const [external, setExternal] = useState<string[]>([]);
@@ -65,7 +66,7 @@ export default function InkOnlinePanel({ standalone = false, onBack, onPrepare, 
   }, []);
 
   useEffect(() => {
-    if (!token||view==='live') return;
+    if (!token||view==='live'||view==='guild'||view==='sectWar') return;
     let active = true, polling = false;
     const refresh = async () => {
       if (polling || document.visibilityState === 'hidden') return;
@@ -119,6 +120,7 @@ export default function InkOnlinePanel({ standalone = false, onBack, onPrepare, 
   }, [view]);
   const entries: InkFeatureEntry<OnlineView>[] = [
     {id:'live',title:'同遊江湖',icon:'fan',hint:'即時對話 · 同場交鋒 · 戰敗保護'},
+    {id:'guild',title:'江湖幫會',icon:'banner',hint:'聚義建幫 · 十城爭奪 · 幫會對話'},
     { id: 'sectWar', title: '門派會武', icon: 'swords', hint: '十人代表同場交鋒 · 每週門內選拔' },
     { id: 'opponents', title: '隨機對戰', icon: 'banner', hint: '全江湖隨機配對 · 同段位優先', badge: snapshot ? `${Math.max(0, snapshot.peers.length - 1)}人` : undefined },
     { id: 'loadout', title: '對戰配搭', icon: 'scroll', hint: '前往人物頁 · 預先保存對戰配搭' },
@@ -128,6 +130,7 @@ export default function InkOnlinePanel({ standalone = false, onBack, onPrepare, 
   ];
   const openView = (next: OnlineView) => { setError(''); setNotice(''); if (next === 'loadout') openLoadout(); else setView(next); };
   if(view==='live')return <Suspense fallback={<p role="status">正在走入茶樓……</p>}><LiveWorld onBack={()=>setView('main')}/></Suspense>;
+  if(view==='guild')return <Suspense fallback={<p role="status">正在步入聚義堂……</p>}><GuildWorld onBack={()=>setView('main')}/></Suspense>;
   if(view==='sectWar')return <Suspense fallback={<p role="status">正在翻開會武名冊……</p>}><SectWar onBack={()=>setView('main')} onPrepare={onPrepare}/></Suspense>;
   const content = <section className="ink-panel ink-online" aria-label="多人江湖" id="ink-online" ref={panelRef}>
     {(view !== 'main' || onBack) && <button type="button" className="ink-jianghu-back" onClick={() => view === 'main' ? onBack?.() : setView('main')}>
@@ -148,6 +151,7 @@ export default function InkOnlinePanel({ standalone = false, onBack, onPrepare, 
       <button className="online-frame online-enter" disabled={pending || !name.trim()} onClick={() => void enterWorld()}>{worldJoined() ? '重返江湖' : '踏入江湖'}</button>
       <p className="online-note">以對戰配搭應戰，名次與玉石隨帳戶保留。</p>
       <button type="button" className="online-text-link" onClick={() => setView('rules')}>查看試場規則 ›</button>
+      <button type="button" className="online-frame" onClick={()=>setView('guild')}>江湖幫會 · 聚義與十城</button>
       <button type="button" className="online-frame" onClick={()=>setView('sectWar')}>門派會武 · 報名與觀摩</button>
     </div> : !token ? <div className="online-login">
       <p className="online-lead">選一位俠客入江湖</p><p>兩個獨立本機測試帳戶，與正式存檔分開。</p>

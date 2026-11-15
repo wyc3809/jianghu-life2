@@ -1,0 +1,11 @@
+{
+  "newcomerRecruitment": true,
+  "createFormAndActualCreate": true,
+  "disbandCancelThenConfirm": true,
+  "actualApplicationAndLeaderRealtimeReceived": true,
+  "acceptRealtimeJoins": true,
+  "memberLeave": true,
+  "shortViewportInputAndSubmitVisible": true,
+  "pageerrors": [],
+  "failedResponses": []
+}

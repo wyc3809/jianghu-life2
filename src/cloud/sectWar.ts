@@ -39,7 +39,7 @@ export async function sectWarRequest<T>(
     signal: AbortSignal.timeout(30000),
   });
   const result = await response.json().catch(() => null);
-  if (mutation && (response.ok || response.status < 500)) {
+  if (mutation && (response.ok || (response.status < 500 && response.status !== 429))) {
     try {
       localStorage.removeItem(key);
     } catch {
