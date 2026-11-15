@@ -73,7 +73,6 @@ import { InkSparStage } from './InkSparStage';
 import { choicePickKey, pickSwipeChoices } from '@core/life/choicePick';
 import { LifeDebugPanel } from '../LifeDebugPanel';
 import { useAncestryStore } from '../../store/ancestryStore';
-import { InkAncestryPanel } from './InkAncestryPanel';
 import { InkAchievementToast } from './InkAchievementToast';
 import { flyInkDots } from '../../ui/hudFlyer';
 import { parseDelta, splitFeedback, type ResultNotice } from '../../ui/resultFormat';
@@ -199,6 +198,7 @@ export function InkPlayScreen({ state }: Props) {
   const [personPreset,setPersonPreset]=useState<'normal'|'duel'>('normal');
   const [personView, setPersonView] = useState<PersonView>('main');
   const [onlineFocused,setOnlineFocused]=useState(false);
+  const [onlineFromHome,setOnlineFromHome]=useState(false);
   const [jianghuView, setJianghuView] = useState<JianghuView>('main');
   const playBodyRef = useRef<HTMLDivElement>(null);
   const jianghuRef = useRef<HTMLDivElement>(null);
@@ -355,8 +355,6 @@ export function InkPlayScreen({ state }: Props) {
   const moneyShown = useRollingNumber(moneyNow, { delayRef: moneyDelay });
 
   // 祖蔭：人生到總結就結算一次（角色 flag 防重複）
-  const ancestryAward = useAncestryStore((s) => s.award);
-  const ancestryPoints = useAncestryStore((s) => s.meta.points);
   const jadeBal = useAncestryStore((s) => s.meta.jade);
   const jadeTotal = (jadeBal?.free ?? 0) + (jadeBal?.paidTest ?? 0);
   const setEncounterOpen = useAncestryStore((s) => s.setEncounterOpen);
@@ -370,7 +368,7 @@ export function InkPlayScreen({ state }: Props) {
     else if (q === 'skills') {
       goTo('person');
       setPersonView('skills');
-    } else if (q === 'shrine') setAncestryOpen(true);
+    } else if (q === 'live') {setOnlineFromHome(true);setOnlineFocused(true);setJianghuView('online');goTo('jianghu');}
     else if (q === 'encounter') {
       const e = useAncestryStore.getState().meta.encounter;
       if (e?.offer) setEncounterOpen(true);
@@ -380,8 +378,6 @@ export function InkPlayScreen({ state }: Props) {
     }
   };
   const awardCurrentLife = useAncestryStore((s) => s.awardCurrentLife);
-  const ancestryOpen = useAncestryStore((s) => s.panelOpen);
-  const setAncestryOpen = useAncestryStore((s) => s.setPanelOpen);
   useEffect(() => {
     if (state.phase === 'summary') awardCurrentLife();
   }, [state.phase, awardCurrentLife]);
@@ -607,7 +603,7 @@ export function InkPlayScreen({ state }: Props) {
 
       {succession && <InkSuccessionModal lines={succession} onClose={clearSuccession} />}
 
-      {milestoneToast.length > 0 && <InkAchievementToast key={milestoneToast.join('|')} names={milestoneToast} seal="祖蔭" />}
+      {milestoneToast.length > 0 && <InkAchievementToast key={milestoneToast.join('|')} names={milestoneToast} seal="里程碑" />}
 
       {jadeToast > 0 && milestoneToast.length === 0 && (
         <InkAchievementToast key={`jade-${jadeToast}`} names={[`免費玉石＋${jadeToast}`]} seal="玉石" />
@@ -789,7 +785,7 @@ export function InkPlayScreen({ state }: Props) {
             />
           )}
 
-          {state.phase === 'playing' && c.alive && !showResult && <InkHomeQuick state={state} onOpen={openQuick} />}
+          {state.phase === 'playing' && c.alive && !showResult && <InkHomeQuick state={state} onlineAvailable={Boolean(InkOnlinePanel)} onOpen={openQuick} />}
 
           {state.phase === 'playing' && c.alive && !showResult && <InkEncounterCard />}
 
@@ -817,9 +813,9 @@ export function InkPlayScreen({ state }: Props) {
       )}
 
       {tab === 'jianghu' && !combat && !eventFocus && <div className="ink-jianghu-view" ref={jianghuRef}>
-        {jianghuView === 'main' ? <InkJianghuHub online={Boolean(InkOnlinePanel)} onOpen={setJianghuView} onBack={() => setTab('home')} />
+        {jianghuView === 'main' ? <InkJianghuHub online={Boolean(InkOnlinePanel)} onOpen={view=>{setOnlineFromHome(false);setJianghuView(view);}} onBack={() => setTab('home')} />
           : jianghuView === 'online' && InkOnlinePanel ? <Suspense fallback={<p role="status">正在翻開江湖名冊……</p>}>
-            <InkOnlinePanel onFocusChange={setOnlineFocused} onBack={() => setJianghuView('main')} onPrepare={()=>{setPersonPreset('duel');setRequestedArt(null);setTab('person');setPersonView('skills');}} />
+            <InkOnlinePanel key={onlineFromHome?'home-live':'map-online'} initialView="live" homeEntry={onlineFromHome} onFocusChange={setOnlineFocused} onBack={() => onlineFromHome?setTab('home'):setJianghuView('main')} onPrepare={()=>{setPersonPreset('duel');setRequestedArt(null);setTab('person');setPersonView('skills');}} />
           </Suspense> : <div className={`ink-jianghu-detail${onGachaPage ? ' ink-jianghu-detail--gacha' : ''}`}>
             <button type="button" className={`ink-jianghu-back${onGachaPage ? ' ink-codex-back' : ''}`} onClick={() => setJianghuView('main')}>‹ 返回江湖</button>
             {jianghuView === 'gacha' && <InkGachaPanel state={state} onEquipRequest={id => {
@@ -1054,23 +1050,13 @@ export function InkPlayScreen({ state }: Props) {
         </section>
       )}
 
-      {ancestryOpen && <InkAncestryPanel onClose={() => setAncestryOpen(false)} />}
 
       {state.phase === 'summary' && (
         <section className="ink-panel ink-epitaph">
           <h3>一生總結</h3>
           <pre className="ink-epitaph-text">{state.summaryText}</pre>
           <InkStaticSeal text="終" className="ink-seal-static--end" />
-          {ancestryAward && ancestryAward.total > 0 && (
-            <p className="ink-ancestry-summary">
-              祖蔭 <b>＋{ancestryAward.total}</b>
-              <br />
-              {ancestryAward.parts.map((p) => `${p.label} ${p.value}`).join(' · ')}
-            </p>
-          )}
-          <button type="button" className="ink-btn ink-btn--quiet" onClick={() => setAncestryOpen(true)}>
-            入祖祠 · 祖蔭 {ancestryPoints} 點
-          </button>
+
           {cloudConfigured() && (
             <button type="button" className="ink-btn ink-btn--quiet" onClick={() => setBoardOpen(true)}>
               江湖榜 · 一生總結 {lifeScore(state).toLocaleString('zh-Hant')} 分

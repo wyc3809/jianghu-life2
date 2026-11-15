@@ -5,10 +5,11 @@ import { useAncestryStore } from '../../store/ancestryStore';
 import type { InkIconKey } from '../../ui/inkIcons';
 import { InkIcon } from './InkIcon';
 
-export type QuickTarget = 'gacha' | 'encounter' | 'shrine' | 'huashan' | 'skills';
+export type QuickTarget = 'gacha' | 'encounter' | 'live' | 'huashan' | 'skills';
 
 type Props = {
   state: LifeGameState;
+  onlineAvailable?: boolean;
   onOpen: (target: QuickTarget) => void;
 };
 
@@ -16,9 +17,9 @@ type Entry = { id: QuickTarget; icon: InkIconKey; label: string; badge?: string 
 
 /**
  * 主畫面功能入口（菱形器物牌章，紅點＝有嘢做）。
- * 只係捷徑：秘笈閣／論劍喺「江湖」分頁、武學喺「人物」分頁、祖祠開祖蔭面板。
+ * 只係捷徑：秘笈閣／論劍喺「江湖」分頁、武學喺「人物」分頁、同遊直接進多人江湖。
  */
-export function InkHomeQuick({ state, onOpen }: Props) {
+export function InkHomeQuick({ state, onOpen, onlineAvailable=true }: Props) {
   const meta = useAncestryStore((s) => s.meta);
   const jade = (meta.jade?.free ?? 0) + (meta.jade?.paidTest ?? 0);
   const e = meta.encounter;
@@ -35,7 +36,7 @@ export function InkHomeQuick({ state, onOpen }: Props) {
     },
     { id: 'huashan', icon: 'swords', label: '論劍' },
     { id: 'skills', icon: 'scroll', label: '武學', badge: (state.character.skills?.length ?? 0) === 0 },
-    { id: 'shrine', icon: 'tablet', label: '祖祠' },
+    { id: 'live', icon: 'fan', label: '同遊江湖', dim:!onlineAvailable },
   ];
   return (
     <nav className="ink-quick" aria-label="功能入口">
@@ -44,6 +45,7 @@ export function InkHomeQuick({ state, onOpen }: Props) {
           key={x.id}
           type="button"
           className={`ink-quick-btn${x.dim ? ' is-dim' : ''}`}
+          disabled={x.id==='live'&&!onlineAvailable}
           onClick={() => onOpen(x.id)}
           aria-label={x.label}
         >

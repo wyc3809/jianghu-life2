@@ -12,7 +12,7 @@ import './live-world.css';
 const Battle=lazy(()=>import('./InkAutoBattle').then(m=>({default:m.InkAutoBattle})));
 
 /** 同一人物、同一排名；畫面只發指令，不自行算傷害／保護或派獎。 */
-export default function InkLiveWorld({onBack}:{onBack:()=>void}){
+export default function InkLiveWorld({onBack,backLabel='返回江湖風雲',onActivities}:{onBack:()=>void;backLabel?:string;onActivities?:(target:'guild'|'sectWar'|'opponents'|'main')=>void}){
  const name=useLifeStore(s=>s.state?.character.name??'江湖旅人');
  const [snapshot,setSnapshot]=useState<OnlineSnapshot|null>(null),[chat,setChat]=useState<LiveMessages>({messages:[],blocked:[]});
  const [target,setTarget]=useState(''),[draft,setDraft]=useState(''),[error,setError]=useState(''),[networkError,setNetworkError]=useState(''),[notice,setNotice]=useState('');
@@ -75,9 +75,10 @@ export default function InkLiveWorld({onBack}:{onBack:()=>void}){
  const protection=me?Math.max(0,Math.ceil((me.protectedUntil-now)/1000)):0;
  const closeWatch=()=>{if(watch)dismissed.current.add(watch.id);setWatch(null);watchId.current=null;void refresh();};
  return <section className="ink-panel ink-online ink-live" aria-label="同遊江湖">
-  <button type="button" className="ink-jianghu-back" onClick={onBack}>‹ 返回江湖風雲</button>
+  <button type="button" className="ink-jianghu-back" onClick={onBack}>‹ {backLabel}</button>
   <header className="live-heading"><h2>同遊江湖</h2>{joined&&<small role="status">{connected?'已連線':'重新連線中'}</small>}</header>
   <div className="live-scene"><div><p>千燈鎮 · 水榭茶樓</p><small>{joined?`${peers.length}位俠客參與 · ${peers.filter(p=>p.online).length}人在線`:'同場對話 · 交鋒觀戰'}</small></div></div>
+  {onActivities&&<nav className="live-activities" aria-label="同遊活動"><button type="button" className="online-frame" onClick={()=>onActivities('guild')}>江湖幫會</button><button type="button" className="online-frame" onClick={()=>onActivities('sectWar')}>門派會武</button><button type="button" className="online-frame" onClick={()=>onActivities('opponents')}>隨機對戰</button><button type="button" className="online-frame" onClick={()=>onActivities('main')}>修行與戰報</button></nav>}
   {(error||networkError)&&<p role="alert" className="live-feedback">{error||networkError} <button type="button" onClick={()=>void refresh()}>重新連線</button></p>}
   {notice&&<p role="status" className="live-feedback">{notice}</p>}
   {!joined?<div className="live-intro"><p>以本世人物及對戰配搭加入。所有參與者均可互相交手，離線仍會自動應戰；主動退出後停止參與。</p><p>戰敗後保護30秒，主動出擊即解除。交手只論名次，不受傷、不死亡、不掉裝。</p><button type="button" className="ink-btn ink-btn--primary" disabled={pending||!ready} onClick={()=>void run(async()=>{const next=await liveRequest<OnlineSnapshot>('liveEnter',{name});setSnapshot(next);})}>{pending?'正在入席……':'加入同遊'}</button></div>:<>

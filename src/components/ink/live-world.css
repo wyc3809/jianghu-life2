@@ -9,3 +9,5 @@ body .scroll-shell--live .ink-panel.ink-live{border:0;background:none;padding:0;
 .scroll-shell--live .live-compose{position:sticky;bottom:0;z-index:2;background:var(--ui-paper);padding-bottom:max(10px,env(safe-area-inset-bottom,0px))}
 .live-peers[open]{max-height:260px;overflow:auto}
 @media(max-height:650px){.live-scene{min-height:74px;padding:6px}.live-chat{height:160px}.live-peers[open]{max-height:180px}}
+
+.live-activities{display:flex;gap:6px;margin:12px 0;flex-wrap:wrap}.live-activities>button{flex:1;min-height:44px;white-space:nowrap;padding:8px 4px;font-size:14px}
