@@ -1,0 +1,30 @@
+{
+  "name": "千燈鎮晨景首頁背景",
+  "scope": "只供首頁；不更換人物頁與其他共用背景",
+  "sourceTool": "OpenAI image_gen reference edit",
+  "selectedDisplayOrder": 3,
+  "selectedFile": "selected.png",
+  "selectedSha256": "8c4c669cfefb069f820044d3480deacc9ad1e483056c7e189dd806db8359641e",
+  "sourceFile": "source.png",
+  "sourceSha256": "4adad2aec97094b2fb809040f557d1c5084e069c063e08cd377dcbd4cf49649e",
+  "originalGeneratedPath": "/workspace/generated_images/exec-a2996cc2-7b68-4919-a49c-c90eb6d27436.png",
+  "dimensions": [
+    852,
+    1846
+  ],
+  "mode": "RGB",
+  "runtimeOutput": "public/ink/art/theme/town-opening.webp",
+  "runtimeSha256": "c6d688073d986a226d4e243f644d72d3acec8ff502b1ec66ce183962ed981f35",
+  "runtimeBytes": 305634,
+  "normalization": "僅WebP格式轉換quality=92, method=6；未裁切、改色或拉伸",
+  "generationNote": "從玩家已選第三張示意移除全部文字、底線及兩個按鈕；保留石橋左、茶樓右、紅燈籠、柳枝、日出、河道、空舟及桃花。",
+  "rightsNote": "既有本項目AI示意圖的工具編輯素材；保留原PNG與metadata。",
+  "technical_checks_passed": true,
+  "visualChecks": {
+    "noBakedUITextOrButtons": true,
+    "noPeopleOrSilhouettes": true,
+    "selectedTownCompositionPreserved": true,
+    "lightIvoryBlankHeaderAndFooter": true
+  },
+  "meanLuma255": 224.24
+}

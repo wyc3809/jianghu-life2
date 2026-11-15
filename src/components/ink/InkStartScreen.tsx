@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { inkArtUrl } from '../../ui/inkAssets';
-import { AppearanceCanvas } from './InkAppearance';
 
 type Props = {
   onStart: () => void;
@@ -10,12 +9,12 @@ type Props = {
   onOpenEditor?: () => void;
 };
 
-/** 明亮宣紙與既有完整漫畫立繪；封面只作裝飾，不更改玩家造型。 */
+/** 已選千燈鎮晨景作開卷封面；不放人物立繪，標題及操作仍為真正DOM。 */
 export function InkStartScreen({ onStart, onContinue, resumeHint, onSeedDebug, onOpenEditor }: Props) {
   return (
     <div className="scroll-shell ink-enter ink-start">
       <div className="ink-start-bg" aria-hidden>
-        <img src={inkArtUrl('art/theme/daylight-landscape.webp')} alt="" decoding="async" />
+        <img src={inkArtUrl('art/theme/town-opening.webp')} alt="" decoding="async" />
       </div>
       <header className="ink-hero">
         <p className="ink-eyebrow">武俠人生</p>
@@ -25,12 +24,7 @@ export function InkStartScreen({ onStart, onContinue, resumeHint, onSeedDebug, o
       </header>
 
       <div className="ink-start-keyart">
-        <div className="ink-start-figure" aria-hidden="true"><AppearanceCanvas appearance={{head:'silver',outfit:'traveller',tone:'jade'}} label="封面立繪"/></div>
-      <section className="ink-verse" aria-label="卷首">
-        <p>少年起於千燈鎮</p>
-        <p>拜師學藝，行走江湖</p>
-        <p>將所學傳給後人</p>
-      </section>
+        <section className="ink-verse" aria-label="卷首"><p>少年起於千燈鎮</p></section>
       </div>
 
       <div className="ink-cta-stack">

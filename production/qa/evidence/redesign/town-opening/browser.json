@@ -1,0 +1,100 @@
+{
+  "cases": [
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "noHomepageFigureOrCanvas": true,
+      "selectedTownAssetAndCaption": true,
+      "buttons44pxWithinScreen": true,
+      "keyboardOrPointerNativeClickExactlyOne": true,
+      "entryInkAndPress": false,
+      "darkSystemStillLight": true,
+      "realContinueAndUnchangedGameData": true,
+      "personPageIllustrationAndBackgroundKept": true,
+      "headerBounds": {
+        "x": 16,
+        "y": 12,
+        "width": 288,
+        "height": 123.734375
+      },
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "noHomepageFigureOrCanvas": true,
+      "selectedTownAssetAndCaption": true,
+      "buttons44pxWithinScreen": true,
+      "keyboardOrPointerNativeClickExactlyOne": true,
+      "entryInkAndPress": true,
+      "darkSystemStillLight": true,
+      "realContinueAndUnchangedGameData": true,
+      "personPageIllustrationAndBackgroundKept": true,
+      "headerBounds": {
+        "x": 20,
+        "y": 22,
+        "width": 350,
+        "height": 163.328125
+      },
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        430,
+        932
+      ],
+      "noHomepageFigureOrCanvas": true,
+      "selectedTownAssetAndCaption": true,
+      "buttons44pxWithinScreen": true,
+      "keyboardOrPointerNativeClickExactlyOne": true,
+      "entryInkAndPress": false,
+      "darkSystemStillLight": true,
+      "realContinueAndUnchangedGameData": true,
+      "personPageIllustrationAndBackgroundKept": true,
+      "headerBounds": {
+        "x": 20,
+        "y": 22,
+        "width": 390,
+        "height": 165.671875
+      },
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "freshOnePrimaryAndActualCreate": true,
+      "defaultAppearanceAndNoPrematureSave": true,
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "freshOnePrimaryAndActualCreate": true,
+      "defaultAppearanceAndNoPrematureSave": true,
+      "pageerrors": []
+    },
+    {
+      "viewport": [
+        430,
+        932
+      ],
+      "freshOnePrimaryAndActualCreate": true,
+      "defaultAppearanceAndNoPrematureSave": true,
+      "pageerrors": []
+    },
+    {
+      "summaryLongHintOnShortScreen": true,
+      "passed": true
+    }
+  ],
+  "cloudBlockedForFixtureAndFreshContexts": true,
+  "actualIphoneTested": false
+}
