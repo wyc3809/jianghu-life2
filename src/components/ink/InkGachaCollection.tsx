@@ -56,7 +56,7 @@ export function InkGachaCollection({ state, onDraw }: { state: LifeGameState; on
       <button type="button" onClick={openExchange}><InkIcon name="scroll" size={28}/><span><strong>書頁兌換</strong><small>{pages.toLocaleString('zh-Hant')} 頁 · 每次 {PAGES_PER_EXCHANGE} 頁</small></span><span aria-hidden="true">›</span></button>
       <button type="button" onClick={() => setSheet('rules')}><InkIcon name="fan" size={24}/><span>入藏說明</span></button>
     </div>
-    <div className="ink-codex-collection-heading"><strong>家族藏本 <b>{visible.length}</b></strong><button type="button" onClick={() => setSheet('filter')}>流派：{school === 'all' ? '全部' : SCHOOLS.find(s => s.id === school)?.name} ⌄</button></div>
+    <div className="ink-codex-collection-heading"><strong>秘笈藏本 <b>{visible.length}</b></strong><button type="button" onClick={() => setSheet('filter')}>流派：{school === 'all' ? '全部' : SCHOOLS.find(s => s.id === school)?.name} ⌄</button></div>
     <div className="ink-codex-collection-list">
       {visible.length ? <ul className="ink-codex-library-grid">{visible.map(([id, entry]) => {
         const def = getSkillDef(id);
@@ -65,11 +65,11 @@ export function InkGachaCollection({ state, onDraw }: { state: LifeGameState; on
           <span>{def?.premium ? '珍本' : '江湖'} · {def ? skillKindLabel(def.kind) : '武學'}{hasVolumes(id) ? ` · ${collectionVolumes(meta, id).length}／7卷` : ''}</span>
           <small>藏本 {entry.stars}／{MANUAL_MAX_STARS} 階{state.character.skills.includes(id) ? ' · 已學' : ' · 未學'}</small>
         </button></li>;
-      })}</ul> : <div className="ink-codex-empty"><InkIcon name="scroll" size={48}/><h4>{shelf.length ? '此流派尚無藏本' : '尚無家族藏本'}</h4><p>抽取所得與書頁兌換的秘笈，均在此保留。</p><button type="button" className="ink-btn" onClick={shelf.length ? () => setSchool('all') : onDraw}>{shelf.length ? '查看全部藏本' : '返回抽取'}</button></div>}
+      })}</ul> : <div className="ink-codex-empty"><InkIcon name="scroll" size={48}/><h4>{shelf.length ? '此流派尚無藏本' : '尚無秘笈藏本'}</h4><p>抽取所得與書頁兌換的秘笈，均在此保留。</p><button type="button" className="ink-btn" onClick={shelf.length ? () => setSchool('all') : onDraw}>{shelf.length ? '查看全部藏本' : '返回抽取'}</button></div>}
     </div>
     {sheet === 'filter' && <GachaSheet title="收藏流派" onClose={() => setSheet(null)}><InkSchoolTabs value={school} allowAll label="收藏流派分類" onChange={id => { setSchool(id); setSheet(null); }}/></GachaSheet>}
     {sheet === 'rules' && <GachaSheet title="入藏說明" onClose={() => setSheet(null)}>
-      <h4>卷次與傳承</h4><p>外功分七卷，一卷為一招。收藏跨代保留，後世可從家藏重新學習。已得卷次與本代已學卷次分開顯示。</p>
+      <h4>卷次與收藏</h4><p>外功分七卷，一卷為一招。已獲秘笈保留在收藏中；收藏卷次與目前已學卷次分開顯示。</p>
       <h4>書頁與重複</h4><p>重複秘笈自動轉為 {PAGES_PER_DUPLICATE} 書頁。書頁為通用兌換材料，與人物頁指定武學的殘譜分開計算。舊存檔保留的重複本，可在藏本詳情轉頁。</p>
       <h4>藏本升階</h4><p>依次消耗100／200／300書頁，每階效果增加10%，最多 {MANUAL_MAX_STARS} 階。實際費用在藏本詳情顯示。</p>
     </GachaSheet>}

@@ -1,8 +1,9 @@
+import { LEGACY_FEATURES_ENABLED } from '@data/redesign/legacyFeatures';
 import { recomputeCapBonuses } from './equipment';
 import { settleAccountEconomy } from './accountEconomy';
 /**
  * 人生 ↔ 帳戶結算（純函數；src/store/ancestryStore.ts 每次人生狀態變就叫）：
- *   - 家族里程碑（首次）→ 祖蔭＋免費玉石
+ *   - 家族里程碑已暫停；舊收據留存，不新增祖蔭或額外玉石
  *   - 成就（帳戶首次）→ 免費玉石
  *   - 人生入面賺到嘅「待入帳玉石」（過月、突破、演武台每 10 關）→ 免費玉石
  *   - 秘笈升階（帳戶收藏）→ 鏡像去角色 manualStars，畀戰鬥用
@@ -29,11 +30,11 @@ export function settleLifeIntoAccount(meta: AncestryMeta, state: LifeGameState):
   const economyBefore = JSON.stringify(meta.economy ?? null);
   const flagsBefore = JSON.stringify(state.character.flags);
   const economyJade = settleAccountEconomy(meta,state,Date.now());
-  const milestones = claimFamilyMilestones(meta, state);
+  const milestones = LEGACY_FEATURES_ENABLED ? claimFamilyMilestones(meta, state) : [];
   let jade = milestones.length * JADE_PER_MILESTONE + economyJade;
 
   const seen = new Set(meta.jadeAchv ?? []);
-  const fresh = readAchievementIds(state).filter((id) => !seen.has(id));
+  const fresh = readAchievementIds(state).filter((id) => (LEGACY_FEATURES_ENABLED || id!=='ach_legacy') && !seen.has(id));
   if (fresh.length) {
     meta.jadeAchv = [...seen, ...fresh];
     jade += fresh.length * JADE_PER_ACHIEVEMENT;
@@ -47,7 +48,7 @@ export function settleLifeIntoAccount(meta: AncestryMeta, state: LifeGameState):
   const have = state.character.manualStars ?? {};
   const starsDiffer = JSON.stringify(want) !== JSON.stringify(have);
   if (starsDiffer) { state.character.manualStars = want; recomputeCapBonuses(state.character); }
-  // 家族收藏嘅外功卷 → 同步落今世角色已學嘅外功
+  // 秘笈收藏嘅外功卷 → 同步落今世角色已學嘅外功
   const volsChanged = syncCollectionVolumes(state.character, meta);
 
   return {

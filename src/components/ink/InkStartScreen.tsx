@@ -20,7 +20,7 @@ export function InkStartScreen({ onStart, onContinue, resumeHint, onSeedDebug, o
         <p className="ink-eyebrow">武俠人生</p>
         <h1 className="ink-brand">江湖一生</h1>
         <span className="ink-start-rule" aria-hidden />
-        <p className="ink-tagline">習武、闖蕩、傳承</p>
+        <p className="ink-tagline">習武、闖蕩、快意江湖</p>
       </header>
 
       <div className="ink-start-keyart">

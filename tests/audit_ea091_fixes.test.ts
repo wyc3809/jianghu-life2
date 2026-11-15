@@ -64,15 +64,13 @@ describe('審計 A1：事件開打判定', () => {
 
   it('test_combat_choice_still_writes_its_flags', () => {
     const s = freshLife();
-    s.character.flags.legacy_script_rival = true;
-    s.character.flags.born_with_rival_hint = '鐵掌幫';
     const ev: GameEvent = {
-      id: 'legacy_script_rival', title: '舊怨叩門', tags: ['story', 'legacy', 'combat'],
-      choices: [{ id: 'draw', text: '拔刀問清楚', outcomes: [{ effects: [{ type: 'flag', key: 'done_legacy_script_rival', value: true }] }] }],
+      id: 'test_rival_combat', title: '仇家叩門', tags: ['story', 'combat'],
+      choices: [{ id: 'draw', text: '拔刀問清楚', outcomes: [{ effects: [{ type: 'flag', key: 'done_test_rival_combat', value: true }] }] }],
     };
     applyChoice(s, ev, 'draw');
     expect(s.pendingCombat).toBeTruthy();
-    expect(s.character.flags.done_legacy_script_rival).toBe(true);
+    expect(s.character.flags.done_test_rival_combat).toBe(true);
   });
 });
 

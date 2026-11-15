@@ -1,3 +1,4 @@
+import { LEGACY_FEATURES_ENABLED } from '@data/redesign/legacyFeatures';
 import { queueAccountReward } from './accountEconomy';
 import { appearanceOf } from '@interfaces/appearance';
 import { appearanceForIndex } from '@data/appearances';
@@ -393,7 +394,7 @@ export function startHuashanBracket(state: LifeGameState): string[] {
   }
   const rivalHint =
     state.character.flags.born_with_rival_hint ?? state.character.flags.legacy_rival;
-  if (typeof rivalHint === 'string' && rivalHint) personalNames.push(`${rivalHint}（前世影）`);
+  if (LEGACY_FEATURES_ENABLED && typeof rivalHint === 'string' && rivalHint) personalNames.push(`${rivalHint}（前世影）`);
   if (state.character.loverId && state.npcs[state.character.loverId]) {
     const ln = state.npcs[state.character.loverId]!.name;
     personalNames.push(`為${ln}出頭的過客`);

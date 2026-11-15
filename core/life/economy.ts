@@ -1,3 +1,4 @@
+import { LEGACY_FEATURES_ENABLED } from '@data/redesign/legacyFeatures';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { careerMonthlyIncome, getCareer } from './careers';
 
@@ -16,7 +17,7 @@ export function tickMonthlyEconomy(state: LifeGameState): string[] {
   // 薄利：門派津贴／小買賣／傳承族產／行當
   let income = 0;
   if (c.sectId) income += 2;
-  if (c.flags.born_with_family_legacy || c.flags.family_legacy) income += 2;
+  if (LEGACY_FEATURES_ENABLED && (c.flags.born_with_family_legacy || c.flags.family_legacy)) income += 2;
   if (c.flags.side_trade) income += Number(c.flags.side_trade) || 1;
   if (c.martial >= 40) income += 1;
   income += careerMonthlyIncome(state);

@@ -17,7 +17,6 @@ import { InkSkillSchools } from './InkSchoolTabs';
 import { InkPersonSchoolTabs as InkSchoolTabs } from './InkPersonSchoolTabs';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useLifeStore } from '../../store/lifeStore';
-import { canRetire } from '@core/life/retire';
 import { inkCountTo, inkPopIn, inkSurfaceIn } from '../../ui/inkMotion';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getGearDef, WEAPON_KIND_LABEL } from '@data/equipment/catalog';
@@ -40,12 +39,11 @@ import { listWeaponMasteries } from '@core/life/weaponMastery';
 import { careerLabel, getCareer } from '@core/life/careers';
 import { formatFragmentProgress } from '@core/life/manualFragments';
 import { getMasterName } from '@core/life/bonds';
-import { familyGearCarry, getHeirName, listChildNames, previewInheritanceMoney } from '@core/life/family';
-import { buildGenealogy } from '@core/life/genealogy';
+import { listChildNames } from '@core/life/family';
 import { achievementProgress, listAchievementStatus } from '@core/life/achievements';
 import { allTitles } from '@core/life/titles';
 import { calculateProgress } from '@core/life/progression';
-import { MANUAL_MAX_STARS, MANUAL_STAR_BONUS, TEST_BREAKTHROUGH_FAIL_XP_LOSS, RETIRE_MIN_TIER } from '@data/redesign/testParams';
+import { MANUAL_MAX_STARS, MANUAL_STAR_BONUS, TEST_BREAKTHROUGH_FAIL_XP_LOSS } from '@data/redesign/testParams';
 import { SPAR_TIER_SCALE, sparHeroBreakdown, sparSavedStage } from '@core/life/sparDuel';
 import { InkStatsPanel } from './InkStatsPanel';
 import { InkInjuryCard } from './InkInjuryCard';
@@ -69,7 +67,6 @@ export type PersonView =
   | 'attrs'
   | 'skills'
   | 'gear'
-  | 'genealogy'
   | 'people'
   | 'roots'
   | 'achievements'
@@ -93,34 +90,6 @@ type Props = {
 
 const pctText = (v: number) => `${(v * 100).toFixed(1).replace(/\.0$/, '')}%`;
 const numText = (v: number) => Math.round(v).toLocaleString('en-US');
-
-/** 歸隱傳位（審計 C2）：要撳兩下確認，避免誤觸結束今世 */
-function InkRetireBox({ state, busy }: { state: LifeGameState; busy: boolean }) {
-  const retire = useLifeStore((s) => s.retire);
-  const [confirming, setConfirming] = useState(false);
-  const check = canRetire(state);
-  return (
-    <div className="ink-retire">
-      <h3 className="ink-subhead">歸隱傳位</h3>
-      <p className="ink-note">
-        {check.ok
-          ? '金盆洗手，結束此生。傳承與身故相同：傳承點、家傳武學、銀庫及裝備庫照常留給後人。'
-          : `${check.reason ?? ''}（第 ${RETIRE_MIN_TIER} 境起可自願歸隱，傳承與身故相同）`}
-      </p>
-      {check.ok && (
-        <button
-          type="button"
-          className={`ink-btn ${confirming ? 'ink-btn--primary' : 'ink-btn--quiet'}`}
-          disabled={busy}
-          onClick={() => (confirming ? retire() : setConfirming(true))}
-          onBlur={() => setConfirming(false)}
-        >
-          {confirming ? '確定歸隱？請再按一次' : '歸隱傳位'}
-        </button>
-      )}
-    </div>
-  );
-}
 
 export function InkPersonPanel({
   state,
@@ -198,7 +167,6 @@ export function InkPersonPanel({
   const equipment = c.equipment ?? { weapon: null, armor: null, accessory: null };
   const gearStatTotals = gearTotals(c);
   const gearFxTotals = sumGearCombatBonuses(c);
-  const genealogy = buildGenealogy(state);
   const achProgress = achievementProgress(state);
   const nicknames = allTitles(state).map((t) => t.label);
   const progress = calculateProgress(state);
@@ -380,7 +348,7 @@ export function InkPersonPanel({
                   </button>
                 </>
               )}
-              <InkRetireBox state={state} busy={busy} />
+
             </>
           );
         })()}
@@ -640,50 +608,6 @@ export function InkPersonPanel({
         </>
       )}
 
-      {view === 'genealogy' && (
-        <>
-          <h3>族譜</h3>
-          <div className="ink-genealogy" aria-label={`族譜·${genealogy.clanLabel}`}>
-            <p className="ink-genealogy-head">
-              {genealogy.clanLabel} · 第{genealogy.generationIndex}世
-            </p>
-            <ul className="ink-genealogy-list">
-              {genealogy.entries.map((e, i) => {
-                const prev = genealogy.entries[i - 1];
-                const showGen = !prev || prev.generation !== e.generation;
-                return (
-                  <li
-                    key={`${e.generation}-${e.title}-${e.name}-${i}`}
-                    className={`ink-genealogy-row${e.self ? ' ink-genealogy-row--self' : ''}${
-                      e.heir ? ' ink-genealogy-row--heir' : ''
-                    }`}
-                  >
-                    {showGen ? (
-                      <span className="ink-genealogy-gen">{e.generation}</span>
-                    ) : (
-                      <span className="ink-genealogy-gen ink-genealogy-gen--gap" aria-hidden />
-                    )}
-                    <span className="ink-genealogy-title">{e.title}</span>
-                    <strong className="ink-genealogy-name">{e.name}</strong>
-                    {e.note ? <span className="ink-genealogy-note">{e.note}</span> : null}
-                  </li>
-                );
-              })}
-            </ul>
-            {genealogy.chronicle.length > 0 && (
-              <>
-                <p className="ink-genealogy-sub">跨世殘頁</p>
-                <ul className="ink-genealogy-chronicle">
-                  {genealogy.chronicle.slice(-6).map((line) => (
-                    <li key={line}>{line}</li>
-                  ))}
-                </ul>
-              </>
-            )}
-          </div>
-        </>
-      )}
-
       {view === 'people' && (
         <>
           <h3>人際</h3>
@@ -691,12 +615,9 @@ export function InkPersonPanel({
           <p className="ink-note">
             子女 · {c.childrenCount ?? 0}
             {listChildNames(state).length ? `（${listChildNames(state).join('、')}）` : ''}
-            {getHeirName(state) ? ` · 嗣「${getHeirName(state)}」` : ''}
+
           </p>
-          <p className="ink-note">
-            家族銀庫 {previewInheritanceMoney(state).toLocaleString('zh-Hant')} 兩、裝備 {familyGearCarry(state).length} 件 · 離世後全數傳後人
-            {(c.childrenCount ?? 0) > 0 ? '' : '（無子女由旁支接班）'}
-          </p>
+
           {c.loverId && (c.childrenCount ?? 0) === 0 && (
             <p className="ink-note">已有眷屬——可至修行「求子添丁」。</p>
           )}

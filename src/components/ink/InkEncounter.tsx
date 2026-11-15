@@ -9,7 +9,7 @@ import { sealUrlForText } from '../../ui/inkAssets';
 
 /**
  * 在線奇遇彈窗（design/agreed-design-2026-10.md §3.3）：
- *   彈出 → 揀第一個決定（開始計 1–3 日）；或者領傳承結果。
+ *   彈出 → 揀第一個決定（開始計 1–3 日）；或者領取收穫結果。
  */
 export function InkEncounterModal({ onLearn }: { onLearn: (id: string) => void }) {
   const meta = useAncestryStore((s) => s.meta);
@@ -28,9 +28,9 @@ export function InkEncounterModal({ onLearn }: { onLearn: (id: string) => void }
   if (reward) {
     const def = getSkillDef(reward);
     return createPortal(
-      <InkModal className="ink-modal ink-enc" aria-label="奇遇傳承" onDismiss={close} onClick={close}>
+      <InkModal className="ink-modal ink-enc" aria-label="奇遇收穫" onDismiss={close} onClick={close}>
         <div className="ink-modal-card ink-enc-card is-reward" onClick={(ev) => ev.stopPropagation()}>
-          <p className="ink-enc-kicker">奇遇 · 得傳承</p>
+          <p className="ink-enc-kicker">奇遇 · 收穫</p>
           <h3 className="ink-enc-title">
             「{meta.encounter?.last?.vol ? volumeLabel(reward, meta.encounter.last.vol) : skillLabel(reward)}」
           </h3>
@@ -38,7 +38,7 @@ export function InkEncounterModal({ onLearn }: { onLearn: (id: string) => void }
             珍本奇功 · {def ? skillKindLabel(def.kind) : ''}
           </p>
           <p className="ink-enc-story">{def?.flavor}</p>
-          <p className="ink-note">已收入家族收藏，後世亦可學習。</p>
+          <p className="ink-note">已收入秘笈收藏，可到秘笈閣查看。</p>
           <div className="ink-enc-actions">
             <button type="button" className="ink-enc-btn is-main" onClick={() => { onLearn(reward); close(); }}>
               立即學習
@@ -91,7 +91,7 @@ export function InkEncounterModal({ onLearn }: { onLearn: (id: string) => void }
   );
 }
 
-/** 主畫面奇遇卡：未揀／進行中（進度＋剩餘時間）／可領傳承 */
+/** 主畫面奇遇卡：未揀／進行中（進度＋剩餘時間）／可領取收穫 */
 export function InkEncounterCard() {
   const meta = useAncestryStore((s) => s.meta);
   const setOpen = useAncestryStore((s) => s.setEncounterOpen);
@@ -126,7 +126,7 @@ export function InkEncounterCard() {
       </div>
       {done && (
         <button type="button" className="ink-enc-claim" onClick={() => claim()}>
-          領傳承
+          領取收穫
         </button>
       )}
     </div>

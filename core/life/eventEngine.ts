@@ -1,3 +1,4 @@
+import { isLegacyEventPaused } from '@data/redesign/legacyFeatures';
 import type { EventChoice, GameEvent, LifeGameState } from '@interfaces/lifeEngine';
 import { gameEventSchema } from '@interfaces/lifeEngine';
 import { applyEffects } from './effects';
@@ -205,6 +206,7 @@ export function lookupEvent(id: string): GameEvent | undefined {
 export function resolvePendingEvent(state: LifeGameState): GameEvent | null {
   if (!state.pending) return null;
   const id = state.pending.eventId;
+  if (isLegacyEventPaused(id)) return null;
   let raw: GameEvent | null = null;
   if (id === 'play_master_fork' || id === 'play_lover_fork') {
     const cached = state.character.flags._pending_bond_json;
@@ -240,7 +242,7 @@ export function clearDanglingPending(state: LifeGameState): boolean {
 export function listEligibleEvents(catalog: GameEvent[], state: LifeGameState): GameEvent[] {
   // 出生、幼年專屬及老年惡疾不再進入主角的月度事件池；保留舊ID解析。
   const retired = new Set(['life_birth', 'childhood_play', 'fatal_illness']);
-  const eligible = catalog.filter((e) => !retired.has(e.id) && meetsRequirements(state, e.requirements, e.id));
+  const eligible = catalog.filter((e) => !retired.has(e.id) && !isLegacyEventPaused(e.id) && meetsRequirements(state, e.requirements, e.id));
   const fresh = eligible.filter((e) => {
     // 路遇交手可重複，不受 50 月冷卻限制（另有 7–15 月倒數節奏）
     if ((e.tags ?? []).includes('road')) return true;
@@ -333,6 +335,7 @@ export function applyChoice(
   event: GameEvent,
   choiceId: string,
 ): ResolveResult {
+  if (isLegacyEventPaused(event.id)) return { state, logs: [], deltas: [], feedback: '此項已暫停。', died: false };
   syncRngFromState(state);
   const choice = event.choices.find((c) => c.id === choiceId);
   if (!choice) {

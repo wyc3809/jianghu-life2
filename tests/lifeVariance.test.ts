@@ -81,7 +81,7 @@ describe('life variance 1-7', () => {
     expect(line).toMatch(/茶棚|出手/);
   });
 
-  it('legacy carries theme and schedules rival script', () => {
+  it('test_paused_legacy_does_not_carry_theme_or_schedule_rival', () => {
     const prev = createNewLife({ seed: 13, lifeTheme: 'revenge', skipCoach: true });
     prev.character.flags.aftermath_blood_foe = '赤練';
     // force a low-affinity npc as rival
@@ -97,10 +97,10 @@ describe('life variance 1-7', () => {
     const legacy = extractLegacy(prev);
     expect(legacy.lifeTheme).toBe('revenge');
     const next = createNewLife({ seed: 14, legacy, skipCoach: true });
-    expect(next.character.flags.legacy_theme_echo).toBe('revenge');
-    expect(next.character.flags.legacy_script_rival || next.character.flags.born_with_rival_hint).toBeTruthy();
-    const script = buildLegacyScriptEvent(next);
-    expect(script?.id).toMatch(/^legacy_script_/);
+    expect(next).toEqual(createNewLife({ seed: 14, skipCoach: true }));
+    next.character.flags.legacy_rival = '舊仇張';
+    next.character.flags.legacy_script_rival = true;
+    expect(buildLegacyScriptEvent(next)).toBeNull();
   });
 
   it('epitaph follows theme × nature', () => {

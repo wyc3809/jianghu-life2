@@ -1,3 +1,4 @@
+import { LEGACY_FEATURES_ENABLED } from '@data/redesign/legacyFeatures';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getRng } from '@core/random';
 import { FAMILY_RULES } from '@data/content/packs';
@@ -65,14 +66,16 @@ function spawnChild(state: LifeGameState, source: 'monthly' | 'seek'): string[] 
   if (!c.family.childrenNames) c.family.childrenNames = [];
   c.family.childrenNames.push(childName);
   // 長子／長女為預設繼承人
-  if (!c.flags.heir_name) c.flags.heir_name = childName;
-  c.flags.family_legacy = true;
+  if (LEGACY_FEATURES_ENABLED) {
+    if (!c.flags.heir_name) c.flags.heir_name = childName;
+    c.flags.family_legacy = true;
+  }
 
   const loverName = c.loverId && state.npcs[c.loverId] ? state.npcs[c.loverId].name : '眷屬';
   const title = source === 'seek' ? '【求子得償】' : '【添丁】';
   const lines = [
     `${title}你與${loverName}得一${gender === 'male' ? '子' : '女'}，取名${childName}。`,
-    `（子女 ${c.childrenCount} · 繼承人「${c.flags.heir_name}」）`,
+    LEGACY_FEATURES_ENABLED ? `（子女 ${c.childrenCount} · 繼承人「${c.flags.heir_name}」）` : `（子女 ${c.childrenCount}）`,
     ...syncAchievements(state),
   ];
   return lines;
@@ -145,6 +148,7 @@ export function seekChild(state: LifeGameState): string[] {
 
 /** 指定繼承人（需已有子女） */
 export function designateHeir(state: LifeGameState, childName: string): string[] {
+  if (!LEGACY_FEATURES_ENABLED) return [];
   const c = state.character;
   ensureFamilyFields(c);
   const names = c.family.childrenNames ?? [];

@@ -1,3 +1,4 @@
+import { LEGACY_FEATURES_ENABLED } from '@data/redesign/legacyFeatures';
 import { DAILY_TRAINING_ACTIONS } from '@data/redesign/martialEconomyParams';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getRng } from '@core/random';
@@ -70,7 +71,6 @@ export const PRACTICE_ACTIONS: PracticeAction[] = [
   // 「打聽傳聞」（風聲加成）已按玩家要求刪除（2026-10-09）
   { id: 'drink_wine', label: '把酒買醉', hint: '傷氣血；飲得夠多，另有奇遇' },
   { id: 'seek_child', label: '求子添丁', hint: '有眷屬可祈嗣；費銀二十兩' },
-  { id: 'designate_heir', label: '立嗣傳家', hint: '有子女時指定繼承人，死後族產可繼' },
   { id: 'heal', label: '醫館調養', hint: '費銀十五兩，療傷減疲' },
   { id: 'heal_full', label: '名醫療傷', hint: '費銀為氣血上限一成，氣血回滿' },
   { id: 'forge_fine', label: '精工鑄器', hint: '費銀隨境界升，境界越高越易出好兵器' },
@@ -125,6 +125,7 @@ export function applyPracticeOutcome(
   actionId: PracticeActionId,
   opts?: { sectId?: string; artId?: string },
 ): string[] {
+  if (!LEGACY_FEATURES_ENABLED && actionId === 'designate_heir') return [];
   syncRngFromState(state);
   const rng = getRng();
   const c = state.character;
@@ -606,6 +607,7 @@ export function applyPracticeOutcome(
 /** 確定不合資格的操作先攔截，不扣次數、不推進RNG；合法隨機嘗試照常結算。 */
 export function practiceBlockReason(state: LifeGameState, actionId: PracticeActionId, opts?: {sectId?:string;artId?:string}): string | null {
   const c=state.character;
+  if (!LEGACY_FEATURES_ENABLED && actionId === 'designate_heir') return '此項已暫停。';
   if (!c.alive || state.phase !== 'playing') return '你已無法行動。';
   if (state.pending) return '眼前尚有未決之事，先作抉擇。';
   if (state.pendingCombat) return '交手未了，豈能分心。';

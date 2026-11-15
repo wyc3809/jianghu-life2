@@ -34,7 +34,7 @@ function withLover(seed: number) {
 }
 
 describe('childbirth and inheritance', () => {
-  it('seek_child can birth with lover and sets heir + family_legacy', () => {
+  it('test_childbirth_keeps_family_without_new_heir_or_legacy', () => {
     let born = false;
     for (let s = 1; s <= 40; s += 1) {
       const state = withLover(s);
@@ -44,23 +44,24 @@ describe('childbirth and inheritance', () => {
         born = true;
         expect(lines.join('')).toMatch(/求子|添丁|子|女/);
         expect(getHeirName(state)).toBeTruthy();
-        expect(state.character.flags.family_legacy).toBe(true);
+        expect(state.character.flags.family_legacy).toBeUndefined();
+        expect(state.character.flags.heir_name).toBeUndefined();
         break;
       }
     }
     expect(born).toBe(true);
   });
 
-  it('designateHeir rotates successor', () => {
+  it('test_designate_heir_paused_preserves_archive', () => {
     const state = withLover(2);
     state.character.childrenCount = 2;
     state.character.family.childrenNames = ['甲童', '乙童'];
     state.character.flags.heir_name = '甲童';
-    designateHeir(state, '乙童');
-    expect(getHeirName(state)).toBe('乙童');
+    expect(designateHeir(state, '乙童')).toEqual([]);
+    expect(getHeirName(state)).toBe('甲童');
   });
 
-  it('death with children carries estate into next life', () => {
+  it('test_death_with_children_archives_estate_without_carry', () => {
     const prev = withLover(8);
     const surname = prev.character.name.trim()[0]!;
     const heir = `${surname}小江湖`;
@@ -73,8 +74,8 @@ describe('childbirth and inheritance', () => {
     recordDeath(prev, '病榻燈殘。');
     prev.phase = 'summary';
     prev.summaryText = buildLifeSummary(prev);
-    expect(prev.summaryText).toMatch(/繼承人|小江湖/);
-    expect(prev.summaryText).toMatch(/家族銀庫/);
+    expect(prev.summaryText).toContain(heir);
+    expect(prev.summaryText).not.toMatch(/家族銀庫|可傳後世|繼承人/);
 
     const legacy = extractLegacy(prev);
     expect(legacy.hadChildren).toBe(true);
@@ -85,13 +86,11 @@ describe('childbirth and inheritance', () => {
     expect(legacy.inheritedMoney).toBe(100);
 
     const next = createNewLife({ seed: 99, skipCoach: true, legacy });
-    expect(next.character.flags.born_with_family_legacy).toBe(true);
-    expect(next.character.money).toBeGreaterThanOrEqual(100);
-    expect(next.lifeLog.some((l) => /血脈|銀庫|小江湖/.test(l))).toBe(true);
+    expect(next).toEqual(createNewLife({ seed: 99, skipCoach: true }));
     applyLegacyToCharacter(createNewLife({ seed: 100, skipCoach: true }), legacy);
   });
 
-  it('test_death_without_children_passes_to_collateral_heir_with_full_vault', () => {
+  it('test_death_without_children_does_not_transfer_archived_vault', () => {
     const prev = createNewLife({ seed: 3, skipCoach: true });
     prev.character.childrenCount = 0;
     prev.character.family.childrenNames = [];
@@ -107,14 +106,10 @@ describe('childbirth and inheritance', () => {
     expect(legacy.inheritedMoney).toBe(1234);
 
     const next = createNewLife({ seed: 4, skipCoach: true, legacy });
-    expect(next.character.money).toBeGreaterThanOrEqual(1234);
-    expect(next.lifeLog.some((l) => /銀庫.*1,234/.test(l))).toBe(true);
-    expect(next.character.flags.legacy_collateral).toBe(true);
-    expect(next.character.name[0]).toBe(prev.character.name[0]);
-    expect(next.lifeLog.some((l) => /旁支/.test(l))).toBe(true);
+    expect(next).toEqual(createNewLife({ seed: 4, skipCoach: true }));
   });
 
-  it('test_family_gear_store_carries_all_gear_and_loadout', () => {
+  it('test_family_gear_archive_is_not_applied_to_new_life', () => {
     const prev = createNewLife({ seed: 5, skipCoach: true });
     const ids = GEAR_CATALOG.map((g) => g.id).slice(0, 3);
     prev.character.gear = [ids[0]!, ids[1]!];
@@ -124,8 +119,8 @@ describe('childbirth and inheritance', () => {
     const legacy = extractLegacy(prev);
     expect(new Set(legacy.inheritedGear)).toEqual(new Set(ids));
     const next = createNewLife({ seed: 6, skipCoach: true, legacy });
-    for (const id of ids) expect(next.character.gear).toContain(id);
-    expect(next.character.equipment.weapon).toBe(ids[2]);
+    expect(next).toEqual(createNewLife({ seed: 6, skipCoach: true }));
+    expect(new Set(legacy.inheritedGear)).toEqual(new Set(ids));
   });
 });
 

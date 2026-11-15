@@ -1,3 +1,4 @@
+import { LEGACY_FEATURES_ENABLED } from '@data/redesign/legacyFeatures';
 import { useAncestryStore } from '../ancestryStore';
 import { COACH_HINTS, coachHintFlag } from '@core/life/coachHints';
 import { BREAKTHROUGH_FIRST_JADE, BREAKTHROUGH_JADE_STEP } from '@data/redesign/martialEconomyParams';
@@ -103,13 +104,13 @@ export function createProgressionSlice(
     cancelCreate: () => set({ creating: false }),
 
     newLife: (opts?: CreateLifeOptions | number) => {
-      // 帳戶祖蔭（天賦＋家傳武學）每一世都套用
+      // 暫停期間不讀取／套用舊祖蔭；原帳戶資料留存。
       const base: CreateLifeOptions = typeof opts === 'number' ? { seed: opts } : (opts ?? {});
-      const state = createNewLife({ ...base, ancestry: base.ancestry ?? loadAncestry() });
+      const state = createNewLife({ ...base, ancestry: LEGACY_FEATURES_ENABLED ? (base.ancestry ?? loadAncestry()) : undefined });
       void save(state);
       track('life_create', {
         seed: state.seed,
-        hasLegacy: Boolean(typeof opts === 'object' && opts && 'legacy' in opts && opts.legacy),
+        hasLegacy: LEGACY_FEATURES_ENABLED && Boolean(typeof opts === 'object' && opts && 'legacy' in opts && opts.legacy),
       });
       set({
         state,
@@ -121,6 +122,7 @@ export function createProgressionSlice(
     },
 
     reincarnate: () => {
+      if(!LEGACY_FEATURES_ENABLED){get().newLife();set({succession:null});return;}
       const prev = get().state;
       if (!prev || prev.phase !== 'summary') {
         get().newLife();
@@ -214,6 +216,7 @@ export function createProgressionSlice(
     advanceYear: () => get().advanceMonth(),
 
     retire: () => {
+      if(!LEGACY_FEATURES_ENABLED)return;
       const { state } = get();
       if (!state || !canRetire(state).ok) return;
       const next = produce(state, (draft) => {
