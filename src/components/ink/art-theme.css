@@ -28,24 +28,23 @@ body .ink-map-destination-dot { background:var(--ui-red); box-shadow:none; }
 body .ink-map-destination-light { filter:none; }
 body .ink-person-sheet::backdrop { background:#3c514638; }
 
-/* 已選千燈鎮晨景；標題／卷首與按鈕對照示意圖，其他頁沿用原共用日景。 */
-body .scroll-shell.ink-start { padding:22px max(20px,env(safe-area-inset-right,0px)) max(30px,env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px)); gap:10px; color:var(--ui-ink); }
+/* 已確認青綠暖金漫畫晨景；本段只改開卷，風格基準見design/art/STYLE.md。 */
+body .scroll-shell.ink-start { --ui-ink:#242d2c; --ui-red:#a34338; padding:16px max(20px,env(safe-area-inset-right,0px)) max(30px,env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px)); gap:10px; color:var(--ui-ink); }
 .ink-start-bg { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
 .ink-start-bg img { display:block; width:100%; height:100%; object-fit:cover; object-position:center; }
-body .ink-start .ink-hero { padding:10px 0 0; text-align:center; flex:none; }
-body .ink-start .ink-eyebrow { color:var(--ui-red); font-size:13px; line-height:1.6; letter-spacing:.35em; text-shadow:none; }
-body .ink-start .ink-brand { margin:14px 0 0; font:400 clamp(40px,13.85vw,56px)/1.18 var(--ui-title); letter-spacing:.12em; color:var(--ui-ink); background:none; text-shadow:none; filter:none; }
-.ink-start-rule { display:block; width:206px; height:5px; margin:16px auto 10px; background:var(--ui-underline) center/100% 100% no-repeat; }
+body .ink-start .ink-hero { padding:6px 0 0; text-align:center; flex:none; }
+body .ink-start .ink-eyebrow { color:var(--ui-red); font-size:15px; line-height:1.4; letter-spacing:.35em; text-shadow:none; }
+body .ink-start .ink-brand { margin:4px 0 0; font:400 clamp(44px,15.4vw,63px)/1.18 var(--ui-title); letter-spacing:.12em; color:var(--ui-ink); background:none; text-shadow:none; filter:none; }
+.ink-start-rule { display:block; width:216px; height:5px; margin:2px auto 10px; background:var(--ui-underline) center/100% 100% no-repeat; }
 body .ink-start .ink-tagline { color:#4b5d4e; font-size:14px; letter-spacing:.14em; text-shadow:none; }
 .ink-start-keyart { position:relative; flex:1 1 0; min-height:100px; pointer-events:none; }
-body .ink-start .ink-verse { position:absolute; top:44px; left:10%; margin:0; padding-bottom:9px; writing-mode:horizontal-tb; text-align:start; font:400 15px/1.6 var(--ui-title); letter-spacing:.1em; color:#4d5e50; text-shadow:none; }
+body .ink-start .ink-verse { position:absolute; top:5px; left:2%; margin:0; padding-bottom:9px; writing-mode:horizontal-tb; text-align:start; font:400 15px/1.6 var(--ui-title); letter-spacing:.1em; color:#344c46; text-shadow:none; }
 body .ink-start .ink-verse p { margin:0; }
-body .ink-start .ink-verse::after { content:''; position:absolute; bottom:0; left:8%; width:85%; height:3px; background:var(--ui-underline) center/100% 100% no-repeat; opacity:.28; }
-body .ink-start .ink-cta-stack { flex:none; margin:0; padding:0; gap:9px; }
-body .ink-start .ink-btn { min-height:54px; padding:10px 14px; font-size:22px; font-weight:700; line-height:1.3; box-shadow:none; }
-body .ink-start .ink-btn--primary { padding-block:6px; color:#fffdf7; background:var(--ui-brush) center/100% 100% no-repeat; text-shadow:none; }
+body .ink-start .ink-cta-stack { flex:none; margin:0; padding:0; gap:9px; align-items:center; }
+body .ink-start .ink-btn { width:100%; min-height:54px; padding:10px 14px; font-size:22px; font-weight:700; line-height:1.3; box-shadow:none; }
+body .ink-start .ink-btn--primary { max-width:330px; font-size:26px; padding-block:6px; color:#fffdf7; background:var(--ui-brush) center/100% 100% no-repeat; text-shadow:none; }
 body .ink-start .ink-btn--primary .ink-btn-sub { color:#fff7e8; font-size:12px; }
-body .ink-start .ink-btn--ghost { color:var(--ui-ink); background:var(--ui-fiber) center/384px repeat,var(--ui-paper); border-color:transparent; text-shadow:none; }
+body .ink-start .ink-btn--ghost { max-width:280px; font-size:20px; color:var(--ui-ink); background:var(--ui-fiber) center/384px repeat,var(--ui-paper); border-color:transparent; text-shadow:none; }
 body .ink-start .ink-btn--scroll::after { display:none; }
 body .ink-start .ink-btn--quiet { font-size:13px; min-height:44px; color:var(--ink-mid); padding:5px 8px; }
 @media(max-height:650px) {
@@ -56,5 +55,5 @@ body .ink-start .ink-btn--quiet { font-size:13px; min-height:44px; color:var(--i
   .ink-start-keyart { min-height:80px; }
   body .ink-start .ink-verse { top:18px; font-size:13px; }
   body .ink-start .ink-tagline { font-size:12px; }
-  body .ink-start .ink-btn { min-height:48px; padding-block:7px; }
+  body .ink-start .ink-btn { min-height:48px; padding-block:7px; font-size:22px; }
 }

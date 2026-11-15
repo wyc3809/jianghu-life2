@@ -1,0 +1,30 @@
+{
+  "name": "青綠暖金漫畫千燈鎮首頁背景",
+  "scope": "只供首頁；不更換人物頁與其他共用背景",
+  "sourceTool": "OpenAI image_gen reference edit",
+  "selectedFile": "selected.png",
+  "selectedSha256": "679a093b8962ba8ad71e12d35287412268fa16bef8d453598850edae27088e61",
+  "sourceFile": "source.png",
+  "sourceSha256": "bf465c7f34d90d8a4130764340d15958614331348eece129140414bc657fe150",
+  "originalGeneratedPath": "/workspace/generated_images/exec-55d1ad32-6ed4-44be-b3c9-4f5b7ede4f9b.png",
+  "dimensions": [
+    852,
+    1846
+  ],
+  "mode": "RGB",
+  "runtimeOutput": "public/ink/art/theme/town-manhua.webp",
+  "runtimeSha256": "6d9ae6d49bf17274e1cc969d7949c916e839165bc37059647587bb6740345872",
+  "runtimeBytes": 212976,
+  "normalization": "僅WebP格式轉換quality=92, method=6；未裁切、改色或拉伸",
+  "generationNote": "以玩家明確接受的漫畫晨景修訂圖去除全部UI文字、底線、姓名及兩按鈕；保留橋左／茶樓右、太陽斜光、柳枝、空舟及金色水面光路。",
+  "rightsNote": "本項目AI示意圖的工具編輯素材；保留原PNG與metadata。",
+  "technical_checks_passed": true,
+  "visualChecks": {
+    "noBakedUITextOrButtons": true,
+    "noPeopleOrSilhouettes": true,
+    "approvedCompositionAndLightingPreserved": true,
+    "ivoryHeaderAndFooter": true,
+    "jadeGoldManhuaPlanesAndLinework": true
+  },
+  "meanLuma255": 190.62
+}

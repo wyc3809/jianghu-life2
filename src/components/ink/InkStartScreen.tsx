@@ -9,12 +9,12 @@ type Props = {
   onOpenEditor?: () => void;
 };
 
-/** 已選千燈鎮晨景作開卷封面；不放人物立繪，標題及操作仍為真正DOM。 */
+/** 已確認青綠暖金漫畫晨景作開卷封面；不放人物立繪，標題及操作仍為真正DOM。 */
 export function InkStartScreen({ onStart, onContinue, resumeHint, onSeedDebug, onOpenEditor }: Props) {
   return (
     <div className="scroll-shell ink-enter ink-start">
       <div className="ink-start-bg" aria-hidden>
-        <img src={inkArtUrl('art/theme/town-opening.webp')} alt="" decoding="async" />
+        <img src={inkArtUrl('art/theme/town-manhua.webp')} alt="" decoding="async" />
       </div>
       <header className="ink-hero">
         <p className="ink-eyebrow">武俠人生</p>
