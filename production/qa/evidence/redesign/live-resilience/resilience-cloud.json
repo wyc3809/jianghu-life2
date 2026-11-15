@@ -1,0 +1,14 @@
+{
+  "actualAccounts": 3,
+  "concurrentReadViews": 40,
+  "readOnlyRevisionStable": true,
+  "oneRenewOneWorldCommit": true,
+  "concurrentDistinctSends": 4,
+  "accepted": 1,
+  "rateLimited429": 3,
+  "committedMessageReplay200": true,
+  "rateLimitedSameIdRetry200": true,
+  "combinedPrivateNoThirdPartyLeak": true,
+  "otherTabExitRecovery": true,
+  "capacityGuarantee": false
+}

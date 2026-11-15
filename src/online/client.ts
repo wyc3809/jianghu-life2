@@ -35,7 +35,7 @@ export async function onlineCommand<T>(path: string, token: string, payload: Rec
     const result = await onlineRequest<T>(path, token, { ...payload, requestId });
     sessionStorage.removeItem(key); return result;
   } catch (error) {
-    if (error instanceof OnlineApiError && error.status && error.status < 500) sessionStorage.removeItem(key);
+    if (error instanceof OnlineApiError && error.status && error.status < 500 && error.status !== 429) sessionStorage.removeItem(key);
     throw error;
   }
 }

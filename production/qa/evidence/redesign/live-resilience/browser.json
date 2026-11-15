@@ -1,0 +1,33 @@
+[
+  {
+    "actualCloudAccounts": 3,
+    "actualRealtimeFrames": true,
+    "heartbeatExtendedTo60Seconds": true,
+    "messagePushSeconds": 2.379,
+    "privateNoThirdPartyUILeak": true,
+    "nativeConfirmation": true,
+    "bothAutoOpenSameBattle": true,
+    "serverClockNoLocalSpeed": true,
+    "defeatProtectionVisible": true,
+    "viewports": [
+      [
+        320,
+        568
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        430,
+        932
+      ]
+    ],
+    "pageerrors": [
+      [],
+      [],
+      []
+    ],
+    "actualIphoneTested": false
+  }
+]

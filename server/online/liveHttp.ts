@@ -7,12 +7,13 @@ import type { OnlineBattle, OnlineSnapshot } from '../../interfaces/online';
 
 type Config={url:string;anonKey:string;serviceKey:string};
 const uuid=z.string().uuid();
-const request=z.object({action:z.enum(['send','messages','block','report','watch']),data:z.unknown(),clientId:uuid}).strict();
+const request=z.object({action:z.enum(['send','messages','block','report','watch','view']),data:z.unknown(),clientId:uuid}).strict();
 const schemas={
  send:z.object({requestId:uuid,body:z.string().trim().min(1).max(300),target:uuid.optional()}).strict(),
  messages:z.object({target:uuid.optional(),after:z.number().int().min(0).max(Number.MAX_SAFE_INTEGER).optional()}).strict(),
  block:z.object({target:uuid,blocked:z.boolean()}).strict(),
  report:z.object({requestId:uuid,messageId:uuid,reason:z.string().trim().min(1).max(200)}).strict(),
+ view:z.object({target:uuid.optional(),renew:z.boolean().optional()}).strict(),
  watch:z.object({id:uuid}).strict(),
 };
 export function createLiveHandler(config:Config,fetcher:typeof fetch=fetch){
@@ -20,8 +21,18 @@ export function createLiveHandler(config:Config,fetcher:typeof fetch=fetch){
  const world=new SharedWorldService(repo,Date.now,()=>({seed:crypto.getRandomValues(new Uint32Array(1))[0],battleId:crypto.randomUUID()}));
  const headers={apikey:config.serviceKey,Authorization:`Bearer ${config.serviceKey}`,'Content-Type':'application/json'};
  return createOnlineHandler(config,{execute:async(user,raw)=>{
-  if(typeof raw==='object'&&raw!==null&&'action'in raw&&['send','messages','block','report','watch'].includes(String(raw.action))){
+  if(typeof raw==='object'&&raw!==null&&'action'in raw&&['send','messages','block','report','watch','view'].includes(String(raw.action))){
    const input=request.parse(raw),data=schemas[input.action].parse(input.data);
+   if(input.action==='view'){
+    const parsed=schemas.view.parse(input.data);
+    let snapshot:OnlineSnapshot;
+    try{snapshot=await world.execute(user,{action:parsed.renew?'liveHeartbeat':'world',clientId:input.clientId,data:{}}) as OnlineSnapshot;}
+    catch(e){if(!(parsed.renew&&e instanceof OnlineError&&e.status===409))throw e;snapshot=await world.execute(user,{action:'world',clientId:input.clientId,data:{}}) as OnlineSnapshot;}
+    if(!snapshot.me.live?.joined)return {snapshot,chat:{messages:[],blocked:[]}};
+    const response=await fetcher(`${config.url}/rest/v1/rpc/jianghu_live_social`,{method:'POST',headers,body:JSON.stringify({p_user:user,p_action:'messages',p_data:parsed.target?{target:parsed.target}:{}}),signal:AbortSignal.timeout(8000)});
+    if(!response.ok)throw new OnlineError(response.status>=500?503:409,'對話暫時未能補讀，請稍後再試。');
+    return {snapshot,chat:await response.json()};
+   }
    if(input.action==='watch'){
     const state=await repo.load();
     if(!state.payload.world.players[user]?.live?.joined)throw new OnlineError(403,'請先加入同遊江湖。');
@@ -33,7 +44,7 @@ export function createLiveHandler(config:Config,fetcher:typeof fetch=fetch){
     return {id:b.id,startedAt:b.startedAt,endsAt:b.endsAt,serverNow:Date.now(),replay:b.replays[b.attacker],look:{sectId:c.sectId??null,weaponId:c.equipment.weapon??null}};
    }
    const response=await fetcher(`${config.url}/rest/v1/rpc/jianghu_live_social`,{method:'POST',headers,body:JSON.stringify({p_user:user,p_action:input.action,p_data:data}),signal:AbortSignal.timeout(8000)});
-   if(!response.ok){const error=await response.json().catch(()=>null);throw new OnlineError(response.status>=500?503:409,error?.code==='P0001'?error.message:'同遊消息暫時未能處理，請重試。');}
+   if(!response.ok){const error=await response.json().catch(()=>null);throw new OnlineError(error?.code==='P0429'?429:response.status>=500?503:409,['P0001','P0429'].includes(error?.code)?error.message:'同遊消息暫時未能處理，請重試。');}
    return response.json();
   }
   // 同一權威世界：開紅、舊隨機挑戰及敗方保護共用鎖與收據。

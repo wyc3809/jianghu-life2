@@ -1,0 +1,13 @@
+{
+  "legacy": false,
+  "offlineDraftKept": true,
+  "missedMessageBackfilled": true,
+  "staleNetworkErrorCleared": true,
+  "recoveryActions": [
+    "view",
+    "view"
+  ],
+  "otherTabExitRecovered": true,
+  "pageerrors": [],
+  "actualIphoneTested": false
+}
