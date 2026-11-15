@@ -1,3 +1,4 @@
+import { LEGACY_FEATURES_ENABLED, isLegacyEventPaused } from '@data/redesign/legacyFeatures';
 import { ensureCombatPreset } from './loadoutPresets';
 import { martialSlots, supportMartialSlots } from './martialLoadout';
 import type { LifeCharacter, LifeGameState, WuxiaAttribute } from '@interfaces/lifeEngine';
@@ -65,7 +66,8 @@ export interface CreateLifeOptions {
 }
 
 export function createNewLife(options: CreateLifeOptions | number = {}): LifeGameState {
-  const opts: CreateLifeOptions = typeof options === 'number' ? { seed: options } : options;
+  const supplied: CreateLifeOptions = typeof options === 'number' ? { seed: options } : options;
+  const opts = LEGACY_FEATURES_ENABLED ? supplied : {...supplied,ancestry:undefined,legacy:undefined};
   const s = opts.seed ?? (Date.now() & 0xffffffff);
   resetIdCounter(0);
   initRng(s);
@@ -364,6 +366,7 @@ export function migrateLifeState(raw: LifeGameState): LifeGameState {
   ]) {
     delete c.flags[k];
   }
+  if (raw.pending && isLegacyEventPaused(raw.pending.eventId)) raw.pending=null;
   if (raw.pending?.eventId === 'play_travel_offer') raw.pending = null;
   if (c.actionPoints === undefined) {
     // 舊存檔嘅「疲勞」（高＝攰）已改做「行動力」（高＝仲有力），方向倒轉承接

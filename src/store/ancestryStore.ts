@@ -1,3 +1,4 @@
+import { LEGACY_FEATURES_ENABLED } from '@data/redesign/legacyFeatures';
 import { selectDailyTask, claimDailyTask, claimGrowthGuide, receiveOnlineJade } from '@core/life/accountEconomy';
 /**
  * 祖蔭（帳戶層、跨世永久）：localStorage `jianghu_ancestry_v1`，同人生存檔分開，
@@ -136,6 +137,7 @@ export const useAncestryStore = create<AncestryStore>()((set, get) => ({
   },
   clearMilestoneToast: () => set({ milestoneToast: [] }),
   awardCurrentLife: () => {
+    if(!LEGACY_FEATURES_ENABLED)return;
     const life = useLifeStore.getState().state;
     if (!life || life.phase !== 'summary' || life.character.flags.ancestry_awarded) return;
     const meta = structuredClone(get().meta);
@@ -148,11 +150,11 @@ export const useAncestryStore = create<AncestryStore>()((set, get) => ({
     // produce 出嚟嘅物件係凍結嘅；importState 會跑遷移，交一份可改嘅副本
     useLifeStore.getState().importState(structuredClone(next));
   },
-  buyTalent: (attr) => mutate(get, set, (m) => buyTalent(m, attr)),
-  unlockArt: (id) => mutate(get, set, (m) => unlockArt(m, id)),
-  buySecondSlot: () => mutate(get, set, (m) => buySecondSlot(m)),
-  toggleFamilyArt: (id) => mutate(get, set, (m) => toggleFamilyArt(m, id)),
-  setPanelOpen: (open) => set({ panelOpen: open }),
+  buyTalent: (attr) => LEGACY_FEATURES_ENABLED && mutate(get, set, (m) => buyTalent(m, attr)),
+  unlockArt: (id) => LEGACY_FEATURES_ENABLED && mutate(get, set, (m) => unlockArt(m, id)),
+  buySecondSlot: () => LEGACY_FEATURES_ENABLED && mutate(get, set, (m) => buySecondSlot(m)),
+  toggleFamilyArt: (id) => LEGACY_FEATURES_ENABLED && mutate(get, set, (m) => toggleFamilyArt(m, id)),
+  setPanelOpen: (open) => set({ panelOpen: LEGACY_FEATURES_ENABLED && open }),
   jadeToast: 0,
   clearJadeToast: () => set({ jadeToast: 0 }),
   receiveOnlineJade: (source,total) => { get().checkMilestones(); let gain=0;mutate(get,set,m=>{gain=receiveOnlineJade(m,source,total);return gain>0;});if(gain)set({jadeToast:get().jadeToast+gain}); },

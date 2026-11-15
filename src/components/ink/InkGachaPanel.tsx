@@ -99,10 +99,10 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
   return (
     <section ref={surfaceRef} id="ink-gacha" className={`ink-panel ink-gacha ink-codex-page is-${banner}`} aria-label="秘笈閣">
       <header className="ink-codex-heading">
-        <div><small>藏天下武學</small><h3>{view === 'shelf' ? '家族藏本' : '秘笈閣'}</h3></div>
+        <div><small>藏天下武學</small><h3>{view === 'shelf' ? '秘笈藏本' : '秘笈閣'}</h3></div>
         <div className="ink-codex-heading-actions">
           <button type="button" onClick={() => setSheet('info')} aria-label="卡池詳情">池規</button>
-          <button type="button" onClick={() => setView(view === 'shelf' ? 'draw' : 'shelf')} aria-pressed={view === 'shelf'}>{view === 'shelf' ? '返回抽取' : <>家族收藏 <b>{Object.keys(manuals).length}</b></>}<small>書頁 {(meta.pages ?? 0).toLocaleString('zh-Hant')}頁</small></button>
+          <button type="button" onClick={() => setView(view === 'shelf' ? 'draw' : 'shelf')} aria-pressed={view === 'shelf'}>{view === 'shelf' ? '返回抽取' : <>秘笈收藏 <b>{Object.keys(manuals).length}</b></>}<small>書頁 {(meta.pages ?? 0).toLocaleString('zh-Hant')}頁</small></button>
         </div>
       </header>
       <div className="ink-codex-wallet" aria-label="玉石餘額">
@@ -151,7 +151,7 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
           {BANNER_IDS.map(id => <p key={id}><b>{BANNERS[id].name}</b>：{BANNERS[id].blurb}</p>)}
           <p>每抽 {GACHA_COST_PER_PULL} 玉石；設定心願後 {GACHA_WISH_PITY} 抽內必出心願。外功分七卷，抽中外功時出一卷。</p>
           <p>非保底抽取：{GACHA_ART_RATE*100}%武學、{(1-GACHA_ART_RATE)*100}%書頁；每份書頁＋{GACHA_PAGES_PER_PULL}頁，抽中後直接入帳。抽到書頁同樣推進心願保底，第{GACHA_WISH_PITY}抽必出已設定的心願。</p>
-          <p>書頁即秘笈碎片，累積{PAGES_PER_EXCHANGE}頁可到家族收藏兌換一般江湖武學，不能兌換珍本。十連按十抽依次結算；未觸及心願保底時，不保證獲得武學。</p>
+          <p>書頁即秘笈碎片，累積{PAGES_PER_EXCHANGE}頁可到秘笈收藏兌換一般江湖武學，不能兌換珍本。十連按十抽依次結算；未觸及心願保底時，不保證獲得武學。</p>
           <div className="ink-codex-odds" aria-label="本冊實際機率">
             <p><b>目前選擇：{BANNERS[banner].name} · 第{pool.part}冊</b></p>
             <p>未觸發保底時，每抽武學 {percent(odds.art)}、書頁 {percent(odds.pages)}。</p>
@@ -172,7 +172,7 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
         {sheet === 'results' && <>
           <p aria-label="抽取結果來源">上次抽取：{resultPool ? `${SCHOOLS.find(s => s.id === resultPool.school)?.name} · ${BANNERS[resultPool.banner].name} 第${resultPool.part}冊` : '秘笈入藏'}{resultPool && resultPool.id !== pool.id ? '（目前已切換小冊）' : ''}</p>
           <ul className="ink-pull-results" aria-label="抽卡結果">{lastPull?.map((r,i) => r.kind === 'pages'
-            ? <li key={`pages-${i}`} className="ink-pull-card" data-reward-kind="pages"><strong className="ink-pull-name">書頁 ×{r.pages}</strong><span>秘笈碎片 · 已入帳{r.pages}頁</span><p>到家族收藏累積{PAGES_PER_EXCHANGE}頁可兌換一般江湖武學。</p></li>
+            ? <li key={`pages-${i}`} className="ink-pull-card" data-reward-kind="pages"><strong className="ink-pull-name">書頁 ×{r.pages}</strong><span>秘笈碎片 · 已入帳{r.pages}頁</span><p>到秘笈收藏累積{PAGES_PER_EXCHANGE}頁可兌換一般江湖武學。</p></li>
             : <li key={`${r.id}-${i}`} className={`ink-pull-card${r.isPremium ? ' is-premium' : ''}${r.isWish ? ' is-wish' : ''}`} data-reward-kind="art">
               <strong className="ink-pull-name">{r.vol ? volumeLabel(r.id,r.vol) : skillLabel(r.id)}</strong><InkSkillSchools id={r.id} /><span>{skillKindLabel(getSkillDef(r.id)!.kind)} · {r.isPremium ? '珍本' : '江湖'} · {r.isNew ? '新得' : '重複'}{r.isWish ? ' · 心願' : ''}</span>{equipControl(r.id)}
             </li>)}</ul>

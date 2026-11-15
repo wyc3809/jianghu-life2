@@ -107,12 +107,12 @@ describe('取消角色年齡', () => {
     syncAchievements(state); syncTitles(state);
     for (const id of ['ach_elder', 'ach_age_80']) expect(readAchievementIds(state)).not.toContain(id);
     expect(listAchievementStatus(state).some(a => ['ach_elder', 'ach_age_80'].includes(a.id))).toBe(false);
-    expect(achievementProgress(state).total).toBe(38);
+    expect(achievementProgress(state).total).toBe(37);
     state.character.flags.achievements = 'ach_elder,ach_age_80';
     state.character.flags.titles = 'title_elder';
     syncAchievements(state); syncTitles(state);
     expect(readAchievementIds(state)).toEqual(expect.arrayContaining(['ach_elder', 'ach_age_80']));
-    expect(achievementProgress(state).total).toBe(40);
+    expect(achievementProgress(state).total).toBe(39);
     expect(allTitles(state).some(t => t.id === 'title_elder')).toBe(true);
     expect(titleBonusTotals(state).defense).toBeGreaterThanOrEqual(3);
   });

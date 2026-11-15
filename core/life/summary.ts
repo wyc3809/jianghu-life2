@@ -1,3 +1,4 @@
+import { LEGACY_FEATURES_ENABLED } from '@data/redesign/legacyFeatures';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { wuxiaAttributeLabels, wuxiaAttributeKeys } from '@interfaces/lifeEngine';
 import { skillDisplay } from './flavor';
@@ -84,24 +85,27 @@ export function buildLifeSummary(state: LifeGameState): string {
   if (c.family?.childrenNames?.length) {
     lines.push(`　　【子女】${c.family.childrenNames.join('、')}`);
   }
-  const heir =
-    typeof c.flags.heir_name === 'string' && c.flags.heir_name
-      ? String(c.flags.heir_name)
-      : c.family?.childrenNames?.[0];
-  if (heir) {
-    lines.push(`　　【繼承人】${heir}`);
+  if (LEGACY_FEATURES_ENABLED) {
+    const heir =
+      typeof c.flags.heir_name === 'string' && c.flags.heir_name
+        ? String(c.flags.heir_name)
+        : c.family?.childrenNames?.[0];
+    if (heir) {
+      lines.push(`　　【繼承人】${heir}`);
+    }
+
+    const carryBits: string[] = ['家族銀庫', '裝備庫', '秘笈收藏'];
+    if (c.flags.legacy_teacher) carryBits.push('傳功');
+    if (c.flags.legacy_friend) carryBits.push('故人');
+    lines.push('', `　　【可傳後世】${carryBits.join('、')}`);
+    if ((c.childrenCount ?? 0) <= 0) lines.push('　　【承祧】無嗣，由族中旁支接班');
+    lines.push(`　　【家族銀庫】${previewInheritanceMoney(state).toLocaleString('zh-Hant')} 兩（全數傳後人）`);
+    const gearN = familyGearCarry(state).length;
+    if (gearN > 0) lines.push(`　　【家族裝備庫】${gearN} 件（全數傳後人）`);
+
+    lines.push('', ...formatGenealogyText(state).map((l) => (l.startsWith('【') ? `　　${l}` : `　${l}`)));
+
   }
-
-  const carryBits: string[] = ['家族銀庫', '裝備庫', '秘笈收藏'];
-  if (c.flags.legacy_teacher) carryBits.push('傳功');
-  if (c.flags.legacy_friend) carryBits.push('故人');
-  lines.push('', `　　【可傳後世】${carryBits.join('、')}`);
-  if ((c.childrenCount ?? 0) <= 0) lines.push('　　【承祧】無嗣，由族中旁支接班');
-  lines.push(`　　【家族銀庫】${previewInheritanceMoney(state).toLocaleString('zh-Hant')} 兩（全數傳後人）`);
-  const gearN = familyGearCarry(state).length;
-  if (gearN > 0) lines.push(`　　【家族裝備庫】${gearN} 件（全數傳後人）`);
-
-  lines.push('', ...formatGenealogyText(state).map((l) => (l.startsWith('【') ? `　　${l}` : `　${l}`)));
 
   lines.push('', pickEpitaph(state), '', '　　（印）終');
   return lines.join('\n');

@@ -87,7 +87,8 @@ describe('jianghu pack repository + outcome resolver', () => {
     initRng(11);
     const state = createNewLife(11);
     const eligible = filterPackByConditions(state);
-    expect(eligible.length).toBe(100);
+    expect(eligible.length).toBe(99);
+    expect(eligible.some(e => e.id === 'event_064')).toBe(false);
     const picked = pickWeightedPackEvent(state, eligible)!;
     expect(picked.id).toMatch(/^event_\d{3}$/);
 
@@ -172,7 +173,6 @@ describe('life event engine', () => {
       'temper_body',
       'drink_wine',
       'seek_child',
-      'designate_heir',
       'heal',
       'heal_full',
       'forge_fine',
@@ -1048,7 +1048,7 @@ describe('life event engine', () => {
     expect(state.character.health).toBeGreaterThan(0);
   });
 
-  it('legacy carry soft-buffs next life and records generation', async () => {
+  it('test_paused_legacy_keeps_archive_without_soft_buffs_or_next_generation', async () => {
     const { extractLegacy } = await import('../core/life/legacy');
     const { buildLifeSummary } = await import('../core/life/summary');
     const { recordDeath } = await import('../core/life/death');
@@ -1062,17 +1062,14 @@ describe('life event engine', () => {
     prev.phase = 'summary';
     prev.summaryText = buildLifeSummary(prev);
     expect(prev.summaryText).toContain('死因：試劍不敵');
-    expect(prev.summaryText).toMatch(/族規|傳功/);
+    expect(prev.summaryText).not.toMatch(/族規|傳功|可傳後世/);
 
     const legacy = extractLegacy(prev);
     expect(legacy.familyLegacy).toBe(true);
     expect(legacy.teacherLegacy).toBe(true);
 
     const next = createNewLife({ seed: 12, legacy });
-    expect(next.character.flags.legacy_generation).toBe(2);
-    expect(next.character.martial).toBeGreaterThan(8);
-    expect(next.lifeLog.some((l) => l.includes('前世'))).toBe(true);
-    expect(next.character.money).toBeGreaterThan(60);
+    expect(next).toEqual(createNewLife({ seed: 12 }));
   });
 
   it('story chapters do not advance over months', async () => {

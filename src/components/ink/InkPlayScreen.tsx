@@ -1,3 +1,4 @@
+import { buildLifeSummary } from '@core/life/summary';
 import { InkSaveStatus } from './InkSaveStatus';
 import { InkModal } from './InkModal';
 import { usePrefersReducedMotion } from '../../hooks/useStillMode';
@@ -55,7 +56,6 @@ import { InkEventPanel } from './InkEventPanel';
 import { InkCombatPanel } from './InkCombatPanel';
 import { InkAutoBattleView } from './InkAutoBattleView';
 import { InkLifeOrDeathConfirm } from './InkLifeOrDeathConfirm';
-import { InkSuccessionModal } from './InkSuccessionModal';
 import { InkHomeGoals } from './InkHomeGoals';
 import { InkIdleHarvest } from './InkIdleHarvest';
 import { InkHomeQuick, type QuickTarget } from './InkHomeQuick';
@@ -64,7 +64,6 @@ import { InkJianghuHub, type JianghuView } from './InkFeatureMenu';
 import { InkEncounterCard, InkEncounterModal } from './InkEncounter';
 import { newbieActive } from '@core/life/goals';
 import { NEWBIE_TRIAL } from '@data/redesign/newbie';
-import { familyGearCarry, getHeirName, previewInheritanceMoney } from '@core/life/family';
 import { needsLifeOrDeathConfirm } from '@core/life/combat';
 import { InkBreakthroughModal } from './InkBreakthroughModal';
 import { InkMomentFx } from './InkMomentFx';
@@ -144,7 +143,6 @@ export function InkPlayScreen({ state }: Props) {
   const clearBreakthroughResult = useLifeStore((s) => s.clearBreakthroughResult);
   const ackMoment = useLifeStore((s) => s.ackMoment);
   const offlineGain = useLifeStore((s) => s.offlineGain);
-  const succession = useLifeStore((s) => s.succession);
   const milestoneToast = useAncestryStore((s) => s.milestoneToast);
   const checkMilestones = useAncestryStore((s) => s.checkMilestones);
   const clearMilestoneToast = useAncestryStore((s) => s.clearMilestoneToast);
@@ -168,7 +166,7 @@ export function InkPlayScreen({ state }: Props) {
     const t = window.setTimeout(clearJadeToast, 4200);
     return () => window.clearTimeout(t);
   }, [jadeToast, clearJadeToast]);
-  // 家族里程碑：每次狀態變就檢查（純函數，已領過嘅唔會重複）
+  // 帳戶結算：同步普通玉石與秘笈收藏；家族里程碑已暫停。
   useEffect(() => {
     checkMilestones();
   }, [state, checkMilestones]);
@@ -177,7 +175,6 @@ export function InkPlayScreen({ state }: Props) {
     const t = window.setTimeout(clearMilestoneToast, 1400 * milestoneToast.length + 3200);
     return () => window.clearTimeout(t);
   }, [milestoneToast, clearMilestoneToast]);
-  const clearSuccession = useLifeStore((s) => s.clearSuccession);
   const clearOfflineGain = useLifeStore((s) => s.clearOfflineGain);
   useEffect(() => {
     if(import.meta.env.VITE_ONLINE_PUBLIC !== '1') return;
@@ -275,8 +272,6 @@ export function InkPlayScreen({ state }: Props) {
   const month = state.month ?? 1;
   const pendingEvent = resolvePendingEvent(state);
   const sect = c.sectId ? state.sects[c.sectId] : null;
-  const hasHeir = (c.childrenCount ?? 0) > 0;
-  const heirLabel = getHeirName(state) ? `子女「${getHeirName(state)}」` : '子女';
   const hpPct = Math.max(0, Math.min(100, (c.health / Math.max(1, c.maxHealth)) * 100));
   const qiPct = Math.max(0, Math.min(100, ((c.qi ?? 0) / Math.max(1, c.maxQi ?? 1)) * 100));
   const fatigue = Math.max(0, Math.min(100, Math.round(100 - (c.actionPoints ?? 0))));
@@ -354,7 +349,6 @@ export function InkPlayScreen({ state }: Props) {
   }, [moneyNow, combat]);
   const moneyShown = useRollingNumber(moneyNow, { delayRef: moneyDelay });
 
-  // 祖蔭：人生到總結就結算一次（角色 flag 防重複）
   const jadeBal = useAncestryStore((s) => s.meta.jade);
   const jadeTotal = (jadeBal?.free ?? 0) + (jadeBal?.paidTest ?? 0);
   const setEncounterOpen = useAncestryStore((s) => s.setEncounterOpen);
@@ -377,10 +371,7 @@ export function InkPlayScreen({ state }: Props) {
       }
     }
   };
-  const awardCurrentLife = useAncestryStore((s) => s.awardCurrentLife);
-  useEffect(() => {
-    if (state.phase === 'summary') awardCurrentLife();
-  }, [state.phase, awardCurrentLife]);
+
 
   // 結果彈窗：故事同系統訊息分開；長文自動慢慢捲落去（玩家要求 2026-10-09，取代「展開全文」）
   const resultStoryRef = useRef<HTMLDivElement | null>(null);
@@ -601,7 +592,6 @@ export function InkPlayScreen({ state }: Props) {
       <InkAmbientFx mode="ink" paused={Boolean(combat) || onFullPage} />
       {sealText && <InkSealStamp text={sealText} onDone={clearSeal} />}
 
-      {succession && <InkSuccessionModal lines={succession} onClose={clearSuccession} />}
 
       {milestoneToast.length > 0 && <InkAchievementToast key={milestoneToast.join('|')} names={milestoneToast} seal="里程碑" />}
 
@@ -1054,7 +1044,7 @@ export function InkPlayScreen({ state }: Props) {
       {state.phase === 'summary' && (
         <section className="ink-panel ink-epitaph">
           <h3>一生總結</h3>
-          <pre className="ink-epitaph-text">{state.summaryText}</pre>
+          <pre className="ink-epitaph-text">{buildLifeSummary(state)}</pre>
           <InkStaticSeal text="終" className="ink-seal-static--end" />
 
           {cloudConfigured() && (
@@ -1063,14 +1053,9 @@ export function InkPlayScreen({ state }: Props) {
             </button>
           )}
           <button type="button" className="ink-btn ink-btn--primary" onClick={() => reincarnate()}>
-            後人接班 · 再入江湖
+            另起新生 · 再入江湖
           </button>
-          <p className="ink-note ink-note--center">
-            {hasHeir
-              ? `由${heirLabel}接班；`
-              : '前世無嗣，由族中旁支承祧；'}
-            家族銀庫 {previewInheritanceMoney(state).toLocaleString('zh-Hant')} 兩、裝備 {familyGearCarry(state).length} 件全數傳落去。
-          </p>
+
         </section>
       )}
 

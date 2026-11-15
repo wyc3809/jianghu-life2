@@ -41,7 +41,7 @@ describe('origin chronicle + no english gear names', () => {
     expect(displayGearName('舊鐵劍')).toBe('舊鐵劍');
   });
 
-  it('legacy gear dream event body uses Chinese name', () => {
+  it('test_paused_legacy_gear_dream_does_not_open_event', () => {
     const next = createNewLife({ seed: 56, skipCoach: true });
     next.character.flags.born_with_gear_dream = 'old-sword';
     next.character.flags.legacy_script_gear = true;
@@ -52,9 +52,7 @@ describe('origin chronicle + no english gear names', () => {
     delete next.character.flags.born_with_friend_hint;
     delete next.character.flags.legacy_theme_echo;
     const ev = buildLegacyScriptEvent(next);
-    expect(ev?.id).toBe('legacy_script_gear');
-    expect(ev?.body ?? '').toContain('舊鐵劍');
-    expect(ev?.body ?? '').not.toMatch(/old-sword/);
+    expect(ev).toBeNull();
   });
 
   it('applyLegacy stores Chinese gear dream', () => {

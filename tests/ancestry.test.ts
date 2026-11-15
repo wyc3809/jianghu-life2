@@ -13,7 +13,7 @@ import {
 } from '../core/life/ancestry';
 import { createNewLife } from '../core/life/gameState';
 import { initRng } from '../core/random';
-import { ART_UNLOCK_COST, MERIT_CAP_PER_LIFE, SECOND_SLOT_COST, TALENT_STEP } from '../data/ancestry/tuning';
+import { ART_UNLOCK_COST, MERIT_CAP_PER_LIFE, SECOND_SLOT_COST } from '../data/ancestry/tuning';
 
 function endedLife(seed = 5) {
   initRng(seed);
@@ -84,7 +84,7 @@ describe('ancestral merit (design/gdd/ancestral-merit.md)', () => {
     expect(meta.points).toBe(0);
   });
 
-  it('test_ancestry_apply_is_deterministic_and_adds_arts_without_moment', () => {
+  it('test_ancestry_paused_create_ignores_talents_and_family_arts', () => {
     const s0 = endedLife(9);
     const art = s0.character.skills[0]!;
     const meta = emptyAncestry();
@@ -97,10 +97,10 @@ describe('ancestral merit (design/gdd/ancestral-merit.md)', () => {
     const b = make();
     expect(a.character.attributes).toEqual(b.character.attributes);
     const plain = createNewLife({ seed: 77 });
-    expect(a.character.attributes.wuXing).toBe(Math.min(100, plain.character.attributes.wuXing + 2 * TALENT_STEP));
-    expect(a.character.skills).toContain(art);
-    expect((a.moments ?? []).some((m) => m.kind === 'learn')).toBe(false);
-    expect(a.lifeLog.some((l) => l.includes('祖蔭'))).toBe(true);
+    expect(a).toEqual(plain);
+    expect(a.lifeLog.some((l) => l.includes('祖蔭'))).toBe(false);
+    expect(meta.talents.wuXing).toBe(2);
+    expect(meta.familyArts).toEqual([art]);
   });
 
   it('test_ancestry_parse_bad_data_is_empty', () => {

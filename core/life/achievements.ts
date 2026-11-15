@@ -1,3 +1,4 @@
+import { LEGACY_FEATURES_ENABLED } from '@data/redesign/legacyFeatures';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { jianghuRank } from './jianghuRank';
 
@@ -108,6 +109,7 @@ export const ACHIEVEMENT_RULES: AchievementDef[] = [
     id: 'ach_legacy',
     label: '再世',
     hint: '轉世再入江湖',
+    retired: !LEGACY_FEATURES_ENABLED,
     test: (s) => Number(s.character.flags.legacy_generation ?? 1) >= 2,
   },
   // —— 戰績 ——
@@ -299,7 +301,7 @@ export function syncAchievements(state: LifeGameState): string[] {
 
 export function achievementLabels(state: LifeGameState): string[] {
   const ids = new Set(readAchievementIds(state));
-  return ACHIEVEMENT_RULES.filter((r) => ids.has(r.id)).map((r) => r.label);
+  return ACHIEVEMENT_RULES.filter((r) => (LEGACY_FEATURES_ENABLED || r.id !== 'ach_legacy') && ids.has(r.id)).map((r) => r.label);
 }
 
 export function listAchievementStatus(state: LifeGameState): Array<{
@@ -309,7 +311,7 @@ export function listAchievementStatus(state: LifeGameState): Array<{
   unlocked: boolean;
 }> {
   const ids = new Set(readAchievementIds(state));
-  return ACHIEVEMENT_RULES.filter((r) => !r.retired || ids.has(r.id)).map((r) => ({
+  return ACHIEVEMENT_RULES.filter((r) => (LEGACY_FEATURES_ENABLED || r.id !== 'ach_legacy') && (!r.retired || ids.has(r.id))).map((r) => ({
     id: r.id,
     label: r.label,
     hint: r.hint,
@@ -320,7 +322,7 @@ export function listAchievementStatus(state: LifeGameState): Array<{
 export function achievementProgress(state: LifeGameState): { unlocked: number; total: number } {
   const ids = new Set(readAchievementIds(state));
   return {
-    unlocked: ACHIEVEMENT_RULES.filter((r) => ids.has(r.id)).length,
-    total: ACHIEVEMENT_RULES.filter((r) => !r.retired || ids.has(r.id)).length,
+    unlocked: ACHIEVEMENT_RULES.filter((r) => (LEGACY_FEATURES_ENABLED || r.id !== 'ach_legacy') && ids.has(r.id)).length,
+    total: ACHIEVEMENT_RULES.filter((r) => (LEGACY_FEATURES_ENABLED || r.id !== 'ach_legacy') && (!r.retired || ids.has(r.id))).length,
   };
 }

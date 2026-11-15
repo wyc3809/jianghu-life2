@@ -1,3 +1,4 @@
+import { LEGACY_FEATURES_ENABLED } from '@data/redesign/legacyFeatures';
 /**
  * 人生差異層（題眼／關路／心性可見／余韻／墓誌）
  * 不改引擎骨架，只透過 flags + 權重 + 文案改「每世形狀」。
@@ -394,6 +395,7 @@ export function preferredArcIds(state: LifeGameState): string[] {
 
 /** 傳承劇本：來世專屬開場事件需求旗 */
 export function scheduleLegacyScripts(state: LifeGameState): void {
+  if(!LEGACY_FEATURES_ENABLED)return;
   const f = state.character.flags;
   if (f.born_with_rival_hint) f.legacy_script_rival = true;
   if (f.born_with_friend_hint) f.legacy_script_friend = true;
@@ -402,6 +404,7 @@ export function scheduleLegacyScripts(state: LifeGameState): void {
 }
 
 export function buildLegacyScriptEvent(state: LifeGameState): GameEvent | null {
+  if(!LEGACY_FEATURES_ENABLED)return null;
   const f = state.character.flags;
   const months = state.character.stats.monthsLived ?? 0;
   // 來世前半年內插入專屬頁

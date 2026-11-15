@@ -1,3 +1,4 @@
+import { isLegacyEventPaused } from '@data/redesign/legacyFeatures';
 import packJson from '@data/events/jianghu_random_events_100.json';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getRng } from '@core/random';
@@ -69,6 +70,7 @@ export function getPackChoice(eventId: string, choiceId: string): PackChoiceRaw 
 export function filterPackByConditions(state: LifeGameState): PackEventRaw[] {
   const c = state.character;
   return library.events.filter((event) => {
+    if (isLegacyEventPaused(event.id)) return false;
     const cond = event.conditions ?? {};
 
     for (const f of cond.required_flags ?? []) {
