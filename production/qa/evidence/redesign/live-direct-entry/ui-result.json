@@ -1,0 +1,24 @@
+{
+  "transport": "mocked live module; no Auth or cloud writes",
+  "strictModeSingleEntry": true,
+  "entryAndRetry": true,
+  "exitDoesNotRejoin": true,
+  "reentryKeepsProtection": true,
+  "noAutoRed": true,
+  "otherTabExitReturnsHome": true,
+  "viewports": [
+    [
+      320,
+      568
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      430,
+      932
+    ]
+  ],
+  "pageerrors": []
+}
