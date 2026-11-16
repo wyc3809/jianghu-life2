@@ -62,3 +62,19 @@ it('test_live_篡改傷害排名及非參與者_在交易前拒絕',async()=>{
  await f.call(0,'red',{requestId:req(3),enabled:true});await expect(f.call(0,'attack',{requestId:req(4),target:ids[0]})).rejects.toMatchObject({status:409});
  expect(f.battles.size).toBe(0);
 });
+it('test_live_直接重入_保留開紅名次銀兩及敗方保護',async()=>{
+ const f=fixture();await f.join(0);await f.join(1);
+ await f.call(0,'red',{requestId:req(1),enabled:true});
+ await f.call(0,'attack',{requestId:req(2),target:ids[1]});
+ const battle=[...f.battles.values()][0];f.setNow(battle.endsAt);
+ const before=await f.call(1,'world') as OnlineSnapshot;
+ const redBefore=await f.call(0,'world') as OnlineSnapshot;
+ const joined=await f.join(1) as OnlineSnapshot;
+ const redJoined=await f.join(0) as OnlineSnapshot;
+ for(const [old,next]of [[before,joined],[redBefore,redJoined]]){
+  expect(next.me.protectedUntil).toBe(old.me.protectedUntil);
+  expect(next.me.rank).toBe(old.me.rank);expect(next.me.silver).toBe(old.me.silver);
+  expect(next.me.live).toEqual(old.me.live);expect(next.me.character).toEqual(old.me.character);
+ }
+ expect(redJoined.me.live?.red).toBe(true);expect(joined.me.protectedUntil).toBeGreaterThan(joined.serverNow);
+});

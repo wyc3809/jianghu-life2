@@ -16,10 +16,11 @@ export default function InkLiveWorld({onBack,backLabel='返回江湖風雲',onAc
  const name=useLifeStore(s=>s.state?.character.name??'江湖旅人');
  const [snapshot,setSnapshot]=useState<OnlineSnapshot|null>(null),[chat,setChat]=useState<LiveMessages>({messages:[],blocked:[]});
  const [target,setTarget]=useState(''),[draft,setDraft]=useState(''),[error,setError]=useState(''),[networkError,setNetworkError]=useState(''),[notice,setNotice]=useState('');
- const [pending,setPending]=useState(false),[ready,setReady]=useState(false),[connected,setConnected]=useState(false);
+ const [pending,setPending]=useState(false),[connected,setConnected]=useState(false);
  const [confirm,setConfirm]=useState<OnlinePeer|null>(null),[watch,setWatch]=useState<LiveWatch|null>(null),[now,setNow]=useState(Date.now());
  const busy=useRef(false),refreshing=useRef(false),refreshAgain=useRef(false),alive=useRef(true),targetRef=useRef(target),epoch=useRef(0),offset=useRef(0);
- const joinedRef=useRef(false),renewRequested=useRef(false);
+ const joinedRef=useRef(false),renewRequested=useRef(false),entryWanted=useRef(true),nameRef=useRef(name),backRef=useRef(onBack);
+ nameRef.current=name;backRef.current=onBack;
  const watchId=useRef<string|null>(null),dismissed=useRef(new Set<string>()),logRef=useRef<HTMLDivElement>(null),inputRef=useRef<HTMLTextAreaElement>(null);
  const reduced=usePrefersReducedMotion();targetRef.current=target;
  const me=snapshot?.me,joined=Boolean(me?.live?.joined);
@@ -33,11 +34,16 @@ export default function InkLiveWorld({onBack,backLabel='返回江湖風雲',onAc
    do{
     refreshAgain.current=false;const sent=Date.now(),channel=targetRef.current,generation=epoch.current;
     const renewNow=renewRequested.current;renewRequested.current=false;
-    const view=joinedRef.current?await liveRequest<LiveView>('view',{...channel?{target:channel}:{},...renewNow?{renew:true}:{}}):null;
-    const s=view?.snapshot??await liveRequest<OnlineSnapshot>('world');if(!alive.current)break;
+    const entering=entryWanted.current;
+    const view=!entering&&joinedRef.current?await liveRequest<LiveView>('view',{...channel?{target:channel}:{},...renewNow?{renew:true}:{}}):null;
+    // 直接沿用會先保存本世配搭的加入指令；初次身份亦毋須先查名冊。
+    const s=entering?await liveRequest<OnlineSnapshot>('liveEnter',{name:nameRef.current}):view?.snapshot??await liveRequest<OnlineSnapshot>('world');
+    if(!alive.current)break;
+    if(s.me.live?.joined)entryWanted.current=false;
+    else if(!entering){backRef.current();break;}
     if(generation!==epoch.current){refreshAgain.current=true;continue;}
     joinedRef.current=Boolean(s.me.live?.joined);
-    offset.current=s.serverNow-(sent+Date.now())/2;setSnapshot(previous=>!previous||s.revision>=previous.revision?s:previous);setConnected(true);setReady(true);setNetworkError('');
+    offset.current=s.serverNow-(sent+Date.now())/2;setSnapshot(previous=>!previous||s.revision>=previous.revision?s:previous);setConnected(true);setNetworkError('');
     if(s.me.live?.joined){
      const messages=view?.chat??await liveRequest<LiveMessages>('messages',channel?{target:channel}:{});
      if(alive.current&&generation===epoch.current)setChat(messages);
@@ -48,10 +54,13 @@ export default function InkLiveWorld({onBack,backLabel='返回江湖風雲',onAc
      }
     }
    }while(refreshAgain.current&&alive.current);
-  }catch(e){if(alive.current){setReady(true);setConnected(false);if(!(e instanceof Error&&'status'in e&&e.status===404))setNetworkError(e instanceof Error?e.message:'同遊暫時未能連線。');}}
+  }catch(e){if(alive.current){setConnected(false);setNetworkError(e instanceof Error?e.message:'同遊暫時未能連線。');}}
   finally{refreshing.current=false;}
  },[]);
- useEffect(()=>{alive.current=true;void refresh();const timer=setInterval(()=>setNow(Date.now()+offset.current),1000);return()=>{alive.current=false;clearInterval(timer);};},[refresh]);
+ useEffect(()=>{alive.current=true;void refresh();const timer=setInterval(()=>setNow(Date.now()+offset.current),1000);
+  const reconnect=()=>{if(!document.hidden&&!joinedRef.current)void refresh();};
+  window.addEventListener('online',reconnect);document.addEventListener('visibilitychange',reconnect);
+  return()=>{alive.current=false;clearInterval(timer);window.removeEventListener('online',reconnect);document.removeEventListener('visibilitychange',reconnect);};},[refresh]);
  useEffect(()=>{
   if(!joined)return;
   let disposed=false,stop=()=>{};
@@ -81,10 +90,10 @@ export default function InkLiveWorld({onBack,backLabel='返回江湖風雲',onAc
   {onActivities&&<nav className="live-activities" aria-label="同遊活動"><button type="button" className="online-frame" onClick={()=>onActivities('guild')}>江湖幫會</button><button type="button" className="online-frame" onClick={()=>onActivities('sectWar')}>門派會武</button><button type="button" className="online-frame" onClick={()=>onActivities('opponents')}>隨機對戰</button><button type="button" className="online-frame" onClick={()=>onActivities('main')}>修行與戰報</button></nav>}
   {(error||networkError)&&<p role="alert" className="live-feedback">{error||networkError} <button type="button" onClick={()=>void refresh()}>重新連線</button></p>}
   {notice&&<p role="status" className="live-feedback">{notice}</p>}
-  {!joined?<div className="live-intro"><p>以本世人物及對戰配搭加入。所有參與者均可互相交手，離線仍會自動應戰；主動退出後停止參與。</p><p>戰敗後保護30秒，主動出擊即解除。交手只論名次，不受傷、不死亡、不掉裝。</p><button type="button" className="ink-btn ink-btn--primary" disabled={pending||!ready} onClick={()=>void run(async()=>{const next=await liveRequest<OnlineSnapshot>('liveEnter',{name});setSnapshot(next);})}>{pending?'正在入席……':'加入同遊'}</button></div>:<>
+  {!joined?<div className="live-intro"><p role="status">{error||networkError?'未能入席，連線恢復後可再試。':'正在走入同遊江湖……'}</p></div>:<>
    <div className="live-status"><strong>{me!.character.name} · 第{me!.rank}名</strong><span>{protection?`戰敗保護 ${protection}秒`:me!.busy?'交手中':me!.live?.red?'開紅中':'收刀中'}</span></div>
-   <div className="live-actions"><button type="button" className="online-frame" aria-pressed={me!.live?.red} disabled={pending||Boolean(me!.busy)} onClick={()=>void run(async()=>{await liveCommand('red',{enabled:!me!.live?.red});})}>{me!.live?.red?'收刀':'開紅'}</button><button type="button" className="online-frame" disabled={pending||Boolean(me!.busy)} onClick={()=>void run(async()=>{await liveRequest('liveLeave');setChat({messages:[],blocked:[]});setSnapshot(null);})}>退出同遊</button></div>
-   <p className="live-rule">開紅才能出手；收刀、屏蔽對話仍可被挑戰。</p>
+   <div className="live-actions"><button type="button" className="online-frame" aria-pressed={me!.live?.red} disabled={pending||Boolean(me!.busy)} onClick={()=>void run(async()=>{await liveCommand('red',{enabled:!me!.live?.red});})}>{me!.live?.red?'收刀':'開紅'}</button><button type="button" className="online-frame" disabled={pending||Boolean(me!.busy)} onClick={()=>void run(async()=>{await liveRequest('liveLeave');entryWanted.current=false;onBack();})}>退出同遊</button></div>
+   <p className="live-rule">開紅才能出手；收刀、離線仍可被挑戰。戰敗保護30秒，主動出擊即解除；交手不傷亡、不掉裝。退出同遊後停止參與。</p>
    <details className="live-peers"><summary>同遊俠客 · {peers.length}人</summary>{peers.filter(p=>p.id!==me!.id).map(p=><article key={p.id} className="live-peer"><AppearanceBadge character={p} size={44}/><div><strong>{p.name}{p.live?.red?' · 紅名':''}</strong><small>第{p.rank}名 · {p.online?'在線':'離線應戰'}{p.protectedUntil>now?` · 保護${Math.ceil((p.protectedUntil-now)/1000)}秒`:p.busy?' · 交手中':''}</small></div><div className="live-peer-actions"><button type="button" className="online-frame" onClick={()=>{setTarget(p.id);inputRef.current?.focus();}}>私訊</button><button type="button" className="online-frame" disabled={pending||!me!.live?.red||Boolean(me!.busy)||Boolean(p.busy)||p.protectedUntil>now} onClick={()=>setConfirm(p)}>交手</button><button type="button" className="live-text-action" disabled={pending} onClick={()=>void run(async()=>{await liveRequest('block',{target:p.id,blocked:!chat.blocked.includes(p.id)});})}>{chat.blocked.includes(p.id)?'解除屏蔽':'屏蔽對話'}</button></div></article>)}{peers.length===1&&<p>暫無其他俠客入席。</p>}</details>
    <label className="live-channel">對話頻道<select aria-label="對話頻道" value={target} onChange={e=>setTarget(e.target.value)}><option value="">江湖公頻</option>{snapshot?.peers.filter(p=>p.id!==me!.id).map(p=><option value={p.id} key={p.id}>私訊 · {p.name}</option>)}</select></label>
    <div ref={logRef} className="live-chat" role="log" aria-label={target?'私訊紀錄':'江湖對話'} aria-relevant="additions text">{!chat.messages.length&&<p className="live-chat-empty">{target?'尚無往來書信。':'茶香正暖，向同遊俠客打個招呼。'}</p>}{chat.messages.map(m=><article key={m.id} className={m.sender===me!.id?'is-self':''}><header><b>{m.name}</b><time dateTime={m.created_at}>{new Date(m.created_at).toLocaleTimeString('zh-HK',{hour:'2-digit',minute:'2-digit',hour12:false})}</time>{m.sender!==me!.id&&<button type="button" className="live-text-action" disabled={pending} aria-label={`舉報${m.name}的訊息`} onClick={()=>void run(async()=>{await liveCommand('report',{messageId:m.id,reason:'不當內容'});setNotice('舉報已收妥。');})}>舉報</button>}</header><p>{m.body}</p></article>)}</div>
