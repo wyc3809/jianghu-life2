@@ -1,5 +1,8 @@
 # Art Bible — 江湖一生
 
+> **已過時（2026-11-16）**：現行分層基準見 [`CURRENT-STYLE.md`](./CURRENT-STYLE.md)。本檔只作歷史參考。
+
+
 > **2026-10-10 起由 [`art-direction-b.md`](./art-direction-b.md)（古風寫實，參考九陰真經）取代；以下內容同新方向衝突時以新方向為準。**
 
 > **權威風格約束見 [`STYLE-BIBLE.md`](./STYLE-BIBLE.md)**  

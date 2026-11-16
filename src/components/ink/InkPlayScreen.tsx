@@ -307,7 +307,9 @@ export function InkPlayScreen({ state }: Props) {
   const onGachaPage = tab === 'jianghu' && jianghuView === 'gacha' && !combat && !eventFocus;
   const onPersonPage = tab === 'person' && !combat && !eventFocus;
   const onLivePage=tab==='jianghu'&&jianghuView==='online'&&onlineFocused&&!combat&&!eventFocus;
-  const onFullPage = onJianghuMap || onGachaPage || onPersonPage || onLivePage;
+  /** 華山論劍／開宗立派：同秘笈閣一樣獨立全畫面（2026-11-16 美術檢視 S6） */
+  const onFeaturePage = tab === 'jianghu' && (jianghuView === 'huashan' || jianghuView === 'founder') && !combat && !eventFocus;
+  const onFullPage = onJianghuMap || onGachaPage || onPersonPage || onLivePage || onFeaturePage;
   /** 交手中隱藏全局氣血條，避免與戰鬥血條重複 */
   // 有重傷／傷殘：名字旁朱砂點（撳入人物欄）
   const worstInjury = (c.injuries ?? []).reduce<'heavy' | 'crippled' | null>(
@@ -357,6 +359,7 @@ export function InkPlayScreen({ state }: Props) {
   const goTo = (t: 'jianghu' | 'person') => setTab(t);
   const openGachaTab = () => { setJianghuView('gacha'); goTo('jianghu'); };
   const openQuick = (q: QuickTarget) => {
+    if (q !== 'encounter' && useLifeStore.getState().flashLines.length) useLifeStore.setState({ flashLines: [] });
     if (q === 'gacha') openGachaTab();
     else if (q === 'huashan') { setJianghuView('huashan'); goTo('jianghu'); }
     else if (q === 'skills') {
@@ -368,6 +371,14 @@ export function InkPlayScreen({ state }: Props) {
       if (e?.offer) setEncounterOpen(true);
       else if (e?.active) {
         if (!claimEncounter()) document.querySelector('.ink-enc-strip')?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      } else {
+        // 冇奇遇時唔好靜雞雞冇反應（2026-11-16 連動檢視）；提示幾秒後自己收，唔好跟去其他頁
+        const hint = '此刻尚無奇遇。遊戲開啟期間，奇遇會不定時出現。';
+        useLifeStore.setState({ flashLines: [hint] });
+        window.setTimeout(() => {
+          const now = useLifeStore.getState().flashLines;
+          if (now.length === 1 && now[0] === hint) useLifeStore.setState({ flashLines: [] });
+        }, 3500);
       }
     }
   };
@@ -528,6 +539,7 @@ export function InkPlayScreen({ state }: Props) {
     onHomeTab && !combat && !eventFocus ? 'scroll-shell--home' : '',
     onJianghuMap ? 'scroll-shell--jianghu-map' : '',
     onGachaPage ? 'scroll-shell--gacha' : '',
+    onFeaturePage ? 'scroll-shell--feature' : '',
     onPersonPage ? 'scroll-shell--person' : '',
     onLivePage ? 'scroll-shell--live' : '',
     onPersonPage && personView !== 'main' ? 'scroll-shell--tap-detail' : '',
@@ -807,7 +819,7 @@ export function InkPlayScreen({ state }: Props) {
           : jianghuView === 'online' && InkOnlinePanel ? <Suspense fallback={<p role="status">正在翻開江湖名冊……</p>}>
             <InkOnlinePanel key={onlineFromHome?'home-live':'map-online'} initialView="live" homeEntry={onlineFromHome} onFocusChange={setOnlineFocused} onBack={() => onlineFromHome?setTab('home'):setJianghuView('main')} onPrepare={()=>{setPersonPreset('duel');setRequestedArt(null);setTab('person');setPersonView('skills');}} />
           </Suspense> : <div className={`ink-jianghu-detail${onGachaPage ? ' ink-jianghu-detail--gacha' : ''}`}>
-            <button type="button" className={`ink-jianghu-back${onGachaPage ? ' ink-codex-back' : ''}`} onClick={() => setJianghuView('main')}>‹ 返回江湖</button>
+            <button type="button" className={`ink-jianghu-back${onGachaPage ? ' ink-codex-back' : ''}`} onClick={() => setJianghuView('main')}>返回江湖</button>
             {jianghuView === 'gacha' && <InkGachaPanel state={state} onEquipRequest={id => {
               setPersonPreset('normal');setRequestedArt(id); setTab('person'); setPersonView('skills');
             }} />}

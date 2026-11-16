@@ -272,3 +272,7 @@ body .ink-loadout-rules { font-size:15px; line-height:1.75; }
 body .ink-loadout-rules h4 { margin:18px 0 6px; color:var(--ui-ink); font:700 21px/1.4 var(--ui-title); }
 body .ink-loadout-rules h4:first-child { margin-top:6px; }
 body .ink-loadout-rules p { margin:0 0 12px; color:var(--ui-ink); }
+
+/* 全遊戲返回鍵統一：同人物頁一樣用菱形返回圖示＋寫明返去邊度（2026-11-16 美術檢視 S5） */
+body :is(.ink-jianghu-back, .ink-map-back) { display:inline-flex; align-items:center; gap:5px; font-weight:700; color:#302b25; }
+body :is(.ink-jianghu-back, .ink-map-back)::before { content:''; width:30px; height:34px; flex:none; background:url('/ink/art/parchment-ui/icon-back.webp') center/contain no-repeat; }

@@ -29,7 +29,7 @@ on top of an existing playable V1.
 - **Genre**: BitLife × 武俠人生模擬（事件驅動）
 - **Loop**: 出生 → 家庭 → 成長 → 拜師 → 江湖 → 戀愛 → 門派 → 戰鬥 → 財富 → 老年 → 死亡 → 總結 → 傳承
 - **Content model**: JSON / TS event catalog (`data/events/*.ts` + `jianghu_random_events_100.json`) — run `npm run docs:events` for the current count
-- **UI**: 水墨風直版手機窗（`src/styles.css`）
+- **UI**: 明亮宣紙直版手機窗（`src/styles.css`）；分層美術基準見 `design/art/CURRENT-STYLE.md`
 
 ## Project Structure (game code)
 

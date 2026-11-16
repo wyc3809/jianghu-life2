@@ -21,7 +21,7 @@ export function InkJianghuMap({ online, onOpen, onBack }: { online: boolean; onO
   const [imageFailed, setImageFailed] = useState(false);
   return <section className={`ink-jianghu-map${imageFailed ? ' ink-jianghu-map--fallback' : ''}`} aria-label="江湖地圖" id="ink-jianghu-menu">
     <button type="button" className="ink-map-back" aria-label="返回鎮居" onClick={onBack}>
-      <span aria-hidden="true">‹</span>返回
+      返回鎮居
     </button>
     <div className="ink-jianghu-map-stage">
       <img className="ink-jianghu-map-art" src={MAP_SRC} width={1024} height={1536} alt="山寺、華山論劍台、門派山莊與河畔城鎮，以山徑和石橋相連。" fetchPriority="high" decoding="async" onError={() => setImageFailed(true)} />

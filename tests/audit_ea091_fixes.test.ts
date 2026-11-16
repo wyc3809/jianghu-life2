@@ -213,12 +213,14 @@ describe('審計 C2：歸隱傳位', () => {
     expect(s.summaryText).toBeTruthy();
   });
 
-  it('test_golden_basin_event_retires_without_tier_gate', () => {
+  it('test_golden_basin_event_is_narrative_only_while_legacy_paused', () => {
+    // 傳承暫停（LEGACY_FEATURES_ENABLED=false）期間：金盆洗手唔結束今世（連動檢視 L2）
     const s = freshLife();
     s.pending = { eventId: 'final_duel' } as LifeGameState['pending'];
     const r = applyChoice(s, lookupEvent('final_duel')!, 'retire');
     expect(r.died).toBe(false);
-    expect(s.phase).toBe('summary');
+    expect(s.phase).toBe('playing');
+    expect(s.character.alive).toBe(true);
     expect(s.pendingCombat).toBeFalsy();
   });
 

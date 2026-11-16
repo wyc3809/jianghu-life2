@@ -11,8 +11,6 @@ import { ensureNewbieReward, startNewbieTrial } from '@core/life/goals';
 import { NEWBIE_TRIAL } from '@data/redesign/newbie';
 import { getGearDef } from '@data/equipment/catalog';
 import { newbieActive } from '@core/life/goals';
-import { setMainArt } from '@core/life/schools';
-import type { SkillKind } from '@data/skills/catalog';
 import type { LifeStore } from '../lifeStore';
 import { APPEARANCE_HEADS, APPEARANCE_OUTFITS, APPEARANCE_TONES, appearanceKey, appearanceOf, readAppearance } from '@interfaces/appearance';
 import { canWearCostume,isCostumeId,isFashionId } from '@interfaces/costumes';
@@ -21,7 +19,7 @@ export function createCharacterSlice(
   set: (partial: Partial<LifeStore>) => void,
   get: () => LifeStore,
   save: (state: LifeGameState, immediate?: boolean) => void,
-): Pick<LifeStore, 'equipOwned' | 'prepareNewbieEquipment' | 'resolveGearCompare' | 'startNewbieTrial' | 'setMainArt' | 'setMartialSlot' | 'setAppearance'> {
+): Pick<LifeStore, 'equipOwned' | 'prepareNewbieEquipment' | 'resolveGearCompare' | 'startNewbieTrial' | 'setMartialSlot' | 'setAppearance'> {
   return {
     setAppearance: value => {
       const {state,combatReplay}=get();
@@ -73,18 +71,6 @@ export function createCharacterSlice(
       set({ state: next });
       return true;
     },
-    setMainArt: (kind: SkillKind, skillId: string) => {
-      const { state } = get();
-      if (!state || state.phase !== 'playing' || !state.character.alive || state.pendingCombat || get().combatReplay) return;
-      let ok = false;
-      const next = produce(state, (draft) => {
-        ok = setMainArt(draft, kind, skillId);
-      });
-      if (!ok) return;
-      void save(next);
-      set({ state: next });
-    },
-
     startNewbieTrial: () => {
       const { state } = get();
       if (!state || state.phase !== 'playing' || state.pendingCombat) return;

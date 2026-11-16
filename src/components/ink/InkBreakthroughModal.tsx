@@ -14,7 +14,7 @@ type Props = {
 };
 
 /**
- * 修為突破：夜墨底嘅儀式時刻（與 InkMomentFx 同一套語言：墨環、直書大字、落印）。
+ * 修為突破：明亮宣紙底嘅儀式時刻（與 InkMomentFx 同一套語言：墨環、直書大字、落印）。
  * 成功：雙墨環轉開、新境界逐字寫出、「晉」印壓落；失敗：墨環崩散、全畫面一震、「危」印。
  */
 export function InkBreakthroughModal({ result, onClose }: Props) {
