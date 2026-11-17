@@ -39,6 +39,7 @@ import { isFleeChoice, startCombat } from './combat';
 import { applyChoiceNature } from './nature';
 import { grantEventCultivation } from './cultivation';
 import { retireLife } from './retire';
+import { LEGACY_FEATURES_ENABLED } from '@data/redesign/legacyFeatures';
 import { ROAD_ENCOUNTER_EVENTS } from '@data/events/roadEncounters';
 import { NATURE_ARC_EVENTS } from '@data/events/natureArcs';
 import { applyNarrateOverrideToEffects } from '@data/events/narrateOverrides';
@@ -533,8 +534,9 @@ export function applyChoice(
   const titleForLog = event.title;
   pushChronicle(state, [`「${titleForLog}」——${choice.text}`, feedback, ...deltas]);
 
-  if (!wasRetired && state.character.flags.retired === true && state.character.alive) {
-    // 事件歸隱唔限境界；結算同死亡一樣（審計 C2）
+  if (LEGACY_FEATURES_ENABLED && !wasRetired && state.character.flags.retired === true && state.character.alive) {
+    // 事件歸隱唔限境界；結算同死亡一樣（審計 C2）。傳承暫停期間金盆洗手只係敘事，唔結束今世
+    // （2026-11-16 連動檢視 L2，玩家揀「改返只係敘事」）
     retireLife(state, true);
     snapshotRng(state);
     return { state, logs, deltas, feedback, died: false };

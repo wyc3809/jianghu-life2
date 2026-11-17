@@ -134,7 +134,7 @@ export default function InkOnlinePanel({ standalone = false, onBack, onPrepare, 
   if(view==='sectWar')return <Suspense fallback={<p role="status">正在翻開會武名冊……</p>}><SectWar onBack={()=>setView(initialView)} onPrepare={onPrepare}/></Suspense>;
   const content = <section className="ink-panel ink-online" aria-label="多人江湖" id="ink-online" ref={panelRef}>
     {(view !== 'main' || onBack) && <button type="button" className="ink-jianghu-back" onClick={() => view === 'main' ? onBack?.() : setView(initialView)}>
-      ‹ {initialView==='live'?(view==='main'?(homeEntry?'返回鎮居':'返回江湖'):'返回同遊江湖'):(view==='main'?'返回江湖':'返回江湖風雲')}
+      {initialView==='live'?(view==='main'?(homeEntry?'返回鎮居':'返回江湖'):'返回同遊江湖'):(view==='main'?'返回江湖':'返回江湖風雲')}
     </button>}
     <header className="online-heading"><h2>{titles[view]}</h2>{!publicOnline&&<span className="online-test-seal">本機試玩</span>}</header>
     <div className="online-feedback" aria-live="polite">{error ? <p role="alert">{error}</p> : notice && <p>{notice}</p>}</div>

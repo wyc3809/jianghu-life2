@@ -1670,3 +1670,22 @@ world Edge v5、live Edge v2及migration 20261115090053已部署，verify_jwt與
 開紅仍手動，不變更離線應戰、敗方30秒保護、名次、經濟或原戰果。重入沿用原後端指令及保護／紅名狀態；沒有新增API或資料表。以mock傳輸驗真React StrictMode首次只一次、退出／重入、斷線恢復及三手機尺寸；核心另驗重入不重設保護、名次、銀兩、人物或紅名。全套測試、Pages構建、敘事／文案、CI／iOS Archive及正式部署另核；沒有新增真雲端測試帳戶或Apple上傳結論。
 
 玩家已確認，EA0.116.1按第8節直接發布。證據見production/qa/evidence/redesign/live-direct-entry/README.md。
+
+### 第82項：美術風格總覽、功能連動檢視及修正（2026-11-16，EA0.117.0）
+
+玩家要求「全面檢視吓依家嘅藝術風格等等，並且記錄低，同埋理清一下唔同功能之間嘅聯動，並且修復」。正式構建逐頁截圖，新增 `design/art/CURRENT-STYLE.md`（分層美術總覽，標明現行基準及已過時文件，總覽圖 `design/art/style-overview/ea0116-overview.png`）同 `design/audits/feature-links-ea0116.md`（入口、資源流向、配搭、身份造型連動）。AGENTS.md 5.5、CLAUDE.md、舊美術文件改為指向總覽。
+
+玩家逐項揀，今次發布：
+- S2 突破成敗全屏由深啡黑改明亮宣紙底、墨字、朱砂；印章同墨環保留。
+- S5 江湖、地圖、秘笈閣、同遊、幫會返回鍵統一用菱形返回圖示，並寫明返去邊度。
+- S6 華山論劍、開宗立派改做同秘笈閣一樣嘅獨立全畫面。
+- L1 冇奇遇時撳主頁「奇遇」會顯示提示，3.5 秒自己收；開其他捷徑會清走舊提示。
+- L2 傳承暫停期間，「金盆洗手」只係敘事，唔結束今世（取代第 45 項事件歸隱）。
+- L4／L7 刪 store 冇用嘅 `setMainArt`、`advanceYear` 同冇引用嘅 `portraits` 素材。
+
+待續（玩家已揀方向，未做）：
+- L5 門派會武職位解鎖職位服、每週獎勵，具體數值方案待交。
+- S3／S4 事件插圖、演武台四季背景按 STYLE.md 先出樣板；人物保留斗笠黑影。
+- L6 幫會資材用途維持現狀。
+
+驗證：151 檔 1,084 項 Vitest、Pages 構建、敘事及文案審核；正式構建前後實畫見 `production/qa/evidence/redesign/art-links-ea0117/board.png`，pageerror 0。冇改玩法數值、存檔格式、戰鬥或人物造型；唔代表真 iPhone 或 Apple 上傳驗收。

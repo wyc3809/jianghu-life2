@@ -61,7 +61,6 @@ export interface LifeStore {
   reincarnate: () => void;
   continueLife: () => Promise<boolean>;
   advanceMonth: () => void;
-  advanceYear: () => void;
   /** 主動歸隱傳位（第 8 境起）：結束今世入總結頁，傳承同死亡一樣 */
   retire: () => void;
   choose: (choiceId: string) => void;
@@ -89,7 +88,6 @@ export interface LifeStore {
   /** 五格外功＋獨立內功及身法；指定欄位先替換，收藏武學可同時習得。 */
   setMartialSlot: (slot: number, skillId: string | null, preset?: 'normal' | 'duel') => boolean;
   /** 舊入口兼容，人物介面改用五格裝備。 */
-  setMainArt: (kind: import('@data/skills/catalog').SkillKind, skillId: string) => void;
   /** 新手試煉：開打（贏咗得有用裝備） */
   startNewbieTrial: () => void;
   combatSetInternalMode: (modeId: string | null) => void;

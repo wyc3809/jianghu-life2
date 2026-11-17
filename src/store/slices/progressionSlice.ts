@@ -63,7 +63,6 @@ export function createProgressionSlice(
   | 'reincarnate'
   | 'continueLife'
   | 'advanceMonth'
-  | 'advanceYear'
   | 'retire'
   | 'dismissCoach'
   | 'markCoachSeen'
@@ -212,8 +211,6 @@ export function createProgressionSlice(
         flashLines: [],
       });
     },
-
-    advanceYear: () => get().advanceMonth(),
 
     retire: () => {
       if(!LEGACY_FEATURES_ENABLED)return;

@@ -1,7 +1,7 @@
 /**
- * 歸隱傳位（2026-10-25 審計 C2）：取消老死之後，「死亡 → 總結 → 傳承」好難去到。
- * 玩家可以喺第 RETIRE_MIN_TIER 境起自願歸隱；「金盆洗手」事件唔限境界。
- * 結算同死亡完全一樣（傳承點、家傳武學、銀庫、裝備庫照現有規則），只係死因寫歸隱。
+ * 歸隱（2026-10-25 審計 C2 加入）：結束今世、入一生總結。「金盆洗手」事件唔限境界。
+ * 2026-11-15 第 80 項暫停傳承之後：人物頁「歸隱傳位」入口已撤，歸隱唔再帶任何傳承；
+ * store 嘅 retire 同 canRetire 留畀日後恢復傳承時用（見 design/audits/feature-links-ea0116.md L2、L3）。
  */
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { RETIRE_MIN_TIER } from '@data/redesign/testParams';
@@ -19,7 +19,7 @@ export function canRetire(state: LifeGameState): { ok: boolean; reason?: string 
   return { ok: true };
 }
 
-/** 結束今世、入總結頁；之後由「後人接班」照常傳承。force＝事件觸發，唔睇境界門檻 */
+/** 結束今世、入總結頁（傳承暫停期間唔帶任何傳承）。force＝事件觸發，唔睇境界門檻 */
 export function retireLife(state: LifeGameState, force = false): boolean {
   if (!force && !canRetire(state).ok) return false;
   if (!state.character.alive || state.phase !== 'playing') return false;
