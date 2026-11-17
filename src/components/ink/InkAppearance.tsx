@@ -60,7 +60,7 @@ export function AppearanceBadge({ character,size=60,className='' }:{character:{a
 }
 
 /** 本窗只預覽；確認才保存，取消不換裝、不改能力或收費。 */
-export function InkAppearancePicker({ appearance,onConfirm,onClose,busy=false,sectId=null,sectStanding=0 }:{appearance:CharacterAppearance;onConfirm(value:CharacterAppearance):boolean;onClose():void;busy?:boolean}&CostumeIdentity) {
+export function InkAppearancePicker({ appearance,onConfirm,onClose,busy=false,sectId=null,sectStanding=0,flags }:{appearance:CharacterAppearance;onConfirm(value:CharacterAppearance):boolean;onClose():void;busy?:boolean}&CostumeIdentity) {
   const [draft,setDraft]=useState(()=>readAppearance(appearance)),[tab,setTab]=useState<'head'|'outfit'|'tone'|'uniform'|'fashion'>('head');
   const [error,setError]=useState('');const gate=useRef(false),sectsRef=useRef<HTMLDivElement>(null);
   const [uniformSect,setUniformSect]=useState(()=>SECT_UNIFORM_GROUPS.some(s=>s.id===sectId)?sectId!:'sect_qingyun');
@@ -71,7 +71,7 @@ export function InkAppearancePicker({ appearance,onConfirm,onClose,busy=false,se
     const outer=row.getBoundingClientRect(),selected=active.getBoundingClientRect();
     row.scrollLeft+=selected.left-outer.left-(outer.width-selected.width)/2;
   },[tab,uniformSect]);
-  const identity={sectId,sectStanding},allowed=!draft.costume||canWearCostume(identity,draft.costume);
+  const identity={sectId,sectStanding,flags},allowed=!draft.costume||canWearCostume(identity,draft.costume);
   const choicesRef=useRef<HTMLDivElement>(null);
   useLayoutEffect(()=>inkSurfaceIn(choicesRef.current),[tab,uniformSect]);
   const name=draft.costume?costumeLabel(draft.costume):OUTFIT_LABELS[draft.outfit];

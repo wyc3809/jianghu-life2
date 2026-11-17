@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { SECT_CONTENT } from "@data/content/packs";
-import { sectWarOffice, SECT_WAR_TEST } from "@data/redesign/sectWarTestParams";
+import { SECT_CONTENT, sectStandingName } from "@data/content/packs";
+import { sectWarOffice, sectWarSeatJade, sectWarSeatStanding, SECT_WAR_TEST } from "@data/redesign/sectWarTestParams";
 import type {
   SectWarSnapshot,
   SectWarReport,
@@ -288,6 +288,12 @@ export default function InkSectWar({
     ? (snapshot.teams[snapshot.me.sectId]?.members.indexOf(snapshot.me.id) ??
         -1) + 1
     : 0;
+  // 本屆席次：記榮銜（可穿對應職位服）並排一次本屆俸祿玉石（2026-11-16 連動檢視 L5）
+  const recordSectWarSeat = useLifeStore((s) => s.recordSectWarSeat);
+  useEffect(() => {
+    if (!snapshot?.me || currentSeat <= 0) return;
+    recordSectWarSeat({ term: snapshot.term, sectId: snapshot.me.sectId, rank: currentSeat, until: snapshot.nextCutoff });
+  }, [snapshot?.term, snapshot?.me?.sectId, snapshot?.nextCutoff, currentSeat, recordSectWarSeat]);
   const existingMatch = snapshot?.matches.find(
     (m) =>
       m.term === snapshot.term &&
@@ -440,6 +446,11 @@ export default function InkSectWar({
                   ? `本屆${sectWarOffice(currentSeat)}`
                   : "參選者"}
               </p>
+            )}
+            {currentSeat > 0 && (
+              <small>
+                本屆可穿{sectStandingName(sectWarSeatStanding(currentSeat))}服飾；本屆俸祿{sectWarSeatJade(currentSeat)}免費玉石已入帳。
+              </small>
             )}
             <small>本屆鎖定十席；下屆依門內比武排名換屆。</small>
             {snapshot?.me&&<button type="button" onClick={()=>setSheet("chat")}>門派對話</button>}

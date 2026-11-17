@@ -38,7 +38,7 @@ export function settleAccountEconomy(meta:AncestryMeta,state:LifeGameState,now:n
   e.highestTier=Math.max(e.highestTier,c.cultivation.tier);
   c.flags.account_highest_tier=e.highestTier;
   const queue=String(c.flags.account_reward_queue ?? '[]');
-  try { for(const r of JSON.parse(queue) as {id:string;amount:number}[]) if(r.id.startsWith('huashan:')&&!e.rewards.includes(r.id)&&Number.isSafeInteger(r.amount)&&r.amount>0){e.rewards.push(r.id);jade+=r.amount;} } catch { /* 舊損壞旗標不派獎。 */ }
+  try { for(const r of JSON.parse(queue) as {id:string;amount:number}[]) if((r.id.startsWith('huashan:')||r.id.startsWith('sectwar:'))&&!e.rewards.includes(r.id)&&Number.isSafeInteger(r.amount)&&r.amount>0){e.rewards.push(r.id);jade+=r.amount;} } catch { /* 舊損壞旗標不派獎。 */ }
   delete c.flags.account_reward_queue;
   return jade;
 }
