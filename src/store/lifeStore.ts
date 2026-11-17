@@ -75,6 +75,8 @@ export interface LifeStore {
   prepareNewbieEquipment: () => void;
   /** 免費保存純外觀，不改裝備、配搭、能力或獎勵。 */
   setAppearance: (value: import('@interfaces/appearance').CharacterAppearance) => boolean;
+  /** 門派會武本屆席次：記本屆榮銜（職位服）並排一次本屆俸祿玉石 */
+  recordSectWarSeat: (seat: import('@core/life/sectWarHonor').SectWarSeat) => void;
   /** 特效時刻播完：移出佇列（見 core/life/moments.ts） */
   ackMoment: () => void;
   practice: (actionId: PracticeActionId, opts?: { sectId?: string; artId?: string }) => void;

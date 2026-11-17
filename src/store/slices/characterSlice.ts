@@ -14,13 +14,23 @@ import { newbieActive } from '@core/life/goals';
 import type { LifeStore } from '../lifeStore';
 import { APPEARANCE_HEADS, APPEARANCE_OUTFITS, APPEARANCE_TONES, appearanceKey, appearanceOf, readAppearance } from '@interfaces/appearance';
 import { canWearCostume,isCostumeId,isFashionId } from '@interfaces/costumes';
+import { applySectWarSeat } from '@core/life/sectWarHonor';
 
 export function createCharacterSlice(
   set: (partial: Partial<LifeStore>) => void,
   get: () => LifeStore,
   save: (state: LifeGameState, immediate?: boolean) => void,
-): Pick<LifeStore, 'equipOwned' | 'prepareNewbieEquipment' | 'resolveGearCompare' | 'startNewbieTrial' | 'setMartialSlot' | 'setAppearance'> {
+): Pick<LifeStore, 'equipOwned' | 'prepareNewbieEquipment' | 'resolveGearCompare' | 'startNewbieTrial' | 'setMartialSlot' | 'setAppearance' | 'recordSectWarSeat'> {
   return {
+    recordSectWarSeat: seat => {
+      const { state } = get();
+      if (!state || state.phase !== 'playing') return;
+      let changed = false;
+      const next = produce(state, (draft) => { changed = applySectWarSeat(draft, seat); });
+      if (!changed) return;
+      void save(next);
+      set({ state: next });
+    },
     setAppearance: value => {
       const {state,combatReplay}=get();
       if(!state||state.phase!=='playing'||!state.character.alive||state.pendingCombat||combatReplay)return false;
