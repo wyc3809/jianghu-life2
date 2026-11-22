@@ -51,11 +51,11 @@ export const LEGACY_MAX_AGE_TIER: readonly { maxAge: number; maxTier: number }[]
  */
 export const TEST_ACTIVE_CULTIVATION_SECONDS = {
   /** 演武台過一關（首領倒下） */
-  sparStageClear: 600,
+  sparStageClear: 450,
   /** 每個事件了結 */
-  eventResolve: 60,
+  eventResolve: 45,
   /** 江湖交手勝出（按對手強度） */
-  combatWin: { weak: 120, normal: 180, strong: 300, boss: 900 },
+  combatWin: { weak: 90, normal: 140, strong: 240, boss: 720 },
 } as const;
 
 /**
@@ -123,6 +123,8 @@ export const COMBAT_RATING_TIERS = [
  */
 export const SPAR_FOE_HP_GROWTH = 1.21;
 export const SPAR_FOE_ATK_GROWTH = 1.045;
+/** 第四關起逐關加強還擊，額外攻擊倍率最多 +24%。 */
+export const SPAR_FOE_ATK_PRESSURE = { perStage: 0.008, cap: 0.24 } as const;
 /** 首領血量、攻擊倍率（相對小兵）；第38項候選血量4.4，攻擊倍率2.2沿用。 */
 export const SPAR_BOSS_HP_MUL = 4.4;
 export const SPAR_BOSS_ATK_MUL = 2.2;

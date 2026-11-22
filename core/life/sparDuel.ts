@@ -8,6 +8,7 @@ import {
   SPAR_BOSS_ATK_MUL,
   SPAR_BOSS_HP_MUL,
   SPAR_FOE_ATK_GROWTH,
+  SPAR_FOE_ATK_PRESSURE,
   SPAR_FOE_HP_GROWTH,
   SPAR_KILL_HEAL,
   SPAR_OPENING_ATK_FACTORS,
@@ -269,7 +270,9 @@ export function sparStageFoes(stage: number): SparFoe[] {
   const s = Math.max(1, Math.floor(stage));
   // 血量跟主角攻擊、攻擊跟主角氣血，兩條曲線分開（data/redesign/testParams.ts）
   const minionHp = Math.round(140 * SPAR_FOE_HP_GROWTH ** (s - 1));
-  const minionAtk = Math.round(16 * SPAR_FOE_ATK_GROWTH ** (s - 1) * (SPAR_OPENING_ATK_FACTORS[s - 1] ?? 1));
+  const pressure = 1 + Math.min(SPAR_FOE_ATK_PRESSURE.cap,
+    Math.max(0, s - SPAR_OPENING_ATK_FACTORS.length) * SPAR_FOE_ATK_PRESSURE.perStage);
+  const minionAtk = Math.round(16 * SPAR_FOE_ATK_GROWTH ** (s - 1) * (SPAR_OPENING_ATK_FACTORS[s - 1] ?? 1) * pressure);
   const region = sparSceneFor(s).region;
   const foes: SparFoe[] = [];
   const n = sparMinionCount(s);

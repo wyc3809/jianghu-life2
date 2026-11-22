@@ -32,7 +32,10 @@ describe('戰力及演武氣血改版', () => {
     }
     // 第38項候選：後期血量與攻擊成長提高，主角氣血仍與實際相同。
     expect(sparStageFoes(10)[0]!.maxHp).toBe(Math.round(140 * 1.21 ** 9));
-    expect(sparStageFoes(10)[0]!.atk).toBe(Math.round(16 * 1.045 ** 9));
+    expect(sparStageFoes(1)[0]!.atk).toBe(8);
+    expect(sparStageFoes(3)[0]!.atk).toBe(15);
+    expect(sparStageFoes(10)[0]!.atk).toBe(25);
+    expect(sparStageFoes(40).at(-1)!.atk).toBe(242);
   });
 });
 
