@@ -1,5 +1,6 @@
-import { useState, type CSSProperties } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { inkArtUrl } from '../../ui/inkAssets';
+import { watchVisualActivity } from '../../ui/visualActivity';
 import type { JianghuView } from './InkFeatureMenu';
 import './jianghu-map.css';
 
@@ -19,19 +20,36 @@ const LANDMARKS = [
 /** 淡彩地圖入口：建築與題字共用按鈕，點擊只切換既有功能頁。 */
 export function InkJianghuMap({ online, onOpen, onBack }: { online: boolean; onOpen: (view: JianghuView) => void; onBack: () => void }) {
   const [imageFailed, setImageFailed] = useState(false);
-  return <section className={`ink-jianghu-map${imageFailed ? ' ink-jianghu-map--fallback' : ''}`} aria-label="江湖地圖" id="ink-jianghu-menu">
+  const mapRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    return watchVisualActivity(active => {
+      map.toggleAttribute('data-ambient-active', active);
+    }, { element: map, covered: true, reduced: true, dialogs: true });
+  }, []);
+  return <section ref={mapRef} className={`ink-jianghu-map${imageFailed ? ' ink-jianghu-map--fallback' : ''}`} aria-label="江湖地圖" id="ink-jianghu-menu">
     <button type="button" className="ink-map-back" aria-label="返回鎮居" onClick={onBack}>
       返回鎮居
     </button>
     <div className="ink-jianghu-map-stage">
       <img className="ink-jianghu-map-art" src={MAP_SRC} width={1024} height={1536} alt="山寺、華山論劍台、門派山莊與河畔城鎮，以山徑和石橋相連。" fetchPriority="high" decoding="async" onError={() => setImageFailed(true)} />
+      {!imageFailed && <div className="ink-map-atmosphere" aria-hidden="true">
+        <span className="ink-map-mist" />
+        <span className="ink-map-water" />
+      </div>}
       <nav aria-label="江湖功能">
         {LANDMARKS.filter(place => place.id !== 'online' || online).map(place => {
           const style = { left: `${place.x}%`, top: `${place.y}%`, width: `${place.w}%`, height: `${place.h}%`, '--landmark-clip': place.clip } as CSSProperties;
           const fragmentStyle = { left: `${-place.x / place.w * 100}%`, top: `${-place.y / place.h * 100}%`, width: `${100 / place.w * 100}%`, height: `${100 / place.h * 100}%` };
           return <button type="button" key={place.id} className={`ink-map-destination ink-map-destination--${place.id}`} style={style} aria-label={place.title} onClick={() => onOpen(place.id)}>
             {!imageFailed && <span className="ink-map-destination-light" style={fragmentStyle} aria-hidden="true"><span style={{ backgroundImage: `url("${MAP_SRC}")` }} /></span>}
-            <span className="ink-map-destination-name"><span className="ink-map-destination-dot" aria-hidden="true" />{place.title}</span>
+            <span className="ink-map-destination-name">
+              <span className="ink-map-destination-face">
+                <span className="ink-map-destination-dot" aria-hidden="true" />
+                {place.title}
+              </span>
+            </span>
           </button>;
         })}
       </nav>
