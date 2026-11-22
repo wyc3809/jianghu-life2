@@ -16,29 +16,79 @@
 .ink-map-back:is(:hover, :active) { color: var(--cinnabar); }
 .ink-map-back:focus-visible { outline: 2px solid var(--cinnabar); outline-offset: 2px; }
 .ink-map-destination { position: absolute; display: block; padding: 0; margin: 0; min-width: 44px; min-height: 44px; border: 0; border-radius: 0; background: none; box-shadow: none; color: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; isolation: isolate; }
-.ink-map-destination-light { position: absolute; display: block; pointer-events: none; opacity: .26; filter: drop-shadow(0 0 5px #caa66080); animation: ink-map-breathe 4.5s ease-in-out infinite; }
+.ink-map-destination-light { position: absolute; display: block; pointer-events: none; opacity: .18; filter: drop-shadow(0 0 5px #caa66080); animation: ink-map-breathe 4.5s ease-in-out infinite; }
 .ink-map-destination-light > span { position: absolute; inset: 0; display: block; background-size: 100% 100%; clip-path: var(--landmark-clip); filter: brightness(1.16) saturate(1.08); }
 .ink-map-destination--gacha .ink-map-destination-light { animation-delay: -.9s; }
 .ink-map-destination--huashan .ink-map-destination-light { animation-delay: -2s; }
 .ink-map-destination--founder .ink-map-destination-light { animation-delay: -3.1s; }
-.ink-map-destination-name { position: absolute; z-index: 1; top: 100%; left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 3px 12px; white-space: nowrap; font: 700 18px / 1.45 var(--game-ui-font); letter-spacing: .08em; color: #302b25; background: radial-gradient(ellipse, #fff9ede8 28%, #fff9edbb 58%, #fff9ed00 74%); text-shadow: 0 1px 0 #fff9ed, 1px 0 0 #fff9ed, -1px 0 0 #fff9ed; transition: color .18s ease, transform .18s ease; }
+.ink-map-destination-name { position: absolute; z-index: 1; top: 100%; left: 50%; transform: translateX(-50%); display: grid; min-height: 44px; color: #302b25; }
+.ink-map-destination-face { display: inline-flex; align-items: center; justify-content: center; gap: 6px; pointer-events: none; padding: 3px 12px; white-space: nowrap; font: 700 18px / 1.45 var(--game-ui-font); letter-spacing: .08em; color: inherit; background: radial-gradient(ellipse, #fff9ede8 28%, #fff9edbb 58%, #fff9ed00 74%); text-shadow: 0 1px 0 #fff9ed, 1px 0 0 #fff9ed, -1px 0 0 #fff9ed; transition: text-shadow 140ms ease; }
 .ink-map-destination-dot { width: 6px; height: 6px; flex: none; transform: rotate(45deg); background: #aa7f3e; box-shadow: 0 0 5px #fff4cd; }
+.ink-map-destination-dot::after { content: ''; position: absolute; inset: -3px; border: 1px solid var(--cinnabar); border-radius: 50%; opacity: 0; transform: scale(1.8); transition: transform 180ms ease-out, opacity 180ms ease-out; }
 .ink-map-destination:hover .ink-map-destination-name,
 .ink-map-destination:focus-visible .ink-map-destination-name { color: var(--cinnabar); }
-.ink-map-destination:active .ink-map-destination-name { transform: translateX(-50%) translateY(2px); }
+/* 共用按壓時鐘只推動牌面，建築及題字嘅點擊區保持原大小。 */
+.ink-map-destination.is-pressed { scale: none; filter: none; }
+.ink-map-destination.ink-key-response { scale: none !important; translate: none !important; filter: none !important; will-change: auto; }
+.ink-map-destination.ink-key-response > .ink-key-hit { display: none !important; }
+.ink-map-destination.ink-key-response .ink-map-destination-face {
+  transform: translateY(var(--ink-key-y, 0px)) scale(calc((1 + var(--ink-key-scale, 1)) / 2));
+}
+.ink-map-destination.is-pressed .ink-map-destination-name { color: var(--cinnabar); }
+.ink-map-destination.is-pressed .ink-map-destination-face { text-shadow: none; }
+.ink-map-destination.is-pressed .ink-map-destination-dot { background: var(--cinnabar); box-shadow: none; }
+.ink-map-destination.is-pressed .ink-map-destination-dot::after { opacity: .55; transform: scale(1); transition-duration: 55ms; }
 .ink-map-destination:focus-visible { outline: none; }
 .ink-map-destination:focus-visible .ink-map-destination-name { outline: 2px solid var(--cinnabar); outline-offset: 1px; }
 .ink-map-destination:is(:hover, :focus-visible) .ink-map-destination-light { animation: none; opacity: .65; }
-.ink-map-destination:active .ink-map-destination-light { animation: none; opacity: .8; }
+.ink-map-destination.is-pressed .ink-map-destination-light { animation: none; opacity: .8; }
 .ink-jianghu-map--fallback .ink-jianghu-map-art { visibility: hidden; }
 .ink-jianghu-map--fallback .ink-jianghu-map-stage { background: linear-gradient(155deg, #faf6ec, #e5ddcb); }
-.ink-jianghu-map--fallback .ink-map-destination-name { top: 40%; background: #faf6ec; }
-@keyframes ink-map-breathe { 0%, 100% { opacity: .22; } 50% { opacity: .5; } }
+.ink-jianghu-map--fallback .ink-map-destination-name { top: 40%; }
+.ink-jianghu-map--fallback .ink-map-destination-face { background: #faf6ec; }
+@keyframes ink-map-breathe { 0%, 100% { opacity: .14; } 50% { opacity: .27; } }
+/* 動畫位置用原圖比例，薄霧留喺山腰，水光裁喺橋下河道。 */
+.ink-map-atmosphere { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.ink-map-mist,
+.ink-map-water { position: absolute; display: block; overflow: hidden; }
+.ink-map-mist { left: 40%; top: 26%; width: 34%; height: 10%; }
+.ink-map-water {
+  left: 51%; top: 75%; width: 24%; height: 7%;
+  clip-path: polygon(0 2%, 16% 4%, 28% 21%, 46% 31%, 57% 49%, 76% 47%, 92% 67%, 100% 89%, 82% 93%, 66% 74%, 39% 72%, 19% 54%, 7% 32%);
+}
+.ink-map-mist::before,
+.ink-map-water::before { content: ''; position: absolute; inset: 0; }
+.ink-map-mist::before {
+  background: radial-gradient(ellipse at 28% 62%, #f9f5e8b3, transparent 55%),
+    radial-gradient(ellipse at 58% 43%, #fffaf0ab, transparent 56%);
+  animation: ink-map-mist-drift 14s ease-in-out -5s infinite;
+}
+.ink-map-water::before {
+  background: radial-gradient(ellipse 17% 3% at 23% 26%, #fffef6de 25%, transparent),
+    radial-gradient(ellipse 24% 3% at 42% 46%, #fffef6cc 22%, transparent),
+    radial-gradient(ellipse 13% 3% at 58% 59%, #fffef6eb 22%, transparent);
+  animation: ink-map-water-flow 5s ease-in-out -1.5s infinite;
+}
+@keyframes ink-map-mist-drift {
+  0%, 100% { transform: translate(-18%, 4%); opacity: 0; }
+  42% { opacity: .65; }
+  76% { transform: translate(17%, -8%); opacity: .23; }
+}
+@keyframes ink-map-water-flow {
+  0%, 100% { transform: translate(-12%, -10%); opacity: 0; }
+  40% { opacity: .56; }
+  82% { transform: translate(22%, 24%); opacity: 0; }
+}
+.ink-jianghu-map:not([data-ambient-active]) :is(.ink-map-mist, .ink-map-water)::before,
+.ink-jianghu-map:not([data-ambient-active]) .ink-map-destination-light { animation-play-state: paused; }
 @media (max-width: 350px) {
-  .ink-map-destination-name { font-size: 16px; padding-inline: 8px; gap: 5px; }
+  .ink-map-destination-face { font-size: 16px; padding-inline: 8px; gap: 5px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ink-map-destination-light { animation: none; opacity: .4; }
-  .ink-map-destination-name { transition: none; }
+  .ink-map-atmosphere { display: none; }
+  .ink-map-destination-light { animation: none; }
+  .ink-map-destination-face, .ink-map-destination-dot::after { transition: none; }
 }
-html[data-ink-motion='reduce'] .ink-map-destination-light { animation: none; opacity: .4; }
+html[data-ink-motion='reduce'] .ink-map-atmosphere { display: none; }
+html[data-ink-motion='reduce'] .ink-map-destination-light { animation: none; }
+html[data-ink-motion='reduce'] :is(.ink-map-destination-face, .ink-map-destination-dot::after) { transition: none; }
