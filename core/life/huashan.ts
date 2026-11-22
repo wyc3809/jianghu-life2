@@ -2,7 +2,7 @@ import { LEGACY_FEATURES_ENABLED } from '@data/redesign/legacyFeatures';
 import { queueAccountReward } from './accountEconomy';
 import { appearanceOf } from '@interfaces/appearance';
 import { appearanceForIndex } from '@data/appearances';
-import { HUASHAN_ROUND_JADE } from '@data/redesign/martialEconomyParams';
+import { EVENT_FOE_BASELINE, HUASHAN_ROUND_JADE } from '@data/redesign/martialEconomyParams';
 import { characterForPreset } from './loadoutPresets';
 import { equippedMartialArts } from './martialLoadout';
 import type {
@@ -24,6 +24,7 @@ import { getMasterName } from './bonds';
 import { syncAchievements } from './achievements';
 import { recordHuashanPlacement, applyHuashanPlacementRank } from './jianghuRank';
 import { gainJianghuPrestige } from './jianghuPrestige';
+import { currentCultivationTier } from './cultivation';
 
 /** @deprecated 年齡門檻已取消，保留舊匯入相容。 */
 export const HUASHAN_MIN_AGE = 0;
@@ -162,7 +163,7 @@ function autoLoadout(c: LifeGameState['character']): Pick<ContestantBuild, 'auto
   };
 }
 
-function buildGhost(id: string, templateIndex: number, playerMartial: number, rng: ReturnType<typeof getRng>): ContestantBuild {
+function buildGhost(id: string, templateIndex: number, playerMartial: number, tier: number, rng: ReturnType<typeof getRng>): ContestantBuild {
   const t = GHOST_TEMPLATES[templateIndex % GHOST_TEMPLATES.length]!;
   const martial = Math.max(8, playerMartial + t.martialDelta + rng.nextInt(-2, 2));
   const attrs = defaultAttributes(martial);
@@ -170,7 +171,9 @@ function buildGhost(id: string, templateIndex: number, playerMartial: number, rn
   t.skills.forEach((sid, i) => {
     skillRanks[sid] = t.ranks[i] ?? 0;
   });
-  const maxHealth = 160 + Math.floor(attrs.genGu * 2.2);
+  // 資深名手以境界氣血作保底，實力按籤上對手分級。
+  const veteranHp = templateIndex < 4 ? 0 : EVENT_FOE_BASELINE[tier]!.maxHp * (0.78 + (templateIndex - 4) * 0.1);
+  const maxHealth = Math.max(160 + Math.floor(attrs.genGu * 2.2), Math.round(veteranHp));
   const maxQi = 120 + Math.floor(attrs.wuXing * 2);
   return {
     id,
@@ -379,9 +382,10 @@ export function startHuashanBracket(state: LifeGameState): string[] {
   player.id = 'player';
 
   const contestants: Record<string, ContestantBuild> = { player };
+  const tier = currentCultivationTier(state).level;
   for (let i = 0; i < 7; i += 1) {
     const id = `ghost_${i}`;
-    contestants[id] = buildGhost(id, i, player.martial, rng);
+    contestants[id] = buildGhost(id, i, player.martial, tier, rng);
   }
 
   // 鬼影人格化：師門／前世宿敵／眷屬相關名號覆寫 1～3 席

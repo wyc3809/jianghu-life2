@@ -104,11 +104,11 @@ export interface CultivationRateBreakdown {
 }
 
 const BASE_RATE_PER_SEC = 0.3;
-const MARTIAL_COEF = 0.02;
+const MARTIAL_COEF = 0.016;
 const SKILL_KIND_WEIGHT: Record<'internal' | 'qinggong' | 'external', number> = {
-  internal: 0.55,
-  qinggong: 0.32,
-  external: 0.22,
+  internal: 0.47,
+  qinggong: 0.27,
+  external: 0.19,
 };
 /** 門派地位每級 +12% 加成（外門0 起計） */
 const SECT_STANDING_BONUS_PER_STEP = 0.12;
@@ -277,8 +277,10 @@ export function grantEventCultivation(state: LifeGameState): number {
 }
 
 const BREAKTHROUGH_BASE_CHANCE = 0.66;
-/** 境界越高，突破越難：每境 −3.5%，後期（第 12–13 境）未計屬性約 20%，計埋根骨悟性約 25–35% */
+/** 境界越高，突破越難：每境基本減 3.5 個百分點 */
 const BREAKTHROUGH_TIER_PENALTY = 0.035;
+/** 大周天起，每境額外降低一個百分點，入門突破沿用原本成功率。 */
+const BREAKTHROUGH_ADVANCED_PENALTY = 0.01;
 /** 根骨／悟性合計每點加成 */
 const BREAKTHROUGH_ATTR_BONUS = 0.003;
 
@@ -287,7 +289,9 @@ export function breakthroughChance(state: LifeGameState): number {
   const c = state.character;
   const tier = currentCultivationTier(state);
   const attrBonus = (c.attributes.genGu + c.attributes.wuXing) * BREAKTHROUGH_ATTR_BONUS;
-  return Math.max(0.15, Math.min(0.92, BREAKTHROUGH_BASE_CHANCE - tier.level * BREAKTHROUGH_TIER_PENALTY + attrBonus));
+  const tierPenalty = tier.level * BREAKTHROUGH_TIER_PENALTY
+    + Math.max(0, tier.level - 3) * BREAKTHROUGH_ADVANCED_PENALTY;
+  return Math.max(0.15, Math.min(0.92, BREAKTHROUGH_BASE_CHANCE - tierPenalty + attrBonus));
 }
 
 export function canAttemptBreakthrough(state: LifeGameState): boolean {

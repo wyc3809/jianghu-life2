@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { buildFoe, startCombat } from '../core/life/combat';
+import { buildFoe, eventFoeScale, startCombat } from '../core/life/combat';
 import { createNewLife } from '../core/life/gameState';
 import { initRng } from '../core/random';
+import { startHuashanBracket } from '../core/life/huashan';
+import { breakthroughChance, effectiveCultivationRate } from '../core/life/cultivation';
 
 describe('combat difficulty', () => {
   it('scales foe power roughly linearly with player martial', () => {
@@ -47,5 +49,42 @@ describe('combat difficulty', () => {
     expect(foe.maxHp).toBeLessThan(player.maxHp * 1.5);
     expect(foe.actionHits).toBe(2);
     expect(foe.attack).toBeLessThan(player.attack);
+  });
+
+  it('test_江湖加壓_入門弱敵保留緩衝_高境首領增幅較大', () => {
+    const multiplier = (tier: number, power: 'weak' | 'normal' | 'strong' | 'boss') =>
+      eventFoeScale(tier, power).maxHp / eventFoeScale(tier, power, 1).maxHp;
+    expect(multiplier(0, 'weak')).toBeCloseTo(1.6);
+    expect(multiplier(1, 'strong')).toBeCloseTo(1.3);
+    const growth = (power: 'normal' | 'boss') => multiplier(11, power) - multiplier(1, power);
+    expect(growth('normal')).toBeGreaterThan(0);
+    expect(growth('boss')).toBeGreaterThan(growth('normal'));
+  });
+
+  it('test_華山新籤_資深對手隨境界變強_入門對手保持可打', () => {
+    const life = (tier: number) => {
+      const state = createNewLife({ seed: 42, skipCoach: true });
+      state.pending = null;
+      state.character.martial = 65;
+      state.character.cultivation.tier = tier;
+      startHuashanBracket(state);
+      return state.huashan!.contestants;
+    };
+    const early = life(1);
+    const late = life(11);
+    expect(late.ghost_0!.maxHealth).toBe(early.ghost_0!.maxHealth);
+    expect(late.ghost_6!.maxHealth).toBeGreaterThan(early.ghost_6!.maxHealth * 2);
+    expect(late.ghost_6!.maxHealth).toBeGreaterThan(late.ghost_4!.maxHealth);
+  });
+
+  it('test_修煉成長_保留首境突破率_中後期加大突破難度', () => {
+    const state = createNewLife({ seed: 42, skipCoach: true });
+    state.character.attributes.genGu = 60;
+    state.character.attributes.wuXing = 60;
+    expect(breakthroughChance(state)).toBeCloseTo(0.92);
+    state.character.cultivation.tier = 11;
+    expect(breakthroughChance(state)).toBeCloseTo(0.555);
+    state.character.cultivation.tier = 13;
+    expect(effectiveCultivationRate(state)).toBeGreaterThanOrEqual(1284000 / (24 * 3600));
   });
 });

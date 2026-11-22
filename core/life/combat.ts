@@ -207,11 +207,13 @@ export function buildFoe(
 export function eventFoeScale(
   tier: number,
   power: keyof typeof EVENT_FOE_DIFFICULTY = 'normal',
-  difficulty: number = EVENT_FOE_DIFFICULTY[power],
+  difficulty?: number,
 ): { martial: number; maxHp: number; attack: number; tier: number } {
   const t = Math.max(0, Math.min(EVENT_FOE_BASELINE.length - 1, Math.floor(tier || 0)));
   const b = EVENT_FOE_BASELINE[t]!;
-  return { martial: b.martial, maxHp: b.maxHp * difficulty, attack: b.attack * difficulty, tier: t };
+  const balance = EVENT_FOE_DIFFICULTY[power];
+  const multiplier = difficulty ?? balance.base + Math.max(0, t - 2) * balance.perTier;
+  return { martial: b.martial, maxHp: b.maxHp * multiplier, attack: b.attack * multiplier, tier: t };
 }
 
 export function startCombat(

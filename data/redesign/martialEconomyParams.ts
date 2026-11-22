@@ -53,7 +53,12 @@ export const EVENT_FOE_BASELINE: readonly { maxHp: number; attack: number; marti
   { maxHp: 921, attack: 127, martial: 359 }, { maxHp: 1022, attack: 147, martial: 435 },
   { maxHp: 1192, attack: 225, martial: 713 },
 ];
-/** 事件對手難度（按對手強度乘基準氣血、攻擊；1＝同境界中位數人物）。玩家揀「中等」：普通／弱×1.6、強敵×1.3、首領×1.0（模擬勝率見審計報告 B3；待試玩） */
-export const EVENT_FOE_DIFFICULTY = { weak: 1.6, normal: 1.6, strong: 1.3, boss: 1 } as const;
+/** 江湖敵人由引氣入體起計嘅倍率；三境後再按境界遞增。 */
+export const EVENT_FOE_DIFFICULTY = {
+  weak: { base: 1.6, perTier: 0.012 },
+  normal: { base: 1.85, perTier: 0.04 },
+  strong: { base: 1.3, perTier: 0.035 },
+  boss: { base: 1.05, perTier: 0.06 },
+} as const;
 /** 日常有效修煉候選；整裝、飲酒及失敗操作不計。 */
 export const DAILY_TRAINING_ACTIONS: readonly string[] = ['train_martial','train_internal','temper_body','sect_ask_elder','sect_guard','sect_meditate'];
