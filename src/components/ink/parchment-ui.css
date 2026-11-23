@@ -248,6 +248,13 @@ body dialog.ink-modal::backdrop { background:transparent; }
 }
 :where(dialog.ink-native-modal)::backdrop { background:transparent; }
 dialog.ink-native-modal:not([open]) { display:none; }
+@media (pointer: coarse) {
+  /* iOS 聚焦細字輸入欄會自動放大視窗。 */
+  body :is(dialog,[role='dialog'],[role='alertdialog']) :is(
+    input:not([type='range'],[type='checkbox'],[type='radio'],[type='color'],[type='file']),
+    textarea,select,[contenteditable='true']
+  ) { font-size:max(16px,1em); }
+}
 body .ink-offline-modal-card {
   max-height:calc(100dvh - max(32px,env(safe-area-inset-top)) - max(24px,env(safe-area-inset-bottom)));
   display:flex; flex-direction:column; overflow:hidden;

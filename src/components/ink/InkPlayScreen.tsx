@@ -19,7 +19,7 @@ import {
 } from '../../audio/inkAudio';
 import { InkSettingsPanel } from './InkSettingsPanel';
 import { InkLeaderboardPanel } from './InkLeaderboardPanel';
-import { inkGlint, inkHop, inkPageIn, inkPopIn, inkRevealChars, inkSurfaceIn } from '../../ui/inkMotion';
+import { inkGlint, inkHop, inkPageIn, inkRevealChars, inkSurfaceIn } from '../../ui/inkMotion';
 import { InkIcon } from './InkIcon';
 import { AppearanceBadge } from './InkAppearance';
 import { deltaIconKey, type InkIconKey } from '../../ui/inkIcons';
@@ -207,7 +207,6 @@ export function InkPlayScreen({ state }: Props) {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [boardOpen, setBoardOpen] = useState(false);
   const resultTitleRef = useRef<HTMLHeadingElement | null>(null);
-  const deltaListRef = useRef<HTMLUListElement | null>(null);
   const flipRef = useRef<HTMLDivElement | null>(null);
   const navRef = useRef<HTMLElement | null>(null);
   const reduceMotion = usePrefersReducedMotion();
@@ -488,7 +487,6 @@ export function InkPlayScreen({ state }: Props) {
     onHomeTab &&
     !combat &&
     !eventFocus &&
-    !showResult &&
     state.phase === 'playing' &&
     Boolean(coach) &&
     !c.flags.coach_done &&
@@ -503,7 +501,7 @@ export function InkPlayScreen({ state }: Props) {
   const nicknames = topTitles(state).slice(1);
   const rating = combatRating(state);
   const ratingTier = combatRatingTier(rating);
-  const hasTask = onHomeTab && state.phase === 'playing' && c.alive && !showResult && !combat && !eventFocus;
+  const hasTask = onHomeTab && state.phase === 'playing' && c.alive && !combat && !eventFocus;
 
   // Portal 固定欄用實際高度預留位置；字體／安全區改變都唔遮住主頁。
   useLayoutEffect(() => {
@@ -556,10 +554,6 @@ export function InkPlayScreen({ state }: Props) {
     if (!resultKey) return;
     return inkRevealChars(resultTitleRef.current, { delay: 120, step: 60 }) ?? undefined;
   }, [resultKey]);
-  // 消長：逐格彈出
-  useEffect(() => {
-    if (resultDeltasReady) inkPopIn(deltaListRef.current?.children, { step: 70, y: 10 });
-  }, [resultDeltasReady, resultKey]);
   // 過月：鎮居提示區紙張翻入
   const monthKey = `${state.year}-${month}`;
   const firstMonth = useRef(true);
@@ -761,7 +755,7 @@ export function InkPlayScreen({ state }: Props) {
               reduceMotion={reduceMotion}
               season={inkSeason}
               background="town"
-              overlay={state.phase === 'playing' && c.alive && !showResult && <InkIdleHarvest
+              overlay={state.phase === 'playing' && c.alive && <InkIdleHarvest
                 state={state} busy={Boolean(combat)} onHarvest={() => {
                   const got = harvestIdle();
                   if (got > 0) playInkWin();
@@ -772,7 +766,7 @@ export function InkPlayScreen({ state }: Props) {
             {/* 四季／地面位圖由演武Canvas繪製，全屏首領戰亦保持同一畫面。 */}
           </div>
 
-          {state.phase === 'playing' && c.alive && !showResult && !combat && !eventFocus && (
+          {hasTask && (
             <InkHomeGoals
               section="task"
               state={state}
@@ -789,9 +783,9 @@ export function InkPlayScreen({ state }: Props) {
             />
           )}
 
-          {state.phase === 'playing' && c.alive && !showResult && <InkHomeQuick state={state} onlineAvailable={Boolean(InkOnlinePanel)} onOpen={openQuick} />}
+          {state.phase === 'playing' && c.alive && <InkHomeQuick state={state} onlineAvailable={Boolean(InkOnlinePanel)} onOpen={openQuick} />}
 
-          {state.phase === 'playing' && c.alive && !showResult && <InkEncounterCard />}
+          {state.phase === 'playing' && c.alive && <InkEncounterCard />}
 
           {/* 翻頁效果只套喺下面嘅提示，唔影響演武台 */}
           <div ref={flipRef}>
@@ -980,7 +974,7 @@ export function InkPlayScreen({ state }: Props) {
                   <p className="ink-result-delta-label">
                     {lastResult.deltas.some(isLearnSkillDeltaLine) ? '新學武學' : '變化'}
                   </p>
-                  <ul className="ink-delta-chips is-anime" aria-label="變化" ref={deltaListRef}>
+                  <ul className="ink-delta-chips" aria-label="變化">
                     {lastResult.deltas.map((d, i) => {
                       if (isLearnSkillDeltaLine(d)) {
                         return (

@@ -2998,39 +2998,22 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
 }
 
 .ink-result {
-  animation: inkFadeUp var(--motion-base) var(--ease-ink) both;
+  animation: inkPopupFade var(--motion-base) var(--ease-ink) both;
   border-color: rgba(163, 58, 50, 0.28);
   background:
     linear-gradient(180deg, var(--cinnabar-soft), transparent 40%),
     var(--bg-panel);
 }
 
-/* 結果三階：故事 →（點擊）消長 → 印；招牌動作「暈開」：由化開嘅墨收實 */
+/* 故事與消長原位淡入，落印另播。 */
 .ink-result--staged .ink-result-story {
-  animation: inkBloom var(--motion-slow) var(--ease-ink) both;
+  animation: inkPopupFade var(--motion-slow) var(--ease-ink) both;
 }
 
 .ink-result--staged .ink-result-deltas {
   opacity: 0;
-  animation: inkBloom var(--motion-slow) var(--ease-ink) both;
+  animation: inkPopupFade var(--motion-slow) var(--ease-ink) both;
   animation-fill-mode: both;
-}
-
-@keyframes inkBloom {
-  from {
-    opacity: 0;
-    filter: blur(6px);
-    transform: scale(0.985);
-  }
-  60% {
-    opacity: 1;
-    filter: blur(1px);
-  }
-  to {
-    opacity: 1;
-    filter: blur(0);
-    transform: scale(1);
-  }
 }
 
 .ink-result--staged.ink-result--deltas-open .ink-result-deltas {
@@ -3039,7 +3022,7 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
 
 .ink-result--staged.ink-result--await-deltas .ink-btn--ack {
   opacity: 1;
-  animation: inkFadeUp var(--motion-base) var(--ease-ink) both;
+  animation: inkPopupFade var(--motion-base) var(--ease-ink) both;
   animation-delay: 0.18s;
 }
 
@@ -3049,14 +3032,14 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
 
 .ink-result--staged.ink-result--deltas-open .ink-btn--ack {
   opacity: 0;
-  animation: inkFadeUp var(--motion-base) var(--ease-ink) both;
+  animation: inkPopupFade var(--motion-base) var(--ease-ink) both;
   animation-delay: 0.28s;
   animation-fill-mode: both;
 }
 
 .ink-result--staged:not(.ink-result--await-deltas):not(.ink-result--deltas-open) .ink-btn--ack {
   opacity: 0;
-  animation: inkFadeUp var(--motion-base) var(--ease-ink) both;
+  animation: inkPopupFade var(--motion-base) var(--ease-ink) both;
   animation-delay: 0.22s;
   animation-fill-mode: both;
 }
@@ -3107,7 +3090,7 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
   background:
     radial-gradient(ellipse at 50% 40%, rgba(26, 26, 26, 0.35), rgba(26, 26, 26, 0.58));
   backdrop-filter: blur(3px);
-  animation: inkFadeUp var(--motion-base) var(--ease-ink) both;
+  animation: inkPopupFade var(--motion-base) var(--ease-ink) both;
   overscroll-behavior: contain;
 }
 
@@ -3123,7 +3106,7 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
   box-shadow:
     0 0 0 1px rgba(163, 58, 50, 0.12),
     0 22px 56px rgba(26, 26, 26, 0.35);
-  animation: inkModalIn var(--motion-base) var(--ease-brush) both;
+  animation: inkPopupFade var(--motion-base) var(--ease-brush) both;
 }
 
 .ink-modal-card::before {
@@ -3207,17 +3190,9 @@ body .ink-gear-compare-card { display:flex; flex-direction:column; overflow:hidd
   letter-spacing: 0.22em;
 }
 
-@keyframes inkModalIn {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-    filter: blur(2px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
+@keyframes inkPopupFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -3365,7 +3340,8 @@ html[data-ink-motion='reduce'] :where(button,[role='button'],[role='tab'],summar
   touch-action: inherit;
 }
 .ink-surface-managed { animation: none !important; }
-[data-ink-entering] { will-change: transform,opacity; }
+[data-ink-entering="page"] { will-change: transform, opacity; }
+[data-ink-entering="sheet"] { will-change: opacity; }
 
 .ink-result-choice {
   margin: 0 0 8px;
@@ -5836,12 +5812,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   box-shadow: 0 14px 40px rgba(26, 26, 26, 0.35);
   padding: 22px 22px 18px;
   text-align: center;
-  animation: inkOfflineModalIn var(--motion-base) var(--ease-ink);
-}
-
-@keyframes inkOfflineModalIn {
-  from { opacity: 0; transform: translateY(10px) scale(0.97); }
-  to { opacity: 1; transform: none; }
+  animation: inkPopupFade var(--motion-base) var(--ease-ink);
 }
 
 .ink-offline-modal-kicker {
@@ -5872,7 +5843,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   font-size: 1.6rem;
   font-weight: 700;
   color: var(--cinnabar);
-  animation: inkOfflineXpPop var(--motion-slow) var(--ease-ink) 0.15s both;
+  animation: inkPopupFade var(--motion-slow) var(--ease-ink) 0.15s both;
 }
 
 .ink-offline-modal-reserve {
@@ -5891,12 +5862,6 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   margin-top: 6px;
   font-size: 0.86rem;
   opacity: 0.78;
-}
-
-@keyframes inkOfflineXpPop {
-  0% { transform: scale(0.6); opacity: 0; }
-  60% { transform: scale(1.18); opacity: 1; }
-  100% { transform: scale(1); }
 }
 
 .ink-offline-modal-note {
@@ -6632,7 +6597,7 @@ html[data-ink-motion='reduce'] .ink-combat-slash {
 .ink-moment__loot-art { width:min(45vw,180px); height:min(45vw,180px); object-fit:contain; }
 .ink-moment--loot .ink-moment__name { flex-direction:row; flex-wrap:wrap; justify-content:center; gap:.06em; font-size:clamp(1.5rem,7vw,2.25rem); }
 
-/* 紙卷（學武）／題簽（稱號）底：由中間向兩邊展開 */
+/* 紙卷／題簽保持原比例，紙底原位淡入。 */
 .ink-moment__paper {
   position: absolute;
   inset: 0;
@@ -6643,8 +6608,7 @@ html[data-ink-motion='reduce'] .ink-combat-slash {
   box-shadow:
     0 0 0 1px rgba(26, 26, 26, 0.12),
     0 18px 40px -16px rgba(26, 26, 26, 0.35);
-  transform-origin: 50% 50%;
-  animation: inkMomentUnroll var(--motion-slow) var(--ease-brush) both;
+  animation: inkPopupFade var(--motion-slow) var(--ease-brush) both;
 }
 
 .ink-moment--learn .ink-moment__paper::before,
@@ -6665,13 +6629,7 @@ html[data-ink-motion='reduce'] .ink-combat-slash {
   right: -5px;
 }
 
-@keyframes inkMomentUnroll {
-  from {
-    transform: scaleX(0.04);
-  }
-}
-
-/* 題簽：窄長直條，由上跌落 */
+/* 題簽用窄長直條。 */
 .ink-moment--title .ink-moment__stage {
   padding: 40px 34px 48px;
 }
@@ -6680,16 +6638,6 @@ html[data-ink-motion='reduce'] .ink-combat-slash {
     inset 0 0 0 3px var(--paper-bright),
     inset 0 0 0 4px rgba(163, 58, 50, 0.5),
     0 18px 40px -16px rgba(26, 26, 26, 0.35);
-  animation: inkMomentDrop var(--motion-slow) var(--ease-stamp) both;
-}
-
-@keyframes inkMomentDrop {
-  from {
-    transform: translateY(-60vh) rotate(-4deg);
-  }
-  70% {
-    transform: translateY(6px) rotate(0.6deg);
-  }
 }
 
 /* 升階：身後墨環慢轉 */
@@ -7614,7 +7562,7 @@ html[data-ink-motion='reduce'] .ink-moment-toast {
   font-size: 0.86rem;
   color: var(--ink);
   background: rgba(250, 246, 238, 0.9);
-  animation: inkFadeUp var(--motion-base) var(--ease-ink) calc(var(--i, 0) * 45ms) both;
+  animation: inkPopupFade var(--motion-base) var(--ease-ink) calc(var(--i, 0) * 45ms) both;
 }
 
 .ink-delta-chip-value {
@@ -8185,11 +8133,6 @@ html[data-ink-motion='reduce'] .ink-achv-name i {
 .ink-spar-boss-name b {
   font-weight: inherit;
   display: inline-block;
-}
-
-/* anime.js 接手嘅出場：停用舊 CSS 入場，避免雙重動畫 */
-.ink-delta-chips.is-anime .ink-delta-chip {
-  animation: none;
 }
 
 /* 分卷 tab：墨圈徽章（scripts/art/build_tab_badges.py），白字黑邊標籤喺徽章下面，揀中加朱紅點 */
@@ -8940,7 +8883,7 @@ html[data-ink-motion='reduce'] .ink-achv-name i {
   padding: 8px 10px;
   border: 1px solid var(--ink-faint);
   background: rgba(255, 252, 245, 0.85);
-  animation: inkPullIn 0.42s var(--ease-ink, ease-out) both;
+  animation: inkPopupFade 0.42s var(--ease-ink, ease-out) both;
   animation-delay: calc(var(--i, 0) * 70ms);
 }
 
@@ -8980,11 +8923,6 @@ html[data-ink-motion='reduce'] .ink-achv-name i {
 .t-dup { color: var(--ink-soft); }
 .t-wish { color: var(--cinnabar); }
 .t-premium { color: #8a5a12; }
-
-@keyframes inkPullIn {
-  from { opacity: 0; transform: translateY(8px) scale(0.97); }
-  to { opacity: 1; transform: none; }
-}
 
 @media (prefers-reduced-motion: reduce) {
   .ink-pull-card { animation: none; }

@@ -16,6 +16,15 @@ beforeEach(()=>{
 });
 afterEach(()=>vi.unstubAllGlobals());
 describe('冊頁動效的生命週期',()=>{
+ it('test_surface_彈窗原位淡入_頁面揭頁保留位移',()=>{
+  const sheet=surface(),page=surface();
+  const close=inkSurfaceIn(sheet,'sheet'),leave=inkSurfaceIn(page);
+  const sheetMotion=mocks.animate.mock.calls[0]![1];
+  const pageMotion=mocks.animate.mock.calls[1]![1];
+  expect(Object.keys(sheetMotion).sort()).toEqual(['duration','ease','onComplete','opacity']);
+  expect(pageMotion.y).toEqual([10,0]);
+  close();leave();
+ });
  it('test_surface_換頁中再開_取消前一段且舊回調不清除新動畫',()=>{
   const el=surface();inkSurfaceIn(el);const oldEnd=mocks.animate.mock.calls[0]![1].onComplete;
   const oldAnimation=mocks.animate.mock.results[0]!.value,oldUnwatch=mocks.watch.mock.results[0]!.value;

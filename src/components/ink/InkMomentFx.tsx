@@ -143,6 +143,7 @@ export function InkMomentFx({ moment, onDone, sectId }: Props) {
     <div
       className={`ink-moment ink-moment--${view.variant}${moment.kind === 'injury' ? ` ink-moment--${moment.tier}` : moment.kind==='loot'?' ink-moment--loot':''}`}
       role="button"
+      data-ink-stationary
       tabIndex={0}
       aria-live="polite"
       aria-label={`${view.kicker}：${view.name}${view.sub ? `，${view.sub}` : ''}。點擊繼續`}
