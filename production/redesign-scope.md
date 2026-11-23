@@ -1736,3 +1736,4 @@ world Edge v5、live Edge v2及migration 20261115090053已部署，verify_jwt與
 - 依玩家意見，江湖風雲保留原燈籠動畫。華山改全頁雲海石壇入場，秘笈閣改桌面書頁局部動畫，開宗立派改旗杆局部飄旗。
 - 場景先暖載，華山圖太遲才載好則留頁首靜圖；減少動態保留場景而停止播放。報名、抽卡及立派沿用既有流程。
 - 前後實拍及慢播見 `production/qa/evidence/redesign/jianghu-comic-scenes/`。
+- 玩家確認效果及畫風，指定之後新製及重繪嘅遊戲美術沿用。長期基準見 `design/art/STYLE.md`，分層同已確認實拍入口見 `design/art/CURRENT-STYLE.md`。

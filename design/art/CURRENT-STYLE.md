@@ -1,13 +1,13 @@
-# 江湖一生 · 現行美術風格總覽（EA0.116.1）
+# 江湖一生 · 現行美術風格總覽
 
-2026-11-16 全面檢視。用正式構建逐頁實際截圖（Chromium 390×844，隔離存檔），總覽圖見[`style-overview/ea0116-overview.png`](style-overview/ea0116-overview.png)。
+2026-11-16 全面檢視，2026-11-23 補記 EA0.119.4 玩家確認嘅漫畫畫風及動效。用正式構建逐頁實際截圖（Chromium 390×844，隔離存檔），總覽圖見[`style-overview/ea0116-overview.png`](style-overview/ea0116-overview.png)。
 
 **用法**：做任何新圖、新頁之前先睇呢份，搵返屬於邊一層，再跟該層嘅基準文件。各層基準唔同，唔好將一層嘅規則搬去另一層。
 
 ## 1. 文件優先次序
 
 1. **本檔**：分層總覽，同埋邊份文件仲有效。
-2. [`STYLE.md`](STYLE.md)：青綠暖金漫畫環境基準，2026-11-15 玩家確認，用 `town-manhua/selected.png` 做驗收圖。
+2. [`STYLE.md`](STYLE.md)：青綠暖金漫畫及場景動效基準，用已確認千燈鎮同四個江湖入口嘅實畫做驗收參考。
 3. [`parchment-ui/README.md`](parchment-ui/README.md)：明亮宣紙介面框，2026-10-26 確認，基準圖係 `person-screen/selected-third.png`。
 4. 各專項 README：`manhua/`、`all-sect-uniforms/`、`qingyun-fashion/`、`rare-weapons/`、`sect-battle/`、`tap-ink.md` 等。
 
@@ -20,7 +20,7 @@
 
 | 層 | 用喺邊度 | 現行風格 | 基準 | 狀態 |
 |---|---|---|---|---|
-| **A 環境插圖** | 開卷首頁 | 青綠暖金漫畫：粗幼線條、大色塊明暗、單一斜陽光向 | `STYLE.md` | ✅ 已確認；暫時只套用咗首頁 |
+| **A 環境插圖** | 開卷首頁、功能頁、事件及其他新製或重繪環境 | 青綠暖金漫畫：有粗幼嘅線條、清楚大色塊、前中遠景深度、單一斜陽光向 | `STYLE.md` | ✅ 已確認，首頁及江湖入口已有實畫 |
 | **B 人物立繪** | 人物頁、衣櫥、人物誌、頭像、創角 | 漫畫全身立繪，十派八職位制服、時裝 | `manhua/`、`all-sect-uniforms/` | ✅ 已確認 |
 | **C 介面框** | 所有面板、彈窗、卡片、按鈕 | 明亮宣紙、自然纖維、淡水墨窄邊，主按鈕用朱砂乾筆 | `parchment-ui/` | ✅ 已確認；頁底仍有淡水墨山 |
 | **C2 圖示** | 主頁快捷、底部導航、器物 | 深色菱形「器物牌章」配白字 | `InkIcon`、`public/ink/art/icons` | ✅ 沿用 |
@@ -28,6 +28,7 @@
 | **D2 門派會武** | 同遊門派會武 | 直版水彩戰場 | `sect-battle/` | ✅ 已確認 |
 | **E 事件插圖** | 每月事件卡頂 | 灰色水墨小景（`public/ink/ai/banners`） | 早期 AI 水墨包 | ⚠ 仍係舊水墨，未跟 A 層 |
 | **F 江湖地圖** | 地圖頁 | 淡彩鳥瞰，四個地標用朱砂點標示 | `jianghu-map-concept/` | ✅ 已確認（第 34、36 項） |
+| **F2 江湖入口動效** | 華山論劍、秘笈閣、開宗立派、江湖風雲 | 漫畫整頁運鏡或畫內局部動作，跟底畫視角及光向 | [華山整頁、案上翻書及旗杆飄旗](../../production/qa/evidence/redesign/jianghu-comic-scenes/comic-entrances.gif) · [茶樓原燈籠](../../production/qa/evidence/redesign/jianghu-painted-entrances/entrances.gif) | ✅ EA0.119.4 玩家確認，之後嘅場景動效以此做參考 |
 | **G 全屏結果** | 突破成敗、抽卡、寶箱、高光 | 明亮宣紙徑向漸層、墨字、朱砂印 | `InkBreakthroughModal.module.css`、`src/fx/highlight/` | ✅ EA0.117.0 突破都改埋明亮 |
 | **H 特效** | 點按、墨點、場景粒子、外功招式 | 灰黑水墨點、季節粒子、各武學專屬位圖 | `tap-ink.md`、`src/fx/` | ✅ |
 
