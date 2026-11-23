@@ -92,3 +92,26 @@
 html[data-ink-motion='reduce'] .ink-map-atmosphere { display: none; }
 html[data-ink-motion='reduce'] .ink-map-destination-light { animation: none; }
 html[data-ink-motion='reduce'] :is(.ink-map-destination-face, .ink-map-destination-dot::after) { transition: none; }
+
+/* 點中建築先見到所選位置嘅材質，題字同命中範圍照用原位。 */
+.ink-map-destination::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: var(--landmark-light);
+}
+.ink-map-destination--huashan {
+  --landmark-light: radial-gradient(ellipse 44% 7% at 59% 22%, #edfaffeb, transparent);
+}
+.ink-map-destination--gacha {
+  --landmark-light: radial-gradient(ellipse 50% 25% at 46% 39%, #fff0c6bd, transparent);
+}
+.ink-map-destination--founder {
+  --landmark-light: radial-gradient(ellipse 46% 30% at 58% 43%, #f7b289ab, transparent);
+}
+.ink-map-destination--online {
+  --landmark-light: radial-gradient(ellipse 21% 26% at 37% 42%, #ffd690ed 13%, transparent);
+}
+.ink-map-destination:is(.is-pressed, :focus-visible)::after { opacity: 1; }
