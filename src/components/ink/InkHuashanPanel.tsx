@@ -1,3 +1,4 @@
+import { InkJianghuFeatureArt } from './InkJianghuFeatureArt';
 import { HUASHAN_ROUND_JADE } from '@data/redesign/martialEconomyParams';
 import { useEffect, useRef, useState } from 'react';
 import type { HuashanBracketState, LifeGameState } from '@interfaces/lifeEngine';
@@ -78,7 +79,10 @@ export function InkHuashanPanel({
 
   return (
     <section className="ink-panel ink-huashan-panel ink-tab-pane" aria-label="華山論劍">
-      <h3>華山論劍</h3>
+      <header className="ink-jianghu-feature-heading">
+        <h3>華山論劍</h3>
+        <InkJianghuFeatureArt kind="huashan" />
+      </header>
       <p className="ink-note">
         每週舉行八強論劍，使用人物頁的對戰配搭；每門外功整套只耗內一次。八強、四強及決賽勝出分別獲{HUASHAN_ROUND_JADE.join("／")}免費玉石，每屆每輪一次。其餘席位由江湖名手幻影出戰。
       </p>

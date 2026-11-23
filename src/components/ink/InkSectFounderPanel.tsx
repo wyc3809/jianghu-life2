@@ -1,3 +1,4 @@
+import { InkJianghuFeatureArt } from './InkJianghuFeatureArt';
 import { useState } from 'react';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import {
@@ -31,7 +32,10 @@ export function InkSectFounderPanel({ state, onFound, onRecruit, onTeach }: Prop
 
   return (
     <section className="ink-panel ink-sect-founder-panel ink-tab-pane" aria-label="開宗立派">
-      <h3>開宗立派</h3>
+      <header className="ink-jianghu-feature-heading">
+        <h3>開宗立派</h3>
+        <InkJianghuFeatureArt kind="founder" />
+      </header>
 
       {!sect && (
         <>

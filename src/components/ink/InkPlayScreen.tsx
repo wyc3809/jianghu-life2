@@ -572,7 +572,7 @@ export function InkPlayScreen({ state }: Props) {
   }, [monthKey]);
   const jianghuEntry = jianghuView !== 'main' && !(jianghuView === 'online' && onlineFromHome)
     ? jianghuView : undefined;
-  // 只跟導覽變化揭頁；江湖入口各有短演出，唔疊加通用揭頁。
+  // 只跟導覽變化揭頁；江湖插圖各自播，唔疊加通用揭頁。
   useLayoutEffect(() => {
     if (tab === 'home' || combat || eventFocus || (tab === 'jianghu' && jianghuEntry)) return;
     const selector = tab === 'person' ? '.ink-person-overview,.ink-attrs'
@@ -829,9 +829,6 @@ export function InkPlayScreen({ state }: Props) {
               onDismissReport={huashanDismissReport} onCloseTournament={huashanClose} />}
             {jianghuView === 'founder' && <InkSectFounderPanel state={state} onFound={foundSect} onRecruit={recruitDisciple} onTeach={teachDisciple} />}
           </div>}
-        {jianghuEntry && jianghuEntry !== 'online' && (
-          <span key={jianghuEntry} className={`ink-jianghu-entry ink-jianghu-entry--${jianghuEntry}`} aria-hidden="true" />
-        )}
       </div>}
 
       {tab === 'person' && !combat && !eventFocus && (

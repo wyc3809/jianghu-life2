@@ -1,3 +1,4 @@
+import { InkJianghuFeatureArt } from './InkJianghuFeatureArt';
 import { useLayoutEffect } from 'react';
 import { inkSurfaceIn } from '../../ui/inkMotion';
 import { Suspense, useRef, useState, type CSSProperties } from 'react';
@@ -99,7 +100,10 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
   return (
     <section ref={surfaceRef} id="ink-gacha" className={`ink-panel ink-gacha ink-codex-page is-${banner}`} aria-label="秘笈閣">
       <header className="ink-codex-heading">
-        <div><small>藏天下武學</small><h3>{view === 'shelf' ? '秘笈藏本' : '秘笈閣'}</h3></div>
+        <div className="ink-codex-heading-title">
+          <InkJianghuFeatureArt kind="gacha" />
+          <div><small>藏天下武學</small><h3>{view === 'shelf' ? '秘笈藏本' : '秘笈閣'}</h3></div>
+        </div>
         <div className="ink-codex-heading-actions">
           <button type="button" onClick={() => setSheet('info')} aria-label="卡池詳情">池規</button>
           <button type="button" onClick={() => setView(view === 'shelf' ? 'draw' : 'shelf')} aria-pressed={view === 'shelf'}>{view === 'shelf' ? '返回抽取' : <>秘笈收藏 <b>{Object.keys(manuals).length}</b></>}<small>書頁 {(meta.pages ?? 0).toLocaleString('zh-Hant')}頁</small></button>
