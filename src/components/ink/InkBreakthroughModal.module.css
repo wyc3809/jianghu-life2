@@ -9,7 +9,7 @@
   place-items: center;
   overflow: hidden;
   color: #242d2c;
-  font-family: 'Noto Serif CJK TC', 'Noto Serif CJK SC', 'Songti TC', 'STSong', serif;
+  font-family: var(--game-ui-font);
   cursor: pointer;
   animation: bkIn var(--motion-base) var(--ease-ink) both;
 }
@@ -81,6 +81,7 @@
   width: min(86vw, 360px);
   aspect-ratio: 1;
   translate: -50% -50%;
+  mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
   pointer-events: none;
 }
 
@@ -167,8 +168,9 @@
 .kicker {
   margin: 0;
   font-size: 0.82rem;
-  letter-spacing: 0.5em;
-  text-indent: 0.5em;
+  letter-spacing: 0.16em;
+  text-indent: 0.16em;
+  font-weight: 700;
   color: #a34338;
   animation: bkFade var(--motion-base) var(--ease-ink) calc(var(--motion-base) * 0.6) both;
 }
@@ -181,7 +183,7 @@
   flex-direction: column;
   align-items: center;
   gap: 0.1em;
-  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', 'Noto Serif CJK TC', serif;
+  font-family: var(--ui-title);
   font-size: clamp(2.6rem, 12vw, 3.8rem);
   font-weight: 700;
   line-height: 1.08;
@@ -243,7 +245,7 @@
 }
 
 .tierOld {
-  color: #7d7566;
+  color: var(--ui-reading-muted);
 }
 
 .tierArrow {
@@ -263,8 +265,8 @@
   display: flex;
   flex-direction: column;
   gap: 3px;
-  font-size: clamp(12px, 1.8vh, 15px);
-  color: #4a4840;
+  font-size: clamp(13px, 1.8vh, 16px);
+  color: var(--ui-reading-muted);
   animation: bkFade var(--motion-slow) var(--ease-ink) calc(var(--motion-ritual) + var(--motion-quick)) both;
 }
 
@@ -276,11 +278,13 @@
 
 .ack {
   margin-top: 12px;
-  padding: 9px 22px;
-  border: 1px solid rgba(163, 67, 56, 0.7);
-  border-radius: 4px;
-  background: #fffaf2;
-  color: #a34338;
+  min-width: 108px;
+  padding: 9px 24px;
+  min-height: 44px;
+  border: 0;
+  background: var(--ui-brush) center/100% 100% no-repeat;
+  color: var(--ui-reading-paper);
+  font-weight: 700;
   font-family: inherit;
   font-size: 0.9rem;
   letter-spacing: 0.1em;
@@ -288,8 +292,13 @@
   animation: bkFade var(--motion-slow) var(--ease-ink) calc(var(--motion-ritual) + var(--motion-base)) both;
 }
 
+.ack:focus-visible {
+  outline: 2px solid var(--ui-feedback-red);
+  outline-offset: 3px;
+}
+
 .ack:hover {
-  background: rgba(163, 67, 56, 0.1);
+  filter: brightness(.93);
 }
 
 @keyframes bkFade {

@@ -455,7 +455,7 @@
   font: 700 16px var(--font);
   letter-spacing: 0.3em;
   text-indent: 0.3em;
-  color: var(--main);
+  color: var(--ui-reading-muted);
   transition: color 0.4s;
 }
 
@@ -968,7 +968,7 @@
   border-image-slice:13;
 }
 .inlay { display:none; }
-.title { font-family:var(--ui-title)!important; }
+.title { font-family:var(--ui-title)!important; text-shadow:none; }
 .panelName { font-family:var(--game-ui-font,sans-serif); font-weight:700; }
 .root { --font:var(--game-ui-font,sans-serif); }
 .claim { background:var(--ui-brush) center/100% 100% no-repeat; font-family:var(--ui-title)!important; }

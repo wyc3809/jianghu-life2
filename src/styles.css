@@ -55,9 +55,9 @@
   --border: var(--ink-faint);
 
   /* 標題書法：固定文案可用；任意玩家名／動態字請用 --font-title，避免缺字混排錯位 */
-  --font-display: 'Ma Shan Zheng', 'Noto Serif TC', 'Songti TC', serif;
-  --font-title: 'Noto Serif TC', 'Songti TC', 'STSong', 'SimSun', serif;
-  --font-body: 'Noto Serif TC', 'Songti TC', 'STSong', 'SimSun', serif;
+  --font-display: var(--ui-title);
+  --font-title: var(--game-ui-font);
+  --font-body: var(--game-ui-font);
   --font-wuxia-title: 'Jianghu Wuxia Titles', var(--game-ui-font, sans-serif);
   --fs-body: 1rem;
   --fs-caption: 0.82rem;
@@ -2205,7 +2205,7 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Ma Shan Zheng', serif;
+  font-family: var(--ui-title);
   font-size: 2.45rem;
   color: var(--cinnabar);
   border: 3px solid var(--cinnabar);
@@ -3070,7 +3070,7 @@ html[data-ink-motion='reduce'] .ink-combat-stance-stamp {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Ma Shan Zheng', serif;
+  font-family: var(--ui-title);
   font-size: 1.15rem;
   color: var(--cinnabar);
   border: 2px solid var(--cinnabar);
@@ -5325,7 +5325,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
 }
 
 .ink-combo-burst__name {
-  font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif;
+  font-family: var(--game-ui-font);
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--cinnabar);
@@ -5417,7 +5417,7 @@ html[data-ink-motion='reduce'] .ink-result-wash {
   border: 1px dashed var(--ink-faint);
   border-radius: 2px;
   background: rgba(26, 26, 26, 0.03);
-  font-family: 'Noto Serif SC', serif;
+  font-family: var(--game-ui-font);
   font-size: 11px;
   color: var(--ink-wash);
 }
@@ -6731,7 +6731,7 @@ html[data-ink-motion='reduce'] .ink-combat-slash {
   flex-direction: column;
   align-items: center;
   gap: 0.12em;
-  font-family: 'Kaiti TC', 'STKaiti', 'KaiTi', 'DFKai-SB', var(--font-title);
+  font-family: var(--ui-title);
   font-size: clamp(2.3rem, 11vw, 3.4rem);
   font-weight: 700;
   line-height: 1.1;
@@ -10510,7 +10510,7 @@ button.ink-enc-strip {
 html[data-ink-motion='reduce'] .ink-nav-center--badge:active:not(:disabled) { transform: none; }
 
 /* EA0.65：介面控制、資源及數字統一字體；角色圖示唔再使用姓氏。 */
-:root { --game-ui-font: 'Noto Sans CJK TC', 'Microsoft JhengHei', sans-serif; }
+:root { --game-ui-font: 'Noto Sans CJK TC', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif; }
 .scroll-shell--play, .scroll-shell--play button, .scroll-shell--play input,
 .scroll-shell--play select, .scroll-shell--play .ink-icon-btn,
 .ink-hud .ink-jade-chip, .ink-hud .ink-meta, .ink-hud .ink-vitals-label,
