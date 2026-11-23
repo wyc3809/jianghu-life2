@@ -1,3 +1,4 @@
+import { InkJianghuFeatureArt } from './InkJianghuFeatureArt';
 import { motionReduced } from '../../ui/inkMotion';
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import type { OnlinePeer, OnlineSnapshot } from '@interfaces/online';
@@ -86,7 +87,7 @@ export default function InkLiveWorld({onBack,backLabel='返回江湖風雲',onAc
  return <section className="ink-panel ink-online ink-live" aria-label="同遊江湖">
   <button type="button" className="ink-jianghu-back" onClick={onBack}>{backLabel}</button>
   <header className="live-heading"><h2>同遊江湖</h2>{joined&&<small role="status">{connected?'已連線':'重新連線中'}</small>}</header>
-  <div className="live-scene"><div><p>千燈鎮 · 水榭茶樓</p><small>{joined?`${peers.length}位俠客參與 · ${peers.filter(p=>p.online).length}人在線`:'同場對話 · 交鋒觀戰'}</small></div></div>
+  <div className="live-scene"><div><p>千燈鎮 · 水榭茶樓</p><small>{joined?`${peers.length}位俠客參與 · ${peers.filter(p=>p.online).length}人在線`:'同場對話 · 交鋒觀戰'}</small></div><InkJianghuFeatureArt kind="online" /></div>
   {onActivities&&<nav className="live-activities" aria-label="同遊活動"><button type="button" className="online-frame" onClick={()=>onActivities('guild')}>江湖幫會</button><button type="button" className="online-frame" onClick={()=>onActivities('sectWar')}>門派會武</button><button type="button" className="online-frame" onClick={()=>onActivities('opponents')}>隨機對戰</button><button type="button" className="online-frame" onClick={()=>onActivities('main')}>修行與戰報</button></nav>}
   {(error||networkError)&&<p role="alert" className="live-feedback">{error||networkError} <button type="button" onClick={()=>void refresh()}>重新連線</button></p>}
   {notice&&<p role="status" className="live-feedback">{notice}</p>}

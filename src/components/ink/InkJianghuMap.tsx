@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { inkArtUrl } from '../../ui/inkAssets';
-import { watchVisualActivity } from '../../ui/visualActivity';
+import { scheduleVisualPreload, watchVisualActivity } from '../../ui/visualActivity';
+import { JIANGHU_ENTRANCE_ART } from './InkJianghuFeatureArt';
 import type { JianghuView } from './InkFeatureMenu';
 import './jianghu-map.css';
 
@@ -28,6 +29,9 @@ export function InkJianghuMap({ online, onOpen, onBack }: { online: boolean; onO
       map.toggleAttribute('data-ambient-active', active);
     }, { element: map, covered: true, reduced: true, dialogs: true });
   }, []);
+  useEffect(() => scheduleVisualPreload(() => {
+    new Image().src = JIANGHU_ENTRANCE_ART;
+  }), []);
   return <section ref={mapRef} className={`ink-jianghu-map${imageFailed ? ' ink-jianghu-map--fallback' : ''}`} aria-label="江湖地圖" id="ink-jianghu-menu">
     <button type="button" className="ink-map-back" aria-label="返回鎮居" onClick={onBack}>
       返回鎮居

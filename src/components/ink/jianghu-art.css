@@ -1,0 +1,77 @@
+/* 四行對應四個入口，逐格換畫。圖集比例固定，重播唔會改到版面。 */
+.ink-jianghu-feature-art {
+  position: relative;
+  display: block;
+  flex: none;
+  width: var(--jianghu-art-size, 88px);
+  aspect-ratio: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.ink-jianghu-feature-art[data-art='huashan'] { --art-row: 0%; }
+.ink-jianghu-feature-art[data-art='gacha'] { --art-row: -25%; }
+.ink-jianghu-feature-art[data-art='founder'] { --art-row: -50%; }
+.ink-jianghu-feature-art[data-art='online'] { --art-row: -75%; }
+.ink-jianghu-feature-art > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 400%;
+  height: 400%;
+  max-width: none;
+  visibility: hidden;
+  transform: translate(-75%, var(--art-row));
+}
+.ink-jianghu-feature-art > img.is-ready {
+  visibility: visible;
+  animation: ink-jianghu-art-frames 420ms steps(3, jump-end) both;
+}
+@keyframes ink-jianghu-art-frames {
+  from { transform: translate(0, var(--art-row)); }
+  to { transform: translate(-75%, var(--art-row)); }
+}
+
+.ink-jianghu-feature-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+  padding-inline: 2px 8px;
+  border-bottom: 1px solid var(--ink-faint);
+}
+body .ink-jianghu-feature-heading h3 {
+  margin: 0;
+  padding: 0 0 9px;
+  border: 0;
+  background: var(--ui-underline) left bottom / 100% 4px no-repeat;
+  color: var(--ui-ink);
+  font: 700 26px/1.25 var(--ui-title) !important;
+  letter-spacing: .06em;
+}
+.ink-codex-heading-title {
+  display: flex;
+  align-items: center;
+  gap: clamp(4px, 2vw, 9px);
+  --jianghu-art-size: clamp(42px, 17vw, 68px);
+}
+.ink-codex-heading-title > div { min-width: 0; }
+.ink-live .live-scene > .ink-jianghu-feature-art {
+  --jianghu-art-size: 80px;
+  align-self: center;
+  margin-left: auto;
+  filter: drop-shadow(0 2px 2px #26180c99);
+}
+.ink-live .live-scene:has(> .ink-jianghu-feature-art) { gap: 6px; }
+@media (max-width: 355px) {
+  .scroll-shell--gacha .ink-codex-heading-title h3 { font-size: 22px; }
+}
+@media (max-height: 700px) {
+  .ink-jianghu-feature-heading { --jianghu-art-size: 66px; }
+  .ink-codex-heading-title { --jianghu-art-size: 48px; }
+  .ink-live .live-scene > .ink-jianghu-feature-art { --jianghu-art-size: 62px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ink-jianghu-feature-art > img.is-ready { animation: none; }
+}
+html[data-ink-motion='reduce'] .ink-jianghu-feature-art > img.is-ready { animation: none; }
