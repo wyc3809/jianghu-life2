@@ -1,7 +1,7 @@
-import { InkJianghuFeatureArt } from './InkJianghuFeatureArt';
+import { InkJianghuComicScene } from './InkJianghuComicScene';
 import { useLayoutEffect } from 'react';
 import { inkSurfaceIn } from '../../ui/inkMotion';
-import { Suspense, useRef, useState, type CSSProperties } from 'react';
+import { useRef, useState, type CSSProperties } from 'react';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getSkillDef, skillKindLabel, skillLabel } from '@data/skills/catalog';
 import {
@@ -21,10 +21,9 @@ import { BANNERS, bannerState, spendableJade, wishPool, testPaidJadeClaimedToday
 import { useAncestryStore } from '../../store/ancestryStore';
 import { useLifeStore } from '../../store/lifeStore';
 import { playInkTap } from '../../audio/inkAudio';
-import { CodexStageLazy, type HighlightConfig } from '../../fx/highlight';
+import type { HighlightConfig } from '../../fx/highlight';
 import { InkIcon } from './InkIcon';
 import { gachaHighlight } from '../../fx/highlight/fromGame';
-import { codexCoverUrl } from '../../fx/highlight/codexAppearance';
 import { InkSchoolTabs, InkSkillSchools } from './InkSchoolTabs';
 import { GachaSheet, InkGachaReveal } from './InkGachaReveal';
 import { InkGachaCollection } from './InkGachaCollection';
@@ -100,10 +99,7 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
   return (
     <section ref={surfaceRef} id="ink-gacha" className={`ink-panel ink-gacha ink-codex-page is-${banner}`} aria-label="秘笈閣">
       <header className="ink-codex-heading">
-        <div className="ink-codex-heading-title">
-          <InkJianghuFeatureArt kind="gacha" />
-          <div><small>藏天下武學</small><h3>{view === 'shelf' ? '秘笈藏本' : '秘笈閣'}</h3></div>
-        </div>
+        <div><small>藏天下武學</small><h3>{view === 'shelf' ? '秘笈藏本' : '秘笈閣'}</h3></div>
         <div className="ink-codex-heading-actions">
           <button type="button" onClick={() => setSheet('info')} aria-label="卡池詳情">池規</button>
           <button type="button" onClick={() => setView(view === 'shelf' ? 'draw' : 'shelf')} aria-pressed={view === 'shelf'}>{view === 'shelf' ? '返回抽取' : <>秘笈收藏 <b>{Object.keys(manuals).length}</b></>}<small>書頁 {(meta.pages ?? 0).toLocaleString('zh-Hant')}頁</small></button>
@@ -127,9 +123,7 @@ export function InkGachaPanel({ state, onEquipRequest }: Props) {
         </div>
         <div className="ink-codex-theatre">
           <div className="ink-codex-poem" aria-hidden><span>外功分七卷</span><span>跨派可配搭</span></div>
-          {!fx && <Suspense fallback={<img className="ink-codex-static" src={codexCoverUrl(banner === 'zhenben')} alt={banner === 'zhenben' ? '珍本金封秘笈' : '江湖青封秘笈'} />}>
-            <CodexStageLazy premium={banner === 'zhenben'} />
-          </Suspense>}
+          <InkJianghuComicScene kind="library" premium={banner === 'zhenben'} />
           <span className="ink-codex-edition">{banner === 'zhenben' ? '珍本藏卷' : '江湖藏卷'}<small>第{pool.part}冊 · {pool.arts.length}門</small></span>
           <span className="ink-codex-theatre-note">{school.focus}</span>
         </div>
