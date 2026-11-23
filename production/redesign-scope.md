@@ -1737,3 +1737,9 @@ world Edge v5、live Edge v2及migration 20261115090053已部署，verify_jwt與
 - 場景先暖載，華山圖太遲才載好則留頁首靜圖；減少動態保留場景而停止播放。報名、抽卡及立派沿用既有流程。
 - 前後實拍及慢播見 `production/qa/evidence/redesign/jianghu-comic-scenes/`。
 - 玩家確認效果及畫風，指定之後新製及重繪嘅遊戲美術沿用。長期基準見 `design/art/STYLE.md`，分層同已確認實拍入口見 `design/art/CURRENT-STYLE.md`。
+
+### 第90項：全遊戲彈窗原位淡入（2026-11-23，EA0.119.5）
+
+- 玩家要求所有頁面打開視窗時維持尺寸、比例同位置。共用彈窗同獨立彈層使用原位淡入；結果視窗蓋住鎮居時，任務欄同捷徑仍保留原有位置。
+- 收成、離線收益、修為突破、人物及秘笈冊頁沿用相同原則。墨環、落印同既有漫畫場景動畫照常播放。觸控裝置彈窗輸入欄最少16px，照常支援手動縮放。
+- 實拍比對及逐格量度見 `production/qa/evidence/redesign/stable-popup-layout/`。

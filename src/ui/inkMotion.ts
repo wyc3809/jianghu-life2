@@ -13,7 +13,7 @@ import { watchVisualActivity } from './visualActivity';
 
 const enteringSurfaces = new WeakMap<HTMLElement, () => void>();
 
-/** 次頁／冊頁短促揭開；不延遲操作，離場或減少動態立即還原原樣式。 */
+/** 次頁短促揭開，彈窗原位淡入；離場或減少動態立即還原原樣式。 */
 export function inkSurfaceIn(target: HTMLElement | null, kind: 'page' | 'sheet' = 'page'): () => void {
   if (!target) return () => {};
   enteringSurfaces.get(target)?.();
@@ -34,7 +34,7 @@ export function inkSurfaceIn(target: HTMLElement | null, kind: 'page' | 'sheet' 
   enteringSurfaces.set(target, stop);
   animation = animate(target, {
     opacity: [.62, 1],
-    y: [kind === 'sheet' ? 22 : 10, 0],
+    ...(kind === 'page' ? { y: [10, 0] } : {}),
     duration: kind === 'sheet' ? 260 : 220,
     ease: 'outCubic',
     onComplete: stop,

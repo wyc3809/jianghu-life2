@@ -41,7 +41,7 @@ export function installPressFeedback(): () => void {
     if ((e.button != null && e.button !== 0) || e.isPrimary === false) return;
     clear();
     const target = findPressable(e.target);
-    if (!target) return;
+    if (!target || target.matches('[data-ink-stationary]')) return;
     current = target;
     pointerId = e.pointerId;
     origin = { x: e.clientX, y: e.clientY };
@@ -61,7 +61,7 @@ export function installPressFeedback(): () => void {
   const onKeyDown = (e: KeyboardEvent) => {
     if (e.repeat || (e.key !== 'Enter' && e.key !== ' ')) return;
     const target = findPressable(e.target);
-    if (!target) return;
+    if (!target || target.matches('[data-ink-stationary]')) return;
     clear(); current = target; target.classList.add(PRESSED);
     begin(target);
   };

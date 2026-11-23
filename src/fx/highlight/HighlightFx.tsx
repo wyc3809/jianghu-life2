@@ -210,7 +210,7 @@ export default function HighlightFx({ config, onDone, onUnavailable, renderRewar
     const cards = Array.from(host.querySelectorAll<HTMLElement>('[data-card]'));
     if (reduce || rootRef.current?.dataset.skipped === '1') {
       gsap.set(cards, { x: 0, y: 0, scale: 1, rotation: 0, opacity: 1 });
-      gsap.set(panelRef.current, { y: 0, scale: 1, opacity: 1 });
+      gsap.set(panelRef.current, { opacity: 1 });
       setStatsFinal(true); d.revealSettled(); return;
     }
     const b = d.burstScreen();
@@ -269,14 +269,14 @@ export default function HighlightFx({ config, onDone, onUnavailable, renderRewar
           i * 0.13 + 0.7,
         );
     });
-    // 資訊面板：滑入，數字滾動，彈「▲+差值」
+    // 資訊面板原位淡入，再揭曉數值。
     const panel = panelRef.current;
     const endAt = cards.length * 0.13 + 0.7;
     if (panel) {
       tl.fromTo(
         panel,
-        { y: 40, opacity: 0, scale: 0.94 },
-        { y: 0, opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(1.8)' },
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3, ease: 'power2.out' },
         endAt,
       );
       panel.querySelectorAll<HTMLElement>('[data-stat]').forEach((row, i) => {

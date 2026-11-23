@@ -4,8 +4,8 @@ vi.mock('../src/ui/inkMotion',()=>({inkControlPress:vi.fn((_el,finish)=>({releas
 import { playInkTap } from '../src/audio/inkAudio';
 import { installPressFeedback } from '../src/ui/pressFeedback';
 class Control extends EventTarget {
- classes=new Set<string>(); blocked=false;
- matches(){return false;}
+ classes=new Set<string>(); blocked=false; stationary=false;
+ matches(selector:string){return this.stationary&&selector==='[data-ink-stationary]';}
  classList={add:(v:string)=>this.classes.add(v),remove:(v:string)=>this.classes.delete(v)};
  closest(selector:string){return selector.includes('[disabled]')?(this.blocked?this:null):this;}
 }
@@ -18,6 +18,12 @@ function setup(){
 }
 afterEach(()=>{vi.unstubAllGlobals();vi.clearAllMocks();});
 describe('共用按壓不攔原生操作',()=>{
+ it('test_press_全頁彈層_按下保持固定但照樣播點擊聲',()=>{
+  const {button,send,stop}=setup();button.stationary=true;
+  send('pointerdown',{pointerId:1,button:0});send('keydown',{key:'Enter'});
+  expect(button.classes.size).toBe(0);
+  send('click');expect(playInkTap).toHaveBeenCalledTimes(1);stop();
+ });
  it('test_press_真click才播聲_拖動起手無落印聲',()=>{
   const {button,send,stop}=setup();send('pointerdown',{pointerId:1,button:0,clientX:10,clientY:10});
   expect(playInkTap).not.toHaveBeenCalled();send('pointermove',{pointerId:1,clientX:10,clientY:30});expect(playInkTap).not.toHaveBeenCalled();
