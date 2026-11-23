@@ -1,0 +1,146 @@
+.ink-jianghu-comic {
+  position: relative;
+  height: clamp(112px, 17dvh, 154px);
+  background: #eee6d2;
+  pointer-events: none;
+}
+.ink-jianghu-comic-plane {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  container-type: size;
+}
+.ink-jianghu-comic-plane > * {
+  --scene-side: max(100cqw, 100cqh);
+  --scene-left: calc((100cqw - var(--scene-side)) / 2);
+  --scene-top: clamp(calc(100cqh - var(--scene-side)),
+    calc(50cqh - var(--scene-side) * var(--comic-focus, .5)), 0px);
+}
+.ink-jianghu-comic-painting {
+  position: absolute;
+  display: block;
+  max-width: none;
+  width: var(--scene-side);
+  height: var(--scene-side);
+  left: var(--scene-left);
+  top: var(--scene-top);
+}
+.ink-jianghu-comic[data-scene='huashan'] { --comic-focus: .65; }
+.ink-jianghu-comic[data-scene='sect'] { --comic-focus: .47; }
+.ink-jianghu-comic[data-scene='library'] {
+  position: absolute;
+  inset: 0;
+  height: auto;
+  --comic-focus: .66;
+}
+.ink-jianghu-comic-prop {
+  position: absolute;
+  display: block;
+  width: calc(var(--scene-side) * var(--prop-size));
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+.ink-jianghu-comic-prop[hidden] { display: none; }
+.ink-jianghu-comic-prop > img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 200%;
+  height: 200%;
+  max-width: none;
+  opacity: 0;
+  transform: translateY(var(--prop-row));
+}
+.ink-jianghu-comic-prop > img.is-ready {
+  opacity: 1;
+  animation: ink-jianghu-comic-detail var(--prop-time) steps(1, end);
+}
+/* 旗結同書脊沿同一底圖比例，露出一致嘅景物位置。 */
+.ink-jianghu-comic[data-scene='library'] .ink-jianghu-comic-prop {
+  --prop-size: .38;
+  --prop-row: 0%;
+  --prop-time: 1200ms;
+  left: calc(var(--scene-left) + var(--scene-side) * .52);
+  top: calc(var(--scene-top) + var(--scene-side) * .642);
+  filter: drop-shadow(2px 4px 3px #221c14a1);
+}
+.ink-jianghu-comic[data-scene='sect'] .ink-jianghu-comic-prop {
+  --prop-size: .24;
+  --prop-row: -50%;
+  --prop-time: 1200ms;
+  left: calc(var(--scene-left) + var(--scene-side) * .75);
+  top: calc(var(--scene-top) + var(--scene-side) * .263);
+}
+.ink-jianghu-comic[data-premium] .ink-jianghu-comic-prop {
+  filter: sepia(.5) saturate(1.2) drop-shadow(2px 4px 3px #221c14a1);
+}
+.ink-jianghu-comic-arrival {
+  position: fixed;
+  inset: max(48px, env(safe-area-inset-top)) 0 0;
+  z-index: 25;
+  width: min(100%, 420px);
+  margin-inline: auto;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  animation: ink-jianghu-comic-arrival 840ms var(--ease-ink) both;
+}
+.ink-jianghu-comic-summit,
+.ink-jianghu-comic-mist { position: absolute; pointer-events: none; }
+.ink-jianghu-comic-summit {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 61% 50%;
+  animation: ink-jianghu-comic-approach 840ms var(--ease-ink) both;
+}
+.ink-jianghu-comic-mist {
+  width: 135%;
+  max-width: none;
+  left: -15%;
+  bottom: -5%;
+  animation: ink-jianghu-comic-mist 840ms var(--ease-ink) both;
+}
+@keyframes ink-jianghu-comic-arrival {
+  0% { opacity: 0; visibility: visible; }
+  22%, 64% { opacity: 1; visibility: visible; }
+  100% { opacity: 0; visibility: hidden; }
+}
+@keyframes ink-jianghu-comic-approach {
+  from { transform: scale(1.13) translateY(4%); }
+  to { transform: scale(1.01) translateY(0); }
+}
+@keyframes ink-jianghu-comic-mist {
+  from { transform: translateX(-14%); opacity: .58; }
+  to { transform: translateX(23%); opacity: 0; }
+}
+@keyframes ink-jianghu-comic-detail {
+  0%, 100% { transform: translateY(var(--prop-row)); }
+  46%, 74% { transform: translate(-50%, var(--prop-row)); }
+}
+.ink-jianghu-comic[data-scene='huashan'],
+.ink-jianghu-comic[data-scene='sect'] { margin: 0 0 8px; }
+.ink-codex-theatre:has(.ink-jianghu-comic) .ink-codex-poem { display: none; }
+.ink-codex-theatre:has(.ink-jianghu-comic) :is(.ink-codex-edition, .ink-codex-theatre-note) {
+  z-index: 1;
+  color: var(--ui-ink);
+  background: #fffaf0ed;
+}
+.ink-codex-theatre:has(.ink-jianghu-comic) .ink-codex-edition {
+  padding: 5px 3px;
+}
+.ink-codex-theatre:has(.ink-jianghu-comic) .ink-codex-theatre-note {
+  left: auto;
+  right: 6px;
+  padding: 1px 6px;
+}
+@media (max-height: 700px) {
+  .ink-jianghu-comic[data-scene='sect'], .ink-jianghu-comic[data-scene='huashan'] { height: 96px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ink-jianghu-comic-arrival { display: none; }
+  .ink-jianghu-comic-prop > img.is-ready { animation: none; }
+}
+html[data-ink-motion='reduce'] .ink-jianghu-comic-arrival { display: none; }
+html[data-ink-motion='reduce'] .ink-jianghu-comic-prop > img.is-ready { animation: none; }

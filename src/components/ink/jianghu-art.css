@@ -8,9 +8,6 @@
   overflow: hidden;
   pointer-events: none;
 }
-.ink-jianghu-feature-art[data-art='huashan'] { --art-row: 0%; }
-.ink-jianghu-feature-art[data-art='gacha'] { --art-row: -25%; }
-.ink-jianghu-feature-art[data-art='founder'] { --art-row: -50%; }
 .ink-jianghu-feature-art[data-art='online'] { --art-row: -75%; }
 .ink-jianghu-feature-art > img {
   position: absolute;
@@ -31,31 +28,6 @@
   to { transform: translate(-75%, var(--art-row)); }
 }
 
-.ink-jianghu-feature-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 4px;
-  padding-inline: 2px 8px;
-  border-bottom: 1px solid var(--ink-faint);
-}
-body .ink-jianghu-feature-heading h3 {
-  margin: 0;
-  padding: 0 0 9px;
-  border: 0;
-  background: var(--ui-underline) left bottom / 100% 4px no-repeat;
-  color: var(--ui-ink);
-  font: 700 26px/1.25 var(--ui-title) !important;
-  letter-spacing: .06em;
-}
-.ink-codex-heading-title {
-  display: flex;
-  align-items: center;
-  gap: clamp(4px, 2vw, 9px);
-  --jianghu-art-size: clamp(42px, 17vw, 68px);
-}
-.ink-codex-heading-title > div { min-width: 0; }
 .ink-live .live-scene > .ink-jianghu-feature-art {
   --jianghu-art-size: 80px;
   align-self: center;
@@ -63,12 +35,7 @@ body .ink-jianghu-feature-heading h3 {
   filter: drop-shadow(0 2px 2px #26180c99);
 }
 .ink-live .live-scene:has(> .ink-jianghu-feature-art) { gap: 6px; }
-@media (max-width: 355px) {
-  .scroll-shell--gacha .ink-codex-heading-title h3 { font-size: 22px; }
-}
 @media (max-height: 700px) {
-  .ink-jianghu-feature-heading { --jianghu-art-size: 66px; }
-  .ink-codex-heading-title { --jianghu-art-size: 48px; }
   .ink-live .live-scene > .ink-jianghu-feature-art { --jianghu-art-size: 62px; }
 }
 @media (prefers-reduced-motion: reduce) {
