@@ -570,13 +570,15 @@ export function InkPlayScreen({ state }: Props) {
     }
     inkPageIn(flipRef.current);
   }, [monthKey]);
-  // 只跟導覽變化揭頁；修為／氣血ticker不重播，演武畫布不縮放。
+  const jianghuEntry = jianghuView !== 'main' && !(jianghuView === 'online' && onlineFromHome)
+    ? jianghuView : undefined;
+  // 只跟導覽變化揭頁；江湖入口各有短演出，唔疊加通用揭頁。
   useLayoutEffect(() => {
-    if (tab === 'home' || combat || eventFocus) return;
+    if (tab === 'home' || combat || eventFocus || (tab === 'jianghu' && jianghuEntry)) return;
     const selector = tab === 'person' ? '.ink-person-overview,.ink-attrs'
       : tab === 'practice' ? '.ink-practice' : '.ink-jianghu-map,.ink-jianghu-detail,.ink-online';
     return inkSurfaceIn(playBodyRef.current?.querySelector<HTMLElement>(selector) ?? null);
-  }, [tab, personView, practiceView, jianghuView, Boolean(combat), eventFocus]);
+  }, [tab, personView, practiceView, jianghuView, jianghuEntry, Boolean(combat), eventFocus]);
   // 導航：切 tab 時新 tab 圖示跳一跳
   useEffect(() => {
     inkHop(navRef.current?.querySelector('.ink-tab--active .ink-tab-icon'));
@@ -814,7 +816,7 @@ export function InkPlayScreen({ state }: Props) {
         </div>
       )}
 
-      {tab === 'jianghu' && !combat && !eventFocus && <div className="ink-jianghu-view" ref={jianghuRef}>
+      {tab === 'jianghu' && !combat && !eventFocus && <div className="ink-jianghu-view" ref={jianghuRef} data-jianghu-entry={jianghuEntry}>
         {jianghuView === 'main' ? <InkJianghuHub online={Boolean(InkOnlinePanel)} onOpen={view=>{setOnlineFromHome(false);setJianghuView(view);}} onBack={() => setTab('home')} />
           : jianghuView === 'online' && InkOnlinePanel ? <Suspense fallback={<p role="status">正在翻開江湖名冊……</p>}>
             <InkOnlinePanel key={onlineFromHome?'home-live':'map-online'} initialView="live" homeEntry={onlineFromHome} onFocusChange={setOnlineFocused} onBack={() => onlineFromHome?setTab('home'):setJianghuView('main')} onPrepare={()=>{setPersonPreset('duel');setRequestedArt(null);setTab('person');setPersonView('skills');}} />
@@ -827,6 +829,9 @@ export function InkPlayScreen({ state }: Props) {
               onDismissReport={huashanDismissReport} onCloseTournament={huashanClose} />}
             {jianghuView === 'founder' && <InkSectFounderPanel state={state} onFound={foundSect} onRecruit={recruitDisciple} onTeach={teachDisciple} />}
           </div>}
+        {jianghuEntry && jianghuEntry !== 'online' && (
+          <span key={jianghuEntry} className={`ink-jianghu-entry ink-jianghu-entry--${jianghuEntry}`} aria-hidden="true" />
+        )}
       </div>}
 
       {tab === 'person' && !combat && !eventFocus && (

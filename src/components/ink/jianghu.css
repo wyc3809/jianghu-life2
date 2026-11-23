@@ -25,3 +25,109 @@ html.native-ios .scroll-shell--play.scroll-shell--feature { padding-top: 0; }
 .scroll-shell--feature > :is(.ink-backdrop, .ink-ai-wash) { display: none; }
 .scroll-shell--play.scroll-shell--feature .ink-play-body { display: flex; flex-direction: column; min-height: 0; overflow-y: auto; }
 .scroll-shell--feature .ink-jianghu-back { align-self: flex-start; margin: 4px 0 8px; font-size: 16px; }
+
+/* 江湖入頁只在已掛載嘅內容上做短演出，操作同載入即時開始。 */
+.ink-jianghu-view[data-jianghu-entry] {
+  --jianghu-entry-time: 240ms;
+  position: relative;
+}
+.ink-jianghu-view[data-jianghu-entry] > .ink-jianghu-detail > .ink-panel,
+.ink-jianghu-view[data-jianghu-entry='online'] .ink-live {
+  animation: ink-jianghu-entry-content var(--jianghu-entry-time) var(--ease-ink) backwards;
+}
+.ink-jianghu-entry {
+  position: absolute;
+  z-index: 3;
+  inset: 44px 0 auto;
+  height: min(205px, 36dvh);
+  overflow: hidden;
+  pointer-events: none;
+}
+.ink-jianghu-entry::before,
+.ink-jianghu-entry::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+}
+.ink-jianghu-entry--huashan::before,
+.ink-jianghu-entry--huashan::after {
+  top: 4%;
+  width: 72%;
+  height: 80%;
+  background: radial-gradient(ellipse at 51% 59%, #d1e3e6d1, #eff5f3a6 34%, transparent 71%);
+  animation: ink-jianghu-entry-mist var(--jianghu-entry-time) var(--ease-ink) both;
+}
+.ink-jianghu-entry--huashan::before { left: -3%; --mist-away: -54%; }
+.ink-jianghu-entry--huashan::after { right: -3%; top: 17%; --mist-away: 54%; }
+.ink-jianghu-entry--gacha::before {
+  inset: 4px auto 9px 5%;
+  width: 43%;
+  border: 5px solid transparent;
+  border-image: var(--ui-frame) 48 / 1 / 0 stretch;
+  background: linear-gradient(90deg, #59453235, transparent 14%, #fff9e842 82%, #71513435),
+    var(--ui-fiber) center / 260px repeat, #ecddbb;
+  box-shadow: 2px 1px #d4bea0, 4px 2px #f8f1dd, 7px 6px 13px #3b2b1e3d;
+  transform-origin: left center;
+  animation: ink-jianghu-entry-book var(--jianghu-entry-time) var(--ease-brush) both;
+}
+.ink-jianghu-entry--founder::before {
+  top: 15px;
+  right: max(18px, 7%);
+  width: 52px;
+  height: 52px;
+  background: url('/ink/art/seals/seal-zong.webp') center / contain no-repeat;
+  animation: ink-jianghu-entry-seal var(--jianghu-entry-time) var(--ease-stamp) both;
+}
+
+/* 茶樓圖到咗先著燈，網絡慢或懶載入時都唔會喺等候文字上播完。 */
+.ink-jianghu-view[data-jianghu-entry='online'] .live-scene {
+  position: relative;
+  overflow: hidden;
+}
+.ink-jianghu-view[data-jianghu-entry='online'] .live-scene::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 42% 130% at 76% 46%, #ffca76c7, #dda34f59 42%, transparent 74%);
+  animation: ink-jianghu-entry-lantern var(--jianghu-entry-time) var(--ease-ink) both;
+}
+.ink-jianghu-view[data-jianghu-entry='online'] .live-scene > div { position: relative; }
+
+@keyframes ink-jianghu-entry-content {
+  from { opacity: .79; }
+  to { opacity: 1; }
+}
+@keyframes ink-jianghu-entry-mist {
+  from { opacity: .95; transform: translateX(0) scale(1.1); }
+  to { opacity: 0; transform: translateX(var(--mist-away)) scale(.96); }
+}
+@keyframes ink-jianghu-entry-book {
+  from { opacity: .96; transform: perspective(480px) rotateY(0); }
+  65% { opacity: .82; }
+  to { opacity: 0; transform: perspective(480px) rotateY(-87deg); }
+}
+@keyframes ink-jianghu-entry-seal {
+  0% { opacity: 0; transform: translateY(-8px) scale(1.24) rotate(-10deg); }
+  34% { opacity: .95; transform: translateY(0) scale(.94) rotate(-6deg); }
+  66% { opacity: .76; transform: scale(1) rotate(-6deg); }
+  100% { opacity: 0; transform: scale(1) rotate(-6deg); }
+}
+@keyframes ink-jianghu-entry-lantern {
+  0%, 100% { opacity: 0; }
+  34% { opacity: .95; }
+}
+@keyframes ink-jianghu-quiet-reveal {
+  from { opacity: .9; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ink-jianghu-entry,
+  .ink-jianghu-view[data-jianghu-entry='online'] .live-scene::before { display: none; }
+  .ink-jianghu-view[data-jianghu-entry] > .ink-jianghu-detail > .ink-panel,
+  .ink-jianghu-view[data-jianghu-entry='online'] .ink-live { animation: ink-jianghu-quiet-reveal 100ms linear backwards; }
+}
+html[data-ink-motion='reduce'] .ink-jianghu-entry,
+html[data-ink-motion='reduce'] .ink-jianghu-view[data-jianghu-entry='online'] .live-scene::before { display: none; }
+html[data-ink-motion='reduce'] .ink-jianghu-view[data-jianghu-entry] > .ink-jianghu-detail > .ink-panel,
+html[data-ink-motion='reduce'] .ink-jianghu-view[data-jianghu-entry='online'] .ink-live { animation: ink-jianghu-quiet-reveal 100ms linear backwards; }
