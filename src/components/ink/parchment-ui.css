@@ -8,6 +8,12 @@
 :root {
   --ui-paper:#f8f1e3;
   --ui-ink:#25241f;
+  --ui-reading-paper:#fffaf0;
+  --ui-reading-muted:#665b4d;
+  --ui-reading-wash:rgba(41, 38, 30, .26);
+  --ui-feedback-red:#8e3028;
+  --ui-feedback-jade:#2f5946;
+  --ui-feedback-shadow:0 3px 9px #30251924;
   --ui-red:#a43c30;
   --ui-frame:url('/ink/art/parchment-ui/paper-rim.webp');
   --ui-fiber:url('/ink/art/parchment-ui/paper-fiber.webp');
@@ -17,7 +23,7 @@
   --ui-caption:url('/ink/art/parchment-ui/brush-caption.webp');
   --ui-delta:url('/ink/art/parchment-ui/brush-delta.webp');
   --ui-card:url('/ink/art/parchment-ui/card-mountain-paper.webp');
-  --ui-title:'Jianghu Brush TC','Jianghu Wuxia Titles','Noto Serif TC',serif;
+  --ui-title:'Jianghu Brush TC','Jianghu Wuxia Titles',var(--game-ui-font);
   --font-wuxia-title:var(--ui-title);
   --wuxia-frame-neutral:var(--ui-frame);
   --wuxia-frame-selected:var(--ui-selected);
@@ -276,3 +282,106 @@ body .ink-loadout-rules p { margin:0 0 12px; color:var(--ui-ink); }
 /* 全遊戲返回鍵統一：同人物頁一樣用菱形返回圖示＋寫明返去邊度（2026-11-16 美術檢視 S5） */
 body :is(.ink-jianghu-back, .ink-map-back) { display:inline-flex; align-items:center; gap:5px; font-weight:700; color:#302b25; }
 body :is(.ink-jianghu-back, .ink-map-back)::before { content:''; width:30px; height:34px; flex:none; background:url('/ink/art/parchment-ui/icon-back.webp') center/contain no-repeat; }
+
+
+/* 閱讀區用實紙托字，插畫同紙紋仍留喺外圍。 */
+body .scroll-shell--play {
+  --ink-wash:var(--ui-reading-muted);
+}
+body .ink-hud :is(.ink-hud-meter-value,.ink-wallet-name) {
+  color:var(--ui-ink);
+  font-size:11px;
+  font-weight:600;
+}
+body .ink-spar-caption {
+  padding:4px 12px 5px 7px;
+  background:linear-gradient(90deg,var(--ui-reading-paper) 58%,#fffaf000);
+}
+body .ink-spar-caption span,
+body .ink-spar-caption strong { text-shadow:none; }
+body .ink-spar-caption span { font-size:11px; letter-spacing:.06em; }
+body .scroll-shell--event .ink-event-body {
+  font-size:1rem;
+  color:var(--ui-ink);
+}
+body :is(dialog.ink-native-modal,dialog.ink-settings-dialog) {
+  font-family:var(--game-ui-font);
+  --ink-wash:var(--ui-reading-muted);
+}
+body dialog:is(.ink-modal,.ink-offline-modal) {
+  background:var(--ui-reading-wash);
+  backdrop-filter:blur(2px);
+}
+body :is(.ink-modal-card,.ink-offline-modal-card) {
+  background:var(--ui-fiber) center/384px repeat,var(--ui-reading-paper);
+  color:var(--ui-ink);
+  box-shadow:0 12px 34px #29261e26;
+}
+body .ink-settings-card .ink-audio-switch.is-on {
+  background:var(--ui-brush) center/100% 100% no-repeat;
+  color:var(--ui-reading-paper);
+}
+body .ink-settings-card :is(.ink-audio-row-hint,.ink-settings-label) {
+  color:var(--ui-reading-muted);
+}
+body .ink-result .ink-result-story .ink-event-body {
+  font-size:1rem;
+  color:var(--ui-ink);
+}
+body .ink-result .ink-result-wash {
+  mask-image:linear-gradient(180deg,transparent 34%,#000 100%);
+}
+body .ink-result .ink-delta-chip {
+  background:var(--ui-fiber) center/384px repeat,var(--ui-reading-paper);
+  border-color:#b8a892;
+  color:var(--ui-ink);
+  font-size:.875rem;
+}
+body .ink-result :is(.ink-delta-chip--down .ink-delta-chip-value,.ink-delta-chip--learn) { color:var(--ui-feedback-red); }
+body .ink-result .ink-delta-chip--up .ink-delta-chip-value { color:var(--ui-feedback-jade); }
+body .ink-result .ink-delta-chip-note { color:var(--ui-reading-muted); }
+
+/* 短訊、成就同招名沿用同一款宣紙、墨色同朱砂。 */
+body :is(.ink-achv,.ink-moment-toast,.ink-flash,.ink-save-warning) {
+  background:var(--ui-fiber) center/384px repeat,var(--ui-reading-paper);
+  color:var(--ui-ink);
+  font-family:var(--game-ui-font);
+  border:1px solid #b8a892;
+  box-shadow:var(--ui-feedback-shadow);
+}
+body :is(.ink-achv-name,.ink-moment-toast strong,.ink-moment-toast em) {
+  font-family:var(--game-ui-font);
+  letter-spacing:.06em;
+}
+body .ink-achv-name { white-space:normal; overflow-wrap:anywhere; }
+body .ink-moment-toast { white-space:normal; width:max-content; }
+body .ink-achv-seal {
+  font-family:var(--ui-title);
+  background:var(--ui-brush) center/100% 100% no-repeat,var(--ui-feedback-red);
+}
+body :is(.ink-auto-callout-inner,.ink-unified-callout > span,.ink-unified-callout > span.is-foe) {
+  padding:5px 15px 6px;
+  border:4px solid transparent;
+  border-image:var(--ui-frame) 48 / 1 / 0 stretch;
+  background:var(--ui-fiber) center/384px repeat,var(--ui-reading-paper);
+  color:var(--ui-ink);
+  font:700 1rem/1.4 var(--game-ui-font);
+  letter-spacing:.06em;
+  box-shadow:var(--ui-feedback-shadow);
+  white-space:normal;
+  overflow-wrap:anywhere;
+}
+body :is(.ink-auto-callout-inner,.ink-unified-callout > span).is-foe { color:var(--ui-feedback-red); }
+body :is(.ink-auto-callout-inner,.ink-unified-callout > span) i {
+  color:var(--ui-feedback-red);
+  background:none;
+  font-size:.8rem;
+  font-style:normal;
+}
+body .ink-auto-callout-inner small { color:var(--ui-reading-muted); }
+body .ink-unified-paper { background:var(--ui-reading-paper); }
+body .ink-unified-context { color:var(--ui-reading-muted); font-size:12px; }
+body .ink-moment { font-family:var(--game-ui-font); }
+body .ink-moment :is(.ink-moment__kicker,.ink-moment__sub,.ink-moment__hint) {
+  font-family:var(--game-ui-font);
+}

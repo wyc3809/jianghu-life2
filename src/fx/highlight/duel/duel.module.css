@@ -10,7 +10,7 @@
   --gold: #c29a45;
   --bg-in: #f2efe6;
   --bg-out: #a9b6c0;
-  --font: 'LXGW WenKai TC', 'Kaiti TC', 'STKaiti', 'KaiTi', 'Noto Serif TC', serif;
+  --font: var(--game-ui-font);
   position: fixed;
   inset: 0;
   z-index: 400;
@@ -99,7 +99,7 @@
 
 .numbers span {
   position: absolute;
-  font-family: var(--font);
+  font-family: 'LXGW WenKai TC', 'Kaiti TC', 'STKaiti', 'KaiTi', 'Noto Serif TC', serif;
   font-weight: 700;
   font-size: 34px;
   font-style: italic;
