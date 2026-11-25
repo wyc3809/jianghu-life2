@@ -61,7 +61,7 @@ import { drawAppearance } from '../appearance/model';
 import { readAppearance, type CharacterAppearance } from '@interfaces/appearance';
 import poseAnchors from '../fx/art/poseAnchors.json';
 import foeFigureMetrics from './foeFigureMetrics.json';
-import { playInkBlade, playInkHit, playInkTap, playInkSeal } from '../audio/inkAudio';
+import { playInkBlade, playInkHit, playInkTap, playInkSeal, playInkGuard, playInkCrit } from '../audio/inkAudio';
 import { FOE_TRAITS } from '@data/foes/traits';
 import type { CombatTraitFx } from '@interfaces/lifeEngine';
 
@@ -276,6 +276,15 @@ type FloaterKind = 'xp' | 'dmg' | 'crit' | 'heal' | 'hurt' | 'trait';
 interface Floater { x: number; y: number; text: string; gain: number; age: number; dur: number; kind?: FloaterKind; rgb?: string }
 interface CoinFx { x: number; y: number; vx: number; vy: number; rot: number; vr: number; age: number; dur: number; groundY: number }
 interface SplashFx { x: number; y: number; rot: number; age: number; dur: number }
+interface ContactFx {
+  x: number;
+  y: number;
+  direction: 1 | -1;
+  age: number;
+  dur: number;
+  strength: number;
+  guard: boolean;
+}
 
 type EnemyState = 'spawn' | 'walk' | 'hold' | 'dead';
 interface EnemyInst {
@@ -352,7 +361,11 @@ export interface SparStageImages {
  */
 export interface SparCombatHooks {
   /** 主角劍鋒到肉 */
-  heroStrike(): { dmg: number; crit: boolean; heal: number; killed: boolean; fx?: CombatTraitFx[]; reflect?: number };
+  heroStrike(beatCount?: number): {
+    dmg: number; crit: boolean; heal: number; killed: boolean; fx?: CombatTraitFx[]; reflect?: number;
+    /** 只用於把已結算嘅戰報傷害逐拍顯示。 */
+    onBeat?: (damage: number, last: boolean) => void;
+  };
   /** 敵人撲擊到肉 */
   foeStrike(): { dmg: number; heroDown: boolean; foeKilled?: boolean; fx?: CombatTraitFx[]; foeHeal?: number };
   /**
@@ -518,6 +531,9 @@ export class SparStage {
   private particles: Particle[] = [];
   private floaters: Floater[] = [];
   private splashes: SplashFx[] = [];
+  private guardHeroT = 9;
+  private contacts: ContactFx[] = [];
+  private contactReaction = new WeakMap<EnemyInst, { strength: number; guard: boolean }>();
 
   constructor(opts: SparStageOptions) {
     this.battleBackdrop = opts.battleBackdrop ?? null;
@@ -709,6 +725,8 @@ export class SparStage {
     this.attackCooldown = 0.28;
     this.heroDownT = null;
     this.heroHitT = 9;
+    this.guardHeroT = 9;
+    this.contacts = [];
     // 一打一個：每次淨補一個
     this.enemies = [this.makeEnemy(this.cssW * 0.72 + this.visualRng() * 16, 'spawn')];
   }
@@ -812,6 +830,7 @@ export class SparStage {
     this.heroMoving = false;
     this.geom(); // 確保 heroX 已初始化
     this.heroHitT += dt;
+    this.guardHeroT += dt;
 
     // 對打：敗退倒地 → 同關重試、回血、重新入場
     if (this.heroDownT !== null) {
@@ -985,6 +1004,7 @@ export class SparStage {
     }
     this.floaters = age(this.floaters, dt);
     this.splashes = age(this.splashes, dt);
+    this.contacts = age(this.contacts, dt);
     this.dust = age(this.dust, dt);
     for (const d of this.dust) d.x += d.vx * dt;
     this.coins = age(this.coins, dt);
@@ -1056,6 +1076,8 @@ export class SparStage {
     const g = this.geom();
     this.heroHitT = 0;
     this.heroRig.kick(e.boss ? -460 : -320);
+    this.queueContact(g.heroX + 8, g.groundY - this.heroVisualHeight() * .60, -1, .68, false);
+    if (!this.quiet && this.presentation === 'battle') playInkHit();
     this.shake = Math.max(this.shake, this.quiet ? 0 : e.boss ? 5 : 3);
     this.floaters.push({
       x: g.heroX + (this.visualRng() - 0.5) * 22,
@@ -1247,9 +1269,10 @@ export class SparStage {
     if (!target) return;
     const g = this.geom();
     if (!this.artResult) {
-      const r = this.combat.heroStrike();
+      const shares = run.shares();
+      const r = this.combat.heroStrike(shares.length);
       this.artResult = r;
-      this.artDamage = splitDamage(r.dmg, run.shares());
+      this.artDamage = splitDamage(r.dmg, shares);
       this.identityImpact(this.martialId, r.dmg, r.crit, r.killed);
       if (r.dmg > 0) for (const pending of this.pendingContactFx) this.artFx.spawn(pending.fx, this.artAnchors(), this.quiet);
       this.pendingContactFx = [];
@@ -1270,16 +1293,28 @@ export class SparStage {
       }
     }
     const r = this.artResult;
-    if (r.dmg <= 0 && !r.killed) return; // 落空：冇數字
+    const guard = info.index === 0 && (r.fx?.some(f => f.kind === 'guard') ?? false);
     const part = this.artDamage[info.index] ?? 0;
-    if (part > 0) this.martialContactSound(r.crit && info.last);
+    r.onBeat?.(part, info.last);
+    if (part > 0 || guard) {
+      const anchors = this.artAnchors();
+      const critical = r.crit && info.last;
+      const strength = critical ? 1 : ev.heavy ? .85 : info.index === 0 ? .40 : .55;
+      this.enemyContact(target, anchors.foe.x, anchors.foe.y, strength, guard);
+      this.playHeroContact(guard, critical);
+      if (guard && r.dmg <= 0) {
+        target.hitT = 0;
+        this.showTraitFx(r.fx ?? [], target, 0, 0);
+      }
+    }
+    if (r.dmg <= 0 && !r.killed) return; // 落空／完全格擋冇傷害數字
     this.heroRig.kick(300);
     target.rig.kick(ev.heavy ? 560 : 360);
     const foeOff = this.artFoeOffset(target);
     const headY = g.groundY - foeOff.dy - this.enemyVisualHeight(target) * 0.6;
     if (part > 0) {
       this.floaters.push({
-        x: target.x + foeOff.dx + (this.visualRng() - 0.5) * 30,
+        x: target.x + foeOff.dx + (info.index - 1) * 14 + (this.visualRng() - 0.5) * 8,
         y: headY - info.index * 12,
         text: formatSparNumber(part),
         gain: part,
@@ -1385,13 +1420,21 @@ export class SparStage {
   }
 
   /** 真正接觸先發聲，沿用全域靜音、混音及 limiter。 */
-  private martialContactSound(critical = false) {
+  private martialContactSound() {
     const def = martialPoseFor(this.martialId);
     if (!def || !this.martialAssets.has(def.id) || this.quiet) return;
     if (['sword', 'blade', 'spear', 'staff', 'halberd', 'hook', 'whip'].includes(def.family)) playInkBlade();
     else if (['needle', 'dart', 'finger', 'bow', 'mechanism'].includes(def.family)) playInkTap();
     else if (def.family === 'weiqi' || def.family === 'flute') playInkSeal();
-    else if (critical || def.family === 'fist' || def.family === 'palm' || def.family === 'kick') playInkHit();
+    else if (def.family === 'fist' || def.family === 'palm' || def.family === 'kick') playInkHit();
+  }
+
+  private playHeroContact(guard: boolean, critical: boolean) {
+    if (this.quiet) return;
+    if (guard) playInkGuard();
+    else if (critical) playInkCrit();
+    else if (this.martialId) this.martialContactSound();
+    else if (this.presentation === 'battle') playInkHit();
   }
 
   private nearestInRange(): EnemyInst | null {
@@ -1415,7 +1458,7 @@ export class SparStage {
   private fireStrike() {
     if (this.firedStrike) return;
     this.firedStrike = true;
-    this.hitStop = this.quiet ? 0 : 0.085;
+    this.hitStop = this.quiet || this.presentation === 'battle' ? 0 : 0.085;
     this.shake = this.quiet ? 0 : 4.5;
     this.flash = this.quiet ? 0 : 1;
 
@@ -1429,8 +1472,18 @@ export class SparStage {
         const r = this.combat.heroStrike();
         this.poseResult = r;
         this.identityImpact(this.martialId, r.dmg, r.crit, r.killed);
-        if (r.dmg <= 0 && !r.killed) return; // 冇嘢好打（保險：唔好彈「0」）
-        this.martialContactSound(r.crit);
+        const guard = r.fx?.some(f => f.kind === 'guard') ?? false;
+        if (r.dmg > 0 || guard) {
+          this.enemyContact(target, target.x, g.groundY - this.enemyVisualHeight(target) * .60, r.crit ? 1 : .44, guard);
+          this.playHeroContact(guard, r.crit);
+        }
+        if (r.dmg <= 0 && !r.killed) {
+          if (guard) {
+            target.hitT = 0;
+            this.showTraitFx(r.fx ?? [], target, 0, 0);
+          }
+          return;
+        }
         const identity = martialPoseFor(this.martialId);
         if (identity && this.martialAssets.has(identity.id) && !this.martialAssets.get(identity.id)?.identityEffects?.signature) {
           this.artTarget = target;
@@ -1534,7 +1587,7 @@ export class SparStage {
     const g = this.geom();
     ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
     ctx.clearRect(0, 0, this.cssW, this.cssH);
-    if (this.shake > 0 && !this.reviewEffectsOff) {
+    if (this.presentation !== 'battle' && this.shake > 0 && !this.reviewEffectsOff) {
       ctx.translate((this.visualRng() - 0.5) * this.shake, (this.visualRng() - 0.5) * this.shake);
     }
 
@@ -1570,7 +1623,7 @@ export class SparStage {
     if (!this.reviewEffectsOff) this.drawTrail();
     if (artAnchors) this.artFx.draw(ctx, artSprites, artAnchors, 'front');
     if (!this.reviewEffectsOff && !this.quiet) this.identityFx.draw(ctx);
-    if (!this.reviewEffectsOff) { this.drawSplashes(); this.drawParticles(); }
+    if (!this.reviewEffectsOff) { this.drawSplashes(); this.drawParticles(); this.drawContacts(); }
     this.drawCoins();
     this.drawFloaters();
 
@@ -1580,7 +1633,7 @@ export class SparStage {
       ctx.fillRect(0, 0, this.cssW, this.cssH);
     }
     // 敵影受擊白閃：全台微微提亮一瞬（極輕）
-    if (this.flash > 0.5) {
+    if (this.presentation !== 'battle' && this.flash > 0.5) {
       ctx.fillStyle = `rgba(240,233,216,${(this.flash - 0.5) * 0.12})`;
       ctx.fillRect(0, 0, this.cssW, this.cssH);
     }
@@ -1591,11 +1644,11 @@ export class SparStage {
     const { ctx } = this;
     const drawOne = (img: HTMLImageElement, alpha: number) => {
       // 鏡頭慢慢呼吸（推近拉遠少少），靜態圖都似有景深
-      const breathe = 1 + 0.022 * Math.sin(this.bgT * 0.11);
+      const breathe = this.presentation === 'battle' ? 1 : 1 + 0.022 * Math.sin(this.bgT * 0.11);
       const scale = Math.max(this.cssW / img.width, this.cssH / img.height) * 1.08 * breathe;
       const dw = img.width * scale;
       const dh = img.height * scale;
-      const drift = Math.sin(this.idleT * 0.18) * 5 - (this.heroX * 0.04) % 40;
+      const drift = this.presentation === 'battle' ? 0 : Math.sin(this.idleT * 0.18) * 5 - (this.heroX * 0.04) % 40;
       const dx = (this.cssW - dw) / 2 + drift;
       const dy = this.cssH - dh;
       ctx.save();
@@ -1681,10 +1734,20 @@ export class SparStage {
     // 受擊：向後一彈、身仰、壓扁；頭 0.06 秒閃一閃
     if (e.hitT < 0.26) {
       const p = 1 - e.hitT / 0.26;
-      x += (e.boss ? 120 : 180) * p * p;
-      rot += 9 * p;
-      sy -= 0.08 * p;
-      if (e.hitT < 0.06) alpha = 0.55;
+      const contact = this.contactReaction.get(e);
+      if (contact && !this.quiet) {
+        const snap = Math.min(1, 1 - e.hitT / .32);
+        const reaction = contact.strength >= .8 && !contact.guard
+          ? Math.min(1, e.hitT / .063) * snap ** 1.3 : snap ** 2;
+        x += (contact.guard ? 32 : 40 + 270 * contact.strength) * reaction;
+        rot += (contact.guard ? -7 * snap : (3 + 18 * contact.strength) * reaction);
+        if (contact.guard) sy -= .06 * snap;
+      } else {
+        x += (e.boss ? 120 : 180) * p * p;
+        rot += 9 * p;
+        sy -= 0.08 * p;
+        if (e.hitT < 0.06) alpha = 0.55;
+      }
     }
     // 撲擊：後縮蓄勢 → 撲前 → 收勢（du，向左＝負）
     if (e.lungeT !== null) {
@@ -1853,7 +1916,10 @@ export class SparStage {
       // 第 25 項：外功編排位移（衝前、跳起、穿過敵人、後跳）
       const artS = this.heroDownT === null ? this.artHeroSample() : null;
       const artOff = artS ? this.artHeroOffset() : { dx: 0, dy: 0 };
-      const fx = g.heroX + body.x * g.k - 9 * flinch * flinch - 18 * downP + artOff.dx;
+      const check = this.quiet ? 0 : Math.max(0, 1 - this.guardHeroT / .2);
+      const recoil = this.quiet ? 9 : 22;
+      const tilt = this.quiet ? 6 : 16;
+      const fx = g.heroX + body.x * g.k - recoil * flinch * flinch - 8 * check ** 2 - 18 * downP + artOff.dx;
       const fy = (this.art ? g.groundY : g.groundY + body.y * g.k + crouch) - artOff.dy;
       if (this.art && this.heroDownT !== null) {
         const sample = collapseSample(this.heroDownT, .9);
@@ -1944,7 +2010,7 @@ export class SparStage {
       const artAlpha = artS ? artS.alpha : 1;
       const bodyH = SILHOUETTE_DESIGN_H * g.k;
 
-      const rot = (body.rot - 6 * flinch - 78 * (1 - (1 - downP) ** 3)) * DEG;
+      const rot = (body.rot - tilt * flinch - 8 * check - 78 * (1 - (1 - downP) ** 3)) * DEG;
 
       // 外功殘影（閃現、衝刺、迴旋）
       if (artS && this.artAfterimage) {
@@ -2164,6 +2230,7 @@ export class SparStage {
   }
 
   private drawTrail() {
+    if (this.presentation === 'battle' && !this.weaponDef) return;
     if (this.quiet || !this.art || this.attackT === null || this.artRun || (this.martialId && this.martialAssets.has(this.martialId))) return;
     const p = (this.attackT - .19) / .27;
     if (p < 0 || p > 1) return;
@@ -2172,6 +2239,95 @@ export class SparStage {
     this.ctx.translate(g.heroX + 19, g.groundY - 28); this.ctx.rotate(-.35 + p * .55);
     this.ctx.drawImage(this.art.slash, -size * .5, -size * .65, size, size);
     this.ctx.restore();
+  }
+
+  private enemyContact(target: EnemyInst, x: number, y: number, strength: number, guard: boolean) {
+    this.contactReaction.set(target, { strength, guard });
+    const body = this.enemyVisualHeight(target);
+    this.queueContact(x - body * .18, y, 1, strength, guard);
+    if (this.quiet) return;
+    const g = this.geom();
+    if (guard) this.guardHeroT = 0;
+    if (strength >= .8 && !guard) {
+      this.dust.push({ x: target.x + 8, y: g.groundY, age: 0, dur: .34, vx: 88, landing: true });
+      this.dust.push({ x: target.x + 21, y: g.groundY, age: 0, dur: .42, vx: 62, landing: true });
+    }
+  }
+
+  private queueContact(x: number, y: number, direction: ContactFx["direction"], strength: number, guard: boolean) {
+    if (this.quiet) return;
+    this.contacts.push({ x, y, direction, age: 0, dur: guard ? .24 : .18 + strength * .10, strength, guard });
+    if (this.presentation === 'battle') {
+      this.hitStop = Math.max(this.hitStop, guard ? .064 : strength > .8 ? .112 : .022);
+    }
+  }
+
+  private drawContacts() {
+    if (this.quiet) return;
+    const { ctx } = this;
+    for (const hit of this.contacts) {
+      const progress = hit.age / hit.dur;
+      const weight = 11 + hit.strength * (hit.strength >= .8 ? 36 : 21);
+      ctx.save();
+      ctx.translate(hit.x, hit.y);
+      ctx.scale(hit.direction, 1);
+      ctx.globalAlpha = (1 - progress) ** 1.35;
+
+      if (hit.guard) {
+        // 雙臂架住嘅短弧，內金外墨。
+        ctx.lineCap = 'round';
+        ctx.lineWidth = 6 * (1 - progress * .6);
+        ctx.strokeStyle = '#213b35';
+        ctx.beginPath();
+        ctx.moveTo(6, -weight * .73);
+        ctx.quadraticCurveTo(-weight * .74, -weight * .20, -3, weight * .73);
+        ctx.stroke();
+        ctx.lineWidth *= .55;
+        ctx.strokeStyle = '#ffda8d';
+        ctx.stroke();
+      } else if (hit.strength >= .8) {
+        // 末拳向受力方向扯開一筆，留實底色同清晰尖口。
+        const sweep = weight * (.56 + .62 * progress);
+        ctx.beginPath();
+        ctx.moveTo(-19, 4);
+        ctx.bezierCurveTo(4, -20, sweep * .74, -18, sweep, -13);
+        ctx.bezierCurveTo(sweep * .61, -6, 16, 6, -19, 4);
+        ctx.fillStyle = '#284f47';
+        ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(-13, 2);
+        ctx.quadraticCurveTo(sweep * .27, -15, sweep, -13);
+        ctx.quadraticCurveTo(sweep * .65, -9, -13, 2);
+        ctx.fillStyle = '#ffe5a6';
+        ctx.fill();
+      }
+
+      // 用短筆觸同尖收尾將力集中喺接觸點。
+      ctx.strokeStyle = hit.guard ? '#514632' : '#3a433a';
+      ctx.lineWidth = hit.guard ? 2.7 : 3.6;
+      ctx.beginPath();
+      ctx.moveTo(-weight * .57, hit.guard ? weight * .57 : 4);
+      ctx.quadraticCurveTo(0, -9, weight * .62, hit.guard ? -weight * .55 : -5);
+      ctx.stroke();
+
+      ctx.fillStyle = hit.guard ? '#f3d797' : '#fff1bd';
+      const angles = hit.guard ? [-1.85, -1.22, .88, 1.48] : [-.88, -.40, -.09, .31, .68];
+      angles.forEach((angle, index) => {
+        const length = weight * (.42 + index % 3 * .18 + progress * .46);
+        ctx.save();
+        ctx.rotate(angle);
+        ctx.translate(weight * progress * .55, 0);
+        ctx.beginPath();
+        ctx.moveTo(-weight * .08, 0);
+        ctx.lineTo(weight * .15, -2.6);
+        ctx.lineTo(length, 0);
+        ctx.lineTo(weight * .13, 1.2);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      });
+      ctx.restore();
+    }
   }
 
   private drawSplashes() {

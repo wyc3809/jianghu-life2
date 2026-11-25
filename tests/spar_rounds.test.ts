@@ -3,6 +3,7 @@ import { createNewLife } from '../core/life/gameState';
 import { SparRounds, sparRoundMoves } from '../core/life/sparRounds';
 import { SparDuel, sparHeroStats, sparRand } from '../core/life/sparDuel';
 import { SparStage, type SparCombatHooks } from '../src/spar/engine';
+import { replayFoeHpAtBeat } from '../src/spar/presentation';
 
 function life(volumes = [1, 2, 3]) {
   const s = createNewLife({ seed: 42, skipCoach: true });
@@ -90,16 +91,20 @@ function engineBattle(count: number, presentation: 'stage' | 'battle' = 'stage',
   const duel = new SparDuel({ ...sparHeroStats(s), maxHp: 1e8 }, 1, sparRand(42, 1));
   duel.foe!.maxHp = duel.foeHp = 1e8;
   const events: Event[] = [];
+  const beats: { total: number; count: number; parts: number[] }[] = [];
   let stage: SparStage;
   const combat: SparCombatHooks = {
     heroMayAttack: () => duel.rounds.phase === 'hero' && !stage.foeAttackActive,
     foeMayAttack: () => duel.rounds.phase === 'foe' && !stage.heroAttackActive,
     nextArt: () => duel.rounds.beginMove(s.character)?.artId,
-    heroStrike: () => {
+    heroStrike: (count = 1) => {
       const move = duel.rounds.activeMove;
       if (!move || !duel.rounds.commitHeroMove()) throw Error('重複命中或未起手');
       events.push({ side: 'hero', round: duel.rounds.round, volume: move.volume });
-      return duel.heroStrike(move.power);
+      const result = duel.heroStrike(move.power);
+      const beat = { total: result.dmg, count, parts: [] as number[] };
+      beats.push(beat);
+      return { ...result, onBeat: (damage: number) => beat.parts.push(damage) };
     },
     foeStrike: () => {
       events.push({ side: 'foe', round: duel.rounds.round });
@@ -121,7 +126,7 @@ function engineBattle(count: number, presentation: 'stage' | 'battle' = 'stage',
       stage = make(); remounted = true;
     }
   }
-  return { events, remounted };
+  return { events, beats, remounted };
 }
 
 describe('實際Canvas引擎的回合交接', () => {
@@ -135,6 +140,24 @@ describe('實際Canvas引擎的回合交接', () => {
   });
   it('test_spar_engine_加速及交手演出_不改回合順序', () => {
     expect(engineBattle(7, 'battle', 1 / 30).events).toEqual(engineBattle(7).events);
+  });
+  it('test_spar_engine_長河拳三拍_每招只結算一次並逐拍派同一筆傷害', () => {
+    const { beats } = engineBattle(1, 'battle');
+    expect(beats).toHaveLength(2);
+    for (const beat of beats) {
+      expect(beat.count).toBe(3);
+      expect(beat.parts).toHaveLength(3);
+      expect(beat.parts.reduce((total, damage) => total + damage, 0)).toBe(beat.total);
+    }
+  });
+  it('test_spar_replay_連擊分段氣血_最後一拍跟真戰報', () => {
+    const first = replayFoeHpAtBeat(176, 104, 18, false);
+    const second = replayFoeHpAtBeat(first, 104, 18, false);
+    expect([first, second, replayFoeHpAtBeat(second, 104, 36, true)]).toEqual([158, 140, 104]);
+    expect(replayFoeHpAtBeat(8, 0, 18, false)).toBe(1);
+    expect(replayFoeHpAtBeat(8, 0, 18, true)).toBe(0);
+    expect(replayFoeHpAtBeat(20, 22, 0, false)).toBe(20);
+    expect(replayFoeHpAtBeat(20, 22, 0, true)).toBe(22);
   });
   it('test_spar_engine_切頁重掛時等待敵人_不能重新出免費連招', () => {
     const result = engineBattle(3, 'stage', 1 / 60, true);
