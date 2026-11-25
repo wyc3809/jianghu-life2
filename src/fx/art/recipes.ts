@@ -26,12 +26,14 @@ const RIVER_FIST: ArtChoreo = {
   dur: 1.15,
   hero: [
     { t: 0.12, x: -0.08, sy: 0.93, pose: 'windup', ease: 'out' },
-    { t: 0.22, x: 0, g: 0.8, sy: 1, sx: 1.06, pose: 'strike', ease: 'in' },
+    { t: 0.23, x: 0, g: 0.91, sy: 1, sx: 1.02, pose: 'strike', ease: 'in' },
     { t: 0.32, g: 0.55, sx: 1, pose: 'windup', ease: 'out' },
     { t: 0.42, g: 0.9, sx: 1.06, pose: 'strike', ease: 'in' },
-    { t: 0.52, g: 0.6, sx: 1, pose: 'windup', ease: 'out' },
-    { t: 0.66, g: 1.05, sx: 1.12, sy: 0.96, pose: 'strike', ease: 'in' },
-    { t: 0.9, g: 0.9, sx: 1, sy: 1, ease: 'out' },
+    { t: 0.52, g: 0.44, sx: 1, sy: 0.97, rot: -7, pose: 'windup', ease: 'out' },
+    { t: 0.60, g: 0.32, sy: 0.94, rot: -10, pose: 'windup', ease: 'out' },
+    { t: 0.675, g: 1.45, sx: 1.02, sy: 1, rot: 5, pose: 'strike', ease: 'in' },
+    { t: 0.73, g: 1.38, sx: 1, sy: 1, rot: 4, pose: 'strike', ease: 'out' },
+    { t: 0.9, g: 0.9, sx: 1, sy: 1, rot: 0, ease: 'out' },
     { t: 1.15, g: 0, pose: 'idle', ease: 'inOut' },
   ],
   foe: [
@@ -40,7 +42,8 @@ const RIVER_FIST: ArtChoreo = {
     { t: 0.44, x: 0.12 },
     { t: 0.5, x: 0.25, rot: 8, ease: 'out' },
     { t: 0.68, x: 0.25 },
-    { t: 0.76, x: 0.5, rot: 14, sy: 0.94, ease: 'out' },
+    { t: 0.755, x: 0.48, rot: 19, sy: 1, ease: 'out' },
+    { t: 0.83, x: 0.51, rot: 10, sy: 1, ease: 'out' },
     { t: 1.08, x: 0, rot: 0, sy: 1, ease: 'inOut' },
   ],
   events: [

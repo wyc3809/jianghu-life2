@@ -33,6 +33,13 @@ export function crossedGroundContact(previous: number, current: number): boolean
   return previous < SPAR_PRESENTATION.collapseContact && current >= SPAR_PRESENTATION.collapseContact;
 }
 
+/** 中段按浮字扣血，收尾對齊戰報真值（可包含外功附帶變化）。 */
+export function replayFoeHpAtBeat(previous: number, final: number, damage: number, last: boolean): number {
+  if (last) return final;
+  const floor = final > 0 ? final : 1;
+  return Math.min(previous, Math.max(floor, previous - damage));
+}
+
 export interface SparArtImages {
   seasons: Record<SparSeason, HTMLImageElement>;
   walk: HTMLImageElement[];

@@ -20,7 +20,7 @@ import { sparLookForName } from '@core/life/sparDuel';
 import { InkUnifiedBattleFrame } from './InkUnifiedBattleFrame';
 import { InkBattleArts } from './InkBattleArts';
 import { InkBattleEntrance } from './InkBattleEntrance';
-import type { SparSeason } from '../../spar/presentation';
+import { replayFoeHpAtBeat, type SparSeason } from '../../spar/presentation';
 import { playInkDefeat, playInkMiss, playInkVictory } from '../../audio/inkAudio';
 import { loadMartialAssets } from '../../fx/art/martialPoses';
 import { equippedMartialArts } from '@core/life/martialLoadout';
@@ -54,6 +54,8 @@ type Props = {
 
 /** 純狀態行動留有閱讀節拍，不播放攻擊或落空聲。 */
 const passiveAction = (hit: {moveName:string}) => /^(調息|穴道受制|流血)$/.test(hit.moveName);
+const missedHit = (hit: CombatReplayHit) =>
+  hit.damage <= 0 && !passiveAction(hit) && !hit.traitFx?.some(fx => fx.kind === 'guard');
 
 type Hit = CombatReplayHit & { round: number };
 
@@ -98,7 +100,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
   const heroBarRef = useRef<HTMLDivElement | null>(null);
   const foeBarRef = useRef<HTMLDivElement | null>(null);
   const calloutRef = useRef<HTMLDivElement | null>(null);
-  const [cur, setCur] = useState<{ hit: Hit; n: number } | null>(null);
+  const [cur, setCur] = useState<{ hit: Hit; n: number; foeHp: number } | null>(null);
   const [failed, setFailed] = useState(false);
   const doneRef = useRef(false);
   const onDoneRef = useRef(onDone);
@@ -107,7 +109,8 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
     if (doneRef.current) return;
     doneRef.current = true;
     if (unified) setSceneReady(true);
-    if (unified && hits.length) setCur({ hit: hits[hits.length - 1]!, n: hits.length });
+    const finalHit = hits.at(-1);
+    if (unified && finalHit) setCur({ hit: finalHit, n: hits.length, foeHp: finalHit.foeHp });
     onDoneRef.current();
   };
 
@@ -131,6 +134,8 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
     let enraged = false;
     let supportHold = 0;
     let simulatedTime=0;
+    let lastFoeHp = replay.startFoeHp;
+    let presentingCombo = false;
     const end = (ms: number) => {
       if (ended) return;
       ended = true;
@@ -138,26 +143,40 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
       else if (replay.outcome !== 'ended') playInkVictory();
       endTimer = setTimeout(finish, liveClockRef.current?Math.max(0,liveClockRef.current.endsAt-Date.now()-liveClockRef.current.offsetMs):ms);
     };
-    const show = (h: Hit) => {
-      setCur({ hit: h, n: i });
-      if (h.damage <= 0 && !passiveAction(h)) playInkMiss();
+    const show = (h: Hit, foeHp = h.foeHp) => {
+      lastFoeHp = h.foeHp;
+      setCur({ hit: h, n: i, foeHp });
+      if (missedHit(h)) playInkMiss();
     };
     const combat: SparCombatHooks = {
       heroMayAttack: () => !ended && supportHold<=0 && hits[i]?.side === 'player' && !passiveAction(hits[i]),
       // 第 25 項：今回合用邊套外功就播嗰套專屬動畫
       nextArt: () => (hits[i]?.side === 'player' ? (hits[i]?.skillId ?? null) : null),
       nextFoeArt: () => (hits[i]?.side==='foe'?hits[i]?.skillId??null:null),
-      foeMayAttack: () => !ended && supportHold<=0 && hits[i]?.side === 'foe' && !passiveAction(hits[i]),
-      heroStrike: () => {
+      foeMayAttack: () => !ended && !presentingCombo && supportHold<=0 && hits[i]?.side === 'foe' && !passiveAction(hits[i]),
+      heroStrike: (beatCount = 1) => {
         const h = hits[i];
         if (!h || h.side !== 'player') return { dmg: 0, crit: false, heal: 0, killed: false };
         i += 1;
-        show(h);
+        const number = i;
+        let beatHp = lastFoeHp;
+        const staged = beatCount > 1 && h.damage > 0;
+        presentingCombo = staged;
+        show(h, staged ? beatHp : h.foeHp);
         const killed = h.foeHp <= 0;
-        if (!killed && i >= hits.length) end(1200);
+        const finishTurn = () => { if (!killed && number === hits.length) end(1200); };
+        if (!staged) finishTurn();
         const fx = h.traitFx ?? [];
         const reflect = fx.filter((f) => f.kind === 'thorns').reduce((n, f) => n + f.value, 0);
-        return { dmg: h.damage, crit: h.damage > 0 && h.crit === true, heal: 0, killed, fx, reflect };
+        const onBeat = staged ? (damage: number, last: boolean) => {
+          beatHp = replayFoeHpAtBeat(beatHp, h.foeHp, damage, last);
+          setCur({ hit: h, n: number, foeHp: beatHp });
+          if (last) {
+            presentingCombo = false;
+            finishTurn();
+          }
+        } : undefined;
+        return { dmg: h.damage, crit: h.damage > 0 && h.crit === true, heal: 0, killed, fx, reflect, onBeat };
       },
       foeStrike: () => {
         const h = hits[i];
@@ -334,7 +353,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
 
   const h = cur?.hit;
   const playerHp = h ? h.playerHp : replay.startPlayerHp;
-  const foeHp = h ? h.foeHp : replay.startFoeHp;
+  const foeHp = cur?.foeHp ?? replay.startFoeHp;
   const heroPct = (playerHp / Math.max(1, replay.playerMaxHp)) * 100;
   const foePct = (foeHp / Math.max(1, replay.foeMaxHp)) * 100;
   // 每回合輪一門外功：七卷格跟住而家輪到嗰門
@@ -356,7 +375,7 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
     foe={{ name: replay.foeName, hp: foeHp, maxHp: replay.foeMaxHp }} boss={replay.foeBoss}
     scene={<div className="ink-unified-canvas-host" ref={wrapRef}><canvas ref={canvasRef} /></div>}
     callout={h ? <span key={cur!.n} className={h.side === 'foe' ? 'is-foe' : ''}>
-      {h.side === 'player' && h.vol && <i>卷{VOLUME_NUMERALS[h.vol - 1]} ·</i>}{h.moveName}{h.damage <= 0 && !passiveAction(h) ? ' · 落空' : ''}
+      {h.side === 'player' && h.vol && <i>卷{VOLUME_NUMERALS[h.vol - 1]} ·</i>}{h.moveName}{missedHit(h) ? ' · 落空' : ''}
     </span> : <span>{replay.title}</span>}
     skills={<InkBattleArts artId={artNow.artId} volumes={artNow.vols} rotation={artNow.rotation} activeVolume={h?.side === 'player' ? h.vol : undefined} />}
   />, document.body);
@@ -399,10 +418,10 @@ export function InkAutoBattle({ replay, onDone, reduceMotion = false, unified = 
           {/* 出招題字：卷幾・招名（敵人出手就題敵招） */}
           <div className="ink-auto-callout" ref={calloutRef} aria-live="polite">
             {h && (
-              <span key={cur!.n} className={`ink-auto-callout-inner is-${h.side}${h.damage <= 0 && !passiveAction(h) ? ' is-miss' : ''}`}>
+              <span key={cur!.n} className={`ink-auto-callout-inner is-${h.side}${missedHit(h) ? ' is-miss' : ''}`}>
                 {h.side === 'player' && h.vol ? <i>卷{VOLUME_NUMERALS[h.vol - 1]}</i> : null}
                 <b>{h.moveName}</b>
-                {h.damage <= 0 && !passiveAction(h) ? <small>落空</small> : null}
+                {missedHit(h) ? <small>落空</small> : null}
               </span>
             )}
           </div>
