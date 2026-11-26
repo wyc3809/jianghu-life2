@@ -29,7 +29,7 @@ body .ink-map-destination-light { filter:none; }
 body .ink-person-sheet::backdrop { background:#3c514638; }
 
 /* 已確認青綠暖金漫畫晨景；本段只改開卷，風格基準見design/art/STYLE.md。 */
-body .scroll-shell.ink-start { --ui-ink:#242d2c; --ui-red:#a34338; padding:16px max(20px,env(safe-area-inset-right,0px)) max(30px,env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px)); gap:10px; color:var(--ui-ink); }
+body .scroll-shell.ink-start { --ui-ink:#242d2c; --ui-red:#a34338; padding:calc(16px + env(safe-area-inset-top,0px)) max(20px,env(safe-area-inset-right,0px)) max(30px,env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px)); gap:10px; color:var(--ui-ink); }
 .ink-start-bg { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
 .ink-start-bg img { display:block; width:100%; height:100%; object-fit:cover; object-position:center; }
 body .ink-start .ink-hero { padding:6px 0 0; text-align:center; flex:none; }
@@ -48,7 +48,7 @@ body .ink-start .ink-btn--ghost { max-width:280px; font-size:20px; color:var(--u
 body .ink-start .ink-btn--scroll::after { display:none; }
 body .ink-start .ink-btn--quiet { font-size:13px; min-height:44px; color:var(--ink-mid); padding:5px 8px; }
 @media(max-height:650px) {
-  body .scroll-shell.ink-start { padding:12px max(16px,env(safe-area-inset-right,0px)) max(14px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px)); gap:6px; }
+  body .scroll-shell.ink-start { padding:calc(12px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(14px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px)); gap:6px; }
   body .ink-start .ink-hero { padding-top:0; }
   body .ink-start .ink-brand { font-size:42px; }
   .ink-start-rule { margin:7px auto; }
