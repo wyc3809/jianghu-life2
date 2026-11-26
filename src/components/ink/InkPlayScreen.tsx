@@ -28,8 +28,8 @@ import { bestOwnedGear } from '@core/life/equipment';
 import type { OnlineSnapshot } from '@interfaces/online';
 import { lifeScore } from '@core/life/leaderboardScore';
 import { InkGearCompareModal } from './InkGearCompareModal';
-import { titleTierColorClass, topTitle, topTitles } from '@core/life/titles';
-import { combatRating, combatRatingTier } from '@core/life/combatRating';
+import { titleTierColorClass, topTitle } from '@core/life/titles';
+import { combatRating } from '@core/life/combatRating';
 import { InkCultivationHud } from './InkCultivationHud';
 import { InkBrushBar } from './InkBrush';
 import { InkOfflineGainModal } from './InkOfflineGainModal';
@@ -272,7 +272,6 @@ export function InkPlayScreen({ state }: Props) {
   useCultivationTicker(state.phase === 'playing' && c.alive, tickCultivation);
   const month = state.month ?? 1;
   const pendingEvent = resolvePendingEvent(state);
-  const sect = c.sectId ? state.sects[c.sectId] : null;
   const hpPct = Math.max(0, Math.min(100, (c.health / Math.max(1, c.maxHealth)) * 100));
   const qiPct = Math.max(0, Math.min(100, ((c.qi ?? 0) / Math.max(1, c.maxQi ?? 1)) * 100));
   const fatigue = Math.max(0, Math.min(100, Math.round(100 - (c.actionPoints ?? 0))));
@@ -351,8 +350,9 @@ export function InkPlayScreen({ state }: Props) {
   }, [moneyNow, combat]);
   const moneyShown = useRollingNumber(moneyNow, { delayRef: moneyDelay });
 
-  const jadeBal = useAncestryStore((s) => s.meta.jade);
-  const jadeTotal = (jadeBal?.free ?? 0) + (jadeBal?.paidTest ?? 0);
+  const paidJade = useAncestryStore(s => s.meta.jade?.paidTest ?? 0);
+  const freeJadeText = freeJade.toLocaleString('zh-Hant');
+  const paidJadeText = paidJade.toLocaleString('zh-Hant');
   const setEncounterOpen = useAncestryStore((s) => s.setEncounterOpen);
   const claimEncounter = useAncestryStore((s) => s.claimEncounter);
   /** 主頁捷徑直接開指定內容頁，唔再捲向舊長頁區塊。 */
@@ -499,9 +499,7 @@ export function InkPlayScreen({ state }: Props) {
 
   const leadTitle = topTitle(state);
   /** 頭銜已喺全名右邊顯示，呢度只補列第二、三名，避免重複 */
-  const nicknames = topTitles(state).slice(1);
   const rating = combatRating(state);
-  const ratingTier = combatRatingTier(rating);
   const hasTask = onHomeTab && state.phase === 'playing' && c.alive && !combat && !eventFocus;
 
   // Portal 固定欄用實際高度預留位置；字體／安全區改變都唔遮住主頁。
@@ -616,7 +614,6 @@ export function InkPlayScreen({ state }: Props) {
       )}
 
       {!onFullPage && <header className="ink-status ink-status--bare-top ink-hud">
-        {/* 商業手遊式頂欄：頭像＋名號 | 貨幣；第二行氣血內力疲勞 */}
         <div className="ink-hud-top">
           <button
             type="button"
@@ -650,46 +647,41 @@ export function InkPlayScreen({ state }: Props) {
                 </span>
               )}
             </h2>
-            <p className="ink-status-kicker">
-              第{state.year}年 · {seasonLabel(month)}
-              {c.location ? ` · ${c.location}` : ''}
-            </p>
-            <p className="ink-meta">
-              <span className="ink-metaline-prestige">
-                戰力 <b>{rating.toLocaleString('zh-Hant')}</b> · {ratingTier}
-              </span>
-              {(sect || nicknames.length > 0) && <span className="ink-hud-affiliation">{[sect?.name, ...nicknames].filter(Boolean).join(' · ')}</span>}
+            <p className="ink-meta ink-metaline-prestige">
+              戰力 <b>{rating.toLocaleString('zh-Hant')}</b>
             </p>
           </div>
-          <div className="ink-hud-wallet">
-            <span ref={moneyChipRef} className="ink-money-chip ink-glint" aria-label={`銀兩 ${Math.round(c.money ?? 0)}`}>
-              <InkIcon name="silver" size={26} className="ink-wallet-icon" /><small className="ink-wallet-name">銀兩</small>
+          <button
+            type="button"
+            className="ink-icon-btn ink-hud-settings"
+            onClick={() => setSettingsOpen(true)}
+            title="設定"
+            aria-label="開啟設定"
+            aria-haspopup="dialog"
+            aria-expanded={settingsOpen}
+          >
+            <InkIcon name="fan" size={26} />
+          </button>
+          <div className="ink-hud-wallet" aria-label="錢袋">
+            <span ref={moneyChipRef} className="ink-money-chip ink-glint" aria-label={`銀兩 ${moneyNow.toLocaleString('zh-Hant')}`}>
+              <InkIcon name="silver" size={26} className="ink-wallet-icon" />
+              <span className="ink-wallet-name">銀兩</span>
               <span className="ink-wallet-value">{moneyShown.toLocaleString('zh-Hant')}</span>
             </span>
             <button
               type="button"
               className="ink-jade-chip"
-              aria-label={`玉石 ${jadeTotal}，去秘笈閣`}
-              onClick={() => openGachaTab()}
+              aria-label={`免費玉石 ${freeJadeText}，付費玉石 ${paidJadeText}，去秘笈閣`}
+              onClick={openGachaTab}
             >
-              <InkIcon name="jade" size={26} className="ink-wallet-icon" /><small className="ink-wallet-name">玉石</small>
-              {jadeTotal.toLocaleString('zh-Hant')}
+              <InkIcon name="jade" size={26} className="ink-wallet-icon" />
+              <span className="ink-jade-balances">
+                <span className="ink-wallet-name">免費玉石</span>
+                <span className="ink-wallet-value">{freeJadeText}</span>
+                <span className="ink-wallet-name">付費玉石</span>
+                <span className="ink-wallet-value">{paidJadeText}</span>
+              </span>
             </button>
-            <div className="ink-status-buttons">
-              <button
-                type="button"
-                className="ink-icon-btn ink-icon-btn--wide ink-hud-settings"
-                onClick={() => setSettingsOpen(true)}
-                title="設定"
-                aria-label="開啟設定"
-                aria-haspopup="dialog"
-                aria-expanded={settingsOpen}
-              >
-                <InkIcon name="fan" size={26} />
-                <span className="ink-wallet-name">設定</span>
-              </button>
-
-            </div>
           </div>
         </div>
         <div className="ink-hud-bars">

@@ -210,8 +210,8 @@ body :is(.ink-codex-sheet > header > button,.ink-settings-head > .ink-icon-btn) 
 body .ink-settings-toggle { background:var(--ui-caption) left/100% 100% no-repeat; border-color:transparent; }
 
 /* 逐頁實測後補齊：修煉選項、抽取按鈕、收成／任務及帳戶紙框。 */
-body :is(.ink-hud-settings,.ink-task-popover,.ink-person-attributes,.ink-person-actions button,.ink-practice-btn,.ink-account-rows,.ink-codex-heading-actions button,.ink-codex-banners button,.ink-codex-school-picker,.ink-codex-volume > button,.ink-codex-wish,.ink-codex-odds) { position:relative; isolation:isolate; background:var(--ui-fiber) center/384px repeat,var(--ui-paper); border-color:transparent; box-shadow:none; }
-body :is(.ink-hud-settings,.ink-task-popover,.ink-person-attributes,.ink-person-actions button,.ink-practice-btn,.ink-account-rows,.ink-codex-heading-actions button,.ink-codex-banners button,.ink-codex-school-picker,.ink-codex-volume > button,.ink-codex-wish,.ink-codex-odds)::before { content:''; position:absolute; inset:0; border:6px solid transparent; border-image:var(--ui-frame) 48 / 1 / 0 stretch; background:none; pointer-events:none; }
+body :is(.ink-task-popover,.ink-person-attributes,.ink-person-actions button,.ink-practice-btn,.ink-account-rows,.ink-codex-heading-actions button,.ink-codex-banners button,.ink-codex-school-picker,.ink-codex-volume > button,.ink-codex-wish,.ink-codex-odds) { position:relative; isolation:isolate; background:var(--ui-fiber) center/384px repeat,var(--ui-paper); border-color:transparent; box-shadow:none; }
+body :is(.ink-task-popover,.ink-person-attributes,.ink-person-actions button,.ink-practice-btn,.ink-account-rows,.ink-codex-heading-actions button,.ink-codex-banners button,.ink-codex-school-picker,.ink-codex-volume > button,.ink-codex-wish,.ink-codex-odds)::before { content:''; position:absolute; inset:0; border:6px solid transparent; border-image:var(--ui-frame) 48 / 1 / 0 stretch; background:none; pointer-events:none; }
 body .ink-home-scene { border-image:var(--ui-frame) 48 / 6px / 0 stretch; box-shadow:none; }
 body .scroll-shell--play .ink-codex-banners button[aria-selected='true'] { color:#fff8e9; background:var(--ui-brush) center/100% 100% no-repeat; border-color:transparent; }
 body .scroll-shell--play .ink-codex-banners button[aria-selected='true']::before { display:none; }
@@ -279,7 +279,6 @@ body .ink-settings-content { min-height:0; overflow-y:auto; overscroll-behavior:
 body .ink-cloud-actions > button { min-height:44px; }
 
 /* 第68項：手機入口保留原器物外觀，實際按壓範圍至少44px。 */
-body .scroll-shell--play .ink-hud-wallet :is(.ink-jade-chip,.ink-hud-settings) { min-height:44px; }
 body .ink-equipment-name { min-height:44px; display:flex; align-items:center; }
 body .ink-loadout-rules { font-size:15px; line-height:1.75; }
 body .ink-loadout-rules h4 { margin:18px 0 6px; color:var(--ui-ink); font:700 21px/1.4 var(--ui-title); }
