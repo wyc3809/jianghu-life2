@@ -9201,8 +9201,7 @@ button.ink-enc-strip {
   .ink-enc-strip.is-offer { animation: none; }
 }
 
-/* ===== 商業手遊式版面：頂欄 HUD（頭像＋名號｜貨幣；第二行氣血內力疲勞）＋功能入口＋任務追蹤 =====
-   演武台（.ink-home-scene／InkSparStage）完全唔郁；只改佢上下嘅介面。 */
+/* 人物、錢袋及氣血頂欄。 */
 .ink-hud {
   padding: 2px 0 8px 0;
 }
@@ -9212,9 +9211,10 @@ button.ink-enc-strip {
 }
 
 .ink-hud-top {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: 60px minmax(0, 1fr) 44px;
+  align-items: start;
+  gap: 0 9px;
 }
 
 .ink-hud-avatar {
@@ -9273,89 +9273,17 @@ button.ink-enc-strip {
   text-overflow: ellipsis;
 }
 
-.ink-hud .ink-status-kicker {
-  margin: 1px 0 0;
-  font-size: 0.64rem;
-  letter-spacing: 0.12em;
-}
-
 .ink-hud .ink-meta {
-  margin-top: 1px;
-  font-size: 0.66rem;
+  margin: 4px 0 0;
+  padding-top: 4px;
+  border-top: 1px solid var(--ink-faint);
+  font-size: .8rem;
   line-height: 1.3;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .ink-hud .ink-metaline-prestige b {
   color: var(--cinnabar);
   font-variant-numeric: tabular-nums;
-}
-
-/* 右上貨幣：銀兩、玉石（撳去秘笈閣）、設定 */
-.ink-hud-wallet {
-  flex: none;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 4px;
-}
-
-.ink-hud-wallet .ink-money-chip {
-  margin-top: 0;
-  min-width: 84px;
-  justify-content: space-between;
-}
-
-.ink-jade-chip {
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 5px;
-  min-width: 84px;
-  padding: 1px 9px 1px 2px;
-  border: 1px solid rgba(47, 107, 90, 0.45);
-  border-radius: 999px;
-  background: var(--paper-bright);
-  color: #1a1a1a;
-  font-family: inherit;
-  font-size: 0.78rem;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  cursor: pointer;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.ink-jade-chip i {
-  display: inline-grid;
-  place-items: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #8fc7b3, #2f6b5a 75%);
-  color: #f6f1e6;
-  font-style: normal;
-  font-size: 0.62rem;
-}
-
-.ink-hud-wallet .ink-status-buttons {
-  display: flex;
-  gap: 4px;
-}
-
-.ink-hud-wallet .ink-icon-btn {
-  width: 30px;
-  height: 22px;
-  font-size: 0.66rem;
-}
-
-.ink-hud-wallet .ink-icon-btn--wide {
-  width: auto;
-  padding: 0 8px;
-  border: 1px solid var(--ink-faint);
-  border-radius: 999px;
 }
 
 /* 第二行：氣血｜內力｜疲勞度，一行過 */
@@ -9720,12 +9648,6 @@ button.ink-enc-strip {
   -webkit-user-drag: none;
 }
 
-.ink-hud-wallet .ink-money-chip,
-.ink-jade-chip {
-  min-height: 28px;
-  padding: 1px 10px 1px 1px;
-}
-
 .ink-wallet-icon {
   filter: drop-shadow(0 1px 0 rgba(46, 38, 34, 0.25));
 }
@@ -9746,13 +9668,6 @@ button.ink-enc-strip {
   pointer-events: none;
   background: linear-gradient(105deg, transparent 30%, rgba(227, 196, 106, 0.85) 50%, transparent 70%);
   transform: translateX(calc((var(--glint, 0) * 2.4 - 1.2) * 100%));
-}
-
-.ink-hud-wallet .ink-icon-btn--wide {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  padding: 0 8px 0 4px;
 }
 
 .ink-vitals-label span:first-child {
@@ -10493,44 +10408,79 @@ html[data-ink-motion='reduce'] .ink-hud-avatar--badge:active .ink-hud-person-bad
 .ink-hud-person-badge.ink-badge--compact .ink-badge-object { filter: drop-shadow(0 1px 1px #17151040); }
 
 /* 第22項：右上銀兩／玉石唔要外框或文字描邊，保留原本尺寸同操作範圍。 */
-.ink-hud-wallet .ink-money-chip,
-.ink-hud-wallet .ink-jade-chip {
-  border-color: transparent;
-  border-radius: 0;
-  background: none;
-  box-shadow: none;
-  -webkit-text-stroke: 0;
-  text-shadow: none;
+.ink-hud-wallet {
+  grid-column: 2 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 10px;
+  min-width: 0;
 }
-.ink-hud-wallet .ink-wallet-name,
-.ink-hud-wallet .ink-wallet-value {
-  -webkit-text-stroke: 0;
+
+.ink-hud-wallet :is(.ink-money-chip, .ink-jade-chip) {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 44px;
+  max-width: 100%;
+  padding: 2px 0;
+  margin: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--ui-ink);
   text-shadow: none;
 }
 
-/* 第22項：貨幣／設定共用欄位，角色三種數值共用標籤、進度條及數字列。 */
-.ink-hud-wallet { align-items: stretch; min-width: 100px; }
-.ink-hud-wallet .ink-money-chip,
-.ink-hud-wallet .ink-jade-chip,
-.ink-hud-wallet .ink-hud-settings {
-  display: grid; grid-template-columns: 26px 24px auto;
-  align-items: center; gap: 5px; width: 100%; min-height: 28px;
-  padding: 1px 8px 1px 2px; margin: 0; box-sizing: border-box;
+.ink-hud-wallet .ink-jade-chip {
+  padding-inline-start: 8px;
+  border-inline-start: 1px solid var(--ink-faint);
+  cursor: pointer;
+  touch-action: manipulation;
 }
-.ink-hud-wallet .ink-wallet-name { text-align: left; }
-.ink-hud-wallet .ink-wallet-value { justify-self: end; }
-.ink-hud-wallet .ink-jade-chip { text-align: right; }
-.ink-hud-wallet .ink-status-buttons { width: 100%; }
-.ink-hud-wallet .ink-hud-settings { height: auto; }
+
+.ink-jade-balances {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: baseline;
+  gap: 2px 6px;
+  text-align: start;
+}
+
+.ink-hud-wallet .ink-wallet-value {
+  text-align: end;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.ink-hud .ink-hud-settings {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+@media (max-width: 350px) {
+  .ink-hud-wallet {
+    grid-column: 1 / -1;
+    padding-inline-start: 4px;
+  }
+}
+
 .ink-hud-meters { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; width: 100%; }
 .ink-hud-meters .ink-meter { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 .ink-hud-meters .ink-vitals-label { justify-content: center; min-height: 18px; margin: 0; font-size: 11px; line-height: 1.2; }
 .ink-hud-meters .ink-meter-bar { height: 7px; margin: 0; width: 100%; }
 .ink-hud-meter-value { text-align: center; font-size: 11px; line-height: 1.4; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .ink-hud-meters--compact { grid-template-columns: minmax(0, 1fr); max-width: calc((100% - 24px) / 3); margin-left: auto; }
-.ink-hud-wallet .ink-money-chip,
-.ink-hud-wallet .ink-jade-chip,
-.ink-hud-wallet .ink-hud-settings { justify-content: normal; justify-items: stretch; }
+
 
 /* 第22項：任務與捷徑依內容排列，短畫面捲動亦唔互相遮擋。 */
 .ink-home-focus .ink-goal.ink-task-bar {
@@ -10541,7 +10491,6 @@ html[data-ink-motion='reduce'] .ink-hud-avatar--badge:active .ink-hud-person-bad
 .ink-hud .ink-name { white-space: normal; overflow: visible; overflow-wrap: anywhere; letter-spacing: .04em; }
 .ink-hud .ink-name-title { display: block; margin-left: 0; }
 .ink-hud .ink-meta { white-space: normal; overflow: visible; overflow-wrap: anywhere; }
-.ink-hud .ink-metaline-prestige, .ink-hud-affiliation { display: block; }
 
 /* 固定任務欄：內容視窗喺任務 dock 上面結束，入口唔會捲入固定欄底。 */
 .scroll-shell--has-task {
@@ -10696,14 +10645,10 @@ body:has(.ink-spar-boss-screen) .ink-task-dock { visibility: hidden; }
 
 @media (max-height: 620px) {
   .scroll-shell--home { padding-top: max(6px, env(safe-area-inset-top, 0px)); gap: 4px; }
-  .scroll-shell--home .ink-hud-wallet .ink-money-chip,
-  .scroll-shell--home .ink-hud-wallet .ink-jade-chip,
-  .scroll-shell--home .ink-hud-wallet .ink-hud-settings { min-height: 23px; padding-block: 0; }
   .scroll-shell--home .ink-hud-wallet .ink-badge { width: 22px !important; height: 22px !important; }
   .scroll-shell--home .ink-hud-bars { margin-top: 3px; }
   .scroll-shell--home .ink-hud-meters .ink-meter { gap: 1px; }
   .scroll-shell--home .ink-hud .ink-name-title { display: inline; font-size: 10px; margin-left: 4px; }
-  .scroll-shell--home .ink-hud-affiliation { display: inline; }
   .scroll-shell--home .ink-hud .ink-meta { font-size: 10px; line-height: 1.2; }
   .scroll-shell--home .ink-play-body > .ink-home-focus { gap: 3px; }
   .scroll-shell--home .ink-quick { padding-block: 1px; }
