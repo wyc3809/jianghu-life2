@@ -46,6 +46,75 @@ type Props = {
   onPractice: (actionId: PracticeActionId, opts?: { sectId?: string; artId?: string }) => void;
 };
 
+/** 共用拜師同門務。江湖地圖同修煉用同一套條件、操作同職位資料。 */
+export function InkSectMembership({ state, busy, onPractice, onAffiliationChange }: Pick<Props, 'state' | 'busy' | 'onPractice'> & {
+  onAffiliationChange?: () => void;
+}) {
+  const sectId = state.character.sectId;
+  const sect = sectId ? state.sects[sectId] : null;
+  return !sect ? (
+    <>
+      <p className="ink-note">各門派有不同的入門條件，符合條件後可拜師。</p>
+      <div className="ink-practice-grid">
+        {SECT_DEFS.map(s => {
+          const reason = practiceBlockReason(state, 'join_sect', { sectId: s.id });
+          const gate = natureGateHint(s.natureGate);
+          return <button
+            key={s.id}
+            type="button"
+            className="ink-practice-btn"
+            disabled={busy || Boolean(reason)}
+            onClick={() => {
+              onPractice('join_sect', { sectId: s.id });
+              onAffiliationChange?.();
+            }}
+          >
+            <strong>{s.name}</strong>
+            <span>{reason ?? [s.hint, gate].filter(Boolean).join(' · ')}</span>
+          </button>;
+        })}
+      </div>
+    </>
+  ) : (
+    <>
+      <p className="ink-note">完成門派差事、比武或靜修可提升門派地位，逐步解鎖四套門派武學。</p>
+      <ul className="ink-skill-list ink-sect-progress">
+        {describeSectProgress(state).map((line) => (
+          <li key={line}>{line}</li>
+        ))}
+      </ul>
+      <div className="ink-practice-grid">
+        {SECT_INNER_ACTIONS.map((act) => (
+          <button
+            key={act.id}
+            type="button"
+            className="ink-practice-btn"
+            disabled={busy || Boolean(practiceBlockReason(state,act.id))}
+            onClick={() => {
+              onPractice(act.id);
+            }}
+          >
+            <strong>{act.label}</strong>
+            <span>{actionHint(act, state)}</span>
+          </button>
+        ))}
+        <button
+          type="button"
+          className="ink-practice-btn"
+          disabled={busy}
+          onClick={() => {
+            onPractice('sect_leave');
+            onAffiliationChange?.();
+          }}
+        >
+          <strong>離開門派</strong>
+          <span>割席而去，山門內外兩不相干</span>
+        </button>
+      </div>
+    </>
+  );
+}
+
 export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPractice }: Props) {
   const c = state.character;
   const sect = c.sectId ? state.sects[c.sectId] : null;
@@ -122,68 +191,7 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
               返回
             </button>
           </div>
-          {!sect ? (
-            <>
-              <p className="ink-note">各門派有不同的入門條件，符合條件後可拜師。</p>
-              <div className="ink-practice-grid">
-                {SECT_DEFS.map((s) => (
-                  <button
-                    key={s.id}
-                    type="button"
-                    className="ink-practice-btn"
-                    disabled={busy || Boolean(practiceBlockReason(state,'join_sect',{sectId:s.id}))}
-                    onClick={() => {
-                      onPractice('join_sect', { sectId: s.id });
-                      onView('main');
-                    }}
-                  >
-                    <strong>{s.name}</strong>
-                    <span>
-                      {practiceBlockReason(state,'join_sect',{sectId:s.id}) ?? s.hint}
-                      {natureGateHint(s.natureGate) ? ` · ${natureGateHint(s.natureGate)}` : ''}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </>
-          ) : (
-            <>
-              <p className="ink-note">完成門派差事、比武或靜修可提升門派地位，逐步解鎖四套門派武學。</p>
-              <ul className="ink-skill-list ink-sect-progress">
-                {describeSectProgress(state).map((line) => (
-                  <li key={line}>{line}</li>
-                ))}
-              </ul>
-              <div className="ink-practice-grid">
-                {SECT_INNER_ACTIONS.map((act) => (
-                  <button
-                    key={act.id}
-                    type="button"
-                    className="ink-practice-btn"
-                    disabled={busy || Boolean(practiceBlockReason(state,act.id))}
-                    onClick={() => {
-                      onPractice(act.id);
-                    }}
-                  >
-                    <strong>{act.label}</strong>
-                    <span>{actionHint(act, state)}</span>
-                  </button>
-                ))}
-                <button
-                  type="button"
-                  className="ink-practice-btn"
-                  disabled={busy}
-                  onClick={() => {
-                    onPractice('sect_leave');
-                    onView('main');
-                  }}
-                >
-                  <strong>離開門派</strong>
-                  <span>割席而去，山門內外兩不相干</span>
-                </button>
-              </div>
-            </>
-          )}
+          <InkSectMembership state={state} busy={busy} onPractice={onPractice} onAffiliationChange={() => onView('main')} />
         </>
       )}
 

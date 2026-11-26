@@ -25,7 +25,7 @@ export function InkFeatureMenu<Id extends string>({ label, entries, onOpen }: {
   </ul></nav>;
 }
 
-export type JianghuView = 'main' | 'online' | 'gacha' | 'huashan' | 'founder';
+export type JianghuView = 'main' | 'online' | 'gacha' | 'huashan' | 'sect' | 'sectWar';
 
 /** 地圖直接承接江湖分頁，功能沿用原有內容頁。 */
 export function InkJianghuHub({ online, onOpen, onBack }: { online: boolean; onOpen: (view: JianghuView) => void; onBack: () => void }) {

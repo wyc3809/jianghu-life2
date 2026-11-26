@@ -125,15 +125,11 @@ export function createCharacterSlice(
     resolveGearCompare: (action: 'equip' | 'keep') => {
       const { state } = get();
       if (!state?.pendingGearCompare) return;
-      let msg = '';
       const next = produce(state, (draft) => {
-        msg = resolveGearCompareAction(draft, action);
+        resolveGearCompareAction(draft, action);
       });
       void save(next);
-      set({
-        state: next,
-        flashLines: msg ? [sanitizePlayerLine(msg)] : [],
-      });
+      set({ state: next, flashLines: [] });
     },
   };
 }

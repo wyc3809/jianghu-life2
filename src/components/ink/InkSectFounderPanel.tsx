@@ -1,4 +1,3 @@
-import { InkJianghuComicScene } from './InkJianghuComicScene';
 import { useState } from 'react';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import {
@@ -31,9 +30,8 @@ export function InkSectFounderPanel({ state, onFound, onRecruit, onTeach }: Prop
   const recruitGate = canRecruitDisciple(state);
 
   return (
-    <section className="ink-panel ink-sect-founder-panel ink-tab-pane" aria-label="開宗立派">
-      <h3>開宗立派</h3>
-      <InkJianghuComicScene kind="sect" />
+    <section className="ink-sect-founder-panel" aria-label="開宗立派">
+      <h4>{sect?.name ?? '開宗立派'}</h4>
 
       {!sect && (
         <>

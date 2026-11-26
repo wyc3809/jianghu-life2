@@ -20,7 +20,7 @@
 .ink-map-destination-light > span { position: absolute; inset: 0; display: block; background-size: 100% 100%; clip-path: var(--landmark-clip); filter: brightness(1.16) saturate(1.08); }
 .ink-map-destination--gacha .ink-map-destination-light { animation-delay: -.9s; }
 .ink-map-destination--huashan .ink-map-destination-light { animation-delay: -2s; }
-.ink-map-destination--founder .ink-map-destination-light { animation-delay: -3.1s; }
+.ink-map-destination--sect .ink-map-destination-light { animation-delay: -3.1s; }
 .ink-map-destination-name { position: absolute; z-index: 1; top: 100%; left: 50%; transform: translateX(-50%); display: grid; min-height: 44px; color: #302b25; }
 .ink-map-destination-face { display: inline-flex; align-items: center; justify-content: center; gap: 6px; pointer-events: none; padding: 3px 12px; white-space: nowrap; font: 700 18px / 1.45 var(--game-ui-font); letter-spacing: .08em; color: inherit; background: radial-gradient(ellipse, #fff9ede8 28%, #fff9edbb 58%, #fff9ed00 74%); text-shadow: 0 1px 0 #fff9ed, 1px 0 0 #fff9ed, -1px 0 0 #fff9ed; transition: text-shadow 140ms ease; }
 .ink-map-destination-dot { width: 6px; height: 6px; flex: none; transform: rotate(45deg); background: #aa7f3e; box-shadow: 0 0 5px #fff4cd; }
@@ -108,10 +108,30 @@ html[data-ink-motion='reduce'] :is(.ink-map-destination-face, .ink-map-destinati
 .ink-map-destination--gacha {
   --landmark-light: radial-gradient(ellipse 50% 25% at 46% 39%, #fff0c6bd, transparent);
 }
-.ink-map-destination--founder {
+.ink-map-destination--sect {
   --landmark-light: radial-gradient(ellipse 46% 30% at 58% 43%, #f7b289ab, transparent);
 }
 .ink-map-destination--online {
   --landmark-light: radial-gradient(ellipse 21% 26% at 37% 42%, #ffd690ed 13%, transparent);
 }
 .ink-map-destination:is(.is-pressed, :focus-visible)::after { opacity: 1; }
+
+.ink-jianghu-sect-menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0;
+}
+
+.ink-jianghu-sect-menu .ink-btn {
+  flex: 1 0 auto;
+  min-height: 44px;
+  padding-inline: 8px;
+  font-size: 14px;
+  letter-spacing: .04em;
+}
+
+.ink-jianghu-sect-menu .ink-btn[aria-pressed='true'] {
+  color: var(--cinnabar);
+  box-shadow: inset 0 -2px var(--cinnabar);
+}

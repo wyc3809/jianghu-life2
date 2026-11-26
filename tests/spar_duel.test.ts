@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { ENEMY_POOL } from '../src/spar/rig';
 import { createNewLife } from '../core/life/gameState';
 import { initRng } from '../core/random';
 import {
@@ -204,25 +205,43 @@ describe('spar scenes & themes (場景／出場有規律)', () => {
     expect(sparSceneFor(61).place).toBe('千燈鎮');
   });
 
-  it('test_roster_follows_scene_theme_order_then_elites_then_boss', async () => {
+  it('test_spar_roster_六區各關_按本地圖鑑出小兵精英首領', async () => {
     const { sparThemeFor } = await import('../core/life/sparDuel');
-    for (const stage of [2, 23, 47]) {
+    for (let stage = 1; stage <= 120; stage += 1) {
       const theme = sparThemeFor(stage);
       const foes = sparStageFoes(stage);
       const n = sparMinionCount(stage);
       const ne = sparEliteCount(stage);
       expect(foes).toHaveLength(n + ne + 1);
-      foes.slice(0, n).forEach((f, i) => {
-        expect([f.look, f.name]).toEqual([...theme.minions[i % theme.minions.length]!]);
+      foes.slice(0, n).forEach((f) => {
+        expect(theme.minions).toContainEqual([f.look, f.name]);
         expect(f.tier).toBe('minion');
       });
-      foes.slice(n, n + ne).forEach((f, i) => {
-        expect([f.look, f.name]).toEqual([...theme.elites[i % theme.elites.length]!]);
+      foes.slice(n, n + ne).forEach((f) => {
+        expect(theme.elites).toContainEqual([f.look, f.name]);
         expect(f.tier).toBe('elite');
       });
       expect([foes.at(-1)!.look, foes.at(-1)!.name]).toEqual([...theme.boss]);
       expect(sparStageFoes(stage).map((f) => f.look)).toEqual(foes.map((f) => f.look));
     }
+  });
+
+  it('test_spar_roster_逐批引入角色_有關內混編同造型節奏差', () => {
+    const minions = (stage: number) => sparStageFoes(stage).filter(f => f.tier === 'minion');
+    const elite = (stage: number) => sparStageFoes(stage).find(f => f.tier === 'elite');
+    for (let stage = 1; stage <= 120; stage += 10) {
+      expect(new Set(minions(stage).map(f => f.look)).size).toBe(1);
+      expect(new Set(minions(stage + 1).map(f => f.look)).size).toBe(2);
+      expect(minions(stage + 1).map(f => f.id)).not.toEqual(minions(stage + 2).map(f => f.id));
+      expect(elite(stage + 2)?.look).not.toBe(elite(stage + 4)?.look);
+    }
+    expect(new Set(minions(59).map(f => f.look)).size).toBe(3);
+    const assassin = minions(22).find(f => f.id === 'bamboo_assassin')!;
+    const brute = elite(13)!;
+    expect(assassin.attackTempo).toBeGreaterThan(1);
+    expect(brute.attackTempo).toBeLessThan(1);
+    const town = minions(2);
+    expect(new Set(town.map(f => ENEMY_POOL[f.look]!.part.src)).size).toBe(2);
   });
 
   it('test_snapshot_carries_scene', () => {

@@ -265,7 +265,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
             // 重新載入時可能接住一個已死嘅敵人：先結算換人，先決定出邊個
             settleDeadFoe();
             const f = duel.foe;
-            return { boss: f?.boss ?? false, look: f?.look, tier: f?.tier, trait: f?.trait, accent: f?.accent };
+            return { boss: f?.boss ?? false, look: f?.look, tier: f?.tier, trait: f?.trait, accent: f?.accent, attackTempo: f?.attackTempo };
           },
           heroMayAttack: () => { if(duel.rounds.phase!=='hero'||stage?.foeAttackActive)return false; if(duel.skipStunnedHero()){setCallout('穴道受制');sync();return false;}return true; },
           foeMayAttack: () => {if(duel.rounds.phase!=='foe'||stage?.heroAttackActive)return false;if(duel.skipStunnedFoe()){duel.rounds.commitFoeMove();setCallout('對手穴道受制');if(duel.foeHp<=0){useLifeStore.getState().sparFoeDefeated([...duel.usedArtIds]);stage?.foeFellFromStatus();}sync();return false;}return true;},
