@@ -13,7 +13,7 @@
     13412,
     14749
   ],
-  "note": "真戰鬥及修為結算；時長按出招編排、倒地、進場估算。角色由長河拳一卷起步。輕量組保留一卷，另外兩組用突破與過關玉石抽卷、兌換書頁。積極組亦用已賺取銀兩及原有三次修煉額度鑄器。三次敗退後結束當節推關，餘下時間計上線掛機修為。",
+  "note": "真戰鬥及修為結算；時長按出招編排、倒地、進場估算。角色由長河拳一卷起步。輕量組保留一卷，另外兩組用突破與過關玉石抽卷、兌換書頁。積極組亦用已賺取銀兩及原有三次修煉額度鑄器。三次敗退後結束當節推關，餘下時間計上線掛機修為。固定配搭，不按章末破綻更換外功。",
   "chapters": [
     {
       "start": 1,
@@ -244,19 +244,19 @@
           "day": 3,
           "low": 15,
           "median": 19,
-          "high": 22
+          "high": 23
         },
         {
           "day": 7,
           "low": 27,
           "median": 29,
-          "high": 40
+          "high": 38
         },
         {
           "day": 14,
           "low": 40,
           "median": 40,
-          "high": 49
+          "high": 47
         },
         {
           "day": 30,
@@ -288,7 +288,7 @@
           "stage": 10,
           "reached": 12,
           "medianElapsedDays": 1.005,
-          "medianBattleHours": 0.21
+          "medianBattleHours": 0.2
         },
         {
           "stage": 30,
@@ -481,8 +481,8 @@
           "reached": {
             "10": {
               "day": 2.002,
-              "activeHours": 0.21,
-              "tier": 5
+              "activeHours": 0.2,
+              "tier": 4
             },
             "30": {
               "day": 7.001,
@@ -569,7 +569,7 @@
           "reached": {
             "10": {
               "day": 1.004,
-              "activeHours": 0.17,
+              "activeHours": 0.16,
               "tier": 4
             },
             "30": {
@@ -622,13 +622,13 @@
               "tier": 9
             },
             "60": {
-              "day": 21.003,
-              "activeHours": 1.38,
+              "day": 20.004,
+              "activeHours": 1.35,
               "tier": 14
             },
             "100": {
-              "day": 22.007,
-              "activeHours": 1.71,
+              "day": 21.007,
+              "activeHours": 1.68,
               "tier": 14
             }
           },
@@ -692,7 +692,7 @@
             "1": 3,
             "3": 26,
             "7": 40,
-            "14": 49,
+            "14": 73,
             "30": 114,
             "60": 114,
             "90": 114,
@@ -710,13 +710,13 @@
               "tier": 9
             },
             "60": {
-              "day": 15.004,
-              "activeHours": 1.17,
-              "tier": 14
+              "day": 13.005,
+              "activeHours": 1.12,
+              "tier": 12
             },
             "100": {
-              "day": 16.007,
-              "activeHours": 1.51,
+              "day": 15.001,
+              "activeHours": 1.52,
               "tier": 14
             }
           },
@@ -734,9 +734,9 @@
           "seed": 12075,
           "daily": {
             "1": 2,
-            "3": 19,
-            "7": 40,
-            "14": 77,
+            "3": 23,
+            "7": 36,
+            "14": 46,
             "30": 114,
             "60": 114,
             "90": 114,
@@ -749,17 +749,17 @@
               "tier": 4
             },
             "30": {
-              "day": 5.001,
-              "activeHours": 0.59,
+              "day": 6.001,
+              "activeHours": 0.62,
               "tier": 9
             },
             "60": {
-              "day": 13.005,
-              "activeHours": 1.14,
+              "day": 14.005,
+              "activeHours": 1.13,
               "tier": 14
             },
             "100": {
-              "day": 14.008,
+              "day": 15.008,
               "activeHours": 1.47,
               "tier": 14
             }
@@ -798,13 +798,13 @@
               "tier": 9
             },
             "60": {
-              "day": 18.005,
-              "activeHours": 1.3,
+              "day": 18.004,
+              "activeHours": 1.29,
               "tier": 14
             },
             "100": {
-              "day": 19.008,
-              "activeHours": 1.63,
+              "day": 19.007,
+              "activeHours": 1.62,
               "tier": 14
             }
           },
@@ -823,7 +823,7 @@
           "daily": {
             "1": 12,
             "3": 29,
-            "7": 40,
+            "7": 41,
             "14": 114,
             "30": 114,
             "60": 114,
@@ -838,17 +838,17 @@
             },
             "30": {
               "day": 3.001,
-              "activeHours": 0.58,
+              "activeHours": 0.55,
               "tier": 9
             },
             "60": {
-              "day": 11.004,
-              "activeHours": 1.14,
+              "day": 11.005,
+              "activeHours": 1.06,
               "tier": 14
             },
             "100": {
-              "day": 12.007,
-              "activeHours": 1.48,
+              "day": 12.008,
+              "activeHours": 1.39,
               "tier": 14
             }
           },
@@ -933,18 +933,18 @@
           "stage": 30,
           "reached": 12,
           "medianElapsedDays": 1.014,
-          "medianBattleHours": 0.42
+          "medianBattleHours": 0.41
         },
         {
           "stage": 60,
           "reached": 12,
-          "medianElapsedDays": 4.005,
-          "medianBattleHours": 0.92
+          "medianElapsedDays": 4.004,
+          "medianBattleHours": 0.91
         },
         {
           "stage": 100,
           "reached": 12,
-          "medianElapsedDays": 4.026,
+          "medianElapsedDays": 4.025,
           "medianBattleHours": 1.42
         },
         {
@@ -956,14 +956,14 @@
         {
           "stage": 180,
           "reached": 12,
-          "medianElapsedDays": 9.011,
-          "medianBattleHours": 2.6
+          "medianElapsedDays": 9.004,
+          "medianBattleHours": 2.59
         },
         {
           "stage": 220,
           "reached": 12,
           "medianElapsedDays": 17.001,
-          "medianBattleHours": 3.85
+          "medianBattleHours": 3.82
         },
         {
           "stage": 260,
@@ -1008,7 +1008,7 @@
             },
             "140": {
               "day": 12.011,
-              "activeHours": 2.23,
+              "activeHours": 2.22,
               "tier": 13
             },
             "180": {
@@ -1073,7 +1073,7 @@
             },
             "140": {
               "day": 9.009,
-              "activeHours": 1.97,
+              "activeHours": 1.96,
               "tier": 13
             },
             "180": {
@@ -1123,7 +1123,7 @@
             },
             "30": {
               "day": 0.017,
-              "activeHours": 0.41,
+              "activeHours": 0.4,
               "tier": 7
             },
             "60": {
@@ -1148,7 +1148,7 @@
             },
             "220": {
               "day": 12.004,
-              "activeHours": 3.52,
+              "activeHours": 3.51,
               "tier": 14
             },
             "260": {
@@ -1212,13 +1212,13 @@
               "tier": 13
             },
             "180": {
-              "day": 9.026,
-              "activeHours": 2.96,
+              "day": 9.024,
+              "activeHours": 2.93,
               "tier": 13
             },
             "220": {
               "day": 23.001,
-              "activeHours": 4.45,
+              "activeHours": 4.46,
               "tier": 14
             }
           },
@@ -1262,13 +1262,13 @@
               "tier": 7
             },
             "60": {
-              "day": 3.006,
-              "activeHours": 0.92,
+              "day": 3.005,
+              "activeHours": 0.91,
               "tier": 10
             },
             "100": {
               "day": 3.026,
-              "activeHours": 1.41,
+              "activeHours": 1.4,
               "tier": 11
             },
             "140": {
@@ -1277,18 +1277,18 @@
               "tier": 13
             },
             "180": {
-              "day": 9.002,
-              "activeHours": 2.61,
+              "day": 9.001,
+              "activeHours": 2.59,
               "tier": 13
             },
             "220": {
               "day": 17.001,
-              "activeHours": 3.85,
+              "activeHours": 3.82,
               "tier": 14
             },
             "260": {
               "day": 99.015,
-              "activeHours": 9.78,
+              "activeHours": 9.75,
               "tier": 14
             }
           },
@@ -1323,7 +1323,7 @@
           "reached": {
             "10": {
               "day": 1.004,
-              "activeHours": 0.17,
+              "activeHours": 0.16,
               "tier": 4
             },
             "30": {
@@ -1333,7 +1333,7 @@
             },
             "60": {
               "day": 6.005,
-              "activeHours": 0.94,
+              "activeHours": 0.95,
               "tier": 10
             },
             "100": {
@@ -1348,7 +1348,7 @@
             },
             "180": {
               "day": 12.011,
-              "activeHours": 2.73,
+              "activeHours": 2.74,
               "tier": 14
             },
             "220": {
@@ -1398,7 +1398,7 @@
             },
             "30": {
               "day": 2.012,
-              "activeHours": 0.46,
+              "activeHours": 0.47,
               "tier": 7
             },
             "60": {
@@ -1417,13 +1417,13 @@
               "tier": 13
             },
             "180": {
-              "day": 9.011,
-              "activeHours": 2.72,
+              "day": 9.002,
+              "activeHours": 2.74,
               "tier": 14
             },
             "220": {
               "day": 29.001,
-              "activeHours": 4.46,
+              "activeHours": 4.5,
               "tier": 14
             }
           },
@@ -1462,33 +1462,33 @@
               "tier": 4
             },
             "30": {
-              "day": 1.012,
-              "activeHours": 0.42,
+              "day": 1.011,
+              "activeHours": 0.41,
               "tier": 7
             },
             "60": {
               "day": 3.009,
-              "activeHours": 0.92,
+              "activeHours": 0.91,
               "tier": 9
             },
             "100": {
               "day": 4.001,
-              "activeHours": 1.47,
+              "activeHours": 1.48,
               "tier": 11
             },
             "140": {
               "day": 7.01,
-              "activeHours": 2.06,
+              "activeHours": 2.07,
               "tier": 13
             },
             "180": {
               "day": 8.001,
-              "activeHours": 2.6,
+              "activeHours": 2.61,
               "tier": 14
             },
             "220": {
               "day": 15.004,
-              "activeHours": 3.8,
+              "activeHours": 3.81,
               "tier": 14
             }
           },
@@ -1512,7 +1512,7 @@
           "seed": 10738,
           "daily": {
             "1": 41,
-            "3": 48,
+            "3": 47,
             "7": 115,
             "14": 216,
             "30": 246,
@@ -1522,23 +1522,23 @@
           },
           "reached": {
             "10": {
-              "day": 0.008,
-              "activeHours": 0.18,
+              "day": 0.007,
+              "activeHours": 0.17,
               "tier": 4
             },
             "30": {
               "day": 0.017,
-              "activeHours": 0.42,
+              "activeHours": 0.41,
               "tier": 7
             },
             "60": {
               "day": 3.005,
-              "activeHours": 0.85,
+              "activeHours": 0.82,
               "tier": 10
             },
             "100": {
               "day": 3.026,
-              "activeHours": 1.35,
+              "activeHours": 1.33,
               "tier": 11
             },
             "140": {
@@ -1548,12 +1548,12 @@
             },
             "180": {
               "day": 10.002,
-              "activeHours": 2.53,
+              "activeHours": 2.54,
               "tier": 14
             },
             "220": {
               "day": 16.001,
-              "activeHours": 3.57,
+              "activeHours": 3.58,
               "tier": 14
             }
           },
@@ -1597,28 +1597,28 @@
               "tier": 7
             },
             "60": {
-              "day": 4.005,
-              "activeHours": 0.91,
+              "day": 4.004,
+              "activeHours": 0.89,
               "tier": 10
             },
             "100": {
-              "day": 4.026,
-              "activeHours": 1.4,
+              "day": 4.025,
+              "activeHours": 1.38,
               "tier": 11
             },
             "140": {
               "day": 8.011,
-              "activeHours": 2,
+              "activeHours": 1.95,
               "tier": 13
             },
             "180": {
-              "day": 9.003,
-              "activeHours": 2.54,
+              "day": 9.004,
+              "activeHours": 2.52,
               "tier": 14
             },
             "220": {
               "day": 22.001,
-              "activeHours": 4,
+              "activeHours": 3.99,
               "tier": 14
             }
           },
@@ -1644,7 +1644,7 @@
             "1": 2,
             "3": 45,
             "7": 47,
-            "14": 177,
+            "14": 178,
             "30": 244,
             "60": 245,
             "90": 248,
@@ -1663,7 +1663,7 @@
             },
             "60": {
               "day": 7.005,
-              "activeHours": 1.02,
+              "activeHours": 1.01,
               "tier": 10
             },
             "100": {
@@ -1677,12 +1677,12 @@
               "tier": 13
             },
             "180": {
-              "day": 14.002,
-              "activeHours": 2.75,
+              "day": 14.001,
+              "activeHours": 2.73,
               "tier": 14
             },
             "220": {
-              "day": 24.002,
+              "day": 25.002,
               "activeHours": 4.13,
               "tier": 14
             }
@@ -1707,8 +1707,8 @@
           "seed": 14749,
           "daily": {
             "1": 40,
-            "3": 109,
-            "7": 175,
+            "3": 115,
+            "7": 176,
             "14": 244,
             "30": 244,
             "60": 246,
@@ -1723,32 +1723,32 @@
             },
             "30": {
               "day": 0.017,
-              "activeHours": 0.42,
+              "activeHours": 0.41,
               "tier": 7
             },
             "60": {
-              "day": 2.005,
-              "activeHours": 0.87,
-              "tier": 10
+              "day": 1.012,
+              "activeHours": 0.85,
+              "tier": 9
             },
             "100": {
-              "day": 2.026,
-              "activeHours": 1.36,
+              "day": 2.003,
+              "activeHours": 1.39,
               "tier": 11
             },
             "140": {
               "day": 6.011,
-              "activeHours": 1.93,
+              "activeHours": 2.01,
               "tier": 13
             },
             "180": {
               "day": 7.003,
-              "activeHours": 2.5,
+              "activeHours": 2.56,
               "tier": 14
             },
             "220": {
               "day": 13.003,
-              "activeHours": 3.65,
+              "activeHours": 3.71,
               "tier": 14
             }
           },
@@ -1789,19 +1789,19 @@
           "day": 3,
           "low": 46,
           "median": 114,
-          "high": 116
+          "high": 115
         },
         {
           "day": 7,
           "low": 197,
-          "median": 212,
-          "high": 216
+          "median": 213,
+          "high": 218
         },
         {
           "day": 14,
-          "low": 245,
-          "median": 246,
-          "high": 248
+          "low": 244,
+          "median": 247,
+          "high": 249
         },
         {
           "day": 30,
@@ -1839,18 +1839,18 @@
           "stage": 30,
           "reached": 12,
           "medianElapsedDays": 0.514,
-          "medianBattleHours": 0.42
+          "medianBattleHours": 0.41
         },
         {
           "stage": 60,
           "reached": 12,
-          "medianElapsedDays": 2.005,
-          "medianBattleHours": 0.92
+          "medianElapsedDays": 2.004,
+          "medianBattleHours": 0.91
         },
         {
           "stage": 100,
           "reached": 12,
-          "medianElapsedDays": 2.026,
+          "medianElapsedDays": 2.025,
           "medianBattleHours": 1.42
         },
         {
@@ -1862,19 +1862,19 @@
         {
           "stage": 180,
           "reached": 12,
-          "medianElapsedDays": 4.524,
+          "medianElapsedDays": 4.523,
           "medianBattleHours": 2.66
         },
         {
           "stage": 220,
           "reached": 12,
-          "medianElapsedDays": 10.004,
-          "medianBattleHours": 4.02
+          "medianElapsedDays": 8.501,
+          "medianBattleHours": 3.89
         },
         {
           "stage": 260,
           "reached": 10,
-          "medianElapsedDays": 19.014,
+          "medianElapsedDays": 18.507,
           "medianBattleHours": 6
         }
       ],
@@ -1989,7 +1989,7 @@
             },
             "180": {
               "day": 5.03,
-              "activeHours": 2.57,
+              "activeHours": 2.56,
               "tier": 13
             },
             "220": {
@@ -2039,7 +2039,7 @@
             },
             "30": {
               "day": 0.017,
-              "activeHours": 0.41,
+              "activeHours": 0.4,
               "tier": 7
             },
             "60": {
@@ -2049,17 +2049,17 @@
             },
             "100": {
               "day": 0.531,
-              "activeHours": 1.31,
+              "activeHours": 1.3,
               "tier": 10
             },
             "140": {
-              "day": 2.011,
-              "activeHours": 1.88,
+              "day": 2.01,
+              "activeHours": 1.87,
               "tier": 13
             },
             "180": {
-              "day": 2.03,
-              "activeHours": 2.34,
+              "day": 2.029,
+              "activeHours": 2.33,
               "tier": 13
             },
             "220": {
@@ -2069,7 +2069,7 @@
             },
             "260": {
               "day": 13.513,
-              "activeHours": 5.32,
+              "activeHours": 5.31,
               "tier": 14
             }
           },
@@ -2134,7 +2134,7 @@
             },
             "220": {
               "day": 13.002,
-              "activeHours": 4.59,
+              "activeHours": 4.58,
               "tier": 14
             },
             "260": {
@@ -2183,33 +2183,33 @@
               "tier": 7
             },
             "60": {
-              "day": 1.506,
-              "activeHours": 0.92,
+              "day": 1.505,
+              "activeHours": 0.91,
               "tier": 10
             },
             "100": {
               "day": 1.526,
-              "activeHours": 1.41,
+              "activeHours": 1.4,
               "tier": 11
             },
             "140": {
               "day": 4.011,
-              "activeHours": 2.1,
+              "activeHours": 2.08,
               "tier": 13
             },
             "180": {
               "day": 4.032,
-              "activeHours": 2.61,
+              "activeHours": 2.59,
               "tier": 13
             },
             "220": {
               "day": 7.502,
-              "activeHours": 3.72,
+              "activeHours": 3.71,
               "tier": 14
             },
             "260": {
               "day": 16.013,
-              "activeHours": 5.62,
+              "activeHours": 5.61,
               "tier": 14
             }
           },
@@ -2234,8 +2234,8 @@
           "daily": {
             "1": 41,
             "3": 47,
-            "7": 152,
-            "14": 246,
+            "7": 153,
+            "14": 215,
             "30": 249,
             "60": 260,
             "90": 260,
@@ -2244,7 +2244,7 @@
           "reached": {
             "10": {
               "day": 0.504,
-              "activeHours": 0.17,
+              "activeHours": 0.16,
               "tier": 4
             },
             "30": {
@@ -2254,7 +2254,7 @@
             },
             "60": {
               "day": 3.005,
-              "activeHours": 0.94,
+              "activeHours": 0.95,
               "tier": 10
             },
             "100": {
@@ -2263,22 +2263,22 @@
               "tier": 10
             },
             "140": {
-              "day": 5.511,
-              "activeHours": 2.31,
+              "day": 5.014,
+              "activeHours": 2.3,
               "tier": 12
             },
             "180": {
-              "day": 10.018,
+              "day": 9.518,
               "activeHours": 3.39,
               "tier": 12
             },
             "220": {
-              "day": 13.001,
-              "activeHours": 4.37,
+              "day": 17.003,
+              "activeHours": 5.02,
               "tier": 14
             },
             "260": {
-              "day": 39.504,
+              "day": 37.504,
               "activeHours": 8.45,
               "tier": 14
             }
@@ -2319,7 +2319,7 @@
             },
             "30": {
               "day": 1.012,
-              "activeHours": 0.46,
+              "activeHours": 0.47,
               "tier": 7
             },
             "60": {
@@ -2338,13 +2338,13 @@
               "tier": 13
             },
             "180": {
-              "day": 4.524,
-              "activeHours": 2.83,
+              "day": 4.523,
+              "activeHours": 2.82,
               "tier": 13
             },
             "220": {
               "day": 11.501,
-              "activeHours": 4.32,
+              "activeHours": 4.33,
               "tier": 14
             },
             "260": {
@@ -2388,38 +2388,38 @@
               "tier": 4
             },
             "30": {
-              "day": 0.512,
-              "activeHours": 0.42,
+              "day": 0.511,
+              "activeHours": 0.41,
               "tier": 7
             },
             "60": {
               "day": 1.509,
-              "activeHours": 0.92,
+              "activeHours": 0.91,
               "tier": 9
             },
             "100": {
               "day": 1.533,
-              "activeHours": 1.47,
+              "activeHours": 1.48,
               "tier": 10
             },
             "140": {
               "day": 3.51,
-              "activeHours": 2.15,
+              "activeHours": 2.16,
               "tier": 13
             },
             "180": {
               "day": 3.534,
-              "activeHours": 2.71,
+              "activeHours": 2.72,
               "tier": 13
             },
             "220": {
               "day": 7.502,
-              "activeHours": 4.02,
+              "activeHours": 4.03,
               "tier": 14
             },
             "260": {
               "day": 75.513,
-              "activeHours": 12.71,
+              "activeHours": 12.72,
               "tier": 14
             }
           },
@@ -2442,10 +2442,10 @@
         {
           "seed": 10738,
           "daily": {
-            "1": 42,
+            "1": 41,
             "3": 115,
-            "7": 210,
-            "14": 246,
+            "7": 219,
+            "14": 260,
             "30": 260,
             "60": 260,
             "90": 260,
@@ -2453,43 +2453,43 @@
           },
           "reached": {
             "10": {
-              "day": 0.008,
-              "activeHours": 0.18,
+              "day": 0.007,
+              "activeHours": 0.17,
               "tier": 4
             },
             "30": {
               "day": 0.017,
-              "activeHours": 0.42,
+              "activeHours": 0.41,
               "tier": 7
             },
             "60": {
               "day": 1.505,
-              "activeHours": 0.85,
+              "activeHours": 0.82,
               "tier": 10
             },
             "100": {
               "day": 1.526,
-              "activeHours": 1.35,
+              "activeHours": 1.33,
               "tier": 11
             },
             "140": {
-              "day": 5.006,
-              "activeHours": 2.29,
+              "day": 5.014,
+              "activeHours": 2.2,
               "tier": 12
             },
             "180": {
-              "day": 5.516,
-              "activeHours": 2.86,
+              "day": 5.035,
+              "activeHours": 2.71,
               "tier": 13
             },
             "220": {
-              "day": 12.502,
-              "activeHours": 4.3,
+              "day": 8.501,
+              "activeHours": 3.75,
               "tier": 14
             },
             "260": {
-              "day": 19.014,
-              "activeHours": 5.99,
+              "day": 13.019,
+              "activeHours": 5.27,
               "tier": 14
             }
           },
@@ -2513,8 +2513,8 @@
           "seed": 12075,
           "daily": {
             "1": 41,
-            "3": 116,
-            "7": 216,
+            "3": 115,
+            "7": 213,
             "14": 244,
             "30": 247,
             "60": 247,
@@ -2533,28 +2533,28 @@
               "tier": 7
             },
             "60": {
-              "day": 2.005,
-              "activeHours": 0.91,
+              "day": 2.004,
+              "activeHours": 0.89,
               "tier": 10
             },
             "100": {
-              "day": 2.026,
-              "activeHours": 1.4,
+              "day": 2.025,
+              "activeHours": 1.38,
               "tier": 11
             },
             "140": {
-              "day": 3.51,
-              "activeHours": 2.05,
+              "day": 3.511,
+              "activeHours": 1.96,
               "tier": 13
             },
             "180": {
               "day": 3.535,
-              "activeHours": 2.65,
+              "activeHours": 2.54,
               "tier": 13
             },
             "220": {
-              "day": 11.501,
-              "activeHours": 4.23,
+              "day": 12.001,
+              "activeHours": 4.21,
               "tier": 14
             }
           },
@@ -2599,7 +2599,7 @@
             },
             "60": {
               "day": 3.505,
-              "activeHours": 1.02,
+              "activeHours": 1.01,
               "tier": 10
             },
             "100": {
@@ -2642,10 +2642,10 @@
         {
           "seed": 14749,
           "daily": {
-            "1": 49,
-            "3": 192,
-            "7": 216,
-            "14": 246,
+            "1": 111,
+            "3": 199,
+            "7": 245,
+            "14": 247,
             "30": 249,
             "60": 260,
             "90": 260,
@@ -2659,37 +2659,37 @@
             },
             "30": {
               "day": 0.017,
-              "activeHours": 0.42,
+              "activeHours": 0.41,
               "tier": 7
             },
             "60": {
-              "day": 1.005,
-              "activeHours": 0.87,
-              "tier": 10
+              "day": 0.512,
+              "activeHours": 0.85,
+              "tier": 9
             },
             "100": {
-              "day": 1.026,
-              "activeHours": 1.36,
-              "tier": 11
+              "day": 0.535,
+              "activeHours": 1.4,
+              "tier": 10
             },
             "140": {
-              "day": 2.511,
+              "day": 2.011,
               "activeHours": 1.94,
               "tier": 13
             },
             "180": {
-              "day": 2.534,
-              "activeHours": 2.49,
+              "day": 2.033,
+              "activeHours": 2.47,
               "tier": 13
             },
             "220": {
-              "day": 7.502,
-              "activeHours": 3.73,
+              "day": 4.508,
+              "activeHours": 3.55,
               "tier": 14
             },
             "260": {
-              "day": 33.517,
-              "activeHours": 7.91,
+              "day": 33.017,
+              "activeHours": 7.93,
               "tier": 14
             }
           },

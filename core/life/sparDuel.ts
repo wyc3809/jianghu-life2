@@ -22,6 +22,8 @@ import { getSkillDef } from '@data/skills/catalog';
 import { FOE_BY_NAME, FOE_REGIONS, FOE_SPRITE_IDS, lookForFoeName, type FoeEntry, type FoeLook, type FoeRegion } from '@data/foes/roster';
 import type { FoeTier, FoeTraitId } from '@data/foes/traits';
 import { SPAR_CAMPAIGN_REGIONS, type SparCampaignRegion } from '@data/foes/sparCampaign';
+import { SPAR_BOSS_WEAKNESSES, type SparWeakness } from '@data/foes/sparWeaknesses';
+import { sparWeaknessDamageMult, sparWeaknessIsOpen } from './sparWeakness';
 import {
   newTraitState,
   traitAttackMult,
@@ -59,6 +61,7 @@ export interface SparHeroStats {
   evasion?: number;
   reflect?: number;
   gearLifesteal?: number;
+  gearBleedChance?: number;
 }
 
 /** 修為境界每升一境，演武數值 ×1.32（對應 15 境曲線，頂境約 ×48） */
@@ -138,6 +141,7 @@ export function sparHeroBreakdown(state: LifeGameState): SparHeroBreakdown {
     evasion: Math.min(.5, sumEvasionBonus(equippedMartialArts(c),c.skillRanks,c.manualStars) + gearFx.evasion),
     reflect: Math.min(.4, (passive.reflect ?? 0) + gearFx.reflect),
     gearLifesteal: gearFx.lifesteal,
+    gearBleedChance: gearFx.bleedChance,
   };
   return { stats, tier, scale, hp, atk, crit, lifesteal, heal, guard, martial, gearAttack: gear.attack, gearDefense: gear.defense };
 }
@@ -165,6 +169,7 @@ export interface SparFoe {
   trait?: FoeTraitId;
   /** 點綴色 'r,g,b' */
   accent: string;
+  weakness?: SparWeakness;
 }
 
 /**
@@ -339,12 +344,14 @@ export function sparStageFoes(stage: number): SparFoe[] {
   const reinforced = chapterEnd && s > 10;
   const gateHp = reinforced ? (milestone ? 1.28 : 1.14) : 1;
   const gateAttack = reinforced ? 1.08 : 1;
-  foes.push(foeOf(
+  const guardian = foeOf(
     boss,
     bossTrait,
     Math.round(minionHp * SPAR_BOSS_HP_MUL * gateHp),
     Math.round(minionAtk * SPAR_BOSS_ATK_MUL * gateAttack),
-  ));
+  );
+  const weakness = SPAR_BOSS_WEAKNESSES[s];
+  foes.push(weakness ? { ...guardian, weakness } : guardian);
   return foes;
 }
 
@@ -369,6 +376,7 @@ export interface SparFoeHit {
   fx: TraitFx[];
   /** 噬血：敵人回幾多血 */
   foeHeal: number;
+  bleed?: number;
 }
 
 export interface SparDuelSnapshot {
@@ -445,9 +453,25 @@ export class SparDuel {
   /** 敵人保護留至真正完成正常行動。 */
   skipStunnedFoe(): boolean {
     if(this.foeEffects.stun<=0)return false;
-    this.foeEffects.hp=this.foeHp;this.foeEffects.maxHp=this.foe?.maxHp??1;
-    tickStatus(this.foeEffects);this.foeHp=Math.max(0,this.foeEffects.hp);
+    this.tickFoeStatus();
     return consumeStun(this.foeEffects);
+  }
+
+  private tickFoeStatus(): number {
+    const foe = this.foe;
+    if (!foe) return 0;
+    const previousHp = this.foeHp;
+    const weakness = foe.weakness;
+    const bleeding = this.foeEffects.bleedTurns > 0 && this.foeEffects.bleedDamage > 0;
+    const bonus = bleeding && weakness?.kind === 'bleed'
+      && sparWeaknessIsOpen(weakness, previousHp / foe.maxHp, this.foeCharging)
+      ? Math.round(Math.min(foe.maxHp * .035, this.hero.atk * .85))
+      : 0;
+    this.foeEffects.hp = Math.max(0, previousHp - bonus);
+    this.foeEffects.maxHp = foe.maxHp;
+    tickStatus(this.foeEffects);
+    this.foeHp = this.foeEffects.hp;
+    return previousHp - this.foeHp;
   }
 
   /** 當前敵人下一擊係咪蓄力重擊 */
@@ -495,12 +519,15 @@ export class SparDuel {
       this.heroEffects.hp=this.heroHp;this.heroEffects.maxHp=this.hero.maxHp;
       tickStatus(this.heroEffects); this.heroHp=Math.max(1,this.heroEffects.hp);this.heroStatusRound=this.rounds.round;
     }
+    const weakness = foe.weakness;
     let total=0,heal=0,reflect=0,crit=false;const fx:TraitFx[]=[];
     for(let hit=0;hit<Math.max(1,move?.multiHit??1)&&this.foeHp>0;hit++) {
       const critical=this.rand()<this.hero.critRate;crit ||= critical;
       const spread=.9+this.rand()*.2;
       const defense=move ? Math.max(0,SPAR_FOE_DEFENSE[foe.tier]+this.foeEffects.defenseMod)*(1-(move.pierce??0)) : 0;
-      const raw=Math.max(1,Math.round(this.hero.atk*Math.max(0,power)*spread*(critical?this.hero.critMul:1)*100/(100+defense)));
+      const opening = move && weakness && sparWeaknessIsOpen(weakness, this.foeHp / foe.maxHp, this.foeCharging)
+        ? sparWeaknessDamageMult(weakness, move, artId) : 1;
+      const raw=Math.max(1,Math.round(this.hero.atk*Math.max(0,power)*spread*(critical?this.hero.critMul:1)*100/(100+defense)*opening));
       const t=traitOnFoeHit(this.traits,raw);fx.push(...t.fx);
       const damage=Math.min(this.foeHp,t.dmg);total+=damage;this.foeHp=Math.max(0,this.foeHp-damage);
       const rate=move ? Math.min(.25,(move.lifesteal??0)+(this.hero.gearLifesteal??0)) : this.hero.lifesteal;
@@ -511,6 +538,7 @@ export class SparDuel {
     }
     if(move) {
       this.heroEffects.hp=this.heroHp;this.heroEffects.maxHp=this.hero.maxHp;
+      this.heroEffects.gearBleedChance = weakness?.kind === 'bleed' ? this.hero.gearBleedChance : undefined;
       const before=this.heroEffects.hp;
       const scale=move.power>0?power/move.power:1;
       applyOnHitEffects(this.heroEffects,this.foeEffects,move,this.fxRng,total>0,scale,false);
@@ -525,14 +553,13 @@ export class SparDuel {
   foeStrike(): SparFoeHit {
     const foe = this.foe;
     if (!foe || this.foeHp <= 0 || this.heroHp <= 0) return { dmg: 0, heroDown: false, fx: [], foeHeal: 0 };
-    this.foeEffects.hp=this.foeHp;this.foeEffects.maxHp=foe.maxHp;
-    tickStatus(this.foeEffects);this.foeHp=Math.max(0,this.foeEffects.hp);
-    if(this.foeHp<=0)return {dmg:0,heroDown:false,fx:[],foeHeal:0,foeKilled:true};
-    if(consumeStun(this.foeEffects))return {dmg:0,heroDown:false,fx:[],foeHeal:0};
+    const bleed = this.tickFoeStatus();
+    if(this.foeHp<=0)return {dmg:0,heroDown:false,fx:[],foeHeal:0,foeKilled:true,bleed};
+    if(consumeStun(this.foeEffects))return {dmg:0,heroDown:false,fx:[],foeHeal:0,bleed};
     this.foeEffects.stunProtected=false;
     const evade=(this.hero.evasion??0)+this.foeEffects.blind;
     this.foeEffects.blind*=.35;
-    if(evade>0 && this.rand()<Math.min(.85,evade))return {dmg:0,heroDown:false,fx:[],foeHeal:0};
+    if(evade>0 && this.rand()<Math.min(.85,evade))return {dmg:0,heroDown:false,fx:[],foeHeal:0,bleed};
     const atk = traitAttackMult(this.traits, this.foeHp / Math.max(1, foe.maxHp));
     const spread = 0.85 + this.rand() * 0.3;
     let dmg = Math.max(1, Math.round(foe.atk * atk.mult * spread * (1 - this.hero.guard)));
@@ -550,7 +577,7 @@ export class SparDuel {
     this.foeHp=Math.max(0,this.foeHp-reflected);
     const foeHeal = Math.min(after.heal, foe.maxHp - this.foeHp);
     this.foeHp += foeHeal;
-    return { dmg, heroDown, fx, foeHeal, foeKilled:this.foeHp<=0 };
+    return { dmg, heroDown, fx, foeHeal, foeKilled:this.foeHp<=0, bleed };
   }
 
   /** 當前敵人倒下後：換下一個；首領倒下就入下一關（回少少血） */

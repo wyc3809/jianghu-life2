@@ -269,7 +269,20 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
             return { boss: f?.boss ?? false, look: f?.look, tier: f?.tier, trait: f?.trait, accent: f?.accent, attackTempo: f?.attackTempo };
           },
           heroMayAttack: () => { if(duel.rounds.phase!=='hero'||stage?.foeAttackActive)return false; if(duel.skipStunnedHero()){setCallout('穴道受制');sync();return false;}return true; },
-          foeMayAttack: () => {if(duel.rounds.phase!=='foe'||stage?.heroAttackActive)return false;if(duel.skipStunnedFoe()){duel.rounds.commitFoeMove();setCallout('對手穴道受制');if(duel.foeHp<=0){useLifeStore.getState().sparFoeDefeated([...duel.usedArtIds]);stage?.foeFellFromStatus();}sync();return false;}return true;},
+          foeMayAttack: () => {
+            if (duel.rounds.phase !== 'foe' || stage?.heroAttackActive) return false;
+            const previousHp = duel.foeHp;
+            if (!duel.skipStunnedFoe()) return true;
+            duel.rounds.commitFoeMove();
+            setCallout('對手穴道受制');
+            stage?.showFoeBleed(previousHp - duel.foeHp);
+            if (duel.foeHp <= 0) {
+              useLifeStore.getState().sparFoeDefeated([...duel.usedArtIds]);
+              stage?.foeFellFromStatus();
+            }
+            sync();
+            return false;
+          },
           // 一回合完整使出已學卷次，再輪到敵人。
           nextArt: () => {
             const st = useLifeStore.getState().state;
@@ -612,7 +625,10 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
           reduceMotion={reduceMotion || motionReduced()} onEntered={() => {
             if (bossKeyRef.current === bossKey) { enteredKeyRef.current = bossKey; setEnteredKey(bossKey); }
           }} /> : undefined}
-        scene={<div className="ink-unified-canvas-host" ref={sceneSlotRef} />}
+        scene={<>
+          <div className="ink-unified-canvas-host" ref={sceneSlotRef} />
+          {snap.foe.weakness && <p className="ink-spar-boss-clue">{snap.foe.weakness.clue}</p>}
+        </>}
         callout={<span>{callout}</span>}
         skills={<InkBattleArts artId={displayedArt ?? undefined} volumes={character && displayedArt ? ownedVolumes(character, displayedArt) : []}
           activeVolume={activeVolume}

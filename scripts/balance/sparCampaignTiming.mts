@@ -194,7 +194,7 @@ const result = accounts.map(account => {
 });
 const out = {
   seeds,
-  note: '真戰鬥及修為結算；時長按出招編排、倒地、進場估算。角色由長河拳一卷起步。輕量組保留一卷，另外兩組用突破與過關玉石抽卷、兌換書頁。積極組亦用已賺取銀兩及原有三次修煉額度鑄器。三次敗退後結束當節推關，餘下時間計上線掛機修為。',
+  note: '真戰鬥及修為結算；時長按出招編排、倒地、進場估算。角色由長河拳一卷起步。輕量組保留一卷，另外兩組用突破與過關玉石抽卷、兌換書頁。積極組亦用已賺取銀兩及原有三次修煉額度鑄器。三次敗退後結束當節推關，餘下時間計上線掛機修為。固定配搭，不按章末破綻更換外功。',
   chapters: Array.from({ length: SPAR_CAMPAIGN_END / 10 }, (_, i) => {
     const end = (i + 1) * 10;
     const boss = sparStageFoes(end).at(-1)!;
@@ -204,7 +204,7 @@ const out = {
 };
 if (process.argv[2]) writeFileSync(process.argv[2], JSON.stringify(out, null, 2) + '\n');
 if (process.argv[3]) {
-  const columns = ['關數', '地區', '主題', '小兵出場順序', '精英出場順序及特性', '守關敵人', '守關特性', '敵人數', '關主氣血', '關主基礎攻擊'];
+  const columns = ['關數', '地區', '主題', '小兵出場順序', '精英出場順序及特性', '守關敵人', '守關特性', '敵人數', '關主氣血', '關主基礎攻擊', '章末交鋒線索'];
   const rows = Array.from({ length: SPAR_CAMPAIGN_END }, (_, i) => {
     const stage = i + 1;
     const scene = sparSceneFor(stage);
@@ -214,7 +214,7 @@ if (process.argv[3]) {
     return [stage, scene.place, scene.theme.name,
       foes.filter(f => f.tier === 'minion').map(f => f.name).join(' → '),
       foes.filter(f => f.tier === 'elite').map(f => `${f.name}（${trait(f)}）`).join(' → '),
-      boss.name, trait(boss), foes.length, boss.maxHp, boss.atk];
+      boss.name, trait(boss), foes.length, boss.maxHp, boss.atk, boss.weakness?.clue ?? ''];
   });
   const csv = [columns, ...rows].map(row => row.map(value => `"${String(value).replaceAll('"', '""')}"`).join(',')).join('\n');
   writeFileSync(process.argv[3], '\uFEFF' + csv + '\n');

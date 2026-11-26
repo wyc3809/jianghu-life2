@@ -368,7 +368,7 @@ export interface SparCombatHooks {
     onBeat?: (damage: number, last: boolean) => void;
   };
   /** 敵人撲擊到肉 */
-  foeStrike(): { dmg: number; heroDown: boolean; foeKilled?: boolean; fx?: CombatTraitFx[]; foeHeal?: number };
+  foeStrike(): { dmg: number; heroDown: boolean; foeKilled?: boolean; fx?: CombatTraitFx[]; foeHeal?: number; bleed?: number };
   /**
    * 下一個出場敵人：係咪首領、用邊款剪影（ENEMY_POOL 索引，按關卡主題）；
    * tier／trait／accent 係第 20 項敵人圖鑑（精英金邊、首領朱砂邊、特性光環、衣帶色）
@@ -1063,10 +1063,20 @@ export class SparStage {
     enemy.state='dead';enemy.t=0;enemy.lungeT=null;this.pendingDefeat=true;
   }
 
+  showFoeBleed(damage: number): void {
+    const enemy = this.enemies.find(e => e.state !== 'dead');
+    if (!enemy || damage <= 0) return;
+    this.floaters.push({
+      x: enemy.x + 14, y: this.geom().groundY - this.enemyVisualHeight(enemy) * .75,
+      text: `-${formatSparNumber(damage)}`, gain: damage, age: 0, dur: .95, kind: 'hurt',
+    });
+  }
+
   /** 敵人一擊到肉：主角退縮、彈紅字；血見底就敗退 */
   private foeHits(e: EnemyInst) {
     if (!this.combat || this.heroDownT !== null) return;
     const r = this.combat.foeStrike();
+    if (r.bleed) this.showFoeBleed(r.bleed);
     if(r.foeKilled){e.state='dead';e.t=0;e.lungeT=null;this.pendingDefeat=true;this.attackT=null;}
     // 只跟真正受擊／落空做運氣或閃步，唔製造護盾、閃避或新攻擊。
     const support = this.supportIds.find(id => martialPoseFor(id)?.family === (r.dmg > 0 ? 'internal' : 'step'));
