@@ -33,7 +33,7 @@
 }
 .war-paper {
   position: absolute;
-  inset: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px);
+  inset: 0;
   z-index: -1;
   pointer-events: none;
 }

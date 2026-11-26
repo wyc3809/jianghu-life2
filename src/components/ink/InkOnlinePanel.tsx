@@ -209,5 +209,12 @@ export default function InkOnlinePanel({ standalone = false, onBack, onPrepare, 
     {replay && me && <Suspense fallback={<p role="status">載入交手演出……</p>}><Battle key={replay.id} replay={replay.replays[me.id]} character={replay.characters[me.id]} rewardCoins={0} unified reduceMotion={reduced}
       notice={<span className="online-battle-note">切磋不傷身 · 勝負只論名次</span>} onDone={() => setReplay(null)} /></Suspense>}
   </section>;
-  return standalone ? <main className="scroll-shell scroll-shell--play online-page"><a className="online-back" href={import.meta.env.BASE_URL}>‹ 返回遊戲</a>{content}</main> : content;
+  return standalone ? (
+    <main className="scroll-shell scroll-shell--play online-page">
+      <div className="ink-safe-scroll">
+        <a className="online-back" href={import.meta.env.BASE_URL}>‹ 返回遊戲</a>
+        {content}
+      </div>
+    </main>
+  ) : content;
 }
