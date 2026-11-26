@@ -4,13 +4,15 @@ import { inkArtUrl } from '../../ui/inkAssets';
 type Props = {
   onStart: () => void;
   onContinue: () => void;
+  onReincarnate: () => void;
+  startReady: boolean;
   resumeHint?: string;
   onSeedDebug?: () => void;
   onOpenEditor?: () => void;
 };
 
 /** 已確認青綠暖金漫畫晨景作開卷封面；不放人物立繪，標題及操作仍為真正DOM。 */
-export function InkStartScreen({ onStart, onContinue, resumeHint, onSeedDebug, onOpenEditor }: Props) {
+export function InkStartScreen({ onStart, onContinue, onReincarnate, startReady, resumeHint, onSeedDebug, onOpenEditor }: Props) {
   return (
     <div className="scroll-shell ink-enter ink-start">
       <div className="ink-start-bg" aria-hidden>
@@ -45,11 +47,10 @@ export function InkStartScreen({ onStart, onContinue, resumeHint, onSeedDebug, o
           className={
             resumeHint ? 'ink-btn ink-btn--ghost' : 'ink-btn ink-btn--primary'
           }
-          onClick={() => {
-            onStart();
-          }}
+          disabled={!startReady}
+          onClick={resumeHint ? onReincarnate : onStart}
         >
-          {resumeHint ? '開卷新篇' : '開卷'}
+          {resumeHint ? '轉世' : '開卷'}
         </button>
         {/* 開發工具：事件一覽／編輯器／定種子只喺開發版顯示 */}
         {import.meta.env.DEV && (
@@ -99,7 +100,7 @@ export function InkStartGate({
         const c = save.state.character;
         onReady(true, c.name);
       } else if (save?.state.phase === 'summary') {
-        onReady(true, '本世已結束 · 查看總結或開始新生');
+        onReady(true, '本世已結束 · 查看總結');
       } else {
         onReady(false);
       }

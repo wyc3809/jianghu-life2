@@ -108,7 +108,8 @@ describe('paused ancestral features in production paths', () => {
     old.character.flags.family_legacy = true;
     useLifeStore.setState({ state: old, succession: null });
     const meta = structuredClone(useAncestryStore.getState().meta);
-    useLifeStore.getState().reincarnate();
+    expect(useLifeStore.getState().reincarnate()).toBe(false);
+    expect(useLifeStore.getState().startAfterEnding()).toBe(true);
     const next = useLifeStore.getState();
     expect(next.state?.phase).toBe('playing');
     expect(next.state?.character.money).toBeLessThan(999999);

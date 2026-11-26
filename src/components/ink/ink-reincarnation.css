@@ -1,0 +1,33 @@
+.ink-reincarnation-card {
+  display: grid;
+  gap: .7rem;
+}
+
+.ink-reincarnation-card > :is(h2, p, dl) {
+  margin: 0;
+}
+
+.ink-reincarnation-card > p {
+  font-size: .88rem;
+  line-height: 1.55;
+}
+
+.ink-reincarnation-progress > div {
+  display: flex;
+  justify-content: space-between;
+  gap: .45rem;
+  padding: .4rem 0;
+  border-bottom: 1px solid #d4c6ad;
+  font-size: .88rem;
+}
+
+.ink-reincarnation-progress dd {
+  margin: 0;
+  text-align: end;
+}
+
+.ink-reincarnation-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .5rem;
+}

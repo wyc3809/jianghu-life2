@@ -13,6 +13,7 @@ type Props = {
   onAudioChange?: (mix: AudioMix) => void;
   onOpenBoard: () => void;
   onReviewGuide?: () => void;
+  onReincarnate: () => void;
 };
 
 type Channel = 'music' | 'sfx';
@@ -72,6 +73,7 @@ export function InkSettingsPanel({
   onAudioChange,
   onOpenBoard,
   onReviewGuide,
+  onReincarnate,
 }: Props) {
   const closeRef = useRef<HTMLButtonElement | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -167,6 +169,9 @@ export function InkSettingsPanel({
           {onReviewGuide && <button type="button" className="ink-btn ink-btn--quiet" onClick={onReviewGuide}>顯示目前提示</button>}
         </section>
         {(import.meta.env.DEV || import.meta.env.VITE_CHARACTER_RIG_LAB === '1') && <section className="ink-settings-block" aria-label="動畫內測"><button className="ink-btn ink-btn--quiet" onClick={()=>location.assign(`${import.meta.env.BASE_URL}?spine-lab=1`)}>角色動畫驗收</button></section>}
+        <section className="ink-settings-block" aria-label="轉世">
+          <button type="button" className="ink-btn ink-btn--quiet" onClick={onReincarnate}>查看轉世條件</button>
+        </section>
         <InkCloudSection onOpenBoard={onOpenBoard} />
         </div>
 

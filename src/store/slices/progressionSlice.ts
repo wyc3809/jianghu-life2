@@ -28,7 +28,8 @@ import {
   recruitDisciple as recruitDiscipleAction,
   teachDisciple as teachDiscipleAction,
 } from '@core/life/foundedSect';
-import { extractLegacy } from '@core/life/legacy';
+import { economyDay } from '@core/life/accountEconomy';
+import { recordLifeDay, reincarnationStatus } from '@core/life/reincarnation';
 import { loadAncestry } from '../ancestryMeta';
 import { sanitizePlayerLine, sanitizePlayerLines } from '@core/life/playerText';
 import {
@@ -50,6 +51,10 @@ export function successionLines(lifeLog: string[]): string[] {
   return lifeLog.filter((l) => /^前世「|承祧|血脈未斷|家族銀庫|家族裝備庫|^祖蔭：/.test(l));
 }
 
+function documentVisible(): boolean {
+  return typeof document === 'undefined' || document.visibilityState === 'visible';
+}
+
 export function createProgressionSlice(
   set: (partial: Partial<LifeStore>) => void,
   get: () => LifeStore,
@@ -61,6 +66,7 @@ export function createProgressionSlice(
   | 'cancelCreate'
   | 'newLife'
   | 'reincarnate'
+  | 'startAfterEnding'
   | 'continueLife'
   | 'advanceMonth'
   | 'retire'
@@ -106,6 +112,7 @@ export function createProgressionSlice(
       // 暫停期間不讀取／套用舊祖蔭；原帳戶資料留存。
       const base: CreateLifeOptions = typeof opts === 'number' ? { seed: opts } : (opts ?? {});
       const state = createNewLife({ ...base, ancestry: LEGACY_FEATURES_ENABLED ? (base.ancestry ?? loadAncestry()) : undefined });
+      recordLifeDay(state, economyDay(Date.now()));
       void save(state);
       track('life_create', {
         seed: state.seed,
@@ -117,28 +124,31 @@ export function createProgressionSlice(
         sealText: '生',
         flashLines: [],
         lastResult: null,
+        combatReplay: null,
+        offlineGain: null,
+        breakthroughResult: null,
+        succession: null,
       });
     },
 
     reincarnate: () => {
-      if(!LEGACY_FEATURES_ENABLED){get().newLife();set({succession:null});return;}
-      const prev = get().state;
-      if (!prev || prev.phase !== 'summary') {
-        get().newLife();
-        return;
-      }
-      const legacy = extractLegacy(prev);
-      // 無子女都唔會斷：由旁支承祧（design/agreed-design-2026-10.md §1）
-      track('life_reincarnate', {
-        generation: legacy.generation,
-        family: legacy.familyLegacy,
-        teacher: legacy.teacherLegacy,
-        collateral: Boolean(legacy.collateral),
-      });
-      get().newLife({ legacy });
-      const born = get().state;
-      const lines = born ? successionLines(born.lifeLog) : [];
-      set({ succession: lines.length ? lines : null });
+      const { state, combatReplay } = get();
+      if (!state || combatReplay) return false;
+      const status = reincarnationStatus(state);
+      if (!status.canReincarnate) return false;
+      const count = status.count + 1;
+      get().newLife({ reincarnationCount: count });
+      track('life_reincarnate', { count });
+      return true;
+    },
+
+    startAfterEnding: () => {
+      const { state, combatReplay } = get();
+      if (!state || combatReplay) return false;
+      const status = reincarnationStatus(state);
+      if (!status.canStartAfterEnding) return false;
+      get().newLife({ reincarnationCount: status.count });
+      return true;
     },
 
     continueLife: async () => {
@@ -147,7 +157,9 @@ export function createProgressionSlice(
       const state = migrateLifeState(loaded.state);
       syncRngFromState(state);
       track('life_resume', { year: state.year });
-      const elapsedMs = Date.now() - loaded.savedAt;
+      const now = Date.now();
+      const activeDay = documentVisible() && recordLifeDay(state, economyDay(now));
+      const elapsedMs = now - loaded.savedAt;
       const offline = applyOfflineCultivation(state, elapsedMs);
       // 掛機銀兩：同修為一樣最多計 48 小時，入「待收成」
       const offlineSilver = accrueIdleSilver(state, offline.countedSeconds);
@@ -156,8 +168,8 @@ export function createProgressionSlice(
           gainedXp: Math.round(offline.gainedXp),
           countedSeconds: Math.round(offline.countedSeconds),
         });
-        void save(state);
       }
+      if (activeDay || offline.gainedXp > 0 || offlineSilver >= 1) save(state);
       set({
         state,
         creating: false,
@@ -414,6 +426,7 @@ export function createProgressionSlice(
       const { state } = get();
       if (!state || state.phase !== 'playing' || !state.character.alive) return;
       const next = produce(state, (draft) => {
+        if (documentVisible() && deltaSeconds > 0) recordLifeDay(draft, economyDay(Date.now()));
         tickCultivationCore(draft, deltaSeconds);
         tickActionPoints(draft, deltaSeconds);
         accrueIdleSilver(draft, deltaSeconds);

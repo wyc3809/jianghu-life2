@@ -18,6 +18,7 @@ import {
   playInkBlade,
 } from '../../audio/inkAudio';
 import { InkSettingsPanel } from './InkSettingsPanel';
+import { InkReincarnationPanel } from './InkReincarnationPanel';
 import { InkLeaderboardPanel } from './InkLeaderboardPanel';
 import { inkGlint, inkHop, inkPageIn, inkRevealChars, inkSurfaceIn } from '../../ui/inkMotion';
 import { InkIcon } from './InkIcon';
@@ -96,6 +97,8 @@ import { breakthroughHighlight, momentHighlight } from '../../fx/highlight/fromG
 
 type Props = {
   state: LifeGameState;
+  openReincarnation: boolean;
+  onReincarnationClose: () => void;
 };
 
 const InkOnlinePanel = import.meta.env.VITE_ONLINE_PUBLIC === '1' || (import.meta.env.DEV && import.meta.env.VITE_ONLINE_PROTOTYPE === '1')
@@ -103,13 +106,12 @@ const InkOnlinePanel = import.meta.env.VITE_ONLINE_PUBLIC === '1' || (import.met
 
 const InkSectWar = InkOnlinePanel ? lazy(() => import('./InkSectWar')) : null;
 
-export function InkPlayScreen({ state }: Props) {
+export function InkPlayScreen({ state, openReincarnation, onReincarnationClose }: Props) {
   const choose = useLifeStore((s) => s.choose);
   const dismissEvent = useLifeStore((s) => s.dismissEvent);
   const dismissCoach = useLifeStore((s) => s.dismissCoach);
   const resumeCoach = useLifeStore((s) => s.resumeCoach);
   const advanceMonth = useLifeStore((s) => s.advanceMonth);
-  const reincarnate = useLifeStore((s) => s.reincarnate);
   const practice = useLifeStore((s) => s.practice);
   const combatMove = useLifeStore((s) => s.combatMove);
   const combatAuto = useLifeStore((s) => s.combatAuto);
@@ -207,6 +209,12 @@ export function InkPlayScreen({ state }: Props) {
     setPersonPreset('normal'); setRequestedArt(null); setPersonView('main'); setTab('person');
   };
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [reincarnationOpen, setReincarnationOpen] = useState(false);
+  const showReincarnation = reincarnationOpen || openReincarnation;
+  const closeReincarnation = () => {
+    setReincarnationOpen(false);
+    onReincarnationClose();
+  };
   const [boardOpen, setBoardOpen] = useState(false);
   const resultTitleRef = useRef<HTMLHeadingElement | null>(null);
   const flipRef = useRef<HTMLDivElement | null>(null);
@@ -611,7 +619,7 @@ export function InkPlayScreen({ state }: Props) {
 
       {encounterOpen && <InkEncounterModal onLearn={learnManual} />}
 
-      {offlineGain !== null && (
+      {offlineGain !== null && !showReincarnation && (
         <InkOfflineGainModal gain={offlineGain} onClose={clearOfflineGain} />
       )}
 
@@ -721,6 +729,10 @@ export function InkPlayScreen({ state }: Props) {
         onReviewGuide={newbieActive(state) || nextCoachStep({ ...c.flags, coach_done: false }) !== 'done'
           ? () => { resumeCoach(); setSettingsOpen(false); setTab('home'); } : undefined}
         open={settingsOpen}
+        onReincarnate={() => {
+          setSettingsOpen(false);
+          setReincarnationOpen(true);
+        }}
         onClose={() => setSettingsOpen(false)}
         onOpenBoard={() => {
           setSettingsOpen(false);
@@ -730,6 +742,10 @@ export function InkPlayScreen({ state }: Props) {
           track('audio_mute_toggle', { muted: !m.sfxOn && !m.musicOn });
         }}
       />
+
+      {showReincarnation && (
+        <InkReincarnationPanel state={state} onClose={closeReincarnation} />
+      )}
 
       <div className="ink-play-body" ref={playBodyRef}>
 
@@ -1052,8 +1068,8 @@ export function InkPlayScreen({ state }: Props) {
               江湖榜 · 一生總結 {lifeScore(state).toLocaleString('zh-Hant')} 分
             </button>
           )}
-          <button type="button" className="ink-btn ink-btn--primary" onClick={() => reincarnate()}>
-            另起新生 · 再入江湖
+          <button type="button" className="ink-btn ink-btn--primary" onClick={() => setReincarnationOpen(true)}>
+            轉世
           </button>
 
         </section>
