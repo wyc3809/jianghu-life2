@@ -304,6 +304,7 @@ interface EnemyInst {
   enragedShown: boolean; // 狂怒字已彈過（只彈一次）
   hitT: number; // 受擊後退計時（大＝冇受擊）
   atkTimer: number; // 距離下一次出手
+  attackTempo: number; // 造型、接觸同收勢使用同一時鐘
   lungeT: number | null; // 撲擊動作計時
   lungeHit: boolean; // 今次撲擊已結算
   rig: StripRig; // 條帶變形骨架（衣擺、傾身）
@@ -372,7 +373,7 @@ export interface SparCombatHooks {
    * 下一個出場敵人：係咪首領、用邊款剪影（ENEMY_POOL 索引，按關卡主題）；
    * tier／trait／accent 係第 20 項敵人圖鑑（精英金邊、首領朱砂邊、特性光環、衣帶色）
    */
-  nextFoe(): { boss: boolean; look?: number; tier?: FoeTierLite; trait?: keyof typeof FOE_TRAITS; accent?: string };
+  nextFoe(): { boss: boolean; look?: number; tier?: FoeTierLite; trait?: keyof typeof FOE_TRAITS; accent?: string; attackTempo?: number };
   /** 當前敵人下一擊係蓄力重擊（光環暴漲預告） */
   foeCharging?(): boolean;
   /** 當前敵人狂怒中（墨紅火焰） */
@@ -709,6 +710,7 @@ export class SparStage {
       enragedShown: false,
       hitT: 9,
       atkTimer: 1.1 + this.visualRng() * 0.5,
+      attackTempo: next?.attackTempo ?? 1,
       lungeT: null,
       lungeHit: false,
       rig: new StripRig(),
@@ -1043,7 +1045,7 @@ export class SparStage {
       }
       return;
     }
-    e.lungeT += dt;
+    e.lungeT += dt * e.attackTempo;
     if (!e.lungeHit && e.lungeT >= LUNGE_HIT_AT) {
       e.lungeHit = true;
       this.foeHits(e);

@@ -50,7 +50,7 @@ import { InkScrollBackdrop, InkSealStamp, InkResultSeal, InkStaticSeal, InkAiWas
 import { inkAiUrl } from '../../ui/inkAiCatalog';
 import { inkArtUrl } from '../../ui/inkAssets';
 import { InkHuashanPanel } from './InkHuashanPanel';
-import { InkSectFounderPanel } from './InkSectFounderPanel';
+import { InkJianghuSectPanel } from './InkJianghuSectPanel';
 import { InkPersonPanel, type PersonView } from './InkPersonPanel';
 import { InkEventPanel } from './InkEventPanel';
 import { InkCombatPanel } from './InkCombatPanel';
@@ -100,6 +100,8 @@ type Props = {
 
 const InkOnlinePanel = import.meta.env.VITE_ONLINE_PUBLIC === '1' || (import.meta.env.DEV && import.meta.env.VITE_ONLINE_PROTOTYPE === '1')
   ? lazy(() => import('./InkOnlinePanel')) : null;
+
+const InkSectWar = InkOnlinePanel ? lazy(() => import('./InkSectWar')) : null;
 
 export function InkPlayScreen({ state }: Props) {
   const choose = useLifeStore((s) => s.choose);
@@ -294,7 +296,6 @@ export function InkPlayScreen({ state }: Props) {
   const practiceLeft = state.practiceActionsLeft ?? 3;
   const busy = Boolean(state.pending) || Boolean(combat) || showResult || !c.alive;
   const practiceBusy = busy || practiceLeft <= 0;
-  const onPracticeTab = tab === 'practice';
   const onHomeTab = tab === 'home';
   const enoughActionPoints = hasEnoughActionPoints(state);
   const canAdvanceMonthGlobal =
@@ -307,7 +308,7 @@ export function InkPlayScreen({ state }: Props) {
   const onPersonPage = tab === 'person' && !combat && !eventFocus;
   const onLivePage=tab==='jianghu'&&jianghuView==='online'&&onlineFocused&&!combat&&!eventFocus;
   /** 華山論劍／開宗立派：同秘笈閣一樣獨立全畫面（2026-11-16 美術檢視 S6） */
-  const onFeaturePage = tab === 'jianghu' && (jianghuView === 'huashan' || jianghuView === 'founder') && !combat && !eventFocus;
+  const onFeaturePage = tab === 'jianghu' && (jianghuView === 'huashan' || jianghuView === 'sect' || jianghuView === 'sectWar') && !combat && !eventFocus;
   const onFullPage = onJianghuMap || onGachaPage || onPersonPage || onLivePage || onFeaturePage;
   /** 交手中隱藏全局氣血條，避免與戰鬥血條重複 */
   // 有重傷／傷殘：名字旁朱砂點（撳入人物欄）
@@ -814,6 +815,10 @@ export function InkPlayScreen({ state }: Props) {
         {jianghuView === 'main' ? <InkJianghuHub online={Boolean(InkOnlinePanel)} onOpen={view=>{setOnlineFromHome(false);setJianghuView(view);}} onBack={() => setTab('home')} />
           : jianghuView === 'online' && InkOnlinePanel ? <Suspense fallback={<p role="status">正在翻開江湖名冊……</p>}>
             <InkOnlinePanel key={onlineFromHome?'home-live':'map-online'} initialView="live" homeEntry={onlineFromHome} onFocusChange={setOnlineFocused} onBack={() => onlineFromHome?setTab('home'):setJianghuView('main')} onPrepare={()=>{setPersonPreset('duel');setRequestedArt(null);setTab('person');setPersonView('skills');}} />
+          </Suspense> : jianghuView === 'sectWar' && InkSectWar ? <Suspense fallback={<p role="status">正在翻開會武名冊……</p>}>
+            <InkSectWar onBack={() => setJianghuView('sect')} onPrepare={() => {
+              setPersonPreset('duel'); setRequestedArt(null); setTab('person'); setPersonView('skills');
+            }} />
           </Suspense> : <div className={`ink-jianghu-detail${onGachaPage ? ' ink-jianghu-detail--gacha' : ''}`}>
             <button type="button" className={`ink-jianghu-back${onGachaPage ? ' ink-codex-back' : ''}`} onClick={() => setJianghuView('main')}>返回江湖</button>
             {jianghuView === 'gacha' && <InkGachaPanel state={state} onEquipRequest={id => {
@@ -821,7 +826,9 @@ export function InkPlayScreen({ state }: Props) {
             }} />}
             {jianghuView === 'huashan' && <InkHuashanPanel state={state} onStart={huashanStart} onFight={huashanFight}
               onDismissReport={huashanDismissReport} onCloseTournament={huashanClose} />}
-            {jianghuView === 'founder' && <InkSectFounderPanel state={state} onFound={foundSect} onRecruit={recruitDisciple} onTeach={teachDisciple} />}
+            {jianghuView === 'sect' && <InkJianghuSectPanel state={state} busy={practiceBusy} onPractice={practice}
+              onFound={foundSect} onRecruit={recruitDisciple} onTeach={teachDisciple}
+              onWar={InkSectWar ? () => setJianghuView('sectWar') : undefined} />}
           </div>}
       </div>}
 
@@ -1033,21 +1040,6 @@ export function InkPlayScreen({ state }: Props) {
             ? () => { resolveGearCompare('keep'); openNewbieEquipment(); } : undefined}
         />
       )}
-
-      {flashLines.length > 0 &&
-        state.phase === 'playing' &&
-        !pendingEvent &&
-        !showResult &&
-        !combat &&
-        !onHomeTab &&
-        !onPracticeTab && (
-        <section className="ink-flash" aria-live="polite">
-          {flashLines.map((line) => (
-            <p key={line}>{line}</p>
-          ))}
-        </section>
-      )}
-
 
       {state.phase === 'summary' && (
         <section className="ink-panel ink-epitaph">

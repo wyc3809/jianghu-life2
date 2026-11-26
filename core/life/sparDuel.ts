@@ -19,7 +19,7 @@ import { gearTotals, sumGearCombatBonuses } from './equipment';
 import { activeCultivationGain } from './cultivation';
 import { TEST_ACTIVE_CULTIVATION_SECONDS } from '@data/redesign/testParams';
 import { getSkillDef } from '@data/skills/catalog';
-import { FOE_BY_NAME, FOE_REGIONS, FOE_SPRITE_IDS, lookForFoeName, type FoeEntry, type FoeRegion } from '@data/foes/roster';
+import { FOE_BY_NAME, FOE_REGIONS, FOE_SPRITE_IDS, lookForFoeName, type FoeEntry, type FoeLook, type FoeRegion } from '@data/foes/roster';
 import type { FoeTier, FoeTraitId } from '@data/foes/traits';
 import {
   newTraitState,
@@ -152,6 +152,8 @@ export interface SparFoe {
   atk: number;
   /** 剪影款式：對應 src/spar/rig.ts ENEMY_POOL 嘅索引 */
   look: number;
+  /** 命中幀跟同一節拍；傷害同招數另由對打結算。 */
+  attackTempo: number;
   /** 圖鑑 id（data/foes/roster.ts） */
   id: string;
   /** 名號（名牌細字） */
@@ -231,6 +233,17 @@ export const SPAR_SCENE_SPAN = 10;
 export const SPAR_ELITE_HP_MUL = 2.4;
 export const SPAR_ELITE_ATK_MUL = 1.35;
 
+/** 每區由單一前鋒開始，再加入第二款、精英同混編。尾段先用第三款援軍。 */
+const SPAR_MINION_WAVES = [
+  [0], [0, 0, 1], [0, 1, 0], [1, 0, 1], [0, 1, 1, 0],
+  [1, 0, 0, 1], [0, 1, 0, 1, 1], [1, 0, 1, 1, 0],
+  [1, 0, 2, 0, 2, 1], [0, 2, 1, 2, 1, 2],
+] as const;
+
+const SPAR_ATTACK_TEMPO: Record<FoeLook, number> = {
+  daoke: 1, shadow: 1.15, nvcike: 1.28, gouke: .91, toutuo: .79, tiemian: .87, chifa: .76,
+};
+
 export function sparSceneFor(stage: number): SparScene {
   const s = Math.max(1, Math.floor(stage));
   return SPAR_SCENES[Math.floor((s - 1) / SPAR_SCENE_SPAN) % SPAR_SCENES.length]!;
@@ -257,6 +270,7 @@ function foeOf(f: FoeEntry, trait: FoeTraitId, maxHp: number, atk: number): Spar
     maxHp,
     atk,
     look: lookIdx(f),
+    attackTempo: SPAR_ATTACK_TEMPO[f.look],
     id: f.id,
     title: f.title,
     tier: f.tier,
@@ -274,16 +288,20 @@ export function sparStageFoes(stage: number): SparFoe[] {
     Math.max(0, s - SPAR_OPENING_ATK_FACTORS.length) * SPAR_FOE_ATK_PRESSURE.perStage);
   const minionAtk = Math.round(16 * SPAR_FOE_ATK_GROWTH ** (s - 1) * (SPAR_OPENING_ATK_FACTORS[s - 1] ?? 1) * pressure);
   const region = sparSceneFor(s).region;
+  const phase = (s - 1) % SPAR_SCENE_SPAN;
+  const formation = SPAR_MINION_WAVES[phase]!;
   const foes: SparFoe[] = [];
   const n = sparMinionCount(s);
   for (let i = 0; i < n; i++) {
-    foes.push(foeOf(region.minions[i % region.minions.length]!, region.trait, minionHp, minionAtk));
+    const slot = formation[i % formation.length]!;
+    foes.push(foeOf(region.minions[slot % region.minions.length]!, region.trait, minionHp, minionAtk));
   }
   const ne = sparEliteCount(s);
+  const eliteLead = ne > 1 ? phase % 2 : Number(phase >= 4);
   for (let i = 0; i < ne; i++) {
     foes.push(
       foeOf(
-        region.elites[i % region.elites.length]!,
+        region.elites[(i + eliteLead) % region.elites.length]!,
         region.trait,
         Math.round(minionHp * SPAR_ELITE_HP_MUL),
         Math.round(minionAtk * SPAR_ELITE_ATK_MUL),

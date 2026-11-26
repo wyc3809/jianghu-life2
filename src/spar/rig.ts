@@ -232,6 +232,8 @@ const SPAR_E = (n: string, w: number, h: number, eye: { x: number; y: number }, 
   scale,
 });
 
+const twinHooks = FOE_SPRITES.inn_blades!;
+
 /**
  * 江湖敵手（AI 水墨剪影，側身面左行向俠客）＋墨影，組成出敵池。
  * 老翁／槍客／丐幫／蓑衣嘅剪影檔四周有墨霧雜點，暫時移出池；
@@ -243,7 +245,8 @@ export const ENEMY_POOL: EnemyDef[] = [
   SPAR_E('nvcike', 616, 788, { x: -16, y: -530 }, 0.96), // 女刺客
   SPAR_E('toutuo', 616, 788, { x: -10, y: -510 }, 1.08), // 胖頭陀
   SPAR_E('tiemian', 615, 788, { x: -12, y: -520 }, 1.1), // 鐵面／影魁
-  SPAR_E('gouke', 616, 788, { x: -20, y: -520 }), // 雙鉤客（刀客剪影）
+  // 雙鉤小兵沿用現有雙鉤剪影同倒地幀，小兵與精英各有原本比例。
+  SPAR_E('inn_blades', twinHooks.w, twinHooks.h, twinHooks.eye, .97),
   SPAR_E('chifa', 616, 788, { x: -10, y: -510 }, 1.15), // 赤髮（頭陀剪影）
   // 第 20 項：敵人圖鑑專屬 AI 剪影（SpriteCook；data/foes/sprites.json），排喺基本 7 款後面
   ...FOE_SPRITE_IDS.map((id) => SPAR_E(id, FOE_SPRITES[id]!.w, FOE_SPRITES[id]!.h, FOE_SPRITES[id]!.eye)),
