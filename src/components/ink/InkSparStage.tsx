@@ -18,7 +18,7 @@ import { highlightCoversPage } from '../../ui/highlightVisibility';
 import { watchVisualActivity } from '../../ui/visualActivity';
 import { SparStage, loadSparImages, loadSparImage, loadSparUiImages, type SparCombatHooks } from '../../spar/engine';
 import { sparArtAt, sparArtOrder } from '../../spar/artCycle';
-import { SparDuel, formatSparNumber, sparHeroStats, sparRand, sparSavedStage, type SparDuelSnapshot } from '@core/life/sparDuel';
+import { SPAR_CAMPAIGN_END, SparDuel, formatSparNumber, sparHeroStats, sparRand, sparSavedStage, type SparDuelSnapshot } from '@core/life/sparDuel';
 import { InkBrushBar } from './InkBrush';
 import { inkHop, inkPopIn, inkRevealChars, inkShake, inkTweenVar } from '../../ui/inkMotion';
 import {
@@ -232,7 +232,8 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
       sync();
       if (!r.stageCleared) return false;
       const reward = useLifeStore.getState().sparStageClear(r.clearedStage);
-      setClearNote(`第 ${r.clearedStage} 關 過關　銀兩 +${reward.silver}　修為 +${Math.round(reward.xp)}`);
+      const cleared = r.clearedStage === SPAR_CAMPAIGN_END ? '演武主線通關' : `第 ${r.clearedStage} 關 過關`;
+      setClearNote(`${cleared}　銀兩 +${reward.silver}　修為 +${Math.round(reward.xp)}`);
       if (noteTimer) clearTimeout(noteTimer);
       noteTimer = setTimeout(() => setClearNote(null), 2400);
       return true;
@@ -539,6 +540,9 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
     if (clearNote && !placeTitle) inkPopIn(clearNoteRef.current, { y: 8 });
   }, [clearNote, placeTitle]);
   const leftLabel = snap ? (snap.foe?.boss ? 'boss' : String(snap.minionsLeft)) : '';
+  const stageLabel = snap && (snap.stage <= SPAR_CAMPAIGN_END
+    ? `第 ${snap.stage}／${SPAR_CAMPAIGN_END} 關`
+    : `延伸第 ${snap.stage} 關`);
   useEffect(() => {
     if (leftLabel) inkHop(leftRef.current);
   }, [leftLabel]);
@@ -599,7 +603,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
         trait={snap.foe.trait ? <span title={FOE_TRAITS[snap.foe.trait].blurb} aria-label={`${FOE_TRAITS[snap.foe.trait].name}：${FOE_TRAITS[snap.foe.trait].blurb}`}>
           {FOE_TRAITS[snap.foe.trait].glyph} · {FOE_TRAITS[snap.foe.trait].name}{snap.foeCharging ? ' · 蓄力' : ''}{snap.foeEnraged ? ' · 狂怒' : ''}
         </span> : undefined}
-        title={`演武台 · 第 ${snap.stage} 關 · ${snap.place}`} round={Math.max(1, bossRound)} fast={fast}
+        title={`演武台 · ${stageLabel} · ${snap.place}`} round={Math.max(1, bossRound)} fast={fast}
         hero={{ name: character?.name ?? '俠客', hp: snap.heroHp, maxHp: snap.heroMaxHp }}
         foe={{ name: snap.foe.name, hp: snap.foeHp, maxHp: snap.foe.maxHp }} boss
         onSpeed={() => { const next = !fast; setFast(next); speedRef.current = next ? 2 : 1; }}
@@ -624,7 +628,7 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
         </p>}
         {snap && <div className="ink-spar-info-right">
           <div className="ink-spar-hud">
-            <span className="ink-spar-hud-stage">第 {snap.stage} 關 · {snap.theme}</span>
+            <span className="ink-spar-hud-stage">{stageLabel} · {snap.theme}</span>
             <span className="ink-spar-hud-left" ref={leftRef}>餘敵 {snap.minionsLeft + 1}</span>
           </div>
           {snap.foe && <div className="ink-spar-enemy-info" aria-label="敵人資料">

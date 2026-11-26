@@ -35,7 +35,8 @@ describe('戰力及演武氣血改版', () => {
     expect(sparStageFoes(1)[0]!.atk).toBe(8);
     expect(sparStageFoes(3)[0]!.atk).toBe(15);
     expect(sparStageFoes(10)[0]!.atk).toBe(25);
-    expect(sparStageFoes(40).at(-1)!.atk).toBe(242);
+    expect(sparStageFoes(40).at(-1)!.atk).toBeGreaterThan(sparStageFoes(30).at(-1)!.atk);
+    expect(sparStageFoes(260).at(-1)!.atk).toBeGreaterThan(sparStageFoes(180).at(-1)!.atk);
   });
 });
 

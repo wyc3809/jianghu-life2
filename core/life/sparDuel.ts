@@ -21,6 +21,7 @@ import { TEST_ACTIVE_CULTIVATION_SECONDS } from '@data/redesign/testParams';
 import { getSkillDef } from '@data/skills/catalog';
 import { FOE_BY_NAME, FOE_REGIONS, FOE_SPRITE_IDS, lookForFoeName, type FoeEntry, type FoeLook, type FoeRegion } from '@data/foes/roster';
 import type { FoeTier, FoeTraitId } from '@data/foes/traits';
+import { SPAR_CAMPAIGN_REGIONS, type SparCampaignRegion } from '@data/foes/sparCampaign';
 import {
   newTraitState,
   traitAttackMult,
@@ -37,7 +38,7 @@ import {
  * 每關＝幾個小兵＋精英（第 3 關起）＋一個長血條首領；首領／精英有特性（data/foes/traits.ts）；主角按已學卷次完整連招後，敵人還擊一次；主角有暴擊同吸血。
  * - 主角數值跟角色實力：武學、修為境界、氣血上限、兵器攻擊（越練越強，數字越跳越大）
  * - 演武氣血同角色同步：敗退最低保留1點，休整同一關重試、回滿血再戰，唔會死亡
- * - 關卡越後敵人越強：血量每關 ×SPAR_FOE_HP_GROWTH、攻擊每關 ×SPAR_FOE_ATK_GROWTH，自然停喺「同自己實力相若」嗰關
+ * - 關卡越後敵人越強；基礎曲線分段增長，章末再加首領強度
  * - 過關（打低首領）回滿血；有回血武學每打低一個小兵／精英回少少
  *
  * RNG：預設用獨立 seeded RNG（sparRand），唔推進 getRng()，免得改咗人生事件嘅隨機序列；同一存檔同一關結果可重現。
@@ -185,7 +186,7 @@ export interface SparTheme {
 }
 
 /**
- * 演武場景：每 SPAR_SCENE_SPAN 關換一個場景（千燈鎮 → 山道 → 竹林 → 雨夜客棧 → 山門 → 夜山，之後循環、敵人更強）。
+ * 演武場景：每 SPAR_SCENE_SPAN 關換一章，打完六個起步地區之後入新章。
  * 一個場景一個敵人主題（data/foes/roster.ts 敵人圖鑑）：小兵 → 精英 → 首領，出場有規律。
  * bg 對應 src/spar/rig.ts 嘅 SPAR_BACKGROUNDS key。
  */
@@ -195,7 +196,7 @@ export interface SparScene {
   /** 地名（換場題字、HUD） */
   place: string;
   theme: SparTheme;
-  region: FoeRegion;
+  region: FoeRegion | SparCampaignRegion;
 }
 
 /** 基本剪影款數（SPAR_LOOK）；專屬剪影排喺後面（src/spar/rig.ts ENEMY_POOL） */
@@ -213,7 +214,7 @@ export function sparLookForName(name: string): number {
   return hit ? lookIdx(hit.entry) : SPAR_LOOK[lookForFoeName(name)];
 }
 
-export const SPAR_SCENES: readonly SparScene[] = FOE_REGIONS.map((region) => ({
+export const SPAR_SCENES: readonly SparScene[] = [...FOE_REGIONS, ...SPAR_CAMPAIGN_REGIONS].map((region) => ({
   bg: region.bg,
   place: region.place,
   region,
@@ -228,6 +229,7 @@ export const SPAR_SCENES: readonly SparScene[] = FOE_REGIONS.map((region) => ({
 
 /** 每個場景（主題）連續幾多關 */
 export const SPAR_SCENE_SPAN = 10;
+export const SPAR_CAMPAIGN_END = SPAR_SCENES.length * SPAR_SCENE_SPAN;
 
 /** 精英血量、攻擊倍率（相對小兵） */
 export const SPAR_ELITE_HP_MUL = 2.4;
@@ -246,7 +248,9 @@ const SPAR_ATTACK_TEMPO: Record<FoeLook, number> = {
 
 export function sparSceneFor(stage: number): SparScene {
   const s = Math.max(1, Math.floor(stage));
-  return SPAR_SCENES[Math.floor((s - 1) / SPAR_SCENE_SPAN) % SPAR_SCENES.length]!;
+  const chapter = Math.floor((s - 1) / SPAR_SCENE_SPAN);
+  // 完成主線仍可於照世峰繼續演武，舊存檔關數照讀。
+  return SPAR_SCENES[Math.min(chapter, SPAR_SCENES.length - 1)]!;
 }
 
 export function sparThemeFor(stage: number): SparTheme {
@@ -279,38 +283,68 @@ function foeOf(f: FoeEntry, trait: FoeTraitId, maxHp: number, atk: number): Spar
   };
 }
 
+/** 關數、氣血成長步數、攻擊成長步數，分段之間連續插值。 */
+const SPAR_GROWTH_ANCHORS = [
+  [1, 0, 0], [10, 9, 9], [30, 20, 24], [60, 24, 31], [100, 28, 35],
+  [140, 31, 39], [180, 34, 42], [220, 38, 44], [SPAR_CAMPAIGN_END, 41, 46],
+] as const;
+
+function sparGrowth(stage: number): { hp: number; attack: number } {
+  const next = SPAR_GROWTH_ANCHORS.findIndex(([end]) => end >= stage);
+  if (next === 0) return { hp: 0, attack: 0 };
+  const i = next < 0 ? SPAR_GROWTH_ANCHORS.length - 1 : next;
+  const [start, fromHp, fromAttack] = SPAR_GROWTH_ANCHORS[i - 1]!;
+  const [end, toHp, toAttack] = SPAR_GROWTH_ANCHORS[i]!;
+  // 主線以外延用最後一段斜率，限制異常關數嘅數值範圍。
+  const p = Math.min(5, (stage - start) / (end - start));
+  return { hp: fromHp + (toHp - fromHp) * p, attack: fromAttack + (toAttack - fromAttack) * p };
+}
+
 /** 第 stage 關嘅敵人隊列：小兵 → 精英 → 首領（最後一個）；數值 deterministic */
 export function sparStageFoes(stage: number): SparFoe[] {
   const s = Math.max(1, Math.floor(stage));
-  // 血量跟主角攻擊、攻擊跟主角氣血，兩條曲線分開（data/redesign/testParams.ts）
-  const minionHp = Math.round(140 * SPAR_FOE_HP_GROWTH ** (s - 1));
+  const growth = sparGrowth(s);
+  const minionHp = Math.round(140 * SPAR_FOE_HP_GROWTH ** growth.hp);
   const pressure = 1 + Math.min(SPAR_FOE_ATK_PRESSURE.cap,
     Math.max(0, s - SPAR_OPENING_ATK_FACTORS.length) * SPAR_FOE_ATK_PRESSURE.perStage);
-  const minionAtk = Math.round(16 * SPAR_FOE_ATK_GROWTH ** (s - 1) * (SPAR_OPENING_ATK_FACTORS[s - 1] ?? 1) * pressure);
+  const minionAtk = Math.round(16 * SPAR_FOE_ATK_GROWTH ** growth.attack * (SPAR_OPENING_ATK_FACTORS[s - 1] ?? 1) * pressure);
   const region = sparSceneFor(s).region;
   const phase = (s - 1) % SPAR_SCENE_SPAN;
+  const campaign = 'warden' in region ? region : undefined;
   const formation = SPAR_MINION_WAVES[phase]!;
   const foes: SparFoe[] = [];
   const n = sparMinionCount(s);
   for (let i = 0; i < n; i++) {
-    const slot = formation[i % formation.length]!;
+    const reinforcement = campaign && phase === 4 && i === n - 1;
+    const slot = reinforcement ? 2 : formation[i % formation.length]!;
     foes.push(foeOf(region.minions[slot % region.minions.length]!, region.trait, minionHp, minionAtk));
   }
   const ne = sparEliteCount(s);
   const eliteLead = ne > 1 ? phase % 2 : Number(phase >= 4);
   for (let i = 0; i < ne; i++) {
+    const slot = (i + eliteLead) % region.elites.length;
     foes.push(
       foeOf(
-        region.elites[(i + eliteLead) % region.elites.length]!,
-        region.trait,
+        region.elites[slot]!,
+        campaign && slot === 1 ? campaign.rivalTrait : region.trait,
         Math.round(minionHp * SPAR_ELITE_HP_MUL),
         Math.round(minionAtk * SPAR_ELITE_ATK_MUL),
       ),
     );
   }
-  foes.push(
-    foeOf(region.boss, region.trait, Math.round(minionHp * SPAR_BOSS_HP_MUL), Math.round(minionAtk * SPAR_BOSS_ATK_MUL)),
-  );
+  const chapterEnd = phase === SPAR_SCENE_SPAN - 1;
+  const boss = campaign && !chapterEnd ? campaign.warden : region.boss;
+  const bossTrait = campaign && phase === 4 ? campaign.rivalTrait : region.trait;
+  const milestone = s % 50 === 0 || s === SPAR_CAMPAIGN_END;
+  const reinforced = chapterEnd && s > 10;
+  const gateHp = reinforced ? (milestone ? 1.28 : 1.14) : 1;
+  const gateAttack = reinforced ? 1.08 : 1;
+  foes.push(foeOf(
+    boss,
+    bossTrait,
+    Math.round(minionHp * SPAR_BOSS_HP_MUL * gateHp),
+    Math.round(minionAtk * SPAR_BOSS_ATK_MUL * gateAttack),
+  ));
   return foes;
 }
 

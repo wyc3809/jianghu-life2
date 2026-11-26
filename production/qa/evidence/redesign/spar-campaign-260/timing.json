@@ -1,0 +1,2715 @@
+{
+  "seeds": [
+    42,
+    1379,
+    2716,
+    4053,
+    5390,
+    6727,
+    8064,
+    9401,
+    10738,
+    12075,
+    13412,
+    14749
+  ],
+  "note": "真戰鬥及修為結算；時長按出招編排、倒地、進場估算。角色由長河拳一卷起步。輕量組保留一卷，另外兩組用突破與過關玉石抽卷、兌換書頁。積極組亦用已賺取銀兩及原有三次修煉額度鑄器。三次敗退後結束當節推關，餘下時間計上線掛機修為。",
+  "chapters": [
+    {
+      "start": 1,
+      "end": 10,
+      "place": "千燈鎮",
+      "boss": "鎮上惡霸",
+      "hp": 3423,
+      "attack": 55
+    },
+    {
+      "start": 11,
+      "end": 20,
+      "place": "山道",
+      "boss": "赤髮寨主",
+      "hp": 11141,
+      "attack": 90
+    },
+    {
+      "start": 21,
+      "end": 30,
+      "place": "竹林",
+      "boss": "影門門主",
+      "hp": 31781,
+      "attack": 133
+    },
+    {
+      "start": 31,
+      "end": 40,
+      "place": "雨夜客棧",
+      "boss": "鐵面影魁",
+      "hp": 40981,
+      "attack": 150
+    },
+    {
+      "start": 41,
+      "end": 50,
+      "place": "山門",
+      "boss": "鬼面頭陀",
+      "hp": 59327,
+      "attack": 166
+    },
+    {
+      "start": 51,
+      "end": 60,
+      "place": "夜山",
+      "boss": "黑風寨主",
+      "hp": 68127,
+      "attack": 185
+    },
+    {
+      "start": 61,
+      "end": 70,
+      "place": "回雁驛",
+      "boss": "回雁總鏢頭",
+      "hp": 82438,
+      "attack": 192
+    },
+    {
+      "start": 71,
+      "end": 80,
+      "place": "沙河渡",
+      "boss": "飛索舵主",
+      "hp": 99748,
+      "attack": 202
+    },
+    {
+      "start": 81,
+      "end": 90,
+      "place": "青蘆澤",
+      "boss": "青蘆寨主",
+      "hp": 120695,
+      "attack": 211
+    },
+    {
+      "start": 91,
+      "end": 100,
+      "place": "分劍臺",
+      "boss": "雙脈仲裁人",
+      "hp": 163976,
+      "attack": 221
+    },
+    {
+      "start": 101,
+      "end": 110,
+      "place": "獨炬寨",
+      "boss": "獨炬寨首",
+      "hp": 168487,
+      "attack": 230
+    },
+    {
+      "start": 111,
+      "end": 120,
+      "place": "青瓦街",
+      "boss": "青瓦街盟主",
+      "hp": 194380,
+      "attack": 240
+    },
+    {
+      "start": 121,
+      "end": 130,
+      "place": "暮雨樓",
+      "boss": "暮雨樓主",
+      "hp": 224255,
+      "attack": 252
+    },
+    {
+      "start": 131,
+      "end": 140,
+      "place": "響石峽",
+      "boss": "響石刀魁",
+      "hp": 258720,
+      "attack": 261
+    },
+    {
+      "start": 141,
+      "end": 150,
+      "place": "藥廬後谷",
+      "boss": "後谷毒郎中",
+      "hp": 335138,
+      "attack": 271
+    },
+    {
+      "start": 151,
+      "end": 160,
+      "place": "聽松院",
+      "boss": "聽松院主",
+      "hp": 344358,
+      "attack": 280
+    },
+    {
+      "start": 161,
+      "end": 170,
+      "place": "白鹿隘",
+      "boss": "雪隘鎮將",
+      "hp": 397282,
+      "attack": 290
+    },
+    {
+      "start": 171,
+      "end": 180,
+      "place": "三旗關",
+      "boss": "三旗盟主",
+      "hp": 458342,
+      "attack": 299
+    },
+    {
+      "start": 181,
+      "end": 190,
+      "place": "問潮港",
+      "boss": "問潮提舵",
+      "hp": 554594,
+      "attack": 307
+    },
+    {
+      "start": 191,
+      "end": 200,
+      "place": "霧弦林",
+      "boss": "霧弦領主",
+      "hp": 753466,
+      "attack": 314
+    },
+    {
+      "start": 201,
+      "end": 210,
+      "place": "金橋市",
+      "boss": "金橋帖主",
+      "hp": 811980,
+      "attack": 321
+    },
+    {
+      "start": 211,
+      "end": 220,
+      "place": "石鐘庭",
+      "boss": "石鐘堂主",
+      "hp": 982494,
+      "attack": 328
+    },
+    {
+      "start": 221,
+      "end": 230,
+      "place": "雙崖索道",
+      "boss": "雙崖鎮首",
+      "hp": 1133491,
+      "attack": 335
+    },
+    {
+      "start": 231,
+      "end": 240,
+      "place": "折戟坡",
+      "boss": "坡上守盟人",
+      "hp": 1307696,
+      "attack": 342
+    },
+    {
+      "start": 241,
+      "end": 250,
+      "place": "青隱臺",
+      "boss": "青隱臺主",
+      "hp": 1693954,
+      "attack": 349
+    },
+    {
+      "start": 251,
+      "end": 260,
+      "place": "照世峰",
+      "boss": "照世峰盟主",
+      "hp": 1954298,
+      "attack": 356
+    }
+  ],
+  "profiles": [
+    {
+      "account": {
+        "label": "輕量",
+        "minutes": 15,
+        "library": false,
+        "forge": false,
+        "sessions": 1
+      },
+      "progression": [
+        {
+          "day": 1,
+          "low": 2,
+          "median": 2,
+          "high": 6
+        },
+        {
+          "day": 3,
+          "low": 15,
+          "median": 19,
+          "high": 22
+        },
+        {
+          "day": 7,
+          "low": 27,
+          "median": 29,
+          "high": 40
+        },
+        {
+          "day": 14,
+          "low": 40,
+          "median": 40,
+          "high": 49
+        },
+        {
+          "day": 30,
+          "low": 114,
+          "median": 114,
+          "high": 114
+        },
+        {
+          "day": 60,
+          "low": 114,
+          "median": 114,
+          "high": 114
+        },
+        {
+          "day": 90,
+          "low": 114,
+          "median": 114,
+          "high": 115
+        },
+        {
+          "day": 120,
+          "low": 114,
+          "median": 114,
+          "high": 115
+        }
+      ],
+      "checkpoints": [
+        {
+          "stage": 10,
+          "reached": 12,
+          "medianElapsedDays": 1.005,
+          "medianBattleHours": 0.21
+        },
+        {
+          "stage": 30,
+          "reached": 12,
+          "medianElapsedDays": 6.001,
+          "medianBattleHours": 0.64
+        },
+        {
+          "stage": 60,
+          "reached": 12,
+          "medianElapsedDays": 15.007,
+          "medianBattleHours": 1.2
+        },
+        {
+          "stage": 100,
+          "reached": 12,
+          "medianElapsedDays": 16.01,
+          "medianBattleHours": 1.54
+        },
+        {
+          "stage": 140,
+          "reached": 0,
+          "medianElapsedDays": null,
+          "medianBattleHours": null
+        },
+        {
+          "stage": 180,
+          "reached": 0,
+          "medianElapsedDays": null,
+          "medianBattleHours": null
+        },
+        {
+          "stage": 220,
+          "reached": 0,
+          "medianElapsedDays": null,
+          "medianBattleHours": null
+        },
+        {
+          "stage": 260,
+          "reached": 0,
+          "medianElapsedDays": null,
+          "medianBattleHours": null
+        }
+      ],
+      "runs": [
+        {
+          "seed": 42,
+          "daily": {
+            "1": 7,
+            "3": 22,
+            "7": 29,
+            "14": 40,
+            "30": 114,
+            "60": 115,
+            "90": 115,
+            "120": 115
+          },
+          "reached": {
+            "10": {
+              "day": 1.001,
+              "activeHours": 0.19,
+              "tier": 4
+            },
+            "30": {
+              "day": 13.001,
+              "activeHours": 0.91,
+              "tier": 9
+            },
+            "60": {
+              "day": 19.004,
+              "activeHours": 1.35,
+              "tier": 14
+            },
+            "100": {
+              "day": 20.007,
+              "activeHours": 1.67,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 1379,
+          "daily": {
+            "1": 2,
+            "3": 15,
+            "7": 26,
+            "14": 40,
+            "30": 114,
+            "60": 114,
+            "90": 115,
+            "120": 115
+          },
+          "reached": {
+            "10": {
+              "day": 2.002,
+              "activeHours": 0.2,
+              "tier": 4
+            },
+            "30": {
+              "day": 11.001,
+              "activeHours": 0.79,
+              "tier": 9
+            },
+            "60": {
+              "day": 17.007,
+              "activeHours": 1.21,
+              "tier": 13
+            },
+            "100": {
+              "day": 18.01,
+              "activeHours": 1.54,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 2716,
+          "daily": {
+            "1": 7,
+            "3": 15,
+            "7": 40,
+            "14": 114,
+            "30": 114,
+            "60": 114,
+            "90": 114,
+            "120": 114
+          },
+          "reached": {
+            "10": {
+              "day": 1.001,
+              "activeHours": 0.21,
+              "tier": 4
+            },
+            "30": {
+              "day": 5.001,
+              "activeHours": 0.58,
+              "tier": 9
+            },
+            "60": {
+              "day": 10.008,
+              "activeHours": 1.01,
+              "tier": 13
+            },
+            "100": {
+              "day": 12.002,
+              "activeHours": 1.35,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 4053,
+          "daily": {
+            "1": 1,
+            "3": 15,
+            "7": 29,
+            "14": 40,
+            "30": 114,
+            "60": 114,
+            "90": 114,
+            "120": 114
+          },
+          "reached": {
+            "10": {
+              "day": 2.002,
+              "activeHours": 0.21,
+              "tier": 5
+            },
+            "30": {
+              "day": 7.001,
+              "activeHours": 0.67,
+              "tier": 9
+            },
+            "60": {
+              "day": 19.004,
+              "activeHours": 1.24,
+              "tier": 14
+            },
+            "100": {
+              "day": 20.008,
+              "activeHours": 1.58,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 5390,
+          "daily": {
+            "1": 2,
+            "3": 23,
+            "7": 38,
+            "14": 47,
+            "30": 115,
+            "60": 115,
+            "90": 115,
+            "120": 115
+          },
+          "reached": {
+            "10": {
+              "day": 1.005,
+              "activeHours": 0.2,
+              "tier": 4
+            },
+            "30": {
+              "day": 6.001,
+              "activeHours": 0.64,
+              "tier": 9
+            },
+            "60": {
+              "day": 14.005,
+              "activeHours": 1.2,
+              "tier": 13
+            },
+            "100": {
+              "day": 16.001,
+              "activeHours": 1.58,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 6727,
+          "daily": {
+            "1": 2,
+            "3": 19,
+            "7": 27,
+            "14": 40,
+            "30": 114,
+            "60": 115,
+            "90": 115,
+            "120": 115
+          },
+          "reached": {
+            "10": {
+              "day": 1.004,
+              "activeHours": 0.17,
+              "tier": 4
+            },
+            "30": {
+              "day": 9.001,
+              "activeHours": 0.73,
+              "tier": 9
+            },
+            "60": {
+              "day": 19.005,
+              "activeHours": 1.24,
+              "tier": 14
+            },
+            "100": {
+              "day": 20.008,
+              "activeHours": 1.57,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 8064,
+          "daily": {
+            "1": 2,
+            "3": 14,
+            "7": 26,
+            "14": 39,
+            "30": 114,
+            "60": 114,
+            "90": 114,
+            "120": 114
+          },
+          "reached": {
+            "10": {
+              "day": 2.002,
+              "activeHours": 0.22,
+              "tier": 4
+            },
+            "30": {
+              "day": 8.001,
+              "activeHours": 0.67,
+              "tier": 9
+            },
+            "60": {
+              "day": 21.003,
+              "activeHours": 1.38,
+              "tier": 14
+            },
+            "100": {
+              "day": 22.007,
+              "activeHours": 1.71,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 9401,
+          "daily": {
+            "1": 6,
+            "3": 22,
+            "7": 37,
+            "14": 40,
+            "30": 114,
+            "60": 114,
+            "90": 114,
+            "120": 114
+          },
+          "reached": {
+            "10": {
+              "day": 1.002,
+              "activeHours": 0.19,
+              "tier": 4
+            },
+            "30": {
+              "day": 6.001,
+              "activeHours": 0.63,
+              "tier": 9
+            },
+            "60": {
+              "day": 15.007,
+              "activeHours": 1.19,
+              "tier": 13
+            },
+            "100": {
+              "day": 16.01,
+              "activeHours": 1.52,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 10738,
+          "daily": {
+            "1": 3,
+            "3": 26,
+            "7": 40,
+            "14": 49,
+            "30": 114,
+            "60": 114,
+            "90": 114,
+            "120": 114
+          },
+          "reached": {
+            "10": {
+              "day": 1.005,
+              "activeHours": 0.22,
+              "tier": 4
+            },
+            "30": {
+              "day": 5.001,
+              "activeHours": 0.6,
+              "tier": 9
+            },
+            "60": {
+              "day": 15.004,
+              "activeHours": 1.17,
+              "tier": 14
+            },
+            "100": {
+              "day": 16.007,
+              "activeHours": 1.51,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 12075,
+          "daily": {
+            "1": 2,
+            "3": 19,
+            "7": 40,
+            "14": 77,
+            "30": 114,
+            "60": 114,
+            "90": 114,
+            "120": 114
+          },
+          "reached": {
+            "10": {
+              "day": 2.002,
+              "activeHours": 0.21,
+              "tier": 4
+            },
+            "30": {
+              "day": 5.001,
+              "activeHours": 0.59,
+              "tier": 9
+            },
+            "60": {
+              "day": 13.005,
+              "activeHours": 1.14,
+              "tier": 14
+            },
+            "100": {
+              "day": 14.008,
+              "activeHours": 1.47,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 13412,
+          "daily": {
+            "1": 2,
+            "3": 15,
+            "7": 29,
+            "14": 40,
+            "30": 114,
+            "60": 114,
+            "90": 114,
+            "120": 114
+          },
+          "reached": {
+            "10": {
+              "day": 2.001,
+              "activeHours": 0.27,
+              "tier": 4
+            },
+            "30": {
+              "day": 9.001,
+              "activeHours": 0.79,
+              "tier": 9
+            },
+            "60": {
+              "day": 18.005,
+              "activeHours": 1.3,
+              "tier": 14
+            },
+            "100": {
+              "day": 19.008,
+              "activeHours": 1.63,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 14749,
+          "daily": {
+            "1": 12,
+            "3": 29,
+            "7": 40,
+            "14": 114,
+            "30": 114,
+            "60": 114,
+            "90": 114,
+            "120": 114
+          },
+          "reached": {
+            "10": {
+              "day": 0.009,
+              "activeHours": 0.22,
+              "tier": 4
+            },
+            "30": {
+              "day": 3.001,
+              "activeHours": 0.58,
+              "tier": 9
+            },
+            "60": {
+              "day": 11.004,
+              "activeHours": 1.14,
+              "tier": 14
+            },
+            "100": {
+              "day": 12.007,
+              "activeHours": 1.48,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        }
+      ]
+    },
+    {
+      "account": {
+        "label": "日常",
+        "minutes": 45,
+        "library": true,
+        "forge": false,
+        "sessions": 1
+      },
+      "progression": [
+        {
+          "day": 1,
+          "low": 2,
+          "median": 2,
+          "high": 40
+        },
+        {
+          "day": 3,
+          "low": 41,
+          "median": 45,
+          "high": 49
+        },
+        {
+          "day": 7,
+          "low": 105,
+          "median": 114,
+          "high": 115
+        },
+        {
+          "day": 14,
+          "low": 199,
+          "median": 213,
+          "high": 216
+        },
+        {
+          "day": 30,
+          "low": 244,
+          "median": 244,
+          "high": 246
+        },
+        {
+          "day": 60,
+          "low": 246,
+          "median": 247,
+          "high": 248
+        },
+        {
+          "day": 90,
+          "low": 247,
+          "median": 248,
+          "high": 249
+        },
+        {
+          "day": 120,
+          "low": 247,
+          "median": 249,
+          "high": 249
+        }
+      ],
+      "checkpoints": [
+        {
+          "stage": 10,
+          "reached": 12,
+          "medianElapsedDays": 1.004,
+          "medianBattleHours": 0.18
+        },
+        {
+          "stage": 30,
+          "reached": 12,
+          "medianElapsedDays": 1.014,
+          "medianBattleHours": 0.42
+        },
+        {
+          "stage": 60,
+          "reached": 12,
+          "medianElapsedDays": 4.005,
+          "medianBattleHours": 0.92
+        },
+        {
+          "stage": 100,
+          "reached": 12,
+          "medianElapsedDays": 4.026,
+          "medianBattleHours": 1.42
+        },
+        {
+          "stage": 140,
+          "reached": 12,
+          "medianElapsedDays": 8.011,
+          "medianBattleHours": 2.04
+        },
+        {
+          "stage": 180,
+          "reached": 12,
+          "medianElapsedDays": 9.011,
+          "medianBattleHours": 2.6
+        },
+        {
+          "stage": 220,
+          "reached": 12,
+          "medianElapsedDays": 17.001,
+          "medianBattleHours": 3.85
+        },
+        {
+          "stage": 260,
+          "reached": 3,
+          "medianElapsedDays": 86.008,
+          "medianBattleHours": 8.65
+        }
+      ],
+      "runs": [
+        {
+          "seed": 42,
+          "daily": {
+            "1": 42,
+            "3": 43,
+            "7": 45,
+            "14": 197,
+            "30": 245,
+            "60": 248,
+            "90": 249,
+            "120": 249
+          },
+          "reached": {
+            "10": {
+              "day": 0.006,
+              "activeHours": 0.15,
+              "tier": 4
+            },
+            "30": {
+              "day": 0.017,
+              "activeHours": 0.41,
+              "tier": 7
+            },
+            "60": {
+              "day": 9.008,
+              "activeHours": 1.14,
+              "tier": 9
+            },
+            "100": {
+              "day": 9.031,
+              "activeHours": 1.7,
+              "tier": 10
+            },
+            "140": {
+              "day": 12.011,
+              "activeHours": 2.23,
+              "tier": 13
+            },
+            "180": {
+              "day": 13.002,
+              "activeHours": 2.78,
+              "tier": 13
+            },
+            "220": {
+              "day": 17.001,
+              "activeHours": 3.85,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 1379,
+          "daily": {
+            "1": 2,
+            "3": 40,
+            "7": 111,
+            "14": 199,
+            "30": 244,
+            "60": 246,
+            "90": 247,
+            "120": 247
+          },
+          "reached": {
+            "10": {
+              "day": 1.005,
+              "activeHours": 0.2,
+              "tier": 4
+            },
+            "30": {
+              "day": 1.016,
+              "activeHours": 0.45,
+              "tier": 7
+            },
+            "60": {
+              "day": 6.006,
+              "activeHours": 0.95,
+              "tier": 10
+            },
+            "100": {
+              "day": 6.025,
+              "activeHours": 1.42,
+              "tier": 11
+            },
+            "140": {
+              "day": 9.009,
+              "activeHours": 1.97,
+              "tier": 13
+            },
+            "180": {
+              "day": 10.001,
+              "activeHours": 2.51,
+              "tier": 13
+            },
+            "220": {
+              "day": 25.001,
+              "activeHours": 4.13,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 2716,
+          "daily": {
+            "1": 40,
+            "3": 114,
+            "7": 199,
+            "14": 245,
+            "30": 247,
+            "60": 249,
+            "90": 260,
+            "120": 260
+          },
+          "reached": {
+            "10": {
+              "day": 0.007,
+              "activeHours": 0.17,
+              "tier": 4
+            },
+            "30": {
+              "day": 0.017,
+              "activeHours": 0.41,
+              "tier": 7
+            },
+            "60": {
+              "day": 1.01,
+              "activeHours": 0.79,
+              "tier": 10
+            },
+            "100": {
+              "day": 2.001,
+              "activeHours": 1.32,
+              "tier": 11
+            },
+            "140": {
+              "day": 5.011,
+              "activeHours": 1.88,
+              "tier": 13
+            },
+            "180": {
+              "day": 6.002,
+              "activeHours": 2.42,
+              "tier": 14
+            },
+            "220": {
+              "day": 12.004,
+              "activeHours": 3.52,
+              "tier": 14
+            },
+            "260": {
+              "day": 64.018,
+              "activeHours": 7.61,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 4053,
+          "daily": {
+            "1": 1,
+            "3": 41,
+            "7": 114,
+            "14": 211,
+            "30": 244,
+            "60": 246,
+            "90": 247,
+            "120": 248
+          },
+          "reached": {
+            "10": {
+              "day": 2.002,
+              "activeHours": 0.19,
+              "tier": 5
+            },
+            "30": {
+              "day": 2.011,
+              "activeHours": 0.4,
+              "tier": 7
+            },
+            "60": {
+              "day": 4.009,
+              "activeHours": 0.9,
+              "tier": 9
+            },
+            "100": {
+              "day": 5.003,
+              "activeHours": 1.51,
+              "tier": 10
+            },
+            "140": {
+              "day": 9.002,
+              "activeHours": 2.39,
+              "tier": 13
+            },
+            "180": {
+              "day": 9.026,
+              "activeHours": 2.96,
+              "tier": 13
+            },
+            "220": {
+              "day": 23.001,
+              "activeHours": 4.45,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 5390,
+          "daily": {
+            "1": 2,
+            "3": 49,
+            "7": 115,
+            "14": 216,
+            "30": 247,
+            "60": 248,
+            "90": 249,
+            "120": 260
+          },
+          "reached": {
+            "10": {
+              "day": 1.004,
+              "activeHours": 0.17,
+              "tier": 4
+            },
+            "30": {
+              "day": 1.014,
+              "activeHours": 0.41,
+              "tier": 7
+            },
+            "60": {
+              "day": 3.006,
+              "activeHours": 0.92,
+              "tier": 10
+            },
+            "100": {
+              "day": 3.026,
+              "activeHours": 1.41,
+              "tier": 11
+            },
+            "140": {
+              "day": 8.009,
+              "activeHours": 2.04,
+              "tier": 13
+            },
+            "180": {
+              "day": 9.002,
+              "activeHours": 2.61,
+              "tier": 13
+            },
+            "220": {
+              "day": 17.001,
+              "activeHours": 3.85,
+              "tier": 14
+            },
+            "260": {
+              "day": 99.015,
+              "activeHours": 9.78,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 6727,
+          "daily": {
+            "1": 2,
+            "3": 42,
+            "7": 105,
+            "14": 213,
+            "30": 244,
+            "60": 247,
+            "90": 260,
+            "120": 260
+          },
+          "reached": {
+            "10": {
+              "day": 1.004,
+              "activeHours": 0.17,
+              "tier": 4
+            },
+            "30": {
+              "day": 1.014,
+              "activeHours": 0.4,
+              "tier": 7
+            },
+            "60": {
+              "day": 6.005,
+              "activeHours": 0.94,
+              "tier": 10
+            },
+            "100": {
+              "day": 6.028,
+              "activeHours": 1.49,
+              "tier": 10
+            },
+            "140": {
+              "day": 11.01,
+              "activeHours": 2.18,
+              "tier": 13
+            },
+            "180": {
+              "day": 12.011,
+              "activeHours": 2.73,
+              "tier": 14
+            },
+            "220": {
+              "day": 14.009,
+              "activeHours": 3.61,
+              "tier": 14
+            },
+            "260": {
+              "day": 86.008,
+              "activeHours": 8.65,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 8064,
+          "daily": {
+            "1": 2,
+            "3": 40,
+            "7": 114,
+            "14": 212,
+            "30": 245,
+            "60": 249,
+            "90": 249,
+            "120": 249
+          },
+          "reached": {
+            "10": {
+              "day": 2.002,
+              "activeHours": 0.22,
+              "tier": 5
+            },
+            "30": {
+              "day": 2.012,
+              "activeHours": 0.46,
+              "tier": 7
+            },
+            "60": {
+              "day": 5.007,
+              "activeHours": 0.98,
+              "tier": 9
+            },
+            "100": {
+              "day": 5.031,
+              "activeHours": 1.55,
+              "tier": 10
+            },
+            "140": {
+              "day": 8.009,
+              "activeHours": 2.16,
+              "tier": 13
+            },
+            "180": {
+              "day": 9.011,
+              "activeHours": 2.72,
+              "tier": 14
+            },
+            "220": {
+              "day": 29.001,
+              "activeHours": 4.46,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 9401,
+          "daily": {
+            "1": 7,
+            "3": 46,
+            "7": 117,
+            "14": 217,
+            "30": 246,
+            "60": 247,
+            "90": 247,
+            "120": 247
+          },
+          "reached": {
+            "10": {
+              "day": 1.001,
+              "activeHours": 0.18,
+              "tier": 4
+            },
+            "30": {
+              "day": 1.012,
+              "activeHours": 0.42,
+              "tier": 7
+            },
+            "60": {
+              "day": 3.009,
+              "activeHours": 0.92,
+              "tier": 9
+            },
+            "100": {
+              "day": 4.001,
+              "activeHours": 1.47,
+              "tier": 11
+            },
+            "140": {
+              "day": 7.01,
+              "activeHours": 2.06,
+              "tier": 13
+            },
+            "180": {
+              "day": 8.001,
+              "activeHours": 2.6,
+              "tier": 14
+            },
+            "220": {
+              "day": 15.004,
+              "activeHours": 3.8,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 10738,
+          "daily": {
+            "1": 41,
+            "3": 48,
+            "7": 115,
+            "14": 216,
+            "30": 246,
+            "60": 248,
+            "90": 249,
+            "120": 249
+          },
+          "reached": {
+            "10": {
+              "day": 0.008,
+              "activeHours": 0.18,
+              "tier": 4
+            },
+            "30": {
+              "day": 0.017,
+              "activeHours": 0.42,
+              "tier": 7
+            },
+            "60": {
+              "day": 3.005,
+              "activeHours": 0.85,
+              "tier": 10
+            },
+            "100": {
+              "day": 3.026,
+              "activeHours": 1.35,
+              "tier": 11
+            },
+            "140": {
+              "day": 9.011,
+              "activeHours": 2,
+              "tier": 13
+            },
+            "180": {
+              "day": 10.002,
+              "activeHours": 2.53,
+              "tier": 14
+            },
+            "220": {
+              "day": 16.001,
+              "activeHours": 3.57,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 12075,
+          "daily": {
+            "1": 2,
+            "3": 49,
+            "7": 115,
+            "14": 213,
+            "30": 244,
+            "60": 247,
+            "90": 247,
+            "120": 247
+          },
+          "reached": {
+            "10": {
+              "day": 1.004,
+              "activeHours": 0.18,
+              "tier": 4
+            },
+            "30": {
+              "day": 1.014,
+              "activeHours": 0.43,
+              "tier": 7
+            },
+            "60": {
+              "day": 4.005,
+              "activeHours": 0.91,
+              "tier": 10
+            },
+            "100": {
+              "day": 4.026,
+              "activeHours": 1.4,
+              "tier": 11
+            },
+            "140": {
+              "day": 8.011,
+              "activeHours": 2,
+              "tier": 13
+            },
+            "180": {
+              "day": 9.003,
+              "activeHours": 2.54,
+              "tier": 14
+            },
+            "220": {
+              "day": 22.001,
+              "activeHours": 4,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 13412,
+          "daily": {
+            "1": 2,
+            "3": 45,
+            "7": 47,
+            "14": 177,
+            "30": 244,
+            "60": 245,
+            "90": 248,
+            "120": 249
+          },
+          "reached": {
+            "10": {
+              "day": 1.006,
+              "activeHours": 0.23,
+              "tier": 4
+            },
+            "30": {
+              "day": 1.016,
+              "activeHours": 0.46,
+              "tier": 7
+            },
+            "60": {
+              "day": 7.005,
+              "activeHours": 1.02,
+              "tier": 10
+            },
+            "100": {
+              "day": 7.025,
+              "activeHours": 1.49,
+              "tier": 11
+            },
+            "140": {
+              "day": 13.01,
+              "activeHours": 2.18,
+              "tier": 13
+            },
+            "180": {
+              "day": 14.002,
+              "activeHours": 2.75,
+              "tier": 14
+            },
+            "220": {
+              "day": 24.002,
+              "activeHours": 4.13,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 14749,
+          "daily": {
+            "1": 40,
+            "3": 109,
+            "7": 175,
+            "14": 244,
+            "30": 244,
+            "60": 246,
+            "90": 247,
+            "120": 249
+          },
+          "reached": {
+            "10": {
+              "day": 0.008,
+              "activeHours": 0.19,
+              "tier": 4
+            },
+            "30": {
+              "day": 0.017,
+              "activeHours": 0.42,
+              "tier": 7
+            },
+            "60": {
+              "day": 2.005,
+              "activeHours": 0.87,
+              "tier": 10
+            },
+            "100": {
+              "day": 2.026,
+              "activeHours": 1.36,
+              "tier": 11
+            },
+            "140": {
+              "day": 6.011,
+              "activeHours": 1.93,
+              "tier": 13
+            },
+            "180": {
+              "day": 7.003,
+              "activeHours": 2.5,
+              "tier": 14
+            },
+            "220": {
+              "day": 13.003,
+              "activeHours": 3.65,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        }
+      ]
+    },
+    {
+      "account": {
+        "label": "積極",
+        "minutes": 120,
+        "library": true,
+        "forge": true,
+        "sessions": 2
+      },
+      "progression": [
+        {
+          "day": 1,
+          "low": 40,
+          "median": 41,
+          "high": 43
+        },
+        {
+          "day": 3,
+          "low": 46,
+          "median": 114,
+          "high": 116
+        },
+        {
+          "day": 7,
+          "low": 197,
+          "median": 212,
+          "high": 216
+        },
+        {
+          "day": 14,
+          "low": 245,
+          "median": 246,
+          "high": 248
+        },
+        {
+          "day": 30,
+          "low": 247,
+          "median": 249,
+          "high": 260
+        },
+        {
+          "day": 60,
+          "low": 249,
+          "median": 260,
+          "high": 260
+        },
+        {
+          "day": 90,
+          "low": 260,
+          "median": 260,
+          "high": 260
+        },
+        {
+          "day": 120,
+          "low": 260,
+          "median": 260,
+          "high": 260
+        }
+      ],
+      "checkpoints": [
+        {
+          "stage": 10,
+          "reached": 12,
+          "medianElapsedDays": 0.504,
+          "medianBattleHours": 0.18
+        },
+        {
+          "stage": 30,
+          "reached": 12,
+          "medianElapsedDays": 0.514,
+          "medianBattleHours": 0.42
+        },
+        {
+          "stage": 60,
+          "reached": 12,
+          "medianElapsedDays": 2.005,
+          "medianBattleHours": 0.92
+        },
+        {
+          "stage": 100,
+          "reached": 12,
+          "medianElapsedDays": 2.026,
+          "medianBattleHours": 1.42
+        },
+        {
+          "stage": 140,
+          "reached": 12,
+          "medianElapsedDays": 4.503,
+          "medianBattleHours": 2.1
+        },
+        {
+          "stage": 180,
+          "reached": 12,
+          "medianElapsedDays": 4.524,
+          "medianBattleHours": 2.66
+        },
+        {
+          "stage": 220,
+          "reached": 12,
+          "medianElapsedDays": 10.004,
+          "medianBattleHours": 4.02
+        },
+        {
+          "stage": 260,
+          "reached": 10,
+          "medianElapsedDays": 19.014,
+          "medianBattleHours": 6
+        }
+      ],
+      "runs": [
+        {
+          "seed": 42,
+          "daily": {
+            "1": 42,
+            "3": 45,
+            "7": 210,
+            "14": 247,
+            "30": 249,
+            "60": 249,
+            "90": 260,
+            "120": 260
+          },
+          "reached": {
+            "10": {
+              "day": 0.006,
+              "activeHours": 0.15,
+              "tier": 4
+            },
+            "30": {
+              "day": 0.017,
+              "activeHours": 0.41,
+              "tier": 7
+            },
+            "60": {
+              "day": 4.508,
+              "activeHours": 1.14,
+              "tier": 9
+            },
+            "100": {
+              "day": 4.531,
+              "activeHours": 1.7,
+              "tier": 10
+            },
+            "140": {
+              "day": 6.01,
+              "activeHours": 2.28,
+              "tier": 13
+            },
+            "180": {
+              "day": 6.031,
+              "activeHours": 2.78,
+              "tier": 13
+            },
+            "220": {
+              "day": 10.004,
+              "activeHours": 3.89,
+              "tier": 14
+            },
+            "260": {
+              "day": 72.513,
+              "activeHours": 11.9,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "equipment": {
+            "weapon": "sunshot-bow",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 1379,
+          "daily": {
+            "1": 40,
+            "3": 46,
+            "7": 212,
+            "14": 249,
+            "30": 260,
+            "60": 260,
+            "90": 260,
+            "120": 260
+          },
+          "reached": {
+            "10": {
+              "day": 0.505,
+              "activeHours": 0.2,
+              "tier": 4
+            },
+            "30": {
+              "day": 0.516,
+              "activeHours": 0.45,
+              "tier": 7
+            },
+            "60": {
+              "day": 3.006,
+              "activeHours": 0.95,
+              "tier": 10
+            },
+            "100": {
+              "day": 3.025,
+              "activeHours": 1.42,
+              "tier": 11
+            },
+            "140": {
+              "day": 5.009,
+              "activeHours": 2.07,
+              "tier": 13
+            },
+            "180": {
+              "day": 5.03,
+              "activeHours": 2.57,
+              "tier": 13
+            },
+            "220": {
+              "day": 7.012,
+              "activeHours": 3.63,
+              "tier": 14
+            },
+            "260": {
+              "day": 18.507,
+              "activeHours": 6,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "equipment": {
+            "weapon": "twin-hooks",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 2716,
+          "daily": {
+            "1": 114,
+            "3": 198,
+            "7": 249,
+            "14": 260,
+            "30": 260,
+            "60": 260,
+            "90": 260,
+            "120": 260
+          },
+          "reached": {
+            "10": {
+              "day": 0.007,
+              "activeHours": 0.17,
+              "tier": 4
+            },
+            "30": {
+              "day": 0.017,
+              "activeHours": 0.41,
+              "tier": 7
+            },
+            "60": {
+              "day": 0.51,
+              "activeHours": 0.79,
+              "tier": 10
+            },
+            "100": {
+              "day": 0.531,
+              "activeHours": 1.31,
+              "tier": 10
+            },
+            "140": {
+              "day": 2.011,
+              "activeHours": 1.88,
+              "tier": 13
+            },
+            "180": {
+              "day": 2.03,
+              "activeHours": 2.34,
+              "tier": 13
+            },
+            "220": {
+              "day": 4.011,
+              "activeHours": 3.28,
+              "tier": 14
+            },
+            "260": {
+              "day": 13.513,
+              "activeHours": 5.32,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "equipment": {
+            "weapon": "divine-xuan-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 4053,
+          "daily": {
+            "1": 6,
+            "3": 114,
+            "7": 197,
+            "14": 245,
+            "30": 247,
+            "60": 249,
+            "90": 260,
+            "120": 260
+          },
+          "reached": {
+            "10": {
+              "day": 1.002,
+              "activeHours": 0.19,
+              "tier": 5
+            },
+            "30": {
+              "day": 1.011,
+              "activeHours": 0.4,
+              "tier": 7
+            },
+            "60": {
+              "day": 2.009,
+              "activeHours": 0.9,
+              "tier": 9
+            },
+            "100": {
+              "day": 2.501,
+              "activeHours": 1.51,
+              "tier": 10
+            },
+            "140": {
+              "day": 5.509,
+              "activeHours": 2.38,
+              "tier": 13
+            },
+            "180": {
+              "day": 5.533,
+              "activeHours": 2.94,
+              "tier": 13
+            },
+            "220": {
+              "day": 13.002,
+              "activeHours": 4.59,
+              "tier": 14
+            },
+            "260": {
+              "day": 70.517,
+              "activeHours": 12.23,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "equipment": {
+            "weapon": "wolffang-whip",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 5390,
+          "daily": {
+            "1": 43,
+            "3": 115,
+            "7": 217,
+            "14": 249,
+            "30": 260,
+            "60": 260,
+            "90": 260,
+            "120": 260
+          },
+          "reached": {
+            "10": {
+              "day": 0.504,
+              "activeHours": 0.17,
+              "tier": 4
+            },
+            "30": {
+              "day": 0.514,
+              "activeHours": 0.41,
+              "tier": 7
+            },
+            "60": {
+              "day": 1.506,
+              "activeHours": 0.92,
+              "tier": 10
+            },
+            "100": {
+              "day": 1.526,
+              "activeHours": 1.41,
+              "tier": 11
+            },
+            "140": {
+              "day": 4.011,
+              "activeHours": 2.1,
+              "tier": 13
+            },
+            "180": {
+              "day": 4.032,
+              "activeHours": 2.61,
+              "tier": 13
+            },
+            "220": {
+              "day": 7.502,
+              "activeHours": 3.72,
+              "tier": 14
+            },
+            "260": {
+              "day": 16.013,
+              "activeHours": 5.62,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "equipment": {
+            "weapon": "dragoncall-spear",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 6727,
+          "daily": {
+            "1": 41,
+            "3": 47,
+            "7": 152,
+            "14": 246,
+            "30": 249,
+            "60": 260,
+            "90": 260,
+            "120": 260
+          },
+          "reached": {
+            "10": {
+              "day": 0.504,
+              "activeHours": 0.17,
+              "tier": 4
+            },
+            "30": {
+              "day": 0.514,
+              "activeHours": 0.4,
+              "tier": 7
+            },
+            "60": {
+              "day": 3.005,
+              "activeHours": 0.94,
+              "tier": 10
+            },
+            "100": {
+              "day": 3.028,
+              "activeHours": 1.49,
+              "tier": 10
+            },
+            "140": {
+              "day": 5.511,
+              "activeHours": 2.31,
+              "tier": 12
+            },
+            "180": {
+              "day": 10.018,
+              "activeHours": 3.39,
+              "tier": 12
+            },
+            "220": {
+              "day": 13.001,
+              "activeHours": 4.37,
+              "tier": 14
+            },
+            "260": {
+              "day": 39.504,
+              "activeHours": 8.45,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "equipment": {
+            "weapon": "autumnwater-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 8064,
+          "daily": {
+            "1": 6,
+            "3": 114,
+            "7": 213,
+            "14": 248,
+            "30": 260,
+            "60": 260,
+            "90": 260,
+            "120": 260
+          },
+          "reached": {
+            "10": {
+              "day": 1.002,
+              "activeHours": 0.22,
+              "tier": 5
+            },
+            "30": {
+              "day": 1.012,
+              "activeHours": 0.46,
+              "tier": 7
+            },
+            "60": {
+              "day": 2.507,
+              "activeHours": 0.98,
+              "tier": 9
+            },
+            "100": {
+              "day": 2.531,
+              "activeHours": 1.55,
+              "tier": 10
+            },
+            "140": {
+              "day": 4.503,
+              "activeHours": 2.33,
+              "tier": 13
+            },
+            "180": {
+              "day": 4.524,
+              "activeHours": 2.83,
+              "tier": 13
+            },
+            "220": {
+              "day": 11.501,
+              "activeHours": 4.32,
+              "tier": 14
+            },
+            "260": {
+              "day": 14.512,
+              "activeHours": 5.63,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "equipment": {
+            "weapon": "taiya-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 9401,
+          "daily": {
+            "1": 41,
+            "3": 117,
+            "7": 218,
+            "14": 247,
+            "30": 247,
+            "60": 247,
+            "90": 260,
+            "120": 260
+          },
+          "reached": {
+            "10": {
+              "day": 0.501,
+              "activeHours": 0.18,
+              "tier": 4
+            },
+            "30": {
+              "day": 0.512,
+              "activeHours": 0.42,
+              "tier": 7
+            },
+            "60": {
+              "day": 1.509,
+              "activeHours": 0.92,
+              "tier": 9
+            },
+            "100": {
+              "day": 1.533,
+              "activeHours": 1.47,
+              "tier": 10
+            },
+            "140": {
+              "day": 3.51,
+              "activeHours": 2.15,
+              "tier": 13
+            },
+            "180": {
+              "day": 3.534,
+              "activeHours": 2.71,
+              "tier": 13
+            },
+            "220": {
+              "day": 7.502,
+              "activeHours": 4.02,
+              "tier": 14
+            },
+            "260": {
+              "day": 75.513,
+              "activeHours": 12.71,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "equipment": {
+            "weapon": "pine-staff",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 10738,
+          "daily": {
+            "1": 42,
+            "3": 115,
+            "7": 210,
+            "14": 246,
+            "30": 260,
+            "60": 260,
+            "90": 260,
+            "120": 260
+          },
+          "reached": {
+            "10": {
+              "day": 0.008,
+              "activeHours": 0.18,
+              "tier": 4
+            },
+            "30": {
+              "day": 0.017,
+              "activeHours": 0.42,
+              "tier": 7
+            },
+            "60": {
+              "day": 1.505,
+              "activeHours": 0.85,
+              "tier": 10
+            },
+            "100": {
+              "day": 1.526,
+              "activeHours": 1.35,
+              "tier": 11
+            },
+            "140": {
+              "day": 5.006,
+              "activeHours": 2.29,
+              "tier": 12
+            },
+            "180": {
+              "day": 5.516,
+              "activeHours": 2.86,
+              "tier": 13
+            },
+            "220": {
+              "day": 12.502,
+              "activeHours": 4.3,
+              "tier": 14
+            },
+            "260": {
+              "day": 19.014,
+              "activeHours": 5.99,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "equipment": {
+            "weapon": "snowstream-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 12075,
+          "daily": {
+            "1": 41,
+            "3": 116,
+            "7": 216,
+            "14": 244,
+            "30": 247,
+            "60": 247,
+            "90": 248,
+            "120": 249
+          },
+          "reached": {
+            "10": {
+              "day": 0.504,
+              "activeHours": 0.18,
+              "tier": 4
+            },
+            "30": {
+              "day": 0.514,
+              "activeHours": 0.43,
+              "tier": 7
+            },
+            "60": {
+              "day": 2.005,
+              "activeHours": 0.91,
+              "tier": 10
+            },
+            "100": {
+              "day": 2.026,
+              "activeHours": 1.4,
+              "tier": 11
+            },
+            "140": {
+              "day": 3.51,
+              "activeHours": 2.05,
+              "tier": 13
+            },
+            "180": {
+              "day": 3.535,
+              "activeHours": 2.65,
+              "tier": 13
+            },
+            "220": {
+              "day": 11.501,
+              "activeHours": 4.23,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "pine-armor",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 13412,
+          "daily": {
+            "1": 43,
+            "3": 46,
+            "7": 196,
+            "14": 244,
+            "30": 245,
+            "60": 249,
+            "90": 249,
+            "120": 249
+          },
+          "reached": {
+            "10": {
+              "day": 0.506,
+              "activeHours": 0.23,
+              "tier": 4
+            },
+            "30": {
+              "day": 0.516,
+              "activeHours": 0.46,
+              "tier": 7
+            },
+            "60": {
+              "day": 3.505,
+              "activeHours": 1.02,
+              "tier": 10
+            },
+            "100": {
+              "day": 3.525,
+              "activeHours": 1.49,
+              "tier": 11
+            },
+            "140": {
+              "day": 5.511,
+              "activeHours": 2.1,
+              "tier": 13
+            },
+            "180": {
+              "day": 5.534,
+              "activeHours": 2.66,
+              "tier": 13
+            },
+            "220": {
+              "day": 11.502,
+              "activeHours": 4.23,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "equipment": {
+            "weapon": "old-sword",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        },
+        {
+          "seed": 14749,
+          "daily": {
+            "1": 49,
+            "3": 192,
+            "7": 216,
+            "14": 246,
+            "30": 249,
+            "60": 260,
+            "90": 260,
+            "120": 260
+          },
+          "reached": {
+            "10": {
+              "day": 0.008,
+              "activeHours": 0.19,
+              "tier": 4
+            },
+            "30": {
+              "day": 0.017,
+              "activeHours": 0.42,
+              "tier": 7
+            },
+            "60": {
+              "day": 1.005,
+              "activeHours": 0.87,
+              "tier": 10
+            },
+            "100": {
+              "day": 1.026,
+              "activeHours": 1.36,
+              "tier": 11
+            },
+            "140": {
+              "day": 2.511,
+              "activeHours": 1.94,
+              "tier": 13
+            },
+            "180": {
+              "day": 2.534,
+              "activeHours": 2.49,
+              "tier": 13
+            },
+            "220": {
+              "day": 7.502,
+              "activeHours": 3.73,
+              "tier": 14
+            },
+            "260": {
+              "day": 33.517,
+              "activeHours": 7.91,
+              "tier": 14
+            }
+          },
+          "finalTier": 14,
+          "volumes": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "equipment": {
+            "weapon": "yanling-blade",
+            "armor": "plain-robe",
+            "accessory": null
+          }
+        }
+      ]
+    }
+  ]
+}

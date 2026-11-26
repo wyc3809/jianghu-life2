@@ -194,20 +194,24 @@ describe('spar heal rules (無回血技唔會自動回血)', () => {
 });
 
 describe('spar scenes & themes (場景／出場有規律)', () => {
-  it('test_scene_changes_every_ten_stages_and_loops', async () => {
-    const { sparSceneFor, SPAR_SCENE_SPAN, SPAR_SCENES } = await import('../core/life/sparDuel');
-    expect(SPAR_SCENES).toHaveLength(6);
+  it('test_spar_scene_首尾同分章_共260關兼容舊存檔延伸', async () => {
+    const { sparSceneFor, SPAR_SCENE_SPAN, SPAR_SCENES, SPAR_CAMPAIGN_END } = await import('../core/life/sparDuel');
+    expect(SPAR_SCENES).toHaveLength(26);
+    expect(SPAR_CAMPAIGN_END).toBe(260);
     expect(SPAR_SCENE_SPAN).toBe(10);
     expect(sparSceneFor(1).place).toBe('千燈鎮');
     expect(sparSceneFor(10).place).toBe('千燈鎮');
     expect(sparSceneFor(11).place).toBe('山道');
     expect(sparSceneFor(51).place).toBe('夜山');
-    expect(sparSceneFor(61).place).toBe('千燈鎮');
+    expect(sparSceneFor(61).place).toBe('回雁驛');
+    expect(sparSceneFor(260).place).toBe('照世峰');
+    expect(sparSceneFor(261).place).toBe('照世峰');
+    expect(sparStageFoes(500).every(f => Number.isFinite(f.maxHp))).toBe(true);
   });
 
-  it('test_spar_roster_六區各關_按本地圖鑑出小兵精英首領', async () => {
-    const { sparThemeFor } = await import('../core/life/sparDuel');
-    for (let stage = 1; stage <= 120; stage += 1) {
+  it('test_spar_roster_全部260關_按本地圖鑑出小兵精英再到關主', async () => {
+    const { sparSceneFor, sparThemeFor } = await import('../core/life/sparDuel');
+    for (let stage = 1; stage <= 260; stage += 1) {
       const theme = sparThemeFor(stage);
       const foes = sparStageFoes(stage);
       const n = sparMinionCount(stage);
@@ -221,8 +225,22 @@ describe('spar scenes & themes (場景／出場有規律)', () => {
         expect(theme.elites).toContainEqual([f.look, f.name]);
         expect(f.tier).toBe('elite');
       });
-      expect([foes.at(-1)!.look, foes.at(-1)!.name]).toEqual([...theme.boss]);
-      expect(sparStageFoes(stage).map((f) => f.look)).toEqual(foes.map((f) => f.look));
+      const region = sparSceneFor(stage).region;
+      const winner = 'warden' in region && stage % 10 !== 0 ? region.warden : region.boss;
+      expect(foes.at(-1)).toMatchObject({ id: winner.id, boss: true });
+      expect(sparStageFoes(stage)).toEqual(foes);
+    }
+  });
+
+  it('test_spar_roster_新章中段同章尾_第三款援軍異特性與章主', () => {
+    for (let stage = 61; stage <= 260; stage += 10) {
+      const opener = sparStageFoes(stage);
+      const mid = sparStageFoes(stage + 4);
+      const end = sparStageFoes(stage + 9);
+      expect(new Set(mid.filter(f => f.tier === 'minion').map(f => f.id)).size).toBe(3);
+      expect(opener.at(-1)!.trait).not.toBe(mid.at(-1)!.trait);
+      expect(opener.at(-1)!.id).not.toBe(end.at(-1)!.id);
+      expect(end.at(-1)!.maxHp).toBeGreaterThan(sparStageFoes(stage + 8).at(-1)!.maxHp);
     }
   });
 
