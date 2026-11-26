@@ -68,3 +68,17 @@
 .ink-idle-note { color: var(--ink-soft); font-size: 12px; line-height: 1.8; margin: 10px 0 18px; }
 .ink-idle-collect { width: 100%; padding: 6px 12px; border: 10px solid transparent; border-image: var(--wuxia-frame-selected) 128 / 1 stretch; background: rgba(163, 58, 50, .07); background-clip: padding-box; color: var(--cinnabar); font-size: 16px; font-weight: 600; }
 .ink-idle-collect:disabled { cursor: default; color: var(--ink-soft); border-image-source: var(--wuxia-frame-neutral); background: none; }
+.ink-spar-boss-clue {
+  position: absolute;
+  z-index: 2;
+  inset: 8px 14px auto;
+  margin: 0 auto;
+  width: fit-content;
+  padding: 4px 9px;
+  border-inline-start: 2px solid #a33a32;
+  color: #473a2d;
+  background: #f3ede2;
+  font-size: 12px;
+  line-height: 1.5;
+  pointer-events: none;
+}

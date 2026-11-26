@@ -59,17 +59,17 @@ describe('演武完整回合難度曲線（第38項）', () => {
   it('test_spar_curve_every_tier_pushes_further', () => {
     const walls = [0, 2, 4, 8, 14].map((t) => wallStage(lifeAtTier(t)));
     for (let i = 1; i < walls.length; i++) expect(walls[i]!).toBeGreaterThan(walls[i - 1]!);
-    // 候選目標：頂境只用卷一仍能推至30關以上，但不再沿用舊35關保底。
-    expect(walls.at(-1)!).toBeGreaterThanOrEqual(30);
-    expect(walls.at(-1)!).toBeLessThanOrEqual(40);
+    // 260關分段曲線：單卷頂境能打入新章，仍需要補配搭先過中後段。
+    expect(walls.at(-1)!).toBeGreaterThanOrEqual(61);
+    expect(walls.at(-1)!).toBeLessThan(140);
   });
 
   it('test_spar_curve_boss_hit_never_takes_most_of_hp_at_wall', () => {
     for (const tier of [0, 4, 8, 14]) {
       const hero = lifeAtTier(tier);
       const boss = sparStageFoes(wallStage(hero)).at(-1)!;
-      // 撞牆時首領一擊都唔超過主角氣血 20%（舊曲線頂境約 242%＝一擊倒地）
-      expect(boss.atk / hero.character.maxHealth).toBeLessThan(0.2);
+      // 輸喺累積受傷、連擊同特性，首領基礎一擊仍有足夠接招空間。
+      expect(boss.atk / hero.character.maxHealth).toBeLessThan(0.3);
     }
   });
 
