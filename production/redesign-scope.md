@@ -1760,3 +1760,7 @@ world Edge v5、live Edge v2及migration 20261115090053已部署，verify_jwt與
 #### 開卷晨景頂部安全區（2026-11-26，EA0.120.1）
 
 開卷晨景延伸到原生 iOS 狀態列底下，將頂部安全留位移入開卷內容，標題起點和操作維持原位。手機瀏覽器開卷依裝置頂部安全區留位。實畫比較見 `production/qa/evidence/redesign/start-safe-area/comparison.webp`。
+
+#### 內頁與全屏演出頂部安全區（2026-11-26，EA0.120.2）
+
+原生根容器貼齊畫面，鎮居、人物、江湖及事件由各頁內容留安全距離。同遊江湖只留一次安全區。人物主頁日景、人物誌、華山入場及門派會武紙景覆蓋至狀態列底下，人物誌關閉掣在短屏亦可操作。創角同獨立同遊頁內容可在安全區內捲動。前後對照及入場片段見 `production/qa/evidence/redesign/game-safe-area/`。

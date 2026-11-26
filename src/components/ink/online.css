@@ -1,4 +1,4 @@
-.online-page { max-width: 420px; margin: 0 auto; padding: 18px 16px 40px; box-sizing: border-box; min-height: 100dvh; }
+.online-page { max-width: 420px; margin: 0 auto; padding: calc(18px + env(safe-area-inset-top, 0px)) 16px max(40px, env(safe-area-inset-bottom, 0px)); box-sizing: border-box; min-height: 100dvh; }
 .online-back { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink-mid); font-size: 14px; text-decoration: none; }
 .ink-online { color: var(--ink); font: 14px/1.65 var(--game-ui-font); letter-spacing: .025em; min-width: 0; }
 .ink-online * { box-sizing: border-box; }

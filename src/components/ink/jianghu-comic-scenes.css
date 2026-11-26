@@ -76,7 +76,8 @@
 }
 .ink-jianghu-comic-arrival {
   position: fixed;
-  inset: max(48px, env(safe-area-inset-top)) 0 0;
+  inset: 0;
+  pointer-events: none;
   z-index: 25;
   width: min(100%, 420px);
   margin-inline: auto;

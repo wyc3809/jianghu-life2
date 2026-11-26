@@ -17,9 +17,8 @@ body .scroll-shell.scroll-shell--play { --paper:#fcf8f0; --paper-aged:#f6f0e5; -
 body .ink-backdrop { inset:0; height:100%; mask-image:none; filter:none; box-shadow:none; }
 body .ink-backdrop .ink-backdrop-ai { object-position:center; opacity:.78; filter:none; }
 body .ink-ai-wash--play { opacity:.14; }
-body .scroll-shell.scroll-shell--person { background:var(--art-paper); }
-body .ink-person-overview { background:var(--art-landscape) center/cover,var(--art-paper); }
-body .scroll-shell--person.scroll-shell--tap-detail { background:var(--art-landscape) center/cover,var(--art-paper); }
+body .scroll-shell.scroll-shell--person { background:var(--art-landscape) center/cover,var(--art-paper); }
+body .ink-person-overview { background:none; }
 body .ink-codex-page { background:var(--art-paper); }
 body .ink-codex-theatre { background:radial-gradient(ellipse at 54% 58%,#edf1e6 0%,#faf9f1 52%,#fffaf2 80%); }
 body .scroll-shell.scroll-shell--jianghu-map { background:var(--art-paper); }

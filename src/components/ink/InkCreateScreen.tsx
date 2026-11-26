@@ -58,146 +58,148 @@ export function InkCreateScreen() {
   };
 
   return (
-    <div className="scroll-shell ink-enter">
+    <div className="scroll-shell ink-create ink-enter">
       <InkScrollBackdrop variant="hero" />
-      <header className="ink-hero">
-        <h1 className="ink-brand" style={{ fontSize: '2.2rem' }}>
-          立卷
-        </h1>
-        <p className="ink-tagline">
-          {step === 'identity'
-            ? '出生地已定 · 千燈鎮'
-            : step === 'origin'
-              ? originRoundLabel(round)
-              : '童年經歷已定'}
-        </p>
-        <p className="ink-rule" aria-hidden />
-      </header>
+      <div className="ink-safe-scroll">
+        <header className="ink-hero">
+          <h1 className="ink-brand" style={{ fontSize: '2.2rem' }}>
+            立卷
+          </h1>
+          <p className="ink-tagline">
+            {step === 'identity'
+              ? '出生地已定 · 千燈鎮'
+              : step === 'origin'
+                ? originRoundLabel(round)
+                : '童年經歷已定'}
+          </p>
+          <p className="ink-rule" aria-hidden />
+        </header>
 
-      {step === 'identity' && (
-        <>
-          <section className="ink-panel">
-            <label className="ink-field">
-              <span>姓名</span>
-              <input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="留空則隨機取名"
-                maxLength={8}
-              />
-            </label>
-            <label className="ink-field">
-              <span>性別</span>
-              <select value={gender} onChange={(e) => setGender(e.target.value as 'male' | 'female')}>
-                <option value="male">男</option>
-                <option value="female">女</option>
-              </select>
-            </label>
-            <p className="ink-note">
-              接下來將經歷數段童年往事。不同選擇會影響人物的初始屬性、心性與身世。
-            </p>
-            <button type="button" className="ink-btn" onClick={()=>setAppearanceOpen(true)}><AppearanceBadge character={{appearance}} size={44}/>衣著與造型</button>
-          </section>
-          <div className="ink-cta-stack">
-            <button
-              type="button"
-              className="ink-btn ink-btn--primary"
-              onClick={() => {
-                setPicks([]);
-                setRound(0);
-                setStep('origin');
-              }}
-            >
-              翻開少時
-            </button>
-
-            <button type="button" className="ink-btn ink-btn--ghost" onClick={() => cancelCreate()}>
-              回卷
-            </button>
-          </div>
-          {appearanceOpen&&<InkAppearancePicker appearance={appearance} onConfirm={value=>{setAppearance(value);return true;}} onClose={()=>setAppearanceOpen(false)}/>}
-        </>
-      )}
-
-      {step === 'origin' && event && (
-        <>
-          <section className="ink-panel ink-event" aria-label="少時往事">
-            <p className="ink-event-year">{originRoundLabel(round)}</p>
-            <h3 className="ink-write-in">{event.title}</h3>
-            <p className="ink-event-body ink-write-in">{event.body}</p>
-            <div className="ink-choice-list ink-choice-list--reveal" style={{ marginTop: 14 }}>
-              {event.choices.map((ch, i) => (
-                <button
-                  key={ch.id}
-                  type="button"
-                  className="ink-choice"
-                  style={{ ['--i' as string]: i }}
-                  onClick={() => onPick(ch.id)}
-                >
-                  <span className="ink-choice-mark">{['甲', '乙', '丙', '丁', '戊', '己'][i] ?? '註'}</span>
-                  {ch.text}
-                </button>
-              ))}
-            </div>
-          </section>
-          <div className="ink-cta-stack">
-            <button
-              type="button"
-              className="ink-btn ink-btn--ghost"
-              onClick={() => {
-                if (round === 0) {
-                  setStep('identity');
+        {step === 'identity' && (
+          <>
+            <section className="ink-panel">
+              <label className="ink-field">
+                <span>姓名</span>
+                <input
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="留空則隨機取名"
+                  maxLength={8}
+                />
+              </label>
+              <label className="ink-field">
+                <span>性別</span>
+                <select value={gender} onChange={(e) => setGender(e.target.value as 'male' | 'female')}>
+                  <option value="male">男</option>
+                  <option value="female">女</option>
+                </select>
+              </label>
+              <p className="ink-note">
+                接下來將經歷數段童年往事。不同選擇會影響人物的初始屬性、心性與身世。
+              </p>
+              <button type="button" className="ink-btn" onClick={()=>setAppearanceOpen(true)}><AppearanceBadge character={{appearance}} size={44}/>衣著與造型</button>
+            </section>
+            <div className="ink-cta-stack">
+              <button
+                type="button"
+                className="ink-btn ink-btn--primary"
+                onClick={() => {
                   setPicks([]);
-                  return;
-                }
-                setRound(round - 1);
-                setPicks((p) => p.slice(0, -1));
-              }}
-            >
-              回上一頁
-            </button>
-          </div>
-        </>
-      )}
+                  setRound(0);
+                  setStep('origin');
+                }}
+              >
+                翻開少時
+              </button>
 
-      {step === 'seal' && preview && (
-        <>
-          <section className="ink-panel">
-            <h3 style={{ marginTop: 0, letterSpacing: '0.14em' }}>少時已落定</h3>
-            <p className="ink-note">
-              題眼將是「{LIFE_THEMES[preview.lifeTheme].label}」——{LIFE_THEMES[preview.lifeTheme].vow}
-            </p>
-            <ul className="ink-note" style={{ paddingLeft: '1.1em', margin: '8px 0 0' }}>
-              {preview.chronicle.map((line) => (
-                <li key={line}>{line.replace(/^【少時·.+?】/, '')}</li>
-              ))}
-            </ul>
-            <p className="ink-note" style={{ marginTop: 12 }}>
-              離家出鎮，踏入江湖。初始屬性已根據出身經歷調整。
-            </p>
-          </section>
-          <div className="ink-cta-stack">
-            <button
-              type="button"
-              className="ink-btn ink-btn--primary"
-              onClick={() => startLife(picks)}
-            >
-              開始遊戲
-            </button>
-            <button
-              type="button"
-              className="ink-btn ink-btn--ghost"
-              onClick={() => {
-                setStep('origin');
-                setRound(ORIGIN_EVENTS.length - 1);
-                setPicks((p) => p.slice(0, -1));
-              }}
-            >
-              重選末頁
-            </button>
-          </div>
-        </>
-      )}
+              <button type="button" className="ink-btn ink-btn--ghost" onClick={() => cancelCreate()}>
+                回卷
+              </button>
+            </div>
+            {appearanceOpen&&<InkAppearancePicker appearance={appearance} onConfirm={value=>{setAppearance(value);return true;}} onClose={()=>setAppearanceOpen(false)}/>}
+          </>
+        )}
+
+        {step === 'origin' && event && (
+          <>
+            <section className="ink-panel ink-event" aria-label="少時往事">
+              <p className="ink-event-year">{originRoundLabel(round)}</p>
+              <h3 className="ink-write-in">{event.title}</h3>
+              <p className="ink-event-body ink-write-in">{event.body}</p>
+              <div className="ink-choice-list ink-choice-list--reveal" style={{ marginTop: 14 }}>
+                {event.choices.map((ch, i) => (
+                  <button
+                    key={ch.id}
+                    type="button"
+                    className="ink-choice"
+                    style={{ ['--i' as string]: i }}
+                    onClick={() => onPick(ch.id)}
+                  >
+                    <span className="ink-choice-mark">{['甲', '乙', '丙', '丁', '戊', '己'][i] ?? '註'}</span>
+                    {ch.text}
+                  </button>
+                ))}
+              </div>
+            </section>
+            <div className="ink-cta-stack">
+              <button
+                type="button"
+                className="ink-btn ink-btn--ghost"
+                onClick={() => {
+                  if (round === 0) {
+                    setStep('identity');
+                    setPicks([]);
+                    return;
+                  }
+                  setRound(round - 1);
+                  setPicks((p) => p.slice(0, -1));
+                }}
+              >
+                回上一頁
+              </button>
+            </div>
+          </>
+        )}
+
+        {step === 'seal' && preview && (
+          <>
+            <section className="ink-panel">
+              <h3 style={{ marginTop: 0, letterSpacing: '0.14em' }}>少時已落定</h3>
+              <p className="ink-note">
+                題眼將是「{LIFE_THEMES[preview.lifeTheme].label}」——{LIFE_THEMES[preview.lifeTheme].vow}
+              </p>
+              <ul className="ink-note" style={{ paddingLeft: '1.1em', margin: '8px 0 0' }}>
+                {preview.chronicle.map((line) => (
+                  <li key={line}>{line.replace(/^【少時·.+?】/, '')}</li>
+                ))}
+              </ul>
+              <p className="ink-note" style={{ marginTop: 12 }}>
+                離家出鎮，踏入江湖。初始屬性已根據出身經歷調整。
+              </p>
+            </section>
+            <div className="ink-cta-stack">
+              <button
+                type="button"
+                className="ink-btn ink-btn--primary"
+                onClick={() => startLife(picks)}
+              >
+                開始遊戲
+              </button>
+              <button
+                type="button"
+                className="ink-btn ink-btn--ghost"
+                onClick={() => {
+                  setStep('origin');
+                  setRound(ORIGIN_EVENTS.length - 1);
+                  setPicks((p) => p.slice(0, -1));
+                }}
+              >
+                重選末頁
+              </button>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }

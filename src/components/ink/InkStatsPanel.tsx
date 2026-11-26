@@ -31,11 +31,11 @@ export function InkStatsPanel({ state, onClose }: Props) {
   return createPortal(
     <div className={`${styles.root} ink-stats-scroll`}>
       <div className={styles.bg} aria-hidden />
+      <button type="button" className={styles.close} onClick={onClose}>
+        關閉
+      </button>
       <div className={styles.wrap}>
         <div className={styles.scroll}>
-          <button type="button" className={styles.close} onClick={onClose}>
-            關閉
-          </button>
           <div className={cls(styles.banner, styles.bannerStill)} aria-hidden>
             <AppearanceCanvas className={`${styles.heroSil} ${still ? styles.heroSilStill : ''}`} appearance={appearanceOf(c)} mode="portrait"/>
           </div>

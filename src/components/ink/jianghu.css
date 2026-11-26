@@ -21,7 +21,6 @@
   padding: env(safe-area-inset-top, 0px) max(12px, env(safe-area-inset-right, 0px)) max(12px, env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
   gap: 0; background: #f8f4eb;
 }
-html.native-ios .scroll-shell--play.scroll-shell--feature { padding-top: 0; }
 .scroll-shell--feature > :is(.ink-backdrop, .ink-ai-wash) { display: none; }
 .scroll-shell--play.scroll-shell--feature .ink-play-body { display: flex; flex-direction: column; min-height: 0; overflow-y: auto; }
 .scroll-shell--feature .ink-jianghu-back { align-self: flex-start; margin: 4px 0 8px; font-size: 16px; }
