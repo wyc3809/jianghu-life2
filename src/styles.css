@@ -10853,8 +10853,9 @@ body:has(.ink-spar-boss-screen) .ink-task-dock { visibility: hidden; }
 .ink-loadout-support > .ink-loadout-heading { flex-wrap: wrap; gap: 6px; margin-top: 16px; }
 .ink-loadout-support > .ink-loadout-heading > span { font-size: 11px; }
 
-/* 原生頂部安全區只由root預留一次；內頁只保留正常內容間距。 */
+/* 內頁由 root 預留安全區。開卷改由內容留位，讓晨景畫到狀態列底下。 */
 html.native-ios #root { padding: env(safe-area-inset-top, 0px) 0 0; }
+html.native-ios #root:has(> .ink-start) { padding-top: 0; }
 html.native-ios .scroll-shell--play { padding-top: 12px; }
 html.native-ios .scroll-shell--play.scroll-shell--home,
 html.native-ios .scroll-shell--play.scroll-shell--event { padding-top: 8px; }
