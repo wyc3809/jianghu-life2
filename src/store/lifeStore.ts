@@ -57,8 +57,9 @@ export interface LifeStore {
   beginCreate: () => void;
   cancelCreate: () => void;
   newLife: (opts?: import('@core/life/gameState').CreateLifeOptions | number) => void;
-  /** 帶前世墨跡轉世 */
-  reincarnate: () => void;
+  /** 同時符合境界及遊玩日才開始新一世。 */
+  reincarnate: () => boolean;
+  startAfterEnding: () => boolean;
   continueLife: () => Promise<boolean>;
   advanceMonth: () => void;
   /** 主動歸隱傳位（第 8 境起）：結束今世入總結頁，傳承同死亡一樣 */

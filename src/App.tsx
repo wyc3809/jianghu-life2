@@ -24,6 +24,8 @@ function AppContent() {
   const beginCreate = useLifeStore((s) => s.beginCreate);
   const continueLife = useLifeStore((s) => s.continueLife);
   const bootstrap = useLifeStore((s) => s.bootstrap);
+  const [startReady, setStartReady] = useState(false);
+  const [openReincarnation, setOpenReincarnation] = useState(false);
   const [canResume, setCanResume] = useState(false);
   const [resumeHint, setResumeHint] = useState<string | undefined>();
   const [route, setRoute] = useState<'editor' | 'home'>(() =>
@@ -44,21 +46,21 @@ function AppContent() {
   const onReady = useCallback((has: boolean, hint?: string) => {
     setCanResume(has);
     setResumeHint(hint);
+    setStartReady(true);
   }, []);
-
-  const handleStart = useCallback(async () => {
-    await resetLifeSave();
-    beginCreate();
-  }, [beginCreate]);
 
   const handleSeed = useCallback(async () => {
     await resetLifeSave();
     newLife({ seed: 42, birthplace: '千燈鎮', name: '沈雲舟' });
   }, [newLife]);
 
-  const handleContinue = useCallback(async () => {
+  const handleContinue = useCallback(async (showReincarnation: boolean) => {
+    setOpenReincarnation(showReincarnation);
     const ok = await continueLife();
-    if (!ok) setCanResume(false);
+    if (!ok) {
+      setCanResume(false);
+      setOpenReincarnation(false);
+    }
   }, [continueLife]);
 
   const closeEditor = useCallback(() => {
@@ -78,7 +80,8 @@ function AppContent() {
   }
 
   if (state) {
-    return <InkPlayScreen state={state} />;
+    return <InkPlayScreen key={`${state.seed}:${state.character.flags.reincarnation_count ?? 0}`} state={state}
+      openReincarnation={openReincarnation} onReincarnationClose={() => setOpenReincarnation(false)} />;
   }
 
   if (creating) {
@@ -89,8 +92,10 @@ function AppContent() {
     <>
       <InkStartGate onReady={onReady} />
       <InkStartScreen
-        onStart={() => void handleStart()}
-        onContinue={() => void handleContinue()}
+        startReady={startReady}
+        onStart={beginCreate}
+        onContinue={() => void handleContinue(false)}
+        onReincarnate={() => void handleContinue(true)}
         resumeHint={canResume ? resumeHint : undefined}
         onSeedDebug={import.meta.env.DEV ? () => void handleSeed() : undefined}
         onOpenEditor={

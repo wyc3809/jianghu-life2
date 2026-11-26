@@ -26,6 +26,7 @@ import type { NatureAttr } from '@interfaces/lifeEngine';
 import { migrateInjuries } from './injuries';
 import { applyAncestry } from './ancestry';
 import { CULTIVATION_TIERS, LEGACY_TIER_MAP } from './cultivation';
+import { reincarnationBonus } from './reincarnation';
 
 export const SECT_DEFS = SECT_CONTENT.map((s) => ({
   id: s.id,
@@ -57,7 +58,9 @@ export interface CreateLifeOptions {
     nature?: Partial<Record<NatureAttr, number>>;
     chronicle?: string[];
   };
-  /** 前世傳承；轉世時帶入 */
+  /** 已完成的轉世數；新一世從基礎屬性套用一次。 */
+  reincarnationCount?: number;
+  /** 舊家族傳承 */
   legacy?: LegacyCarry;
   /** 首局教練（預設開） */
   skipCoach?: boolean;
@@ -87,6 +90,9 @@ export function createNewLife(options: CreateLifeOptions | number = {}): LifeGam
   const fatherName = randomChineseName(clanSurname);
   const motherName = randomChineseMotherName(clanSurname);
   const attrs = createAttributes(rng);
+  const reincarnationCount = opts.reincarnationCount ?? 0;
+  const birthBonus = reincarnationBonus(reincarnationCount);
+  for (const key of wuxiaAttributeKeys) attrs[key] += birthBonus;
   const maxHealth = 180 + Math.floor(attrs.genGu * 2.2);
   const maxQi = 140 + Math.floor(attrs.wuXing * 2);
 
@@ -128,6 +134,7 @@ export function createNewLife(options: CreateLifeOptions | number = {}): LifeGam
     monthsSinceLastBirth: 99,
     flags: {
       ladder_v2: true,
+      ...(reincarnationCount > 0 ? { reincarnation_count: reincarnationCount } : {}),
       baseMaxHp: maxHealth,
       baseMaxQi: maxQi,
       legacy_generation: opts.legacy?.generation ?? 1,
@@ -205,6 +212,7 @@ export function createNewLife(options: CreateLifeOptions | number = {}): LifeGam
   const year = 18;
   const month = 1;
   const lifeLog = [
+    ...(birthBonus ? [`轉世第 ${reincarnationCount} 次，五項先天屬性各＋${birthBonus}。`] : []),
     ...(opts.originBonuses?.chronicle ?? []),
     `【${year}年${month}月·${birthplace}】${name}辭別父母，踏上江湖。`,
     `根骨 ${attrs.genGu} · 悟性 ${attrs.wuXing} · 福緣 ${attrs.fuYuan} · 魅力 ${attrs.meiLi} · 膽識 ${attrs.danShi}`,
