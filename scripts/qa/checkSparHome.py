@@ -22,7 +22,7 @@ LAYOUT=r'''()=>{
  const keys={scene:'.ink-home-scene',info:'.ink-spar-info',caption:'.ink-spar-caption',stage:'.ink-spar-hud',enemy:'.ink-spar-enemy-name',trait:'.ink-spar-trait',heroHp:'.ink-spar-bar--hero',foeHp:'.ink-spar-bar--foe',entry:'.ink-spar-harvest-entry',quick:'.ink-quick',task:'.ink-task-bar',dock:'.ink-bottom-dock'};
  const rs=Object.fromEntries(Object.entries(keys).map(([k,s])=>[k,rect(s)]));
  const hit=(a,b)=>a&&b&&Math.min(a.right,b.right)-Math.max(a.left,b.left)>1&&Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top)>1;
- return{rects:rs,overlaps:[['caption','stage'],['stage','enemy'],['enemy','trait'],['info','heroHp'],['info','foeHp'],['entry','heroHp'],['entry','foeHp'],['quick','task'],['task','dock']].filter(([a,b])=>hit(rs[a],rs[b])),overflow:document.documentElement.scrollWidth>innerWidth,
+ return{rects:rs,overlaps:[['caption','stage'],['stage','enemy'],['enemy','trait'],['enemy','foeHp'],['foeHp','trait'],['info','heroHp'],['entry','heroHp'],['entry','foeHp'],['quick','task'],['task','dock']].filter(([a,b])=>hit(rs[a],rs[b])),overflow:document.documentElement.scrollWidth>innerWidth,
   entryHit:(()=>{const e=document.querySelector('.ink-spar-harvest-entry'),r=e.getBoundingClientRect(),h=document.elementFromPoint(r.left+r.width/2,r.top+r.height/2);return e===h||e.contains(h)})(),heroHeight:window.__sparStage.heroVisualHeight()};
 }'''
 report={'viewport_baseline':[390,844],'dpr':2,'seed':42,'jade':{'free':600,'paidTest':0},'fixture':'第6關精英；本機氣血2000、待收成123.75；跳過前排小兵以重現名牌','layouts':[],'cases':[],'pageerrors':[]}
@@ -39,7 +39,7 @@ with sync_playwright() as p:
  ctx,page=start(390,844,True);page.evaluate('document.fonts.ready');page.screenshot(path=str(OUT/'after.png'))
  samples=[]
  for _ in range(12):
-  data=page.evaluate(LAYOUT);assert not data['overlaps'],data;assert not data['overflow'];assert data['entryHit'];samples.append(data);page.wait_for_timeout(180)
+  data=page.evaluate(LAYOUT);assert not data['overlaps'],data;assert not data['overflow'];assert data['entryHit']; assert data['rects']['foeHp']['top'] >= data['rects']['enemy']['bottom'];samples.append(data);page.wait_for_timeout(180)
  before=json.loads((OUT/'before-layout.json').read_text());assert samples[0]['rects']['scene']['height']>=before['scene']['height']+40
  report['cases'].append({'name':'live_elite_no_overlap','samples':len(samples),'scene_height_before':before['scene']['height'],'scene_height_after':samples[0]['rects']['scene']['height']})
  assert page.locator('.ink-play-body > .ink-home-focus > .ink-home-goals').count()==0

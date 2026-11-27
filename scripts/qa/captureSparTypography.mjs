@@ -26,7 +26,7 @@ for(const width of [320,390,420]) {
 }
 await page.setViewportSize({width:390,height:844});
 for(let i=0;i<24;i++){await page.screenshot({path:`${out}/frames/spar-${String(i).padStart(2,'0')}.png`});await page.waitForTimeout(180);}
-report.checks.push({name:'演武靜態文字與介面同一字體',passed:await page.evaluate(()=>{const family=getComputedStyle(document.querySelector('.ink-wallet-value')).fontFamily;return ['.ink-spar-caption','.ink-spar-hud-stage','.ink-spar-hud-left','.ink-spar-bar-num'].every(q=>getComputedStyle(document.querySelector(q)).fontFamily===family);})});
+report.checks.push({name:'演武題字用毛筆，數值沿用介面字體',passed:await page.evaluate(()=>{const family=getComputedStyle(document.querySelector('.ink-wallet-value')).fontFamily;const brush=['.ink-spar-caption','.ink-spar-hud-theme','.ink-spar-enemy-name'];const meters=['.ink-spar-hud-stage','.ink-spar-hud-left','.ink-spar-bar-num','.ink-spar-enemy-hp'];return brush.every(q=>getComputedStyle(document.querySelector(q)).fontFamily.includes('Jianghu Brush TC'))&&meters.every(q=>getComputedStyle(document.querySelector(q)).fontFamily===family);})});
 report.checks.push({name:'傷害暴擊修為浮字與介面同一字體',passed:await page.evaluate(()=>{const family=getComputedStyle(document.querySelector('.ink-wallet-value')).fontFamily.split(',')[0].replace(/['"]/g,'').trim();return window.__sparText.length>0&&window.__sparText.every(x=>x.font.includes(family)&&!x.font.includes('italic'));})});
 report.canvasTexts=await page.evaluate(()=>window.__sparText);
 report.checks.push({name:'對打文字已实际繪製',passed:report.canvasTexts.some(x=>/[0-9]/.test(x.text))});
