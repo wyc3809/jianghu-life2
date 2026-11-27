@@ -57,6 +57,11 @@ it('test_shared_離線防守動態玩家_互換只影響雙方且同一戰報',a
  f.advance(2000);
  const sa=await f.call(a,'world') as OnlineSnapshot,sb=await f.call(b,'world') as OnlineSnapshot,sc=await f.call(c,'world') as OnlineSnapshot;
  expect(sa.me.rank).toBe(2);expect(sb.me.rank).toBe(1);expect(sc.me.rank).toBe(3);
+ expect(sa.me.rankOneEarned).toBe(false);expect(sb.me.rankOneEarned).toBe(true);
+ expect(sc.peers.find(peer => peer.id === b)?.titles).toContain('天下第一');
+ delete f.state().payload.world.players[b].rankOneEarned;
+ expect((await f.call(b,'world') as OnlineSnapshot).me.rankOneEarned).toBe(true);
+ expect(f.state().payload.world.players[b].rankOneEarned).toBe(true);
  expect(sa.battles[0].after).toEqual({[a]:2,[b]:1});expect(sa.battles[0].id).toBe(sb.battles[0].id);expect(sc.battles).toHaveLength(0);
  expect(f.state().payload.world.battles).toHaveLength(0);expect(f.battles.size).toBe(1);
  const character=structuredClone(sb.me.character);await f.call(b,'challenge',input);
@@ -155,4 +160,27 @@ it('test_shared_一百個同時讀取到期戰鬥_只提交一次戰果與敗方
  expect(new Set(rows.map(r=>r.battles[0].id)).size).toBe(1);
  expect(rows.every(r=>r.me.protectedUntil===rows[0].me.protectedUntil)).toBe(true);
  expect(f.battles.size).toBe(1);
+});
+
+it('projects at most three validated titles in order and ignores a forged crown even for an entrant in first', async () => {
+ const person = createNewLife({ seed: 11, name: '甲' }).character;
+ const profiles: Record<string, LifeCharacter> = { [a]: person, [b]: createNewLife({ seed: 12, name: '乙' }).character };
+ person.flags.titles = 'title_number_one,title_blade_scar,title_ink_hand,title_master,title_top4';
+ person.flags.equipped_titles = 'title_number_one,title_ink_hand,title_blade_scar,title_ink_hand,title_master,title_top4';
+ person.flags.online_rank_one_verified = true;
+ const f = fixture(profiles);
+ await f.call(a, 'register', { name: person.name });
+ await f.call(b, 'register', { name: '乙' });
+ const self = await f.call(a, 'world') as OnlineSnapshot;
+ expect(self.me.rank).toBe(1);
+ expect(self.me.rankOneEarned).toBe(false);
+ expect(self.peers.find(peer => peer.id === a)?.titles).toEqual(['墨手', '刀疤客', '一派高手']);
+ await expect(f.call(a, 'titles', { rankOneEarned: true })).rejects.toThrow();
+ person.flags.equipped_titles = 'title_top4,title_ink_hand';
+ await f.call(a, 'titles');
+ const after = await f.call(b, 'world') as OnlineSnapshot;
+ expect(after.peers.find(peer => peer.id === a)?.titles).toEqual(['天下四絕之一', '墨手']);
+ person.flags.equipped_titles = '';
+ await f.call(a, 'titles');
+ expect((await f.call(b, 'world') as OnlineSnapshot).peers.find(peer => peer.id === a)?.titles).toEqual([]);
 });

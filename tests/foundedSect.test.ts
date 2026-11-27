@@ -205,7 +205,7 @@ describe('foundedSect: ranking + title integration', () => {
     expect(jianghuRank(state)).toBeLessThan(afterFounding);
   });
 
-  it('grants 開山祖師 once founded, and 桃李滿門 once 3 disciples graduate', () => {
+  it('grants 開山祖師 once founded, and 桃李滿門 once 5 disciples graduate', () => {
     initRng(16);
     const state = createNewLife(16);
     qualifyFounder(state);
@@ -215,14 +215,13 @@ describe('foundedSect: ranking + title integration', () => {
     expect(labels).toContain('開山祖師');
     expect(labels).not.toContain('桃李滿門');
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 5; i++) {
       recruitDisciple(state);
-    }
-    for (const d of state.foundedSect!.disciples) {
-      d.status = 'graduated';
+      state.foundedSect!.disciples.at(-1)!.status = 'graduated';
     }
     syncTitles(state);
     labels = allTitles(state).map((t) => t.label);
+    expect(labels).toContain('傳燈授藝');
     expect(labels).toContain('桃李滿門');
   });
 });

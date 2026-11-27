@@ -15,13 +15,51 @@ import type { LifeStore } from '../lifeStore';
 import { APPEARANCE_HEADS, APPEARANCE_OUTFITS, APPEARANCE_TONES, appearanceKey, appearanceOf, readAppearance } from '@interfaces/appearance';
 import { canWearCostume,isCostumeId,isFashionId } from '@interfaces/costumes';
 import { applySectWarSeat } from '@core/life/sectWarHonor';
+import { setEquippedTitles, syncTitles } from '@core/life/titles';
 
 export function createCharacterSlice(
   set: (partial: Partial<LifeStore>) => void,
   get: () => LifeStore,
   save: (state: LifeGameState, immediate?: boolean) => void,
-): Pick<LifeStore, 'equipOwned' | 'prepareNewbieEquipment' | 'resolveGearCompare' | 'startNewbieTrial' | 'setMartialSlot' | 'setAppearance' | 'recordSectWarSeat'> {
+): Pick<LifeStore, 'equipOwned' | 'prepareNewbieEquipment' | 'resolveGearCompare' | 'startNewbieTrial' | 'setMartialSlot' | 'setAppearance' | 'recordSectWarSeat' | 'setTitles' | 'checkTitles' | 'receiveRankOneTitle'> {
   return {
+    setTitles: ids => {
+      const { state, combatReplay } = get();
+      if (!state || state.phase !== 'playing' || !state.character.alive || state.pendingCombat || combatReplay) return false;
+      let accepted = false;
+      const next = produce(state, draft => { accepted = setEquippedTitles(draft, ids); });
+      if (!accepted) return false;
+      if (next !== state) {
+        void save(next);
+        set({ state: next });
+      }
+      return true;
+    },
+    checkTitles: announce => {
+      const { state, combatReplay } = get();
+      if (!state || state.phase !== 'playing' || !state.character.alive || state.pendingCombat || combatReplay) return;
+      const next = produce(state, draft => { syncTitles(draft, announce); });
+      if (next === state) return;
+      void save(next);
+      set({ state: next });
+    },
+    receiveRankOneTitle: earned => {
+      const { state, combatReplay } = get();
+      if (earned === undefined || !state || state.phase !== 'playing' || !state.character.alive) return;
+      if (earned === (state.character.flags.online_rank_one_verified === true)) return;
+      const verify = (life: LifeGameState) => produce(life, draft => {
+        if (earned) {
+          draft.character.flags.online_rank_one_verified = true;
+          syncTitles(draft, false);
+        } else if (draft.character.flags.online_rank_one_verified === true) {
+          delete draft.character.flags.online_rank_one_verified;
+        }
+      });
+      const next = verify(state);
+      if (next === state) return;
+      void save(next);
+      set({ state: next, ...(combatReplay && { combatReplay: { ...combatReplay, next: verify(combatReplay.next) } }) });
+    },
     recordSectWarSeat: seat => {
       const { state } = get();
       if (!state || state.phase !== 'playing') return;

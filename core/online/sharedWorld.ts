@@ -7,6 +7,7 @@ import { applyOnlineCommand, parseOnlineCommand, compatibleReceiptInput, OnlineE
 import { createOnlineFixture } from './fixtures';
 import { settleOnlineWorld } from './rules';
 import type { LifeCharacter } from '@interfaces/lifeEngine';
+import { onlineTitleLabels } from '../life/titles';
 
 export interface SharedWorld {
   revision: number;
@@ -23,7 +24,7 @@ export interface SharedRepository {
   /** 世界、戰報及收據喺同一Postgres交易CAS提交。 */
   save(state: SharedWorld, expected: number, battles: OnlineBattle[], receipt: WorldReceipt | null): Promise<boolean>;
 }
-const envelope = z.object({ action: z.enum(['register', 'world', 'heartbeat', 'leave', 'logout', 'challenge', 'claim', 'loadout', 'liveEnter', 'liveLeave', 'liveHeartbeat', 'red', 'attack']), clientId: z.uuid(), data: z.unknown().optional() }).strict();
+const envelope = z.object({ action: z.enum(['register', 'world', 'heartbeat', 'leave', 'logout', 'challenge', 'claim', 'loadout', 'liveEnter', 'liveLeave', 'liveHeartbeat', 'red', 'attack', 'titles']), clientId: z.uuid(), data: z.unknown().optional() }).strict();
 const empty = z.object({}).strict();
 const registration = z.object({ name: z.string().trim().min(1).max(12).regex(/^[\p{L}\p{N}·]+$/u) }).strict();
 
@@ -65,6 +66,24 @@ export class SharedWorldService {
       }
       const me = world.players[user];
       if (!me) throw new OnlineError(404, '未有江湖身份，請先入籍。');
+      if (input.action === 'titles') {
+        empty.parse(data);
+        const profile = await this.repo.profile?.(user);
+        if (!profile) throw new OnlineError(409, '未能讀取已保存的稱號。');
+        for (const field of ['titles', 'equipped_titles'] as const) {
+          if (typeof profile.flags[field] === 'string') me.character.flags[field] = profile.flags[field];
+          else delete me.character.flags[field];
+        }
+      }
+      // 舊版戰報可證明現任榜首曾經以排位勝仗取得第一。
+      let history: OnlineBattle[] | undefined;
+      let restoredRankOne = false;
+      if (me.rank === 1 && !me.rankOneEarned) {
+        history = await this.repo.history(user);
+        restoredRankOne = history.some(battle => battle.settledAt !== null
+          && battle.winner === user && battle.after?.[user] === 1);
+        if (restoredRankOne) me.rankOneEarned = true;
+      }
       if(input.action==='liveEnter')me.live={joined:true,red:me.live?.red??false};
       if(input.action==='liveLeave'){empty.parse(data);if(me.busy)throw new OnlineError(409,'交手結束後才可退出同遊。');me.live={joined:false,red:false};}
       if(input.action==='liveHeartbeat'&&!me.live?.joined)throw new OnlineError(409,'請先加入同遊江湖。');
@@ -80,9 +99,9 @@ export class SharedWorldService {
       for (const p of Object.values(world.players)) p.onlineUntil = Math.max(now, ...Object.values(presence).filter(v => v.user === p.id).map(v => v.until));
       // 名冊／收成預覽只投影目前時間；有到期戰鬥才走原子結算。
       // 收成只在claim／心跳等寫入指令真正保存，避免每次讀名冊競爭全服CAS。
-      if(input.action==='world'&&!dueBattle){
-        const [history,confirmed]=await Promise.all([this.repo.history(user),this.repo.confirmed(user)]);
-        return sharedSnapshot(world,user,now,history,confirmed);
+      if(input.action==='world'&&!dueBattle&&!restoredRankOne){
+        const [reports,confirmed]=await Promise.all([history ?? this.repo.history(user),this.repo.confirmed(user)]);
+        return sharedSnapshot(world,user,now,reports,confirmed);
       }
       let result: unknown, receipt: WorldReceipt | null = null;
       if (input.action === 'challenge' || input.action === 'claim' || input.action === 'loadout'||input.action==='red'||input.action==='attack') {
@@ -121,10 +140,10 @@ export class SharedWorldService {
       world.battles = battles.filter(b => b.settledAt === null);
       world.revision = state.revision = expected + 1;
       if (!await this.repo.save(state, expected, battles, receipt)) continue;
-      if (input.action === 'leave' || input.action === 'logout') return { ok: true };
+      if (input.action === 'leave' || input.action === 'logout' || input.action === 'titles') return { ok: true };
       if (result !== undefined) return result;
-      const [history,confirmed]=await Promise.all([this.repo.history(user),this.repo.confirmed(user)]);
-      return sharedSnapshot(world, user, now, history, confirmed);
+      const [reports,confirmed]=await Promise.all([history ?? this.repo.history(user),this.repo.confirmed(user)]);
+      return sharedSnapshot(world, user, now, reports, confirmed);
     }
     throw new OnlineError(503, '江湖消息繁忙，稍後可用同一指令重試。');
   }
@@ -132,8 +151,8 @@ export class SharedWorldService {
 
 /** 只回傳自己戰報／收據及其他玩家可公開嘅身份與排名。 */
 export function sharedSnapshot(world: OnlineWorld, user: string, now: number, battles: OnlineBattle[], confirmedRequests: string[]): OnlineSnapshot {
-  return structuredClone({ serverNow: now, revision: world.revision, me: world.players[user], population: Object.keys(world.players).length,
-    peers: Object.values(world.players).sort((a, b) => a.rank - b.rank).map(p => ({ id: p.id, name: p.character.name, appearance: appearanceOf(p.character), live:p.live, rank: p.rank, online: p.onlineUntil > now, protectedUntil: p.protectedUntil, busy: p.busy })),
+  return structuredClone({ serverNow: now, revision: world.revision, me: { ...world.players[user], rankOneEarned: world.players[user].rankOneEarned === true }, population: Object.keys(world.players).length,
+    peers: Object.values(world.players).sort((a, b) => a.rank - b.rank).map(p => ({ id: p.id, name: p.character.name, appearance: appearanceOf(p.character), titles: onlineTitleLabels(p.character, p.rankOneEarned === true), live:p.live, rank: p.rank, online: p.onlineUntil > now, protectedUntil: p.protectedUntil, busy: p.busy })),
     liveBattles: world.battles.filter(b=>b.mode==='red').map(b=>({id:b.id,attacker:b.attacker,defender:b.defender,startedAt:b.startedAt,endsAt:b.endsAt,names:[b.characters[b.attacker].name,b.characters[b.defender].name]})),
     battles: [...world.battles.filter(b=>b.attacker===user||b.defender===user),...battles].filter((b,i,a)=>a.findIndex(x=>x.id===b.id)===i), confirmedRequests, params: { protectionMs: ONLINE_TEST.protectionMs, onlineSilverPerMinute: ONLINE_TEST.onlineSilverPerMinute, offlineSilverPerMinute: ONLINE_TEST.offlineSilverPerMinute, offlineCapMs: ONLINE_TEST.offlineCapMs },
   });

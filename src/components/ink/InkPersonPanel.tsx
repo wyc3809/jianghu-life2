@@ -1,3 +1,4 @@
+import { InkTitleCollection } from './InkTitleCollection';
 import { InkPersonOverview } from './InkPersonOverview';
 import { inkArtUrl } from '../../ui/inkAssets';
 import { InkPersonNativeContext } from './InkPersonSheet';
@@ -69,6 +70,7 @@ export type PersonView =
   | 'gear'
   | 'people'
   | 'roots'
+  | 'titles'
   | 'achievements'
   | 'cultivation'
   | 'combat';
@@ -252,6 +254,7 @@ export function InkPersonPanel({
         {([['loadout','配搭'],['library','收藏'],['rules','規則']] as const).map(([id,label])=><button key={id} type="button" role="tab" aria-selected={martialView===id} className="ink-btn ink-btn--quiet" onClick={()=>{setMartialView(id);setSelectedArt(null);}}>{label}</button>)}
       </div>}
       <div className="ink-person-detail-body" ref={detailBodyRef} key={`${view}:${preset}:${martialView}:${skillSchool}`}>
+      {view === 'titles' && <InkTitleCollection state={state} busy={busy} />}
       {view === 'overview' && overviewContent}
       {view === 'cultivation' &&
         (() => {

@@ -105,6 +105,8 @@ const InkOnlinePanel = import.meta.env.VITE_ONLINE_PUBLIC === '1' || (import.met
 const InkSectWar = InkOnlinePanel ? lazy(() => import('./InkSectWar')) : null;
 
 export function InkPlayScreen({ state }: Props) {
+  const checkTitles = useLifeStore(s => s.checkTitles);
+  const titleLife = useRef<number | null>(null);
   const choose = useLifeStore((s) => s.choose);
   const dismissEvent = useLifeStore((s) => s.dismissEvent);
   const dismissCoach = useLifeStore((s) => s.dismissCoach);
@@ -178,6 +180,17 @@ export function InkPlayScreen({ state }: Props) {
     const t = window.setTimeout(clearMilestoneToast, 1400 * milestoneToast.length + 3200);
     return () => window.clearTimeout(t);
   }, [milestoneToast, clearMilestoneToast]);
+  useEffect(() => {
+    if (state.phase !== 'playing' || state.pendingCombat || combatReplay) return;
+    checkTitles(titleLife.current === state.seed);
+    titleLife.current = state.seed;
+  }, [state, combatReplay, checkTitles]);
+  const earnedTitleIds = state.character.flags.titles;
+  const equippedTitleIds = state.character.flags.equipped_titles;
+  useEffect(() => {
+    if (import.meta.env.VITE_ONLINE_PUBLIC !== '1') return;
+    void import('../../cloud/online').then(({queueOnlineTitleSync}) => queueOnlineTitleSync());
+  }, [earnedTitleIds, equippedTitleIds]);
   const clearOfflineGain = useLifeStore((s) => s.clearOfflineGain);
   useEffect(() => {
     if(import.meta.env.VITE_ONLINE_PUBLIC !== '1') return;
@@ -187,7 +200,7 @@ export function InkPlayScreen({ state }: Props) {
         const {worldJoined,publicOnlineRequest}=await import('../../cloud/online');
         if(!worldJoined()||stopped)return;
         const response=await publicOnlineRequest('world',{},false);
-        if(response.ok&&!stopped){const snapshot=await response.json() as OnlineSnapshot;useAncestryStore.getState().checkMilestones();useAncestryStore.getState().receiveOnlineJade(`public:${snapshot.me.id}`,snapshot.me.jadeEarnedTotal??0);}
+        if(response.ok&&!stopped){const snapshot=await response.json() as OnlineSnapshot;useLifeStore.getState().receiveRankOneTitle(snapshot.me.rankOneEarned);useAncestryStore.getState().checkMilestones();useAncestryStore.getState().receiveOnlineJade(`public:${snapshot.me.id}`,snapshot.me.jadeEarnedTotal??0);}
       }catch{ /* 下次回到前景或開江湖時重試。 */ }
     };
     const visible=()=>{if(document.visibilityState==='visible')void collect();};

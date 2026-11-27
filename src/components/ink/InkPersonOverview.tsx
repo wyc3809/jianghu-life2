@@ -36,7 +36,7 @@ export function InkPersonOverview({ state, preset, busy, onPreset, onEquip, onVi
   const dismiss = useLifeStore(s => s.dismissCoach);
   useEffect(() => {if(!notice)return;const timer=window.setTimeout(()=>setNotice(''),2400);return()=>window.clearTimeout(timer);},[notice]);
   const entries: { view: PersonView; label: string }[] = [
-    {view:'overview',label:'修行詳情'}, {view:'cultivation',label:'境界修行'}, {view:'combat',label:'戰力詳解'},
+    {view:'titles',label:'稱號'}, {view:'overview',label:'修行詳情'}, {view:'cultivation',label:'境界修行'}, {view:'combat',label:'戰力詳解'},
     {view:'attrs',label:'身世與身法'}, {view:'gear',label:'裝備與詞綴'},
     {view:'people',label:'人際'}, {view:'achievements',label:'成就'}, {view:'roots',label:'江湖根腳'},
   ];

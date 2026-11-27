@@ -1,4 +1,5 @@
 import { cloudAccess, cloudRealtimeClient } from './cloud';
+import { rememberWorldHint, retryOnlineTitleSync } from './online';
 import { saveProfileForOnline } from './sync';
 import { useLifeStore } from '../store/lifeStore';
 import { OnlineApiError } from '../online/client';
@@ -13,6 +14,8 @@ export async function liveRequest<T>(action:string,data:unknown={}):Promise<T>{
  try{response=await fetch(`${access.url}/functions/v1/jianghu-live`,{method:'POST',headers:{Authorization:`Bearer ${access.token}`,apikey:access.key,'Content-Type':'application/json'},body:JSON.stringify({action,clientId,data}),signal:AbortSignal.timeout(15000)});}catch{throw new OnlineApiError('同遊暫時未能連線，恢復後可再試。');}
  const body=await response.json().catch(()=>null);
  if(!response.ok)throw new OnlineApiError(body?.error??'同遊暫時未能回覆。',response.status);
+ if(action==='liveEnter')rememberWorldHint();
+ if(action==='view'||action==='world')retryOnlineTitleSync();
  return body as T;
 }
 /** 回覆遺失重試同一個ID，成功或確定拒絕才清除。 */

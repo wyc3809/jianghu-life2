@@ -3,12 +3,17 @@ import { createNewLife } from '../core/life/gameState';
 import {
   TITLE_TIER_COLOR_CLASS,
   allTitles,
+  equippedTitles,
+  setEquippedTitles,
+  titleCollection,
   syncTitles,
   titleBonusTotals,
   titleTierColorClass,
   topTitle,
   topTitles,
 } from '../core/life/titles';
+import { SKILL_DEFS } from '../data/skills/catalog';
+import { MARTIAL_RANKS } from '../core/life/martialRanks';
 import { buildPlayerFighter } from '../core/life/combat';
 
 describe('title (稱號) system', () => {
@@ -80,8 +85,8 @@ describe('title (稱號) system', () => {
     const base = createNewLife({ seed: 5 });
     const boosted = createNewLife({ seed: 5 });
     boosted.character.martial = 95;
-    boosted.character.stats.combatsWon = 40;
-    boosted.character.reputation = 200; // qualifies for title_top4 (+8 attack)
+    boosted.character.stats.combatsWon = 60;
+    boosted.character.reputation = 250; // qualifies for title_top4 (+8 attack)
     syncTitles(boosted);
 
     const baseFighter = buildPlayerFighter(base);
@@ -108,6 +113,63 @@ describe('title (稱號) system', () => {
     expect(top).not.toBeNull();
     expect(top!.label).toBe(all[0]!.label);
     expect(top!.tier).toBe(all[0]!.tier);
+  });
+
+  it('keeps at most three owned titles in the player’s chosen order, including across reload', () => {
+    const state = createNewLife({ seed: 7 });
+    state.character.flags.titles = 'title_ink_hand,title_blade_scar,title_master,title_top4';
+    expect(topTitles(state)).toEqual(['天下四絕之一', '一派高手', '刀疤客']);
+    expect(setEquippedTitles(state, ['title_ink_hand', 'title_blade_scar', 'title_master'])).toBe(true);
+    const saved = JSON.parse(JSON.stringify(state)) as typeof state;
+    expect(topTitles(saved)).toEqual(['墨手', '刀疤客', '一派高手']);
+    expect(titleBonusTotals(saved)).toEqual({ attack: 4, defense: 4, hitBonus: .01, evasion: 0 });
+    expect(setEquippedTitles(state, ['title_ink_hand', 'title_ink_hand'])).toBe(false);
+    expect(setEquippedTitles(state, ['title_spar_60'])).toBe(false);
+    expect(setEquippedTitles(state, ['title_ink_hand', 'title_blade_scar', 'title_master', 'title_top4'])).toBe(false);
+    expect(setEquippedTitles(state, [])).toBe(true);
+    expect(equippedTitles(JSON.parse(JSON.stringify(state)))).toEqual([]);
+  });
+
+  it('checks stage clears, breakthroughs and diverse arts at their actual thresholds', () => {
+    const state = createNewLife({ seed: 8 });
+    const found = (id: string) => allTitles(state).some(title => title.id === id);
+    state.character.flags.spar_stage = 10;
+    state.character.cultivation.tier = 5;
+    syncTitles(state);
+    expect(found('title_spar_10')).toBe(false);
+    expect(found('title_open_meridians')).toBe(false);
+    state.character.flags.spar_stage = 11;
+    state.character.cultivation.tier = 6;
+    syncTitles(state);
+    expect(found('title_spar_10')).toBe(true);
+    expect(found('title_open_meridians')).toBe(true);
+    expect(found('title_spar_30')).toBe(false);
+
+    const arts = Object.values(SKILL_DEFS);
+    const loadout = ['external', 'internal', 'qinggong'].map(kind => arts.find(art => art.kind === kind)!.id);
+    state.character.skills = loadout;
+    for (const id of loadout) state.character.skillRanks[id] = MARTIAL_RANKS.length - 1;
+    state.character.skillRanks[loadout[2]]--;
+    syncTitles(state);
+    expect(found('title_three_disciplines')).toBe(false);
+    state.character.skillRanks[loadout[2]]++;
+    syncTitles(state);
+    expect(found('title_three_disciplines')).toBe(true);
+    expect(found('title_five_masteries')).toBe(false);
+    expect(titleCollection(state).find(title => title.id === 'title_spar_30')?.requirement).toBe('通過演武台第 30 關');
+  });
+
+  it('does not grant or equip the old solo crown without multiplayer verification', () => {
+    const state = createNewLife({ seed: 9 });
+    state.character.martial = 999;
+    syncTitles(state);
+    expect(allTitles(state).some(title => title.label === '天下第一')).toBe(false);
+    state.character.flags.titles = 'title_number_one,title_ink_hand';
+    state.character.flags.equipped_titles = 'title_number_one,title_ink_hand';
+    expect(topTitles(state)).toEqual(['墨手']);
+    expect(setEquippedTitles(state, ['title_number_one'])).toBe(false);
+    state.character.flags.online_rank_one_verified = true;
+    expect(topTitles(state)).toEqual(['天下第一', '墨手']);
   });
 
   it('test_titles_tierColorClass_maps_every_tier_1_to_5', () => {
