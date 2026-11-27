@@ -76,10 +76,10 @@ describe('取消角色年齡', () => {
       state.character.loverId = 'qa-lover';
       state.character.childrenCount = 0;
       state.character.childrenMax = 2;
-      state.character.monthsSinceLastBirth = 99;
-      expect(canHaveChild(state).ok).toBe(true);
-      state.character.monthsSinceLastBirth = 0;
-      expect(canHaveChild(state).ok).toBe(false);
+      expect(canHaveChild(state, '2026-11-27').ok).toBe(true);
+      state.character.flags.last_birth_day = '2026-11-27';
+      expect(canHaveChild(state, '2026-11-27').ok).toBe(false);
+      expect(canHaveChild(state, '2026-11-28').ok).toBe(true);
       state.character.martial = 0;
       expect(canEnterHuashan(state).ok).toBe(false);
       expect(canFoundSect(state).ok).toBe(false);

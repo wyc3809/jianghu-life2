@@ -12,7 +12,9 @@ import {
   withChineseSurname,
 } from '@core/ids';
 import { alignClanSurnames, randomChineseMotherName } from './clanNames';
-import { SECT_CONTENT } from '@data/content/packs';
+import { DAILY_PRACTICE_LIMIT, migrateDailyPractice } from './dailyPractice';
+import { economyDay } from './economyDay';
+import { FAMILY_RULES, SECT_CONTENT } from '@data/content/packs';
 import { rollLifetimeChildrenMax } from './family';
 import { defaultNature, applyNatureDelta } from './nature';
 import { makeStoryState, makeWorldState } from './monthly';
@@ -232,7 +234,7 @@ export function createNewLife(options: CreateLifeOptions | number = {}): LifeGam
     bossEncounterCountdown: rng.nextInt(3, 7),
     pending: null,
     pendingCombat: null,
-    practiceActionsLeft: 3,
+    practiceActionsLeft: DAILY_PRACTICE_LIMIT,
     lifeLog,
     phase: 'playing',
     tab: 'home',
@@ -346,7 +348,7 @@ function migrateLadderV2(c: LifeGameState['character']): void {
   c.flags.ladder_v2 = true;
 }
 
-export function migrateLifeState(raw: LifeGameState): LifeGameState {
+export function migrateLifeState(raw: LifeGameState, now = Date.now()): LifeGameState {
   if (raw.moments?.some(moment => moment.kind === 'rank')) {
     raw.moments = raw.moments.filter(moment => moment.kind !== 'rank');
   }
@@ -422,7 +424,15 @@ export function migrateLifeState(raw: LifeGameState): LifeGameState {
   if (raw.specialEventCountdown === undefined) raw.specialEventCountdown = 12;
   if (!raw.tab) raw.tab = 'home';
   if (raw.pendingCombat === undefined) raw.pendingCombat = null;
-  if (raw.practiceActionsLeft === undefined) raw.practiceActionsLeft = 3;
+  const day = economyDay(now);
+  migrateDailyPractice(raw, day);
+  if (c.flags.sect_donate_day === undefined && Number(c.flags.sect_donate_month) === c.stats.monthsLived) {
+    c.flags.sect_donate_day = day;
+  }
+  delete c.flags.sect_donate_month;
+  if (c.flags.last_birth_day === undefined && c.monthsSinceLastBirth < FAMILY_RULES.cooldownMonths) {
+    c.flags.last_birth_day = day;
+  }
   if (!Array.isArray(raw.recentEvents)) raw.recentEvents = [];
   if (raw.combatEncounterCountdown === undefined) {
     raw.combatEncounterCountdown = 8;

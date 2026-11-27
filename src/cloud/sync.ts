@@ -147,7 +147,7 @@ export interface BootResult {
  */
 export async function bootCloud(
   readLocalSavedAt: () => Promise<number | null>,
-  writeLocal: (life: LifeGameState | null, ancestry: string | null) => Promise<void>,
+  writeLocal: (life: LifeGameState | null, ancestry: string | null, savedAt: number) => Promise<void>,
   timeoutMs = 2500,
 ): Promise<BootResult> {
   if (!cloudConfigured()) return { restored: false };
@@ -165,7 +165,7 @@ export async function bootCloud(
     const cloudAt = row.payload.savedAt ?? Date.parse(row.saved_at);
     if (!Number.isFinite(cloudAt) || (localAt != null && cloudAt <= localAt + NEWER_MARGIN_MS)) return { restored: false };
     writing = true;
-    await writeLocal(row.payload.life, row.payload.ancestry);
+    await writeLocal(row.payload.life, row.payload.ancestry, cloudAt);
     lastUploadAt = Date.now();
     return { restored: true };
   })();
@@ -183,7 +183,7 @@ export async function bootCloud(
 
 /** 設定頁「由雲端載入」：唔理新舊，強制覆蓋本機 */
 export async function restoreFromCloud(
-  writeLocal: (life: LifeGameState | null, ancestry: string | null) => Promise<void>,
+  writeLocal: (life: LifeGameState | null, ancestry: string | null, savedAt: number) => Promise<void>,
 ): Promise<boolean> {
   restoring = true;
   if (timer) { clearTimeout(timer); timer = null; }
@@ -191,7 +191,8 @@ export async function restoreFromCloud(
     await inFlight;
     const row = await downloadSave();
     if (!row?.payload) return false;
-    await writeLocal(row.payload.life, row.payload.ancestry);
+    const cloudAt = row.payload.savedAt ?? Date.parse(row.saved_at);
+    await writeLocal(row.payload.life, row.payload.ancestry, Number.isFinite(cloudAt) ? cloudAt : Date.now());
     pending = null;
     return true;
   } finally {

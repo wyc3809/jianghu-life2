@@ -5,6 +5,7 @@ import { FAMILY_RULES } from '@data/content/packs';
 import { chineseSurnameOf, randomChineseName } from '@core/ids';
 import { pushChronicle } from './chronicle';
 import { syncRngFromState, snapshotRng } from './gameState';
+import { economyDay } from './economyDay';
 import { syncAchievements } from './achievements';
 
 export function rollLifetimeChildrenMax(rng: { nextInt: (a: number, b: number) => number }): number {
@@ -29,9 +30,8 @@ export type ChildBirthGate =
   | { ok: true }
   | { ok: false; reason: string };
 
-export function canHaveChild(state: LifeGameState): ChildBirthGate {
+export function canHaveChild(state: LifeGameState, day = economyDay()): ChildBirthGate {
   const c = state.character;
-  ensureFamilyFields(c);
   if (!c.alive) return { ok: false, reason: '已無法添丁。' };
   if (FAMILY_RULES.requireLover && !c.loverId) {
     return { ok: false, reason: '尚未有眷屬，難以添丁。' };
@@ -39,18 +39,17 @@ export function canHaveChild(state: LifeGameState): ChildBirthGate {
   if (c.childrenCount >= c.childrenMax) {
     return { ok: false, reason: '此生子女已滿，不宜再添。' };
   }
-  if ((c.monthsSinceLastBirth ?? 0) < FAMILY_RULES.cooldownMonths) {
-    const left = FAMILY_RULES.cooldownMonths - (c.monthsSinceLastBirth ?? 0);
-    return { ok: false, reason: `生產未歇，尚需約 ${left} 月再議。` };
+  if (typeof c.flags.last_birth_day === 'string' && c.flags.last_birth_day >= day) {
+    return { ok: false, reason: '今日已添丁，待香港時間凌晨 4 點後再議。' };
   }
   return { ok: true };
 }
 
-function spawnChild(state: LifeGameState, source: 'monthly' | 'seek'): string[] {
+function spawnChild(state: LifeGameState, source: 'monthly' | 'seek', day: string): string[] {
   const c = state.character;
   const rng = getRng();
   c.childrenCount += 1;
-  c.monthsSinceLastBirth = 0;
+  c.flags.last_birth_day = day;
   const childName = randomChineseName(chineseSurnameOf(c.name));
   const childId = `child_${c.childrenCount}_${state.year}_${state.month}`;
   const gender = rng.chance(0.5) ? 'male' : 'female';
@@ -82,31 +81,28 @@ function spawnChild(state: LifeGameState, source: 'monthly' | 'seek'): string[] 
 }
 
 /** 有眷屬時低機率得子；一生最多 childrenMax（1–5） */
-export function tryMonthlyBirth(state: LifeGameState): string[] {
-  const c = state.character;
-  ensureFamilyFields(c);
-  c.monthsSinceLastBirth = (c.monthsSinceLastBirth ?? 0) + 1;
-
-  const gate = canHaveChild(state);
+export function tryMonthlyBirth(state: LifeGameState, day = economyDay()): string[] {
+  ensureFamilyFields(state.character);
+  const gate = canHaveChild(state, day);
   if (!gate.ok) return [];
 
   const rng = getRng();
   if (!rng.chance(FAMILY_RULES.monthlyBirthChance)) return [];
 
-  const lines = spawnChild(state, 'monthly');
+  const lines = spawnChild(state, 'monthly', day);
   pushChronicle(state, lines);
   return lines;
 }
 
 /**
  * 玩家主動求子（修行行動）。
- * 費銀 20；有機率當月得子，否則只縮短冷卻／加人情。
+ * 費銀 20；有機率得子，否則可能增加眷屬親密度。
  */
-export function seekChild(state: LifeGameState): string[] {
+export function seekChild(state: LifeGameState, day = economyDay()): string[] {
   syncRngFromState(state);
   const c = state.character;
   ensureFamilyFields(c);
-  const gate = canHaveChild(state);
+  const gate = canHaveChild(state, day);
   if (!gate.ok) {
     snapshotRng(state);
     return [gate.reason];
@@ -122,14 +118,9 @@ export function seekChild(state: LifeGameState): string[] {
 
   // 主動求子：較高機率當月成
   if (rng.chance(0.55)) {
-    lines.push(...spawnChild(state, 'seek'));
+    lines.push(...spawnChild(state, 'seek', day));
   } else if (rng.chance(0.5)) {
-    // 縮短冷卻：算作「有喜未產」——把 monthsSinceLastBirth 推到接近可再試
-    c.monthsSinceLastBirth = Math.max(
-      c.monthsSinceLastBirth ?? 0,
-      FAMILY_RULES.cooldownMonths - 3,
-    );
-    lines.push('醫者言：脈象尚可，且安心調養數月再候佳音。');
+    lines.push('醫者言：脈象尚可，且安心調養。');
   } else {
     lines.push('此番未果。巷口風硬，你二人相對無言片刻。');
     if (c.loverId && state.npcs[c.loverId]) {

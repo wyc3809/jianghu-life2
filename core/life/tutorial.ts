@@ -17,7 +17,7 @@ export function coachCopy(step: CoachStep): { title: string; body: string } | nu
     case 'practice':
       return {
         title: '閒時可煉',
-        body: '進入「修煉」選擇合適項目，每月次數有限。華山論劍可由「江湖」地圖進入。',
+        body: '進入「修煉」選擇合適項目，每日次數有限，香港時間凌晨 4 點重置。華山論劍可由「江湖」地圖進入。',
       };
     default:
       return null;

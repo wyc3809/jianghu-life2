@@ -1,5 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { IDBFactory } from 'fake-indexeddb';
+import { dailyPracticeLeft } from '../core/life/dailyPractice';
+import { economyDay } from '../core/life/economyDay';
 import { createNewLife, migrateLifeState } from '../core/life/gameState';
 import { persistLife, saveLifeToIndexedDb, loadLifeFromIndexedDb, saveLifeToLocalStorage, loadLifeSave, clearLifeSave, getLifeSaveError } from '../core/life/saveIndexedDb';
 
@@ -20,6 +22,28 @@ describe('local persistence acceptance checks', () => {
     const state = createNewLife({ seed: 42 });
     await persistLife(state);
     expect((await loadLifeSave())?.state).toEqual(migrateLifeState(structuredClone(state)));
+  });
+
+  it('migrates old monthly uses on the stored day and keeps the next day available after reload', async () => {
+    const state = createNewLife({ seed: 42 });
+    const savedAt = Date.parse('2026-11-27T19:59:59Z');
+    const oldDay = economyDay(savedAt);
+    const newDay = economyDay(savedAt + 1_000);
+    state.practiceActionsLeft = 0;
+    state.character.flags.sect_donate_month = state.character.stats.monthsLived;
+    state.character.monthsSinceLastBirth = 0;
+    localStorage.setItem('jianghu_life_v1_ls', JSON.stringify({ version: 1, savedAt, state }));
+
+    const loaded = (await loadLifeSave())!.state;
+    expect(loaded.practiceActionDay).toBe(oldDay);
+    expect(loaded.character.flags.sect_donate_day).toBe(oldDay);
+    expect(loaded.character.flags.last_birth_day).toBe(oldDay);
+    expect(dailyPracticeLeft(loaded, oldDay)).toBe(2);
+    expect(dailyPracticeLeft(loaded, newDay)).toBe(5);
+    await persistLife(loaded);
+    const reloaded = (await loadLifeSave())!.state;
+    expect(reloaded.practiceActionDay).toBe(oldDay);
+    expect(dailyPracticeLeft(reloaded, newDay)).toBe(5);
   });
 
   it('still saves to IndexedDB when localStorage is unavailable or full', async () => {

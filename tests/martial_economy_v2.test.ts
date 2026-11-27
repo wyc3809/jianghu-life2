@@ -226,7 +226,7 @@ it('test_npc_首領按境界連段_一次起手扣內而不足只調息',async()
 });
 
 it('test_daily_有效修煉計實際進展_整裝與無門派失敗不計',async()=>{
- const {performPracticeAction}=await import('@core/life/actions');const s=life();s.pending=null;s.practiceActionsLeft=10;
+ const {performPracticeAction}=await import('@core/life/actions');const s=life();s.pending=null;
  for(const action of ['train_martial','train_internal','temper_body'] as const)performPracticeAction(s,action);
  expect(s.character.flags.practice_actions).toBe(3);
  performPracticeAction(s,'equip_best');performPracticeAction(s,'sect_meditate');expect(s.character.flags.practice_actions).toBe(3);

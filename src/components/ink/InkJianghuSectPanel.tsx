@@ -8,7 +8,7 @@ type Props = ComponentProps<typeof InkSectFounderPanel> &
     onWar?: () => void;
   };
 
-export function InkJianghuSectPanel({ state, busy, onPractice, onWar, onFound, onRecruit, onTeach }: Props) {
+export function InkJianghuSectPanel({ state, day, busy, onPractice, onWar, onFound, onRecruit, onTeach }: Props) {
   const [founding, setFounding] = useState(false);
   const sect = state.character.sectId ? state.sects[state.character.sectId] : null;
 
@@ -22,9 +22,9 @@ export function InkJianghuSectPanel({ state, busy, onPractice, onWar, onFound, o
       </button>
       {onWar && <button type="button" className="ink-btn ink-btn--quiet" onClick={onWar}>門派會武</button>}
     </nav>
-    {founding ? <InkSectFounderPanel state={state} onFound={onFound} onRecruit={onRecruit} onTeach={onTeach} /> : <>
+    {founding ? <InkSectFounderPanel state={state} day={day} onFound={onFound} onRecruit={onRecruit} onTeach={onTeach} /> : <>
       <h4>{sect?.name ?? '擇門拜師'}</h4>
-      <InkSectMembership state={state} busy={busy} onPractice={onPractice} />
+      <InkSectMembership state={state} day={day} busy={busy} onPractice={onPractice} />
     </>}
   </section>;
 }

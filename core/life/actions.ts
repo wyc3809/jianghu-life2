@@ -4,7 +4,7 @@ import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getRng } from '@core/random';
 import { getGearDef, rollForgeResult, type GearRarity } from '@data/equipment/catalog';
 import { TEST_SILVER_SINKS } from '@data/redesign/testParams';
-import { artForStanding, FAMILY_RULES, MAX_SECT_STANDING, getSectContent } from '@data/content/packs';
+import { artForStanding, MAX_SECT_STANDING, getSectContent } from '@data/content/packs';
 import { addCondition } from './monthly';
 import { addInjury, healInjuries } from './injuries';
 import { HEAL_MONTHS } from '@data/injuries/tuning';
@@ -22,7 +22,9 @@ import { teachSectArtForStanding, tryGainSectStanding } from './sectStanding';
 import { defaultNature, meetsNatureGate, natureGateHint } from './nature';
 import { ensureMasterBond } from './bonds';
 import { rollRandomFragment } from './manualFragments';
-import { designateHeir, listChildNames, seekChild } from './family';
+import { canHaveChild, designateHeir, listChildNames, seekChild } from './family';
+import { dailyPracticeLeft, DAILY_PRACTICE_EXHAUSTED, spendDailyPractice } from './dailyPractice';
+import { economyDay } from './economyDay';
 import { ART_DEFS, applyStudyArt, meetsTaohuaCultureGate, TAOHUA_CULTURE_THRESHOLD } from './arts';
 
 export type PracticeActionId =
@@ -86,7 +88,7 @@ export const SECT_INNER_ACTIONS: PracticeAction[] = [
   { id: 'sect_meditate', label: '靜室修煉', hint: '門中心法，閉目調息' },
   { id: 'sect_namecard', label: '名帖往來', hint: '接待外派，交好或交惡' },
   { id: 'sect_politics', label: '山門站隊', hint: '門中風波，選邊或調解' },
-  { id: 'sect_donate', label: '捐獻山門', hint: '費銀隨地位升，必得晉升；每月一次' },
+  { id: 'sect_donate', label: '捐獻山門', hint: '費銀隨地位升，必得晉升。每日一次' },
 ];
 
 export { SECT_DEFS, ART_DEFS };
@@ -119,11 +121,12 @@ const RARITY_RANK: Record<GearRarity, number> = {
   divine: 6,
 };
 
-/** 執行一項修煉／機緣結果（不扣本月修煉次數；不寫年譜） */
+/** 執行修煉或機緣的結果，日額及年譜由主動修煉處理。 */
 export function applyPracticeOutcome(
   state: LifeGameState,
   actionId: PracticeActionId,
   opts?: { sectId?: string; artId?: string },
+  day = economyDay(),
 ): string[] {
   if (!LEGACY_FEATURES_ENABLED && actionId === 'designate_heir') return [];
   syncRngFromState(state);
@@ -545,9 +548,8 @@ export function applyPracticeOutcome(
         logs.push('你尚未拜入門派。');
         break;
       }
-      const month = c.stats.monthsLived;
-      if (Number(c.flags.sect_donate_month ?? -1) === month) {
-        logs.push('本月已捐過，山門不收重禮。');
+      if (typeof c.flags.sect_donate_day === 'string' && c.flags.sect_donate_day >= day) {
+        logs.push('今日已捐獻過山門，香港時間凌晨 4 點後可再捐。');
         break;
       }
       const cost = sectDonateCost(c);
@@ -561,7 +563,7 @@ export function applyPracticeOutcome(
         break;
       }
       c.money -= cost;
-      c.flags.sect_donate_month = month;
+      c.flags.sect_donate_day = day;
       logs.push(`你捐出${cost}兩修繕山門。`, stand);
       break;
     }
@@ -570,7 +572,7 @@ export function applyPracticeOutcome(
         logs.push('你早已斷絕塵根，此念作罷。');
         break;
       }
-      logs.push(...seekChild(state));
+      logs.push(...seekChild(state, day));
       break;
     }
     case 'designate_heir': {
@@ -605,18 +607,18 @@ export function applyPracticeOutcome(
 }
 
 /** 確定不合資格的操作先攔截，不扣次數、不推進RNG；合法隨機嘗試照常結算。 */
-export function practiceBlockReason(state: LifeGameState, actionId: PracticeActionId, opts?: {sectId?:string;artId?:string}): string | null {
+export function practiceBlockReason(state: LifeGameState, actionId: PracticeActionId, opts?: {sectId?:string;artId?:string}, day = economyDay()): string | null {
   const c=state.character;
   if (!LEGACY_FEATURES_ENABLED && actionId === 'designate_heir') return '此項已暫停。';
   if (!c.alive || state.phase !== 'playing') return '你已無法行動。';
   if (state.pending) return '眼前尚有未決之事，先作抉擇。';
   if (state.pendingCombat) return '交手未了，豈能分心。';
-  if ((state.practiceActionsLeft ?? 0) <= 0) return '本月修煉次數已盡，且回鎮居翻過一頁再來。';
+  if (dailyPracticeLeft(state, day) <= 0) return DAILY_PRACTICE_EXHAUSTED;
   const cost = actionId === 'heal' ? 15 : actionId === 'heal_full' ? fullHealCost(c) : actionId === 'forge_fine' ? fineForgeCost(state) : actionId === 'forge' ? 40 : actionId === 'seek_child' ? 20 : 0;
   if (cost && c.money < cost) return `此項需銀${cost}兩，尚欠${cost-c.money}兩。`;
   if (actionId.startsWith('sect_') && (!c.sectId || (actionId !== 'sect_leave' && !state.sects[c.sectId]))) return '你尚未拜入有效門派。';
   if (actionId === 'sect_donate') {
-    if (Number(c.flags.sect_donate_month ?? -1) === c.stats.monthsLived) return '本月已捐過，山門不收重禮。';
+    if (typeof c.flags.sect_donate_day === 'string' && c.flags.sect_donate_day >= day) return '今日已捐獻過山門，香港時間凌晨 4 點後可再捐。';
     if ((c.sectStanding ?? 0) >= MAX_SECT_STANDING) return '你在門中已位極人臣，無須再捐。';
     const fee=sectDonateCost(c);if(c.money<fee)return `捐獻要${fee}兩，尚欠${fee-c.money}兩。`;
   }
@@ -624,9 +626,8 @@ export function practiceBlockReason(state: LifeGameState, actionId: PracticeActi
   if (actionId === 'designate_heir' && !(c.family.childrenNames?.length)) return '尚無子女，無從立嗣。可先求子添丁。';
   if (actionId === 'seek_child') {
     if(c.flags.wugenSevered)return '你早已斷絕塵根，此念作罷。';
-    if(FAMILY_RULES.requireLover&&!c.loverId)return '尚未有眷屬，難以添丁。';
-    if(c.childrenMax!==undefined&&c.childrenCount>=c.childrenMax)return '此生子女已滿，不宜再添。';
-    if((c.monthsSinceLastBirth??99)<FAMILY_RULES.cooldownMonths)return `生產未歇，尚需約 ${FAMILY_RULES.cooldownMonths-(c.monthsSinceLastBirth??0)} 月再議。`;
+    const gate = canHaveChild(state, day);
+    if (!gate.ok) return gate.reason;
   }
   if (actionId === 'join_sect') {
     if(c.sectId)return `你已是${state.sects[c.sectId]?.name??'門派'}中人。`;
@@ -644,16 +645,17 @@ export function performPracticeAction(
   state: LifeGameState,
   actionId: PracticeActionId,
   opts?: { sectId?: string; artId?: string },
+  day = economyDay(),
 ): string[] {
-  const blocked=practiceBlockReason(state,actionId,opts);
+  const blocked=practiceBlockReason(state,actionId,opts,day);
   if(blocked)return [blocked];
 
-  state.practiceActionsLeft = Math.max(0, (state.practiceActionsLeft ?? 3) - 1);
+  spendDailyPractice(state, day);
   const progress = () => { const c=state.character;return JSON.stringify([c.actionPoints,c.martial,c.qi,c.maxQi,c.maxHealth,c.attributes,c.skills,c.skillProgress,c.skillRanks]); };
   const before=progress();
-  const logs = applyPracticeOutcome(state, actionId, opts);
+  const logs = applyPracticeOutcome(state, actionId, opts, day);
   if (DAILY_TRAINING_ACTIONS.includes(actionId) && before!==progress()) state.character.flags.practice_actions = Number(state.character.flags.practice_actions ?? 0)+1;
-  logs.push(`本月尚餘修煉 ${state.practiceActionsLeft} 次。`);
+  logs.push(`今日尚餘修煉 ${state.practiceActionsLeft} 次。`);
   pushChronicle(state, logs);
   snapshotRng(state);
   return logs;
