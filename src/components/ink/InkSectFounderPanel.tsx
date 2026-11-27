@@ -7,10 +7,12 @@ import {
   FOUND_SECT_COST,
   RECRUIT_COST,
 } from '@core/life/foundedSect';
+import { dailyPracticeLeft, DAILY_PRACTICE_LIMIT } from '@core/life/dailyPractice';
 import { rankName } from '@core/life/martialRanks';
 
 type Props = {
   state: LifeGameState;
+  day: string;
   onFound: (sectName: string) => void;
   onRecruit: () => void;
   onTeach: (discipleId: string) => void;
@@ -23,7 +25,7 @@ const STATUS_LABEL: Record<string, string> = {
   died: '已然身故',
 };
 
-export function InkSectFounderPanel({ state, onFound, onRecruit, onTeach }: Props) {
+export function InkSectFounderPanel({ state, day, onFound, onRecruit, onTeach }: Props) {
   const [draftName, setDraftName] = useState('');
   const sect = state.foundedSect;
   const foundGate = canFoundSect(state);
@@ -63,8 +65,9 @@ export function InkSectFounderPanel({ state, onFound, onRecruit, onTeach }: Prop
       {sect && (
         <>
           <p className="ink-note">
-            <strong>{sect.name}</strong>　開山於{sect.foundedYear}年　門派聲望 {sect.fame} · 本月修煉餘 {state.practiceActionsLeft ?? 0} 次
+            <strong>{sect.name}</strong>　開山於{sect.foundedYear}年　門派聲望 {sect.fame}
           </p>
+          <p className="ink-note">今日修煉餘 {dailyPracticeLeft(state, day)}／{DAILY_PRACTICE_LIMIT} 次 · 每日香港時間 04:00 重置</p>
           <button
             type="button"
             className="ink-btn ink-btn--primary"
@@ -89,7 +92,7 @@ export function InkSectFounderPanel({ state, onFound, onRecruit, onTeach }: Prop
                     <button
                       type="button"
                       className="ink-btn ink-btn--quiet"
-                      disabled={!canTeachDisciple(state,d.id).ok}
+                      disabled={!canTeachDisciple(state, d.id, day).ok}
                       onClick={() => onTeach(d.id)}
                     >
                       親自指點 · 修煉1次

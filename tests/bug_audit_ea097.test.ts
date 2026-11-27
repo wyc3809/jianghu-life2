@@ -9,7 +9,7 @@ import { tryAdvanceSkill } from '../core/life/flavor';
 import { lifeGameStateSchema } from '../interfaces/lifeEngine';
 import { loadLifeSave, persistLife } from '../core/life/saveIndexedDb';
 
-function life() { const s=createNewLife({seed:42,skipCoach:true});s.pending=null;s.practiceActionsLeft=3;return s; }
+function life() { const s=createNewLife({seed:42,skipCoach:true});s.pending=null;return s; }
 function founder() { const s=life();s.character.martial=300;s.character.reputation=100;s.character.money=1000;s.character.sectId=null;foundSect(s,'青山門');recruitDisciple(s);return s; }
 afterEach(()=>vi.unstubAllGlobals());
 
@@ -27,6 +27,10 @@ describe('第53項：無效操作與真存檔重現',()=>{
   const s=founder(),d=s.foundedSect!.disciples[0]!;s.practiceActionsLeft=1;
   teachDisciple(s,d.id);expect(s.practiceActionsLeft).toBe(0);expect(d.progress).toBeGreaterThan(0);
   const before=structuredClone(s);teachDisciple(s,d.id);expect(s).toEqual(before);
+  const day = '2099-01-01';
+  performPracticeAction(s, 'train_internal', undefined, day);
+  teachDisciple(s, d.id, day);
+  expect(s.practiceActionsLeft).toBe(3);
  });
  it.each([null,Number.POSITIVE_INFINITY])('test_save_舊滿階門檻%s_可載入且不再升級',value=>{
   const s=founder(),id=s.character.skills[0]!;const raw=structuredClone(s) as any;
@@ -39,7 +43,7 @@ describe('第53項：無效操作與真存檔重現',()=>{
   actions.choose('no_such_choice');expect(current.state).toEqual(before);expect(save).not.toHaveBeenCalled();
  });
  it('test_practice_舊門派名冊缺失_仍可正常退派',()=>{
-  const s=life();s.character.sectId='removed_legacy_sect';performPracticeAction(s,'sect_leave');expect(s.character.sectId).toBeNull();expect(s.practiceActionsLeft).toBe(2);
+  const s=life();s.character.sectId='removed_legacy_sect';performPracticeAction(s,'sect_leave');expect(s.character.sectId).toBeNull();expect(s.practiceActionsLeft).toBe(4);
  });
  it('test_save_自立門派及弟子_驗證後仍保留',()=>{
   const s=founder();const parsed=lifeGameStateSchema.parse(JSON.parse(JSON.stringify(s)));

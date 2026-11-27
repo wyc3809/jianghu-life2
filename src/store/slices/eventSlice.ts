@@ -128,7 +128,9 @@ export function createEventSlice(
       let logs: string[] = [];
       const next = produce(state, (draft) => {
         logs = performPracticeAction(draft, actionId, opts);
-        if (draft.practiceActionsLeft !== state.practiceActionsLeft) draft.character.flags.coach_practiced = true;
+        if (draft.practiceActionsLeft !== state.practiceActionsLeft || draft.practiceActionDay !== state.practiceActionDay) {
+          draft.character.flags.coach_practiced = true;
+        }
         if (!draft.character.alive) {
           draft.phase = 'summary';
           draft.summaryText = buildLifeSummary(draft);

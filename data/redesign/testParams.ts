@@ -22,7 +22,7 @@ export const TEST_BREAKTHROUGH_FAIL_XP_LOSS = 0.2;
 export const TEST_SILVER_SINKS = {
   /** 醫館大療傷：費用＝氣血上限 × 呢個數（最少 15 兩），一次回滿 */
   fullHealPerMaxHp: 0.1,
-  /** 門派捐獻：費用＝呢個數 × (地位＋1)，必得一次晉升，每月一次 */
+  /** 門派捐獻：費用＝呢個數 × (地位＋1)，必得一次晉升，每日一次 */
   sectDonateBase: 100,
   /** 銀兩換書頁：每次幾多兩、換幾多頁、每日幾次（香港時間凌晨四時換日） */
   pagesSilverCost: 200,

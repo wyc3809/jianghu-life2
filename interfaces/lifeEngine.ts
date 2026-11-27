@@ -267,6 +267,7 @@ export interface LifeCharacter {
   childrenCount: number;
   /** 此生子女上限（開局 1–5） */
   childrenMax: number;
+  /** 舊版存檔遷移添丁冷卻用。 */
   monthsSinceLastBirth: number;
   flags: Record<string, boolean | number | string>;
   family: {
@@ -511,8 +512,9 @@ export interface LifeGameState {
   pendingGearCompare?: { gearId: string } | null;
   /** 待播特效時刻（學新武學／武學升階／稱號晉升），見 core/life/moments.ts */
   moments?: LifeMoment[];
-  /** 本月剩餘修煉行動次數（每月三次） */
+  /** 自 practiceActionDay 起的剩餘修煉次數。 */
   practiceActionsLeft?: number;
+  practiceActionDay?: string;
   lifeLog: string[];
   phase: 'create' | 'playing' | 'summary';
   summaryText?: string;
@@ -821,7 +823,8 @@ export const lifeGameStateSchema = z.object({
       ]),
     )
     .optional(),
-  practiceActionsLeft: z.number().default(3),
+  practiceActionsLeft: z.number().optional(),
+  practiceActionDay: z.iso.date().optional(),
   lifeLog: z.array(z.string()),
   phase: z.enum(['create', 'playing', 'summary']),
   summaryText: z.string().optional(),

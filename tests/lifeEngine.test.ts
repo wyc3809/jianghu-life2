@@ -10,6 +10,8 @@ import {
   listEligibleEvents,
 } from '../core/life/eventEngine';
 import { JIANGHU_EXTRA_EVENTS } from '../data/events/jianghuExtra100';
+import { dailyPracticeLeft, DAILY_PRACTICE_LIMIT } from '../core/life/dailyPractice';
+import { economyDay } from '../core/life/economyDay';
 import { createNewLife } from '../core/life/gameState';
 import { meetsRequirements } from '../core/life/requirements';
 import { RANDOM_PACK_EVENTS } from '../core/life/packAdapter';
@@ -194,7 +196,7 @@ describe('life event engine', () => {
     performPracticeAction(state, 'train_internal');
     expect(state.character.maxHealth).toBeGreaterThan(beforeHp);
     expect(state.character.maxQi).toBeGreaterThan(beforeQi);
-    expect(state.practiceActionsLeft).toBe(1);
+    expect(state.practiceActionsLeft).toBe(DAILY_PRACTICE_LIMIT - 2);
   });
 
   it('martial arts use ranks and may advance without XP numbers', async () => {
@@ -247,17 +249,26 @@ describe('life event engine', () => {
     expect(state.character.skillRanks[sid]).toBe(1);
   });
 
-  it('limits practice to three actions per month', async () => {
+  it('shares a five-action budget and renews only at the Hong Kong reset', async () => {
     const { performPracticeAction } = await import('../core/life/actions');
-    initRng(2);
     const state = createNewLife(2);
-    expect(state.practiceActionsLeft).toBe(3);
-    performPracticeAction(state, 'train_martial');
-    performPracticeAction(state, 'train_martial');
-    performPracticeAction(state, 'train_martial');
-    expect(state.practiceActionsLeft).toBe(0);
-    const blocked = performPracticeAction(state, 'train_martial');
-    expect(blocked[0]).toMatch(/本月修煉/);
+    const resetAt = Date.parse('2026-11-27T20:00:00Z');
+    const today = economyDay(resetAt - 1);
+    const tomorrow = economyDay(resetAt);
+    expect(dailyPracticeLeft(state, today)).toBe(5);
+    for (let i = 0; i < 5; i++) performPracticeAction(state, 'train_martial', undefined, today);
+    expect(dailyPracticeLeft(state, today)).toBe(0);
+
+    startMonth(state);
+    expect(state.character.stats.monthsLived).toBe(1);
+    state.pending = null;
+    const blocked = performPracticeAction(state, 'train_martial', undefined, today);
+    expect(blocked[0]).toMatch(/今日修煉/);
+    expect(dailyPracticeLeft(state, today)).toBe(0);
+    expect(dailyPracticeLeft(state, economyDay(resetAt - 86_400_000))).toBe(0);
+    expect(dailyPracticeLeft(state, tomorrow)).toBe(5);
+    performPracticeAction(state, 'train_internal', undefined, tomorrow);
+    expect(dailyPracticeLeft(state, tomorrow)).toBe(4);
   });
 
   it('sect submenu can attempt joining a chosen sect', async () => {
@@ -889,11 +900,9 @@ describe('life event engine', () => {
       alive: true,
     };
     state.character.childrenMax = 2;
-    state.character.monthsSinceLastBirth = 99;
     let births = 0;
     for (let i = 0; i < 500; i++) {
-      state.character.monthsSinceLastBirth = 99;
-      const lines = tryMonthlyBirth(state);
+      const lines = tryMonthlyBirth(state, economyDay(Date.UTC(2026, 10, 27 + i)));
       if (lines.length) births += 1;
     }
     expect(state.character.childrenCount).toBeLessThanOrEqual(2);

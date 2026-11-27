@@ -31,7 +31,7 @@ describe('cloud sync boot (雲端開機同步)', () => {
     const write = vi.fn(async () => {});
     const r = await bootCloud(async () => 50_000, write);
     expect(r.restored).toBe(true);
-    expect(write).toHaveBeenCalledWith({ tag: 'cloud' }, '{"points":3}');
+    expect(write).toHaveBeenCalledWith({ tag: 'cloud' }, '{"points":3}', 100_000);
   });
 
   it('test_boot_restores_when_no_local_save', async () => {

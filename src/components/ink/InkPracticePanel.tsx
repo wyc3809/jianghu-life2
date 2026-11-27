@@ -1,5 +1,6 @@
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { PRACTICE_ACTIONS, SECT_INNER_ACTIONS, SECT_DEFS, ART_DEFS, fineForgeCost, practiceBlockReason, fullHealCost, sectDonateCost, type PracticeAction, type PracticeActionId } from '@core/life/actions';
+import { dailyPracticeLeft, DAILY_PRACTICE_EXHAUSTED, DAILY_PRACTICE_LIMIT } from '@core/life/dailyPractice';
 import { natureGateHint } from '@core/life/nature';
 import { describeSectProgress } from '@core/life/sectStanding';
 import { artProficiency, ART_MASTERY_THRESHOLD } from '@core/life/arts';
@@ -23,14 +24,16 @@ const PRACTICE_ICON: Partial<Record<PracticeActionId, InkAiAssetId>> = {
 /** 有價錢嘅項目顯示實際費用（審計 B4） */
 function actionHint(act: PracticeAction, state: LifeGameState): string {
   const c = state.character;
-  const blocked=practiceBlockReason(state,act.id);
-  if(blocked)return blocked;
   if (act.id === 'heal_full') return `費銀${fullHealCost(c)}兩，氣血回滿`;
   if (act.id === 'forge_fine') return `費銀${fineForgeCost(state)}兩，境界越高越易出好兵器`;
   if (act.id === 'sect_donate') {
-    return Number(c.flags.sect_donate_month ?? -1) === c.stats.monthsLived ? '本月已捐' : `費銀${sectDonateCost(c)}兩，必得晉升；每月一次`;
+    return `費銀${sectDonateCost(c)}兩，必得晉升。每日一次`;
   }
   return act.hint;
+}
+
+function actionBlockHint(reason: string | null): string | null {
+  return reason === DAILY_PRACTICE_EXHAUSTED ? null : reason;
 }
 
 function RowIcon({ icon, label }: { icon?: InkAiAssetId; label: string }) {
@@ -41,23 +44,26 @@ type Props = {
   state: LifeGameState;
   view: PracticeView;
   onView: (v: PracticeView) => void;
-  practiceLeft: number;
+  day: string;
   busy: boolean;
   onPractice: (actionId: PracticeActionId, opts?: { sectId?: string; artId?: string }) => void;
 };
 
 /** 共用拜師同門務。江湖地圖同修煉用同一套條件、操作同職位資料。 */
-export function InkSectMembership({ state, busy, onPractice, onAffiliationChange }: Pick<Props, 'state' | 'busy' | 'onPractice'> & {
+export function InkSectMembership({ state, day, busy, onPractice, onAffiliationChange }: Pick<Props, 'state' | 'day' | 'busy' | 'onPractice'> & {
   onAffiliationChange?: () => void;
 }) {
   const sectId = state.character.sectId;
   const sect = sectId ? state.sects[sectId] : null;
+  const quota = <p className="ink-note">今日修煉餘 {dailyPracticeLeft(state, day)}／{DAILY_PRACTICE_LIMIT} 次 · 每日香港時間 04:00 重置</p>;
+  const leaveReason = sect ? practiceBlockReason(state, 'sect_leave', undefined, day) : null;
   return !sect ? (
     <>
+      {quota}
       <p className="ink-note">各門派有不同的入門條件，符合條件後可拜師。</p>
       <div className="ink-practice-grid">
         {SECT_DEFS.map(s => {
-          const reason = practiceBlockReason(state, 'join_sect', { sectId: s.id });
+          const reason = practiceBlockReason(state, 'join_sect', { sectId: s.id }, day);
           const gate = natureGateHint(s.natureGate);
           return <button
             key={s.id}
@@ -70,13 +76,14 @@ export function InkSectMembership({ state, busy, onPractice, onAffiliationChange
             }}
           >
             <strong>{s.name}</strong>
-            <span>{reason ?? [s.hint, gate].filter(Boolean).join(' · ')}</span>
+            <span>{actionBlockHint(reason) ?? [s.hint, gate].filter(Boolean).join(' · ')}</span>
           </button>;
         })}
       </div>
     </>
   ) : (
     <>
+      {quota}
       <p className="ink-note">完成門派差事、比武或靜修可提升門派地位，逐步解鎖四套門派武學。</p>
       <ul className="ink-skill-list ink-sect-progress">
         {describeSectProgress(state).map((line) => (
@@ -84,49 +91,49 @@ export function InkSectMembership({ state, busy, onPractice, onAffiliationChange
         ))}
       </ul>
       <div className="ink-practice-grid">
-        {SECT_INNER_ACTIONS.map((act) => (
-          <button
+        {SECT_INNER_ACTIONS.map(act => {
+          const blocked = practiceBlockReason(state, act.id, undefined, day);
+          return <button
             key={act.id}
             type="button"
             className="ink-practice-btn"
-            disabled={busy || Boolean(practiceBlockReason(state,act.id))}
+            disabled={busy || Boolean(blocked)}
             onClick={() => {
               onPractice(act.id);
             }}
           >
             <strong>{act.label}</strong>
-            <span>{actionHint(act, state)}</span>
-          </button>
-        ))}
+            <span>{actionBlockHint(blocked) ?? actionHint(act, state)}</span>
+          </button>;
+        })}
         <button
           type="button"
           className="ink-practice-btn"
-          disabled={busy}
+          disabled={busy || Boolean(leaveReason)}
           onClick={() => {
             onPractice('sect_leave');
             onAffiliationChange?.();
           }}
         >
           <strong>離開門派</strong>
-          <span>割席而去，山門內外兩不相干</span>
+          <span>{actionBlockHint(leaveReason) ?? '割席而去，山門內外兩不相干'}</span>
         </button>
       </div>
     </>
   );
 }
 
-export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPractice }: Props) {
+export function InkPracticePanel({ state, view, onView, day, busy, onPractice }: Props) {
   const c = state.character;
   const sect = c.sectId ? state.sects[c.sectId] : null;
+  const quota = <p className="ink-note">今日修煉餘 {dailyPracticeLeft(state, day)}／{DAILY_PRACTICE_LIMIT} 次 · 每日香港時間 04:00 重置</p>;
 
   return (
     <section key="practice" className="ink-panel ink-practice ink-tab-pane">
       {view === 'main' && (
         <>
           <h3>修煉</h3>
-          <p className="ink-note">
-            本月尚可修煉 {practiceLeft}／3 次。
-          </p>
+          {quota}
           <div className="ink-practice-grid">
             <button
               type="button"
@@ -158,13 +165,15 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
                 <span>琴棋書畫、佛道邪學，各憑機緣</span>
               </span>
             </button>
-            {PRACTICE_ACTIONS.map((act) => (
-              <button
+            {PRACTICE_ACTIONS.map(act => {
+              const blocked = practiceBlockReason(state, act.id, undefined, day);
+              const hint = actionBlockHint(blocked) ?? actionHint(act, state);
+              return <button
                 key={act.id}
                 type="button"
                 className="ink-practice-btn ink-practice-btn--icon"
-                aria-label={`${act.label}：${actionHint(act, state)}`}
-                disabled={busy || Boolean(practiceBlockReason(state,act.id))}
+                aria-label={`${act.label}：${hint}`}
+                disabled={busy || Boolean(blocked)}
                 onClick={() => {
                   onPractice(act.id);
                 }}
@@ -172,14 +181,11 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
                 <RowIcon icon={PRACTICE_ICON[act.id]} label={act.label} />
                 <span className="ink-practice-btn-text">
                   <strong>{act.label}</strong>
-                  <span>{actionHint(act, state)}</span>
+                  <span>{hint}</span>
                 </span>
-              </button>
-            ))}
+              </button>;
+            })}
           </div>
-          {practiceLeft <= 0 && (
-            <p className="ink-note ink-note--warn">本月修煉已盡，過月後可再修行。</p>
-          )}
         </>
       )}
 
@@ -191,7 +197,7 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
               返回
             </button>
           </div>
-          <InkSectMembership state={state} busy={busy} onPractice={onPractice} onAffiliationChange={() => onView('main')} />
+          <InkSectMembership state={state} day={day} busy={busy} onPractice={onPractice} onAffiliationChange={() => onView('main')} />
         </>
       )}
 
@@ -203,26 +209,28 @@ export function InkPracticePanel({ state, view, onView, practiceLeft, busy, onPr
               返回
             </button>
           </div>
+          {quota}
           <p className="ink-note">
             琴棋書畫、佛道邪學可提供不同加成；熟練度達 {ART_MASTERY_THRESHOLD} 可悟對應武功。
           </p>
           <div className="ink-practice-grid">
-            {ART_DEFS.map((a) => (
-              <button
+            {ART_DEFS.map(a => {
+              const blocked = practiceBlockReason(state, 'study_art', { artId: a.id }, day);
+              return <button
                 key={a.id}
                 type="button"
                 className="ink-practice-btn"
-                disabled={busy}
+                disabled={busy || Boolean(blocked)}
                 onClick={() => {
                   onPractice('study_art', { artId: a.id });
                 }}
               >
                 <strong>{a.name}</strong>
                 <span>
-                  {a.hint} · 熟練度 {artProficiency(state, a.id)}
+                  {actionBlockHint(blocked) ?? `${a.hint} · 熟練度 ${artProficiency(state, a.id)}`}
                 </span>
-              </button>
-            ))}
+              </button>;
+            })}
           </div>
         </>
       )}

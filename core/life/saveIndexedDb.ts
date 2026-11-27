@@ -60,13 +60,13 @@ export interface LifePersistedSave {
   state: LifeGameState;
 }
 
-function normalize(state: LifeGameState): LifeGameState {
-  return migrateLifeState(lifeGameStateSchema.parse(state) as LifeGameState);
+function normalize(state: LifeGameState, savedAt: number): LifeGameState {
+  return migrateLifeState(lifeGameStateSchema.parse(state) as LifeGameState, savedAt);
 }
 
 function makePayload(state: LifeGameState): LifePersistedSave {
   lastSavedAt = Math.max(Date.now(), lastSavedAt + 1);
-  return { version: 1, savedAt: lastSavedAt, state: normalize(state) };
+  return { version: 1, savedAt: lastSavedAt, state: normalize(state, lastSavedAt) };
 }
 
 function parsePayload(raw: unknown): LifePersistedSave | null {
@@ -74,7 +74,7 @@ function parsePayload(raw: unknown): LifePersistedSave | null {
   const value = raw as LifePersistedSave;
   if (value.version !== 1 || !Number.isFinite(value.savedAt) || value.savedAt < 0 || !value.state) return null;
   try {
-    return { version: 1, savedAt: value.savedAt, state: normalize(value.state) };
+    return { version: 1, savedAt: value.savedAt, state: normalize(value.state, value.savedAt) };
   } catch {
     return null;
   }

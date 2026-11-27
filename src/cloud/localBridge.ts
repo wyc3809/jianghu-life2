@@ -11,13 +11,13 @@ export async function readLocalSavedAt(): Promise<number | null> {
   return Math.max(save?.savedAt ?? 0, Number.isFinite(ancestryAt) ? ancestryAt : 0) || null;
 }
 
-export async function writeLocal(life: LifeGameState | null, ancestry: string | null): Promise<void> {
+export async function writeLocal(life: LifeGameState | null, ancestry: string | null, savedAt?: number): Promise<void> {
   if (life) {
     const [{ persistLife }, { migrateLifeState }] = await Promise.all([
       import('@core/life/saveIndexedDb'),
       import('@core/life/gameState'),
     ]);
-    await persistLife(migrateLifeState(life));
+    await persistLife(migrateLifeState(life, savedAt));
   }
   if (!life) {
     const { clearLifeSave } = await import('@core/life/saveIndexedDb');

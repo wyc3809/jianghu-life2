@@ -2,6 +2,7 @@ import { buildLifeSummary } from '@core/life/summary';
 import { InkSaveStatus } from './InkSaveStatus';
 import { InkModal } from './InkModal';
 import { usePrefersReducedMotion } from '../../hooks/useStillMode';
+import { useEconomyDay } from '../../hooks/useEconomyDay';
 import { useRatingGain } from '../../hooks/useRatingGain';
 import { lazy, Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -296,9 +297,8 @@ export function InkPlayScreen({ state }: Props) {
     if (autoReady && !combatReplay) combatAuto();
   }, [autoReady, combatReplay, combat?.id, combat?.turn, combatAuto]);
 
-  const practiceLeft = state.practiceActionsLeft ?? 3;
+  const practiceDay = useEconomyDay();
   const busy = Boolean(state.pending) || Boolean(combat) || hasResult || !c.alive;
-  const practiceBusy = busy || practiceLeft <= 0;
   const onHomeTab = tab === 'home';
   const enoughActionPoints = hasEnoughActionPoints(state);
   const canAdvanceMonthGlobal =
@@ -840,7 +840,7 @@ export function InkPlayScreen({ state }: Props) {
             }} />}
             {jianghuView === 'huashan' && <InkHuashanPanel state={state} onStart={huashanStart} onFight={huashanFight}
               onDismissReport={huashanDismissReport} onCloseTournament={huashanClose} />}
-            {jianghuView === 'sect' && <InkJianghuSectPanel state={state} busy={practiceBusy} onPractice={practice}
+            {jianghuView === 'sect' && <InkJianghuSectPanel state={state} day={practiceDay} busy={busy} onPractice={practice}
               onFound={foundSect} onRecruit={recruitDisciple} onTeach={teachDisciple}
               onWar={InkSectWar ? () => setJianghuView('sectWar') : undefined} />}
           </div>}
@@ -874,8 +874,8 @@ export function InkPlayScreen({ state }: Props) {
           state={state}
           view={practiceView}
           onView={setPracticeView}
-          practiceLeft={practiceLeft}
-          busy={practiceBusy}
+          day={practiceDay}
+          busy={busy}
           onPractice={practice}
         />
       )}

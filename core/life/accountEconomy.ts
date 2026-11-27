@@ -2,6 +2,7 @@ import type { AncestryMeta, AccountEconomy } from '@interfaces/ancestry';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { DAILY_TASK_JADE, DAILY_TASK_LIMIT, GUIDE_STEP_JADE, GUIDE_MAJOR_JADE, BREAKTHROUGH_FIRST_JADE, BREAKTHROUGH_JADE_STEP, LEGACY_TIER_RECEIPTS } from '@data/redesign/martialEconomyParams';
 import { NEWBIE_TRIAL } from '@data/redesign/newbie';
+import { economyDay } from './economyDay';
 import { ownedVolumes } from './volumes';
 import { martialSlots, supportMartialSlots } from './martialLoadout';
 
@@ -14,8 +15,7 @@ export const DAILY_TASKS = [
 ] as const;
 export type DailyTaskId = typeof DAILY_TASKS[number]['id'];
 
-/** 香港時間每日凌晨四時換日，與多人伺服器共用。 */
-export function economyDay(now: number): string { return new Date(now + 4 * 3600_000).toISOString().slice(0,10); }
+export { economyDay } from './economyDay';
 
 function counters(state: LifeGameState): Record<string,number> {
   const c=state.character;

@@ -246,18 +246,22 @@ describe('審計 B4：銀兩用途', () => {
     expect(s.character.money).toBe(10_000 - cost);
   });
 
-  it('test_sect_donate_promotes_once_per_month', async () => {
+  it('test_sect_donate_promotes_once_per_real_day', async () => {
     const { performPracticeAction, sectDonateCost } = await import('../core/life/actions');
     const s = freshLife();
     s.character.sectId = Object.keys(s.sects)[0] ?? 'sect_qa';
     s.character.sectStanding = 0;
     s.character.money = 10_000;
     const cost = sectDonateCost(s.character);
-    performPracticeAction(s, 'sect_donate');
+    performPracticeAction(s, 'sect_donate', undefined, '2026-11-27');
     expect(s.character.sectStanding).toBe(1);
     expect(s.character.money).toBe(10_000 - cost);
-    performPracticeAction(s, 'sect_donate');
+    s.character.stats.monthsLived += 1;
+    performPracticeAction(s, 'sect_donate', undefined, '2026-11-27');
     expect(s.character.sectStanding).toBe(1);
+    expect(s.character.money).toBe(10_000 - cost);
+    performPracticeAction(s, 'sect_donate', undefined, '2026-11-28');
+    expect(s.character.sectStanding).toBe(2);
   });
 
   it('test_fine_forge_cost_scales_with_tier', async () => {
