@@ -1,7 +1,7 @@
 {
   "name": "jianghu-engine",
   "private": true,
-  "version": "0.120.6-ea",
+  "version": "0.120.7-ea",
   "type": "module",
   "scripts": {
     "dev": "vite",

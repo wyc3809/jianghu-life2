@@ -145,6 +145,7 @@ export function createEventSlice(
           sect_guard: '守護山門',
           sect_meditate: '靜室修煉',
           sect_leave: '離開門派',
+          equip_best: '整裝披掛',
           train_martial: '苦練外功',
           train_internal: '打坐運功',
           temper_body: '淬體強身',
