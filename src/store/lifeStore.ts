@@ -1,7 +1,8 @@
 import { queueCloudSync } from '../cloud/sync';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
-import type { CombatReplay, LifeGameState } from '@interfaces/lifeEngine';
+import type { CombatReplay, LifeGameState, LifeMoment } from '@interfaces/lifeEngine';
+import type { LearnMoment } from '@core/life/moments';
 import type { BreakthroughResult } from '@core/life/cultivation';
 import type { CoachHint } from '@core/life/coachHints';
 import { fullCatalog } from '@core/life/eventEngine';
@@ -26,6 +27,7 @@ export interface LastResult {
   feedback: string;
   deltas: string[];
   choiceText: string;
+  learnBeforeText?: LearnMoment[];
 }
 
 /** 閉關所得（離線收益）彈窗資料 */
@@ -78,7 +80,7 @@ export interface LifeStore {
   /** 門派會武本屆席次：記本屆榮銜（職位服）並排一次本屆俸祿玉石 */
   recordSectWarSeat: (seat: import('@core/life/sectWarHonor').SectWarSeat) => void;
   /** 特效時刻播完：移出佇列（見 core/life/moments.ts） */
-  ackMoment: () => void;
+  ackMoment: (moment: LifeMoment) => void;
   practice: (actionId: PracticeActionId, opts?: { sectId?: string; artId?: string }) => void;
   combatMove: (moveId: string) => void;
   /** 自動戰鬥：計好成場（未套用），畀介面逐招演出 */

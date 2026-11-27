@@ -347,6 +347,9 @@ function migrateLadderV2(c: LifeGameState['character']): void {
 }
 
 export function migrateLifeState(raw: LifeGameState): LifeGameState {
+  if (raw.moments?.some(moment => moment.kind === 'rank')) {
+    raw.moments = raw.moments.filter(moment => moment.kind !== 'rank');
+  }
   const c = raw.character;
   if (c.qi === undefined) c.qi = 80;
   if (c.maxQi === undefined) c.maxQi = 120;
