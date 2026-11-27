@@ -87,7 +87,11 @@ export function startOnlineBattle(world: OnlineWorld, now: number, attacker: str
   if(a.busy||b.busy)throw new OnlineError(409,'其中一方仍在交戰，請稍後再試。');
   if(b.protectedUntil>now)throw new OnlineError(409,'對方正受戰敗保護。');
   if(red&&(!a.live?.joined||!b.live?.joined||!a.live.red))throw new OnlineError(409,'雙方須已加入同遊，並由出手者開紅。');
-  const result=simulateOnlineBattle(a.character,b.character,entropy.seed),battleId=entropy.battleId;
+  const battleCharacter = ({ character, rankOneEarned }: typeof a) => ({
+    ...character,
+    flags: { ...character.flags, online_rank_one_verified: rankOneEarned === true },
+  });
+  const result=simulateOnlineBattle(battleCharacter(a),battleCharacter(b),entropy.seed),battleId=entropy.battleId;
   const hitCount=result.forward.rounds.reduce((n,r)=>n+r.hits.length,0);
   const startedAt=red?now+1200:now;
   a.protectedUntil=0;a.busy=b.busy=battleId;
@@ -95,6 +99,6 @@ export function startOnlineBattle(world: OnlineWorld, now: number, attacker: str
     startedAt,endsAt:startedAt+(red?Math.min(45000,6000+hitCount*1500):ONLINE_TEST.battleMs),settledAt:null,
     ...(red?{mode:'red' as const,hitMs:1500}:{}),before:{[attacker]:a.rank,[defender]:b.rank},after:null,
     replays:{[attacker]:{...result.forward,title:red?'同遊交鋒':result.forward.title},[defender]:{...result.reverse,title:red?'同遊交鋒':result.reverse.title}},
-    characters:{[attacker]:characterForPreset(structuredClone(a.character),'duel'),[defender]:characterForPreset(structuredClone(b.character),'duel')}});
+    characters:{[attacker]:characterForPreset(structuredClone(battleCharacter(a)),'duel'),[defender]:characterForPreset(structuredClone(battleCharacter(b)),'duel')}});
   return {battleId};
 }

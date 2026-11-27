@@ -64,7 +64,7 @@ describe('飲酒系統：把酒買醉', () => {
     expect(allTitles(state).some((t) => t.id === 'title_wine_lover')).toBe(true);
     expect(allTitles(state).some((t) => t.id === 'title_drunken_immortal')).toBe(false);
 
-    for (let i = 0; i < 40; i++) applyPracticeOutcome(state, 'drink_wine'); // 累計 60
+    for (let i = 0; i < 80; i++) applyPracticeOutcome(state, 'drink_wine'); // 累計 100
     syncTitles(state);
     expect(allTitles(state).some((t) => t.id === 'title_drunken_immortal')).toBe(true);
   });

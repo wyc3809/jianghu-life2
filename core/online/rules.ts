@@ -35,6 +35,7 @@ export function settleOnlineWorld(world: OnlineWorld, now: number): void {
       const winner = world.players[battle.winner], loser = world.players[loserId];
       if (winner.rank > loser.rank) [winner.rank, loser.rank] = [loser.rank, winner.rank];
       loser.protectedUntil = battle.endsAt + ONLINE_TEST.protectionMs;
+      if (winner.rank === 1) winner.rankOneEarned = true;
       if(battle.mode!=='red') {
       const day = economyDay(battle.endsAt);
       if(!winner.jadeDay || day>winner.jadeDay.day)winner.jadeDay={day,attackWins:0,defendWins:0,opponents:[]};

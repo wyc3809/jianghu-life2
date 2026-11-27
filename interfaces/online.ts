@@ -18,6 +18,8 @@ export interface OnlinePlayer {
   silver: number;
   /** 服務端累計已派免費玉石，帳戶以來源高水位收據接收。 */
   jadeEarnedTotal?: number;
+  /** 由正式多人世界結算或核對戰報後保存嘅永久資格。 */
+  rankOneEarned?: boolean;
   live?: { joined: boolean; red: boolean };
   jadeDay?: { day: string; attackWins: number; defendWins: number; opponents: string[] };
 }
@@ -46,6 +48,7 @@ export interface OnlineWorld {
 export interface OnlinePeer {
   live?: { joined:boolean; red:boolean };
   appearance?: CharacterAppearance;
+  titles?: string[];
   id: OnlineAccountId;
   name: string;
   rank: number;

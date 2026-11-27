@@ -3,6 +3,42 @@ import { cloudAccess } from './cloud';
 export const publicOnline = import.meta.env.VITE_ONLINE_PUBLIC === '1';
 const JOINED = 'jianghu-world-joined';
 const clientId = crypto.randomUUID();
+let titlesPending = false;
+let publishingTitles = false;
+
+export function rememberWorldHint(): void {
+  try { localStorage.setItem(JOINED, '1'); } catch { /* 本頁仍可繼續玩 */ }
+}
+
+/** 合併連續換稱號；雲端存妥後先由已驗證服務讀新名帖。 */
+export function queueOnlineTitleSync(): void {
+  if (!publicOnline || !worldJoined()) return;
+  titlesPending = true;
+  void publishOnlineTitles();
+}
+
+export function retryOnlineTitleSync(): void {
+  void publishOnlineTitles();
+}
+
+async function publishOnlineTitles(): Promise<void> {
+  if (publishingTitles || !titlesPending || !worldJoined()) return;
+  publishingTitles = true;
+  try {
+    while (titlesPending) {
+      titlesPending = false;
+      const [{useLifeStore},{saveProfileForOnline}] = await Promise.all([import('../store/lifeStore'),import('./sync')]);
+      const state = useLifeStore.getState().state;
+      if (!state || !await saveProfileForOnline(state)) throw new Error('稱號尚未保存。');
+      const response = await publicOnlineRequest('titles', {}, false);
+      if (!response.ok) throw new Error('稱號尚未同步。');
+    }
+  } catch {
+    titlesPending = true; // 下次前景／多人刷新再試。
+  } finally {
+    publishingTitles = false;
+  }
+}
 
 /** 同一瀏覽器保留入籍提示；真正身份仍由Supabase JWT決定。 */
 export function worldJoined(): boolean {
@@ -29,8 +65,7 @@ export async function publicOnlineRequest(path: string, data: unknown, keepalive
     body: JSON.stringify({ action, clientId, data: data ?? {} }),
     signal: AbortSignal.timeout(15_000), keepalive,
   });
-  if (response.ok && path === 'login') {
-    try { localStorage.setItem(JOINED, '1'); } catch { /* 本頁仍可繼續玩 */ }
-  }
+  if (response.ok && path === 'login') rememberWorldHint();
+  if (response.ok && (path === 'world' || path === 'heartbeat')) void publishOnlineTitles();
   return response;
 }

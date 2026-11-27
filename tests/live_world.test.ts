@@ -28,7 +28,9 @@ it('test_live_戰敗保護及重新加入_到期依伺服器時間且不重派�
  const f=fixture();await f.join(1);await f.join(0);await f.call(0,'red',{requestId:req(1),enabled:true});
  const before=structuredClone(f.profiles);await f.call(0,'attack',{requestId:req(2),target:ids[1]});const b=[...f.battles.values()][0];
  f.setNow(b.endsAt);const s=await f.call(1,'world') as OnlineSnapshot;
- expect(s.me.rank).toBe(2);expect((await f.call(0,'world') as OnlineSnapshot).me.rank).toBe(1);
+ const champion=await f.call(0,'world') as OnlineSnapshot;
+ expect(s.me.rank).toBe(2);expect(champion.me.rank).toBe(1);
+ expect(champion.me.rankOneEarned).toBe(true);expect(s.me.rankOneEarned).toBe(false);
  expect(s.me.protectedUntil).toBe(b.endsAt+ONLINE_TEST.protectionMs);expect(s.battles[0].jadeAwards).toBeUndefined();
  await f.join(1);expect((await f.call(1,'world') as OnlineSnapshot).me.protectedUntil).toBe(s.me.protectedUntil);
  await expect(f.call(0,'attack',{requestId:req(3),target:ids[1]})).rejects.toMatchObject({status:409});

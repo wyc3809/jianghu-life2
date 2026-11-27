@@ -88,6 +88,9 @@ export interface LifeStore {
   /** 自動戰鬥演出中：演出資料＋打完嘅狀態 */
   combatReplay: { replay: CombatReplay; next: LifeGameState; logs: string[] } | null;
   /** 五格外功＋獨立內功及身法；指定欄位先替換，收藏武學可同時習得。 */
+  setTitles: (ids: readonly string[]) => boolean;
+  checkTitles: (announce: boolean) => void;
+  receiveRankOneTitle: (earned: boolean | undefined) => void;
   setMartialSlot: (slot: number, skillId: string | null, preset?: 'normal' | 'duel') => boolean;
   /** 舊入口兼容，人物介面改用五格裝備。 */
   /** 新手試煉：開打（贏咗得有用裝備） */
