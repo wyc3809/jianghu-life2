@@ -3,7 +3,7 @@ import { InkSaveStatus } from './InkSaveStatus';
 import { InkModal } from './InkModal';
 import { usePrefersReducedMotion } from '../../hooks/useStillMode';
 import { useRatingGain } from '../../hooks/useRatingGain';
-import { lazy, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { useLifeStore } from '../../store/lifeStore';
@@ -284,8 +284,11 @@ export function InkPlayScreen({ state }: Props) {
     pendingKind: state.pending?.kind,
     omen: state.pending?.kind === 'special',
   });
-  const showResult = Boolean(lastResult) && state.phase === 'playing' && !state.pendingCombat;
   const combat = state.pendingCombat ?? null;
+  const hasResult = Boolean(lastResult) && state.phase === 'playing' && !combat;
+  const resultLearnMoments = hasResult ? lastResult?.learnBeforeText : undefined;
+  const resultLearnMoment = resultLearnMoments?.find(moment => state.moments?.includes(moment));
+  const showResult = hasResult && !resultLearnMoment;
   // 首領直接進入自動戰鬥；重大生死戰保留風險確認。
   const autoReady =
     Boolean(combat) && state.phase === 'playing' && combat?.phase === 'player' && !needsLifeOrDeathConfirm(combat);
@@ -294,15 +297,15 @@ export function InkPlayScreen({ state }: Props) {
   }, [autoReady, combatReplay, combat?.id, combat?.turn, combatAuto]);
 
   const practiceLeft = state.practiceActionsLeft ?? 3;
-  const busy = Boolean(state.pending) || Boolean(combat) || showResult || !c.alive;
+  const busy = Boolean(state.pending) || Boolean(combat) || hasResult || !c.alive;
   const practiceBusy = busy || practiceLeft <= 0;
   const onHomeTab = tab === 'home';
   const enoughActionPoints = hasEnoughActionPoints(state);
   const canAdvanceMonthGlobal =
-    state.phase === 'playing' && !state.pending && !combat && c.alive && !showResult && enoughActionPoints;
+    state.phase === 'playing' && !state.pending && !combat && c.alive && !hasResult && enoughActionPoints;
   /** 有待決事件時進入專注版面，避免選項被頂欄／年譜擠出可視區 */
   const eventFocus =
-    state.phase === 'playing' && Boolean(pendingEvent) && !showResult && !combat;
+    state.phase === 'playing' && Boolean(pendingEvent) && !hasResult && !combat;
   const onJianghuMap = tab === 'jianghu' && jianghuView === 'main' && !combat && !eventFocus;
   const onGachaPage = tab === 'jianghu' && jianghuView === 'gacha' && !combat && !eventFocus;
   const onPersonPage = tab === 'person' && !combat && !eventFocus;
@@ -317,9 +320,12 @@ export function InkPlayScreen({ state }: Props) {
     null,
   );
   const woundLabel = worstInjury === 'crippled' ? '傷殘' : worstInjury === 'heavy' ? '重傷' : null;
-  // 高光時刻（3D）：學武／升階／新裝備／突破成功；冇 WebGL 就退返水墨特效
-  const headMoment = state.moments?.[0];
-  const momentKey = headMoment ? JSON.stringify(headMoment) : '';
+  // 本次事件習得先播，其他待播演出等結果匣關閉。
+  const headMoment = resultLearnMoment ?? state.moments?.[0];
+  const momentKey = headMoment ? `${resultLearnMoment ? resultLearnMoments?.indexOf(resultLearnMoment) : 'queue'}:${JSON.stringify(headMoment)}` : '';
+  const finishMoment = useCallback(() => {
+    if (headMoment) ackMoment(headMoment);
+  }, [ackMoment, headMoment]);
   const momentFx = useMemo(
     () => (headMoment && canUseWebGL() ? momentHighlight(state, headMoment) : null),
     // 只喺換咗時刻先重算（播放中遊戲狀態變都唔好重設演出）
@@ -438,7 +444,7 @@ export function InkPlayScreen({ state }: Props) {
       el.removeEventListener('touchstart', stop);
       el.removeEventListener('keydown', stop);
     };
-  }, [lastResult, resultStory.long, reduceMotion]);
+  }, [showResult, lastResult, resultStory.long, reduceMotion]);
   // 成就改做頂部動畫；其餘（威望、稱號）留喺結果頁做細籤
   const achievementNames = useMemo(
     () => resultStory.notices.filter((n) => n.label === '成就').map((n) => n.text),
@@ -504,7 +510,7 @@ export function InkPlayScreen({ state }: Props) {
     `${state.seed}:${c.flags.legacy_generation ?? 1}:${c.name}`,
     rating,
     state.phase === 'playing' && c.alive && !onFullPage && !combat && !combatReplay
-      && !showResult && !headMoment && !breakthroughResult && !state.pendingGearCompare && !sealText
+      && !hasResult && !headMoment && !breakthroughResult && !state.pendingGearCompare && !sealText
       && jadeToast === 0 && milestoneToast.length === 0,
   );
   const hasTask = onHomeTab && state.phase === 'playing' && c.alive && !combat && !eventFocus;
@@ -808,7 +814,7 @@ export function InkPlayScreen({ state }: Props) {
             </section>
           )}
 
-          {flashLines.length > 0 && state.phase === 'playing' && !showResult && (
+          {flashLines.length > 0 && state.phase === 'playing' && !hasResult && (
             <section className="ink-flash" aria-live="polite">
               {flashLines.map((line) => (
                 <p key={line}>{line}</p>
@@ -902,20 +908,20 @@ export function InkPlayScreen({ state }: Props) {
           <InkBreakthroughModal result={breakthroughResult} onClose={clearBreakthroughResult} />
         ))}
 
-      {/* 特效時刻：等戰鬥、結果匣、落印、突破都完咗先播；新裝備（寶箱）排喺換裝詢問之前 */}
+      {/* 習得演出先於本次結果；寶箱仍先於換裝詢問。 */}
       {headMoment &&
         state.phase === 'playing' &&
         !combat &&
-        !showResult &&
+        (!hasResult || resultLearnMoment) &&
         !sealText &&
         !breakthroughResult &&
-        (!state.pendingGearCompare || headMoment.kind === 'loot') &&
+        (resultLearnMoment || !state.pendingGearCompare || headMoment.kind === 'loot') &&
         (momentFx ? (
-          <Suspense fallback={null}>
-            <HighlightFxLazy key={momentKey} config={momentFx} onDone={ackMoment} />
+          <Suspense fallback={resultLearnMoment ? <InkMomentFx key={momentKey} moment={headMoment} onDone={finishMoment} sectId={state.character.sectId} /> : null}>
+            <HighlightFxLazy key={momentKey} config={momentFx} onDone={finishMoment} />
           </Suspense>
         ) : (
-          <InkMomentFx key={momentKey} moment={headMoment} onDone={ackMoment} sectId={state.character.sectId} />
+          <InkMomentFx key={momentKey} moment={headMoment} onDone={finishMoment} sectId={state.character.sectId} />
         ))}
 
       {showResult &&
@@ -1039,7 +1045,7 @@ export function InkPlayScreen({ state }: Props) {
           document.body,
         )}
 
-      {!combat && !eventFocus && !showResult && state.pendingGearCompare && headMoment?.kind !== 'loot' && (
+      {!combat && !eventFocus && !hasResult && state.pendingGearCompare && headMoment?.kind !== 'loot' && (
         <InkGearCompareModal
           state={state}
           onEquip={() => resolveGearCompare('equip')}

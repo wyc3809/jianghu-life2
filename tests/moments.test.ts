@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { applyLearnMartialArt, tryAdvanceSkill } from '../core/life/flavor';
 import { syncTitles } from '../core/life/titles';
-import { MOMENT_QUEUE_CAP, pushMoment, shiftMoment } from '../core/life/moments';
-import { createNewLife } from '../core/life/gameState';
+import { MOMENT_QUEUE_CAP, newlyLearnedMoments, pushMoment, shiftMoment } from '../core/life/moments';
+import { createNewLife, migrateLifeState } from '../core/life/gameState';
 import { initRng } from '../core/random';
 
 function fresh(seed: number) {
@@ -24,17 +24,36 @@ describe('moments queue (特效時刻)', () => {
     expect(state.moments![0]).toMatchObject({ kind: 'learn', name: '驚鴻劍' });
   });
 
-  it('a skill rank-up queues a rank moment with the new rank name', () => {
+  it('a skill rank-up retains its result text and skips the reveal queue', () => {
     const state = fresh(22);
     const skillId = state.character.skills[0]!;
     state.character.skillRanks = { [skillId]: 0 };
     state.character.skillProgress = { [skillId]: 0 };
     state.character.skillAdvanceNeed = { [skillId]: 1 };
-    tryAdvanceSkill(state, skillId, 'combat');
-    const m = state.moments!.find((x) => x.kind === 'rank');
-    expect(m).toBeDefined();
-    expect(m).toMatchObject({ kind: 'rank', rank: 1 });
-    expect(m!.kind === 'rank' && m!.rankName.length).toBeGreaterThan(0);
+    const result = tryAdvanceSkill(state, skillId, 'combat');
+    expect(state.character.skillRanks[skillId]).toBe(1);
+    expect(result).toContain('駕輕就熟');
+    expect(state.moments).toEqual([]);
+  });
+
+  it('clears old queued rank reveals while keeping learned arts', () => {
+    const state = fresh(26);
+    const learn = { kind: 'learn', name: '裂石殘掌' } as const;
+    state.moments = [{ kind: 'rank', name: '裂石殘掌', rank: 1, rankName: '駕輕就熟' }, learn];
+    expect(migrateLifeState(state).moments).toEqual([learn]);
+  });
+
+  it('lets the current reward play ahead of unrelated reveals without removing them', () => {
+    const previous = fresh(27);
+    const earlier = { kind: 'learn', name: '岸柳劍' } as const;
+    previous.moments = [earlier];
+    const next = { ...previous, moments: [earlier] as NonNullable<typeof previous.moments> };
+    applyLearnMartialArt(next, 'moment_new_reward', '岸柳劍');
+    const learn = newlyLearnedMoments(previous, next);
+    expect(learn).toHaveLength(1);
+    expect(learn[0]).toBe(next.moments[1]);
+    expect(shiftMoment(next, next.moments.indexOf(learn[0]))).toBe(learn[0]);
+    expect(next.moments).toEqual([earlier]);
   });
 
   it('gaining a title queues a title moment', () => {

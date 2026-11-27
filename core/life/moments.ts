@@ -1,5 +1,5 @@
 /**
- * 特效時刻佇列：學新武學、武學升階、稱號晉升、受傷／醫殘喺遊戲邏輯發生嗰刻入隊，
+ * 特效時刻佇列：學新武學、稱號晉升、受傷／醫殘喺遊戲邏輯發生嗰刻入隊，
  * UI（InkMomentFx）逐個播放全屏儀式，播完 shiftMoment 移除。
  * 放喺存檔入面：關咗遊戲再開，未播嘅時刻仍然會播。
  */
@@ -19,10 +19,16 @@ export function pushMoment(state: LifeGameState, moment: LifeMoment): void {
   state.moments = q;
 }
 
-/** 取出最早一個待播時刻；冇就回 null */
-export function shiftMoment(state: LifeGameState): LifeMoment | null {
-  if (!state.moments?.length) return null;
-  const [first, ...rest] = state.moments;
-  state.moments = rest;
-  return first ?? null;
+export type LearnMoment = Extract<LifeMoment, { kind: 'learn' }>;
+
+/** 只選本次結算新加入的習得演出，並保留實際佇列項目供確認。 */
+export function newlyLearnedMoments(previous: LifeGameState, next: LifeGameState): LearnMoment[] {
+  return (next.moments ?? []).filter((moment): moment is LearnMoment =>
+    moment.kind === 'learn' && !previous.moments?.includes(moment));
+}
+
+/** 取出已播放時刻；預設取佇列最早項目。 */
+export function shiftMoment(state: LifeGameState, index = 0): LifeMoment | null {
+  if (!state.moments?.[index]) return null;
+  return state.moments.splice(index, 1)[0] ?? null;
 }

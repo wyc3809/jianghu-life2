@@ -9,6 +9,7 @@ import {
   declineLifeOrDeath,
   type CombatFoeDisposition,
 } from '@core/life/combat';
+import { newlyLearnedMoments } from '@core/life/moments';
 import { buildLifeSummary } from '@core/life/summary';
 import { runAutoCombat, type AutoCombatResult } from '@core/life/autoCombat';
 import {
@@ -44,6 +45,7 @@ export function createCombatSlice(
     const fled = logs.some((l) => /逃離成功/.test(l));
     const ended = !combat;
     const endedParted = ended && !resolving ? partitionStoryAndDeltas(logs) : null;
+    const learnBeforeText = endedParted ? newlyLearnedMoments(state, next) : [];
     set({
       state: next,
       sealText:
@@ -53,7 +55,7 @@ export function createCombatSlice(
             ? '勝'
             : fled
               ? '遁'
-              : ended
+              : ended && !learnBeforeText.length
                 ? logs.some((l) => /敗於|力竭/.test(l))
                   ? '敗'
                   : hasRankUpContent(logs)
@@ -75,6 +77,7 @@ export function createCombatSlice(
                   '交手結束。',
               ),
               deltas: sanitizePlayerLines(endedParted?.deltas ?? []),
+              learnBeforeText,
             }
           : get().lastResult,
     });
@@ -183,15 +186,17 @@ export function createCombatSlice(
         cripple: '廢武功',
       };
       const resolveParted = partitionStoryAndDeltas(logs);
+      const learnBeforeText = newlyLearnedMoments(state, next);
       set({
         state: next,
-        sealText: next.phase === 'summary' ? '終' : hasLearnSkillContent(logs) ? '武' : '定',
+        sealText: next.phase === 'summary' ? '終' : learnBeforeText.length ? null : hasLearnSkillContent(logs) ? '武' : '定',
         flashLines: [],
         lastResult: {
           title: state.pendingCombat.title,
           choiceText: labels[disposition],
           feedback: sanitizePlayerLine(resolveParted.story || logs.join('\n\n')),
           deltas: sanitizePlayerLines(resolveParted.deltas),
+          learnBeforeText,
         },
       });
     },

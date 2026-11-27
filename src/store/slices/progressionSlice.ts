@@ -224,11 +224,12 @@ export function createProgressionSlice(
       set({ state: next, sealText: '終', flashLines: [] });
     },
 
-    ackMoment: () => {
+    ackMoment: moment => {
       const { state } = get();
-      if (!state?.moments?.length) return;
+      const index = state?.moments?.indexOf(moment) ?? -1;
+      if (!state || index < 0) return;
       const next = produce(state, (draft) => {
-        shiftMoment(draft);
+        shiftMoment(draft, index);
       });
       void save(next);
       set({ state: next });

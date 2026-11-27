@@ -17,6 +17,7 @@ import {
   hasLearnSkillContent,
   hasRankUpContent,
 } from '@core/life/playerText';
+import { newlyLearnedMoments } from '@core/life/moments';
 import { pushChronicle } from '@core/life/chronicle';
 import { resolveArcVisitLater } from '@core/life/arcs';
 import { EVENT_ACTION_POINT_COST, hasEnoughActionPoints, spendActionPoints } from '@core/life/actionPoints';
@@ -62,6 +63,7 @@ export function createEventSlice(
 
       const startedCombat = Boolean(next.pendingCombat);
       const allLines = [...resultLogs, ...resultDeltas];
+      const learnBeforeText = newlyLearnedMoments(state, next);
       track('choice_made', { eventId: event.id, choiceId });
       if (died || next.phase === 'summary') {
         track('life_death', { cause: String(next.character.flags.death_cause ?? '') });
@@ -75,9 +77,9 @@ export function createEventSlice(
             ? '終'
             : startedCombat
               ? '戰'
-              : hasLearnSkillContent(allLines)
-                ? '武'
-                : '定',
+              : learnBeforeText.length
+                ? null
+                : hasLearnSkillContent(allLines) ? '武' : '定',
         flashLines: [],
         lastResult: startedCombat
           ? null
@@ -86,6 +88,7 @@ export function createEventSlice(
               choiceText: displayChoiceText(choice?.text, choiceId),
               feedback: sanitizePlayerLine(resultFeedback) || resultFeedback,
               deltas: sanitizePlayerLines(resultDeltas),
+              learnBeforeText,
             },
       });
     },
