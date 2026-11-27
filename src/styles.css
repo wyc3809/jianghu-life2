@@ -4836,42 +4836,6 @@ html[data-ink-motion='reduce'] .ink-combat-fx-layer {
   padding: 5px;
 }
 
-/* 舞台左上角題款：季節・年月 ＋ 地點名（同舊 banner 同款字樣） */
-.ink-spar-caption {
-  position: absolute;
-  z-index: 2;
-  top: 10px;
-  left: 11px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  margin: 0;
-  pointer-events: none;
-}
-
-.ink-spar-caption span,
-.ink-spar-caption strong {
-  /* 圖片背景明暗不定，用多層淺色光暈頂替單薄的 1px text-shadow，確保深色畫面仍能辨字 */
-  text-shadow:
-    0 0 6px rgba(250, 246, 238, 0.95),
-    0 0 3px rgba(250, 246, 238, 0.95),
-    0 1px 2px rgba(250, 246, 238, 0.9);
-}
-
-.ink-spar-caption span {
-  color: #414642;
-  font-size: 0.65rem;
-  font-weight: var(--fw-ui);
-  letter-spacing: 0.18em;
-}
-
-.ink-spar-caption strong {
-  color: var(--ink);
-  font-family: var(--font-title);
-  font-size: 1.08rem;
-  letter-spacing: 0.2em;
-}
-
 /* ===== 切磋演武台：主畫面主動畫（俠客 vs 敵影），canvas 喺入面自己畫 ===== */
 .ink-spar-stage {
   position: relative;
@@ -7882,20 +7846,10 @@ html[data-ink-motion='reduce'] .ink-achv-name i {
   top: 0;
   z-index: 3;
   pointer-events: none;
-  transition: opacity 0.2s ease;
   --brush-h: 10px;
   width: 64px;
   --brush-rail: rgba(22, 19, 15, 0.55);
   will-change: transform;
-}
-
-.ink-spar-bar--foe {
-  width: 70px;
-}
-
-.ink-spar-bar--foe.is-boss {
-  width: 96px;
-  --brush-h: 12px;
 }
 
 .ink-spar-bar .ink-brush-bar__fill {
@@ -7972,8 +7926,8 @@ html[data-ink-motion='reduce'] .ink-achv-name i {
   border-radius: 2px;
 }
 
-.ink-spar-hud-left {
-  color: #f6d36b !important;
+.ink-spar-hud span.ink-spar-hud-left {
+  color: #f6d36b;
 }
 
 .ink-spar-clear-note {

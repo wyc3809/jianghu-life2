@@ -9,7 +9,6 @@ import type { LifeGameState } from '@interfaces/lifeEngine';
 import { useLifeStore } from '../../store/lifeStore';
 import { resolvePendingEvent } from '@core/life/eventEngine';
 import { hasEnoughActionPoints } from '@core/life/actionPoints';
-import { seasonLabel } from '@core/life/monthly';
 import { meetsRequirements } from '@core/life/requirements';
 import {
   playInkSeal,
@@ -764,7 +763,7 @@ export function InkPlayScreen({ state }: Props) {
       {/* 演武台常駐（事件／交手時只係收埋）：過月唔再重新載入，關數、血量、敵陣接住打 */}
       {onHomeTab && (
         <div className="ink-home-focus" style={combat || eventFocus ? { display: 'none' } : undefined}>
-          {/* 演武台直接用地圖 banner 嘅鎮景長卷做背景，季節・地點名浮喺動畫入面，唔再分開兩張圖 */}
+          {/* 演武台直接用地圖 banner 嘅鎮景長卷做背景，地點題字浮喺動畫入面，唔再分開兩張圖 */}
           <div className="ink-home-scene">
             <InkSparStage
               reduceMotion={reduceMotion}
@@ -776,7 +775,7 @@ export function InkPlayScreen({ state }: Props) {
                   if (got > 0) playInkWin();
                 }}
               />}
-              caption={{ date: `${seasonLabel(month)} · ${state.year}年${month}月`, home: c.location || '千燈鎮' }}
+              homePlace={c.location || '千燈鎮'}
             />
             {/* 四季／地面位圖由演武Canvas繪製，全屏首領戰亦保持同一畫面。 */}
           </div>
