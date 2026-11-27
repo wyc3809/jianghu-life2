@@ -9260,7 +9260,10 @@ button.ink-enc-strip {
 }
 
 .ink-hud .ink-identity {
-  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 6px;
   min-width: 0;
 }
 
@@ -9273,18 +9276,60 @@ button.ink-enc-strip {
   text-overflow: ellipsis;
 }
 
-.ink-hud .ink-meta {
-  margin: 4px 0 0;
-  padding-top: 4px;
-  border-top: 1px solid var(--ink-faint);
-  font-size: .8rem;
-  line-height: 1.3;
+.ink-hud-rating {
+  position: relative;
+  display: grid;
+  justify-items: end;
+  gap: 2px;
 }
 
-.ink-hud .ink-metaline-prestige b {
-  color: var(--cinnabar);
-  font-variant-numeric: tabular-nums;
+.ink-hud-rating-label {
+  color: var(--ink-mid);
+  font-size: .68rem;
+  line-height: 1.15;
 }
+
+.ink-hud-rating-value {
+  color: var(--cinnabar);
+  font-size: clamp(19px, 5.4vw, 24px);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.08;
+}
+
+.ink-hud-rating-status {
+  position: absolute;
+  inset-block-start: 100%;
+  inset-inline-end: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.ink-hud-rating-gain {
+  display: block;
+  padding: 1px 5px;
+  color: var(--ui-red);
+  background: var(--ui-reading-paper);
+  font-size: .8rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.3;
+  white-space: nowrap;
+  animation: ink-rating-gain 1.6s ease-out both;
+}
+
+@keyframes ink-rating-gain {
+  0% { opacity: 0; transform: translateY(5px) scale(.9); }
+  14% { opacity: 1; transform: translateY(0) scale(1.12); }
+  28%, 75% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-5px) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-hud-rating-gain { animation: none; }
+}
+
+html[data-ink-motion='reduce'] .ink-hud-rating-gain { animation: none; }
 
 /* 第二行：氣血｜內力｜疲勞度，一行過 */
 .ink-hud-bars {
@@ -10382,7 +10427,7 @@ html[data-ink-motion='reduce'] .ink-nav-center--badge:active:not(:disabled) { tr
 :root { --game-ui-font: 'Noto Sans CJK TC', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif; }
 .scroll-shell--play, .scroll-shell--play button, .scroll-shell--play input,
 .scroll-shell--play select, .scroll-shell--play .ink-icon-btn,
-.ink-hud .ink-jade-chip, .ink-hud .ink-meta, .ink-hud .ink-vitals-label,
+.ink-hud .ink-jade-chip, .ink-hud .ink-vitals-label,
 .ink-hud .ink-vitals-num, .ink-hud .ink-ap-meter, .ink-hud .ink-ap-meter-value,
 .ink-hud .ink-wallet-value, .ink-hud .ink-fatigue-label { font-family: var(--game-ui-font); }
 .ink-hud-avatar-portrait { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
@@ -10490,7 +10535,6 @@ html[data-ink-motion='reduce'] .ink-hud-avatar--badge:active .ink-hud-person-bad
 .scroll-shell--has-task { padding-bottom: calc(190px + env(safe-area-inset-bottom, 0px)); }
 .ink-hud .ink-name { white-space: normal; overflow: visible; overflow-wrap: anywhere; letter-spacing: .04em; }
 .ink-hud .ink-name-title { display: block; margin-left: 0; }
-.ink-hud .ink-meta { white-space: normal; overflow: visible; overflow-wrap: anywhere; }
 
 /* 固定任務欄：內容視窗喺任務 dock 上面結束，入口唔會捲入固定欄底。 */
 .scroll-shell--has-task {
@@ -10649,7 +10693,6 @@ body:has(.ink-spar-boss-screen) .ink-task-dock { visibility: hidden; }
   .scroll-shell--home .ink-hud-bars { margin-top: 3px; }
   .scroll-shell--home .ink-hud-meters .ink-meter { gap: 1px; }
   .scroll-shell--home .ink-hud .ink-name-title { display: inline; font-size: 10px; margin-left: 4px; }
-  .scroll-shell--home .ink-hud .ink-meta { font-size: 10px; line-height: 1.2; }
   .scroll-shell--home .ink-play-body > .ink-home-focus { gap: 3px; }
   .scroll-shell--home .ink-quick { padding-block: 1px; }
   .scroll-shell--home .ink-quick-icon.ink-badge,

@@ -2,6 +2,7 @@ import { buildLifeSummary } from '@core/life/summary';
 import { InkSaveStatus } from './InkSaveStatus';
 import { InkModal } from './InkModal';
 import { usePrefersReducedMotion } from '../../hooks/useStillMode';
+import { useRatingGain } from '../../hooks/useRatingGain';
 import { lazy, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { LifeGameState } from '@interfaces/lifeEngine';
@@ -498,8 +499,14 @@ export function InkPlayScreen({ state }: Props) {
   const inkPlace = placeToInk(c.location);
 
   const leadTitle = topTitle(state);
-  /** 頭銜已喺全名右邊顯示，呢度只補列第二、三名，避免重複 */
   const rating = combatRating(state);
+  const ratingGain = useRatingGain(
+    `${state.seed}:${c.flags.legacy_generation ?? 1}:${c.name}`,
+    rating,
+    state.phase === 'playing' && c.alive && !onFullPage && !combat && !combatReplay
+      && !showResult && !headMoment && !breakthroughResult && !state.pendingGearCompare && !sealText
+      && jadeToast === 0 && milestoneToast.length === 0,
+  );
   const hasTask = onHomeTab && state.phase === 'playing' && c.alive && !combat && !eventFocus;
 
   // Portal 固定欄用實際高度預留位置；字體／安全區改變都唔遮住主頁。
@@ -647,9 +654,18 @@ export function InkPlayScreen({ state }: Props) {
                 </span>
               )}
             </h2>
-            <p className="ink-meta ink-metaline-prestige">
-              戰力 <b>{rating.toLocaleString('zh-Hant')}</b>
-            </p>
+            <div className="ink-hud-rating">
+              <span className="ink-hud-rating-label">戰力</span>
+              <strong className="ink-hud-rating-value">{rating.toLocaleString('zh-Hant')}</strong>
+              <span className="ink-hud-rating-status" role="status" aria-atomic="true">
+                {ratingGain && (
+                  <span key={ratingGain.id} className="ink-hud-rating-gain">
+                    <span className="ink-visually-hidden">戰力增加</span>
+                    ＋{ratingGain.amount.toLocaleString('zh-Hant')}
+                  </span>
+                )}
+              </span>
+            </div>
           </div>
           <button
             type="button"

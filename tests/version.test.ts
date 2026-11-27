@@ -5,9 +5,9 @@ import packageInfo from '../package.json';
 import packageLock from '../package-lock.json';
 
 describe('app version', () => {
-  it('exposes Early Access release EA0.120.3', () => {
-    expect(APP_VERSION).toBe('EA0.120.3');
-    expect(APP_VERSION_LABEL).toContain('EA0.120.3');
+  it('exposes Early Access release EA0.120.4', () => {
+    expect(APP_VERSION).toBe('EA0.120.4');
+    expect(APP_VERSION_LABEL).toContain('EA0.120.4');
   });
 
   it('test_ios_內測準備及套件版本必須跟隨遊戲版本', () => {
