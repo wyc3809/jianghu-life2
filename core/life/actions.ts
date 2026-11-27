@@ -71,10 +71,6 @@ export const PRACTICE_ACTIONS: PracticeAction[] = [
   // 「打聽傳聞」（風聲加成）已按玩家要求刪除（2026-10-09）
   { id: 'drink_wine', label: '把酒買醉', hint: '傷氣血；飲得夠多，另有奇遇' },
   { id: 'seek_child', label: '求子添丁', hint: '有眷屬可祈嗣；費銀二十兩' },
-  { id: 'heal', label: '醫館調養', hint: '費銀十五兩，療傷減疲' },
-  { id: 'heal_full', label: '名醫療傷', hint: '費銀為氣血上限一成，氣血回滿' },
-  { id: 'forge_fine', label: '精工鑄器', hint: '費銀隨境界升，境界越高越易出好兵器' },
-  { id: 'equip_best', label: '整裝披掛', hint: '按庫中器物自行披掛妥當' },
 ];
 
 /** 已入門派後的門內事務 */

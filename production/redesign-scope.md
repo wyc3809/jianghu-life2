@@ -1780,3 +1780,7 @@ world Edge v5、live Edge v2及migration 20261115090053已部署，verify_jwt與
 #### 演武台毛筆題字與敵方血條（2026-11-27，EA0.120.6）
 
 依玩家確認的對照圖製作。鎮居演武台的地名改用毛筆題字及淡霧托字，關數落朱砂印，關卡名與餘敵數字同列。敵名與細朱砂血條置於右上同一組。換敵時敵名短淡入，餘敵下調時只輕跳數字，配合減少動態設定。 [第 32 關手機實畫對照](qa/evidence/redesign/spar-ink-hud/comparison.webp)
+
+#### 修煉主頁移除四項舊入口（2026-11-27，EA0.120.7）
+
+修煉主頁移除醫館調養、名醫療傷、精工鑄器與整裝披掛。人物頁的更多功能可進行整裝。 [修煉頁手機實畫](qa/evidence/redesign/practice-menu-cleanup/practice-390.webp)
