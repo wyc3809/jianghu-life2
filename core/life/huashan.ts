@@ -24,7 +24,7 @@ import { getMasterName } from './bonds';
 import { syncAchievements } from './achievements';
 import { recordHuashanPlacement, applyHuashanPlacementRank } from './jianghuRank';
 import { gainJianghuPrestige } from './jianghuPrestige';
-import { currentCultivationTier } from './cultivation';
+import { currentCultivationTier, enforceMartialCap } from './cultivation';
 
 /** @deprecated 年齡門檻已取消，保留舊匯入相容。 */
 export const HUASHAN_MIN_AGE = 0;
@@ -339,7 +339,9 @@ export function applyHuashanRewards(state: LifeGameState, placement: number): st
     placement === 1 ? 5 : placement === 2 ? 3 : placement <= 4 ? 2 : 1;
   c.reputation += rep;
   c.money += money;
+  const martialBefore = c.martial;
   c.martial += martial;
+  enforceMartialCap(state, martialBefore);
   c.actionPoints = Math.max(0, c.actionPoints - 8);
   lines.push(`名望＋${rep}，銀兩＋${money}，武學＋${martial}`);
   if (placement === 1) {

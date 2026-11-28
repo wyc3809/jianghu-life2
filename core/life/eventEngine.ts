@@ -37,7 +37,7 @@ import { pickPackEvent, getPackChoice } from './jianghuEventRepository';
 import { resolvePackOutcomes } from './outcomeResolver';
 import { isFleeChoice, startCombat } from './combat';
 import { applyChoiceNature } from './nature';
-import { grantEventCultivation } from './cultivation';
+import { enforceMartialCap, grantEventCultivation } from './cultivation';
 import { retireLife } from './retire';
 import { LEGACY_FEATURES_ENABLED } from '@data/redesign/legacyFeatures';
 import { ROAD_ENCOUNTER_EVENTS } from '@data/events/roadEncounters';
@@ -331,7 +331,7 @@ export interface ResolveResult {
   died: boolean;
 }
 
-export function applyChoice(
+function applyChoiceInner(
   state: LifeGameState,
   event: GameEvent,
   choiceId: string,
@@ -594,7 +594,7 @@ function pickBossEvent(state: LifeGameState): GameEvent | null {
   return weightedPick(state, pool);
 }
 
-export function startMonth(state: LifeGameState): LifeGameState {
+function startMonthInner(state: LifeGameState): LifeGameState {
   if (!state.character.alive || state.phase !== 'playing') return state;
   if (state.pending) return state;
   if (state.pendingCombat) return state;
@@ -779,4 +779,20 @@ export function resolvePendingAuto(state: LifeGameState, event: GameEvent): Reso
   }
   snapshotRng(state);
   return { state, logs, deltas, feedback, died };
+}
+
+/** 處理一個事件選項；完結時守武學上限（2026-11-28 節奏檢視 P5） */
+export function applyChoice(state: LifeGameState, event: GameEvent, choiceId: string): ResolveResult {
+  const before = state.character.martial;
+  const r = applyChoiceInner(state, event, choiceId);
+  enforceMartialCap(r.state, before);
+  return r;
+}
+
+/** 推進一個月；完結時守武學上限 */
+export function startMonth(state: LifeGameState): LifeGameState {
+  const before = state.character.martial;
+  const r = startMonthInner(state);
+  enforceMartialCap(r, before);
+  return r;
 }

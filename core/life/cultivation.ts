@@ -6,6 +6,17 @@ import { gearTotals, raiseBaseMaxHp, raiseBaseMaxQi } from './equipment';
 import { headProgressFactor } from './injuryMath';
 import { pushChronicle } from './chronicle';
 import {
+  LEVEL_CAPS,
+  LEVEL_FLOOR_MULT,
+  LEVEL_TARGET_HOURS,
+  MARTIAL_CAP_PER_REALM,
+  MARTIAL_CAP_PER_STAGE,
+  MINOR_BREAKTHROUGH,
+  REALM_STAGE_COUNT,
+  REALM_STAGE_NAMES,
+  STAGED_REALMS,
+} from '@data/redesign/cultivationPacing';
+import {
   TEST_ACTIVE_CULTIVATION_SECONDS,
   TEST_BREAKTHROUGH_FAIL_XP_LOSS,
   TEST_CULTIVATION_RESERVE_RATIO,
@@ -21,39 +32,90 @@ export interface CultivationTier {
   name: string;
   /** 呢個境界要儲幾多修為先滿（滿咗停低，要突破先可以再升） */
   cap: number;
+  /** 分段境界嘅段數（0 初期…3 圓滿）；唔分段＝0 */
+  stage?: number;
+  /** 大境界名（唔帶段數） */
+  realmName?: string;
+  /** 保底：最慢幾多秒儲滿（頂境冇） */
+  floorSeconds?: number;
+}
+
+const levelKey = (tier: number, stage: number) => `${tier}.${stage}`;
+
+/**
+ * 十五個大境界；先天之境至破碎虛空再分初期／中期／後期／圓滿，合共 30 級，已至頂境冇上限。
+ * 每級上限同保底時數見 data/redesign/cultivationPacing.ts（2026-11-28 節奏檢視：約 60 日到頂）。
+ * 呢度嘅 cap 係該境第一級（初期）嘅上限；實際以 currentCultivationTier() 為準。
+ */
+const REALM_NAMES = ['引氣入體', '內息初成', '氣貫周天', '小周天', '大周天', '融匯貫通', '打通任督', '脫胎換骨', '洗髓伐毛', '先天之境', '返璞歸真', '化境', '天人合一', '破碎虛空', '武道通神'] as const;
+export const CULTIVATION_TIERS: readonly CultivationTier[] = REALM_NAMES.map((name, level) => ({
+  level,
+  name,
+  cap: LEVEL_CAPS[levelKey(level, 0)] ?? Number.POSITIVE_INFINITY,
+}));
+
+/** 呢個大境界係咪分段 */
+export function isStagedRealm(tier: number): boolean {
+  return STAGED_REALMS.includes(tier);
+}
+
+/** 某一級（大境界＋段）嘅完整資料 */
+export function cultivationLevel(tier: number, stage = 0): CultivationTier {
+  const t = Math.max(0, Math.min(CULTIVATION_TIERS.length - 1, Math.floor(tier)));
+  const st = isStagedRealm(t) ? Math.max(0, Math.min(REALM_STAGE_COUNT - 1, Math.floor(stage))) : 0;
+  const realmName = REALM_NAMES[t]!;
+  const key = levelKey(t, st);
+  const cap = LEVEL_CAPS[key] ?? Number.POSITIVE_INFINITY;
+  const hours = LEVEL_TARGET_HOURS[key];
+  return {
+    level: t,
+    stage: st,
+    realmName,
+    name: isStagedRealm(t) ? `${realmName}・${REALM_STAGE_NAMES[st]}` : realmName,
+    cap,
+    floorSeconds: Number.isFinite(cap) && hours ? hours * 3600 * LEVEL_FLOOR_MULT : undefined,
+  };
+}
+
+/** 下一級（小突破去下一段，或者大突破去下一境）；頂境回傳 null */
+export function nextCultivationLevel(state: LifeGameState): CultivationTier | null {
+  const cur = currentCultivationTier(state);
+  if (cur.level >= CULTIVATION_TIERS.length - 1) return null;
+  if (isStagedRealm(cur.level) && (cur.stage ?? 0) < REALM_STAGE_COUNT - 1) return cultivationLevel(cur.level, (cur.stage ?? 0) + 1);
+  return cultivationLevel(cur.level + 1, 0);
+}
+
+/** 而家係咪小突破（同一境界內升段，必定成功） */
+export function isMinorBreakthrough(state: LifeGameState): boolean {
+  const cur = currentCultivationTier(state);
+  return isStagedRealm(cur.level) && (cur.stage ?? 0) < REALM_STAGE_COUNT - 1;
+}
+
+/** 武學值上限：每境 ×（境界＋1）＋每段（2026-11-28 節奏檢視 P5） */
+export function martialCap(state: LifeGameState): number {
+  const cur = currentCultivationTier(state);
+  return MARTIAL_CAP_PER_REALM * (cur.level + 1) + MARTIAL_CAP_PER_STAGE * (cur.stage ?? 0);
 }
 
 /**
- * 境界階梯（15 境）：每境門檻約 ×1.8（放置遊戲常見嘅指數式門檻）；已至頂境冇上限。
- * 等待有封頂：見 MAX_TIER_FILL_SECONDS——速率再慢，儲滿任何一境都唔使超過 24 小時。
+ * 武學值上限守門：今次增加嘅部分唔可以超過上限；本身已超過（舊存檔）就唔扣，只係唔再加。
+ * 各結算出口（事件、每月、交手、修煉、演武熟練、華山）完結時叫一次。
  */
-export const CULTIVATION_TIERS: readonly CultivationTier[] = [
-  { level: 0, name: '引氣入體', cap: 600 },
-  { level: 1, name: '內息初成', cap: 1100 },
-  { level: 2, name: '氣貫周天', cap: 2000 },
-  { level: 3, name: '小周天', cap: 3600 },
-  { level: 4, name: '大周天', cap: 6500 },
-  { level: 5, name: '融匯貫通', cap: 11700 },
-  { level: 6, name: '打通任督', cap: 21000 },
-  { level: 7, name: '脫胎換骨', cap: 38000 },
-  { level: 8, name: '洗髓伐毛', cap: 68000 },
-  { level: 9, name: '先天之境', cap: 122000 },
-  { level: 10, name: '返璞歸真', cap: 220000 },
-  { level: 11, name: '化境', cap: 396000 },
-  { level: 12, name: '天人合一', cap: 713000 },
-  { level: 13, name: '破碎虛空', cap: 1284000 },
-  { level: 14, name: '武道通神', cap: Number.POSITIVE_INFINITY },
-];
+export function enforceMartialCap(state: LifeGameState, before: number): void {
+  const c = state.character;
+  const cap = martialCap(state);
+  if (c.martial > before && c.martial > cap) c.martial = Math.max(before, cap);
+}
 
 /** 舊 7 境存檔 → 新 15 境（同名境界對返原位） */
 export const LEGACY_TIER_MAP: readonly number[] = [0, 1, 2, 5, 7, 10, 12];
 
-/** 等待封頂：任何一境由零儲滿，最多 24 小時現實時間（速率太慢會自動補底） */
+/** 舊名保留：入門一級嘅保底秒數；各級實際保底見 CultivationTier.floorSeconds */
 export const MAX_TIER_FILL_SECONDS = 24 * 60 * 60;
 
-/** 呢一境嘅保底速率：cap / 24 小時；頂境冇 cap 就冇保底 */
+/** 呢一級嘅保底速率：cap ／ 保底秒數；頂境冇 cap 就冇保底 */
 export function tierFloorRate(tier: CultivationTier): number {
-  return Number.isFinite(tier.cap) ? tier.cap / MAX_TIER_FILL_SECONDS : 0;
+  return Number.isFinite(tier.cap) ? tier.cap / (tier.floorSeconds ?? MAX_TIER_FILL_SECONDS) : 0;
 }
 
 /** 實際累積速率＝max(功法計出嚟嘅速率, 保底速率) */
@@ -61,12 +123,9 @@ export function effectiveCultivationRate(state: LifeGameState): number {
   return Math.max(calculateCultivationRate(state).total, tierFloorRate(currentCultivationTier(state)));
 }
 
+/** 現時所在一級（level＝大境界；分段境界帶 stage，name 會寫「先天之境・中期」） */
 export function currentCultivationTier(state: LifeGameState): CultivationTier {
-  const idx = Math.max(
-    0,
-    Math.min(CULTIVATION_TIERS.length - 1, Math.floor(state.character.cultivation?.tier ?? 0)),
-  );
-  return CULTIVATION_TIERS[idx]!;
+  return cultivationLevel(state.character.cultivation?.tier ?? 0, state.character.cultivation?.stage ?? 0);
 }
 
 export function isMaxCultivationTier(state: LifeGameState): boolean {
@@ -322,6 +381,8 @@ export interface BreakthroughResult {
   reserveReleased?: number;
   /** 今次嘅成功率（失敗提示用） */
   chance?: number;
+  /** 小突破（同境界內升段） */
+  minor?: boolean;
 }
 
 /**
@@ -334,10 +395,24 @@ export function attemptCultivationBreakthrough(state: LifeGameState): Breakthrou
   if (!canAttemptBreakthrough(state)) {
     return { success: false, lines: ['尚未到突破關口，修為未滿。'], oldTierName: beforeTierName };
   }
-  syncRngFromState(state);
-  const rng = getRng();
   const c = state.character;
   const tier = currentCultivationTier(state);
+  // 小突破：同一境界內升段，必定成功，唔推 RNG（2026-11-28 節奏檢視）
+  if (isMinorBreakthrough(state)) {
+    const next = cultivationLevel(tier.level, (tier.stage ?? 0) + 1);
+    c.cultivation.stage = next.stage;
+    c.cultivation.xp = 0;
+    const reserveReleased = releaseCultivationReserve(state);
+    c.martial += MINOR_BREAKTHROUGH.martial;
+    raiseBaseMaxHp(c, MINOR_BREAKTHROUGH.hp);
+    raiseBaseMaxQi(c, MINOR_BREAKTHROUGH.qi);
+    const lines = [`內息再進一層，踏入「${next.name}」，武學＋${MINOR_BREAKTHROUGH.martial}，氣血、內力上限略增。`];
+    if (reserveReleased > 0) lines.push(`儲備修為已轉入，修為＋${Math.floor(reserveReleased).toLocaleString('zh-Hant')}。`);
+    pushChronicle(state, lines);
+    return { success: true, lines, oldTierName: tier.name, newTierName: next.name, newTierLevel: next.level, martialGain: MINOR_BREAKTHROUGH.martial, hpGain: MINOR_BREAKTHROUGH.hp, qiGain: MINOR_BREAKTHROUGH.qi, prestigeGain: 0, reserveReleased, minor: true };
+  }
+  syncRngFromState(state);
+  const rng = getRng();
   const nextTier = CULTIVATION_TIERS[tier.level + 1];
 
   const chance = breakthroughChance(state);
@@ -346,6 +421,7 @@ export function attemptCultivationBreakthrough(state: LifeGameState): Breakthrou
 
   if (success && nextTier) {
     c.cultivation.tier = nextTier.level;
+    c.cultivation.stage = 0;
     c.cultivation.xp = 0;
     const reserveReleased = releaseCultivationReserve(state);
     // 免費玉石由帳戶最高境界收據一次結算，唔再沿用逐代待入帳。
@@ -355,9 +431,10 @@ export function attemptCultivationBreakthrough(state: LifeGameState): Breakthrou
     const qiGain = 20 + nextTier.level * 6;
     raiseBaseMaxHp(c, hpGain);
     raiseBaseMaxQi(c, qiGain);
+    const entered = cultivationLevel(nextTier.level, 0);
     lines.push(
       `你於千鈞一髮之際，忽覺丹田一暖——「打通任督二脈」！`,
-      `自此踏入「${nextTier.name}」之境，武學＋${martialGain}，氣血上限、內力上限同步提升。`,
+      `自此踏入「${entered.name}」之境，武學＋${martialGain}，氣血上限、內力上限同步提升。`,
     );
     if (reserveReleased > 0) {
       lines.push(`儲備修為已轉入新境界，修為＋${Math.floor(reserveReleased).toLocaleString('zh-Hant')}。`);
@@ -369,7 +446,7 @@ export function attemptCultivationBreakthrough(state: LifeGameState): Breakthrou
       success: true,
       lines,
       oldTierName: tier.name,
-      newTierName: nextTier.name,
+      newTierName: entered.name,
       newTierLevel: nextTier.level,
       martialGain,
       hpGain,

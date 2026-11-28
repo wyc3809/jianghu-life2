@@ -4,9 +4,12 @@ import {
   MAX_TIER_FILL_SECONDS,
   OFFLINE_CULTIVATION_CAP_MS,
   applyOfflineCultivation,
+  cultivationLevel,
+  isStagedRealm,
   isCultivationCapped,
   tickCultivation,
 } from '../core/life/cultivation';
+import { REALM_STAGE_COUNT } from '../data/redesign/cultivationPacing';
 import { createNewLife, migrateLifeState } from '../core/life/gameState';
 import { tryGainSectStanding } from '../core/life/sectStanding';
 import { ACHIEVEMENT_RULES } from '../core/life/achievements';
@@ -22,18 +25,23 @@ function fresh(seed: number): LifeGameState {
 describe('ladder v2: cultivation 15 tiers', () => {
   it('test_cultivation_has_15_tiers_with_growing_caps', () => {
     expect(CULTIVATION_TIERS).toHaveLength(15);
+    // 2026-11-28 節奏檢視：上限按一般玩家每級停留時數校準，只要求逐境遞增
     for (let i = 1; i < CULTIVATION_TIERS.length - 1; i++) {
-      expect(CULTIVATION_TIERS[i]!.cap).toBeGreaterThan(CULTIVATION_TIERS[i - 1]!.cap * 1.7);
+      expect(CULTIVATION_TIERS[i]!.cap).toBeGreaterThan(CULTIVATION_TIERS[i - 1]!.cap);
     }
     expect(Number.isFinite(CULTIVATION_TIERS[14]!.cap)).toBe(false);
   });
 
-  it('test_cultivation_any_tier_fills_within_24_hours', () => {
+  it('test_cultivation_any_level_fills_within_its_floor_time', () => {
     for (const tier of CULTIVATION_TIERS.slice(0, -1)) {
-      const state = fresh(11);
-      state.character.cultivation = { xp: 0, tier: tier.level };
-      tickCultivation(state, MAX_TIER_FILL_SECONDS);
-      expect(isCultivationCapped(state)).toBe(true);
+      const stages = isStagedRealm(tier.level) ? REALM_STAGE_COUNT : 1;
+      for (let stage = 0; stage < stages; stage++) {
+        const state = fresh(11);
+        state.character.cultivation = { xp: 0, tier: tier.level, stage };
+        const level = cultivationLevel(tier.level, stage);
+        tickCultivation(state, (level.floorSeconds ?? MAX_TIER_FILL_SECONDS) + 1);
+        expect(isCultivationCapped(state)).toBe(true);
+      }
     }
   });
 

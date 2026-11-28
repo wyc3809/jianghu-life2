@@ -9,11 +9,9 @@ import { NEWBIE_TRIAL } from '@data/redesign/newbie';
 import { TEST_BREAKTHROUGH_FAIL_XP_LOSS } from '@data/redesign/testParams';
 import { getGearDef } from '@data/equipment/catalog';
 import {
-  CULTIVATION_TIERS,
   breakthroughChance,
   canAttemptBreakthrough,
-  currentCultivationTier,
-} from './cultivation';
+  currentCultivationTier, nextCultivationLevel, isMinorBreakthrough } from './cultivation';
 import { startCombat } from './combat';
 
 export type GoalAction = 'trial' | 'equip' | 'breakthrough';
@@ -67,7 +65,7 @@ export function currentGoal(state: LifeGameState): CurrentGoal {
     }
   }
   const tier = currentCultivationTier(state);
-  const next = CULTIVATION_TIERS[tier.level + 1];
+  const next = nextCultivationLevel(state);
   const kicker = newbieActive(state) ? '新手 3／3 · 下一目標' : '當前目標';
   if (!next) {
     return { id: 'peak', kicker, title: '已至武道巔峰', detail: '繼續過月，闖蕩江湖、傳承家族。' };
@@ -77,7 +75,9 @@ export function currentGoal(state: LifeGameState): CurrentGoal {
       id: 'breakthrough',
       kicker,
       title: `突破至「${next.name}」`,
-      detail: `修為已滿。成功率約 ${Math.round(breakthroughChance(state) * 100)}%，失敗會扣 ${Math.round(TEST_BREAKTHROUGH_FAIL_XP_LOSS * 100)}% 修為。`,
+      detail: isMinorBreakthrough(state)
+        ? '修為已滿，運功即可升段，必定成功。'
+        : `修為已滿。成功率約 ${Math.round(breakthroughChance(state) * 100)}%，失敗會扣 ${Math.round(TEST_BREAKTHROUGH_FAIL_XP_LOSS * 100)}% 修為。`,
       action: 'breakthrough',
       actionLabel: '突破',
     };

@@ -382,6 +382,8 @@ export interface SparCombatHooks {
   foeDefeated(): { coins: number };
   /** 敗退倒地動畫完：退一關、回血 */
   heroRecovered(): void;
+  /** 推進今關計時（秒）；回傳 true＝超時當輸（演武台先傳，自動交手唔傳） */
+  stageTime?(dt: number): boolean;
   /**
    * 照劇本播（自動交手演出用，演武台唔傳）：而家輪唔輪到主角出手。
    * 唔傳＝照舊射程內即出手。
@@ -846,6 +848,14 @@ export class SparStage {
         this.resetLane();
         this.director.resetToEnter();
       }
+      this.ageFx(dt);
+      return;
+    }
+
+    // 演武每關時限：超時當輸，播敗退後同關重來（2026-11-28 節奏檢視 P4）
+    if (this.combat?.stageTime?.(dt)) {
+      this.heroDownT = 0;
+      this.attackT = null;
       this.ageFx(dt);
       return;
     }
