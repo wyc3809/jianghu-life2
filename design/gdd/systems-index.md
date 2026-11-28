@@ -20,6 +20,7 @@
 | Ink scene variants | `src/components/ink/sceneVariants.ts` | season + place |
 | Legacy / death / coach | `legacy.ts` / `death.ts` / `tutorial.ts` | stable |
 | Story chapters | — | **cancelled** |
+| Forge & extra gear slots | `design/gdd/forge-system.md`（未實作） | draft，待玩家確認 |
 
 ## Leap packages
 
