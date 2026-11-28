@@ -24,7 +24,7 @@ import { getMasterName } from './bonds';
 import { syncAchievements } from './achievements';
 import { recordHuashanPlacement, applyHuashanPlacementRank } from './jianghuRank';
 import { gainJianghuPrestige } from './jianghuPrestige';
-import { currentCultivationTier, enforceMartialCap } from './cultivation';
+import { currentCultivationTier, enforceMartialCap, rewriteMartialGainText } from './cultivation';
 
 /** @deprecated 年齡門檻已取消，保留舊匯入相容。 */
 export const HUASHAN_MIN_AGE = 0;
@@ -341,9 +341,9 @@ export function applyHuashanRewards(state: LifeGameState, placement: number): st
   c.money += money;
   const martialBefore = c.martial;
   c.martial += martial;
-  enforceMartialCap(state, martialBefore);
+  const capped = enforceMartialCap(state, martialBefore);
   c.actionPoints = Math.max(0, c.actionPoints - 8);
-  lines.push(`名望＋${rep}，銀兩＋${money}，武學＋${martial}`);
+  lines.push(...rewriteMartialGainText([`名望＋${rep}，銀兩＋${money}，武學＋${martial}`], capped));
   if (placement === 1) {
     c.flags.title_huashan_champion = bracketSeasonFlag(state);
     lines.push('獲得稱號「華山論劍冠軍」。');

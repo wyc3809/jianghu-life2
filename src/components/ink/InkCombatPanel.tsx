@@ -283,7 +283,8 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
           <span className="ink-combo-burst__name">{comboBurst.name}</span>
         </div>
       )}
-      <div className="ink-combat-head">
+      {/* 分勝負之後只留交手紀要同處置選項（2026-11-28 玩家要求） */}
+      {combat.phase !== 'resolve' && <div className="ink-combat-head">
         <p className="ink-event-year ink-event-year--combat">
           第 {combat.turn} 回合 · {combat.title}
           {combatStyle ? ` · ${foeStyleLabel(combatStyle)}` : ''}
@@ -294,9 +295,6 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
         </p>
         <h3>
           交手 · {combat.foe.name}
-          {combat.phase === 'resolve' && (
-            <InkArt className="ink-combat-seal" src={sealUrlForText(INK_COMBAT_SEAL.victory)!} />
-          )}
         </h3>
         {combat.lastPlayerStance && combat.lastFoeStance && (
           <div
@@ -381,7 +379,7 @@ export function InkCombatPanel({ state, combat, onMove, onResolveFoe, onSetInter
             })}
           </div>
         )}
-      </div>
+      </div>}
 
       <div className="ink-combat-scroll">
         <button

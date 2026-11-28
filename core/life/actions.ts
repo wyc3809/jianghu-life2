@@ -4,7 +4,7 @@ import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getRng } from '@core/random';
 import { getGearDef, rollForgeResult, type GearRarity } from '@data/equipment/catalog';
 import { TEST_SILVER_SINKS } from '@data/redesign/testParams';
-import { enforceMartialCap } from './cultivation';
+import { enforceMartialCap, rewriteMartialGainText } from './cultivation';
 import { artForStanding, FAMILY_RULES, MAX_SECT_STANDING, getSectContent } from '@data/content/packs';
 import { addCondition } from './monthly';
 import { addInjury, healInjuries } from './injuries';
@@ -670,6 +670,5 @@ export function performPracticeAction(
 ): string[] {
   const before = state.character.martial;
   const logs = performPracticeActionInner(state, actionId, opts);
-  enforceMartialCap(state, before);
-  return logs;
+  return rewriteMartialGainText(logs, enforceMartialCap(state, before));
 }
