@@ -705,7 +705,8 @@ export function InkPlayScreen({ state }: Props) {
             </button>
           </div>
         </div>
-        <div className="ink-hud-bars">
+        {/* 交手期間（打緊同分勝負後）收起頂欄數值，免同戰鬥框重疊（2026-11-28 玩家要求） */}
+        {!combat && <div className="ink-hud-bars">
           <div className={`ink-hud-meters${showVitalsBars ? '' : ' ink-hud-meters--compact'}`} aria-label="角色數值">
             {([
               { id: 'health', label: '氣血', icon: 'blood', value: Math.round(c.health), max: c.maxHealth, pct: hpPct, tone: 'cinnabar' },
@@ -724,7 +725,7 @@ export function InkPlayScreen({ state }: Props) {
               </div>
             ))}
           </div>
-        </div>
+        </div>}
       </header>}
       <InkSaveStatus />
 
