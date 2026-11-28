@@ -2,7 +2,7 @@ import type { LifeGameState } from '@interfaces/lifeEngine';
 import { createRng } from '@core/random';
 import { tryAdvanceSkill } from './flavor';
 import { supportMartialSlots } from './martialLoadout';
-import { enforceMartialCap } from './cultivation';
+import { enforceMartialCap, rewriteMartialGainText } from './cultivation';
 
 /** 真正擊敗一名對手才記一次；獨立隨機流不推進人生事件序列。 */
 export function settleSparTraining(state:LifeGameState,usedArts:readonly string[]):string[] {
@@ -16,6 +16,5 @@ export function settleSparTraining(state:LifeGameState,usedArts:readonly string[
     const line=tryAdvanceSkill(state,id,'combat',rng);
     if(line)lines.push(line);
   }
-  enforceMartialCap(state, martialBefore);
-  return lines;
+  return rewriteMartialGainText(lines, enforceMartialCap(state, martialBefore));
 }

@@ -11,6 +11,7 @@ import {
   LEVEL_TARGET_HOURS,
   MARTIAL_CAP_PER_REALM,
   MARTIAL_CAP_PER_STAGE,
+  MARTIAL_OVERFLOW_PAGES_PER_POINT,
   MINOR_BREAKTHROUGH,
   REALM_STAGE_COUNT,
   REALM_STAGE_NAMES,
@@ -101,10 +102,58 @@ export function martialCap(state: LifeGameState): number {
  * 武學值上限守門：今次增加嘅部分唔可以超過上限；本身已超過（舊存檔）就唔扣，只係唔再加。
  * 各結算出口（事件、每月、交手、修煉、演武熟練、華山）完結時叫一次。
  */
-export function enforceMartialCap(state: LifeGameState, before: number): void {
+export interface MartialCapResult {
+  before: number;
+  cap: number;
+  /** 被截走、化作書頁嘅武學點數 */
+  overflow: number;
+  /** 化作嘅書頁（待帳戶結算入帳） */
+  pages: number;
+}
+
+/** 待入帳嘅武學溢出書頁（帳戶結算時轉入秘笈書頁） */
+export const MARTIAL_OVERFLOW_PAGES_FLAG = 'martial_overflow_pages';
+
+/**
+ * 守武學上限：只截走今次新增而超出上限嘅部分，截走嘅每點化作書頁（排隊等帳戶結算）。
+ * before＝今次操作前嘅武學值；舊存檔已超上限唔扣。
+ */
+export function enforceMartialCap(state: LifeGameState, before: number): MartialCapResult {
   const c = state.character;
   const cap = martialCap(state);
-  if (c.martial > before && c.martial > cap) c.martial = Math.max(before, cap);
+  let overflow = 0;
+  if (c.martial > before && c.martial > cap) {
+    const kept = Math.max(before, cap);
+    overflow = c.martial - kept;
+    c.martial = kept;
+  }
+  const pages = overflow * MARTIAL_OVERFLOW_PAGES_PER_POINT;
+  if (pages > 0) c.flags[MARTIAL_OVERFLOW_PAGES_FLAG] = Number(c.flags[MARTIAL_OVERFLOW_PAGES_FLAG] ?? 0) + pages;
+  return { before, cap, overflow, pages };
+}
+
+/** 讀走待入帳書頁（帳戶結算用） */
+export function takeMartialOverflowPages(state: LifeGameState): number {
+  const n = Number(state.character.flags[MARTIAL_OVERFLOW_PAGES_FLAG] ?? 0);
+  delete state.character.flags[MARTIAL_OVERFLOW_PAGES_FLAG];
+  return Number.isSafeInteger(n) && n > 0 ? n : 0;
+}
+
+/**
+ * 截上限後改寫結果文字：逐個「武學＋N」按剩餘空位拆成「武學＋實得」同「書頁＋M」，
+ * 免得提示話加咗武學但實際冇加。冇溢出就原樣返回。
+ */
+export function rewriteMartialGainText(lines: string[], r: MartialCapResult): string[] {
+  if (r.overflow <= 0) return lines;
+  let room = Math.max(0, r.cap - r.before);
+  return lines.map((line) => line.replace(/武學[＋+](\d+)/g, (_m, n: string) => {
+    const k = Number(n);
+    const take = Math.min(k, room);
+    room -= take;
+    const pages = (k - take) * MARTIAL_OVERFLOW_PAGES_PER_POINT;
+    if (pages <= 0) return `武學＋${take}`;
+    return take > 0 ? `武學＋${take}（已達上限），書頁＋${pages}` : `武學已達上限，化作書頁＋${pages}`;
+  }));
 }
 
 /** 舊 7 境存檔 → 新 15 境（同名境界對返原位） */

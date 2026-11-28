@@ -10,6 +10,8 @@ import {
   SPAR_FOE_ATK_GROWTH,
   SPAR_FOE_ATK_PRESSURE,
   SPAR_FOE_HP_GROWTH,
+  SPAR_FOE_HP_LATE_GROWTH,
+  SPAR_FOE_HP_LATE_START,
   SPAR_KILL_HEAL,
   SPAR_OPENING_ATK_FACTORS,
 } from '@data/redesign/testParams';
@@ -281,11 +283,19 @@ function foeOf(f: FoeEntry, trait: FoeTraitId, maxHp: number, atk: number): Spar
   };
 }
 
+/** 小兵血量倍率：第 LATE_START 關前每關 ×1.21，之後每關 ×1.08 */
+export function sparFoeHpFactor(stage: number): number {
+  const s = Math.max(1, Math.floor(stage));
+  const early = Math.min(s, SPAR_FOE_HP_LATE_START) - 1;
+  const late = Math.max(0, s - SPAR_FOE_HP_LATE_START);
+  return SPAR_FOE_HP_GROWTH ** early * SPAR_FOE_HP_LATE_GROWTH ** late;
+}
+
 /** 第 stage 關嘅敵人隊列：小兵 → 精英 → 首領（最後一個）；數值 deterministic */
 export function sparStageFoes(stage: number): SparFoe[] {
   const s = Math.max(1, Math.floor(stage));
   // 血量跟主角攻擊、攻擊跟主角氣血，兩條曲線分開（data/redesign/testParams.ts）
-  const minionHp = Math.round(140 * SPAR_FOE_HP_GROWTH ** (s - 1));
+  const minionHp = Math.round(140 * sparFoeHpFactor(s));
   const pressure = 1 + Math.min(SPAR_FOE_ATK_PRESSURE.cap,
     Math.max(0, s - SPAR_OPENING_ATK_FACTORS.length) * SPAR_FOE_ATK_PRESSURE.perStage);
   const minionAtk = Math.round(16 * SPAR_FOE_ATK_GROWTH ** (s - 1) * (SPAR_OPENING_ATK_FACTORS[s - 1] ?? 1) * pressure);
@@ -469,7 +479,11 @@ export class SparDuel {
       const spread=.9+this.rand()*.2;
       const defense=move ? Math.max(0,SPAR_FOE_DEFENSE[foe.tier]+this.foeEffects.defenseMod)*(1-(move.pierce??0)) : 0;
       const raw=Math.max(1,Math.round(this.hero.atk*Math.max(0,power)*spread*(critical?this.hero.critMul:1)*100/(100+defense)));
-      const t=traitOnFoeHit(this.traits,raw);fx.push(...t.fx);
+      const t=traitOnFoeHit(this.traits,raw);
+      // 反震以敵人自身攻擊為上限（2026-11-28 平衡檢視 B1）：主角攻擊跟境界放大、氣血冇，
+      // 照受擊傷害反彈會令第 41 關起嘅反震首領變成打唔過嘅死局。
+      if(t.reflect>0){const cap=Math.max(1,Math.round(foe.atk*t.reflect/Math.max(1,raw)));if(t.reflect>cap){t.reflect=cap;for(const f of t.fx)if(f.kind==='thorns')f.value=cap;}}
+      fx.push(...t.fx);
       const damage=Math.min(this.foeHp,t.dmg);total+=damage;this.foeHp=Math.max(0,this.foeHp-damage);
       const rate=move ? Math.min(.25,(move.lifesteal??0)+(this.hero.gearLifesteal??0)) : this.hero.lifesteal;
       const gained=Math.min(this.hero.maxHp-this.heroHp,Math.round(damage*rate));heal+=gained;this.heroHp+=gained;

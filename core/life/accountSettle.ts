@@ -18,6 +18,7 @@ import { claimFamilyMilestones } from './ancestry';
 import { readAchievementIds } from './achievements';
 import { takeJadePending } from './jadePending';
 import { addFreeJade, manualStarMap } from './gacha';
+import { takeMartialOverflowPages } from './cultivation';
 
 export interface AccountSettlement {
   milestones: FamilyMilestone[];
@@ -40,6 +41,10 @@ export function settleLifeIntoAccount(meta: AncestryMeta, state: LifeGameState):
     jade += fresh.length * JADE_PER_ACHIEVEMENT;
   }
 
+  // 武學到頂後化作嘅書頁（2026-11-28）
+  const overflowPages = takeMartialOverflowPages(state);
+  if (overflowPages > 0) meta.pages = (meta.pages ?? 0) + overflowPages;
+
   const pending = takeJadePending(state);
   jade += pending;
   addFreeJade(meta, jade);
@@ -54,7 +59,7 @@ export function settleLifeIntoAccount(meta: AncestryMeta, state: LifeGameState):
   return {
     milestones,
     jade,
-    metaChanged: milestones.length > 0 || fresh.length > 0 || jade > 0 || JSON.stringify(meta.economy ?? null) !== economyBefore,
+    metaChanged: overflowPages > 0 || milestones.length > 0 || fresh.length > 0 || jade > 0 || JSON.stringify(meta.economy ?? null) !== economyBefore,
     lifeChanged: pending > 0 || starsDiffer || volsChanged || JSON.stringify(state.character.flags) !== flagsBefore,
   };
 }

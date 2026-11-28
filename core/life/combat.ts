@@ -71,7 +71,7 @@ import { gainWeaponMastery, weaponSynergyBoost } from './weaponMastery';
 import { applyCombatOutcomeRank } from './jianghuRank';
 import { gainPrestigeForCombatWin } from './jianghuPrestige';
 import { checkCombo, pushComboHistory } from './comboSystem';
-import { enforceMartialCap, grantActiveCultivation } from './cultivation';
+import { enforceMartialCap, grantActiveCultivation, rewriteMartialGainText } from './cultivation';
 import { TEST_ACTIVE_CULTIVATION_SECONDS } from '@data/redesign/testParams';
 import {
   applySnakeVenom,
@@ -587,7 +587,12 @@ function finishCombatWin(state: LifeGameState, dispositionLabel?: CombatFoeDispo
   combat.log.push(...lines);
   const title = combat.title;
   state.pendingCombat = null;
-  enforceMartialCap(state, martialBefore);
+  const capped = enforceMartialCap(state, martialBefore);
+  if (capped.overflow > 0) {
+    const fixed = rewriteMartialGainText(lines, capped);
+    lines.splice(0, lines.length, ...fixed);
+    combat.log.splice(combat.log.length - lines.length, lines.length, ...fixed);
+  }
   pushChronicle(state, [`「${title}」${chronicleExtra}`, ...lines]);
   return lines;
 }

@@ -44,6 +44,11 @@ export const MINOR_BREAKTHROUGH = { martial: 3, hp: 6, qi: 8 } as const;
 /** 武學值上限＝每境 ×（境界＋1）＋每段 ×段數 */
 export const MARTIAL_CAP_PER_REALM = 60;
 export const MARTIAL_CAP_PER_STAGE = 15;
+/**
+ * 武學到頂後，多出每 1 點化作秘笈書頁幾多頁（2026-11-28 玩家揀「轉成書頁」）。
+ * 一般玩家約第 10 日觸頂，之後每日溢出約 45 點；×1 即每日約 45 頁（秘笈升一星 100–300 頁）。候選值。
+ */
+export const MARTIAL_OVERFLOW_PAGES_PER_POINT = 1;
 
 /** 演武每關時限（秒，現實時間）；超時當輸，同關重來 */
 export const SPAR_STAGE_TIME_LIMIT_SEC = 180;

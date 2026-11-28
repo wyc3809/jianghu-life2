@@ -37,7 +37,7 @@ import { pickPackEvent, getPackChoice } from './jianghuEventRepository';
 import { resolvePackOutcomes } from './outcomeResolver';
 import { isFleeChoice, startCombat } from './combat';
 import { applyChoiceNature } from './nature';
-import { enforceMartialCap, grantEventCultivation } from './cultivation';
+import { enforceMartialCap, grantEventCultivation, rewriteMartialGainText } from './cultivation';
 import { retireLife } from './retire';
 import { LEGACY_FEATURES_ENABLED } from '@data/redesign/legacyFeatures';
 import { ROAD_ENCOUNTER_EVENTS } from '@data/events/roadEncounters';
@@ -785,8 +785,9 @@ export function resolvePendingAuto(state: LifeGameState, event: GameEvent): Reso
 export function applyChoice(state: LifeGameState, event: GameEvent, choiceId: string): ResolveResult {
   const before = state.character.martial;
   const r = applyChoiceInner(state, event, choiceId);
-  enforceMartialCap(r.state, before);
-  return r;
+  const cap = enforceMartialCap(r.state, before);
+  if (cap.overflow <= 0) return r;
+  return { ...r, logs: rewriteMartialGainText(r.logs, cap), deltas: rewriteMartialGainText(r.deltas, cap) };
 }
 
 /** 推進一個月；完結時守武學上限 */

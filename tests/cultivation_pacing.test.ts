@@ -6,15 +6,22 @@ import {
   isMinorBreakthrough,
   martialCap,
   nextCultivationLevel,
+  rewriteMartialGainText,
+  takeMartialOverflowPages,
 } from '../core/life/cultivation';
+import { applyChoice, rawCatalog } from '../core/life/eventEngine';
+import { settleLifeIntoAccount } from '../core/life/accountSettle';
+import type { AncestryMeta } from '../interfaces/ancestry';
 import { createNewLife } from '../core/life/gameState';
-import { SparDuel, sparRand, type SparHeroStats } from '../core/life/sparDuel';
+import { SparDuel, sparFoeHpFactor, sparRand, type SparHeroStats } from '../core/life/sparDuel';
+import { SPAR_FOE_HP_GROWTH, SPAR_FOE_HP_LATE_GROWTH, SPAR_FOE_HP_LATE_START } from '../data/redesign/testParams';
 import { initRng } from '../core/random';
 import {
   LEVEL_CAPS,
   LEVEL_TARGET_HOURS,
   MARTIAL_CAP_PER_REALM,
   MARTIAL_CAP_PER_STAGE,
+  MARTIAL_OVERFLOW_PAGES_PER_POINT,
   MINOR_BREAKTHROUGH,
   SPAR_STAGE_TIME_LIMIT_SEC,
 } from '../data/redesign/cultivationPacing';
@@ -103,5 +110,67 @@ describe('2026-11-28 節奏檢視：演武時限', () => {
     expect(d.addStageTime(2)).toBe(true);
     d.retreat();
     expect(d.addStageTime(1)).toBe(false);
+  });
+});
+
+describe('2026-11-28 平衡檢視 B2：武學溢出化作書頁', () => {
+  it('test_martial_overflow_becomes_pending_pages', () => {
+    const s = fresh(9);
+    s.character.cultivation = { xp: 0, tier: 0 };
+    const cap = martialCap(s);
+    s.character.martial = cap + 4;
+    const r = enforceMartialCap(s, cap);
+    expect(r.overflow).toBe(4);
+    expect(r.pages).toBe(4 * MARTIAL_OVERFLOW_PAGES_PER_POINT);
+    expect(takeMartialOverflowPages(s)).toBe(4 * MARTIAL_OVERFLOW_PAGES_PER_POINT);
+    expect(takeMartialOverflowPages(s)).toBe(0);
+  });
+
+  it('test_rewrite_splits_partial_gain_into_martial_and_pages', () => {
+    const k = MARTIAL_OVERFLOW_PAGES_PER_POINT;
+    const lines = rewriteMartialGainText(['武學＋4', '名望＋2，武學＋3'], { before: 98, cap: 100, overflow: 5, pages: 5 * k });
+    expect(lines).toEqual([`武學＋2（已達上限），書頁＋${2 * k}`, `名望＋2，武學已達上限，化作書頁＋${3 * k}`]);
+  });
+
+  it('test_event_at_cap_shows_pages_not_fake_martial_and_settles_into_account', () => {
+    const ev = rawCatalog().find((e) => e.id === 'ord_dojo')!;
+    const ch = ev.choices.find((c) => c.id === 'spar')!;
+    const s = fresh(10);
+    s.character.cultivation = { xp: 0, tier: 3 };
+    s.character.martial = martialCap(s);
+    const r = applyChoice(s, ev, ch.id);
+    expect(s.character.martial).toBe(martialCap(s));
+    expect(r.deltas.some((d) => /武學＋\d/.test(d))).toBe(false);
+    expect(r.deltas.some((d) => d.includes('化作書頁＋'))).toBe(true);
+    const meta = { pages: 10 } as AncestryMeta;
+    const settle = settleLifeIntoAccount(meta, s);
+    expect(meta.pages).toBeGreaterThan(10);
+    expect(settle.metaChanged).toBe(true);
+  });
+});
+
+describe('2026-11-28 平衡檢視 B1：演武後段放緩', () => {
+  it('test_spar_hp_growth_slows_after_late_start', () => {
+    const L = SPAR_FOE_HP_LATE_START;
+    expect(sparFoeHpFactor(L) / sparFoeHpFactor(L - 1)).toBeCloseTo(SPAR_FOE_HP_GROWTH, 6);
+    expect(sparFoeHpFactor(L + 1) / sparFoeHpFactor(L)).toBeCloseTo(SPAR_FOE_HP_LATE_GROWTH, 6);
+    expect(sparFoeHpFactor(1)).toBe(1);
+  });
+});
+
+describe('2026-11-28 平衡檢視 B1：反震以敵人攻擊為上限', () => {
+  it('test_thorns_reflect_capped_by_foe_attack_not_hero_damage', () => {
+    const hero: SparHeroStats = { ...HERO, maxHp: 900, atk: 200000, critRate: 0, lifesteal: 0 };
+    const d = new SparDuel(hero, 41, sparRand(2, 41));
+    // 打到首領（反震）
+    for (let i = 0; i < 40 && !(d as unknown as { foe: { boss: boolean } }).foe.boss; i++) {
+      d.heroStrike(1);
+      d.advance();
+    }
+    const boss = (d as unknown as { foe: { boss: boolean; atk: number } }).foe;
+    expect(boss.boss).toBe(true);
+    const hit = d.heroStrike(1);
+    expect(hit.reflect).toBeGreaterThan(0);
+    expect(hit.reflect).toBeLessThanOrEqual(Math.round(boss.atk * 0.2) + 1);
   });
 });

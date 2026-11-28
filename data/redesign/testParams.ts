@@ -123,6 +123,12 @@ export const COMBAT_RATING_TIERS = [
  */
 export const SPAR_FOE_HP_GROWTH = 1.21;
 export const SPAR_FOE_ATK_GROWTH = 1.045;
+/**
+ * 後段放緩（2026-11-28 平衡檢視 B1，玩家揀「放緩後段成長」）：
+ * 第 SPAR_FOE_HP_LATE_START 關之後，血量每關只 ×SPAR_FOE_HP_LATE_GROWTH，免第 40 關變成永久嘅牆。
+ */
+export const SPAR_FOE_HP_LATE_START = 40;
+export const SPAR_FOE_HP_LATE_GROWTH = 1.06;
 /** 第四關起逐關加強還擊，額外攻擊倍率最多 +24%。 */
 export const SPAR_FOE_ATK_PRESSURE = { perStage: 0.008, cap: 0.24 } as const;
 /** 首領血量、攻擊倍率（相對小兵）；第38項候選血量4.4，攻擊倍率2.2沿用。 */
