@@ -14,6 +14,7 @@ import {
   SPAR_OPENING_ATK_FACTORS,
 } from '@data/redesign/testParams';
 import { createRng } from '../random';
+import { SPAR_STAGE_TIME_LIMIT_SEC } from '@data/redesign/cultivationPacing';
 import type { LifeGameState } from '@interfaces/lifeEngine';
 import { gearTotals, sumGearCombatBonuses } from './equipment';
 import { activeCultivationGain } from './cultivation';
@@ -93,7 +94,8 @@ export function sparHeroBreakdown(state: LifeGameState): SparHeroBreakdown {
   const c = state.character;
   const gear = gearTotals(c);
   const tier = Math.max(0, Math.floor(c.cultivation?.tier ?? 0));
-  const scale = SPAR_TIER_SCALE ** tier;
+  // 分段境界每段當四分一境（2026-11-28 節奏檢視），段與段之間都有成長
+  const scale = SPAR_TIER_SCALE ** (tier + (c.cultivation?.stage ?? 0) / 4);
   const martial = Math.max(0, c.martial + gear.martialBonus);
   const hp = { fromHealth: c.maxHealth, fromMartial: 0 };
   const passive = sumInternalPassives(equippedMartialArts(c), c.skillRanks, c.manualStars);
@@ -519,6 +521,19 @@ export class SparDuel {
     return { dmg, heroDown, fx, foeHeal, foeKilled:this.foeHp<=0 };
   }
 
+  /** 今關已打咗幾多秒（現實時間，由演武畫面餵入；過關或敗退歸零） */
+  stageElapsed = 0;
+
+  /**
+   * 推進今關計時；超過 SPAR_STAGE_TIME_LIMIT_SEC 回傳 true＝超時當輸（2026-11-28 節奏檢視 P4，
+   * 免後段一關打幾個鐘）。畫面收到 true 就播敗退，之後照舊 retreat() 同關重來。
+   */
+  addStageTime(sec: number): boolean {
+    if (!(sec > 0)) return false;
+    this.stageElapsed += sec;
+    return this.stageElapsed > SPAR_STAGE_TIME_LIMIT_SEC;
+  }
+
   /** 當前敵人倒下後：換下一個；首領倒下就入下一關（回少少血） */
   advance(): { stageCleared: boolean } {
     if (this.foeHp > 0) return { stageCleared: false };
@@ -528,6 +543,7 @@ export class SparDuel {
     if (wasBoss) {
       // 入新一關一律滿血（玩家 2026-10-14）
       this.stage += 1;
+      this.stageElapsed = 0;
       this.queue = sparStageFoes(this.stage);
       this.idx = 0;
       this.heroHp = this.hero.maxHp;
@@ -553,6 +569,7 @@ export class SparDuel {
 
   /** 演武敗退：同一關由第一個敵人重新開始，回滿血，唔派過關獎勵。 */
   retreat() {
+    this.stageElapsed = 0;
     this.rounds.reset();
     this.foeEffects=statusFighter();this.heroEffects=statusFighter();this.heroStatusRound=0;this.usedArtIds.clear();
     this.queue = sparStageFoes(this.stage);

@@ -54,11 +54,11 @@ import {
   canAttemptBreakthrough,
   cultivationProgressPercent,
   currentCultivationTier,
-  CULTIVATION_TIERS,
   isCultivationCapped,
   cultivationReserve,
   cultivationReserveCap,
   breakthroughChance,
+ nextCultivationLevel, isMinorBreakthrough,
 } from '@core/life/cultivation';
 
 export type PersonView =
@@ -261,13 +261,14 @@ export function InkPersonPanel({
           const pct = cultivationProgressPercent(state);
           const capped = isCultivationCapped(state);
           const canBreak = canAttemptBreakthrough(state);
-          const nextTier = CULTIVATION_TIERS[tier.level + 1];
+          const nextTier = nextCultivationLevel(state);
+          const minor = isMinorBreakthrough(state);
           return (
             <>
               <h3>修為</h3>
               <p className="ink-note">
                 現時境界：{tier.name}
-                {nextTier ? ` · 下一境：${nextTier.name}` : ' · 已至巔峰'}
+                {nextTier ? ` · 下一級：${nextTier.name}` : ' · 已至巔峰'}
               </p>
               <div className="ink-meter">
                 <div className="ink-vitals-label">
@@ -322,7 +323,7 @@ export function InkPersonPanel({
                 {effective > rate.total && (
                   <li className="ink-delta-row ink-delta-row--up">
                     <span className="ink-delta-row-text">
-                      閉關保底 ＋{(effective - rate.total).toFixed(2)}（{MAX_TIER_FILL_SECONDS / 3600} 小時內必滿）
+                      閉關保底 ＋{(effective - rate.total).toFixed(2)}（{Math.round((tier.floorSeconds ?? MAX_TIER_FILL_SECONDS) / 3600)} 小時內必滿）
                     </span>
                   </li>
                 )}
@@ -334,9 +335,10 @@ export function InkPersonPanel({
               {capped && nextTier && (
                 <>
                   <p className="ink-note">
+                    {minor ? <>修為已滿，運功即可踏入「{nextTier.name}」，必定成功。</> : <>
                     修為已滿，需突破方可入「{nextTier.name}」之境。成功率約{' '}
                     <strong>{Math.round(breakthroughChance(state) * 100)}%</strong>
-                    （根骨、悟性越高越易）。失敗會扣 {Math.round(TEST_BREAKTHROUGH_FAIL_XP_LOSS * 100)}% 修為及少量氣血、內力，修為儲滿可再試。
+                    （根骨、悟性越高越易）。失敗會扣 {Math.round(TEST_BREAKTHROUGH_FAIL_XP_LOSS * 100)}% 修為及少量氣血、內力，修為儲滿可再試。</>}
                   </p>
                   <button
                     type="button"

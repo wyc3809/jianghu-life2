@@ -291,6 +291,8 @@ export interface LifeCharacter {
     tier: number;
     /** 境界滿咗之後暫存嘅修為（有上限），突破後撥入新境界；舊存檔冇＝0 */
     reserve?: number;
+    /** 分段境界（先天之境至破碎虛空）嘅段數：0 初期、1 中期、2 後期、3 圓滿 */
+    stage?: number;
   };
 }
 
@@ -732,6 +734,8 @@ export const lifeCharacterSchema = z.object({
     .object({
       xp: z.number(),
       tier: z.number(),
+      /** 分段境界嘅段數（0–3）；舊存檔冇＝0 */
+      stage: z.number().int().min(0).max(3).optional(),
       reserve: z.number().min(0).optional(),
     })
     .default({ xp: 0, tier: 0 }),

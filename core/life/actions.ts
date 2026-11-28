@@ -4,6 +4,7 @@ import type { LifeGameState } from '@interfaces/lifeEngine';
 import { getRng } from '@core/random';
 import { getGearDef, rollForgeResult, type GearRarity } from '@data/equipment/catalog';
 import { TEST_SILVER_SINKS } from '@data/redesign/testParams';
+import { enforceMartialCap } from './cultivation';
 import { artForStanding, FAMILY_RULES, MAX_SECT_STANDING, getSectContent } from '@data/content/packs';
 import { addCondition } from './monthly';
 import { addInjury, healInjuries } from './injuries';
@@ -636,7 +637,7 @@ export function practiceBlockReason(state: LifeGameState, actionId: PracticeActi
   return null;
 }
 
-export function performPracticeAction(
+function performPracticeActionInner(
   state: LifeGameState,
   actionId: PracticeActionId,
   opts?: { sectId?: string; artId?: string },
@@ -659,4 +660,16 @@ function overallWeak(c: LifeGameState['character']): boolean {
   const ranks = Object.values(c.skillRanks ?? {});
   const best = ranks.length ? Math.max(...ranks) : 0;
   return best < 1 && c.martial < 12;
+}
+
+/** 執行一次修煉；完結時守武學上限（2026-11-28 節奏檢視 P5） */
+export function performPracticeAction(
+  state: LifeGameState,
+  actionId: PracticeActionId,
+  opts?: { sectId?: string; artId?: string },
+): string[] {
+  const before = state.character.martial;
+  const logs = performPracticeActionInner(state, actionId, opts);
+  enforceMartialCap(state, before);
+  return logs;
 }

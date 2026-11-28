@@ -223,6 +223,8 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
       }
     };
     let noteTimer: ReturnType<typeof setTimeout> | null = null;
+    // 今關超時（演武時限）：敗退字眼改寫「時限已到」
+    let timedOut = false;
     /** 敵人 0 血就換人；過咗關就入賬、出提示。回傳係咪過關 */
     const settleDeadFoe = (): boolean => {
       if (!duel) return false;
@@ -284,10 +286,17 @@ export function InkSparStage({ reduceMotion = false, skin, enemies = ENEMY_POOL,
           foeCharging: () => duel.foeCharging,
           foeEnraged: () => duel.foeEnraged,
           foeDefeated: () => ({ coins: settleDeadFoe() ? 6 : 0 }),
+          stageTime: (dt: number) => {
+            if (!duel.addStageTime(dt)) return false;
+            timedOut = true;
+            return true;
+          },
           heroRecovered: () => {
+            const reason = timedOut ? '時限已到' : '演武敗退';
+            timedOut = false;
             duel.retreat();
             useLifeStore.getState().sparSetStage(duel.stage);
-            setClearNote(`演武敗退　第 ${duel.stage} 關重新挑戰`);
+            setClearNote(`${reason}　第 ${duel.stage} 關重新挑戰`);
             if (noteTimer) clearTimeout(noteTimer);
             noteTimer = setTimeout(() => setClearNote(null), 2000);
             sync();
